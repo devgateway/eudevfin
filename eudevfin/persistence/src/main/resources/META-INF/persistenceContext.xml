@@ -17,7 +17,7 @@
 	<int:channel id="listPeopleRequestChannel"/>
 	
 	<tx:annotation-driven />
-	<context:component-scan base-package="org.devgateway.eudevfin" />
+	<context:component-scan base-package="org.devgateway.eudevfin.persistence" />
 	<context:annotation-config />
 	
 

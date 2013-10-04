@@ -20,7 +20,7 @@
 	<!-- transactional persistence is done through java annotations -->
 	<!-- <tx:annotation-driven /> -->
 
-	<context:component-scan base-package="org.devgateway.eudevfin" />
+	<context:component-scan base-package="org.devgateway.eudevfin.dim" />
 	<context:annotation-config />
 
 	<security:global-method-security secured-annotations="enabled" />
