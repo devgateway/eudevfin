@@ -133,6 +133,16 @@
   			<artifactId>spring-aspects</artifactId>
   			<version>${spring.framework.version}</version>
   		</dependency>
+  		<dependency>
+  			<groupId>joda-time</groupId>
+  			<artifactId>joda-time</artifactId>
+  			<version>2.3</version>
+  		</dependency>
+  		<dependency>
+  			<groupId>org.aspectj</groupId>
+  			<artifactId>aspectjtools</artifactId>
+  			<version>1.7.3</version>
+  		</dependency>
 	</dependencies>
 
 	<build>
@@ -268,7 +278,8 @@
 	</dependencyManagement>
 	<description>Integration Parent Module</description>
 	<modules>
-		<module>eudevfin-crud</module>
-		<module>eudevfin-forms</module>
+		<module>persistence</module>		
+		<module>dim</module>
+		<module>core</module>
 	</modules>
 </project>
