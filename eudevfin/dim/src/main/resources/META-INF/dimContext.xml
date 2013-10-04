@@ -11,19 +11,19 @@
 
 	
 	<!-- we use an embedded database for developent -->
+	<!-- 
 	<jdbc:embedded-database id="dataSource" type="DERBY">
 		<jdbc:script location="classpath:create-schema.sql" />
 	</jdbc:embedded-database>
-
+--> 
 
 	<!-- transactional persistence is done through java annotations -->
-	<tx:annotation-driven />
+	<!-- <tx:annotation-driven /> -->
 
-	<context:component-scan base-package="org.devgateway.eudevfin.dim" />
+	<context:component-scan base-package="org.devgateway.eudevfin" />
 	<context:annotation-config />
 
-	<security:global-method-security
-		secured-annotations="enabled" />
+	<security:global-method-security secured-annotations="enabled" />
 
 	<security:http create-session="never" auto-config="true">
 		<security:remember-me />

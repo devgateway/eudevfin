@@ -4,7 +4,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.devgateway.eudevfin.domain.Item;
-import org.devgateway.eudevfin.persistence.constants.Constants;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
@@ -33,8 +32,7 @@ public class InfrastructureConfig {
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
-		factoryBean.setJpaVendorAdapter(jpaVendorAdapter());
-		factoryBean.setPersistenceUnitName(Constants.PERSISTENCE_UNIT);
+		factoryBean.setJpaVendorAdapter(jpaVendorAdapter());		
 		factoryBean.setDataSource(dataSource());
 		factoryBean.setPackagesToScan(Item.class.getPackage().getName());
 		return factoryBean;

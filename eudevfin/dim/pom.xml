@@ -14,5 +14,28 @@
       <artifactId>core</artifactId>
       <version>${project.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.devgateway.eudevfin</groupId>
+      <artifactId>persistence</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
   </dependencies>
+  
+  <build>
+  <plugins>
+  <plugin>
+  				<groupId>org.eclipse.jetty</groupId>
+  				<artifactId>jetty-maven-plugin</artifactId>
+  				<version>${jetty.version}</version>
+  				<configuration>
+    				<scanIntervalSeconds>10</scanIntervalSeconds>
+    				<webApp>
+	      				<contextPath>/</contextPath>
+	      				
+    				</webApp>
+  				</configuration>
+			</plugin>  
+	</plugins>
+  </build>
 </project>

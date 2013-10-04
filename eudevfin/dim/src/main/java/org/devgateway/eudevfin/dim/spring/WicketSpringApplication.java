@@ -6,13 +6,9 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.devgateway.eudevfin.dim.ItemsPage;
 import org.devgateway.eudevfin.dim.LoginPage;
-import org.devgateway.eudevfin.dim.dao.ItemDao;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class WicketSpringApplication extends AuthenticatedWebApplication {
 
-	@Autowired
-	private ItemDao itemDao;
 
 	@Override
 	protected void init() {
@@ -20,7 +16,6 @@ public class WicketSpringApplication extends AuthenticatedWebApplication {
 
 		getComponentInstantiationListeners().add(
 				new SpringComponentInjector(this));
-		itemDao.createItems();
 	}
 
 	@Override
