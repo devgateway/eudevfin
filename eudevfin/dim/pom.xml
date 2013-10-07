@@ -33,19 +33,34 @@
   </dependencies>
   
   <build>
-  <plugins>
-  <plugin>
-  				<groupId>org.eclipse.jetty</groupId>
-  				<artifactId>jetty-maven-plugin</artifactId>
-  				<version>${jetty.version}</version>
-  				<configuration>
-    				<scanIntervalSeconds>10</scanIntervalSeconds>
-    				<webApp>
-	      				<contextPath>/</contextPath>
-	      				
-    				</webApp>
-  				</configuration>
-			</plugin>  
-	</plugins>
+      <resources>
+          <resource>
+              <filtering>false</filtering>
+              <directory>src/main/resources</directory>
+          </resource>
+          <resource>
+              <filtering>false</filtering>
+              <directory>src/main/java</directory>
+              <includes>
+                  <include>**</include>
+              </includes>
+              <excludes>
+                  <exclude>**/*.java</exclude>
+              </excludes>
+          </resource>
+      </resources>
+      <plugins>
+          <plugin>
+              <groupId>org.eclipse.jetty</groupId>
+              <artifactId>jetty-maven-plugin</artifactId>
+              <version>${jetty.version}</version>
+              <configuration>
+                  <scanIntervalSeconds>10</scanIntervalSeconds>
+                  <webApp>
+                  <contextPath>/</contextPath>
+                  </webApp>
+              </configuration>
+          </plugin>
+      </plugins>
   </build>
 </project>

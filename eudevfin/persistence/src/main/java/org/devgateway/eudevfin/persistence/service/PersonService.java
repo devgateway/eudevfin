@@ -34,8 +34,8 @@ public interface PersonService {
 	 * passed.
 	 * 
 	 * @param person
-	 *            the created person instance, it will contain the generatetd
-	 *            primary key and the formated name.
+	 *            the created person instance, it will contain the generated
+	 *            primary key and the formatted name.
 	 * @return The persisted Entity
 	 */
 	Person createPerson(Person person);
