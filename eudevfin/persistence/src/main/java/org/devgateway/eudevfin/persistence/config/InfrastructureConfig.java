@@ -37,17 +37,24 @@ public class InfrastructureConfig {
 
 	/**
 	 * 
-	 * @return the spring DataSource
+	 * @return the spring {@link DataSource}
 	 */
 	@Bean
-	public final DataSource dataSource() {
+	public DataSource dataSource() {
 		return new EmbeddedDatabaseBuilder()
 				.setType(EmbeddedDatabaseType.DERBY).build();
 	}
 
+	/**
+	 * The transaction manager for the persistence module.
+	 * 
+	 * @param emf
+	 *            the {@link EntityManagerFactory}
+	 * @return a {@link JpaTransactionManager}
+	 */
 	@Bean
-	public JpaTransactionManager transactionManager(final
-			EntityManagerFactory emf) {
+	public JpaTransactionManager transactionManager(
+			final EntityManagerFactory emf) {
 		return new JpaTransactionManager(emf);
 	}
 

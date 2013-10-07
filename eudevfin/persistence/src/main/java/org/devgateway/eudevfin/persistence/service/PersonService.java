@@ -21,24 +21,27 @@ import org.devgateway.eudevfin.domain.Person;
 import org.springframework.integration.annotation.Payload;
 
 /**
- * The Service is used to create Person instance in database
- *
+ * The Service is used to create Person instance in database.
+ * 
  * @author Amol Nayak
  * @author Gunnar Hillert
- *
+ * 
  */
 public interface PersonService {
 
 	/**
-	 * Creates a {@link Person} instance from the {@link Person} instance passed
-	 *
-	 * @param the created person instance, it will contain the generated primary key and the formated name
+	 * Creates a {@link Person} instance from the {@link Person} instance
+	 * passed.
+	 * 
+	 * @param person
+	 *            the created person instance, it will contain the generatetd
+	 *            primary key and the formated name.
 	 * @return The persisted Entity
 	 */
 	Person createPerson(Person person);
 
 	/**
-	 *
+	 * 
 	 * @return the matching {@link Person} record(s)
 	 */
 	@Payload("new java.util.Date()")
