@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2013 Development Gateway.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v3.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/gpl.html
+ * 
+ * Contributors:
+ *    mpostelnicu
+ ******************************************************************************/
 package org.devgateway.eudevfin.persistence.config;
 
 import javax.persistence.EntityManagerFactory;
@@ -15,24 +25,36 @@ import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+/**
+ * 
+ * @author mihai Configuration class for spring. Configures datasource,
+ *         transaction manager, entity factory, and the vendor of JPA (Hibernate
+ *         or something else).
+ */
 @Configuration
 @EnableTransactionManagement
 public class InfrastructureConfig {
 
+	/**
+	 * 
+	 * @return the spring DataSource
+	 */
 	@Bean
-	public DataSource dataSource() {
-		return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.DERBY).build();
+	public final DataSource dataSource() {
+		return new EmbeddedDatabaseBuilder()
+				.setType(EmbeddedDatabaseType.DERBY).build();
 	}
 
 	@Bean
-	public JpaTransactionManager transactionManager(EntityManagerFactory emf) {
+	public JpaTransactionManager transactionManager(final
+			EntityManagerFactory emf) {
 		return new JpaTransactionManager(emf);
 	}
 
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
-		factoryBean.setJpaVendorAdapter(jpaVendorAdapter());		
+		factoryBean.setJpaVendorAdapter(jpaVendorAdapter());
 		factoryBean.setDataSource(dataSource());
 		factoryBean.setPackagesToScan(Item.class.getPackage().getName());
 		return factoryBean;
