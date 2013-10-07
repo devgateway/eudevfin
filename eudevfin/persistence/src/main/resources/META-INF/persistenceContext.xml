@@ -30,7 +30,6 @@
 	<context:component-scan base-package="org.devgateway.eudevfin.persistence" />
 	<context:annotation-config />
 	
-
 	<int:gateway id="personService"
 		service-interface="org.devgateway.eudevfin.persistence.service.PersonService"
 		default-request-timeout="5000" default-reply-timeout="5000">
