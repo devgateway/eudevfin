@@ -10,7 +10,7 @@
      mpostelnicu
 -->
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="eudevfin-forms" version="3.1">
-  <display-name>WicketSpringHibernateDerbyStub</display-name>
+  <display-name>eudevfin-dim</display-name>
   <filter>
     <filter-name>springSecurityFilterChain</filter-name>
     <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -38,6 +38,7 @@
     <param-name>contextConfigLocation</param-name>
     <param-value>
 	classpath*:**/*Context.xml	
+	/WEB-INF/*/persistence*.jar!/*/persistenceContext.xml	
     </param-value>
   </context-param>
 </web-app>
