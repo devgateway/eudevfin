@@ -10,6 +10,9 @@
  ******************************************************************************/
 package org.devgateway.eudevfin.persistence.config;
 
+import java.util.Map;
+import java.util.Properties;
+
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
@@ -60,19 +63,29 @@ public class InfrastructureConfig {
 
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-		LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
+		LocalContainerEntityManagerFactoryBean factoryBean = 
+				new LocalContainerEntityManagerFactoryBean();
 		factoryBean.setJpaVendorAdapter(jpaVendorAdapter());
 		factoryBean.setDataSource(dataSource());
 		factoryBean.setPackagesToScan(Item.class.getPackage().getName());
+		
+		Properties props = new Properties();
+		props.put("hibernate.hbm2ddl.auto", "create-drop");
+		props.put("hibernate.hbm2ddl.import_files", 
+				"derby_memory_initial.sql");		
+		factoryBean.setJpaProperties(props);
 		return factoryBean;
 	}
 
 	@Bean
 	public JpaVendorAdapter jpaVendorAdapter() {
-		HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
+		HibernateJpaVendorAdapter jpaVendorAdapter = 
+				new HibernateJpaVendorAdapter();
 		jpaVendorAdapter.setDatabase(Database.DERBY);
 		jpaVendorAdapter.setShowSql(true);
 		jpaVendorAdapter.setGenerateDdl(true);
+		Map<String, Object> prop = jpaVendorAdapter.getJpaPropertyMap();
+
 		return jpaVendorAdapter;
 	}
 }

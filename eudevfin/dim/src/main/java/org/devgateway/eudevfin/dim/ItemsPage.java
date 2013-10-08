@@ -25,8 +25,8 @@ public class ItemsPage extends WebPage {
 	@SpringBean
 	private PersonService personService;
 
-	public ItemsPage() {
-
+	public ItemsPage() {	
+		
 		
 		add(new PropertyListView<Person>("items",personService.findPeople()) {
 

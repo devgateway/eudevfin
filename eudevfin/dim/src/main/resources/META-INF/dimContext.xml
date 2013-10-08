@@ -20,12 +20,7 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
 	
-	<!-- we use an embedded database for developent -->
-	<!-- 
-	<jdbc:embedded-database id="dataSource" type="DERBY">
-		<jdbc:script location="classpath:create-schema.sql" />
-	</jdbc:embedded-database>
---> 
+
 
 	<!-- transactional persistence is done through java annotations -->
 	<!-- <tx:annotation-driven /> -->
