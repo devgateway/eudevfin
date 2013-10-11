@@ -30,7 +30,7 @@ import org.springframework.integration.annotation.Payload;
 public interface PersonService {
 
 	/**
-	 * Creates a {@link Person} instance from the {@link Person} instance
+	 * Creates or updates a {@link Person} instance from the {@link Person} instance
 	 * passed.
 	 * 
 	 * @param person
@@ -38,7 +38,7 @@ public interface PersonService {
 	 *            primary key and the formatted name.
 	 * @return The persisted Entity
 	 */
-	Person createPerson(Person person);
+	Person updatePerson(Person person);
 
 	/**
 	 * 

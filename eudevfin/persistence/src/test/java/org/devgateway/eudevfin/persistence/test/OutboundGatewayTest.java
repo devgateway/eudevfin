@@ -50,7 +50,7 @@ public class OutboundGatewayTest {
 		person.setCreatedDateTime(createdDateTime.getTime());
 		person.setName("Name Of The Person");
 
-		final Person persistedPerson = service.createPerson(person);
+		final Person persistedPerson = service.updatePerson(person);
 		Assert.assertNotNull("Expected a non null instance of Person, got null", persistedPerson);
 		LOGGER.info("\n\tGenerated person with id: " + persistedPerson.getId() + ", with name: " + persistedPerson.getName());
 	}

@@ -33,8 +33,9 @@
 	<int:gateway id="personService"
 		service-interface="org.devgateway.eudevfin.persistence.service.PersonService"
 		default-request-timeout="5000" default-reply-timeout="5000">
-		<int:method name="createPerson" request-channel="createPersonRequestChannel"/>
+		<int:method name="updatePerson" request-channel="updatePersonRequestChannel"/>
 		<int:method name="findPeople"   request-channel="listPeopleRequestChannel"/>
+		<int:method name="getPerson" request-channel="getPersonChannel"/>
 	</int:gateway>
 
 	<int-jpa:retrieving-outbound-gateway entity-manager-factory="entityManagerFactory"
@@ -43,7 +44,7 @@
 	</int-jpa:retrieving-outbound-gateway>
 
 	<int-jpa:updating-outbound-gateway entity-manager-factory="entityManagerFactory"
-		request-channel="createPersonRequestChannel" >
+		request-channel="updatePersonRequestChannel" >
 		<int-jpa:transactional transaction-manager="transactionManager" />
 	</int-jpa:updating-outbound-gateway>
 

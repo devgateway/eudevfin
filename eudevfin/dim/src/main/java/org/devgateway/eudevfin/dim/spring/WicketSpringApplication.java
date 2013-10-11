@@ -41,7 +41,7 @@ public class WicketSpringApplication extends AuthenticatedWebApplication {
 		person.setCreatedDateTime(createdDateTime.getTime());
 		person.setName("bubu");
 		
-		personService.createPerson(person);
+		personService.updatePerson(person);
 	}
 
 	@Override

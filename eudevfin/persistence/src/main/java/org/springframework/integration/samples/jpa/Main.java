@@ -152,7 +152,7 @@ public final class Main {
 
 			Person person = new Person();
 			person.setName(name);
-			person = service.createPerson(person);
+			person = service.updatePerson(person);
 			System.out.println("Created person record with id: "
 					+ person.getId());
 			System.out.print("Do you want to create another person? (y/n)");
