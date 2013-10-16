@@ -299,9 +299,9 @@
 	</dependencyManagement>
 	<description>Integration Parent Module</description>
 	<modules>
-		<module>persistence</module>		
+		<module>common-financial</module>		
 		<module>dim</module>
-		<module>core</module>
+		<module>financial</module>
 	</modules>
 	<inceptionYear>2013</inceptionYear>
 	<organization>

@@ -18,7 +18,7 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.devgateway.eudevfin.dim.ItemsPage;
 import org.devgateway.eudevfin.dim.LoginPage;
-import org.devgateway.eudevfin.domain.Person;
+import org.devgateway.eudevfin.financial.Person;
 import org.devgateway.eudevfin.persistence.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 

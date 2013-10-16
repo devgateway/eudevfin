@@ -13,8 +13,8 @@ package org.devgateway.eudevfin.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import org.devgateway.eudevfin.domain.Item;
-import org.devgateway.eudevfin.domain.Order;
+import org.devgateway.eudevfin.financial.Item;
+import org.devgateway.eudevfin.financial.Order;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.Test;

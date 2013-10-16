@@ -17,7 +17,7 @@ import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.PropertyListView;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.devgateway.eudevfin.domain.Person;
+import org.devgateway.eudevfin.financial.Person;
 import org.devgateway.eudevfin.persistence.service.PersonService;
 
 @AuthorizeInstantiation("ROLE_SUPERVISOR")
