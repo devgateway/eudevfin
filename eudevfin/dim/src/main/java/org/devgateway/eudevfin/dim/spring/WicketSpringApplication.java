@@ -4,9 +4,9 @@
  * are made available under the terms of the GNU Public License v3.0
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/gpl.html
- * 
+ *
  * Contributors:
- *    mpostelnicu
+ *    aartimon
  ******************************************************************************/
 package org.devgateway.eudevfin.dim.spring;
 
@@ -31,6 +31,7 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.request.resource.CssResourceReference;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
+import org.devgateway.eudevfin.dim.core.FixBootstrapStylesCssResourceReference;
 import org.devgateway.eudevfin.dim.pages.HomePage;
 import org.devgateway.eudevfin.dim.pages.LoginPage;
 import org.devgateway.eudevfin.dim.core.ApplicationJavaScript;
@@ -105,7 +106,8 @@ public class WicketSpringApplication extends AuthenticatedWebApplication {
         );
 
         getResourceBundles().addCssBundle(WicketSpringApplication.class, "application.css",
-                (CssResourceReference) BootstrapPrettifyCssReference.INSTANCE
+                (CssResourceReference) BootstrapPrettifyCssReference.INSTANCE,
+                FixBootstrapStylesCssResourceReference.INSTANCE
         );
     }
 

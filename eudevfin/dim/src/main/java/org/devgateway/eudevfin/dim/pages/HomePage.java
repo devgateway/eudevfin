@@ -19,4 +19,5 @@ import org.wicketstuff.annotation.mount.MountPath;
 @AuthorizeInstantiation("ROLE_SUPERVISOR")
 public class HomePage extends HeaderFooter {
 
+
 }
