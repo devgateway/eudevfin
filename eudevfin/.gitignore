@@ -2,3 +2,6 @@
 .idea
 /target
 /derby.log
+/common-financial
+/dim
+/financial
