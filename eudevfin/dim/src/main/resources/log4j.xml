@@ -22,8 +22,18 @@
 
 	<!-- Loggers -->
 	<logger name="org.springframework.web.context.ContextLoader">
-		<level value="debug" />
+		<level value="info" />
 	</logger>
+
+    <logger name="org.springframework.security.web">
+        <level value="warn" />
+    </logger>
+
+    <logger name="org.apache.wicket">
+        <level value="warn"/>
+    </logger>
+
+
 
 	<!-- Root Logger -->
 	<root>
