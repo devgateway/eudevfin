@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.devgateway.eudevfin.persistence.service;
+package org.devgateway.eudevfin.financial.service;
 
 import java.util.List;
 

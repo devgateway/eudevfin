@@ -18,7 +18,7 @@ import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.PropertyListView;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.financial.Person;
-import org.devgateway.eudevfin.persistence.service.PersonService;
+import org.devgateway.eudevfin.financial.service.PersonService;
 
 @AuthorizeInstantiation("ROLE_SUPERVISOR")
 public class ItemsPage extends WebPage {

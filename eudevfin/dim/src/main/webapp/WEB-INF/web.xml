@@ -38,7 +38,8 @@
     <param-name>contextConfigLocation</param-name>
     <param-value>
 	classpath*:**/*Context.xml	
-	/WEB-INF/*/persistence*.jar!/*/persistenceContext.xml	
+	/WEB-INF/*/financial*.jar!/*/financialContext.xml
+	/WEB-INF/*/common-financial*.jar!/*/commonFinancialContext.xml	
     </param-value>
   </context-param>
 </web-app>

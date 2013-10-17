@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import org.devgateway.eudevfin.financial.Person;
-import org.devgateway.eudevfin.persistence.service.PersonService;
+import org.devgateway.eudevfin.financial.service.PersonService;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.util.StringUtils;
 

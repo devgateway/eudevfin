@@ -12,6 +12,6 @@
 /**
  * JPA services for the persistence module.
  */
-package org.devgateway.eudevfin.persistence.service;
+package org.devgateway.eudevfin.financial.service;
 
 

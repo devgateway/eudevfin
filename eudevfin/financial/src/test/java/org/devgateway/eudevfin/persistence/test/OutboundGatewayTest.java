@@ -19,7 +19,7 @@ import java.util.Calendar;
 
 import org.apache.log4j.Logger;
 import org.devgateway.eudevfin.financial.Person;
-import org.devgateway.eudevfin.persistence.service.PersonService;
+import org.devgateway.eudevfin.financial.service.PersonService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;

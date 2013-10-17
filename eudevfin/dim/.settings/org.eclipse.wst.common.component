@@ -8,6 +8,9 @@
         <dependent-module archiveName="common-financial-0.0.1.CI-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/eudevfin-common-financial/eudevfin-common-financial">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="financial-0.0.1.CI-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/eudevfin-financial/eudevfin-financial">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="java-output-path" value="/WEB-INF/classes"/>
         <property name="context-root" value="eudevfin-dim"/>
     </wb-module>

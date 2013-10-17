@@ -19,7 +19,7 @@ import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.devgateway.eudevfin.dim.ItemsPage;
 import org.devgateway.eudevfin.dim.LoginPage;
 import org.devgateway.eudevfin.financial.Person;
-import org.devgateway.eudevfin.persistence.service.PersonService;
+import org.devgateway.eudevfin.financial.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class WicketSpringApplication extends AuthenticatedWebApplication {
