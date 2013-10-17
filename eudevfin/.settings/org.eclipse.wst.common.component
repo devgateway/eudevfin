@@ -2,7 +2,6 @@
     <wb-module deploy-name="eudevfin">
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/core/src/main/resources"/>
         <property name="java-output-path" value="/WEB-INF/classes"/>
         <property name="context-root" value="eudevfin"/>
     </wb-module>
