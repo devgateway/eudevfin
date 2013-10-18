@@ -23,12 +23,41 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 		http://www.springframework.org/schema/integration/jpa http://www.springframework.org/schema/integration/jpa/spring-integration-jpa.xsd">
 
+	<bean class="org.apache.commons.dbcp.BasicDataSource" id="myDerbyDataSource">
+		<property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver" />
+		<property name="url" value="jdbc:derby:derby/sample;create=true" />
+		<property name="username" value="app" />
+		<property name="password" value="app" />
+	</bean>
+
+	<!-- <bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" 
+		id="entityManagerFactory"> <property name="dataSource" ref="dataSource" /> 
+		</bean> -->
+
+
 	<int:channel id="updatePersonRequestChannel"/>
 	<int:channel id="listPeopleRequestChannel"/>
 	
 	<tx:annotation-driven />
-	<context:component-scan base-package="org.devgateway.eudevfin.persistence" />
+	<context:component-scan base-package="org.devgateway.eudevfin.financial" />
 	<context:annotation-config />
+
+	<int:gateway id="transactionService"
+		service-interface="org.devgateway.eudevfin.financial.service.FinancialTransactionService" />
+
+	<int-jpa:updating-outbound-gateway
+		entity-manager-factory="entityManagerFactory" request-channel="createTransactionChannel">
+
+		<int-jpa:transactional transaction-manager="transactionManager" />
+	</int-jpa:updating-outbound-gateway>
+
+	<int-jpa:retrieving-outbound-gateway
+		request-channel="getTransactionChannel" jpa-query="select tx from FinancialTransaction tx"
+		entity-manager-factory="entityManagerFactory">
+		<int-jpa:transactional propagation="REQUIRES_NEW"
+			transaction-manager="transactionManager" />
+
+	</int-jpa:retrieving-outbound-gateway>
 	
 	<int-jpa:retrieving-outbound-gateway entity-manager-factory="entityManagerFactory"
 		request-channel="listPeopleRequestChannel"
