@@ -12,11 +12,12 @@
 package org.devgateway.eudevfin.dim.pages;
 
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.devgateway.eudevfin.dim.core.Constants;
 import org.devgateway.eudevfin.dim.core.pages.HeaderFooter;
 import org.wicketstuff.annotation.mount.MountPath;
 
-@MountPath(value = "/", alt = "/home")
-@AuthorizeInstantiation("ROLE_SUPERVISOR")
+@MountPath(value = "/")
+@AuthorizeInstantiation(Constants.ROLE_USER)
 public class HomePage extends HeaderFooter {
 
 

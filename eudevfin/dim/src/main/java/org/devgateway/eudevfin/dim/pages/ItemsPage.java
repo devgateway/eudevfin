@@ -4,9 +4,9 @@
  * are made available under the terms of the GNU Public License v3.0
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/gpl.html
- * 
+ *
  * Contributors:
- *    mpostelnicu
+ *    aartimon
  ******************************************************************************/
 package org.devgateway.eudevfin.dim.pages;
 
@@ -17,10 +17,11 @@ import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.PropertyListView;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.devgateway.eudevfin.dim.core.Constants;
 import org.devgateway.eudevfin.financial.Person;
 import org.devgateway.eudevfin.financial.service.PersonService;
 
-@AuthorizeInstantiation("ROLE_SUPERVISOR")
+@AuthorizeInstantiation(Constants.ROLE_USER)
 public class ItemsPage extends WebPage {
 	
 	@SpringBean

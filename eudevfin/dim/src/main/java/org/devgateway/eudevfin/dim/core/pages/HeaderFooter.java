@@ -28,7 +28,7 @@ import de.agilecoders.wicket.extensions.markup.html.bootstrap.button.DropDownAut
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.Session;
-import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
@@ -41,11 +41,9 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.util.string.StringValue;
+import org.devgateway.eudevfin.dim.core.Constants;
 import org.devgateway.eudevfin.dim.core.FixBootstrapStylesCssResourceReference;
-import org.devgateway.eudevfin.dim.pages.HomePage;
-import org.devgateway.eudevfin.dim.pages.LogoutPage;
-import org.devgateway.eudevfin.dim.pages.ReportsPage;
-import org.devgateway.eudevfin.dim.pages.TransactionPage;
+import org.devgateway.eudevfin.dim.pages.*;
 import org.devgateway.eudevfin.dim.core.ApplicationJavaScript;
 
 import java.util.ArrayList;
@@ -79,42 +77,40 @@ public abstract class HeaderFooter extends GenericWebPage {
         navbar.brandName(Model.of("EU-DEVFIN"));
 
 
+        NavbarButton<HomePage> homePageNavbarButton = new NavbarButton<HomePage>(getApplication().getHomePage(), new StringResourceModel("navbar.home", this, null, null)).setIconType(IconType.home);
+        MetaDataRoleAuthorizationStrategy.authorize(homePageNavbarButton, Component.RENDER, Constants.ROLE_USER);
+
+        NavbarButton<TransactionPage> transactionPageNavbarButton = new NavbarButton<TransactionPage>(TransactionPage.class, new StringResourceModel("navbar.newTransaction", this, null, null)).setIconType(IconType.plus);
+        MetaDataRoleAuthorizationStrategy.authorize(transactionPageNavbarButton, Component.RENDER, Constants.ROLE_USER);
+        NavbarButton<ReportsPage> reportsPageNavbarButton = new NavbarButton<ReportsPage>(ReportsPage.class, new StringResourceModel("navbar.reports", this, null, null)).setIconType(IconType.thlist);
+        MetaDataRoleAuthorizationStrategy.authorize(reportsPageNavbarButton, Component.RENDER, Constants.ROLE_USER);
+
+        NavbarButton<AdminPage> adminPageNavbarButton = new NavbarButton<AdminPage>(AdminPage.class, new StringResourceModel("navbar.admin", this, null, null)).setIconType(IconType.wrench);
+        MetaDataRoleAuthorizationStrategy.authorize(adminPageNavbarButton, Component.RENDER, Constants.ROLE_SUPERVISOR);
+
+
         navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.LEFT,
-                new NavbarButton<HomePage>(getApplication().getHomePage(), new StringResourceModel("navbar.home", this, null, null)).setIconType(IconType.home),
-                new NavbarButton<TransactionPage>(TransactionPage.class, new StringResourceModel("navbar.newTransaction", this, null, null)).setIconType(IconType.plus),
-                new NavbarButton<ReportsPage>(ReportsPage.class, new StringResourceModel("navbar.reports", this, null, null)).setIconType(IconType.thlist)
+                homePageNavbarButton,
+                transactionPageNavbarButton,
+                reportsPageNavbarButton
             ));
 
 
-        DropDownButton dropdown = new NavbarDropDownButton(Model.of("Themes")) {
-            @Override
-            public boolean isActive(Component item) {
-                return false;
-            }
-
-            @Override
-            protected List<AbstractLink> newSubMenuButtons(final String buttonMarkupId) {
-                final List<AbstractLink> subMenu = new ArrayList<AbstractLink>();
-                subMenu.add(new MenuHeader(Model.of("all available themes:")));
-                subMenu.add(new MenuDivider());
-
-                final IBootstrapSettings settings = Bootstrap.getSettings(getApplication());
-                final List<ITheme> themes = settings.getThemeProvider().available();
-
-                for (final ITheme theme : themes) {
-                    PageParameters params = new PageParameters();
-                    params.set("theme", theme.name());
-
-                    subMenu.add(new MenuBookmarkablePageLink<Page>(getPageClass(), params, Model.of(theme.name())));
-                }
-
-                return subMenu;
-            }
-        }.setIconType(IconType.book);
-
-        navbar.addComponents(new ImmutableNavbarComponent(dropdown, Navbar.ComponentPosition.RIGHT));
+        DropDownButton dropdown = newThemesDropdown();
 
 
+        NavbarDropDownButton languageDropDown = newLanguageDropdown();
+
+        navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.RIGHT,
+                dropdown,
+                languageDropDown,
+                adminPageNavbarButton,
+                new NavbarButton<LogoutPage>(LogoutPage.class, new StringResourceModel("navbar.logout", this, null, null)).setIconType(IconType.off)));
+
+        return navbar;
+    }
+
+    private NavbarDropDownButton newLanguageDropdown() {
         NavbarDropDownButton languageDropDown = new NavbarDropDownButton(new StringResourceModel("navbar.lang", this, null, null)) {
             private static final long serialVersionUID = 2866997914075956070L;
 
@@ -146,11 +142,35 @@ public abstract class HeaderFooter extends GenericWebPage {
         };
         languageDropDown.setIconType(IconType.flag);
         languageDropDown.add(new DropDownAutoOpen());
-        navbar.addComponents(new ImmutableNavbarComponent(languageDropDown, Navbar.ComponentPosition.RIGHT));
-        navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.RIGHT,
-                new NavbarButton<LogoutPage>(LogoutPage.class, new StringResourceModel("navbar.logout", this, null, null)).setIconType(IconType.off)));
+        return languageDropDown;
+    }
 
-        return navbar;
+    private DropDownButton newThemesDropdown() {
+        return new NavbarDropDownButton(Model.of("Themes")) {
+            @Override
+            public boolean isActive(Component item) {
+                return false;
+            }
+
+            @Override
+            protected List<AbstractLink> newSubMenuButtons(final String buttonMarkupId) {
+                final List<AbstractLink> subMenu = new ArrayList<AbstractLink>();
+                subMenu.add(new MenuHeader(Model.of("all available themes:")));
+                subMenu.add(new MenuDivider());
+
+                final IBootstrapSettings settings = Bootstrap.getSettings(getApplication());
+                final List<ITheme> themes = settings.getThemeProvider().available();
+
+                for (final ITheme theme : themes) {
+                    PageParameters params = new PageParameters();
+                    params.set("theme", theme.name());
+
+                    subMenu.add(new MenuBookmarkablePageLink<Page>(getPageClass(), params, Model.of(theme.name())));
+                }
+
+                return subMenu;
+            }
+        }.setIconType(IconType.book);
     }
 
     @Override

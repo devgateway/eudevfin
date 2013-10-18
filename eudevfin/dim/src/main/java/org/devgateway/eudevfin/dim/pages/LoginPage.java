@@ -18,13 +18,16 @@ import org.apache.wicket.markup.html.form.RequiredTextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.dim.core.components.InputField;
 import org.devgateway.eudevfin.dim.core.components.PasswordInputField;
 import org.devgateway.eudevfin.dim.core.pages.HeaderFooter;
 import org.devgateway.eudevfin.dim.spring.SpringWicketWebSession;
+import org.wicketstuff.annotation.mount.MountPath;
 
+@MountPath(value = "/login")
 public final class LoginPage extends HeaderFooter {
 
 	public LoginPage(final PageParameters parameters) {
@@ -40,12 +43,11 @@ public final class LoginPage extends HeaderFooter {
 			super(id);
             this.type(FormType.Inline);
 
-			setModel(new CompoundPropertyModel(this));
 
-            InputField<String> username = new InputField<String>("username", Model.of(this.username), "login.user");
+            InputField<String> username = new InputField<String>("username", new PropertyModel<String>(this, "username"), "login.user");
             add(username);
 
-            InputField<String> password = new PasswordInputField("password", Model.of(this.password), "login.password");
+            InputField<String> password = new PasswordInputField("password", new PropertyModel<String>(this, "password"), "login.password");
             add(password);
 
 
