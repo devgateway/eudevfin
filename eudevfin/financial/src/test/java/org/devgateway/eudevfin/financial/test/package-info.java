@@ -10,8 +10,8 @@
  ******************************************************************************/
 
 /**
- * Spring configuration for the persistence module.
+ * Persistence JUnit tests.
  */
-package org.devgateway.eudevfin.persistence.config;
+package org.devgateway.eudevfin.financial.test;
 
 

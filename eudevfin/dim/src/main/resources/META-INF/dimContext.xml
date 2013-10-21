@@ -37,17 +37,5 @@
 	</security:http>
 
 
-	<!-- we use a dummy service here, it can be replaced with a real user database -->
-	<security:authentication-manager alias="authenticationManager">
-		<security:authentication-provider>
-			<security:user-service>
-				<security:user name="admin" password="admin"
-					authorities="ROLE_SUPERVISOR, ROLE_USER, ROLE_TELLER" />
-				<security:user name="test" password="test"
-					authorities="ROLE_USER" />
-			</security:user-service>
-		</security:authentication-provider>
-	</security:authentication-manager>
-
 
 </beans>

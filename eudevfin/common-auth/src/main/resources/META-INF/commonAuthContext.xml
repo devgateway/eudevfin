@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (c) 2013 Development Gateway.
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the GNU Public License v3.0
+  which accompanies this distribution, and is available at
+  http://www.gnu.org/licenses/gpl.html
+  
+  Contributors:
+     mpostelnicu
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-jpa="http://www.springframework.org/schema/integration/jpa"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/integration/jpa http://www.springframework.org/schema/integration/jpa/spring-integration-jpa.xsd">
+
+
+<!--  we need a retrieving-outbound-gateway here to provide the Authentication token -->
+
+	<int:channel id="authenticationChannel"/>
+	
+	
+	<tx:annotation-driven />
+	<context:component-scan base-package="org.devgateway.eudevfin.persistence" />
+	<context:annotation-config />
+	
+	<int:gateway id="authService"
+		service-interface="org.devgateway.eudevfin.financial.service.PersonService"
+		default-request-timeout="5000" default-reply-timeout="5000">
+		<int:method name="updatePerson" request-channel="updatePersonRequestChannel"/>
+		<int:method name="findPeople"   request-channel="listPeopleRequestChannel"/>
+		<int:method name="getPerson" request-channel="getPersonChannel"/>
+	</int:gateway>
+
+
+</beans>
