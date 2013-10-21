@@ -2,6 +2,7 @@ package org.devgateway.eudevfin.financial.config;
 
 import java.util.Map;
 
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.devgateway.eudevfin.financial.FinancialTransaction;
@@ -24,44 +25,46 @@ public class InfrastructureConfig {
 
 	@Value("#{myDerbyDataSource}")
 	private DataSource dataSource;
+	@Value("#{entityManagerFactory}")
+	private EntityManagerFactory entityManagerFactory;
 
 	// Entity Manger for JPA
-	@Bean
-	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-		LocalContainerEntityManagerFactoryBean entityManagerFactory =
-				new LocalContainerEntityManagerFactoryBean();
-		entityManagerFactory.setDataSource(dataSource);
-		entityManagerFactory.setPackagesToScan(FinancialTransaction.class.getPackage().getName());
-		entityManagerFactory.setJpaVendorAdapter(this.jpaVendorAdapter() );
-		return entityManagerFactory;
-	}
+//	@Bean
+//	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+//		LocalContainerEntityManagerFactoryBean entityManagerFactory =
+//				new LocalContainerEntityManagerFactoryBean();
+//		entityManagerFactory.setDataSource(dataSource);
+//		entityManagerFactory.setPackagesToScan(FinancialTransaction.class.getPackage().getName());
+//		entityManagerFactory.setJpaVendorAdapter(this.jpaVendorAdapter() );
+//		return entityManagerFactory;
+//	}
 	// JPA Template
-	@Bean
-	public JpaTemplate jpaTemplate() {
-		return new JpaTemplate(entityManagerFactory().getObject());
-	}
+//	@Bean
+//	public JpaTemplate jpaTemplate() {
+//		return new JpaTemplate(entityManagerFactory);
+//	}
 	// Transaction Manager for JPA
-	@Bean
-	public JpaTransactionManager transactionManager() {
-		return new JpaTransactionManager(entityManagerFactory().getObject());
-	}
+//	@Bean
+//	public JpaTransactionManager transactionManager() {
+//		return new JpaTransactionManager(entityManagerFactory);
+//	}
 	// Local Session Factory for getting hibernate connections
-	@Bean
-	SessionFactory sessionFactory() {
-		return ((HibernateEntityManagerFactory)
-				entityManagerFactory().getObject()).getSessionFactory();
-	}
+//	@Bean
+//	SessionFactory sessionFactory() {
+//		return ((HibernateEntityManagerFactory)
+//				entityManagerFactory).getSessionFactory();
+//	}
 
-	@Bean
-	public JpaVendorAdapter jpaVendorAdapter() {
-		HibernateJpaVendorAdapter jpaVendorAdapter = 
-				new HibernateJpaVendorAdapter();
-		jpaVendorAdapter.setDatabase(Database.DERBY);
-		jpaVendorAdapter.setShowSql(true);
-		jpaVendorAdapter.setGenerateDdl(true);
-		Map<String, Object> prop = jpaVendorAdapter.getJpaPropertyMap();
-
-		return jpaVendorAdapter;
-	}
+//	@Bean
+//	public JpaVendorAdapter jpaVendorAdapter() {
+//		HibernateJpaVendorAdapter jpaVendorAdapter = 
+//				new HibernateJpaVendorAdapter();
+//		jpaVendorAdapter.setDatabase(Database.DERBY);
+//		jpaVendorAdapter.setShowSql(true);
+//		jpaVendorAdapter.setGenerateDdl(true);
+//		Map<String, Object> prop = jpaVendorAdapter.getJpaPropertyMap();
+//
+//		return jpaVendorAdapter;
+//	}
 
 }

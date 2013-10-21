@@ -13,15 +13,28 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:int="http://www.springframework.org/schema/integration"
 	xmlns:int-jpa="http://www.springframework.org/schema/integration/jpa"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
 		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 		http://www.springframework.org/schema/integration/jpa http://www.springframework.org/schema/integration/jpa/spring-integration-jpa.xsd">
+
+	<tx:annotation-driven />
+	<int:annotation-config />
+	<context:component-scan base-package="org.devgateway.eudevfin.financial" />
+	<context:annotation-config />
+
+	<jpa:repositories base-package="org.devgateway.eudevfin.financial.repository" />
+	<!-- auditing -->
+    <jpa:auditing auditor-aware-ref="auditorAware" />
+
+    <bean id="auditorAware" class="org.devgateway.eudevfin.financial.auditing.SimpleAuditorAwareImpl" />
 
 	<bean class="org.apache.commons.dbcp.BasicDataSource" id="myDerbyDataSource">
 		<property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver" />
@@ -29,35 +42,64 @@
 		<property name="username" value="app" />
 		<property name="password" value="app" />
 	</bean>
+	
+	    
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="myDerbyDataSource" />
+		<property name="packagesToScan" value="org.devgateway.eudevfin.financial" />
+		<property name="mappingResources">
+			<value>META-INF/orm.xml</value>
+		</property>
+		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
+	</bean> 
+	<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" id="jpaVendorAdapter">
+		<property name="showSql" value="true" />
+		<property name="generateDdl" value="true"></property>
+		<property name="database" value="DERBY"></property>
+	</bean>
+	<bean class="org.springframework.orm.jpa.JpaTransactionManager" id="transactionManager">
+		<constructor-arg index="0" ref="entityManagerFactory"></constructor-arg>
+	</bean>
+	
+	<bean class="org.devgateway.eudevfin.financial.dao.FinancialTransactionDaoImpl" id="financialTransactionDaoImpl" />
 
-	<!-- <bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" 
-		id="entityManagerFactory"> <property name="dataSource" ref="dataSource" /> 
-		</bean> -->
-
+	<int:channel id="getTransactionChannel"/>
+	<int:channel id="replyGetTransactionChannel"/>
+	<int:channel id="createTransactionChannel" />
+	<int:channel id="replyCreateTransactionChannel" />
 
 	<int:channel id="updatePersonRequestChannel"/>
 	<int:channel id="listPeopleRequestChannel"/>
-	
-	<tx:annotation-driven />
-	<context:component-scan base-package="org.devgateway.eudevfin.financial" />
-	<context:annotation-config />
 
 	<int:gateway id="transactionService"
 		service-interface="org.devgateway.eudevfin.financial.service.FinancialTransactionService" />
 
-	<int-jpa:updating-outbound-gateway
+	<!-- <int-jpa:updating-outbound-gateway
 		entity-manager-factory="entityManagerFactory" request-channel="createTransactionChannel">
 
 		<int-jpa:transactional transaction-manager="transactionManager" />
 	</int-jpa:updating-outbound-gateway>
 
 	<int-jpa:retrieving-outbound-gateway
-		request-channel="getTransactionChannel" jpa-query="select tx from FinancialTransaction tx"
+		request-channel="getTransactionChannel" 
+		jpa-query="select tx from FinancialTransaction tx"
+		auto-startup="true" 
 		entity-manager-factory="entityManagerFactory">
 		<int-jpa:transactional propagation="REQUIRES_NEW"
 			transaction-manager="transactionManager" />
 
-	</int-jpa:retrieving-outbound-gateway>
+	</int-jpa:retrieving-outbound-gateway> -->
+	
+	<!-- <int-jpa:inbound-channel-adapter channel="inboundChannelAdapterOne" 
+                    entity-manager-factory="entityManagerFactory" 
+                    auto-startup="true" 
+                    jpa-query="select tx from FinancialTransaction tx" 
+                    expect-single-result="false" 
+                    delete-after-poll="false"> 
+	    <int:poller fixed-rate="2000" >
+	      <int:transactional propagation="REQUIRED" transaction-manager="transactionManager"/>
+	    </int:poller>
+	</int-jpa:inbound-channel-adapter> -->
 	
 	<int-jpa:retrieving-outbound-gateway entity-manager-factory="entityManagerFactory"
 		request-channel="listPeopleRequestChannel"

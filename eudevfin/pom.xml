@@ -13,6 +13,7 @@
 		<maven.test.failure.ignore>true</maven.test.failure.ignore>
 		<spring.framework.version>3.2.4.RELEASE</spring.framework.version>
 		<spring.integration.version>2.2.6.RELEASE</spring.integration.version>
+		<spring.datajpa.version>1.4.1.RELEASE</spring.datajpa.version>
 		<jetty.version>9.0.6.v20130930</jetty.version>
 		<wicket.version>6.10.0</wicket.version>
 		<spring.security.version>3.1.4.RELEASE</spring.security.version>
@@ -37,6 +38,11 @@
 			<artifactId>spring-orm</artifactId>
 			<version>${spring.framework.version}</version>
 		</dependency>
+		<dependency>
+	        <groupId>org.springframework.data</groupId>
+	        <artifactId>spring-data-jpa</artifactId>
+	        <version>${spring.datajpa.version}</version>
+	    </dependency>
 
 		<dependency>
 			<groupId>org.apache.derby</groupId>
@@ -304,6 +310,8 @@
 		<module>common-financial</module>		
 		<module>dim</module>
 		<module>financial</module>
+		<module>auth</module>
+		<module>common-auth</module>
 	</modules>
 	<inceptionYear>2013</inceptionYear>
 	<organization>
