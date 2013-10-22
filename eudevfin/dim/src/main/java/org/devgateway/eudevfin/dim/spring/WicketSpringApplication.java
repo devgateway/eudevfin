@@ -63,10 +63,11 @@ public class WicketSpringApplication extends AuthenticatedWebApplication {
         getComponentInstantiationListeners().add(
                 new SpringComponentInjector(this));
 
-
-        createPerson();
     }
 
+	/**
+	 * @deprecated
+	 */
     private void createPerson() {
         //test populating one person bean upon startup
         final Person person = new Person();

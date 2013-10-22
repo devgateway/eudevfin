@@ -13,6 +13,13 @@
       <artifactId>financial</artifactId>
       <version>${project.version}</version>
     </dependency>    
+    
+    <dependency>
+      <groupId>org.devgateway.eudevfin</groupId>
+      <artifactId>common-auth</artifactId>
+      <version>${project.version}</version>
+    </dependency>    
+    
   </dependencies>
   <name>EU-DEVFIN authentication module</name>
 </project>

@@ -28,8 +28,7 @@
 	<context:component-scan base-package="org.devgateway.eudevfin.dim" />
 	<context:annotation-config />
 
-	<security:global-method-security secured-annotations="enabled" />
-
+	
 	<security:http create-session="never" auto-config="true">
 		<security:remember-me />
 		<security:intercept-url pattern="/**" />
