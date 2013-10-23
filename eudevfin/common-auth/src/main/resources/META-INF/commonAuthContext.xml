@@ -33,6 +33,8 @@
 	
 	<int:channel id="getUserChannel"/>
 	<int:channel id="createUserChannel"/>
+	<int:channel id="replyCreateUserChannel"/>
+	<int:channel id="replyGetUserChannel"/>
 		
 	<tx:annotation-driven />
 	<int:annotation-config />

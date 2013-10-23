@@ -45,15 +45,10 @@ public class UserServiceTest {
 		
 		service.createUser(u);
 		
-		
 		User userByUsername = service.getUserByUsername("test");
 		
 		Assert.assertNotNull(userByUsername);
-		
 
 	}
-	
-	
-	
 	
 }
