@@ -21,7 +21,10 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.html.ChromeFrameMetaTag;
 import de.agilecoders.wicket.core.markup.html.bootstrap.html.HtmlTag;
 import de.agilecoders.wicket.core.markup.html.bootstrap.html.OptimizedMobileViewportMetaTag;
 import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconType;
-import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.*;
+import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
+import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarButton;
+import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarComponents;
+import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarDropDownButton;
 import de.agilecoders.wicket.core.settings.IBootstrapSettings;
 import de.agilecoders.wicket.core.settings.ITheme;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.button.DropDownAutoOpen;
@@ -41,10 +44,10 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.util.string.StringValue;
+import org.devgateway.eudevfin.dim.core.ApplicationJavaScript;
 import org.devgateway.eudevfin.dim.core.Constants;
 import org.devgateway.eudevfin.dim.core.FixBootstrapStylesCssResourceReference;
 import org.devgateway.eudevfin.dim.pages.*;
-import org.devgateway.eudevfin.dim.core.ApplicationJavaScript;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,16 +99,16 @@ public abstract class HeaderFooter extends GenericWebPage {
             ));
 
 
-        DropDownButton dropdown = newThemesDropdown();
-
-
+        DropDownButton themesDropdown = newThemesDropdown();
         NavbarDropDownButton languageDropDown = newLanguageDropdown();
+        NavbarButton<LogoutPage> logoutPageNavbarButton = new NavbarButton<LogoutPage>(LogoutPage.class, new StringResourceModel("navbar.logout", this, null, null)).setIconType(IconType.off);
+        MetaDataRoleAuthorizationStrategy.authorize(logoutPageNavbarButton, Component.RENDER, Constants.ROLE_USER);
 
         navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.RIGHT,
-                dropdown,
+                themesDropdown,
                 languageDropDown,
                 adminPageNavbarButton,
-                new NavbarButton<LogoutPage>(LogoutPage.class, new StringResourceModel("navbar.logout", this, null, null)).setIconType(IconType.off)));
+                logoutPageNavbarButton));
 
         return navbar;
     }
