@@ -9,17 +9,21 @@
  *    aartimon
  ******************************************************************************/
 
-package org.devgateway.eudevfin.dim.core;
+package org.devgateway.eudevfin.dim.core.components;
+
+import org.devgateway.eudevfin.dim.core.BaseWicketTest;
+import org.junit.Test;
+import org.springframework.test.annotation.DirtiesContext;
 
 /**
  * @author aartimon@developmentgateway.org
- * @since 18 October 2013
+ * @since 23 October 2013
  */
-public class Constants {
-    public static final String ROLE_USER = "ROLE_USER";
-    public static final String ROLE_SUPERVISOR = "ROLE_SUPERVISOR";
+public class InputFieldTest extends BaseWicketTest {
 
-    private Constants() {
-        //no need for instantiation
+    @Test
+    @DirtiesContext
+    public void testBlankDoREPLACE() throws Exception {
     }
+
 }
