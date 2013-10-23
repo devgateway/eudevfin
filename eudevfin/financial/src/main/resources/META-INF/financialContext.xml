@@ -52,10 +52,11 @@
 		</property>
 		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
 	</bean> 
+	
 	<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" id="jpaVendorAdapter">
 		<property name="showSql" value="true" />
 		<property name="generateDdl" value="true"></property>
-		<property name="database" value="DERBY"></property>
+		<property name="database" value="DERBY"></property>		
 	</bean>
 	<bean class="org.springframework.orm.jpa.JpaTransactionManager" id="transactionManager">
 		<constructor-arg index="0" ref="entityManagerFactory"></constructor-arg>

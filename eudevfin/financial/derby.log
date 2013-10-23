@@ -1,17 +1,13 @@
 ----------------------------------------------------------------
-Fri Oct 04 14:33:36 EEST 2013:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance a816c00e-0141-833e-8ab5-0000055300f0 
-on database directory memory:C:\Users\mihai\Documents\GitHub\eudevfin\eudevfin\persistence\testdb with class loader sun.misc.Launcher$AppClassLoader@247973e4 
+Tue Oct 22 12:09:15 EEST 2013:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance a816c00e-0141-df6c-dc5d-00000887cf28 
+on database directory C:\Users\mihai\git\eudevfin\eudevfin\financial\derby\sample with class loader sun.misc.Launcher$AppClassLoader@6e68d505 
 Loaded from file:/C:/Users/mihai/.m2/repository/org/apache/derby/derby/10.10.1.1/derby-10.10.1.1.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.7.0_25-b17
-user.dir=C:\Users\mihai\Documents\GitHub\eudevfin\eudevfin\persistence
+user.dir=C:\Users\mihai\git\eudevfin\eudevfin\financial
 os.name=Windows 7
 os.arch=amd64
 os.version=6.1
 derby.system.home=null
-derby.stream.error.method=org.springframework.jdbc.datasource.embedded.OutputStreamFactory.getNoopOutputStream
 Database Class Loader started - derby.database.classpath=''
-----------------------------------------------------------------
-Fri Oct 04 14:35:46 EEST 2013:
-Shutting down instance a816c00e-0141-833e-8ab5-0000055300f0 on database directory memory:C:\Users\mihai\Documents\GitHub\eudevfin\eudevfin\persistence\testdb with class loader sun.misc.Launcher$AppClassLoader@247973e4 

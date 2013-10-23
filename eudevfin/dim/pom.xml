@@ -21,6 +21,20 @@
   
   
   <dependencies>
+     
+  	<dependency>
+      <groupId>org.devgateway.eudevfin</groupId>
+      <artifactId>auth</artifactId>
+      <version>${project.version}</version>
+    </dependency>       
+
+
+    <dependency>
+      <groupId>org.devgateway.eudevfin</groupId>
+      <artifactId>common-auth</artifactId>
+      <version>${project.version}</version>
+    </dependency>       
+
     <dependency>
       <groupId>org.devgateway.eudevfin</groupId>
       <artifactId>common-financial</artifactId>
@@ -30,7 +44,8 @@
       <groupId>org.devgateway.eudevfin</groupId>
       <artifactId>financial</artifactId>
       <version>${project.version}</version>
-    </dependency>    
+    </dependency>
+    
    </dependencies>
   
   <build>

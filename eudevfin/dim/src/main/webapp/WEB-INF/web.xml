@@ -37,9 +37,11 @@
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>
+	/WEB-INF/*/auth*.jar!/*/authContext.xml
+    /WEB-INF/*/common-auth*.jar!/*/commonAuthContext.xml
 	classpath*:**/*Context.xml	
 	/WEB-INF/*/financial*.jar!/*/financialContext.xml
-	/WEB-INF/*/common-financial*.jar!/*/commonFinancialContext.xml	
+	/WEB-INF/*/common-financial*.jar!/*/commonFinancialContext.xml
     </param-value>
   </context-param>
 </web-app>
