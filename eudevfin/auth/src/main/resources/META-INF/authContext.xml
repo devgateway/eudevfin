@@ -38,12 +38,12 @@
 		<property name="dataSource" ref="myDerbyDataSource" />
 	</bean>
 
-<!-- 
+ 
 	<jdbc:initialize-database data-source="myDerbyDataSource">
       <jdbc:script location="classpath:derby-auth-startup.sql"/>
    	</jdbc:initialize-database>
 
- -->
+
  
 	<!-- we use a dummy service here, it can be replaced with a real user database -->
 
