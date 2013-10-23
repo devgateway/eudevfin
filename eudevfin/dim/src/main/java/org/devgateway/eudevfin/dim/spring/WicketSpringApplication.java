@@ -31,24 +31,22 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.request.resource.CssResourceReference;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
+import org.devgateway.eudevfin.dim.core.ApplicationJavaScript;
 import org.devgateway.eudevfin.dim.core.FixBootstrapStylesCssResourceReference;
+import org.devgateway.eudevfin.dim.core.JQueryUICoreJavaScriptReference;
 import org.devgateway.eudevfin.dim.pages.HomePage;
 import org.devgateway.eudevfin.dim.pages.LoginPage;
-import org.devgateway.eudevfin.dim.core.ApplicationJavaScript;
-import org.devgateway.eudevfin.dim.core.JQueryUICoreJavaScriptReference;
-import org.devgateway.eudevfin.financial.Person;
-import org.devgateway.eudevfin.financial.service.PersonService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
 
-import java.util.Calendar;
 
-public class WicketSpringApplication extends AuthenticatedWebApplication {
+public class WicketSpringApplication extends AuthenticatedWebApplication implements ApplicationContextAware {
 
-	@Autowired
-	private PersonService personService;
-	
-	@Override
+    private ApplicationContext ctx;
+
+    @Override
 	protected void init() {
 		super.init();
 
@@ -60,23 +58,10 @@ public class WicketSpringApplication extends AuthenticatedWebApplication {
         //mount annotated pages
         new AnnotatedMountScanner().scanPackage("org.devgateway.eudevfin.dim").mount(this);
 
+        //implemented ApplicationContextAware and added context as a parameter to help JUnit tests work
         getComponentInstantiationListeners().add(
-                new SpringComponentInjector(this));
+                new SpringComponentInjector(this, ctx, true));
 
-    }
-
-	/**
-	 * @deprecated
-	 */
-    private void createPerson() {
-        //test populating one person bean upon startup
-        final Person person = new Person();
-        Calendar createdDateTime = Calendar.getInstance();
-        createdDateTime.set(1980, 0, 1);
-        person.setCreatedDateTime(createdDateTime.getTime());
-        person.setName("bubu");
-
-        //personService.createPerson(person);
     }
 
     /**
@@ -141,4 +126,9 @@ public class WicketSpringApplication extends AuthenticatedWebApplication {
 	protected Class<? extends WebPage> getSignInPageClass() {
 		return LoginPage.class;
 	}
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.ctx = applicationContext;
+    }
 }

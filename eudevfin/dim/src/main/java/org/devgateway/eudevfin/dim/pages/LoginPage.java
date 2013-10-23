@@ -10,8 +10,8 @@
  ******************************************************************************/
 package org.devgateway.eudevfin.dim.pages;
 
+import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.BootstrapForm;
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormType;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.dim.core.components.InputField;
@@ -22,31 +22,31 @@ import org.wicketstuff.annotation.mount.MountPath;
 
 @MountPath(value = "/login")
 public final class LoginPage extends HeaderFooter {
+    private static final long serialVersionUID = 8126072556090927364L;
 
-	public LoginPage(final PageParameters parameters) {
+    public LoginPage(final PageParameters parameters) {
 		add(new LoginForm("loginform"));
 	}
 
 	class LoginForm extends BootstrapForm {
 
-		private String username;
+        private static final long serialVersionUID = 2066636625524650473L;
+        private String username;
 		private String password;
 
 		public LoginForm(String id) {
 			super(id);
-            this.type(FormType.Inline);
+            //this.type(FormType.Horizontal);
 
+            add(new NotificationPanel("feedback"));
 
             InputField<String> username = new InputField<String>("username", new PropertyModel<String>(this, "username"), "login.user");
+            username.getField().setRequired(true);
             add(username);
 
             InputField<String> password = new PasswordInputField("password", new PropertyModel<String>(this, "password"), "login.password");
             add(password);
 
-
-            //add(new RequiredTextField("username"));
-			//add(new PasswordTextField("password"));
-			//add(new FeedbackPanel("feedback"));
 		}
 
 		@Override

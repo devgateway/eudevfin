@@ -11,13 +11,9 @@
 
 package org.devgateway.eudevfin.dim.core.components;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.ControlGroup;
-import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.StringResourceModel;
 
 /**
  * @author aartimon@developmentgateway.org
@@ -30,7 +26,7 @@ public class PasswordInputField extends InputField<String> {
     }
 
     @Override
-    protected TextField<String> getField(String id, IModel<String> model) {
+    protected TextField<String> newField(String id, IModel<String> model) {
         return new PasswordTextField(id, model);
     }
 }
