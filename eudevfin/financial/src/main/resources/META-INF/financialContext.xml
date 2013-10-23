@@ -38,15 +38,15 @@
 
 	<bean class="org.apache.commons.dbcp.BasicDataSource" id="myDerbyDataSource">
 		<property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver" />
-		<property name="url" value="jdbc:derby:derby/sample;create=true" />
+		<property name="url" value="jdbc:derby:memory:eudevfin;create=true" />
 		<property name="username" value="app" />
-		<property name="password" value="app" />
+		<property name="password" value="" />
 	</bean>
 	
 	    
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="myDerbyDataSource" />
-		<property name="packagesToScan" value="org.devgateway.eudevfin.financial" />
+		<property name="packagesToScan" value="org.devgateway.eudevfin" />
 		<property name="mappingResources">
 			<value>META-INF/orm.xml</value>
 		</property>
