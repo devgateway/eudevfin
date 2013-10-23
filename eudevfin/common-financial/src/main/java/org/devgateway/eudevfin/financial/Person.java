@@ -38,6 +38,8 @@ import javax.persistence.TemporalType;
 
 /**
  * A simple POJO representing a Person.
+ * 
+ * modfiied 2
  *
  * @author Amol Nayak
  * @author Gunnar Hillert
