@@ -1,12 +1,5 @@
 package org.devgateway.eudevfin.auth.test;
 
-import java.math.BigDecimal;
-import java.util.List;
-
-import org.devgateway.eudevfin.financial.FinancialTransaction;
-import org.devgateway.eudevfin.financial.dao.FinancialTransactionDaoImpl;
-import org.devgateway.eudevfin.financial.service.Organization;
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -23,7 +16,7 @@ public class UserDaoImplTest {
 	}
 
 	@Test
-	public void testLoadAllFinancialTransactions() {
+	public void testCreateUser() {
 	}
 	@Test
 	public void testSaveFinancialTransaction() {
