@@ -9,7 +9,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 
 @Component
-public class GatewayAuthenticationProvider implements AuthenticationProvider {
+public class RemoteAuthenticationProvider implements AuthenticationProvider {
 	
 	@Autowired
 	private AuthenticationService authService;

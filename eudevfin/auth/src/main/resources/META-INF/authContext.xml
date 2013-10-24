@@ -47,7 +47,7 @@
  
 	<!-- we use a dummy service here, it can be replaced with a real user database -->
 
-	<security:authentication-manager alias="authenticationManager">
+	<security:authentication-manager id="localAuthenticationManager">
 		<security:authentication-provider
 			user-service-ref="userDetailsService">
 		</security:authentication-provider>

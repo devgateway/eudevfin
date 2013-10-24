@@ -4,20 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AuthenticationService {
+public class AuthenticationComponent {
 	 
 	@Autowired
-	private AuthenticationManager authenticationManager;
+	private AuthenticationManager localAuthenticationManager;
 	
 	@ServiceActivator(inputChannel="authenticationChannel")
 	public Authentication authenticate(Authentication authentication) {
-		Authentication a = authenticationManager.authenticate(authentication);
-		//authenticated = authentication.isAuthenticated();
-		return null;
+		Authentication response = localAuthenticationManager.authenticate(authentication);		
+		return response;
 	}
 	
 	

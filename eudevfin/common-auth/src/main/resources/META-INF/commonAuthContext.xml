@@ -41,6 +41,14 @@
 	
 	<int:gateway id="userService"
 		service-interface="org.devgateway.eudevfin.auth.common.service.UserService" />
+		
+	<int:gateway id="authenticationService"
+		service-interface="org.devgateway.eudevfin.auth.common.service.AuthenticationService" />
+
+	<security:authentication-manager alias="authenticationManager">
+		<security:authentication-provider ref="remoteAuthenticationProvider">
+		</security:authentication-provider>
+	</security:authentication-manager>
 
 
 

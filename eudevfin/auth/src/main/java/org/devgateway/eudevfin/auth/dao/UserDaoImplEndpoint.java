@@ -7,7 +7,7 @@ import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserDaoImpl {
+public class UserDaoImplEndpoint {
 	 
 	@Autowired
 	private UserRepository repo;

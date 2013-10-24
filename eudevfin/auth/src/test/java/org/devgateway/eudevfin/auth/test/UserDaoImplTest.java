@@ -1,19 +1,10 @@
 package org.devgateway.eudevfin.auth.test;
 
-import org.junit.BeforeClass;
+import org.devgateway.eudevfin.auth.common.test.AbstractAuthTest;
 import org.junit.Test;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class UserDaoImplTest {
+public class UserDaoImplTest extends AbstractAuthTest {
 
-	private static ApplicationContext springContext;
-
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-		springContext = new ClassPathXmlApplicationContext(
-				"classpath:/META-INF/authContext.xml");
-	}
 
 	@Test
 	public void testCreateUser() {

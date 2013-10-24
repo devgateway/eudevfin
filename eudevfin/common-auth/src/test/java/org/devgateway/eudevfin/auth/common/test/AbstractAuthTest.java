@@ -1,8 +1,9 @@
 /**
  * 
  */
-package org.devgateway.eudevfin.auth.test;
+package org.devgateway.eudevfin.auth.common.test;
 
+import org.apache.log4j.Logger;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -16,6 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations = { "classpath:/META-INF/authContext.xml",
 		"classpath:/META-INF/commonAuthContext.xml",
 		"classpath:/META-INF/financialContext.xml" })
-public abstract class AuthTest {
+public abstract class AbstractAuthTest {
 	
+	protected static Logger logger = Logger.getLogger(AbstractAuthTest.class);
 }
