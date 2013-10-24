@@ -69,8 +69,6 @@
 	<int:channel id="createTransactionChannel" />
 	<int:channel id="replyCreateTransactionChannel" />
 
-	<int:channel id="updatePersonRequestChannel"/>
-	<int:channel id="listPeopleRequestChannel"/>
 
 	<int:gateway id="transactionService"
 		service-interface="org.devgateway.eudevfin.financial.service.FinancialTransactionService" />
