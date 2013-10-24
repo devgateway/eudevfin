@@ -12,13 +12,13 @@ public class UserDaoImpl {
 	@Autowired
 	private UserRepository repo;
 	
-	@ServiceActivator(inputChannel="getUserChannel", outputChannel="replyGetUserChannel")
+	@ServiceActivator(inputChannel="getUserChannel")
 	public User findByUserName(String username) {
 		return repo.findOne(username);
 	}
 	
 	
-	@ServiceActivator(inputChannel="createUserChannel", outputChannel="replyCreateUserChannel")
+	@ServiceActivator(inputChannel="createUserChannel")
 	public User saveUser(User u) {
 		repo.save(u);
 		return u;
