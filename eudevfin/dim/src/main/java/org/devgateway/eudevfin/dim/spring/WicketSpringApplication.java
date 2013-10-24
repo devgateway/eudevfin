@@ -10,6 +10,19 @@
  ******************************************************************************/
 package org.devgateway.eudevfin.dim.spring;
 
+import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
+import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
+import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.request.resource.CssResourceReference;
+import org.apache.wicket.request.resource.JavaScriptResourceReference;
+import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
+import org.devgateway.eudevfin.dim.core.ApplicationJavaScript;
+import org.devgateway.eudevfin.dim.core.FixBootstrapStylesCssResourceReference;
+import org.devgateway.eudevfin.dim.core.JQueryUICoreJavaScriptReference;
+import org.devgateway.eudevfin.dim.pages.HomePage;
+import org.devgateway.eudevfin.dim.pages.LoginPage;
+import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
+
 import de.agilecoders.wicket.core.Bootstrap;
 import de.agilecoders.wicket.core.markup.html.RenderJavaScriptToFooterHeaderResponseDecorator;
 import de.agilecoders.wicket.core.markup.html.references.BootstrapPrettifyCssReference;
@@ -25,6 +38,7 @@ import de.agilecoders.wicket.themes.markup.html.google.GoogleTheme;
 import de.agilecoders.wicket.themes.markup.html.metro.MetroTheme;
 import de.agilecoders.wicket.themes.markup.html.wicket.WicketTheme;
 import de.agilecoders.wicket.themes.settings.BootswatchThemeProvider;
+<<<<<<< Upstream, based on origin/master
 import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
 import org.apache.wicket.markup.html.WebPage;
@@ -41,12 +55,19 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
 
+=======
+>>>>>>> f087f18 cleanup old beans
 
 public class WicketSpringApplication extends AuthenticatedWebApplication implements ApplicationContextAware {
 
+<<<<<<< Upstream, based on origin/master
     private ApplicationContext ctx;
 
     @Override
+=======
+	
+	@Override
+>>>>>>> f087f18 cleanup old beans
 	protected void init() {
 		super.init();
 
@@ -63,6 +84,10 @@ public class WicketSpringApplication extends AuthenticatedWebApplication impleme
                 new SpringComponentInjector(this, ctx, true));
 
     }
+<<<<<<< Upstream, based on origin/master
+=======
+
+>>>>>>> f087f18 cleanup old beans
 
     /**
      * configure all resource bundles (css and js)

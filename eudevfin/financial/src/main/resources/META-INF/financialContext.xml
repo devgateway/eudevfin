@@ -101,16 +101,5 @@
 	      <int:transactional propagation="REQUIRED" transaction-manager="transactionManager"/>
 	    </int:poller>
 	</int-jpa:inbound-channel-adapter> -->
-	
-	<int-jpa:retrieving-outbound-gateway entity-manager-factory="entityManagerFactory"
-		request-channel="listPeopleRequestChannel"
-		jpa-query="select p from Person p order by p.name asc">
-	</int-jpa:retrieving-outbound-gateway>
-
-	<int-jpa:updating-outbound-gateway entity-manager-factory="entityManagerFactory"
-		request-channel="updatePersonRequestChannel" >
-		<int-jpa:transactional transaction-manager="transactionManager" />
-	</int-jpa:updating-outbound-gateway>
-
 
 </beans>
