@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import org.devgateway.eudevfin.financial.FinancialTransaction;
+import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.dao.FinancialTransactionDaoImpl;
-import org.devgateway.eudevfin.financial.service.Organization;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package org.devgateway.eudevfin.financial.service;
+package org.devgateway.eudevfin.financial;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

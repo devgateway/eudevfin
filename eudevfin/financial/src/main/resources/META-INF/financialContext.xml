@@ -32,9 +32,7 @@
 
 	<jpa:repositories base-package="org.devgateway.eudevfin.financial.repository" />
 	<!-- auditing -->
-    <jpa:auditing auditor-aware-ref="auditorAware" />
-
-    <bean id="auditorAware" class="org.devgateway.eudevfin.financial.auditing.SimpleAuditorAwareImpl" />
+    <jpa:auditing auditor-aware-ref="simpleAuditorAwareImpl" />
 
 	<bean class="org.apache.commons.dbcp.BasicDataSource" id="myDerbyDataSource">
 		<property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver" />
@@ -62,8 +60,7 @@
 		<constructor-arg index="0" ref="entityManagerFactory"></constructor-arg>
 	</bean>
 	
-	<bean class="org.devgateway.eudevfin.financial.dao.FinancialTransactionDaoImpl" id="financialTransactionDaoImpl" />
-
+	
 	<int:channel id="getTransactionChannel"/>
 	<int:channel id="replyGetTransactionChannel"/>
 	<int:channel id="createTransactionChannel" />

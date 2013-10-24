@@ -10,8 +10,8 @@ import javax.persistence.PersistenceException;
 
 import org.apache.log4j.Logger;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
+import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
-import org.devgateway.eudevfin.financial.service.Organization;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
