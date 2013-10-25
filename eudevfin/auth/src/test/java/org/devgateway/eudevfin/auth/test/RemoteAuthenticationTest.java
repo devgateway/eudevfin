@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.devgateway.eudevfin.auth.common.test;
+package org.devgateway.eudevfin.auth.test;
 
 
 import org.devgateway.eudevfin.auth.common.service.AuthenticationService;

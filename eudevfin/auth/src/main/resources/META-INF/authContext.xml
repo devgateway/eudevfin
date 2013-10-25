@@ -4,11 +4,9 @@
 	GNU Public License v3.0 which accompanies this distribution, and is available 
 	at http://www.gnu.org/licenses/gpl.html Contributors: mpostelnicu -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:int="http://www.springframework.org/schema/integration"
 	xmlns:int-jpa="http://www.springframework.org/schema/integration/jpa"
-	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:security="http://www.springframework.org/schema/security"
 	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
@@ -30,23 +28,28 @@
 	<int:annotation-config />
 	<context:component-scan base-package="org.devgateway.eudevfin.auth" />
 	<context:annotation-config />
-	
+
 	<jpa:repositories base-package="org.devgateway.eudevfin.auth.repository" />
 
+
+	<!-- The following is invoking an sql script, upon context startup, but 
+		after JPA initialization -->
+	<jdbc:initialize-database data-source="myDerbyDataSource">
+		<jdbc:script location="classpath:derby-auth-startup.sql" />
+	</jdbc:initialize-database>
+
+
+	<!-- The following is a bean reading the user details data from the databasae 
+		through JDBC, and using the already initialized datasource -->
 	<bean id="userDetailsService"
 		class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
 		<property name="dataSource" ref="myDerbyDataSource" />
 	</bean>
 
- 
-	<jdbc:initialize-database data-source="myDerbyDataSource">
-      <jdbc:script location="classpath:derby-auth-startup.sql"/>
-   	</jdbc:initialize-database>
 
-
- 
-	<!-- we use a dummy service here, it can be replaced with a real user database -->
-
+	<!-- The following is an authenticationManager bean that has access to a 
+		real userDetailsService. It receives requests from remote authentication 
+		managers. See org.devgateway.eudevfin.auth.security.AuthenticationComponent -->
 	<security:authentication-manager id="localAuthenticationManager">
 		<security:authentication-provider
 			user-service-ref="userDetailsService">
