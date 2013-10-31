@@ -31,6 +31,7 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.request.resource.CssResourceReference;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
+import org.devgateway.eudevfin.dim.core.ApplicationCss;
 import org.devgateway.eudevfin.dim.core.ApplicationJavaScript;
 import org.devgateway.eudevfin.dim.core.FixBootstrapStylesCssResourceReference;
 import org.devgateway.eudevfin.dim.core.JQueryUICoreJavaScriptReference;
@@ -92,8 +93,10 @@ public class WicketSpringApplication extends AuthenticatedWebApplication impleme
         );
 
         getResourceBundles().addCssBundle(WicketSpringApplication.class, "application.css",
+                ApplicationCss.INSTANCE,
                 (CssResourceReference) BootstrapPrettifyCssReference.INSTANCE,
-                FixBootstrapStylesCssResourceReference.INSTANCE
+                FixBootstrapStylesCssResourceReference.INSTANCE,
+                new CssResourceReference(ApplicationCss.class, "fix-select2.css")
         );
     }
 

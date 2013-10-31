@@ -9,21 +9,16 @@
  *    aartimon
  ******************************************************************************/
 
-package org.devgateway.eudevfin.dim.core.components;
-
-import org.devgateway.eudevfin.dim.core.BaseWicketTest;
-import org.junit.Test;
-import org.springframework.test.annotation.DirtiesContext;
+package org.devgateway.eudevfin.dim.core;
 
 /**
+ * Temporary class to simulate binds with other modules
+ * TODO: REMOVE :)
+ *
  * @author aartimon@developmentgateway.org
- * @since 23 October 2013
+ * @since 30 October 2013
  */
-public class InputFieldTest extends BaseWicketTest {
+public class StaticBinds {
 
-    @Test
-    @DirtiesContext
-    public void testBlankDoREPLACE() throws Exception {
-    }
 
 }

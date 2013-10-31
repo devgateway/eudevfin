@@ -10,10 +10,7 @@
   ~    aartimon
   -->
 
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
-<body>
-    <wicket:extend>
-        <input wicket:id="field" type="password"/>
-    </wicket:extend>
-</body>
-</html>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="yes">Yes</entry>
+</properties>

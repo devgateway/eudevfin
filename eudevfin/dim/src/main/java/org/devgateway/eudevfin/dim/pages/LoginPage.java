@@ -14,8 +14,9 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.BootstrapForm;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.devgateway.eudevfin.dim.core.components.InputField;
+import org.devgateway.eudevfin.dim.core.components.AbstractInputField;
 import org.devgateway.eudevfin.dim.core.components.PasswordInputField;
+import org.devgateway.eudevfin.dim.core.components.TextInputField;
 import org.devgateway.eudevfin.dim.core.pages.HeaderFooter;
 import org.devgateway.eudevfin.dim.spring.SpringWicketWebSession;
 import org.wicketstuff.annotation.mount.MountPath;
@@ -40,11 +41,11 @@ public final class LoginPage extends HeaderFooter {
 
             add(new NotificationPanel("feedback"));
 
-            InputField<String> username = new InputField<String>("username", new PropertyModel<String>(this, "username"), "login.user");
+            TextInputField<String> username = new TextInputField<String>("username", new PropertyModel<String>(this, "username"), "login.user");
             username.getField().setRequired(true);
             add(username);
 
-            InputField<String> password = new PasswordInputField("password", new PropertyModel<String>(this, "password"), "login.password");
+            AbstractInputField<String> password = new PasswordInputField("password", new PropertyModel<String>(this, "password"), "login.password");
             add(password);
 
 		}

@@ -11,22 +11,19 @@
 
 package org.devgateway.eudevfin.dim.core.components;
 
-import org.apache.wicket.markup.html.form.PasswordTextField;
-import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.model.IModel;
+import org.devgateway.eudevfin.dim.core.BaseWicketTest;
+import org.junit.Test;
+import org.springframework.test.annotation.DirtiesContext;
 
 /**
  * @author aartimon@developmentgateway.org
- * @since 17 October 2013
+ * @since 23 October 2013
  */
-public class PasswordInputField extends AbstractInputField<String> {
+public class TextInputFieldTest extends BaseWicketTest {
 
-    public PasswordInputField(String id, IModel<String> model, String messageKeyGroup) {
-        super(id, model, messageKeyGroup);
+    @Test
+    @DirtiesContext
+    public void testBlankDoREPLACE() throws Exception {
     }
 
-    @Override
-    protected TextField<String> newField(String id, IModel<String> model) {
-        return new PasswordTextField(id, model);
-    }
 }

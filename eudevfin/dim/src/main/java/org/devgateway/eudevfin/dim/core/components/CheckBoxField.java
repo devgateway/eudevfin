@@ -11,22 +11,21 @@
 
 package org.devgateway.eudevfin.dim.core.components;
 
-import org.apache.wicket.markup.html.form.PasswordTextField;
-import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.form.CheckBox;
+import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.model.IModel;
 
 /**
  * @author aartimon@developmentgateway.org
- * @since 17 October 2013
+ * @since 31 October 2013
  */
-public class PasswordInputField extends AbstractInputField<String> {
-
-    public PasswordInputField(String id, IModel<String> model, String messageKeyGroup) {
+public class CheckBoxField extends AbstractInputField<Boolean> {
+    public CheckBoxField(String id, IModel<Boolean> model, String messageKeyGroup) {
         super(id, model, messageKeyGroup);
     }
 
     @Override
-    protected TextField<String> newField(String id, IModel<String> model) {
-        return new PasswordTextField(id, model);
+    protected FormComponent<Boolean> newField(String id, IModel<Boolean> model) {
+        return new CheckBox(id, model);
     }
 }

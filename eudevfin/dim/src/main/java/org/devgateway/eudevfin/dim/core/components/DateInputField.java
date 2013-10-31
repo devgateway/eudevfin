@@ -11,22 +11,24 @@
 
 package org.devgateway.eudevfin.dim.core.components;
 
-import org.apache.wicket.markup.html.form.PasswordTextField;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.DateTextField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
+
+import java.util.Date;
 
 /**
  * @author aartimon@developmentgateway.org
  * @since 17 October 2013
  */
-public class PasswordInputField extends AbstractInputField<String> {
+public class DateInputField extends AbstractInputField<Date> {
 
-    public PasswordInputField(String id, IModel<String> model, String messageKeyGroup) {
+    public DateInputField(String id, IModel<Date> model, String messageKeyGroup) {
         super(id, model, messageKeyGroup);
     }
 
     @Override
-    protected TextField<String> newField(String id, IModel<String> model) {
-        return new PasswordTextField(id, model);
+    protected TextField<Date> newField(String id, IModel<Date> model) {
+        return new DateTextField(id, model);
     }
 }
