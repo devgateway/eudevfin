@@ -306,6 +306,8 @@
 		<module>financial</module>
 		<module>auth</module>
 		<module>common-auth</module>
+		<module>reporting</module>		
+		<module>cda</module>
 	</modules>
 	<inceptionYear>2013</inceptionYear>
 	<organization>
