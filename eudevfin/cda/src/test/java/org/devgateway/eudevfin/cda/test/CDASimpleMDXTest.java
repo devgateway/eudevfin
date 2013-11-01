@@ -38,7 +38,7 @@ public class CDASimpleMDXTest
 	    logger.info("Building CDA settings from sample file");
 
 	    final SettingsManager settingsManager = SettingsManager.getInstance();
-	    URL file = this.getClass().getResource("sample-mondrian.cda");
+	    URL file = this.getClass().getResource("sample-mondrian-jndi.cda");
 	    File settingsFile = new File(file.toURI());
 	    final CdaSettings cdaSettings = settingsManager.parseSettingsFile(settingsFile.getAbsolutePath());
 	    logger.debug("Doing query on Cda - Initializing CdaEngine");
