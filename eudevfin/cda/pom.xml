@@ -13,7 +13,6 @@
           <id>pentaho-mvn</id>
           <name>Pentaho Maven Repo</name>
          <url>http://repository.pentaho.org/artifactory/repo/</url>
-         <layout>legacy</layout>
         </repository>
 	
 		<repository>        
@@ -75,13 +74,7 @@
       
     </dependency>
     
-            <dependency>
-      <groupId>pentaho-library</groupId>
-      <artifactId>libloader</artifactId>
-      <version>1.2.8</version>
-      
-    </dependency>
-    
+   
             <dependency>
       <groupId>pentaho-library</groupId>
       <artifactId>libpixie</artifactId>
@@ -156,6 +149,7 @@
       <version>1.8.0</version>
       <scope>test</scope>
     </dependency>
+    
     <dependency>
       <groupId>xmlunit</groupId>
       <artifactId>xmlunit</artifactId>
@@ -168,6 +162,17 @@
     	<version>2.4</version>
     </dependency>
 
+    <dependency>
+    	<groupId>pentaho</groupId>
+    	<artifactId>mondrian</artifactId>
+    	<version>3.5.0</version>
+    </dependency>
+
+	<dependency>
+	    <groupId>org.olap4j</groupId>
+	    <artifactId>olap4j</artifactId>
+	    <version>1.0.1.539</version>
+	</dependency>
 
     <dependency>
     	<groupId>pentaho-reporting-engine</groupId>
