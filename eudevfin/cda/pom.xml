@@ -26,6 +26,21 @@
   
   
     <dependencies>
+    
+     	<dependency>
+      <groupId>org.devgateway.eudevfin</groupId>
+      <artifactId>financial</artifactId>
+      <version>${project.version}</version>
+    </dependency>    
+    
+    <dependency>
+      <groupId>org.devgateway.eudevfin</groupId>
+      <artifactId>common-auth</artifactId>
+      <version>${project.version}</version>
+    </dependency>    
+    
+    
+    
     <dependency>
       <groupId>com.hazelcast</groupId>
       <artifactId>hazelcast</artifactId>
@@ -119,6 +134,8 @@
       <groupId>pt.webdetails</groupId>
       <artifactId>cpf-core</artifactId>
       <version>TRUNK-SNAPSHOT</version>
+  
+  
       
     </dependency>
     <dependency>

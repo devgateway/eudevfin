@@ -51,6 +51,7 @@ public class MdxJdbcCompactTest extends TestCase
     URL file = this.getClass().getResource("sample-mondrian-compact.cda");
     File settingsFile = new File(file.toURI());
     final CdaSettings cdaSettings = settingsManager.parseSettingsFile(settingsFile.getAbsolutePath());
+    logger.info("absolute path of settings"+settingsFile.getAbsolutePath());
     logger.debug("Doing query on Cda - Initializing CdaEngine");
     final CdaEngine engine = CdaEngine.getInstance();
 
