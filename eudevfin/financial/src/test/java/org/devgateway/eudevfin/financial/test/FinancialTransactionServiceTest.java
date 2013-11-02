@@ -11,10 +11,12 @@ import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -25,6 +27,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/financialContext.xml",
 		"classpath:META-INF/commonFinancialContext.xml" })
+@Component 
 public class FinancialTransactionServiceTest {
 
 	@Autowired
@@ -59,21 +62,13 @@ public class FinancialTransactionServiceTest {
 	@Test
 	public void testGetFinancialTransactions() {
 
-		// for (int i=1; i<=10; i) {
-		// FinancialTransaction tx = new FinancialTransaction();
-		// tx.setAmount(new BigDecimal(i*100) );
-		// tx.setDescription("This is transaction " i);
-		//
-		// FinancialTransaction result = service.createFinancialTransaction(tx);
-		// Assert.assertNotNull(result.getId() );
-		//
-		// }
 
 		List<FinancialTransaction> list = service.getAllFinancialTransactions();
 		Assert.assertNotNull(list);
 		logger.info("Number of txs" + list.size());
 	}
 
+	@Ignore
 	@Test
 	public void testCreateFinancialTransactionWithOrganization() {
 		for (int i = 1; i <= 10; i++) {

@@ -12,10 +12,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
+import org.hibernate.envers.Audited;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 @Entity
+@Audited
 @Table(name="FINANCIAL_TRANSACTIONS")
 public class FinancialTransaction implements Serializable{
 	@Id
@@ -29,7 +32,10 @@ public class FinancialTransaction implements Serializable{
 	@CreatedDate
 	private Date createdDate;
 	
-	@ManyToOne( cascade = {CascadeType.PERSIST, CascadeType.MERGE}, optional= false )
+	@Version
+	public Long version = null;
+	
+	@ManyToOne(  optional= false )
 	@JoinColumn(name="ORGANIZATION_ID")
 	private Organization sourceOrganization;
 
@@ -70,6 +76,13 @@ public class FinancialTransaction implements Serializable{
 	}
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
+	}
+	
+	public Long getVersion() {
+		return version;
+	}
+	public void setVersion(Long version) {
+		this.version = version;
 	}
 	@Override
 	public String toString() {

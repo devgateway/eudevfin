@@ -5,7 +5,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity
+import org.hibernate.envers.Audited;
+
+@Entity @Audited
 public class Organization {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -22,6 +24,10 @@ public class Organization {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	@Override
+	public String toString() {
+		return String.format("Org name is %s, id %d",  this.name, this.id);
 	}
 	
 	

@@ -53,6 +53,13 @@
 			<value>META-INF/orm.xml</value>
 		</property>
 		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
+		<property name="jpaProperties">
+			<props>
+				<prop key="org.hibernate.envers.global_with_modified_flag">true</prop>
+				<prop key="org.hibernate.envers.track_entities_changed_in_revision">true</prop>
+			</props>
+		</property>
+		
 	</bean> 
 	
 	<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" id="jpaVendorAdapter">

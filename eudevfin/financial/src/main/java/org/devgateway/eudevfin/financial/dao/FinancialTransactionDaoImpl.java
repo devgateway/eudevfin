@@ -17,33 +17,30 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
-public class FinancialTransactionDaoImpl {
-//	@PersistenceContext
-//    private EntityManager em;
-//	
-//	@ServiceActivator(inputChannel="getTransactionChannel", outputChannel="replyGetTransactionChannel")
-//	public List<FinancialTransaction> loadAllFinancialTransactions() {
-//		Query query 	= em.createQuery("from FinancialTransaction as ft");
-//		List<FinancialTransaction> result =  query.getResultList();
-//		return result;
-//	}
+public class FinancialTransactionDaoImpl extends AbstractDaoImpl<FinancialTransaction, FinancialTransactionRepository> {
+
 	@Autowired
 	private FinancialTransactionRepository repo;
 	
+	@Override
 	@ServiceActivator(inputChannel="getTransactionChannel", outputChannel="replyGetTransactionChannel")
-	public List<FinancialTransaction> loadAllFinancialTransactions() {
-		ArrayList<FinancialTransaction> ret	= new ArrayList<>(); 
-		Iterable<FinancialTransaction> result	= repo.findAll();
-		for (FinancialTransaction financialTransaction : result) {
-			ret.add(financialTransaction);
-		}
-		return ret;
+	public List<FinancialTransaction> findAllAsList() {
+		return super.findAllAsList();
 	}
 	
+	@Override
 	@ServiceActivator(inputChannel="createTransactionChannel", outputChannel="replyCreateTransactionChannel")
-	public FinancialTransaction saveFinancialTransaction(FinancialTransaction tx) {
-		FinancialTransaction ft = repo.save(tx);
-		return ft;
+	public FinancialTransaction save(FinancialTransaction tx) {
+		return super.save(tx);
 		
+	}
+	
+	public List<FinancialTransaction> findBySourceOrganizationId(Long orgId) {
+		return getRepo().findBySourceOrganizationId(orgId);
+	}
+
+	@Override
+	FinancialTransactionRepository getRepo() {
+		return repo;
 	}
 }

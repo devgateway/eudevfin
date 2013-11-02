@@ -3,6 +3,8 @@
  */
 package org.devgateway.eudevfin.financial.repository;
 
+import java.util.List;
+
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -12,5 +14,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  */
 public interface FinancialTransactionRepository extends
 		PagingAndSortingRepository<FinancialTransaction, Long> {
-
+	
+	List<FinancialTransaction> findByDescriptionOrderByIdAsc(String description);
+	List<FinancialTransaction> findBySourceOrganizationId(Long orgId);
 }
