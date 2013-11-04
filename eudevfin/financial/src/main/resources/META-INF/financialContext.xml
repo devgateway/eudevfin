@@ -18,6 +18,7 @@
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
 		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
 		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
@@ -36,16 +37,37 @@
 	<!-- auditing -->
     <jpa:auditing auditor-aware-ref="simpleAuditorAwareImpl" />
 
-	<bean class="org.apache.commons.dbcp.BasicDataSource" id="myDerbyDataSource">
+	<bean class="org.apache.commons.dbcp.BasicDataSource" id="myDerbyDataSource" >
 		<property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver" />
 		<property name="url" value="jdbc:derby:memory:eudevfin;create=true" />
 		<property name="username" value="app" />
-		<property name="password" value="" />
+		<property name="password" value="" />	
 	</bean>
 	
-	<!-- 
-	<jee:jndi-lookup id="jndiDerbyDS" jndi-name="myDerbyDataSource"/>
+	<!-- initialize the jndi binder template -->
+	<bean id="jndiBinder" class="org.springframework.jndi.JndiTemplate"/>
+	
+	<!--  invoke a void return factory method of the binder with the parameters 
+	jndi url plus the existing datasource reference. This will bind the datasource to the JNDI tree for later loookups
+	This is used to lookup the datasource through JNDI by the CDA module
 	 -->
+	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean" >
+	<property name="targetObject">
+		<ref local="jndiBinder" />
+	</property>
+	<property name="targetMethod">
+		<value>bind</value>
+	</property>
+	<property name="arguments">
+		<list>
+			<value type="java.lang.String">java:comp/env/myDerbyDataSource</value>
+			<ref local="myDerbyDataSource" />
+		</list>
+	</property>
+</bean>
+
+
+
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="myDerbyDataSource" />
 		<property name="packagesToScan" value="org.devgateway.eudevfin" />
