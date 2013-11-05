@@ -316,9 +316,8 @@
 		<module>dim</module>
 		<module>financial</module>
 		<module>auth</module>
-		<module>common-auth</module>
-		<module>reporting</module>		
-		<module>cda</module>
+		<module>common-auth</module>			
+		<module>cda-wrapper</module>
 	</modules>
 	<inceptionYear>2013</inceptionYear>
 	<organization>

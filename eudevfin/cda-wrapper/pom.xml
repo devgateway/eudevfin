@@ -5,7 +5,7 @@
     <artifactId>integration</artifactId>
     <version>0.0.1.CI-SNAPSHOT</version>
   </parent>
-  <artifactId>cda</artifactId>
+  <artifactId>cda-wrapper</artifactId>
   
   <repositories>
   
