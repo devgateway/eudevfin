@@ -37,6 +37,7 @@
 	<jpa:repositories base-package="org.devgateway.eudevfin.cda" />
 
 
+	<!-- jndi lookup bean for autowiring purposes -->
 	<jee:jndi-lookup id="dataSourceCda"  jndi-name="java:comp/env/myDerbyDataSource"/>
 
 	 <bean id="IRepositoryAccess" class="pt.webdetails.cpf.repository.vfs.VfsRepositoryAccess" scope="prototype">

@@ -44,16 +44,18 @@
 		<property name="password" value="" />	
 	</bean>
 	
-	<!-- initialize the jndi binder template -->
-	<bean id="jndiBinder" class="org.springframework.jndi.JndiTemplate"/>
-	
+	<!-- initialize a mock jndi builder we use internally to access this datasource from third parties, like CDA -->
+	<bean id="simpleJndiBuilder" class="org.springframework.mock.jndi.SimpleNamingContextBuilder"
+	factory-method="emptyActivatedContextBuilder" destroy-method="deactivate"/>
+
 	<!--  invoke a void return factory method of the binder with the parameters 
-	jndi url plus the existing datasource reference. This will bind the datasource to the JNDI tree for later loookups
-	This is used to lookup the datasource through JNDI by the CDA module
+	jndi url plus the existing datasource reference. This will bind the datasource to the JNDI tree for later lookups
+	This is used to lookup the datasource through JNDI by the CDA module. Alternatively and probably much slower, we could
+	use an XMLA (uses SOAP) channel through spring integration
 	 -->
 	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean" >
 	<property name="targetObject">
-		<ref local="jndiBinder" />
+		<ref local="simpleJndiBuilder" />
 	</property>
 	<property name="targetMethod">
 		<value>bind</value>

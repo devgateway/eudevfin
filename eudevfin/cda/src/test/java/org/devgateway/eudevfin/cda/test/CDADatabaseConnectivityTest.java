@@ -1,5 +1,8 @@
 package org.devgateway.eudevfin.cda.test;
 
+import java.sql.Connection;
+
+import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
@@ -17,20 +20,31 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 		"classpath:META-INF/financialContext.xml",
 		"classpath:META-INF/cdaContext.xml"
 		})
-public class CDAJNDITest
+public class CDADatabaseConnectivityTest
 {
 	
-	protected static Logger logger = Logger.getLogger(CDAJNDITest.class);
+	protected static Logger logger = Logger.getLogger(CDADatabaseConnectivityTest.class);
 
 	@Autowired
 	private DataSource dataSourceCda;
 	
 
+  
+
   @Test
-  public void testJNDIDataSource() throws Exception
+  public void testJNDIQuery() throws Exception
   {
+	  logger.info("Indirect datasource reference through spring JNDI lookup:"+dataSourceCda);
+	  Assert.assertNotNull(dataSourceCda);
 	  
-	  Assert.assertNotNull(dataSourceCda.getConnection());
+	  Object object = InitialContext.doLookup("java:comp/env/myDerbyDataSource");
+	  logger.info("Direct JNDI datasource query returned:"+object);
+	  
+	  Assert.assertNotNull(object);
+	  
+	  Assert.assertTrue(object.equals(dataSourceCda));
 
   
-  }}
+  }
+  
+}
