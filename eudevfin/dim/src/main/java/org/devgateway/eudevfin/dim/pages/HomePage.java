@@ -24,6 +24,7 @@ import org.devgateway.eudevfin.dim.core.pages.HeaderFooter;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
+import org.devgateway.eudevfin.financial.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -34,10 +35,14 @@ public class HomePage extends HeaderFooter {
 	@SpringBean
 	protected FinancialTransactionService txService ;
 	
+	@SpringBean
+	protected OrganizationService orgService;
+	
 	public HomePage() {
 		super();
 		Organization o			= new Organization();
 		o.setName("WicketTest Org");
+		orgService.createOrganization(o);
 		FinancialTransaction ft = new FinancialTransaction();
 		ft.setAmount(new BigDecimal(777));
 		ft.setDescription("Wicket test descr");

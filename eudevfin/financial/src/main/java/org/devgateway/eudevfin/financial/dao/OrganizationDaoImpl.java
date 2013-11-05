@@ -6,6 +6,7 @@ package org.devgateway.eudevfin.financial.dao;
 import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.repository.OrganizationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
 
 /**
@@ -24,4 +25,10 @@ public class OrganizationDaoImpl extends AbstractDaoImpl<Organization, Organizat
 		return repo;
 	}
 
+	@Override
+	@ServiceActivator(inputChannel="createOrganizationChannel", outputChannel="replyCreateOrganizationChannel")
+	public Organization save(Organization o) {
+		return super.save(o);
+		
+	}
 }
