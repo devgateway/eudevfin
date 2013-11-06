@@ -11,11 +11,20 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import pt.webdetails.cda.CdaEngine;
+import pt.webdetails.cda.dataaccess.DataAccessEnums;
 import pt.webdetails.cda.query.QueryOptions;
 import pt.webdetails.cda.settings.CdaSettings;
 import pt.webdetails.cda.settings.SettingsManager;
 
-
+/**
+ * Provides testing of a simple MDX query thourh SQL JNDI. It uses Webdetails CDA to return the result
+ * 
+ *
+ * @see {@link DataAccessEnums.ConnectionInstanceType#SQL_JNDI}
+ * @throws Exception
+ *
+ * @author mihai
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { 
 		"classpath:META-INF/commonAuthContext.xml",
@@ -38,7 +47,8 @@ public class CDASimpleMDXTest
 	    logger.info("Building CDA settings from sample file");
 
 	    final SettingsManager settingsManager = SettingsManager.getInstance();
-	    URL file = this.getClass().getResource("sample-mondrian-jndi.cda");
+	    
+	    URL file = this.getClass().getResource("sample-sql-jndi.cda");
 	    File settingsFile = new File(file.toURI());
 	    final CdaSettings cdaSettings = settingsManager.parseSettingsFile(settingsFile.getAbsolutePath());
 	    logger.debug("Doing query on Cda - Initializing CdaEngine");

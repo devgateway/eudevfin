@@ -33,5 +33,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="lib/cda-core-13.09.10.jar" sourcepath="lib/cda-core-13.09.10-sources.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
