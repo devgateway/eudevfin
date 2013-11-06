@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CDADescriptor>
+
+    <DataSources>
+        <Connection id="1" type="mondrian.jndi">
+            <Jndi>java:comp/env/myDerbyDataSource</Jndi>
+			<Catalog>./stub.mondrian.xml</Catalog>
+			<Cube>Stub</Cube>
+        </Connection>
+    </DataSources>
+
+    <DataAccess id="2" connection="1" type="mdx" access="public">
+		<Name>Stupid query on Stub</Name>
+        <Query><![CDATA[
+			SELECT {Dimensions(0).defaultMember} ON ROWS, 
+ 			{[Measures].defaultMember} ON COLUMNS 
+			FROM [Stub]	]]></Query>       
+		<Columns>
+			<Column idx="1">
+				<Name>Amount</Name>
+			</Column>		
+		</Columns>
+    </DataAccess>
+
+</CDADescriptor>
