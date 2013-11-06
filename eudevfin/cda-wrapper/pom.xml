@@ -159,8 +159,19 @@
 			<artifactId>cda-core</artifactId>
 			<version>13.09.10</version>
 			<scope>system</scope>
+			<type>jar</type>
 			<systemPath>${project.basedir}/lib/cda-core-13.09.10.jar</systemPath>
 		</dependency>
+	
+
+		<dependency>
+			<groupId>pentaho</groupId>
+			<artifactId>robochef</artifactId>
+			<version>0.9.6</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/robochef-0.9.6.jar</systemPath>
+		</dependency>
+
 
 
 		<dependency>
