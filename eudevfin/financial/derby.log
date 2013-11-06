@@ -1,7 +1,7 @@
 ----------------------------------------------------------------
-Thu Oct 31 14:53:51 EET 2013:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance a816c00e-0142-0e93-b907-000009b13df0 
-on database directory memory:C:\Users\mihai\git\eudevfin\eudevfin\financial\eudevfin with class loader sun.misc.Launcher$AppClassLoader@7595ddb5 
+Wed Nov 06 10:27:45 EET 2013:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance a816c00e-0142-2c86-42ac-000007dc7f10 
+on database directory memory:C:\Users\mihai\git\eudevfin\eudevfin\financial\eudevfin with class loader sun.misc.Launcher$AppClassLoader@4ec57f88 
 Loaded from file:/C:/Users/mihai/.m2/repository/org/apache/derby/derby/10.10.1.1/derby-10.10.1.1.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.7.0_25-b17

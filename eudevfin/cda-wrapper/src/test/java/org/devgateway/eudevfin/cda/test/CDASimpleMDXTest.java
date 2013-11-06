@@ -53,4 +53,6 @@ public class CDASimpleMDXTest
 	    engine.doQuery(out, cdaSettings, queryOptions);
 
   
-  }}
+  }
+  
+}

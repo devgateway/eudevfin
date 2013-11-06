@@ -1,14 +1,12 @@
 package org.devgateway.eudevfin.cda.test;
 
-import java.sql.Connection;
-
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.pentaho.di.core.util.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;

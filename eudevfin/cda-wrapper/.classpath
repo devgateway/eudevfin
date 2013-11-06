@@ -27,6 +27,5 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/robochef-0.9.6.jar"/>
-	<classpathentry kind="lib" path="lib/cda-core-TRUNK-SNAPSHOT.jar" sourcepath="/cda-core/src"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

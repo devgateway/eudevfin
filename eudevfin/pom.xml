@@ -256,15 +256,23 @@
 
 	<repositories>
 		<repository>
-			<id>org.jboss.repository.releases</id>
-			<name>JBoss Maven Release Repository</name>
-			<url>https://repository.jboss.org/nexus/content/repositories/releases</url>
+			<id>EU-DEVFIN Central</id>
+			<name>DG EU-DEVFIN Central Repo</name>
+			<url>http://artifactory.ampdev.net/artifactory/eudevfin/</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
 
 	</repositories>
+	
+	<pluginRepositories>
+		<pluginRepository>		
+			<id>EU-DEVFIN Central</id>
+		<name>DG EU-DEVFIN Central Repo</name>
+			 <url>http://artifactory.ampdev.net/artifactory/eudevfin/</url>
+		</pluginRepository>
+	</pluginRepositories>
 
 	<dependencyManagement>
 		<dependencies>
