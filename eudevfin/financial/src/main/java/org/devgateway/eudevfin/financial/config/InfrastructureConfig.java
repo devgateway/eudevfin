@@ -23,7 +23,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 @ImportResource("classpath:/META-INF/financialContext.xml")
 public class InfrastructureConfig {
 
-	@Value("#{myDerbyDataSource}")
+	@Value("#{euDevFinDataSource}")
 	private DataSource dataSource;
 	@Value("#{entityManagerFactory}")
 	private EntityManagerFactory entityManagerFactory;

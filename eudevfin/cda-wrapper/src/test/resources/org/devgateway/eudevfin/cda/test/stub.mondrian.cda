@@ -3,7 +3,7 @@
 
     <DataSources>
         <Connection id="1" type="mondrian.jndi">
-            <Jndi>java:comp/env/myDerbyDataSource</Jndi>
+            <Jndi>java:comp/env/euDevFinDS</Jndi>
 			<Catalog>./stub.mondrian.xml</Catalog>
 			<Cube>Stub</Cube>
         </Connection>

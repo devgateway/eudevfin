@@ -37,7 +37,7 @@
 	<!-- auditing -->
     <jpa:auditing auditor-aware-ref="simpleAuditorAwareImpl" />
 
-	<bean class="org.apache.commons.dbcp.BasicDataSource" id="myDerbyDataSource" >
+	<bean class="org.apache.commons.dbcp.BasicDataSource" id="euDevFinDataSource" >
 		<property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver" />
 		<property name="url" value="jdbc:derby:memory:eudevfin;create=true" />
 		<property name="username" value="app" />
@@ -62,8 +62,8 @@
 	</property>
 	<property name="arguments">
 		<list>
-			<value type="java.lang.String">java:comp/env/myDerbyDataSource</value>
-			<ref local="myDerbyDataSource" />
+			<value type="java.lang.String">java:comp/env/euDevFinDS</value>
+			<ref local="euDevFinDataSource" />
 		</list>
 	</property>
 </bean>
@@ -71,7 +71,7 @@
 
 
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-		<property name="dataSource" ref="myDerbyDataSource" />
+		<property name="dataSource" ref="euDevFinDataSource" />
 		<property name="packagesToScan" value="org.devgateway.eudevfin" />
 		<property name="mappingResources">
 			<value>META-INF/orm.xml</value>

@@ -24,7 +24,7 @@ public class CDADatabaseConnectivityTest
 	protected static Logger logger = Logger.getLogger(CDADatabaseConnectivityTest.class);
 
 	@Autowired
-	private DataSource dataSourceCda;
+	private DataSource cdaDataSource;
 	
 
   
@@ -32,15 +32,15 @@ public class CDADatabaseConnectivityTest
   @Test
   public void testJNDIQuery() throws Exception
   {
-	  logger.info("Indirect datasource reference through spring JNDI lookup:"+dataSourceCda);
-	  Assert.assertNotNull(dataSourceCda);
+	  logger.info("Indirect datasource reference through spring JNDI lookup:"+cdaDataSource);
+	  Assert.assertNotNull(cdaDataSource);
 	  
-	  Object object = InitialContext.doLookup("java:comp/env/myDerbyDataSource");
+	  Object object = InitialContext.doLookup("java:comp/env/euDevFinDS");
 	  logger.info("Direct JNDI datasource query returned:"+object);
 	  
 	  Assert.assertNotNull(object);
 	  
-	  Assert.assertTrue(object.equals(dataSourceCda));
+	  Assert.assertTrue(object.equals(cdaDataSource));
 
   
   }

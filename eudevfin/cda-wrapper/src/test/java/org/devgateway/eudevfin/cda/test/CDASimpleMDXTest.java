@@ -7,6 +7,7 @@ import java.net.URL;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.mock.jndi.SimpleNamingContextBuilder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -17,10 +18,10 @@ import pt.webdetails.cda.settings.CdaSettings;
 import pt.webdetails.cda.settings.SettingsManager;
 
 /**
- * Provides testing of a simple MDX query thourh SQL JNDI. It uses Webdetails CDA to return the result
- * 
- *
- * @see {@link DataAccessEnums.ConnectionInstanceType#SQL_JNDI}
+ * Provides testing of a simple MDX query through Mondrian JNDI. 
+ * This spawns a Mondrian MDX server over a provided JNDI connection.
+ * The JNDI connection is exposed in financialContext.xml through Spring and {@link SimpleNamingContextBuilder}  
+ * @see {@link DataAccessEnums.ConnectionInstanceType#MONDRIAN_JNDI}
  * @throws Exception
  *
  * @author mihai

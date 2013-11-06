@@ -34,7 +34,7 @@
 
 	<!-- The following is invoking an sql script, upon context startup, but 
 		after JPA initialization -->
-	<jdbc:initialize-database data-source="myDerbyDataSource">
+	<jdbc:initialize-database data-source="euDevFinDataSource">
 		<jdbc:script location="classpath:derby-auth-startup.sql" />
 	</jdbc:initialize-database>
 
@@ -43,7 +43,7 @@
 		through JDBC, and using the already initialized datasource -->
 	<bean id="userDetailsService"
 		class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
-		<property name="dataSource" ref="myDerbyDataSource" />
+		<property name="dataSource" ref="euDevFinDataSource" />
 	</bean>
 
 

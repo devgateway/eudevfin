@@ -38,7 +38,7 @@
 
 
 	<!-- jndi lookup bean for autowiring purposes -->
-	<jee:jndi-lookup id="dataSourceCda"  jndi-name="java:comp/env/myDerbyDataSource"/>
+	<jee:jndi-lookup id="cdaDataSource"  jndi-name="java:comp/env/euDevFinDS"/>
 
 
 	 <bean id="IRepositoryAccess" class="pt.webdetails.cpf.repository.vfs.VfsRepositoryAccess" scope="prototype">
