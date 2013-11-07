@@ -72,7 +72,8 @@
                     <scanIntervalSeconds>3</scanIntervalSeconds>
                     <stopKey>chuck</stopKey>
                     <stopPort>9999</stopPort>
-                    <stopWait>7</stopWait>                   
+                    <stopWait>7</stopWait>           
+                   <waitForChild>false</waitForChild>        
                     <webApp>
                         <contextPath>/</contextPath>
                     </webApp>
