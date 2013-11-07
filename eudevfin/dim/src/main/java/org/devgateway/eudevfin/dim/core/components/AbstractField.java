@@ -38,6 +38,7 @@ public abstract class AbstractField<T> extends Panel{
     private ControlGroup controlGroup;
     protected FormComponent<T> field;
     private MarkupContainer xPenderController;
+    private Integer index;
 
 
 
@@ -51,6 +52,7 @@ public abstract class AbstractField<T> extends Panel{
 
         //for label text we don't set a default value, this is mandatory for now
         labelText = new StringResourceModel(messageKeyGroup + ".label", this, null);
+
         //if helptext is not found an empty String is going to be used
         StringResourceModel helpText = new StringResourceModel(messageKeyGroup + ".help", this, null, "");
 
@@ -94,5 +96,13 @@ public abstract class AbstractField<T> extends Panel{
     protected AbstractField<T> enableRequired(){
         field.setRequired(true);
         return this;
+    }
+
+    protected FormComponent<T> getField() {
+        return field;
+    }
+
+    public void setIndex(Integer idx){
+        this.index = idx;
     }
 }

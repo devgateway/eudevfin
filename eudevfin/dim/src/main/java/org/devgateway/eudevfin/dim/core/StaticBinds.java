@@ -11,6 +11,12 @@
 
 package org.devgateway.eudevfin.dim.core;
 
+import com.vaynberg.wicket.select2.ChoiceProvider;
+import com.vaynberg.wicket.select2.Response;
+import com.vaynberg.wicket.select2.StringTextChoiceProvider;
+
+import java.util.Arrays;
+
 /**
  * Temporary class to simulate binds with other modules
  * TODO: REMOVE :)
@@ -19,6 +25,18 @@ package org.devgateway.eudevfin.dim.core;
  * @since 30 October 2013
  */
 public class StaticBinds {
+    public static final ChoiceProvider<String> countryProvider = new StringTextChoiceProvider() {
+        @Override
+        public void query(String term, int page, Response<String> response) {
+        response.addAll(Arrays.asList("Bulgaria", "Romania", "Georgia", "Italia", "Slovacia", "Rusia"));
+        }
+    };
 
+    public static final ChoiceProvider<String> yesNoProvider = new StringTextChoiceProvider() {
+        @Override
+        public void query(String term, int page, Response<String> response) {
+            response.addAll(Arrays.asList("Yes", "No"));
+        }
+    };
 
 }
