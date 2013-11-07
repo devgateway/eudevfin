@@ -340,6 +340,7 @@
 		<module>auth</module>
 		<module>common-auth</module>			
 		<module>cda-wrapper</module>
+		<module>cdf-wrapper</module>
 	</modules>
 	<inceptionYear>2013</inceptionYear>
 	<organization>

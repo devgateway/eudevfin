@@ -1,0 +1,80 @@
+<!--
+  ~ Copyright (c) 2013 Development Gateway.
+  ~ All rights reserved. This program and the accompanying materials
+  ~ are made available under the terms of the GNU Public License v3.0
+  ~ which accompanies this distribution, and is available at
+  ~ http://www.gnu.org/licenses/gpl.html
+  ~
+  ~ Contributors:
+  ~    aartimon
+  -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.devgateway.eudevfin</groupId>
+        <artifactId>integration</artifactId>
+        <version>0.0.1.CI-SNAPSHOT</version>
+    </parent>
+    <artifactId>cdf-wrapper</artifactId>
+    <packaging>war</packaging>
+
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.devgateway.eudevfin</groupId>
+            <artifactId>auth</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.devgateway.eudevfin</groupId>
+            <artifactId>common-auth</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.devgateway.eudevfin</groupId>
+            <artifactId>common-financial</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.devgateway.eudevfin</groupId>
+            <artifactId>financial</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.vaynberg.wicket.select2</groupId>
+            <artifactId>wicket-select2</artifactId>
+            <version>2.2.2</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <filtering>false</filtering>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>${jetty.version}</version>
+                <configuration>
+                    <jvmArgs>-Xmx512M -XX:MaxPermSize=128M</jvmArgs>
+                    <war>${basedir}/target/cdf-wrapper-${project.version}</war>
+                    <scanIntervalSeconds>3</scanIntervalSeconds>
+                    <webApp>
+                        <contextPath>/</contextPath>
+                    </webApp>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
