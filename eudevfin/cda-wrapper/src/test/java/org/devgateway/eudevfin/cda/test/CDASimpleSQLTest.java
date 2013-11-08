@@ -32,14 +32,14 @@ import pt.webdetails.cda.settings.SettingsManager;
 		"classpath:META-INF/financialContext.xml",
 		"classpath:META-INF/cdaContext.xml"
 		})
-public class CDASimpleMDXTest
+public class CDASimpleSQLTest
 {
 	
-	protected static Logger logger = Logger.getLogger(CDASimpleMDXTest.class);
+	protected static Logger logger = Logger.getLogger(CDASimpleSQLTest.class);
 
 
   @Test
-  public void testMdxQuery() throws Exception
+  public void testSqlQuery() throws Exception
   {
 
 	    // Define an outputStream
@@ -49,16 +49,15 @@ public class CDASimpleMDXTest
 
 	    final SettingsManager settingsManager = SettingsManager.getInstance();
 	    
-	    URL file = this.getClass().getResource("financial.mondrian.cda");
+	    URL file = this.getClass().getResource("sql-jndi.cda");
 	    File settingsFile = new File(file.toURI());
 	    final CdaSettings cdaSettings = settingsManager.parseSettingsFile(settingsFile.getAbsolutePath());
 	    logger.debug("Doing query on Cda - Initializing CdaEngine");
 	    final CdaEngine engine = CdaEngine.getInstance();
 
 	    QueryOptions queryOptions = new QueryOptions();
-	    queryOptions.setDataAccessId("simpleQuery");
+	    queryOptions.setDataAccessId("transactionList");
 	    queryOptions.setOutputType("json");
-	    //queryOptions.addParameter("status", "Shipped");
 
 	    logger.info("Doing query");
 	    engine.doQuery(out, cdaSettings, queryOptions);

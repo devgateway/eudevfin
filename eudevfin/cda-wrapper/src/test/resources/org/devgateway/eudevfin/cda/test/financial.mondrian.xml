@@ -1,0 +1,15 @@
+<Schema name="EUDevfin">
+	<Dimension visible="true" highCardinality="false" name="Organization">
+		<Hierarchy visible="true" hasAll="true" allMemberName="All Organizations" allMemberCaption="#Organization#" primaryKey="ID" caption="Organization">
+			<Table name="ORGANIZATION" schema="APP" alias="organization"/>
+			<Level name="name" visible="true" table="organization" column="NAME" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never"/>
+		</Hierarchy>
+	</Dimension>
+	<Cube name="Financial" visible="true" cache="false" enabled="true">
+		<Table name="FINANCIAL_TRANSACTIONS" schema="APP" alias="financial_transactions">
+		</Table>
+		<DimensionUsage source="Organization" name="Organization" visible="true" foreignKey="ORGANIZATION_ID" highCardinality="false"/>
+		<Measure name="Amount" column="AMOUNT" aggregator="sum" visible="true">
+		</Measure>
+	</Cube>
+</Schema>
