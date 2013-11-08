@@ -70,6 +70,10 @@
                     <jvmArgs>-Xmx512M -XX:MaxPermSize=128M</jvmArgs>
                     <war>${basedir}/target/dim-${project.version}</war>
                     <scanIntervalSeconds>3</scanIntervalSeconds>
+                    <stopKey>chuck</stopKey>
+                    <stopPort>9999</stopPort>
+                    <stopWait>7</stopWait>           
+                   <waitForChild>false</waitForChild>        
                     <webApp>
                         <contextPath>/</contextPath>
                     </webApp>

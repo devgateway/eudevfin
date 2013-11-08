@@ -24,15 +24,25 @@ public class DropDownField<T> extends AbstractInputField<T> {
 
     private ChoiceProvider<T> choiceProvider;
 
-    @SuppressWarnings("unchecked")
     public DropDownField(String id, IModel<T> model, String messageKeyGroup, ChoiceProvider<T> choiceProvider) {
         super(id, model, messageKeyGroup);
         //the field will already be populated by the AbstractInputField constructor
-        ((Select2Choice<T>)field).setProvider(choiceProvider);
+        getField().setProvider(choiceProvider);
     }
 
     @Override
     protected FormComponent<T> newField(String id, IModel<T> model) {
         return new Select2Choice<T>(id, model);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    protected Select2Choice<T> getField() {
+        return (Select2Choice<T>)field;
+    }
+
+    public DropDownField<T> disableSearch(){
+        getField().getSettings().setMinimumResultsForSearch(Integer.MAX_VALUE);
+        return this;
     }
 }

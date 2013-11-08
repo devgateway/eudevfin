@@ -9,43 +9,47 @@
  *    aartimon
  ******************************************************************************/
 
-package org.devgateway.eudevfin.dim.pages;
+package org.devgateway.eudevfin.dim.pages.transaction;
 
 import com.vaynberg.wicket.select2.ChoiceProvider;
 import com.vaynberg.wicket.select2.Response;
 import com.vaynberg.wicket.select2.StringTextChoiceProvider;
-import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
-import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.Component;
+import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
+import org.apache.wicket.extensions.markup.html.tabs.ITab;
+import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
-import org.devgateway.eudevfin.dim.core.Constants;
+import org.apache.wicket.model.StringResourceModel;
 import org.devgateway.eudevfin.dim.core.components.*;
-import org.devgateway.eudevfin.dim.core.pages.HeaderFooter;
-import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-@MountPath(value = "/transaction")
-@AuthorizeInstantiation(Constants.ROLE_USER)
-public class TransactionPage extends HeaderFooter {
+/**
+ * @author aartimon@developmentgateway.org
+ * @since 01 November 2013
+ */
+public class AvailableComponentsTab extends Panel {
 
+    //TODO: Remove
     private static final String[] ddValues = {"Bulgaria", "Romania", "Georgia", "Italia", "Slovacia", "Rusia"};
 
-    public TransactionPage() {
-        Form form = new Form("form");
-        add(form);
+
+    private AvailableComponentsTab(String id) {
+        super(id);
 
         Model<String> emptyString = Model.of("");
         AbstractInputField input = new TextInputField<String>("input", emptyString, "input").enableRequired();
-        form.add(input);
+        add(input);
 
         TextInputField email = new TextInputField<String>("email", emptyString, "email");
         email.enableRequired();
         email.decorateAsEmailField();
-        form.add(email);
+        add(email);
 
         DateInputField date = new DateInputField("date", Model.of(new Date()), "date");
-        form.add(date);
+        add(date);
 
         ChoiceProvider<String> choiceProvider = new StringTextChoiceProvider() {
             @Override
@@ -58,14 +62,28 @@ public class TransactionPage extends HeaderFooter {
             }
         };
 
-        DropDownField dd = new DropDownField<String>("dropdown", Model.of(""), "dropdown", choiceProvider);
-        form.add(dd);
+        DropDownField dd = new DropDownField<String>("dropdown", Model.of(""), "dropdown", choiceProvider).disableSearch();
+
+        add(dd);
 
         MultiSelectField ms = new MultiSelectField<String>("multi", new Model(new ArrayList<String>()), "multi", choiceProvider);
-        form.add(ms);
+        add(ms);
 
         CheckBoxField cb = new CheckBoxField("checkbox", Model.of(Boolean.FALSE), "checkbox");
-        form.add(cb);
+        add(cb);
+
 
     }
+
+    public static ITab newTab(Component askingComponent){
+        return new AbstractTab(new StringResourceModel("tabs.available", askingComponent, null)){
+            private static final long serialVersionUID = -724508987522388955L;
+
+            @Override
+            public WebMarkupContainer getPanel(String panelId) {
+                return new AvailableComponentsTab(panelId);
+            }
+        };
+    }
+
 }

@@ -13,20 +13,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
 <body>
     <wicket:extend>
+
         <div class="container">
             <div class="row">
-                <div class="span8 offset2 well">
+                <div class="span12">
+                    &nbsp;
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="span10 offset1">
                     <form wicket:id="form">
-
-                        <div wicket:id="input" />
-                        <div wicket:id="email" />
-                        <div wicket:id="date" />
-                        <div wicket:id="dropdown" />
-                        <div wicket:id="multi" />
-                        <div wicket:id="checkbox"/>
-
-                        <br/>
-                        <input type="submit" title="Submit"/>
+                        <div class="row">
+                            <div class="span10 well">
+                                <div wicket:id="bc"/>
+                                <input type="submit" title="Submit"/>
+                            </div>
+                        </div>
                     </form>
 
                 </div>
