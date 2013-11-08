@@ -20,6 +20,7 @@ import org.devgateway.eudevfin.dim.core.components.tabs.BootstrapCssTabbedPanel;
 import org.devgateway.eudevfin.dim.core.pages.HeaderFooter;
 import org.wicketstuff.annotation.mount.MountPath;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +45,7 @@ public class TransactionPage extends HeaderFooter {
 
     }
 
-    private class FakeTransaction {
+    private class FakeTransaction implements Serializable {
         //
         Integer reportingYear;
         String reportingCountry;
