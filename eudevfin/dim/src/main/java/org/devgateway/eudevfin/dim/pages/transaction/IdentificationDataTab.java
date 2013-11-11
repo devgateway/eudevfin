@@ -18,7 +18,6 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.ComponentPropertyModel;
 import org.apache.wicket.model.StringResourceModel;
-import org.apache.wicket.validation.validator.RangeValidator;
 import org.devgateway.eudevfin.dim.core.StaticBinds;
 import org.devgateway.eudevfin.dim.core.components.DropDownField;
 import org.devgateway.eudevfin.dim.core.components.TextInputField;
@@ -34,12 +33,13 @@ public class IdentificationDataTab extends Panel {
 
         TextInputField<Integer> reportingYear = new TextInputField<>("1reportingYear", new ComponentPropertyModel<Integer>("reportingYear"),
                 "1reportingYear");
-        reportingYear.getField().add(RangeValidator.range(1900, 2099));
+        reportingYear.typeInteger().required().range(1900, 2099);
         add(reportingYear);
 
         DropDownField<String> reportingCountry = new DropDownField<>("2reportingCountry", new ComponentPropertyModel<String>("reportingCountry"),
                 "2reportingCountry",
                 StaticBinds.countryProvider);
+
         add(reportingCountry);
 
         TextInputField<String> extendingAgency = new TextInputField<>("3extendingAgency", new ComponentPropertyModel<String>("extendingAgency"),

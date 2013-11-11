@@ -17,6 +17,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.validation.IValidator;
 import org.apache.wicket.validation.validator.EmailAddressValidator;
+import org.apache.wicket.validation.validator.RangeValidator;
 
 /**
  * <p>Creates an input field with attached label and placeholder, see constructor for more info</p>
@@ -70,6 +71,21 @@ public class TextInputField<T> extends AbstractInputField<T> {
         return this;
     }
 
+    public TextInputField<T> typeInteger(){
+        field.setType(Integer.class);
+        return this;
+    }
 
+    @Override
+    public TextInputField<T> required() {
+        super.required();
+        return this;
+    }
 
+    public TextInputField<T> range(Integer min, Integer max) {
+        if (!field.getType().isAssignableFrom(Integer.class))
+            throw new RuntimeException("Please use the typeInteger() method to set the type, or range validator won't work!");
+        field.add(RangeValidator.range(min, max));
+        return this;
+    }
 }

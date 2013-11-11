@@ -38,8 +38,8 @@ public abstract class AbstractInputField<T> extends AbstractField {
 
     @Override
     @SuppressWarnings("unchecked")
-    public AbstractInputField<T> enableRequired() {
-        return (AbstractInputField<T>) super.enableRequired();
+    public AbstractInputField<T> required() {
+        return (AbstractInputField<T>) super.required();
     }
 
     protected abstract FormComponent<T> newField(String id, IModel<T> model);

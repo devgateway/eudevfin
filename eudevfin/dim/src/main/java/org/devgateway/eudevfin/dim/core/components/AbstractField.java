@@ -93,16 +93,17 @@ public abstract class AbstractField<T> extends Panel{
         xPenderController.add(fc);
     }
 
-    protected AbstractField<T> enableRequired(){
-        field.setRequired(true);
-        return this;
-    }
-
     protected FormComponent<T> getField() {
         return field;
     }
 
-    public void setIndex(Integer idx){
+    public AbstractField<T> setIndex(Integer idx){
         this.index = idx;
+        return this;
+    }
+
+    public AbstractField<T> required(){
+        field.setRequired(true);
+        return this;
     }
 }
