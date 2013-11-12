@@ -27,9 +27,4 @@
 	<context:component-scan base-package="org.devgateway.eudevfin.dim" />
 	<context:annotation-config />
 
-	<security:http create-session="never" auto-config="true">
-		<security:remember-me />
-		<security:intercept-url pattern="/**" />
-		<security:logout logout-url="/logout"/>
-	</security:http>
 </beans>

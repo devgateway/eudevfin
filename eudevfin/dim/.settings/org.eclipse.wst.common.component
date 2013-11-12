@@ -16,6 +16,12 @@
         <dependent-module archiveName="financial-0.0.1.CI-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/eudevfin-financial/eudevfin-financial">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module deploy-path="/" handle="module:/overlay/prj/eudevfin-cdf-wrapper?includes=**/**&amp;excludes=META-INF/MANIFEST.MF">
+            <dependency-type>consumes</dependency-type>
+        </dependent-module>
+        <dependent-module deploy-path="/" handle="module:/overlay/slf/?includes=**/**&amp;excludes=META-INF/MANIFEST.MF">
+            <dependency-type>consumes</dependency-type>
+        </dependent-module>
         <property name="java-output-path" value="/WEB-INF/classes"/>
         <property name="context-root" value="dim"/>
     </wb-module>
