@@ -70,6 +70,19 @@
 
 
 
+<bean id="financialLiquibase" class="liquibase.integration.spring.SpringLiquibase">
+      <property name="dataSource" ref="euDevFinDataSource" />
+      <property name="changeLog" value="classpath:financialDbChangelog.xml" />
+
+      <!--
+      contexts specifies the runtime contexts to use.    
+      <property name="contexts" value="test, production" />
+      
+      -->
+ </bean>
+
+
+
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="euDevFinDataSource" />
 		<property name="packagesToScan" value="org.devgateway.eudevfin" />

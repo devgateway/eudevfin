@@ -36,12 +36,6 @@
 
 	<jpa:repositories base-package="org.devgateway.eudevfin.cda" />
 
-	<!-- The following is invoking an sql script, upon context startup, but 
-		after JPA initialization -->
-	<jdbc:initialize-database data-source="euDevFinDataSource">
-		<jdbc:script location="classpath:derby-financial-startup.sql" />
-	</jdbc:initialize-database>
-
 	<!-- jndi lookup bean for autowiring purposes -->
 	<jee:jndi-lookup id="cdaDataSource"  jndi-name="java:comp/env/euDevFinDS"/>
 

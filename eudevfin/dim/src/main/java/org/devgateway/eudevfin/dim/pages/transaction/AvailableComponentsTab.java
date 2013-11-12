@@ -40,11 +40,11 @@ public class AvailableComponentsTab extends Panel {
         super(id);
 
         Model<String> emptyString = Model.of("");
-        AbstractInputField input = new TextInputField<String>("input", emptyString, "input").enableRequired();
+        AbstractInputField input = new TextInputField<String>("input", emptyString, "input").required();
         add(input);
 
         TextInputField email = new TextInputField<String>("email", emptyString, "email");
-        email.enableRequired();
+        email.required();
         email.decorateAsEmailField();
         add(email);
 
