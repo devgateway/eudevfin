@@ -40,7 +40,8 @@ public class AvailableComponentsTab extends Panel {
         super(id);
 
         Model<String> emptyString = Model.of("");
-        AbstractInputField input = new TextInputField<String>("input", emptyString, "input").required();
+        TextInputField input = new TextInputField<String>("input", emptyString, "input").required();
+        input.decorateMask("999-99-9999");
         add(input);
 
         TextInputField email = new TextInputField<String>("email", emptyString, "email");
@@ -55,7 +56,7 @@ public class AvailableComponentsTab extends Panel {
             @Override
             public void query(String term, int page, Response<String> response) {
                 String upperTerm = term.toUpperCase();
-                for (String val: ddValues){
+                for (String val : ddValues) {
                     if (val.toUpperCase().contains(upperTerm))
                         response.add(val);
                 }
@@ -75,8 +76,8 @@ public class AvailableComponentsTab extends Panel {
 
     }
 
-    public static ITab newTab(Component askingComponent){
-        return new AbstractTab(new StringResourceModel("tabs.available", askingComponent, null)){
+    public static ITab newTab(Component askingComponent) {
+        return new AbstractTab(new StringResourceModel("tabs.available", askingComponent, null)) {
             private static final long serialVersionUID = -724508987522388955L;
 
             @Override

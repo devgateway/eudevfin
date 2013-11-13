@@ -1,5 +1,5 @@
 !.settings
 .idea
+/.idea
 /target
 /derby.log
-/.project

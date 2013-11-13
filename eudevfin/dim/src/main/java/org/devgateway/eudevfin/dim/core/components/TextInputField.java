@@ -31,12 +31,13 @@ public class TextInputField<T> extends AbstractInputField<T> {
      * <p>Creates an input field with attached label and placeholder</p>
      * <p>The {@param messageKeyGroup} is the prefix name for the resource keys that are being used.</p>
      * <p>For example if the prefix is <i>"login.username"</i> then the component will use:
-     *      <li><i>"login.username<b>.label</b>"</i> for the Label text</li>
-     *      <li><i>"login.username<b>.help</b>"</i> for the help text shown underneath the input field</li>
-     *      <li><i>"login.username<b>.placeholder</b>"</i> for the placeholder used when the input field is empty</li>
+     * <li><i>"login.username<b>.label</b>"</i> for the Label text</li>
+     * <li><i>"login.username<b>.help</b>"</i> for the help text shown underneath the input field</li>
+     * <li><i>"login.username<b>.placeholder</b>"</i> for the placeholder used when the input field is empty</li>
      * </p>
-     * @param id component id
-     * @param model model to be used by the text field
+     *
+     * @param id              component id
+     * @param model           model to be used by the text field
      * @param messageKeyGroup Message key group prefix for the resources used by the component
      */
     public TextInputField(String id, IModel<T> model, String messageKeyGroup) {
@@ -49,19 +50,19 @@ public class TextInputField<T> extends AbstractInputField<T> {
     }
 
     @SuppressWarnings("unchecked")
-    public TextField<T> getField(){
+    public TextField<T> getField() {
         return (TextField<T>) field;
 
     }
 
-    public AbstractInputField<T> decorateAsEmailField(){
+    public AbstractInputField<T> decorateAsEmailField() {
         field.add((IValidator) EmailAddressValidator.getInstance());
         prepender.setVisible(true);
         prepender.setDefaultModel(Model.of("@"));
         return this;
     }
 
-    public AbstractInputField<T> decorateMask(final String mask){
+    public TextInputField<T> decorateMask(final String mask) {
         field.add(new InputMaskBehavior() {
             @Override
             protected String getMask() {
@@ -71,7 +72,7 @@ public class TextInputField<T> extends AbstractInputField<T> {
         return this;
     }
 
-    public TextInputField<T> typeInteger(){
+    public TextInputField<T> typeInteger() {
         field.setType(Integer.class);
         return this;
     }

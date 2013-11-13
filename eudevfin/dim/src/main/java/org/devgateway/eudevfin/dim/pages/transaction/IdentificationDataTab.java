@@ -16,8 +16,8 @@ import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
 import org.apache.wicket.extensions.markup.html.tabs.ITab;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.ComponentPropertyModel;
 import org.apache.wicket.model.StringResourceModel;
+import org.devgateway.eudevfin.dim.core.RWComponentPropertyModel;
 import org.devgateway.eudevfin.dim.core.StaticBinds;
 import org.devgateway.eudevfin.dim.core.components.DropDownField;
 import org.devgateway.eudevfin.dim.core.components.TextInputField;
@@ -31,37 +31,40 @@ public class IdentificationDataTab extends Panel {
     private IdentificationDataTab(String id) {
         super(id);
 
-        TextInputField<Integer> reportingYear = new TextInputField<>("1reportingYear", new ComponentPropertyModel<Integer>("reportingYear"),
+        TextInputField<Integer> reportingYear = new TextInputField<>("1reportingYear", new RWComponentPropertyModel<Integer>("reportingYear"),
                 "1reportingYear");
-        reportingYear.typeInteger().required().range(1900, 2099);
+        reportingYear.typeInteger().required().range(1900, 2099).decorateMask("9999");
         add(reportingYear);
 
-        DropDownField<String> reportingCountry = new DropDownField<>("2reportingCountry", new ComponentPropertyModel<String>("reportingCountry"),
+        DropDownField<String> reportingCountry = new DropDownField<>("2reportingCountry", new RWComponentPropertyModel<String>("reportingCountry"),
                 "2reportingCountry",
                 StaticBinds.countryProvider);
 
         add(reportingCountry);
 
-        TextInputField<String> extendingAgency = new TextInputField<>("3extendingAgency", new ComponentPropertyModel<String>("extendingAgency"),
+        TextInputField<String> extendingAgency = new TextInputField<>("3extendingAgency", new RWComponentPropertyModel<String>("extendingAgency"),
                 "3extendingAgency");
         add(extendingAgency);
 
-        TextInputField<Integer> crsId = new TextInputField<>("4crsId", new ComponentPropertyModel<Integer>("crsId"),
+        TextInputField<Integer> crsId = new TextInputField<>("4crsId", new RWComponentPropertyModel<Integer>("crsId"),
                 "4crsId");
+        crsId.typeInteger();
         add(crsId);
 
-        TextInputField<Integer> donorProjectNumber = new TextInputField<>("5donorProjectNumber", new ComponentPropertyModel<Integer>("donorProjectNumber"),
+        TextInputField<Integer> donorProjectNumber = new TextInputField<>("5donorProjectNumber", new RWComponentPropertyModel<Integer>("donorProjectNumber"),
                 "5donorProjectNumber");
+        donorProjectNumber.typeInteger();
         add(donorProjectNumber);
 
-        TextInputField<Integer> natureSubmission = new TextInputField<>("6natureSubmission", new ComponentPropertyModel<Integer>("natureSubmission"),
+        TextInputField<Integer> natureSubmission = new TextInputField<>("6natureSubmission", new RWComponentPropertyModel<Integer>("natureSubmission"),
                 "6natureSubmission");
+        natureSubmission.typeInteger();
         add(natureSubmission);
 
     }
 
-    public static ITab newTab(Component askingComponent){
-        return new AbstractTab(new StringResourceModel("tabs.identification", askingComponent, null)){
+    public static ITab newTab(Component askingComponent) {
+        return new AbstractTab(new StringResourceModel("tabs.identification", askingComponent, null)) {
             private static final long serialVersionUID = -724508987522388955L;
 
             @Override
