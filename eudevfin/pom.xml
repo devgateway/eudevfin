@@ -261,7 +261,7 @@
 									<pluginExecutionFilter>
 										<groupId>org.apache.maven.plugins</groupId>
 										<artifactId>maven-war-plugin</artifactId>
-										<versionRange>[2.0,)</versionRange>
+										<versionRange>[2.4,)</versionRange>
 										<goals>
 											<goal>war</goal>
 										</goals>
