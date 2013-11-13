@@ -16,8 +16,8 @@
   
   
   <insert tableName="users">
-  	<column name="username" value="elfleco"/>
-  	<column name="password" value="elfleco"/>
+  	<column name="username" value="admin"/>
+  	<column name="password" value="admin"/>
   	<column name="enabled" valueBoolean="true"/>
   </insert>
 
@@ -30,7 +30,7 @@
   </insert>
 
 <insert tableName="authorities">
-  	<column name="username" value="elfleco"/>
+  	<column name="username" value="admin"/>
   	<column name="authority" value="ROLE_SUPERVISOR"/>
 </insert>
 
