@@ -4,15 +4,12 @@
 	GNU Public License v3.0 which accompanies this distribution, and is available 
 	at http://www.gnu.org/licenses/gpl.html Contributors: mpostelnicu -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:int="http://www.springframework.org/schema/integration"
 	xmlns:int-jpa="http://www.springframework.org/schema/integration/jpa"
-	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:security="http://www.springframework.org/schema/security"
-	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
-	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:jee="http://www.springframework.org/schema/jee"
 	xsi:schemaLocation="http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
 		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
 		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
@@ -36,28 +33,34 @@
 
 	<jpa:repositories base-package="org.devgateway.eudevfin.cda" />
 
-	<!-- jndi lookup bean for autowiring purposes -->
-	<jee:jndi-lookup id="cdaDataSource"  jndi-name="java:comp/env/euDevFinDS"/>
-
-
-	 <bean id="IRepositoryAccess" class="pt.webdetails.cpf.repository.vfs.VfsRepositoryAccess" scope="prototype">
-	  	<property name="repository" value="res:standalone/repository"></property>
-	  	<property name="settings" value="res:standalone/settings"></property>
-	  </bean>
+	<int:channel id="getCDAQueryChannel"/>
+	<int:channel id="replyCDAQueryChannel"/>
 	
-	  <bean id="IUserSession" class="pt.webdetails.cpf.impl.SimpleUserSession">
-	  	<property name="userName" value="username"></property>
-	  	<property name="attributes">
-	  		<map>
-	  			<entry key="test" value="thisIsAGoodValue" />
-	  		</map>
-	  	</property>
-	  </bean>
-	  <bean id="ISessionUtils" class="pt.webdetails.cpf.impl.SimpleSessionUtils">
-	  	<property name="session" ref="IUserSession" />
-	  </bean>
+	<int:gateway id="cdaQueryService"
+		service-interface="org.devgateway.eudevfin.cda.service.QueryService" />
+	
 
 
+<!-- 
+	<bean id="IRepositoryAccess" class="pt.webdetails.cpf.repository.vfs.VfsRepositoryAccess"
+		scope="prototype">
+		<property name="repository" value="res:standalone/repository"></property>
+		<property name="settings" value="res:standalone/settings"></property>
+	</bean>
+
+	<bean id="IUserSession" class="pt.webdetails.cpf.impl.SimpleUserSession">
+		<property name="userName" value="username"></property>
+		<property name="attributes">
+			<map>
+				<entry key="test" value="thisIsAGoodValue" />
+			</map>
+		</property>
+	</bean>
+	<bean id="ISessionUtils" class="pt.webdetails.cpf.impl.SimpleSessionUtils">
+		<property name="session" ref="IUserSession" />
+	</bean>
+
+ -->
 
 
 </beans>
