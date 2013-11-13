@@ -20,7 +20,7 @@
     <packaging>war</packaging>
 
 
- 
+ 	<name>EU-DEVFIN CDF Wrapper</name>
 
     <build>
         <resources>

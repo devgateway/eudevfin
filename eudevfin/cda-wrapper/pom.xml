@@ -9,6 +9,7 @@
 	</parent>
 	<artifactId>cda-wrapper</artifactId>
 
+	<name>EU-DEVFIN CDA Wrapper</name>
 
 	<dependencyManagement>
 		<dependencies>

@@ -4,6 +4,7 @@
     <groupId>org.devgateway.eudevfin</groupId>
     <artifactId>integration</artifactId>
     <version>0.0.1.CI-SNAPSHOT</version>
-  </parent>
+  </parent> 
   <artifactId>common-financial</artifactId>
+  <name>EU-DEVFIN Common Financial</name>
 </project>

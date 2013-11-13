@@ -25,5 +25,6 @@
   </dependencies>
   
   
-  <artifactId>financial</artifactId>  
+  <artifactId>financial</artifactId>
+  <name>EU-DEVFIN Financial</name>  
 </project>

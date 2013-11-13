@@ -15,6 +15,7 @@
 	<artifactId>dim</artifactId>
 	<packaging>war</packaging>
 
+	<name>EU-DEVFIN Data Input</name>
 
 	<dependencies>
 
