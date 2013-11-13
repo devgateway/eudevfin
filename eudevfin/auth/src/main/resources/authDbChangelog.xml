@@ -35,7 +35,7 @@
 </insert>
 
 <insert tableName="authorities">
-  	<column name="username" value="elfleco"/>
+  	<column name="username" value="admin"/>
   	<column name="authority" value="ROLE_USER"/>
 </insert>
 
