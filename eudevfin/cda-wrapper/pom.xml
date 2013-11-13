@@ -173,8 +173,6 @@
 			<systemPath>${project.basedir}/lib/robochef-0.9.6.jar</systemPath>
 		</dependency>
 
-
-
 		<dependency>
 			<groupId>pentaho</groupId>
 			<artifactId>mondrian</artifactId>
@@ -194,7 +192,5 @@
 		</dependency>
 
 	</dependencies>
-
-
 
 </project>
