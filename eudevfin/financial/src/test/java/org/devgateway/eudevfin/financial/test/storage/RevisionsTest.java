@@ -81,15 +81,15 @@ public class RevisionsTest extends AbstractStorageTest{
 		
 		AuditQuery auditQuery	= auditReader.createQuery().forRevisionsOfEntity(FinancialTransaction.class, false, false)
 					.add( AuditEntity.id().eq(modifiedTxId) )
-					.add( AuditEntity.property("description").hasNotChanged() )
+					.add( AuditEntity.property("donorProjectNumber").hasNotChanged() )
 					.addProjection( AuditEntity.revisionNumber().max() );
 		Number num1				=  (Number) auditQuery.getSingleResult();
 		logger.info("Last revision for a financial tx with unchanged description is: " + num1);
 		
 		auditQuery	= auditReader.createQuery().forRevisionsOfEntity(Organization.class, false, false)
-					.add( AuditEntity.property("name").hasChanged() )
+					.add( AuditEntity.property("code").hasChanged() )
 					.add( AuditEntity.revisionNumber().maximize());
-		Object [] oArray	= (Object[]) auditQuery.getSingleResult();
+			Object [] oArray	= (Object[]) auditQuery.getSingleResult();
 		DefaultTrackingModifiedEntitiesRevisionEntity trackingObject 	= (DefaultTrackingModifiedEntitiesRevisionEntity) oArray[1];
 		logger.info("Last revision for an org with changed name is: " + trackingObject.getId() );
 		

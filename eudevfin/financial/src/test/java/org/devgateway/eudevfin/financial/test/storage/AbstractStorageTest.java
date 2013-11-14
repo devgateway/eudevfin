@@ -32,6 +32,7 @@ public abstract class AbstractStorageTest {
 		for (int i=0; i<NUM_OF_ORGS; i++) {
 			Organization o			= new Organization();
 			o.setName("Testing versioning org " + i);
+			o.setCode("This is a code " + i);
 			orgDao.save(o);
 		}
 		List<Organization> allOrgs	= orgDao.findAllAsList();
@@ -40,6 +41,7 @@ public abstract class AbstractStorageTest {
 			FinancialTransaction ft = new FinancialTransaction();
 			ft.setAmount(new BigDecimal(100*i));
 			ft.setDescription("Transaction description " + i);
+			ft.setDonorProjectNumber("3333/2013");
 			ft.setSourceOrganization( allOrgs.get(j) );
 			ft	= txDao.save(ft);
 		}

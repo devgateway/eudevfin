@@ -109,19 +109,28 @@
 	</bean>
 	
 	
-	<int:channel id="getTransactionChannel"/>
-	<int:channel id="replyGetTransactionChannel"/>
+	<int:channel id="findAllAsListChannel"/>
 	<int:channel id="createTransactionChannel" />
-	<int:channel id="replyCreateTransactionChannel" />
+	<int:channel id="findFinancialTransactionByIdChannel" />
 	<int:channel id="createOrganizationChannel" />
-	<int:channel id="replyCreateOrganizationChannel" />
 
 
-	<int:gateway id="transactionService"
-		service-interface="org.devgateway.eudevfin.financial.service.FinancialTransactionService" />
+	<int:gateway id="financialTransactionService" service-interface="org.devgateway.eudevfin.financial.service.FinancialTransactionService" >
+		<int:method name="getAllFinancialTransactions" request-channel="getChannel">
+			<int:header name="requestName" value="findAllAsListChannel"/>
+		</int:method>
+		<int:method name="createFinancialTransaction" request-channel="getChannel">
+			<int:header name="requestName" value="createTransactionChannel"/>
+		</int:method>
+		<int:method name="getTransacationById" request-channel="getChannel">
+			<int:header name="requestName" value="findFinancialTransactionByIdChannel"/>
+		</int:method>
+	</int:gateway>
 		
 	<int:gateway id="organizationService"
 		service-interface="org.devgateway.eudevfin.financial.service.OrganizationService" />
+
+	<int:header-value-router input-channel="getChannel" header-name="requestName"/>
 
 	<!-- <int-jpa:updating-outbound-gateway
 		entity-manager-factory="entityManagerFactory" request-channel="createTransactionChannel">

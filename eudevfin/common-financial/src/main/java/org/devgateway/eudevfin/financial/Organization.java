@@ -5,29 +5,39 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.devgateway.eudevfin.financial.translate.OrganizationTranslation;
 import org.hibernate.envers.Audited;
 
 @Entity @Audited
-public class Organization {
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	Long id = null;
-	String name;
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
+public class Organization extends AbstractTranslateable<OrganizationTranslation>{
+
+	
+	public String code;
+	
 	public String getName() {
-		return name;
+		return (String) this.get("name");
 	}
+
 	public void setName(String name) {
-		this.name = name;
+		this.set("name", name);
 	}
+	
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
 	@Override
 	public String toString() {
-		return String.format("Org name is %s, id %d",  this.name, this.id);
+		return String.format("Org name is %s, id %d",  this.getName(), this.id);
+	}
+
+	@Override
+	protected OrganizationTranslation newTranslationInstance() {
+		return new OrganizationTranslation();
 	}
 	
 	

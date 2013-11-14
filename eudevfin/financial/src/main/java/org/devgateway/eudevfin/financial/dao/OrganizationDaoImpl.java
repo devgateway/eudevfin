@@ -26,7 +26,7 @@ public class OrganizationDaoImpl extends AbstractDaoImpl<Organization, Organizat
 	}
 
 	@Override
-	@ServiceActivator(inputChannel="createOrganizationChannel", outputChannel="replyCreateOrganizationChannel")
+	@ServiceActivator(inputChannel="createOrganizationChannel")
 	public Organization save(Organization o) {
 		return super.save(o);
 		

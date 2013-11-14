@@ -3,6 +3,7 @@ package org.devgateway.eudevfin.financial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -14,37 +15,27 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import org.devgateway.eudevfin.financial.translate.FinancialTransactionTranslation;
 import org.hibernate.envers.Audited;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 @Entity
 @Audited
-@Table(name="FINANCIAL_TRANSACTIONS")
-public class FinancialTransaction implements Serializable{
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id=null;
+@Table(name="FINANCIAL_TRANSACTION")
+public class FinancialTransaction extends AbstractTranslateable<FinancialTransactionTranslation> implements Serializable{
+	
 	private BigDecimal amount;
-	private String description;
 	
-	@CreatedBy
-	private String createdBy;
-	@CreatedDate
-	private Date createdDate;
+	private String donorProjectNumber;
 	
-	@Version
-	public Long version = null;
-	
+//	
+//	@Version
+//	public Long version = null;
+//	
 	@ManyToOne(  optional= false )
 	@JoinColumn(name="ORGANIZATION_ID")
 	private Organization sourceOrganization;
-
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
+	
 	public BigDecimal getAmount() {
 		return amount;
 	}
@@ -52,10 +43,11 @@ public class FinancialTransaction implements Serializable{
 		this.amount = amount;
 	}
 	public String getDescription() {
-		return description;
+		return (String) this.get("description");
+		
 	}
 	public void setDescription(String description) {
-		this.description = description;
+		this.set("description", description);
 	}
 
 	public Organization getSourceOrganization() {
@@ -65,28 +57,26 @@ public class FinancialTransaction implements Serializable{
 		this.sourceOrganization = sourceOrganization;
 	}
 	
-	public String getCreatedBy() {
-		return createdBy;
-	}
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-	public Date getCreatedDate() {
-		return createdDate;
-	}
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-	
-	public Long getVersion() {
-		return version;
-	}
-	public void setVersion(Long version) {
-		this.version = version;
-	}
+//	public Long getVersion() {
+//		return version;
+//	}
+//	public void setVersion(Long version) {
+//		this.version = version;
+//	}
 	@Override
 	public String toString() {
-		return String.format("Id %s, amount %f, description %s", id, amount.doubleValue(), description);
+		return String.format("Id %s, amount %f, description %s", id, amount.doubleValue(), getDescription());
 	}
+	@Override
+	protected FinancialTransactionTranslation newTranslationInstance() {
+		return new FinancialTransactionTranslation();
+	}
+	public String getDonorProjectNumber() {
+		return donorProjectNumber;
+	}
+	public void setDonorProjectNumber(String donorProjectNumber) {
+		this.donorProjectNumber = donorProjectNumber;
+	}
+	
 
 }
