@@ -23,13 +23,13 @@ public class FinancialTransactionDaoImpl extends AbstractDaoImpl<FinancialTransa
 	private FinancialTransactionRepository repo;
 	
 	@Override
-	@ServiceActivator(inputChannel="getTransactionChannel", outputChannel="replyGetTransactionChannel")
+	@ServiceActivator(inputChannel="findAllAsListChannel")
 	public List<FinancialTransaction> findAllAsList() {
 		return super.findAllAsList();
 	}
 	
 	@Override
-	@ServiceActivator(inputChannel="createTransactionChannel", outputChannel="replyCreateTransactionChannel")
+	@ServiceActivator(inputChannel="createTransactionChannel")
 	public FinancialTransaction save(FinancialTransaction tx) {
 		return super.save(tx);
 		

@@ -50,6 +50,7 @@ public class StorageHelper {
 		for (Organization o: allOrgs) {
 			if ( !modifyingTx.getSourceOrganization().getId().equals(o.getId()) ) {
 				o.setName(o.getName() + " !! modified");
+				o.setCode(o.getCode() + " !! modified");
 				modifyingTx.setSourceOrganization(o);
 				orgDao.save(o);
 				break;

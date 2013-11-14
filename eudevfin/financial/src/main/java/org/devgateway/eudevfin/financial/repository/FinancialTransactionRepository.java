@@ -15,6 +15,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 public interface FinancialTransactionRepository extends
 		PagingAndSortingRepository<FinancialTransaction, Long> {
 	
-	List<FinancialTransaction> findByDescriptionOrderByIdAsc(String description);
+//	List<FinancialTransaction> findByDescriptionOrderByIdAsc(String description);
 	List<FinancialTransaction> findBySourceOrganizationId(Long orgId);
 }
