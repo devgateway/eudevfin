@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CDADescriptor>
+
+    <DataSources>
+        <Connection id="defaultConnection" type="mondrian.jndi">
+            <Jndi>java:comp/env/euDevFinDS</Jndi>
+			<Catalog>./financial.mondrian.xml</Catalog>
+			<Cube>Financial</Cube>
+        </Connection>
+    </DataSources>
+
+    <DataAccess id="simpleQuery" connection="defaultConnection" type="mdx" access="public">
+		<Name>Simple query</Name>
+        <Query>
+        <![CDATA[
+		SELECT
+		NON EMPTY {Hierarchize({[Organization].[name].Members})} ON COLUMNS,
+		NON EMPTY {[Measures].[Amount]} ON ROWS
+		FROM [Financial]
+		]]>
+		</Query>       
+    </DataAccess>
+
+</CDADescriptor>

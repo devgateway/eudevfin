@@ -11,11 +11,11 @@
 <stringAttribute key="org.eclipse.jdt.launching.JRE_CONTAINER" value="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk7"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="eudevfin-dim"/>
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.sonatype.m2e.webby.sourcepathProvider"/>
-<stringAttribute key="org.sonatype.m2e.webby.containerHome" value=""/>
+<stringAttribute key="org.sonatype.m2e.webby.containerHome" value="C:\work\jetty-distribution-9.0.6.v20130930"/>
 <stringAttribute key="org.sonatype.m2e.webby.containerId" value="jetty8x"/>
-<intAttribute key="org.sonatype.m2e.webby.containerPort" value="8080"/>
+<intAttribute key="org.sonatype.m2e.webby.containerPort" value="8081"/>
 <intAttribute key="org.sonatype.m2e.webby.containerTimeout" value="60"/>
 <stringAttribute key="org.sonatype.m2e.webby.containerType" value="embedded"/>
 <stringAttribute key="org.sonatype.m2e.webby.contextName" value="//"/>
-<stringAttribute key="org.sonatype.m2e.webby.logLevel" value="high"/>
+<stringAttribute key="org.sonatype.m2e.webby.logLevel" value="medium"/>
 </launchConfiguration>
