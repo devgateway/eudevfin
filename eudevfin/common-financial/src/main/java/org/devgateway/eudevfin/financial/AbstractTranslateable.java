@@ -52,7 +52,7 @@ public abstract class AbstractTranslateable<T extends AbstractTranslation> {
 	}
 	
 	protected Object get(String property) {
-		if ( this.translations != null) {
+		if ( this.translations != null && this.translations.size()>0 ) {
 			Object result 	= this.attemptGet(this.currentLocale, property);
 			
 			if (result == null ) {

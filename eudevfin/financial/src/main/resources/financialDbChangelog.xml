@@ -10,14 +10,17 @@
   
   <changeSet id="1" author="mpostelnicu">
   
-  <delete tableName="FINANCIAL_TRANSACTION_TRANSLATION"></delete>
+  <delete tableName="FINANCIAL_TRANSACTION"></delete>
   <delete tableName="FINANCIAL_TRANSACTION_TRANSLATION"></delete>
   <delete tableName="organization"></delete>
   <delete tableName="ORGANIZATION_TRANSLATION"></delete>
   
+  <customChange class="org.devgateway.eudevfin.financial.liquibase.PopulateDbChange">
+  </customChange>
   
-  <insert tableName="organization">
+  <!-- <insert tableName="organization">
   	<column name="id" valueNumeric="1" />
+  	<column name="code" value="someCode1" />
   </insert>
   <insert tableName="ORGANIZATION_TRANSLATION">
   	<column name="id" valueNumeric="1" />
@@ -28,7 +31,15 @@
 
 
   <insert tableName="organization">
-  	<column name="id" valueNumeric="2"/>
+  	<column name="id" valueNumeric="1" />
+  	<column name="code" value="someCode2" />
+  	
+  </insert>
+  
+    <insert tableName="ORGANIZATION_TRANSLATION">
+  	<column name="id" valueNumeric="2" />
+  	<column name="locale" value="en" />
+  	<column name="parent_id" valueNumeric="2" />
   	<column name="name" value="CDA Test Org 2"/>
   </insert>
   
@@ -62,7 +73,7 @@
   
   
   
-    <insert tableName="FINANCIAL_TRANSACTIONS">
+    <insert tableName="FINANCIAL_TRANSACTION">
   	<column name="id" valueNumeric="4"/>
   	<column name="amount" valueNumeric="1000"/>
   	<column name="ORGANIZATION_ID" valueNumeric="1"/>
@@ -78,7 +89,7 @@
 
 
   
-    <insert tableName="FINANCIAL_TRANSACTIONS">
+    <insert tableName="FINANCIAL_TRANSACTION">
   	<column name="id" valueNumeric="5"/>
   	<column name="amount" valueNumeric="1000"/>
   	<column name="ORGANIZATION_ID" valueNumeric="2"/>
@@ -93,7 +104,7 @@
 
 
   
-    <insert tableName="FINANCIAL_TRANSACTIONS">
+    <insert tableName="FINANCIAL_TRANSACTION">
   	<column name="id" valueNumeric="6"/>
   	<column name="amount" valueNumeric="1000"/>
   	<column name="ORGANIZATION_ID" valueNumeric="2"/>
@@ -109,7 +120,7 @@
   
   
   
-    <insert tableName="FINANCIAL_TRANSACTIONS">
+    <insert tableName="FINANCIAL_TRANSACTION">
   	<column name="id" valueNumeric="7"/>
   	<column name="amount" valueNumeric="1000"/>
   	<column name="ORGANIZATION_ID" valueNumeric="2"/>
@@ -124,7 +135,7 @@
   
   
   
-    <insert tableName="FINANCIAL_TRANSACTIONS">
+    <insert tableName="FINANCIAL_TRANSACTION">
   	<column name="id" valueNumeric="8"/>
   	<column name="amount" valueNumeric="1000"/>
   	<column name="ORGANIZATION_ID" valueNumeric="2"/>
@@ -138,7 +149,7 @@
   </insert>
   
   
-    <insert tableName="FINANCIAL_TRANSACTIONS">
+    <insert tableName="FINANCIAL_TRANSACTION">
   	<column name="id" valueNumeric="9"/>
   	<column name="amount" valueNumeric="1000"/>
   	<column name="ORGANIZATION_ID" valueNumeric="1"/>
@@ -153,7 +164,7 @@
   
   
   
-    <insert tableName="FINANCIAL_TRANSACTIONS">
+    <insert tableName="FINANCIAL_TRANSACTION">
   	<column name="id" valueNumeric="10"/>
   	<column name="amount" valueNumeric="1000"/>
   	<column name="ORGANIZATION_ID" valueNumeric="2"/>
@@ -165,7 +176,7 @@
   	<column name="parent_id" valueNumeric="10" />
   	<column name="description" value="Test transaction"/>
   </insert>
-  
+   -->
   
   </changeSet>
         
