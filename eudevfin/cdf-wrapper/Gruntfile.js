@@ -56,7 +56,7 @@ module.exports = function(grunt) {
 			},
 
 			src: {
-				src: ['src/main/webapp/js/**/*.js']
+				src: ['src/main/resources/js/**/*.js']
 			},
 
 			tests: {
@@ -73,7 +73,7 @@ module.exports = function(grunt) {
 			min: {
 				files: [
 					{
-						src: ['src/main/webapp/js/**/*.js'],
+						src: ['src/main/resources/js/**/*.js'],
 						dest: 'target/cdfplugin.min.js'
 					}
 				]
@@ -86,7 +86,7 @@ module.exports = function(grunt) {
 			},
 			
 			dist: {
-				src: ['src/main/webapp/js/**/*.js'],
+				src: ['src/main/resources/js/**/*.js'],
 				dest: 'target/cdfplugin.js'
 			}
 		},
