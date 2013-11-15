@@ -376,6 +376,8 @@
         <module>common-auth</module>
         <module>cda-wrapper</module>
         <module>cdf-wrapper</module>
+        <module>common-exchange</module>
+        <module>exchange</module>
     </modules>
     <inceptionYear>2013</inceptionYear>
     <organization>
