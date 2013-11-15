@@ -128,7 +128,11 @@
 	</int:gateway>
 		
 	<int:gateway id="organizationService"
-		service-interface="org.devgateway.eudevfin.financial.service.OrganizationService" />
+		service-interface="org.devgateway.eudevfin.financial.service.OrganizationService">
+		<int:method name="createOrganization" request-channel="getChannel">
+			<int:header name="requestName" value="createOrganizationChannel"/>
+		</int:method>
+	</int:gateway>
 
 	<int:header-value-router input-channel="getChannel" header-name="requestName"/>
 
