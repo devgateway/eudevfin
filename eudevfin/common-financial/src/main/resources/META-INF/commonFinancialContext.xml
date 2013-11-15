@@ -28,5 +28,5 @@
 	<context:component-scan base-package="org.devgateway.eudevfin.financial" />
 	<context:annotation-config />
 	
-	
+	<int:channel id="getChannel"/>
 </beans>
