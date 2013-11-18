@@ -8,6 +8,7 @@
 
     dataFilter: function(data, dtype) {
         // just tagging date
+        
         Dashboards.lastServerResponse = Date.now();
         return data;
     }
@@ -3116,6 +3117,3 @@ wd.cdf.notifications.growl = {
     },
     firstRender: true
 };
-
-
-
