@@ -1,0 +1,2 @@
+//com.springsource.sts.config.flow.coordinates\:http\://www.springframework.org/schema/integration\:/eudevfin-exchange/src/main/resources/META-INF/exchangeContext.xml=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<graph>\r\n<element clazz\="OutboundChannelAdapterModelElement" type\="outbound-channel-adapter">\r\n<structure end\="1712" endstart\="1676" start\="1386" startend\="1613"/>\r\n<bounds height\="118" width\="120" x\="19" y\="17"/>\r\n</element>\r\n</graph>
+eclipse.preferences.version=1
