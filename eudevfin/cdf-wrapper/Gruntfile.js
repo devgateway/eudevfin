@@ -56,12 +56,13 @@ module.exports = function(grunt) {
 			},
 
 			src: {
-				src: ['src/main/resources/js/**/*.js']
+				// all source files excluding libraries
+				src: ['src/main/resources/js/**/*.js', '!src/main/resources/js/dataTables/**/*.js', '!src/main/resources/js/jquery*.js']
 			},
 
 			tests: {
 				// all testing files excluding libraries
-				src: ['src/test/js/**/*.js', '!src/test/js/libs/**/*.js']
+				src: ['src/test/resources/js/**/*.js', '!src/test/resources/js/libs/**/*.js']
 			}
 		},
 
@@ -93,7 +94,7 @@ module.exports = function(grunt) {
 
 		qunit: {
 			sample: {
-				src: ['src/test/js/*Example.html']	
+				src: ['src/test/resources/js/*Example.html']	
 			}
 		},
 
