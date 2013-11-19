@@ -4,24 +4,45 @@
 	of the GNU Public License v3.0 ~ which accompanies this distribution, and 
 	is available at ~ http://www.gnu.org/licenses/gpl.html ~ ~ Contributors: 
 	~ mpostelnicu -->
-	
+
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:security="http://www.springframework.org/schema/security"
 	xmlns:int="http://www.springframework.org/schema/integration"
 	xmlns:int-http="http://www.springframework.org/schema/integration/http"
-	xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-2.2.xsd
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration/http http://www.springframework.org/schema/integration/http/spring-integration-http-2.2.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-2.2.xsd
 		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
-		http://www.springframework.org/schema/integration/http http://www.springframework.org/schema/integration/http/spring-integration-http-2.2.xsd">
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
-	<int-http:outbound-channel-adapter
-		url="http://www.google.com/ig/api?weather={city}" http-method="GET"
-		expected-response-type="java.lang.String" request-factory="exchangeRequestFactory"
-		channel="exchange" charset="UTF-8">
-		<int-http:uri-variable name="city" expression="payload" />
-	</int-http:outbound-channel-adapter>
+	<!-- load properties regarding the openexchangerates service, url, params, etc... -->
+	<util:properties id="openExchangeProps" location="classpath:/openexchange.properties"></util:properties>
+
+	<!-- channel where the request for the currencies is being made -->
+	<int:channel id="currenciesJsonExchange" />
+	<int:channel id="getCurrenciesJson" />
+
+
+	<!-- complete list of supported currencies for the exchange service -->
+	<int-http:outbound-gateway
+		url="#{openExchangeProps[baseurl]}/#{openExchangeProps[currencies]}" http-method="GET"
+		request-factory="exchangeRequestFactory" reply-channel="currenciesJsonExchange"
+		request-channel="getCurrenciesJson" expected-response-type="java.lang.String"
+		charset="UTF-8">
+	</int-http:outbound-gateway>
+
+
+	<!-- transformer turning json input to a linkedHashMap. There is no output 
+		channel which means the response is sent back -->
+	<int:json-to-object-transformer
+		input-channel="currenciesJsonExchange" type="java.util.LinkedHashMap" />
+
+	<int:gateway id="exchangeQueryService"
+		service-interface="org.devgateway.eudevfin.exchange.service.ExchangeQueryService" />
 
 
 	<bean id="exchangeRequestFactory"

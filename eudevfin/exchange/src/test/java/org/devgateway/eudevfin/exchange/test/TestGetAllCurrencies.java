@@ -1,4 +1,4 @@
-package org.devgateway.eudevfin.exchange;
+package org.devgateway.eudevfin.exchange.test;
 
 /*******************************************************************************
  * Copyright (c) 2013 Development Gateway.
@@ -11,7 +11,12 @@ package org.devgateway.eudevfin.exchange;
  *    mpostelnicu
  ******************************************************************************/
 
+import java.util.LinkedHashMap;
+
+import org.devgateway.eudevfin.exchange.service.ExchangeQueryService;
+import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -20,11 +25,17 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @since 23 October 2013
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-		"classpath:/META-INF/financialContext.xml",
-		"classpath:/META-INF/commonFinancialContext.xml" })
+@ContextConfiguration(locations = {"classpath:/META-INF/exchangeContext.xml"})
 public class TestGetAllCurrencies {
-
-
+	
+	@Autowired
+	ExchangeQueryService exchangeQueryService;
+	
+	@Test
+	public void testGetAllCurrencies() {	
+		LinkedHashMap<String,String> json = exchangeQueryService.getCurrenciesAndNames();
+		System.out.println(json);
+	}
+	
 	
 }

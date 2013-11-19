@@ -42,7 +42,7 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
 	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
 	}
-	public String getDescription() {
+	public String getDescription() {		 
 		return (String) this.get("description");
 		
 	}
