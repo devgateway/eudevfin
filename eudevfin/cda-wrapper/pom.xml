@@ -30,6 +30,7 @@
     </dependencyManagement>
     <dependencies>
 
+
         <dependency>
             <groupId>org.devgateway.eudevfin</groupId>
             <artifactId>financial</artifactId>
@@ -41,6 +42,7 @@
             <artifactId>common-auth</artifactId>
             <version>${project.version}</version>
         </dependency>
+
 
 
         <dependency>
@@ -143,6 +145,12 @@
                 pentaho-reporting-engine-classic-core-platform-plugin
             </artifactId>
             <version>4.8.0-stable</version>
+            <exclusions>
+            	<exclusion>
+            		<artifactId>spring</artifactId>
+            		<groupId>org.springframework</groupId>
+            	</exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -184,6 +192,11 @@
             <version>1.0.1.539</version>
         </dependency>
 
+        <dependency>
+        	<groupId>org.springframework</groupId>
+        	<artifactId>spring-webmvc</artifactId>
+        	<version>${spring.framework.version}</version>
+        </dependency>
     </dependencies>
 
 </project>

@@ -2,9 +2,8 @@ package org.devgateway.eudevfin.cda.test;
 
 import static org.junit.Assert.*;
 
-import java.io.OutputStream;
-
 import org.apache.log4j.Logger;
+import org.devgateway.eudevfin.cda.domain.QueryResult;
 import org.devgateway.eudevfin.cda.service.QueryService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,11 +23,10 @@ public class CDAServiceTest {
 	
 	@Autowired
 	QueryService service;
-	
 
 	@Test
 	public void test() {
-		OutputStream result = service.doQuery("simpleQuery");
+		QueryResult result = service.doQuery("simpleQuery");
 		logger.info("Result: " + result.toString());
 		assertTrue((result.toString() != ""));
 	}
