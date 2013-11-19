@@ -1,0 +1,42 @@
+{
+    "queryInfo": {
+        "totalRows": "3"
+    },
+    "resultset": [
+        [
+            "All Years",
+            "2003",
+            3573701.2500000023,
+            35313
+        ],
+        [
+            "All Years",
+            "2004",
+            4750205.889999998,
+            47151
+        ],
+        [
+            "All Years",
+            "2005",
+            1513074.4600000002,
+            14607
+        ]
+    ],
+    "metadata": [{
+        "colIndex": 0,
+        "colType": "String",
+        "colName": "[Time].[(All)]"
+    }, {
+        "colIndex": 1,
+        "colType": "String",
+        "colName": "[Time].[Years]"
+    }, {
+        "colIndex": 2,
+        "colType": "Numeric",
+        "colName": "[Measures].[Sales]"
+    }, {
+        "colIndex": 3,
+        "colType": "Numeric",
+        "colName": "[Measures].[Quantity]"
+    }]
+}

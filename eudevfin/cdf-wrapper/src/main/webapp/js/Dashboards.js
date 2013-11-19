@@ -1,3 +1,4 @@
+// TODO - do we need this and where is used?
 $.ajaxSetup({
     type: "POST",
     async: false,
@@ -13,6 +14,8 @@ $.ajaxSetup({
     }
 });
 
+
+// TODO - maybe we should wrap all this global variables in some 'app' object or maibe 'cdfplugin' object
 var pathArray = window.location.pathname.split('/');
 var webAppPath;
 if (!(typeof(CONTEXT_PATH) == 'undefined')) {
@@ -26,6 +29,8 @@ if (webAppPath.endsWith("/")) {
     webAppPath = webAppPath.substr(0, webAppPath.length - 1);
 }
 
+
+// TODO - change the css and images path
 var GB_ANIMATION = true;
 var CDF_CHILDREN = 1;
 var CDF_SELF = 2;
@@ -33,53 +38,54 @@ var ERROR_IMAGE = webAppPath + "/content/pentaho-cdf/resources/style/images/erro
 var CDF_ERROR_DIV = 'cdfErrorDiv';
 
 
-if ($.blockUI) {
-    $.blockUI.defaults.fadeIn = 0;
-    $.blockUI.defaults.message = '<div style="padding: 0px;"><img src="' + webAppPath + '/content/pentaho-cdf/resources/style/images/processing_transparent.gif" />';
-    $.blockUI.defaults.css.left = '50%';
-    $.blockUI.defaults.css.top = '40%';
-    $.blockUI.defaults.css.marginLeft = '-16px';
-    $.blockUI.defaults.css.width = '32px';
-    $.blockUI.defaults.css.background = 'none';
-    $.blockUI.defaults.overlayCSS = { backgroundColor: "#FFFFFF", opacity: 0.8, cursor: "wait"};
-    $.blockUI.defaults.css.border = "none";
-}
+// Removed 'blockUI' and added CSS loader
+// TODO - check all other references to 'blockUI'
 
 
-if (typeof $.SetImpromptuDefaults == 'function')
-    $.SetImpromptuDefaults({
-        prefix: 'colsJqi',
-        show: 'slideDown'
-    });
+// TODO - remove all commented blocks
+// if (typeof $.SetImpromptuDefaults == 'function')
+//     $.SetImpromptuDefaults({
+//         prefix: 'colsJqi',
+//         show: 'slideDown'
+//     });
 
 var Dashboards = {
-
     ERROR_CODES: {
         'QUERY_TIMEOUT': {
             msg: "Query timeout reached"
         },
+
         "COMPONENT_ERROR": {
             msg: "Error processing component"
         }
     },
+
     CDF_BASE_PATH: webAppPath + "/content/pentaho-cdf/",
-    parameterModel: new Backbone.Model(),
-    TRAFFIC_RED: webAppPath + "/content/pentaho-cdf/resources/style/images/traffic_red.png",
-    TRAFFIC_YELLOW: webAppPath + "/content/pentaho-cdf/resources/style/images/traffic_yellow.png",
-    TRAFFIC_GREEN: webAppPath + "/content/pentaho-cdf/resources/style/images/traffic_green.png",
+
+    // TRAFFIC_RED: webAppPath + "/content/pentaho-cdf/resources/style/images/traffic_red.png",
+    // TRAFFIC_YELLOW: webAppPath + "/content/pentaho-cdf/resources/style/images/traffic_yellow.png",
+    // TRAFFIC_GREEN: webAppPath + "/content/pentaho-cdf/resources/style/images/traffic_green.png",
+    
     viewFlags: {
         UNUSED: "unused",
         UNBOUND: "unbound",
         VIEW: "view"
     },
+
+    parameterModel: new Backbone.Model(),
+
     /* globalContext determines if components and params are retrieved
      * from the current window's object or from the Dashboards singleton
      */
+
     globalContext: true,
     escapeParameterValues: true,
+    
     /* Used to control progress indicator for async mode */
     runningCalls: 0,
+    
     components: [],
+    
     /* Holds the dashboard parameters if globalContext = false */
     parameters: [],
 
@@ -88,10 +94,9 @@ var Dashboards = {
 
 
     /*
-     * Legacy dashboards don't have priority, so we'll assign a very low priority
-     * to them.
-     * */
-
+     * Legacy dashboards don't have priority, so we'll assign a very low priority to them.
+     */
+    // TODO - since all Dashboards should be 'new asynch' - check if we need this param: legacyPriority
     legacyPriority: -1000,
 
     /* Log lifecycle events? */
@@ -102,8 +107,9 @@ var Dashboards = {
 
     lastServerResponse: Date.now(),
     serverCheckResponseTimeout: 1800000, //ms, will be overridden at init
+
     /* Reference to current language code . Used in every place where jquery
-     * plugins used in CDF hasm native internationalization support (ex: Datepicker)
+     * plugins used in CDF has native internationalization support (ex: Datepicker)
      */
     i18nCurrentLanguageCode: null,
     i18nSupport: null  // Reference to i18n objects
@@ -113,13 +119,12 @@ _.extend(Dashboards, Backbone.Events);
 
 // Log
 Dashboards.log = function (m, type) {
-    if (typeof console != "undefined") {
+    if (typeof console !== "undefined") {
         if (type && console[type]) {
             console[type]("CDF: " + m);
         } else if (type === 'exception' && !console.exception) {
             console.error(m.stack);
-        }
-        else {
+        } else {
             console.log("CDF: " + m);
         }
     }
@@ -129,18 +134,17 @@ Dashboards.error = function (m) {
     this.log(m, 'error');
 }
 
-
 Dashboards.getWebAppPath = function () {
     return webAppPath
 }
 
 // REFRESH ENGINE begin
 
-Dashboards.RefreshEngine = function () {// Manages periodic refresh of components
-
-    var NO_REFRESH = 0;//currently no distinction between explicitly disabled or not set
-    var refreshQueue = new Array();//component refresh queue
-    var activeTimer = null;//timer for individual component refresh
+// Manages periodic refresh of components
+Dashboards.RefreshEngine = function () {
+    var NO_REFRESH = 0;                 //currently no distinction between explicitly disabled or not set
+    var refreshQueue = new Array();     //component refresh queue
+    var activeTimer = null;             //timer for individual component refresh
 
     var globalRefreshPeriod = NO_REFRESH;
     var globalTimer = null;
@@ -152,15 +156,17 @@ Dashboards.RefreshEngine = function () {// Manages periodic refresh of component
         };
     };
 
-    //set global refresh and (re)start interval
+    // set global refresh and (re)start interval
     var startGlobalRefresh = function (refreshPeriod) {
-        if (globalTimer != null) {
+        if (globalTimer !== null) {
             clearInterval(globalTimer);
             globalTimer = null;
         }
+
         globalRefreshPeriod = (refreshPeriod > 0) ? refreshPeriod : NO_REFRESH;
-        if (globalRefreshPeriod != NO_REFRESH) {
-            globalTimer = setInterval("Dashboards.refreshEngine.fireGlobalRefresh()", globalRefreshPeriod * 1000);//ToDo: cleaner way to call
+
+        if (globalRefreshPeriod !== NO_REFRESH) {
+            globalTimer = setInterval("Dashboards.refreshEngine.fireGlobalRefresh()", globalRefreshPeriod * 1000);
         }
     };
 
@@ -177,7 +183,7 @@ Dashboards.RefreshEngine = function () {// Manages periodic refresh of component
         if (refreshQueue.length > 0) refreshQueue.splice(0, refreshQueue.length);
     };
 
-    //binary search for elem's position in coll (nextRefresh asc order)
+    // binary search for elem's position in coll (nextRefresh asc order)
     var getSortedInsertPosition = function (coll, elem) {
         var high = coll.length - 1;
         var low = 0;
@@ -193,8 +199,10 @@ Dashboards.RefreshEngine = function () {// Manages periodic refresh of component
                 return mid;
             }
         }
+
         return low;
     };
+
     var sortedInsert = function (rtArray, rtInfo) {
         var pos = getSortedInsertPosition(rtArray, rtInfo);
         rtArray.splice(pos, 0, rtInfo);
@@ -222,20 +230,17 @@ Dashboards.RefreshEngine = function () {// Manages periodic refresh of component
     };
 
     var refreshComponent = function (component) {
-        //if refresh period is too short, progress indicator will stay in user's face
-        //    let(Dashboards.runningCalls = 0){
         Dashboards.update(component);
-        //      Dashboards.runningCalls = 0;
-        //      Dashboards.hideProgressIndicator()
-        //    }
     };
 
     var insertInQueue = function (component) {
         var time = getCurrentTime();
+
         // normalize invalid refresh
         if (!(component.refreshPeriod > 0)) {
             component.refreshPeriod = NO_REFRESH;
         }
+
         if (component.refreshPeriod != NO_REFRESH) {
             //get next refresh time for component
             var info = new Dashboards.RefreshEngine.QueueItem();
@@ -244,45 +249,57 @@ Dashboards.RefreshEngine = function () {// Manages periodic refresh of component
             sortedInsert(refreshQueue, info);
         }
     };
-    return {
 
-        //set a component's refresh period and clears it from the queue if there;
-        //processComponent must be called to activate the refresh timer for the component
+    return {
+        // set a component's refresh period and clears it from the queue if there;
+        // processComponent must be called to activate the refresh timer for the component
         registerComponent: function (component, refreshPeriod) {
             if (!component) return false;
 
             component.refreshPeriod = (refreshPeriod > 0) ? refreshPeriod : NO_REFRESH;
+            
             var wasFirst = isFirstInQueue(component);
             clearFromQueue(component);
-            if (wasFirst) restartTimer();
+            
+            if (wasFirst)  {
+                restartTimer();
+            }
 
             return true;
         },
 
         getRefreshPeriod: function (component) {
-            if (component && component.refreshPeriod > 0) return component.refreshPeriod;
-            else return NO_REFRESH;
+            if (component && component.refreshPeriod > 0) {
+                return component.refreshPeriod;
+            } else { 
+                return NO_REFRESH;
+            }
         },
 
         //sets next refresh for given component and inserts it in refreshQueue, restarts timer if needed
         processComponent: function (component) {
             clearFromQueue(component);
             insertInQueue(component);
-            if (isFirstInQueue(component)) restartTimer();
-            return true;//dbg
+
+            if (isFirstInQueue(component)) {
+                restartTimer();
+            }
+            
+            return true;
         },
 
-        //clears queue, sets next refresh for all components, restarts timer
+        // clears queue, sets next refresh for all components, restarts timer
         processComponents: function () {
             clearQueue();
             for (var i = 0; i < Dashboards.components.length; i++) {
                 insertInQueue(Dashboards.components[i]);
             }
+
             restartTimer();
-            return true;//dbg
+            return true;
         },
 
-        //pop due items from queue, refresh components and set next timeout
+        // pop due items from queue, refresh components and set next timeout
         fireRefresh: function () {
             activeTimer = null;
             var currentTime = getCurrentTime();
@@ -290,12 +307,11 @@ Dashboards.RefreshEngine = function () {// Manages periodic refresh of component
             while (refreshQueue.length > 0 &&
                 refreshQueue[0].nextRefresh <= currentTime) {
                 var info = refreshQueue.shift();//pop first
-                //call update, which calls processComponent
+                // call update, which calls processComponent
                 refreshComponent(info.component);
             }
             if (refreshQueue.length > 0) {
-                activeTimer = setTimeout("Dashboards.refreshEngine.fireRefresh()", refreshQueue[0].nextRefresh - currentTime);//ToDo: cleaner way to call
-                //activeTimer = setTimeout(this.fireRefresh, refreshQueue[0].nextRefresh - currentTime );
+                activeTimer = setTimeout("Dashboards.refreshEngine.fireRefresh()", refreshQueue[0].nextRefresh - currentTime);
             }
         },
 
@@ -322,8 +338,7 @@ Dashboards.RefreshEngine = function () {// Manages periodic refresh of component
 };
 
 Dashboards.refreshEngine = new Dashboards.RefreshEngine();
-
-//REFRESH ENGINE end
+// REFRESH ENGINE end
 
 Dashboards.setGlobalContext = function (globalContext) {
     this.globalContext = globalContext;
@@ -334,7 +349,7 @@ Dashboards.showProgressIndicator = function () {
 };
 
 Dashboards.hideProgressIndicator = function () {
-    $.unblockUI();
+    $('.loading-bar').removeClass('is-active');
     this.showErrorTooltip();
 };
 
@@ -352,16 +367,14 @@ Dashboards.getRunningCalls = function () {
 Dashboards.incrementRunningCalls = function () {
     this.runningCalls++;
     this.showProgressIndicator();
-//Dashboards.log("+Running calls incremented to: " + Dashboards.getRunningCalls());
 };
 
 Dashboards.decrementRunningCalls = function () {
     this.runningCalls--;
-    //Dashboards.log("-Running calls decremented to: " + Dashboards.getRunningCalls());
     setTimeout(_.bind(function () {
         if (this.runningCalls <= 0) {
             this.hideProgressIndicator();
-            this.runningCalls = 0; // Just in case
+            this.runningCalls = 0;  // Just in case
         }
     }, this), 10);
 };
@@ -426,16 +439,12 @@ Dashboards._getControlClass = function (control) {
     var typeNames = [TypeName + 'Component', typeName, TypeName];
 
     for (var i = 0, N = typeNames.length; i < N; i++) {
-        // TODO: window represents access to the JS global object.
-        // This, or a special object on which to eval types, should be provided by some FWK.
-
         // If the value of a name is not a function, keep on trying.
         var Class = window[typeNames[i]];
         if (Class && typeof Class === 'function') {
             return Class;
         }
     }
-    // return undefined;
 };
 
 Dashboards._makeInstance = function (Class, args) {
@@ -475,12 +484,7 @@ Dashboards._castControlToComponent = function (control, Class) {
     }
 };
 
-Dashboards._addLogLifecycleToControl = function (control) {
-    // TODO: Could the _typeof console !== "undefined"_ test be made beforehand,
-    // to avoid always installing the catch-all handler?
-    // The same could be said for the _this.logLifecycle_ test.
-    // To still allow changing the value dynamically, a Dashboards.setLogLifecycle(.) method could be provided.
-
+Dashboards._addLogLifecycleToControl = function (control) { 
     // Add logging lifeCycle
     control.on("all", function (e) {
         var dashs = this.dashboard;
@@ -516,7 +520,10 @@ Dashboards.getErrorObj = function (errorCode) {
 Dashboards.parseServerError = function (resp, txtStatus, error) {
     var out = {};
     var regexs = [
-        { match: /Query timeout/, msg: Dashboards.getErrorObj('QUERY_TIMEOUT').msg  }
+        { 
+            match: /Query timeout/, 
+            msg: Dashboards.getErrorObj('QUERY_TIMEOUT').msg  
+        }
     ];
 
     out.error = error;
@@ -576,12 +583,8 @@ Dashboards.loginAlert = function (newOpts) {
     this.trigger('cdf cdf:loginError', this);
 };
 
-/**
- *
- */
 Dashboards.checkServer = function () {
-    //check if is connecting to server ok
-    //use post to avoid cache
+    // check if is connecting to server ok - use post to avoid cache
     var retVal = false;
     $.ajax({
         type: 'POST',
@@ -608,21 +611,13 @@ Dashboards.checkServer = function () {
 Dashboards.restoreDuplicates = function () {
     /*
      * We mark duplicates by appending an _nn suffix to their names.
-     * This means that, when we read the parameters from bookmarks,
-     * we can look for the _nn suffixes, and infer from those suffixes
-     * what duplications were triggered, allowing us to reproduce that
-     * state as well.
      */
     var dupes = this.components.filter(function (c) {
             return c.type == 'duplicate'
         }),
         suffixes = {},
-        params = this.getBookmarkState().params || {};
+        params = {};
     /*
-     * First step is to go over the bookmarked parameters and find
-     * all of those that end with the _nn suffix (possibly several
-     * such suffixes piled up, like _1_2, as we can re-duplicate
-     * existing duplicates).
      *
      * The suffixes object then maps those suffixes to a mapping of
      * the root parameter names to their respective values.
@@ -645,11 +640,7 @@ Dashboards.restoreDuplicates = function () {
     /*
      * Once we have the suffix list, we'll check each suffix's
      * parameter list against each of the DuplicateComponents
-     * in the dashboard. We consider that a suffix matches a
-     * DuplicateComponent if the suffix contains all of the
-     * Component's Bookmarkable parameters. If we're satisfied
-     * that such a match was found, then we tell the Component
-     * to trigger a duplication with the provided values.
+     * in the dashboard.
      */
     var myself = this;
     for (var s in suffixes) if (suffixes.hasOwnProperty(s)) {
@@ -657,7 +648,7 @@ Dashboards.restoreDuplicates = function () {
         $.each(dupes, function (i, e) {
             var p;
             for (p = 0; p < e.parameters.length; p++) {
-                if (!params.hasOwnProperty(e.parameters[p]) && myself.isBookmarkable(e.parameters[p])) {
+                if (!params.hasOwnProperty(e.parameters[p])) {
                     return;
                 }
             }
@@ -665,18 +656,10 @@ Dashboards.restoreDuplicates = function () {
         });
     }
 }
-Dashboards.blockUIwithDrag = function () {
-    if (typeof this.i18nSupport !== "undefined" && this.i18nSupport != null) {
-        // If i18n support is enabled process the message accordingly
-        $.blockUI.defaults.message = '<div style="padding: 0px;"><img src="' + this.getWebAppPath() + '/content/pentaho-cdf/resources/style/images/processing_transparent.gif" /></div>';
-    }
 
-    $.blockUI();
-    var handle = $('<div id="blockUIDragHandle"></div>')
-    $("div.blockUI.blockMsg").prepend(handle);
-    $("div.blockUI.blockMsg").draggable({
-        handle: "#blockUIDragHandle"
-    });
+// TODO - blockui need to be rename to reflect the new loader approach
+Dashboards.blockUIwithDrag = function () {
+    $('.loading-bar').addClass('is-active');
 };
 
 Dashboards.updateLifecycle = function (object) {
@@ -914,21 +897,19 @@ Dashboards.setI18nSupport = function (lc, i18nRef) {
 
 Dashboards.init = function (components) {
     var myself = this;
-    if (this.initialStorage) {
-        _.extend(this.storage, this.initialStorage);
-    } else {
-        this.loadStorage();
-    }
+    // here it was Storage initialization which was removed since we don't use it
     if (this.context != null && this.context.sessionTimeout != null) {
         //defaulting to 90% of ms value of sessionTimeout
         Dashboards.serverCheckResponseTimeout = this.context.sessionTimeout * 900;
     }
-    this.restoreBookmarkables();
+
     this.restoreView();
     this.syncParametersInit();
+
     if ($.isArray(components)) {
         this.addComponents(components);
     }
+
     $(function () {
         myself.initEngine();
     });
@@ -1138,7 +1119,6 @@ Dashboards.handlePostInit = function () {
         if (this.logLifecycle && typeof console != "undefined") {
             console.log("%c          [Lifecycle <End  ] Init (Running: " + this.getRunningCalls() + ")", "color: #ddd ");
         }
-
     }
 };
 
@@ -1212,7 +1192,6 @@ Dashboards.fireChange = function (parameter, value) {
         }
     }
     myself.updateAll(toUpdate);
-
 };
 
 
@@ -1354,154 +1333,6 @@ Dashboards.restoreView = function () {
     }
 };
 
-Dashboards.getHashValue = function (key) {
-    var hash = window.location.hash,
-        obj;
-    try {
-        obj = JSON.parse(hash.slice(1));
-    } catch (e) {
-        obj = {};
-    }
-    if (arguments.length === 0) {
-        return obj;
-    } else {
-        return obj[key];
-    }
-}
-
-Dashboards.setHashValue = function (key, value) {
-    var obj = this.getHashValue(), json;
-    if (arguments.length == 1) {
-        obj = key;
-    } else {
-        obj[key] = value;
-    }
-    json = JSON.stringify(obj);
-    /* We don't want to store empty objects */
-    if (json != "{}") {
-        window.location.hash = json;
-    } else {
-        if (window.location.hash) {
-            window.location.hash = '';
-        }
-    }
-}
-Dashboards.deleteHashValue = function (key) {
-    var obj = this.getHashValue();
-    if (arguments.length === 0) {
-        window.location.hash = "";
-    } else {
-        delete obj[key];
-        this.setHashValue(obj);
-    }
-}
-Dashboards.setBookmarkable = function (parameter, value) {
-    if (!this.bookmarkables) this.bookmarkables = {};
-    if (arguments.length === 1) value = true;
-    this.bookmarkables[parameter] = value;
-};
-
-Dashboards.isBookmarkable = function (parameter) {
-    if (!this.bookmarkables) {
-        return false;
-    }
-    return Boolean(this.bookmarkables[parameter]);
-};
-
-
-Dashboards.generateBookmarkState = function () {
-    var params = {},
-        bookmarkables = this.bookmarkables;
-    for (var k in bookmarkables) if (bookmarkables.hasOwnProperty(k)) {
-        if (bookmarkables[k]) {
-            params[k] = this.getParameterValue(k);
-        }
-    }
-    return params;
-};
-
-Dashboards.persistBookmarkables = function (param) {
-    var bookmarkables = this.bookmarkables,
-        params = {};
-    /*
-     * We don't want to update the hash if we were passed a
-     * non-bookmarkable parameter (why bother?), nor is there
-     * much of a point in publishing changes when we're still
-     * initializing the dashboard. That's just the code for
-     * restoreBookmarkables doing the reverse of this!
-     */
-    if (!bookmarkables || !bookmarkables[param]) {
-        return;
-    }
-    if (!this.finishedInit) {
-        return;
-    }
-    params = this.generateBookmarkState();
-    this.setBookmarkState({impl: 'client', params: params});
-}
-
-Dashboards.setBookmarkState = function (state) {
-    if (window.history && window.history.replaceState) {
-        var method = window.location.pathname.split('/').pop(),
-            query = window.location.search.slice(1).split('&').map(function (e) {
-                var entry = e.split('=');
-                entry[1] = decodeURIComponent(entry[1]);
-                return entry;
-            }),
-            url;
-        query = this.propertiesArrayToObject(query);
-        query.bookmarkState = JSON.stringify(state);
-        url = method + '?' + $.param(query);
-        window.history.replaceState({}, '', url);
-        this.deleteHashValue('bookmark');
-    } else {
-        this.setHashValue('bookmark', state);
-    }
-};
-
-Dashboards.getBookmarkState = function () {
-    /*
-     * browsers that don't support history.pushState
-     * can't actually safely remove bookmarkState param,
-     * so we must first check whether there is a hash-based
-     * bookmark state.
-     */
-    if (window.location.hash.length > 1) {
-        try {
-            return this.getHashValue('bookmark') || {};
-        } catch (e) {
-            /*
-             * We'll land here if the hash isn't a valid json object,
-             * so we'll go on and try getting the state from the params
-             */
-        }
-    }
-    var query = window.location.search.slice(1).split('&').map(function (e) {
-            var pair = e.split('=');
-            pair[1] = decodeURIComponent(pair[1]);
-            return pair;
-        }),
-        params = this.propertiesArrayToObject(query);
-    if (params.bookmarkState) {
-        return JSON.parse(decodeURIComponent(params.bookmarkState.replace(/\+/g, ' '))) || {};
-    } else {
-        return {};
-    }
-};
-
-Dashboards.restoreBookmarkables = function () {
-    var state;
-    this.bookmarkables = this.bookmarkables || {};
-    try {
-        state = this.getBookmarkState().params;
-        for (var k in state) if (state.hasOwnProperty(k)) {
-            this.setParameter(k, state[k]);
-        }
-    } catch (e) {
-        this.log(e, 'error');
-    }
-}
-
 Dashboards.setParameterViewMode = function (parameter, value) {
     if (!this.viewParameters) this.viewParameters = {};
     if (arguments.length === 1) value = this.viewFlags.VIEW;
@@ -1601,12 +1432,10 @@ Dashboards.setParameter = function (parameterName, parameterValue) {
         }
     }
     this.parameterModel.set(parameterName, parameterValue, {silent: true});
-    this.persistBookmarkables(parameterName);
 };
 
 
 Dashboards.post = function (url, obj) {
-
     var form = '<form action="' + url + '" method="post">';
     for (var o in obj) {
 
@@ -1618,12 +1447,12 @@ Dashboards.post = function (url, obj) {
 
         form += '"<input type="hidden" name="' + o + '" value="' + v + '"/>';
     }
+
     form += '</form>';
     jQuery(form).appendTo('body').submit().remove();
 };
 
 Dashboards.clone = function clone(obj) {
-
     var c = obj instanceof Array ? [] : {};
 
     for (var i in obj) {
@@ -1662,9 +1491,10 @@ Dashboards.getArgValue = function (key) {
 };
 
 Dashboards.ev = function (o) {
-    return typeof o == 'function' ? o() : o
+    return typeof o === 'function' ? o() : o
 };
 
+// TODO - do we need this *pentaho* functions - since we don't use the Pentaho server
 Dashboards.callPentahoAction = function (obj, solution, path, action, parameters, callback) {
     var myself = this;
 
@@ -1783,54 +1613,6 @@ Dashboards.parseXActionResult = function (obj, html) {
 
 };
 
-Dashboards.setSettingsValue = function (name, object) {
-
-    var data = {
-        method: "set",
-        key: name,
-        value: JSON.stringify(object)
-    };
-    $.post("Settings", data, function () {
-    });
-};
-
-Dashboards.getSettingsValue = function (key, value) {
-
-    var callback = typeof value == 'function' ? value : function (json) {
-        value = json;
-    };
-
-    $.getJSON("Settings?method=get&key=" + key, callback);
-};
-
-Dashboards.fetchData = function (cd, params, callback) {
-    this.log('Dashboards.fetchData() is deprecated. Use Query objects instead', 'warn');
-    // Detect and handle CDA data sources
-    if (cd != undefined && cd.dataAccessId != undefined) {
-        for (var param in params) {
-            cd['param' + params[param][0]] = this.getParameterValue(params[param][1]);
-        }
-        $.post(webAppPath + "/content/cda/doQuery?", cd,
-            function (json) {
-                callback(json);
-            }, 'json').error(Dashboards.handleServerError);
-    }
-    // When we're not working with a CDA data source, we default to using jtable to fetch the data...
-    else if (cd != undefined) {
-
-        var xactionFile = (cd.queryType == 'cda') ? "jtable-cda.xaction" : "jtable.xaction";
-
-        $.post(webAppPath + "/ViewAction?solution=system&path=pentaho-cdf/actions&action=" + xactionFile, cd,
-            function (result) {
-                callback(result.values);
-            }, 'json');
-    }
-    // ... or just call the callback when no valid definition is passed
-    else {
-        callback([]);
-    }
-};
-
 Dashboards.escapeHtml = function (input) {
     var escaped = input
         .replace(/&/g, "&amp;")
@@ -1840,69 +1622,8 @@ Dashboards.escapeHtml = function (input) {
         .replace(/"/g, "&#34;");
     return escaped;
 };
-// STORAGE ENGINE
-
-// Default object
-Dashboards.storage = {};
-
-// Operations
-Dashboards.loadStorage = function () {
-    var myself = this;
-    // Don't do anything for anonymousUser.
-    if (this.context && this.context.user === "anonymousUser") {
-        return;
-    }
-
-    var args = {
-        action: "read",
-        _: (new Date()).getTime() // Needed so IE doesn't try to be clever and retrieve the response from cache
-    };
-    $.getJSON(webAppPath + "/content/pentaho-cdf/Storage", args, function (json) {
-        $.extend(myself.storage, json);
-    });
-};
-
-Dashboards.saveStorage = function () {
-    var myself = this;
-    // Don't do anything for anonymousUser
-    if (this.context && this.context.user === "anonymousUser") {
-        return;
-    }
-
-    var args = {
-        action: "store",
-        storageValue: JSON.stringify(this.storage),
-        _: (new Date()).getTime() // Needed so IE doesn't try to be clever and retrieve the response from cache
-    };
-    $.getJSON(webAppPath + "/content/pentaho-cdf/Storage", args, function (json) {
-        if (json.result != true) {
-            myself.log("Error saving storage", 'error');
-        }
-    });
-};
-
-Dashboards.cleanStorage = function () {
-    var myself = this;
-    this.storage = {};
-
-    // Don't do noting for anonymousUser
-    if (this.context && this.context.user === "anonymousUser") {
-        return;
-    }
-
-    var args = {
-        action: "delete"
-    };
-    $.getJSON(webAppPath + "/content/pentaho-cdf/Storage", args, function (json) {
-        if (json.result != true) {
-            myself.log("Error deleting storage", 'error');
-        }
-    });
-};
-
 
 (function (D) {
-
     // Conversion functions
     function _pa2obj(pArray) {
         var obj = {};
@@ -1934,7 +1655,6 @@ Dashboards.cleanStorage = function () {
         // Mantra 2: "Arrays are Objects!"
         return ( _.isArray(obj) && obj) || ( _.isObject(obj) && _obj2pa(obj)) || undefined;
     };
-
 })(Dashboards);
 
 
@@ -2168,7 +1888,7 @@ Dashboards.hsvToRgb = function (h, s, v) {
  * UTF-8 data encode / decode
  * http://www.webtoolkit.info/
  **/
-function encode_prepare_arr(value) {
+function encode_prepare_arr (value) {
     if (typeof value == "number") {
         return value;
     } else if ($.isArray(value)) {
@@ -2200,10 +1920,7 @@ function encode_prepare(s) {
  * http://www.webtoolkit.info/
  *
  **/
-
-
 var Utf8 = {
-
     // public method for url encoding
     encode: function (string) {
         string = string.replace(/\r\n/g, "\n");
@@ -2256,17 +1973,14 @@ var Utf8 = {
                 string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
                 i += 3;
             }
-
         }
 
         return string;
     }
-
 }
 
-function getURLParameters(sURL) {
+function getURLParameters (sURL) {
     if (sURL.indexOf("?") > 0) {
-
         var arrParams = sURL.split("?");
         var arrURLParams = arrParams[1].split("&");
         var arrParam = [];
@@ -2279,7 +1993,6 @@ function getURLParameters(sURL) {
                 arrParam.push(parameter);
             }
         }
-
     }
 
     return arrParam;
@@ -2324,7 +2037,6 @@ function doCsvQuoting(value, separator, alwaysEscape) {
  *
  **/
 sprintfWrapper = {
-
     init: function () {
 
         if (typeof arguments == 'undefined') {
@@ -2438,7 +2150,6 @@ sprintfWrapper = {
         newString += strings[i];
 
         return newString;
-
     },
 
     convert: function (match, nosign) {
@@ -2469,11 +2180,8 @@ sprintf = sprintfWrapper.init;
 
 
 // CONTAINER begin
-;
 (function (D) {
-
     function Container() {
-
         // PUBLIC
 
         // register(type, what [, scope])
@@ -2528,6 +2236,7 @@ sprintf = sprintfWrapper.init;
         this.has = function (type, name) {
             return !!getHolder(type, name, true);
         };
+
         this.canNew = function (type, name) {
             return getHolder(type, name, false) instanceof FactoryHolder;
         };
@@ -2535,6 +2244,7 @@ sprintf = sprintfWrapper.init;
         this.get = function (type, name) {
             return get(type, name, null, false, false);
         };
+
         this.tryGet = function (type, name) {
             return get(type, name, null, false, true);
         };
@@ -2542,6 +2252,7 @@ sprintf = sprintfWrapper.init;
         this.getNew = function (type, name, config) {
             return get(type, name, config, true, false);
         };
+
         this.tryGetNew = function (type, name, config) {
             return get(type, name, config, true, true);
         };
@@ -2549,6 +2260,7 @@ sprintf = sprintfWrapper.init;
         this.getAll = function (type) {
             return getAll(type, false);
         };
+
         this.tryGetAll = function (type) {
             return getAll(type, true);
         };
@@ -2556,6 +2268,7 @@ sprintf = sprintfWrapper.init;
         this.listType = function (type) {
             return getType(type, false);
         };
+
         this.tryListType = function (type) {
             return getType(type, true);
         };
@@ -2574,7 +2287,6 @@ sprintf = sprintfWrapper.init;
         };
 
         // PRIVATE
-
         var _typesTable = {}; // type -> []
 
         function getType(type, isTry) {
@@ -2688,7 +2400,6 @@ sprintf = sprintfWrapper.init;
     }
 
     // Fwk stuff
-
     function doDispose(instance) {
         if (typeof instance.dispose === 'function') {
             instance.dispose();
@@ -2710,11 +2421,10 @@ sprintf = sprintfWrapper.init;
     // Export
     D.Container = Container;
 })(Dashboards);
+
 // CONTAINER end 
 
-
 // ADDINS begin
-;
 (function (D) {
     D.addIns = new D.Container();
 
@@ -2831,7 +2541,6 @@ Dashboards.safeClone = function () {
 
 
 // OPTIONS MANAGER begin
-;
 (function (D) {
 
     // This class is intended to be used as a generic Options Manager, by providing a way to
@@ -3112,8 +2821,6 @@ Query = function (cd, dataAccessId) {
  *
  *
  */
-
-
 var wd = wd || {};
 wd.cdf = wd.cdf || {};
 wd.cdf.popups = wd.cdf.popups || {};
@@ -3170,7 +2877,6 @@ wd.cdf.popups.okPopup = {
  *
  *
  */
-
 wd.cdf.notifications = wd.cdf.notifications || {};
 
 wd.cdf.notifications.component = {
@@ -3211,7 +2917,6 @@ wd.cdf.notifications.growl = {
             return true
         },
         css: $.extend({},
-            $.blockUI.defaults.growlCSS,
             { position: 'absolute', width: '100%', top: '10px' }),
         showOverlay: false,
         fadeIn: 700,
