@@ -40,7 +40,6 @@ import org.devgateway.eudevfin.dim.pages.LoginPage;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
 
 
 public class WicketSpringApplication extends AuthenticatedWebApplication implements ApplicationContextAware {
@@ -48,8 +47,8 @@ public class WicketSpringApplication extends AuthenticatedWebApplication impleme
     private ApplicationContext ctx;
 
     @Override
-	protected void init() {
-		super.init();
+    protected void init() {
+        super.init();
 
         configureBootstrap();
         configureResourceBundles();
@@ -57,7 +56,7 @@ public class WicketSpringApplication extends AuthenticatedWebApplication impleme
         setHeaderResponseDecorator(new RenderJavaScriptToFooterHeaderResponseDecorator());
 
         //mount annotated pages
-        new AnnotatedMountScanner().scanPackage("org.devgateway.eudevfin.dim").mount(this);
+        //new AnnotatedMountScanner().scanPackage("org.devgateway.eudevfin.dim").mount(this);
 
         //implemented ApplicationContextAware and added context as a parameter to help JUnit tests work
         getComponentInstantiationListeners().add(
@@ -116,19 +115,19 @@ public class WicketSpringApplication extends AuthenticatedWebApplication impleme
     }
 
     @Override
-	public Class getHomePage() {
-		return HomePage.class;
-	}
+    public Class getHomePage() {
+        return HomePage.class;
+    }
 
-	@Override
-	protected Class<? extends AbstractAuthenticatedWebSession> getWebSessionClass() {
-		return SpringWicketWebSession.class;
-	}
+    @Override
+    protected Class<? extends AbstractAuthenticatedWebSession> getWebSessionClass() {
+        return SpringWicketWebSession.class;
+    }
 
-	@Override
-	protected Class<? extends WebPage> getSignInPageClass() {
-		return LoginPage.class;
-	}
+    @Override
+    protected Class<? extends WebPage> getSignInPageClass() {
+        return LoginPage.class;
+    }
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
