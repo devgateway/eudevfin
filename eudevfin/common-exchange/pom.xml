@@ -6,4 +6,5 @@
     <version>0.0.1.CI-SNAPSHOT</version>
   </parent>
   <artifactId>common-exchange</artifactId>
+  <name>EU-DEVFIN Common Exchange</name>
 </project>
