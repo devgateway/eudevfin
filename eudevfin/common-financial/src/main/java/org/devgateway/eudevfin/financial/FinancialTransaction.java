@@ -39,7 +39,7 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private LocalDateTime expectedStartDate;
 	
-	@Columns(columns={@Column(name="commitment"),@Column(name="commitment_usd")})
+	@Columns(columns={@Column(name="commitment_rate"),@Column(name="commitment_amount")})
 	@Type(type="org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
 	private BigMoney commitments;
 	
