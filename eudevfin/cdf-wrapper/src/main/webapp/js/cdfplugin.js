@@ -9307,50 +9307,6 @@ var Mustache = (typeof module !== "undefined" && module.exports) || {};
     }
 })(jQuery, window, document);
 ; /* ************************ new file ************************ */
-/*==================================================
- *  String Utility Functions and Constants
- *==================================================
- */
-
-String.prototype.trim = function () {
-    return this.replace(/^\s+|\s+$/g, '');
-};
-
-String.prototype.startsWith = function (prefix) {
-    return this.length >= prefix.length && this.substr(0, prefix.length) == prefix;
-};
-
-String.prototype.endsWith = function (suffix) {
-    return this.length >= suffix.length && this.substr(this.length - suffix.length) == suffix;
-};
-
-String.substitute = function (s, objects) {
-    var result = "";
-    var start = 0;
-    while (start < s.length - 1) {
-        var percent = s.indexOf("%", start);
-        if (percent < 0 || percent == s.length - 1) {
-            break;
-        } else if (percent > start && s.charAt(percent - 1) == "\\") {
-            result += s.substring(start, percent - 1) + "%";
-            start = percent + 1;
-        } else {
-            var n = parseInt(s.charAt(percent + 1));
-            if (isNaN(n) || n >= objects.length) {
-                result += s.substring(start, percent + 2);
-            } else {
-                result += s.substring(start, percent) + objects[n].toString();
-            }
-            start = percent + 2;
-        }
-    }
-
-    if (start < s.length) {
-        result += s.substring(start);
-    }
-    return result;
-};
-; /* ************************ new file ************************ */
 /*
  Base.js, version 1.1a
  Copyright 2006-2010, Dean Edwards
@@ -9490,6 +9446,376 @@ Base = Base.extend({
         return String(this.valueOf());
     }
 });
+; /* ************************ new file ************************ */
+// TODO - check if we use all this functions!
+
+/**
+ * UTF-8 data encode / decode
+ * http://www.webtoolkit.info/
+ **/
+function encode_prepare_arr (value) {
+    if (typeof value == "number") {
+        return value;
+    } else if ($.isArray(value)) {
+        var a = new Array(value.length);
+        $.each(value, function (i, val) {
+            a[i] = encode_prepare(val);
+        });
+        return a;
+    }
+    else {
+        return encode_prepare(value);
+    }
+};
+
+function encode_prepare(s) {
+    if (s != null) {
+        s = s.replace(/\+/g, " ");
+        if ($.browser == "msie" || $.browser == "opera") {
+            return Utf8.decode(s);
+        }
+    }
+    return s;
+};
+
+
+/**
+ *
+ * UTF-8 data encode / decode
+ * http://www.webtoolkit.info/
+ *
+ **/
+var Utf8 = {
+    // public method for url encoding
+    encode: function (string) {
+        string = string.replace(/\r\n/g, "\n");
+        var utftext = "";
+
+        for (var n = 0; n < string.length; n++) {
+
+            var c = string.charCodeAt(n);
+
+            if (c < 128) {
+                utftext += String.fromCharCode(c);
+            }
+            else if ((c > 127) && (c < 2048)) {
+                utftext += String.fromCharCode((c >> 6) | 192);
+                utftext += String.fromCharCode((c & 63) | 128);
+            }
+            else {
+                utftext += String.fromCharCode((c >> 12) | 224);
+                utftext += String.fromCharCode(((c >> 6) & 63) | 128);
+                utftext += String.fromCharCode((c & 63) | 128);
+            }
+
+        }
+
+        return utftext;
+    },
+
+    // public method for url decoding
+    decode: function (utftext) {
+        var string = "";
+        var i = 0;
+        var c = 0, c2 = 0, c3 = 0;
+
+        while (i < utftext.length) {
+
+            c = utftext.charCodeAt(i);
+
+            if (c < 128) {
+                string += String.fromCharCode(c);
+                i++;
+            }
+            else if ((c > 191) && (c < 224)) {
+                c2 = utftext.charCodeAt(i + 1);
+                string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
+                i += 2;
+            }
+            else {
+                c2 = utftext.charCodeAt(i + 1);
+                c3 = utftext.charCodeAt(i + 2);
+                string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
+                i += 3;
+            }
+        }
+
+        return string;
+    }
+}
+
+function getURLParameters (sURL) {
+    if (sURL.indexOf("?") > 0) {
+        var arrParams = sURL.split("?");
+        var arrURLParams = arrParams[1].split("&");
+        var arrParam = [];
+
+        for (var i = 0; i < arrURLParams.length; i++) {
+            var sParam = arrURLParams[i].split("=");
+
+            if (sParam[0].indexOf("param", 0) == 0) {
+                var parameter = [sParam[0].substring(5, sParam[0].length), unescape(sParam[1])];
+                arrParam.push(parameter);
+            }
+        }
+    }
+
+    return arrParam;
+}
+
+function toFormatedString(value) {
+    value += '';
+    var x = value.split('.');
+    var x1 = x[0];
+    var x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1))
+        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    return x1 + x2;
+}
+
+//quote csv values in a way compatible with CSVTokenizer
+function doCsvQuoting(value, separator, alwaysEscape) {
+    var QUOTE_CHAR = '"';
+    if (separator == null) {
+        return value;
+    }
+    if (value == null) {
+        return null;
+    }
+    if (value.indexOf(QUOTE_CHAR) >= 0) {
+        //double them
+        value = value.replace(QUOTE_CHAR, QUOTE_CHAR.concat(QUOTE_CHAR));
+    }
+    if (alwaysEscape || value.indexOf(separator) >= 0) {
+        //quote value
+        value = QUOTE_CHAR.concat(value, QUOTE_CHAR);
+    }
+    return value;
+}
+
+/*==================================================
+ *  String Utility Functions and Constants
+ *==================================================
+ */
+
+String.prototype.trim = function () {
+    return this.replace(/^\s+|\s+$/g, '');
+};
+
+String.prototype.startsWith = function (prefix) {
+    return this.length >= prefix.length && this.substr(0, prefix.length) == prefix;
+};
+
+String.prototype.endsWith = function (suffix) {
+    return this.length >= suffix.length && this.substr(this.length - suffix.length) == suffix;
+};
+
+String.substitute = function (s, objects) {
+    var result = "";
+    var start = 0;
+    while (start < s.length - 1) {
+        var percent = s.indexOf("%", start);
+        if (percent < 0 || percent == s.length - 1) {
+            break;
+        } else if (percent > start && s.charAt(percent - 1) == "\\") {
+            result += s.substring(start, percent - 1) + "%";
+            start = percent + 1;
+        } else {
+            var n = parseInt(s.charAt(percent + 1));
+            if (isNaN(n) || n >= objects.length) {
+                result += s.substring(start, percent + 2);
+            } else {
+                result += s.substring(start, percent) + objects[n].toString();
+            }
+            start = percent + 2;
+        }
+    }
+
+    if (start < s.length) {
+        result += s.substring(start);
+    }
+    return result;
+};
+
+/**
+ *  Javascript sprintf
+ *  http://www.webtoolkit.info/
+ **/
+sprintfWrapper = {
+    init: function () {
+
+        if (typeof arguments == 'undefined') {
+            return null;
+        }
+        if (arguments.length < 1) {
+            return null;
+        }
+        if (typeof arguments[0] != 'string') {
+            return null;
+        }
+        if (typeof RegExp == 'undefined') {
+            return null;
+        }
+
+        var string = arguments[0];
+        var exp = new RegExp(/(%([%]|(\-)?(\+|\x20)?(0)?(\d+)?(\.(\d)?)?([bcdfosxX])))/g);
+        var matches = new Array();
+        var strings = new Array();
+        var convCount = 0;
+        var stringPosStart = 0;
+        var stringPosEnd = 0;
+        var matchPosEnd = 0;
+        var newString = '';
+        var match = null;
+
+        while ((match = exp.exec(string))) {
+            if (match[9]) {
+                convCount += 1;
+            }
+
+            stringPosStart = matchPosEnd;
+            stringPosEnd = exp.lastIndex - match[0].length;
+            strings[strings.length] = string.substring(stringPosStart, stringPosEnd);
+
+            matchPosEnd = exp.lastIndex;
+
+            var negative = parseInt(arguments[convCount]) < 0;
+            if (!negative) negative = parseFloat(arguments[convCount]) < 0;
+
+            matches[matches.length] = {
+                match: match[0],
+                left: match[3] ? true : false,
+                sign: match[4] || '',
+                pad: match[5] || ' ',
+                min: match[6] || 0,
+                precision: match[8],
+                code: match[9] || '%',
+                negative: negative,
+                argument: String(arguments[convCount])
+            };
+        }
+        strings[strings.length] = string.substring(matchPosEnd);
+
+        if (matches.length == 0) {
+            return string;
+        }
+        if ((arguments.length - 1) < convCount) {
+            return null;
+        }
+
+        match = null;
+        var i = null;
+
+        for (i = 0; i < matches.length; i++) {
+            var m = matches[i];
+            var substitution;
+            if (m.code == '%') {
+                substitution = '%'
+            }
+            else if (m.code == 'b') {
+                m.argument = String(Math.abs(parseInt(m.argument)).toString(2));
+                substitution = sprintfWrapper.convert(m, true);
+            }
+            else if (m.code == 'c') {
+                m.argument = String(String.fromCharCode(parseInt(Math.abs(parseInt(m.argument)))));
+                substitution = sprintfWrapper.convert(m, true);
+            }
+            else if (m.code == 'd') {
+                m.argument = toFormatedString(String(Math.abs(parseInt(m.argument))));
+                substitution = sprintfWrapper.convert(m);
+            }
+            else if (m.code == 'f') {
+                m.argument = toFormatedString(String(Math.abs(parseFloat(m.argument)).toFixed(m.precision ? m.precision : 6)));
+                substitution = sprintfWrapper.convert(m);
+            }
+            else if (m.code == 'o') {
+                m.argument = String(Math.abs(parseInt(m.argument)).toString(8));
+                substitution = sprintfWrapper.convert(m);
+            }
+            else if (m.code == 's') {
+                m.argument = m.argument.substring(0, m.precision ? m.precision : m.argument.length)
+                substitution = sprintfWrapper.convert(m, true);
+            }
+            else if (m.code == 'x') {
+                m.argument = String(Math.abs(parseInt(m.argument)).toString(16));
+                substitution = sprintfWrapper.convert(m);
+            }
+            else if (m.code == 'X') {
+                m.argument = String(Math.abs(parseInt(m.argument)).toString(16));
+                substitution = sprintfWrapper.convert(m).toUpperCase();
+            }
+            else {
+                substitution = m.match;
+            }
+
+            newString += strings[i];
+            newString += substitution;
+        }
+
+        newString += strings[i];
+
+        return newString;
+    },
+
+    convert: function (match, nosign) {
+        if (nosign) {
+            match.sign = '';
+        } else {
+            match.sign = match.negative ? '-' : match.sign;
+        }
+        var l = match.min - match.argument.length + 1 - match.sign.length;
+        var pad = new Array(l < 0 ? 0 : l).join(match.pad);
+        if (!match.left) {
+            if (match.pad == '0' || nosign) {
+                return match.sign + pad + match.argument;
+            } else {
+                return pad + match.sign + match.argument;
+            }
+        } else {
+            if (match.pad == '0' || nosign) {
+                return match.sign + match.argument + pad.replace(/0/g, ' ');
+            } else {
+                return match.sign + match.argument + pad;
+            }
+        }
+    }
+}
+
+sprintf = sprintfWrapper.init;
+
+/*
+ * UTILITY STUFF
+ */
+
+(function () {
+    function accessorDescriptor(field, fun) {
+        var desc = {
+            enumerable: true,
+            configurable: true
+        };
+        desc[field] = fun;
+        return desc;
+    }
+
+    this.defineGetter = function defineGetter(obj, prop, get) {
+        if (Object.prototype.__defineGetter__)
+            return obj.__defineGetter__(prop, get);
+        if (Object.defineProperty)
+            return Object.defineProperty(obj, prop, accessorDescriptor("get", get));
+
+        throw new Error("browser does not support getters");
+    }
+
+    this.defineSetter = function defineSetter(obj, prop, set) {
+        if (Object.prototype.__defineSetter__)
+            return obj.__defineSetter__(prop, set);
+        if (Object.defineProperty)
+            return Object.defineProperty(obj, prop, accessorDescriptor("set", set));
+
+        throw new Error("browser does not support setters");
+    }
+})();
 ; /* ************************ new file ************************ */
 // TODO - do we need this and where is used?
 $.ajaxSetup({
@@ -10945,34 +11271,6 @@ Dashboards.post = function (url, obj) {
     jQuery(form).appendTo('body').submit().remove();
 };
 
-Dashboards.clone = function clone(obj) {
-    var c = obj instanceof Array ? [] : {};
-
-    for (var i in obj) {
-        var prop = obj[i];
-
-        if (typeof prop == 'object') {
-            if (prop instanceof Array) {
-                c[i] = [];
-
-                for (var j = 0; j < prop.length; j++) {
-                    if (typeof prop[j] != 'object') {
-                        c[i].push(prop[j]);
-                    } else {
-                        c[i].push(this.clone(prop[j]));
-                    }
-                }
-            } else {
-                c[i] = this.clone(prop);
-            }
-        } else {
-            c[i] = prop;
-        }
-    }
-
-    return c;
-};
-
 Dashboards.getArgValue = function (key) {
     for (i = 0; i < this.args.length; i++) {
         if (this.args[i][0] == key) {
@@ -11323,6 +11621,92 @@ Dashboards.equalValues = function (a, b) {
     return a == b;
 };
 
+Dashboards.clone = function clone (obj) {
+    var c = obj instanceof Array ? [] : {};
+
+    for (var i in obj) {
+        var prop = obj[i];
+
+        if (typeof prop == 'object') {
+            if (prop instanceof Array) {
+                c[i] = [];
+
+                for (var j = 0; j < prop.length; j++) {
+                    if (typeof prop[j] != 'object') {
+                        c[i].push(prop[j]);
+                    } else {
+                        c[i].push(this.clone(prop[j]));
+                    }
+                }
+            } else {
+                c[i] = this.clone(prop);
+            }
+        } else {
+            c[i] = prop;
+        }
+    }
+
+    return c;
+};
+
+Dashboards.safeClone = function () {
+    var options, name, src, copy, copyIsArray, clone,
+        target = arguments[0] || {},
+        i = 1,
+        length = arguments.length,
+        deep = false;
+
+    // Handle a deep copy situation
+    if (typeof target === "boolean") {
+        deep = target;
+        target = arguments[1] || {};
+        // skip the boolean and the target
+        i = 2;
+    }
+
+    // Handle case when target is a string or something (possible in deep copy)
+    if (typeof target !== "object" && !jQuery.isFunction(target)) {
+        target = {};
+    }
+
+    for (; i < length; i++) {
+        // Only deal with non-null/undefined values
+        if ((options = arguments[ i ]) != null) {
+            // Extend the base object
+            for (name in options) if (options.hasOwnProperty(name)) {
+                src = target[ name ];
+                copy = options[ name ];
+
+                // Prevent never-ending loop
+                if (target === copy) {
+                    continue;
+                }
+
+                // Recurse if we're merging plain objects or arrays
+                if (deep && copy && ( jQuery.isPlainObject(copy) || (copyIsArray = jQuery.isArray(copy)) )) {
+                    if (copyIsArray) {
+                        copyIsArray = false;
+                        clone = src && jQuery.isArray(src) ? src : [];
+
+                    } else {
+                        clone = src && jQuery.isPlainObject(src) ? src : {};
+                    }
+
+                    // Never move original objects, clone them
+                    target[ name ] = this.safeClone(deep, clone, copy);
+
+                    // Don't bring in undefined values
+                } else if (copy !== undefined) {
+                    target[ name ] = copy;
+                }
+            }
+        }
+    }
+
+    // Return the modified object
+    return target;
+};
+
 // Based on the algorithm described at http://en.wikipedia.org/wiki/HSL_and_HSV.
 /**
  * Converts an HSV to an RGB color value.
@@ -11377,301 +11761,41 @@ Dashboards.hsvToRgb = function (h, s, v) {
     return "rgb(" + rgb.join(",") + ")";
 };
 
-/**
- * UTF-8 data encode / decode
- * http://www.webtoolkit.info/
- **/
-function encode_prepare_arr (value) {
-    if (typeof value == "number") {
-        return value;
-    } else if ($.isArray(value)) {
-        var a = new Array(value.length);
-        $.each(value, function (i, val) {
-            a[i] = encode_prepare(val);
-        });
-        return a;
-    }
-    else {
-        return encode_prepare(value);
-    }
-};
 
-function encode_prepare(s) {
-    if (s != null) {
-        s = s.replace(/\+/g, " ");
-        if ($.browser == "msie" || $.browser == "opera") {
-            return Utf8.decode(s);
-        }
-    }
-    return s;
-};
+// /*
+//  * Query STUFF
+//  * (Here for legacy reasons)
+//  * 
+//  */
+// //Ctors:
+// // Query(queryString) --> DEPRECATED
+// // Query(queryDefinition{path, dataAccessId})
+// // Query(path, dataAccessId)
+// Query = function (cd, dataAccessId) {
 
+//     var opts, queryType;
 
-/**
- *
- * UTF-8 data encode / decode
- * http://www.webtoolkit.info/
- *
- **/
-var Utf8 = {
-    // public method for url encoding
-    encode: function (string) {
-        string = string.replace(/\r\n/g, "\n");
-        var utftext = "";
+//     if (_.isObject(cd)) {
+//         opts = Dashboards.safeClone(true, cd);
+//         queryType = (_.isString(cd.queryType) && cd.queryType) || ( !_.isUndefined(cd.query) && 'legacy') ||
+//             ( !_.isUndefined(cd.path) && !_.isUndefined(cd.dataAccessId) && 'cda') || undefined;
+//     } else if (_.isString(cd) && _.isString(dataAccessId)) {
+//         queryType = 'cda';
+//         opts = {
+//             path: cd,
+//             dataAccessId: dataAccessId
+//         };
+//     }
 
-        for (var n = 0; n < string.length; n++) {
+//     if (!queryType) {
+//         throw 'InvalidQuery'
+//     }
 
-            var c = string.charCodeAt(n);
+//     return Dashboards.getQuery(queryType, opts);
+// };
+// // QUERIES end
 
-            if (c < 128) {
-                utftext += String.fromCharCode(c);
-            }
-            else if ((c > 127) && (c < 2048)) {
-                utftext += String.fromCharCode((c >> 6) | 192);
-                utftext += String.fromCharCode((c & 63) | 128);
-            }
-            else {
-                utftext += String.fromCharCode((c >> 12) | 224);
-                utftext += String.fromCharCode(((c >> 6) & 63) | 128);
-                utftext += String.fromCharCode((c & 63) | 128);
-            }
-
-        }
-
-        return utftext;
-    },
-
-    // public method for url decoding
-    decode: function (utftext) {
-        var string = "";
-        var i = 0;
-        var c = 0, c2 = 0, c3 = 0;
-
-        while (i < utftext.length) {
-
-            c = utftext.charCodeAt(i);
-
-            if (c < 128) {
-                string += String.fromCharCode(c);
-                i++;
-            }
-            else if ((c > 191) && (c < 224)) {
-                c2 = utftext.charCodeAt(i + 1);
-                string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
-                i += 2;
-            }
-            else {
-                c2 = utftext.charCodeAt(i + 1);
-                c3 = utftext.charCodeAt(i + 2);
-                string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
-                i += 3;
-            }
-        }
-
-        return string;
-    }
-}
-
-function getURLParameters (sURL) {
-    if (sURL.indexOf("?") > 0) {
-        var arrParams = sURL.split("?");
-        var arrURLParams = arrParams[1].split("&");
-        var arrParam = [];
-
-        for (var i = 0; i < arrURLParams.length; i++) {
-            var sParam = arrURLParams[i].split("=");
-
-            if (sParam[0].indexOf("param", 0) == 0) {
-                var parameter = [sParam[0].substring(5, sParam[0].length), unescape(sParam[1])];
-                arrParam.push(parameter);
-            }
-        }
-    }
-
-    return arrParam;
-}
-
-function toFormatedString(value) {
-    value += '';
-    var x = value.split('.');
-    var x1 = x[0];
-    var x2 = x.length > 1 ? '.' + x[1] : '';
-    var rgx = /(\d+)(\d{3})/;
-    while (rgx.test(x1))
-        x1 = x1.replace(rgx, '$1' + ',' + '$2');
-    return x1 + x2;
-}
-
-//quote csv values in a way compatible with CSVTokenizer
-function doCsvQuoting(value, separator, alwaysEscape) {
-    var QUOTE_CHAR = '"';
-    if (separator == null) {
-        return value;
-    }
-    if (value == null) {
-        return null;
-    }
-    if (value.indexOf(QUOTE_CHAR) >= 0) {
-        //double them
-        value = value.replace(QUOTE_CHAR, QUOTE_CHAR.concat(QUOTE_CHAR));
-    }
-    if (alwaysEscape || value.indexOf(separator) >= 0) {
-        //quote value
-        value = QUOTE_CHAR.concat(value, QUOTE_CHAR);
-    }
-    return value;
-}
-
-/**
- *
- *  Javascript sprintf
- *  http://www.webtoolkit.info/
- *
- *
- **/
-sprintfWrapper = {
-    init: function () {
-
-        if (typeof arguments == 'undefined') {
-            return null;
-        }
-        if (arguments.length < 1) {
-            return null;
-        }
-        if (typeof arguments[0] != 'string') {
-            return null;
-        }
-        if (typeof RegExp == 'undefined') {
-            return null;
-        }
-
-        var string = arguments[0];
-        var exp = new RegExp(/(%([%]|(\-)?(\+|\x20)?(0)?(\d+)?(\.(\d)?)?([bcdfosxX])))/g);
-        var matches = new Array();
-        var strings = new Array();
-        var convCount = 0;
-        var stringPosStart = 0;
-        var stringPosEnd = 0;
-        var matchPosEnd = 0;
-        var newString = '';
-        var match = null;
-
-        while ((match = exp.exec(string))) {
-            if (match[9]) {
-                convCount += 1;
-            }
-
-            stringPosStart = matchPosEnd;
-            stringPosEnd = exp.lastIndex - match[0].length;
-            strings[strings.length] = string.substring(stringPosStart, stringPosEnd);
-
-            matchPosEnd = exp.lastIndex;
-
-            var negative = parseInt(arguments[convCount]) < 0;
-            if (!negative) negative = parseFloat(arguments[convCount]) < 0;
-
-            matches[matches.length] = {
-                match: match[0],
-                left: match[3] ? true : false,
-                sign: match[4] || '',
-                pad: match[5] || ' ',
-                min: match[6] || 0,
-                precision: match[8],
-                code: match[9] || '%',
-                negative: negative,
-                argument: String(arguments[convCount])
-            };
-        }
-        strings[strings.length] = string.substring(matchPosEnd);
-
-        if (matches.length == 0) {
-            return string;
-        }
-        if ((arguments.length - 1) < convCount) {
-            return null;
-        }
-
-        match = null;
-        var i = null;
-
-        for (i = 0; i < matches.length; i++) {
-            var m = matches[i];
-            var substitution;
-            if (m.code == '%') {
-                substitution = '%'
-            }
-            else if (m.code == 'b') {
-                m.argument = String(Math.abs(parseInt(m.argument)).toString(2));
-                substitution = sprintfWrapper.convert(m, true);
-            }
-            else if (m.code == 'c') {
-                m.argument = String(String.fromCharCode(parseInt(Math.abs(parseInt(m.argument)))));
-                substitution = sprintfWrapper.convert(m, true);
-            }
-            else if (m.code == 'd') {
-                m.argument = toFormatedString(String(Math.abs(parseInt(m.argument))));
-                substitution = sprintfWrapper.convert(m);
-            }
-            else if (m.code == 'f') {
-                m.argument = toFormatedString(String(Math.abs(parseFloat(m.argument)).toFixed(m.precision ? m.precision : 6)));
-                substitution = sprintfWrapper.convert(m);
-            }
-            else if (m.code == 'o') {
-                m.argument = String(Math.abs(parseInt(m.argument)).toString(8));
-                substitution = sprintfWrapper.convert(m);
-            }
-            else if (m.code == 's') {
-                m.argument = m.argument.substring(0, m.precision ? m.precision : m.argument.length)
-                substitution = sprintfWrapper.convert(m, true);
-            }
-            else if (m.code == 'x') {
-                m.argument = String(Math.abs(parseInt(m.argument)).toString(16));
-                substitution = sprintfWrapper.convert(m);
-            }
-            else if (m.code == 'X') {
-                m.argument = String(Math.abs(parseInt(m.argument)).toString(16));
-                substitution = sprintfWrapper.convert(m).toUpperCase();
-            }
-            else {
-                substitution = m.match;
-            }
-
-            newString += strings[i];
-            newString += substitution;
-        }
-
-        newString += strings[i];
-
-        return newString;
-    },
-
-    convert: function (match, nosign) {
-        if (nosign) {
-            match.sign = '';
-        } else {
-            match.sign = match.negative ? '-' : match.sign;
-        }
-        var l = match.min - match.argument.length + 1 - match.sign.length;
-        var pad = new Array(l < 0 ? 0 : l).join(match.pad);
-        if (!match.left) {
-            if (match.pad == '0' || nosign) {
-                return match.sign + pad + match.argument;
-            } else {
-                return pad + match.sign + match.argument;
-            }
-        } else {
-            if (match.pad == '0' || nosign) {
-                return match.sign + match.argument + pad.replace(/0/g, ' ');
-            } else {
-                return match.sign + match.argument + pad;
-            }
-        }
-    }
-}
-
-sprintf = sprintfWrapper.init;
-
-
+; /* ************************ new file ************************ */
 // CONTAINER begin
 (function (D) {
     function Container() {
@@ -11914,8 +12038,7 @@ sprintf = sprintfWrapper.init;
     // Export
     D.Container = Container;
 })(Dashboards);
-
-// CONTAINER end 
+// CONTAINER end
 
 // ADDINS begin
 (function (D) {
@@ -11973,66 +12096,64 @@ sprintf = sprintfWrapper.init;
 })(Dashboards);
 // ADDINS end
 
+// QUERIES begin
+(function (D) {
 
-Dashboards.safeClone = function () {
-    var options, name, src, copy, copyIsArray, clone,
-        target = arguments[0] || {},
-        i = 1,
-        length = arguments.length,
-        deep = false;
+    var _BaseQuery = Base;
 
-    // Handle a deep copy situation
-    if (typeof target === "boolean") {
-        deep = target;
-        target = arguments[1] || {};
-        // skip the boolean and the target
-        i = 2;
-    }
-
-    // Handle case when target is a string or something (possible in deep copy)
-    if (typeof target !== "object" && !jQuery.isFunction(target)) {
-        target = {};
-    }
-
-    for (; i < length; i++) {
-        // Only deal with non-null/undefined values
-        if ((options = arguments[ i ]) != null) {
-            // Extend the base object
-            for (name in options) if (options.hasOwnProperty(name)) {
-                src = target[ name ];
-                copy = options[ name ];
-
-                // Prevent never-ending loop
-                if (target === copy) {
-                    continue;
-                }
-
-                // Recurse if we're merging plain objects or arrays
-                if (deep && copy && ( jQuery.isPlainObject(copy) || (copyIsArray = jQuery.isArray(copy)) )) {
-                    if (copyIsArray) {
-                        copyIsArray = false;
-                        clone = src && jQuery.isArray(src) ? src : [];
-
-                    } else {
-                        clone = src && jQuery.isPlainObject(src) ? src : {};
-                    }
-
-                    // Never move original objects, clone them
-                    target[ name ] = this.safeClone(deep, clone, copy);
-
-                    // Don't bring in undefined values
-                } else if (copy !== undefined) {
-                    target[ name ] = copy;
-                }
-            }
+    D.getBaseQuery = function () {
+        return _BaseQuery;
+    };
+    D.setBaseQuery = function (QueryClass) {
+        if (_.isFunction(QueryClass) && QueryClass.extend) {
+            _BaseQuery = QueryClass;
         }
-    }
+    };
 
-    // Return the modified object
-    return target;
-};
+    D.queryFactories = new D.Container();
 
+    D.registerQuery = function (type, query) {
+        var BaseQuery = this.getBaseQuery();
 
+        // Goes a level deeper one extending these properties. Usefull to preserve defaults and
+        // options interfaces from BaseQuery.
+        if (!_.isFunction(query) && _.isObject(query)) {
+            var deepProperties = {};
+            _.each(BaseQuery.prototype.deepProperties, function (prop) {
+                deepProperties[prop] = _.extend({}, BaseQuery.prototype[prop], query[prop]);
+            });
+        }
+
+        var QueryClass = ( _.isFunction(query) && query ) ||
+            ( _.isObject(query) && BaseQuery.extend(_.extend({}, query, deepProperties)) );
+
+        // Registers a new query factory with a custom class
+        this.queryFactories.register('Query', type, function (container, config) {
+            return new QueryClass(config);
+        });
+    };
+
+    D.hasQuery = function (type) {
+        return Boolean(this.queryFactories && this.queryFactories.has('Query', type));
+    };
+
+    D.getQuery = function (type, opts) {
+        if (_.isUndefined(type)) {
+            type = 'cda';
+        } else if (_.isObject(type)) {
+            opts = type;
+            type = opts.queryType || 'cda';
+        }
+        var query = this.queryFactories.getNew('Query', type, opts);
+        return query;
+    };
+
+    D.listQueries = function () {
+        return _.keys(this.queryFactories.listType('Query'));
+    };
+})(Dashboards);
+// QUERIES end
+; /* ************************ new file ************************ */
 // OPTIONS MANAGER begin
 (function (D) {
 
@@ -12178,142 +12299,11 @@ Dashboards.safeClone = function () {
 
     D.OptionsManager = OptionsManager;
 })(Dashboards);
-// OPTIONS MANAGER end
-
-
-// QUERIES begin
-(function (D) {
-
-    var _BaseQuery = Base;
-
-    D.getBaseQuery = function () {
-        return _BaseQuery;
-    };
-    D.setBaseQuery = function (QueryClass) {
-        if (_.isFunction(QueryClass) && QueryClass.extend) {
-            _BaseQuery = QueryClass;
-        }
-    };
-
-    D.queryFactories = new D.Container();
-
-    D.registerQuery = function (type, query) {
-        var BaseQuery = this.getBaseQuery();
-
-        // Goes a level deeper one extending these properties. Usefull to preserve defaults and
-        // options interfaces from BaseQuery.
-        if (!_.isFunction(query) && _.isObject(query)) {
-            var deepProperties = {};
-            _.each(BaseQuery.prototype.deepProperties, function (prop) {
-                deepProperties[prop] = _.extend({}, BaseQuery.prototype[prop], query[prop]);
-            });
-        }
-
-        var QueryClass = ( _.isFunction(query) && query ) ||
-            ( _.isObject(query) && BaseQuery.extend(_.extend({}, query, deepProperties)) );
-
-        // Registers a new query factory with a custom class
-        this.queryFactories.register('Query', type, function (container, config) {
-            return new QueryClass(config);
-        });
-    };
-
-    D.hasQuery = function (type) {
-        return Boolean(this.queryFactories && this.queryFactories.has('Query', type));
-    };
-
-    D.getQuery = function (type, opts) {
-        if (_.isUndefined(type)) {
-            type = 'cda';
-        } else if (_.isObject(type)) {
-            opts = type;
-            type = opts.queryType || 'cda';
-        }
-        var query = this.queryFactories.getNew('Query', type, opts);
-        return query;
-    };
-
-    D.listQueries = function () {
-        return _.keys(this.queryFactories.listType('Query'));
-    };
-})(Dashboards);
-
-
+; /* ************************ new file ************************ */
 /*
- * Query STUFF
- * (Here for legacy reasons)
- * 
- */
-//Ctors:
-// Query(queryString) --> DEPRECATED
-// Query(queryDefinition{path, dataAccessId})
-// Query(path, dataAccessId)
-Query = function (cd, dataAccessId) {
-
-    var opts, queryType;
-
-    if (_.isObject(cd)) {
-        opts = Dashboards.safeClone(true, cd);
-        queryType = (_.isString(cd.queryType) && cd.queryType) || ( !_.isUndefined(cd.query) && 'legacy') ||
-            ( !_.isUndefined(cd.path) && !_.isUndefined(cd.dataAccessId) && 'cda') || undefined;
-    } else if (_.isString(cd) && _.isString(dataAccessId)) {
-        queryType = 'cda';
-        opts = {
-            path: cd,
-            dataAccessId: dataAccessId
-        };
-    }
-
-    if (!queryType) {
-        throw 'InvalidQuery'
-    }
-
-    return Dashboards.getQuery(queryType, opts);
-};
-// QUERIES end
-
-
-/*
- * UTILITY STUFF
- *
- *
+ * Dashboards Popups
  */
 
-(function () {
-    function accessorDescriptor(field, fun) {
-        var desc = {
-            enumerable: true,
-            configurable: true
-        };
-        desc[field] = fun;
-        return desc;
-    }
-
-    this.defineGetter = function defineGetter(obj, prop, get) {
-        if (Object.prototype.__defineGetter__)
-            return obj.__defineGetter__(prop, get);
-        if (Object.defineProperty)
-            return Object.defineProperty(obj, prop, accessorDescriptor("get", get));
-
-        throw new Error("browser does not support getters");
-    }
-
-    this.defineSetter = function defineSetter(obj, prop, set) {
-        if (Object.prototype.__defineSetter__)
-            return obj.__defineSetter__(prop, set);
-        if (Object.defineProperty)
-            return Object.defineProperty(obj, prop, accessorDescriptor("set", set));
-
-        throw new Error("browser does not support setters");
-    }
-})();
-
-
-/*
- * Popups (Move somewhere else?)
- *
- *
- */
 var wd = wd || {};
 wd.cdf = wd.cdf || {};
 wd.cdf.popups = wd.cdf.popups || {};

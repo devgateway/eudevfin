@@ -1452,34 +1452,6 @@ Dashboards.post = function (url, obj) {
     jQuery(form).appendTo('body').submit().remove();
 };
 
-Dashboards.clone = function clone(obj) {
-    var c = obj instanceof Array ? [] : {};
-
-    for (var i in obj) {
-        var prop = obj[i];
-
-        if (typeof prop == 'object') {
-            if (prop instanceof Array) {
-                c[i] = [];
-
-                for (var j = 0; j < prop.length; j++) {
-                    if (typeof prop[j] != 'object') {
-                        c[i].push(prop[j]);
-                    } else {
-                        c[i].push(this.clone(prop[j]));
-                    }
-                }
-            } else {
-                c[i] = this.clone(prop);
-            }
-        } else {
-            c[i] = prop;
-        }
-    }
-
-    return c;
-};
-
 Dashboards.getArgValue = function (key) {
     for (i = 0; i < this.args.length; i++) {
         if (this.args[i][0] == key) {
@@ -1830,656 +1802,33 @@ Dashboards.equalValues = function (a, b) {
     return a == b;
 };
 
-// Based on the algorithm described at http://en.wikipedia.org/wiki/HSL_and_HSV.
-/**
- * Converts an HSV to an RGB color value.
- *
- * @param {number} h Hue as a value between 0 - 360 (degrees)
- * @param {number} s Saturation as a value between 0 - 100 (%)
- * @param {number} v Value as a value between 0 - 100 (%)
- * @return {string} An rgb(...) color string.
- *
- * @static
- */
-Dashboards.hsvToRgb = function (h, s, v) {
-    v = v / 100; // 0 - 1
-    s = s / 100; // idem
+Dashboards.clone = function clone (obj) {
+    var c = obj instanceof Array ? [] : {};
 
-    var h6 = (h % 360) / 60;
-    var chroma = v * s;
-    var m = v - chroma;
-    var h6t = Math.abs((h6 % 2) - 1);
-    //var r = 1 - h6t;
-    //var x = chroma * r;
-    var x_m = v * (1 - s * h6t); // x + m
-    var c_m = v; // chroma + m
-    // floor(h6) (0, 1, 2, 3, 4, 5)
+    for (var i in obj) {
+        var prop = obj[i];
 
-    var rgb;
-    switch (~~h6) {
-        case 0:
-            rgb = [c_m, x_m, m  ];
-            break;
-        case 1:
-            rgb = [x_m, c_m, m  ];
-            break;
-        case 2:
-            rgb = [m, c_m, x_m];
-            break;
-        case 3:
-            rgb = [m, x_m, c_m];
-            break;
-        case 4:
-            rgb = [x_m, m, c_m];
-            break;
-        case 5:
-            rgb = [c_m, m, x_m];
-            break;
-    }
+        if (typeof prop == 'object') {
+            if (prop instanceof Array) {
+                c[i] = [];
 
-    rgb.forEach(function (val, i) {
-        rgb[i] = Math.min(255, Math.round(val * 256));
-    });
-
-    return "rgb(" + rgb.join(",") + ")";
-};
-
-/**
- * UTF-8 data encode / decode
- * http://www.webtoolkit.info/
- **/
-function encode_prepare_arr (value) {
-    if (typeof value == "number") {
-        return value;
-    } else if ($.isArray(value)) {
-        var a = new Array(value.length);
-        $.each(value, function (i, val) {
-            a[i] = encode_prepare(val);
-        });
-        return a;
-    }
-    else {
-        return encode_prepare(value);
-    }
-};
-
-function encode_prepare(s) {
-    if (s != null) {
-        s = s.replace(/\+/g, " ");
-        if ($.browser == "msie" || $.browser == "opera") {
-            return Utf8.decode(s);
-        }
-    }
-    return s;
-};
-
-
-/**
- *
- * UTF-8 data encode / decode
- * http://www.webtoolkit.info/
- *
- **/
-var Utf8 = {
-    // public method for url encoding
-    encode: function (string) {
-        string = string.replace(/\r\n/g, "\n");
-        var utftext = "";
-
-        for (var n = 0; n < string.length; n++) {
-
-            var c = string.charCodeAt(n);
-
-            if (c < 128) {
-                utftext += String.fromCharCode(c);
-            }
-            else if ((c > 127) && (c < 2048)) {
-                utftext += String.fromCharCode((c >> 6) | 192);
-                utftext += String.fromCharCode((c & 63) | 128);
-            }
-            else {
-                utftext += String.fromCharCode((c >> 12) | 224);
-                utftext += String.fromCharCode(((c >> 6) & 63) | 128);
-                utftext += String.fromCharCode((c & 63) | 128);
-            }
-
-        }
-
-        return utftext;
-    },
-
-    // public method for url decoding
-    decode: function (utftext) {
-        var string = "";
-        var i = 0;
-        var c = 0, c2 = 0, c3 = 0;
-
-        while (i < utftext.length) {
-
-            c = utftext.charCodeAt(i);
-
-            if (c < 128) {
-                string += String.fromCharCode(c);
-                i++;
-            }
-            else if ((c > 191) && (c < 224)) {
-                c2 = utftext.charCodeAt(i + 1);
-                string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
-                i += 2;
-            }
-            else {
-                c2 = utftext.charCodeAt(i + 1);
-                c3 = utftext.charCodeAt(i + 2);
-                string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
-                i += 3;
-            }
-        }
-
-        return string;
-    }
-}
-
-function getURLParameters (sURL) {
-    if (sURL.indexOf("?") > 0) {
-        var arrParams = sURL.split("?");
-        var arrURLParams = arrParams[1].split("&");
-        var arrParam = [];
-
-        for (var i = 0; i < arrURLParams.length; i++) {
-            var sParam = arrURLParams[i].split("=");
-
-            if (sParam[0].indexOf("param", 0) == 0) {
-                var parameter = [sParam[0].substring(5, sParam[0].length), unescape(sParam[1])];
-                arrParam.push(parameter);
-            }
-        }
-    }
-
-    return arrParam;
-}
-
-function toFormatedString(value) {
-    value += '';
-    var x = value.split('.');
-    var x1 = x[0];
-    var x2 = x.length > 1 ? '.' + x[1] : '';
-    var rgx = /(\d+)(\d{3})/;
-    while (rgx.test(x1))
-        x1 = x1.replace(rgx, '$1' + ',' + '$2');
-    return x1 + x2;
-}
-
-//quote csv values in a way compatible with CSVTokenizer
-function doCsvQuoting(value, separator, alwaysEscape) {
-    var QUOTE_CHAR = '"';
-    if (separator == null) {
-        return value;
-    }
-    if (value == null) {
-        return null;
-    }
-    if (value.indexOf(QUOTE_CHAR) >= 0) {
-        //double them
-        value = value.replace(QUOTE_CHAR, QUOTE_CHAR.concat(QUOTE_CHAR));
-    }
-    if (alwaysEscape || value.indexOf(separator) >= 0) {
-        //quote value
-        value = QUOTE_CHAR.concat(value, QUOTE_CHAR);
-    }
-    return value;
-}
-
-/**
- *
- *  Javascript sprintf
- *  http://www.webtoolkit.info/
- *
- *
- **/
-sprintfWrapper = {
-    init: function () {
-
-        if (typeof arguments == 'undefined') {
-            return null;
-        }
-        if (arguments.length < 1) {
-            return null;
-        }
-        if (typeof arguments[0] != 'string') {
-            return null;
-        }
-        if (typeof RegExp == 'undefined') {
-            return null;
-        }
-
-        var string = arguments[0];
-        var exp = new RegExp(/(%([%]|(\-)?(\+|\x20)?(0)?(\d+)?(\.(\d)?)?([bcdfosxX])))/g);
-        var matches = new Array();
-        var strings = new Array();
-        var convCount = 0;
-        var stringPosStart = 0;
-        var stringPosEnd = 0;
-        var matchPosEnd = 0;
-        var newString = '';
-        var match = null;
-
-        while ((match = exp.exec(string))) {
-            if (match[9]) {
-                convCount += 1;
-            }
-
-            stringPosStart = matchPosEnd;
-            stringPosEnd = exp.lastIndex - match[0].length;
-            strings[strings.length] = string.substring(stringPosStart, stringPosEnd);
-
-            matchPosEnd = exp.lastIndex;
-
-            var negative = parseInt(arguments[convCount]) < 0;
-            if (!negative) negative = parseFloat(arguments[convCount]) < 0;
-
-            matches[matches.length] = {
-                match: match[0],
-                left: match[3] ? true : false,
-                sign: match[4] || '',
-                pad: match[5] || ' ',
-                min: match[6] || 0,
-                precision: match[8],
-                code: match[9] || '%',
-                negative: negative,
-                argument: String(arguments[convCount])
-            };
-        }
-        strings[strings.length] = string.substring(matchPosEnd);
-
-        if (matches.length == 0) {
-            return string;
-        }
-        if ((arguments.length - 1) < convCount) {
-            return null;
-        }
-
-        match = null;
-        var i = null;
-
-        for (i = 0; i < matches.length; i++) {
-            var m = matches[i];
-            var substitution;
-            if (m.code == '%') {
-                substitution = '%'
-            }
-            else if (m.code == 'b') {
-                m.argument = String(Math.abs(parseInt(m.argument)).toString(2));
-                substitution = sprintfWrapper.convert(m, true);
-            }
-            else if (m.code == 'c') {
-                m.argument = String(String.fromCharCode(parseInt(Math.abs(parseInt(m.argument)))));
-                substitution = sprintfWrapper.convert(m, true);
-            }
-            else if (m.code == 'd') {
-                m.argument = toFormatedString(String(Math.abs(parseInt(m.argument))));
-                substitution = sprintfWrapper.convert(m);
-            }
-            else if (m.code == 'f') {
-                m.argument = toFormatedString(String(Math.abs(parseFloat(m.argument)).toFixed(m.precision ? m.precision : 6)));
-                substitution = sprintfWrapper.convert(m);
-            }
-            else if (m.code == 'o') {
-                m.argument = String(Math.abs(parseInt(m.argument)).toString(8));
-                substitution = sprintfWrapper.convert(m);
-            }
-            else if (m.code == 's') {
-                m.argument = m.argument.substring(0, m.precision ? m.precision : m.argument.length)
-                substitution = sprintfWrapper.convert(m, true);
-            }
-            else if (m.code == 'x') {
-                m.argument = String(Math.abs(parseInt(m.argument)).toString(16));
-                substitution = sprintfWrapper.convert(m);
-            }
-            else if (m.code == 'X') {
-                m.argument = String(Math.abs(parseInt(m.argument)).toString(16));
-                substitution = sprintfWrapper.convert(m).toUpperCase();
-            }
-            else {
-                substitution = m.match;
-            }
-
-            newString += strings[i];
-            newString += substitution;
-        }
-
-        newString += strings[i];
-
-        return newString;
-    },
-
-    convert: function (match, nosign) {
-        if (nosign) {
-            match.sign = '';
-        } else {
-            match.sign = match.negative ? '-' : match.sign;
-        }
-        var l = match.min - match.argument.length + 1 - match.sign.length;
-        var pad = new Array(l < 0 ? 0 : l).join(match.pad);
-        if (!match.left) {
-            if (match.pad == '0' || nosign) {
-                return match.sign + pad + match.argument;
-            } else {
-                return pad + match.sign + match.argument;
-            }
-        } else {
-            if (match.pad == '0' || nosign) {
-                return match.sign + match.argument + pad.replace(/0/g, ' ');
-            } else {
-                return match.sign + match.argument + pad;
-            }
-        }
-    }
-}
-
-sprintf = sprintfWrapper.init;
-
-
-// CONTAINER begin
-(function (D) {
-    function Container() {
-        // PUBLIC
-
-        // register(type, what [, scope])
-        // register(type, name, what [, scope])
-        this.register = function (type, name, what, scope) {
-            if (!type) {
-                throw new Error("Argument 'type' is required.");
-            }
-            if (typeof type !== 'string') {
-                throw new Error("Argument 'type' must be a string.");
-            }
-
-            if (name != null) {
-                if (typeof name !== 'string') {
-                    scope = what;
-                    what = name;
-                    name = null;
-                } else if (!name) {
-                    name = null;
-                }
-            }
-
-            if (!what) {
-                throw new Error("Argument 'what' is required.");
-            }
-
-            var holder;
-            switch (typeof what) {
-                case 'function':
-                    holder = new FactoryHolder(this, what, scope);
-                    break;
-                case 'object':
-                    holder = new InstanceHolder(this, what, scope);
-                    break;
-                default:
-                    throw new Error("Argument 'what' is of an invalid type.");
-            }
-
-            if (!name) {
-                name = '';
-            }
-
-            var holdersByName = _typesTable[type] || (_typesTable[type] = {});
-            var currHolder = holdersByName[name];
-            if (currHolder) {
-                // throw? log?
-                currHolder.dispose();
-            }
-            holdersByName[name] = holder;
-        };
-
-        this.has = function (type, name) {
-            return !!getHolder(type, name, true);
-        };
-
-        this.canNew = function (type, name) {
-            return getHolder(type, name, false) instanceof FactoryHolder;
-        };
-
-        this.get = function (type, name) {
-            return get(type, name, null, false, false);
-        };
-
-        this.tryGet = function (type, name) {
-            return get(type, name, null, false, true);
-        };
-
-        this.getNew = function (type, name, config) {
-            return get(type, name, config, true, false);
-        };
-
-        this.tryGetNew = function (type, name, config) {
-            return get(type, name, config, true, true);
-        };
-
-        this.getAll = function (type) {
-            return getAll(type, false);
-        };
-
-        this.tryGetAll = function (type) {
-            return getAll(type, true);
-        };
-
-        this.listType = function (type) {
-            return getType(type, false);
-        };
-
-        this.tryListType = function (type) {
-            return getType(type, true);
-        };
-
-        this.dispose = function () {
-            if (_typesTable) {
-                for (var type in _typesTable) {
-                    var holdersByName = _typesTable[type];
-                    for (var name in holdersByName) {
-                        holdersByName[name].dispose();
+                for (var j = 0; j < prop.length; j++) {
+                    if (typeof prop[j] != 'object') {
+                        c[i].push(prop[j]);
+                    } else {
+                        c[i].push(this.clone(prop[j]));
                     }
                 }
-
-                _typesTable = null;
+            } else {
+                c[i] = this.clone(prop);
             }
-        };
-
-        // PRIVATE
-        var _typesTable = {}; // type -> []
-
-        function getType(type, isTry) {
-            if (!type) {
-                throw new Error("Argument 'type' is required.");
-            }
-            if (typeof type !== 'string') {
-                throw new Error("Argument 'type' must be a string.");
-            }
-
-            var holdersByName = _typesTable[type];
-            if (!isTry && (!holdersByName || isOwnEmpty(holdersByName))) {
-                throw new Error("There are no registrations for type '" + type + "'.");
-            }
-            return holdersByName;
-        }
-
-        function getHolder(type, name, isTry) {
-            var holder;
-            var holdersByName = getType(type, isTry);
-            if (holdersByName) {
-                holder = holdersByName[name || ''];
-                if (!holder && !isTry) {
-                    throw new Error(
-                        "There is no registration for type '" + type + "'" +
-                            (name ? (" and name '" + name + "'") : "") + ".");
-                }
-            }
-
-            return holder;
-        }
-
-        function get(type, name, config, isNew, isTry) {
-            if (typeof name !== 'string') {
-                config = name;
-                name = '';
-            }
-
-            var holder = getHolder(type, name, isTry);
-
-            // Can't store as singletons instances with special config params
-            if (config) {
-                isNew = true;
-            } else if (!isNew) {
-                config = {};
-            }
-
-            return holder ? holder.build(config, isNew) : null;
-        }
-
-        function getAll(type, isTry) {
-            var holdersByName = getType(type, isTry);
-
-            // Includes the default (unnamed) instance
-            var instances = [];
-            for (var name in holdersByName) {
-                instances.push(holdersByName[name].build({}, false));
-            }
-            return instances;
+        } else {
+            c[i] = prop;
         }
     }
 
-    // Shared/Static stuff
-
-    // Allows creating multiple instances
-    function FactoryHolder(container, factory, scope) {
-        var instance;
-
-        if (!scope) {
-            scope = 'instance';
-        }
-
-        this.build = function (config, buildNew) {
-            if (instance && !buildNew) {
-                return instance;
-            }
-
-            var inst = factory(container, config);
-
-            if (!buildNew && scope === 'singleton') {
-                instance = inst;
-            }
-
-            return inst;
-        };
-
-        this.dispose = function () {
-            if (instance) {
-                doDispose(instance);
-                instance = null;
-            }
-        };
-    }
-
-    function InstanceHolder(container, instance, scope) {
-        if (!scope) {
-            scope = 'external';
-        }
-
-        this.build = function (/*config, buildNew*/) {
-            return instance;
-        };
-
-        // external scope is managed outside the container
-        this.dispose = function () {
-            if (instance) {
-                scope === 'singleton' && doDispose(instance);
-                instance = null;
-            }
-        };
-    }
-
-    // Fwk stuff
-    function doDispose(instance) {
-        if (typeof instance.dispose === 'function') {
-            instance.dispose();
-        }
-    }
-
-    var hasOwn = Object.prototype.hasOwnProperty;
-
-    function isOwnEmpty(o) {
-        // tolerates o == null
-        for (var n in o) {
-            if (hasOwn.call(o, n)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    // Export
-    D.Container = Container;
-})(Dashboards);
-
-// CONTAINER end 
-
-// ADDINS begin
-(function (D) {
-    D.addIns = new D.Container();
-
-    //Normalization - Ensure component does not finish with component and capitalize first letter
-    D.normalizeAddInKey = function (key, subKey) {
-        if (key.indexOf('Component', key.length - 'Component'.length) !== -1)
-            key = key.substring(0, key.length - 'Component'.length);
-        key = key.charAt(0).toUpperCase() + key.substring(1);
-
-        if (subKey) {
-            key += "." + subKey;
-        }
-
-        return key;
-    }
-
-    D.registerAddIn = function (type, subType, addIn) {
-        var type = this.normalizeAddInKey(type, subType),
-            name = addIn.getName ? addIn.getName() : null;
-        this.addIns.register(type, name, addIn);
-    };
-
-    D.hasAddIn = function (type, subType, addInName) {
-        var type = this.normalizeAddInKey(type, subType);
-        return Boolean(this.addIns && this.addIns.has(type, addInName));
-    };
-
-    D.getAddIn = function (type, subType, addInName) {
-        var type = this.normalizeAddInKey(type, subType);
-        try {
-            var addIn = this.addIns.get(type, addInName);
-            return addIn;
-        } catch (e) {
-            return null;
-        }
-    };
-
-    D.setAddInDefaults = function (type, subType, addInName, defaults) {
-        var addIn = this.getAddIn(type, subType, addInName);
-        if (addIn) {
-            addIn.setDefaults(defaults);
-        }
-    };
-    D.listAddIns = function (type, subType) {
-        var type = this.normalizeAddInKey(type, subType);
-        var addInList = [];
-        try {
-            return this.addIns.listType(type);
-        } catch (e) {
-            return [];
-        }
-    };
-})(Dashboards);
-// ADDINS end
-
+    return c;
+};
 
 Dashboards.safeClone = function () {
     var options, name, src, copy, copyIsArray, clone,
@@ -2539,407 +1888,91 @@ Dashboards.safeClone = function () {
     return target;
 };
 
-
-// OPTIONS MANAGER begin
-(function (D) {
-
-    // This class is intended to be used as a generic Options Manager, by providing a way to
-    // keep record of the values of an options set, but also custom readers, writers and validators 
-    // for each of the options.
-    function OptionsManager(config) { /* { defaults: {}, interfaces: {}, libraries: {} }*/
-        var myself = this;
-
-        // PROTECTED
-        this._options = {};
-        this._interfaces = {};
-        this._libraries = {
-            predicates: {
-                tautology: function (value) {
-                    return true
-                },
-                isFunction: _.isFunction,
-                isPositive: function (value) {
-                    return (_.isNumber(value) && value > 0);
-                },
-                isObjectOrPropertiesArray: function (value) {
-                    return _.isArray(value) || _.isObject(value);
-                },
-                isObject: _.isObject,
-                isArray: _.isArray
-            },
-            mappers: {
-                identity: _.identity,
-                propertiesObject: function (value) {
-                    return (_.isArray(value)) ? D.propertiesArrayToObject(value) : value;
-                }
-            }
-        };
-
-        // PUBLIC
-        this.mixin = function (instance) {
-            instance.getOption = this.getOption;
-            instance.setOption = this.setOption;
-        };
-
-        this.init = function (defaults, interfaces, libraries) {
-            var myself = this;
-            this._libraries = $.extend(true, {}, this._libraries, libraries);
-            _.each(interfaces, function (el, key) {
-                setInterfaces(key, el);
-            });
-            _.each(defaults, function (el, key) {
-                var ifaces = ( interfaces && interfaces[key] ) || {};
-                setInterfaces(key, ifaces);
-                setValue(key, el);
-            })
-        };
-
-        this.setOption = function (opt, value, interfaces) {
-            setInterfaces(opt, interfaces);
-            var reader = getReader(opt),
-                validator = getValidator(opt);
-            if (validator(value)) {
-                value = reader(value);
-                setValue(opt, value);
-                return true
-            } else {
-                throw new Error("Invalid Option " + opt.charAt(0).toUpperCase() + opt.slice(1));
-            }
-        };
-
-        this.getOption = function (opt) {
-            var writer = getWriter(opt),
-                value = getValue(opt);
-            return writer(value);
-        };
-
-        // PRIVATE
-        function setInterfaces(opt, interfaces) {
-            interfaces = interfaces || {};
-            setReader(opt, interfaces['reader']);
-            setWriter(opt, interfaces['writer']);
-            setValidator(opt, interfaces['validator']);
-        };
-
-        function getReader(opt) {
-            return get(myself._interfaces, opt, 'reader', myself._libraries.mappers['identity']
-            )
-        };
-        function getWriter(opt) {
-            return get(myself._interfaces, opt, 'writer', myself._libraries.mappers['identity']
-            )
-        };
-        function getValidator(opt) {
-            return get(myself._interfaces, opt, 'validator', myself._libraries.predicates['tautology']
-            )
-        };
-        function getValue(opt) {
-            return get(myself._options, opt, 'value')
-        };
-
-        // Reader, Writer and Validator work in the same way:
-        // If the value is a function, use it. 
-        // Otherwise, if it is a string and a valid library key, use it.
-        // Otherwise, use a default library function: for readers and writers an indentity map, 
-        //    for validators a predicate that always returns true.
-
-        function setReader(opt, fn) {
-            var lib = myself._libraries.mappers;
-            fn = ( _.isFunction(fn) && fn ) || ( _.isString(fn) && lib[fn] ) || getReader(opt) || lib['identity'];
-            return set(myself._interfaces, opt, 'reader', fn)
-        };
-        function setWriter(opt, fn) {
-            var lib = myself._libraries.mappers;
-            fn = ( _.isFunction(fn) && fn ) || ( _.isString(fn) && lib[fn] ) || getWriter(opt) || lib['identity'];
-            return set(myself._interfaces, opt, 'writer', fn)
-        };
-        function setValidator(opt, fn) {
-            var lib = myself._libraries.predicates;
-            fn = ( _.isFunction(fn) && fn ) || ( _.isString(fn) && lib[fn] ) || getValidator(opt) || lib['tautology'];
-            return set(myself._interfaces, opt, 'validator', fn)
-        };
-        function setValue(opt, value) {
-            return set(myself._options, opt, 'value', value)
-        };
-
-        // Init
-        this.init(config.defaults, config.interfaces, config.libraries);
-
-    }
-
-    // Shared / Static
-    function get(container, opt, attr, defaultValue) {
-        var val = defaultValue || undefined;
-        if (container && container[opt] && container[opt].hasOwnProperty(attr)) {
-            val = container[opt][attr];
-        }
-        return val
-    }
-
-    function set(container, opt, attr, value) {
-        if (container && opt && attr) {
-            container[opt] = container[opt] || {};
-            container[opt][attr] = value;
-        }
-    }
-
-    D.OptionsManager = OptionsManager;
-})(Dashboards);
-// OPTIONS MANAGER end
-
-
-// QUERIES begin
-(function (D) {
-
-    var _BaseQuery = Base;
-
-    D.getBaseQuery = function () {
-        return _BaseQuery;
-    };
-    D.setBaseQuery = function (QueryClass) {
-        if (_.isFunction(QueryClass) && QueryClass.extend) {
-            _BaseQuery = QueryClass;
-        }
-    };
-
-    D.queryFactories = new D.Container();
-
-    D.registerQuery = function (type, query) {
-        var BaseQuery = this.getBaseQuery();
-
-        // Goes a level deeper one extending these properties. Usefull to preserve defaults and
-        // options interfaces from BaseQuery.
-        if (!_.isFunction(query) && _.isObject(query)) {
-            var deepProperties = {};
-            _.each(BaseQuery.prototype.deepProperties, function (prop) {
-                deepProperties[prop] = _.extend({}, BaseQuery.prototype[prop], query[prop]);
-            });
-        }
-
-        var QueryClass = ( _.isFunction(query) && query ) ||
-            ( _.isObject(query) && BaseQuery.extend(_.extend({}, query, deepProperties)) );
-
-        // Registers a new query factory with a custom class
-        this.queryFactories.register('Query', type, function (container, config) {
-            return new QueryClass(config);
-        });
-    };
-
-    D.hasQuery = function (type) {
-        return Boolean(this.queryFactories && this.queryFactories.has('Query', type));
-    };
-
-    D.getQuery = function (type, opts) {
-        if (_.isUndefined(type)) {
-            type = 'cda';
-        } else if (_.isObject(type)) {
-            opts = type;
-            type = opts.queryType || 'cda';
-        }
-        var query = this.queryFactories.getNew('Query', type, opts);
-        return query;
-    };
-
-    D.listQueries = function () {
-        return _.keys(this.queryFactories.listType('Query'));
-    };
-})(Dashboards);
-
-
-/*
- * Query STUFF
- * (Here for legacy reasons)
- * 
+// Based on the algorithm described at http://en.wikipedia.org/wiki/HSL_and_HSV.
+/**
+ * Converts an HSV to an RGB color value.
+ *
+ * @param {number} h Hue as a value between 0 - 360 (degrees)
+ * @param {number} s Saturation as a value between 0 - 100 (%)
+ * @param {number} v Value as a value between 0 - 100 (%)
+ * @return {string} An rgb(...) color string.
+ *
+ * @static
  */
-//Ctors:
-// Query(queryString) --> DEPRECATED
-// Query(queryDefinition{path, dataAccessId})
-// Query(path, dataAccessId)
-Query = function (cd, dataAccessId) {
+Dashboards.hsvToRgb = function (h, s, v) {
+    v = v / 100; // 0 - 1
+    s = s / 100; // idem
 
-    var opts, queryType;
+    var h6 = (h % 360) / 60;
+    var chroma = v * s;
+    var m = v - chroma;
+    var h6t = Math.abs((h6 % 2) - 1);
+    //var r = 1 - h6t;
+    //var x = chroma * r;
+    var x_m = v * (1 - s * h6t); // x + m
+    var c_m = v; // chroma + m
+    // floor(h6) (0, 1, 2, 3, 4, 5)
 
-    if (_.isObject(cd)) {
-        opts = Dashboards.safeClone(true, cd);
-        queryType = (_.isString(cd.queryType) && cd.queryType) || ( !_.isUndefined(cd.query) && 'legacy') ||
-            ( !_.isUndefined(cd.path) && !_.isUndefined(cd.dataAccessId) && 'cda') || undefined;
-    } else if (_.isString(cd) && _.isString(dataAccessId)) {
-        queryType = 'cda';
-        opts = {
-            path: cd,
-            dataAccessId: dataAccessId
-        };
+    var rgb;
+    switch (~~h6) {
+        case 0:
+            rgb = [c_m, x_m, m  ];
+            break;
+        case 1:
+            rgb = [x_m, c_m, m  ];
+            break;
+        case 2:
+            rgb = [m, c_m, x_m];
+            break;
+        case 3:
+            rgb = [m, x_m, c_m];
+            break;
+        case 4:
+            rgb = [x_m, m, c_m];
+            break;
+        case 5:
+            rgb = [c_m, m, x_m];
+            break;
     }
 
-    if (!queryType) {
-        throw 'InvalidQuery'
-    }
+    rgb.forEach(function (val, i) {
+        rgb[i] = Math.min(255, Math.round(val * 256));
+    });
 
-    return Dashboards.getQuery(queryType, opts);
-};
-// QUERIES end
-
-
-/*
- * UTILITY STUFF
- *
- *
- */
-
-(function () {
-    function accessorDescriptor(field, fun) {
-        var desc = {
-            enumerable: true,
-            configurable: true
-        };
-        desc[field] = fun;
-        return desc;
-    }
-
-    this.defineGetter = function defineGetter(obj, prop, get) {
-        if (Object.prototype.__defineGetter__)
-            return obj.__defineGetter__(prop, get);
-        if (Object.defineProperty)
-            return Object.defineProperty(obj, prop, accessorDescriptor("get", get));
-
-        throw new Error("browser does not support getters");
-    }
-
-    this.defineSetter = function defineSetter(obj, prop, set) {
-        if (Object.prototype.__defineSetter__)
-            return obj.__defineSetter__(prop, set);
-        if (Object.defineProperty)
-            return Object.defineProperty(obj, prop, accessorDescriptor("set", set));
-
-        throw new Error("browser does not support setters");
-    }
-})();
-
-
-/*
- * Popups (Move somewhere else?)
- *
- *
- */
-var wd = wd || {};
-wd.cdf = wd.cdf || {};
-wd.cdf.popups = wd.cdf.popups || {};
-
-wd.cdf.popups.okPopup = {
-    template: Mustache.compile(
-        "<div class='cdfPopup'>" +
-            "  <div class='cdfPopupHeader'>{{{header}}}</div>" +
-            "  <div class='cdfPopupBody'>" +
-            "    <div class='cdfPopupDesc'>{{{desc}}}</div>" +
-            "    <div class='cdfPopupButton'>{{{button}}}</div>" +
-            "  </div>" +
-            "</div>"),
-    defaults: {
-        header: "Title",
-        desc: "Description Text",
-        button: "Button Text",
-        callback: function () {
-            return true
-        }
-    },
-    $el: undefined,
-    show: function (opts) {
-        if (opts || this.firstRender) {
-            this.render(opts);
-        }
-        this.$el.show();
-    },
-    hide: function () {
-        this.$el.hide();
-    },
-    render: function (newOpts) {
-        var opts = _.extend({}, this.defaults, newOpts);
-        var myself = this;
-        if (this.firstRender) {
-            this.$el = $('<div/>').addClass('cdfPopupContainer')
-                .hide()
-                .appendTo('body');
-            this.firstRender = false;
-        }
-        ;
-        this.$el.empty().html(this.template(opts));
-        this.$el.find('.cdfPopupButton').click(function () {
-            opts.callback();
-            myself.hide();
-        });
-    },
-    firstRender: true
+    return "rgb(" + rgb.join(",") + ")";
 };
 
 
-/*
- * Error information divs
- *
- *
- */
-wd.cdf.notifications = wd.cdf.notifications || {};
+// /*
+//  * Query STUFF
+//  * (Here for legacy reasons)
+//  * 
+//  */
+// //Ctors:
+// // Query(queryString) --> DEPRECATED
+// // Query(queryDefinition{path, dataAccessId})
+// // Query(path, dataAccessId)
+// Query = function (cd, dataAccessId) {
 
-wd.cdf.notifications.component = {
-    template: Mustache.compile(
-        "<div class='cdfNotification component {{#isSmallComponent}}small{{/isSmallComponent}}'>" +
-            "  <div class='cdfNotificationBody'>" +
-            "    <div class='cdfNotificationImg'>&nbsp;</div>" +
-            "    <div class='cdfNotificationTitle' title='{{title}}'>{{{title}}}</div>" +
-            "    <div class='cdfNotificationDesc' title='{{desc}}'>{{{desc}}}</div>" +
-            "  </div>" +
-            "</div>"),
-    defaults: {
-        title: "Component Error",
-        desc: "Error processing component."
-    },
-    render: function (ph, newOpts) {
-        var opts = _.extend({}, this.defaults, newOpts);
-        opts.isSmallComponent = ( $(ph).width() < 300 );
-        $(ph).empty().html(this.template(opts));
-        var $nt = $(ph).find('.cdfNotification');
-        $nt.css({'line-height': $nt.height() + 'px' });
-    }
-};
+//     var opts, queryType;
 
-wd.cdf.notifications.growl = {
-    template: Mustache.compile(
-        "<div class='cdfNotification growl'>" +
-            "  <div class='cdfNotificationBody'>" +
-            "    <h1 class='cdfNotificationTitle' title='{{title}}'>{{{title}}}</h1>" +
-            "    <h2 class='cdfNotificationDesc' title='{{desc}}'>{{{desc}}}</h2>" +
-            "  </div>" +
-            "</div>"),
-    defaults: {
-        title: 'Title',
-        desc: 'Default CDF notification.',
-        timeout: 4000,
-        onUnblock: function () {
-            return true
-        },
-        css: $.extend({},
-            { position: 'absolute', width: '100%', top: '10px' }),
-        showOverlay: false,
-        fadeIn: 700,
-        fadeOut: 1000,
-        centerY: false
-    },
-    render: function (newOpts) {
-        var opts = _.extend({}, this.defaults, newOpts),
-            $m = $(this.template(opts)),
-            myself = this;
-        opts.message = $m;
-        var outerUnblock = opts.onUnblock;
-        opts.onUnblock = function () {
-            myself.$el.hide();
-            outerUnblock.call(this);
-        };
-        if (this.firstRender) {
-            this.$el = $('<div/>').addClass('cdfNotificationContainer')
-                .hide()
-                .appendTo('body');
-            this.firstRender = false;
-        }
-        this.$el.show().block(opts);
-    },
-    firstRender: true
-};
+//     if (_.isObject(cd)) {
+//         opts = Dashboards.safeClone(true, cd);
+//         queryType = (_.isString(cd.queryType) && cd.queryType) || ( !_.isUndefined(cd.query) && 'legacy') ||
+//             ( !_.isUndefined(cd.path) && !_.isUndefined(cd.dataAccessId) && 'cda') || undefined;
+//     } else if (_.isString(cd) && _.isString(dataAccessId)) {
+//         queryType = 'cda';
+//         opts = {
+//             path: cd,
+//             dataAccessId: dataAccessId
+//         };
+//     }
+
+//     if (!queryType) {
+//         throw 'InvalidQuery'
+//     }
+
+//     return Dashboards.getQuery(queryType, opts);
+// };
+// // QUERIES end
+

@@ -68,7 +68,6 @@ module.exports = function(grunt) {
 					'!src/main/webapp/js/dataTables/**/*.js', 
 					'!src/main/webapp/js/jquery-libs/**/*.js',
 					'!src/main/webapp/js/modernizr-2.0.6.js',
-					'!src/main/webapp/js/underscore.js',
 					'!src/main/webapp/js/mustache.js'
 				]
 			},
@@ -109,9 +108,12 @@ module.exports = function(grunt) {
 						// 'src/main/webapp/js/modernizr-2.0.6.js', 
 						'src/main/webapp/js/jquery-libs/**/*.js',
 						'src/main/webapp/js/dataTables/js/jquery.dataTables.min.js',
-						'src/main/webapp/js/string.js',
 						'src/main/webapp/js/Base.js',
+						'src/main/webapp/js/Dashboards.utilities.js',
 						'src/main/webapp/js/Dashboards.js',
+						'src/main/webapp/js/Dashboards.container.js',
+						'src/main/webapp/js/Dashboards.optionsmanager.js',
+						'src/main/webapp/js/Dashboards.popup.js',
 						'src/main/webapp/js/components/**/*.js',
 						'src/main/webapp/js/AddIns.js',
 						'src/main/webapp/js/addIns/**/*.js',
