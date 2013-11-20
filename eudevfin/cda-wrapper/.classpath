@@ -32,9 +32,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry combineaccessrules="false" kind="src" path="/eudevfin-auth"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/eudevfin-common-auth"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/eudevfin-common-financial"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/eudevfin-financial"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

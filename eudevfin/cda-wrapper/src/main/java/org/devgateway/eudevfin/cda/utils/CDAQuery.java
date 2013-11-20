@@ -1,9 +1,7 @@
 package org.devgateway.eudevfin.cda.utils;
 
 import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
 import java.io.File;
-import java.io.OutputStream;
 import java.net.URL;
 
 import org.apache.log4j.Logger;
@@ -11,12 +9,12 @@ import org.devgateway.eudevfin.cda.domain.QueryResult;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
 
-import com.google.gson.Gson;
-
 import pt.webdetails.cda.CdaEngine;
 import pt.webdetails.cda.query.QueryOptions;
 import pt.webdetails.cda.settings.CdaSettings;
 import pt.webdetails.cda.settings.SettingsManager;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Component
 public class CDAQuery {
@@ -47,8 +45,8 @@ public class CDAQuery {
 	    QueryResult result;
 	    
 	    if(out.size() > 0){
-	    	Gson json = new Gson();
-	    	result = json.fromJson(out.toString(), QueryResult.class);
+	    	ObjectMapper mapper = new ObjectMapper(); 
+	    	result = mapper.readValue(out.toString(), QueryResult.class);
 	    }
 	    else
 	    {

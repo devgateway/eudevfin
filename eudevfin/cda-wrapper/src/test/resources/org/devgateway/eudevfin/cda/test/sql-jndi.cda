@@ -8,7 +8,7 @@
     <DataAccess id="transactionList" connection="defaultConnection" type="sql" access="public" cache="false">
 		<Name>Sql Query on Users</Name>
         <Query><![CDATA[
-			select * from FINANCIAL_TRANSACTIONS
+			select * from FINANCIAL_TRANSACTION
 		]]></Query>
     </DataAccess>
 </CDADescriptor>

@@ -14,7 +14,7 @@ import org.springframework.web.servlet.View;
 @Controller
 public class QueryController {
 	@Autowired
-	private QueryService service;
+	private QueryService queryService;
 
 	@Autowired
 	private View jsonView;
@@ -35,8 +35,8 @@ public class QueryController {
 			return createErrorResponse(sMessage);
 		}
 
-		try {
-			result = service.doQuery(dataSourceId);
+		try { 
+			result = queryService.doQuery(dataSourceId);
 		} catch (Exception e) {
 			String sMessage = "Error invoking doQuery. [%1$s]";
 			return createErrorResponse(String.format(sMessage, e.toString()));
@@ -53,4 +53,13 @@ public class QueryController {
 	public static boolean isEmpty(String s_p) {
 		return (null == s_p) || s_p.trim().length() == 0;
 	}
+
+	public void setFundService(QueryService service) {
+		queryService = service;
+	}
+	
+	public void setJsonView(View view) {
+		jsonView = view;
+	}
+	
 }

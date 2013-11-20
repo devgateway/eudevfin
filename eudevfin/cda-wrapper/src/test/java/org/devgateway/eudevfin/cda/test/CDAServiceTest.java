@@ -26,7 +26,7 @@ public class CDAServiceTest {
 
 	@Test
 	public void test() {
-		QueryResult result = service.doQuery("simpleQuery");
+		QueryResult result = service.doQuery("simpleSQLQuery");
 		logger.info("Result: " + result.toString());
 		assertTrue((result.toString() != ""));
 	}
