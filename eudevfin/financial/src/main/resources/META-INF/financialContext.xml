@@ -12,7 +12,6 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:int="http://www.springframework.org/schema/integration"
-	xmlns:int-jpa="http://www.springframework.org/schema/integration/jpa"
 	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
 	xmlns:tx="http://www.springframework.org/schema/tx"
@@ -25,7 +24,6 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
-		http://www.springframework.org/schema/integration/jpa http://www.springframework.org/schema/integration/jpa/spring-integration-jpa.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<tx:annotation-driven />
@@ -136,31 +134,5 @@
 
 	<int:header-value-router input-channel="getChannel" header-name="requestName"/>
 
-	<!-- <int-jpa:updating-outbound-gateway
-		entity-manager-factory="entityManagerFactory" request-channel="createTransactionChannel">
-
-		<int-jpa:transactional transaction-manager="transactionManager" />
-	</int-jpa:updating-outbound-gateway>
-
-	<int-jpa:retrieving-outbound-gateway
-		request-channel="getTransactionChannel" 
-		jpa-query="select tx from FinancialTransaction tx"
-		auto-startup="true" 
-		entity-manager-factory="entityManagerFactory">
-		<int-jpa:transactional propagation="REQUIRES_NEW"
-			transaction-manager="transactionManager" />
-
-	</int-jpa:retrieving-outbound-gateway> -->
-	
-	<!-- <int-jpa:inbound-channel-adapter channel="inboundChannelAdapterOne" 
-                    entity-manager-factory="entityManagerFactory" 
-                    auto-startup="true" 
-                    jpa-query="select tx from FinancialTransaction tx" 
-                    expect-single-result="false" 
-                    delete-after-poll="false"> 
-	    <int:poller fixed-rate="2000" >
-	      <int:transactional propagation="REQUIRED" transaction-manager="transactionManager"/>
-	    </int:poller>
-	</int-jpa:inbound-channel-adapter> -->
 
 </beans>

@@ -29,6 +29,5 @@ public class OrganizationDaoImpl extends AbstractDaoImpl<Organization, Organizat
 	@ServiceActivator(inputChannel="createOrganizationChannel")
 	public Organization save(Organization o) {
 		return super.save(o);
-		
 	}
 }
