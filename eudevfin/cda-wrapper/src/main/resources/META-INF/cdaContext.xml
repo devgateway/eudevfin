@@ -35,8 +35,6 @@
 	<context:component-scan base-package="pt.webdetails" />
 	<context:annotation-config />
 
-	<jpa:repositories base-package="org.devgateway.eudevfin.cda" />
-
 	<int:channel id="getCDAQueryChannel"/>
 	<int:channel id="replyCDAQueryChannel"/>
 	
