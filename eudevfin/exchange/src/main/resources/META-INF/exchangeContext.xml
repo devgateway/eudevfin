@@ -41,10 +41,12 @@
 	<int:json-to-object-transformer
 		input-channel="currenciesJsonExchange" type="java.util.LinkedHashMap" />
 
+
 	<int:gateway id="exchangeQueryService"
 		service-interface="org.devgateway.eudevfin.exchange.service.ExchangeQueryService" />
 
 
+	<!-- simple http request factory, nothing special, just some timeouts set -->
 	<bean id="exchangeRequestFactory"
 		class="org.springframework.http.client.SimpleClientHttpRequestFactory">
 		<property name="connectTimeout" value="5000" />
