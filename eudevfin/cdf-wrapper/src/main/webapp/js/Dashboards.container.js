@@ -95,9 +95,13 @@
         this.dispose = function () {
             if (_typesTable) {
                 for (var type in _typesTable) {
-                    var holdersByName = _typesTable[type];
-                    for (var name in holdersByName) {
-                        holdersByName[name].dispose();
+                    if (_typesTable.hasOwnProperty(type)) {
+                        var holdersByName = _typesTable[type];
+                        for (var name in holdersByName) {
+                            if (holdersByName.hasOwnProperty(name)) {
+                                holdersByName[name].dispose();
+                            }
+                        }
                     }
                 }
 
@@ -162,7 +166,9 @@
             // Includes the default (unnamed) instance
             var instances = [];
             for (var name in holdersByName) {
-                instances.push(holdersByName[name].build({}, false));
+                if (holdersByName.hasOwnProperty(name)) {
+                    instances.push(holdersByName[name].build({}, false));
+                }
             }
             return instances;
         }
@@ -212,7 +218,7 @@
         // external scope is managed outside the container
         this.dispose = function () {
             if (instance) {
-                scope === 'singleton' && doDispose(instance);
+                scope = 'singleton' && doDispose(instance);
                 instance = null;
             }
         };
@@ -248,8 +254,10 @@
 
     //Normalization - Ensure component does not finish with component and capitalize first letter
     D.normalizeAddInKey = function (key, subKey) {
-        if (key.indexOf('Component', key.length - 'Component'.length) !== -1)
+        if (key.indexOf('Component', key.length - 'Component'.length) !== -1) {
             key = key.substring(0, key.length - 'Component'.length);
+        }
+
         key = key.charAt(0).toUpperCase() + key.substring(1);
 
         if (subKey) {
@@ -257,23 +265,23 @@
         }
 
         return key;
-    }
+    };
 
     D.registerAddIn = function (type, subType, addIn) {
-        var type = this.normalizeAddInKey(type, subType),
+        var _type = this.normalizeAddInKey(type, subType),
             name = addIn.getName ? addIn.getName() : null;
-        this.addIns.register(type, name, addIn);
+        this.addIns.register(_type, name, addIn);
     };
 
     D.hasAddIn = function (type, subType, addInName) {
-        var type = this.normalizeAddInKey(type, subType);
-        return Boolean(this.addIns && this.addIns.has(type, addInName));
+        var _type = this.normalizeAddInKey(type, subType);
+        return Boolean(this.addIns && this.addIns.has(_type, addInName));
     };
 
     D.getAddIn = function (type, subType, addInName) {
-        var type = this.normalizeAddInKey(type, subType);
+        var _type = this.normalizeAddInKey(type, subType);
         try {
-            var addIn = this.addIns.get(type, addInName);
+            var addIn = this.addIns.get(_type, addInName);
             return addIn;
         } catch (e) {
             return null;
@@ -287,10 +295,10 @@
         }
     };
     D.listAddIns = function (type, subType) {
-        var type = this.normalizeAddInKey(type, subType);
+        var _type = this.normalizeAddInKey(type, subType);
         var addInList = [];
         try {
-            return this.addIns.listType(type);
+            return this.addIns.listType(_type);
         } catch (e) {
             return [];
         }
@@ -316,11 +324,11 @@
 
     D.registerQuery = function (type, query) {
         var BaseQuery = this.getBaseQuery();
+        var deepProperties = {};
 
         // Goes a level deeper one extending these properties. Usefull to preserve defaults and
         // options interfaces from BaseQuery.
         if (!_.isFunction(query) && _.isObject(query)) {
-            var deepProperties = {};
             _.each(BaseQuery.prototype.deepProperties, function (prop) {
                 deepProperties[prop] = _.extend({}, BaseQuery.prototype[prop], query[prop]);
             });

@@ -13,7 +13,7 @@
         this._libraries = {
             predicates: {
                 tautology: function (value) {
-                    return true
+                    return true;
                 },
                 isFunction: _.isFunction,
                 isPositive: function (value) {
@@ -49,7 +49,7 @@
                 var ifaces = ( interfaces && interfaces[key] ) || {};
                 setInterfaces(key, ifaces);
                 setValue(key, el);
-            })
+            });
         };
 
         this.setOption = function (opt, value, interfaces) {
@@ -59,7 +59,7 @@
             if (validator(value)) {
                 value = reader(value);
                 setValue(opt, value);
-                return true
+                return true;
             } else {
                 throw new Error("Invalid Option " + opt.charAt(0).toUpperCase() + opt.slice(1));
             }
@@ -77,23 +77,23 @@
             setReader(opt, interfaces['reader']);
             setWriter(opt, interfaces['writer']);
             setValidator(opt, interfaces['validator']);
-        };
+        }
 
         function getReader(opt) {
-            return get(myself._interfaces, opt, 'reader', myself._libraries.mappers['identity']
-            )
-        };
+            return get(myself._interfaces, opt, 'reader', myself._libraries.mappers['identity']);
+        }
+
         function getWriter(opt) {
-            return get(myself._interfaces, opt, 'writer', myself._libraries.mappers['identity']
-            )
-        };
+            return get(myself._interfaces, opt, 'writer', myself._libraries.mappers['identity']);
+        }
+
         function getValidator(opt) {
-            return get(myself._interfaces, opt, 'validator', myself._libraries.predicates['tautology']
-            )
-        };
+            return get(myself._interfaces, opt, 'validator', myself._libraries.predicates['tautology']);
+        }
+
         function getValue(opt) {
-            return get(myself._options, opt, 'value')
-        };
+            return get(myself._options, opt, 'value');
+        }
 
         // Reader, Writer and Validator work in the same way:
         // If the value is a function, use it. 
@@ -104,21 +104,24 @@
         function setReader(opt, fn) {
             var lib = myself._libraries.mappers;
             fn = ( _.isFunction(fn) && fn ) || ( _.isString(fn) && lib[fn] ) || getReader(opt) || lib['identity'];
-            return set(myself._interfaces, opt, 'reader', fn)
-        };
+            return set(myself._interfaces, opt, 'reader', fn);
+        }
+
         function setWriter(opt, fn) {
             var lib = myself._libraries.mappers;
             fn = ( _.isFunction(fn) && fn ) || ( _.isString(fn) && lib[fn] ) || getWriter(opt) || lib['identity'];
-            return set(myself._interfaces, opt, 'writer', fn)
-        };
+            return set(myself._interfaces, opt, 'writer', fn);
+        }
+
         function setValidator(opt, fn) {
             var lib = myself._libraries.predicates;
             fn = ( _.isFunction(fn) && fn ) || ( _.isString(fn) && lib[fn] ) || getValidator(opt) || lib['tautology'];
-            return set(myself._interfaces, opt, 'validator', fn)
-        };
+            return set(myself._interfaces, opt, 'validator', fn);
+        }
+
         function setValue(opt, value) {
-            return set(myself._options, opt, 'value', value)
-        };
+            return set(myself._options, opt, 'value', value);
+        }
 
         // Init
         this.init(config.defaults, config.interfaces, config.libraries);
@@ -131,7 +134,8 @@
         if (container && container[opt] && container[opt].hasOwnProperty(attr)) {
             val = container[opt][attr];
         }
-        return val
+        
+        return val;
     }
 
     function set(container, opt, attr, value) {

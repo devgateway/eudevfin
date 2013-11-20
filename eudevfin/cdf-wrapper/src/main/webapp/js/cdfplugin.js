@@ -9450,36 +9450,6 @@ Base = Base.extend({
 // TODO - check if we use all this functions!
 
 /**
- * UTF-8 data encode / decode
- * http://www.webtoolkit.info/
- **/
-function encode_prepare_arr (value) {
-    if (typeof value == "number") {
-        return value;
-    } else if ($.isArray(value)) {
-        var a = new Array(value.length);
-        $.each(value, function (i, val) {
-            a[i] = encode_prepare(val);
-        });
-        return a;
-    }
-    else {
-        return encode_prepare(value);
-    }
-};
-
-function encode_prepare(s) {
-    if (s != null) {
-        s = s.replace(/\+/g, " ");
-        if ($.browser == "msie" || $.browser == "opera") {
-            return Utf8.decode(s);
-        }
-    }
-    return s;
-};
-
-
-/**
  *
  * UTF-8 data encode / decode
  * http://www.webtoolkit.info/
@@ -9542,18 +9512,44 @@ var Utf8 = {
 
         return string;
     }
-}
+};
 
-function getURLParameters (sURL) {
+var encode_prepare = function (s) {
+    if (s !== null) {
+        s = s.replace(/\+/g, " ");
+        if ($.browser === "msie" || $.browser === "opera") {
+            return Utf8.decode(s);
+        }
+    }
+    return s;
+};
+
+var encode_prepare_arr = function (value) {
+    if (typeof value === "number") {
+        return value;
+    } else if ($.isArray(value)) {
+        var a = new Array(value.length);
+        $.each(value, function (i, val) {
+            a[i] = encode_prepare(val);
+        });
+        return a;
+    }
+    else {
+        return encode_prepare(value);
+    }
+};
+
+var getURLParameters = function (sURL) {
+    var arrParam = [];
+
     if (sURL.indexOf("?") > 0) {
         var arrParams = sURL.split("?");
         var arrURLParams = arrParams[1].split("&");
-        var arrParam = [];
 
         for (var i = 0; i < arrURLParams.length; i++) {
             var sParam = arrURLParams[i].split("=");
 
-            if (sParam[0].indexOf("param", 0) == 0) {
+            if (sParam[0].indexOf("param", 0) === 0) {
                 var parameter = [sParam[0].substring(5, sParam[0].length), unescape(sParam[1])];
                 arrParam.push(parameter);
             }
@@ -9561,26 +9557,28 @@ function getURLParameters (sURL) {
     }
 
     return arrParam;
-}
+};
 
-function toFormatedString(value) {
+var toFormatedString = function (value) {
     value += '';
     var x = value.split('.');
     var x1 = x[0];
     var x2 = x.length > 1 ? '.' + x[1] : '';
     var rgx = /(\d+)(\d{3})/;
-    while (rgx.test(x1))
+    while (rgx.test(x1)) {
         x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    }
+
     return x1 + x2;
-}
+};
 
 //quote csv values in a way compatible with CSVTokenizer
-function doCsvQuoting(value, separator, alwaysEscape) {
+var doCsvQuoting = function (value, separator, alwaysEscape) {
     var QUOTE_CHAR = '"';
-    if (separator == null) {
+    if (separator === null) {
         return value;
     }
-    if (value == null) {
+    if (value === null) {
         return null;
     }
     if (value.indexOf(QUOTE_CHAR) >= 0) {
@@ -9592,7 +9590,7 @@ function doCsvQuoting(value, separator, alwaysEscape) {
         value = QUOTE_CHAR.concat(value, QUOTE_CHAR);
     }
     return value;
-}
+};
 
 /*==================================================
  *  String Utility Functions and Constants
@@ -9604,11 +9602,11 @@ String.prototype.trim = function () {
 };
 
 String.prototype.startsWith = function (prefix) {
-    return this.length >= prefix.length && this.substr(0, prefix.length) == prefix;
+    return this.length >= prefix.length && this.substr(0, prefix.length) === prefix;
 };
 
 String.prototype.endsWith = function (suffix) {
-    return this.length >= suffix.length && this.substr(this.length - suffix.length) == suffix;
+    return this.length >= suffix.length && this.substr(this.length - suffix.length) === suffix;
 };
 
 String.substitute = function (s, objects) {
@@ -9616,9 +9614,9 @@ String.substitute = function (s, objects) {
     var start = 0;
     while (start < s.length - 1) {
         var percent = s.indexOf("%", start);
-        if (percent < 0 || percent == s.length - 1) {
+        if (percent < 0 || percent === s.length - 1) {
             break;
-        } else if (percent > start && s.charAt(percent - 1) == "\\") {
+        } else if (percent > start && s.charAt(percent - 1) === "\\") {
             result += s.substring(start, percent - 1) + "%";
             start = percent + 1;
         } else {
@@ -9642,26 +9640,26 @@ String.substitute = function (s, objects) {
  *  Javascript sprintf
  *  http://www.webtoolkit.info/
  **/
-sprintfWrapper = {
+var sprintfWrapper = {
     init: function () {
 
-        if (typeof arguments == 'undefined') {
+        if (typeof arguments === 'undefined') {
             return null;
         }
         if (arguments.length < 1) {
             return null;
         }
-        if (typeof arguments[0] != 'string') {
+        if (typeof arguments[0] !== 'string') {
             return null;
         }
-        if (typeof RegExp == 'undefined') {
+        if (typeof RegExp === 'undefined') {
             return null;
         }
 
         var string = arguments[0];
         var exp = new RegExp(/(%([%]|(\-)?(\+|\x20)?(0)?(\d+)?(\.(\d)?)?([bcdfosxX])))/g);
-        var matches = new Array();
-        var strings = new Array();
+        var matches = [];
+        var strings = [];
         var convCount = 0;
         var stringPosStart = 0;
         var stringPosEnd = 0;
@@ -9681,7 +9679,9 @@ sprintfWrapper = {
             matchPosEnd = exp.lastIndex;
 
             var negative = parseInt(arguments[convCount]) < 0;
-            if (!negative) negative = parseFloat(arguments[convCount]) < 0;
+            if (!negative) {
+                negative = parseFloat(arguments[convCount]) < 0;
+            }
 
             matches[matches.length] = {
                 match: match[0],
@@ -9697,7 +9697,7 @@ sprintfWrapper = {
         }
         strings[strings.length] = string.substring(matchPosEnd);
 
-        if (matches.length == 0) {
+        if (matches.length === 0) {
             return string;
         }
         if ((arguments.length - 1) < convCount) {
@@ -9710,38 +9710,38 @@ sprintfWrapper = {
         for (i = 0; i < matches.length; i++) {
             var m = matches[i];
             var substitution;
-            if (m.code == '%') {
-                substitution = '%'
+            if (m.code === '%') {
+                substitution = '%';
             }
-            else if (m.code == 'b') {
+            else if (m.code === 'b') {
                 m.argument = String(Math.abs(parseInt(m.argument)).toString(2));
                 substitution = sprintfWrapper.convert(m, true);
             }
-            else if (m.code == 'c') {
+            else if (m.code === 'c') {
                 m.argument = String(String.fromCharCode(parseInt(Math.abs(parseInt(m.argument)))));
                 substitution = sprintfWrapper.convert(m, true);
             }
-            else if (m.code == 'd') {
+            else if (m.code === 'd') {
                 m.argument = toFormatedString(String(Math.abs(parseInt(m.argument))));
                 substitution = sprintfWrapper.convert(m);
             }
-            else if (m.code == 'f') {
+            else if (m.code === 'f') {
                 m.argument = toFormatedString(String(Math.abs(parseFloat(m.argument)).toFixed(m.precision ? m.precision : 6)));
                 substitution = sprintfWrapper.convert(m);
             }
-            else if (m.code == 'o') {
+            else if (m.code === 'o') {
                 m.argument = String(Math.abs(parseInt(m.argument)).toString(8));
                 substitution = sprintfWrapper.convert(m);
             }
-            else if (m.code == 's') {
-                m.argument = m.argument.substring(0, m.precision ? m.precision : m.argument.length)
+            else if (m.code === 's') {
+                m.argument = m.argument.substring(0, m.precision ? m.precision : m.argument.length);
                 substitution = sprintfWrapper.convert(m, true);
             }
-            else if (m.code == 'x') {
+            else if (m.code === 'x') {
                 m.argument = String(Math.abs(parseInt(m.argument)).toString(16));
                 substitution = sprintfWrapper.convert(m);
             }
-            else if (m.code == 'X') {
+            else if (m.code === 'X') {
                 m.argument = String(Math.abs(parseInt(m.argument)).toString(16));
                 substitution = sprintfWrapper.convert(m).toUpperCase();
             }
@@ -9767,22 +9767,22 @@ sprintfWrapper = {
         var l = match.min - match.argument.length + 1 - match.sign.length;
         var pad = new Array(l < 0 ? 0 : l).join(match.pad);
         if (!match.left) {
-            if (match.pad == '0' || nosign) {
+            if (match.pad === '0' || nosign) {
                 return match.sign + pad + match.argument;
             } else {
                 return pad + match.sign + match.argument;
             }
         } else {
-            if (match.pad == '0' || nosign) {
+            if (match.pad === '0' || nosign) {
                 return match.sign + match.argument + pad.replace(/0/g, ' ');
             } else {
                 return match.sign + match.argument + pad;
             }
         }
     }
-}
+};
 
-sprintf = sprintfWrapper.init;
+var sprintf = sprintfWrapper.init;
 
 /*
  * UTILITY STUFF
@@ -9799,22 +9799,27 @@ sprintf = sprintfWrapper.init;
     }
 
     this.defineGetter = function defineGetter(obj, prop, get) {
-        if (Object.prototype.__defineGetter__)
+        if (Object.prototype.__defineGetter__) {
             return obj.__defineGetter__(prop, get);
-        if (Object.defineProperty)
+        }
+
+        if (Object.defineProperty) {
             return Object.defineProperty(obj, prop, accessorDescriptor("get", get));
+        }
 
         throw new Error("browser does not support getters");
-    }
+    };
 
     this.defineSetter = function defineSetter(obj, prop, set) {
-        if (Object.prototype.__defineSetter__)
+        if (Object.prototype.__defineSetter__) {
             return obj.__defineSetter__(prop, set);
-        if (Object.defineProperty)
+        }
+        if (Object.defineProperty) {
             return Object.defineProperty(obj, prop, accessorDescriptor("set", set));
+        }
 
         throw new Error("browser does not support setters");
-    }
+    };
 })();
 ; /* ************************ new file ************************ */
 // TODO - do we need this and where is used?
@@ -9837,10 +9842,10 @@ $.ajaxSetup({
 // TODO - maybe we should wrap all this global variables in some 'app' object or maibe 'cdfplugin' object
 var pathArray = window.location.pathname.split('/');
 var webAppPath;
-if (!(typeof(CONTEXT_PATH) == 'undefined')) {
+if (!(typeof(CONTEXT_PATH) === 'undefined')) {
     webAppPath = CONTEXT_PATH;
 }
-if (webAppPath == undefined) {
+if (webAppPath === undefined) {
     webAppPath = "/" + pathArray[1];
 }
 
@@ -9991,7 +9996,7 @@ Dashboards.RefreshEngine = function () {
 
     var clearFromQueue = function (component) {
         for (var i = 0; i < refreshQueue.length; i++) {
-            if (refreshQueue[i].component == component) {
+            if (refreshQueue[i].component === component) {
                 refreshQueue.splice(i, 1);
                 i--;
             }
@@ -10411,7 +10416,7 @@ Dashboards.checkServer = function () {
         dataType: 'json',
         url: Dashboards.CDF_BASE_PATH + 'ping',
         success: function (result) {
-            if (result && result.ping == 'ok') {
+            if (result && result.ping === 'ok') {
                 retVal = true;
             }
             else {
@@ -10432,7 +10437,7 @@ Dashboards.restoreDuplicates = function () {
      * We mark duplicates by appending an _nn suffix to their names.
      */
     var dupes = this.components.filter(function (c) {
-            return c.type == 'duplicate'
+            return c.type === 'duplicate'
         }),
         suffixes = {},
         params = {};
@@ -10493,7 +10498,7 @@ Dashboards.updateLifecycle = function (object) {
     var handler = _.bind(function () {
         try {
             var shouldExecute;
-            if (!(typeof(object.preExecution) == 'undefined')) {
+            if (!(typeof(object.preExecution) === 'undefined')) {
                 shouldExecute = object.preExecution.apply(object);
             }
             /*
@@ -10508,11 +10513,11 @@ Dashboards.updateLifecycle = function (object) {
                 return; // if preExecution returns false, we'll skip the update
             }
             if (object.tooltip != undefined) {
-                object._tooltip = typeof object["tooltip"] == 'function' ? object.tooltip() : object.tooltip;
+                object._tooltip = typeof object["tooltip"] === 'function' ? object.tooltip() : object.tooltip;
             }
             // first see if there is an objectImpl
             if ((object.update != undefined) &&
-                (typeof object['update'] == 'function')) {
+                (typeof object['update'] === 'function')) {
                 object.update();
 
                 // check if component has periodic refresh and schedule next update
@@ -10522,7 +10527,7 @@ Dashboards.updateLifecycle = function (object) {
                 // unsupported update call
             }
 
-            if (!(typeof(object.postExecution) == 'undefined')) {
+            if (!(typeof(object.postExecution) === 'undefined')) {
                 object.postExecution.apply(object);
             }
             // if we have a tooltip component, how is the time.
@@ -10599,7 +10604,7 @@ Dashboards.updateComponent = function (object) {
 };
 
 Dashboards.createAndCleanErrorDiv = function () {
-    if ($("#" + CDF_ERROR_DIV).length == 0) {
+    if ($("#" + CDF_ERROR_DIV).length === 0) {
         $("body").append("<div id='" + CDF_ERROR_DIV + "'></div>");
     }
     $("#" + CDF_ERROR_DIV).empty();
@@ -10618,7 +10623,7 @@ Dashboards.showErrorTooltip = function () {
 
 Dashboards.getComponent = function (name) {
     for (var i in this.components) {
-        if (this.components[i].name == name)
+        if (this.components[i].name === name)
             return this.components[i];
     }
 };
@@ -10856,7 +10861,7 @@ Dashboards.initEngine = function () {
 
     this.createAndCleanErrorDiv();
     // Fire all pre-initialization events
-    if (typeof this.preInit == 'function') {
+    if (typeof this.preInit === 'function') {
         this.preInit();
     }
     this.trigger("cdf cdf:preInit", this);
@@ -10901,7 +10906,7 @@ Dashboards.initEngine = function () {
          * If it's not going to execute, we should check for postInit right now.
          * If it is, we shouldn't do anything.right now.
          */
-        if (arguments.length == 2 && isExecuting) {
+        if (arguments.length === 2 && isExecuting) {
             return;
         }
         this.waitingForInit = _(this.waitingForInit).without(comp);
@@ -10928,7 +10933,7 @@ Dashboards.handlePostInit = function () {
         /* Legacy Event -- don't rely on this! */
         $(window).trigger('cdfLoaded');
 
-        if (typeof this.postInit == "function") {
+        if (typeof this.postInit === "function") {
             this.postInit();
         }
         this.restoreDuplicates();
@@ -10962,20 +10967,20 @@ Dashboards.processChange = function (object_name) {
     var object = this.getComponentByName(object_name);
     var parameter = object.parameter;
     var value;
-    if (typeof object['getValue'] == 'function') {
+    if (typeof object['getValue'] === 'function') {
         value = object.getValue();
     }
-    if (value == null) // We won't process changes on null values
+    if (value === null) // We won't process changes on null values
         return;
 
-    if (!(typeof(object.preChange) == 'undefined')) {
+    if (!(typeof(object.preChange) === 'undefined')) {
         var preChangeResult = object.preChange(value);
         value = preChangeResult != undefined ? preChangeResult : value;
     }
     if (parameter) {
         this.fireChange(parameter, value);
     }
-    if (!(typeof(object.postChange) == 'undefined')) {
+    if (!(typeof(object.postChange) === 'undefined')) {
         object.postChange(value);
     }
 };
@@ -11003,7 +11008,7 @@ Dashboards.fireChange = function (parameter, value) {
         if ($.isArray(this.components[i].listeners)) {
             for (var j = 0; j < this.components[i].listeners.length; j++) {
                 var comp = this.components[i];
-                if (comp.listeners[j] == parameter && !comp.disabled) {
+                if (comp.listeners[j] === parameter && !comp.disabled) {
                     toUpdate.push(comp);
                     break;
                 }
@@ -11071,7 +11076,7 @@ Dashboards.updateAll = function (components) {
              * `preExecution` cancelled the update, or because we're in an `error`
              * event handler, we should queue up the next component right now.
              */
-            if (arguments.length == 2 && typeof isExecuting == "boolean" && isExecuting) {
+            if (arguments.length === 2 && typeof isExecuting === "boolean" && isExecuting) {
                 return;
             }
             component.off("cdf:postExecution", postExec);
@@ -11174,7 +11179,7 @@ Dashboards.getViewParameters = function () {
     var params = this.viewParameters,
         ret = {};
     for (var p in params) if (params.hasOwnProperty(p)) {
-        if (params[p] == this.viewFlags.VIEW || params[p] == this.viewFlags.UNBOUND) {
+        if (params[p] === this.viewFlags.VIEW || params[p] === this.viewFlags.UNBOUND) {
             ret[p] = this.getParameterValue(p);
         }
     }
@@ -11224,7 +11229,7 @@ Dashboards.getQueryParameter = function (parameterName) {
             begin += parameterName.length;
             // Multiple parameters are separated by the "&" sign
             var end = queryString.indexOf("&", begin);
-            if (end == -1) {
+            if (end === -1) {
                 end = queryString.length
             }
             // Return the string
@@ -11236,7 +11241,7 @@ Dashboards.getQueryParameter = function (parameterName) {
 };
 
 Dashboards.setParameter = function (parameterName, parameterValue) {
-    if (parameterName == undefined || parameterName == "undefined") {
+    if (parameterName === undefined || parameterName === "undefined") {
         this.log('Dashboards.setParameter: trying to set undefined!!', 'warn');
         return;
     }
@@ -11260,7 +11265,7 @@ Dashboards.post = function (url, obj) {
 
         var v = (typeof obj[o] == 'function' ? obj[o]() : obj[o]);
 
-        if (typeof v == 'string') {
+        if (typeof v === 'string') {
             v = v.replace(/"/g, "\'")
         }
 
@@ -11291,7 +11296,7 @@ Dashboards.callPentahoAction = function (obj, solution, path, action, parameters
 
     // Encapsulate pentahoAction call
     // Dashboards.log("Calling pentahoAction for " + obj.type + " " + obj.name + "; Is it visible?: " + obj.visible);
-    if (typeof callback == 'function') {
+    if (typeof callback === 'function') {
         return this.pentahoAction(solution, path, action, parameters,
             function (json) {
                 callback(myself.parseXActionResult(obj, json));
@@ -11310,7 +11315,7 @@ Dashboards.urlAction = function (url, params, func) {
 Dashboards.executeAjax = function (returnType, url, params, func) {
     var myself = this;
     // execute a url
-    if (typeof func == "function") {
+    if (typeof func === "function") {
         // async
         return $.ajax({
             url: url,
@@ -11339,7 +11344,7 @@ Dashboards.executeAjax = function (returnType, url, params, func) {
         }
 
     });
-    if (returnType == 'xml') {
+    if (returnType === 'xml') {
         return result.responseXML;
     } else {
         return result.responseText;
@@ -11392,7 +11397,7 @@ Dashboards.parseXActionResult = function (obj, html) {
     var out = "<table class='errorMessageTable' border='0'><tr><td><img src='" + ERROR_IMAGE + "'></td><td><span class=\"cdf_error\" title=\" " + errorDetails.join('<br/>').replace(/"/g, "'") + "\" >" + errorMessage + " </span></td></tr></table/>";
 
     // if this is a hidden component, we'll place this in the error div
-    if (obj.visible == false) {
+    if (obj.visible === false) {
         $("#" + CDF_ERROR_DIV).append("<br />" + out);
     }
     else {
@@ -11506,7 +11511,7 @@ Dashboards.eachValuesArray = function (values, opts, f, x) {
                     id = v0;
                 }
                 label = "" + valSpec[1];
-                value = (valueAsId || v0 == null) ? label : ("" + v0);
+                value = (valueAsId || v0 === null) ? label : ("" + v0);
             } else {
                 value = label = "" + v0;
             }
@@ -11566,7 +11571,7 @@ Dashboards.parseMultipleValues = function (value) {
  * @static
  */
 Dashboards.normalizeValue = function (value) {
-    if (value === '' || value == null) {
+    if (value === '' || value === null) {
         return null;
     }
     if (this.isArray(value) && !value.length) return null;
@@ -11618,7 +11623,7 @@ Dashboards.equalValues = function (a, b) {
     }
 
     // Last try, give it to JS equals
-    return a == b;
+    return a === b;
 };
 
 Dashboards.clone = function clone (obj) {
@@ -11627,7 +11632,7 @@ Dashboards.clone = function clone (obj) {
     for (var i in obj) {
         var prop = obj[i];
 
-        if (typeof prop == 'object') {
+        if (typeof prop === 'object') {
             if (prop instanceof Array) {
                 c[i] = [];
 
@@ -11893,9 +11898,13 @@ Dashboards.hsvToRgb = function (h, s, v) {
         this.dispose = function () {
             if (_typesTable) {
                 for (var type in _typesTable) {
-                    var holdersByName = _typesTable[type];
-                    for (var name in holdersByName) {
-                        holdersByName[name].dispose();
+                    if (_typesTable.hasOwnProperty(type)) {
+                        var holdersByName = _typesTable[type];
+                        for (var name in holdersByName) {
+                            if (holdersByName.hasOwnProperty(name)) {
+                                holdersByName[name].dispose();
+                            }
+                        }
                     }
                 }
 
@@ -11960,7 +11969,9 @@ Dashboards.hsvToRgb = function (h, s, v) {
             // Includes the default (unnamed) instance
             var instances = [];
             for (var name in holdersByName) {
-                instances.push(holdersByName[name].build({}, false));
+                if (holdersByName.hasOwnProperty(name)) {
+                    instances.push(holdersByName[name].build({}, false));
+                }
             }
             return instances;
         }
@@ -12010,7 +12021,7 @@ Dashboards.hsvToRgb = function (h, s, v) {
         // external scope is managed outside the container
         this.dispose = function () {
             if (instance) {
-                scope === 'singleton' && doDispose(instance);
+                scope = 'singleton' && doDispose(instance);
                 instance = null;
             }
         };
@@ -12046,8 +12057,10 @@ Dashboards.hsvToRgb = function (h, s, v) {
 
     //Normalization - Ensure component does not finish with component and capitalize first letter
     D.normalizeAddInKey = function (key, subKey) {
-        if (key.indexOf('Component', key.length - 'Component'.length) !== -1)
+        if (key.indexOf('Component', key.length - 'Component'.length) !== -1) {
             key = key.substring(0, key.length - 'Component'.length);
+        }
+
         key = key.charAt(0).toUpperCase() + key.substring(1);
 
         if (subKey) {
@@ -12055,23 +12068,23 @@ Dashboards.hsvToRgb = function (h, s, v) {
         }
 
         return key;
-    }
+    };
 
     D.registerAddIn = function (type, subType, addIn) {
-        var type = this.normalizeAddInKey(type, subType),
+        var _type = this.normalizeAddInKey(type, subType),
             name = addIn.getName ? addIn.getName() : null;
-        this.addIns.register(type, name, addIn);
+        this.addIns.register(_type, name, addIn);
     };
 
     D.hasAddIn = function (type, subType, addInName) {
-        var type = this.normalizeAddInKey(type, subType);
-        return Boolean(this.addIns && this.addIns.has(type, addInName));
+        var _type = this.normalizeAddInKey(type, subType);
+        return Boolean(this.addIns && this.addIns.has(_type, addInName));
     };
 
     D.getAddIn = function (type, subType, addInName) {
-        var type = this.normalizeAddInKey(type, subType);
+        var _type = this.normalizeAddInKey(type, subType);
         try {
-            var addIn = this.addIns.get(type, addInName);
+            var addIn = this.addIns.get(_type, addInName);
             return addIn;
         } catch (e) {
             return null;
@@ -12085,10 +12098,10 @@ Dashboards.hsvToRgb = function (h, s, v) {
         }
     };
     D.listAddIns = function (type, subType) {
-        var type = this.normalizeAddInKey(type, subType);
+        var _type = this.normalizeAddInKey(type, subType);
         var addInList = [];
         try {
-            return this.addIns.listType(type);
+            return this.addIns.listType(_type);
         } catch (e) {
             return [];
         }
@@ -12114,11 +12127,11 @@ Dashboards.hsvToRgb = function (h, s, v) {
 
     D.registerQuery = function (type, query) {
         var BaseQuery = this.getBaseQuery();
+        var deepProperties = {};
 
         // Goes a level deeper one extending these properties. Usefull to preserve defaults and
         // options interfaces from BaseQuery.
         if (!_.isFunction(query) && _.isObject(query)) {
-            var deepProperties = {};
             _.each(BaseQuery.prototype.deepProperties, function (prop) {
                 deepProperties[prop] = _.extend({}, BaseQuery.prototype[prop], query[prop]);
             });
@@ -12169,7 +12182,7 @@ Dashboards.hsvToRgb = function (h, s, v) {
         this._libraries = {
             predicates: {
                 tautology: function (value) {
-                    return true
+                    return true;
                 },
                 isFunction: _.isFunction,
                 isPositive: function (value) {
@@ -12205,7 +12218,7 @@ Dashboards.hsvToRgb = function (h, s, v) {
                 var ifaces = ( interfaces && interfaces[key] ) || {};
                 setInterfaces(key, ifaces);
                 setValue(key, el);
-            })
+            });
         };
 
         this.setOption = function (opt, value, interfaces) {
@@ -12215,7 +12228,7 @@ Dashboards.hsvToRgb = function (h, s, v) {
             if (validator(value)) {
                 value = reader(value);
                 setValue(opt, value);
-                return true
+                return true;
             } else {
                 throw new Error("Invalid Option " + opt.charAt(0).toUpperCase() + opt.slice(1));
             }
@@ -12233,23 +12246,23 @@ Dashboards.hsvToRgb = function (h, s, v) {
             setReader(opt, interfaces['reader']);
             setWriter(opt, interfaces['writer']);
             setValidator(opt, interfaces['validator']);
-        };
+        }
 
         function getReader(opt) {
-            return get(myself._interfaces, opt, 'reader', myself._libraries.mappers['identity']
-            )
-        };
+            return get(myself._interfaces, opt, 'reader', myself._libraries.mappers['identity']);
+        }
+
         function getWriter(opt) {
-            return get(myself._interfaces, opt, 'writer', myself._libraries.mappers['identity']
-            )
-        };
+            return get(myself._interfaces, opt, 'writer', myself._libraries.mappers['identity']);
+        }
+
         function getValidator(opt) {
-            return get(myself._interfaces, opt, 'validator', myself._libraries.predicates['tautology']
-            )
-        };
+            return get(myself._interfaces, opt, 'validator', myself._libraries.predicates['tautology']);
+        }
+
         function getValue(opt) {
-            return get(myself._options, opt, 'value')
-        };
+            return get(myself._options, opt, 'value');
+        }
 
         // Reader, Writer and Validator work in the same way:
         // If the value is a function, use it. 
@@ -12260,21 +12273,24 @@ Dashboards.hsvToRgb = function (h, s, v) {
         function setReader(opt, fn) {
             var lib = myself._libraries.mappers;
             fn = ( _.isFunction(fn) && fn ) || ( _.isString(fn) && lib[fn] ) || getReader(opt) || lib['identity'];
-            return set(myself._interfaces, opt, 'reader', fn)
-        };
+            return set(myself._interfaces, opt, 'reader', fn);
+        }
+
         function setWriter(opt, fn) {
             var lib = myself._libraries.mappers;
             fn = ( _.isFunction(fn) && fn ) || ( _.isString(fn) && lib[fn] ) || getWriter(opt) || lib['identity'];
-            return set(myself._interfaces, opt, 'writer', fn)
-        };
+            return set(myself._interfaces, opt, 'writer', fn);
+        }
+
         function setValidator(opt, fn) {
             var lib = myself._libraries.predicates;
             fn = ( _.isFunction(fn) && fn ) || ( _.isString(fn) && lib[fn] ) || getValidator(opt) || lib['tautology'];
-            return set(myself._interfaces, opt, 'validator', fn)
-        };
+            return set(myself._interfaces, opt, 'validator', fn);
+        }
+
         function setValue(opt, value) {
-            return set(myself._options, opt, 'value', value)
-        };
+            return set(myself._options, opt, 'value', value);
+        }
 
         // Init
         this.init(config.defaults, config.interfaces, config.libraries);
@@ -12287,7 +12303,8 @@ Dashboards.hsvToRgb = function (h, s, v) {
         if (container && container[opt] && container[opt].hasOwnProperty(attr)) {
             val = container[opt][attr];
         }
-        return val
+        
+        return val;
     }
 
     function set(container, opt, attr, value) {
@@ -12322,7 +12339,7 @@ wd.cdf.popups.okPopup = {
         desc: "Description Text",
         button: "Button Text",
         callback: function () {
-            return true
+            return true;
         }
     },
     $el: undefined,
@@ -12338,13 +12355,14 @@ wd.cdf.popups.okPopup = {
     render: function (newOpts) {
         var opts = _.extend({}, this.defaults, newOpts);
         var myself = this;
+        
         if (this.firstRender) {
             this.$el = $('<div/>').addClass('cdfPopupContainer')
                 .hide()
                 .appendTo('body');
             this.firstRender = false;
         }
-        ;
+        
         this.$el.empty().html(this.template(opts));
         this.$el.find('.cdfPopupButton').click(function () {
             opts.callback();
@@ -12397,7 +12415,7 @@ wd.cdf.notifications.growl = {
         desc: 'Default CDF notification.',
         timeout: 4000,
         onUnblock: function () {
-            return true
+            return true;
         },
         css: $.extend({},
             { position: 'absolute', width: '100%', top: '10px' }),

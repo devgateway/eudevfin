@@ -18,10 +18,10 @@ $.ajaxSetup({
 // TODO - maybe we should wrap all this global variables in some 'app' object or maibe 'cdfplugin' object
 var pathArray = window.location.pathname.split('/');
 var webAppPath;
-if (!(typeof(CONTEXT_PATH) == 'undefined')) {
+if (!(typeof(CONTEXT_PATH) === 'undefined')) {
     webAppPath = CONTEXT_PATH;
 }
-if (webAppPath == undefined) {
+if (webAppPath === undefined) {
     webAppPath = "/" + pathArray[1];
 }
 
@@ -172,7 +172,7 @@ Dashboards.RefreshEngine = function () {
 
     var clearFromQueue = function (component) {
         for (var i = 0; i < refreshQueue.length; i++) {
-            if (refreshQueue[i].component == component) {
+            if (refreshQueue[i].component === component) {
                 refreshQueue.splice(i, 1);
                 i--;
             }
@@ -592,7 +592,7 @@ Dashboards.checkServer = function () {
         dataType: 'json',
         url: Dashboards.CDF_BASE_PATH + 'ping',
         success: function (result) {
-            if (result && result.ping == 'ok') {
+            if (result && result.ping === 'ok') {
                 retVal = true;
             }
             else {
@@ -613,7 +613,7 @@ Dashboards.restoreDuplicates = function () {
      * We mark duplicates by appending an _nn suffix to their names.
      */
     var dupes = this.components.filter(function (c) {
-            return c.type == 'duplicate'
+            return c.type === 'duplicate'
         }),
         suffixes = {},
         params = {};
@@ -674,7 +674,7 @@ Dashboards.updateLifecycle = function (object) {
     var handler = _.bind(function () {
         try {
             var shouldExecute;
-            if (!(typeof(object.preExecution) == 'undefined')) {
+            if (!(typeof(object.preExecution) === 'undefined')) {
                 shouldExecute = object.preExecution.apply(object);
             }
             /*
@@ -689,11 +689,11 @@ Dashboards.updateLifecycle = function (object) {
                 return; // if preExecution returns false, we'll skip the update
             }
             if (object.tooltip != undefined) {
-                object._tooltip = typeof object["tooltip"] == 'function' ? object.tooltip() : object.tooltip;
+                object._tooltip = typeof object["tooltip"] === 'function' ? object.tooltip() : object.tooltip;
             }
             // first see if there is an objectImpl
             if ((object.update != undefined) &&
-                (typeof object['update'] == 'function')) {
+                (typeof object['update'] === 'function')) {
                 object.update();
 
                 // check if component has periodic refresh and schedule next update
@@ -703,7 +703,7 @@ Dashboards.updateLifecycle = function (object) {
                 // unsupported update call
             }
 
-            if (!(typeof(object.postExecution) == 'undefined')) {
+            if (!(typeof(object.postExecution) === 'undefined')) {
                 object.postExecution.apply(object);
             }
             // if we have a tooltip component, how is the time.
@@ -780,7 +780,7 @@ Dashboards.updateComponent = function (object) {
 };
 
 Dashboards.createAndCleanErrorDiv = function () {
-    if ($("#" + CDF_ERROR_DIV).length == 0) {
+    if ($("#" + CDF_ERROR_DIV).length === 0) {
         $("body").append("<div id='" + CDF_ERROR_DIV + "'></div>");
     }
     $("#" + CDF_ERROR_DIV).empty();
@@ -799,7 +799,7 @@ Dashboards.showErrorTooltip = function () {
 
 Dashboards.getComponent = function (name) {
     for (var i in this.components) {
-        if (this.components[i].name == name)
+        if (this.components[i].name === name)
             return this.components[i];
     }
 };
@@ -1037,7 +1037,7 @@ Dashboards.initEngine = function () {
 
     this.createAndCleanErrorDiv();
     // Fire all pre-initialization events
-    if (typeof this.preInit == 'function') {
+    if (typeof this.preInit === 'function') {
         this.preInit();
     }
     this.trigger("cdf cdf:preInit", this);
@@ -1082,7 +1082,7 @@ Dashboards.initEngine = function () {
          * If it's not going to execute, we should check for postInit right now.
          * If it is, we shouldn't do anything.right now.
          */
-        if (arguments.length == 2 && isExecuting) {
+        if (arguments.length === 2 && isExecuting) {
             return;
         }
         this.waitingForInit = _(this.waitingForInit).without(comp);
@@ -1109,7 +1109,7 @@ Dashboards.handlePostInit = function () {
         /* Legacy Event -- don't rely on this! */
         $(window).trigger('cdfLoaded');
 
-        if (typeof this.postInit == "function") {
+        if (typeof this.postInit === "function") {
             this.postInit();
         }
         this.restoreDuplicates();
@@ -1143,20 +1143,20 @@ Dashboards.processChange = function (object_name) {
     var object = this.getComponentByName(object_name);
     var parameter = object.parameter;
     var value;
-    if (typeof object['getValue'] == 'function') {
+    if (typeof object['getValue'] === 'function') {
         value = object.getValue();
     }
-    if (value == null) // We won't process changes on null values
+    if (value === null) // We won't process changes on null values
         return;
 
-    if (!(typeof(object.preChange) == 'undefined')) {
+    if (!(typeof(object.preChange) === 'undefined')) {
         var preChangeResult = object.preChange(value);
         value = preChangeResult != undefined ? preChangeResult : value;
     }
     if (parameter) {
         this.fireChange(parameter, value);
     }
-    if (!(typeof(object.postChange) == 'undefined')) {
+    if (!(typeof(object.postChange) === 'undefined')) {
         object.postChange(value);
     }
 };
@@ -1184,7 +1184,7 @@ Dashboards.fireChange = function (parameter, value) {
         if ($.isArray(this.components[i].listeners)) {
             for (var j = 0; j < this.components[i].listeners.length; j++) {
                 var comp = this.components[i];
-                if (comp.listeners[j] == parameter && !comp.disabled) {
+                if (comp.listeners[j] === parameter && !comp.disabled) {
                     toUpdate.push(comp);
                     break;
                 }
@@ -1252,7 +1252,7 @@ Dashboards.updateAll = function (components) {
              * `preExecution` cancelled the update, or because we're in an `error`
              * event handler, we should queue up the next component right now.
              */
-            if (arguments.length == 2 && typeof isExecuting == "boolean" && isExecuting) {
+            if (arguments.length === 2 && typeof isExecuting === "boolean" && isExecuting) {
                 return;
             }
             component.off("cdf:postExecution", postExec);
@@ -1355,7 +1355,7 @@ Dashboards.getViewParameters = function () {
     var params = this.viewParameters,
         ret = {};
     for (var p in params) if (params.hasOwnProperty(p)) {
-        if (params[p] == this.viewFlags.VIEW || params[p] == this.viewFlags.UNBOUND) {
+        if (params[p] === this.viewFlags.VIEW || params[p] === this.viewFlags.UNBOUND) {
             ret[p] = this.getParameterValue(p);
         }
     }
@@ -1405,7 +1405,7 @@ Dashboards.getQueryParameter = function (parameterName) {
             begin += parameterName.length;
             // Multiple parameters are separated by the "&" sign
             var end = queryString.indexOf("&", begin);
-            if (end == -1) {
+            if (end === -1) {
                 end = queryString.length
             }
             // Return the string
@@ -1417,7 +1417,7 @@ Dashboards.getQueryParameter = function (parameterName) {
 };
 
 Dashboards.setParameter = function (parameterName, parameterValue) {
-    if (parameterName == undefined || parameterName == "undefined") {
+    if (parameterName === undefined || parameterName === "undefined") {
         this.log('Dashboards.setParameter: trying to set undefined!!', 'warn');
         return;
     }
@@ -1441,7 +1441,7 @@ Dashboards.post = function (url, obj) {
 
         var v = (typeof obj[o] == 'function' ? obj[o]() : obj[o]);
 
-        if (typeof v == 'string') {
+        if (typeof v === 'string') {
             v = v.replace(/"/g, "\'")
         }
 
@@ -1472,7 +1472,7 @@ Dashboards.callPentahoAction = function (obj, solution, path, action, parameters
 
     // Encapsulate pentahoAction call
     // Dashboards.log("Calling pentahoAction for " + obj.type + " " + obj.name + "; Is it visible?: " + obj.visible);
-    if (typeof callback == 'function') {
+    if (typeof callback === 'function') {
         return this.pentahoAction(solution, path, action, parameters,
             function (json) {
                 callback(myself.parseXActionResult(obj, json));
@@ -1491,7 +1491,7 @@ Dashboards.urlAction = function (url, params, func) {
 Dashboards.executeAjax = function (returnType, url, params, func) {
     var myself = this;
     // execute a url
-    if (typeof func == "function") {
+    if (typeof func === "function") {
         // async
         return $.ajax({
             url: url,
@@ -1520,7 +1520,7 @@ Dashboards.executeAjax = function (returnType, url, params, func) {
         }
 
     });
-    if (returnType == 'xml') {
+    if (returnType === 'xml') {
         return result.responseXML;
     } else {
         return result.responseText;
@@ -1573,7 +1573,7 @@ Dashboards.parseXActionResult = function (obj, html) {
     var out = "<table class='errorMessageTable' border='0'><tr><td><img src='" + ERROR_IMAGE + "'></td><td><span class=\"cdf_error\" title=\" " + errorDetails.join('<br/>').replace(/"/g, "'") + "\" >" + errorMessage + " </span></td></tr></table/>";
 
     // if this is a hidden component, we'll place this in the error div
-    if (obj.visible == false) {
+    if (obj.visible === false) {
         $("#" + CDF_ERROR_DIV).append("<br />" + out);
     }
     else {
@@ -1687,7 +1687,7 @@ Dashboards.eachValuesArray = function (values, opts, f, x) {
                     id = v0;
                 }
                 label = "" + valSpec[1];
-                value = (valueAsId || v0 == null) ? label : ("" + v0);
+                value = (valueAsId || v0 === null) ? label : ("" + v0);
             } else {
                 value = label = "" + v0;
             }
@@ -1747,7 +1747,7 @@ Dashboards.parseMultipleValues = function (value) {
  * @static
  */
 Dashboards.normalizeValue = function (value) {
-    if (value === '' || value == null) {
+    if (value === '' || value === null) {
         return null;
     }
     if (this.isArray(value) && !value.length) return null;
@@ -1799,7 +1799,7 @@ Dashboards.equalValues = function (a, b) {
     }
 
     // Last try, give it to JS equals
-    return a == b;
+    return a === b;
 };
 
 Dashboards.clone = function clone (obj) {
@@ -1808,7 +1808,7 @@ Dashboards.clone = function clone (obj) {
     for (var i in obj) {
         var prop = obj[i];
 
-        if (typeof prop == 'object') {
+        if (typeof prop === 'object') {
             if (prop instanceof Array) {
                 c[i] = [];
 

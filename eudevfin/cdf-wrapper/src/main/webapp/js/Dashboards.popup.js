@@ -20,7 +20,7 @@ wd.cdf.popups.okPopup = {
         desc: "Description Text",
         button: "Button Text",
         callback: function () {
-            return true
+            return true;
         }
     },
     $el: undefined,
@@ -36,13 +36,14 @@ wd.cdf.popups.okPopup = {
     render: function (newOpts) {
         var opts = _.extend({}, this.defaults, newOpts);
         var myself = this;
+        
         if (this.firstRender) {
             this.$el = $('<div/>').addClass('cdfPopupContainer')
                 .hide()
                 .appendTo('body');
             this.firstRender = false;
         }
-        ;
+        
         this.$el.empty().html(this.template(opts));
         this.$el.find('.cdfPopupButton').click(function () {
             opts.callback();
@@ -95,7 +96,7 @@ wd.cdf.notifications.growl = {
         desc: 'Default CDF notification.',
         timeout: 4000,
         onUnblock: function () {
-            return true
+            return true;
         },
         css: $.extend({},
             { position: 'absolute', width: '100%', top: '10px' }),

@@ -14,17 +14,18 @@ module.exports = function(grunt) {
 		jshint: {
 			// configure JSHint (documented at http://www.jshint.com/docs/)
 			options: {
-				bitwise: true,
+				bitwise: false,
+				unused: false,		// TODO - this should be 'true'
+				forin: true,
+				nonstandard: true,
 				curly: true,
 				eqeqeq: true,
-				forin: true,
 				immed: true,
 				latedef: true,
 				newcap: true,
 				noarg: true,
 				sub: true,
 				undef: true,
-				unused: true,
 				boss: true,
 				eqnull: true,
 				browser: true,
@@ -40,6 +41,9 @@ module.exports = function(grunt) {
 					module: true,
 					define: true,
 					require: true,
+					Dashboards: true,
+					Mustache: true,
+					Base: true,
 
 					// this are global variables for tests
 					QUnit: true,
@@ -61,7 +65,8 @@ module.exports = function(grunt) {
 			src: {
 				// all source files excluding libraries
 				src: [
-					'src/main/webapp/js/**/*.js', 
+					'src/main/webapp/js/Dashboards.js', 
+					// 'src/main/webapp/js/**/*.js', 
 					'!src/main/webapp/js/cdfplugin.js', 
 					'!src/main/webapp/js/cdfplugin.min.js',
 					'!src/main/webapp/js/libs/**/*.js',
