@@ -49,14 +49,14 @@ public class CDASimpleSQLTest
 
 	    final SettingsManager settingsManager = SettingsManager.getInstance();
 	    
-	    URL file = this.getClass().getResource("sql-jndi.cda");
+	    URL file = this.getClass().getResource("../service/financial.mondrian.cda");
 	    File settingsFile = new File(file.toURI());
 	    final CdaSettings cdaSettings = settingsManager.parseSettingsFile(settingsFile.getAbsolutePath());
 	    logger.debug("Doing query on Cda - Initializing CdaEngine");
 	    final CdaEngine engine = CdaEngine.getInstance();
 
 	    QueryOptions queryOptions = new QueryOptions();
-	    queryOptions.setDataAccessId("transactionList");
+	    queryOptions.setDataAccessId("simpleSQLQuery");
 	    queryOptions.setOutputType("json");
 
 	    logger.info("Doing query");
