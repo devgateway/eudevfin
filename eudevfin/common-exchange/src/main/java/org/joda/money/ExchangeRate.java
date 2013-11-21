@@ -16,9 +16,6 @@ package org.joda.money;
  */
 
 
-import org.joda.convert.FromString;
-import org.joda.convert.ToString;
-
 import java.io.InvalidObjectException;
 import java.io.ObjectStreamException;
 import java.io.Serializable;
@@ -26,6 +23,9 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.joda.convert.FromString;
+import org.joda.convert.ToString;
 
 /**
  * An exchange rate defining the way to convert between amounts in two currencies.

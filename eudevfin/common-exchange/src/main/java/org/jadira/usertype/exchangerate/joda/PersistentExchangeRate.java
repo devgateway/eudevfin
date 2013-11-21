@@ -1,5 +1,8 @@
 package org.jadira.usertype.exchangerate.joda;
 
+import java.math.BigDecimal;
+
+import org.hibernate.annotations.Type;
 import org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency;
 import org.jadira.usertype.moneyandcurrency.joda.columnmapper.BigDecimalBigDecimalColumnMapper;
 import org.jadira.usertype.moneyandcurrency.joda.columnmapper.StringColumnCurrencyUnitMapper;
@@ -7,8 +10,6 @@ import org.jadira.usertype.spi.shared.AbstractMultiColumnUserType;
 import org.jadira.usertype.spi.shared.ColumnMapper;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.ExchangeRate;
-
-import java.math.BigDecimal;
 
 /**
  * Persists the decimal amount and currency from an {@link ExchangeRate}

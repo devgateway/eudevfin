@@ -15,7 +15,13 @@
  */
 package org.joda.money;
 
-import java.io.*;
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.InvalidClassException;
+import java.io.InvalidObjectException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
+import java.io.StreamCorruptedException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
