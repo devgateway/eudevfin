@@ -56,7 +56,8 @@ public class TransactionPage extends HeaderFooter {
         tabList.add(ForLoansOnlyTab.newTab(this));
         tabList.add(AvailableComponentsTab.newTab(this));
 
-        BootstrapCssTabbedPanel<ITab> bc = new BootstrapCssTabbedPanel<>("bc", tabList).positionTabs(BootstrapCssTabbedPanel.Orientation.RIGHT);
+        BootstrapCssTabbedPanel<ITab> bc = new BootstrapCssTabbedPanel<>("bc", tabList).
+                positionTabs(BootstrapCssTabbedPanel.Orientation.RIGHT);
         form.add(bc);
 
         form.add(new IndicatingAjaxButton("submit", Model.of("Submit")) {
@@ -103,6 +104,7 @@ public class TransactionPage extends HeaderFooter {
     private class FakeTransaction implements Serializable {
         //
         Integer reportingYear;
+        Date commitmentDate;
         String reportingCountry;
         String extendingAgency;
         Integer crsId;
@@ -143,7 +145,6 @@ public class TransactionPage extends HeaderFooter {
         //Volume Data
 
         //For Loans Only
-        Date commitmentDate;
         String typeOfRepayment;
         String numberOfRepayments;
         Integer interestRate;

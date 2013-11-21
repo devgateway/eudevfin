@@ -19,8 +19,11 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.StringResourceModel;
 import org.devgateway.eudevfin.dim.core.RWComponentPropertyModel;
 import org.devgateway.eudevfin.dim.core.StaticBinds;
+import org.devgateway.eudevfin.dim.core.components.DateInputField;
 import org.devgateway.eudevfin.dim.core.components.DropDownField;
 import org.devgateway.eudevfin.dim.core.components.TextInputField;
+
+import java.util.Date;
 
 /**
  * @author aartimon@developmentgateway.org
@@ -38,6 +41,9 @@ public class IdentificationDataTab extends Panel {
                 "1reportingYear");
         reportingYear.typeInteger().required().range(1900, 2099).decorateMask("9999");
         add(reportingYear);
+
+        DateInputField commitmentDate = new DateInputField("1bCommitmentDate", new RWComponentPropertyModel<Date>("commitmentDate"), "1bCommitmentDate");
+        add(commitmentDate);
 
         DropDownField<String> reportingCountry = new DropDownField<>("2reportingCountry", new RWComponentPropertyModel<String>("reportingCountry"),
                 "2reportingCountry",

@@ -12,10 +12,6 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <entry key="43commitmentDate.label">Commitment Date</entry>
-    <entry key="43commitmentDate.placeholder"> </entry>
-    <entry key="43commitmentDate.help">TODO: edit help text</entry>
-
     <entry key="44typeOfRepayment.label">Type of repayment</entry>
     <entry key="44typeOfRepayment.placeholder"> </entry>
     <entry key="44typeOfRepayment.help">TODO: edit help text</entry>

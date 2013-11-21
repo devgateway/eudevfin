@@ -16,6 +16,10 @@
     <entry key="1reportingYear.placeholder">YYYY</entry>
     <entry key="1reportingYear.help">TODO: edit help text</entry>
 
+    <entry key="1bCommitmentDate.label">Commitment Date</entry>
+    <entry key="1bCommitmentDate.placeholder"> </entry>
+    <entry key="1bCommitmentDate.help">TODO: edit help text</entry>
+
     <entry key="2reportingCountry.label">Reporting Country</entry>
     <entry key="2reportingCountry.placeholder">(choose one)</entry>
     <entry key="2reportingCountry.help">TODO: edit help text</entry>

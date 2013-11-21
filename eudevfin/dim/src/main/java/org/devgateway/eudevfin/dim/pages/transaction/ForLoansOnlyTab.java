@@ -37,9 +37,6 @@ public class ForLoansOnlyTab extends Panel {
     }
 
     private void addComponents() {
-        DateInputField commitmentDate = new DateInputField("43commitmentDate", new RWComponentPropertyModel<Date>("commitmentDate"), "43commitmentDate");
-        add(commitmentDate);
-
         DropDownField<String> typeOfRepayment = new DropDownField<>("44typeOfRepayment", new RWComponentPropertyModel<String>("typeOfRepayment"), "44typeOfRepayment",
                 StaticBinds.countryProvider);
         add(typeOfRepayment);
