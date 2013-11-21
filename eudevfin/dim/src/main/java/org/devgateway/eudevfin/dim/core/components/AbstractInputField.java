@@ -19,27 +19,38 @@ import org.apache.wicket.model.StringResourceModel;
 
 
 public abstract class AbstractInputField<T> extends AbstractField {
-
+    private IModel<String> placeholderText;
 
     public AbstractInputField(String id, IModel<T> model, String messageKeyGroup){
         super(id, model, messageKeyGroup);
 
-        StringResourceModel placeholderText = new StringResourceModel(messageKeyGroup + ".placeholder", this, null, "");
-        addComponents(model, placeholderText);
+        placeholderText = new StringResourceModel(messageKeyGroup + ".placeholder", this, null, "");
+        addComponents(model);
     }
 
-    private void addComponents(IModel<T> model, StringResourceModel placeholderText){
+    private void addComponents(IModel<T> model){
         addFormComponent(newField("field", model));
         field.setOutputMarkupId(true);
 
         field.add(new InputBehavior(InputBehavior.Size.Large));
-        field.add(new AttributeModifier("placeholder", placeholderText));
+    }
+
+    @Override
+    protected void onBeforeRender() {
+        if (!hasBeenRendered())
+            field.add(new AttributeModifier("placeholder", placeholderText));
+
+        super.onBeforeRender();
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public AbstractInputField<T> required() {
         return (AbstractInputField<T>) super.required();
+    }
+
+    public void setPlaceholderText(IModel<String> placeholderText) {
+        this.placeholderText = placeholderText;
     }
 
     protected abstract FormComponent<T> newField(String id, IModel<T> model);

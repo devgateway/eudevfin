@@ -12,8 +12,10 @@
 package org.devgateway.eudevfin.dim.core.components;
 
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.DateTextField;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.DateTextFieldConfig;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 
 import java.util.Date;
 
@@ -25,10 +27,17 @@ public class DateInputField extends AbstractInputField<Date> {
 
     public DateInputField(String id, IModel<Date> model, String messageKeyGroup) {
         super(id, model, messageKeyGroup);
+        setPlaceholderText(Model.of(getFormat().toUpperCase()));
+    }
+
+    private String getFormat(){
+        return "dd/MM/yyyy";
     }
 
     @Override
     protected TextField<Date> newField(String id, IModel<Date> model) {
-        return new DateTextField(id, model);
+        DateTextFieldConfig config = new DateTextFieldConfig().withFormat(getFormat()).autoClose(true).forceParse(false);
+        DateTextField dateTextField = new DateTextField(id, model, config);
+        return dateTextField;
     }
 }

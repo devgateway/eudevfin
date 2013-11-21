@@ -77,7 +77,7 @@ public abstract class AbstractField<T> extends Panel{
         this.field = fc;
         field.setLabel(labelText);
         fc.setOutputMarkupId(true);
-        fc.add(new AjaxFormComponentUpdatingBehavior("onblur"){
+        fc.add(new AjaxFormComponentUpdatingBehavior(getUpdateMethod()){
             private static final long serialVersionUID = -6554038647835016155L;
 
             @Override
@@ -91,6 +91,12 @@ public abstract class AbstractField<T> extends Panel{
             }
         });
         xPenderController.add(fc);
+    }
+
+    private String getUpdateMethod() {
+        if (this instanceof DateInputField)
+            return "onchange";
+        return "onblur";
     }
 
     protected FormComponent<T> getField() {

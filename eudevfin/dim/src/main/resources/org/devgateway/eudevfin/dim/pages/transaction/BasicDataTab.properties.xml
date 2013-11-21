@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2013 Development Gateway.
+  ~ All rights reserved. This program and the accompanying materials
+  ~ are made available under the terms of the GNU Public License v3.0
+  ~ which accompanies this distribution, and is available at
+  ~ http://www.gnu.org/licenses/gpl.html
+  ~
+  ~ Contributors:
+  ~    aartimon
+  -->
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="7recipient.label">Recipient</entry>
+    <entry key="7recipient.placeholder"> </entry>
+    <entry key="7recipient.help">TODO: edit help text</entry>
+
+    <entry key="7bCPA.label">Is this Country Programmable Aid (CPA)</entry>
+    <entry key="7bCPA.placeholder"> </entry>
+    <entry key="7bCPA.help">TODO: edit help text</entry>
+
+    <entry key="8channelDelivery.label">Channel of Delivery Name</entry>
+    <entry key="8channelDelivery.placeholder">Name of implementing agency</entry>
+    <entry key="8channelDelivery.help">TODO: edit help text</entry>
+
+    <entry key="9channelCode.label">Channel Code</entry>
+    <entry key="9channelCode.placeholder"> </entry>
+    <entry key="9channelCode.help">TODO: edit help text</entry>
+
+    <entry key="10bilateralMultilateral.label">Bilateral/Multilateral</entry>
+    <entry key="10bilateralMultilateral.placeholder"> </entry>
+    <entry key="10bilateralMultilateral.help">TODO: edit help text</entry>
+
+    <entry key="11typeOfFlow.label">Type of Flow</entry>
+    <entry key="11typeOfFlow.placeholder"> </entry>
+    <entry key="11typeOfFlow.help">TODO: edit help text</entry>
+
+    <entry key="12typeOfFinance.label">Type of Finance</entry>
+    <entry key="12typeOfFinance.placeholder"> </entry>
+    <entry key="12typeOfFinance.help">TODO: edit help text</entry>
+
+    <entry key="13typeOfAid.label">Type of Aid</entry>
+    <entry key="13typeOfAid.placeholder"> </entry>
+    <entry key="13typeOfAid.help">TODO: edit help text</entry>
+
+    <entry key="14activityProjectTitle.label">Activity/Project Title - Short Description</entry>
+    <entry key="14activityProjectTitle.placeholder">(max 150 characters)</entry>
+    <entry key="14activityProjectTitle.help">TODO: edit help text</entry>
+
+    <entry key="15sectorPurposeCode.label">Sector/Purpose Code</entry>
+    <entry key="15sectorPurposeCode.placeholder"> </entry>
+    <entry key="15sectorPurposeCode.help">TODO: edit help text</entry>
+</properties>
