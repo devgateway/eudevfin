@@ -30,7 +30,10 @@ public class IdentificationDataTab extends Panel {
 
     private IdentificationDataTab(String id) {
         super(id);
+        addComponents();
+    }
 
+    private void addComponents() {
         TextInputField<Integer> reportingYear = new TextInputField<>("1reportingYear", new RWComponentPropertyModel<Integer>("reportingYear"),
                 "1reportingYear");
         reportingYear.typeInteger().required().range(1900, 2099).decorateMask("9999");
@@ -60,7 +63,6 @@ public class IdentificationDataTab extends Panel {
                 "6natureSubmission");
         natureSubmission.typeInteger();
         add(natureSubmission);
-
     }
 
     public static ITab newTab(Component askingComponent) {

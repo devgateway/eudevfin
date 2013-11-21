@@ -30,7 +30,10 @@ import org.devgateway.eudevfin.dim.core.components.TextInputField;
 public class BasicDataTab extends Panel{
     private BasicDataTab(String id) {
         super(id);
+        addComponents();
+    }
 
+    private void addComponents() {
         DropDownField<String> recipient = new DropDownField<String>("7recipient", new RWComponentPropertyModel<String>("recipient"), "7recipient",
                 StaticBinds.countryProvider);
         add(recipient);
@@ -68,11 +71,6 @@ public class BasicDataTab extends Panel{
         DropDownField<String> sectorPurposeCode = new DropDownField<String>("15sectorPurposeCode", new RWComponentPropertyModel<String>("sectorPurposeCode"), "15sectorPurposeCode",
                 StaticBinds.countryProvider);
         add(sectorPurposeCode);
-
-
-
-
-
     }
 
     public static ITab newTab(Component askingComponent){

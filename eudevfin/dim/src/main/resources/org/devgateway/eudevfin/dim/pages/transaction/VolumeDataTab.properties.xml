@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2013 Development Gateway.
+  ~ All rights reserved. This program and the accompanying materials
+  ~ are made available under the terms of the GNU Public License v3.0
+  ~ which accompanies this distribution, and is available at
+  ~ http://www.gnu.org/licenses/gpl.html
+  ~
+  ~ Contributors:
+  ~    aartimon
+  -->
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="32currency.label">Currency</entry>
+    <entry key="32currency.placeholder"> </entry>
+    <entry key="32currency.help">TODO: edit help text</entry>
+
+    <entry key="33commitments.label">Commitments</entry>
+    <entry key="33commitments.placeholder"> </entry>
+    <entry key="33commitments.help">TODO: edit help text</entry>
+
+    <entry key="34amountsExtended.label">Amounts Extended</entry>
+    <entry key="34amountsExtended.placeholder"> </entry>
+    <entry key="34amountsExtended.help">TODO: edit help text</entry>
+
+    <entry key="35amountsReceived.label">Amounts Received</entry>
+    <entry key="35amountsReceived.placeholder"> </entry>
+    <entry key="35amountsReceived.help">TODO: edit help text</entry>
+
+    <entry key="36amountUntied.label">Amount Untied</entry>
+    <entry key="36amountUntied.placeholder"> </entry>
+    <entry key="36amountUntied.help">TODO: edit help text</entry>
+
+    <entry key="37amountPartiallyUntied.label">Amount Partially Untied</entry>
+    <entry key="37amountPartiallyUntied.placeholder"> </entry>
+    <entry key="37amountPartiallyUntied.help">TODO: edit help text</entry>
+
+    <entry key="38amountTied.label">Amount Tied</entry>
+    <entry key="38amountTied.placeholder"> </entry>
+    <entry key="38amountTied.help">TODO: edit help text</entry>
+
+    <entry key="39amountOfIRTC.label">Amount of IRTC</entry>
+    <entry key="39amountOfIRTC.placeholder"> </entry>
+    <entry key="39amountOfIRTC.help">TODO: edit help text</entry>
+
+    <entry key="40amountOfExpertsCommitments.label">If project-type, amount of experts commitments</entry>
+    <entry key="40amountOfExpertsCommitments.placeholder"> </entry>
+    <entry key="40amountOfExpertsCommitments.help">TODO: edit help text</entry>
+
+    <entry key="41amountOfExpertsExtended.label">If project-type, amount of experts extended</entry>
+    <entry key="41amountOfExpertsExtended.placeholder"> </entry>
+    <entry key="41amountOfExpertsExtended.help">TODO: edit help text</entry>
+
+    <entry key="42amountOfExportCredit.label">Amount of export credit in AF package</entry>
+    <entry key="42amountOfExportCredit.placeholder"> </entry>
+    <entry key="42amountOfExportCredit.help">TODO: edit help text</entry>
+
+</properties>

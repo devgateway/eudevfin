@@ -39,6 +39,7 @@ import java.util.List;
 public class TransactionPage extends HeaderFooter {
     private static Logger logger = Logger.getLogger(TransactionPage.class);
 
+    @SuppressWarnings("unchecked")
     public TransactionPage() {
 
         final CompoundPropertyModel<FakeTransaction> model = new CompoundPropertyModel<>(new FakeTransaction());
@@ -51,6 +52,8 @@ public class TransactionPage extends HeaderFooter {
         tabList.add(IdentificationDataTab.newTab(this));
         tabList.add(BasicDataTab.newTab(this));
         tabList.add(SupplementaryDataTab.newTab(this));
+        tabList.add(VolumeDataTab.newTab(this));
+        tabList.add(ForLoansOnlyTab.newTab(this));
         tabList.add(AvailableComponentsTab.newTab(this));
 
         BootstrapCssTabbedPanel<ITab> bc = new BootstrapCssTabbedPanel<>("bc", tabList).positionTabs(BootstrapCssTabbedPanel.Orientation.RIGHT);
@@ -137,7 +140,127 @@ public class TransactionPage extends HeaderFooter {
         String tbd97;
         String tbd98;
         String tbd99;
+        //Volume Data
 
+        //For Loans Only
+        Date commitmentDate;
+        String typeOfRepayment;
+        String numberOfRepayments;
+        Integer interestRate;
+        Integer secondInterestRate;
+        Date firstRepaymentDate;
+        Date finalRepaymentDate;
+        Integer interestReceived;
+        Integer principalDisbursed;
+        Integer arrearsOfPrincipals;
+        Integer arrearsOfInterest;
+        Integer futureDebtPrincipal;
+        Integer futureDebtInterest;
+
+
+        private Date getCommitmentDate() {
+            return commitmentDate;
+        }
+
+        private void setCommitmentDate(Date commitmentDate) {
+            this.commitmentDate = commitmentDate;
+        }
+
+        private String getTypeOfRepayment() {
+            return typeOfRepayment;
+        }
+
+        private void setTypeOfRepayment(String typeOfRepayment) {
+            this.typeOfRepayment = typeOfRepayment;
+        }
+
+        private String getNumberOfRepayments() {
+            return numberOfRepayments;
+        }
+
+        private void setNumberOfRepayments(String numberOfRepayments) {
+            this.numberOfRepayments = numberOfRepayments;
+        }
+
+        private Integer getInterestRate() {
+            return interestRate;
+        }
+
+        private void setInterestRate(Integer interestRate) {
+            this.interestRate = interestRate;
+        }
+
+        private Integer getSecondInterestRate() {
+            return secondInterestRate;
+        }
+
+        private void setSecondInterestRate(Integer secondInterestRate) {
+            this.secondInterestRate = secondInterestRate;
+        }
+
+        private Date getFirstRepaymentDate() {
+            return firstRepaymentDate;
+        }
+
+        private void setFirstRepaymentDate(Date firstRepaymentDate) {
+            this.firstRepaymentDate = firstRepaymentDate;
+        }
+
+        private Date getFinalRepaymentDate() {
+            return finalRepaymentDate;
+        }
+
+        private void setFinalRepaymentDate(Date finalRepaymentDate) {
+            this.finalRepaymentDate = finalRepaymentDate;
+        }
+
+        private Integer getInterestReceived() {
+            return interestReceived;
+        }
+
+        private void setInterestReceived(Integer interestReceived) {
+            this.interestReceived = interestReceived;
+        }
+
+        private Integer getPrincipalDisbursed() {
+            return principalDisbursed;
+        }
+
+        private void setPrincipalDisbursed(Integer principalDisbursed) {
+            this.principalDisbursed = principalDisbursed;
+        }
+
+        private Integer getArrearsOfPrincipals() {
+            return arrearsOfPrincipals;
+        }
+
+        private void setArrearsOfPrincipals(Integer arrearsOfPrincipals) {
+            this.arrearsOfPrincipals = arrearsOfPrincipals;
+        }
+
+        private Integer getArrearsOfInterest() {
+            return arrearsOfInterest;
+        }
+
+        private void setArrearsOfInterest(Integer arrearsOfInterest) {
+            this.arrearsOfInterest = arrearsOfInterest;
+        }
+
+        private Integer getFutureDebtPrincipal() {
+            return futureDebtPrincipal;
+        }
+
+        private void setFutureDebtPrincipal(Integer futureDebtPrincipal) {
+            this.futureDebtPrincipal = futureDebtPrincipal;
+        }
+
+        private Integer getFutureDebtInterest() {
+            return futureDebtInterest;
+        }
+
+        private void setFutureDebtInterest(Integer futureDebtInterest) {
+            this.futureDebtInterest = futureDebtInterest;
+        }
 
         private String getGeographicalTargetArea() {
             return geographicalTargetArea;
@@ -466,6 +589,19 @@ public class TransactionPage extends HeaderFooter {
                     ", tbd97='" + tbd97 + '\'' +
                     ", tbd98='" + tbd98 + '\'' +
                     ", tbd99='" + tbd99 + '\'' +
+                    ", commitmentDate=" + commitmentDate +
+                    ", typeOfRepayment='" + typeOfRepayment + '\'' +
+                    ", numberOfRepayments='" + numberOfRepayments + '\'' +
+                    ", interestRate=" + interestRate +
+                    ", secondInterestRate=" + secondInterestRate +
+                    ", firstRepaymentDate=" + firstRepaymentDate +
+                    ", finalRepaymentDate=" + finalRepaymentDate +
+                    ", interestReceived=" + interestReceived +
+                    ", principalDisbursed=" + principalDisbursed +
+                    ", arrearsOfPrincipals=" + arrearsOfPrincipals +
+                    ", arrearsOfInterest=" + arrearsOfInterest +
+                    ", futureDebtPrincipal=" + futureDebtPrincipal +
+                    ", futureDebtInterest=" + futureDebtInterest +
                     '}';
         }
     }

@@ -35,7 +35,10 @@ public class SupplementaryDataTab extends Panel {
 
     public SupplementaryDataTab(String id) {
         super(id);
+        addComponents();
+    }
 
+    private void addComponents() {
         TextInputField<String> geographicalTargetArea = new TextInputField<String>("16geographicalTargetArea", new RWComponentPropertyModel<String>("geographicalTargetArea"), "16geographicalTargetArea");
         add(geographicalTargetArea);
 
@@ -111,8 +114,6 @@ public class SupplementaryDataTab extends Panel {
         DropDownField<String> tbd99 = new DropDownField<String>("99tbd", new RWComponentPropertyModel<String>("tbd99"), "99tbd",
                 StaticBinds.countryProvider);
         add(tbd99);
-
-
     }
 
     public static ITab newTab(Component askingComponent){
