@@ -1,5 +1,7 @@
 package org.devgateway.eudevfin.cda.rest;
 
+import java.util.Map;
+
 import org.apache.log4j.Logger;
 import org.devgateway.eudevfin.cda.domain.QueryResult;
 import org.devgateway.eudevfin.cda.service.QueryService;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 
@@ -25,18 +28,20 @@ public class QueryController {
 	private static final Logger logger = Logger
 			.getLogger(QueryController.class);
 
-	@RequestMapping(value = "/rest/doQuery/{dataSourceId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/cda/doQuery", method = RequestMethod.GET)
 	public ModelAndView doQuery(
-			@PathVariable("dataSourceId") String dataSourceId) {
+			@RequestParam Map<String,String> allRequestParams
+		) {
 		QueryResult result = null;
+		System.out.println("Todos:" + allRequestParams.toString());
 
-		if (isEmpty(dataSourceId) || dataSourceId.length() < 5) {
+		if (isEmpty(allRequestParams.get("dataAccessId"))) {
 			String sMessage = "Error invoking doQuery - Invalid datasource Id parameter";
 			return createErrorResponse(sMessage);
 		}
 
-		try { 
-			result = queryService.doQuery(dataSourceId);
+		try {
+			result = queryService.doQuery(allRequestParams);
 		} catch (Exception e) {
 			String sMessage = "Error invoking doQuery. [%1$s]";
 			return createErrorResponse(String.format(sMessage, e.toString()));

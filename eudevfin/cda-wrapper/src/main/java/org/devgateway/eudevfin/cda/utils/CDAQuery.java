@@ -3,6 +3,9 @@ package org.devgateway.eudevfin.cda.utils;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.devgateway.eudevfin.cda.domain.QueryResult;
@@ -16,6 +19,9 @@ import pt.webdetails.cda.settings.SettingsManager;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import edu.emory.mathcs.backport.java.util.Arrays;
+import edu.emory.mathcs.backport.java.util.Collections;
+
 @Component
 public class CDAQuery {
 	
@@ -23,8 +29,8 @@ public class CDAQuery {
 
 	@ServiceActivator(inputChannel="getCDAQueryChannel", outputChannel="replyCDAQueryChannel")
 	
-	public QueryResult doQuery(String dataSourceId) throws Exception {
-
+	public QueryResult doQuery(Map<String,String> params) throws Exception { //, int pageSize, int pageStart, String sortBy
+							  
 	    // Define an outputStream
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 
@@ -36,9 +42,16 @@ public class CDAQuery {
 	    final CdaEngine engine = CdaEngine.getInstance();
 
 	    QueryOptions queryOptions = new QueryOptions();
-	    queryOptions.setDataAccessId(dataSourceId);
+	    queryOptions.setDataAccessId(params.get("dataAccessId"));
+	    queryOptions.setPaginate(Boolean.parseBoolean(params.get("paginateQuery")));
+/*	    queryOptions.setPageSize(pageSize);
+
+	    ArrayList<String> sortByList = new ArrayList<String>();
+	    String[] myArray = sortBy.split(",");
+	    Collections.addAll(sortByList, myArray);
+
+	    queryOptions.setSortBy(sortByList);*/
 	    queryOptions.setOutputType("json");
-	    //TODO: Support parameters/Pagination
 	    
 	    engine.doQuery(out, cdaSettings, queryOptions);
 	    
