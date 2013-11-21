@@ -38,12 +38,14 @@ public class CDAQuery {
 		// Define the variables that will hold the parameters for the query
 		String dataAccessId = params.get("dataAccessId");
 		Boolean paginate = Boolean.parseBoolean(params.get("paginateQuery"));
-		Integer pageSize = Integer.parseInt(params.get("pageSize"));
-		Integer pageStart =Integer.parseInt(params.get("pageStart"));
-		String sortBy = params.get("sortBy");
+		Integer pageSize = (params.get("pageSize") != null) ? Integer.parseInt(params.get("pageSize")) : 0;
+		Integer pageStart = (params.get("pageStart") != null) ? Integer.parseInt(params.get("pageStart")) : 0;
+		String sortBy = (params.get("sortBy") != null) ? params.get("sortBy") : "";
 	    ArrayList<String> sortByList = new ArrayList<String>();
-	    String[] myArray = sortBy.split(",");
-	    Collections.addAll(sortByList, myArray);
+		if(!sortBy.isEmpty()){
+		    String[] myArray = sortBy.split(",");
+		    Collections.addAll(sortByList, myArray);
+		}
 	    
 	    // Stream that will hold the results of the CDA Query
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
@@ -60,7 +62,8 @@ public class CDAQuery {
 	    queryOptions.setPaginate(paginate);
 	    queryOptions.setPageSize(pageSize);
 	    queryOptions.setPageStart(pageStart);
-	    queryOptions.setSortBy(sortByList);
+	    if(sortByList.size() > 0)
+	    	queryOptions.setSortBy(sortByList);
 	    queryOptions.setOutputType("json");
 	    
 	    //Additional parameters come in the shape of "paramXXXXX"
@@ -69,7 +72,7 @@ public class CDAQuery {
 	    	String key = param.getKey();
 	    	String value = param.getValue();
 	    	if(key.startsWith("param")){
-	    		String cdaKey = key.substring(key.indexOf("param"), key.length());
+	    		String cdaKey = key.replace("param", "");
 	    	    queryOptions.setParameter(cdaKey, value);
 	    	}
 	    }

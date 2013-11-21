@@ -12,22 +12,34 @@
         </Connection>
     </DataSources>
 
-    <DataAccess id="simpleQuery" connection="defaultConnection" type="mdx" access="public">
-		<Name>Simple query</Name>
+    <DataAccess id="simpleMDXQuery" connection="defaultConnection" type="mdx" access="public">
+		<Name>Simple MDX query</Name>
         <Query>
         <![CDATA[
-		SELECT
-		NON EMPTY {Hierarchize({[Organization].[name].Members})} ON COLUMNS,
-		NON EMPTY {[Measures].[Amount]} ON ROWS
-		FROM [Financial]
+			SELECT
+			NON EMPTY {Hierarchize({[Organization].[code].Members})} ON COLUMNS,
+			NON EMPTY {[Measures].[Amount]} ON ROWS
+			FROM [Financial]
 		]]>
 		</Query>       
     </DataAccess>
+    
     <DataAccess id="simpleSQLQuery" connection="sqlConnection" type="sql" access="public">
-		<Name>Sql Query on Users</Name>
+		<Name>Sql Query on Transactions</Name>
         <Query><![CDATA[
 			select * from FINANCIAL_TRANSACTION
 		]]></Query>
+    </DataAccess>
+    
+    <DataAccess id="parameterSQLQuery" connection="sqlConnection" type="sql" access="public">
+		<Name>Sql Query on Transactions with parameters</Name>
+        <Query><![CDATA[
+			select * from FINANCIAL_TRANSACTION
+			where organization_id = ${organizationId}
+		]]></Query>
+        <Parameters>
+            <Parameter name="organizationId" type="Integer" default="1"/>
+        </Parameters>
     </DataAccess>
 
 </CDADescriptor>
