@@ -4,7 +4,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -19,7 +18,6 @@ import pt.webdetails.cda.settings.SettingsManager;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import edu.emory.mathcs.backport.java.util.Arrays;
 import edu.emory.mathcs.backport.java.util.Collections;
 
 @Component
@@ -28,44 +26,70 @@ public class CDAQuery {
 	protected static Logger logger = Logger.getLogger(CDAQuery.class);
 
 	@ServiceActivator(inputChannel="getCDAQueryChannel", outputChannel="replyCDAQueryChannel")
-	
-	public QueryResult doQuery(Map<String,String> params) throws Exception { //, int pageSize, int pageStart, String sortBy
-							  
-	    // Define an outputStream
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
 
-	    final SettingsManager settingsManager = SettingsManager.getInstance();
-	    
-	    URL file = this.getClass().getResource("../service/financial.mondrian.cda");
-	    File settingsFile = new File(file.toURI());
-	    final CdaSettings cdaSettings = settingsManager.parseSettingsFile(settingsFile.getAbsolutePath());
-	    final CdaEngine engine = CdaEngine.getInstance();
-
-	    QueryOptions queryOptions = new QueryOptions();
-	    queryOptions.setDataAccessId(params.get("dataAccessId"));
-	    queryOptions.setPaginate(Boolean.parseBoolean(params.get("paginateQuery")));
-/*	    queryOptions.setPageSize(pageSize);
-
+/**
+ * Instantiates and issues a query to the CDA Engine and returns a POJO with the results.	
+ * @param params	Map with the configuration parameters used in the query as well as custom variables
+ * @return the QueryResult object with the metadata, column definition and rows	
+ * @throws Exception
+ */
+	public QueryResult doQuery(Map<String,String> params) throws Exception { 
+		
+		// Define the variables that will hold the parameters for the query
+		String dataAccessId = params.get("dataAccessId");
+		Boolean paginate = Boolean.parseBoolean(params.get("paginateQuery"));
+		Integer pageSize = Integer.parseInt(params.get("pageSize"));
+		Integer pageStart =Integer.parseInt(params.get("pageStart"));
+		String sortBy = params.get("sortBy");
 	    ArrayList<String> sortByList = new ArrayList<String>();
 	    String[] myArray = sortBy.split(",");
 	    Collections.addAll(sortByList, myArray);
+	    
+	    // Stream that will hold the results of the CDA Query
+		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 
-	    queryOptions.setSortBy(sortByList);*/
+		// Settings object needed for the engine
+	    final SettingsManager settingsManager = SettingsManager.getInstance();
+	    URL file = this.getClass().getResource("../service/financial.mondrian.cda");
+	    File settingsFile = new File(file.toURI());
+	    final CdaSettings cdaSettings = settingsManager.parseSettingsFile(settingsFile.getAbsolutePath());
+
+		// Settings options based on the Map<String,String> params already processed
+	    final QueryOptions queryOptions = new QueryOptions();
+	    queryOptions.setDataAccessId(dataAccessId);
+	    queryOptions.setPaginate(paginate);
+	    queryOptions.setPageSize(pageSize);
+	    queryOptions.setPageStart(pageStart);
+	    queryOptions.setSortBy(sortByList);
 	    queryOptions.setOutputType("json");
 	    
-	    engine.doQuery(out, cdaSettings, queryOptions);
+	    //Additional parameters come in the shape of "paramXXXXX"
+	    for(Map.Entry<String, String> param : params.entrySet())
+	    {
+	    	String key = param.getKey();
+	    	String value = param.getValue();
+	    	if(key.startsWith("param")){
+	    		String cdaKey = key.substring(key.indexOf("param"), key.length());
+	    	    queryOptions.setParameter(cdaKey, value);
+	    	}
+	    }
+
+	    final CdaEngine engine = CdaEngine.getInstance();
+	    engine.doQuery(outStream, cdaSettings, queryOptions);
 	    
+	    //POJO that will hold the JSON result object
 	    QueryResult result;
 	    
-	    if(out.size() > 0){
+	    if(outStream.size() > 0){
+	    	//Jackson JSON processor to convert the string to the QueryResult object
 	    	ObjectMapper mapper = new ObjectMapper(); 
-	    	result = mapper.readValue(out.toString(), QueryResult.class);
+	    	result = mapper.readValue(outStream.toString(), QueryResult.class);
 	    }
 	    else
 	    {
 	    	result = new QueryResult();
-	    }
-	    
+		}
+
 		return result;
 	}
 
