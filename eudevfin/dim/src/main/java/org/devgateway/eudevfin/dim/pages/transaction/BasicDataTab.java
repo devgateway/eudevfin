@@ -16,10 +16,11 @@ import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
 import org.apache.wicket.extensions.markup.html.tabs.ITab;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.ComponentPropertyModel;
 import org.apache.wicket.model.StringResourceModel;
+import org.devgateway.eudevfin.dim.core.RWComponentPropertyModel;
 import org.devgateway.eudevfin.dim.core.StaticBinds;
 import org.devgateway.eudevfin.dim.core.components.DropDownField;
+import org.devgateway.eudevfin.dim.core.components.TextAreaInputField;
 import org.devgateway.eudevfin.dim.core.components.TextInputField;
 
 /**
@@ -30,20 +31,44 @@ public class BasicDataTab extends Panel{
     private BasicDataTab(String id) {
         super(id);
 
-        DropDownField<String> recipient = new DropDownField<String>("7recipient", new ComponentPropertyModel<String>("recipient"), "7recipient",
+        DropDownField<String> recipient = new DropDownField<String>("7recipient", new RWComponentPropertyModel<String>("recipient"), "7recipient",
                 StaticBinds.countryProvider);
         add(recipient);
 
-        DropDownField<String> cpa = new DropDownField<String>("7bCPA", new ComponentPropertyModel<String>("CPA"), "7bCPA",
+        DropDownField<String> cpa = new DropDownField<String>("7bCPA", new RWComponentPropertyModel<String>("CPA"), "7bCPA",
                 StaticBinds.yesNoProvider);
         add(cpa);
 
-        TextInputField<String> channelDelivery = new TextInputField<String>("8channelDelivery", new ComponentPropertyModel<String>("channelDelivery"), "8channelDelivery");
+        TextInputField<String> channelDelivery = new TextInputField<String>("8channelDelivery", new RWComponentPropertyModel<String>("channelDelivery"), "8channelDelivery");
         add(channelDelivery);
 
-        DropDownField<String> channelCode= new DropDownField<String>("9channelCode", new ComponentPropertyModel<String>("channelCode"), "9channelCode",
+        DropDownField<String> channelCode = new DropDownField<String>("9channelCode", new RWComponentPropertyModel<String>("channelCode"), "9channelCode",
                 StaticBinds.countryProvider);
         add(channelCode);
+
+        DropDownField<String> bilateralMultilateral = new DropDownField<String>("10bilateralMultilateral", new RWComponentPropertyModel<String>("bilateralMultilateral"), "10bilateralMultilateral",
+                StaticBinds.countryProvider);
+        add(bilateralMultilateral);
+
+        DropDownField<String> typeOfFlow = new DropDownField<String>("11typeOfFlow", new RWComponentPropertyModel<String>("typeOfFlow"), "11typeOfFlow",
+                StaticBinds.countryProvider);
+        add(typeOfFlow);
+
+        DropDownField<String> typeOfFinance = new DropDownField<String>("12typeOfFinance", new RWComponentPropertyModel<String>("typeOfFinance"), "12typeOfFinance",
+                StaticBinds.countryProvider);
+        add(typeOfFinance);
+
+        DropDownField<String> typeOfAid = new DropDownField<String>("13typeOfAid", new RWComponentPropertyModel<String>("typeOfAid"), "13typeOfAid",
+                StaticBinds.countryProvider);
+        add(typeOfAid);
+
+        TextAreaInputField activityProjectTitle = new TextAreaInputField("14activityProjectTitle", new RWComponentPropertyModel<String>("activityProjectTitle"), "14activityProjectTitle");
+        add(activityProjectTitle);
+
+        DropDownField<String> sectorPurposeCode = new DropDownField<String>("15sectorPurposeCode", new RWComponentPropertyModel<String>("sectorPurposeCode"), "15sectorPurposeCode",
+                StaticBinds.countryProvider);
+        add(sectorPurposeCode);
+
 
 
 

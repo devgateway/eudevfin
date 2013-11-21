@@ -84,4 +84,98 @@
     <entry key="15sectorPurposeCode.placeholder"> </entry>
     <entry key="15sectorPurposeCode.help">TODO: edit help text</entry>
 
+    <entry key="16geographicalTargetArea.label">Geographical Target Area</entry>
+    <entry key="16geographicalTargetArea.placeholder"> </entry>
+    <entry key="16geographicalTargetArea.help">TODO: edit help text</entry>
+
+    <entry key="17startingDate.label">Starting Date</entry>
+    <entry key="17startingDate.placeholder"> </entry>
+    <entry key="17startingDate.help">TODO: edit help text</entry>
+
+    <entry key="18completionDate.label">Completion Date</entry>
+    <entry key="18completionDate.placeholder"> </entry>
+    <entry key="18completionDate.help">TODO: edit help text</entry>
+
+    <entry key="19description.label">Description</entry>
+    <entry key="19description.placeholder"> </entry>
+    <entry key="19description.help">TODO: edit help text</entry>
+
+    <entry key="policyObjectives.label">Policy Objectives</entry>
+
+    <entry key="20genderEquality.label">Gender Equality</entry>
+    <entry key="20genderEquality.placeholder"> </entry>
+    <entry key="20genderEquality.help">TODO: edit help text</entry>
+
+    <entry key="21aidToEnvironment.label">Aid to Environment</entry>
+    <entry key="21aidToEnvironment.placeholder"> </entry>
+    <entry key="21aidToEnvironment.help">TODO: edit help text</entry>
+
+    <entry key="22pdGg.label">PD/GG</entry>
+    <entry key="22pdGg.placeholder"> </entry>
+    <entry key="22pdGg.help">TODO: edit help text</entry>
+
+    <entry key="23tradeDevelopment.label">Trade Development</entry>
+    <entry key="23tradeDevelopment.placeholder"> </entry>
+    <entry key="23tradeDevelopment.help">TODO: edit help text</entry>
+
+    <entry key="typeOfAid.label">Type of Aid</entry>
+
+    <entry key="24freestandingTechnicalCooperation.label">Free-standing Technical Cooperation</entry>
+    <entry key="24freestandingTechnicalCooperation.placeholder"> </entry>
+    <entry key="24freestandingTechnicalCooperation.help">TODO: edit help text</entry>
+
+    <entry key="25programbasedApproach.label">Program-based Approach</entry>
+    <entry key="25programbasedApproach.placeholder"> </entry>
+    <entry key="25programbasedApproach.help">TODO: edit help text</entry>
+
+    <entry key="26investmentProject.label">Investment Project</entry>
+    <entry key="26investmentProject.placeholder"> </entry>
+    <entry key="26investmentProject.help">TODO: edit help text</entry>
+
+    <entry key="27associatedFinancing.label">Associated Financing</entry>
+    <entry key="27associatedFinancing.placeholder"> </entry>
+    <entry key="27associatedFinancing.help">TODO: edit help text</entry>
+
+    <entry key="rioMarkers.label">Rio Markers</entry>
+
+    <entry key="28biodiversity.label">Biodiversity</entry>
+    <entry key="28biodiversity.placeholder"> </entry>
+    <entry key="28biodiversity.help">TODO: edit help text</entry>
+
+    <entry key="29ccMitigation.label">Climate Change - Mitigation</entry>
+    <entry key="29ccMitigation.placeholder"> </entry>
+    <entry key="29ccMitigation.help">TODO: edit help text</entry>
+
+    <entry key="30ccAdaptation.label">Climate Change - Adaptation</entry>
+    <entry key="30ccAdaptation.placeholder"> </entry>
+    <entry key="30ccAdaptation.help">TODO: edit help text</entry>
+
+    <entry key="31desertification.label">Desertification</entry>
+    <entry key="31desertification.placeholder"> </entry>
+    <entry key="31desertification.help">TODO: edit help text</entry>
+
+    <entry key="otherMarkers.label">Other Markers</entry>
+
+    <entry key="96tbd.label">TBD</entry>
+    <entry key="96tbd.placeholder"> </entry>
+    <entry key="96tbd.help">TODO: edit help text</entry>
+
+    <entry key="97tbd.label">TBD</entry>
+    <entry key="97tbd.placeholder"> </entry>
+    <entry key="97tbd.help">TODO: edit help text</entry>
+
+    <entry key="98tbd.label">TBD</entry>
+    <entry key="98tbd.placeholder"> </entry>
+    <entry key="98tbd.help">TODO: edit help text</entry>
+
+    <entry key="99tbd.label">TBD</entry>
+    <entry key="99tbd.placeholder"> </entry>
+    <entry key="99tbd.help">TODO: edit help text</entry>
+
+
+
+
+
+
+
 </properties>

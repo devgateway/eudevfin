@@ -31,6 +31,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @MountPath(value = "/transaction")
@@ -40,7 +41,8 @@ public class TransactionPage extends HeaderFooter {
 
     public TransactionPage() {
 
-        setModel(new CompoundPropertyModel<>(new FakeTransaction()));
+        final CompoundPropertyModel<FakeTransaction> model = new CompoundPropertyModel<>(new FakeTransaction());
+        setModel(model);
 
         Form form = new Form("form");
         add(form);
@@ -48,6 +50,7 @@ public class TransactionPage extends HeaderFooter {
         List<ITab> tabList = new ArrayList<>();
         tabList.add(IdentificationDataTab.newTab(this));
         tabList.add(BasicDataTab.newTab(this));
+        tabList.add(SupplementaryDataTab.newTab(this));
         tabList.add(AvailableComponentsTab.newTab(this));
 
         BootstrapCssTabbedPanel<ITab> bc = new BootstrapCssTabbedPanel<>("bc", tabList).positionTabs(BootstrapCssTabbedPanel.Orientation.RIGHT);
@@ -55,8 +58,9 @@ public class TransactionPage extends HeaderFooter {
 
         form.add(new IndicatingAjaxButton("submit", Model.of("Submit")) {
             @Override
-            public void onSubmit() {
+            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 logger.info("Submitted ok!");
+                logger.info("Object:" + model.getObject());
             }
 
             @Override
@@ -101,7 +105,7 @@ public class TransactionPage extends HeaderFooter {
         Integer crsId;
         Integer donorProjectNumber;
         Integer natureSubmission;
-        //
+        //basic data tab
         String recipient;
         String CPA;
         String channelDelivery;
@@ -112,7 +116,268 @@ public class TransactionPage extends HeaderFooter {
         String typeOfAid;
         String activityProjectTitle;
         String sectorPurposeCode;
+        //supplementary data tab
+        String geographicalTargetArea;
+        Date startingDate;
+        Date completionDate;
+        String description;
+        String genderEquality;
+        String aidToEnvironment;
+        String pdGg;
+        String tradeDevelopment;
+        String freestandingTechnicalCooperation;
+        String programbasedApproach;
+        String investmentProject;
+        String associatedFinancing;
+        String biodiversity;
+        String ccMitigation;
+        String ccAdaptation;
+        String desertification;
+        String tbd96;
+        String tbd97;
+        String tbd98;
+        String tbd99;
 
+
+        private String getGeographicalTargetArea() {
+            return geographicalTargetArea;
+        }
+
+        private void setGeographicalTargetArea(String geographicalTargetArea) {
+            this.geographicalTargetArea = geographicalTargetArea;
+        }
+
+        private Date getStartingDate() {
+            return startingDate;
+        }
+
+        private void setStartingDate(Date startingDate) {
+            this.startingDate = startingDate;
+        }
+
+        private Date getCompletionDate() {
+            return completionDate;
+        }
+
+        private void setCompletionDate(Date completionDate) {
+            this.completionDate = completionDate;
+        }
+
+        private String getDescription() {
+            return description;
+        }
+
+        private void setDescription(String description) {
+            this.description = description;
+        }
+
+        private String getGenderEquality() {
+            return genderEquality;
+        }
+
+        private void setGenderEquality(String genderEquality) {
+            this.genderEquality = genderEquality;
+        }
+
+        private String getAidToEnvironment() {
+            return aidToEnvironment;
+        }
+
+        private void setAidToEnvironment(String aidToEnvironment) {
+            this.aidToEnvironment = aidToEnvironment;
+        }
+
+        private String getPdGg() {
+            return pdGg;
+        }
+
+        private void setPdGg(String pdGg) {
+            this.pdGg = pdGg;
+        }
+
+        private String getTradeDevelopment() {
+            return tradeDevelopment;
+        }
+
+        private void setTradeDevelopment(String tradeDevelopment) {
+            this.tradeDevelopment = tradeDevelopment;
+        }
+
+        private String getFreestandingTechnicalCooperation() {
+            return freestandingTechnicalCooperation;
+        }
+
+        private void setFreestandingTechnicalCooperation(String freestandingTechnicalCooperation) {
+            this.freestandingTechnicalCooperation = freestandingTechnicalCooperation;
+        }
+
+        private String getProgrambasedApproach() {
+            return programbasedApproach;
+        }
+
+        private void setProgrambasedApproach(String programbasedApproach) {
+            this.programbasedApproach = programbasedApproach;
+        }
+
+        private String getInvestmentProject() {
+            return investmentProject;
+        }
+
+        private void setInvestmentProject(String investmentProject) {
+            this.investmentProject = investmentProject;
+        }
+
+        private String getAssociatedFinancing() {
+            return associatedFinancing;
+        }
+
+        private void setAssociatedFinancing(String associatedFinancing) {
+            this.associatedFinancing = associatedFinancing;
+        }
+
+        private String getBiodiversity() {
+            return biodiversity;
+        }
+
+        private void setBiodiversity(String biodiversity) {
+            this.biodiversity = biodiversity;
+        }
+
+        private String getCcMitigation() {
+            return ccMitigation;
+        }
+
+        private void setCcMitigation(String ccMitigation) {
+            this.ccMitigation = ccMitigation;
+        }
+
+        private String getCcAdaptation() {
+            return ccAdaptation;
+        }
+
+        private void setCcAdaptation(String ccAdaptation) {
+            this.ccAdaptation = ccAdaptation;
+        }
+
+        private String getDesertification() {
+            return desertification;
+        }
+
+        private void setDesertification(String desertification) {
+            this.desertification = desertification;
+        }
+
+        private String getTbd96() {
+            return tbd96;
+        }
+
+        private void setTbd96(String tbd96) {
+            this.tbd96 = tbd96;
+        }
+
+        private String getTbd97() {
+            return tbd97;
+        }
+
+        private void setTbd97(String tbd97) {
+            this.tbd97 = tbd97;
+        }
+
+        private String getTbd98() {
+            return tbd98;
+        }
+
+        private void setTbd98(String tbd98) {
+            this.tbd98 = tbd98;
+        }
+
+        private String getTbd99() {
+            return tbd99;
+        }
+
+        private void setTbd99(String tbd99) {
+            this.tbd99 = tbd99;
+        }
+
+        private String getRecipient() {
+            return recipient;
+        }
+
+        private void setRecipient(String recipient) {
+            this.recipient = recipient;
+        }
+
+        private String getCPA() {
+            return CPA;
+        }
+
+        private void setCPA(String CPA) {
+            this.CPA = CPA;
+        }
+
+        private String getChannelDelivery() {
+            return channelDelivery;
+        }
+
+        private void setChannelDelivery(String channelDelivery) {
+            this.channelDelivery = channelDelivery;
+        }
+
+        private String getChannelCode() {
+            return channelCode;
+        }
+
+        private void setChannelCode(String channelCode) {
+            this.channelCode = channelCode;
+        }
+
+        private String getBilateralMultilateral() {
+            return bilateralMultilateral;
+        }
+
+        private void setBilateralMultilateral(String bilateralMultilateral) {
+            this.bilateralMultilateral = bilateralMultilateral;
+        }
+
+        private String getTypeOfFlow() {
+            return typeOfFlow;
+        }
+
+        private void setTypeOfFlow(String typeOfFlow) {
+            this.typeOfFlow = typeOfFlow;
+        }
+
+        private String getTypeOfFinance() {
+            return typeOfFinance;
+        }
+
+        private void setTypeOfFinance(String typeOfFinance) {
+            this.typeOfFinance = typeOfFinance;
+        }
+
+        private String getTypeOfAid() {
+            return typeOfAid;
+        }
+
+        private void setTypeOfAid(String typeOfAid) {
+            this.typeOfAid = typeOfAid;
+        }
+
+        private String getActivityProjectTitle() {
+            return activityProjectTitle;
+        }
+
+        private void setActivityProjectTitle(String activityProjectTitle) {
+            this.activityProjectTitle = activityProjectTitle;
+        }
+
+        private String getSectorPurposeCode() {
+            return sectorPurposeCode;
+        }
+
+        private void setSectorPurposeCode(String sectorPurposeCode) {
+            this.sectorPurposeCode = sectorPurposeCode;
+        }
 
         private Integer getDonorProjectNumber() {
             return donorProjectNumber;
@@ -160,6 +425,48 @@ public class TransactionPage extends HeaderFooter {
 
         private void setCrsId(Integer crsId) {
             this.crsId = crsId;
+        }
+
+        @Override
+        public String toString() {
+            return "FakeTransaction{" +
+                    "reportingYear=" + reportingYear +
+                    ", reportingCountry='" + reportingCountry + '\'' +
+                    ", extendingAgency='" + extendingAgency + '\'' +
+                    ", crsId=" + crsId +
+                    ", donorProjectNumber=" + donorProjectNumber +
+                    ", natureSubmission=" + natureSubmission +
+                    ", recipient='" + recipient + '\'' +
+                    ", CPA='" + CPA + '\'' +
+                    ", channelDelivery='" + channelDelivery + '\'' +
+                    ", channelCode='" + channelCode + '\'' +
+                    ", bilateralMultilateral='" + bilateralMultilateral + '\'' +
+                    ", typeOfFlow='" + typeOfFlow + '\'' +
+                    ", typeOfFinance='" + typeOfFinance + '\'' +
+                    ", typeOfAid='" + typeOfAid + '\'' +
+                    ", activityProjectTitle='" + activityProjectTitle + '\'' +
+                    ", sectorPurposeCode='" + sectorPurposeCode + '\'' +
+                    ", geographicalTargetArea='" + geographicalTargetArea + '\'' +
+                    ", startingDate=" + startingDate +
+                    ", completionDate=" + completionDate +
+                    ", description='" + description + '\'' +
+                    ", genderEquality='" + genderEquality + '\'' +
+                    ", aidToEnvironment='" + aidToEnvironment + '\'' +
+                    ", pdGg='" + pdGg + '\'' +
+                    ", tradeDevelopment='" + tradeDevelopment + '\'' +
+                    ", freestandingTechnicalCooperation='" + freestandingTechnicalCooperation + '\'' +
+                    ", programbasedApproach='" + programbasedApproach + '\'' +
+                    ", investmentProject='" + investmentProject + '\'' +
+                    ", associatedFinancing='" + associatedFinancing + '\'' +
+                    ", biodiversity='" + biodiversity + '\'' +
+                    ", ccMitigation='" + ccMitigation + '\'' +
+                    ", ccAdaptation='" + ccAdaptation + '\'' +
+                    ", desertification='" + desertification + '\'' +
+                    ", tbd96='" + tbd96 + '\'' +
+                    ", tbd97='" + tbd97 + '\'' +
+                    ", tbd98='" + tbd98 + '\'' +
+                    ", tbd99='" + tbd99 + '\'' +
+                    '}';
         }
     }
 }
