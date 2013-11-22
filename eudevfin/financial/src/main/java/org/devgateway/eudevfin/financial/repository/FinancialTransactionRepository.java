@@ -16,5 +16,5 @@ public interface FinancialTransactionRepository extends
 		PagingAndSortingRepository<FinancialTransaction, Long> {
 	
 //	List<FinancialTransaction> findByDescriptionOrderByIdAsc(String description);
-	List<FinancialTransaction> findBySourceOrganizationId(Long orgId);
+	List<FinancialTransaction> findByReportingOrganizationId(Long orgId);
 }

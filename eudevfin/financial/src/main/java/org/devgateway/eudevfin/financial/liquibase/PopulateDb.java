@@ -45,7 +45,7 @@ public class PopulateDb {
 				org = o1;
 			else
 				org = o2;
-			tx.setSourceOrganization( org );
+			tx.setReportingOrganization( org );
 			tx.setDescription("CDA Test Transaction " + i);
 			txDao.save(tx);
 		}

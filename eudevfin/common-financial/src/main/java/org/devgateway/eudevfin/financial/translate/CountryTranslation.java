@@ -4,26 +4,25 @@
 package org.devgateway.eudevfin.financial.translate;
 
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import org.devgateway.eudevfin.financial.Organization;
+import org.devgateway.eudevfin.financial.Country;
 import org.hibernate.envers.Audited;
 
 /**
  * @author Alex
  *
  */
+
 @Entity
 @Audited
-public class OrganizationTranslation extends AbstractTranslation<Organization> implements OrganizationTrnInterface {
+public class CountryTranslation extends AbstractTranslation<Country> implements CountryTrnInterface {
 	
 	private String name;
 
 	/* (non-Javadoc)
-	 * @see org.devgateway.eudevfin.financial.translate.OrganizationTrnInterface#getName()
+	 * @see org.devgateway.eudevfin.financial.translate.CountryTrnInterface#getName()
 	 */
 	@Override
 	public String getName() {
@@ -31,7 +30,7 @@ public class OrganizationTranslation extends AbstractTranslation<Organization> i
 	}
 
 	/* (non-Javadoc)
-	 * @see org.devgateway.eudevfin.financial.translate.OrganizationTrnInterface#setName(java.lang.String)
+	 * @see org.devgateway.eudevfin.financial.translate.CountryTrnInterface#setName(java.lang.String)
 	 */
 	@Override
 	public void setName(String name) {
@@ -40,6 +39,4 @@ public class OrganizationTranslation extends AbstractTranslation<Organization> i
 	
 	
 
-	
-	
 }

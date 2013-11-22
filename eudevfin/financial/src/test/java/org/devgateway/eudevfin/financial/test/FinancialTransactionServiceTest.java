@@ -77,7 +77,7 @@ public class FinancialTransactionServiceTest {
 			FinancialTransaction tx = new FinancialTransaction();
 			tx.setAmount(new BigDecimal(i * 100));
 			tx.setDescription("This is transaction " + i);
-			tx.setSourceOrganization(org);
+			tx.setReportingOrganization(org);
 
 			logger.info(tx);
 			FinancialTransaction result = service
@@ -89,7 +89,7 @@ public class FinancialTransactionServiceTest {
 		}
 		List<FinancialTransaction> list = service.getAllFinancialTransactions();
 		for (FinancialTransaction financialTransaction : list) {
-			Assert.assertNotNull(financialTransaction.getSourceOrganization());
+			Assert.assertNotNull( financialTransaction.getReportingOrganization() );
 		}
 
 	}
