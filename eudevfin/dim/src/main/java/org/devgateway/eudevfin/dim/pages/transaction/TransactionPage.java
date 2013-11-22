@@ -37,7 +37,7 @@ import java.util.List;
 @MountPath(value = "/transaction")
 @AuthorizeInstantiation(Constants.ROLE_USER)
 public class TransactionPage extends HeaderFooter {
-    private static Logger logger = Logger.getLogger(TransactionPage.class);
+    private static final Logger logger = Logger.getLogger(TransactionPage.class);
 
     @SuppressWarnings("unchecked")
     public TransactionPage() {
@@ -101,6 +101,7 @@ public class TransactionPage extends HeaderFooter {
 
     }
 
+    @SuppressWarnings("UnusedDeclaration")
     private class FakeTransaction implements Serializable {
         //
         Integer reportingYear;

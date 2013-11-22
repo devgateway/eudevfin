@@ -44,9 +44,19 @@ public class TextInputField<T> extends AbstractInputField<T> {
         super(id, model, messageKeyGroup);
     }
 
+    /**
+     * Simplified constructor that lets the user use the wicket:id as the messageKeyGroup as well
+     * @see TextInputField(String, IModel, String)
+     * @param id              component id
+     * @param model           model to be used by the text field
+     */
+    public TextInputField(String id, IModel<T> model) {
+        this(id, model, id);
+    }
+
     @Override
     protected TextField<T> newField(String id, IModel<T> model) {
-        return new TextField<T>(id, model);
+        return new TextField<>(id, model);
     }
 
     @SuppressWarnings("unchecked")
@@ -55,6 +65,7 @@ public class TextInputField<T> extends AbstractInputField<T> {
 
     }
 
+    @SuppressWarnings("unchecked")
     public AbstractInputField<T> decorateAsEmailField() {
         field.add((IValidator) EmailAddressValidator.getInstance());
         prepender.setVisible(true);

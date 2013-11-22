@@ -35,7 +35,7 @@ public class TextAreaInputField extends AbstractInputField<String> {
 
     @Override
     protected TextArea<String> newField(String id, IModel<String> model) {
-        return new TextArea<String>(id, model);
+        return new TextArea<>(id, model);
     }
 
     public TextAreaInputField setRows(int rows){

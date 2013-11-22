@@ -33,7 +33,7 @@ import java.util.List;
 public class BootstrapCssTabbedPanel<T extends ITab> extends Panel {
     private final List<T> tabs;
 
-    public static enum Orientation {LEFT, RIGHT, TOP, BOTTOM};
+    public static enum Orientation {LEFT, RIGHT, TOP, BOTTOM}
     private Orientation orientation = Orientation.TOP;
 
     public BootstrapCssTabbedPanel(String id, final List<T> tabs) {

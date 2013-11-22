@@ -33,14 +33,11 @@ public abstract class AbstractField<T> extends Panel{
     private static final long serialVersionUID = -5883044564199075156L;
     private final StringResourceModel labelText;
 
-    protected Component prepender;
-    protected Component appender;
-    private ControlGroup controlGroup;
+    protected final Component prepender;
+    protected final Component appender;
+    private final ControlGroup controlGroup;
     protected FormComponent<T> field;
-    private MarkupContainer xPenderController;
-    private Integer index;
-
-
+    private final MarkupContainer xPenderController;
 
 
     public AbstractField(String id, IModel<T> model, String messageKeyGroup) {
@@ -53,7 +50,7 @@ public abstract class AbstractField<T> extends Panel{
         //for label text we don't set a default value, this is mandatory for now
         labelText = new StringResourceModel(messageKeyGroup + ".label", this, null);
 
-        //if helptext is not found an empty String is going to be used
+        //if the help text is not found an empty String is going to be used
         StringResourceModel helpText = new StringResourceModel(messageKeyGroup + ".help", this, null, "");
 
         controlGroup = new ControlGroup("control-group", labelText, helpText);
@@ -101,11 +98,6 @@ public abstract class AbstractField<T> extends Panel{
 
     protected FormComponent<T> getField() {
         return field;
-    }
-
-    public AbstractField<T> setIndex(Integer idx){
-        this.index = idx;
-        return this;
     }
 
     public AbstractField<T> required(){

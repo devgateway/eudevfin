@@ -25,6 +25,7 @@ import de.agilecoders.wicket.themes.markup.html.google.GoogleTheme;
 import de.agilecoders.wicket.themes.markup.html.metro.MetroTheme;
 import de.agilecoders.wicket.themes.markup.html.wicket.WicketTheme;
 import de.agilecoders.wicket.themes.settings.BootswatchThemeProvider;
+import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
 import org.apache.wicket.markup.html.WebPage;
@@ -115,7 +116,7 @@ public class WicketSpringApplication extends AuthenticatedWebApplication impleme
     }
 
     @Override
-    public Class getHomePage() {
+    public Class<? extends Page> getHomePage() {
         return HomePage.class;
     }
 

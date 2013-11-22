@@ -77,6 +77,7 @@ public abstract class HeaderFooter extends GenericWebPage {
         add(new BootstrapBaseBehavior());
     }
 
+    @SuppressWarnings("Convert2Diamond")
     private Component createNavBar() {
         Navbar navbar = new Navbar("navbar");
         navbar.setPosition(Navbar.Position.TOP);
@@ -126,9 +127,10 @@ public abstract class HeaderFooter extends GenericWebPage {
                 return false;
             }
 
+            @SuppressWarnings("Convert2Diamond")
             @Override
             protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
-                List<AbstractLink> list = new ArrayList<AbstractLink>();
+                List<AbstractLink> list = new ArrayList<>();
                 list.add(new MenuHeader(new StringResourceModel("navbar.lang.header", this, null, null)));
                 list.add(new MenuDivider());
 
@@ -159,6 +161,7 @@ public abstract class HeaderFooter extends GenericWebPage {
                 return false;
             }
 
+            @SuppressWarnings("Convert2Diamond")
             @Override
             protected List<AbstractLink> newSubMenuButtons(final String buttonMarkupId) {
                 final List<AbstractLink> subMenu = new ArrayList<AbstractLink>();

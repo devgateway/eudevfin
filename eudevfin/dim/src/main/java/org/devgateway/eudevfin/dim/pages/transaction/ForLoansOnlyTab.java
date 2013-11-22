@@ -45,11 +45,11 @@ public class ForLoansOnlyTab extends Panel {
                 StaticBinds.countryProvider);
         add(numberOfRepayments);
 
-        TextInputField interestRate = new TextInputField<>("46interestRate", new RWComponentPropertyModel<Integer>("interestRate"), "46interestRate");
+        TextInputField interestRate = new TextInputField<>("46interestRate", new RWComponentPropertyModel<Integer>("interestRate"));
         interestRate.typeInteger().decorateMask("99999");
         add(interestRate);
 
-        TextInputField secondInterestRate = new TextInputField<>("47secondInterestRate", new RWComponentPropertyModel<Integer>("secondInterestRate"), "47secondInterestRate");
+        TextInputField secondInterestRate = new TextInputField<>("47secondInterestRate", new RWComponentPropertyModel<Integer>("secondInterestRate"));
         secondInterestRate.typeInteger().decorateMask("99999");
         add(secondInterestRate);
 
@@ -59,27 +59,27 @@ public class ForLoansOnlyTab extends Panel {
         DateInputField finalRepaymentDate = new DateInputField("49finalRepaymentDate", new RWComponentPropertyModel<Date>("finalRepaymentDate"), "49finalRepaymentDate");
         add(finalRepaymentDate);
 
-        TextInputField interestReceived = new TextInputField<>("50interestReceived", new RWComponentPropertyModel<Integer>("interestReceived"), "50interestReceived");
+        TextInputField interestReceived = new TextInputField<>("50interestReceived", new RWComponentPropertyModel<Integer>("interestReceived"));
         interestReceived.typeInteger();
         add(interestReceived);
 
-        TextInputField principalDisbursed = new TextInputField<>("51principalDisbursed", new RWComponentPropertyModel<Integer>("principalDisbursed"), "51principalDisbursed");
+        TextInputField principalDisbursed = new TextInputField<>("51principalDisbursed", new RWComponentPropertyModel<Integer>("principalDisbursed"));
         principalDisbursed.typeInteger();
         add(principalDisbursed);
 
-        TextInputField arrearsOfPrincipals = new TextInputField<>("52arrearsOfPrincipals", new RWComponentPropertyModel<Integer>("arrearsOfPrincipals"), "52arrearsOfPrincipals");
+        TextInputField arrearsOfPrincipals = new TextInputField<>("52arrearsOfPrincipals", new RWComponentPropertyModel<Integer>("arrearsOfPrincipals"));
         arrearsOfPrincipals.typeInteger();
         add(arrearsOfPrincipals);
 
-        TextInputField arrearsOfInterest = new TextInputField<>("53arrearsOfInterest", new RWComponentPropertyModel<Integer>("arrearsOfInterest"), "53arrearsOfInterest");
+        TextInputField arrearsOfInterest = new TextInputField<>("53arrearsOfInterest", new RWComponentPropertyModel<Integer>("arrearsOfInterest"));
         arrearsOfInterest.typeInteger();
         add(arrearsOfInterest);
 
-        TextInputField futureDebtPrincipal = new TextInputField<>("54futureDebtPrincipal", new RWComponentPropertyModel<Integer>("futureDebtPrincipal"), "54futureDebtPrincipal");
+        TextInputField futureDebtPrincipal = new TextInputField<>("54futureDebtPrincipal", new RWComponentPropertyModel<Integer>("futureDebtPrincipal"));
         futureDebtPrincipal.typeInteger();
         add(futureDebtPrincipal);
 
-        TextInputField futureDebtInterest = new TextInputField<>("54futureDebtInterest", new RWComponentPropertyModel<Integer>("futureDebtInterest"), "54futureDebtInterest");
+        TextInputField futureDebtInterest = new TextInputField<>("54futureDebtInterest", new RWComponentPropertyModel<Integer>("futureDebtInterest"));
         futureDebtInterest.typeInteger();
         add(futureDebtInterest);
 

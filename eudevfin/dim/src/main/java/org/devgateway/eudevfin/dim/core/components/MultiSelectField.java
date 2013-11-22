@@ -35,6 +35,6 @@ public class MultiSelectField<T> extends AbstractInputField<Collection<T>> {
 
     @Override
     protected FormComponent<Collection<T>> newField(String id, IModel<Collection<T>> model) {
-        return new Select2MultiChoice<T>(id, model);
+        return new Select2MultiChoice<>(id, model);
     }
 }

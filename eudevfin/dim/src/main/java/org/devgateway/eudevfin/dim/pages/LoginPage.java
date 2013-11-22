@@ -41,7 +41,7 @@ public final class LoginPage extends HeaderFooter {
 
             add(new NotificationPanel("feedback"));
 
-            TextInputField<String> username = new TextInputField<String>("username", new PropertyModel<String>(this, "username"), "login.user");
+            TextInputField<String> username = new TextInputField<>("username", new PropertyModel<String>(this, "username"), "login.user");
             username.getField().setRequired(true);
             add(username);
 

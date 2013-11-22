@@ -39,7 +39,7 @@ public class SupplementaryDataTab extends Panel {
     }
 
     private void addComponents() {
-        TextInputField<String> geographicalTargetArea = new TextInputField<String>("16geographicalTargetArea", new RWComponentPropertyModel<String>("geographicalTargetArea"), "16geographicalTargetArea");
+        TextInputField<String> geographicalTargetArea = new TextInputField<>("16geographicalTargetArea", new RWComponentPropertyModel<String>("geographicalTargetArea"));
         add(geographicalTargetArea);
 
         DateInputField startingDate = new DateInputField("17startingDate", new RWComponentPropertyModel<Date>("startingDate"), "17startingDate");
@@ -51,67 +51,67 @@ public class SupplementaryDataTab extends Panel {
         TextAreaInputField description = new TextAreaInputField("19description", new RWComponentPropertyModel<String>("description"), "19description");
         add(description);
 
-        DropDownField<String> genderEquality = new DropDownField<String>("20genderEquality", new RWComponentPropertyModel<String>("genderEquality"), "20genderEquality",
+        DropDownField<String> genderEquality = new DropDownField<>("20genderEquality", new RWComponentPropertyModel<String>("genderEquality"), "20genderEquality",
                 StaticBinds.countryProvider);
         add(genderEquality);
 
-        DropDownField<String> aidToEnvironment = new DropDownField<String>("21aidToEnvironment", new RWComponentPropertyModel<String>("aidToEnvironment"), "21aidToEnvironment",
+        DropDownField<String> aidToEnvironment = new DropDownField<>("21aidToEnvironment", new RWComponentPropertyModel<String>("aidToEnvironment"), "21aidToEnvironment",
                 StaticBinds.countryProvider);
         add(aidToEnvironment);
 
-        DropDownField<String> pdGg = new DropDownField<String>("22pdGg", new RWComponentPropertyModel<String>("pdGg"), "22pdGg",
+        DropDownField<String> pdGg = new DropDownField<>("22pdGg", new RWComponentPropertyModel<String>("pdGg"), "22pdGg",
                 StaticBinds.countryProvider);
         add(pdGg);
 
-        DropDownField<String> tradeDevelopment = new DropDownField<String>("23tradeDevelopment", new RWComponentPropertyModel<String>("tradeDevelopment"), "23tradeDevelopment",
+        DropDownField<String> tradeDevelopment = new DropDownField<>("23tradeDevelopment", new RWComponentPropertyModel<String>("tradeDevelopment"), "23tradeDevelopment",
                 StaticBinds.countryProvider);
         add(tradeDevelopment);
 
-        DropDownField<String> freestandingTechnicalCooperation = new DropDownField<String>("24freestandingTechnicalCooperation", new RWComponentPropertyModel<String>("freestandingTechnicalCooperation"), "24freestandingTechnicalCooperation",
+        DropDownField<String> freestandingTechnicalCooperation = new DropDownField<>("24freestandingTechnicalCooperation", new RWComponentPropertyModel<String>("freestandingTechnicalCooperation"), "24freestandingTechnicalCooperation",
                 StaticBinds.countryProvider);
         add(freestandingTechnicalCooperation);
 
-        DropDownField<String> programbasedApproach = new DropDownField<String>("25programbasedApproach", new RWComponentPropertyModel<String>("programbasedApproach"), "25programbasedApproach",
+        DropDownField<String> programbasedApproach = new DropDownField<>("25programbasedApproach", new RWComponentPropertyModel<String>("programbasedApproach"), "25programbasedApproach",
                 StaticBinds.countryProvider);
         add(programbasedApproach);
 
-        DropDownField<String> investmentProject = new DropDownField<String>("26investmentProject", new RWComponentPropertyModel<String>("investmentProject"), "26investmentProject",
+        DropDownField<String> investmentProject = new DropDownField<>("26investmentProject", new RWComponentPropertyModel<String>("investmentProject"), "26investmentProject",
                 StaticBinds.countryProvider);
         add(investmentProject);
 
-        DropDownField<String> associatedFinancing = new DropDownField<String>("27associatedFinancing", new RWComponentPropertyModel<String>("associatedFinancing"), "27associatedFinancing",
+        DropDownField<String> associatedFinancing = new DropDownField<>("27associatedFinancing", new RWComponentPropertyModel<String>("associatedFinancing"), "27associatedFinancing",
                 StaticBinds.countryProvider);
         add(associatedFinancing);
 
-        DropDownField<String> biodiversity = new DropDownField<String>("28biodiversity", new RWComponentPropertyModel<String>("biodiversity"), "28biodiversity",
+        DropDownField<String> biodiversity = new DropDownField<>("28biodiversity", new RWComponentPropertyModel<String>("biodiversity"), "28biodiversity",
                 StaticBinds.countryProvider);
         add(biodiversity);
 
-        DropDownField<String> ccMitigation = new DropDownField<String>("29ccMitigation", new RWComponentPropertyModel<String>("ccMitigation"), "29ccMitigation",
+        DropDownField<String> ccMitigation = new DropDownField<>("29ccMitigation", new RWComponentPropertyModel<String>("ccMitigation"), "29ccMitigation",
                 StaticBinds.countryProvider);
         add(ccMitigation);
 
-        DropDownField<String> ccAdaptation = new DropDownField<String>("30ccAdaptation", new RWComponentPropertyModel<String>("ccAdaptation"), "30ccAdaptation",
+        DropDownField<String> ccAdaptation = new DropDownField<>("30ccAdaptation", new RWComponentPropertyModel<String>("ccAdaptation"), "30ccAdaptation",
                 StaticBinds.countryProvider);
         add(ccAdaptation);
 
-        DropDownField<String> desertification = new DropDownField<String>("31desertification", new RWComponentPropertyModel<String>("desertification"), "31desertification",
+        DropDownField<String> desertification = new DropDownField<>("31desertification", new RWComponentPropertyModel<String>("desertification"), "31desertification",
                 StaticBinds.countryProvider);
         add(desertification);
 
-        DropDownField<String> tbd96 = new DropDownField<String>("96tbd", new RWComponentPropertyModel<String>("tbd96"), "96tbd",
+        DropDownField<String> tbd96 = new DropDownField<>("96tbd", new RWComponentPropertyModel<String>("tbd96"), "96tbd",
                 StaticBinds.countryProvider);
         add(tbd96);
 
-        DropDownField<String> tbd97 = new DropDownField<String>("97tbd", new RWComponentPropertyModel<String>("tbd97"), "97tbd",
+        DropDownField<String> tbd97 = new DropDownField<>("97tbd", new RWComponentPropertyModel<String>("tbd97"), "97tbd",
                 StaticBinds.countryProvider);
         add(tbd97);
 
-        DropDownField<String> tbd98 = new DropDownField<String>("98tbd", new RWComponentPropertyModel<String>("tbd98"), "98tbd",
+        DropDownField<String> tbd98 = new DropDownField<>("98tbd", new RWComponentPropertyModel<String>("tbd98"), "98tbd",
                 StaticBinds.countryProvider);
         add(tbd98);
 
-        DropDownField<String> tbd99 = new DropDownField<String>("99tbd", new RWComponentPropertyModel<String>("tbd99"), "99tbd",
+        DropDownField<String> tbd99 = new DropDownField<>("99tbd", new RWComponentPropertyModel<String>("tbd99"), "99tbd",
                 StaticBinds.countryProvider);
         add(tbd99);
     }

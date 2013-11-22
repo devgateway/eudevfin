@@ -37,7 +37,6 @@ public class DateInputField extends AbstractInputField<Date> {
     @Override
     protected TextField<Date> newField(String id, IModel<Date> model) {
         DateTextFieldConfig config = new DateTextFieldConfig().withFormat(getFormat()).autoClose(true).forceParse(false);
-        DateTextField dateTextField = new DateTextField(id, model, config);
-        return dateTextField;
+        return new DateTextField(id, model, config);
     }
 }

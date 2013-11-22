@@ -32,7 +32,7 @@ public class DropDownField<T> extends AbstractInputField<T> {
 
     @Override
     protected FormComponent<T> newField(String id, IModel<T> model) {
-        return new Select2Choice<T>(id, model);
+        return new Select2Choice<>(id, model);
     }
 
     @Override

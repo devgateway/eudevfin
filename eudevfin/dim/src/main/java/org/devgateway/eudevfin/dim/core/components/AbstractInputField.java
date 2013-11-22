@@ -18,7 +18,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.StringResourceModel;
 
 
-public abstract class AbstractInputField<T> extends AbstractField {
+public abstract class AbstractInputField<T> extends AbstractField<T>{
     private IModel<String> placeholderText;
 
     public AbstractInputField(String id, IModel<T> model, String messageKeyGroup){

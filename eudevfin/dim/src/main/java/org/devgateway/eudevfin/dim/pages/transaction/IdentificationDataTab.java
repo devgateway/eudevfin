@@ -37,8 +37,8 @@ public class IdentificationDataTab extends Panel {
     }
 
     private void addComponents() {
-        TextInputField<Integer> reportingYear = new TextInputField<>("1reportingYear", new RWComponentPropertyModel<Integer>("reportingYear"),
-                "1reportingYear");
+        TextInputField<Integer> reportingYear = new TextInputField<>("1reportingYear", new RWComponentPropertyModel<Integer>("reportingYear")
+        );
         reportingYear.typeInteger().required().range(1900, 2099).decorateMask("9999");
         add(reportingYear);
 
@@ -51,22 +51,22 @@ public class IdentificationDataTab extends Panel {
 
         add(reportingCountry);
 
-        TextInputField<String> extendingAgency = new TextInputField<>("3extendingAgency", new RWComponentPropertyModel<String>("extendingAgency"),
-                "3extendingAgency");
+        TextInputField<String> extendingAgency = new TextInputField<>("3extendingAgency", new RWComponentPropertyModel<String>("extendingAgency")
+        );
         add(extendingAgency);
 
-        TextInputField<Integer> crsId = new TextInputField<>("4crsId", new RWComponentPropertyModel<Integer>("crsId"),
-                "4crsId");
+        TextInputField<Integer> crsId = new TextInputField<>("4crsId", new RWComponentPropertyModel<Integer>("crsId")
+        );
         crsId.typeInteger();
         add(crsId);
 
-        TextInputField<Integer> donorProjectNumber = new TextInputField<>("5donorProjectNumber", new RWComponentPropertyModel<Integer>("donorProjectNumber"),
-                "5donorProjectNumber");
+        TextInputField<Integer> donorProjectNumber = new TextInputField<>("5donorProjectNumber", new RWComponentPropertyModel<Integer>("donorProjectNumber")
+        );
         donorProjectNumber.typeInteger();
         add(donorProjectNumber);
 
-        TextInputField<Integer> natureSubmission = new TextInputField<>("6natureSubmission", new RWComponentPropertyModel<Integer>("natureSubmission"),
-                "6natureSubmission");
+        TextInputField<Integer> natureSubmission = new TextInputField<>("6natureSubmission", new RWComponentPropertyModel<Integer>("natureSubmission")
+        );
         natureSubmission.typeInteger();
         add(natureSubmission);
     }

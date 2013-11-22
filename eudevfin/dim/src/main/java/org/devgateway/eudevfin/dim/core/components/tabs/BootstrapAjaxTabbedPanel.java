@@ -30,7 +30,7 @@ import java.util.List;
 public class BootstrapAjaxTabbedPanel<T extends ITab> extends TabbedPanel<T> {
     private static final long serialVersionUID = 1531649939509988579L;
     private boolean ajax = true;
-    public static enum Orientation {LEFT, RIGHT, TOP, BOTTOM};
+    public static enum Orientation {LEFT, RIGHT, TOP, BOTTOM}
     private Orientation orientation = Orientation.TOP;
 
     public BootstrapAjaxTabbedPanel(final String id, final List<T> tabs){
@@ -66,6 +66,7 @@ public class BootstrapAjaxTabbedPanel<T extends ITab> extends TabbedPanel<T> {
     }
 
     protected void onAjaxUpdate(final AjaxRequestTarget target) {
+        //Override if needed
     }
 
     @Override

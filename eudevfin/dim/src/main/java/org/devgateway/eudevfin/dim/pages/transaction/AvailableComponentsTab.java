@@ -40,11 +40,11 @@ public class AvailableComponentsTab extends Panel {
         super(id);
 
         Model<String> emptyString = Model.of("");
-        TextInputField input = new TextInputField<String>("input", emptyString, "input").required();
+        TextInputField input = new TextInputField<>("input", emptyString).required();
         input.decorateMask("999-99-9999");
         add(input);
 
-        TextInputField email = new TextInputField<String>("email", emptyString, "email");
+        TextInputField email = new TextInputField<>("email", emptyString);
         email.required();
         email.decorateAsEmailField();
         add(email);
@@ -63,11 +63,12 @@ public class AvailableComponentsTab extends Panel {
             }
         };
 
-        DropDownField dd = new DropDownField<String>("dropdown", Model.of(""), "dropdown", choiceProvider).disableSearch();
+        DropDownField dd = new DropDownField<>("dropdown", Model.of(""), "dropdown", choiceProvider).disableSearch();
 
         add(dd);
 
-        MultiSelectField ms = new MultiSelectField<String>("multi", new Model(new ArrayList<String>()), "multi", choiceProvider);
+        //noinspection unchecked
+        MultiSelectField ms = new MultiSelectField<>("multi", new Model(new ArrayList<String>()), "multi", choiceProvider);
         add(ms);
 
         CheckBoxField cb = new CheckBoxField("checkbox", Model.of(Boolean.FALSE), "checkbox");

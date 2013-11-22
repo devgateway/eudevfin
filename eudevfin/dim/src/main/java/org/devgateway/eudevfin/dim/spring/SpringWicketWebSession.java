@@ -24,9 +24,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 public class SpringWicketWebSession extends AuthenticatedWebSession {
 
 	private static final Logger logger = Logger
@@ -35,14 +32,11 @@ public class SpringWicketWebSession extends AuthenticatedWebSession {
 	@SpringBean(name = "authenticationManager")
 	private AuthenticationManager authenticationManager;
 
-	private HttpSession httpSession;
-
-	public SpringWicketWebSession(Request request) {
+    public SpringWicketWebSession(Request request) {
 		super(request);
 		injectDependencies();
 		ensureDependenciesNotNull();
-		httpSession = ((HttpServletRequest) request.getContainerRequest())
-				.getSession();
+        //HttpSession httpSession = ((HttpServletRequest) request.getContainerRequest()).getSession();
 	}
 
 	public static SpringWicketWebSession getSpringWicketWebSession() {
@@ -61,7 +55,7 @@ public class SpringWicketWebSession extends AuthenticatedWebSession {
 
 	@Override
 	public boolean authenticate(String username, String password) {
-		boolean authenticated = false;
+		boolean authenticated;
 		try {
 			Authentication authentication = authenticationManager
 					.authenticate(new UsernamePasswordAuthenticationToken(
