@@ -19,9 +19,11 @@ import org.devgateway.eudevfin.financial.translate.AbstractTranslation;
 import org.devgateway.eudevfin.financial.util.FinancialConstants;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 
 @MappedSuperclass
-public abstract class AbstractTranslateable<T extends AbstractTranslation> {
+public abstract class AbstractTranslateable<T extends AbstractTranslation<? extends AbstractTranslateable<T>>> {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -31,12 +33,15 @@ public abstract class AbstractTranslateable<T extends AbstractTranslation> {
 	private String createdBy;
 	@CreatedDate
 	private Date createdDate;
+	@LastModifiedBy
+	private String modifiedBy;
+	@LastModifiedDate
+	private Date modfiedDate;
 
 	@Transient
 	private String currentLocale;
 	
 	@OneToMany(fetch=FetchType.EAGER, mappedBy="parent", cascade=CascadeType.ALL)
-//	@JoinColumn(name="PARENT_ID")
 	@MapKey(name="locale")
 	private Map<String, T> translations;
 	
@@ -125,9 +130,21 @@ public abstract class AbstractTranslateable<T extends AbstractTranslation> {
 	public void setTranslations(Map<String, T> translations) {
 		this.translations = translations;
 	}
-	
-	
 
-	
+	public String getModifiedBy() {
+		return modifiedBy;
+	}
+
+	public void setModifiedBy(String modifiedBy) {
+		this.modifiedBy = modifiedBy;
+	}
+
+	public Date getModfiedDate() {
+		return modfiedDate;
+	}
+
+	public void setModfiedDate(Date modfiedDate) {
+		this.modfiedDate = modfiedDate;
+	}
 	
 }

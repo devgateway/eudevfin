@@ -10,15 +10,9 @@ import org.devgateway.eudevfin.financial.Category;
 import org.hibernate.envers.Audited;
 @Entity
 @Audited
-@Table(name="CATEGORY_TRANSLATION",
-		uniqueConstraints=@UniqueConstraint(columnNames={"PARENT_ID","LOCALE"}))
-public class CategoryTranslation extends AbstractTranslation implements CategoryTrnInterface {
+public class CategoryTranslation extends AbstractTranslation<Category> implements CategoryTrnInterface {
 	
 	private String name;
-	
-	@ManyToOne(  optional= false )
-	@JoinColumn(name="PARENT_ID")
-	private Category parent;
 
 	/* (non-Javadoc)
 	 * @see org.devgateway.eudevfin.financial.translate.CategoryTrnInterface#getName()

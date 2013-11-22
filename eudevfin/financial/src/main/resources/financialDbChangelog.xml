@@ -10,10 +10,10 @@
   
   <changeSet id="1" author="mpostelnicu">
   
-  <delete tableName="FINANCIAL_TRANSACTION"></delete>
+<!--  <delete tableName="FINANCIAL_TRANSACTION"></delete>
   <delete tableName="FINANCIAL_TRANSACTION_TRANSLATION"></delete>
   <delete tableName="organization"></delete>
-  <delete tableName="ORGANIZATION_TRANSLATION"></delete>
+  <delete tableName="ORGANIZATION_TRANSLATION"></delete>  -->
   
   <customChange class="org.devgateway.eudevfin.financial.liquibase.PopulateDbChange">
   </customChange>

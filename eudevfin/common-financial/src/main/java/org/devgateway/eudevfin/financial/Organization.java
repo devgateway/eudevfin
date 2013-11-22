@@ -4,30 +4,33 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import org.devgateway.eudevfin.financial.translate.OrganizationTranslation;
+import org.devgateway.eudevfin.financial.translate.OrganizationTrnInterface;
 import org.hibernate.envers.Audited;
 
 @Entity @Audited
-public class Organization extends AbstractTranslateable<OrganizationTranslation>{
+public class Organization extends AbstractTranslateable<OrganizationTranslation> 
+							implements OrganizationTrnInterface {
 
 	
-	public String code;
+	private String code;
 	
+	@ManyToOne
+	private Country country;
+	
+	@ManyToOne
+	private Category organizationType; 
+	
+	@Override
 	public String getName() {
 		return (String) this.get("name");
 	}
 
+	@Override
 	public void setName(String name) {
 		this.set("name", name);
-	}
-	
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
 	}
 
 	@Override
@@ -40,6 +43,20 @@ public class Organization extends AbstractTranslateable<OrganizationTranslation>
 		return new OrganizationTranslation();
 	}
 	
-	
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public Country getCountry() {
+		return country;
+	}
+
+	public void setCountry(Country country) {
+		this.country = country;
+	}
 	
 }

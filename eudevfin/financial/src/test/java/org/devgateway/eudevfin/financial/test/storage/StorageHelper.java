@@ -48,10 +48,10 @@ public class StorageHelper {
 		modifyingTx.setAmount(new BigDecimal(999));
 		
 		for (Organization o: allOrgs) {
-			if ( !modifyingTx.getSourceOrganization().getId().equals(o.getId()) ) {
+			if ( !modifyingTx.getReportingOrganization().getId().equals(o.getId()) ) {
 				o.setName(o.getName() + " !! modified");
 				o.setCode(o.getCode() + " !! modified");
-				modifyingTx.setSourceOrganization(o);
+				modifyingTx.setReportingOrganization(o);
 				orgDao.save(o);
 				break;
 			}

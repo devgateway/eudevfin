@@ -36,7 +36,7 @@ public class FinancialTransactionDaoImpl extends AbstractDaoImpl<FinancialTransa
 	}
 	
 	public List<FinancialTransaction> findBySourceOrganizationId(Long orgId) {
-		return getRepo().findBySourceOrganizationId(orgId);
+		return getRepo().findByReportingOrganizationId(orgId);
 	}
 
 	@Override

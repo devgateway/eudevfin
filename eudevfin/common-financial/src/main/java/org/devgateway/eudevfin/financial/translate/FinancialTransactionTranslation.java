@@ -21,13 +21,7 @@ import org.joda.time.LocalDateTime;
  */
 @Entity
 @Audited
-@Table(name="FINANCIAL_TRANSACTION_TRANSLATION",
-		uniqueConstraints=@UniqueConstraint(columnNames={"PARENT_ID","LOCALE"}))
-public class FinancialTransactionTranslation extends AbstractTranslation implements FinancialTransactionTrnInterface {
-	
-	@ManyToOne(  optional= false )
-	@JoinColumn(name="PARENT_ID")
-	private FinancialTransaction parent;
+public class FinancialTransactionTranslation extends AbstractTranslation<FinancialTransaction> implements FinancialTransactionTrnInterface {
 	
 	private String description;
 	
@@ -46,17 +40,5 @@ public class FinancialTransactionTranslation extends AbstractTranslation impleme
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	public FinancialTransaction getParent() {
-		return parent;
-	}
-
-	public void setParent(FinancialTransaction parent) {
-		this.parent = parent;
-	}
-	
-	
-	
-	
 	
 }
