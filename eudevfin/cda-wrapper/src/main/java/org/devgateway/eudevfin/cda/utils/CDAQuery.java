@@ -18,7 +18,7 @@ import pt.webdetails.cda.settings.SettingsManager;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import edu.emory.mathcs.backport.java.util.Collections;
+import java.util.Collections;
 
 @Component
 public class CDAQuery {
