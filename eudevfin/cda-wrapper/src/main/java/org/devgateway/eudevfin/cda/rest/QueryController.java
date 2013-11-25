@@ -7,11 +7,10 @@ import org.devgateway.eudevfin.cda.domain.QueryResult;
 import org.devgateway.eudevfin.cda.service.QueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.View;
 
 @Controller
@@ -22,37 +21,32 @@ public class QueryController {
 	@Autowired
 	private View jsonView;
 
-	private static final String DATA_FIELD = "data";
-	private static final String ERROR_FIELD = "error";
-
 	private static final Logger logger = Logger
 			.getLogger(QueryController.class);
 
 	@RequestMapping(value = "/doQuery", method = RequestMethod.GET)
-	public ModelAndView doQuery(
+	public @ResponseBody
+	QueryResult doQuery(
 			@RequestParam Map<String,String> allRequestParams
 		) {
 		QueryResult result = null;
-		System.out.println("Todos:" + allRequestParams.toString());
 
 		if (isEmpty(allRequestParams.get("dataAccessId"))) {
 			String sMessage = "Error invoking doQuery - Invalid datasource Id parameter";
-			return createErrorResponse(sMessage);
+			QueryResult errorResult = new QueryResult();
+			errorResult.setAdditionalProperties("error", sMessage);
+			return errorResult;
 		}
 
 		try {
 			result = queryService.doQuery(allRequestParams);
 		} catch (Exception e) {
-			String sMessage = "Error invoking doQuery. [%1$s]";
-			return createErrorResponse(String.format(sMessage, e.toString()));
+			String sMessage = "Error invoking doQuery.";
+			QueryResult errorResult = new QueryResult();
+			errorResult.setAdditionalProperties("error", sMessage);
+			return errorResult;
 		}
-
-		logger.debug("Returing result: " + result.toString());
-		return new ModelAndView(jsonView, DATA_FIELD, result);
-	}
-
-	private ModelAndView createErrorResponse(String sMessage) {
-		return new ModelAndView(jsonView, ERROR_FIELD, sMessage);
+		return result;
 	}
 
 	public static boolean isEmpty(String s_p) {
