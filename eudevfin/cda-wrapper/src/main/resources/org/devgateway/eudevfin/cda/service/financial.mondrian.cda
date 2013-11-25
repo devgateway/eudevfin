@@ -35,7 +35,7 @@
 		<Name>Sql Query on Transactions with parameters</Name>
         <Query><![CDATA[
 			select * from FINANCIALTRANSACTION
-			where organization_id = ${organizationId}
+			where reportingorganization_id = ${organizationId}
 		]]></Query>
         <Parameters>
             <Parameter name="organizationId" type="Integer" default="1"/>
