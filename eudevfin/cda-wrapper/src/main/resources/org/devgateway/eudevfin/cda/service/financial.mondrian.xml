@@ -8,9 +8,9 @@
     </Hierarchy>
   </Dimension>
   <Cube name="Financial" visible="true" cache="false" enabled="true">
-    <Table name="FINANCIAL_TRANSACTION" schema="APP" alias="financial_transaction">
+    <Table name="FINANCIALTRANSACTION" schema="APP" alias="financialtransaction">
     </Table>
-    <DimensionUsage source="Organization" name="Organization" visible="true" foreignKey="ORGANIZATION_ID" highCardinality="false">
+    <DimensionUsage source="Organization" name="Organization" visible="true" foreignKey="REPORTINGORGANIZATION_ID" highCardinality="false">
     </DimensionUsage>
     <Measure name="Amount" column="AMOUNT" aggregator="sum" visible="true">
     </Measure>

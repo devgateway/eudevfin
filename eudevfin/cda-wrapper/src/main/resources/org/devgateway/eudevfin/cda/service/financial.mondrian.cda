@@ -27,14 +27,14 @@
     <DataAccess id="simpleSQLQuery" connection="sqlConnection" type="sql" access="public">
 		<Name>Sql Query on Transactions</Name>
         <Query><![CDATA[
-			select * from FINANCIAL_TRANSACTION
+			select * from FINANCIALTRANSACTION
 		]]></Query>
     </DataAccess>
     
     <DataAccess id="parameterSQLQuery" connection="sqlConnection" type="sql" access="public">
 		<Name>Sql Query on Transactions with parameters</Name>
         <Query><![CDATA[
-			select * from FINANCIAL_TRANSACTION
+			select * from FINANCIALTRANSACTION
 			where organization_id = ${organizationId}
 		]]></Query>
         <Parameters>
