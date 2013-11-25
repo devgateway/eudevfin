@@ -20,5 +20,4 @@ import org.wicketstuff.annotation.mount.MountPath;
 @AuthorizeInstantiation(Constants.ROLE_USER)
 public class ReportsPage extends HeaderFooter {
 
-
 }

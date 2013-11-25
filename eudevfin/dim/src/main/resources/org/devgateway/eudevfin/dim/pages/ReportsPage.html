@@ -1,13 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
 <wicket:head>
+	<!-- load CDF libs css files -->
+    <link href="/js/theme/ui-lightness/jquery-ui-1.8.20.custom.css" rel="stylesheet" type="text/css"/>
+    <link href="/js/addIns/coltypes.css" rel="stylesheet" type="text/css"/>
+    <link href="/js/dataTables/css/demo_page.css" rel="stylesheet" type="text/css"/>
+    <link href="/js/dataTables/css/demo_table.css" rel="stylesheet" type="text/css"/>
+    <link href="/js/dataTables/css/demo_table_jui.css" rel="stylesheet" type="text/css"/>
+
+	<!-- load CDF general styles -->
+    <link href="/js/cdfcss.min.css" rel="stylesheet" type="text/css"/>
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	
+	<!-- load CDF javascript file -->
+    <script src="/js/cdfplugin.js"></script>
+	
 	<script>
-		console.log('test script');
+		var pathToCdaFile = '/some/path.cda';
+	    var testTableDefinition,
+	        testTable;
+	
+	    testTableDefinition = {
+	        colHeaders: ["Col 1", "Col 2", "Col 3", "Col 4"],
+	        colTypes: ['string', 'numeric', 'numeric', 'numeric'],
+	        colFormats: ['%s', '%d', '%d', '%d'],
+	        colWidths: ['40%', '20%', '20%', '20%'],
+	        colSortable: [true, true, true, true],
+	        sortBy: [[2, 'desc']],
+	        tableStyle: "themeroller",
+	        paginationType: "full_numbers",
+	        paginateServerside: false,
+	        paginate: true,
+	        filter: true,
+	        info: true,
+	        sort: true,
+	        lengthChange: false,
+	        displayLength: 10,
+	            // query properties
+	        path: pathToCdaFile,                 // I don't think we will need this property
+	        dataAccessId: "simpleSQLQuery"
+	    };
+	
+	    testTable = {
+	        name: "testTable",
+	        type: "tableComponent",
+	        listeners:[],
+	        parameters: [],
+	        chartDefinition: testTableDefinition,
+	        htmlObject: "test-table",
+	        executeAtStart: true,
+	        preChange: function (value) {
+	            console.log('>>> preChange');
+	
+	            return value;
+	        },
+	        postFetch: function (values) {
+	            console.log('>>> postFetch');
+	            // debugger;
+	            console.log(values);
+	
+	            return values;
+	        },
+	        preExecution: function () {
+	            console.log('>>> preExecution');
+	
+	            return undefined;
+	        },
+	        postExecution: function () {
+	            console.log('>>> postExecution');                    
+	        }
+	    };
+	
+	    // The components to be loaded into the dashboard withing the [] separated by ,
+	    var components = [testTable];
+	
+	    // The initial dashboard load function definition
+	    var load = function () {
+	        Dashboards.init(components);
+	    };
+	
+	    // The initial dashboard load function execution
+	    load();
 	</script>
 </wicket:head>
 <body>
 <wicket:extend>
-    test message
+    <div class="loading-bar">
+        <i class="sphere"></i>
+    </div>	<!-- used for loading animation instead of blockUI js library -->
+
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span12">
+                <h2>Test CDF Plugin</h2>
+                <div class="box">
+                    <div class="box-header">
+                        <h2>Financial Transactions</h2>
+                    </div>
+                    <div id="test-table"></div>
+                </div>
+            </div>
+        </div>  <!-- /row-fluid -->
+    </div>   <!-- /container-fluid -->
+    
+    <script>
+		console.log('>>>>');
+	</script>
 </wicket:extend>
 </body>
 </html>

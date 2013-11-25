@@ -1287,7 +1287,8 @@
     });
 
 }).call(this);
-; /* ************************ new file ************************ */
+
+ /* ************************ new file ************************ */
 //     Backbone.js 1.1.0
 
 //     (c) 2010-2011 Jeremy Ashkenas, DocumentCloud Inc.
@@ -2888,7 +2889,8 @@
     };
 
 }).call(this);
-; /* ************************ new file ************************ */
+
+ /* ************************ new file ************************ */
 /*!
  * mustache.js - Logic-less {{mustache}} templates with JavaScript
  * http://github.com/janl/mustache.js
@@ -3425,7 +3427,8 @@ var Mustache = (typeof module !== "undefined" && module.exports) || {};
     }
 
 })(Mustache);
-; /* ************************ new file ************************ */
+
+ /* ************************ new file ************************ */
 /******************************************************************************
  * jquery.i18n.properties
  *
@@ -3667,7 +3670,8 @@ var Mustache = (typeof module !== "undefined" && module.exports) || {};
     }
 
 })(jQuery);
-; /* ************************ new file ************************ */
+
+ /* ************************ new file ************************ */
 /**
  *
  * jquery.sparkline.js
@@ -6719,7 +6723,8 @@ var Mustache = (typeof module !== "undefined" && module.exports) || {};
     });
 
 }));
-; /* ************************ new file ************************ */
+
+ /* ************************ new file ************************ */
 /*
  * jQuery Tooltip plugin 1.3
  *
@@ -7014,7 +7019,8 @@ var Mustache = (typeof module !== "undefined" && module.exports) || {};
 	}
 	
 })(jQuery);
-; /* ************************ new file ************************ */
+
+ /* ************************ new file ************************ */
 /*
  * File:        jquery.dataTables.min.js
  * Version:     1.7.4
@@ -9306,7 +9312,8 @@ var Mustache = (typeof module !== "undefined" && module.exports) || {};
         })
     }
 })(jQuery, window, document);
-; /* ************************ new file ************************ */
+
+ /* ************************ new file ************************ */
 /*
  Base.js, version 1.1a
  Copyright 2006-2010, Dean Edwards
@@ -9446,7 +9453,8 @@ Base = Base.extend({
         return String(this.valueOf());
     }
 });
-; /* ************************ new file ************************ */
+
+ /* ************************ new file ************************ */
 // TODO - check if we use all this functions!
 
 /**
@@ -9821,7 +9829,8 @@ var sprintf = sprintfWrapper.init;
         throw new Error("browser does not support setters");
     };
 })();
-; /* ************************ new file ************************ */
+
+ /* ************************ new file ************************ */
 // TODO - do we need this and where is used?
 $.ajaxSetup({
     type: "POST",
@@ -11800,7 +11809,8 @@ Dashboards.hsvToRgb = function (h, s, v) {
 // };
 // // QUERIES end
 
-; /* ************************ new file ************************ */
+
+ /* ************************ new file ************************ */
 // CONTAINER begin
 (function (D) {
     function Container() {
@@ -12166,7 +12176,8 @@ Dashboards.hsvToRgb = function (h, s, v) {
     };
 })(Dashboards);
 // QUERIES end
-; /* ************************ new file ************************ */
+
+ /* ************************ new file ************************ */
 // OPTIONS MANAGER begin
 (function (D) {
 
@@ -12316,7 +12327,8 @@ Dashboards.hsvToRgb = function (h, s, v) {
 
     D.OptionsManager = OptionsManager;
 })(Dashboards);
-; /* ************************ new file ************************ */
+
+ /* ************************ new file ************************ */
 /*
  * Dashboards Popups
  */
@@ -12410,6 +12422,8 @@ wd.cdf.notifications.growl = {
             "    <h2 class='cdfNotificationDesc' title='{{desc}}'>{{{desc}}}</h2>" +
             "  </div>" +
             "</div>"),
+
+    // TODO - this must be changed! since we don't use blockUI lib anymore!
     defaults: {
         title: 'Title',
         desc: 'Default CDF notification.',
@@ -12440,11 +12454,13 @@ wd.cdf.notifications.growl = {
                 .appendTo('body');
             this.firstRender = false;
         }
-        this.$el.show().block(opts);
+        // TODO - removed the blockUI call
+        // this.$el.show().block(opts);
     },
     firstRender: true
 };
-; /* ************************ new file ************************ */
+
+ /* ************************ new file ************************ */
 BaseComponent = Base.extend({
     //type : "unknown",
     visible: true,
@@ -13236,7 +13252,7 @@ var QueryComponent = BaseComponent.extend({
         },
         warnOnce: function () {
             Dashboards.log("Warning: QueryComponent behaviour is due to change. See " +
-                "http://http://www.webdetails.org/redmine/projects/cdf/wiki/QueryComponent" +
+                "http://www.webdetails.org/redmine/projects/cdf/wiki/QueryComponent" +
                 " for more information");
             delete(this.warnOnce);
         }
@@ -13264,8 +13280,9 @@ var QueryComponent = BaseComponent.extend({
 
                 changedValues = undefined;
                 object.metadata = values.metadata;
-                object.result = values.resultset != undefined ? values.resultset : values;
+                object.result = values.resultset !== undefined ? values.resultset : values;
                 object.queryInfo = values.queryInfo;
+
                 if ((typeof(object.postFetch) == 'function')) {
                     changedValues = object.postFetch(values);
                 }
@@ -13648,7 +13665,8 @@ var FreeformComponent = UnmanagedComponent.extend({
     }
 });
 
-; /* ************************ new file ************************ */
+
+ /* ************************ new file ************************ */
 var InputBaseComponent = UnmanagedComponent.extend({
     update: function () {
         var qd = this.queryDefinition;
@@ -14891,7 +14909,8 @@ var ButtonComponent = BaseComponent.extend({
         b.appendTo($("#" + this.htmlObject).empty());
     }
 });
-; /* ************************ new file ************************ */
+
+ /* ************************ new file ************************ */
 /*
  * Function: fnLengthChange
  * Purpose:  Change the number of records on display
@@ -14930,9 +14949,7 @@ if ($.fn.dataTableExt != undefined) {
 }
 
 var TableComponent = UnmanagedComponent.extend({
-
         ph: undefined,
-
 
         update: function () {
             if (!this.preExec()) {
@@ -15405,7 +15422,8 @@ var TableComponent = UnmanagedComponent.extend({
             return dtData;
         }
     });
-; /* ************************ new file ************************ */
+
+ /* ************************ new file ************************ */
 /**
  * Creates a new AddIn.
  *
@@ -15498,7 +15516,8 @@ function AddIn(options) {
         }
     };
 }
-; /* ************************ new file ************************ */
+
+ /* ************************ new file ************************ */
 ;
 (function () {
 
@@ -16050,7 +16069,8 @@ function AddIn(options) {
 
     Dashboards.registerAddIn("Table", "colType", new AddIn(clippedText));
 })();
-; /* ************************ new file ************************ */
+
+ /* ************************ new file ************************ */
 /*
  * queryTypes.js
  *
@@ -16120,6 +16140,8 @@ function AddIn(options) {
         getSuccessHandler: function (callback) {
             var myself = this;
             return function (json) {
+                // TODO - changed this in order to make the response a JSON object
+                // var JSONresponse = $.parseJSON(json);
                 myself.setOption('lastResultSet', json);
                 var clone = $.extend(true, {}, myself.getOption('lastResultSet'));
                 callback(clone);
@@ -16394,7 +16416,10 @@ function AddIn(options) {
         name: 'cda',
         label: 'CDA Query',
         defaults: {
-            url: Dashboards.getWebAppPath() + "/content/cda/doQuery?",
+            // TODO - changed to be more dinamic
+            // url: 'file:///Users/ionut/work/devfin/workspace/eudevfin/eudevfin/cdf-wrapper/src/main/webapp/js/test-results/resultsEudevfin.json',
+            url: 'http://localhost:8081/cda/doQuery?dataAccessId=simpleSQLQuery',
+            // url: Dashboards.getWebAppPath() + "/content/cda/doQuery?",
             file: '',
             id: '',
             outputIdx: '1',
@@ -16645,7 +16670,8 @@ function AddIn(options) {
     Dashboards.registerQuery("sql", legacyOpts);
 })();
 
-; /* ************************ new file ************************ */
+
+ /* ************************ new file ************************ */
 /******************************************************************************************************/
 /**************************************** OLAP UTILS**************************************************/
 /******************************************************************************************************/

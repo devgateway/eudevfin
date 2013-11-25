@@ -4,104 +4,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JavaScript Test CDF plugin</title>
 
-    <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+    <!-- load the bootstrap lib for testing -->
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/2.3.2/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 
+    <!-- load CDF lib css files -->
+    <link href="../../../main/webapp/js/theme/ui-lightness/jquery-ui-1.8.20.custom.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../main/webapp/js/addIns/coltypes.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../main/webapp/js/dataTables/css/demo_page.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../main/webapp/js/dataTables/css/demo_table.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../main/webapp/js/dataTables/css/demo_table_jui.css" rel="stylesheet" type="text/css"/>
+
+    <link href="../../../main/webapp/js/cdfcss.min.css" rel="stylesheet" type="text/css"/>
+
+    <script src="libs/js/jquery-1.8.3.min.js"></script>
+
+    <!-- load CDF javascript file -->
     <script src="../../../main/webapp/js/cdfplugin.js"></script>
-
-    <style>
-        .loading-bar {
-            display: none;
-        }
-
-        .loading-bar.is-active {
-            display: block;
-            font-size: 20px;
-            width: 10em;
-            height: 1em;
-            border-radius: .5em;
-            background: rgba(255,255,255,0.6);
-            box-shadow: 
-                0 0 0 .05em rgba(100,100,100,0.075),
-                0 0 0 .25em rgba(0,0,0,0.1),
-                inset 0 .1em .05em rgba(0,0,0,0.1),
-                0 .05em rgba(255,255,255,0.7);
-
-            position: fixed;
-            top: 40%;
-            margin-top: -0.5em;
-            left: 50%;
-            margin-left: -5em;
-            z-index: 100;
-        }
-
-        .loading-bar.is-active:after {
-            content: "Loading...";
-            position: absolute;
-            left: 25%;
-            top: 150%;
-            font-size: 1em;
-            color: #555;
-            text-shadow: 0 .05em rgba(255,255,255,0.7);
-        }
-
-        .loading-bar .sphere {
-            border-radius: 50%;
-            width: 1em;
-            height: 100%;
-            background: -webkit-linear-gradient(#eee, #ddd);
-            background: -moz-linear-gradient(#eee, #ddd);
-            background: -ms-linear-gradient(#eee, #ddd);
-            background: -o-linear-gradient(#eee, #ddd);
-            background: linear-gradient(#eee, #ddd);
-            box-shadow:
-                inset 0 .15em .1em rgba(255,255,255,0.3),
-                inset 0 -.1em .15em rgba(0,0,0,0.15),
-                0 0 .25em rgba(0,0,0,0.3);
-            display: block;
-            -webkit-animation: slide 1.5s ease-in-out infinite alternate;
-            -moz-animation: slide 1.5s ease-in-out infinite alternate;
-            -ms-animation: slide 1.5s ease-in-out infinite alternate;
-            -o-animation: slide 1.5s ease-in-out infinite alternate;
-            animation: slide 1.5s ease-in-out infinite alternate;
-        }
-
-        @-webkit-keyframes slide {
-            to { margin-left: 90%; }
-        }
-
-        @-moz-keyframes slide {
-            to { margin-left: 90%; }
-        }
-
-        @-ms-keyframes slide {
-            to { margin-left: 90%; }
-        }
-
-        @-o-keyframes slide {
-            to { margin-left: 90%; }
-        }
-
-        @keyframes slide {
-            to { margin-left: 90%; }
-        }
-    </style>
 
     <script>
         var pathToCdaFile = '/some/path.cda';
-        var paramTestSelector;
+        var testTableDefinition,
+            testTable;
 
-        testSelector = {
-            name: "testSelector",
-            parameter: "paramTestSelector",
-            htmlObject: "test-selector",
-            type: "select",
+        testTableDefinition = {
+            colHeaders: ["Col 1", "Col 2", "Col 3", "Col 4"],
+            colTypes: ['string', 'numeric', 'numeric', 'numeric'],
+            colFormats: ['%s', '%d', '%d', '%d'],
+            colWidths: ['40%', '20%', '20%', '20%'],
+            colSortable: [true, true, true, true],
+            sortBy: [[2, 'desc']],
+            tableStyle: "themeroller",
+            paginationType: "full_numbers",
+            paginateServerside: false,
+            paginate: true,
+            filter: true,
+            info: true,
+            sort: true,
+            lengthChange: false,
+            displayLength: 10,
+                // query properties
+            path: pathToCdaFile,                 // I don't think we will need this property
+            dataAccessId: "simpleSQLQuery"
+        };
+
+        testTable = {
+            name: "testTable",
+            type: "tableComponent",
+            listeners:[],
             parameters: [],
-            valueAsId: true,
+            chartDefinition: testTableDefinition,
+            htmlObject: "test-table",
             executeAtStart: true,
-            queryDefinition: {
-                dataAccessId: "testSelector", 
-                path: pathToCdaFile
-            },
             preChange: function (value) {
                 console.log('>>> preChange');
 
@@ -109,6 +62,8 @@
             },
             postFetch: function (values) {
                 console.log('>>> postFetch');
+                // debugger;
+                console.log(values);
 
                 return values;
             },
@@ -123,7 +78,7 @@
         };
 
         // The components to be loaded into the dashboard withing the [] separated by ,
-        var components = [testSelector];
+        var components = [testTable];
 
         // The initial dashboard load function definition
         var load = function () {
@@ -140,9 +95,18 @@
         <i class="sphere"></i>
     </div>
 
-    <div>
-        <h2>Test CDF Plugin</h2>
-        <div id="test-selector"></div>
-    </div>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span12">
+                <h2>Test CDF Plugin</h2>
+                <div class="box">
+                    <div class="box-header">
+                        <h2>Financial Transactions</h2>
+                    </div>
+                    <div id="test-table"></div>
+                </div>
+            </div>
+        </div>  <!-- /row-fluid -->
+    </div>   <!-- /container-fluid -->
 </body>
 </html>

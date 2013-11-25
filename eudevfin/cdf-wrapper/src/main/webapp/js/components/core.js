@@ -789,7 +789,7 @@ var QueryComponent = BaseComponent.extend({
         },
         warnOnce: function () {
             Dashboards.log("Warning: QueryComponent behaviour is due to change. See " +
-                "http://http://www.webdetails.org/redmine/projects/cdf/wiki/QueryComponent" +
+                "http://www.webdetails.org/redmine/projects/cdf/wiki/QueryComponent" +
                 " for more information");
             delete(this.warnOnce);
         }
@@ -817,8 +817,9 @@ var QueryComponent = BaseComponent.extend({
 
                 changedValues = undefined;
                 object.metadata = values.metadata;
-                object.result = values.resultset != undefined ? values.resultset : values;
+                object.result = values.resultset !== undefined ? values.resultset : values;
                 object.queryInfo = values.queryInfo;
+
                 if ((typeof(object.postFetch) == 'function')) {
                     changedValues = object.postFetch(values);
                 }

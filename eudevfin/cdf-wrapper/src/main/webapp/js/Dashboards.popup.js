@@ -91,6 +91,8 @@ wd.cdf.notifications.growl = {
             "    <h2 class='cdfNotificationDesc' title='{{desc}}'>{{{desc}}}</h2>" +
             "  </div>" +
             "</div>"),
+
+    // TODO - this must be changed! since we don't use blockUI lib anymore!
     defaults: {
         title: 'Title',
         desc: 'Default CDF notification.',
@@ -121,7 +123,8 @@ wd.cdf.notifications.growl = {
                 .appendTo('body');
             this.firstRender = false;
         }
-        this.$el.show().block(opts);
+        // TODO - removed the blockUI call
+        // this.$el.show().block(opts);
     },
     firstRender: true
 };
