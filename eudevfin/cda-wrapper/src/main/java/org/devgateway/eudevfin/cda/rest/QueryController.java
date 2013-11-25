@@ -28,7 +28,7 @@ public class QueryController {
 	private static final Logger logger = Logger
 			.getLogger(QueryController.class);
 
-	@RequestMapping(value = "/cda/doQuery", method = RequestMethod.GET)
+	@RequestMapping(value = "/doQuery", method = RequestMethod.GET)
 	public ModelAndView doQuery(
 			@RequestParam Map<String,String> allRequestParams
 		) {

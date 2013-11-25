@@ -27,7 +27,7 @@
 
 	<servlet-mapping>
 		<servlet-name>restservices</servlet-name>
-		<url-pattern>/</url-pattern>
+		<url-pattern>/cda/*</url-pattern>
 	</servlet-mapping>
 	
   <filter>
