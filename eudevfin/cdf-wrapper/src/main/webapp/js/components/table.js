@@ -36,9 +36,7 @@ if ($.fn.dataTableExt != undefined) {
 }
 
 var TableComponent = UnmanagedComponent.extend({
-
         ph: undefined,
-
 
         update: function () {
             if (!this.preExec()) {

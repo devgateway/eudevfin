@@ -83,29 +83,12 @@ module.exports = function(grunt) {
 			}
 		},
 
-		uglify: {
-			options: {
-				banner: '<%= banner %>'
-			},
-
-			min: {
-				files: [
-					{
-						src: ['src/main/webapp/js/cdfplugin.js'],
-						// src: ['target/cdfplugin.js'],
-						dest: 'src/main/webapp/js/cdfplugin.min.js'
-						// dest: 'target/cdfplugin.min.js'
-					}
-				]
-			}
-		},
-
 		concat: {
 			options: {
-				separator: '; /* ************************ new file ************************ */\n'
+				separator: '\n /* ************************ new file ************************ */\n'
 			},
 			
-			dist: {
+			js: {
 				src: [
 						'src/main/webapp/js/libs/underscore-1.5.2.js', 
 						'src/main/webapp/js/libs/backbone-1.1.0.js', 
@@ -126,7 +109,41 @@ module.exports = function(grunt) {
 						'src/main/webapp/js/OlapUtils.js'
 					],
 				dest: 'src/main/webapp/js/cdfplugin.js'
-				// dest: 'target/cdfplugin.js'
+			},
+
+			css: {
+				src: [
+						'src/main/webapp/js/cdf.css',
+						'src/main/webapp/js/style.css',
+						'src/main/webapp/js/blueprint/screen.css'
+					],
+				dest: 'src/main/webapp/js/cdfcss.css'
+			}
+		},
+
+		uglify: {
+			options: {
+				banner: '<%= banner %>'
+			},
+
+			min: {
+				files: [
+					{
+						src: ['src/main/webapp/js/cdfplugin.js'],
+						dest: 'src/main/webapp/js/cdfplugin.min.js'
+					}
+				]
+			}
+		},
+
+		cssmin: {
+			add_banner: {
+				options: {
+					banner: '<%= banner %>'
+				},
+				files: {
+					'src/main/webapp/js/cdfcss.min.css': ['src/main/webapp/js/cdfcss.css']
+				}
 			}
 		},
 
@@ -138,7 +155,12 @@ module.exports = function(grunt) {
 
 		clean: {
 			build: {
-				src: ['src/main/webapp/js/cdfplugin.js', 'src/main/webapp/js/cdfplugin.min.js']
+				src: [
+					'src/main/webapp/js/cdfplugin.js', 
+					'src/main/webapp/js/cdfplugin.min.js',
+					'src/main/webapp/js/cdfcss.css',
+					'src/main/webapp/js/cdfcss.min.css'
+					]
 			}
 		}
 	});
@@ -155,11 +177,15 @@ module.exports = function(grunt) {
 	// Load the plugin that provides the "qunit" task.
 	grunt.loadNpmTasks('grunt-contrib-qunit');
 
+	// Load the plugin that provides the "cssmin" task.
+	grunt.loadNpmTasks('grunt-contrib-cssmin');
+
 	// Load the plugin that provides the "clean" task.
 	grunt.loadNpmTasks('grunt-contrib-clean');
 
-	// Default task.
-	// grunt.registerTask('default', ['jshint:grunt', 'qunit', 'clean', 'concat', 'uglify']);
+	// dist task
+	grunt.registerTask('dist', ['jshint:grunt', 'qunit', 'clean', 'concat', 'cssmin', 'uglify']);
 
-	grunt.registerTask('default', ['jshint:grunt', 'concat']);
+	// Default task
+	grunt.registerTask('default', ['jshint:grunt', 'concat', 'cssmin']);
 };

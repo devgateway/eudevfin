@@ -67,6 +67,8 @@
         getSuccessHandler: function (callback) {
             var myself = this;
             return function (json) {
+                // TODO - changed this in order to make the response a JSON object
+                // var JSONresponse = $.parseJSON(json);
                 myself.setOption('lastResultSet', json);
                 var clone = $.extend(true, {}, myself.getOption('lastResultSet'));
                 callback(clone);
@@ -341,7 +343,10 @@
         name: 'cda',
         label: 'CDA Query',
         defaults: {
-            url: Dashboards.getWebAppPath() + "/content/cda/doQuery?",
+            // TODO - changed to be more dinamic
+            // url: 'file:///Users/ionut/work/devfin/workspace/eudevfin/eudevfin/cdf-wrapper/src/main/webapp/js/test-results/resultsEudevfin.json',
+            url: 'http://localhost:8081/cda/doQuery?dataAccessId=simpleSQLQuery',
+            // url: Dashboards.getWebAppPath() + "/content/cda/doQuery?",
             file: '',
             id: '',
             outputIdx: '1',
