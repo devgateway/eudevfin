@@ -16141,8 +16141,8 @@ function AddIn(options) {
             var myself = this;
             return function (json) {
                 // TODO - changed this in order to make the response a JSON object
-                // var JSONresponse = $.parseJSON(json);
-                myself.setOption('lastResultSet', json);
+                var JSONresponse = $.parseJSON(json);
+                myself.setOption('lastResultSet', JSONresponse);
                 var clone = $.extend(true, {}, myself.getOption('lastResultSet'));
                 callback(clone);
             }
@@ -16417,8 +16417,8 @@ function AddIn(options) {
         label: 'CDA Query',
         defaults: {
             // TODO - changed to be more dinamic
-            // url: 'file:///Users/ionut/work/devfin/workspace/eudevfin/eudevfin/cdf-wrapper/src/main/webapp/js/test-results/resultsEudevfin.json',
-            url: 'http://localhost:8081/cda/doQuery?dataAccessId=simpleSQLQuery',
+            url: 'file:///Users/ionut/work/devfin/workspace/eudevfin/eudevfin/cdf-wrapper/src/main/webapp/js/test-results/resultsEudevfin.json',
+            // url: 'http://localhost:8081/cda/doQuery?dataAccessId=simpleSQLQuery',
             // url: Dashboards.getWebAppPath() + "/content/cda/doQuery?",
             file: '',
             id: '',
