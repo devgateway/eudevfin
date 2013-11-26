@@ -24,7 +24,7 @@ public class QueryController {
 	private static final Logger logger = Logger
 			.getLogger(QueryController.class);
 
-	@RequestMapping(value = "/doQuery", method = RequestMethod.GET)
+	@RequestMapping(value = "/doQuery", method = {RequestMethod.GET, RequestMethod.POST})
 	public @ResponseBody
 	QueryResult doQuery(
 			@RequestParam Map<String,String> allRequestParams
