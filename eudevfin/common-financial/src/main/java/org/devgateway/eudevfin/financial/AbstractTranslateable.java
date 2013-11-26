@@ -15,10 +15,11 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
+import org.apache.log4j.Logger;
 import org.devgateway.eudevfin.financial.translate.AbstractTranslation;
 import org.devgateway.eudevfin.financial.util.ContextHelper;
 import org.devgateway.eudevfin.financial.util.FinancialConstants;
-import org.devgateway.eudevfin.financial.util.LocaleHelper;
+import org.devgateway.eudevfin.financial.util.LocaleHelperInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -28,6 +29,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 @MappedSuperclass
 public abstract class AbstractTranslateable<T extends AbstractTranslation<? extends AbstractTranslateable<T>>> {
+	
+	private static Logger logger	= Logger.getLogger(AbstractTranslateable.class);
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -99,12 +102,18 @@ public abstract class AbstractTranslateable<T extends AbstractTranslation<? exte
 	}
 	
 	private String decideLocaleToUse() {
+		logger.info("Deciding the locale to use");
 		if ( this.locale != null ) 
 			return this.locale;
 		else {
-			LocaleHelper localeHelper = ContextHelper.newInstance().getBean("localeHelper");
-			if ( localeHelper != null && localeHelper.getLocale() != null ) {
-				return localeHelper.getLocale();
+			try{
+				LocaleHelperInterface localeHelper = ContextHelper.newInstance().getBean("localeHelper");
+				if ( localeHelper != null && localeHelper.getLocale() != null ) {
+					return localeHelper.getLocale();
+				}
+			}
+			catch (RuntimeException ex) {
+				logger.warn("Problem getting locale helper from request scope: " + ex.getMessage() );
 			}
 		}
 		return FinancialConstants.DEFAULT_LOCALE;

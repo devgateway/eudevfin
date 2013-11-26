@@ -11,7 +11,7 @@ import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
 import org.devgateway.eudevfin.financial.service.OrganizationService;
 import org.devgateway.eudevfin.financial.util.FinancialConstants;
-import org.devgateway.eudevfin.financial.util.LocaleHelper;
+import org.devgateway.eudevfin.financial.util.LocaleHelperInterface;
 import org.joda.money.BigMoney;
 import org.junit.Assert;
 import org.junit.Before;
@@ -44,7 +44,7 @@ public class LocaleTest {
 	OrganizationService orgService;
 	
 	@Autowired 
-	LocaleHelper localeHelper;
+	LocaleHelperInterface localeHelper;
 	
 	@Before
 	public void setupTest() {
