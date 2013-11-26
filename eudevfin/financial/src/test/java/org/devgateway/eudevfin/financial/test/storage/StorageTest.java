@@ -45,7 +45,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/financialContext.xml",
-		"classpath:META-INF/commonFinancialContext.xml" })
+		"classpath:META-INF/commonFinancialContext.xml","classpath:testFinancialContext.xml" })
 @TransactionConfiguration(defaultRollback=false, transactionManager="transactionManager")
 public class StorageTest extends AbstractStorageTest{
 	

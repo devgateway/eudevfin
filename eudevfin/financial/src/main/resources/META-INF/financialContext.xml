@@ -31,6 +31,9 @@
 	<context:component-scan base-package="org.devgateway.eudevfin.financial" />
 	<context:annotation-config />
 
+	<!-- Defines the packages where the jpa entity repositories are. These provide access to the entities 
+		(orgs, transactions,etc) stored in the db 
+	-->
 	<jpa:repositories base-package="org.devgateway.eudevfin.financial.repository" />
 	<!-- auditing -->
     <jpa:auditing auditor-aware-ref="simpleAuditorAwareImpl" />
@@ -80,7 +83,7 @@
  </bean>
 
 
-
+	<!-- Hibernate / JPA related beans -->
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="euDevFinDataSource" />
 		<property name="packagesToScan" value="org.devgateway.eudevfin" />
@@ -106,32 +109,15 @@
 		<constructor-arg index="0" ref="entityManagerFactory"></constructor-arg>
 	</bean>
 	
-	
-	<int:channel id="findAllAsListChannel"/>
-	<int:channel id="createTransactionChannel" />
-	<int:channel id="findFinancialTransactionByIdChannel" />
-	<int:channel id="createOrganizationChannel" />
+	<!-- The list of channels that are used throughout the financial module -->
+	<int:channel id="findAllAsListTransactionChannel"/>
+	<int:channel id="saveTransactionChannel" />
+	<int:channel id="findTransactionByIdChannel" />
+	<int:channel id="saveOrganizationChannel" />
 
-
-	<int:gateway id="financialTransactionService" service-interface="org.devgateway.eudevfin.financial.service.FinancialTransactionService" >
-		<int:method name="getAllFinancialTransactions" request-channel="getChannel">
-			<int:header name="requestName" value="findAllAsListChannel"/>
-		</int:method>
-		<int:method name="createFinancialTransaction" request-channel="getChannel">
-			<int:header name="requestName" value="createTransactionChannel"/>
-		</int:method>
-		<int:method name="getTransacationById" request-channel="getChannel">
-			<int:header name="requestName" value="findFinancialTransactionByIdChannel"/>
-		</int:method>
-	</int:gateway>
-		
-	<int:gateway id="organizationService"
-		service-interface="org.devgateway.eudevfin.financial.service.OrganizationService">
-		<int:method name="createOrganization" request-channel="getChannel">
-			<int:header name="requestName" value="createOrganizationChannel"/>
-		</int:method>
-	</int:gateway>
-
+	<!-- 	Router that sends the requests to the appropriate channels where they will usually be handled by ServiceActivators. 
+			The name of the request channes is taken from the 'requestName' header parameter
+	 -->
 	<int:header-value-router input-channel="getChannel" header-name="requestName"/>
 
 

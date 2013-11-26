@@ -5,6 +5,5 @@ import org.springframework.integration.annotation.Gateway;
 import org.springframework.stereotype.Component;
 
 @Component
-public interface OrganizationService {
-	Organization createOrganization(Organization t);
+public interface OrganizationService extends BaseEntityService<Organization> {
 }

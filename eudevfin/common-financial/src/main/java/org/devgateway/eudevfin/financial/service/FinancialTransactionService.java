@@ -12,13 +12,8 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
-public interface FinancialTransactionService {
+public interface FinancialTransactionService extends BaseEntityService<FinancialTransaction> {
 	
-	FinancialTransaction createFinancialTransaction(FinancialTransaction t);
-	
-	@Payload("new java.util.Date()")
-	List<FinancialTransaction> getAllFinancialTransactions();
-	
-	FinancialTransaction getTransacationById(long id);
+
 
 }

@@ -10,6 +10,7 @@ import liquibase.exception.SetupException;
 import liquibase.exception.ValidationErrors;
 import liquibase.resource.ResourceAccessor;
 
+import org.devgateway.eudevfin.financial.util.ContextHelper;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -63,7 +64,7 @@ public class PopulateDbChange implements CustomTaskChange {
 	 */
 	@Override
 	public void execute(Database arg0) throws CustomChangeException {
-		this.ctxHelper.getPopulateDb().populate();
+		this.ctxHelper.getBean(PopulateDb.class).populate();
 
 	}
 

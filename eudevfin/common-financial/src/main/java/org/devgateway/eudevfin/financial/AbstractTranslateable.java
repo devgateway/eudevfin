@@ -16,11 +16,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 import org.devgateway.eudevfin.financial.translate.AbstractTranslation;
+import org.devgateway.eudevfin.financial.util.ContextHelper;
 import org.devgateway.eudevfin.financial.util.FinancialConstants;
+import org.devgateway.eudevfin.financial.util.LocaleHelper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+
 
 @MappedSuperclass
 public abstract class AbstractTranslateable<T extends AbstractTranslation<? extends AbstractTranslateable<T>>> {
@@ -39,15 +43,17 @@ public abstract class AbstractTranslateable<T extends AbstractTranslation<? exte
 	private Date modfiedDate;
 
 	@Transient
-	private String currentLocale;
+	private String locale;
+	
 	
 	@OneToMany(fetch=FetchType.EAGER, mappedBy="parent", cascade=CascadeType.ALL)
 	@MapKey(name="locale")
 	private Map<String, T> translations;
+
 	
 	
 	protected void set(String property, Object value) {
-		String locale		= (this.currentLocale!=null)?this.currentLocale:FinancialConstants.DEFAULT_LOCALE;
+		String locale		= this.decideLocaleToUse();
 		if ( this.translations == null ) {
 			this.translations	= new HashMap<>();
 		}
@@ -58,7 +64,8 @@ public abstract class AbstractTranslateable<T extends AbstractTranslation<? exte
 	
 	protected Object get(String property) {
 		if ( this.translations != null && this.translations.size()>0 ) {
-			Object result 	= this.attemptGet(this.currentLocale, property);
+			String locale		= this.decideLocaleToUse();
+			Object result 	= this.attemptGet(locale, property);
 			
 			if (result == null ) {
 				result 		= this.attemptGet(FinancialConstants.DEFAULT_LOCALE, property);
@@ -72,8 +79,10 @@ public abstract class AbstractTranslateable<T extends AbstractTranslation<? exte
 	private Object attemptGet (String locale, String property) {
 		if ( locale != null ) {
 			AbstractTranslation translation = this.translations.get(locale);
-			Object result	= translation.get(property);
-			return result;	
+			if ( translation != null ) {
+				Object result	= translation.get(property);
+				return result;
+			}
 		}
 		return null;
 	}
@@ -89,7 +98,33 @@ public abstract class AbstractTranslateable<T extends AbstractTranslation<? exte
 		this.translations.put(locale, translation);
 	}
 	
+	private String decideLocaleToUse() {
+		if ( this.locale != null ) 
+			return this.locale;
+		else {
+			LocaleHelper localeHelper = ContextHelper.newInstance().getBean("localeHelper");
+			if ( localeHelper != null && localeHelper.getLocale() != null ) {
+				return localeHelper.getLocale();
+			}
+		}
+		return FinancialConstants.DEFAULT_LOCALE;
+	}
+	
 	protected abstract T newTranslationInstance();
+
+	/**
+	 * @return the locale
+	 */
+	public String getLocale() {
+		return locale;
+	}
+
+	/**
+	 * @param locale the locale to set
+	 */
+	public void setLocale(String locale) {
+		this.locale = locale;
+	}
 
 	public Long getId() {
 		return id;
@@ -113,14 +148,6 @@ public abstract class AbstractTranslateable<T extends AbstractTranslation<? exte
 
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
-	}
-
-	public String getCurrentLocale() {
-		return currentLocale;
-	}
-
-	public void setCurrentLocale(String currentLocale) {
-		this.currentLocale = currentLocale;
 	}
 
 	public Map<String, T> getTranslations() {

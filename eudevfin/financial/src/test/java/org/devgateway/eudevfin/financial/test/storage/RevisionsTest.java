@@ -24,7 +24,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/financialContext.xml",
-		"classpath:META-INF/commonFinancialContext.xml" })
+		"classpath:META-INF/commonFinancialContext.xml","classpath:testFinancialContext.xml" })
 @TransactionConfiguration(defaultRollback=false, transactionManager="transactionManager")
 public class RevisionsTest extends AbstractStorageTest{
 	
