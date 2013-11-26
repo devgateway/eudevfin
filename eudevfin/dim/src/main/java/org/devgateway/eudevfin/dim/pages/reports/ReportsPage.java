@@ -9,9 +9,12 @@
  *    aartimon
  ******************************************************************************/
 
-package org.devgateway.eudevfin.dim.pages;
+package org.devgateway.eudevfin.dim.pages.reports;
 
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.devgateway.eudevfin.dim.core.Constants;
 import org.devgateway.eudevfin.dim.core.pages.HeaderFooter;
 import org.wicketstuff.annotation.mount.MountPath;
@@ -20,4 +23,10 @@ import org.wicketstuff.annotation.mount.MountPath;
 @AuthorizeInstantiation(Constants.ROLE_USER)
 public class ReportsPage extends HeaderFooter {
 
+    @Override
+    public void renderHead(IHeaderResponse response) {
+        super.renderHead(response);
+        response.render(JavaScriptHeaderItem.forUrl("/js/cdfplugin.js"));
+        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(ReportsPage.class, "reports.js")));
+    }
 }
