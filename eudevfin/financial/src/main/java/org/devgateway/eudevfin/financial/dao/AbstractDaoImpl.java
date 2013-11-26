@@ -42,4 +42,8 @@ public abstract class AbstractDaoImpl<Entity,Repo extends PagingAndSortingReposi
 	public void delete(Iterable<Entity> iterable) {
 		getRepo().delete(iterable);
 	}
+	
+	public Entity findOne(Long id) {
+		return getRepo().findOne(id);
+	}
 }

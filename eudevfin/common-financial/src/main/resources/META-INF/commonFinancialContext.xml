@@ -29,4 +29,24 @@
 	<context:annotation-config />
 	
 	<int:channel id="getChannel"/>
+	
+	<!-- This section contains the definition of the services that are made available to the other modules -->
+	<int:gateway id="financialTransactionService" service-interface="org.devgateway.eudevfin.financial.service.FinancialTransactionService" >
+		<int:method name="findAll" request-channel="getChannel">
+			<int:header name="requestName" value="findAllAsListTransactionChannel"/>
+		</int:method>
+		<int:method name="save" request-channel="getChannel">
+			<int:header name="requestName" value="saveTransactionChannel"/>
+		</int:method>
+		<int:method name="findById" request-channel="getChannel">
+			<int:header name="requestName" value="findTransactionByIdChannel"/>
+		</int:method>
+	</int:gateway>
+		
+	<int:gateway id="organizationService"
+		service-interface="org.devgateway.eudevfin.financial.service.OrganizationService">
+		<int:method name="save" request-channel="getChannel">
+			<int:header name="requestName" value="saveOrganizationChannel"/>
+		</int:method>
+	</int:gateway>
 </beans>

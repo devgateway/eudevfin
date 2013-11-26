@@ -1,4 +1,4 @@
-package org.devgateway.eudevfin.financial.liquibase;
+package org.devgateway.eudevfin.financial.util;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -14,8 +14,6 @@ public class ContextHelper implements ApplicationContextAware  {
 //		singleton	= new ContextHelper();
 //	}
 	
-	
-	private PopulateDb populateDb;
 	
 	private ContextHelper() {
 		;
@@ -33,10 +31,20 @@ public class ContextHelper implements ApplicationContextAware  {
 		}
 		return singleton;
 	}
-
-	public PopulateDb getPopulateDb() {
-		this.populateDb				= ContextHelper.appContext.getBean(PopulateDb.class);
-		return populateDb;
+	
+	public <T> T getBean(String id) {
+		T ret 	= (T)ContextHelper.appContext.getBean(id);
+		return ret;
 	}
+	
+	public <T> T getBean(Class<T> clazz) {
+		T ret 	= ContextHelper.appContext.getBean(clazz);
+		return ret;
+	}
+
+//	public PopulateDb getPopulateDb() {
+//		this.populateDb				= ContextHelper.appContext.getBean(PopulateDb.class);
+//		return populateDb;
+//	}
 
 }

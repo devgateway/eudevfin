@@ -232,16 +232,31 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
 //	public void setVersion(Long version) {
 //		this.version = version;
 //	}
-	@Override
-	public String toString() {
-		return String.format("Id %s, amount %f, description %s", id, amount.doubleValue(), getDescription());
-	}
+
+	
+	
 	@Override
 	protected FinancialTransactionTranslation newTranslationInstance() {
 		return new FinancialTransactionTranslation();
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "FinancialTransaction ["
+				+ (amount != null ? "amount=" + amount + ", " : "")
+				+ (amountsReceived != null ? "amountsReceived="
+						+ amountsReceived + ", " : "")
+				+ (commitments != null ? "commitments=" + commitments + ", "
+						: "")
+				+ (description != null ? "description=" + description : "")
+				+ "]";
+	}
+
+
 	public BigDecimal getAmount() {
 		return amount;
 	}

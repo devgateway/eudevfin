@@ -3,7 +3,6 @@
  */
 package org.devgateway.eudevfin.financial.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.devgateway.eudevfin.financial.FinancialTransaction;
@@ -23,18 +22,27 @@ public class FinancialTransactionDaoImpl extends AbstractDaoImpl<FinancialTransa
 	private FinancialTransactionRepository repo;
 	
 	@Override
-	@ServiceActivator(inputChannel="findAllAsListChannel")
+	@ServiceActivator(inputChannel="findAllAsListTransactionChannel")
 	public List<FinancialTransaction> findAllAsList() {
 		return super.findAllAsList();
 	}
 	
 	@Override
-	@ServiceActivator(inputChannel="createTransactionChannel")
+	@ServiceActivator(inputChannel="saveTransactionChannel")
 	public FinancialTransaction save(FinancialTransaction tx) {
 		return super.save(tx);
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.devgateway.eudevfin.financial.dao.AbstractDaoImpl#findOne(java.lang.Long)
+	 */
+	@Override
+	@ServiceActivator(inputChannel="findTransactionByIdChannel")
+	public FinancialTransaction findOne(Long id) {
+		return super.findOne(id);
+	}
+
 	public List<FinancialTransaction> findBySourceOrganizationId(Long orgId) {
 		return getRepo().findByReportingOrganizationId(orgId);
 	}
