@@ -3,12 +3,12 @@ var testTableDefinition,
     testTable;
 
 testTableDefinition = {
-    colHeaders: ["Col 1", "Col 2", "Col 3", "Col 4"],
-    colTypes: ['string', 'numeric', 'numeric', 'numeric'],
-    colFormats: ['%s', '%d', '%d', '%d'],
-    colWidths: ['40%', '20%', '20%', '20%'],
-    colSortable: [true, true, true, true],
-    sortBy: [[2, 'desc']],
+    colHeaders: ["Col 1", "Col 2", "Amount"],
+    colTypes: ['numeric', 'string', 'numeric'],
+    colFormats: ['%d', '%s', '%d'],
+    colWidths: ['30%', '40', '30%'],
+    colSortable: [true, true, true],
+    // sortBy: [[2, 'desc']],	for now the sort on CDA is not working 
     tableStyle: "themeroller",
     paginationType: "full_numbers",
     paginateServerside: false,
@@ -17,7 +17,7 @@ testTableDefinition = {
     info: true,
     sort: true,
     lengthChange: false,
-    displayLength: 10,
+    displayLength: 4,
     // query properties
     path: pathToCdaFile,                 // I don't think we will need this property
     dataAccessId: "simpleSQLQuery"

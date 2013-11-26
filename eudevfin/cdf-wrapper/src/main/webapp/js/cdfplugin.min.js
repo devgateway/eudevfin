@@ -1,5 +1,5 @@
 /**
-  * CDF-dashboards - v0.0.1 - 2013-11-25
+  * CDF-dashboards - v0.0.1 - 2013-11-26
   * http://developmentgateway.org/
   * Project description: CDF dashboards
   * Licensed: Apache 2
