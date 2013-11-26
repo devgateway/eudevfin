@@ -20,8 +20,10 @@ import org.apache.wicket.model.IModel;
  * @since 31 October 2013
  */
 public class CheckBoxField extends AbstractInputField<Boolean> {
-    public CheckBoxField(String id, IModel<Boolean> model, String messageKeyGroup) {
-        super(id, model, messageKeyGroup);
+
+
+    public CheckBoxField(String id, IModel<Boolean> model) {
+        super(id, model);
     }
 
     @Override

@@ -42,11 +42,10 @@ public class IdentificationDataTab extends Panel {
         reportingYear.typeInteger().required().range(1900, 2099).decorateMask("9999");
         add(reportingYear);
 
-        DateInputField commitmentDate = new DateInputField("1bCommitmentDate", new RWComponentPropertyModel<Date>("commitmentDate"), "1bCommitmentDate");
+        DateInputField commitmentDate = new DateInputField("1bCommitmentDate", new RWComponentPropertyModel<Date>("commitmentDate"));
         add(commitmentDate);
 
         DropDownField<String> reportingCountry = new DropDownField<>("2reportingCountry", new RWComponentPropertyModel<String>("reportingCountry"),
-                "2reportingCountry",
                 StaticBinds.countryProvider);
 
         add(reportingCountry);

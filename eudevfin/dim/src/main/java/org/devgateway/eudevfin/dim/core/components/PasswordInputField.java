@@ -21,6 +21,10 @@ import org.apache.wicket.model.IModel;
  */
 public class PasswordInputField extends AbstractInputField<String> {
 
+
+    public PasswordInputField(String id, IModel<String> model) {
+        this(id, model, id);
+    }
     public PasswordInputField(String id, IModel<String> model, String messageKeyGroup) {
         super(id, model, messageKeyGroup);
     }

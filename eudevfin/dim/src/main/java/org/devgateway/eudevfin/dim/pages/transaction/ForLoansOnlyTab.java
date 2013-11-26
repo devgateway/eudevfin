@@ -37,11 +37,11 @@ public class ForLoansOnlyTab extends Panel {
     }
 
     private void addComponents() {
-        DropDownField<String> typeOfRepayment = new DropDownField<>("44typeOfRepayment", new RWComponentPropertyModel<String>("typeOfRepayment"), "44typeOfRepayment",
+        DropDownField<String> typeOfRepayment = new DropDownField<>("44typeOfRepayment", new RWComponentPropertyModel<String>("typeOfRepayment"),
                 StaticBinds.countryProvider);
         add(typeOfRepayment);
 
-        DropDownField<String> numberOfRepayments = new DropDownField<>("45numberOfRepayments", new RWComponentPropertyModel<String>("numberOfRepayments"), "45numberOfRepayments",
+        DropDownField<String> numberOfRepayments = new DropDownField<>("45numberOfRepayments", new RWComponentPropertyModel<String>("numberOfRepayments"),
                 StaticBinds.countryProvider);
         add(numberOfRepayments);
 
@@ -53,10 +53,10 @@ public class ForLoansOnlyTab extends Panel {
         secondInterestRate.typeInteger().decorateMask("99999");
         add(secondInterestRate);
 
-        DateInputField firstRepaymentDate = new DateInputField("48firstRepaymentDate", new RWComponentPropertyModel<Date>("firstRepaymentDate"), "48firstRepaymentDate");
+        DateInputField firstRepaymentDate = new DateInputField("48firstRepaymentDate", new RWComponentPropertyModel<Date>("firstRepaymentDate"));
         add(firstRepaymentDate);
 
-        DateInputField finalRepaymentDate = new DateInputField("49finalRepaymentDate", new RWComponentPropertyModel<Date>("finalRepaymentDate"), "49finalRepaymentDate");
+        DateInputField finalRepaymentDate = new DateInputField("49finalRepaymentDate", new RWComponentPropertyModel<Date>("finalRepaymentDate"));
         add(finalRepaymentDate);
 
         TextInputField interestReceived = new TextInputField<>("50interestReceived", new RWComponentPropertyModel<Integer>("interestReceived"));

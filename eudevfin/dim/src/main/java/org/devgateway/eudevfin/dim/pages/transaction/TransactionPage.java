@@ -144,6 +144,17 @@ public class TransactionPage extends HeaderFooter {
         String tbd98;
         String tbd99;
         //Volume Data
+        String currency;
+        String commitments;
+        String amountsExtended;
+        String amountsReceived;
+        String amountUntied;
+        String amountPartiallyUntied;
+        String amountTied;
+        String amountOfIRTC;
+        String amountOfExpertsCommitments;
+        String amountOfExpertsExtended;
+        String amountOfExportCredit;
 
         //For Loans Only
         String typeOfRepayment;
@@ -158,7 +169,6 @@ public class TransactionPage extends HeaderFooter {
         Integer arrearsOfInterest;
         Integer futureDebtPrincipal;
         Integer futureDebtInterest;
-
 
         private Date getCommitmentDate() {
             return commitmentDate;
@@ -552,10 +562,99 @@ public class TransactionPage extends HeaderFooter {
             this.crsId = crsId;
         }
 
+        private String getCurrency() {
+            return currency;
+        }
+
+        private void setCurrency(String currency) {
+            this.currency = currency;
+        }
+
+        private String getCommitments() {
+            return commitments;
+        }
+
+        private void setCommitments(String commitments) {
+            this.commitments = commitments;
+        }
+
+        private String getAmountsExtended() {
+            return amountsExtended;
+        }
+
+        private void setAmountsExtended(String amountsExtended) {
+            this.amountsExtended = amountsExtended;
+        }
+
+        private String getAmountsReceived() {
+            return amountsReceived;
+        }
+
+        private void setAmountsReceived(String amountsReceived) {
+            this.amountsReceived = amountsReceived;
+        }
+
+        private String getAmountUntied() {
+            return amountUntied;
+        }
+
+        private void setAmountUntied(String amountUntied) {
+            this.amountUntied = amountUntied;
+        }
+
+        private String getAmountPartiallyUntied() {
+            return amountPartiallyUntied;
+        }
+
+        private void setAmountPartiallyUntied(String amountPartiallyUntied) {
+            this.amountPartiallyUntied = amountPartiallyUntied;
+        }
+
+        private String getAmountTied() {
+            return amountTied;
+        }
+
+        private void setAmountTied(String amountTied) {
+            this.amountTied = amountTied;
+        }
+
+        private String getAmountOfIRTC() {
+            return amountOfIRTC;
+        }
+
+        private void setAmountOfIRTC(String amountOfIRTC) {
+            this.amountOfIRTC = amountOfIRTC;
+        }
+
+        private String getAmountOfExpertsCommitments() {
+            return amountOfExpertsCommitments;
+        }
+
+        private void setAmountOfExpertsCommitments(String amountOfExpertsCommitments) {
+            this.amountOfExpertsCommitments = amountOfExpertsCommitments;
+        }
+
+        private String getAmountOfExpertsExtended() {
+            return amountOfExpertsExtended;
+        }
+
+        private void setAmountOfExpertsExtended(String amountOfExpertsExtended) {
+            this.amountOfExpertsExtended = amountOfExpertsExtended;
+        }
+
+        private String getAmountOfExportCredit() {
+            return amountOfExportCredit;
+        }
+
+        private void setAmountOfExportCredit(String amountOfExportCredit) {
+            this.amountOfExportCredit = amountOfExportCredit;
+        }
+
         @Override
         public String toString() {
             return "FakeTransaction{" +
                     "reportingYear=" + reportingYear +
+                    ", commitmentDate=" + commitmentDate +
                     ", reportingCountry='" + reportingCountry + '\'' +
                     ", extendingAgency='" + extendingAgency + '\'' +
                     ", crsId=" + crsId +
@@ -591,7 +690,17 @@ public class TransactionPage extends HeaderFooter {
                     ", tbd97='" + tbd97 + '\'' +
                     ", tbd98='" + tbd98 + '\'' +
                     ", tbd99='" + tbd99 + '\'' +
-                    ", commitmentDate=" + commitmentDate +
+                    ", currency='" + currency + '\'' +
+                    ", commitments='" + commitments + '\'' +
+                    ", amountsExtended='" + amountsExtended + '\'' +
+                    ", amountsReceived='" + amountsReceived + '\'' +
+                    ", amountUntied='" + amountUntied + '\'' +
+                    ", amountPartiallyUntied='" + amountPartiallyUntied + '\'' +
+                    ", amountTied='" + amountTied + '\'' +
+                    ", amountOfIRTC='" + amountOfIRTC + '\'' +
+                    ", amountOfExpertsCommitments='" + amountOfExpertsCommitments + '\'' +
+                    ", amountOfExpertsExtended='" + amountOfExpertsExtended + '\'' +
+                    ", amountOfExportCredit='" + amountOfExportCredit + '\'' +
                     ", typeOfRepayment='" + typeOfRepayment + '\'' +
                     ", numberOfRepayments='" + numberOfRepayments + '\'' +
                     ", interestRate=" + interestRate +

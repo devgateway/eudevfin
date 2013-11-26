@@ -21,6 +21,16 @@ import org.apache.wicket.model.StringResourceModel;
 public abstract class AbstractInputField<T> extends AbstractField<T>{
     private IModel<String> placeholderText;
 
+
+    /**
+     * Constructor that will use the id as the messageKeyGroup
+     * @param id
+     * @param model
+     */
+    public AbstractInputField(String id, IModel<T> model){
+        this (id, model, id);
+    }
+
     public AbstractInputField(String id, IModel<T> model, String messageKeyGroup){
         super(id, model, messageKeyGroup);
 

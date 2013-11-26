@@ -49,7 +49,7 @@ public class AvailableComponentsTab extends Panel {
         email.decorateAsEmailField();
         add(email);
 
-        DateInputField date = new DateInputField("date", Model.of(new Date()), "date");
+        DateInputField date = new DateInputField("date", Model.of(new Date()));
         add(date);
 
         ChoiceProvider<String> choiceProvider = new StringTextChoiceProvider() {
@@ -63,15 +63,15 @@ public class AvailableComponentsTab extends Panel {
             }
         };
 
-        DropDownField dd = new DropDownField<>("dropdown", Model.of(""), "dropdown", choiceProvider).disableSearch();
+        DropDownField dd = new DropDownField<>("dropdown", Model.of(""), choiceProvider).disableSearch();
 
         add(dd);
 
         //noinspection unchecked
-        MultiSelectField ms = new MultiSelectField<>("multi", new Model(new ArrayList<String>()), "multi", choiceProvider);
+        MultiSelectField ms = new MultiSelectField<>("multi", new Model(new ArrayList<String>()), choiceProvider);
         add(ms);
 
-        CheckBoxField cb = new CheckBoxField("checkbox", Model.of(Boolean.FALSE), "checkbox");
+        CheckBoxField cb = new CheckBoxField("checkbox", Model.of(Boolean.FALSE));
         add(cb);
 
 

@@ -27,8 +27,8 @@ public class MultiSelectField<T> extends AbstractInputField<Collection<T>> {
     private ChoiceProvider<T> choiceProvider;
 
     @SuppressWarnings("unchecked")
-    public MultiSelectField(String id, IModel<Collection<T>> model, String messageKeyGroup, ChoiceProvider<T> choiceProvider) {
-        super(id, model, messageKeyGroup);
+    public MultiSelectField(String id, IModel<Collection<T>> model, ChoiceProvider<T> choiceProvider) {
+        super(id, model);
         //the field will already be populated by the AbstractInputField constructor
         ((Select2MultiChoice<T>)field).setProvider(choiceProvider);
     }

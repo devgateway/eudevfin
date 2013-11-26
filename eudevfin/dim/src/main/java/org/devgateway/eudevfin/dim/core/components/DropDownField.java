@@ -24,8 +24,8 @@ public class DropDownField<T> extends AbstractInputField<T> {
 
     private ChoiceProvider<T> choiceProvider;
 
-    public DropDownField(String id, IModel<T> model, String messageKeyGroup, ChoiceProvider<T> choiceProvider) {
-        super(id, model, messageKeyGroup);
+    public DropDownField(String id, IModel<T> model, ChoiceProvider<T> choiceProvider) {
+        super(id, model);
         //the field will already be populated by the AbstractInputField constructor
         getField().setProvider(choiceProvider);
     }

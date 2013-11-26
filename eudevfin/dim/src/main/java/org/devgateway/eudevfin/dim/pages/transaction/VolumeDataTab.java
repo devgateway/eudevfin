@@ -36,7 +36,7 @@ public class VolumeDataTab extends Panel{
     private void addComponents() {
 
         DropDownField<String> currency = new DropDownField<>("32currency", new RWComponentPropertyModel<String>("currency"),
-                "32currency", StaticBinds.yesNoProvider);
+                StaticBinds.yesNoProvider);
         add(currency);
 
         TextInputField<Integer> commitments = new TextInputField<>("33commitments", new RWComponentPropertyModel<Integer>("commitments"));

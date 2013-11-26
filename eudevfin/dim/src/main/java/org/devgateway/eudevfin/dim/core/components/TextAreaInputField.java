@@ -22,8 +22,9 @@ import org.apache.wicket.model.IModel;
 public class TextAreaInputField extends AbstractInputField<String> {
     private int rows = 3;
 
-    public TextAreaInputField(String id, IModel<String> model, String messageKeyGroup) {
-        super(id, model, messageKeyGroup);
+
+    public TextAreaInputField(String id, IModel<String> model) {
+        super(id, model);
     }
 
     @Override
