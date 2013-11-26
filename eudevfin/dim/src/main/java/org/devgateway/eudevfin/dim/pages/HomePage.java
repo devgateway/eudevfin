@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2013 Development Gateway.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v3.0
@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    aartimon
- ******************************************************************************/
+ */
 
 package org.devgateway.eudevfin.dim.pages;
 
@@ -27,7 +27,7 @@ import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
 import org.devgateway.eudevfin.financial.service.OrganizationService;
 import org.wicketstuff.annotation.mount.MountPath;
 
-@MountPath(value = "/")
+@MountPath(value = "/home")
 @AuthorizeInstantiation(Constants.ROLE_USER)
 public class HomePage extends HeaderFooter {
     protected ListView<FinancialTransaction> transactionListView = null;

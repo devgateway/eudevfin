@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2013 Development Gateway.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v3.0
@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    aartimon
- ******************************************************************************/
+ */
 package org.devgateway.eudevfin.dim.spring;
 
 import java.util.Locale;
@@ -50,6 +50,7 @@ import org.devgateway.eudevfin.financial.util.LocaleHelper;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
 
 
 public class WicketSpringApplication extends AuthenticatedWebApplication implements ApplicationContextAware {
@@ -66,7 +67,7 @@ public class WicketSpringApplication extends AuthenticatedWebApplication impleme
         setHeaderResponseDecorator(new RenderJavaScriptToFooterHeaderResponseDecorator());
 
         //mount annotated pages
-        //new AnnotatedMountScanner().scanPackage("org.devgateway.eudevfin.dim").mount(this);
+        new AnnotatedMountScanner().scanPackage("org.devgateway.eudevfin.dim").mount(this);
 
         //implemented ApplicationContextAware and added context as a parameter to help JUnit tests work
         getComponentInstantiationListeners().add(
