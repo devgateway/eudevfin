@@ -114,8 +114,7 @@ module.exports = function(grunt) {
 			css: {
 				src: [
 						'src/main/webapp/js/cdf.css',
-						'src/main/webapp/js/style.css',
-						'src/main/webapp/js/blueprint/screen.css'
+						'src/main/webapp/js/style.css'
 					],
 				dest: 'src/main/webapp/js/cdfcss.css'
 			}

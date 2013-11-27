@@ -206,7 +206,7 @@ div.box{
   	border: 1px solid #ddd;
 	margin-bottom: -1px;
   	padding: 10px;
-  	background-color: #fafafa;
+  	/*background-color: #fafafa;*/
   	background-image: -moz-linear-gradient(top, #fafafa, #efefef);
   	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fafafa), to(#efefef));
   	background-image: -webkit-linear-gradient(top, #fafafa, #efefef);
@@ -271,7 +271,7 @@ div.box{
   	margin-top: -1px;
 	padding: 10px;
   	border: 1px solid #ddd;
-  	background: #fcfcfc;
+  	/*background: #fcfcfc;*/
   	-webkit-border-radius: 0px 0px 2px 2px;
 	   -moz-border-radius: 0px 0px 2px 2px;
           	border-radius: 0px 0px 2px 2px;

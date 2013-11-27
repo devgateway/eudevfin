@@ -17,7 +17,7 @@ testTableDefinition = {
     info: true,
     sort: true,
     lengthChange: false,
-    displayLength: 4,
+    displayLength: 5,
     // query properties
     path: pathToCdaFile,                 // I don't think we will need this property
     dataAccessId: "simpleSQLQuery"
@@ -53,7 +53,7 @@ testTable = {
     }
 };
 
-// The components to be loaded into the dashboard withing the [] separated by ,
+// The components to be loaded into the dashboard within the [] separated by ,
 var components = [testTable];
 
 // The initial dashboard load function definition
