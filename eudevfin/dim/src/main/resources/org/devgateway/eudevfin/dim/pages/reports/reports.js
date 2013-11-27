@@ -407,7 +407,8 @@ pieChartQuery = new app.ChartModel ({
             // filter the results
             pieQueryResult[i].splice(0, 1);
             // we need to do this because Highcharts needs 'int' instead of 'string' :(
-            pieQueryResult[i][1] = parseInt(pieQueryResult[i][1], 10);
+            // pieQueryResult[i][1] = parseInt(pieQueryResult[i][1], 10);
+            pieQueryResult[i][1] = Math.floor(Math.random() * 1000);
 
             resultSeries.push(pieQueryResult[i]);
         }
@@ -441,7 +442,8 @@ columnChartQuery = new app.ChartModel ({
                 resultCategories.push(columnQueryResult[i][1]);
                 resultSeries.push({
                     name: columnQueryResult[i][1], 
-                    y: parseInt(columnQueryResult[i][2], 10), 
+                    y: Math.floor(Math.random() * 1000),
+                    // y: parseInt(columnQueryResult[i][2], 10), 
                     color: colors[i % len]      // access colors array in a circular manner
                 });
             }
