@@ -42,6 +42,14 @@
 			<artifactId>financial</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.devgateway.eudevfin</groupId>
+			<artifactId>common-exchange</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		
 
 		<dependency>
 			<groupId>org.devgateway.eudevfin</groupId>

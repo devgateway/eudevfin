@@ -10,7 +10,20 @@
 
 
 	<dependencies>
-		<dependency>
+
+	<dependency>
+		<groupId>org.devgateway.eudevfin</groupId>
+		<artifactId>common-exchange</artifactId>
+		<version>${project.version}</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.devgateway.eudevfin</groupId>
+		<artifactId>financial</artifactId>
+		<version>${project.version}</version>
+	</dependency>
+
+	<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.9.11</version>
