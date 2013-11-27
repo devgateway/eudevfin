@@ -27,6 +27,8 @@ public class ReportsPage extends HeaderFooter {
     public void renderHead(IHeaderResponse response) {
         super.renderHead(response);
         response.render(JavaScriptHeaderItem.forUrl("/js/cdfplugin.min.js"));
+        response.render(JavaScriptHeaderItem.forUrl("/js/Highcharts-3.0.7/js/highcharts.js"));
+        response.render(JavaScriptHeaderItem.forUrl("/js/Highcharts-3.0.7/js/modules/exporting.js"));
         response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(ReportsPage.class, "reports.js")));
     }
 }

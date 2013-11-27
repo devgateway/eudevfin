@@ -11807,7 +11807,7 @@ Dashboards.hsvToRgb = function (h, s, v) {
 
 //     return Dashboards.getQuery(queryType, opts);
 // };
-// // QUERIES end
+// QUERIES end
 
 
  /* ************************ new file ************************ */
