@@ -10,6 +10,10 @@
  ******************************************************************************/
 package org.devgateway.eudevfin.dim.spring;
 
+import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
+
 import de.agilecoders.wicket.core.Bootstrap;
 import de.agilecoders.wicket.core.markup.html.RenderJavaScriptToFooterHeaderResponseDecorator;
 import de.agilecoders.wicket.core.markup.html.references.BootstrapPrettifyCssReference;
@@ -25,10 +29,14 @@ import de.agilecoders.wicket.themes.markup.html.google.GoogleTheme;
 import de.agilecoders.wicket.themes.markup.html.metro.MetroTheme;
 import de.agilecoders.wicket.themes.markup.html.wicket.WicketTheme;
 import de.agilecoders.wicket.themes.settings.BootswatchThemeProvider;
+
 import org.apache.wicket.Page;
+import org.apache.wicket.Session;
 import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.request.cycle.AbstractRequestCycleListener;
+import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.resource.CssResourceReference;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
@@ -38,6 +46,7 @@ import org.devgateway.eudevfin.dim.core.FixBootstrapStylesCssResourceReference;
 import org.devgateway.eudevfin.dim.core.JQueryUICoreJavaScriptReference;
 import org.devgateway.eudevfin.dim.pages.HomePage;
 import org.devgateway.eudevfin.dim.pages.LoginPage;
+import org.devgateway.eudevfin.financial.util.LocaleHelper;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -62,6 +71,21 @@ public class WicketSpringApplication extends AuthenticatedWebApplication impleme
         //implemented ApplicationContextAware and added context as a parameter to help JUnit tests work
         getComponentInstantiationListeners().add(
                 new SpringComponentInjector(this, ctx, true));
+        
+        getRequestCycleListeners().add(
+        		new AbstractRequestCycleListener() {
+        			@Override
+        			public void onBeginRequest(RequestCycle cycle)
+        			{
+        				Locale locale	= Session.get().getLocale();
+        				if (locale != null) {
+        					LocaleHelper localeHelper = WicketSpringApplication.this.ctx.getBean(LocaleHelper.class);
+        					if ( locale.getLanguage() != null)
+        						localeHelper.setLocale(locale.getLanguage().toLowerCase() );
+        				}
+        			}
+				}
+        );
 
     }
 

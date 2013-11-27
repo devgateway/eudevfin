@@ -11,12 +11,18 @@
 
 package org.devgateway.eudevfin.dim.pages;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.dim.core.Constants;
 import org.devgateway.eudevfin.dim.core.pages.HeaderFooter;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
+import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
 import org.devgateway.eudevfin.financial.service.OrganizationService;
 import org.wicketstuff.annotation.mount.MountPath;
@@ -34,15 +40,20 @@ public class HomePage extends HeaderFooter {
     public HomePage() {
         super();
 
-		/*Organization o			= new Organization();
-        o.setName("WicketTest Org");
-		orgService.createOrganization(o);
+		Organization o			= new Organization();
+        o.setName("WicketTest Org - default locale");
+        o.setLocale("ro");
+        o.setName("WicketTest Org - ro locale");
+		orgService.save(o);
 		FinancialTransaction ft = new FinancialTransaction();
 		ft.setAmount(new BigDecimal(777));
-		ft.setDescription("Wicket test descr");
-		ft.setSourceOrganization(o);
-		txService.createFinancialTransaction(ft);
-		List<FinancialTransaction> allTransactions = txService.getAllFinancialTransactions();
+		ft.setDescription("Wicket test descr - default locale");
+		ft.setLocale("ro");
+		ft.setDescription("Wicket test descr - ro locale");
+		
+		ft.setReportingOrganization(o);
+		txService.save(ft);
+		List<FinancialTransaction> allTransactions = txService.findAll();
 		this.transactionListView				= new ListView<FinancialTransaction>("transaction-list", allTransactions  ) {
 
 			@Override
@@ -53,14 +64,16 @@ public class HomePage extends HeaderFooter {
 				ftListItem.add(idLabel);
 				Label amountLabel						= new Label("transaction-value", tempTx.getAmount().toPlainString() );
 				ftListItem.add(amountLabel);
-				Label orgLabel						= new Label("organization-name", tempTx.getSourceOrganization().getName() );
+				Label descriptionLabel						= new Label("transaction-description", tempTx.getDescription() );
+				ftListItem.add(descriptionLabel);
+				Label orgLabel						= new Label("organization-name", tempTx.getReportingOrganization().getName() );
 				ftListItem.add(orgLabel);
 				
 			}
 			
 		};
 		
-		this.add(transactionListView);*/
+		this.add(transactionListView);
     }
 
 }
