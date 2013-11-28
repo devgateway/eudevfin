@@ -14,7 +14,7 @@ package org.devgateway.eudevfin.exchange.test;
 import java.math.BigDecimal;
 
 import org.devgateway.eudevfin.exchange.common.domain.HistoricalExchangeRate;
-import org.devgateway.eudevfin.exchange.repository.HistoricalExchangeRateRepository;
+import org.devgateway.eudevfin.exchange.common.service.HistoricalExchangeRateService;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.ExchangeRate;
 import org.joda.time.LocalDateTime;
@@ -22,42 +22,39 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:META-INF/financialContext.xml",
-		"classpath:META-INF/commonFinancialContext.xml",
+		"classpath:META-INF/commonExchangeContext.xml",
 		"classpath:META-INF/exchangeContext.xml"})
 @TransactionConfiguration(transactionManager="transactionManager")
-public class TestPersistentHistoricalExchangeRateRepository {
-	
+public class TestPersistentHistoricalExchangeRateService {
+
 	@Autowired
-	private HistoricalExchangeRateRepository repo;
+	HistoricalExchangeRateService service;
+
 	
 	/**
-	 * Creates an exhange rate locally, no S-I
+	 * Tests the exchange rate service to remotely save/retrieve an exchange rate
 	 */
 	@Test
 	public void testCreateReadHistoricalExchangeRate() {
-		
 		HistoricalExchangeRate her=new HistoricalExchangeRate();
 		her.setDate(LocalDateTime.now());
 		her.setRate(ExchangeRate.of(CurrencyUnit.USD, CurrencyUnit.EUR, BigDecimal.valueOf(1.33d)));
-		repo.save(her);
+		service.save(her);
 		
 		Assert.assertNotNull(her.getId());
 		
 		Long id = her.getId();
 		
-		HistoricalExchangeRate one = repo.findOne(id);
+		HistoricalExchangeRate one = service.findById(id);
 		
 		Assert.assertEquals(her.getId(), one.getId());
 		Assert.assertEquals(her.getDate(), one.getDate());
 		Assert.assertEquals(her.getRate(), one.getRate());
 	}
-	
-	
 }

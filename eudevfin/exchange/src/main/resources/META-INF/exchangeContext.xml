@@ -37,6 +37,7 @@
 	<int:channel id="getCurrenciesJson" />
 	<int:channel id="getHistoricalExchangeRateByIdChannel"/>
 	<int:channel id="createHistoricalExchangeRateChannel"/>
+	<int:channel id="exchangeChannel"/>
 
 
 	<!-- complete list of supported currencies for the exchange service -->
@@ -64,5 +65,9 @@
 		<property name="connectTimeout" value="5000" />
 		<property name="readTimeout" value="5000" />
 	</bean>
+
+	<int:header-value-router input-channel="exchangeChannel" header-name="requestName"/>
+
+
 
 </beans>
