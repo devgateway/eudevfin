@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2013 Development Gateway.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v3.0
@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    aartimon
- ******************************************************************************/
+ */
 package org.devgateway.eudevfin.dim.spring;
 
 import org.apache.log4j.Logger;
@@ -17,12 +17,17 @@ import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.devgateway.eudevfin.dim.core.Constants;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
 
 public class SpringWicketWebSession extends AuthenticatedWebSession {
 
@@ -76,6 +81,13 @@ public class SpringWicketWebSession extends AuthenticatedWebSession {
 	public Roles getRoles() {
 		Roles roles = new Roles();
 		getRolesIfSignedIn(roles);
+
+        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest httpServletRequest = requestAttributes.getRequest();
+        String transactionType = (String) httpServletRequest.getParameter(Constants.TRANSACTION_TYPE);
+        if (transactionType != null && !transactionType.isEmpty())
+            roles.add(transactionType);
+
 		return roles;
 	}
 

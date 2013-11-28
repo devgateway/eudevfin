@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2013 Development Gateway.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v3.0
@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    aartimon
- ******************************************************************************/
+ */
 
 package org.devgateway.eudevfin.dim.pages.transaction;
 
@@ -86,7 +86,7 @@ public class ForLoansOnlyTab extends Panel {
     }
 
     public static ITab newTab(Component askingComponent){
-        return new AbstractTab(new StringResourceModel("tabs.loans", askingComponent, null)){
+        return new AbstractTab(new StringResourceModel("tabs.loans", askingComponent, null)) {
             private static final long serialVersionUID = -724508987522388955L;
 
             @Override

@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2013 Development Gateway.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v3.0
@@ -7,16 +7,13 @@
  *
  * Contributors:
  *    aartimon
- ******************************************************************************/
+ */
 
 package org.devgateway.eudevfin.dim.core.pages;
 
 import de.agilecoders.wicket.core.Bootstrap;
 import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.BootstrapBaseBehavior;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.DropDownButton;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuBookmarkablePageLink;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuDivider;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuHeader;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.*;
 import de.agilecoders.wicket.core.markup.html.bootstrap.html.ChromeFrameMetaTag;
 import de.agilecoders.wicket.core.markup.html.bootstrap.html.HtmlTag;
 import de.agilecoders.wicket.core.markup.html.bootstrap.html.OptimizedMobileViewportMetaTag;
@@ -47,11 +44,14 @@ import org.apache.wicket.util.string.StringValue;
 import org.devgateway.eudevfin.dim.core.ApplicationJavaScript;
 import org.devgateway.eudevfin.dim.core.Constants;
 import org.devgateway.eudevfin.dim.core.FixBootstrapStylesCssResourceReference;
+import org.devgateway.eudevfin.dim.core.StaticBinds;
 import org.devgateway.eudevfin.dim.pages.AdminPage;
 import org.devgateway.eudevfin.dim.pages.HomePage;
 import org.devgateway.eudevfin.dim.pages.LogoutPage;
 import org.devgateway.eudevfin.dim.pages.reports.ReportsPage;
 import org.devgateway.eudevfin.dim.pages.transaction.TransactionPage;
+import org.devgateway.eudevfin.dim.spring.WicketSpringApplication;
+import org.devgateway.eudevfin.financial.util.LocaleHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,8 +88,13 @@ public abstract class HeaderFooter extends GenericWebPage {
         NavbarButton<HomePage> homePageNavbarButton = new NavbarButton<HomePage>(getApplication().getHomePage(), new StringResourceModel("navbar.home", this, null, null)).setIconType(IconType.home);
         MetaDataRoleAuthorizationStrategy.authorize(homePageNavbarButton, Component.RENDER, Constants.ROLE_USER);
 
-        NavbarButton<TransactionPage> transactionPageNavbarButton = new NavbarButton<TransactionPage>(TransactionPage.class, new StringResourceModel("navbar.newTransaction", this, null, null)).setIconType(IconType.plus);
+        //NavbarButton<TransactionPage> transactionPageNavbarButton = new NavbarButton<TransactionPage>(TransactionPage.class, new StringResourceModel("navbar.newTransaction", this, null, null)).setIconType(IconType.plus);
+        //MetaDataRoleAuthorizationStrategy.authorize(transactionPageNavbarButton, Component.RENDER, Constants.ROLE_USER);
+
+        NavbarDropDownButton transactionPageNavbarButton = newTransactionDropdown();
         MetaDataRoleAuthorizationStrategy.authorize(transactionPageNavbarButton, Component.RENDER, Constants.ROLE_USER);
+
+
         NavbarButton<ReportsPage> reportsPageNavbarButton = new NavbarButton<ReportsPage>(ReportsPage.class, new StringResourceModel("navbar.reports", this, null, null)).setIconType(IconType.thlist);
         MetaDataRoleAuthorizationStrategy.authorize(reportsPageNavbarButton, Component.RENDER, Constants.ROLE_USER);
 
@@ -116,6 +121,90 @@ public abstract class HeaderFooter extends GenericWebPage {
                 logoutPageNavbarButton));
 
         return navbar;
+    }
+
+    private NavbarDropDownButton newTransactionDropdown() {
+        NavbarDropDownButton navbarDropDownButton = new NavbarDropDownButton(new StringResourceModel("navbar.newTransaction", this, null, null)) {
+            @Override
+            public boolean isActive(Component item) {
+                return false;
+            }
+
+            @Override
+            @SuppressWarnings("Convert2Diamond")
+            protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
+                List<AbstractLink> list = new ArrayList<>();
+                DropDownSubMenu bilateralOda = new DropDownSubMenu(new StringResourceModel("navbar.newTransaction.bilateralOda", this, null, null)) {
+                    @Override
+                    public boolean isActive(Component item) {
+                        return false;
+                    }
+
+                    @Override
+                    protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
+                        List<String> values = new ArrayList<>();
+                        values.add(StaticBinds.BILATERAL_ODA_ADVANCED_QUESTIONNAIRE);
+                        values.add(StaticBinds.BILATERAL_ODA_CRS);
+                        values.add(StaticBinds.BILATERAL_ODA_FORWARD_SPENDING);
+
+                        return getTransactionLinks(values);
+                    }
+
+                };
+                bilateralOda.setIconType(IconType.resizehorizontal);
+                list.add(bilateralOda);
+
+                DropDownSubMenu multilateralOda = new DropDownSubMenu(Model.of("Multilateral ODA")) {
+                    @Override
+                    public boolean isActive(Component item) {
+                        return false;
+                    }
+
+                    @Override
+                    protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
+                        List<String> values = new ArrayList<>();
+                        values.add(StaticBinds.MULTILATERAL_ODA_ADVANCED_QUESTIONNAIRE);
+                        values.add(StaticBinds.MULTILATERAL_ODA_CRS);
+
+                        return getTransactionLinks(values);
+                    }
+                };
+                multilateralOda.setIconType(IconType.fullscreen);
+                list.add(multilateralOda);
+
+                DropDownSubMenu nonOda = new DropDownSubMenu(Model.of("non-ODA")) {
+                    @Override
+                    protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
+                        List<String> values = new ArrayList<>();
+                        values.add(StaticBinds.NON_ODA_OOF_NON_EXPORT);
+                        values.add(StaticBinds.NON_ODA_OOF_EXPORT);
+                        values.add(StaticBinds.NON_ODA_PRIVATE_GRANTS);
+                        values.add(StaticBinds.NON_ODA_PRIVATE_MARKET);
+                        values.add(StaticBinds.NON_ODA_OTHER_FLOWS);
+
+                        return getTransactionLinks(values);
+                    }
+                };
+                nonOda.setIconType(IconType.random);
+                list.add(nonOda);
+
+                return list;
+            }
+        };
+        navbarDropDownButton.setIconType(IconType.plus);
+        navbarDropDownButton.add(new DropDownAutoOpen());
+        return navbarDropDownButton;
+    }
+
+    @SuppressWarnings("Convert2Diamond")
+    private List<AbstractLink> getTransactionLinks(List<String> values) {
+        List<AbstractLink> list = new ArrayList<>();
+        for (String item: values){
+            PageParameters params = new PageParameters();
+            params.set(Constants.TRANSACTION_TYPE, item);
+            list.add(new MenuBookmarkablePageLink<TransactionPage>(TransactionPage.class, params, new StringResourceModel("navbar.newTransaction."+item, this, null, null)));
+        }
+        return list;
     }
 
     private NavbarDropDownButton newLanguageDropdown() {
@@ -203,6 +292,9 @@ public abstract class HeaderFooter extends GenericWebPage {
         if (!lang.isEmpty()) {
             //TODO: verify lang in supported languages
             Session.get().setLocale(new Locale(lang.toString()));
+            LocaleHelper bean = ((WicketSpringApplication) getApplication()).getSpringContext().getBean(LocaleHelper.class);
+            if (bean != null)
+                bean.setLocale(lang.toString());
         }
     }
 

@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2013 Development Gateway.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v3.0
@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    aartimon
- ******************************************************************************/
+ */
 
 package org.devgateway.eudevfin.dim.core;
 
@@ -39,4 +39,18 @@ public class StaticBinds {
         }
     };
 
+    public static final String BILATERAL_ODA_ADVANCED_QUESTIONNAIRE = "bilateralOda.advancedQuestionnaire";
+    public static final String BILATERAL_ODA_CRS = "bilateralOda.CRS";
+    public static final String BILATERAL_ODA_FORWARD_SPENDING = "bilateralOda.forwardSpending";
+
+    public static final String MULTILATERAL_ODA_ADVANCED_QUESTIONNAIRE = "multilateralOda.advancedQuestionnaire";
+    public static final String MULTILATERAL_ODA_CRS = "multilateralOda.CRS";
+
+    public static final String NON_ODA_OOF_NON_EXPORT = "nonOda.nonExport";
+    public static final String NON_ODA_OOF_EXPORT = "nonOda.export";
+    public static final String NON_ODA_PRIVATE_GRANTS = "nonOda.publicGrants";
+    public static final String NON_ODA_PRIVATE_MARKET = "nonOda.publicMarket";
+    public static final String NON_ODA_OTHER_FLOWS = "nonOda.otherFlows";
+
 }
+

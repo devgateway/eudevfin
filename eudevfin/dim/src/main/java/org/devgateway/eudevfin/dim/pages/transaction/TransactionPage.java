@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2013 Development Gateway.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v3.0
@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    aartimon
- ******************************************************************************/
+ */
 
 package org.devgateway.eudevfin.dim.pages.transaction;
 
@@ -16,6 +16,7 @@ import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy;
 import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
 import org.apache.wicket.extensions.markup.html.tabs.ITab;
 import org.apache.wicket.markup.html.form.Form;
@@ -25,22 +26,34 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
 import org.devgateway.eudevfin.dim.core.Constants;
+import org.devgateway.eudevfin.dim.core.StaticBinds;
+import org.devgateway.eudevfin.dim.core.components.AbstractField;
 import org.devgateway.eudevfin.dim.core.components.tabs.BootstrapCssTabbedPanel;
+import org.devgateway.eudevfin.dim.core.helper.RoleActionMapping;
 import org.devgateway.eudevfin.dim.core.pages.HeaderFooter;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @MountPath(value = "/transaction")
 @AuthorizeInstantiation(Constants.ROLE_USER)
 public class TransactionPage extends HeaderFooter {
     private static final Logger logger = Logger.getLogger(TransactionPage.class);
 
+    private static final HashMap<String, RoleActionMapping> componentPermissions;
+    static{
+        componentPermissions = new HashMap<>();
+        componentPermissions.put("1reportingYear", new RoleActionMapping().render(StaticBinds.BILATERAL_ODA_ADVANCED_QUESTIONNAIRE).
+                required(StaticBinds.BILATERAL_ODA_CRS));
+        componentPermissions.put("2reportingCountry", new RoleActionMapping().render(StaticBinds.BILATERAL_ODA_CRS));
+
+    }
+
     @SuppressWarnings("unchecked")
     public TransactionPage() {
+
+        //TODO: check that transactionType in the request parameters is the same as the loaded transaction's type
 
         final CompoundPropertyModel<FakeTransaction> model = new CompoundPropertyModel<>(new FakeTransaction());
         setModel(model);
@@ -98,6 +111,40 @@ public class TransactionPage extends HeaderFooter {
                         });
             }
         });
+    }
+
+    @Override
+    protected void onBeforeRender() {
+        super.onBeforeRender();
+        this.visitChildren(AbstractField.class, new IVisitor<Component, Object>() {
+            @Override
+            public void component(Component component, IVisit<Object> objectIVisit) {
+                objectIVisit.dontGoDeeper();
+                String id = component.getId();
+                RoleActionMapping roleActionMapping = componentPermissions.get(id);
+                if (roleActionMapping != null){
+                    Set<String> roles = roleActionMapping.getRoles();
+                    for (String role: roles){
+                        String action = roleActionMapping.getAction(role);
+                        switch (action){
+                            case Constants.ACTION_REQUIRED:
+                                ((AbstractField)component).required();
+                                //required fields also need to render so no break here :)
+                            case Constants.ACTION_RENDER:
+                                MetaDataRoleAuthorizationStrategy.authorize(component, Component.RENDER, role);
+                                break;
+                            default:
+                                logger.error("Unknown action");
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onAfterRenderChildren() {
+        super.onAfterRenderChildren();
 
     }
 
