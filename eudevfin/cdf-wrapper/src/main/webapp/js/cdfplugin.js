@@ -16417,8 +16417,7 @@ function AddIn(options) {
         label: 'CDA Query',
         defaults: {
             // TODO - changed to be more dinamic
-            // url: 'file:///Users/ionut/work/devfin/workspace/eudevfin/eudevfin/cdf-wrapper/src/main/webapp/js/test-results/resultsEudevfin.json',
-            url: 'http://localhost:8081/cda/doQuery?dataAccessId=simpleSQLQuery',
+            url: '/cda/doQuery?dataAccessId=simpleSQLQuery',
             // url: Dashboards.getWebAppPath() + "/content/cda/doQuery?",
             file: '',
             id: '',
