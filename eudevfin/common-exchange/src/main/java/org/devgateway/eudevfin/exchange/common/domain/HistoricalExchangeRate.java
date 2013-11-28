@@ -33,26 +33,27 @@ public class HistoricalExchangeRate implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	protected String id=null;
+	protected Long id=null;
 	
 	
 	@Columns(columns={@Column(name="base_currency"),@Column(name="counter_currency"),@Column(name="rate")})	
+	@Type(type="org.jadira.usertype.exchangerate.joda.PersistentExchangeRate")
 	private ExchangeRate rate;
 	
-	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
 	private LocalDateTime date;
 
 	/**
 	 * @return the id
 	 */
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

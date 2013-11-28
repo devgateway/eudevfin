@@ -24,6 +24,6 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public interface HistoricalExchangeRateRepository extends
-		PagingAndSortingRepository<HistoricalExchangeRate, String> {
+		PagingAndSortingRepository<HistoricalExchangeRate, Long> {
 }
 

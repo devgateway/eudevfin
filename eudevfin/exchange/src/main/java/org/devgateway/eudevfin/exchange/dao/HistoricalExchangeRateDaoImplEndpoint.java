@@ -31,7 +31,7 @@ public class HistoricalExchangeRateDaoImplEndpoint {
 	private HistoricalExchangeRateRepository repo;
 	
 	@ServiceActivator(inputChannel="getHistoricalExchangeRateByIdChannel")
-	public HistoricalExchangeRate findById(String id) {
+	public HistoricalExchangeRate findById(Long id) {
 		return repo.findOne(id);
 	}
 	

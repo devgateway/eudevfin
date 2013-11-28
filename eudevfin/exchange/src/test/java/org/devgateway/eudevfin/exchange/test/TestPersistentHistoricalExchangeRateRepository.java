@@ -21,6 +21,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
 
 import java.math.BigDecimal;
 
@@ -28,6 +29,7 @@ import java.math.BigDecimal;
 @ContextConfiguration(locations = { "classpath:META-INF/financialContext.xml",
 		"classpath:META-INF/commonFinancialContext.xml",
 		"classpath:META-INF/exchangeContext.xml"})
+@TransactionConfiguration(transactionManager="transactionManager")
 public class TestPersistentHistoricalExchangeRateRepository {
 
 	
