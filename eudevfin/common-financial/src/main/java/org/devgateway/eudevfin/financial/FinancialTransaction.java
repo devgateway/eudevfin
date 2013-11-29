@@ -52,7 +52,7 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
 
     private Boolean cpa;
     private Boolean programmeBasedApproach;
-    private Boolean investement;
+    private Boolean investment;
     private Boolean associatedFinancing;
 
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
@@ -64,7 +64,7 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
     private LocalDateTime expectedCompletionDate;
 
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
+    @Type(type = "org.jadira.usertype.andtime.joda.PersistentLocalTime")
     private LocalDateTime firstRepaymentDate;
 
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
@@ -241,7 +241,7 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
 
 	
 	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
+     * @see java.lang.Object#toString()
 	 */
 //	@Override
 //	public String toString() {
@@ -256,6 +256,7 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
 //	}
 
     //TODO: remove and uncomment the original toString()
+    //
     @Override
     public String toString() {
         return "FinancialTransaction{" +
@@ -269,7 +270,7 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
                 ", description='" + description + '\'' +
                 ", cpa=" + cpa +
                 ", programmeBasedApproach=" + programmeBasedApproach +
-                ", investement=" + investement +
+                ", investment=" + investment +
                 ", associatedFinancing=" + associatedFinancing +
                 ", commitmentDate=" + commitmentDate +
                 ", expectedStartDate=" + expectedStartDate +
@@ -427,12 +428,12 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
         this.programmeBasedApproach = programmeBasedApproach;
     }
 
-    public Boolean getInvestement() {
-        return investement;
+    public Boolean getInvestment() {
+        return investment;
     }
 
-    public void setInvestement(Boolean investement) {
-        this.investement = investement;
+    public void setInvestment(Boolean investment) {
+        this.investment = investment;
     }
 
     public Boolean getAssociatedFinancing() {
