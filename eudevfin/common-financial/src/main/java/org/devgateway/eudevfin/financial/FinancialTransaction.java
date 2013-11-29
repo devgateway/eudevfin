@@ -199,6 +199,9 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
 	@ManyToOne
 	private Category tradeDevelopment;
 	
+	@ManyToOne
+	private Category biMultilateral;
+	
 	
 //	@Version	
 //	public Long version = null;
@@ -609,6 +612,14 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
 	}
 	public void setChannel(ChannelCategory channel) {
 		this.channel = channel;
+	}
+
+	public Category getBiMultilateral() {
+		return biMultilateral;
+	}
+
+	public void setBiMultilateral(Category biMultilateral) {
+		this.biMultilateral = biMultilateral;
 	}
 	
 	
