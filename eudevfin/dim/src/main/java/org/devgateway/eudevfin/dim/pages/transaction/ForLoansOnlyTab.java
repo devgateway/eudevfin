@@ -4,24 +4,22 @@
  * are made available under the terms of the GNU Public License v3.0
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/gpl.html
- *
- * Contributors:
- *    aartimon
  */
 
 package org.devgateway.eudevfin.dim.pages.transaction;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
-import org.apache.wicket.extensions.markup.html.tabs.ITab;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.StringResourceModel;
 import org.devgateway.eudevfin.dim.core.RWComponentPropertyModel;
-import org.devgateway.eudevfin.dim.core.StaticBinds;
+import org.devgateway.eudevfin.dim.core.SB;
 import org.devgateway.eudevfin.dim.core.components.DateInputField;
 import org.devgateway.eudevfin.dim.core.components.DropDownField;
 import org.devgateway.eudevfin.dim.core.components.TextInputField;
+import org.devgateway.eudevfin.dim.core.components.tabs.AbstractTabWithKey;
+import org.devgateway.eudevfin.dim.core.components.tabs.ITabWithKey;
+import org.devgateway.eudevfin.dim.core.permissions.PermissionAwareComponent;
 
 import java.util.Date;
 
@@ -29,7 +27,9 @@ import java.util.Date;
  * @author aartimon@developmentgateway.org
  * @since 01 November 2013
  */
-public class ForLoansOnlyTab extends Panel {
+public class ForLoansOnlyTab extends Panel implements PermissionAwareComponent {
+
+    public static final String KEY = "tabs.loans";
 
     public ForLoansOnlyTab(String id) {
         super(id);
@@ -38,11 +38,11 @@ public class ForLoansOnlyTab extends Panel {
 
     private void addComponents() {
         DropDownField<String> typeOfRepayment = new DropDownField<>("44typeOfRepayment", new RWComponentPropertyModel<String>("typeOfRepayment"),
-                StaticBinds.countryProvider);
+                SB.countryProvider);
         add(typeOfRepayment);
 
         DropDownField<String> numberOfRepayments = new DropDownField<>("45numberOfRepayments", new RWComponentPropertyModel<String>("numberOfRepayments"),
-                StaticBinds.countryProvider);
+                SB.countryProvider);
         add(numberOfRepayments);
 
         TextInputField interestRate = new TextInputField<>("46interestRate", new RWComponentPropertyModel<Integer>("interestRate"));
@@ -85,8 +85,8 @@ public class ForLoansOnlyTab extends Panel {
 
     }
 
-    public static ITab newTab(Component askingComponent){
-        return new AbstractTab(new StringResourceModel("tabs.loans", askingComponent, null)) {
+    public static ITabWithKey newTab(Component askingComponent) {
+        return new AbstractTabWithKey(new StringResourceModel(KEY, askingComponent, null), KEY) {
             private static final long serialVersionUID = -724508987522388955L;
 
             @Override
@@ -94,5 +94,15 @@ public class ForLoansOnlyTab extends Panel {
                 return new ForLoansOnlyTab(panelId);
             }
         };
+    }
+
+    @Override
+    public String getPermissionKey() {
+        return KEY;
+    }
+
+    @Override
+    public void enableRequired() {
+        //do nothing
     }
 }

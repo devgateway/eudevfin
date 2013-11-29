@@ -4,25 +4,22 @@
  * are made available under the terms of the GNU Public License v3.0
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/gpl.html
- *
- * Contributors:
- *    aartimon
  */
 
 package org.devgateway.eudevfin.dim.pages.transaction;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy;
-import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
-import org.apache.wicket.extensions.markup.html.tabs.ITab;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.StringResourceModel;
 import org.devgateway.eudevfin.dim.core.RWComponentPropertyModel;
-import org.devgateway.eudevfin.dim.core.StaticBinds;
+import org.devgateway.eudevfin.dim.core.SB;
 import org.devgateway.eudevfin.dim.core.components.DateInputField;
 import org.devgateway.eudevfin.dim.core.components.DropDownField;
 import org.devgateway.eudevfin.dim.core.components.TextInputField;
+import org.devgateway.eudevfin.dim.core.components.tabs.AbstractTabWithKey;
+import org.devgateway.eudevfin.dim.core.components.tabs.ITabWithKey;
+import org.devgateway.eudevfin.dim.core.permissions.PermissionAwareComponent;
 
 import java.util.Date;
 
@@ -30,7 +27,9 @@ import java.util.Date;
  * @author aartimon@developmentgateway.org
  * @since 01 November 2013
  */
-public class IdentificationDataTab extends Panel {
+public class IdentificationDataTab extends Panel implements PermissionAwareComponent {
+
+    public static final String KEY = "tabs.identification";
 
     private IdentificationDataTab(String id) {
         super(id);
@@ -42,38 +41,36 @@ public class IdentificationDataTab extends Panel {
         );
         reportingYear.typeInteger().required().range(1900, 2099).decorateMask("9999");
         add(reportingYear);
-        MetaDataRoleAuthorizationStrategy.authorize(reportingYear, Component.RENDER, StaticBinds.BILATERAL_ODA_ADVANCED_QUESTIONNAIRE);
 
         DateInputField commitmentDate = new DateInputField("1bCommitmentDate", new RWComponentPropertyModel<Date>("commitmentDate"));
         add(commitmentDate);
 
         DropDownField<String> reportingCountry = new DropDownField<>("2reportingCountry", new RWComponentPropertyModel<String>("reportingCountry"),
-                StaticBinds.countryProvider);
-
+                SB.countryProvider);
+        reportingCountry.required();
         add(reportingCountry);
 
-        TextInputField<String> extendingAgency = new TextInputField<>("3extendingAgency", new RWComponentPropertyModel<String>("extendingAgency")
-        );
+        TextInputField<String> extendingAgency = new TextInputField<>("3extendingAgency",
+                new RWComponentPropertyModel<String>("extendingAgency"));
         add(extendingAgency);
 
-        TextInputField<Integer> crsId = new TextInputField<>("4crsId", new RWComponentPropertyModel<Integer>("crsId")
-        );
+        TextInputField<Integer> crsId = new TextInputField<>("4crsId", new RWComponentPropertyModel<Integer>("crsId"));
         crsId.typeInteger();
         add(crsId);
 
-        TextInputField<Integer> donorProjectNumber = new TextInputField<>("5donorProjectNumber", new RWComponentPropertyModel<Integer>("donorProjectNumber")
-        );
+        TextInputField<Integer> donorProjectNumber = new TextInputField<>("5donorProjectNumber",
+                new RWComponentPropertyModel<Integer>("donorProjectNumber"));
         donorProjectNumber.typeInteger();
         add(donorProjectNumber);
 
-        TextInputField<Integer> natureSubmission = new TextInputField<>("6natureSubmission", new RWComponentPropertyModel<Integer>("natureSubmission")
-        );
+        TextInputField<Integer> natureSubmission = new TextInputField<>("6natureSubmission",
+                new RWComponentPropertyModel<Integer>("natureSubmission"));
         natureSubmission.typeInteger();
         add(natureSubmission);
     }
 
-    public static ITab newTab(Component askingComponent) {
-        return new AbstractTab(new StringResourceModel("tabs.identification", askingComponent, null)) {
+    public static ITabWithKey newTab(Component askingComponent) {
+        return new AbstractTabWithKey(new StringResourceModel(KEY, askingComponent, null), KEY) {
             private static final long serialVersionUID = -724508987522388955L;
 
             @Override
@@ -83,4 +80,12 @@ public class IdentificationDataTab extends Panel {
         };
     }
 
+    @Override
+    public String getPermissionKey() {
+        return KEY;
+    }
+
+    @Override
+    public void enableRequired() {
+    }
 }

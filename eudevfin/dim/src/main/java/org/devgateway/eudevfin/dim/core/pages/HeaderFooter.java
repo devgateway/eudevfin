@@ -4,9 +4,6 @@
  * are made available under the terms of the GNU Public License v3.0
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/gpl.html
- *
- * Contributors:
- *    aartimon
  */
 
 package org.devgateway.eudevfin.dim.core.pages;
@@ -44,7 +41,7 @@ import org.apache.wicket.util.string.StringValue;
 import org.devgateway.eudevfin.dim.core.ApplicationJavaScript;
 import org.devgateway.eudevfin.dim.core.Constants;
 import org.devgateway.eudevfin.dim.core.FixBootstrapStylesCssResourceReference;
-import org.devgateway.eudevfin.dim.core.StaticBinds;
+import org.devgateway.eudevfin.dim.core.SB;
 import org.devgateway.eudevfin.dim.pages.AdminPage;
 import org.devgateway.eudevfin.dim.pages.HomePage;
 import org.devgateway.eudevfin.dim.pages.LogoutPage;
@@ -57,6 +54,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+@SuppressWarnings("WicketForgeJavaIdInspection")
 public abstract class HeaderFooter extends GenericWebPage {
 
     private final static String LANGUAGE_PAGE_PARAM = "lang";
@@ -106,7 +104,7 @@ public abstract class HeaderFooter extends GenericWebPage {
                 homePageNavbarButton,
                 transactionPageNavbarButton,
                 reportsPageNavbarButton
-            ));
+        ));
 
 
         DropDownButton themesDropdown = newThemesDropdown();
@@ -143,9 +141,9 @@ public abstract class HeaderFooter extends GenericWebPage {
                     @Override
                     protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
                         List<String> values = new ArrayList<>();
-                        values.add(StaticBinds.BILATERAL_ODA_ADVANCED_QUESTIONNAIRE);
-                        values.add(StaticBinds.BILATERAL_ODA_CRS);
-                        values.add(StaticBinds.BILATERAL_ODA_FORWARD_SPENDING);
+                        values.add(SB.BILATERAL_ODA_ADVANCED_QUESTIONNAIRE);
+                        values.add(SB.BILATERAL_ODA_CRS);
+                        values.add(SB.BILATERAL_ODA_FORWARD_SPENDING);
 
                         return getTransactionLinks(values);
                     }
@@ -163,8 +161,8 @@ public abstract class HeaderFooter extends GenericWebPage {
                     @Override
                     protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
                         List<String> values = new ArrayList<>();
-                        values.add(StaticBinds.MULTILATERAL_ODA_ADVANCED_QUESTIONNAIRE);
-                        values.add(StaticBinds.MULTILATERAL_ODA_CRS);
+                        values.add(SB.MULTILATERAL_ODA_ADVANCED_QUESTIONNAIRE);
+                        values.add(SB.MULTILATERAL_ODA_CRS);
 
                         return getTransactionLinks(values);
                     }
@@ -176,11 +174,11 @@ public abstract class HeaderFooter extends GenericWebPage {
                     @Override
                     protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
                         List<String> values = new ArrayList<>();
-                        values.add(StaticBinds.NON_ODA_OOF_NON_EXPORT);
-                        values.add(StaticBinds.NON_ODA_OOF_EXPORT);
-                        values.add(StaticBinds.NON_ODA_PRIVATE_GRANTS);
-                        values.add(StaticBinds.NON_ODA_PRIVATE_MARKET);
-                        values.add(StaticBinds.NON_ODA_OTHER_FLOWS);
+                        values.add(SB.NON_ODA_OOF_NON_EXPORT);
+                        values.add(SB.NON_ODA_OOF_EXPORT);
+                        values.add(SB.NON_ODA_PRIVATE_GRANTS);
+                        values.add(SB.NON_ODA_PRIVATE_MARKET);
+                        values.add(SB.NON_ODA_OTHER_FLOWS);
 
                         return getTransactionLinks(values);
                     }
@@ -199,10 +197,10 @@ public abstract class HeaderFooter extends GenericWebPage {
     @SuppressWarnings("Convert2Diamond")
     private List<AbstractLink> getTransactionLinks(List<String> values) {
         List<AbstractLink> list = new ArrayList<>();
-        for (String item: values){
+        for (String item : values) {
             PageParameters params = new PageParameters();
             params.set(Constants.TRANSACTION_TYPE, item);
-            list.add(new MenuBookmarkablePageLink<TransactionPage>(TransactionPage.class, params, new StringResourceModel("navbar.newTransaction."+item, this, null, null)));
+            list.add(new MenuBookmarkablePageLink<TransactionPage>(TransactionPage.class, params, new StringResourceModel("navbar.newTransaction." + item, this, null, null)));
         }
         return list;
     }

@@ -1,8 +1,18 @@
+/*
+ * Copyright (c) 2013 Development Gateway.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v3.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/gpl.html
+ */
+
 package org.devgateway.eudevfin.dim.core;
 
 /**
+ * A read-write model that references a property by name on the current or inherited model
+ * @see org.apache.wicket.model.ComponentPropertyModel
  * @author aartimon
- * @date 11/12/13
+ * @since 12/11/13
  */
 
 import org.apache.wicket.Component;
@@ -22,8 +32,6 @@ public class RWComponentPropertyModel<T>
     private final String propertyName;
 
     /**
-     * Constructor
-     *
      * @param propertyName The name of the property to reference
      */
     public RWComponentPropertyModel(final String propertyName) {
@@ -31,6 +39,8 @@ public class RWComponentPropertyModel<T>
     }
 
     /**
+     * {@inheritDoc AbstractReadOnlyModel#getObject}
+     *
      * @see org.apache.wicket.model.AbstractReadOnlyModel#getObject()
      */
     @Override
@@ -38,13 +48,16 @@ public class RWComponentPropertyModel<T>
         throw new IllegalStateException("Wrapper should have been called");
     }
 
+    /**
+     * {@inheritDoc AbstractReadOnlyModel#setObject}
+     */
     @Override
     public void setObject(T object) {
         throw new IllegalStateException("Wrapper should have been called2");
     }
 
     /**
-     * @see org.apache.wicket.model.IComponentAssignedModel#wrapOnAssignment(org.apache.wicket.Component)
+     * {@inheritDoc AbstractReadOnlyModel#wrapOnAssignment}
      */
     @Override
     public IWrapModel<T> wrapOnAssignment(final Component component) {
@@ -57,7 +70,7 @@ public class RWComponentPropertyModel<T>
     }
 
     /**
-     * Wrapper used when assigning a ComponentPropertyModel to a component.
+     * Implement a read/write {@link IWrapModel}
      *
      * @param <P> The Model Object
      */
@@ -79,10 +92,6 @@ public class RWComponentPropertyModel<T>
         @Override
         public IModel<T> getWrappedModel() {
             return RWComponentPropertyModel.this;
-        }
-
-        protected String propertyExpression() {
-            return propertyName;
         }
 
         @SuppressWarnings("unchecked")

@@ -1,32 +1,32 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2013 Development Gateway.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v3.0
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/gpl.html
- *
- * Contributors:
- *    aartimon
- ******************************************************************************/
+ */
 
 package org.devgateway.eudevfin.dim.pages.transaction;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
-import org.apache.wicket.extensions.markup.html.tabs.ITab;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.StringResourceModel;
 import org.devgateway.eudevfin.dim.core.RWComponentPropertyModel;
-import org.devgateway.eudevfin.dim.core.StaticBinds;
+import org.devgateway.eudevfin.dim.core.SB;
 import org.devgateway.eudevfin.dim.core.components.DropDownField;
 import org.devgateway.eudevfin.dim.core.components.TextInputField;
+import org.devgateway.eudevfin.dim.core.components.tabs.AbstractTabWithKey;
+import org.devgateway.eudevfin.dim.core.components.tabs.ITabWithKey;
+import org.devgateway.eudevfin.dim.core.permissions.PermissionAwareComponent;
 
 /**
  * @author aartimon@developmentgateway.org
  * @since 01 November 2013
  */
-public class VolumeDataTab extends Panel{
+public class VolumeDataTab extends Panel implements PermissionAwareComponent {
+
+    public static final String KEY = "tabs.volume";
 
     public VolumeDataTab(String id) {
         super(id);
@@ -36,7 +36,7 @@ public class VolumeDataTab extends Panel{
     private void addComponents() {
 
         DropDownField<String> currency = new DropDownField<>("32currency", new RWComponentPropertyModel<String>("currency"),
-                StaticBinds.yesNoProvider);
+                SB.yesNoProvider);
         add(currency);
 
         TextInputField<Integer> commitments = new TextInputField<>("33commitments", new RWComponentPropertyModel<Integer>("commitments"));
@@ -80,8 +80,8 @@ public class VolumeDataTab extends Panel{
         add(amountOfExportCredit);
     }
 
-    public static ITab newTab(Component askingComponent){
-        return new AbstractTab(new StringResourceModel("tabs.volume", askingComponent, null)){
+    public static ITabWithKey newTab(Component askingComponent) {
+        return new AbstractTabWithKey(new StringResourceModel(KEY, askingComponent, null), KEY) {
             private static final long serialVersionUID = -724508987522388955L;
 
             @Override
@@ -89,5 +89,14 @@ public class VolumeDataTab extends Panel{
                 return new VolumeDataTab(panelId);
             }
         };
+    }
+
+    @Override
+    public String getPermissionKey() {
+        return KEY;
+    }
+
+    @Override
+    public void enableRequired() {
     }
 }
