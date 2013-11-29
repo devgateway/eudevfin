@@ -58,8 +58,8 @@ public class BasicDataTab extends Panel implements PermissionAwareComponent {
                 SB.countryProvider);
         add(channelCode);
 
-        DropDownField<String> bilateralMultilateral = new DropDownField<>("10bilateralMultilateral", new RWComponentPropertyModel<String>("bilateralMultilateral"),
-                SB.countryProvider);
+        DropDownField<Category> bilateralMultilateral = new DropDownField<>("10bilateralMultilateral",
+                new RWComponentPropertyModel<Category>("biMultilateral"), SB.categoryProvider);
         add(bilateralMultilateral);
 
         DropDownField<Category> typeOfFlow = new DropDownField<>("11typeOfFlow", new RWComponentPropertyModel<Category>("typeOfFlow"),
@@ -76,11 +76,11 @@ public class BasicDataTab extends Panel implements PermissionAwareComponent {
                 SB.categoryProvider);
         add(typeOfAid);
 
-        TextAreaInputField activityProjectTitle = new TextAreaInputField("14activityProjectTitle", new RWComponentPropertyModel<String>("activityProjectTitle"));
+        TextAreaInputField activityProjectTitle = new TextAreaInputField("14activityProjectTitle", new RWComponentPropertyModel<String>("description"));
         add(activityProjectTitle);
 
-        DropDownField<String> sectorPurposeCode = new DropDownField<>("15sectorPurposeCode", new RWComponentPropertyModel<String>("sectorPurposeCode"),
-                SB.countryProvider);
+        DropDownField<Category> sectorPurposeCode = new DropDownField<>("15sectorPurposeCode", new RWComponentPropertyModel<Category>("sector"),
+                SB.categoryProvider);
         add(sectorPurposeCode);
     }
 
