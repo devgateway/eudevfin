@@ -1,5 +1,5 @@
 /*
-  * Copyright (c) 2013 Development Gateway.
+ * Copyright (c) 2013 Development Gateway.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v3.0
  * which accompanies this distribution, and is available at
@@ -15,13 +15,50 @@
 package org.devgateway.eudevfin.exchange.common.service;
 
 import org.devgateway.eudevfin.exchange.common.domain.HistoricalExchangeRate;
+import org.joda.time.LocalDateTime;
 
 /**
  * @author mihai
- *
+ * 
  */
 public interface HistoricalExchangeRateService {
+
+	/**
+	 * Saves a new {@link HistoricalExchangeRate}
+	 * 
+	 * @param t
+	 * @return the {@link HistoricalExchangeRate} entity that was persisted
+	 */
 	HistoricalExchangeRate save(HistoricalExchangeRate t);
 
+	/**
+	 * Finds {@link HistoricalExchangeRate}S by id
+	 * 
+	 * @param id
+	 *            the id
+	 * @return the {@link HistoricalExchangeRate}
+	 */
 	HistoricalExchangeRate findById(Long id);
+
+	/**
+	 * Finds the {@link HistoricalExchangeRate}S from the database for the
+	 * given date
+	 * 
+	 * @param date
+	 *            the date
+	 * @return returns the {@link HistoricalExchangeRate}S
+	 */
+	Iterable<HistoricalExchangeRate> findRatesForDate(LocalDateTime date);
+
+	/**
+	 * Checks the database to see if {@link HistoricalExchangeRate} do exist for
+	 * the given date. If they don't then it fetches them from the net and
+	 * caches them in the database
+	 * 
+	 * @param date
+	 *            the date
+	 * @return the number of {@link HistoricalExchangeRate} persisted, or 0 if
+	 *         the date already has exchange rates
+	 */
+	int fetchRatesForDate(LocalDateTime date);
 }

@@ -6,13 +6,11 @@
 	~ mpostelnicu -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:security="http://www.springframework.org/schema/security"
 	xmlns:int="http://www.springframework.org/schema/integration"
 	xmlns:int-http="http://www.springframework.org/schema/integration/http"
-	xmlns:util="http://www.springframework.org/schema/util"
-	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
 	xsi:schemaLocation="http://www.springframework.org/schema/integration/http http://www.springframework.org/schema/integration/http/spring-integration-http-2.2.xsd
 		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-2.2.xsd
@@ -25,28 +23,48 @@
 
 	<int:annotation-config />
 	<tx:annotation-driven />
-	<context:component-scan base-package="org.devgateway.eudevfin.exchange" />	
+	<context:component-scan base-package="org.devgateway.eudevfin.exchange" />
 	<context:annotation-config />
 	<jpa:repositories base-package="org.devgateway.eudevfin.exchange" />
 
-	<!-- load properties regarding the openexchangerates service, url, params, etc... -->
-	<util:properties id="openExchangeProps" location="classpath:/openexchange.properties"></util:properties>
+	<!-- load properties regarding the openexchangerates service, url, params, 
+		etc... -->
+	<util:properties id="openExchangeProps"
+		location="classpath:/openexchange.properties"></util:properties>
 
 	<!-- channel where the request for the currencies is being made -->
 	<int:channel id="currenciesJsonExchange" />
 	<int:channel id="getCurrenciesJson" />
-	<int:channel id="getHistoricalExchangeRateByIdChannel"/>
-	<int:channel id="createHistoricalExchangeRateChannel"/>
-	<int:channel id="exchangeChannel"/>
+	<int:channel id="getHistoricalExchangeRateByIdChannel" />
+	<int:channel id="createHistoricalExchangeRateChannel" />
+	<int:channel id="deleteRatesForDateChannel" />
+	<int:channel id="exchangeChannel" />
+	<int:channel id="getExchangeRateChannel" />
+	<int:channel id="fetchRatesForDateChannel"/>
+	<int:channel id="findRatesForDateChannel"/>
+
 
 
 	<!-- complete list of supported currencies for the exchange service -->
 	<int-http:outbound-gateway
-		url="#{openExchangeProps[baseurl]}/#{openExchangeProps[currencies]}" http-method="GET"
-		request-factory="exchangeRequestFactory" reply-channel="currenciesJsonExchange"
-		request-channel="getCurrenciesJson" expected-response-type="java.lang.String"
-		charset="UTF-8">
+		url="#{openExchangeProps[baseurl]}/#{openExchangeProps[currencies]}"
+		http-method="GET" request-factory="exchangeRequestFactory"
+		reply-channel="currenciesJsonExchange" request-channel="getCurrenciesJson"
+		expected-response-type="java.lang.String" charset="UTF-8">
 	</int-http:outbound-gateway>
+
+
+	<!-- Gateway to get historical exchange rates for a given LocalDateTime 
+		as payload -->
+	<int-http:outbound-gateway
+		url="#{openExchangeProps[baseurl]}/historical/{currencyDate}.json?app_id=#{openExchangeProps[key]}"
+		http-method="GET" reply-channel="currenciesJsonExchange"
+		request-factory="exchangeRequestFactory" request-channel="getExchangeRateChannel"
+		expected-response-type="java.lang.String" charset="UTF-8">
+		<int-http:uri-variable name="currencyDate"
+			expression="payload.toString(T(org.joda.time.format.ISODateTimeFormat).date())" />
+	</int-http:outbound-gateway>
+
 
 
 	<!-- transformer turning json input to a linkedHashMap. There is no output 
@@ -56,7 +74,7 @@
 
 
 	<int:gateway id="exchangeQueryService"
-		service-interface="org.devgateway.eudevfin.exchange.service.ExchangeQueryService" />
+		service-interface="org.devgateway.eudevfin.exchange.service.ExternalExchangeQueryService" />
 
 
 	<!-- simple http request factory, nothing special, just some timeouts set -->
@@ -66,7 +84,8 @@
 		<property name="readTimeout" value="5000" />
 	</bean>
 
-	<int:header-value-router input-channel="exchangeChannel" header-name="requestName"/>
+	<int:header-value-router input-channel="exchangeChannel"
+		header-name="requestName" />
 
 
 

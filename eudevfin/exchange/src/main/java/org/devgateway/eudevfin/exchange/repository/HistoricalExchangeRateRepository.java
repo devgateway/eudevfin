@@ -15,6 +15,7 @@
 package org.devgateway.eudevfin.exchange.repository;
 
 import org.devgateway.eudevfin.exchange.common.domain.HistoricalExchangeRate;
+import org.joda.time.LocalDateTime;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Component;
 
@@ -25,5 +26,13 @@ import org.springframework.stereotype.Component;
 @Component
 public interface HistoricalExchangeRateRepository extends
 		PagingAndSortingRepository<HistoricalExchangeRate, Long> {
+	
+	/**
+	 * Finds all {@link HistoricalExchangeRate}S with the given date parameter
+	 * @param date a {@link LocalDateTime}
+	 * @return the list with all {@link HistoricalExchangeRate}S that have the same date as the parameter
+	 */
+	Iterable<HistoricalExchangeRate> findByDate(LocalDateTime date);
+	
 }
 

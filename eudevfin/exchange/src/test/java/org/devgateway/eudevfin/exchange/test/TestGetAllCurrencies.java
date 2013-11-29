@@ -1,7 +1,7 @@
 package org.devgateway.eudevfin.exchange.test;
 
 /*******************************************************************************
- * Copyright (c) 2013 Development Gateway.
+ * Copyright (c)  2013 Development Gateway.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v3.0
  * which accompanies this distribution, and is available at
@@ -13,7 +13,7 @@ package org.devgateway.eudevfin.exchange.test;
 
 import java.util.LinkedHashMap;
 
-import org.devgateway.eudevfin.exchange.service.ExchangeQueryService;
+import org.devgateway.eudevfin.exchange.service.ExternalExchangeQueryService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * @author aartimon@developmentgateway.org
+ * @author mpostelnicu
  * @since 23 October 2013
  */
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -29,7 +29,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class TestGetAllCurrencies {
 	
 	@Autowired
-	ExchangeQueryService exchangeQueryService;
+	ExternalExchangeQueryService exchangeQueryService;
 	
 	@Test
 	public void testGetAllCurrencies() {	
