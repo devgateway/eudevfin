@@ -37,6 +37,7 @@ public class VolumeDataTab extends Panel implements PermissionAwareComponent {
 
         DropDownField<String> currency = new DropDownField<>("32currency", new RWComponentPropertyModel<String>("currency"),
                 SB.yesNoProvider);
+        currency.required();
         add(currency);
 
         TextInputField<Integer> commitments = new TextInputField<>("33commitments", new RWComponentPropertyModel<Integer>("commitments"));
@@ -44,7 +45,7 @@ public class VolumeDataTab extends Panel implements PermissionAwareComponent {
         add(commitments);
 
         TextInputField<Integer> amountsExtended = new TextInputField<>("34amountsExtended", new RWComponentPropertyModel<Integer>("amountsExtended"));
-        amountsExtended.typeInteger();
+        amountsExtended.typeInteger().required();
         add(amountsExtended);
 
         TextInputField<Integer> amountsReceived = new TextInputField<>("35amountsReceived", new RWComponentPropertyModel<Integer>("amountsReceived"));

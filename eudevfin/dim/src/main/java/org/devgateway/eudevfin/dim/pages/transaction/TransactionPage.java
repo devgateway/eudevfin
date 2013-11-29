@@ -44,13 +44,17 @@ public class TransactionPage extends HeaderFooter implements PermissionAwarePage
 
     static {
         componentPermissions = new HashMap<>();
-        //Identification Data
+        /**
+         * Identification Data
+         */
         componentPermissions.put("1bCommitmentDate", new RoleActionMapping().required(SB.allODA()));
         componentPermissions.put("3extendingAgency", new RoleActionMapping().required(SB.allODA()).required(SB.allOOF()));
         componentPermissions.put("4crsId", new RoleActionMapping().required(SB.allODA()).required(SB.allOOF()).required(SB.allPriv()));
         componentPermissions.put("5donorProjectNumber", new RoleActionMapping().required(SB.allODA()).required(SB.allOOF()).required(SB.NON_ODA_PRIVATE_GRANTS));
         componentPermissions.put("6natureSubmission", new RoleActionMapping().required(SB.allODA()).required(SB.allOOF()).required(SB.allPriv()));
-        //Basic Data
+        /**
+         * Basic Data
+         */
         componentPermissions.put("7recipient", new RoleActionMapping().required(SB.biODA()).required(SB.allOOF()).required(SB.allPriv()));
         componentPermissions.put("8channelDelivery", new RoleActionMapping().required(SB.allODA()).required(SB.NON_ODA_OOF_NON_EXPORT).render(SB.NON_ODA_OOF_EXPORT));
         componentPermissions.put("9channelCode", new RoleActionMapping().required(SB.allODA()).required(SB.NON_ODA_OOF_NON_EXPORT).render(SB.NON_ODA_OOF_EXPORT));
@@ -58,12 +62,56 @@ public class TransactionPage extends HeaderFooter implements PermissionAwarePage
         componentPermissions.put("13typeOfAid", new RoleActionMapping().required(SB.allODA()));
         componentPermissions.put("14activityProjectTitle", new RoleActionMapping().required(SB.allODA()).required(SB.NON_ODA_OOF_NON_EXPORT).render(SB.NON_ODA_PRIVATE_GRANTS).required(SB.NON_ODA_OTHER_FLOWS));
         componentPermissions.put("15sectorPurposeCode", new RoleActionMapping().required(SB.biODA()).required(SB.allOOF()).render(SB.NON_ODA_PRIVATE_GRANTS).required(SB.NON_ODA_OTHER_FLOWS));
-        //Suplementary Data
-        componentPermissions.put(SupplementaryDataTab.KEY, new RoleActionMapping().render(SB.allODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
-
-        //componentPermissions.put("", new RoleActionMapping());
-
-
+        /**
+         * Suplementary Data
+         */
+        //render the tab just for bilateral ODA and OOF non-export
+        componentPermissions.put(SupplementaryDataTab.KEY, new RoleActionMapping().render(SB.biODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
+        //set field permissions for when the tab is rendered
+        componentPermissions.put("16geographicalTargetArea", new RoleActionMapping().required(SB.biODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
+        componentPermissions.put("17startingDate", new RoleActionMapping().required(SB.biODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
+        componentPermissions.put("18completionDate", new RoleActionMapping().required(SB.biODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
+        componentPermissions.put("19description", new RoleActionMapping().required(SB.biODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
+        componentPermissions.put("20genderEquality", new RoleActionMapping().required(SB.biODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
+        componentPermissions.put("21aidToEnvironment", new RoleActionMapping().required(SB.biODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
+        componentPermissions.put("22pdGg", new RoleActionMapping().required(SB.biODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
+        componentPermissions.put("23tradeDevelopment", new RoleActionMapping().required(SB.biODA()));
+        componentPermissions.put("24freestandingTechnicalCooperation", new RoleActionMapping().required(SB.biODA()));
+        componentPermissions.put("25programbasedApproach", new RoleActionMapping().required(SB.biODA()));
+        componentPermissions.put("26investmentProject", new RoleActionMapping().required(SB.biODA()));
+        componentPermissions.put("27associatedFinancing", new RoleActionMapping().required(SB.biODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
+        componentPermissions.put("28biodiversity", new RoleActionMapping().required(SB.biODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
+        componentPermissions.put("29ccMitigation", new RoleActionMapping().required(SB.biODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
+        componentPermissions.put("30ccAdaptation", new RoleActionMapping().required(SB.biODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
+        componentPermissions.put("31desertification", new RoleActionMapping().required(SB.biODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
+        /**
+         * Volume Data
+         */
+        componentPermissions.put("33commitments", new RoleActionMapping().required(SB.allODA()).required(SB.allOOF()));
+        componentPermissions.put("35amountsReceived", new RoleActionMapping().required(SB.allODA()).required(SB.allOOF()).required(SB.NON_ODA_PRIVATE_MARKET));
+        componentPermissions.put("36amountUntied", new RoleActionMapping().required(SB.biODA()));
+        componentPermissions.put("37amountPartiallyUntied", new RoleActionMapping().required(SB.biODA()));
+        componentPermissions.put("38amountTied", new RoleActionMapping().required(SB.biODA()));
+        componentPermissions.put("39amountOfIRTC", new RoleActionMapping().required(SB.biODA()));
+        componentPermissions.put("40amountOfExpertsCommitments", new RoleActionMapping().render(SB.biODA()));
+        componentPermissions.put("41amountOfExpertsExtended", new RoleActionMapping().render(SB.biODA()));
+        componentPermissions.put("42amountOfExportCredit", new RoleActionMapping().required(SB.biODA()));
+        /**
+         * For Loans only
+         */
+        //render the tab for only the ODA and OOF
+        componentPermissions.put(ForLoansOnlyTab.KEY, new RoleActionMapping().render(SB.allODA()).render(SB.allOOF()));
+        //set field permissions for when tab is rendered
+        componentPermissions.put("44typeOfRepayment", new RoleActionMapping().required(SB.allODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
+        componentPermissions.put("45numberOfRepayments", new RoleActionMapping().required(SB.allODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
+        componentPermissions.put("46interestRate", new RoleActionMapping().required(SB.allODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
+        componentPermissions.put("47secondInterestRate", new RoleActionMapping().required(SB.allODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
+        componentPermissions.put("48firstRepaymentDate", new RoleActionMapping().required(SB.allODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
+        componentPermissions.put("49finalRepaymentDate", new RoleActionMapping().required(SB.allODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
+        componentPermissions.put("50interestReceived", new RoleActionMapping().required(SB.allODA()).required(SB.allOOF()));
+        componentPermissions.put("51principalDisbursed", new RoleActionMapping().required(SB.biODA()).required(SB.NON_ODA_OOF_NON_EXPORT));
+        componentPermissions.put("52arrearsOfPrincipals", new RoleActionMapping().required(SB.biODA()).required(SB.NON_ODA_OOF_NON_EXPORT));
+        componentPermissions.put("53arrearsOfInterest", new RoleActionMapping().required(SB.biODA()).required(SB.NON_ODA_OOF_NON_EXPORT));
     }
 
     @SuppressWarnings("unchecked")
