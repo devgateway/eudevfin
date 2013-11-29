@@ -16416,9 +16416,7 @@ function AddIn(options) {
         name: 'cda',
         label: 'CDA Query',
         defaults: {
-            // TODO - changed to be more dinamic
-            url: '/cda/doQuery?dataAccessId=simpleSQLQuery',
-            // url: Dashboards.getWebAppPath() + "/content/cda/doQuery?",
+            url: '/cda/doQuery',
             file: '',
             id: '',
             outputIdx: '1',

@@ -394,7 +394,7 @@ pieChartQuery = new app.ChartModel ({
     parameters: [],
     resultvar: "pieQueryResult",
     queryDefinition: {
-        dataAccessId: "pieChartQuery", 
+        dataAccessId: "simpleSQLQuery", 
         path: '/some/path'
     },
     executeAtStart: true,
@@ -423,7 +423,7 @@ columnChartQuery = new app.ChartModel ({
     parameters: [],
     resultvar: "columnQueryResult",
     queryDefinition: {
-        dataAccessId: "columnChartQuery", 
+        dataAccessId: "simpleSQLQuery", 
         path: '/some/path'
     },
     executeAtStart: true,
