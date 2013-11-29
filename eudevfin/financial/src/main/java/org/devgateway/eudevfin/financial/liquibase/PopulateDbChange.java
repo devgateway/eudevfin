@@ -64,7 +64,7 @@ public class PopulateDbChange implements CustomTaskChange {
 	 */
 	@Override
 	public void execute(Database arg0) throws CustomChangeException {
-		this.ctxHelper.getBean(PopulateDb.class).populate();
+		this.ctxHelper.getBean(PopulateMockupDb.class).populate();
 
 	}
 
