@@ -13,7 +13,6 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.StringResourceModel;
 import org.devgateway.eudevfin.dim.core.RWComponentPropertyModel;
-import org.devgateway.eudevfin.dim.core.SB;
 import org.devgateway.eudevfin.dim.core.components.DateInputField;
 import org.devgateway.eudevfin.dim.core.components.DropDownField;
 import org.devgateway.eudevfin.dim.core.components.TextAreaInputField;
@@ -21,6 +20,7 @@ import org.devgateway.eudevfin.dim.core.components.TextInputField;
 import org.devgateway.eudevfin.dim.core.components.tabs.AbstractTabWithKey;
 import org.devgateway.eudevfin.dim.core.components.tabs.ITabWithKey;
 import org.devgateway.eudevfin.dim.core.permissions.PermissionAwareComponent;
+import org.devgateway.eudevfin.dim.core.temporary.SB;
 
 import java.util.Date;
 

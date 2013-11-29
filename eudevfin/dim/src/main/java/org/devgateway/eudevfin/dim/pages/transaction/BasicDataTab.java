@@ -13,13 +13,15 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.StringResourceModel;
 import org.devgateway.eudevfin.dim.core.RWComponentPropertyModel;
-import org.devgateway.eudevfin.dim.core.SB;
 import org.devgateway.eudevfin.dim.core.components.DropDownField;
 import org.devgateway.eudevfin.dim.core.components.TextAreaInputField;
-import org.devgateway.eudevfin.dim.core.components.TextInputField;
 import org.devgateway.eudevfin.dim.core.components.tabs.AbstractTabWithKey;
 import org.devgateway.eudevfin.dim.core.components.tabs.ITabWithKey;
 import org.devgateway.eudevfin.dim.core.permissions.PermissionAwareComponent;
+import org.devgateway.eudevfin.dim.core.temporary.SB;
+import org.devgateway.eudevfin.financial.Category;
+import org.devgateway.eudevfin.financial.Organization;
+import org.devgateway.eudevfin.financial.RecipientCategory;
 
 /**
  * @author aartimon@developmentgateway.org
@@ -35,16 +37,22 @@ public class BasicDataTab extends Panel implements PermissionAwareComponent {
     }
 
     private void addComponents() {
-        DropDownField<String> recipient = new DropDownField<>("7recipient", new RWComponentPropertyModel<String>("recipient"),
-                SB.countryProvider);
+        DropDownField<RecipientCategory> recipient = new DropDownField<>("7recipient",
+                new RWComponentPropertyModel<RecipientCategory>("recipient"), SB.recipientCategoryProvider);
         add(recipient);
 
-        DropDownField<String> cpa = new DropDownField<>("7bCPA", new RWComponentPropertyModel<String>("CPA"),
-                SB.yesNoProvider);
-        add(cpa);
+//        DropDownField<String> cpa = new DropDownField<>("7bCPA", new RWComponentPropertyModel<String>("CPA"),
+//                SB.yesNoProvider);
+//        add(cpa);
 
-        TextInputField<String> channelDelivery = new TextInputField<>("8channelDelivery", new RWComponentPropertyModel<String>("channelDelivery"));
-        add(channelDelivery);
+        DropDownField<Organization> channelOfDelivery = new DropDownField<>("8channelDelivery",
+                new RWComponentPropertyModel<Organization>("channelOfDelivery"), SB.organizationProvider);
+        add(channelOfDelivery);
+
+        //TODO: remove if channel of delivery is of type Org
+        /*TextInputField<String> channelDelivery = new TextInputField<>("8channelDelivery",
+                new RWComponentPropertyModel<String>("channelOfDelivery"));
+        add(channelDelivery);*/
 
         DropDownField<String> channelCode = new DropDownField<>("9channelCode", new RWComponentPropertyModel<String>("channelCode"),
                 SB.countryProvider);
@@ -54,18 +62,18 @@ public class BasicDataTab extends Panel implements PermissionAwareComponent {
                 SB.countryProvider);
         add(bilateralMultilateral);
 
-        DropDownField<String> typeOfFlow = new DropDownField<>("11typeOfFlow", new RWComponentPropertyModel<String>("typeOfFlow"),
-                SB.countryProvider);
+        DropDownField<Category> typeOfFlow = new DropDownField<>("11typeOfFlow", new RWComponentPropertyModel<Category>("typeOfFlow"),
+                SB.categoryProvider);
         typeOfFlow.required();
         add(typeOfFlow);
 
-        DropDownField<String> typeOfFinance = new DropDownField<>("12typeOfFinance", new RWComponentPropertyModel<String>("typeOfFinance"),
-                SB.countryProvider);
+        DropDownField<Category> typeOfFinance = new DropDownField<>("12typeOfFinance", new RWComponentPropertyModel<Category>("typeOfFinance"),
+                SB.categoryProvider);
         typeOfFinance.required();
         add(typeOfFinance);
 
-        DropDownField<String> typeOfAid = new DropDownField<>("13typeOfAid", new RWComponentPropertyModel<String>("typeOfAid"),
-                SB.countryProvider);
+        DropDownField<Category> typeOfAid = new DropDownField<>("13typeOfAid", new RWComponentPropertyModel<Category>("typeOfAid"),
+                SB.categoryProvider);
         add(typeOfAid);
 
         TextAreaInputField activityProjectTitle = new TextAreaInputField("14activityProjectTitle", new RWComponentPropertyModel<String>("activityProjectTitle"));

@@ -27,7 +27,7 @@ import java.util.List;
  * @author aartimon@developmentgateway.org
  * @since 05 November 2013
  */
-public class BootstrapCssTabbedPanel<T extends ITabWithKey> extends Panel {
+public class BootstrapJSTabbedPanel<T extends ITabWithKey> extends Panel {
     private final List<T> tabs;
 
     public static enum Orientation {LEFT, RIGHT, TOP, BOTTOM}
@@ -35,7 +35,7 @@ public class BootstrapCssTabbedPanel<T extends ITabWithKey> extends Panel {
     private Orientation orientation = Orientation.TOP;
 
     @SuppressWarnings("WicketForgeJavaIdInspection")
-    public BootstrapCssTabbedPanel(String id, final List<T> tabs) {
+    public BootstrapJSTabbedPanel(String id, final List<T> tabs) {
         super(id);
         this.setOutputMarkupId(true);
 
@@ -55,7 +55,7 @@ public class BootstrapCssTabbedPanel<T extends ITabWithKey> extends Panel {
 
             @Override
             public Integer getObject() {
-                return BootstrapCssTabbedPanel.this.tabs.size();
+                return BootstrapJSTabbedPanel.this.tabs.size();
             }
         };
 
@@ -65,7 +65,7 @@ public class BootstrapCssTabbedPanel<T extends ITabWithKey> extends Panel {
             @Override
             protected void populateItem(LoopItem item) {
                 final int index = item.getIndex();
-                final T tab = BootstrapCssTabbedPanel.this.tabs.get(index);
+                final T tab = BootstrapJSTabbedPanel.this.tabs.get(index);
 
                 if (index == 0)
                     item.add(new AttributeModifier("class", getSelectedTabCssClass()));
@@ -81,7 +81,7 @@ public class BootstrapCssTabbedPanel<T extends ITabWithKey> extends Panel {
             @Override
             protected void populateItem(LoopItem item) {
                 final int index = item.getIndex();
-                final T tab = BootstrapCssTabbedPanel.this.tabs.get(index);
+                final T tab = BootstrapJSTabbedPanel.this.tabs.get(index);
 
                 if (index == 0)
                     item.add(new AttributeAppender("class", Model.of(getSelectedTabCssClass()), " "));
@@ -121,7 +121,7 @@ public class BootstrapCssTabbedPanel<T extends ITabWithKey> extends Panel {
         return "active";
     }
 
-    public BootstrapCssTabbedPanel<T> positionTabs(Orientation orientation) {
+    public BootstrapJSTabbedPanel<T> positionTabs(Orientation orientation) {
         this.orientation = orientation;
         return this;
     }

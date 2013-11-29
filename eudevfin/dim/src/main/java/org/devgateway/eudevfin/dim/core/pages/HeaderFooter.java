@@ -41,7 +41,7 @@ import org.apache.wicket.util.string.StringValue;
 import org.devgateway.eudevfin.dim.core.ApplicationJavaScript;
 import org.devgateway.eudevfin.dim.core.Constants;
 import org.devgateway.eudevfin.dim.core.FixBootstrapStylesCssResourceReference;
-import org.devgateway.eudevfin.dim.core.SB;
+import org.devgateway.eudevfin.dim.core.temporary.SB;
 import org.devgateway.eudevfin.dim.pages.AdminPage;
 import org.devgateway.eudevfin.dim.pages.HomePage;
 import org.devgateway.eudevfin.dim.pages.LogoutPage;

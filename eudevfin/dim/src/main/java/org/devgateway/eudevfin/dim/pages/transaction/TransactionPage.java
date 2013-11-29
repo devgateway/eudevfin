@@ -21,12 +21,12 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
 import org.devgateway.eudevfin.dim.core.Constants;
-import org.devgateway.eudevfin.dim.core.SB;
-import org.devgateway.eudevfin.dim.core.components.tabs.BootstrapCssTabbedPanel;
+import org.devgateway.eudevfin.dim.core.components.tabs.BootstrapJSTabbedPanel;
 import org.devgateway.eudevfin.dim.core.components.tabs.ITabWithKey;
 import org.devgateway.eudevfin.dim.core.pages.HeaderFooter;
 import org.devgateway.eudevfin.dim.core.permissions.PermissionAwarePage;
 import org.devgateway.eudevfin.dim.core.permissions.RoleActionMapping;
+import org.devgateway.eudevfin.dim.core.temporary.SB;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import java.io.Serializable;
@@ -119,7 +119,9 @@ public class TransactionPage extends HeaderFooter implements PermissionAwarePage
 
         //TODO: check that transactionType in the request parameters is the same as the loaded transaction's type
 
-        final CompoundPropertyModel<FakeTransaction> model = new CompoundPropertyModel<>(new FakeTransaction());
+        final CompoundPropertyModel<TransactionPage> model = new CompoundPropertyModel<>(new TransactionPage());
+
+
         setModel(model);
 
         Form form = new Form("form");
@@ -133,8 +135,8 @@ public class TransactionPage extends HeaderFooter implements PermissionAwarePage
         tabList.add(ForLoansOnlyTab.newTab(this));
         tabList.add(AvailableComponentsTab.newTab(this));
 
-        BootstrapCssTabbedPanel<ITabWithKey> bc = new BootstrapCssTabbedPanel<>("bc", tabList).
-                positionTabs(BootstrapCssTabbedPanel.Orientation.RIGHT);
+        BootstrapJSTabbedPanel<ITabWithKey> bc = new BootstrapJSTabbedPanel<>("bc", tabList).
+                positionTabs(BootstrapJSTabbedPanel.Orientation.RIGHT);
         form.add(bc);
 
         form.add(new IndicatingAjaxButton("submit", Model.of("Submit")) {

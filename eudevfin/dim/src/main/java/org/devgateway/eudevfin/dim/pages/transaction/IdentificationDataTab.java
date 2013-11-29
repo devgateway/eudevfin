@@ -13,15 +13,18 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.StringResourceModel;
 import org.devgateway.eudevfin.dim.core.RWComponentPropertyModel;
-import org.devgateway.eudevfin.dim.core.SB;
 import org.devgateway.eudevfin.dim.core.components.DateInputField;
 import org.devgateway.eudevfin.dim.core.components.DropDownField;
 import org.devgateway.eudevfin.dim.core.components.TextInputField;
 import org.devgateway.eudevfin.dim.core.components.tabs.AbstractTabWithKey;
 import org.devgateway.eudevfin.dim.core.components.tabs.ITabWithKey;
+import org.devgateway.eudevfin.dim.core.models.DateToLocalDateTimeModel;
+import org.devgateway.eudevfin.dim.core.models.YearToLocalDateTimeModel;
 import org.devgateway.eudevfin.dim.core.permissions.PermissionAwareComponent;
-
-import java.util.Date;
+import org.devgateway.eudevfin.dim.core.temporary.SB;
+import org.devgateway.eudevfin.financial.Category;
+import org.devgateway.eudevfin.financial.Organization;
+import org.joda.time.LocalDateTime;
 
 /**
  * @author aartimon@developmentgateway.org
@@ -37,36 +40,35 @@ public class IdentificationDataTab extends Panel implements PermissionAwareCompo
     }
 
     private void addComponents() {
-        TextInputField<Integer> reportingYear = new TextInputField<>("1reportingYear", new RWComponentPropertyModel<Integer>("reportingYear")
-        );
+        TextInputField<Integer> reportingYear = new TextInputField<>("1reportingYear", new YearToLocalDateTimeModel(new RWComponentPropertyModel<LocalDateTime>("reportingYear")));
         reportingYear.typeInteger().required().range(1900, 2099).decorateMask("9999");
         add(reportingYear);
 
-        DateInputField commitmentDate = new DateInputField("1bCommitmentDate", new RWComponentPropertyModel<Date>("commitmentDate"));
+        DateInputField commitmentDate = new DateInputField("1bCommitmentDate", new DateToLocalDateTimeModel(new RWComponentPropertyModel<LocalDateTime>("commitmentDate")));
         add(commitmentDate);
 
-        DropDownField<String> reportingCountry = new DropDownField<>("2reportingCountry", new RWComponentPropertyModel<String>("reportingCountry"),
-                SB.countryProvider);
+        DropDownField<Organization> reportingCountry = new DropDownField<>("2reportingCountry",
+                new RWComponentPropertyModel<Organization>("reportingCountry"), SB.organizationProvider);
         reportingCountry.required();
         add(reportingCountry);
 
-        TextInputField<String> extendingAgency = new TextInputField<>("3extendingAgency",
-                new RWComponentPropertyModel<String>("extendingAgency"));
+        DropDownField<Organization> extendingAgency = new DropDownField<>("3extendingAgency",
+                new RWComponentPropertyModel<Organization>("extendingAgency"), SB.organizationProvider);
+        extendingAgency.required();
         add(extendingAgency);
 
-        TextInputField<Integer> crsId = new TextInputField<>("4crsId", new RWComponentPropertyModel<Integer>("crsId"));
+        TextInputField<Integer> crsId = new TextInputField<>("4crsId", new RWComponentPropertyModel<Integer>("crsIdentificationNumber"));
         crsId.typeInteger();
         add(crsId);
 
-        TextInputField<Integer> donorProjectNumber = new TextInputField<>("5donorProjectNumber",
-                new RWComponentPropertyModel<Integer>("donorProjectNumber"));
-        donorProjectNumber.typeInteger();
+        TextInputField<String> donorProjectNumber = new TextInputField<>("5donorProjectNumber",
+                new RWComponentPropertyModel<String>("donorProjectNumber"));
         add(donorProjectNumber);
 
-        TextInputField<Integer> natureSubmission = new TextInputField<>("6natureSubmission",
-                new RWComponentPropertyModel<Integer>("natureSubmission"));
-        natureSubmission.typeInteger();
-        add(natureSubmission);
+        DropDownField<Category> natureOfSubmission = new DropDownField<>("6natureSubmission",
+                new RWComponentPropertyModel<Category>("natureOfSubmission"), SB.categoryProvider);
+        natureOfSubmission.required();
+        add(natureOfSubmission);
     }
 
     public static ITabWithKey newTab(Component askingComponent) {
