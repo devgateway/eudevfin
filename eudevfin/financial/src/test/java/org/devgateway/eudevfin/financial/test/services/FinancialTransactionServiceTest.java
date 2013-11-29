@@ -14,6 +14,7 @@ import org.devgateway.eudevfin.financial.service.OrganizationService;
 import org.devgateway.eudevfin.financial.util.FinancialConstants;
 import org.devgateway.eudevfin.financial.util.LocaleHelperInterface;
 import org.joda.money.BigMoney;
+import org.joda.time.LocalDateTime;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -96,6 +97,7 @@ public class FinancialTransactionServiceTest {
 		
 		FinancialTransaction result	= service.findById(tx.getId() );
 		Assert.assertNotNull(result);
+		Assert.assertNotNull(result.getCommitmentDate());
 	}
 	
 	private FinancialTransaction createTransaction() {
@@ -107,6 +109,7 @@ public class FinancialTransactionServiceTest {
 		tx.setAmountsReceived(BigMoney.parse("EUR 1230"));
 		tx.setCommitments(BigMoney.parse("EUR 4320"));
 		tx.setDescription("Some description for this tx");
+		tx.setCommitmentDate(new LocalDateTime());
 		tx.setReportingOrganization(org);
 
 		logger.info(tx);
