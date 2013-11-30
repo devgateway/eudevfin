@@ -18,6 +18,100 @@ $(document).ready(function () {
     });
 });
 
+// Model that define a filter
+(function () {
+    'use strict';
+    
+    var FilterModel = Backbone.Model.extend ({
+        defaults: function () {
+            return {
+                name: "",
+                type: "select",
+                parameters: [],
+                parameter: "",
+                valueAsId: true,
+                htmlObject: "",
+                queryDefinition: {
+                    dataAccessId:  "",
+                    path: '/some/path'
+                },
+                executeAtStart: true,
+                preExecution: function () {},
+                postExecution: function () {}
+            };
+        },
+
+        initialize: function () {
+            //console.log("Create new Filter");
+        }
+    });
+
+    app.FilterModel = FilterModel;
+}(app));
+
+// Model that define a table
+(function () {
+      'use strict';
+      
+      var TableModel = Backbone.Model.extend ({
+         defaults: function () {
+            return {
+                name: "",
+                type: "tableComponent",
+                listeners:[],
+                parameters: [],
+                chartDefinition: null,
+                htmlObject: "",
+                executeAtStart: true,
+                preExecution: function () {},
+                postExecution: function () {}
+            };
+        },
+
+        initialize: function() {
+            //console.log("Create new Table");
+        }
+    });
+
+    app.TableModel = TableModel;
+}(app));
+
+// Model that define a table definition
+(function () {
+    'use strict';
+    
+    var TableDefinitionModel = Backbone.Model.extend ({
+        defaults: function () {
+            return {
+                colHeaders: ["Col 1", "Col 2", "Col 3"],
+                colTypes: ['string', 'numeric', 'numeric'],
+                colFormats: ['%s', '%d', '%d'],
+                colWidths: ['40%', '40%', '20%'],
+                colSortable: [true, true, true],
+                tableStyle: "themeroller",
+                sortBy: [[1, 'desc']],
+                paginationType: "full_numbers",
+                paginateServerside: false,
+                paginate: false,
+                filter: false,
+                info: false,
+                sort: true,
+                lengthChange: false,
+                displayLength: 10,
+                    // query properties
+                dataAccessId:  "",
+                path: '/some/path'
+            };
+        },
+
+        initialize: function () {
+            //console.log("Create new Table Definition");
+        }
+    });
+
+    app.TableDefinitionModel = TableDefinitionModel;
+}(app));
+
 // Model that define a chart
 (function () {
     'use strict';
@@ -183,8 +277,6 @@ $(document).ready(function () {
     app.ChartPieDefinitionModel = ChartPieDefinitionModel;
 }(app));
 
-
-
 // Model that define a chart column definition
 (function () {
     'use strict';
@@ -310,45 +402,114 @@ $(document).ready(function () {
     app.ChartColumnDefinitionModel = ChartColumnDefinitionModel;
 }(app));
 
+// Model that define a stacked bar definition
+(function () {
+    'use strict';
+    
+    var StackedBarDefinitionModel = Backbone.Model.extend ({
+        defaults: function () {
+            return {
+                chart: {
+                    type: 'bar'
+                },
+                title: {
+                    text: 'Stacked bar chart'
+                },
+                xAxis: {
+                    categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Total fruit consumption'
+                    }
+                },
+                legend: {
+                    backgroundColor: '#FFFFFF',
+                    reversed: true
+                },
+                plotOptions: {
+                    series: {
+                        stacking: 'normal'
+                    }
+                },
+                series: [{
+                    name: 'John',
+                    data: [5, 3, 4, 7, 2]
+                    }, {
+                    name: 'Jane',
+                    data: [2, 2, 3, 2, 1]
+                }, {
+                    name: 'Joe',
+                    data: [3, 4, 4, 2, 5]
+                }]
+            };
+        },
+
+        // y-axis
+        //  {
+        // top: 300,
+        // lineWidth: 0,
+        // min: 0,
+        // max: 0,
+        // gridLineWidth: 0,
+        // offset: 0,
+        // height: 50,
+        // labels: {
+        //     enabled: false
+        // },
+        // title: {
+        //     text: 'my title',
+        //     align: 'low'
+        // }
+
+
+        // },
+
+        initialize: function () {
+            //console.log("Create new Stacked Bar Definition");
+        }
+
+    });
+
+    app.StackedBarDefinitionModel = StackedBarDefinitionModel;
+}(app));
+
 var pathToCdaFile = '/some/path.cda';
 var testTableDefinition,
     testTable,
     pieChart,
     columnChart,
+    stackedBarChart,
     pieChartDefinition,
     columnsChartDefinition,
+    stackedBarChartDefinition,
     pieChartQuery,
     pieQueryResult,
     columnQueryResult,
-    columnChartQuery;
+    columnChartQuery,
+    stackedBarChartQuery, 
+    stackedBarQueryResult,
+    sectorList,
+    sectorListParameter,
+    organizationList,
+    organizationListParameter;
 
-testTableDefinition = {
+testTableDefinition = new app.TableDefinitionModel({
     colHeaders: ["Col 1", "Col 2", "Amount"],
     colTypes: ['numeric', 'string', 'numeric'],
     colFormats: ['%d', '%s', '%d'],
     colWidths: ['30%', '40', '30%'],
     colSortable: [true, true, true],
     // sortBy: [[2, 'desc']],	for now the sort on CDA is not working 
-    tableStyle: "themeroller",
-    paginationType: "full_numbers",
-    paginateServerside: false,
-    paginate: true,
-    filter: true,
-    info: true,
-    sort: true,
-    lengthChange: false,
-    displayLength: 5,
-    // query properties
-    path: pathToCdaFile,                 // I don't think we will need this property
     dataAccessId: "simpleSQLQuery"
-};
+});
 
-testTable = {
+testTable = new app.TableModel({
     name: "testTable",
-    type: "tableComponent",
-    listeners:[],
+    listeners: [],
     parameters: [],
-    chartDefinition: testTableDefinition,
+    chartDefinition: testTableDefinition.toJSON(),
     htmlObject: "test-table",
     executeAtStart: true,
     preChange: function (value) {
@@ -369,7 +530,41 @@ testTable = {
     postExecution: function () {
         // console.log('>>> postExecution');
     }
-};
+});
+
+sectorList = new app.FilterModel ({
+    name: "sectorList",
+    parameter: "sectorListParameter",
+    htmlObject: "sector-list",
+    queryDefinition: {
+        dataAccessId: "sectorList", 
+        path: '/some/path.cda'
+    },
+    preExecution: function () {
+
+        return undefined;
+    },
+    postExecution: function () {
+        
+    }
+});
+
+organizationList = new app.FilterModel ({
+    name: "organizationList",
+    parameter: "organizationListParameter",
+    htmlObject: "organization-list",
+    queryDefinition: {
+        dataAccessId: "organizationList", 
+        path: '/some/path.cda'
+    },
+    preExecution: function () {
+        
+        return undefined;
+    },
+    postExecution: function () {
+        
+    }
+});
 
 pieChartDefinition = new app.ChartPieDefinitionModel();
 pieChartDefinition.get('chart').renderTo = 'pie-chart';
@@ -388,6 +583,14 @@ columnsChartDefinition.get('plotOptions').series.events.click = function (event)
                         console.log('column chart clicked!');
                     }, 200);
                 };
+
+stackedBarChartDefinition = new app.StackedBarDefinitionModel();
+stackedBarChartDefinition.get('chart').renderTo = 'stackedbar-chart';
+// stackedBarChartDefinition.get('plotOptions').series.events.click = function (event) {
+//                     setTimeout(function() {
+//                         console.log('stacked bar clicked!');
+//                     }, 200);
+//                 };
 
 pieChartQuery = new app.ChartModel ({
     name: "pieChartQuery",
@@ -457,13 +660,36 @@ columnChartQuery = new app.ChartModel ({
     }
 });
 
+stackedBarChartQuery = new app.ChartModel ({
+    name: "stackedBarChartQuery",
+    parameters: [],
+    resultvar: "stackedBarQueryResult",
+    queryDefinition: {
+        dataAccessId: "simpleSQLQuery", 
+        path: '/some/path'
+    },
+    executeAtStart: true,
+    preExecution: function () {
+        // do nothing
+    },
+    postExecution: function () {
+        var resultSeries = [];
+
+        // stackedBarChartDefinition.get('series')[0].data = [5, 1, 1, 3, 6, 2, 3];
+        stackedBarChart = new Highcharts.Chart(stackedBarChartDefinition.toJSON());
+    }
+});
+
 // get the charts as JSON objects
+sectorList = sectorList.toJSON();
+organizationList = organizationList.toJSON();
+testTable = testTable.toJSON();
 pieChartQuery = pieChartQuery.toJSON();
 columnChartQuery = columnChartQuery.toJSON();
-
+stackedBarChartQuery = stackedBarChartQuery.toJSON();
 
 // The components to be loaded into the dashboard within the [] separated by ,
-var components = [testTable, pieChartQuery, columnChartQuery];
+var components = [sectorList, organizationList, testTable, pieChartQuery, columnChartQuery, stackedBarChartQuery];
 
 // The initial dashboard load function definition
 var load = function () {

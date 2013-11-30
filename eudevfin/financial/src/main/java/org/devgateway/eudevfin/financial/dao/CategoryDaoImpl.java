@@ -26,7 +26,7 @@ public class CategoryDaoImpl extends AbstractDaoImpl<Category, CategoryRepositor
 	}
 
 	@Override
-	@ServiceActivator(inputChannel="saveCategoryChannel")
+//	@ServiceActivator(inputChannel="saveCategoryChannel")
 	public Category save(Category o) {
 		return super.save(o);
 	}
