@@ -29,6 +29,13 @@ public class ReportsPage extends HeaderFooter {
         response.render(JavaScriptHeaderItem.forUrl("/js/cdfplugin.js"));
         response.render(JavaScriptHeaderItem.forUrl("/js/Highcharts-3.0.7/js/highcharts.js"));
         response.render(JavaScriptHeaderItem.forUrl("/js/Highcharts-3.0.7/js/modules/exporting.js"));
+        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(ReportsPage.class, "FilterModel.js")));
+        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(ReportsPage.class, "TableModel.js")));
+        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(ReportsPage.class, "TableDefinitionModel.js")));
+        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(ReportsPage.class, "ChartModel.js")));
+        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(ReportsPage.class, "ChartPieDefinitionModel.js")));
+        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(ReportsPage.class, "ChartColumnDefinitionModel.js")));
+        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(ReportsPage.class, "StackedBarDefinitionModel.js")));
         response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(ReportsPage.class, "reports.js")));
     }
 }
