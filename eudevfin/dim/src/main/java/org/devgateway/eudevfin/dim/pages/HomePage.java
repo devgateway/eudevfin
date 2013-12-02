@@ -25,6 +25,7 @@ import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
 import org.devgateway.eudevfin.financial.service.OrganizationService;
+import org.joda.money.BigMoney;
 import org.wicketstuff.annotation.mount.MountPath;
 
 @MountPath(value = "/home")
@@ -46,7 +47,7 @@ public class HomePage extends HeaderFooter {
         o.setName("WicketTest Org - ro locale");
 		orgService.save(o);
 		FinancialTransaction ft = new FinancialTransaction();
-		ft.setAmount(new BigDecimal(777));
+		ft.setCommitments(BigMoney.parse("EUR 777"));
 		ft.setDescription("Wicket test descr - default locale");
 		ft.setLocale("ro");
 		ft.setDescription("Wicket test descr - ro locale");
@@ -62,7 +63,7 @@ public class HomePage extends HeaderFooter {
 				FinancialTransaction tempTx		= ftListItem.getModelObject();
 				Label idLabel						= new Label("transaction-id", tempTx.getId() );
 				ftListItem.add(idLabel);
-				Label amountLabel						= new Label("transaction-value", tempTx.getAmount().toPlainString() );
+				Label amountLabel						= new Label("transaction-value", tempTx.getCommitments().toString() );
 				ftListItem.add(amountLabel);
 				Label descriptionLabel						= new Label("transaction-description", tempTx.getDescription() );
 				ftListItem.add(descriptionLabel);
