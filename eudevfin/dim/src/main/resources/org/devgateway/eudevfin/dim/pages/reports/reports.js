@@ -53,7 +53,7 @@ testTableDefinition = new app.TableDefinitionModel({
 
 testTable = new app.TableModel({
     name: "testTable",
-    listeners: [],
+    listeners: ['sectorListParameter'],
     parameters: [],
     chartDefinition: testTableDefinition.toJSON(),
     htmlObject: "test-table",
@@ -139,7 +139,7 @@ stackedBarChartDefinition.get('chart').renderTo = 'stackedbar-chart';
 
 pieChartQuery = new app.ChartModel ({
     name: "pieChartQuery",
-    listeners: [sectorListParameter],
+    listeners: ['sectorListParameter'],
     parameters: [],
     resultvar: "pieQueryResult",
     queryDefinition: {
