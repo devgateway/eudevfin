@@ -19,10 +19,11 @@ import org.devgateway.eudevfin.dim.core.components.TextAreaInputField;
 import org.devgateway.eudevfin.dim.core.components.TextInputField;
 import org.devgateway.eudevfin.dim.core.components.tabs.AbstractTabWithKey;
 import org.devgateway.eudevfin.dim.core.components.tabs.ITabWithKey;
+import org.devgateway.eudevfin.dim.core.models.DateToLocalDateTimeModel;
 import org.devgateway.eudevfin.dim.core.permissions.PermissionAwareComponent;
 import org.devgateway.eudevfin.dim.core.temporary.SB;
-
-import java.util.Date;
+import org.devgateway.eudevfin.financial.Category;
+import org.joda.time.LocalDateTime;
 
 /**
  * @author aartimon@developmentgateway.org
@@ -39,64 +40,65 @@ public class SupplementaryDataTab extends Panel implements PermissionAwareCompon
     }
 
     private void addComponents() {
-        TextInputField<String> geographicalTargetArea = new TextInputField<>("16geographicalTargetArea", new RWComponentPropertyModel<String>("geographicalTargetArea"));
+        TextInputField<String> geographicalTargetArea = new TextInputField<>("16geographicalTargetArea", new RWComponentPropertyModel<String>("geoTargetArea"));
         add(geographicalTargetArea);
 
-        DateInputField startingDate = new DateInputField("17startingDate", new RWComponentPropertyModel<Date>("startingDate"));
+        DateInputField startingDate = new DateInputField("17startingDate", new DateToLocalDateTimeModel(new RWComponentPropertyModel<LocalDateTime>("expectedStartDate")));
         add(startingDate);
 
-        DateInputField completionDate = new DateInputField("18completionDate", new RWComponentPropertyModel<Date>("completionDate"));
+        DateInputField completionDate = new DateInputField("18completionDate", new DateToLocalDateTimeModel(new RWComponentPropertyModel<LocalDateTime>("expectedCompletionDate")));
         add(completionDate);
 
         TextAreaInputField description = new TextAreaInputField("19description", new RWComponentPropertyModel<String>("description"));
         add(description);
 
-        DropDownField<String> genderEquality = new DropDownField<>("20genderEquality", new RWComponentPropertyModel<String>("genderEquality"),
-                SB.countryProvider);
+        DropDownField<Category> genderEquality = new DropDownField<>("20genderEquality",
+                new RWComponentPropertyModel<Category>("genderEquality"), SB.categoryProvider);
         add(genderEquality);
 
-        DropDownField<String> aidToEnvironment = new DropDownField<>("21aidToEnvironment", new RWComponentPropertyModel<String>("aidToEnvironment"),
-                SB.countryProvider);
+        DropDownField<Category> aidToEnvironment = new DropDownField<>("21aidToEnvironment",
+                new RWComponentPropertyModel<Category>("aidToEnvironment"), SB.categoryProvider);
         add(aidToEnvironment);
 
-        DropDownField<String> pdGg = new DropDownField<>("22pdGg", new RWComponentPropertyModel<String>("pdGg"),
-                SB.countryProvider);
+        DropDownField<Category> pdGg = new DropDownField<>("22pdGg",
+                new RWComponentPropertyModel<Category>("pdgg"), SB.categoryProvider);
         add(pdGg);
 
-        DropDownField<String> tradeDevelopment = new DropDownField<>("23tradeDevelopment", new RWComponentPropertyModel<String>("tradeDevelopment"),
-                SB.countryProvider);
+        DropDownField<Category> tradeDevelopment = new DropDownField<>("23tradeDevelopment",
+                new RWComponentPropertyModel<Category>("tradeDevelopment"), SB.categoryProvider);
         add(tradeDevelopment);
 
-        DropDownField<String> freestandingTechnicalCooperation = new DropDownField<>("24freestandingTechnicalCooperation", new RWComponentPropertyModel<String>("freestandingTechnicalCooperation"),
-                SB.countryProvider);
+        DropDownField<Category> freestandingTechnicalCooperation = new DropDownField<>("24freestandingTechnicalCooperation",
+                new RWComponentPropertyModel<Category>("freestandingTechnicalCooperation"), SB.categoryProvider);
         add(freestandingTechnicalCooperation);
 
-        DropDownField<String> programbasedApproach = new DropDownField<>("25programbasedApproach", new RWComponentPropertyModel<String>("programbasedApproach"),
-                SB.countryProvider);
+        DropDownField<Category> programbasedApproach = new DropDownField<>("25programbasedApproach",
+                new RWComponentPropertyModel<Category>("programmeBasedApproach"), SB.categoryProvider);
         add(programbasedApproach);
 
-        DropDownField<String> investmentProject = new DropDownField<>("26investmentProject", new RWComponentPropertyModel<String>("investmentProject"),
-                SB.countryProvider);
+        DropDownField<Category> investmentProject = new DropDownField<>("26investmentProject",
+                new RWComponentPropertyModel<Category>("investment"), SB.categoryProvider);
         add(investmentProject);
 
-        DropDownField<String> associatedFinancing = new DropDownField<>("27associatedFinancing", new RWComponentPropertyModel<String>("associatedFinancing"),
-                SB.countryProvider);
+
+        DropDownField<Category> associatedFinancing = new DropDownField<>("27associatedFinancing",
+                new RWComponentPropertyModel<Category>("associatedFinancing"), SB.categoryProvider);
         add(associatedFinancing);
 
-        DropDownField<String> biodiversity = new DropDownField<>("28biodiversity", new RWComponentPropertyModel<String>("biodiversity"),
-                SB.countryProvider);
+        DropDownField<Category> biodiversity = new DropDownField<>("28biodiversity", new RWComponentPropertyModel<Category>("biodiversity"),
+                SB.categoryProvider);
         add(biodiversity);
 
-        DropDownField<String> ccMitigation = new DropDownField<>("29ccMitigation", new RWComponentPropertyModel<String>("ccMitigation"),
-                SB.countryProvider);
+        DropDownField<Category> ccMitigation = new DropDownField<>("29ccMitigation", new RWComponentPropertyModel<Category>("ccMitigation"),
+                SB.categoryProvider);
         add(ccMitigation);
 
-        DropDownField<String> ccAdaptation = new DropDownField<>("30ccAdaptation", new RWComponentPropertyModel<String>("ccAdaptation"),
-                SB.countryProvider);
+        DropDownField<Category> ccAdaptation = new DropDownField<>("30ccAdaptation", new RWComponentPropertyModel<Category>("ccAdaptation"),
+                SB.categoryProvider);
         add(ccAdaptation);
 
-        DropDownField<String> desertification = new DropDownField<>("31desertification", new RWComponentPropertyModel<String>("desertification"),
-                SB.countryProvider);
+        DropDownField<Category> desertification = new DropDownField<>("31desertification", new RWComponentPropertyModel<Category>("desertification"),
+                SB.categoryProvider);
         add(desertification);
 
         DropDownField<String> tbd96 = new DropDownField<>("96tbd", new RWComponentPropertyModel<String>("tbd96"),

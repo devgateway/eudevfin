@@ -76,7 +76,7 @@ public class BasicDataTab extends Panel implements PermissionAwareComponent {
                 SB.categoryProvider);
         add(typeOfAid);
 
-        TextAreaInputField activityProjectTitle = new TextAreaInputField("14activityProjectTitle", new RWComponentPropertyModel<String>("description"));
+        TextAreaInputField activityProjectTitle = new TextAreaInputField("14activityProjectTitle", new RWComponentPropertyModel<String>("shortDescription"));
         add(activityProjectTitle);
 
         DropDownField<Category> sectorPurposeCode = new DropDownField<>("15sectorPurposeCode", new RWComponentPropertyModel<Category>("sector"),
