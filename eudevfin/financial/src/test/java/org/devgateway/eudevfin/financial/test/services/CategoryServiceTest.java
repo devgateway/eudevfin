@@ -159,7 +159,7 @@ public class CategoryServiceTest {
 		
 		Category fakeLabel = new Category();
 		fakeLabel.setName("Fake label - test");
-		fakeLabel.setCode("fake_label_test");
+		fakeLabel.setCode("fake_label_test"); 
 		fakeLabel.setParentCategory(labelRoot);
 		
 		categoryService.save(labelRoot);
