@@ -45,6 +45,9 @@ testTableDefinition = new app.TableDefinitionModel({
     colWidths: ['30%', '40', '30%'],
     colSortable: [true, true, true],
     // sortBy: [[2, 'desc']],	for now the sort on CDA is not working 
+    paginate: true,
+    filter: true,
+    info: true,
     dataAccessId: "simpleSQLQuery"
 });
 
@@ -56,35 +59,14 @@ testTable = new app.TableModel({
     htmlObject: "test-table",
     executeAtStart: true,
     preChange: function (value) {
-        // console.log('>>> preChange');
-
         return value;
     },
     postFetch: function (values) {
-        // console.log('>>> postFetch');
-
+        console.log(values);
         return values;
     },
     preExecution: function () {
-        // console.log('>>> preExecution');
-
-        return undefined;
-    },
-    postExecution: function () {
-        // console.log('>>> postExecution');
-    }
-});
-
-sectorList = new app.FilterModel ({
-    name: "sectorList",
-    parameter: "sectorListParameter",
-    htmlObject: "sector-list",
-    queryDefinition: {
-        dataAccessId: "sectorList", 
-        path: '/some/path.cda'
-    },
-    preExecution: function () {
-
+        
         return undefined;
     },
     postExecution: function () {
@@ -92,7 +74,27 @@ sectorList = new app.FilterModel ({
     }
 });
 
-organizationList = new app.FilterModel ({
+sectorList = new app.FilterModel({
+    name: "sectorList",
+    parameter: "sectorListParameter",
+    htmlObject: "sector-list",
+    queryDefinition: {
+        dataAccessId: "sectorList", 
+        path: '/some/path.cda'
+    },
+    postFetch: function (values) {
+
+        return values;
+    },
+    
+    preExecution: function () {
+        return undefined;
+    },
+    postExecution: function () {
+    }
+});
+
+organizationList = new app.FilterModel({
     name: "organizationList",
     parameter: "organizationListParameter",
     htmlObject: "organization-list",
@@ -137,6 +139,7 @@ stackedBarChartDefinition.get('chart').renderTo = 'stackedbar-chart';
 
 pieChartQuery = new app.ChartModel ({
     name: "pieChartQuery",
+    listeners: [sectorListParameter],
     parameters: [],
     resultvar: "pieQueryResult",
     queryDefinition: {

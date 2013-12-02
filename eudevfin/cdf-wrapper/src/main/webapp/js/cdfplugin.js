@@ -10755,7 +10755,7 @@ Dashboards.init = function (components) {
  */
 Dashboards.syncParameters = function (master, slave) {
     this.setParameter(slave, this.getParameterValue(master));
-    this.parameterModel.change();
+    // this.parameterModel.change();
     this.parameterModel.on("change:" + master, function (m, v) {
         this.fireChange(slave, v)
     }, this);
@@ -11010,7 +11010,7 @@ Dashboards.fireChange = function (parameter, value) {
     this.createAndCleanErrorDiv();
 
     this.setParameter(parameter, value);
-    this.parameterModel.change();
+    // this.parameterModel.change();
     var toUpdate = [];
     var workDone = false;
     for (var i = 0, len = this.components.length; i < len; i++) {
@@ -16141,7 +16141,7 @@ function AddIn(options) {
             var myself = this;
             return function (json) {
                 // TODO - changed this in order to make the response a JSON object
-                // var JSONresponse = $.parseJSON(json);
+                // var JSONresponse = $.parseJSON(json
                 myself.setOption('lastResultSet', json);
                 var clone = $.extend(true, {}, myself.getOption('lastResultSet'));
                 callback(clone);

@@ -14,7 +14,7 @@ var app = app || {};
                 colWidths: ['40%', '40%', '20%'],
                 colSortable: [true, true, true],
                 tableStyle: "themeroller",
-                sortBy: [[1, 'desc']],
+                // sortBy: [[1, 'desc']],
                 paginationType: "full_numbers",
                 paginateServerside: false,
                 paginate: false,
