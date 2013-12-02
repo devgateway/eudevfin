@@ -17,17 +17,29 @@
         <Query>
         <![CDATA[
 			SELECT
-			NON EMPTY {Hierarchize({[Organization].[code].Members})} ON COLUMNS,
-			NON EMPTY {[Measures].[Amount]} ON ROWS
+			NON EMPTY {Hierarchize({[Reporting Organization].[code].Members})} ON COLUMNS,
+			NON EMPTY {[Measures].[Commitments Amount]} ON ROWS
 			FROM [Financial]
 		]]>
 		</Query>       
     </DataAccess>
     
+    <DataAccess id="simpleMDXQuerySector" connection="defaultConnection" type="mdx" access="public">
+		<Name>Simple Sector MDX query</Name>
+        <Query>
+        <![CDATA[
+			SELECT
+			NON EMPTY {Hierarchize({[Sector].[code].Members})} ON COLUMNS,
+			NON EMPTY {[Measures].[Commitments Amount]} ON ROWS
+			FROM [Financial]
+		]]>
+		</Query>       
+    </DataAccess>
+
     <DataAccess id="simpleSQLQuery" connection="sqlConnection" type="sql" access="public">
 		<Name>Sql Query on Transactions</Name>
         <Query><![CDATA[
-			select FT.REPORTINGORGANIZATION_ID, O.CODE, FT.AMOUNT from FINANCIALTRANSACTION FT, ORGANIZATION O where O.ID = FT.REPORTINGORGANIZATION_ID
+			select FT.REPORTINGORGANIZATION_ID, O.CODE, FT.COMMITMENT_AMOUNT from FINANCIALTRANSACTION FT, ORGANIZATION O where O.ID = FT.REPORTINGORGANIZATION_ID
 		]]></Query>
     </DataAccess>
     
