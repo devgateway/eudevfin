@@ -114,9 +114,14 @@
 	<int:channel id="saveTransactionChannel" />
 	<int:channel id="findTransactionByIdChannel" />
 	<int:channel id="saveOrganizationChannel" />
+	<int:channel id="saveCategoryChannel" />
+	<int:channel id="findAllAsListCategoryChannel" />
+	<int:channel id="findCategoryByIdChannel" />
+	<int:channel id="findCategoryByCodeChannel" />
+	<int:channel id="findCategoryByLabelCodeChannel" />
 
 	<!-- 	Router that sends the requests to the appropriate channels where they will usually be handled by ServiceActivators. 
-			The name of the request channes is taken from the 'requestName' header parameter
+			The name of the request channels is taken from the 'requestName' header parameter
 	 -->
 	<int:header-value-router input-channel="getChannel" header-name="requestName"/>
 

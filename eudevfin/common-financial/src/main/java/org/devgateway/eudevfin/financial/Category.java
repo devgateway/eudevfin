@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.DiscriminatorValue;
@@ -14,6 +15,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.UniqueConstraint;
 
 import org.devgateway.eudevfin.financial.translate.CategoryTranslation;
 import org.devgateway.eudevfin.financial.translate.CategoryTrnInterface;
@@ -31,10 +33,10 @@ public class Category extends AbstractTranslateable<CategoryTranslation>
 
 	private static final long serialVersionUID = -6173469233250737236L;
 
+	@Column(unique=true)
 	private String code;
 	
 	@ManyToOne
-	//@JoinColumn(name="PARENT_CATEGORY_ID")
 	private Category parentCategory;
 	
 	@OneToMany(mappedBy="parentCategory", cascade=CascadeType.ALL)
