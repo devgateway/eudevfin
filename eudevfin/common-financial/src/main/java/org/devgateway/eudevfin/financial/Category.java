@@ -1,9 +1,12 @@
 package org.devgateway.eudevfin.financial;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.DiscriminatorValue;
@@ -31,10 +34,10 @@ public class Category extends AbstractTranslateable<CategoryTranslation>
 
 	private static final long serialVersionUID = -6173469233250737236L;
 
+	@Column(unique=true)
 	private String code;
 	
 	@ManyToOne
-	//@JoinColumn(name="PARENT_CATEGORY_ID")
 	private Category parentCategory;
 	
 	@OneToMany(mappedBy="parentCategory", cascade=CascadeType.ALL)
@@ -103,6 +106,22 @@ public class Category extends AbstractTranslateable<CategoryTranslation>
 
 	public void setTags(Set<Category> tags) {
 		this.tags = tags;
+	}
+
+
+
+	public Category getParentCategory() {
+		return parentCategory;
+	}
+
+
+
+	public void setParentCategory(Category parentCategory) {
+		this.parentCategory = parentCategory;
+		if ( this.parentCategory.children == null ) {
+			this.parentCategory.children = new HashSet<Category>();
+		}
+		this.parentCategory.children.add(this);
 	}
 	
 	

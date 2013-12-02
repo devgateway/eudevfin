@@ -3,11 +3,15 @@
  */
 package org.devgateway.eudevfin.financial.dao;
 
+import java.util.List;
+
 import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.integration.annotation.Header;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 
@@ -26,8 +30,50 @@ public class CategoryDaoImpl extends AbstractDaoImpl<Category, CategoryRepositor
 	}
 
 	@Override
-//	@ServiceActivator(inputChannel="saveCategoryChannel")
+	@ServiceActivator(inputChannel="saveCategoryChannel")
 	public Category save(Category o) {
 		return super.save(o);
 	}
+	
+	@ServiceActivator(inputChannel="findCategoryByLabelCodeChannel")
+	public List<Category> findByTagsCode(String code) {
+		return getRepo().findByTagsCode(code);
+	}
+	
+	@ServiceActivator(inputChannel="findCategoryByCodeChannel")
+	public Category findByCode(String code, @Header("initializeChildren") Boolean initializeChildren) {
+		Category category	= null;
+		if ( initializeChildren != null && initializeChildren) {
+			category	= findByCodeTransactional(code);
+		}
+		else {
+			category	= getRepo().findByCode(code);
+		}
+		
+		return category;
+	}
+	
+	@Transactional
+	public Category findByCodeTransactional (String code) {
+		Category category	= getRepo().findByCode(code);
+		if ( category != null )
+			initializeChildren(category);
+		return category;
+	}
+	
+	@Transactional
+	public void initializeChildren(Category category) {
+		if ( category.getChildren() != null ) {
+			for (Category childCateg : category.getChildren()) {
+				if (childCateg != null)
+					initializeChildren(childCateg);
+			}
+		}
+		if ( category.getTags() != null ) {
+			for (Category childCateg : category.getTags() ) {
+				childCateg.getCode();
+			}
+		}
+	}
+	
 }

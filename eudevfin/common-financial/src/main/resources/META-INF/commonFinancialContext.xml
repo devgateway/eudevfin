@@ -47,4 +47,22 @@
 			<int:header name="requestName" value="saveOrganizationChannel"/>
 		</int:method>
 	</int:gateway>
+	<int:gateway id="categoryService"
+		service-interface="org.devgateway.eudevfin.financial.service.CategoryService">
+		<int:method name="save" request-channel="getChannel">
+			<int:header name="requestName" value="saveCategoryChannel"/>
+		</int:method>
+		<int:method name="findAll" request-channel="getChannel">
+			<int:header name="requestName" value="findAllAsListCategoryChannel"/>
+		</int:method>
+		<int:method name="findById" request-channel="getChannel">
+			<int:header name="requestName" value="findCategoryByIdChannel"/>
+		</int:method>
+		<int:method name="findByTagsCode" request-channel="getChannel">
+			<int:header name="requestName" value="findCategoryByLabelCodeChannel"/>
+		</int:method>
+		<int:method name="findByCode" request-channel="getChannel">
+			<int:header name="requestName" value="findCategoryByCodeChannel"/>
+		</int:method>
+	</int:gateway>
 </beans>
