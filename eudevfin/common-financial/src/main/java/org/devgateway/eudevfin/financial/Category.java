@@ -107,8 +107,6 @@ public class Category extends AbstractTranslateable<CategoryTranslation>
 		this.tags = tags;
 	}
 
-
-
 	public Category getParentCategory() {
 		return parentCategory;
 	}
