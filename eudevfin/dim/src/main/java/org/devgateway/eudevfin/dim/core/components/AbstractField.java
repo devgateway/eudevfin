@@ -79,6 +79,7 @@ public abstract class AbstractField<T> extends Panel implements PermissionAwareC
             @Override
             protected void onUpdate(AjaxRequestTarget target) {
                 target.add(controlGroup);
+                AbstractField.this.onUpdate(target);
             }
 
             @Override
@@ -89,8 +90,16 @@ public abstract class AbstractField<T> extends Panel implements PermissionAwareC
         xPenderController.add(fc);
     }
 
+    /**
+     * Override this to intercept the ajax onUpdate event
+     *
+     * @param target the ajax request target
+     */
+    protected void onUpdate(AjaxRequestTarget target) {
+    }
+
     private String getUpdateMethod() {
-        if (this instanceof DateInputField)
+        if (this instanceof DateInputField || this instanceof DropDownField)
             return "onchange";
         return "onblur";
     }

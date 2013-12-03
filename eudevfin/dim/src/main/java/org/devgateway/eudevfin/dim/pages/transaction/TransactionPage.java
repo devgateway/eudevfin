@@ -27,6 +27,7 @@ import org.devgateway.eudevfin.dim.core.pages.HeaderFooter;
 import org.devgateway.eudevfin.dim.core.permissions.PermissionAwarePage;
 import org.devgateway.eudevfin.dim.core.permissions.RoleActionMapping;
 import org.devgateway.eudevfin.dim.core.temporary.SB;
+import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import java.io.Serializable;
@@ -119,7 +120,9 @@ public class TransactionPage extends HeaderFooter implements PermissionAwarePage
 
         //TODO: check that transactionType in the request parameters is the same as the loaded transaction's type
 
-        final CompoundPropertyModel<TransactionPage> model = new CompoundPropertyModel<>(new TransactionPage());
+        FinancialTransaction financialTransaction = new FinancialTransaction();
+        financialTransaction.setCurrency(SB.currencies[0]);
+        final CompoundPropertyModel<FinancialTransaction> model = new CompoundPropertyModel<>(financialTransaction);
 
 
         setModel(model);

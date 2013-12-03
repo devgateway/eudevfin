@@ -38,7 +38,7 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
 
     private BigDecimal amount;
     private BigDecimal interestRate;
-    private BigDecimal seciondInterestRate;
+    private BigDecimal secondInterestRate;
 
 
     private String donorProjectNumber;
@@ -54,6 +54,7 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
     private Boolean programmeBasedApproach;
     private Boolean investment;
     private Boolean associatedFinancing;
+    private Boolean freestandingTechnicalCooperation;
 
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
     private LocalDateTime commitmentDate;
@@ -139,11 +140,11 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
 
     @Columns(columns = {@Column(name = "amounts_arears_prin_curr"), @Column(name = "amounts_arears_prin_amount")})
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
-    private BigMoney arearsOfPrincipal;
+    private BigMoney arrearsOfPrincipal;
 
     @Columns(columns = {@Column(name = "amounts_arears_interest_curr"), @Column(name = "amounts_arears_interest_amount")})
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
-    private BigMoney arearsOfInterest;
+    private BigMoney arrearsOfInterest;
 
     @ManyToOne
     private RecipientCategory recipient;
@@ -174,7 +175,7 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
     private Category typeOfRepayment;
 
     @ManyToOne
-    private Category numberOfRepaymentsAnum;
+    private Category numberOfRepaymentsAnnum;
 
 
     @ManyToOne
@@ -259,65 +260,65 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
     //
     @Override
     public String toString() {
-        return "FinancialTransaction{" +
-                "amount=" + amount +
-                ", interestRate=" + interestRate +
-                ", seciondInterestRate=" + seciondInterestRate +
-                ", donorProjectNumber='" + donorProjectNumber + '\'' +
-                ", crsIdentificationNumber='" + crsIdentificationNumber + '\'' +
-                ", geoTargetArea='" + geoTargetArea + '\'' +
-                ", shortDescription='" + shortDescription + '\'' +
-                ", description='" + description + '\'' +
-                ", cpa=" + cpa +
-                ", programmeBasedApproach=" + programmeBasedApproach +
-                ", investment=" + investment +
-                ", associatedFinancing=" + associatedFinancing +
-                ", commitmentDate=" + commitmentDate +
-                ", expectedStartDate=" + expectedStartDate +
-                ", expectedCompletionDate=" + expectedCompletionDate +
-                ", firstRepaymentDate=" + firstRepaymentDate +
-                ", finalRepaymentDate=" + finalRepaymentDate +
-                ", reportingYear=" + reportingYear +
-                ", commitments=" + commitments +
-                ", currency=" + currency +
-                ", amountsExtended=" + amountsExtended +
-                ", amountsExtendedCurrent=" + amountsExtendedCurrent +
-                ", amountsExtendedYear1=" + amountsExtendedYear1 +
-                ", amountsExtendedYear2=" + amountsExtendedYear2 +
-                ", amountsReceived=" + amountsReceived +
-                ", amountsUntied=" + amountsUntied +
-                ", amountsPartiallyUntied=" + amountsPartiallyUntied +
-                ", amountsTied=" + amountsTied +
-                ", amountOfIRTC=" + amountOfIRTC +
-                ", projectAmountExpertCommitments=" + projectAmountExpertCommitments +
-                ", projectAmountExpertExtended=" + projectAmountExpertExtended +
-                ", amountOfExportCreditInAFPackage=" + amountOfExportCreditInAFPackage +
-                ", interestReceived=" + interestReceived +
-                ", principalDisbursedOutstanding=" + principalDisbursedOutstanding +
-                ", arearsOfPrincipal=" + arearsOfPrincipal +
-                ", arearsOfInterest=" + arearsOfInterest +
-                ", recipient=" + recipient +
-                ", sector=" + sector +
-                ", natureOfSubmission=" + natureOfSubmission +
-                ", odaType=" + odaType +
-                ", typeOfFlow=" + typeOfFlow +
-                ", typeOfFinance=" + typeOfFinance +
-                ", administrativeType=" + administrativeType +
-                ", typeOfAid=" + typeOfAid +
-                ", typeOfRepayment=" + typeOfRepayment +
-                ", numberOfRepaymentsAnum=" + numberOfRepaymentsAnum +
-                ", biodiversity=" + biodiversity +
-                ", climateChangeMitigation=" + climateChangeMitigation +
-                ", climateChangeAdaptation=" + climateChangeAdaptation +
-                ", desertification=" + desertification +
-                ", genderEquality=" + genderEquality +
-                ", aidToEnvironment=" + aidToEnvironment +
-                ", pdgg=" + pdgg +
-                ", tradeDevelopment=" + tradeDevelopment +
-                ", reportingOrganization=" + reportingOrganization +
-                ", extendingAgency=" + extendingAgency +
-                ", channelOfDelivery=" + channelOfDelivery +
-                ", channel=" + channel +
+        return "\nFinancialTransaction{" +
+                "\n   amount=" + amount +
+                "\n   interestRate=" + interestRate +
+                "\n   secondInterestRate=" + secondInterestRate +
+                "\n   donorProjectNumber='" + donorProjectNumber + '\'' +
+                "\n   crsIdentificationNumber='" + crsIdentificationNumber + '\'' +
+                "\n   geoTargetArea='" + geoTargetArea + '\'' +
+                "\n   shortDescription='" + shortDescription + '\'' +
+                "\n   description='" + description + '\'' +
+                "\n   cpa=" + cpa +
+                "\n   programmeBasedApproach=" + programmeBasedApproach +
+                "\n   investment=" + investment +
+                "\n   associatedFinancing=" + associatedFinancing +
+                "\n   commitmentDate=" + commitmentDate +
+                "\n   expectedStartDate=" + expectedStartDate +
+                "\n   expectedCompletionDate=" + expectedCompletionDate +
+                "\n   firstRepaymentDate=" + firstRepaymentDate +
+                "\n   finalRepaymentDate=" + finalRepaymentDate +
+                "\n   reportingYear=" + reportingYear +
+                "\n   commitments=" + commitments +
+                "\n   currency=" + currency +
+                "\n   amountsExtended=" + amountsExtended +
+                "\n   amountsExtendedCurrent=" + amountsExtendedCurrent +
+                "\n   amountsExtendedYear1=" + amountsExtendedYear1 +
+                "\n   amountsExtendedYear2=" + amountsExtendedYear2 +
+                "\n   amountsReceived=" + amountsReceived +
+                "\n   amountsUntied=" + amountsUntied +
+                "\n   amountsPartiallyUntied=" + amountsPartiallyUntied +
+                "\n   amountsTied=" + amountsTied +
+                "\n   amountOfIRTC=" + amountOfIRTC +
+                "\n   projectAmountExpertCommitments=" + projectAmountExpertCommitments +
+                "\n   projectAmountExpertExtended=" + projectAmountExpertExtended +
+                "\n   amountOfExportCreditInAFPackage=" + amountOfExportCreditInAFPackage +
+                "\n   interestReceived=" + interestReceived +
+                "\n   principalDisbursedOutstanding=" + principalDisbursedOutstanding +
+                "\n   arrearsOfPrincipal=" + arrearsOfPrincipal +
+                "\n   arrearsOfInterest=" + arrearsOfInterest +
+                "\n   recipient=" + recipient +
+                "\n   sector=" + sector +
+                "\n   natureOfSubmission=" + natureOfSubmission +
+                "\n   odaType=" + odaType +
+                "\n   typeOfFlow=" + typeOfFlow +
+                "\n   typeOfFinance=" + typeOfFinance +
+                "\n   administrativeType=" + administrativeType +
+                "\n   typeOfAid=" + typeOfAid +
+                "\n   typeOfRepayment=" + typeOfRepayment +
+                "\n   numberOfRepaymentsAnnum=" + numberOfRepaymentsAnnum +
+                "\n   biodiversity=" + biodiversity +
+                "\n   climateChangeMitigation=" + climateChangeMitigation +
+                "\n   climateChangeAdaptation=" + climateChangeAdaptation +
+                "\n   desertification=" + desertification +
+                "\n   genderEquality=" + genderEquality +
+                "\n   aidToEnvironment=" + aidToEnvironment +
+                "\n   pdgg=" + pdgg +
+                "\n   tradeDevelopment=" + tradeDevelopment +
+                "\n   reportingOrganization=" + reportingOrganization +
+                "\n   extendingAgency=" + extendingAgency +
+                "\n   channelOfDelivery=" + channelOfDelivery +
+                "\n   channel=" + channel +
                 '}';
     }
 
@@ -404,12 +405,12 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
         this.interestRate = interestRate;
     }
 
-    public BigDecimal getSeciondInterestRate() {
-        return seciondInterestRate;
+    public BigDecimal getSecondInterestRate() {
+        return secondInterestRate;
     }
 
-    public void setSeciondInterestRate(BigDecimal seciondInterestRate) {
-        this.seciondInterestRate = seciondInterestRate;
+    public void setSecondInterestRate(BigDecimal secondInterestRate) {
+        this.secondInterestRate = secondInterestRate;
     }
 
     public String getShortDescription() {
@@ -599,20 +600,20 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
         this.principalDisbursedOutstanding = principalDisbursedOutstanding;
     }
 
-    public BigMoney getArearsOfPrincipal() {
-        return arearsOfPrincipal;
+    public BigMoney getArrearsOfPrincipal() {
+        return arrearsOfPrincipal;
     }
 
-    public void setArearsOfPrincipal(BigMoney arearsOfPrincipal) {
-        this.arearsOfPrincipal = arearsOfPrincipal;
+    public void setArrearsOfPrincipal(BigMoney arrearsOfPrincipal) {
+        this.arrearsOfPrincipal = arrearsOfPrincipal;
     }
 
-    public BigMoney getArearsOfInterest() {
-        return arearsOfInterest;
+    public BigMoney getArrearsOfInterest() {
+        return arrearsOfInterest;
     }
 
-    public void setArearsOfInterest(BigMoney arearsOfInterest) {
-        this.arearsOfInterest = arearsOfInterest;
+    public void setArrearsOfInterest(BigMoney arrearsOfInterest) {
+        this.arrearsOfInterest = arrearsOfInterest;
     }
 
     public RecipientCategory getRecipient() {
@@ -687,12 +688,12 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
         this.typeOfRepayment = typeOfRepayment;
     }
 
-    public Category getNumberOfRepaymentsAnum() {
-        return numberOfRepaymentsAnum;
+    public Category getNumberOfRepaymentsAnnum() {
+        return numberOfRepaymentsAnnum;
     }
 
-    public void setNumberOfRepaymentsAnum(Category numberOfRepaymentsAnum) {
-        this.numberOfRepaymentsAnum = numberOfRepaymentsAnum;
+    public void setNumberOfRepaymentsAnnum(Category numberOfRepaymentsAnnum) {
+        this.numberOfRepaymentsAnnum = numberOfRepaymentsAnnum;
     }
 
     public Category getBiodiversity() {
@@ -799,5 +800,11 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
         this.biMultilateral = biMultilateral;
     }
 
+    public Boolean getFreestandingTechnicalCooperation() {
+        return freestandingTechnicalCooperation;
+    }
 
+    public void setFreestandingTechnicalCooperation(Boolean freestandingTechnicalCooperation) {
+        this.freestandingTechnicalCooperation = freestandingTechnicalCooperation;
+    }
 }

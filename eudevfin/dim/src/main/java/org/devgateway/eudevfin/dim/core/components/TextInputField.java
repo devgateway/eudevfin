@@ -1,13 +1,10 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2013 Development Gateway.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v3.0
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/gpl.html
- *
- * Contributors:
- *    aartimon
- ******************************************************************************/
+ */
 
 package org.devgateway.eudevfin.dim.core.components;
 
@@ -18,6 +15,8 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.validation.IValidator;
 import org.apache.wicket.validation.validator.EmailAddressValidator;
 import org.apache.wicket.validation.validator.RangeValidator;
+
+import java.math.BigDecimal;
 
 /**
  * <p>Creates an input field with attached label and placeholder, see constructor for more info</p>
@@ -46,9 +45,10 @@ public class TextInputField<T> extends AbstractInputField<T> {
 
     /**
      * Simplified constructor that lets the user use the wicket:id as the messageKeyGroup as well
+     *
+     * @param id    component id
+     * @param model model to be used by the text field
      * @see TextInputField(String, IModel, String)
-     * @param id              component id
-     * @param model           model to be used by the text field
      */
     public TextInputField(String id, IModel<T> model) {
         this(id, model, id);
@@ -87,6 +87,12 @@ public class TextInputField<T> extends AbstractInputField<T> {
         field.setType(Integer.class);
         return this;
     }
+
+    public TextInputField<T> typeBigDecimal() {
+        field.setType(BigDecimal.class);
+        return this;
+    }
+
 
     @Override
     public TextInputField<T> required() {

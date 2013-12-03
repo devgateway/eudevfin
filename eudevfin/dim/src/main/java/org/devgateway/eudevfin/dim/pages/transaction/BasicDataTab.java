@@ -11,6 +11,7 @@ package org.devgateway.eudevfin.dim.pages.transaction;
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.devgateway.eudevfin.dim.core.RWComponentPropertyModel;
 import org.devgateway.eudevfin.dim.core.components.DropDownField;
@@ -49,12 +50,8 @@ public class BasicDataTab extends Panel implements PermissionAwareComponent {
                 new RWComponentPropertyModel<Organization>("channelOfDelivery"), SB.organizationProvider);
         add(channelOfDelivery);
 
-        //TODO: remove if channel of delivery is of type Org
-        /*TextInputField<String> channelDelivery = new TextInputField<>("8channelDelivery",
-                new RWComponentPropertyModel<String>("channelOfDelivery"));
-        add(channelDelivery);*/
-
-        DropDownField<String> channelCode = new DropDownField<>("9channelCode", new RWComponentPropertyModel<String>("channelCode"),
+        //TODO: fix storing channel code
+        DropDownField<String> channelCode = new DropDownField<>("9channelCode", Model.of("")/*new RWComponentPropertyModel<String>("channelCode")*/,
                 SB.countryProvider);
         add(channelCode);
 

@@ -9,16 +9,26 @@
 package org.devgateway.eudevfin.dim.pages.transaction;
 
 import org.apache.wicket.Component;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.event.Broadcast;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.ComponentPropertyModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.devgateway.eudevfin.dim.core.RWComponentPropertyModel;
 import org.devgateway.eudevfin.dim.core.components.DropDownField;
 import org.devgateway.eudevfin.dim.core.components.TextInputField;
 import org.devgateway.eudevfin.dim.core.components.tabs.AbstractTabWithKey;
 import org.devgateway.eudevfin.dim.core.components.tabs.ITabWithKey;
+import org.devgateway.eudevfin.dim.core.events.CurrencyChangedEvent;
+import org.devgateway.eudevfin.dim.core.events.CurrencyUpdateBehavior;
+import org.devgateway.eudevfin.dim.core.models.BigMoneyModel;
 import org.devgateway.eudevfin.dim.core.permissions.PermissionAwareComponent;
 import org.devgateway.eudevfin.dim.core.temporary.SB;
+import org.joda.money.BigMoney;
+import org.joda.money.CurrencyUnit;
+
+import java.math.BigDecimal;
 
 /**
  * @author aartimon@developmentgateway.org
@@ -35,49 +45,55 @@ public class VolumeDataTab extends Panel implements PermissionAwareComponent {
 
     private void addComponents() {
 
-        DropDownField<String> currency = new DropDownField<>("32currency", new RWComponentPropertyModel<String>("currency"),
-                SB.yesNoProvider);
+        ComponentPropertyModel<CurrencyUnit> readOnlyCurrencyModel = new ComponentPropertyModel<>("currency");
+        DropDownField<CurrencyUnit> currency = new DropDownField<CurrencyUnit>("32currency", new RWComponentPropertyModel<CurrencyUnit>("currency"),
+                SB.currencyProvider) {
+            @Override
+            protected void onUpdate(AjaxRequestTarget target) {
+                send(getPage(), Broadcast.DEPTH, new CurrencyChangedEvent(target));
+            }
+        };
         currency.required();
         add(currency);
 
-        TextInputField<Integer> commitments = new TextInputField<>("33commitments", new RWComponentPropertyModel<Integer>("commitments"));
-        commitments.typeInteger();
+        TextInputField<BigDecimal> commitments = new TextInputField<>("33commitments", new BigMoneyModel(new RWComponentPropertyModel<BigMoney>("commitments"), readOnlyCurrencyModel));
+        commitments.typeBigDecimal().add(new CurrencyUpdateBehavior());
         add(commitments);
 
-        TextInputField<Integer> amountsExtended = new TextInputField<>("34amountsExtended", new RWComponentPropertyModel<Integer>("amountsExtended"));
-        amountsExtended.typeInteger().required();
+        TextInputField<BigDecimal> amountsExtended = new TextInputField<>("34amountsExtended", new BigMoneyModel(new RWComponentPropertyModel<BigMoney>("amountsExtended"), readOnlyCurrencyModel));
+        amountsExtended.typeBigDecimal().required().add(new CurrencyUpdateBehavior());
         add(amountsExtended);
 
-        TextInputField<Integer> amountsReceived = new TextInputField<>("35amountsReceived", new RWComponentPropertyModel<Integer>("amountsReceived"));
-        amountsReceived.typeInteger();
+        TextInputField<BigDecimal> amountsReceived = new TextInputField<>("35amountsReceived", new BigMoneyModel(new RWComponentPropertyModel<BigMoney>("amountsReceived"), readOnlyCurrencyModel));
+        amountsReceived.typeBigDecimal().add(new CurrencyUpdateBehavior());
         add(amountsReceived);
 
-        TextInputField<Integer> amountUntied = new TextInputField<>("36amountUntied", new RWComponentPropertyModel<Integer>("amountUntied"));
-        amountUntied.typeInteger();
+        TextInputField<BigDecimal> amountUntied = new TextInputField<>("36amountUntied", new BigMoneyModel(new RWComponentPropertyModel<BigMoney>("amountsUntied"), readOnlyCurrencyModel));
+        amountUntied.typeBigDecimal().add(new CurrencyUpdateBehavior());
         add(amountUntied);
 
-        TextInputField<Integer> amountPartiallyUntied = new TextInputField<>("37amountPartiallyUntied", new RWComponentPropertyModel<Integer>("amountPartiallyUntied"));
-        amountPartiallyUntied.typeInteger();
+        TextInputField<BigDecimal> amountPartiallyUntied = new TextInputField<>("37amountPartiallyUntied", new BigMoneyModel(new RWComponentPropertyModel<BigMoney>("amountsPartiallyUntied"), readOnlyCurrencyModel));
+        amountPartiallyUntied.typeBigDecimal().add(new CurrencyUpdateBehavior());
         add(amountPartiallyUntied);
 
-        TextInputField<Integer> amountTied = new TextInputField<>("38amountTied", new RWComponentPropertyModel<Integer>("amountTied"));
-        amountTied.typeInteger();
+        TextInputField<BigDecimal> amountTied = new TextInputField<>("38amountTied", new BigMoneyModel(new RWComponentPropertyModel<BigMoney>("amountsTied"), readOnlyCurrencyModel));
+        amountTied.typeBigDecimal().add(new CurrencyUpdateBehavior());
         add(amountTied);
 
-        TextInputField<Integer> amountOfIRTC = new TextInputField<>("39amountOfIRTC", new RWComponentPropertyModel<Integer>("amountOfIRTC"));
-        amountOfIRTC.typeInteger();
+        TextInputField<BigDecimal> amountOfIRTC = new TextInputField<>("39amountOfIRTC", new BigMoneyModel(new RWComponentPropertyModel<BigMoney>("amountOfIRTC"), readOnlyCurrencyModel));
+        amountOfIRTC.typeBigDecimal().add(new CurrencyUpdateBehavior());
         add(amountOfIRTC);
 
-        TextInputField<Integer> amountOfExpertsCommitments = new TextInputField<>("40amountOfExpertsCommitments", new RWComponentPropertyModel<Integer>("amountOfExpertsCommitments"));
-        amountOfExpertsCommitments.typeInteger();
+        TextInputField<BigDecimal> amountOfExpertsCommitments = new TextInputField<>("40amountOfExpertsCommitments", new BigMoneyModel(new RWComponentPropertyModel<BigMoney>("projectAmountExpertCommitments"), readOnlyCurrencyModel));
+        amountOfExpertsCommitments.typeBigDecimal().add(new CurrencyUpdateBehavior());
         add(amountOfExpertsCommitments);
 
-        TextInputField<Integer> amountOfExpertsExtended = new TextInputField<>("41amountOfExpertsExtended", new RWComponentPropertyModel<Integer>("amountOfExpertsExtended"));
-        amountOfExpertsExtended.typeInteger();
+        TextInputField<BigDecimal> amountOfExpertsExtended = new TextInputField<>("41amountOfExpertsExtended", new BigMoneyModel(new RWComponentPropertyModel<BigMoney>("projectAmountExpertExtended"), readOnlyCurrencyModel));
+        amountOfExpertsExtended.typeBigDecimal().add(new CurrencyUpdateBehavior());
         add(amountOfExpertsExtended);
 
-        TextInputField<Integer> amountOfExportCredit = new TextInputField<>("42amountOfExportCredit", new RWComponentPropertyModel<Integer>("amountOfExportCredit"));
-        amountOfExportCredit.typeInteger();
+        TextInputField<BigDecimal> amountOfExportCredit = new TextInputField<>("42amountOfExportCredit", new BigMoneyModel(new RWComponentPropertyModel<BigMoney>("amountOfExportCreditInAFPackage"), readOnlyCurrencyModel));
+        amountOfExportCredit.typeBigDecimal().add(new CurrencyUpdateBehavior());
         add(amountOfExportCredit);
     }
 

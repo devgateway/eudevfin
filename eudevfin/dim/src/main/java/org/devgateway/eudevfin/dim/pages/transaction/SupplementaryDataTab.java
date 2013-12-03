@@ -68,32 +68,32 @@ public class SupplementaryDataTab extends Panel implements PermissionAwareCompon
                 new RWComponentPropertyModel<Category>("tradeDevelopment"), SB.categoryProvider);
         add(tradeDevelopment);
 
-        DropDownField<Category> freestandingTechnicalCooperation = new DropDownField<>("24freestandingTechnicalCooperation",
-                new RWComponentPropertyModel<Category>("freestandingTechnicalCooperation"), SB.categoryProvider);
+        DropDownField<Boolean> freestandingTechnicalCooperation = new DropDownField<>("24freestandingTechnicalCooperation",
+                new RWComponentPropertyModel<Boolean>("freestandingTechnicalCooperation"), SB.boolProvider);
         add(freestandingTechnicalCooperation);
 
-        DropDownField<Category> programbasedApproach = new DropDownField<>("25programbasedApproach",
-                new RWComponentPropertyModel<Category>("programmeBasedApproach"), SB.categoryProvider);
-        add(programbasedApproach);
+        DropDownField<Boolean> programmeBasedApproach = new DropDownField<>("25programmeBasedApproach",
+                new RWComponentPropertyModel<Boolean>("programmeBasedApproach"), SB.boolProvider);
+        add(programmeBasedApproach);
 
-        DropDownField<Category> investmentProject = new DropDownField<>("26investmentProject",
-                new RWComponentPropertyModel<Category>("investment"), SB.categoryProvider);
+        DropDownField<Boolean> investmentProject = new DropDownField<>("26investmentProject",
+                new RWComponentPropertyModel<Boolean>("investment"), SB.boolProvider);
         add(investmentProject);
 
 
-        DropDownField<Category> associatedFinancing = new DropDownField<>("27associatedFinancing",
-                new RWComponentPropertyModel<Category>("associatedFinancing"), SB.categoryProvider);
+        DropDownField<Boolean> associatedFinancing = new DropDownField<>("27associatedFinancing",
+                new RWComponentPropertyModel<Boolean>("associatedFinancing"), SB.boolProvider);
         add(associatedFinancing);
 
         DropDownField<Category> biodiversity = new DropDownField<>("28biodiversity", new RWComponentPropertyModel<Category>("biodiversity"),
                 SB.categoryProvider);
         add(biodiversity);
 
-        DropDownField<Category> ccMitigation = new DropDownField<>("29ccMitigation", new RWComponentPropertyModel<Category>("ccMitigation"),
+        DropDownField<Category> ccMitigation = new DropDownField<>("29ccMitigation", new RWComponentPropertyModel<Category>("climateChangeMitigation"),
                 SB.categoryProvider);
         add(ccMitigation);
 
-        DropDownField<Category> ccAdaptation = new DropDownField<>("30ccAdaptation", new RWComponentPropertyModel<Category>("ccAdaptation"),
+        DropDownField<Category> ccAdaptation = new DropDownField<>("30ccAdaptation", new RWComponentPropertyModel<Category>("climateChangeAdaptation"),
                 SB.categoryProvider);
         add(ccAdaptation);
 
@@ -101,6 +101,7 @@ public class SupplementaryDataTab extends Panel implements PermissionAwareCompon
                 SB.categoryProvider);
         add(desertification);
 
+        /*
         DropDownField<String> tbd96 = new DropDownField<>("96tbd", new RWComponentPropertyModel<String>("tbd96"),
                 SB.countryProvider);
         add(tbd96);
@@ -116,6 +117,7 @@ public class SupplementaryDataTab extends Panel implements PermissionAwareCompon
         DropDownField<String> tbd99 = new DropDownField<>("99tbd", new RWComponentPropertyModel<String>("tbd99"),
                 SB.countryProvider);
         add(tbd99);
+        */
     }
 
     public static ITabWithKey newTab(Component askingComponent) {

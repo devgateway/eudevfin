@@ -23,7 +23,7 @@ import org.apache.wicket.model.IWrapModel;
 
 public class RWComponentPropertyModel<T>
         implements
-        IComponentAssignedModel<T>, IModel<T> {
+        IComponentAssignedModel<T>, IWrapModel<T> {
     private static final long serialVersionUID = 1L;
 
     /**
@@ -53,7 +53,7 @@ public class RWComponentPropertyModel<T>
      */
     @Override
     public void setObject(T object) {
-        throw new IllegalStateException("Wrapper should have been called2");
+        throw new IllegalStateException("Wrapper should have been called");
     }
 
     /**
@@ -67,6 +67,11 @@ public class RWComponentPropertyModel<T>
     @Override
     public void detach() {
         //throw new IllegalStateException("Wrapper should have been called3");
+    }
+
+    @Override
+    public IModel<?> getWrappedModel() {
+        throw new IllegalStateException("Wrapper should have been called");
     }
 
     /**

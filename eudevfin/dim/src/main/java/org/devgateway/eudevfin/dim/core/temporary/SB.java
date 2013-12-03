@@ -11,13 +11,18 @@ package org.devgateway.eudevfin.dim.core.temporary;
 import com.vaynberg.wicket.select2.ChoiceProvider;
 import com.vaynberg.wicket.select2.Response;
 import com.vaynberg.wicket.select2.StringTextChoiceProvider;
+import com.vaynberg.wicket.select2.TextChoiceProvider;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.wicket.model.StringResourceModel;
 import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.Country;
 import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.RecipientCategory;
+import org.joda.money.CurrencyUnit;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * Temporary class to simulate binds with other modules
@@ -43,6 +48,12 @@ public class SB {
     private static final Category[] categs = {
             newCategory(1L, "First Category"),
             newCategory(2L, "Second Category")
+    };
+
+    public static final CurrencyUnit[] currencies = {
+            CurrencyUnit.EUR,
+            CurrencyUnit.GBP,
+            CurrencyUnit.USD
     };
 
     private static Category newCategory(Long id, String name) {
@@ -96,10 +107,76 @@ public class SB {
         }
     };
 
+    public static final ChoiceProvider<CurrencyUnit> currencyProvider = new TextChoiceProvider<CurrencyUnit>() {
+        @Override
+        protected String getDisplayText(CurrencyUnit choice) {
+            return choice.getCode();
+        }
+
+        @Override
+        protected Object getId(CurrencyUnit choice) {
+            return choice.getCode();
+        }
+
+        @Override
+        public void query(String term, int page, Response<CurrencyUnit> response) {
+            for (CurrencyUnit cu : currencies) {
+                response.add(cu);
+            }
+        }
+
+        @Override
+        public Collection<CurrencyUnit> toChoices(Collection<String> ids) {
+            ArrayList<CurrencyUnit> ret = new ArrayList<>();
+            for (String id : ids) {
+                for (CurrencyUnit cu : currencies) {
+                    if (cu.getCode().equals(id))
+                        ret.add(cu);
+                }
+            }
+            return ret;
+        }
+    };
+
     public static ChoiceProvider<RecipientCategory> recipientCategoryProvider = new TempCP<RecipientCategory>(recipientCateg) {
         @Override
         protected String getDisplayText(RecipientCategory choice) {
             return choice.getCountry().getName();
+        }
+    };
+
+    public static ChoiceProvider<Boolean> boolProvider = new TextChoiceProvider<Boolean>() {
+
+        @Override
+        protected String getDisplayText(Boolean choice) {
+            if (choice)
+                return (new StringResourceModel("yes", null, null)).toString();
+            return (new StringResourceModel("no", null, null)).toString();
+        }
+
+        @Override
+        protected Object getId(Boolean choice) {
+            if (choice)
+                return 1L;
+            return 0L;
+        }
+
+        @Override
+        public void query(String term, int page, Response<Boolean> response) {
+            response.add(Boolean.TRUE);
+            response.add(Boolean.FALSE);
+        }
+
+        @Override
+        public Collection<Boolean> toChoices(Collection<String> ids) {
+            ArrayList<Boolean> ret = new ArrayList<>();
+            for (String id : ids) {
+                if (id.equals("1"))
+                    ret.add(Boolean.TRUE);
+                else if (id.equals("0"))
+                    ret.add(Boolean.FALSE);
+            }
+            return ret;
         }
     };
 

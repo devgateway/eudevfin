@@ -8,7 +8,7 @@
 
 package org.devgateway.eudevfin.dim.core.models;
 
-import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.IWrapModel;
 import org.joda.time.LocalDateTime;
 
 import java.util.Date;
@@ -19,9 +19,9 @@ import java.util.Date;
  * @author aartimon
  * @since 29/11/13
  */
-public class DateToLocalDateTimeModel extends WrapperModel<Date, LocalDateTime> {
+public class DateToLocalDateTimeModel extends WrappingModel<Date, LocalDateTime> {
 
-    public DateToLocalDateTimeModel(IModel<LocalDateTime> originalModel) {
+    public DateToLocalDateTimeModel(IWrapModel<LocalDateTime> originalModel) {
         super(originalModel);
     }
 

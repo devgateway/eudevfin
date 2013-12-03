@@ -37,12 +37,11 @@ public class AvailableComponentsTab extends Panel {
         super(id);
 
         Model<String> emptyString = Model.of("");
-        TextInputField input = new TextInputField<>("input", emptyString).required();
+        TextInputField input = new TextInputField<>("input", emptyString);
         input.decorateMask("999-99-9999");
         add(input);
 
         TextInputField email = new TextInputField<>("email", emptyString);
-        email.required();
         email.decorateAsEmailField();
         add(email);
 
@@ -61,7 +60,6 @@ public class AvailableComponentsTab extends Panel {
         };
 
         DropDownField dd = new DropDownField<>("dropdown", Model.of(""), choiceProvider).disableSearch();
-
         add(dd);
 
         //noinspection unchecked

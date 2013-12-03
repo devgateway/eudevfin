@@ -48,7 +48,7 @@ public class IdentificationDataTab extends Panel implements PermissionAwareCompo
         add(commitmentDate);
 
         DropDownField<Organization> reportingCountry = new DropDownField<>("2reportingCountry",
-                new RWComponentPropertyModel<Organization>("reportingCountry"), SB.organizationProvider);
+                new RWComponentPropertyModel<Organization>("reportingOrganization"), SB.organizationProvider);
         reportingCountry.required();
         add(reportingCountry);
 
