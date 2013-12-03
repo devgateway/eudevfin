@@ -64,7 +64,7 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
     private LocalDateTime expectedCompletionDate;
 
-    @Type(type = "org.jadira.usertype.andtime.joda.PersistentLocalTime")
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
     private LocalDateTime firstRepaymentDate;
 
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
