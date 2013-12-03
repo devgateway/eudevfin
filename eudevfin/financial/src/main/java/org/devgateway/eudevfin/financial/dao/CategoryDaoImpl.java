@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.annotation.Header;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
  *
  */
 @Component
+//@Transactional( readOnly=false, propagation=Propagation.REQUIRED)
 public class CategoryDaoImpl extends AbstractDaoImpl<Category, CategoryRepository> {
 
 	@Autowired
@@ -41,6 +43,7 @@ public class CategoryDaoImpl extends AbstractDaoImpl<Category, CategoryRepositor
 	}
 	
 	@ServiceActivator(inputChannel="findCategoryByCodeChannel")
+	@Transactional
 	public Category findByCode(String code, @Header("initializeChildren") Boolean initializeChildren) {
 		Category category	= null;
 		if ( initializeChildren != null && initializeChildren) {
@@ -53,7 +56,6 @@ public class CategoryDaoImpl extends AbstractDaoImpl<Category, CategoryRepositor
 		return category;
 	}
 	
-	@Transactional
 	public Category findByCodeTransactional (String code) {
 		Category category	= getRepo().findByCode(code);
 		if ( category != null )
@@ -61,7 +63,6 @@ public class CategoryDaoImpl extends AbstractDaoImpl<Category, CategoryRepositor
 		return category;
 	}
 	
-	@Transactional
 	public void initializeChildren(Category category) {
 		if ( category.getChildren() != null ) {
 			for (Category childCateg : category.getChildren()) {

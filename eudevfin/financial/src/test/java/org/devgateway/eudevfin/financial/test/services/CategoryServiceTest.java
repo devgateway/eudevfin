@@ -32,11 +32,11 @@ import org.springframework.transaction.annotation.Transactional;
 @TransactionConfiguration(defaultRollback=false, transactionManager="transactionManager")
 public class CategoryServiceTest {
 
-	private static final String SECTORS_ROOT_TEST = "sectors_root_test";
+	public static final String SECTORS_ROOT_TEST = "sectors_root_test";
 
-	private static final String SUBSECTORS_LABEL_TEST = "subsectors_label_test";
+	public static final String SUBSECTORS_LABEL_TEST = "subsectors_label_test";
 
-	private static final String SECTORS_LABEL_TEST = "sectors_label_test";
+	public static final String SECTORS_LABEL_TEST = "sectors_label_test";
 	
 	@Autowired
 	CategoryService categoryService;

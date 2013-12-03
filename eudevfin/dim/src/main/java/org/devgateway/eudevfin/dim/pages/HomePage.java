@@ -12,6 +12,7 @@
 package org.devgateway.eudevfin.dim.pages;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.List;
 
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
@@ -21,10 +22,13 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.dim.core.Constants;
 import org.devgateway.eudevfin.dim.core.pages.HeaderFooter;
+import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.Organization;
+import org.devgateway.eudevfin.financial.service.CategoryService;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
 import org.devgateway.eudevfin.financial.service.OrganizationService;
+import org.devgateway.eudevfin.financial.test.services.CategoryServiceTest;
 import org.wicketstuff.annotation.mount.MountPath;
 
 @MountPath(value = "/home")
@@ -36,6 +40,9 @@ public class HomePage extends HeaderFooter {
 
     @SpringBean
     protected OrganizationService orgService;
+    
+    @SpringBean
+    protected CategoryService categoryService;
 
     public HomePage() {
         super();
@@ -53,6 +60,28 @@ public class HomePage extends HeaderFooter {
 		
 		ft.setReportingOrganization(o);
 		txService.save(ft);
+		
+		Category sectorsRoot = new Category();
+		sectorsRoot.setName("Sectors Root");
+		sectorsRoot.setCode(CategoryServiceTest.SECTORS_ROOT_TEST);
+		sectorsRoot.setTags(new HashSet<Category>());
+		
+		Category sector1	= new Category();
+		sector1.setName("Sector 1");
+		sector1.setCode("sector_1_test");
+		sector1.setParentCategory(sectorsRoot);
+		sector1.setTags(new HashSet<Category>());
+		
+		Category sector2	= new Category();
+		sector2.setName("Sector 2");
+		sector2.setCode("sector_2_test");
+		sector2.setParentCategory(sectorsRoot);
+		sector2.setTags(new HashSet<Category>());
+		
+		categoryService.save(sectorsRoot);
+		
+		categoryService.findByCode(CategoryServiceTest.SECTORS_ROOT_TEST, true);
+		
 		List<FinancialTransaction> allTransactions = txService.findAll();
 		this.transactionListView				= new ListView<FinancialTransaction>("transaction-list", allTransactions  ) {
 
