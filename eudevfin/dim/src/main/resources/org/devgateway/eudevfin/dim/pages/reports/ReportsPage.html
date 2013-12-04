@@ -1,33 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2013 Development Gateway.
+  ~ All rights reserved. This program and the accompanying materials
+  ~ are made available under the terms of the GNU Public License v3.0
+  ~ which accompanies this distribution, and is available at
+  ~ http://www.gnu.org/licenses/gpl.html
+  -->
+
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
 <wicket:head>
-	<!-- load CDF libs css files -->
+    <!-- load CDF libs css files -->
     <link href="/js/theme/ui-lightness/jquery-ui-1.8.20.custom.css" rel="stylesheet" type="text/css"/>
     <link href="/js/addIns/coltypes.css" rel="stylesheet" type="text/css"/>
     <link href="/js/dataTables/css/demo_page.css" rel="stylesheet" type="text/css"/>
     <link href="/js/dataTables/css/demo_table.css" rel="stylesheet" type="text/css"/>
     <link href="/js/dataTables/css/demo_table_jui.css" rel="stylesheet" type="text/css"/>
 
-	<!-- load CDF general styles -->
+    <!-- load CDF general styles -->
     <link href="/js/cdfcss.min.css" rel="stylesheet" type="text/css"/>
 </wicket:head>
 <body>
 <wicket:extend>
     <div class="loading-bar">
         <i class="sphere"></i>
-    </div>	<!-- used for loading animation instead of blockUI js library -->
+    </div>
+    <!-- used for loading animation instead of blockUI js library -->
 
     <div class="container">
         <div class="row">
-        	<div class="span12">
-                <h2>Filters</h2>
+            <div class="span12">
+                <h2>
+                    <wicket:message key="filters"/>
+                </h2>
                 <div class="box">
                     <div id="sector-list"></div>
                     <div id="organization-list"></div>
                 </div>
             </div>
             <div class="span12">
-                <h2>Table dashboard</h2>
+                <h2>
+                    <wicket:message key="dashboards.table"/>
+                </h2>
                 <div class="box">
                     <div class="box-header">
                         <h2>Financial Transactions</h2>
@@ -36,7 +49,9 @@
                 </div>
             </div>
             <div class="span12">
-                <h2>Pie Chart</h2>
+                <h2>
+                    <wicket:message key="dashboards.pieChart"/>
+                </h2>
                 <div class="box">
                     <div class="box-header">
                         <h2>Pie Chart</h2>
@@ -45,7 +60,9 @@
                 </div>
             </div>
             <div class="span12">
-                <h2>Column Chart</h2>
+                <h2>
+                    <wicket:message key="dashboards.columnChart"/>
+                </h2>
                 <div class="box">
                     <div class="box-header">
                         <h2>Column Chart</h2>
@@ -54,7 +71,9 @@
                 </div>
             </div>
             <div class="span12">
-                <h2>Stacked Bar Chart</h2>
+                <h2>
+                    <wicket:message key="dashboards.stackedBarChart"/>
+                </h2>
                 <div class="box">
                     <div class="box-header">
                         <h2>Stacked Bar Chart</h2>
@@ -62,8 +81,10 @@
                     <div id="stackedbar-chart"></div>
                 </div>
             </div>
-        </div>  <!-- /row -->
-    </div>   <!-- /container -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
 </wicket:extend>
 </body>
 </html>
