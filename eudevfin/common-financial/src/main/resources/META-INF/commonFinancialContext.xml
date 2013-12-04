@@ -41,6 +41,14 @@
 		</int:method>
 	</int:gateway>
 		
+		
+	<int:gateway id="financialTransactionHistExchRateService"
+		service-interface="org.devgateway.eudevfin.financial.service.FinancialTransactionHistExchRateService">
+		<int:method name="getHistoricalExchangeRates" request-channel="getChannel">
+			<int:header name="requestName" value="getFinancialTransactionHistoricalExchangeRatesChannel"/>
+		</int:method>
+	</int:gateway>		
+		
 	<int:gateway id="organizationService"
 		service-interface="org.devgateway.eudevfin.financial.service.OrganizationService">
 		<int:method name="save" request-channel="getChannel">
