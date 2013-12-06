@@ -1,10 +1,12 @@
 package org.devgateway.eudevfin.cda.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.apache.log4j.Logger;
 import org.devgateway.eudevfin.cda.domain.QueryResult;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
+
 import pt.webdetails.cda.CdaEngine;
 import pt.webdetails.cda.query.QueryOptions;
 import pt.webdetails.cda.settings.CdaSettings;
@@ -15,6 +17,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Locale;
 import java.util.Map;
 
 @Component
@@ -43,6 +46,7 @@ public class CDAQuery {
 		    String[] myArray = sortBy.split(",");
 		    Collections.addAll(sortByList, myArray);
 		}
+		String lang = (params.get("lang") != null) ? params.get("lang") : "en";
 	    
 	    // Stream that will hold the results of the CDA Query
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
@@ -62,6 +66,7 @@ public class CDAQuery {
 	    if(sortByList.size() > 0)
 	    	queryOptions.setSortBy(sortByList);
 	    queryOptions.setOutputType("json");
+	    org.springframework.context.i18n.LocaleContextHolder.setLocale(new Locale(lang));
 	    
 	    //Additional parameters come in the shape of "paramXXXXX"
 	    for(Map.Entry<String, String> param : params.entrySet())
