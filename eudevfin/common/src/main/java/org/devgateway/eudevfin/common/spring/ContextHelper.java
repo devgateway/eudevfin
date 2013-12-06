@@ -1,4 +1,4 @@
-package org.devgateway.eudevfin.financial.util;
+package org.devgateway.eudevfin.common.spring;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

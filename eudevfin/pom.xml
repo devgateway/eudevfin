@@ -411,6 +411,7 @@
         <module>cdf-wrapper</module>
         <module>exchange</module>
         <module>common-exchange</module>
+        <module>common</module>
     </modules>
     <inceptionYear>2013</inceptionYear>
     <organization>

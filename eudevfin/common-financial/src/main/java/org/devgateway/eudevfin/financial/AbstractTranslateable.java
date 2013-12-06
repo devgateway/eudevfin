@@ -8,21 +8,30 @@
 
 package org.devgateway.eudevfin.financial;
 
+import java.io.Serializable;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MapKey;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+
 import org.apache.log4j.Logger;
+import org.devgateway.eudevfin.common.spring.ContextHelper;
 import org.devgateway.eudevfin.financial.translate.AbstractTranslation;
-import org.devgateway.eudevfin.financial.util.ContextHelper;
 import org.devgateway.eudevfin.financial.util.FinancialConstants;
 import org.devgateway.eudevfin.financial.util.LocaleHelperInterface;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
-
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 
 @MappedSuperclass

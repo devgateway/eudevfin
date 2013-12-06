@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
+import org.devgateway.eudevfin.common.liquibase.MockupDbPopulator;
 import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.Organization;
@@ -14,10 +15,8 @@ import org.devgateway.eudevfin.financial.util.FinancialConstants;
 import org.joda.money.BigMoney;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
-@Component  
-public class PopulateMockupDb {
+public class PopulateMockupDb implements MockupDbPopulator {
 	
 	public static int NUM_OF_TX	= 50;
 	
@@ -31,7 +30,7 @@ public class PopulateMockupDb {
 	@Autowired
 	private CategoryDaoImpl catDao;
 	
-	@Transactional 
+	@Override
 	public void populate() {
 		
 		createOrganizations();
@@ -66,7 +65,11 @@ public class PopulateMockupDb {
 			tx.setLocale("en");
 			tx.setDescription("CDA Test Transaction " + i + " en");
 			tx.setLocale("ro");
+<<<<<<< Upstream, based on origin/master
 			tx.setDescription("CDA Test Transaction " + i + " ro"); 
+=======
+			tx.setDescription("CDA Test Transaction " + i + " ro");
+>>>>>>> bdd7b3e added new common module, for commonly used utils, moved generic code for liquibase jpa invocation to it, and contexthelper
 			tx.setSector(sector);
 			tx.setTypeOfFlow(typeOfFlow);
 			tx.setTypeOfAid(typeOfAid);
@@ -251,10 +254,13 @@ public class PopulateMockupDb {
 		s1.setName("Others en");
 		s1.setLocale("ro");
 		s1.setName("Others ro");
+<<<<<<< Upstream, based on origin/master
 		s1.setTags(new HashSet<Category>());
 		s1.getTags().add(sectorsTag);
 		s1.getTags().add(subsectorsTag);
 		s1.setParentCategory(sectorsRoot);
+=======
+>>>>>>> bdd7b3e added new common module, for commonly used utils, moved generic code for liquibase jpa invocation to it, and contexthelper
 		catDao.save(s1);
 		
 		Category s2 = new Category();
@@ -263,10 +269,13 @@ public class PopulateMockupDb {
 		s2.setName("General Budget Support en");
 		s2.setLocale("ro");
 		s2.setName("General Budget Support ro");
+<<<<<<< Upstream, based on origin/master
 		s2.setTags(new HashSet<Category>());
 		s2.getTags().add(sectorsTag);
 		s2.getTags().add(subsectorsTag);
 		s2.setParentCategory(sectorsRoot);
+=======
+>>>>>>> bdd7b3e added new common module, for commonly used utils, moved generic code for liquibase jpa invocation to it, and contexthelper
 		catDao.save(s2);
 
 		Category s3 = new Category();
@@ -275,10 +284,13 @@ public class PopulateMockupDb {
 		s3.setName("Transport and Storage en");
 		s3.setLocale("ro");
 		s3.setName("Transport and Storage ro");
+<<<<<<< Upstream, based on origin/master
 		s3.setTags(new HashSet<Category>());
 		s3.getTags().add(sectorsTag);
 		s3.getTags().add(subsectorsTag);
 		s3.setParentCategory(sectorsRoot);
+=======
+>>>>>>> bdd7b3e added new common module, for commonly used utils, moved generic code for liquibase jpa invocation to it, and contexthelper
 		catDao.save(s3);
 
 		Category s4 = new Category();
@@ -287,10 +299,13 @@ public class PopulateMockupDb {
 		s4.setName("Energy Generation and Support en");
 		s4.setLocale("ro");
 		s4.setName("Energy Generation and Support ro");
+<<<<<<< Upstream, based on origin/master
 		s4.setTags(new HashSet<Category>());
 		s4.getTags().add(sectorsTag);
 		s4.getTags().add(subsectorsTag);
 		s4.setParentCategory(sectorsRoot);
+=======
+>>>>>>> bdd7b3e added new common module, for commonly used utils, moved generic code for liquibase jpa invocation to it, and contexthelper
 		catDao.save(s4);
 
 		Category s5 = new Category();
@@ -299,11 +314,29 @@ public class PopulateMockupDb {
 		s5.setName("Agriculture en");
 		s5.setLocale("ro");
 		s5.setName("Agriculture ro");
+<<<<<<< Upstream, based on origin/master
 		s5.setTags(new HashSet<Category>());
 		s5.getTags().add(sectorsTag);
 		s5.getTags().add(subsectorsTag);
 		s5.setParentCategory(sectorsRoot);
+=======
+>>>>>>> bdd7b3e added new common module, for commonly used utils, moved generic code for liquibase jpa invocation to it, and contexthelper
 		catDao.save(s5);
+<<<<<<< Upstream, based on origin/master
+=======
+
+		Category sectorScheme = new Category();
+		sectorScheme.setCode("000");
+		sectorScheme.setLocale("en");
+		sectorScheme.setName("DAC Sector Scheme");
+		sectorScheme.setLocale("ro");
+		sectorScheme.setName("DAC Sector Scheme ro");
+		
+		HashSet<Category> sectorList = new HashSet<Category>(catDao.findAllAsList());
+
+		sectorScheme.setTags(sectorList);
+		catDao.save(sectorScheme);
+>>>>>>> bdd7b3e added new common module, for commonly used utils, moved generic code for liquibase jpa invocation to it, and contexthelper
 	
 	}
 
