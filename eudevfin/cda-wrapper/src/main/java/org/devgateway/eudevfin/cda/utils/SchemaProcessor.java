@@ -4,20 +4,15 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import mondrian.i18n.LocalizingDynamicSchemaProcessor;
 import mondrian.olap.Util;
 import mondrian.olap.Util.PropertyList;
-import mondrian.spi.impl.FilterDynamicSchemaProcessor;
 
-public class SchemaProcessor extends FilterDynamicSchemaProcessor {
+public class SchemaProcessor extends LocalizingDynamicSchemaProcessor {
 	
 	@Override
 	public String processSchema(String schemaUrl, PropertyList connectInfo)
 			throws Exception {
-		
-		//@@LOCALE@@
-		
-		
-		
         InputStream in = Util.readVirtualFile(schemaUrl);
         return filter(schemaUrl, connectInfo, in);
 	}
@@ -35,25 +30,15 @@ public class SchemaProcessor extends FilterDynamicSchemaProcessor {
      * @return the modified schema
      * @throws Exception if an error occurs
      */
-    protected String filter(
+    public String filter(
         String schemaUrl,
         Util.PropertyList connectInfo,
         InputStream stream)
         throws Exception
     {
-        BufferedReader in =
-            new BufferedReader(
-                new InputStreamReader(stream));
-        try {
-            StringBuilder builder = new StringBuilder();
-            char[] buf = new char[2048];
-            int readCount;
-            while ((readCount = in.read(buf, 0, buf.length)) >= 0) {
-                builder.append(buf, 0, readCount);
-            }
-            return builder.toString().replaceAll("@@LOCALE@@", org.springframework.context.i18n.LocaleContextHolder.getLocale().getLanguage() );
-        } finally {
-            in.close();
-        }
+    	connectInfo.put("Locale", org.springframework.context.i18n.LocaleContextHolder.getLocale().getLanguage());
+    	
+        String schema = super.filter(schemaUrl, connectInfo, stream);
+        return schema.replaceAll("@@LOCALE@@", org.springframework.context.i18n.LocaleContextHolder.getLocale().getLanguage() );
     }
 }
