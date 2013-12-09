@@ -7,8 +7,8 @@
       </Level>
     </Hierarchy>
   </Dimension>
-  <Dimension visible="true" highCardinality="false" name="Extending Organization">
-    <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Extending Organization" allMemberCaption="%{allExtendingOrganizations}" allLevelName="%{allExtendingOrganizations}" description="%{extendingOrganizations}" allMemberName="%{allExtendingOrganizations}">
+  <Dimension visible="true" highCardinality="false" name="Extending Agency">
+    <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Extending Agency" allMemberCaption="%{allExtendingAgencies}" allLevelName="%{allExtendingAgencies}" description="%{extendingAgencies}" allMemberName="%{allExtendingAgencies}">
       <Table name="ORGANIZATION" schema="APP">
       </Table>
       <Level name="code" visible="true" table="ORGANIZATION" column="CODE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
@@ -22,7 +22,7 @@
           <![CDATA[
 			select "CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE"
 			from "APP"."CATEGORY" as "CATEGORY", "APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION", "APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
-			WHERE "CATEGORYTRANSLATION"."LOCALE" ='en' AND "CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND "CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='type_of_aid')
+			WHERE "CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND "CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND "CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='type_of_aid')
 			group by "CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE" 
 			order by CASE WHEN "CATEGORY"."ID" IS NULL THEN 1 ELSE 0 END, "CATEGORY"."ID" ASC, CASE WHEN "CATEGORY"."CODE" IS NULL THEN 1 ELSE 0 END, "CATEGORY"."CODE" ASC
 			]]>
@@ -39,7 +39,7 @@
           <![CDATA[
 			select "CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE"
 			from "APP"."CATEGORY" as "CATEGORY", "APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION", "APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
-			WHERE "CATEGORYTRANSLATION"."LOCALE" ='en' AND "CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND "CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='type_of_flow')
+			WHERE "CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND "CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND "CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='type_of_flow')
 			group by "CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE" 
 			order by CASE WHEN "CATEGORY"."ID" IS NULL THEN 1 ELSE 0 END, "CATEGORY"."ID" ASC, CASE WHEN "CATEGORY"."CODE" IS NULL THEN 1 ELSE 0 END, "CATEGORY"."CODE" ASC
 			]]>
@@ -56,7 +56,7 @@
           <![CDATA[
 			select "CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE"
 			from "APP"."CATEGORY" as "CATEGORY", "APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION", "APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
-			WHERE "CATEGORYTRANSLATION"."LOCALE" ='en' AND "CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND "CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='subsectors')
+			WHERE "CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND "CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND "CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='subsectors')
 			group by "CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE" 
 			order by CASE WHEN "CATEGORY"."ID" IS NULL THEN 1 ELSE 0 END, "CATEGORY"."ID" ASC, CASE WHEN "CATEGORY"."CODE" IS NULL THEN 1 ELSE 0 END, "CATEGORY"."CODE" ASC
 			]]>
@@ -71,7 +71,7 @@
     </Table>
     <DimensionUsage source="Reporting Organization" name="Reporting Organization" visible="true" foreignKey="REPORTINGORGANIZATION_ID" highCardinality="false">
     </DimensionUsage>
-    <DimensionUsage source="Extending Organization" name="Extending Organization" visible="true" foreignKey="EXTENDINGORGANIZATION_ID" highCardinality="false">
+    <DimensionUsage source="Extending Organization" name="Extending Organization" visible="true" foreignKey="EXTENDINGAGENCY_ID" highCardinality="false">
     </DimensionUsage>
     <DimensionUsage source="Sector" name="Sector" visible="true" foreignKey="SECTOR_ID" highCardinality="false">
     </DimensionUsage>
