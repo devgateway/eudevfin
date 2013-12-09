@@ -25,7 +25,7 @@ import java.util.Date;
 public abstract class AbstractTranslation<P extends AbstractTranslateable<? extends AbstractTranslation<P>>>
         implements Serializable {
 
-    @Id
+    @Id 
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
 

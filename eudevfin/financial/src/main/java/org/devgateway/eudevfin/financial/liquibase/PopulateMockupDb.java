@@ -58,7 +58,7 @@ public class PopulateMockupDb {
 			tx.setLocale("en");
 			tx.setDescription("CDA Test Transaction " + i + " en");
 			tx.setLocale("ro");
-			tx.setDescription("CDA Test Transaction " + i + " ro");
+			tx.setDescription("CDA Test Transaction " + i + " ro"); 
 			tx.setSector(sector);
 			txDao.save(tx);
 		}

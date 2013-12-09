@@ -107,7 +107,7 @@ public abstract class AbstractTranslateable<T extends AbstractTranslation<? exte
             return this.locale;
         else {
             try {
-                LocaleHelperInterface localeHelper = ContextHelper.newInstance().getBean("localeHelper");
+				LocaleHelperInterface localeHelper = ContextHelper.newInstance().getBean("localeHelperRequest");
                 if (localeHelper != null && localeHelper.getLocale() != null) {
                     return localeHelper.getLocale();
                 }

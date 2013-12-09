@@ -26,6 +26,9 @@
 	<context:component-scan base-package="org.devgateway.eudevfin.financial" />
 	<context:annotation-config />
 	
+	<bean class="org.devgateway.eudevfin.financial.util.LocaleHelper" id="localeHelperRequest" scope="request" />
+	<bean class="org.devgateway.eudevfin.financial.util.LocaleHelper" id="localeHelperSession" scope="session" />
+	
 	<int:channel id="getChannel"/>
 	
 	<!-- This section contains the definition of the services that are made available to the other modules -->
@@ -38,6 +41,9 @@
 		</int:method>
 		<int:method name="findById" request-channel="getChannel">
 			<int:header name="requestName" value="findTransactionByIdChannel"/>
+		</int:method>
+		<int:method name="findBySectorCode" request-channel="getChannel">
+			<int:header name="requestName" value="findTransactionBySectorCodePageableChannel"/>
 		</int:method>
 	</int:gateway>
 		
