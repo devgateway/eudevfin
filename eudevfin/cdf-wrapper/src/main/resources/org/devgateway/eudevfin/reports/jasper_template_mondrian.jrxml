@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="MondrianReport" pageWidth="595" pageHeight="842" columnWidth="515" leftMargin="40" rightMargin="40" topMargin="50" bottomMargin="50" uuid="72a6dd2d-74fc-4f56-bc0a-d3ee5239681c">
+	<style name="Sans_Normal" isDefault="true" fontName="Verdana" fontSize="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+	<style name="Sans_Bold" fontName="Verdana" fontSize="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+	<queryString language="mdx">
+		<![CDATA[
+			SELECT
+			NON EMPTY {Hierarchize({[Reporting Organization].[code].Members})} ON COLUMNS,
+			NON EMPTY {[Measures].[Commitments Amount]} ON ROWS
+			FROM [Financial]
+		]]>
+	</queryString>
+	
+	<title>
+      <band height="50" isSplitAllowed="true">
+         <staticText>
+            <reportElement x="0" y="0" width="180" height="15" positionType="FixRelativeToTop" stretchType="NoStretch" isPrintRepeatedValues="true" isRemoveLineWhenBlank="false" isPrintInFirstWholeBand="false" isPrintWhenDetailOverflows="false" />
+            <textElement />
+            <text><![CDATA[JasperReports with Mondrian]]></text>
+         </staticText>
+      </band>
+   </title>
+   <pageHeader>
+		<band height="16">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="515" height="15" backcolor="#E0E0E0" uuid="8fed2c2d-fab9-4e86-a5c0-8b310ea46f45"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<staticText>
+					<reportElement x="20" y="0" width="150" height="15" uuid="13d397e4-dab4-4458-abcb-affcacbc057b"/>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[Organization]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="300" y="0" width="100" height="15" uuid="c83a0d8b-c17c-45e0-88df-0362489fb473"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle"/>
+					<text><![CDATA[Amount]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</pageHeader>
+	<detail>
+      <band height="20" isSplitAllowed="true">
+         <textField isStretchWithOverflow="false" evaluationTime="Now" bookmarkLevel="0">
+            <reportElement x="180" y="0" width="180" height="15" positionType="FixRelativeToTop" stretchType="NoStretch" isPrintRepeatedValues="true" isRemoveLineWhenBlank="false" isPrintInFirstWholeBand="false" isPrintWhenDetailOverflows="false" />
+            <textElement />
+            <textFieldExpression class="java.lang.String"><![CDATA[123]]></textFieldExpression>
+         </textField>
+      </band>
+   </detail>
+   <columnFooter>
+      <band height="0" isSplitAllowed="true" />
+   </columnFooter>
+   <pageFooter>
+      <band height="15" isSplitAllowed="true">
+         <staticText>
+            <reportElement x="0" y="0" width="40" height="15" positionType="FixRelativeToTop" stretchType="NoStretch" isPrintRepeatedValues="true" isRemoveLineWhenBlank="false" isPrintInFirstWholeBand="false" isPrintWhenDetailOverflows="false" />
+            <textElement />
+            <text><![CDATA[Page:]]></text>
+         </staticText>
+         <textField isStretchWithOverflow="false" evaluationTime="Now" bookmarkLevel="0">
+            <reportElement x="40" y="0" width="100" height="15" positionType="FixRelativeToTop" stretchType="NoStretch" isPrintRepeatedValues="true" isRemoveLineWhenBlank="false" isPrintInFirstWholeBand="false" isPrintWhenDetailOverflows="false" />
+            <textElement />
+            <textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+         </textField>
+      </band>
+   </pageFooter>
+   <summary>
+      <band height="0" isSplitAllowed="true" />
+   </summary>
+</jasperReport>	

@@ -1,0 +1,99 @@
+<Schema name="EUDevfin">
+  <Dimension visible="true" highCardinality="false" name="Reporting Organization">
+    <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allReportingOrganizations}" allLevelName="%{allReportingOrganizations}" description="%{reportingOrganizations}" allMemberName="%{allReportingOrganizations}">
+      <Table name="ORGANIZATION" schema="APP">
+      </Table>
+      <Level name="code" visible="true" table="ORGANIZATION" column="CODE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension visible="true" highCardinality="false" name="Extending Organization">
+    <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Extending Organization" allMemberCaption="%{allExtendingOrganizations}" allLevelName="%{allExtendingOrganizations}" description="%{extendingOrganizations}" allMemberName="%{allExtendingOrganizations}">
+      <Table name="ORGANIZATION" schema="APP">
+      </Table>
+      <Level name="code" visible="true" table="ORGANIZATION" column="CODE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension visible="true" highCardinality="false" name="Type of Aid">
+    <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Type of Aid" allMemberCaption="%{allTypesOfAid}" allLevelName="%{allTypesOfAid}" description="%{typesOfAid}" allMemberName="%{allTypesOfAid}">
+      <Table name="CATEGORY" schema="APP">
+      </Table>
+      <Level name="code" visible="true" table="CATEGORY" column="CODE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension visible="true" highCardinality="false" name="Type of Flow">
+    <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Type of Flow" allMemberCaption="%{allTypesOfFlow}" allLevelName="%{allTypesOfFlow}" description="%{typesOfFlow}" allMemberName="%{allTypesOfFlow}">
+      <Table name="CATEGORY" schema="APP">
+      </Table>
+      <Level name="code" visible="true" table="CATEGORY" column="CODE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" name="Sector">
+    <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="%{sectors}" allMemberCaption="%{allSectors}" allLevelName="%{allSectors}" description="%{sectors}" allMemberName="%{allSectors}">
+      <View alias="SectorView">
+        <SQL dialect="generic">
+          <![CDATA[
+			select "CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE"
+			from "APP"."CATEGORY" as "CATEGORY", "APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION"
+			WHERE "CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND "CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID"
+			group by "CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE" 
+			order by CASE WHEN "CATEGORY"."ID" IS NULL THEN 1 ELSE 0 END, "CATEGORY"."ID" ASC, CASE WHEN "CATEGORY"."CODE" IS NULL THEN 1 ELSE 0 END, "CATEGORY"."CODE" ASC
+			]]>
+        </SQL>
+      </View>
+      <Level name="Name" visible="true" column="NAME" uniqueMembers="false">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Cube name="Financial" visible="true" cache="false" enabled="true">
+    <Table name="FINANCIALTRANSACTION" schema="APP" alias="financialtransaction">
+    </Table>
+    <DimensionUsage source="Reporting Organization" name="Reporting Organization" visible="true" foreignKey="REPORTINGORGANIZATION_ID" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Extending Organization" name="Extending Organization" visible="true" foreignKey="EXTENDINGORGANIZATION_ID" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Sector" name="Sector" visible="true" foreignKey="SECTOR_ID" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Type of Aid" name="Type of Aid" visible="true" foreignKey="TYPEOFAID_ID" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Type of Flow" name="Type of Flow" visible="true" foreignKey="TYPEOFFLOW_ID" highCardinality="false">
+    </DimensionUsage>
+    <Measure name="Export Credit Amount" column="AMOUNTS_EXP_EXPORT_CREDIT_AMOUNT" aggregator="sum" visible="true" caption="%{exportCreditAmount}">
+    </Measure>
+    <Measure name="IRTC Amount" column="AMOUNTS_IRTC_AMOUNT" aggregator="sum" visible="true" caption="%{IRTCAmount}">
+    </Measure>
+    <Measure name="Extended Amount" column="AMOUNTS_EXTENDED_AMOUNT" aggregator="sum" visible="true" caption="%{extendedAmount}">
+    </Measure>
+    <Measure name="Current Extended Amount" column="AMOUNTS_EXTENDED_CURRENT_AMOUNT" aggregator="sum" visible="true" caption="%{currentExtendedAmount}">
+    </Measure>
+    <Measure name="Year 1 Extended Amount" column="AMOUNTS_EXTENDED_YEAR1_AMOUNT" aggregator="sum" visible="true" caption="%{year1ExtendedAmount}">
+    </Measure>
+    <Measure name="Year 2 Extended Amount" column="AMOUNTS_EXTENDED_YEAR2_AMOUNT" aggregator="sum" visible="true" caption="%{year2ExtendedAmount}">
+    </Measure>
+    <Measure name="Partially Untied Amount" column="AMOUNTS_PARTIALLY_UNTIED_AMOUNT" aggregator="sum" visible="true" caption="%{partiallyUntiedAmount}">
+    </Measure>
+    <Measure name="Received Amount" column="AMOUNTS_RECEIVED_AMOUNT" aggregator="sum" visible="true" caption="%{receivedAmount}">
+    </Measure>
+    <Measure name="Tied Amount" column="AMOUNTS_TIED_AMOUNT" aggregator="sum" visible="true" caption="%{tiedAmount}">
+    </Measure>
+    <Measure name="Untied Amount" column="AMOUNTS_UNTIED_AMOUNT" aggregator="sum" visible="true" caption="%{untiedAmount}">
+    </Measure>
+    <Measure name="Interest Arrears Amount" column="AMOUNTS_AREARS_INTEREST_AMOUNT" aggregator="sum" visible="true" caption="%{interestArrearsAmount}">
+    </Measure>
+    <Measure name="Principal Arrears Amount" column="AMOUNTS_AREARS_PRIN_AMOUNT" aggregator="sum" visible="true" caption="%{principalArrearsAmount}">
+    </Measure>
+    <Measure name="Commitments Amount" column="COMMITMENT_AMOUNT" aggregator="sum" visible="true" caption="%{commitmentsAmount}">
+    </Measure>
+    <Measure name="Interest Received Amount" column="AMOUNTS_INTEREST_RECEIVED_AMOUNT" aggregator="sum" visible="true" caption="%{interestReceivedAmount}">
+    </Measure>
+    <Measure name="Principal Disbursed Amount" column="AMOUNTS_PRIN_DISB_AMOUNT" aggregator="sum" visible="true" caption="%{principalDisbursedAmount}">
+    </Measure>
+    <Measure name="Expert Commitments Amount" column="AMOUNTS_EXP_COMMIT_AMOUNT" aggregator="sum" visible="true" caption="%{expertCommitmentsAmount}">
+    </Measure>
+    <Measure name="Expert Extended Amount" column="AMOUNTS_EXP_EXTENDED_AMOUNT" aggregator="sum" visible="true" caption="%{expertExtendedAmount}">
+    </Measure>
+  </Cube>
+</Schema>

@@ -30,6 +30,21 @@
 		<url-pattern>/cda/*</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>jasperreports</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value></param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>jasperreports</servlet-name>
+		<url-pattern>/jasperreports/*</url-pattern>
+	</servlet-mapping>
+	
   <filter>
     <filter-name>springSecurityFilterChain</filter-name>
     <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
