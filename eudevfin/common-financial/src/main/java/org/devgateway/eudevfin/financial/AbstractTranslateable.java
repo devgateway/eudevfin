@@ -1,5 +1,6 @@
 package org.devgateway.eudevfin.financial;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +29,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 
 @MappedSuperclass
-public abstract class AbstractTranslateable<T extends AbstractTranslation<? extends AbstractTranslateable<T>>> {
+public abstract class AbstractTranslateable<T extends AbstractTranslation<? extends AbstractTranslateable<T>>> 
+	implements Serializable{
 	
 	private static Logger logger	= Logger.getLogger(AbstractTranslateable.class);
 	
@@ -107,7 +109,7 @@ public abstract class AbstractTranslateable<T extends AbstractTranslation<? exte
 			return this.locale;
 		else {
 			try{
-				LocaleHelperInterface localeHelper = ContextHelper.newInstance().getBean("localeHelper");
+				LocaleHelperInterface localeHelper = ContextHelper.newInstance().getBean("localeHelperRequest");
 				if ( localeHelper != null && localeHelper.getLocale() != null ) {
 					return localeHelper.getLocale();
 				}

@@ -7,7 +7,7 @@ import org.devgateway.eudevfin.financial.Organization;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
- * @author alex
+ * @author Alex
  *
  */
 public interface OrganizationRepository extends

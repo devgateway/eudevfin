@@ -50,12 +50,14 @@ public class PopulateMockupDb {
 			int randomIndex2=r.nextInt(5);
 			
 			System.out.println(randomIndex1);
-			System.out.println(randomIndex2);
+			System.out.println("randomIndex2" + randomIndex2 + ", sector:" + listSec.get(randomIndex2).getCode() );
 			
 			org = listOrgs.get(randomIndex1);
 			sector = listSec.get(randomIndex2);
 			tx.setReportingOrganization( org );
 			tx.setDescription("CDA Test Transaction " + i);
+			tx.setLocale("ro");
+			tx.setDescription("Tranzactie pentru test " + i);
 			tx.setSector(sector);
 			txDao.save(tx);
 		}

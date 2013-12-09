@@ -1,5 +1,6 @@
 package org.devgateway.eudevfin.financial.translate;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -23,7 +24,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 @MappedSuperclass
 @Table(uniqueConstraints=@UniqueConstraint(columnNames={"parent_id","locale"}))
-public abstract class AbstractTranslation<P extends AbstractTranslateable<? extends AbstractTranslation<P>>> {
+public abstract class AbstractTranslation<P extends AbstractTranslateable<? extends AbstractTranslation<P>>> 
+		implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

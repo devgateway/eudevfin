@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
  * @author Alex
  *
  */
-@Component
-@Scope(value="request",proxyMode=ScopedProxyMode.INTERFACES)
+//@Component
+//@Scope(value="request",proxyMode=ScopedProxyMode.INTERFACES)
 public class LocaleHelper implements LocaleHelperInterface {
 	private String locale;
 

@@ -7,7 +7,14 @@ import java.util.List;
 
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.repository.FinancialTransactionRepository;
+import org.devgateway.eudevfin.financial.util.PagingHelper;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.integration.annotation.Header;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
 
@@ -45,6 +52,23 @@ public class FinancialTransactionDaoImpl extends AbstractDaoImpl<FinancialTransa
 
 	public List<FinancialTransaction> findBySourceOrganizationId(Long orgId) {
 		return getRepo().findByReportingOrganizationId(orgId);
+	}
+	
+	@ServiceActivator(inputChannel="findTransactionBySectorCodePageableChannel")
+	public PagingHelper<FinancialTransaction> findBySectorCode(String sectorCode, 
+			@Header("pageNumber")int pageNumber, @Header("pageSize")int pageSize) {
+		
+		int realPageNumber	= pageNumber-1;
+		
+		//Sort sort	= new Sort(Direction.ASC, "sectorName");
+		PageRequest pageRequest = new PageRequest(realPageNumber, pageSize, null);
+		Page<FinancialTransaction> resultPage	= this.getRepo().findBySectorCode(sectorCode, pageRequest);
+		
+		PagingHelper<FinancialTransaction> pagingHelper	= 
+				new PagingHelper<>(resultPage.getNumber(), resultPage.getTotalPages(), resultPage.getContent().size(), resultPage.getContent());
+				
+		return pagingHelper;
+		
 	}
 
 	@Override
