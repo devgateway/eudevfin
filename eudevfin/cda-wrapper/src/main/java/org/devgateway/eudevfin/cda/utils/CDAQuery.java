@@ -4,6 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.apache.log4j.Logger;
 import org.devgateway.eudevfin.cda.domain.QueryResult;
+import org.devgateway.eudevfin.financial.util.LocaleHelper;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
 
@@ -21,18 +25,18 @@ import java.util.Locale;
 import java.util.Map;
 
 @Component
-public class CDAQuery {
-	
+public class CDAQuery implements ApplicationContextAware {
+
 	protected static Logger logger = Logger.getLogger(CDAQuery.class);
+	ApplicationContext applicationContext = null;
 
+	/**
+	 * Instantiates and issues a query to the CDA Engine and returns a POJO with the results.	
+	 * @param params	Map with the configuration parameters used in the query as well as custom variables
+	 * @return the QueryResult object with the metadata, column definition and rows	
+	 * @throws Exception
+	 */
 	@ServiceActivator(inputChannel="getCDAQueryChannel", outputChannel="replyCDAQueryChannel")
-
-/**
- * Instantiates and issues a query to the CDA Engine and returns a POJO with the results.	
- * @param params	Map with the configuration parameters used in the query as well as custom variables
- * @return the QueryResult object with the metadata, column definition and rows	
- * @throws Exception
- */
 	public QueryResult doQuery(Map<String,String> params) throws Exception { 
 		
 		// Define the variables that will hold the parameters for the query
@@ -46,7 +50,8 @@ public class CDAQuery {
 		    String[] myArray = sortBy.split(",");
 		    Collections.addAll(sortByList, myArray);
 		}
-		String lang = (params.get("lang") != null) ? params.get("lang") : "en";
+	    LocaleHelper locale = (LocaleHelper) applicationContext.getBean("localeHelperSession");
+		String lang = (locale.getLocale() != null) ? locale.getLocale() : "en";
 	    
 	    // Stream that will hold the results of the CDA Query
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
@@ -66,6 +71,7 @@ public class CDAQuery {
 	    if(sortByList.size() > 0)
 	    	queryOptions.setSortBy(sortByList);
 	    queryOptions.setOutputType("json");
+
 	    org.springframework.context.i18n.LocaleContextHolder.setLocale(new Locale(lang));
 	    
 	    //Additional parameters come in the shape of "paramXXXXX"
@@ -96,6 +102,12 @@ public class CDAQuery {
 		}
 
 		return result;
+	}
+
+	@Override
+	public void setApplicationContext(ApplicationContext arg0)
+			throws BeansException {
+		this.applicationContext = arg0;
 	}
 
 }
