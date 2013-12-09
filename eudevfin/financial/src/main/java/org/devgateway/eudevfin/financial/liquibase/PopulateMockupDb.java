@@ -1,7 +1,5 @@
 package org.devgateway.eudevfin.financial.liquibase;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -12,6 +10,7 @@ import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.dao.CategoryDaoImpl;
 import org.devgateway.eudevfin.financial.dao.FinancialTransactionDaoImpl;
 import org.devgateway.eudevfin.financial.dao.OrganizationDaoImpl;
+import org.devgateway.eudevfin.financial.util.FinancialConstants;
 import org.joda.money.BigMoney;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -45,7 +44,7 @@ public class PopulateMockupDb {
 			Organization org = null;
 			Category sector = null;
 			List<Organization> listOrgs = orgDao.findAllAsList();
-			List<Category> listSec = catDao.findAllAsList();
+			List<Category> listSec = catDao.findByTagsCode(FinancialConstants.SUBSECTORS_TAG);
 			int randomIndex1=r.nextInt(5);
 			int randomIndex2=r.nextInt(5);
 			
@@ -69,20 +68,51 @@ public class PopulateMockupDb {
 
 	private void createSectors() {
 
+		//First create the tags that define a Sector
+		Category sectorsTag = new Category();
+		sectorsTag.setName("Sectors Tag");
+		sectorsTag.setCode(FinancialConstants.SECTORS_TAG);
+		catDao.save(sectorsTag);
+		
+		Category subsectorsTag = new Category();
+		subsectorsTag.setName("Sub-Sectors Tag");
+		subsectorsTag.setCode(FinancialConstants.SUBSECTORS_TAG);
+		subsectorsTag.setParentCategory(sectorsTag);		
+		catDao.save(subsectorsTag);
+
+		Category sectorsRoot = new Category();
+		sectorsRoot.setLocale("en");
+		sectorsRoot.setName("DAC Sector Scheme");
+		sectorsRoot.setLocale("ro");
+		sectorsRoot.setName("DAC Sector Scheme ro");
+		sectorsRoot.setCode(FinancialConstants.SECTORS_ROOT);
+		sectorsRoot.setTags(new HashSet<Category>());
+		sectorsRoot.getTags().add(sectorsTag);
+		catDao.save(sectorsRoot);
+		
+		
 		Category s1 = new Category();
 		s1.setCode("430");
 		s1.setLocale("en");
 		s1.setName("Others en");
 		s1.setLocale("ro");
 		s1.setName("Others ro");
+		s1.setTags(new HashSet<Category>());
+		s1.getTags().add(sectorsTag);
+		s1.getTags().add(subsectorsTag);
+		s1.setParentCategory(sectorsRoot);
 		catDao.save(s1);
-
+		
 		Category s2 = new Category();
 		s2.setCode("510");
 		s2.setLocale("en");
 		s2.setName("General Budget Support en");
 		s2.setLocale("ro");
 		s2.setName("General Budget Support ro");
+		s2.setTags(new HashSet<Category>());
+		s2.getTags().add(sectorsTag);
+		s2.getTags().add(subsectorsTag);
+		s2.setParentCategory(sectorsRoot);
 		catDao.save(s2);
 
 		Category s3 = new Category();
@@ -91,6 +121,10 @@ public class PopulateMockupDb {
 		s3.setName("Transport and Storage en");
 		s3.setLocale("ro");
 		s3.setName("Transport and Storage ro");
+		s3.setTags(new HashSet<Category>());
+		s3.getTags().add(sectorsTag);
+		s3.getTags().add(subsectorsTag);
+		s3.setParentCategory(sectorsRoot);
 		catDao.save(s3);
 
 		Category s4 = new Category();
@@ -99,6 +133,10 @@ public class PopulateMockupDb {
 		s4.setName("Energy Generation and Support en");
 		s4.setLocale("ro");
 		s4.setName("Energy Generation and Support ro");
+		s4.setTags(new HashSet<Category>());
+		s4.getTags().add(sectorsTag);
+		s4.getTags().add(subsectorsTag);
+		s4.setParentCategory(sectorsRoot);
 		catDao.save(s4);
 
 		Category s5 = new Category();
@@ -107,19 +145,11 @@ public class PopulateMockupDb {
 		s5.setName("Agriculture en");
 		s5.setLocale("ro");
 		s5.setName("Agriculture ro");
+		s5.setTags(new HashSet<Category>());
+		s5.getTags().add(sectorsTag);
+		s5.getTags().add(subsectorsTag);
+		s5.setParentCategory(sectorsRoot);
 		catDao.save(s5);
-
-		Category sectorScheme = new Category();
-		sectorScheme.setCode("000");
-		sectorScheme.setLocale("en");
-		sectorScheme.setName("DAC Sector Scheme");
-		sectorScheme.setLocale("ro");
-		sectorScheme.setName("DAC Sector Scheme ro");
-		
-		HashSet<Category> sectorList = new HashSet<Category>(catDao.findAllAsList());
-
-		sectorScheme.setTags(sectorList);
-		catDao.save(sectorScheme);
 	
 	}
 
