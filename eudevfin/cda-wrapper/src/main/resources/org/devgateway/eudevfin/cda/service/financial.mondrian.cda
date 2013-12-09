@@ -42,18 +42,6 @@
 		</Query>       
     </DataAccess>
 
-    <DataAccess id="simpleMDXQuerySectorLocale" connection="defaultConnectionLocale" type="mdx" access="public">
-		<Name>Simple Sector MDX query</Name>
-        <Query>
-        <![CDATA[
-			SELECT
-			NON EMPTY {Hierarchize({[Sector].[Name].Members})} ON COLUMNS,
-			NON EMPTY {[Measures].[Commitments Amount]} ON ROWS
-			FROM [Financial]
-		]]>
-		</Query>       
-    </DataAccess>
-
     <DataAccess id="simpleSQLQuery" connection="sqlConnection" type="sql" access="public">
 		<Name>Sql Query on Transactions</Name>
         <Query><![CDATA[
@@ -85,4 +73,45 @@
 			select code from organization
 		]]></Query>
     </DataAccess>
+
+
+    <DataAccess id="commitmentsBySector" connection="defaultConnectionLocale" type="mdx" access="public">
+		<Name>Simple Sector MDX query</Name>
+        <Query>
+        <![CDATA[
+			SELECT
+			NON EMPTY {Hierarchize({[Sector].[Name].Members})} ON COLUMNS,
+			NON EMPTY {[Measures].[Commitments Amount]} ON ROWS
+			FROM [Financial]
+		]]>
+		</Query>       
+    </DataAccess>
+
+    <DataAccess id="commitmentsByTypeOfFlow" connection="defaultConnectionLocale" type="mdx" access="public">
+		<Name>Simple Sector MDX query</Name>
+        <Query>
+        <![CDATA[
+			SELECT
+			NON EMPTY {Hierarchize({[Type of Flow].[Name].Members})} ON COLUMNS,
+			NON EMPTY {[Measures].[Commitments Amount]} ON ROWS
+			FROM [Financial]
+		]]>
+		</Query>       
+    </DataAccess>
+
+    <DataAccess id="commitmentsByTypeOfAid" connection="defaultConnectionLocale" type="mdx" access="public">
+		<Name>Simple Sector MDX query</Name>
+        <Query>
+        <![CDATA[
+			SELECT
+			NON EMPTY {Hierarchize({[Type of Aid].[Name].Members})} ON COLUMNS,
+			NON EMPTY {[Measures].[Commitments Amount]} ON ROWS
+			FROM [Financial]
+		]]>
+		</Query>       
+    </DataAccess>
+
+
+
+
 </CDADescriptor>

@@ -14,5 +14,8 @@ public class FinancialConstants {
 	public static final String SECTORS_ROOT = "sectors_root";
 	public static final String SUBSECTORS_TAG = "subsectors";
 	public static final String SECTORS_TAG = "sectors";
+
+	public static final String TYPEOFFLOW_TAG = "type_of_flow";
+	public static final String TYPEOFAID_TAG = "type_of_aid";
 	
 }
