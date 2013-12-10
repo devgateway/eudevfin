@@ -136,7 +136,6 @@ public class ReportsController {
 			"JdbcUser=app;" +
 			"JdbcPassword=;" +
 			"Catalog=" + this.getClass().getResource("./financial.mondrian.xml").toString() + ";",
-//			"Catalog=file:/Users/ionut/work/devfin/workspace/eudevfin/eudevfin/cdf-wrapper/src/main/resources/org/devgateway/eudevfin/reports/financial.mondrian.xml;",
 			null
 			);
 		
