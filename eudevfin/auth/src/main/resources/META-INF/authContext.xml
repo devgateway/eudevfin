@@ -29,7 +29,7 @@
    
 	<jpa:repositories base-package="org.devgateway.eudevfin.auth.repository" />
 
-	<bean id="authLiquibase" class="liquibase.integration.spring.SpringLiquibase">
+	<bean id="authLiquibase" class="liquibase.integration.spring.SpringLiquibase" depends-on="contextHelper">
 		<property name="dataSource" ref="euDevFinDataSource" />
 		<property name="changeLog" value="classpath:authDbChangelog.xml" />
 

@@ -1,7 +1,7 @@
 package org.devgateway.eudevfin.auth.dao;
 
-import org.devgateway.eudevfin.auth.common.domain.User;
-import org.devgateway.eudevfin.auth.repository.UserRepository;
+import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
+import org.devgateway.eudevfin.auth.repository.PersistedUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
@@ -10,16 +10,16 @@ import org.springframework.stereotype.Component;
 public class UserDaoImplEndpoint {
 	 
 	@Autowired
-	private UserRepository repo;
+	private PersistedUserRepository repo;
 	
 	@ServiceActivator(inputChannel="getUserChannel")
-	public User findByUserName(String username) {
-		return repo.findOne(username);
+	public PersistedUser findByUserName(String username) {
+		return repo.findByUsername(username);
 	}
 	
 	
 	@ServiceActivator(inputChannel="createUserChannel")
-	public User saveUser(User u) {
+	public PersistedUser saveUser(PersistedUser u) {
 		repo.save(u);
 		return u;
 	}

@@ -9,7 +9,7 @@
 	<changeSet id="1" author="agartner">
 
 		<customChange
-			class="org.devgateway.eudevfin.financial.liquibase.PopulateDbChange">
+			class="org.devgateway.eudevfin.financial.liquibase.PopulateFinancialDbChange">
 		</customChange>
 
 	</changeSet>

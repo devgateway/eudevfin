@@ -71,7 +71,7 @@
 
 
 
-<bean id="financialLiquibase" class="liquibase.integration.spring.SpringLiquibase">
+<bean id="financialLiquibase" class="liquibase.integration.spring.SpringLiquibase" depends-on="contextHelper">
       <property name="dataSource" ref="euDevFinDataSource" />
       <property name="changeLog" value="classpath:financialDbChangelog.xml" />
 
@@ -101,7 +101,7 @@
 	</bean> 
 	
 	<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" id="jpaVendorAdapter">
-		<property name="showSql" value="true" />
+		<property name="showSql" value="false" />
 		<property name="generateDdl" value="true"></property>
 		<property name="database" value="DERBY"></property>		
 	</bean>
