@@ -38,6 +38,12 @@
 	<!-- auditing -->
     <jpa:auditing auditor-aware-ref="simpleAuditorAwareImpl" />
 
+
+	<bean id="derbyServer" class="org.apache.derby.drda.NetworkServerControl" destroy-method="shutdown">
+    	<constructor-arg ref="derbyServerIP" />
+    	<constructor-arg value="1527" />
+	</bean>
+
 	<bean class="org.apache.commons.dbcp.BasicDataSource" id="euDevFinDataSource" >
 		<property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver" />
 		<property name="url" value="jdbc:derby:memory:eudevfin;create=true" />
