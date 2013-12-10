@@ -4,10 +4,8 @@
 	GNU Public License v3.0 which accompanies this distribution, and is available 
 	at http://www.gnu.org/licenses/gpl.html Contributors: mpostelnicu -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:int="http://www.springframework.org/schema/integration"
-	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:security="http://www.springframework.org/schema/security"
 	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
@@ -28,25 +26,22 @@
 	<int:annotation-config />
 	<context:component-scan base-package="org.devgateway.eudevfin.auth" />
 	<context:annotation-config />
-
+   
 	<jpa:repositories base-package="org.devgateway.eudevfin.auth.repository" />
 
-<bean id="authLiquibase" class="liquibase.integration.spring.SpringLiquibase">
-      <property name="dataSource" ref="euDevFinDataSource" />
-      <property name="changeLog" value="classpath:authDbChangelog.xml" />
+	<bean id="authLiquibase" class="liquibase.integration.spring.SpringLiquibase">
+		<property name="dataSource" ref="euDevFinDataSource" />
+		<property name="changeLog" value="classpath:authDbChangelog.xml" />
 
-      <!--
-      contexts specifies the runtime contexts to use.    
-      <property name="contexts" value="test, production" />
-      
-      -->
- </bean>
+
+		<!-- contexts specifies the runtime contexts to use. <property name="contexts" 
+			value="test, production" /> -->
+	</bean>
 
 	<!-- The following is a bean reading the user details data from the databasae 
 		through JDBC, and using the already initialized datasource -->
 	<bean id="userDetailsService"
-		class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
-		<property name="dataSource" ref="euDevFinDataSource" />
+		class="org.devgateway.eudevfin.auth.security.CustomJPAUserDetailsService">
 	</bean>
 
 
@@ -56,6 +51,7 @@
 	<security:authentication-manager id="localAuthenticationManager">
 		<security:authentication-provider
 			user-service-ref="userDetailsService">
+			<security:password-encoder hash="sha-256" />
 		</security:authentication-provider>
 	</security:authentication-manager>
 

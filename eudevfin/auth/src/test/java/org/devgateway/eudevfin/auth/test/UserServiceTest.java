@@ -3,7 +3,7 @@
  */
 package org.devgateway.eudevfin.auth.test;
 
-import org.devgateway.eudevfin.auth.common.domain.User;
+import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.auth.common.service.UserService;
 import org.junit.Assert;
 import org.junit.Test;
@@ -21,14 +21,14 @@ public class UserServiceTest extends AbstractAuthTest {
 
 	@Test
 	public void testCreateGetUser() {
-		User u = new User();
+		PersistedUser u = new PersistedUser();
 		u.setUsername("test");
 		u.setPassword("testpassword");
 		u.setEnabled(true);
 
 		service.createUser(u);
 
-		User userByUsername = service.getUserByUsername("test");
+		PersistedUser userByUsername = service.getUserByUsername("test");
 
 		Assert.assertNotNull(userByUsername);
 

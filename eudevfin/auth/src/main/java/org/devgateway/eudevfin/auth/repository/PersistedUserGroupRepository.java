@@ -3,7 +3,7 @@
  */
 package org.devgateway.eudevfin.auth.repository;
 
-import org.devgateway.eudevfin.auth.common.domain.User;
+import org.devgateway.eudevfin.auth.common.domain.PersistedUserGroup;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
-public interface UserRepository extends
-		PagingAndSortingRepository<User, String> {
+public interface PersistedUserGroupRepository extends
+		PagingAndSortingRepository<PersistedUserGroup, Long> {
+
 }
