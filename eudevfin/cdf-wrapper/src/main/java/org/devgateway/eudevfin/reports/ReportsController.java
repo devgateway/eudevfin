@@ -10,9 +10,11 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
 import mondrian.olap.Connection;
 import mondrian.olap.DriverManager;
+import mondrian.olap.Util.PropertyList;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -26,6 +28,7 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.olap.JRMondrianQueryExecuterFactory;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +37,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ReportsController {
+	
+	@Autowired
+	private DataSource cdaDataSource;
 	
 	private static final Logger logger = Logger.getLogger(ReportsController.class);
 	
@@ -129,15 +135,23 @@ public class ReportsController {
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 //		JRDataSource jrdataSource = new JRBeanCollectionDataSource(personList);
 		
-		Connection conn = DriverManager.getConnection(
-			"Provider=mondrian;" + 
-			"JdbcDrivers=­org­.­apache­.­derby­.­jdbc­.­EmbeddedDriver;" +
-			"Jdbc=jdbc:derby:memory:eudevfin;" +
-			"JdbcUser=app;" +
-			"JdbcPassword=;" +
-			"Catalog=" + this.getClass().getResource("./financial.mondrian.xml").toString() + ";",
-			null
-			);
+//		Connection conn = DriverManager.getConnection(
+//			"Provider=mondrian;" + 
+//			"JdbcDrivers=­org­.­apache­.­derby­.­jdbc­.­EmbeddedDriver;" +
+//			"Jdbc=jdbc:derby:memory:eudevfin;" +
+//			"JdbcUser=app;" +
+//			"JdbcPassword=;" +
+//			"Catalog=" + this.getClass().getResource("./financial.mondrian.xml").toString() + ";",
+//			null
+//			);
+		
+		PropertyList propertyList = new PropertyList();
+		propertyList.put("Provider", "mondrian");
+		propertyList.put("Catalog",
+				this.getClass().getResource("./financial.mondrian.xml")
+						.toString());
+		Connection conn = DriverManager.getConnection(propertyList, null,
+				cdaDataSource);
 		
 		Map<String, Object> parameters = new HashMap<String, Object>();
 //		parameters.put(JRMondrianQueryExecuterFactory.PARAMETER_MONDRIAN_CONNECTION, conn);
