@@ -38,7 +38,14 @@ public class ContextHelper implements ApplicationContextAware  {
 		return ret;
 	}
 
-	public AutowireCapableBeanFactory getAutowireCapableBeanFactory() { 
+	/**
+	 * Returns the autowire factory that can inject dependencies in a non-spring
+	 * initialized bean (if constructors are for example used outside spring's
+	 * scope)
+	 * 
+	 * @return the factory
+	 */
+	public AutowireCapableBeanFactory getAutowireCapableBeanFactory() {
 		return ContextHelper.appContext.getAutowireCapableBeanFactory();
 	}
 	

@@ -18,6 +18,7 @@ import org.devgateway.eudevfin.auth.repository.PersistedUserGroupRepository;
 import org.devgateway.eudevfin.auth.repository.PersistedUserRepository;
 import org.devgateway.eudevfin.common.liquibase.AbstractSpringCustomTaskChange;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author mihai
@@ -35,6 +36,7 @@ public class PopulateAuthDbChange extends AbstractSpringCustomTaskChange {
 	private PersistedAuthorityRepository authorityRepo;
 
 	@Override
+	@Transactional
 	public void execute(Database database) throws CustomChangeException {
 		PersistedAuthority authorityUser = new PersistedAuthority(
 				AuthConstants.Roles.ROLE_USER);

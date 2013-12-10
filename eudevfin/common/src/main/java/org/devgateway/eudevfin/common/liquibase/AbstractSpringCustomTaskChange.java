@@ -10,10 +10,14 @@ import liquibase.exception.SetupException;
 import org.apache.log4j.Logger;
 import org.devgateway.eudevfin.common.spring.ContextHelper;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
+import org.springframework.stereotype.Component;
 
 /**
- * @author Alex,Mihai
- * 
+ * @author Alex,Mihai 
+ * Abstract class linking {@link CustomTaskChange} with
+ *         Spring so that access to spring beans is possible (for example for
+ *         JPA persistence).
+ * Do not use {@link Component} in subclasses, this is not instantiated by Spring         
  */
 public abstract class AbstractSpringCustomTaskChange implements
 		CustomTaskChange{
@@ -22,7 +26,7 @@ public abstract class AbstractSpringCustomTaskChange implements
 	
 	/**
 	 * 
-	 * This bean was created by non-spring managed Liquibase in
+	 * {@link CustomTaskChange} has bean was created by non-spring managed Liquibase in
 	 * {@link CustomChangeWrapper#setClass(String)} Therefore it is clueless
 	 * about the spring infrastructure, so we autowire its fields manually
 	 * 
@@ -32,7 +36,7 @@ public abstract class AbstractSpringCustomTaskChange implements
 	public void setUp() throws SetupException {
 		AutowireCapableBeanFactory factory = ContextHelper.newInstance()
 				.getAutowireCapableBeanFactory();
-		logger.info("Autowiring properties of bean "+this.getClass()+" before execute");
+		logger.debug("Autowiring properties of bean "+this.getClass()+" before execute.");
 		factory.autowireBean(this);
 	}
 
