@@ -43,43 +43,38 @@
 
 	<!-- Get localhost InetAddress to start Derby network server on it. -->
 	<bean id="derbyServerIP"
-	    class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
-	    <property name="targetObject">
-	        <bean class="java.net.InetAddress" />
-	    </property>
-	    <property name="targetMethod">
-	        <value>getByName</value>
-	    </property>
-	    <property name="arguments" value="localhost" />
-	</bean>
-	
-	<!-- Create bean of Derby org.apache.derby.drda.NetworkServerControl class -->
-	<bean id="derbyServer" class="org.apache.derby.drda.NetworkServerControl" destroy-method="shutdown" lazy-init="true">
-	    	<constructor-arg ref="derbyServerIP" />
-	    	<constructor-arg value="1527" />
+		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="targetObject">
+			<bean class="java.net.InetAddress" />
+		</property>
+		<property name="targetMethod" value="getByName" />
+		<property name="arguments" value="localhost" />
 	</bean>
 
-	<!-- Create Printwriter object to use as log output reader for derby network server -->
+	<!-- Create bean of Derby org.apache.derby.drda.NetworkServerControl class -->
+	<bean id="derbyServer" class="org.apache.derby.drda.NetworkServerControl"
+		destroy-method="shutdown" lazy-init="true">
+		<constructor-arg ref="derbyServerIP" />
+		<constructor-arg value="1527" />
+	</bean>
+
+	<!-- Create Printwriter object to use as log output reader for derby network 
+		server -->
 	<bean id="pw" class="java.io.PrintWriter" lazy-init="true">
-	    <constructor-arg>
-	        <util:constant static-field="java.lang.System.out" />
-	    </constructor-arg>
-	    <constructor-arg value="true" />
+		<constructor-arg>
+			<util:constant static-field="java.lang.System.out" />
+		</constructor-arg>
+		<constructor-arg value="true" />
 	</bean>
 
 	<!-- start derby network server -->
-	<bean id="startDerby" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean"
+	<bean id="startDerby"
+		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean"
 		depends-on="derbyServer" lazy-init="true">
-		<property name="targetObject">
-			<ref local="derbyServer" />
-		</property>
-		<property name="targetMethod">
-			<value>start</value>
-		</property>
+		<property name="targetObject" ref="derbyServer" />
+		<property name="targetMethod" value="start" />
 		<property name="arguments" ref="pw" />
 	</bean>
-
-
 
 	<bean class="org.apache.commons.dbcp.BasicDataSource" id="euDevFinDataSource" depends-on="startDerby" lazy-init="true">
 		<property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver" />
@@ -98,12 +93,8 @@
 	use an XMLA (uses SOAP) channel through spring integration
 	 -->
 	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean" >
-	<property name="targetObject">
-		<ref local="simpleJndiBuilder" />
-	</property>
-	<property name="targetMethod">
-		<value>bind</value>
-	</property>
+	<property name="targetObject" ref="simpleJndiBuilder"/>
+	<property name="targetMethod" value="bind"/>		
 	<property name="arguments">
 		<list>
 			<value type="java.lang.String">java:comp/env/euDevFinDS</value>
@@ -117,12 +108,6 @@
 <bean id="financialLiquibase" class="liquibase.integration.spring.SpringLiquibase" depends-on="contextHelper">
       <property name="dataSource" ref="euDevFinDataSource" />
       <property name="changeLog" value="classpath:financialDbChangelog.xml" />
-
-      <!--
-      contexts specifies the runtime contexts to use.    
-      <property name="contexts" value="test, production" />
-      
-      -->
  </bean>
 
 
@@ -130,9 +115,7 @@
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="euDevFinDataSource" />
 		<property name="packagesToScan" value="org.devgateway.eudevfin" />
-		<property name="mappingResources">
-			<value>META-INF/orm.xml</value>
-		</property>
+		<property name="mappingResources" value="META-INF/orm.xml"/>
 		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
 		<property name="jpaProperties">
 			<props>
