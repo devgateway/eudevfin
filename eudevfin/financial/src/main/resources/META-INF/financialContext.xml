@@ -69,16 +69,17 @@
 		<constructor-arg value="true" />
 	</bean>
 
-	<!-- start derby network server -->
-
+	<!-- start derby network server,the SpEL provides the start() method only for network mode. This is due to a bug in 
+	spring https://jira.springsource.org/browse/SPR-11196 which makes any MethodInvokingFactoryBean to always be lazy-init=false, 
+	otherwise would would not need the SpEL here at all since this been would not be required by anyone hence not initialized -->
 	<bean id="startDerby" 
 		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean" lazy-init="true" autowire-candidate="false">
 		<property name="targetObject" ref="derbyServer" />
-		<property name="targetMethod" value="start" />
+		<property name="targetMethod" value="#{systemProperties['eudevfin.derby.mode'].equals('network')?'start':''}" />
 		<property name="arguments" ref="pw" />
-		
 	</bean>
-<!-- 
+
+	<!-- Datasource for network mode, this will be instantiated only if network mode derby will be used -->
 	<bean class="org.apache.commons.dbcp.BasicDataSource" id="euDevFinDataSourceNetwork" autowire-candidate="false"
 		depends-on="startDerby" lazy-init="true">
 		<property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver" />
@@ -86,21 +87,20 @@
 		<property name="username" value="app" />
 		<property name="password" value="" />
 	</bean>
-	
- -->
+
+	<!-- Datasource for embedded mode, this will be instantiated only if embedded mode derby will be used -->
 	<bean class="org.apache.commons.dbcp.BasicDataSource" id="euDevFinDataSourceEmbedded" lazy-init="true" autowire-candidate="false">
 		<property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver" />
 		<property name="url" value="jdbc:derby:memory:eudevfin;create=true" />
 		<property name="username" value="app" />
 		<property name="password" value="" />	
 	</bean>
-	
-	<bean id="targetSource" class="org.springframework.aop.target.HotSwappableTargetSource">
-    	<constructor-arg ref="euDevFinDataSourceEmbedded" />
-	</bean>
-	 
+
+	<!-- this the real datasource, a proxy, it is the only one that can get autowired 
+		and it behaves like its target(s) which are never autowired candidates -->
 	<bean id="euDevFinDataSource" class="org.springframework.aop.framework.ProxyFactoryBean">
-	    <property name="targetSource" ref="targetSource" />
+		<property name="target"
+			ref="#{systemProperties['eudevfin.derby.mode'].equals('network')?'euDevFinDataSourceNetwork':'euDevFinDataSourceEmbedded'}" />
 	</bean>
 	  
 	<!-- initialize a mock jndi builder we use internally to access this datasource 
