@@ -1,3 +1,4 @@
 /target
 /derby.log
 /.classpath
+/.settings/com.springsource.sts.config.flow.prefs
