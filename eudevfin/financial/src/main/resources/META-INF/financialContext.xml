@@ -9,7 +9,7 @@
   Contributors:
      mpostelnicu
 -->
-<beans xmlns="http://www.springframework.org/schema/beans"
+<beans default-lazy-init="true" xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:int="http://www.springframework.org/schema/integration"
 	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
@@ -19,8 +19,10 @@
 	xmlns:jee="http://www.springframework.org/schema/jee"
 	xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.2.xsd
 		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
 		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-2.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
@@ -43,7 +45,7 @@
 
 	<!-- Get localhost InetAddress to start Derby network server on it. -->
 	<bean id="derbyServerIP"
-		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean" lazy-init="true">
 		<property name="targetObject">
 			<bean class="java.net.InetAddress" />
 		</property>
@@ -68,48 +70,69 @@
 	</bean>
 
 	<!-- start derby network server -->
-	<bean id="startDerby"
-		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean"
-		depends-on="derbyServer" lazy-init="true">
+
+	<bean id="startDerby" 
+		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean" lazy-init="true" autowire-candidate="false">
 		<property name="targetObject" ref="derbyServer" />
 		<property name="targetMethod" value="start" />
 		<property name="arguments" ref="pw" />
+		
 	</bean>
-
-	<bean class="org.apache.commons.dbcp.BasicDataSource" id="euDevFinDataSource" depends-on="startDerby" lazy-init="true">
+<!-- 
+	<bean class="org.apache.commons.dbcp.BasicDataSource" id="euDevFinDataSourceNetwork" autowire-candidate="false"
+		depends-on="startDerby" lazy-init="true">
 		<property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver" />
-		<property name="url" value="jdbc:derby:eudevfin;create=true" />
+		<property name="url"  value="jdbc:derby:eudevfin;create=true" />
+		<property name="username" value="app" />
+		<property name="password" value="" />
+	</bean>
+	
+ -->
+	<bean class="org.apache.commons.dbcp.BasicDataSource" id="euDevFinDataSourceEmbedded" lazy-init="true" autowire-candidate="false">
+		<property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver" />
+		<property name="url" value="jdbc:derby:memory:eudevfin;create=true" />
 		<property name="username" value="app" />
 		<property name="password" value="" />	
 	</bean>
 	
-	<!-- initialize a mock jndi builder we use internally to access this datasource from third parties, like CDA -->
-	<bean id="simpleJndiBuilder" class="org.springframework.mock.jndi.SimpleNamingContextBuilder"
-	factory-method="emptyActivatedContextBuilder" destroy-method="deactivate"/>
+	<bean id="targetSource" class="org.springframework.aop.target.HotSwappableTargetSource">
+    	<constructor-arg ref="euDevFinDataSourceEmbedded" />
+	</bean>
+	 
+	<bean id="euDevFinDataSource" class="org.springframework.aop.framework.ProxyFactoryBean">
+	    <property name="targetSource" ref="targetSource" />
+	</bean>
+	  
+	<!-- initialize a mock jndi builder we use internally to access this datasource 
+		from third parties, like CDA -->
+	<bean id="simpleJndiBuilder"
+		class="org.springframework.mock.jndi.SimpleNamingContextBuilder"
+		factory-method="emptyActivatedContextBuilder" destroy-method="deactivate" />
 
-	<!--  invoke a void return factory method of the binder with the parameters 
-	jndi url plus the existing datasource reference. This will bind the datasource to the JNDI tree for later lookups
-	This is used to lookup the datasource through JNDI by the CDA module. Alternatively and probably much slower, we could
-	use an XMLA (uses SOAP) channel through spring integration
-	 -->
-	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean" >
-	<property name="targetObject" ref="simpleJndiBuilder"/>
-	<property name="targetMethod" value="bind"/>		
-	<property name="arguments">
-		<list>
-			<value type="java.lang.String">java:comp/env/euDevFinDS</value>
-			<ref local="euDevFinDataSource" />
-		</list>
-	</property>
-</bean>
+	<!-- invoke a void return factory method of the binder with the parameters 
+		jndi url plus the existing datasource reference. This will bind the datasource 
+		to the JNDI tree for later lookups This is used to lookup the datasource 
+		through JNDI by the CDA module. Alternatively and probably much slower, we 
+		could use an XMLA (uses SOAP) channel through spring integration -->
+	<bean
+		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="targetObject" ref="simpleJndiBuilder" />
+		<property name="targetMethod" value="bind" />
+		<property name="arguments">
+			<list>
+				<value type="java.lang.String">java:comp/env/euDevFinDS</value>
+				<ref local="euDevFinDataSource" />
+			</list>
+		</property>
+	</bean>
 
 
 
-<bean id="financialLiquibase" class="liquibase.integration.spring.SpringLiquibase" depends-on="contextHelper">
-      <property name="dataSource" ref="euDevFinDataSource" />
-      <property name="changeLog" value="classpath:financialDbChangelog.xml" />
- </bean>
-
+	<bean id="financialLiquibase" class="liquibase.integration.spring.SpringLiquibase"
+		depends-on="contextHelper">
+		<property name="dataSource" ref="euDevFinDataSource" />
+		<property name="changeLog" value="classpath:financialDbChangelog.xml" />
+	</bean>
 
 	<!-- Hibernate / JPA related beans -->
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
@@ -126,12 +149,15 @@
 		
 	</bean> 
 	
+	
+	
 	<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" id="jpaVendorAdapter">
 		<property name="showSql" value="false" />
 		<property name="generateDdl" value="true"/>
 		<property name="database" value="DERBY"/>
 		<property name="databasePlatform" value="org.hibernate.dialect.DerbyTenSevenDialect"/>
 	</bean>
+	
 	<bean class="org.springframework.orm.jpa.JpaTransactionManager" id="transactionManager">
 		<constructor-arg index="0" ref="entityManagerFactory"></constructor-arg>
 	</bean>
