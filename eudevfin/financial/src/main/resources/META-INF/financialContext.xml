@@ -54,13 +54,13 @@
 	</bean>
 	
 	<!-- Create bean of Derby org.apache.derby.drda.NetworkServerControl class -->
-	<bean id="derbyServer" class="org.apache.derby.drda.NetworkServerControl" destroy-method="shutdown">
+	<bean id="derbyServer" class="org.apache.derby.drda.NetworkServerControl" destroy-method="shutdown" lazy-init="true">
 	    	<constructor-arg ref="derbyServerIP" />
 	    	<constructor-arg value="1527" />
 	</bean>
 
 	<!-- Create Printwriter object to use as log output reader for derby network server -->
-	<bean id="pw" class="java.io.PrintWriter">
+	<bean id="pw" class="java.io.PrintWriter" lazy-init="true">
 	    <constructor-arg>
 	        <util:constant static-field="java.lang.System.out" />
 	    </constructor-arg>
@@ -69,7 +69,7 @@
 
 	<!-- start derby network server -->
 	<bean id="startDerby" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean"
-		depends-on="derbyServer">
+		depends-on="derbyServer" lazy-init="true">
 		<property name="targetObject">
 			<ref local="derbyServer" />
 		</property>
@@ -79,7 +79,9 @@
 		<property name="arguments" ref="pw" />
 	</bean>
 
-	<bean class="org.apache.commons.dbcp.BasicDataSource" id="euDevFinDataSource" depends-on="startDerby">
+
+
+	<bean class="org.apache.commons.dbcp.BasicDataSource" id="euDevFinDataSource" depends-on="startDerby" lazy-init="true">
 		<property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver" />
 		<property name="url" value="jdbc:derby:eudevfin;create=true" />
 		<property name="username" value="app" />
