@@ -3,3 +3,4 @@
 /.idea
 /target
 /derby.log/dim
+/.settings/com.springsource.sts.config.flow.prefs
