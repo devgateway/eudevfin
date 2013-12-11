@@ -34,7 +34,7 @@ public class SupplementaryDataTab extends Panel implements PermissionAwareCompon
 
     public static final String KEY = "tabs.supplementary";
 
-    public SupplementaryDataTab(String id) {
+    private SupplementaryDataTab(String id) {
         super(id);
         addComponents();
     }

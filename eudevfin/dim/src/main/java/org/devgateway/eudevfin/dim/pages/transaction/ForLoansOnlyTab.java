@@ -39,7 +39,7 @@ public class ForLoansOnlyTab extends Panel implements PermissionAwareComponent {
 
     public static final String KEY = "tabs.loans";
 
-    public ForLoansOnlyTab(String id) {
+    private ForLoansOnlyTab(String id) {
         super(id);
         addComponents();
     }

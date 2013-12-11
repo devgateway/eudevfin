@@ -59,7 +59,7 @@ public abstract class HeaderFooter extends GenericWebPage {
 
     private final static String LANGUAGE_PAGE_PARAM = "lang";
 
-    public HeaderFooter() {
+    protected HeaderFooter() {
 
         add(new HtmlTag("html"));
         add(new OptimizedMobileViewportMetaTag("viewport"));
@@ -287,8 +287,8 @@ public abstract class HeaderFooter extends GenericWebPage {
     private void configureLanguage(PageParameters pageParameters) {
         StringValue lang = pageParameters.get(LANGUAGE_PAGE_PARAM);
 
-        LocaleHelper beanSession = ((WicketSpringApplication) getApplication()).getSpringContext().getBean("localeHelperSession",LocaleHelper.class);
-        LocaleHelper beanRequest = ((WicketSpringApplication) getApplication()).getSpringContext().getBean("localeHelperRequest",LocaleHelper.class);
+        LocaleHelper beanSession = ((WicketSpringApplication) getApplication()).getSpringContext().getBean("localeHelperSession", LocaleHelper.class);
+        LocaleHelper beanRequest = ((WicketSpringApplication) getApplication()).getSpringContext().getBean("localeHelperRequest", LocaleHelper.class);
         if (!lang.isEmpty()) {
             //TODO: verify lang in supported languages
             Session.get().setLocale(new Locale(lang.toString()));
@@ -296,10 +296,9 @@ public abstract class HeaderFooter extends GenericWebPage {
                 beanRequest.setLocale(lang.toString());
             if (beanSession != null)
                 beanSession.setLocale(lang.toString());
-        }
-        else if ( beanSession!=null && beanRequest !=null && beanSession.getLocale() != null) {
-        	//THIS IS AN UGLY HACK NEEDS ANOTHER SOLUTION
-        	beanRequest.setLocale( beanSession.getLocale() );
+        } else if (beanSession != null && beanRequest != null && beanSession.getLocale() != null) {
+            //THIS IS AN UGLY HACK NEEDS ANOTHER SOLUTION
+            beanRequest.setLocale(beanSession.getLocale());
         }
     }
 

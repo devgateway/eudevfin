@@ -32,7 +32,7 @@ import org.joda.time.LocalDateTime;
  */
 public class IdentificationDataTab extends Panel implements PermissionAwareComponent {
 
-    public static final String KEY = "tabs.identification";
+    private static final String KEY = "tabs.identification";
 
     private IdentificationDataTab(String id) {
         super(id);

@@ -31,14 +31,14 @@ public abstract class AbstractField<T> extends Panel implements PermissionAwareC
     private static final long serialVersionUID = -5883044564199075156L;
     private final StringResourceModel labelText;
 
-    protected final Component prepender;
-    protected final Component appender;
+    final Component prepender;
+    private final Component appender;
     private final ControlGroup controlGroup;
-    protected FormComponent<T> field;
+    FormComponent<T> field;
     private final MarkupContainer xPenderController;
 
 
-    public AbstractField(String id, IModel<T> model, String messageKeyGroup) {
+    AbstractField(String id, IModel<T> model, String messageKeyGroup) {
         super(id, model);
 
         xPenderController = new WebMarkupContainer("xPenderController");
@@ -69,7 +69,7 @@ public abstract class AbstractField<T> extends Panel implements PermissionAwareC
             xPenderController.add(new AttributeAppender("class", Model.of("input-append"), " "));
     }
 
-    protected void addFormComponent(FormComponent<T> fc) {
+    void addFormComponent(FormComponent<T> fc) {
         this.field = fc;
         field.setLabel(labelText);
         fc.setOutputMarkupId(true);
@@ -104,11 +104,11 @@ public abstract class AbstractField<T> extends Panel implements PermissionAwareC
         return "onblur";
     }
 
-    protected FormComponent<T> getField() {
+    FormComponent<T> getField() {
         return field;
     }
 
-    public AbstractField<T> required() {
+    AbstractField<T> required() {
         field.setRequired(true);
         return this;
     }

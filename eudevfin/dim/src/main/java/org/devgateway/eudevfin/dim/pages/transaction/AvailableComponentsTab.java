@@ -27,7 +27,7 @@ import java.util.Date;
  * @author aartimon@developmentgateway.org
  * @since 01 November 2013
  */
-public class AvailableComponentsTab extends Panel {
+class AvailableComponentsTab extends Panel {
 
     //TODO: Remove
     private static final String[] ddValues = {"Bulgaria", "Romania", "Georgia", "Italia", "Slovacia", "Rusia"};

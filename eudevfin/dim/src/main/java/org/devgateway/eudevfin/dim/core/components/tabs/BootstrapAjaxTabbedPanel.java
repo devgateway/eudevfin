@@ -1,13 +1,10 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2013 Development Gateway.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v3.0
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/gpl.html
- *
- * Contributors:
- *    aartimon
- ******************************************************************************/
+ */
 
 package org.devgateway.eudevfin.dim.core.components.tabs;
 
@@ -22,22 +19,24 @@ import java.util.List;
 
 /**
  * Copy of AjaxTabbedPanel, with bootstrap compatibility
- * @see org.apache.wicket.extensions.ajax.markup.html.tabs.AjaxTabbedPanel
  *
  * @author aartimon@developmentgateway.org
+ * @see org.apache.wicket.extensions.ajax.markup.html.tabs.AjaxTabbedPanel
  * @since 01 November 2013
  */
 public class BootstrapAjaxTabbedPanel<T extends ITab> extends TabbedPanel<T> {
     private static final long serialVersionUID = 1531649939509988579L;
     private boolean ajax = true;
+
     public static enum Orientation {LEFT, RIGHT, TOP, BOTTOM}
+
     private Orientation orientation = Orientation.TOP;
 
-    public BootstrapAjaxTabbedPanel(final String id, final List<T> tabs){
+    public BootstrapAjaxTabbedPanel(final String id, final List<T> tabs) {
         this(id, tabs, null);
     }
 
-    public BootstrapAjaxTabbedPanel(final String id, final List<T> tabs, IModel<Integer> model) {
+    private BootstrapAjaxTabbedPanel(final String id, final List<T> tabs, IModel<Integer> model) {
         super(id, tabs, model);
         setOutputMarkupId(true);
 
@@ -65,14 +64,14 @@ public class BootstrapAjaxTabbedPanel<T extends ITab> extends TabbedPanel<T> {
             return super.newLink(linkId, index);
     }
 
-    protected void onAjaxUpdate(final AjaxRequestTarget target) {
+    private void onAjaxUpdate(final AjaxRequestTarget target) {
         //Override if needed
     }
 
     @Override
     protected String getTabContainerCssClass() {
         String css;
-        switch (orientation){
+        switch (orientation) {
             case BOTTOM:
                 css = "tabs-below";
                 break;
@@ -100,12 +99,12 @@ public class BootstrapAjaxTabbedPanel<T extends ITab> extends TabbedPanel<T> {
         return "";
     }
 
-    public BootstrapAjaxTabbedPanel<T> setAjax(boolean ajax){
+    public BootstrapAjaxTabbedPanel<T> setAjax(boolean ajax) {
         this.ajax = ajax;
         return this;
     }
 
-    public BootstrapAjaxTabbedPanel<T> positionTabs(Orientation orientation){
+    public BootstrapAjaxTabbedPanel<T> positionTabs(Orientation orientation) {
         this.orientation = orientation;
         return this;
     }

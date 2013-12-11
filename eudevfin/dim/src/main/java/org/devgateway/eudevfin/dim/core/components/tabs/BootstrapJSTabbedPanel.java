@@ -97,7 +97,7 @@ public class BootstrapJSTabbedPanel<T extends ITabWithKey> extends Panel {
         return markupId + "-" + item;
     }
 
-    protected String getTabContainerCssClass() {
+    String getTabContainerCssClass() {
         String css;
         switch (orientation) {
             case BOTTOM:
@@ -117,7 +117,7 @@ public class BootstrapJSTabbedPanel<T extends ITabWithKey> extends Panel {
         return "tabbable " + css;
     }
 
-    protected String getSelectedTabCssClass() {
+    String getSelectedTabCssClass() {
         return "active";
     }
 

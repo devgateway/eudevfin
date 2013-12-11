@@ -38,9 +38,9 @@ import java.math.BigDecimal;
 public class VolumeDataTab extends Panel implements PermissionAwareComponent {
     private static final Logger logger = Logger.getLogger(VolumeDataTab.class);
 
-    public static final String KEY = "tabs.volume";
+    private static final String KEY = "tabs.volume";
 
-    public VolumeDataTab(String id) {
+    private VolumeDataTab(String id) {
         super(id);
         addComponents();
     }

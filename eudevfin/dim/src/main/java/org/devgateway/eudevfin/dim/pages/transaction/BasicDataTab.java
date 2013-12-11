@@ -30,7 +30,7 @@ import org.devgateway.eudevfin.financial.RecipientCategory;
  */
 public class BasicDataTab extends Panel implements PermissionAwareComponent {
 
-    public static final String KEY = "tabs.basic";
+    private static final String KEY = "tabs.basic";
 
     private BasicDataTab(String id) {
         super(id);

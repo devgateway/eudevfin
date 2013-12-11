@@ -50,8 +50,8 @@ public class UpdateEventBehavior<T> extends Behavior {
     /**
      * Override this method to extend the behavior of onEvent without the extra checkss
      *
-     * @param component
-     * @param event
+     * @param component current component
+     * @param event     caught event
      */
     protected void onEventExtra(Component component, IEvent<?> event) {
     }

@@ -17,12 +17,12 @@ import org.apache.wicket.model.IWrapModel;
  * @author aartimon
  * @since 29/11/13
  */
-public abstract class WrappingModel<T, V> implements IModel<T>, IComponentAssignedModel<T>, IWrapModel<T> {
+abstract class WrappingModel<T, V> implements IModel<T>, IComponentAssignedModel<T>, IWrapModel<T> {
 
-    protected IWrapModel<V> originalModel;
+    IWrapModel<V> originalModel;
     private IWrapModel<V> originalModelNotWrapped;
 
-    public WrappingModel(IWrapModel<V> originalModel) {
+    WrappingModel(IWrapModel<V> originalModel) {
         this.originalModelNotWrapped = originalModel;
         this.originalModel = originalModel;
     }
@@ -32,6 +32,7 @@ public abstract class WrappingModel<T, V> implements IModel<T>, IComponentAssign
         originalModel.detach();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public IWrapModel<T> wrapOnAssignment(Component component) {
         originalModel = ((IComponentAssignedModel<V>) originalModelNotWrapped).wrapOnAssignment(component);
