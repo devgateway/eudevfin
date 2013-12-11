@@ -36,7 +36,6 @@ public class CurrencyUpdateBehavior extends UpdateEventBehavior<CurrencyChangedE
         //force the model to update
         IModel<Object> model = (IModel<Object>) component.getDefaultModel();
         model.setObject(model.getObject());
-        logger.error("Updated currency for: " + component);
     }
 
 

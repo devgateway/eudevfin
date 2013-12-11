@@ -8,6 +8,7 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction;
 
+import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.event.Broadcast;
@@ -35,6 +36,7 @@ import java.math.BigDecimal;
  * @since 01 November 2013
  */
 public class VolumeDataTab extends Panel implements PermissionAwareComponent {
+    private static final Logger logger = Logger.getLogger(VolumeDataTab.class);
 
     public static final String KEY = "tabs.volume";
 

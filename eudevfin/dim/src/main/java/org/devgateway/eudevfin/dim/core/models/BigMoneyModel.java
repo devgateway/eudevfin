@@ -50,6 +50,9 @@ public class BigMoneyModel extends WrappingModel<BigDecimal, BigMoney> {
 
     @Override
     public void setObject(BigDecimal object) {
-        originalModel.setObject(BigMoney.of(wrappedReadOnlyModel.getObject(), object));
+        if (object == null)
+            originalModel.setObject(null);
+        else
+            originalModel.setObject(BigMoney.of(wrappedReadOnlyModel.getObject(), object));
     }
 }
