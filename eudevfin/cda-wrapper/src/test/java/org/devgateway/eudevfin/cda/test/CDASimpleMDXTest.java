@@ -30,6 +30,7 @@ import pt.webdetails.cda.settings.SettingsManager;
 @ContextConfiguration(locations = { 
 		"classpath:META-INF/commonAuthContext.xml",
 		"classpath:META-INF/financialContext.xml",
+		"classpath:META-INF/commonFinancialContext.xml",
 		"classpath:META-INF/cdaContext.xml"
 		})
 public class CDASimpleMDXTest

@@ -269,6 +269,11 @@
             <artifactId>aspectjweaver</artifactId>
             <version>1.7.4</version>
         </dependency>
+        <dependency>
+        	<groupId>org.jboss.resteasy</groupId>
+        	<artifactId>jaxrs-api</artifactId>
+        	<version>3.0.5.Final</version>
+        </dependency>
 
         <dependency>
         	<groupId>xerces</groupId>

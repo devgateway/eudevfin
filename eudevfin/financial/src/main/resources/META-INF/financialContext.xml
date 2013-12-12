@@ -68,6 +68,7 @@
 		</constructor-arg>
 		<constructor-arg value="true" />
 	</bean>
+	
 
 	<!-- start derby network server,the SpEL provides the start() method only for network mode. This is due to a bug in 
 	spring https://jira.springsource.org/browse/SPR-11196 which makes any MethodInvokingFactoryBean to always be lazy-init=false, 
@@ -75,8 +76,8 @@
 	<bean id="startDerby" 
 		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean" lazy-init="true" autowire-candidate="false">
 		<property name="targetObject" ref="derbyServer" />
-		<property name="targetMethod" value="#{'network'.equals(systemProperties['eudevfin.derby.mode'])?'start':''}" />
-		<property name="arguments" ref="pw" />
+		<property name="targetMethod" value="#{'network'.equals(systemProperties['eudevfin.derby.mode'])?'start':'equals'}" />
+		<property name="arguments" ref="#{'network'.equals(systemProperties['eudevfin.derby.mode'])?'pw':'pw'}" />
 	</bean>
 
 	<!-- Datasource for network mode, this will be instantiated only if network mode derby will be used -->
