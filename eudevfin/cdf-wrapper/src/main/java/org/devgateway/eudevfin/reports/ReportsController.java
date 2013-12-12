@@ -153,6 +153,15 @@ public class ReportsController {
 		Connection conn = DriverManager.getConnection(propertyList, null,
 				cdaDataSource);
 		
+		// used to test the connection
+//		Query query = connection.parseQuery(
+//			    "SELECT {[Measures].[Unit Sales], [Measures].[Store Sales]} on columns," +
+//			    " {[Product].children} on rows " +
+//			    "FROM [Sales] " +
+//			    "WHERE ([Time].[1997].[Q1], [Store].[CA].[San Francisco])");
+//		Result result = connection.execute(query);
+//		result.print(new PrintWriter(System.out));
+		
 		Map<String, Object> parameters = new HashMap<String, Object>();
 //		parameters.put(JRMondrianQueryExecuterFactory.PARAMETER_MONDRIAN_CONNECTION, conn);
 		

@@ -10,6 +10,9 @@
 			FROM [Financial]
 		]]>
 	</queryString>
+	<field name="code" class="java.lang.String">
+		<fieldDescription><![CDATA[Columns[Reporting Organization][code]]]></fieldDescription>
+	</field>
 	
 	<title>
       <band height="50" isSplitAllowed="true">
@@ -45,7 +48,7 @@
          <textField isStretchWithOverflow="false" evaluationTime="Now" bookmarkLevel="0">
             <reportElement x="180" y="0" width="180" height="15" positionType="FixRelativeToTop" stretchType="NoStretch" isPrintRepeatedValues="true" isRemoveLineWhenBlank="false" isPrintInFirstWholeBand="false" isPrintWhenDetailOverflows="false" />
             <textElement />
-            <textFieldExpression class="java.lang.String"><![CDATA[123]]></textFieldExpression>
+            <textFieldExpression class="java.lang.String"><![CDATA[$F{code}]]></textFieldExpression>
          </textField>
       </band>
    </detail>
