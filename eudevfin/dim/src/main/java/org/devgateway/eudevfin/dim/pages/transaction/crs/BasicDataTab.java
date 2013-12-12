@@ -8,6 +8,7 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
 import org.devgateway.eudevfin.dim.core.RWComponentPropertyModel;
@@ -29,7 +30,24 @@ public class BasicDataTab extends Panel implements PermissionAwareComponent {
     public BasicDataTab(String id) {
         super(id);
         addComponents();
+        addExtensionPanel1();
+        addExtensionPanel2();
     }
+
+    /**
+     * Placeholder in order to extend the tab after the field with no 7
+     */
+    protected void addExtensionPanel1() {
+        add(new WebMarkupContainer("extensionPanel1").setVisibilityAllowed(false));
+    }
+
+    /**
+     * Placeholder in order to extend the tab after last field
+     */
+    protected void addExtensionPanel2() {
+        add(new WebMarkupContainer("extensionPanel2").setVisibilityAllowed(false));
+    }
+
 
     private void addComponents() {
         DropDownField<RecipientCategory> recipient = new DropDownField<>("7recipient",
