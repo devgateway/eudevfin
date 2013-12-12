@@ -13,7 +13,6 @@ import com.vaynberg.wicket.select2.Response;
 import com.vaynberg.wicket.select2.StringTextChoiceProvider;
 import com.vaynberg.wicket.select2.TextChoiceProvider;
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.wicket.model.StringResourceModel;
 import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.Country;
 import org.devgateway.eudevfin.financial.Organization;
@@ -150,8 +149,8 @@ public class SB {
         @Override
         protected String getDisplayText(Boolean choice) {
             if (choice)
-                return (new StringResourceModel("yes", null, null)).toString();
-            return (new StringResourceModel("no", null, null)).toString();
+                return "Yes";
+            return "No";
         }
 
         @Override

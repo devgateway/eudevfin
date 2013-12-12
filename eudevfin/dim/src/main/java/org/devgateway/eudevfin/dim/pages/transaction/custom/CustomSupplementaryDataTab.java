@@ -11,12 +11,23 @@ package org.devgateway.eudevfin.dim.pages.transaction.custom;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.SupplementaryDataTab;
 
 /**
+ * Supplementary Data Tab extension for the EU-DEVFIN Form
+ *
  * @author aartimon
  * @since 11/12/13
  */
 class CustomSupplementaryDataTab extends SupplementaryDataTab {
-    private CustomSupplementaryDataTab(String id) {
+    public CustomSupplementaryDataTab(String id) {
         super(id);
+        addComponents();
+    }
+
+    private void addComponents() {
+        /*
+        DropDownField<String> tbd96 = new DropDownField<>("96tbd", new RWComponentPropertyModel<String>("tbd96"),
+                SB.countryProvider);
+        add(tbd96);
+        */
     }
 
 }

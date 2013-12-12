@@ -78,23 +78,4 @@
     <entry key="31desertification.label">Desertification</entry>
     <entry key="31desertification.placeholder"></entry>
     <entry key="31desertification.help">TODO: edit help text</entry>
-
-    <entry key="otherMarkers.label">Other Markers</entry>
-
-    <entry key="96tbd.label">TBD</entry>
-    <entry key="96tbd.placeholder"></entry>
-    <entry key="96tbd.help">TODO: edit help text</entry>
-
-    <entry key="97tbd.label">TBD</entry>
-    <entry key="97tbd.placeholder"></entry>
-    <entry key="97tbd.help">TODO: edit help text</entry>
-
-    <entry key="98tbd.label">TBD</entry>
-    <entry key="98tbd.placeholder"></entry>
-    <entry key="98tbd.help">TODO: edit help text</entry>
-
-    <entry key="99tbd.label">TBD</entry>
-    <entry key="99tbd.placeholder"></entry>
-    <entry key="99tbd.help">TODO: edit help text</entry>
-
 </properties>

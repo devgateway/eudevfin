@@ -8,16 +8,11 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
-import org.apache.wicket.Component;
-import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.StringResourceModel;
 import org.devgateway.eudevfin.dim.core.RWComponentPropertyModel;
 import org.devgateway.eudevfin.dim.core.components.DateInputField;
 import org.devgateway.eudevfin.dim.core.components.DropDownField;
 import org.devgateway.eudevfin.dim.core.components.TextInputField;
-import org.devgateway.eudevfin.dim.core.components.tabs.AbstractTabWithKey;
-import org.devgateway.eudevfin.dim.core.components.tabs.ITabWithKey;
 import org.devgateway.eudevfin.dim.core.models.DateToLocalDateTimeModel;
 import org.devgateway.eudevfin.dim.core.models.YearToLocalDateTimeModel;
 import org.devgateway.eudevfin.dim.core.permissions.PermissionAwareComponent;
@@ -31,10 +26,9 @@ import org.joda.time.LocalDateTime;
  * @since 01 November 2013
  */
 public class IdentificationDataTab extends Panel implements PermissionAwareComponent {
+    public static final String KEY = "tabs.identification";
 
-    private static final String KEY = "tabs.identification";
-
-    private IdentificationDataTab(String id) {
+    public IdentificationDataTab(String id) {
         super(id);
         addComponents();
     }
@@ -69,17 +63,6 @@ public class IdentificationDataTab extends Panel implements PermissionAwareCompo
                 new RWComponentPropertyModel<Category>("natureOfSubmission"), SB.categoryProvider);
         natureOfSubmission.required();
         add(natureOfSubmission);
-    }
-
-    public static ITabWithKey newTab(Component askingComponent) {
-        return new AbstractTabWithKey(new StringResourceModel(KEY, askingComponent, null), KEY) {
-            private static final long serialVersionUID = -724508987522388955L;
-
-            @Override
-            public WebMarkupContainer getPanel(String panelId) {
-                return new IdentificationDataTab(panelId);
-            }
-        };
     }
 
     @Override

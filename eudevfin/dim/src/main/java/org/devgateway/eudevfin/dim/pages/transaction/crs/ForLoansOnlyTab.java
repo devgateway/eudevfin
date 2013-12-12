@@ -8,17 +8,12 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
-import org.apache.wicket.Component;
-import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.ComponentPropertyModel;
-import org.apache.wicket.model.StringResourceModel;
 import org.devgateway.eudevfin.dim.core.RWComponentPropertyModel;
 import org.devgateway.eudevfin.dim.core.components.DateInputField;
 import org.devgateway.eudevfin.dim.core.components.DropDownField;
 import org.devgateway.eudevfin.dim.core.components.TextInputField;
-import org.devgateway.eudevfin.dim.core.components.tabs.AbstractTabWithKey;
-import org.devgateway.eudevfin.dim.core.components.tabs.ITabWithKey;
 import org.devgateway.eudevfin.dim.core.events.CurrencyUpdateBehavior;
 import org.devgateway.eudevfin.dim.core.models.BigMoneyModel;
 import org.devgateway.eudevfin.dim.core.models.DateToLocalDateTimeModel;
@@ -36,10 +31,9 @@ import java.math.BigDecimal;
  * @since 01 November 2013
  */
 public class ForLoansOnlyTab extends Panel implements PermissionAwareComponent {
-
     public static final String KEY = "tabs.loans";
 
-    protected ForLoansOnlyTab(String id) {
+    public ForLoansOnlyTab(String id) {
         super(id);
         addComponents();
     }
@@ -95,28 +89,6 @@ public class ForLoansOnlyTab extends Panel implements PermissionAwareComponent {
                 new BigMoneyModel(new RWComponentPropertyModel<BigMoney>("arrearsOfInterest"), readOnlyCurrencyModel));
         arrearsOfInterest.typeBigDecimal().add(new CurrencyUpdateBehavior());
         add(arrearsOfInterest);
-/*
-
-        TextInputField<BigDecimal> futureDebtPrincipal = new TextInputField<>("54futureDebtPrincipal", new RWComponentPropertyModel<Integer>("futureDebtPrincipal"));
-        futureDebtPrincipal.typeInteger();
-        add(futureDebtPrincipal);
-
-        TextInputField<BigDecimal> futureDebtInterest = new TextInputField<>("54futureDebtInterest", new RWComponentPropertyModel<Integer>("futureDebtInterest"));
-            futureDebtInterest.typeInteger();
-        add(futureDebtInterest);
-*/
-
-    }
-
-    public static ITabWithKey newTab(Component askingComponent) {
-        return new AbstractTabWithKey(new StringResourceModel(KEY, askingComponent, null), KEY) {
-            private static final long serialVersionUID = -724508987522388955L;
-
-            @Override
-            public WebMarkupContainer getPanel(String panelId) {
-                return new ForLoansOnlyTab(panelId);
-            }
-        };
     }
 
     @Override

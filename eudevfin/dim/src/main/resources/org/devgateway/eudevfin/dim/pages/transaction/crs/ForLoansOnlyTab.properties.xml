@@ -48,13 +48,4 @@
     <entry key="53arrearsOfInterest.label">Arrears of Interest</entry>
     <entry key="53arrearsOfInterest.placeholder"></entry>
     <entry key="53arrearsOfInterest.help">TODO: edit help text</entry>
-
-    <entry key="54futureDebtPrincipal.label">Future debt service: 1st year, principal</entry>
-    <entry key="54futureDebtPrincipal.placeholder"></entry>
-    <entry key="54futureDebtPrincipal.help">TODO: edit help text</entry>
-
-    <entry key="54futureDebtInterest.label">Future debt service: 1st year, interest</entry>
-    <entry key="54futureDebtInterest.placeholder"></entry>
-    <entry key="54futureDebtInterest.help">TODO: edit help text</entry>
-
 </properties>

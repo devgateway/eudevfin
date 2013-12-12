@@ -8,15 +8,27 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.custom;
 
+import org.devgateway.eudevfin.dim.core.RWComponentPropertyModel;
+import org.devgateway.eudevfin.dim.core.components.DropDownField;
+import org.devgateway.eudevfin.dim.core.temporary.SB;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.BasicDataTab;
 
 /**
+ * Basic Data Tab extension for the EU-DEVFIN Form
+ *
  * @author aartimon
  * @since 11/12/13
  */
 class CustomBasicDataTab extends BasicDataTab {
-    private CustomBasicDataTab(String id) {
+    public CustomBasicDataTab(String id) {
         super(id);
+        addComponents();
     }
 
+    private void addComponents() {
+        DropDownField<Boolean> cpa = new DropDownField<>("7bCPA", new RWComponentPropertyModel<Boolean>("CPA"),
+                SB.boolProvider);
+        add(cpa);
+
+    }
 }

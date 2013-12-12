@@ -9,18 +9,13 @@
 package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
 import org.apache.log4j.Logger;
-import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.event.Broadcast;
-import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.ComponentPropertyModel;
-import org.apache.wicket.model.StringResourceModel;
 import org.devgateway.eudevfin.dim.core.RWComponentPropertyModel;
 import org.devgateway.eudevfin.dim.core.components.DropDownField;
 import org.devgateway.eudevfin.dim.core.components.TextInputField;
-import org.devgateway.eudevfin.dim.core.components.tabs.AbstractTabWithKey;
-import org.devgateway.eudevfin.dim.core.components.tabs.ITabWithKey;
 import org.devgateway.eudevfin.dim.core.events.CurrencyChangedEvent;
 import org.devgateway.eudevfin.dim.core.events.CurrencyUpdateBehavior;
 import org.devgateway.eudevfin.dim.core.models.BigMoneyModel;
@@ -37,10 +32,9 @@ import java.math.BigDecimal;
  */
 public class VolumeDataTab extends Panel implements PermissionAwareComponent {
     private static final Logger logger = Logger.getLogger(VolumeDataTab.class);
+    public static final String KEY = "tabs.volume";
 
-    private static final String KEY = "tabs.volume";
-
-    private VolumeDataTab(String id) {
+    public VolumeDataTab(String id) {
         super(id);
         addComponents();
     }
@@ -97,17 +91,6 @@ public class VolumeDataTab extends Panel implements PermissionAwareComponent {
         TextInputField<BigDecimal> amountOfExportCredit = new TextInputField<>("42amountOfExportCredit", new BigMoneyModel(new RWComponentPropertyModel<BigMoney>("amountOfExportCreditInAFPackage"), readOnlyCurrencyModel));
         amountOfExportCredit.typeBigDecimal().add(new CurrencyUpdateBehavior());
         add(amountOfExportCredit);
-    }
-
-    public static ITabWithKey newTab(Component askingComponent) {
-        return new AbstractTabWithKey(new StringResourceModel(KEY, askingComponent, null), KEY) {
-            private static final long serialVersionUID = -724508987522388955L;
-
-            @Override
-            public WebMarkupContainer getPanel(String panelId) {
-                return new VolumeDataTab(panelId);
-            }
-        };
     }
 
     @Override

@@ -8,16 +8,11 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
-import org.apache.wicket.Component;
-import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
-import org.apache.wicket.model.StringResourceModel;
 import org.devgateway.eudevfin.dim.core.RWComponentPropertyModel;
 import org.devgateway.eudevfin.dim.core.components.DropDownField;
 import org.devgateway.eudevfin.dim.core.components.TextAreaInputField;
-import org.devgateway.eudevfin.dim.core.components.tabs.AbstractTabWithKey;
-import org.devgateway.eudevfin.dim.core.components.tabs.ITabWithKey;
 import org.devgateway.eudevfin.dim.core.permissions.PermissionAwareComponent;
 import org.devgateway.eudevfin.dim.core.temporary.SB;
 import org.devgateway.eudevfin.financial.Category;
@@ -29,10 +24,9 @@ import org.devgateway.eudevfin.financial.RecipientCategory;
  * @since 01 November 2013
  */
 public class BasicDataTab extends Panel implements PermissionAwareComponent {
+    public static final String KEY = "tabs.basic";
 
-    private static final String KEY = "tabs.basic";
-
-    protected BasicDataTab(String id) {
+    public BasicDataTab(String id) {
         super(id);
         addComponents();
     }
@@ -41,10 +35,6 @@ public class BasicDataTab extends Panel implements PermissionAwareComponent {
         DropDownField<RecipientCategory> recipient = new DropDownField<>("7recipient",
                 new RWComponentPropertyModel<RecipientCategory>("recipient"), SB.recipientCategoryProvider);
         add(recipient);
-
-//        DropDownField<String> cpa = new DropDownField<>("7bCPA", new RWComponentPropertyModel<String>("CPA"),
-//                SB.yesNoProvider);
-//        add(cpa);
 
         DropDownField<Organization> channelOfDelivery = new DropDownField<>("8channelDelivery",
                 new RWComponentPropertyModel<Organization>("channelOfDelivery"), SB.organizationProvider);
@@ -79,17 +69,6 @@ public class BasicDataTab extends Panel implements PermissionAwareComponent {
         DropDownField<Category> sectorPurposeCode = new DropDownField<>("15sectorPurposeCode", new RWComponentPropertyModel<Category>("sector"),
                 SB.categoryProvider);
         add(sectorPurposeCode);
-    }
-
-    public static ITabWithKey newTab(Component askingComponent) {
-        return new AbstractTabWithKey(new StringResourceModel(KEY, askingComponent, null), KEY) {
-            private static final long serialVersionUID = -724508987522388955L;
-
-            @Override
-            public WebMarkupContainer getPanel(String panelId) {
-                return new BasicDataTab(panelId);
-            }
-        };
     }
 
     @Override
