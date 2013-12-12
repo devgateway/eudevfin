@@ -12,7 +12,6 @@ import org.apache.wicket.authroles.authorization.strategies.role.annotations.Aut
 import org.apache.wicket.markup.html.panel.Panel;
 import org.devgateway.eudevfin.dim.core.Constants;
 import org.devgateway.eudevfin.dim.core.permissions.RoleActionMapping;
-import org.devgateway.eudevfin.dim.pages.transaction.crs.IdentificationDataTab;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.TransactionPage;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.VolumeDataTab;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
@@ -39,7 +38,7 @@ public class CustomTransactionPage extends TransactionPage {
     @Override
     protected List<Class<? extends Panel>> getTabs() {
         List<Class<? extends Panel>> tabList = new ArrayList<>();
-        tabList.add(IdentificationDataTab.class);
+        tabList.add(CustomIdentificationDataTab.class);
         tabList.add(CustomBasicDataTab.class);
         tabList.add(CustomSupplementaryDataTab.class);
         tabList.add(VolumeDataTab.class);

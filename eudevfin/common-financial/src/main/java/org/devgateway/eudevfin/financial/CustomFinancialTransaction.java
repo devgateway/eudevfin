@@ -9,12 +9,23 @@
 package org.devgateway.eudevfin.financial;
 
 import org.joda.money.BigMoney;
+import org.joda.time.LocalDateTime;
 
 public class CustomFinancialTransaction extends FinancialTransaction {
     private Boolean CPA;
     private BigMoney futureDebtPrincipal;
     private BigMoney futureDebtInterest;
 
+    private LocalDateTime dataAsPerDate;
+
+
+    public LocalDateTime getDataAsPerDate() {
+        return dataAsPerDate;
+    }
+
+    public void setDataAsPerDate(LocalDateTime dataAsPerDate) {
+        this.dataAsPerDate = dataAsPerDate;
+    }
 
     public Boolean getCPA() {
         return CPA;
