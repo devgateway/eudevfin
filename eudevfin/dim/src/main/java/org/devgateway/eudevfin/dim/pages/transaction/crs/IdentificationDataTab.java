@@ -6,7 +6,7 @@
  * http://www.gnu.org/licenses/gpl.html
  */
 
-package org.devgateway.eudevfin.dim.pages.transaction;
+package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.WebMarkupContainer;

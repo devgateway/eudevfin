@@ -6,7 +6,7 @@
  * http://www.gnu.org/licenses/gpl.html
  */
 
-package org.devgateway.eudevfin.dim.pages.transaction;
+package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -39,7 +39,7 @@ public class ForLoansOnlyTab extends Panel implements PermissionAwareComponent {
 
     public static final String KEY = "tabs.loans";
 
-    private ForLoansOnlyTab(String id) {
+    protected ForLoansOnlyTab(String id) {
         super(id);
         addComponents();
     }

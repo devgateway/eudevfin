@@ -46,7 +46,7 @@ import org.devgateway.eudevfin.dim.pages.AdminPage;
 import org.devgateway.eudevfin.dim.pages.HomePage;
 import org.devgateway.eudevfin.dim.pages.LogoutPage;
 import org.devgateway.eudevfin.dim.pages.reports.ReportsPage;
-import org.devgateway.eudevfin.dim.pages.transaction.TransactionPage;
+import org.devgateway.eudevfin.dim.pages.transaction.crs.TransactionPage;
 import org.devgateway.eudevfin.dim.spring.WicketSpringApplication;
 import org.devgateway.eudevfin.financial.util.LocaleHelper;
 

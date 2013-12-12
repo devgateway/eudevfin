@@ -6,7 +6,7 @@
  * http://www.gnu.org/licenses/gpl.html
  */
 
-package org.devgateway.eudevfin.dim.pages.transaction;
+package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -34,7 +34,7 @@ public class SupplementaryDataTab extends Panel implements PermissionAwareCompon
 
     public static final String KEY = "tabs.supplementary";
 
-    private SupplementaryDataTab(String id) {
+    protected SupplementaryDataTab(String id) {
         super(id);
         addComponents();
     }
