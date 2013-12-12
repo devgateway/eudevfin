@@ -75,7 +75,7 @@
 	<bean id="startDerby" 
 		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean" lazy-init="true" autowire-candidate="false">
 		<property name="targetObject" ref="derbyServer" />
-		<property name="targetMethod" value="#{systemProperties['eudevfin.derby.mode'].equals('network')?'start':''}" />
+		<property name="targetMethod" value="#{'network'.equals(systemProperties['eudevfin.derby.mode'])?'start':''}" />
 		<property name="arguments" ref="pw" />
 	</bean>
 
@@ -100,7 +100,7 @@
 		and it behaves like its target(s) which are never autowired candidates -->
 	<bean id="euDevFinDataSource" class="org.springframework.aop.framework.ProxyFactoryBean">
 		<property name="target"
-			ref="#{systemProperties['eudevfin.derby.mode'].equals('network')?'euDevFinDataSourceNetwork':'euDevFinDataSourceEmbedded'}" />
+			ref="#{'network'.equals(systemProperties['eudevfin.derby.mode'])?'euDevFinDataSourceNetwork':'euDevFinDataSourceEmbedded'}" />
 	</bean>
 	  
 	<!-- initialize a mock jndi builder we use internally to access this datasource 
