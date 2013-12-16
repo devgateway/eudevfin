@@ -16,9 +16,7 @@
  * but this is a risky operation which considerable implications. Use at your own risk!
  *
  */
-;
 (function () {
-
     var BaseQuery = Base.extend({
         name: "baseQuery",
         label: "Base Query",
@@ -81,14 +79,14 @@
                 myself.setOption('lastResultSet', json);
                 var clone = $.extend(true, {}, myself.getOption('lastResultSet'));
                 callback(clone);
-            }
+            };
         },
         getErrorHandler: function (callback) {
             return function (resp, txtStatus, error) {
                 if (callback) {
                     callback(resp, txtStatus, error);
                 }
-            }
+            };
         },
         doQuery: function (outsideCallback) {
             if (typeof this.getOption('successCallback') !== 'function') {
@@ -291,63 +289,6 @@
     // The registered Base needs to have an extend method.
     Dashboards.setBaseQuery(BaseQuery);
 
-
-    var CpkEndpoints = BaseQuery.extend({
-        name: "cpk",
-        label: "CPK",
-        defaults: {
-            baseUrl: Dashboards.getWebAppPath() + '/content',
-            pluginId: '',
-            endpoint: '',
-            systemParams: {},
-            ajaxOptions: {
-                dataType: 'json',
-                type: 'POST',
-                async: true
-            }
-        },
-
-        init: function (opts) {
-            if (_.isString(opts.pluginId) && _.isString(opts.endpoint)) {
-                this.setOption('pluginId', opts.pluginId);
-                this.setOption('endpoint', opts.endpoint);
-                var urlArray = [this.getOption('baseUrl'), this.getOption('pluginId'), this.getOption('endpoint')],
-                    url = urlArray.join('/');
-                this.setOption('url', url);
-            }
-        },
-
-        buildQueryDefinition: function (overrides) {
-            overrides = (overrides instanceof Array) ? Dashboards.propertiesArrayToObject(overrides) : (overrides || {});
-            var queryDefinition = this.getOption('systemParams');
-
-            var cachedParams = this.getOption('params'),
-                params = $.extend({}, cachedParams, overrides);
-
-            _.each(params, function (value, name) {
-                value = Dashboards.getParameterValue(value);
-                if ($.isArray(value) && value.length === 1 && ('' + value[0]).indexOf(';') >= 0) {
-                    //special case where single element will wrongly be treated as a parseable array by cda
-                    value = doCsvQuoting(value[0], ';');
-                }
-                //else will not be correctly handled for functions that return arrays
-                if (typeof value === 'function') {
-                    value = value();
-                }
-                queryDefinition['param' + name] = value;
-            });
-
-            return queryDefinition;
-        }
-
-        /*
-         * Public interface
-         */
-    });
-    // Registering a class will use that class directly when getting new queries.
-    Dashboards.registerQuery("cpk", CpkEndpoints);
-
-
     var cdaQueryOpts = {
         name: 'cda',
         label: 'CDA Query',
@@ -499,7 +440,7 @@
                 });
                 /* We also need to validate that each individual term is valid */
                 var invalidEntries = newSort.filter(function (e) {
-                    return !e.match("^[0-9]+[adAD]?,?$")
+                    return !e.match("^[0-9]+[adAD]?,?$");
                 });
                 if (invalidEntries.length > 0) {
                     throw "InvalidSortExpression";
@@ -540,78 +481,4 @@
     // Registering an object will use it to create a class by extending Dashboards.BaseQuery, 
     // and use that class to generate new queries.
     Dashboards.registerQuery("cda", cdaQueryOpts);
-
-
-    function makeMetadataElement(idx, name, type) {
-        return {
-            "colIndex": idx || 0,
-            "colType": type || "String",
-            "colName": name || "Name"
-        }
-    }
-
-    var legacyOpts = {
-        name: "legacy",
-        label: "Legacy",
-        defaults: {
-            url: webAppPath + "/ViewAction?solution=system&path=pentaho-cdf/actions&action=jtable.xaction",
-            queryDef: {}
-        },
-        interfaces: {
-            lastResultSet: {
-                reader: function (json) {
-                    json = eval("(" + json + ")");
-                    var result = {
-                        metadata: [makeMetadataElement(0)],
-                        resultset: json.values || []
-                    };
-                    _.each(json.metadata, function (el, idx) {
-                        return result.metadata.push(makeMetadataElement(idx + 1, el));
-                    });
-                    return result
-                }
-            }
-        },
-
-        init: function (opts) {
-            this.setOption('queryDef', opts);
-        },
-
-        getSuccessHandler: function (callback) {
-            var myself = this;
-            return function (json) {
-                try {
-                    myself.setOption('lastResultSet', json);
-                } catch (e) {
-                    if (this.async) {
-                        // async + legacy errors while parsing json response aren't caught
-                        var msg = Dashboards.getErrorObj('COMPONENT_ERROR').msg + ":" + e.message;
-                        Dashboards.error(msg);
-                        json = {
-                            "metadata": [msg],
-                            "values": []
-                        };
-                    } else {
-                        //exceptions while parsing json response are 
-                        //already being caught+handled in updateLifecyle()  
-                        throw e;
-                    }
-                }
-                var clone = $.extend(true, {}, myself.getOption('lastResultSet'));
-                callback(clone);
-            }
-        },
-
-        //TODO: is this enough?
-        buildQueryDefinition: function (overrides) {
-            return _.extend({}, this.getOption('queryDef'), overrides);
-        }
-
-    };
-    Dashboards.registerQuery("legacy", legacyOpts);
-
-    // TODO: Temporary until CDE knows how to write queryTypes definitions, with all these old queries 
-    // falling under the 'legacy' umbrella.
-    Dashboards.registerQuery("mdx", legacyOpts);
-    Dashboards.registerQuery("sql", legacyOpts);
 })();

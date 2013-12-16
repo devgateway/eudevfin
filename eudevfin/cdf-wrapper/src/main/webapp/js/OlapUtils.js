@@ -182,7 +182,6 @@ OlapUtils.mdxQuery.prototype.resetCondition = function (key) {
 
 
 OlapUtils.mdxQuery.prototype.update = function (hash) {
-
     this.originalHash = Dashboards.clone(hash);
     this.query["members"] = hash["members"] || [];
     this.query["sets"] = hash["sets"] || [];
@@ -604,7 +603,6 @@ OlapUtils.mdxQueryGroup.prototype.replaceFocus = function (key, values) {
 }
 
 OlapUtils.mdxQueryGroup.prototype.focus = function (key, values) {
-
     var conditions = [];
 
     Dashboards.incrementRunningCalls();
@@ -1089,6 +1087,4 @@ OlapUtils.DimensionAnalysisQuery = OlapUtils.GenericMdxQuery.extend({
     },
 
     queryBase: {}
-
-
 });

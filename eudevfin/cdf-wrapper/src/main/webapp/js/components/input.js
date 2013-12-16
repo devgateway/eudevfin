@@ -901,7 +901,7 @@ var CheckComponent = ToggleButtonBaseComponent.extend({
         if (this.currentVal !== 'undefined' && this.currentVal !== null) {
             return this.currentVal;
         } else {
-            var a = new Array()
+            var a = [];
             $("#" + this.htmlObject + " ." + this.name + ":checked").each(function (i, val) {
                 a.push($(this).val());
             });
@@ -1018,7 +1018,7 @@ var MultiButtonComponent = ToggleButtonBaseComponent.extend({
     getValue: function () {
         if (this.isMultiple) {
             var indexes = MultiButtonComponent.prototype.getSelectedIndex(this.name);
-            var a = new Array();
+            var a = [];
             // if it is not an array, handle that too
             if (indexes.length === undefined) {
                 a.push(this.getValueByIdx(indexes));
@@ -1111,7 +1111,6 @@ var MultiButtonComponent = ToggleButtonBaseComponent.extend({
 });
 
 var AutocompleteBoxComponent = BaseComponent.extend({
-
     searchedWord: '',
     result: [],
 

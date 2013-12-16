@@ -18,7 +18,7 @@ $.ajaxSetup({
 // TODO - maybe we should wrap all this global variables in some 'app' object or maibe 'cdfplugin' object
 var pathArray = window.location.pathname.split('/');
 var webAppPath;
-if (!(typeof (CONTEXT_PATH) === 'undefined')) {
+if (typeof (CONTEXT_PATH) !== 'undefined') {
     webAppPath = CONTEXT_PATH;
 }
 if (webAppPath === undefined) {
@@ -135,7 +135,7 @@ Dashboards.error = function (m) {
 }
 
 Dashboards.getWebAppPath = function () {
-    return webAppPath
+    return webAppPath;
 }
 
 // REFRESH ENGINE begin
@@ -143,7 +143,7 @@ Dashboards.getWebAppPath = function () {
 // Manages periodic refresh of components
 Dashboards.RefreshEngine = function () {
     var NO_REFRESH = 0; //currently no distinction between explicitly disabled or not set
-    var refreshQueue = new Array(); //component refresh queue
+    var refreshQueue = []; //component refresh queue
     var activeTimer = null; //timer for individual component refresh
 
     var globalRefreshPeriod = NO_REFRESH;
@@ -180,7 +180,9 @@ Dashboards.RefreshEngine = function () {
     };
 
     var clearQueue = function () {
-        if (refreshQueue.length > 0) refreshQueue.splice(0, refreshQueue.length);
+        if (refreshQueue.length > 0) {
+            refreshQueue.splice(0, refreshQueue.length);
+        }
     };
 
     // binary search for elem's position in coll (nextRefresh asc order)
@@ -237,7 +239,7 @@ Dashboards.RefreshEngine = function () {
         var time = getCurrentTime();
 
         // normalize invalid refresh
-        if (!(component.refreshPeriod > 0)) {
+        if (component.refreshPeriod < 0) {
             component.refreshPeriod = NO_REFRESH;
         }
 
@@ -530,9 +532,9 @@ Dashboards.parseServerError = function (resp, txtStatus, error) {
     _.find(regexs, function (el) {
         if (str.match(el.match)) {
             out.msg = el.msg;
-            return true
+            return true;
         } else {
-            return false
+            return false;
         }
     });
     out.errorStatus = txtStatus;
@@ -1566,7 +1568,7 @@ Dashboards.parseXActionResult = function (obj, html) {
 
     // error found. Parsing it
     var errorMessage = "Error executing component " + obj.name;
-    var errorDetails = new Array();
+    var errorDetails = [];
     errorDetails[0] = " Error details for component execution " + obj.name + " -- ";
     errorDetails[1] = error.find("SOAP-ENV\\:faultstring").find("SOAP-ENV\\:Text:eq(0)").text();
     error.find("SOAP-ENV\\:Detail").find("message").each(function () {

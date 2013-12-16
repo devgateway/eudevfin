@@ -19,7 +19,7 @@
 function AddIn(options) {
 
     var myself = options;
-    if (typeof options != "object") {
+    if (typeof options !== "object") {
         throw TypeError;
     }
     /* We expect either an implementation or a value. */
@@ -41,10 +41,10 @@ function AddIn(options) {
 
     this.getLabel = function () {
         return _label;
-    }
+    };
     this.getName = function () {
         return _name;
-    }
+    };
 
     /**
      * Call the AddIn. If the AddIn is static, all parameters are
@@ -69,8 +69,8 @@ function AddIn(options) {
         if (!_implementation) {
             return Dashboards.clone(_value);
         }
-        options = typeof options == "function" ? options(state) : options;
-        var evaluatedDefaults = typeof _defaults == "function" ? _defaults(state) : _defaults;
+        options = typeof options === "function" ? options(state) : options;
+        var evaluatedDefaults = typeof _defaults === "function" ? _defaults(state) : _defaults;
         var compiledOptions = jQuery.extend(true, {}, evaluatedDefaults, options);
         try {
             return _implementation.call(myself, target, state, compiledOptions);
@@ -81,7 +81,7 @@ function AddIn(options) {
 
     this.setDefaults = function (defaults) {
 
-        if (typeof defaults == 'function') {
+        if (typeof defaults === 'function') {
             _defaults = defaults;
         } else {
             _defaults = jQuery.extend(true, {}, _defaults, defaults);

@@ -78,6 +78,10 @@ module.exports = function(grunt) {
 					Dashboards: true,
 					Mustache: true,
 					Base: true,
+					AddIn: true,
+					BaseComponent: true,
+					OlapUtils: true,
+					sprintf: true,
 
 					// this are global variables for tests
 					QUnit: true,
@@ -99,7 +103,7 @@ module.exports = function(grunt) {
 			src: {
 				// all source files excluding libraries
 				src: [
-					'src/main/webapp/js/components/table.js', 
+					'src/main/webapp/js/AddIns.js', 
 					// 'src/main/webapp/js/**/*.js', 
 					'!src/main/webapp/js/cdfplugin.js', 
 					'!src/main/webapp/js/cdfplugin.min.js',

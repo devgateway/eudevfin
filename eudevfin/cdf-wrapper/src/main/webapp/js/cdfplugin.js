@@ -9841,7 +9841,7 @@ $.ajaxSetup({
 // TODO - maybe we should wrap all this global variables in some 'app' object or maibe 'cdfplugin' object
 var pathArray = window.location.pathname.split('/');
 var webAppPath;
-if (!(typeof (CONTEXT_PATH) === 'undefined')) {
+if (typeof (CONTEXT_PATH) !== 'undefined') {
     webAppPath = CONTEXT_PATH;
 }
 if (webAppPath === undefined) {
@@ -9958,7 +9958,7 @@ Dashboards.error = function (m) {
 }
 
 Dashboards.getWebAppPath = function () {
-    return webAppPath
+    return webAppPath;
 }
 
 // REFRESH ENGINE begin
@@ -9966,7 +9966,7 @@ Dashboards.getWebAppPath = function () {
 // Manages periodic refresh of components
 Dashboards.RefreshEngine = function () {
     var NO_REFRESH = 0; //currently no distinction between explicitly disabled or not set
-    var refreshQueue = new Array(); //component refresh queue
+    var refreshQueue = []; //component refresh queue
     var activeTimer = null; //timer for individual component refresh
 
     var globalRefreshPeriod = NO_REFRESH;
@@ -10003,7 +10003,9 @@ Dashboards.RefreshEngine = function () {
     };
 
     var clearQueue = function () {
-        if (refreshQueue.length > 0) refreshQueue.splice(0, refreshQueue.length);
+        if (refreshQueue.length > 0) {
+            refreshQueue.splice(0, refreshQueue.length);
+        }
     };
 
     // binary search for elem's position in coll (nextRefresh asc order)
@@ -10060,7 +10062,7 @@ Dashboards.RefreshEngine = function () {
         var time = getCurrentTime();
 
         // normalize invalid refresh
-        if (!(component.refreshPeriod > 0)) {
+        if (component.refreshPeriod < 0) {
             component.refreshPeriod = NO_REFRESH;
         }
 
@@ -10353,9 +10355,9 @@ Dashboards.parseServerError = function (resp, txtStatus, error) {
     _.find(regexs, function (el) {
         if (str.match(el.match)) {
             out.msg = el.msg;
-            return true
+            return true;
         } else {
-            return false
+            return false;
         }
     });
     out.errorStatus = txtStatus;
@@ -11389,7 +11391,7 @@ Dashboards.parseXActionResult = function (obj, html) {
 
     // error found. Parsing it
     var errorMessage = "Error executing component " + obj.name;
-    var errorDetails = new Array();
+    var errorDetails = [];
     errorDetails[0] = " Error details for component execution " + obj.name + " -- ";
     errorDetails[1] = error.find("SOAP-ENV\\:faultstring").find("SOAP-ENV\\:Text:eq(0)").text();
     error.find("SOAP-ENV\\:Detail").find("message").each(function () {
@@ -12466,7 +12468,6 @@ wd.cdf.notifications.growl = {
 
  /* ************************ new file ************************ */
 BaseComponent = Base.extend({
-    //type : "unknown",
     visible: true,
     isManaged: true,
     timerStart: 0,
@@ -12474,8 +12475,6 @@ BaseComponent = Base.extend({
     elapsedSinceSplit: -1,
     elapsedSinceStart: -1,
     logColor: undefined,
-    //valueAsId:
-    //valuesArray:
 
     clear: function () {
         $("#" + this.htmlObject).empty();
@@ -12488,7 +12487,7 @@ BaseComponent = Base.extend({
             while ((e = e.next) !== tail) {
                 target.on(evtName, e.callback, e.context);
             }
-        })
+        });
     },
 
     clone: function (parameterRemap, componentRemap, htmlRemap) {
@@ -12564,8 +12563,8 @@ BaseComponent = Base.extend({
                     vid = 'cda';
                 }
                 QueryComponent.makeQuery(this);
-                var myArray = new Array();
-                for (p in this.result)
+                var myArray = [];
+                for (p in this.result) {
                     if (this.result.hasOwnProperty(p)) {
                         switch (vid) {
                         case "sql":
@@ -12582,6 +12581,8 @@ BaseComponent = Base.extend({
                             break;
                         }
                     }
+                }
+
                 return myArray;
             } else {
 
@@ -12622,11 +12623,11 @@ BaseComponent = Base.extend({
             return this.parseArrayCda(jData, includeHeader);
         }
 
-        var myArray = new Array();
+        var myArray = [];
 
         var jHeaders = $(jData).find("COLUMN-HDR-ITEM");
         if (includeHeader && jHeaders.size() > 0) {
-            var _a = new Array();
+            var _a = [];
             jHeaders.each(function () {
                 _a.push($(this).text());
             });
@@ -12635,7 +12636,7 @@ BaseComponent = Base.extend({
 
         var jDetails = $(jData).find("DATA-ROW");
         jDetails.each(function () {
-            var _a = new Array();
+            var _a = [];
             $(this).children("DATA-ITEM").each(function () {
                 _a.push($(this).text());
             });
@@ -12647,12 +12648,12 @@ BaseComponent = Base.extend({
     },
     parseArrayCda: function (jData, includeHeader) {
         //ToDo: refactor with parseArray?..use as parseArray?..
-        var myArray = new Array();
+        var myArray = [];
 
         var jHeaders = $(jData).find("ColumnMetaData");
         if (jHeaders.size() > 0) {
             if (includeHeader) { //get column names
-                var _a = new Array();
+                var _a = [];
                 jHeaders.each(function () {
                     _a.push($(this).attr("name"));
                 });
@@ -12663,7 +12664,7 @@ BaseComponent = Base.extend({
         //get contents
         var jDetails = $(jData).find("Row");
         jDetails.each(function () {
-            var _a = new Array();
+            var _a = [];
             $(this).children("Col").each(function () {
                 _a.push($(this).text());
             });
@@ -12676,7 +12677,7 @@ BaseComponent = Base.extend({
 
     setAddInDefaults: function (slot, addIn, defaults) {
         var type = typeof this.type === "function" ? this.type() : this.type;
-        Dashboards.setAddInDefaults(type, slot, addIn, defaults)
+        Dashboards.setAddInDefaults(type, slot, addIn, defaults);
     },
     setAddInOptions: function (slot, addIn, options) {
         if (!this.addInOptions) {
@@ -12686,7 +12687,7 @@ BaseComponent = Base.extend({
         if (!this.addInOptions[slot]) {
             this.addInOptions[slot] = {};
         }
-        this.addInOptions[slot][addIn] = options
+        this.addInOptions[slot][addIn] = options;
     },
 
     getAddInOptions: function (slot, addIn) {
@@ -12757,14 +12758,17 @@ BaseComponent = Base.extend({
 
             var hashCode = function (str) {
                 var hash = 0;
-                if (str.length === 0) return hash;
-                for (i = 0; i < str.length; i++) {
+                if (str.length === 0) {
+                    return hash;
+                }
+
+                for (var i = 0; i < str.length; i++) {
                     var chr = str.charCodeAt(i);
                     hash = ((hash << 5) - hash) + chr;
                     hash = hash & hash; // Convert to 32bit integer
                 }
                 return hash;
-            }
+            };
 
             var hash = hashCode(this.name).toString();
             var hueSeed = hash.substr(hash.length - 6, 2) || 0;
@@ -12787,505 +12791,6 @@ var TextComponent = BaseComponent.extend({
         $("#" + this.htmlObject).html(this.expression());
     }
 });
-
-/*******
- Comments Component
- ********/
-
-var CommentsComponent = BaseComponent.extend({
-
-    processing: function () {
-
-        var myself = {};
-
-        myself.defaults = {
-            dataTemplates: {
-
-                comments: '<div class="commentsDetails">' +
-                    ' {{#user}} {{{user}}}, {{/user}} {{{createdOn}}}' +
-                    '</div>' +
-                    '<div class="commentsBody">' +
-                    ' <div class="comment">' +
-                    '   {{{comment}}}' +
-                    ' </div>' +
-                    ' {{#user}}' +
-                    ' <div class="operation">' +
-                    ' {{#permissions.deletePermission}}' +
-                    '   <div class="delete">X</div>' +
-                    ' {{/permissions.deletePermission}}' +
-                    ' {{#permissions.archive}}' +
-                    '  <div class="archive">X</div>' +
-                    ' {{/permissions.archive}}' +
-                    ' </div>' +
-                    ' {{/user}}' +
-                    '</div>',
-
-                addComments: '<div class="commentsAdd">' +
-                    '{{#add}}' +
-                    ' <div class="addComment">Add Comment</div>' +
-                    ' <div class="addCommentWrapper">' +
-                    '   <textarea class=addCommentText></textarea>' +
-                    '   <div class="commentsButtons">' +
-                    '   <div class="saveComment">Save</div>' +
-                    '   <div class="cancelComment">Cancel</div>' +
-                    '   </div>' +
-                    ' </div>' +
-                    '{{/add}}' +
-                    '</div>',
-
-                paginateComments: '<div class="paginate commentPaginate"> ' +
-                    '{{#active}}' +
-                    ' <div class="navigateRefresh"> Refresh </div>' +
-                    ' <div class="navigatePrevious"> Newest Comments </div>' +
-                    ' <div class="navigateNext"> Oldest Comments </div>' +
-                    '{{/active}}' +
-                    '</div>'
-            }
-
-        };
-
-        // Process operations
-        myself.operations = {
-
-            processOperation: function (operation, comment, collection, callback, defaults) {
-                var ajaxOptions = {};
-                switch (operation) {
-                case 'LIST_ALL':
-                    ajaxOptions = {
-                        data: {
-                            action: 'list',
-                            page: defaults.page,
-                            firstResult: defaults.paginate.firstResult,
-                            maxResults: defaults.paginate.maxResults,
-                            where: false
-                        }
-                    };
-                    break;
-                case 'LIST_ACTIVE':
-                    ajaxOptions = {
-                        data: {
-                            action: 'list',
-                            page: defaults.page,
-                            firstResult: defaults.paginate.firstResult,
-                            maxResults: defaults.paginate.maxResults
-                        }
-                    };
-                    break;
-                case 'GET_LAST':
-                    ajaxOptions = {
-                        data: {
-                            action: 'list',
-                            page: defaults.page,
-                            firstResult: 0,
-                            maxResults: 1
-                        }
-                    };
-                    break;
-                case 'DELETE_COMMENT':
-                    ajaxOptions = {
-                        data: {
-                            action: 'delete',
-                            page: defaults.page,
-                            commentId: comment
-                        }
-                    };
-                    break;
-                case 'ARCHIVE_COMMENT':
-                    ajaxOptions = {
-                        data: {
-                            action: 'archive',
-                            page: defaults.page,
-                            commentId: comment
-                        }
-                    };
-                    break;
-                case 'ADD_COMMENT':
-                    ajaxOptions = {
-                        data: {
-                            action: 'add',
-                            page: defaults.page,
-                            comment: comment
-                        }
-                    };
-                    break;
-                }
-                this.requestProcessing(ajaxOptions, operation, collection, callback);
-            },
-
-            requestProcessing: function (overrides, operation, collection, callback) {
-                var myself = this;
-                overrides = overrides || {};
-                var ajaxOpts = {
-                    type: 'GET',
-                    url: "/pentaho/content/pentaho-cdf/Comments",
-                    success: function (data) {
-                        myself.requestResponse(data, operation, collection, callback)
-                    },
-                    dataType: 'json'
-                };
-                ajaxOpts = _.extend({}, ajaxOpts, overrides);
-                $.ajax(ajaxOpts);
-            },
-
-            resetCollection: function (result) {
-                var paginate = myself.options.paginate;
-                var start = paginate.activePageNumber * paginate.pageCommentsSize;
-                var end = ((start + paginate.pageCommentsSize) < result.length) ? (start + paginate.pageCommentsSize) : result.length;
-                var commentsArray = [];
-
-                for (var idx = start; idx < end; idx++) {
-                    var singleComment = new myself.CommentModel(result[idx]);
-                    commentsArray.push(singleComment)
-                }
-                return commentsArray;
-            },
-
-            requestResponse: function (json, operation, collection, callback) {
-                if ((operation === 'LIST_ALL') || (operation === 'LIST_ACTIVE')) {
-                    var paginate = myself.options.paginate;
-                    if (paginate.activePageNumber > 0) {
-                        if ((paginate.activePageNumber + 1) > Math.ceil(json.result.length / paginate.pageCommentsSize))
-                            paginate.activePageNumber--;
-                    }
-                    myself.options.queyResult = json.result;
-                    collection.reset(this.resetCollection(json.result));
-                    if ((paginate.activePageNumber === 0) && ((json) && (typeof json.result !== 'undefined')) && (json.result.length === 0)) {
-                        json.result = [{
-                            id: 0,
-                            comment: 'No Comments to show!',
-                            createdOn: '',
-                            elapsedMinutes: '',
-                            isArchived: false,
-                            isDeleted: false,
-                            isMe: true,
-                            page: '',
-                            user: '',
-                            permissions: {
-                                add: false,
-                                archive: false,
-                                remove: false
-                            }
-                        }];
-                        if ((collection) && (typeof collection !== 'undefined')) {
-                            collection.reset(this.resetCollection(json.result));
-                        }
-                    }
-                }
-                if ((callback) && (typeof callback !== 'undefined')) {
-                    callback.apply(this, [json, collection]);
-                }
-            }
-        };
-
-        myself.CommentModel = Backbone.Model.extend({
-            defaults: {
-                id: 0,
-                comment: 'Guest User',
-                createdOn: '',
-                elapsedMinutes: '',
-                isArchived: false,
-                isDeleted: false,
-                isMe: true,
-                page: 'comments',
-                user: 'comments',
-                permissions: {}
-            },
-
-            initialize: function () {
-                this.set('permissions', myself.options.permissions);
-            }
-
-        });
-
-        myself.CommentView = Backbone.View.extend({
-            tagName: 'div',
-            className: 'commentView',
-
-            events: {
-                "click .delete": "deleteComment",
-                "click .archive": "archiveComment"
-            },
-
-            initialize: function (model) {
-                _.bindAll(this, 'render', 'deleteComment', 'archiveComment');
-                this.model = model;
-            },
-
-            render: function () {
-                this.$el.append(myself.dataTemplates.comments(this.attributes));
-                return this.$el;
-            },
-
-            deleteComment: function () {
-                var callback = function (data, collection) {
-                    myself.operations.processOperation('LIST_ACTIVE', null, collection, null, myself.options);
-                };
-                myself.operations.processOperation('DELETE_COMMENT', this.model.get('id'), this.model.collection, callback, myself.options);
-            },
-
-            archiveComment: function () {
-                var callback = function (data, collection) {
-                    myself.operations.processOperation('LIST_ACTIVE', null, collection, null, myself.options);
-                };
-                myself.operations.processOperation('ARCHIVE_COMMENT', this.model.get('id'), this.model.collection, callback, myself.options);
-            }
-
-        });
-
-        myself.CommentsCollection = Backbone.Collection.extend({
-            model: myself.CommentModel
-        });
-
-        myself.CommentsView = Backbone.View.extend({
-            tagName: 'div',
-            className: 'commentComponent',
-
-            events: {
-                "click .addComment": "addComment",
-                "click .saveComment": "saveComment",
-                "click .cancelComment": "cancelComment",
-                "click .navigatePrevious": "navigatePrevious",
-                "click .navigateNext": "navigateNext",
-                "click .navigateRefresh": "navigateRefresh"
-            },
-
-            initialize: function (collection) {
-                _.bindAll(this, 'render',
-                    'addComment',
-                    'saveComment',
-                    'cancelComment',
-                    'renderSingeComment',
-                    'addComment',
-                    'saveComment',
-                    'cancelComment',
-                    'navigateNext',
-                    'navigatePrevious',
-                    'commentsUpdateNotification');
-
-                this.collection = collection;
-
-                this.collection.on('reset', this.render);
-                this.collection.on('commentsUpdateNotification', this.commentsUpdateNotification);
-
-                this.render();
-            },
-
-            render: function () {
-                var $renderElem = $('#' + myself.options.htmlObject);
-                var $commentsElem = $('<div/>').addClass('commentsGroup');
-                Dashboards.log("Comments Component: Render comments", "debug");
-                _(this.collection.models).each(function (comment) {
-                    $commentsElem.append(this.renderSingeComment(comment));
-                }, this);
-                var $add = $(myself.dataTemplates.addComments(myself.options.permissions));
-                var $paginate = $(myself.dataTemplates.paginateComments(myself.options.paginate));
-                this.$el.empty().append($commentsElem, $add, $paginate)
-                $renderElem.append(this.$el);
-                this.updateNavigateButtons();
-            },
-
-            renderSingeComment: function (comment) {
-                Dashboards.log("Comments Component: Render single comment", "debug");
-                var singleCommentView = new myself.CommentView(comment);
-                return singleCommentView.render();
-            },
-
-            addComment: function () {
-                Dashboards.log("Comments Component: Add comment", "debug");
-                this.showAddComment();
-            },
-
-            saveComment: function () {
-                Dashboards.log("Comments Component: Save comment", "debug");
-                var text = this.$el.find('.addCommentText').val();
-                var callback = function (data, collection) {
-                    var paginate = myself.options.paginate;
-                    paginate.activePageNumber = 0;
-                    myself.operations.processOperation('LIST_ACTIVE', null, collection, null, myself.options);
-                };
-                myself.operations.processOperation('ADD_COMMENT', text, this.collection, callback, myself.options);
-
-            },
-
-            cancelComment: function () {
-                Dashboards.log("Comments Component: Cancel comment", "debug");
-                this.hideAddComment();
-            },
-
-            navigateNext: function () {
-                Dashboards.log("Comments Component: Next", "debug");
-                var paginate = myself.options.paginate;
-                var start = paginate.activePageNumber * paginate.pageCommentsSize;
-                if ((start + paginate.pageCommentsSize) < myself.options.queyResult.length) {
-                    paginate.activePageNumber++;
-                    this.collection.reset(myself.operations.resetCollection(myself.options.queyResult));
-                }
-                this.commentsUpdateNotification();
-                this.updateNavigateButtons();
-            },
-
-            navigatePrevious: function () {
-                Dashboards.log("Comments Component: Previous", "debug");
-                var paginate = myself.options.paginate;
-                var start = paginate.activePageNumber;
-                if (paginate.activePageNumber > 0) {
-                    paginate.activePageNumber--;
-                    this.collection.reset(myself.operations.resetCollection(myself.options.queyResult));
-                }
-                this.commentsUpdateNotification();
-                this.updateNavigateButtons();
-            },
-
-            navigateRefresh: function () {
-                Dashboards.log("Comments Component: Refresh", "debug");
-                var paginate = myself.options.paginate;
-                myself.options.paginate.activePageNumber = 0;
-                myself.operations.processOperation('LIST_ACTIVE', null, this.collection, null, myself.options);
-                $('.tipsy').remove();
-            },
-
-            updateNavigateButtons: function () {
-                var paginate = myself.options.paginate;
-                $('.navigatePrevious').addClass("disabled");
-                $('.navigateNext').addClass("disabled");
-                if (paginate.activePageNumber > 0) {
-                    $('.navigatePrevious').removeClass("disabled");
-                }
-                if ((paginate.activePageNumber + 1) < Math.ceil(myself.options.queyResult.length / paginate.pageCommentsSize)) {
-                    $('.navigateNext').removeClass("disabled");
-                }
-            },
-
-            commentsUpdateNotification: function () {
-                Dashboards.log("Comments Component: Comments notification", "debug");
-                if (myself.options.queyResult.length > 0) {
-                    var lastCommentDate = myself.options.queyResult[0].createdOn;
-                    var callback = function (data) {
-                        if (data.result.length > 0) {
-                            if ( !! (data.result[0].createdOn === lastCommentDate)) {
-                                Dashboards.log("Comments Component: New Comments? false", "debug");
-                            } else {
-                                Dashboards.log("Comments Component: New Comments? true", "debug");
-                                var tipsyOptions = {
-                                    html: true,
-                                    fade: true,
-                                    trigger: 'manual',
-                                    className: 'commentsComponentTipsy',
-                                    title: function () {
-                                        return 'New comments, please refresh!';
-                                    }
-                                }
-                                $('.commentComponent .navigateRefresh').attr('title', 'New comments, please refresh!').tipsy(tipsyOptions);
-                                $('.commentComponent .navigateRefresh').tipsy('show');
-
-                            }
-                        }
-                    }
-                    myself.operations.processOperation('GET_LAST', null, null, callback, myself.options);
-                }
-            },
-
-            showAddComment: function () {
-                this.$el.find('.addCommentWrapper').show();
-                this.$el.find('.paginate').hide();
-                this.$el.find('.addCommentText').val('');
-            },
-
-            hideAddComment: function () {
-                this.$el.find('.addCommentWrapper').hide();
-                this.$el.find('.paginate').show();
-                this.$el.find('.addCommentText').val('');
-            }
-
-        });
-
-        myself.compileTemplates = function () {
-            myself.dataTemplates = myself.dataTemplates || {};
-            _(myself.defaults.dataTemplates).each(function (value, key) {
-                myself.dataTemplates[key] = Mustache.compile(value);
-            });
-        };
-
-        myself.start = function (options) {
-            myself.options = options;
-            myself.defaults = _.extend({}, myself.defaults, options.defaults);
-            myself.compileTemplates();
-
-            myself.commentsCollection = new myself.CommentsCollection();
-            myself.operations.processOperation('LIST_ACTIVE', null, myself.commentsCollection, null, myself.options);
-            myself.commentsView = new myself.CommentsView(myself.commentsCollection);
-
-            if (myself.options.intervalActive) {
-                var refresh = function () {
-                    Dashboards.log("Comments Component: Refresh", "debug");
-                    myself.operations.processOperation('LIST_ACTIVE', null, myself.commentsCollection, null, myself.options);
-                }
-                //setInterval(refresh, myself.options.interval);
-                setInterval(function () {
-                    myself.commentsCollection.trigger('commentsUpdateNotification');
-                }, myself.options.interval);
-            }
-
-        };
-
-        return myself;
-
-    },
-
-
-    /*****
-     Process component
-     *****/
-
-    update: function () {
-
-        // Set page start and length for pagination
-        this.paginateActive = (typeof this.paginate === 'undefined') ? true : this.paginate;
-        this.pageCommentsSize = (typeof this.pageCommentsSize === 'undefined') ? 10 : this.pageCommentsSize;
-        this.firstResult = (typeof this.firstResult === 'undefined') ? 0 : this.firstResult;
-        this.maxResults = (typeof this.maxResults === 'undefined') ? 100 : this.maxResults;
-        this.interval = (typeof this.interval === 'undefined') ? /*60000*/ 5000 : this.interval;
-        this.intervalActive = (typeof this.intervalActive === 'undefined') ? true : this.intervalActive;
-
-        this.addPermission = (typeof this.addPermission === 'undefined') ? true : this.addPermission;
-        this.deletePermission = (typeof this.deletePermission === 'undefined') ? false : this.deletePermission;
-        this.archivePermission = (typeof this.archivePermission === 'undefined') ? true : this.archivePermission;
-
-        this.options = (typeof this.options === 'undefined') ? {} : this.options;
-
-        // set the page name for the comments
-        if (this.page === undefined) {
-            Dashboards.log("Fatal - no page definition passed", "error");
-            return;
-        }
-        options = {
-            htmlObject: this.htmlObject,
-            page: this.page,
-            intervalActive: this.intervalActive,
-            interval: this.interval,
-            paginate: {
-                active: this.paginateActive,
-                activePageNumber: 0,
-                pageCommentsSize: this.pageCommentsSize,
-                firstResult: this.firstResult,
-                maxResults: this.maxResults
-            },
-            permissions: {
-                add: this.addPermission,
-                deletePermission: this.deletePermission,
-                archive: this.archivePermission
-            },
-            defaults: this.options
-        }
-
-        this.processing().start(options);
-
-        // Old comment component definition
-        // this.firePageUpdate();
-    }
-
-});
-
 
 var QueryComponent = BaseComponent.extend({
     visible: false,
@@ -13321,7 +12826,8 @@ var QueryComponent = BaseComponent.extend({
             // We need to make sure we're getting data from the right place,
             // depending on whether we're using CDA
 
-            changedValues = undefined;
+            var changedValues;
+
             object.metadata = values.metadata;
             object.result = values.resultset !== undefined ? values.resultset : values;
             object.queryInfo = values.queryInfo;
@@ -13351,12 +12857,6 @@ var MdxQueryGroupComponent = BaseComponent.extend({
     visible: false,
     update: function () {
         OlapUtils.updateMdxQueryGroup(this);
-    }
-});
-
-var ManagedFreeformComponent = BaseComponent.extend({
-    update: function () {
-        this.customfunction(this.parameters || []);
     }
 });
 
@@ -13488,7 +12988,7 @@ var UnmanagedComponent = BaseComponent.extend({
         var silent = this.isSilent();
         if (!silent) {
             this.block();
-        };
+        }
         userQueryOptions = userQueryOptions || {};
         /*
          * The query response handler should trigger the component-provided callback
@@ -13510,7 +13010,7 @@ var UnmanagedComponent = BaseComponent.extend({
         var query = this.queryState = this.query = Dashboards.getQuery(queryDef);
         var ajaxOptions = {
             async: true
-        }
+        };
         if (userQueryOptions.ajax) {
             _.extend(ajaxOptions, userQueryOptions.ajax);
         }
@@ -13540,7 +13040,7 @@ var UnmanagedComponent = BaseComponent.extend({
         var silent = this.isSilent();
         if (!silent) {
             this.block();
-        };
+        }
         var ajaxParameters = {
             async: true
         };
@@ -13586,7 +13086,7 @@ var UnmanagedComponent = BaseComponent.extend({
         msg = msg || Dashboards.getErrorObj('COMPONENT_ERROR').msg;
         if (!this.isSilent()) {
             this.unblock();
-        };
+        }
         this.errorNotification({
             error: cause,
             msg: msg
@@ -13684,23 +13184,6 @@ var UnmanagedComponent = BaseComponent.extend({
 
     isSilent: function () {
         return (this.lifecycle) ? !! this.lifecycle.silent : false;
-    }
-});
-
-var FreeformComponent = UnmanagedComponent.extend({
-
-    update: function () {
-        var render = _.bind(this.render, this);
-        if (typeof this.manageCallee === "undefined" || this.manageCallee) {
-            this.synchronous(render);
-        } else {
-            render();
-        }
-    },
-
-    render: function () {
-        var parameters = this.parameters || [];
-        this.customfunction(parameters);
     }
 });
 
@@ -14608,7 +14091,7 @@ var CheckComponent = ToggleButtonBaseComponent.extend({
         if (this.currentVal !== 'undefined' && this.currentVal !== null) {
             return this.currentVal;
         } else {
-            var a = new Array()
+            var a = [];
             $("#" + this.htmlObject + " ." + this.name + ":checked").each(function (i, val) {
                 a.push($(this).val());
             });
@@ -14725,7 +14208,7 @@ var MultiButtonComponent = ToggleButtonBaseComponent.extend({
     getValue: function () {
         if (this.isMultiple) {
             var indexes = MultiButtonComponent.prototype.getSelectedIndex(this.name);
-            var a = new Array();
+            var a = [];
             // if it is not an array, handle that too
             if (indexes.length === undefined) {
                 a.push(this.getValueByIdx(indexes));
@@ -14818,7 +14301,6 @@ var MultiButtonComponent = ToggleButtonBaseComponent.extend({
 });
 
 var AutocompleteBoxComponent = BaseComponent.extend({
-
     searchedWord: '',
     result: [],
 
@@ -15483,7 +14965,7 @@ var TableComponent = UnmanagedComponent.extend({
 function AddIn(options) {
 
     var myself = options;
-    if (typeof options != "object") {
+    if (typeof options !== "object") {
         throw TypeError;
     }
     /* We expect either an implementation or a value. */
@@ -15505,10 +14987,10 @@ function AddIn(options) {
 
     this.getLabel = function () {
         return _label;
-    }
+    };
     this.getName = function () {
         return _name;
-    }
+    };
 
     /**
      * Call the AddIn. If the AddIn is static, all parameters are
@@ -15533,8 +15015,8 @@ function AddIn(options) {
         if (!_implementation) {
             return Dashboards.clone(_value);
         }
-        options = typeof options == "function" ? options(state) : options;
-        var evaluatedDefaults = typeof _defaults == "function" ? _defaults(state) : _defaults;
+        options = typeof options === "function" ? options(state) : options;
+        var evaluatedDefaults = typeof _defaults === "function" ? _defaults(state) : _defaults;
         var compiledOptions = jQuery.extend(true, {}, evaluatedDefaults, options);
         try {
             return _implementation.call(myself, target, state, compiledOptions);
@@ -15545,7 +15027,7 @@ function AddIn(options) {
 
     this.setDefaults = function (defaults) {
 
-        if (typeof defaults == 'function') {
+        if (typeof defaults === 'function') {
             _defaults = defaults;
         } else {
             _defaults = jQuery.extend(true, {}, _defaults, defaults);
@@ -15554,7 +15036,6 @@ function AddIn(options) {
 }
 
  /* ************************ new file ************************ */
-;
 (function () {
 
     /* Sparkline AddIn, based on jquery.sparkline.js sparklines.
@@ -15571,10 +15052,10 @@ function AddIn(options) {
             // Register this for datatables sort
             var myself = this;
             $.fn.dataTableExt.oSort[this.name + '-asc'] = function (a, b) {
-                return myself.sort(a, b)
+                return myself.sort(a, b);
             };
             $.fn.dataTableExt.oSort[this.name + '-desc'] = function (a, b) {
-                return myself.sort(b, a)
+                return myself.sort(b, a);
             };
 
         },
@@ -15598,202 +15079,6 @@ function AddIn(options) {
     };
     Dashboards.registerAddIn("Table", "colType", new AddIn(sparkline));
 
-    var pvSparkline = {
-        name: "pvSparkline",
-        label: "Protovis Sparkline",
-        defaults: {
-            height: 10,
-            strokeStyle: "#000",
-            lineWidth: 1,
-            width: undefined,
-            canvasMargin: 2
-        },
-        init: function () {
-
-            // Register this for datatables sort
-            var myself = this;
-            $.fn.dataTableExt.oSort[this.name + '-asc'] = function (a, b) {
-                return myself.sort(a, b)
-            };
-            $.fn.dataTableExt.oSort[this.name + '-desc'] = function (a, b) {
-                return myself.sort(b, a)
-            };
-
-        },
-
-        sort: function (a, b) {
-            return this.sumStrArray(a) - this.sumStrArray(b);
-        },
-
-        sumStrArray: function (arr) {
-            return arr.split(',').reduce(function (prev, curr, index, array) {
-                Dashboards.log("Current " + curr + "; prev " + prev);
-                return parseFloat(curr) + (typeof (prev) === 'number' ? prev : parseFloat(prev));
-            });
-        },
-
-        implementation: function (tgt, st, opt) {
-            var ph = $(tgt),
-                sparklineData = st.value,
-                data = sparklineData.split(",");
-            n = data.length,
-            w = opt.width || ph.width() - opt.canvasMargin * 2,
-            h = opt.height,
-            min = pv.min.index(data),
-            max = pv.max.index(data);
-            ph.empty();
-
-            var container = $("<div></div>").appendTo(ph);
-
-            //console.log("count "+count);
-
-            var vis = new pv.Panel()
-                .canvas(container.get(0))
-                .width(w)
-                .height(h)
-                .margin(opt.canvasMargin);
-
-            vis.add(pv.Line)
-                .data(data)
-                .left(pv.Scale.linear(0, n - 1).range(0, w).by(pv.index))
-                .bottom(pv.Scale.linear(data).range(0, h))
-                .strokeStyle(opt.strokeStyle)
-                .lineWidth(opt.lineWidth);
-
-            vis.render();
-
-
-        }
-    };
-    Dashboards.registerAddIn("Table", "colType", new AddIn(pvSparkline));
-
-
-    var dataBar = {
-        name: "dataBar",
-        label: "Data Bar",
-        defaults: {
-            width: undefined,
-            widthRatio: 1,
-            height: 10,
-            startColor: "#55A4D6",
-            endColor: "#448FC8",
-            backgroundImage: undefined,
-            stroke: null,
-            max: undefined,
-            min: undefined,
-            includeValue: false,
-            absValue: true,
-            valueFormat: function (v, format, st) {
-                return "" + sprintf(format || "%.1f", v);
-            }
-        },
-        init: function () {
-            $.fn.dataTableExt.oSort[this.name + '-asc'] = $.fn.dataTableExt.oSort['numeric-asc'];
-            $.fn.dataTableExt.oSort[this.name + '-desc'] = $.fn.dataTableExt.oSort['numeric-desc'];
-        },
-        implementation: function (tgt, st, opt) {
-            var tblMax = Math.max.apply(Math, st.tableData.map(function (e) {
-                return e[st.colIdx];
-            })),
-                tblMin = Math.min.apply(Math, st.tableData.map(function (e) {
-                    return e[st.colIdx];
-                }));
-
-            var optMax = parseFloat(opt.max);
-            var optMin = parseFloat(opt.min);
-
-            var isValidNumber = function (nr) {
-                return _.isNumber(nr) && isFinite(nr);
-            };
-
-            var validMaxValue = isValidNumber(optMax);
-            var validMinValue = isValidNumber(optMin);
-
-            if (opt.absValue) {
-                var max = (validMaxValue === true) ? optMax : Math.max(Math.abs(tblMax), Math.abs(tblMin)),
-                    min = (validMinValue === true) ? optMin : 0,
-                    val = Math.abs(parseFloat(st.value));
-                min = Math.max(min, 0);
-            } else {
-                var max = (validMaxValue === true) ? optMax : Math.max(0, tblMax),
-                    min = (validMinValue === true) ? optMin : Math.min(0, tblMin),
-                    val = parseFloat(st.value);
-            }
-
-            var cell = $(tgt);
-            cell.empty();
-            var ph = $("<div>&nbsp;</div>").addClass('dataBarContainer').appendTo(cell);
-            var wtmp = opt.width || ph.width();
-            wtmp *= opt.widthRatio;
-            var htmp = opt.height;
-
-            var leftVal = Math.min(val, 0),
-                rightVal = Math.max(val, 0);
-
-            // xx = x axis
-            var xx = pv.Scale.linear(min, max).range(0, wtmp);
-
-            var paperSize = xx(Math.min(rightVal, max)) - xx(min);
-            paperSize = (paperSize > 1) ? paperSize : 1;
-            var paper = Raphael(ph.get(0), paperSize, htmp);
-            var c = paper.rect(xx(leftVal), 0, xx(rightVal) - xx(leftVal), htmp);
-
-            c.attr({
-                fill: opt.backgroundImage ? "url('" + opt.backgroundImage + "')" : "90-" + opt.startColor + "-" + opt.endColor,
-                stroke: opt.stroke,
-                title: "Value: " + st.value
-            });
-
-            if (opt.includeValue) {
-                var valph = $("<span></span>").addClass('value').append(opt.valueFormat(st.value, st.colFormat, st));
-                valph.appendTo(ph);
-            }
-        }
-    };
-
-    Dashboards.registerAddIn("Table", "colType", new AddIn(dataBar));
-
-    var trendArrow = {
-        name: "trendArrow",
-        label: "Trend Arrows",
-        defaults: {
-            good: true,
-            includeValue: false,
-            valueFormat: function (v, format, st) {
-                return sprintf(format || "%.1f", v);
-            },
-            thresholds: {
-                up: 0,
-                down: 0
-            }
-        },
-        init: function () {
-            $.fn.dataTableExt.oSort[this.name + '-asc'] = $.fn.dataTableExt.oSort['numeric-asc'];
-            $.fn.dataTableExt.oSort[this.name + '-desc'] = $.fn.dataTableExt.oSort['numeric-desc'];
-        },
-        implementation: function (tgt, st, opt) {
-            var ph = $(tgt),
-                qualityClass = opt.good ? "good" : "bad",
-                /* Anything that's not numeric is an invalid value.
-                 * We consider "numeric" to mean either a number,
-                 * or a string that is a fixed point for conversion
-                 * to number and back to string.
-                 */
-                isNumeric = typeof st.value === "number" || (typeof st.value === "string" && Number(st.value).toString() !== 'NaN'),
-                trendClass = !isNumeric ? "invalid" : (st.value > opt.thresholds.up ? "up" : st.value < opt.thresholds.down ? "down" : "neutral");
-            var trend = $("<div>&nbsp;</div>");
-            trend.addClass('trend ' + trendClass + ' ' + qualityClass);
-            ph.empty();
-            if (opt.includeValue) {
-                var valph = $("<div class='value'></div>").append(opt.valueFormat(st.value, st.colFormat, st));
-                valph.appendTo(ph);
-            }
-            ph.append(trend);
-        }
-    };
-    Dashboards.registerAddIn("Table", "colType", new AddIn(trendArrow));
-
-
     var link = {
         name: "hyperlink",
         label: "Hyperlink",
@@ -15812,7 +15097,6 @@ function AddIn(options) {
         },
 
         implementation: function (tgt, st, opt) {
-
             var ph = $(tgt);
             var link, label;
             if (opt.pattern) {
@@ -15840,112 +15124,6 @@ function AddIn(options) {
 
     };
     Dashboards.registerAddIn("Table", "colType", new AddIn(link));
-
-    var circle = {
-        name: "circle",
-        label: "Circle",
-        defaults: {
-            canvasSize: 10,
-            radius: 4,
-            color: 'black',
-            title: function (st) {
-                return "Value: " + st.value;
-            }
-        },
-
-        implementation: function (tgt, st, opt) {
-            var p = $(tgt).empty(),
-                v = st.value,
-                op,
-                options = {},
-                w,
-                paper;
-
-            for (key in opt)
-                if (opt.hasOwnProperty(key)) {
-                    op = opt[key];
-                    options[key] = typeof op === 'function' ?
-                        op.call(this, st) :
-                        op;
-                }
-            w = options.canvasSize;
-            paper = Raphael(tgt, options.canvasSize, options.canvasSize);
-            var r = paper.circle(w / 2, w / 2, options.radius);
-            r.attr({
-                fill: options.color,
-                opacity: 1,
-                "stroke": "none",
-                "title": options.title
-            });
-        }
-
-    };
-    Dashboards.registerAddIn("Table", "colType", new AddIn(circle));
-
-    var bullet = {
-        name: "cccBulletChart",
-        label: "Bullet Chart",
-        defaults: {
-            height: 40,
-            animate: false,
-            orientation: "horizontal",
-            bulletSize: 16, // Bullet height
-            bulletSpacing: 150, // Spacing between bullets
-            bulletMargin: 5, // Left margin
-            // Specific values
-            bulletRanges: [30, 80, 100],
-            extensionPoints: {
-                "bulletMarker_shape": "triangle",
-                "bulletTitle_textStyle": "green",
-                "bulletMeasure_fillStyle": "black",
-                "bulletRuleLabel_font": "8px sans-serif",
-                "bulletRule_height": 5
-            }
-        },
-
-        init: function () {
-            $.fn.dataTableExt.oSort[this.name + '-asc'] = $.fn.dataTableExt.oSort['string-asc'];
-            $.fn.dataTableExt.oSort[this.name + '-desc'] = $.fn.dataTableExt.oSort['string-desc'];
-        },
-
-        sort: function () {
-
-        },
-
-        implementation: function (tgt, st, opt) {
-            var chartOptions = $.extend(true, {}, opt);
-            var $tgt = $(tgt);
-            var target = $("<span></span>").appendTo($tgt.empty());
-            var values = st.value.split(",");
-            var data = this.getData(values);
-
-            chartOptions.canvas = target.get(0);
-            chartOptions.width = chartOptions.width || $tgt.width();
-            chartOptions.bulletMeasures = [values[0]];
-            chartOptions.bulletMarkers = [values[1]];
-
-            var chart = new pvc.BulletChart(chartOptions);
-            chart.setData(data, {});
-            chart.render();
-        },
-
-        getData: function (values) {
-            var dataSet = {
-                resultset: [values],
-                metadata: []
-            },
-                i;
-            for (i = 0; i < values.length; i++) {
-                dataSet.metadata.push({
-                    colIndex: i,
-                    colType: "String",
-                    colName: ""
-                });
-            }
-            return dataSet;
-        }
-    };
-    Dashboards.registerAddIn("Table", "colType", new AddIn(bullet));
 
     var formattedText = {
         name: "formattedText",
@@ -15994,120 +15172,6 @@ function AddIn(options) {
 
     };
     Dashboards.registerAddIn("Table", "colType", new AddIn(localizedText));
-
-
-    var groupHeaders = {
-        name: "groupHeaders",
-        label: "Group Headers",
-        defaults: {
-            hide: true,
-            columnHeadersInGroups: false,
-            replaceFirstHeader: true,
-            textFormat: function (v, st) {
-                return st.colFormat ? sprintf(st.colFormat, v) : v;
-            }
-        },
-
-        init: function () {
-            $.fn.dataTableExt.oSort[this.name + '-asc'] = $.fn.dataTableExt.oSort['string-asc'];
-            $.fn.dataTableExt.oSort[this.name + '-desc'] = $.fn.dataTableExt.oSort['string-desc'];
-        },
-
-        implementation: function (tgt, st, opt) {
-            var dt = $(tgt).parents('table').eq(0).dataTable(),
-                visColIdx = $(tgt).index();
-
-            /* Decide whether to hide the original column we're drawing the group headers from */
-            if (opt.hide) {
-                dt.find('.groupHeaders:nth-child(' + (visColIdx + 1) + ')').addClass('hiddenCol');
-            }
-
-
-            if (opt.columnHeadersInGroups) {
-                var header = dt.find("thead").eq(0);
-                header.find("tr").clone
-            }
-
-            var $row = $(dt.fnGetNodes(st.rowIdx)),
-                visRowIdx = $row.index(),
-                count = $row.children().length,
-                $group;
-
-            /* We create and insert a group header under any of the following circumstances:
-             *   - On the very first row
-             *   - Immediately after a higher-level group header
-             *     when using group headers for more than one column
-             *   - when the value for the current cell is
-             *     different from the one immediately before it
-             */
-            if (visRowIdx === 0 || $row.prev().hasClass('groupHeader') || (st.value !== dt.fnGetData($row.prev().get(0))[st.colIdx])) {
-                $group = this.buildHeader(tgt, st, opt);
-                $group.insertBefore($row);
-            }
-
-        },
-
-        buildHeader: function (tgt, st, opt) {
-            var $header,
-                $dt = $(tgt).parents('table').eq(0).dataTable(),
-                $theader,
-                headerText = opt.textFormat.call(this, st.value, st, opt);
-
-            if (opt.columnHeadersInGroups) {
-                $theader = $dt.find("thead").eq(0);
-                $theader.hide();
-                $header = $("<tr>");
-                $theader.find("tr th").each(function (i, e) {
-                    var $e = $(e),
-                        newCell = $("<td>").text($e.text()).width(e.style.width);
-                    newCell.addClass($(e).hasClass("hiddenCol") ? "hiddenCol" : "");
-                    $header.append(newCell);
-                });
-                $header.find("td").eq($(tgt).index() + 1).empty().append(headerText).addClass("groupName");
-            } else {
-                $header = $("<tr/>");
-                $("<td/>").addClass("groupName").empty().append(headerText).attr("colspan", $(tgt).siblings().length + 1).appendTo($header);
-            }
-            $header.addClass("groupHeader group" + $(tgt).index());
-            var $preSpace = $("<td>").attr("colspan", $(tgt).siblings().length + 1).wrap("<tr>").parent().addClass("groupHeader preSpace");
-            var $postSpace = $("<td>").attr("colspan", $(tgt).siblings().length + 1).wrap("<tr>").parent().addClass("groupHeader postSpace");
-            var $response = $preSpace.add($header).add($postSpace);
-            return $response;
-        }
-    };
-
-    Dashboards.registerAddIn("Table", "colType", new AddIn(groupHeaders));
-
-    var clippedText = {
-        name: "clippedText",
-        label: "Clipped Text",
-        defaults: {
-            showTooltip: true,
-            useTipsy: false,
-            style: {}
-        },
-
-        init: function () {
-            $.fn.dataTableExt.oSort[this.name + '-asc'] = $.fn.dataTableExt.oSort['string-asc'];
-            $.fn.dataTableExt.oSort[this.name + '-desc'] = $.fn.dataTableExt.oSort['string-desc'];
-        },
-
-        implementation: function (tgt, st, opt) {
-            var $tgt = $(tgt),
-                $container = $("<div>");
-            $tgt.empty().append($container);
-            $container.text(st.value).addClass("clippedText").attr("title", opt.showTooltip ? st.value : "");
-            $container.css(opt.style);
-            if (opt.useTipsy) {
-                $container.tipsy({
-                    gravity: 's',
-                    html: false
-                });
-            }
-        }
-    };
-
-    Dashboards.registerAddIn("Table", "colType", new AddIn(clippedText));
 })();
 
  /* ************************ new file ************************ */
@@ -16129,9 +15193,7 @@ function AddIn(options) {
  * but this is a risky operation which considerable implications. Use at your own risk!
  *
  */
-;
 (function () {
-
     var BaseQuery = Base.extend({
         name: "baseQuery",
         label: "Base Query",
@@ -16194,14 +15256,14 @@ function AddIn(options) {
                 myself.setOption('lastResultSet', json);
                 var clone = $.extend(true, {}, myself.getOption('lastResultSet'));
                 callback(clone);
-            }
+            };
         },
         getErrorHandler: function (callback) {
             return function (resp, txtStatus, error) {
                 if (callback) {
                     callback(resp, txtStatus, error);
                 }
-            }
+            };
         },
         doQuery: function (outsideCallback) {
             if (typeof this.getOption('successCallback') !== 'function') {
@@ -16404,63 +15466,6 @@ function AddIn(options) {
     // The registered Base needs to have an extend method.
     Dashboards.setBaseQuery(BaseQuery);
 
-
-    var CpkEndpoints = BaseQuery.extend({
-        name: "cpk",
-        label: "CPK",
-        defaults: {
-            baseUrl: Dashboards.getWebAppPath() + '/content',
-            pluginId: '',
-            endpoint: '',
-            systemParams: {},
-            ajaxOptions: {
-                dataType: 'json',
-                type: 'POST',
-                async: true
-            }
-        },
-
-        init: function (opts) {
-            if (_.isString(opts.pluginId) && _.isString(opts.endpoint)) {
-                this.setOption('pluginId', opts.pluginId);
-                this.setOption('endpoint', opts.endpoint);
-                var urlArray = [this.getOption('baseUrl'), this.getOption('pluginId'), this.getOption('endpoint')],
-                    url = urlArray.join('/');
-                this.setOption('url', url);
-            }
-        },
-
-        buildQueryDefinition: function (overrides) {
-            overrides = (overrides instanceof Array) ? Dashboards.propertiesArrayToObject(overrides) : (overrides || {});
-            var queryDefinition = this.getOption('systemParams');
-
-            var cachedParams = this.getOption('params'),
-                params = $.extend({}, cachedParams, overrides);
-
-            _.each(params, function (value, name) {
-                value = Dashboards.getParameterValue(value);
-                if ($.isArray(value) && value.length === 1 && ('' + value[0]).indexOf(';') >= 0) {
-                    //special case where single element will wrongly be treated as a parseable array by cda
-                    value = doCsvQuoting(value[0], ';');
-                }
-                //else will not be correctly handled for functions that return arrays
-                if (typeof value === 'function') {
-                    value = value();
-                }
-                queryDefinition['param' + name] = value;
-            });
-
-            return queryDefinition;
-        }
-
-        /*
-         * Public interface
-         */
-    });
-    // Registering a class will use that class directly when getting new queries.
-    Dashboards.registerQuery("cpk", CpkEndpoints);
-
-
     var cdaQueryOpts = {
         name: 'cda',
         label: 'CDA Query',
@@ -16612,7 +15617,7 @@ function AddIn(options) {
                 });
                 /* We also need to validate that each individual term is valid */
                 var invalidEntries = newSort.filter(function (e) {
-                    return !e.match("^[0-9]+[adAD]?,?$")
+                    return !e.match("^[0-9]+[adAD]?,?$");
                 });
                 if (invalidEntries.length > 0) {
                     throw "InvalidSortExpression";
@@ -16653,80 +15658,6 @@ function AddIn(options) {
     // Registering an object will use it to create a class by extending Dashboards.BaseQuery, 
     // and use that class to generate new queries.
     Dashboards.registerQuery("cda", cdaQueryOpts);
-
-
-    function makeMetadataElement(idx, name, type) {
-        return {
-            "colIndex": idx || 0,
-            "colType": type || "String",
-            "colName": name || "Name"
-        }
-    }
-
-    var legacyOpts = {
-        name: "legacy",
-        label: "Legacy",
-        defaults: {
-            url: webAppPath + "/ViewAction?solution=system&path=pentaho-cdf/actions&action=jtable.xaction",
-            queryDef: {}
-        },
-        interfaces: {
-            lastResultSet: {
-                reader: function (json) {
-                    json = eval("(" + json + ")");
-                    var result = {
-                        metadata: [makeMetadataElement(0)],
-                        resultset: json.values || []
-                    };
-                    _.each(json.metadata, function (el, idx) {
-                        return result.metadata.push(makeMetadataElement(idx + 1, el));
-                    });
-                    return result
-                }
-            }
-        },
-
-        init: function (opts) {
-            this.setOption('queryDef', opts);
-        },
-
-        getSuccessHandler: function (callback) {
-            var myself = this;
-            return function (json) {
-                try {
-                    myself.setOption('lastResultSet', json);
-                } catch (e) {
-                    if (this.async) {
-                        // async + legacy errors while parsing json response aren't caught
-                        var msg = Dashboards.getErrorObj('COMPONENT_ERROR').msg + ":" + e.message;
-                        Dashboards.error(msg);
-                        json = {
-                            "metadata": [msg],
-                            "values": []
-                        };
-                    } else {
-                        //exceptions while parsing json response are 
-                        //already being caught+handled in updateLifecyle()  
-                        throw e;
-                    }
-                }
-                var clone = $.extend(true, {}, myself.getOption('lastResultSet'));
-                callback(clone);
-            }
-        },
-
-        //TODO: is this enough?
-        buildQueryDefinition: function (overrides) {
-            return _.extend({}, this.getOption('queryDef'), overrides);
-        }
-
-    };
-    Dashboards.registerQuery("legacy", legacyOpts);
-
-    // TODO: Temporary until CDE knows how to write queryTypes definitions, with all these old queries 
-    // falling under the 'legacy' umbrella.
-    Dashboards.registerQuery("mdx", legacyOpts);
-    Dashboards.registerQuery("sql", legacyOpts);
 })();
 
  /* ************************ new file ************************ */
@@ -16914,7 +15845,6 @@ OlapUtils.mdxQuery.prototype.resetCondition = function (key) {
 
 
 OlapUtils.mdxQuery.prototype.update = function (hash) {
-
     this.originalHash = Dashboards.clone(hash);
     this.query["members"] = hash["members"] || [];
     this.query["sets"] = hash["sets"] || [];
@@ -17336,7 +16266,6 @@ OlapUtils.mdxQueryGroup.prototype.replaceFocus = function (key, values) {
 }
 
 OlapUtils.mdxQueryGroup.prototype.focus = function (key, values) {
-
     var conditions = [];
 
     Dashboards.incrementRunningCalls();
@@ -17821,6 +16750,4 @@ OlapUtils.DimensionAnalysisQuery = OlapUtils.GenericMdxQuery.extend({
     },
 
     queryBase: {}
-
-
 });
