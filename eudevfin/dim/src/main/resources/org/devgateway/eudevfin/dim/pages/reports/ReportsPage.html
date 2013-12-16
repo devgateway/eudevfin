@@ -12,9 +12,6 @@
     <!-- load CDF libs css files -->
     <link href="/js/theme/ui-lightness/jquery-ui-1.8.20.custom.css" rel="stylesheet" type="text/css"/>
     <link href="/js/addIns/coltypes.css" rel="stylesheet" type="text/css"/>
-    <link href="/js/dataTables/css/demo_page.css" rel="stylesheet" type="text/css"/>
-    <link href="/js/dataTables/css/demo_table.css" rel="stylesheet" type="text/css"/>
-    <link href="/js/dataTables/css/demo_table_jui.css" rel="stylesheet" type="text/css"/>
 
     <!-- load CDF general styles -->
     <link href="/js/cdfcss.min.css" rel="stylesheet" type="text/css"/>
@@ -30,24 +27,30 @@
         <div class="row">
             <div class="span12">
                 <h2>
-                    <wicket:message key="filters"/>
+                    <wicket:message key="sectorFilter"/>
                 </h2>
                 <div class="box">
                     <div id="sector-list"></div>
                     <div id="organization-list"></div>
+                    <!--
+                    <div wicket:id="sectorFilter" />
+                    <div wicket:id="orgFilter" />
+                    -->
                 </div>
             </div>
+
             <div class="span12">
                 <h2>
                     <wicket:message key="dashboards.table"/>
                 </h2>
                 <div class="box">
-                    <div class="box-header">
-                        <h2>Financial Transactions</h2>
-                    </div>
-                    <div id="test-table"></div>
+                    <div wicket:id="testTable"/>
+                </div>
+                <div class="box">
+                    <div wicket:id="testTable2"/>
                 </div>
             </div>
+
             <div class="span12">
                 <h2>
                     <wicket:message key="dashboards.pieChart"/>

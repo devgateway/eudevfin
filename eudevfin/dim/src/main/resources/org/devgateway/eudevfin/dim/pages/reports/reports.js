@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2013 Development Gateway.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v3.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/gpl.html
+ */
+
 // aplication variable
 var app = app || {};
 
@@ -19,9 +27,7 @@ $(document).ready(function () {
 });
 
 var pathToCdaFile = '/some/path.cda';
-var testTableDefinition,
-    testTable,
-    pieChart,
+var pieChart,
     columnChart,
     stackedBarChart,
     pieChartDefinition,
@@ -31,62 +37,26 @@ var testTableDefinition,
     pieQueryResult,
     columnQueryResult,
     columnChartQuery,
-    stackedBarChartQuery, 
+    stackedBarChartQuery,
     stackedBarQueryResult,
     sectorList,
     sectorListParameter,
     organizationList,
     organizationListParameter;
 
-testTableDefinition = new app.TableDefinitionModel({
-    colHeaders: ["Col 1", "Col 2", "Amount"],
-    colTypes: ['numeric', 'string', 'numeric'],
-    colFormats: ['%d', '%s', '%d'],
-    colWidths: ['30%', '40', '30%'],
-    colSortable: [true, true, true],
-    // sortBy: [[2, 'desc']],	for now the sort on CDA is not working 
-    paginate: true,
-    filter: true,
-    info: true,
-    dataAccessId: "simpleSQLQuery"
-});
-
-testTable = new app.TableModel({
-    name: "testTable",
-    listeners: ['sectorListParameter'],
-    parameters: [],
-    chartDefinition: testTableDefinition.toJSON(),
-    htmlObject: "test-table",
-    executeAtStart: true,
-    preChange: function (value) {
-        return value;
-    },
-    postFetch: function (values) {
-        console.log(values);
-        return values;
-    },
-    preExecution: function () {
-        
-        return undefined;
-    },
-    postExecution: function () {
-        
-    }
-});
-
 sectorList = new app.FilterModel({
     name: "sectorList",
     parameter: "sectorListParameter",
     htmlObject: "sector-list",
     queryDefinition: {
-        dataAccessId: "sectorList", 
+        dataAccessId: "sectorList",
         path: '/some/path.cda'
     },
     postFetch: function (values) {
 
         return values;
     },
-    
+
     preExecution: function () {
         return undefined;
     },
@@ -99,35 +69,35 @@ organizationList = new app.FilterModel({
     parameter: "organizationListParameter",
     htmlObject: "organization-list",
     queryDefinition: {
-        dataAccessId: "organizationList", 
+        dataAccessId: "organizationList",
         path: '/some/path.cda'
     },
     preExecution: function () {
-        
+
         return undefined;
     },
     postExecution: function () {
-        
+
     }
 });
 
 pieChartDefinition = new app.ChartPieDefinitionModel();
 pieChartDefinition.get('chart').renderTo = 'pie-chart';
 pieChartDefinition.get('plotOptions').series.events.click = function (event) {
-                    setTimeout(function() {
-                        console.log('pie chart clicked!');
-                    }, 500);
-                };
+    setTimeout(function () {
+        console.log('pie chart clicked!');
+    }, 500);
+};
 
 columnsChartDefinition = new app.ChartColumnDefinitionModel();
 columnsChartDefinition.get('chart').renderTo = 'column-chart';
 columnsChartDefinition.get('series')[0].pointWidth = 115;
 columnsChartDefinition.get('xAxis').labels.rotation = -15;
 columnsChartDefinition.get('plotOptions').series.events.click = function (event) {
-                    setTimeout(function() {
-                        console.log('column chart clicked!');
-                    }, 200);
-                };
+    setTimeout(function () {
+        console.log('column chart clicked!');
+    }, 200);
+};
 
 stackedBarChartDefinition = new app.StackedBarDefinitionModel();
 stackedBarChartDefinition.get('chart').renderTo = 'stackedbar-chart';
@@ -137,13 +107,13 @@ stackedBarChartDefinition.get('chart').renderTo = 'stackedbar-chart';
 //                     }, 200);
 //                 };
 
-pieChartQuery = new app.ChartModel ({
+pieChartQuery = new app.ChartModel({
     name: "pieChartQuery",
     listeners: ['sectorListParameter'],
     parameters: [],
     resultvar: "pieQueryResult",
     queryDefinition: {
-        dataAccessId: "simpleSQLQuery", 
+        dataAccessId: "simpleSQLQuery",
         path: '/some/path'
     },
     executeAtStart: true,
@@ -152,7 +122,7 @@ pieChartQuery = new app.ChartModel ({
     },
     postExecution: function () {
         var resultSeries = [];
-        for(var i = 0; i < pieQueryResult.length && i < 10; i++) {
+        for (var i = 0; i < pieQueryResult.length && i < 10; i++) {
             // filter the results
             pieQueryResult[i].splice(0, 1);
             // we need to do this because Highcharts needs 'int' instead of 'string' :(
@@ -167,12 +137,12 @@ pieChartQuery = new app.ChartModel ({
     }
 });
 
-columnChartQuery = new app.ChartModel ({
+columnChartQuery = new app.ChartModel({
     name: "columnChartQuery",
     parameters: [],
     resultvar: "columnQueryResult",
     queryDefinition: {
-        dataAccessId: "simpleSQLQuery", 
+        dataAccessId: "simpleSQLQuery",
         path: '/some/path'
     },
     executeAtStart: true,
@@ -181,16 +151,16 @@ columnChartQuery = new app.ChartModel ({
     },
     postExecution: function () {
         var resultCategories = [],
-            resultSeries     = [],
-            colors           = Highcharts.getOptions().colors,
-            len              = Highcharts.getOptions().colors.length,
+            resultSeries = [],
+            colors = Highcharts.getOptions().colors,
+            len = Highcharts.getOptions().colors.length,
             i;
 
         for (i = 0; i < columnQueryResult.length && i < 10; i++) {
             if (parseInt(columnQueryResult[i][2], 10) > 0) {
                 resultCategories.push(columnQueryResult[i][1]);
                 resultSeries.push({
-                    name: columnQueryResult[i][1], 
+                    name: columnQueryResult[i][1],
                     y: Math.floor(Math.random() * 1000),
                     // y: parseInt(columnQueryResult[i][2], 10), 
                     color: colors[i % len]      // access colors array in a circular manner
@@ -206,12 +176,12 @@ columnChartQuery = new app.ChartModel ({
     }
 });
 
-stackedBarChartQuery = new app.ChartModel ({
+stackedBarChartQuery = new app.ChartModel({
     name: "stackedBarChartQuery",
     parameters: [],
     resultvar: "stackedBarQueryResult",
     queryDefinition: {
-        dataAccessId: "simpleSQLQuery", 
+        dataAccessId: "simpleSQLQuery",
         path: '/some/path'
     },
     executeAtStart: true,
@@ -229,13 +199,12 @@ stackedBarChartQuery = new app.ChartModel ({
 // get the charts as JSON objects
 sectorList = sectorList.toJSON();
 organizationList = organizationList.toJSON();
-testTable = testTable.toJSON();
 pieChartQuery = pieChartQuery.toJSON();
 columnChartQuery = columnChartQuery.toJSON();
 stackedBarChartQuery = stackedBarChartQuery.toJSON();
 
 // The components to be loaded into the dashboard within the [] separated by ,
-var components = [sectorList, organizationList, testTable, pieChartQuery, columnChartQuery, stackedBarChartQuery];
+var components = [sectorList, organizationList, pieChartQuery, columnChartQuery, stackedBarChartQuery];
 
 // The initial dashboard load function definition
 var load = function () {
