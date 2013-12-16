@@ -8,7 +8,11 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.custom;
 
+import org.devgateway.eudevfin.dim.core.RWComponentPropertyModel;
+import org.devgateway.eudevfin.dim.core.components.DropDownField;
+import org.devgateway.eudevfin.dim.core.temporary.SB;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.SupplementaryDataTab;
+import org.devgateway.eudevfin.financial.Category;
 
 /**
  * Supplementary Data Tab extension for the EU-DEVFIN Form
@@ -23,11 +27,10 @@ class CustomSupplementaryDataTab extends SupplementaryDataTab {
     }
 
     private void addComponents() {
-        /*
-        DropDownField<String> tbd96 = new DropDownField<>("96tbd", new RWComponentPropertyModel<String>("tbd96"),
-                SB.countryProvider);
-        add(tbd96);
-        */
+        DropDownField<Category> genderEquality = new DropDownField<>("96rmnch",
+                new RWComponentPropertyModel<Category>("rmnch"), SB.categoryProvider);
+        add(genderEquality);
+
     }
 
 }

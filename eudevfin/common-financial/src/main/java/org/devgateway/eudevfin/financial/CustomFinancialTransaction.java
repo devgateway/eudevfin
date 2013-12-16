@@ -35,6 +35,8 @@ public class CustomFinancialTransaction extends FinancialTransaction {
     private BigMoney secondAgencyAmount;
     private BigMoney thirdAgencyAmount;
 
+    private Category rmnch;
+
     public LocalDateTime getDataAsPerDate() {
         return dataAsPerDate;
     }
@@ -145,5 +147,13 @@ public class CustomFinancialTransaction extends FinancialTransaction {
 
     public void setThirdAgencyAmount(BigMoney thirdAgencyAmount) {
         this.thirdAgencyAmount = thirdAgencyAmount;
+    }
+
+    public Category getRmnch() {
+        return rmnch;
+    }
+
+    public void setRmnch(Category rmnch) {
+        this.rmnch = rmnch;
     }
 }
