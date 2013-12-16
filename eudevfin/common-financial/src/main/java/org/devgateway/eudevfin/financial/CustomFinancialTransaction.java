@@ -63,6 +63,7 @@ public class CustomFinancialTransaction extends FinancialTransaction {
     private String budgetMTEFCodeP4;
     private String budgetMTEFLineP4;
     private String budgetMTEFActivityP4;
+    private String otherComments;
 
     public LocalDateTime getDataAsPerDate() {
         return dataAsPerDate;
@@ -390,5 +391,13 @@ public class CustomFinancialTransaction extends FinancialTransaction {
 
     public void setBudgetMTEFActivityP4(String budgetMTEFActivityP4) {
         this.budgetMTEFActivityP4 = budgetMTEFActivityP4;
+    }
+
+    public String getOtherComments() {
+        return otherComments;
+    }
+
+    public void setOtherComments(String otherComments) {
+        this.otherComments = otherComments;
     }
 }

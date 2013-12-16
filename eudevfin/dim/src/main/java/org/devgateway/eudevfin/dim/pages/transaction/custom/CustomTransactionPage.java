@@ -8,10 +8,6 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.custom;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
@@ -20,6 +16,10 @@ import org.devgateway.eudevfin.dim.pages.transaction.crs.TransactionPage;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.wicketstuff.annotation.mount.MountPath;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Custom Transaction Page for the EU-DEVFIN Form, extends the CRS Form with extended tabs and permissions
@@ -42,6 +42,7 @@ public class CustomTransactionPage extends TransactionPage {
         tabList.add(CustomSupplementaryDataTab.class);
         tabList.add(CustomVolumeDataTab.class);
         tabList.add(CustomForLoansOnlyTab.class);
+        tabList.add(AdditionalInfoTab.class);
         return tabList;
     }
 

@@ -18,7 +18,6 @@ import org.apache.wicket.validation.validator.EmailAddressValidator;
 import org.apache.wicket.validation.validator.RangeValidator;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 /**
  * <p>Creates an input field with attached label and placeholder, see constructor for more info</p>
@@ -115,14 +114,9 @@ public class TextInputField<T> extends AbstractInputField<T> {
         return this;
     }
 
+    @Override
     public TextInputField<T> setSize(InputBehavior.Size size) {
-        List<InputBehavior> list = field.getBehaviors(InputBehavior.class);
-        if (list.size() != 1)
-            throw new AssertionError("an InputBehavior must be attached to current field!");
-
-        for (InputBehavior b : list)
-            b.size(size);
-
+        super.setSize(size);
         return this;
     }
 }

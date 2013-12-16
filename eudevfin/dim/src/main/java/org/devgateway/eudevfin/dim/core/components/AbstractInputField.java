@@ -8,12 +8,13 @@
 
 package org.devgateway.eudevfin.dim.core.components;
 
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.StringResourceModel;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
+import java.util.List;
 
 
 public abstract class AbstractInputField<T> extends AbstractField<T> {
@@ -60,6 +61,17 @@ public abstract class AbstractInputField<T> extends AbstractField<T> {
 
     public void setPlaceholderText(IModel<String> placeholderText) {
         this.placeholderText = placeholderText;
+    }
+
+    protected AbstractInputField<T> setSize(InputBehavior.Size size) {
+        List<InputBehavior> list = field.getBehaviors(InputBehavior.class);
+        if (list.size() != 1)
+            throw new AssertionError("an InputBehavior must be attached to current field!");
+
+        for (InputBehavior b : list)
+            b.size(size);
+
+        return this;
     }
 
     protected abstract FormComponent<T> newField(String id, IModel<T> model);

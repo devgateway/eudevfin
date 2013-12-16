@@ -14,6 +14,7 @@
     <entry key="tabs.supplementary">Supplementary Data</entry>
     <entry key="tabs.volume">Volume Data</entry>
     <entry key="tabs.loans">For Loans Only</entry>
+    <entry key="tabs.additional">Additional Info</entry>
     <entry key="tabs.available">Available Components</entry>
 
     <entry key="reportingYear">Reporting Year</entry>
