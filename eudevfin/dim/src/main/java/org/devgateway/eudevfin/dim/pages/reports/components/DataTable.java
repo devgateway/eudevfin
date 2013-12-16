@@ -38,10 +38,8 @@ public class DataTable extends Panel implements IParametersProvider {
         table.setOutputMarkupId(true);
         add(table);
 
-
         String tableId = table.getMarkupId();
         parameters = new DataTableParameters(tableId);
-
     }
 
     @Override
@@ -52,13 +50,8 @@ public class DataTable extends Panel implements IParametersProvider {
         response.render(CssHeaderItem.forUrl("/js/dataTables/css/demo_table.css"));
         response.render(CssHeaderItem.forUrl("/js/dataTables/css/demo_table_jui.css"));
 
-        //response.render(JavaScriptHeaderItem.forUrl("/js/cdfplugin.js"));
-//        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(DataTable.class, "TableModel.js")));
-//        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(DataTable.class, "TableDefinitionModel.js")));
-
         response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(DataTable.class, "DataTableInit.js")));
         response.render(OnDomReadyHeaderItem.forScript("initDataTable(" + parameters().toJson() + ");"));
-        //response.render(OnDomReadyHeaderItem.forScript("initDataTable2('"+ table.getMarkupId() +"', ' ');"));
     }
 
     @Override

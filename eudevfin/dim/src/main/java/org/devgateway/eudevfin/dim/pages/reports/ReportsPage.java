@@ -15,6 +15,7 @@ import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.dim.core.pages.HeaderFooter;
 import org.devgateway.eudevfin.dim.pages.reports.components.DataTable;
+import org.devgateway.eudevfin.dim.pages.reports.components.Filter;
 import org.wicketstuff.annotation.mount.MountPath;
 
 @MountPath(value = "/reports")
@@ -22,23 +23,21 @@ import org.wicketstuff.annotation.mount.MountPath;
 public class ReportsPage extends HeaderFooter {
 
     public ReportsPage() {
-
         addComponents();
     }
 
     private void addComponents() {
-
-//        Filter sectorFilter = new Filter("sectorFilter", "sectorList", "sectorListParameter");
-//        add(sectorFilter);
-//        Filter orgFilter = new Filter("orgFilter", "organizationList","organizationListParameter");
-//        add(orgFilter);
+		// wicket ID, CDA ID, dashboard parameter
+        Filter sectorFilter = new Filter("sectorFilter", "sectorList", "sectorListParameter");
+        add(sectorFilter);
+        
+        Filter orgFilter = new Filter("orgFilter", "organizationList", "organizationListParameter");
+        add(orgFilter);
 
         DataTable testTable = new DataTable("testTable", "dashboards.financialTransaction");
-//        testTable.parameters().addFilter(sectorFilter);
-//        testTable.parameters().addFilter(orgFilter);
-
+        testTable.parameters().addFilter(sectorFilter);
+        testTable.parameters().addFilter(orgFilter);
         add(testTable);
-        add(new DataTable("testTable2", "dashboards.financialTransaction"));
     }
 
     @Override
@@ -46,9 +45,11 @@ public class ReportsPage extends HeaderFooter {
         super.renderHead(response);
         response.render(JavaScriptHeaderItem.forUrl("/js/cdfplugin.js"));
 
-
+        // highcharts
         response.render(JavaScriptHeaderItem.forUrl("/js/Highcharts-3.0.7/js/highcharts.js"));
         response.render(JavaScriptHeaderItem.forUrl("/js/Highcharts-3.0.7/js/modules/exporting.js"));
+        
+        // dashboard models
         response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(ReportsPage.class, "FilterModel.js")));
         response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(ReportsPage.class, "TableModel.js")));
         response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(ReportsPage.class, "TableDefinitionModel.js")));
@@ -58,6 +59,5 @@ public class ReportsPage extends HeaderFooter {
         response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(ReportsPage.class, "StackedBarDefinitionModel.js")));
 
         response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(ReportsPage.class, "reports.js")));
-
     }
 }

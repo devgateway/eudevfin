@@ -39,47 +39,6 @@ var pieChart,
     columnChartQuery,
     stackedBarChartQuery,
     stackedBarQueryResult,
-    sectorList,
-    sectorListParameter,
-    organizationList,
-    organizationListParameter;
-
-sectorList = new app.FilterModel({
-    name: "sectorList",
-    parameter: "sectorListParameter",
-    htmlObject: "sector-list",
-    queryDefinition: {
-        dataAccessId: "sectorList",
-        path: '/some/path.cda'
-    },
-    postFetch: function (values) {
-
-        return values;
-    },
-
-    preExecution: function () {
-        return undefined;
-    },
-    postExecution: function () {
-    }
-});
-
-organizationList = new app.FilterModel({
-    name: "organizationList",
-    parameter: "organizationListParameter",
-    htmlObject: "organization-list",
-    queryDefinition: {
-        dataAccessId: "organizationList",
-        path: '/some/path.cda'
-    },
-    preExecution: function () {
-
-        return undefined;
-    },
-    postExecution: function () {
-
-    }
-});
 
 pieChartDefinition = new app.ChartPieDefinitionModel();
 pieChartDefinition.get('chart').renderTo = 'pie-chart';
@@ -191,20 +150,17 @@ stackedBarChartQuery = new app.ChartModel({
     postExecution: function () {
         var resultSeries = [];
 
-        // stackedBarChartDefinition.get('series')[0].data = [5, 1, 1, 3, 6, 2, 3];
         stackedBarChart = new Highcharts.Chart(stackedBarChartDefinition.toJSON());
     }
 });
 
 // get the charts as JSON objects
-sectorList = sectorList.toJSON();
-organizationList = organizationList.toJSON();
 pieChartQuery = pieChartQuery.toJSON();
 columnChartQuery = columnChartQuery.toJSON();
 stackedBarChartQuery = stackedBarChartQuery.toJSON();
 
 // The components to be loaded into the dashboard within the [] separated by ,
-var components = [sectorList, organizationList, pieChartQuery, columnChartQuery, stackedBarChartQuery];
+var components = [pieChartQuery, columnChartQuery, stackedBarChartQuery];
 
 // The initial dashboard load function definition
 var load = function () {

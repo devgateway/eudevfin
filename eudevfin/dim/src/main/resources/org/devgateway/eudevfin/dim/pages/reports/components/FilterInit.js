@@ -6,26 +6,33 @@
  * http://www.gnu.org/licenses/gpl.html
  */
 
+// TODO: onChange event is not working!
+var sectorListParameter,
+	organizationListParameter;
+
 function initFilter(filterId, dataAccessId, parameter) {
     var filter = new app.FilterModel({
         name: filterId,
         parameter: parameter,
         htmlObject: filterId,
         queryDefinition: {
-            dataAccessId: "sectorList",
+            dataAccessId: dataAccessId,
             path: '/some/path.cda'
         },
         postFetch: function (values) {
             return values;
         },
-
         preExecution: function () {
             return undefined;
         },
         postExecution: function () {
         }
     });
-
-    Dashboards.addComponent(filter.toJSON());
+    
+    filter = filter.toJSON();
+    
+    Dashboards.addComponent(filter);
+    
+    Dashboards.update(filter);
 }
 
