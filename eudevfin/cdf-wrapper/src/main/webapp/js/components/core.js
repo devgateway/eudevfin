@@ -76,22 +76,22 @@ BaseComponent = Base.extend({
         return that;
     },
     getAddIn: function (slot, addIn) {
-        var type = typeof this.type == "function" ? this.type() : this.type;
+        var type = typeof this.type === "function" ? this.type() : this.type;
         return Dashboards.getAddIn(type, slot, addIn);
     },
     hasAddIn: function (slot, addIn) {
-        var type = typeof this.type == "function" ? this.type() : this.type;
+        var type = typeof this.type === "function" ? this.type() : this.type;
         return Dashboards.hasAddIn(type, slot, addIn);
     },
     getValuesArray: function () {
 
 
         var jXML;
-        if (typeof (this.valuesArray) == 'undefined' || this.valuesArray.length == 0) {
-            if (typeof (this.queryDefinition) != 'undefined') {
+        if (typeof (this.valuesArray) === 'undefined' || this.valuesArray.length === 0) {
+            if (typeof (this.queryDefinition) !== 'undefined') {
 
-                var vid = (this.queryDefinition.queryType == "sql") ? "sql" : "none";
-                if ((this.queryDefinition.queryType == "mdx") && (!this.valueAsId)) {
+                var vid = (this.queryDefinition.queryType === "sql") ? "sql" : "none";
+                if ((this.queryDefinition.queryType === "mdx") && (!this.valueAsId)) {
                     vid = "mdx";
                 } else if (this.queryDefinition.dataAccessId !== undefined && !this.valueAsId) {
                     vid = 'cda';
@@ -122,7 +122,7 @@ BaseComponent = Base.extend({
                 var p = new Array(this.parameters ? this.parameters.length : 0);
                 for (var i = 0, len = p.length; i < len; i++) {
                     var key = this.parameters[i][0];
-                    var value = this.parameters[i][1] == "" || this.parameters[i][1] == "NIL" ? this.parameters[i][2] : Dashboards.getParameterValue(this.parameters[i][1]);
+                    var value = this.parameters[i][1] === "" || this.parameters[i][1] === "NIL" ? this.parameters[i][2] : Dashboards.getParameterValue(this.parameters[i][1]);
                     p[i] = [key, value];
                 }
 
@@ -208,7 +208,7 @@ BaseComponent = Base.extend({
     },
 
     setAddInDefaults: function (slot, addIn, defaults) {
-        var type = typeof this.type == "function" ? this.type() : this.type;
+        var type = typeof this.type === "function" ? this.type() : this.type;
         Dashboards.setAddInDefaults(type, slot, addIn, defaults)
     },
     setAddInOptions: function (slot, addIn, options) {
@@ -290,7 +290,7 @@ BaseComponent = Base.extend({
 
             var hashCode = function (str) {
                 var hash = 0;
-                if (str.length == 0) return hash;
+                if (str.length === 0) return hash;
                 for (i = 0; i < str.length; i++) {
                     var chr = str.charCodeAt(i);
                     hash = ((hash << 5) - hash) + chr;
@@ -474,7 +474,7 @@ var CommentsComponent = BaseComponent.extend({
             },
 
             requestResponse: function (json, operation, collection, callback) {
-                if ((operation == 'LIST_ALL') || (operation == 'LIST_ACTIVE')) {
+                if ((operation === 'LIST_ALL') || (operation === 'LIST_ACTIVE')) {
                     var paginate = myself.options.paginate;
                     if (paginate.activePageNumber > 0) {
                         if ((paginate.activePageNumber + 1) > Math.ceil(json.result.length / paginate.pageCommentsSize))
@@ -482,7 +482,7 @@ var CommentsComponent = BaseComponent.extend({
                     }
                     myself.options.queyResult = json.result;
                     collection.reset(this.resetCollection(json.result));
-                    if ((paginate.activePageNumber == 0) && ((json) && (typeof json.result != 'undefined')) && (json.result.length == 0)) {
+                    if ((paginate.activePageNumber === 0) && ((json) && (typeof json.result !== 'undefined')) && (json.result.length === 0)) {
                         json.result = [{
                             id: 0,
                             comment: 'No Comments to show!',
@@ -499,12 +499,12 @@ var CommentsComponent = BaseComponent.extend({
                                 remove: false
                             }
                         }];
-                        if ((collection) && (typeof collection != 'undefined')) {
+                        if ((collection) && (typeof collection !== 'undefined')) {
                             collection.reset(this.resetCollection(json.result));
                         }
                     }
                 }
-                if ((callback) && (typeof callback != 'undefined')) {
+                if ((callback) && (typeof callback !== 'undefined')) {
                     callback.apply(this, [json, collection]);
                 }
             }
@@ -695,7 +695,7 @@ var CommentsComponent = BaseComponent.extend({
                     var lastCommentDate = myself.options.queyResult[0].createdOn;
                     var callback = function (data) {
                         if (data.result.length > 0) {
-                            if ( !! (data.result[0].createdOn == lastCommentDate)) {
+                            if ( !! (data.result[0].createdOn === lastCommentDate)) {
                                 Dashboards.log("Comments Component: New Comments? false", "debug");
                             } else {
                                 Dashboards.log("Comments Component: New Comments? true", "debug");
@@ -773,21 +773,21 @@ var CommentsComponent = BaseComponent.extend({
     update: function () {
 
         // Set page start and length for pagination
-        this.paginateActive = (typeof this.paginate == 'undefined') ? true : this.paginate;
-        this.pageCommentsSize = (typeof this.pageCommentsSize == 'undefined') ? 10 : this.pageCommentsSize;
-        this.firstResult = (typeof this.firstResult == 'undefined') ? 0 : this.firstResult;
-        this.maxResults = (typeof this.maxResults == 'undefined') ? 100 : this.maxResults;
-        this.interval = (typeof this.interval == 'undefined') ? /*60000*/ 5000 : this.interval;
-        this.intervalActive = (typeof this.intervalActive == 'undefined') ? true : this.intervalActive;
+        this.paginateActive = (typeof this.paginate === 'undefined') ? true : this.paginate;
+        this.pageCommentsSize = (typeof this.pageCommentsSize === 'undefined') ? 10 : this.pageCommentsSize;
+        this.firstResult = (typeof this.firstResult === 'undefined') ? 0 : this.firstResult;
+        this.maxResults = (typeof this.maxResults === 'undefined') ? 100 : this.maxResults;
+        this.interval = (typeof this.interval === 'undefined') ? /*60000*/ 5000 : this.interval;
+        this.intervalActive = (typeof this.intervalActive === 'undefined') ? true : this.intervalActive;
 
-        this.addPermission = (typeof this.addPermission == 'undefined') ? true : this.addPermission;
-        this.deletePermission = (typeof this.deletePermission == 'undefined') ? false : this.deletePermission;
-        this.archivePermission = (typeof this.archivePermission == 'undefined') ? true : this.archivePermission;
+        this.addPermission = (typeof this.addPermission === 'undefined') ? true : this.addPermission;
+        this.deletePermission = (typeof this.deletePermission === 'undefined') ? false : this.deletePermission;
+        this.archivePermission = (typeof this.archivePermission === 'undefined') ? true : this.archivePermission;
 
-        this.options = (typeof this.options == 'undefined') ? {} : this.options;
+        this.options = (typeof this.options === 'undefined') ? {} : this.options;
 
         // set the page name for the comments
-        if (this.page == undefined) {
+        if (this.page === undefined) {
             Dashboards.log("Fatal - no page definition passed", "error");
             return;
         }
@@ -838,7 +838,7 @@ var QueryComponent = BaseComponent.extend({
             this.warnOnce();
         }
         var cd = object.queryDefinition;
-        if (cd == undefined) {
+        if (cd === undefined) {
             Dashboards.log("Fatal - No query definition passed", "error");
             return;
         }
@@ -859,19 +859,19 @@ var QueryComponent = BaseComponent.extend({
             object.result = values.resultset !== undefined ? values.resultset : values;
             object.queryInfo = values.queryInfo;
 
-            if ((typeof (object.postFetch) == 'function')) {
+            if ((typeof (object.postFetch) === 'function')) {
                 changedValues = object.postFetch(values);
             }
-            if (changedValues != undefined) {
+            if (changedValues !== undefined) {
                 values = changedValues;
 
             }
 
-            if (object.resultvar != undefined) {
+            if (object.resultvar !== undefined) {
                 Dashboards.setParameter(object.resultvar, object.result);
             }
-            object.result = values.resultset != undefined ? values.resultset : values;
-            if (typeof values.resultset != "undefined") {
+            object.result = values.resultset !== undefined ? values.resultset : values;
+            if (typeof values.resultset !== "undefined") {
                 object.metadata = values.metadata;
                 object.queryInfo = values.queryInfo;
             }
@@ -918,14 +918,14 @@ var UnmanagedComponent = BaseComponent.extend({
          * runCounter gets incremented every time we run a query, allowing us to
          * determine whether the query has been called again after us.
          */
-        if (typeof this.runCounter == "undefined") {
+        if (typeof this.runCounter === "undefined") {
             this.runCounter = 0;
         }
         var ret;
-        if (typeof this.preExecution == "function") {
+        if (typeof this.preExecution === "function") {
             try {
                 ret = this.preExecution();
-                ret = typeof ret == "undefined" || ret;
+                ret = typeof ret === "undefined" || ret;
             } catch (e) {
                 this.error(Dashboards.getErrorObj('COMPONENT_ERROR').msg, e);
                 this.dashboard.log(e, "error");
@@ -945,7 +945,7 @@ var UnmanagedComponent = BaseComponent.extend({
      * explicitly immediately before yielding control back to CDF.
      */
     postExec: function () {
-        if (typeof this.postExecution == "function") {
+        if (typeof this.postExecution === "function") {
             this.postExecution();
         }
         this.trigger('cdf cdf:postExecution', this);
@@ -953,13 +953,13 @@ var UnmanagedComponent = BaseComponent.extend({
 
     drawTooltip: function () {
         if (this.tooltip) {
-            this._tooltip = typeof this.tooltip == "function" ?
+            this._tooltip = typeof this.tooltip === "function" ?
                 this.tooltip() :
                 this.tooltip;
         }
     },
     showTooltip: function () {
-        if (typeof this._tooltip != "undefined") {
+        if (typeof this._tooltip !== "undefined") {
             $("#" + this.htmlObject).attr("title", this._tooltip).tooltip({
                 delay: 0,
                 track: true,
@@ -1078,7 +1078,7 @@ var UnmanagedComponent = BaseComponent.extend({
             async: true
         };
         /* Detect call convention used and adjust parameters */
-        if (typeof callback != "function") {
+        if (typeof callback !== "function") {
             callback = params;
             _.extend(ajaxParameters, url);
         } else {
@@ -1146,7 +1146,7 @@ var UnmanagedComponent = BaseComponent.extend({
             /* getSuccessHandler(success) */
             success = counter;
             counter = this.callCounter();
-        } else if (typeof counter == 'function') {
+        } else if (typeof counter === 'function') {
             /* getSuccessHandler(success,always) */
             always = success;
             success = counter;
@@ -1156,10 +1156,10 @@ var UnmanagedComponent = BaseComponent.extend({
                 var newData;
                 if (counter >= this.runCounter) {
                     try {
-                        if (typeof this.postFetch == "function") {
+                        if (typeof this.postFetch === "function") {
                             newData = this.postFetch(data);
                             this.trigger('cdf cdf:postFetch', this, data);
-                            data = typeof newData == "undefined" ? data : newData;
+                            data = typeof newData === "undefined" ? data : newData;
                         }
                         success(data);
                     } catch (e) {
@@ -1167,7 +1167,7 @@ var UnmanagedComponent = BaseComponent.extend({
                         this.dashboard.log(e, "error");
                     }
                 }
-                if (typeof always == "function") {
+                if (typeof always === "function") {
                     always();
                 }
             },
@@ -1224,7 +1224,7 @@ var FreeformComponent = UnmanagedComponent.extend({
 
     update: function () {
         var render = _.bind(this.render, this);
-        if (typeof this.manageCallee == "undefined" || this.manageCallee) {
+        if (typeof this.manageCallee === "undefined" || this.manageCallee) {
             this.synchronous(render);
         } else {
             render();

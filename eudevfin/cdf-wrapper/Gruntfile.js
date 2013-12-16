@@ -99,7 +99,7 @@ module.exports = function(grunt) {
 			src: {
 				// all source files excluding libraries
 				src: [
-					'src/main/webapp/js/components/*.js', 
+					'src/main/webapp/js/components/table.js', 
 					// 'src/main/webapp/js/**/*.js', 
 					'!src/main/webapp/js/cdfplugin.js', 
 					'!src/main/webapp/js/cdfplugin.min.js',
@@ -220,7 +220,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-jsbeautifier');
 
 	// dist task
-	grunt.registerTask('dist', ['jshint:grunt', 'qunit', 'clean', 'concat', 'cssmin', 'uglify']);
+	grunt.registerTask('dist', ['jshint:grunt', 'qunit', 'clean', 'jsbeautifier', 'concat', 'cssmin', 'uglify']);
 
 	// Default task
 	grunt.registerTask('default', ['jshint:grunt', 'concat', 'cssmin']);

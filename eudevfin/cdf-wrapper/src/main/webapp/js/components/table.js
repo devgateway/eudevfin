@@ -6,20 +6,20 @@
  *           int:iDisplay - New display length
  */
 // Ensure we load dataTables before this line. If not, just keep going
-if ($.fn.dataTableExt != undefined) {
+if ($.fn.dataTableExt !== undefined) {
     $.fn.dataTableExt.oApi.fnLengthChange = function (oSettings, iDisplay) {
         oSettings._iDisplayLength = iDisplay;
         oSettings.oApi._fnCalculateEnd(oSettings);
 
         // If we have space to show extra rows backing up from the end point - then do so
-        if (oSettings._iDisplayEnd == oSettings.aiDisplay.length) {
+        if (oSettings._iDisplayEnd === oSettings.aiDisplay.length) {
             oSettings._iDisplayStart = oSettings._iDisplayEnd - oSettings._iDisplayLength;
             if (oSettings._iDisplayStart < 0) {
                 oSettings._iDisplayStart = 0;
             }
         }
 
-        if (oSettings._iDisplayLength == -1) {
+        if (oSettings._iDisplayLength === -1) {
             oSettings._iDisplayStart = 0;
         }
 
@@ -83,10 +83,10 @@ var TableComponent = UnmanagedComponent.extend({
             this.queryState.setPageSize(parseInt(cd.displayLength || 10));
             this.queryState.setCallback(_.bind(function (values) {
                 changedValues = undefined;
-                if ((typeof (this.postFetch) == 'function')) {
+                if ((typeof (this.postFetch) === 'function')) {
                     changedValues = this.postFetch(values);
                 }
-                if (changedValues != undefined) {
+                if (changedValues !== undefined) {
                     values = changedValues;
                 }
                 this.processTableComponentResponse(values);
@@ -101,7 +101,7 @@ var TableComponent = UnmanagedComponent.extend({
         /* Initial setup: clearing out the htmlObject and building the query object */
         setup: function () {
             var cd = this.chartDefinition;
-            if (cd == undefined) {
+            if (cd === undefined) {
                 Dashboards.log("Fatal - No chart definition passed", "error");
                 return;
             }
@@ -121,7 +121,7 @@ var TableComponent = UnmanagedComponent.extend({
             for (var i = 0; i < sortBy.length; i++) {
                 var col = sortBy[i][0];
                 var dir = sortBy[i][1];
-                sortOptions.push(col + (dir == "asc" ? "A" : "D"));
+                sortOptions.push(col + (dir === "asc" ? "A" : "D"));
             }
             this.queryState.setSortBy(sortOptions);
         },
@@ -129,7 +129,7 @@ var TableComponent = UnmanagedComponent.extend({
         pagingCallback: function (url, params, callback, dataTable) {
             function p(sKey) {
                 for (var i = 0, iLen = params.length; i < iLen; i++) {
-                    if (params[i].name == sKey) {
+                    if (params[i].name === sKey) {
                         return params[i].value;
                     }
                 }
@@ -142,7 +142,7 @@ var TableComponent = UnmanagedComponent.extend({
                 for (var i = 0; i < sortingCols; i++) {
                     var col = p("iSortCol_" + i);
                     var dir = p("sSortDir_" + i);
-                    sort.push(col + (dir == "asc" ? "A" : "D"));
+                    sort.push(col + (dir === "asc" ? "A" : "D"));
                 }
             }
             var query = this.queryState,
@@ -184,7 +184,7 @@ var TableComponent = UnmanagedComponent.extend({
                  * Reject rows that are not actually part
                  * of the datatable (e.g. nested tables)
                  */
-                if (dataTable.fnGetPosition(tr) == null) {
+                if (dataTable.fnGetPosition(tr) === null) {
                     return true;
                 }
 
@@ -201,7 +201,7 @@ var TableComponent = UnmanagedComponent.extend({
                             colIdx = position[2],
                             format = cd.colFormats[colIdx],
                             value = myself.rawData.resultset[rowIdx][colIdx];
-                        if (format && (typeof value != "undefined" && value !== null)) {
+                        if (format && (typeof value !== "undefined" && value !== null)) {
                             $(td).text(sprintf(format, value));
                         }
                     }
@@ -209,7 +209,7 @@ var TableComponent = UnmanagedComponent.extend({
             });
 
             /* Old urlTemplate code. This needs to be here for backward compatibility */
-            if (cd.urlTemplate != undefined) {
+            if (cd.urlTemplate !== undefined) {
                 var td = $("#" + myself.htmlObject + " td:nth-child(1)");
                 td.addClass('cdfClickable');
                 td.bind("click", function (e) {
@@ -219,7 +219,7 @@ var TableComponent = UnmanagedComponent.extend({
                 });
             }
             /* Handle post-draw callback the user might have provided */
-            if (typeof cd.drawCallback == 'function') {
+            if (typeof cd.drawCallback === 'function') {
                 cd.drawCallback.apply(myself, arguments);
             }
         },
@@ -255,7 +255,7 @@ var TableComponent = UnmanagedComponent.extend({
             try {
                 if (!(target.parents('tbody').length)) {
                     return;
-                } else if (target.get(0).tagName != 'TD') {
+                } else if (target.get(0).tagName !== 'TD') {
                     target = target.closest('td');
                 }
                 state.rawData = results;
@@ -285,12 +285,12 @@ var TableComponent = UnmanagedComponent.extend({
             this.ph.trigger('cdfTableComponentProcessResponse');
 
             // Set defaults for headers / types
-            if (typeof cd.colHeaders === "undefined" || cd.colHeaders.length == 0)
+            if (typeof cd.colHeaders === "undefined" || cd.colHeaders.length === 0)
                 cd.colHeaders = json.metadata.map(function (i) {
                     return i.colName
                 });
 
-            if (typeof cd.colTypes === "undefined" || cd.colTypes.length == 0)
+            if (typeof cd.colTypes === "undefined" || cd.colTypes.length === 0)
                 cd.colTypes = json.metadata.map(function (i) {
                     return i.colType.toLowerCase()
                 });
@@ -340,7 +340,7 @@ var TableComponent = UnmanagedComponent.extend({
                         results = myself.rawData;
                     if (!(target.parents('tbody').length)) {
                         return;
-                    } else if (target.get(0).tagName != 'TD') {
+                    } else if (target.get(0).tagName !== 'TD') {
                         target = target.closest('td');
                     }
                     var position = myself.dataTable.fnGetPosition(target.get(0));
@@ -430,7 +430,7 @@ var TableComponent = UnmanagedComponent.extend({
         getDataTableOptions: function (options) {
             var dtData = {};
 
-            if (options.tableStyle == "themeroller") {
+            if (options.tableStyle === "themeroller") {
                 dtData.bJQueryUI = true;
             }
             dtData.bInfo = options.info;
@@ -443,13 +443,13 @@ var TableComponent = UnmanagedComponent.extend({
             dtData.sDom = options.sDom;
             dtData.aaSorting = options.sortBy;
 
-            if (typeof options.oLanguage == "string") {
+            if (typeof options.oLanguage === "string") {
                 dtData.oLanguage = eval("(" + options.oLanguage + ")"); //TODO: er...
             } else {
                 dtData.oLanguage = options.oLanguage;
             }
 
-            if (options.colHeaders != undefined) {
+            if (options.colHeaders !== undefined) {
                 dtData.aoColumns = new Array(options.colHeaders.length);
                 for (var i = 0; i < options.colHeaders.length; i++) {
                     dtData.aoColumns[i] = {}
@@ -457,27 +457,27 @@ var TableComponent = UnmanagedComponent.extend({
                 };
                 $.each(options.colHeaders, function (i, val) {
                     dtData.aoColumns[i].sTitle = val;
-                    if (val == "") dtData.aoColumns[i].bVisible = false;
+                    if (val === "") dtData.aoColumns[i].bVisible = false;
                 }); // colHeaders
-                if (options.colTypes != undefined) {
+                if (options.colTypes !== undefined) {
                     $.each(options.colTypes, function (i, val) {
                         var col = dtData.aoColumns[i];
                         // Specific case: hidden cols
-                        if (val == "hidden") col.bVisible = false;
+                        if (val === "hidden") col.bVisible = false;
                         col.sClass += " " + val;
                         col.sType = val;
 
                     })
                 }; // colTypes
-                if (options.colFormats != undefined) {
+                if (options.colFormats !== undefined) {
                     // Changes are made directly to the json
 
                 }; // colFormats
 
                 var bAutoWidth = true;
-                if (options.colWidths != undefined) {
+                if (options.colWidths !== undefined) {
                     $.each(options.colWidths, function (i, val) {
-                        if (val != null) {
+                        if (val !== null) {
                             dtData.aoColumns[i].sWidth = val;
                             bAutoWidth = false;
                         }
@@ -485,16 +485,16 @@ var TableComponent = UnmanagedComponent.extend({
                 }; //colWidths
                 dtData.bAutoWidth = bAutoWidth;
 
-                if (options.colSortable != undefined) {
+                if (options.colSortable !== undefined) {
                     $.each(options.colSortable, function (i, val) {
-                        if (val != null && (!val || val == "false")) {
+                        if (val !== null && (!val || val === "false")) {
                             dtData.aoColumns[i].bSortable = false
                         }
                     })
                 }; //colSortable
-                if (options.colSearchable != undefined) {
+                if (options.colSearchable !== undefined) {
                     $.each(options.colSearchable, function (i, val) {
-                        if (val != null && (!val || val == "false")) {
+                        if (val !== null && (!val || val === "false")) {
                             dtData.aoColumns[i].bSearchable = false
                         }
                     })

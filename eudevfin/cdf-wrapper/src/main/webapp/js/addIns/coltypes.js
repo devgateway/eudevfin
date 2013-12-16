@@ -154,13 +154,13 @@
             var validMinValue = isValidNumber(optMin);
 
             if (opt.absValue) {
-                var max = (validMaxValue == true) ? optMax : Math.max(Math.abs(tblMax), Math.abs(tblMin)),
-                    min = (validMinValue == true) ? optMin : 0,
+                var max = (validMaxValue === true) ? optMax : Math.max(Math.abs(tblMax), Math.abs(tblMin)),
+                    min = (validMinValue === true) ? optMin : 0,
                     val = Math.abs(parseFloat(st.value));
                 min = Math.max(min, 0);
             } else {
-                var max = (validMaxValue == true) ? optMax : Math.max(0, tblMax),
-                    min = (validMinValue == true) ? optMin : Math.min(0, tblMin),
+                var max = (validMaxValue === true) ? optMax : Math.max(0, tblMax),
+                    min = (validMinValue === true) ? optMin : Math.min(0, tblMin),
                     val = parseFloat(st.value);
             }
 
@@ -223,7 +223,7 @@
                  * or a string that is a fixed point for conversion
                  * to number and back to string.
                  */
-                isNumeric = typeof st.value == "number" || (typeof st.value == "string" && Number(st.value).toString() != 'NaN'),
+                isNumeric = typeof st.value === "number" || (typeof st.value === "string" && Number(st.value).toString() !== 'NaN'),
                 trendClass = !isNumeric ? "invalid" : (st.value > opt.thresholds.up ? "up" : st.value < opt.thresholds.down ? "down" : "neutral");
             var trend = $("<div>&nbsp;</div>");
             trend.addClass('trend ' + trendClass + ' ' + qualityClass);
@@ -272,7 +272,7 @@
                 link = "http://" + link;
             }
             // is this text an hyperlink? 
-            if (opt.regexp == null || (new RegExp(opt.regexp).test(st.value))) {
+            if (opt.regexp === null || (new RegExp(opt.regexp).test(st.value))) {
                 var a = $("<a></a>").attr("href", link).addClass("hyperlinkAddIn");
                 a.text(label);
                 if (opt.openInNewTab) {
@@ -308,7 +308,7 @@
             for (key in opt)
                 if (opt.hasOwnProperty(key)) {
                     op = opt[key];
-                    options[key] = typeof op == 'function' ?
+                    options[key] = typeof op === 'function' ?
                         op.call(this, st) :
                         op;
                 }
@@ -428,7 +428,7 @@
         },
 
         implementation: function (tgt, st, opt) {
-            if (typeof Dashboards.i18nSupport !== "undefined" && Dashboards.i18nSupport != null) {
+            if (typeof Dashboards.i18nSupport !== "undefined" && Dashboards.i18nSupport !== null) {
                 var text = this.defaults.localize(st.value);
                 $(tgt).empty().append(text);
                 //change data, too, in order for search and sorting to work correctly on the localized text
@@ -484,7 +484,7 @@
              *   - when the value for the current cell is
              *     different from the one immediately before it
              */
-            if (visRowIdx === 0 || $row.prev().hasClass('groupHeader') || (st.value != dt.fnGetData($row.prev().get(0))[st.colIdx])) {
+            if (visRowIdx === 0 || $row.prev().hasClass('groupHeader') || (st.value !== dt.fnGetData($row.prev().get(0))[st.colIdx])) {
                 $group = this.buildHeader(tgt, st, opt);
                 $group.insertBefore($row);
             }

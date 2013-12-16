@@ -28,7 +28,7 @@ OlapUtils.initMdxQueryGroup = function (obj) {
 
     OlapUtils.mdxGroups[obj.name] = mdxQueryGroup;
 
-    if (("#" + obj.htmlObject + "_evolutionType") != undefined)
+    if (("#" + obj.htmlObject + "_evolutionType") !== undefined)
         $("#" + obj.htmlObject + "_evolutionType").html(mdxQueryGroup.printEvolutionType(obj.htmlObject + "_evolutionType"));
 
     return mdxQueryGroup;
@@ -38,7 +38,7 @@ OlapUtils.initMdxQueryGroup = function (obj) {
 OlapUtils.updateMdxQueryGroup = function (obj) {
 
     var mdxGroup = OlapUtils.mdxGroups[obj.name];
-    if (mdxGroup == undefined) {
+    if (mdxGroup === undefined) {
         mdxGroup = OlapUtils.initMdxQueryGroup(obj);
     }
 
@@ -67,13 +67,13 @@ OlapUtils.fireMdxGroupAction = function (mdxQueryGroup, idx, param1, param2, par
      * In Pentaho 3.5, the behavior of the x/y and TimeSeries Charts   *
      *changed, and this function passed to receive 5 parameters:
      *(query,idx,chartDefinition,PARAM,SERIES).            *
-     * When chartType == AreaChart, the value used to drill through is *
+     * When chartType === AreaChart, the value used to drill through is *
      *SERIES, otherwise it's PARAM.                    */
 
-    if (param2 != undefined && param3 != undefined) {
+    if (param2 !== undefined && param3 !== undefined) {
         cType = Dashboards.ev(param1.chartType);
 
-        if (cType == "AreaChart")
+        if (cType === "AreaChart")
             value = encode_prepare(param3);
         else
             value = encode_prepare(param2);
@@ -82,7 +82,7 @@ OlapUtils.fireMdxGroupAction = function (mdxQueryGroup, idx, param1, param2, par
 
 
     var mdxQueryGroup = OlapUtils.mdxGroups[mdxQueryGroup];
-    if (value == 'Others')
+    if (value === 'Others')
         return; // do nothing
 
     OlapUtils.lastClickedMdxQueryGroup = mdxQueryGroup;
@@ -102,12 +102,12 @@ OlapUtils.fireMdxGroupAction = function (mdxQueryGroup, idx, param1, param2, par
         "Cancel": "cancel"
     };
 
-    if (clickedObj.mdxQuery.axisDepth == 0)
+    if (clickedObj.mdxQuery.axisDepth === 0)
         delete buttonsHash.Collapse;
 
     //get rowLevels
     var rl = clickedObj.mdxQuery.query.rowLevels;
-    var d = typeof rl == "function" ? rl() : rl;
+    var d = typeof rl === "function" ? rl() : rl;
 
     if (clickedObj.mdxQuery.axisPos + clickedObj.mdxQuery.axisDepth >= d.length - 1) {
         delete buttonsHash["Drill Down"];
@@ -116,7 +116,7 @@ OlapUtils.fireMdxGroupAction = function (mdxQueryGroup, idx, param1, param2, par
         delete buttonsHash.Focus;
     }
 
-    if (clickedObj.mdxQuery.axisPos == 0)
+    if (clickedObj.mdxQuery.axisPos === 0)
         delete buttonsHash["Drill Up"];
 
     // Expanded ones can't drill || focus
@@ -174,7 +174,7 @@ OlapUtils.mdxQuery.prototype.resetFilters = function () {
 OlapUtils.mdxQuery.prototype.resetCondition = function (key) {
     delete this.query["members"][key];
     delete this.query["sets"][key];
-    if (this.query["conditions"][key + "InitialValue"] != undefined)
+    if (this.query["conditions"][key + "InitialValue"] !== undefined)
         this.query["where"][key] = this.query["conditions"][key + "InitialValue"];
     else
         delete this.query["where"][key];
@@ -215,18 +215,18 @@ OlapUtils.mdxQuery.prototype.clone = function () {
 
 
 OlapUtils.mdxQuery.prototype.generateAxisPart = function (axisDrill, axis, axisLevels, orderBy) {
-    if (axisDrill == false) {
+    if (axisDrill === false) {
         return axis;
     }
 
-    //var dim = axis.indexOf(".") == -1?axis:axis.substr(0,axis.indexOf("."));
-    var dim = axis.indexOf("].") == -1 ? axis : axis.substr(0, axis.indexOf("].") + 1);
+    //var dim = axis.indexOf(".") === -1?axis:axis.substr(0,axis.indexOf("."));
+    var dim = axis.indexOf("].") === -1 ? axis : axis.substr(0, axis.indexOf("].") + 1);
     var axisLevel = this.axisPos + this.axisDepth;
     if (axisLevel > axisLevels.length - 1) {
         axisLevel = axisLevels.length - 1
     }
     var q = "Descendants(" + axis + ", " + dim + ".[" + axisLevels[axisLevel] + "],SELF)"
-    if (orderBy == "")
+    if (orderBy === "")
         return q;
 
     return "Order(" + q + ", " + orderBy + " , BDESC)";
@@ -240,17 +240,17 @@ OlapUtils.mdxQuery.prototype.getQuery = function () {
     var _eh = [];
     for (p in this.query) {
         var key = p;
-        var value = typeof this.query[p] == 'function' ? this.query[p]() : this.query[p];
+        var value = typeof this.query[p] === 'function' ? this.query[p]() : this.query[p];
         _eh[key] = value;
     }
 
-    if (typeof _eh["sets"] == 'object' || typeof _eh["members"] == 'object') {
+    if (typeof _eh["sets"] === 'object' || typeof _eh["members"] === 'object') {
         for (s in _eh["sets"]) {
-            var value = typeof _eh["sets"][s] == 'function' ? _eh["sets"][s]() : _eh["sets"][s];
+            var value = typeof _eh["sets"][s] === 'function' ? _eh["sets"][s]() : _eh["sets"][s];
             query += " set " + value + " \n";
         }
         for (m in _eh["members"]) {
-            var value = typeof _eh["members"][m] == 'function' ? _eh["members"][m]() : _eh["members"][m];
+            var value = typeof _eh["members"][m] === 'function' ? _eh["members"][m]() : _eh["members"][m];
             query += " member " + value + " \n";
         }
     }
@@ -284,7 +284,7 @@ OlapUtils.mdxQuery.prototype.getQuery = function () {
 
     var whereArray = [];
     $.each(_eh["where"], function (key, obj) {
-        var el = typeof obj == 'function' ? obj() : obj
+        var el = typeof obj === 'function' ? obj() : obj
         if (el.length > 0) whereArray.push(el);
     });
     if (whereArray.length > 0) {
@@ -331,7 +331,7 @@ OlapUtils.mdxQuery.prototype.removeFilter = function (key, value) {
         lastExclude = false;
         break;
     }
-    if (lastExclude && this.query["conditions"][key + "previousDrillValue"] != undefined) {
+    if (lastExclude && this.query["conditions"][key + "previousDrillValue"] !== undefined) {
         this.addCondition(key, this.query["conditions"][key + "previousDrillValue"]);
         delete this.query["conditions"][key + "previousDrillValue"];
     }
@@ -339,8 +339,8 @@ OlapUtils.mdxQuery.prototype.removeFilter = function (key, value) {
 
 OlapUtils.mdxQuery.prototype.removeCondition = function (key, value, op) {
 
-    if (this.query["conditions"][key] != undefined) {
-        if (this.query["conditions"][key][value] != undefined)
+    if (this.query["conditions"][key] !== undefined) {
+        if (this.query["conditions"][key][value] !== undefined)
             delete this.query["conditions"][key][value];
         else { //Focus not present because exclusion condition set after focus => Remove all.
             delete this.query["conditions"][key];
@@ -363,7 +363,7 @@ OlapUtils.mdxQuery.prototype.removeConditions = function (key) {
 OlapUtils.mdxQuery.prototype.replaceConditionsByDrill = function (key, value) {
 
     //Clear previous focus and excludes
-    if (this.query["conditions"][key] != undefined)
+    if (this.query["conditions"][key] !== undefined)
         this.query["conditions"][key] = [];
 
     return this.addConditionAux(key, value, 'drill');
@@ -375,7 +375,7 @@ OlapUtils.mdxQuery.prototype.replaceConditionByExclude = function (key, value) {
 
 OlapUtils.mdxQuery.prototype.addConditionAux = function (key, value, op) {
 
-    if (op == undefined) {
+    if (op === undefined) {
         this.query["where"][key] = value;
         return;
     }
@@ -383,14 +383,14 @@ OlapUtils.mdxQuery.prototype.addConditionAux = function (key, value, op) {
     var condition = value.substr(0, value.indexOf("]") + 1) + ".[Filter]";
 
     //Store initial where cause for this key
-    if (this.query["conditions"][key] == undefined) {
+    if (this.query["conditions"][key] === undefined) {
         this.query["conditions"][key] = [];
-        if (this.query["where"][key] != undefined)
+        if (this.query["where"][key] !== undefined)
             this.query["conditions"][key + "InitialValue"] = this.query["where"][key];
     }
 
-    if (this.query["members"][key] == undefined) {
-        if (op == 'exclude') {
+    if (this.query["members"][key] === undefined) {
+        if (op === 'exclude') {
             //this.addMember(key,condition + " as (( "+value+".parent) - ("+value+"))");
         } else
             this.addMember(key, condition + " as Aggregate(" + key + "Filter)");
@@ -399,18 +399,18 @@ OlapUtils.mdxQuery.prototype.addConditionAux = function (key, value, op) {
 
     this.query["conditions"][key][value] = op
 
-    if (op != 'exclude')
+    if (op !== 'exclude')
         delete this.query["conditions"][key + "previousDrillValue"];
 
     //Remove previous focus and drills for this value
-    if (op != 'drill') {
+    if (op !== 'drill') {
         var aux = [];
         for (v in this.query["conditions"][key]) {
             //Store previous focus for first exclude
-            if (op == 'exclude' && this.query["conditions"][key + "previousDrillValue"] == undefined && this.query["conditions"][key][v] == 'drill') {
+            if (op === 'exclude' && this.query["conditions"][key + "previousDrillValue"] === undefined && this.query["conditions"][key][v] === 'drill') {
                 this.query["conditions"][key + "previousDrillValue"] = v;
             }
-            if (this.query["conditions"][key][v] == op) aux[v] = op;
+            if (this.query["conditions"][key][v] === op) aux[v] = op;
         }
         this.query["conditions"][key] = aux;
     }
@@ -425,12 +425,12 @@ OlapUtils.mdxQuery.prototype.setCondition = function (key, condition, op) {
         set.push(v);
 
     if (set.length > 0) {
-        if (op == "focus" || op == "drill")
+        if (op === "focus" || op === "drill")
             this.addSet(key, key + "Filter as {" + set.join(",") + "}");
         else {
             this.addMember(key, condition + " as ( ( " + set[0] + ".parent) - (" + set.join(") - (") + "))");
         }
-        if (condition != undefined)
+        if (condition !== undefined)
             this.query["where"][key] = condition;
     } else
         this.resetCondition(key);
@@ -485,7 +485,7 @@ OlapUtils.mdxQueryGroup.prototype.printConditions = function () {
 
     for (i in this.activeFilters) {
         var a = this.activeFilters[i];
-        if (a.length > 0 && ++filters == 1)
+        if (a.length > 0 && ++filters === 1)
             out += "<i>Exclusions: </i>";
         var mdxGroupName = this.name;
         var o = [];
@@ -500,7 +500,7 @@ OlapUtils.mdxQueryGroup.prototype.printConditions = function () {
     }
     for (i in this.activeConditions) {
         var a = this.activeConditions[i];
-        if (a.length > 0 && ++conds == 1)
+        if (a.length > 0 && ++conds === 1)
             out += " <i>Focus: </i>";
         var mdxGroupName = this.name;
         var o = [];
@@ -528,10 +528,10 @@ OlapUtils.mdxQueryGroup.prototype.printEvolutionType = function (object) {
 
     for (var i = 0, len = myArray.length; i < len; i++) {
         out += "<input onclick='OlapUtils.changeEvolutionType(\"" + object + "radio\")'";
-        if (i == 0) {
+        if (i === 0) {
             out += " CHECKED ";
         }
-        out += "type='radio' id='" + object + "radio' name='" + object + "radio' value=" + myArray[i][1] + " /> " + myArray[i][1] + (object.separator == undefined ? "" : object.separator);
+        out += "type='radio' id='" + object + "radio' name='" + object + "radio' value=" + myArray[i][1] + " /> " + myArray[i][1] + (object.separator === undefined ? "" : object.separator);
     }
 
     return out;
@@ -543,13 +543,13 @@ OlapUtils.mdxQueryGroup.prototype.drillDown = function (key, value) {
     var conditions = [];
 
     //CLean previous conditions,drill, and exclude messages for this id
-    if (this.activeFilters != undefined) delete this.activeFilters[key];
-    if (this.activeConditions != undefined) delete this.activeConditions[key];
+    if (this.activeFilters !== undefined) delete this.activeFilters[key];
+    if (this.activeConditions !== undefined) delete this.activeConditions[key];
 
     for (i in this.mdxQueries) {
         var obj = this.mdxQueries[i];
 
-        if (i == key) {
+        if (i === key) {
             obj.mdxQuery.drillDown(value);
         } else
             conditions = obj.mdxQuery.replaceConditionsByDrill(key, value);
@@ -569,15 +569,15 @@ OlapUtils.mdxQueryGroup.prototype.drillUp = function (key) {
     var conditions = [];
 
     //CLean previous conditions,drill, and exclude messages for this id
-    if (this.activeFilters != undefined) delete this.activeFilters[key];
-    if (this.activeConditions != undefined) delete this.activeConditions[key];
+    if (this.activeFilters !== undefined) delete this.activeFilters[key];
+    if (this.activeConditions !== undefined) delete this.activeConditions[key];
 
     var keyObj = this.mdxQueries[key];
     var value = keyObj.mdxQuery.drillUp();
     for (i in this.mdxQueries) {
         var obj = this.mdxQueries[i];
 
-        if (i != key) {
+        if (i !== key) {
             if (keyObj.mdxQuery.axisPos > 0)
                 conditions = obj.mdxQuery.replaceConditionsByDrill(key, value);
             else
@@ -597,7 +597,7 @@ OlapUtils.mdxQueryGroup.prototype.drillUp = function (key) {
 OlapUtils.mdxQueryGroup.prototype.replaceFocus = function (key, values) {
 
     for (i in this.mdxQueries)
-        if (i != key)
+        if (i !== key)
             this.mdxQueries[i].mdxQuery.removeConditions(key);
 
     this.focus(key, values);
@@ -610,11 +610,11 @@ OlapUtils.mdxQueryGroup.prototype.focus = function (key, values) {
     Dashboards.incrementRunningCalls();
 
     //CLean previous conditions,drill, and exclude messages for this id
-    if (this.activeFilters != undefined) delete this.activeFilters[key];
-    if (this.activeConditions != undefined) delete this.activeConditions[key];
+    if (this.activeFilters !== undefined) delete this.activeFilters[key];
+    if (this.activeConditions !== undefined) delete this.activeConditions[key];
 
     for (i in this.mdxQueries) {
-        if (i != key) {
+        if (i !== key) {
             var obj = this.mdxQueries[i];
 
             for (i = 0; i < values.length; i++) {
@@ -647,14 +647,14 @@ OlapUtils.mdxQueryGroup.prototype.exclude = function (key, value) {
     //Replace focus from active conditions by exclude
     for (i in this.mdxQueries) {
         var query = this.mdxQueries[i];
-        if (i != key) {
+        if (i !== key) {
             query.mdxQuery.replaceConditionByExclude(key, value);
             Dashboards.update(query.chartObject);
         }
     }
 
     //Remove previous focus message
-    if (this.activeConditions[key] != undefined)
+    if (this.activeConditions[key] !== undefined)
         var indexCondition = this.activeConditions[key].indexOf(value);
     if (indexCondition >= 0)
         this.activeConditions[key].splice(indexCondition, 1);
@@ -697,11 +697,11 @@ OlapUtils.mdxQueryGroup.prototype.removeCondition = function (key, value) {
     for (i in this.mdxQueries) {
         var obj = this.mdxQueries[i];
         //Remove Conditions and related filters(because filters are added after drill down)
-        if (i != key) {
-            if (obj.mdxQuery.removeCondition(key, value, 'focus') && this.activeFilters[key] != undefined)
+        if (i !== key) {
+            if (obj.mdxQuery.removeCondition(key, value, 'focus') && this.activeFilters[key] !== undefined)
                 delete this.activeFilters[key];
         } else {
-            obj.mdxQuery.query.rows = typeof obj.mdxQuery.originalHash.rows == 'function' ? obj.mdxQuery.originalHash.rows() : obj.mdxQuery.originalHash.rows;
+            obj.mdxQuery.query.rows = typeof obj.mdxQuery.originalHash.rows === 'function' ? obj.mdxQuery.originalHash.rows() : obj.mdxQuery.originalHash.rows;
             obj.mdxQuery.axisPos = 0;
             obj.mdxQuery.resetFilters();
         }
@@ -721,12 +721,12 @@ OlapUtils.mdxQueryGroup.prototype.removeFilter = function (key, value) {
     var index = this.mdxQueries[key].mdxQuery.resetFilter(value);
     for (i in this.mdxQueries) {
         var obj = this.mdxQueries[i];
-        if (i != key)
+        if (i !== key)
             obj.mdxQuery.removeFilter(key, this.activeFilters[key][index][1]);
         Dashboards.update(obj.chartObject);
     }
     this.activeFilters[key].splice(index, 1);
-    if (this.activeFilters[key].length == 0)
+    if (this.activeFilters[key].length === 0)
         delete this.activeFilters[key];
 
     Dashboards.update(Dashboards.getComponent(this.name));
@@ -735,28 +735,28 @@ OlapUtils.mdxQueryGroup.prototype.removeFilter = function (key, value) {
 
 OlapUtils.mdxQueryGroupActionCallback = function (value, m) {
 
-    if (value == "cancel")
+    if (value === "cancel")
         return; // do nothing.
 
     Dashboards.incrementRunningCalls();
 
     var mqg = OlapUtils.lastClickedMdxQueryGroup;
     var clickedObj = mqg.mdxQueries[mqg.clickedIdx];
-    var axis = typeof clickedObj.mdxQuery.query.rows == 'function' ? clickedObj.mdxQuery.query.rows() : clickedObj.mdxQuery.query.rows;
+    var axis = typeof clickedObj.mdxQuery.query.rows === 'function' ? clickedObj.mdxQuery.query.rows() : clickedObj.mdxQuery.query.rows;
 
-    if (value == "drilldown") {
+    if (value === "drilldown") {
         mqg.drillDown(mqg.clickedIdx, axis + ".[" + mqg.clickedValue + "]");
-    } else if (value == "drillup") {
+    } else if (value === "drillup") {
         mqg.drillUp(mqg.clickedIdx, axis + ".[" + mqg.clickedValue + "]");
-    } else if (value == "focus") {
+    } else if (value === "focus") {
         mqg.focus(mqg.clickedIdx, [axis + ".[" + mqg.clickedValue + "]"]);
-    } else if (value == "filter") {
+    } else if (value === "filter") {
         mqg.exclude(mqg.clickedIdx, axis + ".[" + mqg.clickedValue + "]");
-    } else if (value == "expand") {
+    } else if (value === "expand") {
         mqg.expand(mqg.clickedIdx);
-    } else if (value == "collapse") {
+    } else if (value === "collapse") {
         mqg.collapse(mqg.clickedIdx);
-    } else if (value == "resetall") {
+    } else if (value === "resetall") {
         mqg.resetAll();
     }
 
@@ -821,7 +821,7 @@ OlapUtils.GenericMdxQuery = Base.extend({
 
         this.query = this.mdxQuery.getQuery();
 
-        if (this.options.debug == true) {
+        if (this.options.debug === true) {
             alert(this.query);
         }
 
@@ -1050,7 +1050,7 @@ OlapUtils.DimensionAnalysisQuery = OlapUtils.GenericMdxQuery.extend({
                 return this.extra.translationHash["member"]
             },
             swapRowsAndColumns: function () {
-                return this.extra.translationHash["axis"][0] == "rows"
+                return this.extra.translationHash["axis"][0] === "rows"
             },
             orderBy: "Avg(a," + options.measuresDim + "." + options.measure + ")",
 

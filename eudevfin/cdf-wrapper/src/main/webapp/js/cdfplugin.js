@@ -9866,7 +9866,7 @@ var CDF_ERROR_DIV = 'cdfErrorDiv';
 
 
 // TODO - remove all commented blocks
-// if (typeof $.SetImpromptuDefaults == 'function')
+// if (typeof $.SetImpromptuDefaults === 'function')
 //     $.SetImpromptuDefaults({
 //         prefix: 'colsJqi',
 //         show: 'slideDown'
@@ -10018,7 +10018,7 @@ Dashboards.RefreshEngine = function () {
                 high = mid - 1;
             } else if (coll[mid].nextRefresh < elem.nextRefresh) {
                 low = mid + 1;
-            } else { //==
+            } else { //===
                 return mid;
             }
         }
@@ -10032,7 +10032,7 @@ Dashboards.RefreshEngine = function () {
     };
 
     var stopTimer = function () {
-        if (activeTimer != null) {
+        if (activeTimer !== null) {
             clearTimeout(activeTimer);
             activeTimer = null;
         }
@@ -10049,7 +10049,7 @@ Dashboards.RefreshEngine = function () {
     };
 
     var isFirstInQueue = function (component) {
-        return refreshQueue.length > 0 && refreshQueue[0].component == component;
+        return refreshQueue.length > 0 && refreshQueue[0].component === component;
     };
 
     var refreshComponent = function (component) {
@@ -10064,7 +10064,7 @@ Dashboards.RefreshEngine = function () {
             component.refreshPeriod = NO_REFRESH;
         }
 
-        if (component.refreshPeriod != NO_REFRESH) {
+        if (component.refreshPeriod !== NO_REFRESH) {
             //get next refresh time for component
             var info = new Dashboards.RefreshEngine.QueueItem();
             info.nextRefresh = time + (component.refreshPeriod * 1000);
@@ -10144,7 +10144,7 @@ Dashboards.RefreshEngine = function () {
             for (i = 0; i < Dashboards.components.length; i++) {
                 var comp = Dashboards.components[i];
                 if (!(comp.refreshPeriod > 0) //only update those without refresh
-                    && comp.type != "select") { //and that are not pov widgets
+                    && comp.type !== "select") { //and that are not pov widgets
                     refreshComponent(comp);
                 }
             }
@@ -10232,7 +10232,7 @@ Dashboards.bindExistingControl = function (control, Class) {
         this._addLogLifecycleToControl(control);
 
         // For legacy dashboards, we'll automatically assign some priority for component execution.
-        if (control.priority == null || control.priority === "") {
+        if (control.priority === null || control.priority === "") {
             control.priority = this.legacyPriority++;
         }
     }
@@ -10504,16 +10504,16 @@ Dashboards.updateLifecycle = function (object) {
              * anything (or returns `undefined`), then by default the component
              * should update.
              */
-            shouldExecute = typeof shouldExecute != "undefined" ? !! shouldExecute : true;
+            shouldExecute = typeof shouldExecute !== "undefined" ? !! shouldExecute : true;
             object.trigger('cdf cdf:preExecution', object, shouldExecute);
             if (!shouldExecute) {
                 return; // if preExecution returns false, we'll skip the update
             }
-            if (object.tooltip != undefined) {
+            if (object.tooltip !== undefined) {
                 object._tooltip = typeof object["tooltip"] === 'function' ? object.tooltip() : object.tooltip;
             }
             // first see if there is an objectImpl
-            if ((object.update != undefined) &&
+            if ((object.update !== undefined) &&
                 (typeof object['update'] === 'function')) {
                 object.update();
 
@@ -10528,7 +10528,7 @@ Dashboards.updateLifecycle = function (object) {
                 object.postExecution.apply(object);
             }
             // if we have a tooltip component, how is the time.
-            if (object._tooltip != undefined) {
+            if (object._tooltip !== undefined) {
                 $("#" + object.htmlObject).attr("title", object._tooltip).tooltip({
                     delay: 0,
                     track: true,
@@ -10649,14 +10649,14 @@ Dashboards.addComponent = function (component, options) {
 
     var index = options && options.index;
     var L = this.components.length;
-    if (index == null || index < 0 || index > L) {
+    if (index === null || index < 0 || index > L) {
         index = L;
     } // <=> push
     this.components[index] = component;
 };
 
 Dashboards.getComponentIndex = function (compOrNameOrIndex) {
-    if (compOrNameOrIndex != null) {
+    if (compOrNameOrIndex !== null) {
         switch (typeof compOrNameOrIndex) {
         case 'string':
             for (var i = 0, cs = this.components, L = cs.length; i < L; i++) {
@@ -10697,14 +10697,14 @@ Dashboards.removeComponent = function (compOrNameOrIndex) {
 };
 
 Dashboards.registerEvent = function (ev, callback) {
-    if (typeof this.events == 'undefined') {
+    if (typeof this.events === 'undefined') {
         this.events = {};
     }
     this.events[ev] = callback;
 };
 
 Dashboards.addArgs = function (url) {
-    if (url != undefined)
+    if (url !== undefined)
         this.args = getURLParameters(url);
 };
 
@@ -10720,7 +10720,7 @@ Dashboards.setI18nSupport = function (lc, i18nRef) {
 Dashboards.init = function (components) {
     var myself = this;
     // here it was Storage initialization which was removed since we don't use it
-    if (this.context != null && this.context.sessionTimeout != null) {
+    if (this.context !== null && this.context.sessionTimeout !== null) {
         //defaulting to 90% of ms value of sessionTimeout
         Dashboards.serverCheckResponseTimeout = this.context.sessionTimeout * 900;
     }
@@ -10807,7 +10807,7 @@ Dashboards.syncParametersOnInit = function (master, slave) {
      * new chain with [master, slave].
      */
     if (slaveChain && masterChain) {
-        if (masterChain != slaveChain) {
+        if (masterChain !== slaveChain) {
             args = slaveChain.slice();
             args.unshift(0);
             args.unshift(masterChain.length);
@@ -10853,7 +10853,7 @@ Dashboards.initEngine = function () {
     var components = this.components;
 
     this.incrementRunningCalls();
-    if (this.logLifecycle && typeof console != "undefined") {
+    if (this.logLifecycle && typeof console !== "undefined") {
         console.log("%c          [Lifecycle >Start] Init (Running: " + this.getRunningCalls() + ")", "color: #ddd ");
     }
 
@@ -10939,7 +10939,7 @@ Dashboards.handlePostInit = function () {
         this.finishedInit = true;
 
         this.decrementRunningCalls();
-        if (this.logLifecycle && typeof console != "undefined") {
+        if (this.logLifecycle && typeof console !== "undefined") {
             console.log("%c          [Lifecycle <End  ] Init (Running: " + this.getRunningCalls() + ")", "color: #ddd ");
         }
     }
@@ -10974,7 +10974,7 @@ Dashboards.processChange = function (object_name) {
 
     if (!(typeof (object.preChange) === 'undefined')) {
         var preChangeResult = object.preChange(value);
-        value = preChangeResult != undefined ? preChangeResult : value;
+        value = preChangeResult !== undefined ? preChangeResult : value;
     }
     if (parameter) {
         this.fireChange(parameter, value);
@@ -11058,7 +11058,7 @@ Dashboards.updateAll = function (components) {
     this.mergePriorityLists(this.updating.tiers, components);
 
     var updating = this.updating.current;
-    if (updating === null || updating.components.length == 0) {
+    if (updating === null || updating.components.length === 0) {
         var toUpdate = this.getFirstTier(this.updating.tiers);
         if (!toUpdate) return;
         this.updating.current = toUpdate;
@@ -11201,7 +11201,7 @@ Dashboards.getUnboundParameters = function () {
         ret = []
     for (var p in params)
         if (params.hasOwnProperty(p)) {
-            if (params[p] == this.viewFlags.UNBOUND) {
+            if (params[p] === this.viewFlags.UNBOUND) {
                 ret.push(p);
             }
             return ret;
@@ -11229,7 +11229,7 @@ Dashboards.getQueryParameter = function (parameterName) {
         // Find the beginning of the string
         var begin = queryString.indexOf(parameterName);
         // If the parameter name is not found, skip it, otherwise return the value
-        if (begin != -1) {
+        if (begin !== -1) {
             // Add the length (integer) to the beginning
             begin += parameterName.length;
             // Multiple parameters are separated by the "&" sign
@@ -11270,7 +11270,7 @@ Dashboards.post = function (url, obj) {
     var form = '<form action="' + url + '" method="post">';
     for (var o in obj) {
 
-        var v = (typeof obj[o] == 'function' ? obj[o]() : obj[o]);
+        var v = (typeof obj[o] === 'function' ? obj[o]() : obj[o]);
 
         if (typeof v === 'string') {
             v = v.replace(/"/g, "\'")
@@ -11285,7 +11285,7 @@ Dashboards.post = function (url, obj) {
 
 Dashboards.getArgValue = function (key) {
     for (i = 0; i < this.args.length; i++) {
-        if (this.args[i][0] == key) {
+        if (this.args[i][0] === key) {
             return this.args[i][1];
         }
     }
@@ -11383,7 +11383,7 @@ Dashboards.parseXActionResult = function (obj, html) {
 
     var jXML = $(html);
     var error = jXML.find("SOAP-ENV\\:Fault");
-    if (error.length == 0) {
+    if (error.length === 0) {
         return jXML;
     }
 
@@ -11556,7 +11556,7 @@ Dashboards.eachValuesArray = function (values, opts, f, x) {
  * @static
  */
 Dashboards.parseMultipleValues = function (value) {
-    if (value != null && value !== '') {
+    if (value !== null && value !== '') {
         // An array or array like?
         if (this.isArray(value)) {
             return value;
@@ -11597,7 +11597,7 @@ Dashboards.isArray = function (value) {
     // An array or array like?
     return !!value &&
         ((value instanceof Array) ||
-        (typeof value === 'object' && value.join && value.length != null));
+        (typeof value === 'object' && value.join && value.length !== null));
 };
 
 /**
@@ -11645,7 +11645,7 @@ Dashboards.clone = function clone(obj) {
                 c[i] = [];
 
                 for (var j = 0; j < prop.length; j++) {
-                    if (typeof prop[j] != 'object') {
+                    if (typeof prop[j] !== 'object') {
                         c[i].push(prop[j]);
                     } else {
                         c[i].push(this.clone(prop[j]));
@@ -11684,7 +11684,7 @@ Dashboards.safeClone = function () {
 
     for (; i < length; i++) {
         // Only deal with non-null/undefined values
-        if ((options = arguments[i]) != null) {
+        if ((options = arguments[i]) !== null) {
             // Extend the base object
             for (name in options)
                 if (options.hasOwnProperty(name)) {
@@ -12543,22 +12543,22 @@ BaseComponent = Base.extend({
         return that;
     },
     getAddIn: function (slot, addIn) {
-        var type = typeof this.type == "function" ? this.type() : this.type;
+        var type = typeof this.type === "function" ? this.type() : this.type;
         return Dashboards.getAddIn(type, slot, addIn);
     },
     hasAddIn: function (slot, addIn) {
-        var type = typeof this.type == "function" ? this.type() : this.type;
+        var type = typeof this.type === "function" ? this.type() : this.type;
         return Dashboards.hasAddIn(type, slot, addIn);
     },
     getValuesArray: function () {
 
 
         var jXML;
-        if (typeof (this.valuesArray) == 'undefined' || this.valuesArray.length == 0) {
-            if (typeof (this.queryDefinition) != 'undefined') {
+        if (typeof (this.valuesArray) === 'undefined' || this.valuesArray.length === 0) {
+            if (typeof (this.queryDefinition) !== 'undefined') {
 
-                var vid = (this.queryDefinition.queryType == "sql") ? "sql" : "none";
-                if ((this.queryDefinition.queryType == "mdx") && (!this.valueAsId)) {
+                var vid = (this.queryDefinition.queryType === "sql") ? "sql" : "none";
+                if ((this.queryDefinition.queryType === "mdx") && (!this.valueAsId)) {
                     vid = "mdx";
                 } else if (this.queryDefinition.dataAccessId !== undefined && !this.valueAsId) {
                     vid = 'cda';
@@ -12589,7 +12589,7 @@ BaseComponent = Base.extend({
                 var p = new Array(this.parameters ? this.parameters.length : 0);
                 for (var i = 0, len = p.length; i < len; i++) {
                     var key = this.parameters[i][0];
-                    var value = this.parameters[i][1] == "" || this.parameters[i][1] == "NIL" ? this.parameters[i][2] : Dashboards.getParameterValue(this.parameters[i][1]);
+                    var value = this.parameters[i][1] === "" || this.parameters[i][1] === "NIL" ? this.parameters[i][2] : Dashboards.getParameterValue(this.parameters[i][1]);
                     p[i] = [key, value];
                 }
 
@@ -12675,7 +12675,7 @@ BaseComponent = Base.extend({
     },
 
     setAddInDefaults: function (slot, addIn, defaults) {
-        var type = typeof this.type == "function" ? this.type() : this.type;
+        var type = typeof this.type === "function" ? this.type() : this.type;
         Dashboards.setAddInDefaults(type, slot, addIn, defaults)
     },
     setAddInOptions: function (slot, addIn, options) {
@@ -12757,7 +12757,7 @@ BaseComponent = Base.extend({
 
             var hashCode = function (str) {
                 var hash = 0;
-                if (str.length == 0) return hash;
+                if (str.length === 0) return hash;
                 for (i = 0; i < str.length; i++) {
                     var chr = str.charCodeAt(i);
                     hash = ((hash << 5) - hash) + chr;
@@ -12941,7 +12941,7 @@ var CommentsComponent = BaseComponent.extend({
             },
 
             requestResponse: function (json, operation, collection, callback) {
-                if ((operation == 'LIST_ALL') || (operation == 'LIST_ACTIVE')) {
+                if ((operation === 'LIST_ALL') || (operation === 'LIST_ACTIVE')) {
                     var paginate = myself.options.paginate;
                     if (paginate.activePageNumber > 0) {
                         if ((paginate.activePageNumber + 1) > Math.ceil(json.result.length / paginate.pageCommentsSize))
@@ -12949,7 +12949,7 @@ var CommentsComponent = BaseComponent.extend({
                     }
                     myself.options.queyResult = json.result;
                     collection.reset(this.resetCollection(json.result));
-                    if ((paginate.activePageNumber == 0) && ((json) && (typeof json.result != 'undefined')) && (json.result.length == 0)) {
+                    if ((paginate.activePageNumber === 0) && ((json) && (typeof json.result !== 'undefined')) && (json.result.length === 0)) {
                         json.result = [{
                             id: 0,
                             comment: 'No Comments to show!',
@@ -12966,12 +12966,12 @@ var CommentsComponent = BaseComponent.extend({
                                 remove: false
                             }
                         }];
-                        if ((collection) && (typeof collection != 'undefined')) {
+                        if ((collection) && (typeof collection !== 'undefined')) {
                             collection.reset(this.resetCollection(json.result));
                         }
                     }
                 }
-                if ((callback) && (typeof callback != 'undefined')) {
+                if ((callback) && (typeof callback !== 'undefined')) {
                     callback.apply(this, [json, collection]);
                 }
             }
@@ -13162,7 +13162,7 @@ var CommentsComponent = BaseComponent.extend({
                     var lastCommentDate = myself.options.queyResult[0].createdOn;
                     var callback = function (data) {
                         if (data.result.length > 0) {
-                            if ( !! (data.result[0].createdOn == lastCommentDate)) {
+                            if ( !! (data.result[0].createdOn === lastCommentDate)) {
                                 Dashboards.log("Comments Component: New Comments? false", "debug");
                             } else {
                                 Dashboards.log("Comments Component: New Comments? true", "debug");
@@ -13240,21 +13240,21 @@ var CommentsComponent = BaseComponent.extend({
     update: function () {
 
         // Set page start and length for pagination
-        this.paginateActive = (typeof this.paginate == 'undefined') ? true : this.paginate;
-        this.pageCommentsSize = (typeof this.pageCommentsSize == 'undefined') ? 10 : this.pageCommentsSize;
-        this.firstResult = (typeof this.firstResult == 'undefined') ? 0 : this.firstResult;
-        this.maxResults = (typeof this.maxResults == 'undefined') ? 100 : this.maxResults;
-        this.interval = (typeof this.interval == 'undefined') ? /*60000*/ 5000 : this.interval;
-        this.intervalActive = (typeof this.intervalActive == 'undefined') ? true : this.intervalActive;
+        this.paginateActive = (typeof this.paginate === 'undefined') ? true : this.paginate;
+        this.pageCommentsSize = (typeof this.pageCommentsSize === 'undefined') ? 10 : this.pageCommentsSize;
+        this.firstResult = (typeof this.firstResult === 'undefined') ? 0 : this.firstResult;
+        this.maxResults = (typeof this.maxResults === 'undefined') ? 100 : this.maxResults;
+        this.interval = (typeof this.interval === 'undefined') ? /*60000*/ 5000 : this.interval;
+        this.intervalActive = (typeof this.intervalActive === 'undefined') ? true : this.intervalActive;
 
-        this.addPermission = (typeof this.addPermission == 'undefined') ? true : this.addPermission;
-        this.deletePermission = (typeof this.deletePermission == 'undefined') ? false : this.deletePermission;
-        this.archivePermission = (typeof this.archivePermission == 'undefined') ? true : this.archivePermission;
+        this.addPermission = (typeof this.addPermission === 'undefined') ? true : this.addPermission;
+        this.deletePermission = (typeof this.deletePermission === 'undefined') ? false : this.deletePermission;
+        this.archivePermission = (typeof this.archivePermission === 'undefined') ? true : this.archivePermission;
 
-        this.options = (typeof this.options == 'undefined') ? {} : this.options;
+        this.options = (typeof this.options === 'undefined') ? {} : this.options;
 
         // set the page name for the comments
-        if (this.page == undefined) {
+        if (this.page === undefined) {
             Dashboards.log("Fatal - no page definition passed", "error");
             return;
         }
@@ -13305,7 +13305,7 @@ var QueryComponent = BaseComponent.extend({
             this.warnOnce();
         }
         var cd = object.queryDefinition;
-        if (cd == undefined) {
+        if (cd === undefined) {
             Dashboards.log("Fatal - No query definition passed", "error");
             return;
         }
@@ -13326,19 +13326,19 @@ var QueryComponent = BaseComponent.extend({
             object.result = values.resultset !== undefined ? values.resultset : values;
             object.queryInfo = values.queryInfo;
 
-            if ((typeof (object.postFetch) == 'function')) {
+            if ((typeof (object.postFetch) === 'function')) {
                 changedValues = object.postFetch(values);
             }
-            if (changedValues != undefined) {
+            if (changedValues !== undefined) {
                 values = changedValues;
 
             }
 
-            if (object.resultvar != undefined) {
+            if (object.resultvar !== undefined) {
                 Dashboards.setParameter(object.resultvar, object.result);
             }
-            object.result = values.resultset != undefined ? values.resultset : values;
-            if (typeof values.resultset != "undefined") {
+            object.result = values.resultset !== undefined ? values.resultset : values;
+            if (typeof values.resultset !== "undefined") {
                 object.metadata = values.metadata;
                 object.queryInfo = values.queryInfo;
             }
@@ -13385,14 +13385,14 @@ var UnmanagedComponent = BaseComponent.extend({
          * runCounter gets incremented every time we run a query, allowing us to
          * determine whether the query has been called again after us.
          */
-        if (typeof this.runCounter == "undefined") {
+        if (typeof this.runCounter === "undefined") {
             this.runCounter = 0;
         }
         var ret;
-        if (typeof this.preExecution == "function") {
+        if (typeof this.preExecution === "function") {
             try {
                 ret = this.preExecution();
-                ret = typeof ret == "undefined" || ret;
+                ret = typeof ret === "undefined" || ret;
             } catch (e) {
                 this.error(Dashboards.getErrorObj('COMPONENT_ERROR').msg, e);
                 this.dashboard.log(e, "error");
@@ -13412,7 +13412,7 @@ var UnmanagedComponent = BaseComponent.extend({
      * explicitly immediately before yielding control back to CDF.
      */
     postExec: function () {
-        if (typeof this.postExecution == "function") {
+        if (typeof this.postExecution === "function") {
             this.postExecution();
         }
         this.trigger('cdf cdf:postExecution', this);
@@ -13420,13 +13420,13 @@ var UnmanagedComponent = BaseComponent.extend({
 
     drawTooltip: function () {
         if (this.tooltip) {
-            this._tooltip = typeof this.tooltip == "function" ?
+            this._tooltip = typeof this.tooltip === "function" ?
                 this.tooltip() :
                 this.tooltip;
         }
     },
     showTooltip: function () {
-        if (typeof this._tooltip != "undefined") {
+        if (typeof this._tooltip !== "undefined") {
             $("#" + this.htmlObject).attr("title", this._tooltip).tooltip({
                 delay: 0,
                 track: true,
@@ -13545,7 +13545,7 @@ var UnmanagedComponent = BaseComponent.extend({
             async: true
         };
         /* Detect call convention used and adjust parameters */
-        if (typeof callback != "function") {
+        if (typeof callback !== "function") {
             callback = params;
             _.extend(ajaxParameters, url);
         } else {
@@ -13613,7 +13613,7 @@ var UnmanagedComponent = BaseComponent.extend({
             /* getSuccessHandler(success) */
             success = counter;
             counter = this.callCounter();
-        } else if (typeof counter == 'function') {
+        } else if (typeof counter === 'function') {
             /* getSuccessHandler(success,always) */
             always = success;
             success = counter;
@@ -13623,10 +13623,10 @@ var UnmanagedComponent = BaseComponent.extend({
                 var newData;
                 if (counter >= this.runCounter) {
                     try {
-                        if (typeof this.postFetch == "function") {
+                        if (typeof this.postFetch === "function") {
                             newData = this.postFetch(data);
                             this.trigger('cdf cdf:postFetch', this, data);
-                            data = typeof newData == "undefined" ? data : newData;
+                            data = typeof newData === "undefined" ? data : newData;
                         }
                         success(data);
                     } catch (e) {
@@ -13634,7 +13634,7 @@ var UnmanagedComponent = BaseComponent.extend({
                         this.dashboard.log(e, "error");
                     }
                 }
-                if (typeof always == "function") {
+                if (typeof always === "function") {
                     always();
                 }
             },
@@ -13691,7 +13691,7 @@ var FreeformComponent = UnmanagedComponent.extend({
 
     update: function () {
         var render = _.bind(this.render, this);
-        if (typeof this.manageCallee == "undefined" || this.manageCallee) {
+        if (typeof this.manageCallee === "undefined" || this.manageCallee) {
             this.synchronous(render);
         } else {
             render();
@@ -13766,7 +13766,7 @@ var SelectBaseComponent = InputBaseComponent.extend({
 
     //defaultIfEmpty: [false]
     //isMultiple: [true]
-    //size: when isMultiple==true, the default value is the number of possible values
+    //size: when isMultiple===true, the default value is the number of possible values
     //externalPlugin:
     //extraOptions:
     //changeMode: ['immediate'], 'focus', 'timeout-focus'
@@ -13793,7 +13793,7 @@ var SelectBaseComponent = InputBaseComponent.extend({
         }
 
         var size = this._getListSize(myArray);
-        if (size != null) {
+        if (size !== null) {
             selectHTML += " size='" + size + "'";
         }
 
@@ -13841,7 +13841,7 @@ var SelectBaseComponent = InputBaseComponent.extend({
         var currentIsValid = true;
 
         // Filter out invalid current values
-        if (currentVals != null) {
+        if (currentVals !== null) {
             var i = currentVals.length;
             while (i--) {
                 if (valuesIndex[currentVals[i]] !== true) {
@@ -13860,9 +13860,9 @@ var SelectBaseComponent = InputBaseComponent.extend({
          * If defaultIfEmpty is true, the first possible value is selected,
          * otherwise, nothing is selected.
          */
-        var isEmpty = currentVals == null;
+        var isEmpty = currentVals === null;
         var hasChanged = !currentIsValid;
-        if (isEmpty && this.defaultIfEmpty && firstVal != null) {
+        if (isEmpty && this.defaultIfEmpty && firstVal !== null) {
             // Won't remain empty
             currentVals = [firstVal];
             hasChanged = true;
@@ -13870,7 +13870,7 @@ var SelectBaseComponent = InputBaseComponent.extend({
 
 
         // jQuery only cleans the value if it receives an empty array. 
-        $("select", ph).val((currentVals == null && []) || currentVals);
+        $("select", ph).val((currentVals === null && []) || currentVals);
 
         if (hasChanged) {
             // TODO: couldn't we just call fireChange(this.parameter, currentVals) ?
@@ -13979,10 +13979,10 @@ var SelectBaseComponent = InputBaseComponent.extend({
         } else {
 
             var timScrollFraction = me.changeTimeoutScrollFraction;
-            timScrollFraction = Math.max(0, timScrollFraction != null ? timScrollFraction : 1);
+            timScrollFraction = Math.max(0, timScrollFraction !== null ? timScrollFraction : 1);
 
             var timChangeFraction = me.changeTimeoutChangeFraction;
-            timChangeFraction = Math.max(0, timChangeFraction != null ? timChangeFraction : 5 / 8);
+            timChangeFraction = Math.max(0, timChangeFraction !== null ? timChangeFraction : 5 / 8);
 
             var changeTimeout = Math.max(100, me.changeTimeout || 2000);
             var changeTimeoutScroll = timScrollFraction * changeTimeout;
@@ -13991,7 +13991,7 @@ var SelectBaseComponent = InputBaseComponent.extend({
             var timeoutHandle;
 
             stop = function () {
-                if (timeoutHandle != null) {
+                if (timeoutHandle !== null) {
                     clearTimeout(timeoutHandle);
                     timeoutHandle = null;
                 }
@@ -14111,7 +14111,7 @@ var SelectMultiComponent = SelectBaseComponent.extend({
     getValue: function () {
         var ph = $("#" + this.htmlObject + " select");
         var val = ph.val();
-        return val == null ? [] : val;
+        return val === null ? [] : val;
     },
 
 
@@ -14123,7 +14123,7 @@ var SelectMultiComponent = SelectBaseComponent.extend({
      * @return {boolean}
      */
     _allowMultipleValues: function () {
-        return this.isMultiple == null || !! this.isMultiple;
+        return this.isMultiple === null || !! this.isMultiple;
     },
 
     /**
@@ -14136,7 +14136,7 @@ var SelectMultiComponent = SelectBaseComponent.extend({
      */
     _getListSize: function (values) {
         var size = this.base(values);
-        if (size == null) {
+        if (size === null) {
             if (!this._allowMultipleValues()) {
                 size = values.length;
             } // TODO: otherwise no default... Why?
@@ -14164,7 +14164,7 @@ var TextInputComponent = BaseComponent.extend({
                 Dashboards.processChange(name);
             })
             .keyup(function (ev) {
-                if (ev.keyCode == 13) {
+                if (ev.keyCode === 13) {
                     Dashboards.processChange(name);
                 }
             });
@@ -14193,7 +14193,7 @@ var TextareaInputComponent = BaseComponent.extend({
                 Dashboards.processChange(name);
             })
             .keyup(function (ev) {
-                if (ev.keyCode == 13) {
+                if (ev.keyCode === 13) {
                     Dashboards.processChange(name);
                 }
             });
@@ -14214,15 +14214,15 @@ if ($.datepicker) {
 
 var DateInputComponent = BaseComponent.extend({
     update: function () {
-        var format = (this.dateFormat == undefined || this.dateFormat == null) ? 'yy-mm-dd' : this.dateFormat;
+        var format = (this.dateFormat === undefined || this.dateFormat === null) ? 'yy-mm-dd' : this.dateFormat;
         var myself = this;
 
         var startDate, endDate;
 
-        if (this.startDate == 'TODAY') startDate = new Date();
+        if (this.startDate === 'TODAY') startDate = new Date();
         else if (this.startDate) startDate = $.datepicker.parseDate(format, this.startDate);
 
-        if (this.endDate == 'TODAY') endDate = new Date();
+        if (this.endDate === 'TODAY') endDate = new Date();
         else if (this.endDate) endDate = $.datepicker.parseDate(format, this.endDate);
 
         //ToDo: stretch interval to catch defaultValue?..
@@ -14241,7 +14241,7 @@ var DateInputComponent = BaseComponent.extend({
                 }
             });
             // Add JQuery DatePicker standard localization support only if the dashboard is localized
-            if (typeof Dashboards.i18nSupport !== "undefined" && Dashboards.i18nSupport != null) {
+            if (typeof Dashboards.i18nSupport !== "undefined" && Dashboards.i18nSupport !== null) {
                 var $input = $("#" + myself.htmlObject + " input");
 
                 $input.datepicker('option', $.datepicker.regional[Dashboards.i18nCurrentLanguageCode]);
@@ -14255,7 +14255,7 @@ var DateInputComponent = BaseComponent.extend({
         });
     },
     getValue: function () {
-        if (typeof Dashboards.i18nSupport !== "undefined" && Dashboards.i18nSupport != null)
+        if (typeof Dashboards.i18nSupport !== "undefined" && Dashboards.i18nSupport !== null)
             return $("#" + this.name + "_hidden").val();
         else
             return $("#" + this.name).val();
@@ -14266,23 +14266,23 @@ var DateInputComponent = BaseComponent.extend({
 var DateRangeInputComponent = BaseComponent.extend({
     update: function () {
         var dr;
-        if (this.singleInput == undefined || this.singleInput == true) {
+        if (this.singleInput === undefined || this.singleInput === true) {
             dr = $("<input/>").attr("id", this.name).attr("value", Dashboards.getParameterValue(this.parameter[0]) + " > " + Dashboards.getParameterValue(this.parameter[1])).css("width", "170px");
             $("#" + this.htmlObject).html(dr);
         } else {
             dr = $("<input/>").attr("id", this.name).attr("value", Dashboards.getParameterValue(this.parameter[0])).css("width", "80px");
             $("#" + this.htmlObject).html(dr);
             dr.after($("<input/>").attr("id", this.name + "2").attr("value", Dashboards.getParameterValue(this.parameter[1])).css("width", "80px"));
-            if (this.inputSeparator != undefined) {
+            if (this.inputSeparator !== undefined) {
                 dr.after(this.inputSeparator);
             }
         }
         var offset = dr.offset();
         var myself = this;
-        var earliestDate = this.earliestDate != undefined ? this.earliestDate : Date.parse('-1years');
-        var latestDate = this.latestDate != undefined ? this.latestDate : Date.parse('+1years');
-        var leftOffset = this.leftOffset != undefined ? this.leftOffset : 0;
-        var topOffset = this.topOffset != undefined ? this.topOffset : 15;
+        var earliestDate = this.earliestDate !== undefined ? this.earliestDate : Date.parse('-1years');
+        var latestDate = this.latestDate !== undefined ? this.latestDate : Date.parse('+1years');
+        var leftOffset = this.leftOffset !== undefined ? this.leftOffset : 0;
+        var topOffset = this.topOffset !== undefined ? this.topOffset : 15;
 
         var changed, closed;
 
@@ -14293,7 +14293,7 @@ var DateRangeInputComponent = BaseComponent.extend({
             }
         };
 
-        var format = (myself.dateFormat == undefined || myself.dateFormat == null) ? 'yy-mm-dd' : myself.dateFormat;
+        var format = (myself.dateFormat === undefined || myself.dateFormat === null) ? 'yy-mm-dd' : myself.dateFormat;
 
         $(function () {
             $("#" + myself.htmlObject + " input").daterangepicker({
@@ -14327,7 +14327,7 @@ var DateRangeInputComponent = BaseComponent.extend({
         }
 
         if (this.parameter) {
-            if (this.parameter.length == 2) Dashboards.setParameter(this.parameter[1], end);
+            if (this.parameter.length === 2) Dashboards.setParameter(this.parameter[1], end);
             if (this.parameter.length > 0) Dashboards.fireChange(this.parameter[0], start);
         }
 
@@ -14344,14 +14344,14 @@ var DateRangeInputComponent = BaseComponent.extend({
     fireDateRangeInputChange: function (name, rangeA, rangeB) {
         // WPG: can we just use the parameter directly?
         var object = Dashboards.getComponentByName(name);
-        if (!(typeof (object.preChange) == 'undefined')) {
+        if (!(typeof (object.preChange) === 'undefined')) {
             object.preChange(rangeA, rangeB);
         }
         var parameters = eval(name + ".parameter");
         // set the second date and fireChange the first
         Dashboards.setParameter(parameters[1], rangeB);
         Dashboards.fireChange(parameters[0], rangeA);
-        if (!(typeof (object.postChange) == 'undefined')) {
+        if (!(typeof (object.postChange) === 'undefined')) {
             object.postChange(rangeA, rangeB);
         }
     }
@@ -14392,12 +14392,12 @@ var MonthPickerComponent = BaseComponent.extend({
         var split = aDateString.split("-");
         var year, month, day;
 
-        if (split.length == 3) {
+        if (split.length === 3) {
             year = parseInt(split[yearIndex]);
             month = parseInt(split[monthIndex]);
             day = parseInt(split[dayindex]);
             parsedDate = new Date(Date.UTC(year, (month - 1), day));
-        } else if (split.length == 2) {
+        } else if (split.length === 2) {
             year = parseInt(split[yearIndex]);
             month = parseInt(split[monthIndex]);
             parsedDate = new Date(Date.UTC(year, (month - 1)));
@@ -14438,14 +14438,14 @@ var MonthPickerComponent = BaseComponent.extend({
         var selectHTML = "<select";
         selectHTML += " id='" + object_name + "'";
 
-        if (initialDate == undefined || initialDate == null) {
+        if (initialDate === undefined || initialDate === null) {
             initialDate = new Date();
         }
-        if (minDate == undefined || minDate == null) {
+        if (minDate === undefined || minDate === null) {
             minDate = new Date();
             minDate.setYear(1980);
         }
-        if (maxDate == undefined || maxDate == null) {
+        if (maxDate === undefined || maxDate === null) {
             maxDate = new Date();
             maxDate.setYear(2060);
         }
@@ -14463,13 +14463,13 @@ var MonthPickerComponent = BaseComponent.extend({
 
         // if monthCount is not defined we'll use everything between max and mindate
         var monthCountUndefined = false;
-        if (monthCount == undefined || monthCount == 0) {
+        if (monthCount === undefined || monthCount === 0) {
             monthCount = this.getMonthsAppart(minDate, maxDate);
             monthCountUndefined = true;
         }
 
         //set size
-        if (object_size != undefined) {
+        if (object_size !== undefined) {
             selectHTML += " size='" + object_size + "'";
         }
         selectHTML += '>';
@@ -14480,7 +14480,7 @@ var MonthPickerComponent = BaseComponent.extend({
          * This block is to make sure the months are compared equally. A millisecond can ruin the comparation.
          */
 
-        if (monthCountUndefined == true) {
+        if (monthCountUndefined === true) {
             currentDate.setMonth(currentDate.getMonth() - (this.getMonthsAppart(minDate, currentDate)) - 1);
         } else {
             currentDate.setMonth(currentDate.getMonth() - (monthCount / 2) - 1);
@@ -14496,7 +14496,7 @@ var MonthPickerComponent = BaseComponent.extend({
             if (currentDate >= normalizedMinDate && currentDate <= normalizedMaxDate) {
                 selectHTML += "<option value = '" + currentDate.getFullYear() + "-" + this.zeroPad((currentDate.getMonth() + 1), 2) + "' ";
 
-                if (currentDate.getFullYear() == initialDate.getFullYear() && currentDate.getMonth() == initialDate.getMonth()) {
+                if (currentDate.getFullYear() === initialDate.getFullYear() && currentDate.getMonth() === initialDate.getMonth()) {
                     selectHTML += "selected='selected'"
                 }
 
@@ -14521,23 +14521,23 @@ var ToggleButtonBaseComponent = InputBaseComponent.extend({
 
         //default
         var currentVal = Dashboards.getParameterValue(this.parameter);
-        currentVal = (typeof currentVal == 'function') ? currentVal() : currentVal;
+        currentVal = (typeof currentVal === 'function') ? currentVal() : currentVal;
 
         var isSelected = false;
 
         var currentValArray = [];
-        if (currentVal instanceof Array || (typeof (currentVal) == "object" && currentVal.join)) {
+        if (currentVal instanceof Array || (typeof (currentVal) === "object" && currentVal.join)) {
             currentValArray = currentVal;
-        } else if (typeof (currentVal) == "string") {
+        } else if (typeof (currentVal) === "string") {
             currentValArray = currentVal.split("|");
         }
 
         // check to see if current selected values are in the current values array. If not check to see if we should default to the first
-        var vid = this.valueAsId == false ? 0 : 1;
+        var vid = this.valueAsId === false ? 0 : 1;
         var hasCurrentVal = false;
         outer: for (var i = 0; i < currentValArray.length; i++) {
             for (var y = 0; y < myArray.length; y++) {
-                if (currentValArray[i] == myArray[y][vid]) {
+                if (currentValArray[i] === myArray[y][vid]) {
                     hasCurrentVal = true;
                     break outer;
                 }
@@ -14551,7 +14551,7 @@ var ToggleButtonBaseComponent = InputBaseComponent.extend({
             Dashboards.setParameter(this.parameter, currentValArray);
             Dashboards.processChange(this.name);
         }
-        // (currentValArray == null && this.defaultIfEmpty)? firstVal : null
+        // (currentValArray === null && this.defaultIfEmpty)? firstVal : null
 
 
         selectHTML += "<ul class='" + ((this.verticalOrientation) ? "toggleGroup vertical" : "toggleGroup horizontal") + "'>"
@@ -14560,26 +14560,26 @@ var ToggleButtonBaseComponent = InputBaseComponent.extend({
 
             isSelected = false;
             for (var j = 0, valLength = currentValArray.length; j < valLength; j++) {
-                isSelected = currentValArray[j] == myArray[i][vid];
+                isSelected = currentValArray[j] === myArray[i][vid];
                 if (isSelected) {
                     break;
                 }
             }
 
-            if (this.type == 'radio' || this.type == 'radioComponent') {
-                if ((i == 0 && !hasCurrentVal) ||
-                    (hasCurrentVal && (myArray[i][vid] == currentVal))) {
+            if (this.type === 'radio' || this.type === 'radioComponent') {
+                if ((i === 0 && !hasCurrentVal) ||
+                    (hasCurrentVal && (myArray[i][vid] === currentVal))) {
                     selectHTML += " CHECKED";
                 }
                 selectHTML += " type='radio'";
             } else {
-                if ((i == 0 && !hasCurrentVal && this.defaultIfEmpty) ||
+                if ((i === 0 && !hasCurrentVal && this.defaultIfEmpty) ||
                     (hasCurrentVal && isSelected)) {
                     selectHTML += " CHECKED";
                 }
                 selectHTML += " type='checkbox'";
             }
-            selectHTML += "class='" + this.name + "' name='" + this.name + "' value='" + myArray[i][vid] + "' /> " + myArray[i][1] + "</label></li>" + ((this.separator == undefined || this.separator == null || this.separator == "null") ? "" : this.separator);
+            selectHTML += "class='" + this.name + "' name='" + this.name + "' value='" + myArray[i][vid] + "' /> " + myArray[i][1] + "</label></li>" + ((this.separator === undefined || this.separator === null || this.separator === "null") ? "" : this.separator);
         }
         selectHTML += "</ul>"
         // update the placeholder
@@ -14595,7 +14595,7 @@ var ToggleButtonBaseComponent = InputBaseComponent.extend({
 
 var RadioComponent = ToggleButtonBaseComponent.extend({
     getValue: function () {
-        if (this.currentVal != 'undefined' && this.currentVal != null) {
+        if (this.currentVal !== 'undefined' && this.currentVal !== null) {
             return this.currentVal;
         } else {
             return $("#" + this.htmlObject + " ." + this.name + ":checked").val()
@@ -14605,7 +14605,7 @@ var RadioComponent = ToggleButtonBaseComponent.extend({
 
 var CheckComponent = ToggleButtonBaseComponent.extend({
     getValue: function () {
-        if (this.currentVal != 'undefined' && this.currentVal != null) {
+        if (this.currentVal !== 'undefined' && this.currentVal !== null) {
             return this.currentVal;
         } else {
             var a = new Array()
@@ -14628,7 +14628,7 @@ var MultiButtonComponent = ToggleButtonBaseComponent.extend({
         var valIdx = this.valueAsId ? 1 : 0;
         var lblIdx = 1;
 
-        if (this.isMultiple == undefined) this.isMultiple = false;
+        if (this.isMultiple === undefined) this.isMultiple = false;
 
         var ph = $("<div>");
         ph.appendTo($("#" + this.htmlObject).empty());
@@ -14638,10 +14638,10 @@ var MultiButtonComponent = ToggleButtonBaseComponent.extend({
                 classes = cssWrapperClass + this.getExtraCss(i, len, this.verticalOrientation),
                 selector;
 
-            value = (value == null ? null : value.replace('"', '&quot;'));
-            label = (label == null ? null : label.replace('"', '&quot;'));
+            value = (value === null ? null : value.replace('"', '&quot;'));
+            label = (label === null ? null : label.replace('"', '&quot;'));
 
-            if (i == 0) {
+            if (i === 0) {
                 firstVal = value;
             }
 
@@ -14655,7 +14655,7 @@ var MultiButtonComponent = ToggleButtonBaseComponent.extend({
                 });
             }(i));
             ph.append(selector);
-            if (!(this.separator == undefined || this.separator == null || this.separator == "null") && i != myArray.length - 1) {
+            if (!(this.separator === undefined || this.separator === null || this.separator === "null") && i !== myArray.length - 1) {
                 ph.append(this.separator);
             }
         }
@@ -14667,9 +14667,9 @@ var MultiButtonComponent = ToggleButtonBaseComponent.extend({
         var isSelected = false;
 
         var currentValArray;
-        if (currentVal == null) {
+        if (currentVal === null) {
             currentValArray = [];
-        } else if (currentVal instanceof Array || (typeof (currentVal) == "object" && currentVal.join)) {
+        } else if (currentVal instanceof Array || (typeof (currentVal) === "object" && currentVal.join)) {
             currentValArray = currentVal;
         } else {
             currentValArray = currentVal.toString().split("|");
@@ -14681,14 +14681,14 @@ var MultiButtonComponent = ToggleButtonBaseComponent.extend({
 
             isSelected = false;
             for (var j = 0, valLength = currentValArray.length; j < valLength; j++) {
-                isSelected = currentValArray[j] == myArray[i][valIdx];
+                isSelected = currentValArray[j] === myArray[i][valIdx];
                 if (isSelected) {
                     break;
                 }
             }
 
 
-            if (($.isArray(currentVal) && isSelected || isSelected) || (myArray[i][valIdx] == currentVal || myArray[i][lblIdx] == currentVal)) {
+            if (($.isArray(currentVal) && isSelected || isSelected) || (myArray[i][valIdx] === currentVal || myArray[i][lblIdx] === currentVal)) {
 
                 MultiButtonComponent.prototype.clickButton(this.htmlObject, this.name, i, this.isMultiple, this.verticalOrientation, true);
 
@@ -14700,7 +14700,7 @@ var MultiButtonComponent = ToggleButtonBaseComponent.extend({
         }
         if (((!foundDefault && !this.isMultiple) || (!foundDefault && this.isMultiple && this.defaultIfEmpty)) && myArray.length > 0) {
             //select first value
-            if ((currentVal == null || currentVal == "" || (typeof (currentVal) == "object" && currentVal.length == 0)) && this.parameter) {
+            if ((currentVal === null || currentVal === "" || (typeof (currentVal) === "object" && currentVal.length === 0)) && this.parameter) {
                 Dashboards.fireChange(this.parameter, (this.isMultiple) ? [firstVal] : firstVal);
             }
 
@@ -14727,7 +14727,7 @@ var MultiButtonComponent = ToggleButtonBaseComponent.extend({
             var indexes = MultiButtonComponent.prototype.getSelectedIndex(this.name);
             var a = new Array();
             // if it is not an array, handle that too
-            if (indexes.length == undefined) {
+            if (indexes.length === undefined) {
                 a.push(this.getValueByIdx(indexes));
             } else {
                 for (var i = 0; i < indexes.length; i++) {
@@ -14760,12 +14760,12 @@ var MultiButtonComponent = ToggleButtonBaseComponent.extend({
 
         var buttons = $("#" + htmlObject + " button");
         if (isMultiple) { //toggle button
-            if (this.indexes[name] == undefined) this.indexes[name] = [];
+            if (this.indexes[name] === undefined) this.indexes[name] = [];
             else if (!$.isArray(this.indexes[name])) this.indexes[name] = [this.indexes[name]]; //!isMultiple->isMultiple
 
             var disable = false;
             for (var i = 0; i < this.indexes[name].length; ++i) {
-                if (this.indexes[name][i] == index) {
+                if (this.indexes[name][i] === index) {
                     disable = true;
                     this.indexes[name].splice(i, 1);
                     break;
@@ -14799,13 +14799,13 @@ var MultiButtonComponent = ToggleButtonBaseComponent.extend({
 
     getExtraCss: function (index, count, verticalOrientation) {
         var css = "";
-        if (index == 0 && count == 1) {
+        if (index === 0 && count === 1) {
             // both first & last
             return " pentaho-toggle-button-single";
         }
-        if (index == 0) {
+        if (index === 0) {
             css += " " + ((verticalOrientation) ? " pentaho-toggle-button-vertical-first" : " pentaho-toggle-button-horizontal-first");
-        } else if (index == count - 1) {
+        } else if (index === count - 1) {
             css += " " + ((verticalOrientation) ? " pentaho-toggle-button-vertical-last" : " pentaho-toggle-button-horizontal-last");
         }
         return css;
@@ -14867,30 +14867,30 @@ var AutocompleteBoxComponent = BaseComponent.extend({
             Dashboards.setParameter(this.getInnerParameterName(), '');
         }
 
-        var processChange = myself.processChange == undefined ? function (objName) {
+        var processChange = myself.processChange === undefined ? function (objName) {
                 Dashboards.processChange(objName);
             } : function (objName) {
                 myself.processChange();
             };
-        var processElementChange = myself.processElementChange == true ? function (value) {
+        var processElementChange = myself.processElementChange === true ? function (value) {
                 Dashboards.fireChange(myself.parameter, value);
             } : undefined;
 
         //TODO:typo on minTextLength
-        if (this.minTextLenght == undefined) {
+        if (this.minTextLenght === undefined) {
             this.minTextLenght = 0;
         }
 
         var opt = {
             list: function () {
                 var val = myself.textbox.val();
-                if (val.length >= myself.minTextLenght && !(val == '' //nothing to search
+                if (val.length >= myself.minTextLenght && !(val === '' //nothing to search
                     ||
-                    val == myself.searchedWord ||
-                    ((myself.queryInfo != null && myself.result.length == myself.queryInfo.totalRows) && //has all results
-                        myself.searchedWord != '' &&
-                        ((myself.matchType == "fromStart") ?
-                            val.indexOf(myself.searchedWord) == 0 :
+                    val === myself.searchedWord ||
+                    ((myself.queryInfo !== null && myself.result.length === myself.queryInfo.totalRows) && //has all results
+                        myself.searchedWord !== '' &&
+                        ((myself.matchType === "fromStart") ?
+                            val.indexOf(myself.searchedWord) === 0 :
                             val.indexOf(myself.searchedWord) > -1)))) //searchable in local results
                 {
                     myself.queryServer(val);
@@ -14905,20 +14905,20 @@ var AutocompleteBoxComponent = BaseComponent.extend({
                     }
                 return list;
             },
-            matchType: myself.matchType == undefined ? "fromStart" : myself.matchType,
+            matchType: myself.matchType === undefined ? "fromStart" : myself.matchType,
             /*fromStart,all*/
             processElementChange: processElementChange,
             processChange: function (obj, value) {
                 obj.value = value;
                 processChange(obj.name);
             },
-            multiSelection: myself.selectMulti == undefined ? false : myself.selectMulti,
-            checkValue: myself.checkValue == undefined ? true : myself.checkValue,
-            minTextLenght: myself.minTextLenght == undefined ? 0 : myself.minTextLenght,
+            multiSelection: myself.selectMulti === undefined ? false : myself.selectMulti,
+            checkValue: myself.checkValue === undefined ? true : myself.checkValue,
+            minTextLenght: myself.minTextLenght === undefined ? 0 : myself.minTextLenght,
             scrollHeight: myself.scrollHeight,
-            applyButton: myself.showApplyButton == undefined ? true : myself.showApplyButton,
-            tooltipMessage: myself.tooltipMessage == undefined ? "Click it to Apply" : myself.tooltipMessage,
-            addTextElements: myself.addTextElements == undefined ? true : myself.addTextElements,
+            applyButton: myself.showApplyButton === undefined ? true : myself.showApplyButton,
+            tooltipMessage: myself.tooltipMessage === undefined ? "Click it to Apply" : myself.tooltipMessage,
+            addTextElements: myself.addTextElements === undefined ? true : myself.addTextElements,
             externalApplyButtonId: myself.externalApplyButtonId,
             //    selectedValues: initialValue,
             parent: myself
@@ -14961,20 +14961,20 @@ var ButtonComponent = BaseComponent.extend({
  *           int:iDisplay - New display length
  */
 // Ensure we load dataTables before this line. If not, just keep going
-if ($.fn.dataTableExt != undefined) {
+if ($.fn.dataTableExt !== undefined) {
     $.fn.dataTableExt.oApi.fnLengthChange = function (oSettings, iDisplay) {
         oSettings._iDisplayLength = iDisplay;
         oSettings.oApi._fnCalculateEnd(oSettings);
 
         // If we have space to show extra rows backing up from the end point - then do so
-        if (oSettings._iDisplayEnd == oSettings.aiDisplay.length) {
+        if (oSettings._iDisplayEnd === oSettings.aiDisplay.length) {
             oSettings._iDisplayStart = oSettings._iDisplayEnd - oSettings._iDisplayLength;
             if (oSettings._iDisplayStart < 0) {
                 oSettings._iDisplayStart = 0;
             }
         }
 
-        if (oSettings._iDisplayLength == -1) {
+        if (oSettings._iDisplayLength === -1) {
             oSettings._iDisplayStart = 0;
         }
 
@@ -15038,10 +15038,10 @@ var TableComponent = UnmanagedComponent.extend({
             this.queryState.setPageSize(parseInt(cd.displayLength || 10));
             this.queryState.setCallback(_.bind(function (values) {
                 changedValues = undefined;
-                if ((typeof (this.postFetch) == 'function')) {
+                if ((typeof (this.postFetch) === 'function')) {
                     changedValues = this.postFetch(values);
                 }
-                if (changedValues != undefined) {
+                if (changedValues !== undefined) {
                     values = changedValues;
                 }
                 this.processTableComponentResponse(values);
@@ -15056,7 +15056,7 @@ var TableComponent = UnmanagedComponent.extend({
         /* Initial setup: clearing out the htmlObject and building the query object */
         setup: function () {
             var cd = this.chartDefinition;
-            if (cd == undefined) {
+            if (cd === undefined) {
                 Dashboards.log("Fatal - No chart definition passed", "error");
                 return;
             }
@@ -15076,7 +15076,7 @@ var TableComponent = UnmanagedComponent.extend({
             for (var i = 0; i < sortBy.length; i++) {
                 var col = sortBy[i][0];
                 var dir = sortBy[i][1];
-                sortOptions.push(col + (dir == "asc" ? "A" : "D"));
+                sortOptions.push(col + (dir === "asc" ? "A" : "D"));
             }
             this.queryState.setSortBy(sortOptions);
         },
@@ -15084,7 +15084,7 @@ var TableComponent = UnmanagedComponent.extend({
         pagingCallback: function (url, params, callback, dataTable) {
             function p(sKey) {
                 for (var i = 0, iLen = params.length; i < iLen; i++) {
-                    if (params[i].name == sKey) {
+                    if (params[i].name === sKey) {
                         return params[i].value;
                     }
                 }
@@ -15097,7 +15097,7 @@ var TableComponent = UnmanagedComponent.extend({
                 for (var i = 0; i < sortingCols; i++) {
                     var col = p("iSortCol_" + i);
                     var dir = p("sSortDir_" + i);
-                    sort.push(col + (dir == "asc" ? "A" : "D"));
+                    sort.push(col + (dir === "asc" ? "A" : "D"));
                 }
             }
             var query = this.queryState,
@@ -15139,7 +15139,7 @@ var TableComponent = UnmanagedComponent.extend({
                  * Reject rows that are not actually part
                  * of the datatable (e.g. nested tables)
                  */
-                if (dataTable.fnGetPosition(tr) == null) {
+                if (dataTable.fnGetPosition(tr) === null) {
                     return true;
                 }
 
@@ -15156,7 +15156,7 @@ var TableComponent = UnmanagedComponent.extend({
                             colIdx = position[2],
                             format = cd.colFormats[colIdx],
                             value = myself.rawData.resultset[rowIdx][colIdx];
-                        if (format && (typeof value != "undefined" && value !== null)) {
+                        if (format && (typeof value !== "undefined" && value !== null)) {
                             $(td).text(sprintf(format, value));
                         }
                     }
@@ -15164,7 +15164,7 @@ var TableComponent = UnmanagedComponent.extend({
             });
 
             /* Old urlTemplate code. This needs to be here for backward compatibility */
-            if (cd.urlTemplate != undefined) {
+            if (cd.urlTemplate !== undefined) {
                 var td = $("#" + myself.htmlObject + " td:nth-child(1)");
                 td.addClass('cdfClickable');
                 td.bind("click", function (e) {
@@ -15174,7 +15174,7 @@ var TableComponent = UnmanagedComponent.extend({
                 });
             }
             /* Handle post-draw callback the user might have provided */
-            if (typeof cd.drawCallback == 'function') {
+            if (typeof cd.drawCallback === 'function') {
                 cd.drawCallback.apply(myself, arguments);
             }
         },
@@ -15210,7 +15210,7 @@ var TableComponent = UnmanagedComponent.extend({
             try {
                 if (!(target.parents('tbody').length)) {
                     return;
-                } else if (target.get(0).tagName != 'TD') {
+                } else if (target.get(0).tagName !== 'TD') {
                     target = target.closest('td');
                 }
                 state.rawData = results;
@@ -15240,12 +15240,12 @@ var TableComponent = UnmanagedComponent.extend({
             this.ph.trigger('cdfTableComponentProcessResponse');
 
             // Set defaults for headers / types
-            if (typeof cd.colHeaders === "undefined" || cd.colHeaders.length == 0)
+            if (typeof cd.colHeaders === "undefined" || cd.colHeaders.length === 0)
                 cd.colHeaders = json.metadata.map(function (i) {
                     return i.colName
                 });
 
-            if (typeof cd.colTypes === "undefined" || cd.colTypes.length == 0)
+            if (typeof cd.colTypes === "undefined" || cd.colTypes.length === 0)
                 cd.colTypes = json.metadata.map(function (i) {
                     return i.colType.toLowerCase()
                 });
@@ -15295,7 +15295,7 @@ var TableComponent = UnmanagedComponent.extend({
                         results = myself.rawData;
                     if (!(target.parents('tbody').length)) {
                         return;
-                    } else if (target.get(0).tagName != 'TD') {
+                    } else if (target.get(0).tagName !== 'TD') {
                         target = target.closest('td');
                     }
                     var position = myself.dataTable.fnGetPosition(target.get(0));
@@ -15385,7 +15385,7 @@ var TableComponent = UnmanagedComponent.extend({
         getDataTableOptions: function (options) {
             var dtData = {};
 
-            if (options.tableStyle == "themeroller") {
+            if (options.tableStyle === "themeroller") {
                 dtData.bJQueryUI = true;
             }
             dtData.bInfo = options.info;
@@ -15398,13 +15398,13 @@ var TableComponent = UnmanagedComponent.extend({
             dtData.sDom = options.sDom;
             dtData.aaSorting = options.sortBy;
 
-            if (typeof options.oLanguage == "string") {
+            if (typeof options.oLanguage === "string") {
                 dtData.oLanguage = eval("(" + options.oLanguage + ")"); //TODO: er...
             } else {
                 dtData.oLanguage = options.oLanguage;
             }
 
-            if (options.colHeaders != undefined) {
+            if (options.colHeaders !== undefined) {
                 dtData.aoColumns = new Array(options.colHeaders.length);
                 for (var i = 0; i < options.colHeaders.length; i++) {
                     dtData.aoColumns[i] = {}
@@ -15412,27 +15412,27 @@ var TableComponent = UnmanagedComponent.extend({
                 };
                 $.each(options.colHeaders, function (i, val) {
                     dtData.aoColumns[i].sTitle = val;
-                    if (val == "") dtData.aoColumns[i].bVisible = false;
+                    if (val === "") dtData.aoColumns[i].bVisible = false;
                 }); // colHeaders
-                if (options.colTypes != undefined) {
+                if (options.colTypes !== undefined) {
                     $.each(options.colTypes, function (i, val) {
                         var col = dtData.aoColumns[i];
                         // Specific case: hidden cols
-                        if (val == "hidden") col.bVisible = false;
+                        if (val === "hidden") col.bVisible = false;
                         col.sClass += " " + val;
                         col.sType = val;
 
                     })
                 }; // colTypes
-                if (options.colFormats != undefined) {
+                if (options.colFormats !== undefined) {
                     // Changes are made directly to the json
 
                 }; // colFormats
 
                 var bAutoWidth = true;
-                if (options.colWidths != undefined) {
+                if (options.colWidths !== undefined) {
                     $.each(options.colWidths, function (i, val) {
-                        if (val != null) {
+                        if (val !== null) {
                             dtData.aoColumns[i].sWidth = val;
                             bAutoWidth = false;
                         }
@@ -15440,16 +15440,16 @@ var TableComponent = UnmanagedComponent.extend({
                 }; //colWidths
                 dtData.bAutoWidth = bAutoWidth;
 
-                if (options.colSortable != undefined) {
+                if (options.colSortable !== undefined) {
                     $.each(options.colSortable, function (i, val) {
-                        if (val != null && (!val || val == "false")) {
+                        if (val !== null && (!val || val === "false")) {
                             dtData.aoColumns[i].bSortable = false
                         }
                     })
                 }; //colSortable
-                if (options.colSearchable != undefined) {
+                if (options.colSearchable !== undefined) {
                     $.each(options.colSearchable, function (i, val) {
-                        if (val != null && (!val || val == "false")) {
+                        if (val !== null && (!val || val === "false")) {
                             dtData.aoColumns[i].bSearchable = false
                         }
                     })
@@ -15710,13 +15710,13 @@ function AddIn(options) {
             var validMinValue = isValidNumber(optMin);
 
             if (opt.absValue) {
-                var max = (validMaxValue == true) ? optMax : Math.max(Math.abs(tblMax), Math.abs(tblMin)),
-                    min = (validMinValue == true) ? optMin : 0,
+                var max = (validMaxValue === true) ? optMax : Math.max(Math.abs(tblMax), Math.abs(tblMin)),
+                    min = (validMinValue === true) ? optMin : 0,
                     val = Math.abs(parseFloat(st.value));
                 min = Math.max(min, 0);
             } else {
-                var max = (validMaxValue == true) ? optMax : Math.max(0, tblMax),
-                    min = (validMinValue == true) ? optMin : Math.min(0, tblMin),
+                var max = (validMaxValue === true) ? optMax : Math.max(0, tblMax),
+                    min = (validMinValue === true) ? optMin : Math.min(0, tblMin),
                     val = parseFloat(st.value);
             }
 
@@ -15779,7 +15779,7 @@ function AddIn(options) {
                  * or a string that is a fixed point for conversion
                  * to number and back to string.
                  */
-                isNumeric = typeof st.value == "number" || (typeof st.value == "string" && Number(st.value).toString() != 'NaN'),
+                isNumeric = typeof st.value === "number" || (typeof st.value === "string" && Number(st.value).toString() !== 'NaN'),
                 trendClass = !isNumeric ? "invalid" : (st.value > opt.thresholds.up ? "up" : st.value < opt.thresholds.down ? "down" : "neutral");
             var trend = $("<div>&nbsp;</div>");
             trend.addClass('trend ' + trendClass + ' ' + qualityClass);
@@ -15828,7 +15828,7 @@ function AddIn(options) {
                 link = "http://" + link;
             }
             // is this text an hyperlink? 
-            if (opt.regexp == null || (new RegExp(opt.regexp).test(st.value))) {
+            if (opt.regexp === null || (new RegExp(opt.regexp).test(st.value))) {
                 var a = $("<a></a>").attr("href", link).addClass("hyperlinkAddIn");
                 a.text(label);
                 if (opt.openInNewTab) {
@@ -15864,7 +15864,7 @@ function AddIn(options) {
             for (key in opt)
                 if (opt.hasOwnProperty(key)) {
                     op = opt[key];
-                    options[key] = typeof op == 'function' ?
+                    options[key] = typeof op === 'function' ?
                         op.call(this, st) :
                         op;
                 }
@@ -15984,7 +15984,7 @@ function AddIn(options) {
         },
 
         implementation: function (tgt, st, opt) {
-            if (typeof Dashboards.i18nSupport !== "undefined" && Dashboards.i18nSupport != null) {
+            if (typeof Dashboards.i18nSupport !== "undefined" && Dashboards.i18nSupport !== null) {
                 var text = this.defaults.localize(st.value);
                 $(tgt).empty().append(text);
                 //change data, too, in order for search and sorting to work correctly on the localized text
@@ -16040,7 +16040,7 @@ function AddIn(options) {
              *   - when the value for the current cell is
              *     different from the one immediately before it
              */
-            if (visRowIdx === 0 || $row.prev().hasClass('groupHeader') || (st.value != dt.fnGetData($row.prev().get(0))[st.colIdx])) {
+            if (visRowIdx === 0 || $row.prev().hasClass('groupHeader') || (st.value !== dt.fnGetData($row.prev().get(0))[st.colIdx])) {
                 $group = this.buildHeader(tgt, st, opt);
                 $group.insertBefore($row);
             }
@@ -16204,7 +16204,7 @@ function AddIn(options) {
             }
         },
         doQuery: function (outsideCallback) {
-            if (typeof this.getOption('successCallback') != 'function') {
+            if (typeof this.getOption('successCallback') !== 'function') {
                 throw 'QueryNotInitialized';
             }
             var url = this.getOption('url'),
@@ -16241,7 +16241,7 @@ function AddIn(options) {
                 }
                 break;
             case 1:
-                if (typeof arguments[0] == "function") {
+                if (typeof arguments[0] === "function") {
                     /* If we're receiving _only_ the callback, we're not
                      * going to change the internal callback
                      */
@@ -16253,7 +16253,7 @@ function AddIn(options) {
                 }
                 break;
             case 2:
-                if (typeof arguments[0] == "function") {
+                if (typeof arguments[0] === "function") {
                     this.setOption('successCallback', arguments[0]);
                     this.setOption('errorCallback', arguments[1]);
                     return this.doQuery();
@@ -16353,9 +16353,9 @@ function AddIn(options) {
         getPage: function (targetPage, outsideCallback) {
             var page = this.getOption('page'),
                 pageSize = this.getOption('pageSize');
-            if (targetPage * pageSize == page) {
+            if (targetPage * pageSize === page) {
                 return false;
-            } else if (typeof targetPage == 'number' && targetPage >= 0) {
+            } else if (typeof targetPage === 'number' && targetPage >= 0) {
                 this.setOption('page', targetPage * pageSize);
                 return this.doQuery(outsideCallback);
             } else {
@@ -16365,9 +16365,9 @@ function AddIn(options) {
 
         // Gets pageSize results starting at page
         setPageStartingAt: function (targetPage) {
-            if (targetPage == this.getOption('page')) {
+            if (targetPage === this.getOption('page')) {
                 return false;
-            } else if (typeof targetPage == 'number' && targetPage >= 0) {
+            } else if (typeof targetPage === 'number' && targetPage >= 0) {
                 this.setOption('page', targetPage);
             } else {
                 throw "InvalidPage";
@@ -16389,9 +16389,9 @@ function AddIn(options) {
 
         // sets _pageSize to pageSize, and gets the first page of results
         initPage: function (pageSize, outsideCallback) {
-            if (pageSize == this.getOption('pageSize') && this.getOption('page') == 0) {
+            if (pageSize === this.getOption('pageSize') && this.getOption('page') === 0) {
                 return false;
-            } else if (typeof pageSize == 'number' && pageSize > 0) {
+            } else if (typeof pageSize === 'number' && pageSize > 0) {
                 this.setOption('page', 0);
                 this.setOption('pageSize', pageSize);
                 return this.doQuery(outsideCallback);
@@ -16439,12 +16439,12 @@ function AddIn(options) {
 
             _.each(params, function (value, name) {
                 value = Dashboards.getParameterValue(value);
-                if ($.isArray(value) && value.length == 1 && ('' + value[0]).indexOf(';') >= 0) {
+                if ($.isArray(value) && value.length === 1 && ('' + value[0]).indexOf(';') >= 0) {
                     //special case where single element will wrongly be treated as a parseable array by cda
                     value = doCsvQuoting(value[0], ';');
                 }
                 //else will not be correctly handled for functions that return arrays
-                if (typeof value == 'function') {
+                if (typeof value === 'function') {
                     value = value();
                 }
                 queryDefinition['param' + name] = value;
@@ -16475,17 +16475,17 @@ function AddIn(options) {
         },
 
         init: function (opts) {
-            if (typeof opts.path != 'undefined' && typeof opts.dataAccessId != 'undefined') {
+            if (typeof opts.path !== 'undefined' && typeof opts.dataAccessId !== 'undefined') {
                 // CDA-style cd object
                 this.setOption('file', opts.path);
                 this.setOption('id', opts.dataAccessId);
-                if (typeof opts.sortBy == 'string' && opts.sortBy.match("^(?:[0-9]+[adAD]?,?)*$")) {
+                if (typeof opts.sortBy === 'string' && opts.sortBy.match("^(?:[0-9]+[adAD]?,?)*$")) {
                     this.setOption('sortBy', opts.sortBy);
                 }
-                if (opts.pageSize != null) {
+                if (opts.pageSize !== null) {
                     this.setOption('pageSize', opts.pageSize);
                 }
-                if (opts.outputIndexId != null) {
+                if (opts.outputIndexId !== null) {
                     this.setOption('outputIdx', opts.outputIndexId);
                 }
             } else {
@@ -16502,12 +16502,12 @@ function AddIn(options) {
 
             _.each(params, function (value, name) {
                 value = Dashboards.getParameterValue(value);
-                if ($.isArray(value) && value.length == 1 && ('' + value[0]).indexOf(';') >= 0) {
+                if ($.isArray(value) && value.length === 1 && ('' + value[0]).indexOf(';') >= 0) {
                     //special case where single element will wrongly be treated as a parseable array by cda
                     value = doCsvQuoting(value[0], ';');
                 }
                 //else will not be correctly handled for functions that return arrays
-                if (typeof value == 'function') {
+                if (typeof value === 'function') {
                     value = value();
                 }
                 queryDefinition['param' + name] = value;
@@ -16532,22 +16532,22 @@ function AddIn(options) {
             }
             var queryDefinition = this.buildQueryDefinition(overrides);
             queryDefinition.outputType = outputType;
-            if (outputType == 'csv' && options.separator) {
+            if (outputType === 'csv' && options.separator) {
                 queryDefinition.settingcsvSeparator = options.separator;
             }
             if (options.filename) {
                 queryDefinition.settingattachmentName = options.filename;
             }
-            if (outputType == 'xls' && options.template) {
+            if (outputType === 'xls' && options.template) {
                 queryDefinition.settingtemplateName = options.template;
             }
             if (options.columnHeaders) {
                 queryDefinition.settingcolumnHeaders = options.columnHeaders;
             }
 
-            if (options.dtFilter != null) {
+            if (options.dtFilter !== null) {
                 queryDefinition.settingdtFilter = options.dtFilter;
-                if (options.dtSearchableColumns != null) {
+                if (options.dtSearchableColumns !== null) {
                     queryDefinition.settingdtSearchableColumns = options.dtSearchableColumns;
                 }
             }
@@ -16595,7 +16595,7 @@ function AddIn(options) {
              * type, we need to convert everything to upper case, since want
              * to accept 'a' and 'd' even though CDA demands capitals.
              */
-            else if (typeof sortBy == "string") {
+            else if (typeof sortBy === "string") {
                 /* Valid sortBy Strings are column numbers, optionally
                  * succeeded by A or D (ascending or descending), and separated by commas
                  */
@@ -16624,9 +16624,9 @@ function AddIn(options) {
              */
             var same;
             if (newSort instanceof Array) {
-                same = newSort.length != myself.getOption('sortBy').length;
+                same = newSort.length !== myself.getOption('sortBy').length;
                 $.each(newSort, function (i, d) {
-                    same = (same && d == myself.getOption('sortBy')[i]);
+                    same = (same && d === myself.getOption('sortBy')[i]);
                     if (!same) {
                         return false;
                     }
@@ -16760,7 +16760,7 @@ OlapUtils.initMdxQueryGroup = function (obj) {
 
     OlapUtils.mdxGroups[obj.name] = mdxQueryGroup;
 
-    if (("#" + obj.htmlObject + "_evolutionType") != undefined)
+    if (("#" + obj.htmlObject + "_evolutionType") !== undefined)
         $("#" + obj.htmlObject + "_evolutionType").html(mdxQueryGroup.printEvolutionType(obj.htmlObject + "_evolutionType"));
 
     return mdxQueryGroup;
@@ -16770,7 +16770,7 @@ OlapUtils.initMdxQueryGroup = function (obj) {
 OlapUtils.updateMdxQueryGroup = function (obj) {
 
     var mdxGroup = OlapUtils.mdxGroups[obj.name];
-    if (mdxGroup == undefined) {
+    if (mdxGroup === undefined) {
         mdxGroup = OlapUtils.initMdxQueryGroup(obj);
     }
 
@@ -16799,13 +16799,13 @@ OlapUtils.fireMdxGroupAction = function (mdxQueryGroup, idx, param1, param2, par
      * In Pentaho 3.5, the behavior of the x/y and TimeSeries Charts   *
      *changed, and this function passed to receive 5 parameters:
      *(query,idx,chartDefinition,PARAM,SERIES).            *
-     * When chartType == AreaChart, the value used to drill through is *
+     * When chartType === AreaChart, the value used to drill through is *
      *SERIES, otherwise it's PARAM.                    */
 
-    if (param2 != undefined && param3 != undefined) {
+    if (param2 !== undefined && param3 !== undefined) {
         cType = Dashboards.ev(param1.chartType);
 
-        if (cType == "AreaChart")
+        if (cType === "AreaChart")
             value = encode_prepare(param3);
         else
             value = encode_prepare(param2);
@@ -16814,7 +16814,7 @@ OlapUtils.fireMdxGroupAction = function (mdxQueryGroup, idx, param1, param2, par
 
 
     var mdxQueryGroup = OlapUtils.mdxGroups[mdxQueryGroup];
-    if (value == 'Others')
+    if (value === 'Others')
         return; // do nothing
 
     OlapUtils.lastClickedMdxQueryGroup = mdxQueryGroup;
@@ -16834,12 +16834,12 @@ OlapUtils.fireMdxGroupAction = function (mdxQueryGroup, idx, param1, param2, par
         "Cancel": "cancel"
     };
 
-    if (clickedObj.mdxQuery.axisDepth == 0)
+    if (clickedObj.mdxQuery.axisDepth === 0)
         delete buttonsHash.Collapse;
 
     //get rowLevels
     var rl = clickedObj.mdxQuery.query.rowLevels;
-    var d = typeof rl == "function" ? rl() : rl;
+    var d = typeof rl === "function" ? rl() : rl;
 
     if (clickedObj.mdxQuery.axisPos + clickedObj.mdxQuery.axisDepth >= d.length - 1) {
         delete buttonsHash["Drill Down"];
@@ -16848,7 +16848,7 @@ OlapUtils.fireMdxGroupAction = function (mdxQueryGroup, idx, param1, param2, par
         delete buttonsHash.Focus;
     }
 
-    if (clickedObj.mdxQuery.axisPos == 0)
+    if (clickedObj.mdxQuery.axisPos === 0)
         delete buttonsHash["Drill Up"];
 
     // Expanded ones can't drill || focus
@@ -16906,7 +16906,7 @@ OlapUtils.mdxQuery.prototype.resetFilters = function () {
 OlapUtils.mdxQuery.prototype.resetCondition = function (key) {
     delete this.query["members"][key];
     delete this.query["sets"][key];
-    if (this.query["conditions"][key + "InitialValue"] != undefined)
+    if (this.query["conditions"][key + "InitialValue"] !== undefined)
         this.query["where"][key] = this.query["conditions"][key + "InitialValue"];
     else
         delete this.query["where"][key];
@@ -16947,18 +16947,18 @@ OlapUtils.mdxQuery.prototype.clone = function () {
 
 
 OlapUtils.mdxQuery.prototype.generateAxisPart = function (axisDrill, axis, axisLevels, orderBy) {
-    if (axisDrill == false) {
+    if (axisDrill === false) {
         return axis;
     }
 
-    //var dim = axis.indexOf(".") == -1?axis:axis.substr(0,axis.indexOf("."));
-    var dim = axis.indexOf("].") == -1 ? axis : axis.substr(0, axis.indexOf("].") + 1);
+    //var dim = axis.indexOf(".") === -1?axis:axis.substr(0,axis.indexOf("."));
+    var dim = axis.indexOf("].") === -1 ? axis : axis.substr(0, axis.indexOf("].") + 1);
     var axisLevel = this.axisPos + this.axisDepth;
     if (axisLevel > axisLevels.length - 1) {
         axisLevel = axisLevels.length - 1
     }
     var q = "Descendants(" + axis + ", " + dim + ".[" + axisLevels[axisLevel] + "],SELF)"
-    if (orderBy == "")
+    if (orderBy === "")
         return q;
 
     return "Order(" + q + ", " + orderBy + " , BDESC)";
@@ -16972,17 +16972,17 @@ OlapUtils.mdxQuery.prototype.getQuery = function () {
     var _eh = [];
     for (p in this.query) {
         var key = p;
-        var value = typeof this.query[p] == 'function' ? this.query[p]() : this.query[p];
+        var value = typeof this.query[p] === 'function' ? this.query[p]() : this.query[p];
         _eh[key] = value;
     }
 
-    if (typeof _eh["sets"] == 'object' || typeof _eh["members"] == 'object') {
+    if (typeof _eh["sets"] === 'object' || typeof _eh["members"] === 'object') {
         for (s in _eh["sets"]) {
-            var value = typeof _eh["sets"][s] == 'function' ? _eh["sets"][s]() : _eh["sets"][s];
+            var value = typeof _eh["sets"][s] === 'function' ? _eh["sets"][s]() : _eh["sets"][s];
             query += " set " + value + " \n";
         }
         for (m in _eh["members"]) {
-            var value = typeof _eh["members"][m] == 'function' ? _eh["members"][m]() : _eh["members"][m];
+            var value = typeof _eh["members"][m] === 'function' ? _eh["members"][m]() : _eh["members"][m];
             query += " member " + value + " \n";
         }
     }
@@ -17016,7 +17016,7 @@ OlapUtils.mdxQuery.prototype.getQuery = function () {
 
     var whereArray = [];
     $.each(_eh["where"], function (key, obj) {
-        var el = typeof obj == 'function' ? obj() : obj
+        var el = typeof obj === 'function' ? obj() : obj
         if (el.length > 0) whereArray.push(el);
     });
     if (whereArray.length > 0) {
@@ -17063,7 +17063,7 @@ OlapUtils.mdxQuery.prototype.removeFilter = function (key, value) {
         lastExclude = false;
         break;
     }
-    if (lastExclude && this.query["conditions"][key + "previousDrillValue"] != undefined) {
+    if (lastExclude && this.query["conditions"][key + "previousDrillValue"] !== undefined) {
         this.addCondition(key, this.query["conditions"][key + "previousDrillValue"]);
         delete this.query["conditions"][key + "previousDrillValue"];
     }
@@ -17071,8 +17071,8 @@ OlapUtils.mdxQuery.prototype.removeFilter = function (key, value) {
 
 OlapUtils.mdxQuery.prototype.removeCondition = function (key, value, op) {
 
-    if (this.query["conditions"][key] != undefined) {
-        if (this.query["conditions"][key][value] != undefined)
+    if (this.query["conditions"][key] !== undefined) {
+        if (this.query["conditions"][key][value] !== undefined)
             delete this.query["conditions"][key][value];
         else { //Focus not present because exclusion condition set after focus => Remove all.
             delete this.query["conditions"][key];
@@ -17095,7 +17095,7 @@ OlapUtils.mdxQuery.prototype.removeConditions = function (key) {
 OlapUtils.mdxQuery.prototype.replaceConditionsByDrill = function (key, value) {
 
     //Clear previous focus and excludes
-    if (this.query["conditions"][key] != undefined)
+    if (this.query["conditions"][key] !== undefined)
         this.query["conditions"][key] = [];
 
     return this.addConditionAux(key, value, 'drill');
@@ -17107,7 +17107,7 @@ OlapUtils.mdxQuery.prototype.replaceConditionByExclude = function (key, value) {
 
 OlapUtils.mdxQuery.prototype.addConditionAux = function (key, value, op) {
 
-    if (op == undefined) {
+    if (op === undefined) {
         this.query["where"][key] = value;
         return;
     }
@@ -17115,14 +17115,14 @@ OlapUtils.mdxQuery.prototype.addConditionAux = function (key, value, op) {
     var condition = value.substr(0, value.indexOf("]") + 1) + ".[Filter]";
 
     //Store initial where cause for this key
-    if (this.query["conditions"][key] == undefined) {
+    if (this.query["conditions"][key] === undefined) {
         this.query["conditions"][key] = [];
-        if (this.query["where"][key] != undefined)
+        if (this.query["where"][key] !== undefined)
             this.query["conditions"][key + "InitialValue"] = this.query["where"][key];
     }
 
-    if (this.query["members"][key] == undefined) {
-        if (op == 'exclude') {
+    if (this.query["members"][key] === undefined) {
+        if (op === 'exclude') {
             //this.addMember(key,condition + " as (( "+value+".parent) - ("+value+"))");
         } else
             this.addMember(key, condition + " as Aggregate(" + key + "Filter)");
@@ -17131,18 +17131,18 @@ OlapUtils.mdxQuery.prototype.addConditionAux = function (key, value, op) {
 
     this.query["conditions"][key][value] = op
 
-    if (op != 'exclude')
+    if (op !== 'exclude')
         delete this.query["conditions"][key + "previousDrillValue"];
 
     //Remove previous focus and drills for this value
-    if (op != 'drill') {
+    if (op !== 'drill') {
         var aux = [];
         for (v in this.query["conditions"][key]) {
             //Store previous focus for first exclude
-            if (op == 'exclude' && this.query["conditions"][key + "previousDrillValue"] == undefined && this.query["conditions"][key][v] == 'drill') {
+            if (op === 'exclude' && this.query["conditions"][key + "previousDrillValue"] === undefined && this.query["conditions"][key][v] === 'drill') {
                 this.query["conditions"][key + "previousDrillValue"] = v;
             }
-            if (this.query["conditions"][key][v] == op) aux[v] = op;
+            if (this.query["conditions"][key][v] === op) aux[v] = op;
         }
         this.query["conditions"][key] = aux;
     }
@@ -17157,12 +17157,12 @@ OlapUtils.mdxQuery.prototype.setCondition = function (key, condition, op) {
         set.push(v);
 
     if (set.length > 0) {
-        if (op == "focus" || op == "drill")
+        if (op === "focus" || op === "drill")
             this.addSet(key, key + "Filter as {" + set.join(",") + "}");
         else {
             this.addMember(key, condition + " as ( ( " + set[0] + ".parent) - (" + set.join(") - (") + "))");
         }
-        if (condition != undefined)
+        if (condition !== undefined)
             this.query["where"][key] = condition;
     } else
         this.resetCondition(key);
@@ -17217,7 +17217,7 @@ OlapUtils.mdxQueryGroup.prototype.printConditions = function () {
 
     for (i in this.activeFilters) {
         var a = this.activeFilters[i];
-        if (a.length > 0 && ++filters == 1)
+        if (a.length > 0 && ++filters === 1)
             out += "<i>Exclusions: </i>";
         var mdxGroupName = this.name;
         var o = [];
@@ -17232,7 +17232,7 @@ OlapUtils.mdxQueryGroup.prototype.printConditions = function () {
     }
     for (i in this.activeConditions) {
         var a = this.activeConditions[i];
-        if (a.length > 0 && ++conds == 1)
+        if (a.length > 0 && ++conds === 1)
             out += " <i>Focus: </i>";
         var mdxGroupName = this.name;
         var o = [];
@@ -17260,10 +17260,10 @@ OlapUtils.mdxQueryGroup.prototype.printEvolutionType = function (object) {
 
     for (var i = 0, len = myArray.length; i < len; i++) {
         out += "<input onclick='OlapUtils.changeEvolutionType(\"" + object + "radio\")'";
-        if (i == 0) {
+        if (i === 0) {
             out += " CHECKED ";
         }
-        out += "type='radio' id='" + object + "radio' name='" + object + "radio' value=" + myArray[i][1] + " /> " + myArray[i][1] + (object.separator == undefined ? "" : object.separator);
+        out += "type='radio' id='" + object + "radio' name='" + object + "radio' value=" + myArray[i][1] + " /> " + myArray[i][1] + (object.separator === undefined ? "" : object.separator);
     }
 
     return out;
@@ -17275,13 +17275,13 @@ OlapUtils.mdxQueryGroup.prototype.drillDown = function (key, value) {
     var conditions = [];
 
     //CLean previous conditions,drill, and exclude messages for this id
-    if (this.activeFilters != undefined) delete this.activeFilters[key];
-    if (this.activeConditions != undefined) delete this.activeConditions[key];
+    if (this.activeFilters !== undefined) delete this.activeFilters[key];
+    if (this.activeConditions !== undefined) delete this.activeConditions[key];
 
     for (i in this.mdxQueries) {
         var obj = this.mdxQueries[i];
 
-        if (i == key) {
+        if (i === key) {
             obj.mdxQuery.drillDown(value);
         } else
             conditions = obj.mdxQuery.replaceConditionsByDrill(key, value);
@@ -17301,15 +17301,15 @@ OlapUtils.mdxQueryGroup.prototype.drillUp = function (key) {
     var conditions = [];
 
     //CLean previous conditions,drill, and exclude messages for this id
-    if (this.activeFilters != undefined) delete this.activeFilters[key];
-    if (this.activeConditions != undefined) delete this.activeConditions[key];
+    if (this.activeFilters !== undefined) delete this.activeFilters[key];
+    if (this.activeConditions !== undefined) delete this.activeConditions[key];
 
     var keyObj = this.mdxQueries[key];
     var value = keyObj.mdxQuery.drillUp();
     for (i in this.mdxQueries) {
         var obj = this.mdxQueries[i];
 
-        if (i != key) {
+        if (i !== key) {
             if (keyObj.mdxQuery.axisPos > 0)
                 conditions = obj.mdxQuery.replaceConditionsByDrill(key, value);
             else
@@ -17329,7 +17329,7 @@ OlapUtils.mdxQueryGroup.prototype.drillUp = function (key) {
 OlapUtils.mdxQueryGroup.prototype.replaceFocus = function (key, values) {
 
     for (i in this.mdxQueries)
-        if (i != key)
+        if (i !== key)
             this.mdxQueries[i].mdxQuery.removeConditions(key);
 
     this.focus(key, values);
@@ -17342,11 +17342,11 @@ OlapUtils.mdxQueryGroup.prototype.focus = function (key, values) {
     Dashboards.incrementRunningCalls();
 
     //CLean previous conditions,drill, and exclude messages for this id
-    if (this.activeFilters != undefined) delete this.activeFilters[key];
-    if (this.activeConditions != undefined) delete this.activeConditions[key];
+    if (this.activeFilters !== undefined) delete this.activeFilters[key];
+    if (this.activeConditions !== undefined) delete this.activeConditions[key];
 
     for (i in this.mdxQueries) {
-        if (i != key) {
+        if (i !== key) {
             var obj = this.mdxQueries[i];
 
             for (i = 0; i < values.length; i++) {
@@ -17379,14 +17379,14 @@ OlapUtils.mdxQueryGroup.prototype.exclude = function (key, value) {
     //Replace focus from active conditions by exclude
     for (i in this.mdxQueries) {
         var query = this.mdxQueries[i];
-        if (i != key) {
+        if (i !== key) {
             query.mdxQuery.replaceConditionByExclude(key, value);
             Dashboards.update(query.chartObject);
         }
     }
 
     //Remove previous focus message
-    if (this.activeConditions[key] != undefined)
+    if (this.activeConditions[key] !== undefined)
         var indexCondition = this.activeConditions[key].indexOf(value);
     if (indexCondition >= 0)
         this.activeConditions[key].splice(indexCondition, 1);
@@ -17429,11 +17429,11 @@ OlapUtils.mdxQueryGroup.prototype.removeCondition = function (key, value) {
     for (i in this.mdxQueries) {
         var obj = this.mdxQueries[i];
         //Remove Conditions and related filters(because filters are added after drill down)
-        if (i != key) {
-            if (obj.mdxQuery.removeCondition(key, value, 'focus') && this.activeFilters[key] != undefined)
+        if (i !== key) {
+            if (obj.mdxQuery.removeCondition(key, value, 'focus') && this.activeFilters[key] !== undefined)
                 delete this.activeFilters[key];
         } else {
-            obj.mdxQuery.query.rows = typeof obj.mdxQuery.originalHash.rows == 'function' ? obj.mdxQuery.originalHash.rows() : obj.mdxQuery.originalHash.rows;
+            obj.mdxQuery.query.rows = typeof obj.mdxQuery.originalHash.rows === 'function' ? obj.mdxQuery.originalHash.rows() : obj.mdxQuery.originalHash.rows;
             obj.mdxQuery.axisPos = 0;
             obj.mdxQuery.resetFilters();
         }
@@ -17453,12 +17453,12 @@ OlapUtils.mdxQueryGroup.prototype.removeFilter = function (key, value) {
     var index = this.mdxQueries[key].mdxQuery.resetFilter(value);
     for (i in this.mdxQueries) {
         var obj = this.mdxQueries[i];
-        if (i != key)
+        if (i !== key)
             obj.mdxQuery.removeFilter(key, this.activeFilters[key][index][1]);
         Dashboards.update(obj.chartObject);
     }
     this.activeFilters[key].splice(index, 1);
-    if (this.activeFilters[key].length == 0)
+    if (this.activeFilters[key].length === 0)
         delete this.activeFilters[key];
 
     Dashboards.update(Dashboards.getComponent(this.name));
@@ -17467,28 +17467,28 @@ OlapUtils.mdxQueryGroup.prototype.removeFilter = function (key, value) {
 
 OlapUtils.mdxQueryGroupActionCallback = function (value, m) {
 
-    if (value == "cancel")
+    if (value === "cancel")
         return; // do nothing.
 
     Dashboards.incrementRunningCalls();
 
     var mqg = OlapUtils.lastClickedMdxQueryGroup;
     var clickedObj = mqg.mdxQueries[mqg.clickedIdx];
-    var axis = typeof clickedObj.mdxQuery.query.rows == 'function' ? clickedObj.mdxQuery.query.rows() : clickedObj.mdxQuery.query.rows;
+    var axis = typeof clickedObj.mdxQuery.query.rows === 'function' ? clickedObj.mdxQuery.query.rows() : clickedObj.mdxQuery.query.rows;
 
-    if (value == "drilldown") {
+    if (value === "drilldown") {
         mqg.drillDown(mqg.clickedIdx, axis + ".[" + mqg.clickedValue + "]");
-    } else if (value == "drillup") {
+    } else if (value === "drillup") {
         mqg.drillUp(mqg.clickedIdx, axis + ".[" + mqg.clickedValue + "]");
-    } else if (value == "focus") {
+    } else if (value === "focus") {
         mqg.focus(mqg.clickedIdx, [axis + ".[" + mqg.clickedValue + "]"]);
-    } else if (value == "filter") {
+    } else if (value === "filter") {
         mqg.exclude(mqg.clickedIdx, axis + ".[" + mqg.clickedValue + "]");
-    } else if (value == "expand") {
+    } else if (value === "expand") {
         mqg.expand(mqg.clickedIdx);
-    } else if (value == "collapse") {
+    } else if (value === "collapse") {
         mqg.collapse(mqg.clickedIdx);
-    } else if (value == "resetall") {
+    } else if (value === "resetall") {
         mqg.resetAll();
     }
 
@@ -17553,7 +17553,7 @@ OlapUtils.GenericMdxQuery = Base.extend({
 
         this.query = this.mdxQuery.getQuery();
 
-        if (this.options.debug == true) {
+        if (this.options.debug === true) {
             alert(this.query);
         }
 
@@ -17782,7 +17782,7 @@ OlapUtils.DimensionAnalysisQuery = OlapUtils.GenericMdxQuery.extend({
                 return this.extra.translationHash["member"]
             },
             swapRowsAndColumns: function () {
-                return this.extra.translationHash["axis"][0] == "rows"
+                return this.extra.translationHash["axis"][0] === "rows"
             },
             orderBy: "Avg(a," + options.measuresDim + "." + options.measure + ")",
 

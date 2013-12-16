@@ -91,7 +91,7 @@
             }
         },
         doQuery: function (outsideCallback) {
-            if (typeof this.getOption('successCallback') != 'function') {
+            if (typeof this.getOption('successCallback') !== 'function') {
                 throw 'QueryNotInitialized';
             }
             var url = this.getOption('url'),
@@ -128,7 +128,7 @@
                 }
                 break;
             case 1:
-                if (typeof arguments[0] == "function") {
+                if (typeof arguments[0] === "function") {
                     /* If we're receiving _only_ the callback, we're not
                      * going to change the internal callback
                      */
@@ -140,7 +140,7 @@
                 }
                 break;
             case 2:
-                if (typeof arguments[0] == "function") {
+                if (typeof arguments[0] === "function") {
                     this.setOption('successCallback', arguments[0]);
                     this.setOption('errorCallback', arguments[1]);
                     return this.doQuery();
@@ -240,9 +240,9 @@
         getPage: function (targetPage, outsideCallback) {
             var page = this.getOption('page'),
                 pageSize = this.getOption('pageSize');
-            if (targetPage * pageSize == page) {
+            if (targetPage * pageSize === page) {
                 return false;
-            } else if (typeof targetPage == 'number' && targetPage >= 0) {
+            } else if (typeof targetPage === 'number' && targetPage >= 0) {
                 this.setOption('page', targetPage * pageSize);
                 return this.doQuery(outsideCallback);
             } else {
@@ -252,9 +252,9 @@
 
         // Gets pageSize results starting at page
         setPageStartingAt: function (targetPage) {
-            if (targetPage == this.getOption('page')) {
+            if (targetPage === this.getOption('page')) {
                 return false;
-            } else if (typeof targetPage == 'number' && targetPage >= 0) {
+            } else if (typeof targetPage === 'number' && targetPage >= 0) {
                 this.setOption('page', targetPage);
             } else {
                 throw "InvalidPage";
@@ -276,9 +276,9 @@
 
         // sets _pageSize to pageSize, and gets the first page of results
         initPage: function (pageSize, outsideCallback) {
-            if (pageSize == this.getOption('pageSize') && this.getOption('page') == 0) {
+            if (pageSize === this.getOption('pageSize') && this.getOption('page') === 0) {
                 return false;
-            } else if (typeof pageSize == 'number' && pageSize > 0) {
+            } else if (typeof pageSize === 'number' && pageSize > 0) {
                 this.setOption('page', 0);
                 this.setOption('pageSize', pageSize);
                 return this.doQuery(outsideCallback);
@@ -326,12 +326,12 @@
 
             _.each(params, function (value, name) {
                 value = Dashboards.getParameterValue(value);
-                if ($.isArray(value) && value.length == 1 && ('' + value[0]).indexOf(';') >= 0) {
+                if ($.isArray(value) && value.length === 1 && ('' + value[0]).indexOf(';') >= 0) {
                     //special case where single element will wrongly be treated as a parseable array by cda
                     value = doCsvQuoting(value[0], ';');
                 }
                 //else will not be correctly handled for functions that return arrays
-                if (typeof value == 'function') {
+                if (typeof value === 'function') {
                     value = value();
                 }
                 queryDefinition['param' + name] = value;
@@ -362,17 +362,17 @@
         },
 
         init: function (opts) {
-            if (typeof opts.path != 'undefined' && typeof opts.dataAccessId != 'undefined') {
+            if (typeof opts.path !== 'undefined' && typeof opts.dataAccessId !== 'undefined') {
                 // CDA-style cd object
                 this.setOption('file', opts.path);
                 this.setOption('id', opts.dataAccessId);
-                if (typeof opts.sortBy == 'string' && opts.sortBy.match("^(?:[0-9]+[adAD]?,?)*$")) {
+                if (typeof opts.sortBy === 'string' && opts.sortBy.match("^(?:[0-9]+[adAD]?,?)*$")) {
                     this.setOption('sortBy', opts.sortBy);
                 }
-                if (opts.pageSize != null) {
+                if (opts.pageSize !== null) {
                     this.setOption('pageSize', opts.pageSize);
                 }
-                if (opts.outputIndexId != null) {
+                if (opts.outputIndexId !== null) {
                     this.setOption('outputIdx', opts.outputIndexId);
                 }
             } else {
@@ -389,12 +389,12 @@
 
             _.each(params, function (value, name) {
                 value = Dashboards.getParameterValue(value);
-                if ($.isArray(value) && value.length == 1 && ('' + value[0]).indexOf(';') >= 0) {
+                if ($.isArray(value) && value.length === 1 && ('' + value[0]).indexOf(';') >= 0) {
                     //special case where single element will wrongly be treated as a parseable array by cda
                     value = doCsvQuoting(value[0], ';');
                 }
                 //else will not be correctly handled for functions that return arrays
-                if (typeof value == 'function') {
+                if (typeof value === 'function') {
                     value = value();
                 }
                 queryDefinition['param' + name] = value;
@@ -419,22 +419,22 @@
             }
             var queryDefinition = this.buildQueryDefinition(overrides);
             queryDefinition.outputType = outputType;
-            if (outputType == 'csv' && options.separator) {
+            if (outputType === 'csv' && options.separator) {
                 queryDefinition.settingcsvSeparator = options.separator;
             }
             if (options.filename) {
                 queryDefinition.settingattachmentName = options.filename;
             }
-            if (outputType == 'xls' && options.template) {
+            if (outputType === 'xls' && options.template) {
                 queryDefinition.settingtemplateName = options.template;
             }
             if (options.columnHeaders) {
                 queryDefinition.settingcolumnHeaders = options.columnHeaders;
             }
 
-            if (options.dtFilter != null) {
+            if (options.dtFilter !== null) {
                 queryDefinition.settingdtFilter = options.dtFilter;
-                if (options.dtSearchableColumns != null) {
+                if (options.dtSearchableColumns !== null) {
                     queryDefinition.settingdtSearchableColumns = options.dtSearchableColumns;
                 }
             }
@@ -482,7 +482,7 @@
              * type, we need to convert everything to upper case, since want
              * to accept 'a' and 'd' even though CDA demands capitals.
              */
-            else if (typeof sortBy == "string") {
+            else if (typeof sortBy === "string") {
                 /* Valid sortBy Strings are column numbers, optionally
                  * succeeded by A or D (ascending or descending), and separated by commas
                  */
@@ -511,9 +511,9 @@
              */
             var same;
             if (newSort instanceof Array) {
-                same = newSort.length != myself.getOption('sortBy').length;
+                same = newSort.length !== myself.getOption('sortBy').length;
                 $.each(newSort, function (i, d) {
-                    same = (same && d == myself.getOption('sortBy')[i]);
+                    same = (same && d === myself.getOption('sortBy')[i]);
                     if (!same) {
                         return false;
                     }

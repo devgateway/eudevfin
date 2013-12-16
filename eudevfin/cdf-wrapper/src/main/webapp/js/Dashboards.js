@@ -43,7 +43,7 @@ var CDF_ERROR_DIV = 'cdfErrorDiv';
 
 
 // TODO - remove all commented blocks
-// if (typeof $.SetImpromptuDefaults == 'function')
+// if (typeof $.SetImpromptuDefaults === 'function')
 //     $.SetImpromptuDefaults({
 //         prefix: 'colsJqi',
 //         show: 'slideDown'
@@ -195,7 +195,7 @@ Dashboards.RefreshEngine = function () {
                 high = mid - 1;
             } else if (coll[mid].nextRefresh < elem.nextRefresh) {
                 low = mid + 1;
-            } else { //==
+            } else { //===
                 return mid;
             }
         }
@@ -209,7 +209,7 @@ Dashboards.RefreshEngine = function () {
     };
 
     var stopTimer = function () {
-        if (activeTimer != null) {
+        if (activeTimer !== null) {
             clearTimeout(activeTimer);
             activeTimer = null;
         }
@@ -226,7 +226,7 @@ Dashboards.RefreshEngine = function () {
     };
 
     var isFirstInQueue = function (component) {
-        return refreshQueue.length > 0 && refreshQueue[0].component == component;
+        return refreshQueue.length > 0 && refreshQueue[0].component === component;
     };
 
     var refreshComponent = function (component) {
@@ -241,7 +241,7 @@ Dashboards.RefreshEngine = function () {
             component.refreshPeriod = NO_REFRESH;
         }
 
-        if (component.refreshPeriod != NO_REFRESH) {
+        if (component.refreshPeriod !== NO_REFRESH) {
             //get next refresh time for component
             var info = new Dashboards.RefreshEngine.QueueItem();
             info.nextRefresh = time + (component.refreshPeriod * 1000);
@@ -321,7 +321,7 @@ Dashboards.RefreshEngine = function () {
             for (i = 0; i < Dashboards.components.length; i++) {
                 var comp = Dashboards.components[i];
                 if (!(comp.refreshPeriod > 0) //only update those without refresh
-                    && comp.type != "select") { //and that are not pov widgets
+                    && comp.type !== "select") { //and that are not pov widgets
                     refreshComponent(comp);
                 }
             }
@@ -409,7 +409,7 @@ Dashboards.bindExistingControl = function (control, Class) {
         this._addLogLifecycleToControl(control);
 
         // For legacy dashboards, we'll automatically assign some priority for component execution.
-        if (control.priority == null || control.priority === "") {
+        if (control.priority === null || control.priority === "") {
             control.priority = this.legacyPriority++;
         }
     }
@@ -681,16 +681,16 @@ Dashboards.updateLifecycle = function (object) {
              * anything (or returns `undefined`), then by default the component
              * should update.
              */
-            shouldExecute = typeof shouldExecute != "undefined" ? !! shouldExecute : true;
+            shouldExecute = typeof shouldExecute !== "undefined" ? !! shouldExecute : true;
             object.trigger('cdf cdf:preExecution', object, shouldExecute);
             if (!shouldExecute) {
                 return; // if preExecution returns false, we'll skip the update
             }
-            if (object.tooltip != undefined) {
+            if (object.tooltip !== undefined) {
                 object._tooltip = typeof object["tooltip"] === 'function' ? object.tooltip() : object.tooltip;
             }
             // first see if there is an objectImpl
-            if ((object.update != undefined) &&
+            if ((object.update !== undefined) &&
                 (typeof object['update'] === 'function')) {
                 object.update();
 
@@ -705,7 +705,7 @@ Dashboards.updateLifecycle = function (object) {
                 object.postExecution.apply(object);
             }
             // if we have a tooltip component, how is the time.
-            if (object._tooltip != undefined) {
+            if (object._tooltip !== undefined) {
                 $("#" + object.htmlObject).attr("title", object._tooltip).tooltip({
                     delay: 0,
                     track: true,
@@ -826,14 +826,14 @@ Dashboards.addComponent = function (component, options) {
 
     var index = options && options.index;
     var L = this.components.length;
-    if (index == null || index < 0 || index > L) {
+    if (index === null || index < 0 || index > L) {
         index = L;
     } // <=> push
     this.components[index] = component;
 };
 
 Dashboards.getComponentIndex = function (compOrNameOrIndex) {
-    if (compOrNameOrIndex != null) {
+    if (compOrNameOrIndex !== null) {
         switch (typeof compOrNameOrIndex) {
         case 'string':
             for (var i = 0, cs = this.components, L = cs.length; i < L; i++) {
@@ -874,14 +874,14 @@ Dashboards.removeComponent = function (compOrNameOrIndex) {
 };
 
 Dashboards.registerEvent = function (ev, callback) {
-    if (typeof this.events == 'undefined') {
+    if (typeof this.events === 'undefined') {
         this.events = {};
     }
     this.events[ev] = callback;
 };
 
 Dashboards.addArgs = function (url) {
-    if (url != undefined)
+    if (url !== undefined)
         this.args = getURLParameters(url);
 };
 
@@ -897,7 +897,7 @@ Dashboards.setI18nSupport = function (lc, i18nRef) {
 Dashboards.init = function (components) {
     var myself = this;
     // here it was Storage initialization which was removed since we don't use it
-    if (this.context != null && this.context.sessionTimeout != null) {
+    if (this.context !== null && this.context.sessionTimeout !== null) {
         //defaulting to 90% of ms value of sessionTimeout
         Dashboards.serverCheckResponseTimeout = this.context.sessionTimeout * 900;
     }
@@ -984,7 +984,7 @@ Dashboards.syncParametersOnInit = function (master, slave) {
      * new chain with [master, slave].
      */
     if (slaveChain && masterChain) {
-        if (masterChain != slaveChain) {
+        if (masterChain !== slaveChain) {
             args = slaveChain.slice();
             args.unshift(0);
             args.unshift(masterChain.length);
@@ -1030,7 +1030,7 @@ Dashboards.initEngine = function () {
     var components = this.components;
 
     this.incrementRunningCalls();
-    if (this.logLifecycle && typeof console != "undefined") {
+    if (this.logLifecycle && typeof console !== "undefined") {
         console.log("%c          [Lifecycle >Start] Init (Running: " + this.getRunningCalls() + ")", "color: #ddd ");
     }
 
@@ -1116,7 +1116,7 @@ Dashboards.handlePostInit = function () {
         this.finishedInit = true;
 
         this.decrementRunningCalls();
-        if (this.logLifecycle && typeof console != "undefined") {
+        if (this.logLifecycle && typeof console !== "undefined") {
             console.log("%c          [Lifecycle <End  ] Init (Running: " + this.getRunningCalls() + ")", "color: #ddd ");
         }
     }
@@ -1151,7 +1151,7 @@ Dashboards.processChange = function (object_name) {
 
     if (!(typeof (object.preChange) === 'undefined')) {
         var preChangeResult = object.preChange(value);
-        value = preChangeResult != undefined ? preChangeResult : value;
+        value = preChangeResult !== undefined ? preChangeResult : value;
     }
     if (parameter) {
         this.fireChange(parameter, value);
@@ -1235,7 +1235,7 @@ Dashboards.updateAll = function (components) {
     this.mergePriorityLists(this.updating.tiers, components);
 
     var updating = this.updating.current;
-    if (updating === null || updating.components.length == 0) {
+    if (updating === null || updating.components.length === 0) {
         var toUpdate = this.getFirstTier(this.updating.tiers);
         if (!toUpdate) return;
         this.updating.current = toUpdate;
@@ -1378,7 +1378,7 @@ Dashboards.getUnboundParameters = function () {
         ret = []
     for (var p in params)
         if (params.hasOwnProperty(p)) {
-            if (params[p] == this.viewFlags.UNBOUND) {
+            if (params[p] === this.viewFlags.UNBOUND) {
                 ret.push(p);
             }
             return ret;
@@ -1406,7 +1406,7 @@ Dashboards.getQueryParameter = function (parameterName) {
         // Find the beginning of the string
         var begin = queryString.indexOf(parameterName);
         // If the parameter name is not found, skip it, otherwise return the value
-        if (begin != -1) {
+        if (begin !== -1) {
             // Add the length (integer) to the beginning
             begin += parameterName.length;
             // Multiple parameters are separated by the "&" sign
@@ -1447,7 +1447,7 @@ Dashboards.post = function (url, obj) {
     var form = '<form action="' + url + '" method="post">';
     for (var o in obj) {
 
-        var v = (typeof obj[o] == 'function' ? obj[o]() : obj[o]);
+        var v = (typeof obj[o] === 'function' ? obj[o]() : obj[o]);
 
         if (typeof v === 'string') {
             v = v.replace(/"/g, "\'")
@@ -1462,7 +1462,7 @@ Dashboards.post = function (url, obj) {
 
 Dashboards.getArgValue = function (key) {
     for (i = 0; i < this.args.length; i++) {
-        if (this.args[i][0] == key) {
+        if (this.args[i][0] === key) {
             return this.args[i][1];
         }
     }
@@ -1560,7 +1560,7 @@ Dashboards.parseXActionResult = function (obj, html) {
 
     var jXML = $(html);
     var error = jXML.find("SOAP-ENV\\:Fault");
-    if (error.length == 0) {
+    if (error.length === 0) {
         return jXML;
     }
 
@@ -1733,7 +1733,7 @@ Dashboards.eachValuesArray = function (values, opts, f, x) {
  * @static
  */
 Dashboards.parseMultipleValues = function (value) {
-    if (value != null && value !== '') {
+    if (value !== null && value !== '') {
         // An array or array like?
         if (this.isArray(value)) {
             return value;
@@ -1774,7 +1774,7 @@ Dashboards.isArray = function (value) {
     // An array or array like?
     return !!value &&
         ((value instanceof Array) ||
-        (typeof value === 'object' && value.join && value.length != null));
+        (typeof value === 'object' && value.join && value.length !== null));
 };
 
 /**
@@ -1822,7 +1822,7 @@ Dashboards.clone = function clone(obj) {
                 c[i] = [];
 
                 for (var j = 0; j < prop.length; j++) {
-                    if (typeof prop[j] != 'object') {
+                    if (typeof prop[j] !== 'object') {
                         c[i].push(prop[j]);
                     } else {
                         c[i].push(this.clone(prop[j]));
@@ -1861,7 +1861,7 @@ Dashboards.safeClone = function () {
 
     for (; i < length; i++) {
         // Only deal with non-null/undefined values
-        if ((options = arguments[i]) != null) {
+        if ((options = arguments[i]) !== null) {
             // Extend the base object
             for (name in options)
                 if (options.hasOwnProperty(name)) {
