@@ -46,7 +46,7 @@
                 setInterfaces(key, el);
             });
             _.each(defaults, function (el, key) {
-                var ifaces = ( interfaces && interfaces[key] ) || {};
+                var ifaces = (interfaces && interfaces[key]) || {};
                 setInterfaces(key, ifaces);
                 setValue(key, el);
             });
@@ -103,19 +103,19 @@
 
         function setReader(opt, fn) {
             var lib = myself._libraries.mappers;
-            fn = ( _.isFunction(fn) && fn ) || ( _.isString(fn) && lib[fn] ) || getReader(opt) || lib['identity'];
+            fn = (_.isFunction(fn) && fn) || (_.isString(fn) && lib[fn]) || getReader(opt) || lib['identity'];
             return set(myself._interfaces, opt, 'reader', fn);
         }
 
         function setWriter(opt, fn) {
             var lib = myself._libraries.mappers;
-            fn = ( _.isFunction(fn) && fn ) || ( _.isString(fn) && lib[fn] ) || getWriter(opt) || lib['identity'];
+            fn = (_.isFunction(fn) && fn) || (_.isString(fn) && lib[fn]) || getWriter(opt) || lib['identity'];
             return set(myself._interfaces, opt, 'writer', fn);
         }
 
         function setValidator(opt, fn) {
             var lib = myself._libraries.predicates;
-            fn = ( _.isFunction(fn) && fn ) || ( _.isString(fn) && lib[fn] ) || getValidator(opt) || lib['tautology'];
+            fn = (_.isFunction(fn) && fn) || (_.isString(fn) && lib[fn]) || getValidator(opt) || lib['tautology'];
             return set(myself._interfaces, opt, 'validator', fn);
         }
 
@@ -134,7 +134,7 @@
         if (container && container[opt] && container[opt].hasOwnProperty(attr)) {
             val = container[opt][attr];
         }
-        
+
         return val;
     }
 

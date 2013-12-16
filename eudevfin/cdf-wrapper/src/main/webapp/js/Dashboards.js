@@ -18,7 +18,7 @@ $.ajaxSetup({
 // TODO - maybe we should wrap all this global variables in some 'app' object or maibe 'cdfplugin' object
 var pathArray = window.location.pathname.split('/');
 var webAppPath;
-if (!(typeof(CONTEXT_PATH) === 'undefined')) {
+if (!(typeof (CONTEXT_PATH) === 'undefined')) {
     webAppPath = CONTEXT_PATH;
 }
 if (webAppPath === undefined) {
@@ -65,7 +65,7 @@ var Dashboards = {
     // TRAFFIC_RED: webAppPath + "/content/pentaho-cdf/resources/style/images/traffic_red.png",
     // TRAFFIC_YELLOW: webAppPath + "/content/pentaho-cdf/resources/style/images/traffic_yellow.png",
     // TRAFFIC_GREEN: webAppPath + "/content/pentaho-cdf/resources/style/images/traffic_green.png",
-    
+
     viewFlags: {
         UNUSED: "unused",
         UNBOUND: "unbound",
@@ -80,12 +80,12 @@ var Dashboards = {
 
     globalContext: true,
     escapeParameterValues: true,
-    
+
     /* Used to control progress indicator for async mode */
     runningCalls: 0,
-    
+
     components: [],
-    
+
     /* Holds the dashboard parameters if globalContext = false */
     parameters: [],
 
@@ -112,7 +112,7 @@ var Dashboards = {
      * plugins used in CDF has native internationalization support (ex: Datepicker)
      */
     i18nCurrentLanguageCode: null,
-    i18nSupport: null  // Reference to i18n objects
+    i18nSupport: null // Reference to i18n objects
 };
 
 _.extend(Dashboards, Backbone.Events);
@@ -142,9 +142,9 @@ Dashboards.getWebAppPath = function () {
 
 // Manages periodic refresh of components
 Dashboards.RefreshEngine = function () {
-    var NO_REFRESH = 0;                 //currently no distinction between explicitly disabled or not set
-    var refreshQueue = new Array();     //component refresh queue
-    var activeTimer = null;             //timer for individual component refresh
+    var NO_REFRESH = 0; //currently no distinction between explicitly disabled or not set
+    var refreshQueue = new Array(); //component refresh queue
+    var activeTimer = null; //timer for individual component refresh
 
     var globalRefreshPeriod = NO_REFRESH;
     var globalTimer = null;
@@ -195,7 +195,7 @@ Dashboards.RefreshEngine = function () {
                 high = mid - 1;
             } else if (coll[mid].nextRefresh < elem.nextRefresh) {
                 low = mid + 1;
-            } else {//==
+            } else { //==
                 return mid;
             }
         }
@@ -257,11 +257,11 @@ Dashboards.RefreshEngine = function () {
             if (!component) return false;
 
             component.refreshPeriod = (refreshPeriod > 0) ? refreshPeriod : NO_REFRESH;
-            
+
             var wasFirst = isFirstInQueue(component);
             clearFromQueue(component);
-            
-            if (wasFirst)  {
+
+            if (wasFirst) {
                 restartTimer();
             }
 
@@ -271,7 +271,7 @@ Dashboards.RefreshEngine = function () {
         getRefreshPeriod: function (component) {
             if (component && component.refreshPeriod > 0) {
                 return component.refreshPeriod;
-            } else { 
+            } else {
                 return NO_REFRESH;
             }
         },
@@ -284,7 +284,7 @@ Dashboards.RefreshEngine = function () {
             if (isFirstInQueue(component)) {
                 restartTimer();
             }
-            
+
             return true;
         },
 
@@ -306,7 +306,7 @@ Dashboards.RefreshEngine = function () {
 
             while (refreshQueue.length > 0 &&
                 refreshQueue[0].nextRefresh <= currentTime) {
-                var info = refreshQueue.shift();//pop first
+                var info = refreshQueue.shift(); //pop first
                 // call update, which calls processComponent
                 refreshComponent(info.component);
             }
@@ -374,7 +374,7 @@ Dashboards.decrementRunningCalls = function () {
     setTimeout(_.bind(function () {
         if (this.runningCalls <= 0) {
             this.hideProgressIndicator();
-            this.runningCalls = 0;  // Just in case
+            this.runningCalls = 0; // Just in case
         }
     }, this), 10);
 };
@@ -471,20 +471,20 @@ Dashboards._castControlToComponent = function (control, Class) {
                 (typeof baseProto[p] === 'function')) {
                 switch (p) {
                     // Exceptions
-                    case 'base':
-                        break;
+                case 'base':
+                    break;
 
                     // Copy
-                    default:
-                        control[p] = baseProto[p];
-                        break;
+                default:
+                    control[p] = baseProto[p];
+                    break;
                 }
             }
         }
     }
 };
 
-Dashboards._addLogLifecycleToControl = function (control) { 
+Dashboards._addLogLifecycleToControl = function (control) {
     // Add logging lifeCycle
     control.on("all", function (e) {
         var dashs = this.dashboard;
@@ -492,18 +492,18 @@ Dashboards._addLogLifecycleToControl = function (control) {
             var eventStr;
             var eventName = e.substr(4);
             switch (eventName) {
-                case "preExecution":
-                    eventStr = ">Start";
-                    break;
-                case "postExecution":
-                    eventStr = "<End  ";
-                    break;
-                case "error":
-                    eventStr = "!Error";
-                    break;
-                default:
-                    eventStr = "      ";
-                    break;
+            case "preExecution":
+                eventStr = ">Start";
+                break;
+            case "postExecution":
+                eventStr = "<End  ";
+                break;
+            case "error":
+                eventStr = "!Error";
+                break;
+            default:
+                eventStr = "      ";
+                break;
             }
 
             var timeInfo = Mustache.render("Timing: {{elapsedSinceStartDesc}} since start, {{elapsedSinceStartDesc}} since last event", this.splitTimer());
@@ -519,12 +519,10 @@ Dashboards.getErrorObj = function (errorCode) {
 
 Dashboards.parseServerError = function (resp, txtStatus, error) {
     var out = {};
-    var regexs = [
-        { 
-            match: /Query timeout/, 
-            msg: Dashboards.getErrorObj('QUERY_TIMEOUT').msg  
-        }
-    ];
+    var regexs = [{
+        match: /Query timeout/,
+        msg: Dashboards.getErrorObj('QUERY_TIMEOUT').msg
+    }];
 
     out.error = error;
     out.msg = Dashboards.getErrorObj('COMPONENT_ERROR').msg;
@@ -594,8 +592,7 @@ Dashboards.checkServer = function () {
         success: function (result) {
             if (result && result.ping === 'ok') {
                 retVal = true;
-            }
-            else {
+            } else {
                 retVal = false;
             }
         },
@@ -613,8 +610,8 @@ Dashboards.restoreDuplicates = function () {
      * We mark duplicates by appending an _nn suffix to their names.
      */
     var dupes = this.components.filter(function (c) {
-            return c.type === 'duplicate'
-        }),
+        return c.type === 'duplicate'
+    }),
         suffixes = {},
         params = {};
     /*
@@ -626,15 +623,15 @@ Dashboards.restoreDuplicates = function () {
     Object.keys(params).filter(function (e) {
         return /(_[0-9]+)+$/.test(e);
     }).map(function (e) {
-            var parts = e.match(/(.*?)((_[0-9]+)+)$/),
-                name = parts[1],
-                suffix = parts[2];
-            if (!suffixes[suffix]) {
-                suffixes[suffix] = {}
-            }
-            suffixes[suffix][name] = params[e];
-            return e;
-        });
+        var parts = e.match(/(.*?)((_[0-9]+)+)$/),
+            name = parts[1],
+            suffix = parts[2];
+        if (!suffixes[suffix]) {
+            suffixes[suffix] = {}
+        }
+        suffixes[suffix][name] = params[e];
+        return e;
+    });
 
 
     /*
@@ -643,18 +640,19 @@ Dashboards.restoreDuplicates = function () {
      * in the dashboard.
      */
     var myself = this;
-    for (var s in suffixes) if (suffixes.hasOwnProperty(s)) {
-        var params = suffixes[s];
-        $.each(dupes, function (i, e) {
-            var p;
-            for (p = 0; p < e.parameters.length; p++) {
-                if (!params.hasOwnProperty(e.parameters[p])) {
-                    return;
+    for (var s in suffixes)
+        if (suffixes.hasOwnProperty(s)) {
+            var params = suffixes[s];
+            $.each(dupes, function (i, e) {
+                var p;
+                for (p = 0; p < e.parameters.length; p++) {
+                    if (!params.hasOwnProperty(e.parameters[p])) {
+                        return;
+                    }
                 }
-            }
-            e.duplicate(params);
-        });
-    }
+                e.duplicate(params);
+            });
+        }
 }
 
 // TODO - blockui need to be rename to reflect the new loader approach
@@ -663,7 +661,7 @@ Dashboards.blockUIwithDrag = function () {
 };
 
 Dashboards.updateLifecycle = function (object) {
-    var silent = object.lifecycle ? !!object.lifecycle.silent : false;
+    var silent = object.lifecycle ? !! object.lifecycle.silent : false;
 
     if (object.disabled) {
         return;
@@ -674,7 +672,7 @@ Dashboards.updateLifecycle = function (object) {
     var handler = _.bind(function () {
         try {
             var shouldExecute;
-            if (!(typeof(object.preExecution) === 'undefined')) {
+            if (!(typeof (object.preExecution) === 'undefined')) {
                 shouldExecute = object.preExecution.apply(object);
             }
             /*
@@ -683,7 +681,7 @@ Dashboards.updateLifecycle = function (object) {
              * anything (or returns `undefined`), then by default the component
              * should update.
              */
-            shouldExecute = typeof shouldExecute != "undefined" ? !!shouldExecute : true;
+            shouldExecute = typeof shouldExecute != "undefined" ? !! shouldExecute : true;
             object.trigger('cdf cdf:preExecution', object, shouldExecute);
             if (!shouldExecute) {
                 return; // if preExecution returns false, we'll skip the update
@@ -703,7 +701,7 @@ Dashboards.updateLifecycle = function (object) {
                 // unsupported update call
             }
 
-            if (!(typeof(object.postExecution) === 'undefined')) {
+            if (!(typeof (object.postExecution) === 'undefined')) {
                 object.postExecution.apply(object);
             }
             // if we have a tooltip component, how is the time.
@@ -716,9 +714,10 @@ Dashboards.updateLifecycle = function (object) {
             }
         } catch (e) {
             var ph = (object.htmlObject) ? $('#' + object.htmlObject) : undefined,
-                msg = Dashboards.getErrorObj('COMPONENT_ERROR').msg
-                    + ' (' + object.name.replace('render_', '') + ')';
-            this.errorNotification({ msg: msg  }, ph);
+                msg = Dashboards.getErrorObj('COMPONENT_ERROR').msg + ' (' + object.name.replace('render_', '') + ')';
+            this.errorNotification({
+                msg: msg
+            }, ph);
             this.log("Error updating " + object.name + ":", 'error');
             this.log(e, 'exception');
         } finally {
@@ -836,21 +835,21 @@ Dashboards.addComponent = function (component, options) {
 Dashboards.getComponentIndex = function (compOrNameOrIndex) {
     if (compOrNameOrIndex != null) {
         switch (typeof compOrNameOrIndex) {
-            case 'string':
-                for (var i = 0, cs = this.components, L = cs.length; i < L; i++) {
-                    if (cs[i].name === compOrNameOrIndex) {
-                        return i;
-                    }
+        case 'string':
+            for (var i = 0, cs = this.components, L = cs.length; i < L; i++) {
+                if (cs[i].name === compOrNameOrIndex) {
+                    return i;
                 }
-                break;
-            case 'number':
-                if (compOrNameOrIndex >= 0 && compOrNameOrIndex < this.components.length) {
-                    return compOrNameOrIndex;
-                }
-                break;
+            }
+            break;
+        case 'number':
+            if (compOrNameOrIndex >= 0 && compOrNameOrIndex < this.components.length) {
+                return compOrNameOrIndex;
+            }
+            break;
 
-            default:
-                return this.components.indexOf(compOrNameOrIndex);
+        default:
+            return this.components.indexOf(compOrNameOrIndex);
         }
     }
     return -1;
@@ -1044,7 +1043,8 @@ Dashboards.initEngine = function () {
     /* Legacy Event -- don't rely on this! */
     $(window).trigger('cdfAboutToLoad');
     var myself = this;
-    var updating = [], i;
+    var updating = [],
+        i;
     for (i = 0; i < components.length; i++) {
         if (components[i].executeAtStart) {
             updating.push(components[i]);
@@ -1149,14 +1149,14 @@ Dashboards.processChange = function (object_name) {
     if (value === null) // We won't process changes on null values
         return;
 
-    if (!(typeof(object.preChange) === 'undefined')) {
+    if (!(typeof (object.preChange) === 'undefined')) {
         var preChangeResult = object.preChange(value);
         value = preChangeResult != undefined ? preChangeResult : value;
     }
     if (parameter) {
         this.fireChange(parameter, value);
     }
-    if (!(typeof(object.postChange) === 'undefined')) {
+    if (!(typeof (object.postChange) === 'undefined')) {
         object.postChange(value);
     }
 };
@@ -1290,14 +1290,17 @@ Dashboards.updateAll = function (components) {
  */
 Dashboards.getFirstTier = function (tiers) {
     var keys = _.keys(tiers).sort(function (a, b) {
-            return parseInt(a, 10) - parseInt(b, 10);
-        }),
+        return parseInt(a, 10) - parseInt(b, 10);
+    }),
         i, tier;
 
     for (i = 0; i < keys.length; i++) {
         tier = tiers[keys[i]];
         if (tier.length > 0) {
-            return {priority: keys[i], components: tier.slice()};
+            return {
+                priority: keys[i],
+                components: tier.slice()
+            };
         }
     }
     return null;
@@ -1310,13 +1313,14 @@ Dashboards.mergePriorityLists = function (target, source) {
     if (!source) {
         return;
     }
-    for (var key in source) if (source.hasOwnProperty(key)) {
-        if (_.isArray(target[key])) {
-            target[key] = _.union(target[key], source[key]);
-        } else {
-            target[key] = source[key];
+    for (var key in source)
+        if (source.hasOwnProperty(key)) {
+            if (_.isArray(target[key])) {
+                target[key] = _.union(target[key], source[key]);
+            } else {
+                target[key] = source[key];
+            }
         }
-    }
 }
 
 Dashboards.restoreView = function () {
@@ -1328,9 +1332,10 @@ Dashboards.restoreView = function () {
      * before storage. So now we have to decode that mess.
      */
     params = JSON.parse(Base64.decode(this.view.params));
-    for (p in params) if (params.hasOwnProperty(p)) {
-        this.setParameter(p, params[p]);
-    }
+    for (p in params)
+        if (params.hasOwnProperty(p)) {
+            this.setParameter(p, params[p]);
+        }
 };
 
 Dashboards.setParameterViewMode = function (parameter, value) {
@@ -1354,11 +1359,12 @@ Dashboards.getViewParameters = function () {
     if (!this.viewParameters) return {};
     var params = this.viewParameters,
         ret = {};
-    for (var p in params) if (params.hasOwnProperty(p)) {
-        if (params[p] === this.viewFlags.VIEW || params[p] === this.viewFlags.UNBOUND) {
-            ret[p] = this.getParameterValue(p);
+    for (var p in params)
+        if (params.hasOwnProperty(p)) {
+            if (params[p] === this.viewFlags.VIEW || params[p] === this.viewFlags.UNBOUND) {
+                ret[p] = this.getParameterValue(p);
+            }
         }
-    }
     return ret;
 };
 
@@ -1370,20 +1376,20 @@ Dashboards.getUnboundParameters = function () {
     if (!this.viewParameters) return [];
     var params = this.viewParameters,
         ret = []
-    for (var p in params) if (params.hasOwnProperty(p)) {
-        if (params[p] == this.viewFlags.UNBOUND) {
-            ret.push(p);
+    for (var p in params)
+        if (params.hasOwnProperty(p)) {
+            if (params[p] == this.viewFlags.UNBOUND) {
+                ret.push(p);
+            }
+            return ret;
         }
-        return ret;
-    }
 };
 
 Dashboards.getParameterValue = function (parameterName) {
     if (this.globalContext) {
         try {
             return eval(parameterName);
-        }
-        catch (e) {
+        } catch (e) {
             this.error(e);
             //return undefined;
         }
@@ -1431,7 +1437,9 @@ Dashboards.setParameter = function (parameterName, parameterValue) {
             this.parameters[parameterName] = parameterValue;
         }
     }
-    this.parameterModel.set(parameterName, parameterValue, {silent: true});
+    this.parameterModel.set(parameterName, parameterValue, {
+        silent: true
+    });
 };
 
 
@@ -1478,8 +1486,7 @@ Dashboards.callPentahoAction = function (obj, solution, path, action, parameters
                 callback(myself.parseXActionResult(obj, json));
             }
         );
-    }
-    else {
+    } else {
         return this.parseXActionResult(obj, this.pentahoAction(solution, path, action, parameters, callback));
     }
 };
@@ -1575,8 +1582,7 @@ Dashboards.parseXActionResult = function (obj, html) {
     // if this is a hidden component, we'll place this in the error div
     if (obj.visible === false) {
         $("#" + CDF_ERROR_DIV).append("<br />" + out);
-    }
-    else {
+    } else {
         $('#' + obj.htmlObject).html(out);
     }
 
@@ -1599,17 +1605,20 @@ Dashboards.escapeHtml = function (input) {
     // Conversion functions
     function _pa2obj(pArray) {
         var obj = {};
-        for (var p in pArray) if (pArray.hasOwnProperty(p)) {
-            var prop = pArray[p];
-            obj[prop[0]] = prop[1];
-        }
+        for (var p in pArray)
+            if (pArray.hasOwnProperty(p)) {
+                var prop = pArray[p];
+                obj[prop[0]] = prop[1];
+            }
         return obj;
     };
+
     function _obj2pa(obj) {
         var pArray = [];
-        for (var key in obj) if (obj.hasOwnProperty(key)) {
-            pArray.push([key, obj[key]]);
-        }
+        for (var key in obj)
+            if (obj.hasOwnProperty(key)) {
+                pArray.push([key, obj[key]]);
+            }
         return pArray;
     };
 
@@ -1619,13 +1628,13 @@ Dashboards.escapeHtml = function (input) {
     D.propertiesArrayToObject = function (pArray) {
         // Mantra 1: "Order matters!"
         // Mantra 2: "Arrays are Objects!"
-        return ( _.isArray(pArray) && _pa2obj(pArray) ) || ( _.isObject(pArray) && pArray ) || undefined;
+        return (_.isArray(pArray) && _pa2obj(pArray)) || (_.isObject(pArray) && pArray) || undefined;
     };
 
     D.objectToPropertiesArray = function (obj) {
         // Mantra 1: "Order matters!"
         // Mantra 2: "Arrays are Objects!"
-        return ( _.isArray(obj) && obj) || ( _.isObject(obj) && _obj2pa(obj)) || undefined;
+        return (_.isArray(obj) && obj) || (_.isObject(obj) && _obj2pa(obj)) || undefined;
     };
 })(Dashboards);
 
@@ -1675,7 +1684,7 @@ Dashboards.eachValuesArray = function (values, opts, f, x) {
         opts = null;
     }
 
-    var valueAsId = !!(opts && opts.valueAsId);
+    var valueAsId = !! (opts && opts.valueAsId);
     for (var i = 0, j = 0, L = values.length; i < L; i++) {
         var valSpec = values[i];
         if (valSpec && valSpec.length) {
@@ -1765,7 +1774,7 @@ Dashboards.isArray = function (value) {
     // An array or array like?
     return !!value &&
         ((value instanceof Array) ||
-            (typeof value === 'object' && value.join && value.length != null));
+        (typeof value === 'object' && value.join && value.length != null));
 };
 
 /**
@@ -1802,7 +1811,7 @@ Dashboards.equalValues = function (a, b) {
     return a === b;
 };
 
-Dashboards.clone = function clone (obj) {
+Dashboards.clone = function clone(obj) {
     var c = obj instanceof Array ? [] : {};
 
     for (var i in obj) {
@@ -1852,35 +1861,36 @@ Dashboards.safeClone = function () {
 
     for (; i < length; i++) {
         // Only deal with non-null/undefined values
-        if ((options = arguments[ i ]) != null) {
+        if ((options = arguments[i]) != null) {
             // Extend the base object
-            for (name in options) if (options.hasOwnProperty(name)) {
-                src = target[ name ];
-                copy = options[ name ];
+            for (name in options)
+                if (options.hasOwnProperty(name)) {
+                    src = target[name];
+                    copy = options[name];
 
-                // Prevent never-ending loop
-                if (target === copy) {
-                    continue;
-                }
-
-                // Recurse if we're merging plain objects or arrays
-                if (deep && copy && ( jQuery.isPlainObject(copy) || (copyIsArray = jQuery.isArray(copy)) )) {
-                    if (copyIsArray) {
-                        copyIsArray = false;
-                        clone = src && jQuery.isArray(src) ? src : [];
-
-                    } else {
-                        clone = src && jQuery.isPlainObject(src) ? src : {};
+                    // Prevent never-ending loop
+                    if (target === copy) {
+                        continue;
                     }
 
-                    // Never move original objects, clone them
-                    target[ name ] = this.safeClone(deep, clone, copy);
+                    // Recurse if we're merging plain objects or arrays
+                    if (deep && copy && (jQuery.isPlainObject(copy) || (copyIsArray = jQuery.isArray(copy)))) {
+                        if (copyIsArray) {
+                            copyIsArray = false;
+                            clone = src && jQuery.isArray(src) ? src : [];
 
-                    // Don't bring in undefined values
-                } else if (copy !== undefined) {
-                    target[ name ] = copy;
+                        } else {
+                            clone = src && jQuery.isPlainObject(src) ? src : {};
+                        }
+
+                        // Never move original objects, clone them
+                        target[name] = this.safeClone(deep, clone, copy);
+
+                        // Don't bring in undefined values
+                    } else if (copy !== undefined) {
+                        target[name] = copy;
+                    }
                 }
-            }
         }
     }
 
@@ -1915,24 +1925,24 @@ Dashboards.hsvToRgb = function (h, s, v) {
 
     var rgb;
     switch (~~h6) {
-        case 0:
-            rgb = [c_m, x_m, m  ];
-            break;
-        case 1:
-            rgb = [x_m, c_m, m  ];
-            break;
-        case 2:
-            rgb = [m, c_m, x_m];
-            break;
-        case 3:
-            rgb = [m, x_m, c_m];
-            break;
-        case 4:
-            rgb = [x_m, m, c_m];
-            break;
-        case 5:
-            rgb = [c_m, m, x_m];
-            break;
+    case 0:
+        rgb = [c_m, x_m, m];
+        break;
+    case 1:
+        rgb = [x_m, c_m, m];
+        break;
+    case 2:
+        rgb = [m, c_m, x_m];
+        break;
+    case 3:
+        rgb = [m, x_m, c_m];
+        break;
+    case 4:
+        rgb = [x_m, m, c_m];
+        break;
+    case 5:
+        rgb = [c_m, m, x_m];
+        break;
     }
 
     rgb.forEach(function (val, i) {
@@ -1975,4 +1985,3 @@ Dashboards.hsvToRgb = function (h, s, v) {
 //     return Dashboards.getQuery(queryType, opts);
 // };
 // QUERIES end
-

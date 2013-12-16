@@ -18,12 +18,10 @@ var Utf8 = {
 
             if (c < 128) {
                 utftext += String.fromCharCode(c);
-            }
-            else if ((c > 127) && (c < 2048)) {
+            } else if ((c > 127) && (c < 2048)) {
                 utftext += String.fromCharCode((c >> 6) | 192);
                 utftext += String.fromCharCode((c & 63) | 128);
-            }
-            else {
+            } else {
                 utftext += String.fromCharCode((c >> 12) | 224);
                 utftext += String.fromCharCode(((c >> 6) & 63) | 128);
                 utftext += String.fromCharCode((c & 63) | 128);
@@ -38,7 +36,9 @@ var Utf8 = {
     decode: function (utftext) {
         var string = "";
         var i = 0;
-        var c = 0, c2 = 0, c3 = 0;
+        var c = 0,
+            c2 = 0,
+            c3 = 0;
 
         while (i < utftext.length) {
 
@@ -47,13 +47,11 @@ var Utf8 = {
             if (c < 128) {
                 string += String.fromCharCode(c);
                 i++;
-            }
-            else if ((c > 191) && (c < 224)) {
+            } else if ((c > 191) && (c < 224)) {
                 c2 = utftext.charCodeAt(i + 1);
                 string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
                 i += 2;
-            }
-            else {
+            } else {
                 c2 = utftext.charCodeAt(i + 1);
                 c3 = utftext.charCodeAt(i + 2);
                 string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
@@ -84,8 +82,7 @@ var encode_prepare_arr = function (value) {
             a[i] = encode_prepare(val);
         });
         return a;
-    }
-    else {
+    } else {
         return encode_prepare(value);
     }
 };
@@ -263,40 +260,31 @@ var sprintfWrapper = {
             var substitution;
             if (m.code === '%') {
                 substitution = '%';
-            }
-            else if (m.code === 'b') {
+            } else if (m.code === 'b') {
                 m.argument = String(Math.abs(parseInt(m.argument)).toString(2));
                 substitution = sprintfWrapper.convert(m, true);
-            }
-            else if (m.code === 'c') {
+            } else if (m.code === 'c') {
                 m.argument = String(String.fromCharCode(parseInt(Math.abs(parseInt(m.argument)))));
                 substitution = sprintfWrapper.convert(m, true);
-            }
-            else if (m.code === 'd') {
+            } else if (m.code === 'd') {
                 m.argument = toFormatedString(String(Math.abs(parseInt(m.argument))));
                 substitution = sprintfWrapper.convert(m);
-            }
-            else if (m.code === 'f') {
+            } else if (m.code === 'f') {
                 m.argument = toFormatedString(String(Math.abs(parseFloat(m.argument)).toFixed(m.precision ? m.precision : 6)));
                 substitution = sprintfWrapper.convert(m);
-            }
-            else if (m.code === 'o') {
+            } else if (m.code === 'o') {
                 m.argument = String(Math.abs(parseInt(m.argument)).toString(8));
                 substitution = sprintfWrapper.convert(m);
-            }
-            else if (m.code === 's') {
+            } else if (m.code === 's') {
                 m.argument = m.argument.substring(0, m.precision ? m.precision : m.argument.length);
                 substitution = sprintfWrapper.convert(m, true);
-            }
-            else if (m.code === 'x') {
+            } else if (m.code === 'x') {
                 m.argument = String(Math.abs(parseInt(m.argument)).toString(16));
                 substitution = sprintfWrapper.convert(m);
-            }
-            else if (m.code === 'X') {
+            } else if (m.code === 'X') {
                 m.argument = String(Math.abs(parseInt(m.argument)).toString(16));
                 substitution = sprintfWrapper.convert(m).toUpperCase();
-            }
-            else {
+            } else {
                 substitution = m.match;
             }
 

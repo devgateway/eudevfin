@@ -60,7 +60,9 @@ var TableComponent = UnmanagedComponent.extend({
                     }, this);
                     var handler = this.getSuccessHandler(success);
 
-                    this.queryState.setAjaxOptions({async: true});
+                    this.queryState.setAjaxOptions({
+                        async: true
+                    });
                     this.queryState.fetchData(this.parameters, handler);
                 }
             } catch (e) {
@@ -81,7 +83,7 @@ var TableComponent = UnmanagedComponent.extend({
             this.queryState.setPageSize(parseInt(cd.displayLength || 10));
             this.queryState.setCallback(_.bind(function (values) {
                 changedValues = undefined;
-                if ((typeof(this.postFetch) == 'function')) {
+                if ((typeof (this.postFetch) == 'function')) {
                     changedValues = this.postFetch(values);
                 }
                 if (changedValues != undefined) {
@@ -90,7 +92,9 @@ var TableComponent = UnmanagedComponent.extend({
                 this.processTableComponentResponse(values);
             }, this));
             this.queryState.setParameters(this.parameters);
-            this.queryState.setAjaxOptions({async: true});
+            this.queryState.setAjaxOptions({
+                async: true
+            });
             this.processTableComponentResponse();
         },
 
@@ -132,7 +136,8 @@ var TableComponent = UnmanagedComponent.extend({
                 return null;
             }
 
-            var sortingCols = p("iSortingCols"), sort = [];
+            var sortingCols = p("iSortingCols"),
+                sort = [];
             if (sortingCols > 0) {
                 for (var i = 0; i < sortingCols; i++) {
                     var col = p("iSortCol_" + i);
@@ -409,10 +414,8 @@ var TableComponent = UnmanagedComponent.extend({
                         Dashboards.fireChange(elt[1], results.resultset[event.rowIdx][parseInt(elt[0], 10)]);
                     });
 
-                }
-                ;
-            }
-            ;
+                };
+            };
             $("td.expandingClass").click(
                 function (event) {
                     //Does nothing but it prevents problems on expandingClass clicks!
@@ -441,9 +444,8 @@ var TableComponent = UnmanagedComponent.extend({
             dtData.aaSorting = options.sortBy;
 
             if (typeof options.oLanguage == "string") {
-                dtData.oLanguage = eval("(" + options.oLanguage + ")");//TODO: er...
-            }
-            else {
+                dtData.oLanguage = eval("(" + options.oLanguage + ")"); //TODO: er...
+            } else {
                 dtData.oLanguage = options.oLanguage;
             }
 
@@ -452,12 +454,11 @@ var TableComponent = UnmanagedComponent.extend({
                 for (var i = 0; i < options.colHeaders.length; i++) {
                     dtData.aoColumns[i] = {}
                     dtData.aoColumns[i].sClass = "column" + i;
-                }
-                ;
+                };
                 $.each(options.colHeaders, function (i, val) {
                     dtData.aoColumns[i].sTitle = val;
                     if (val == "") dtData.aoColumns[i].bVisible = false;
-                });  // colHeaders
+                }); // colHeaders
                 if (options.colTypes != undefined) {
                     $.each(options.colTypes, function (i, val) {
                         var col = dtData.aoColumns[i];
@@ -467,13 +468,11 @@ var TableComponent = UnmanagedComponent.extend({
                         col.sType = val;
 
                     })
-                }
-                ;  // colTypes
+                }; // colTypes
                 if (options.colFormats != undefined) {
                     // Changes are made directly to the json
 
-                }
-                ;  // colFormats
+                }; // colFormats
 
                 var bAutoWidth = true;
                 if (options.colWidths != undefined) {
@@ -483,26 +482,23 @@ var TableComponent = UnmanagedComponent.extend({
                             bAutoWidth = false;
                         }
                     })
-                }
-                ; //colWidths
+                }; //colWidths
                 dtData.bAutoWidth = bAutoWidth;
 
                 if (options.colSortable != undefined) {
                     $.each(options.colSortable, function (i, val) {
-                        if (val != null && ( !val || val == "false" )) {
+                        if (val != null && (!val || val == "false")) {
                             dtData.aoColumns[i].bSortable = false
                         }
                     })
-                }
-                ; //colSortable
+                }; //colSortable
                 if (options.colSearchable != undefined) {
                     $.each(options.colSearchable, function (i, val) {
-                        if (val != null && ( !val || val == "false" )) {
+                        if (val != null && (!val || val == "false")) {
                             dtData.aoColumns[i].bSearchable = false
                         }
                     })
-                }
-                ; //colSearchable
+                }; //colSearchable
 
             }
 

@@ -2,7 +2,7 @@
 (function () {
 
     /* Sparkline AddIn, based on jquery.sparkline.js sparklines.
-     * 
+     *
      */
     var sparkline = {
         name: "sparkline",
@@ -30,7 +30,7 @@
         sumStrArray: function (arr) {
             return arr.split(',').reduce(function (prev, curr, index, array) {
                 Dashboards.log("Current " + curr + "; prev " + prev);
-                return parseFloat(curr) + (typeof(prev) === 'number' ? prev : parseFloat(prev));
+                return parseFloat(curr) + (typeof (prev) === 'number' ? prev : parseFloat(prev));
             });
         },
 
@@ -72,7 +72,7 @@
         sumStrArray: function (arr) {
             return arr.split(',').reduce(function (prev, curr, index, array) {
                 Dashboards.log("Current " + curr + "; prev " + prev);
-                return parseFloat(curr) + (typeof(prev) === 'number' ? prev : parseFloat(prev));
+                return parseFloat(curr) + (typeof (prev) === 'number' ? prev : parseFloat(prev));
             });
         },
 
@@ -81,10 +81,10 @@
                 sparklineData = st.value,
                 data = sparklineData.split(",");
             n = data.length,
-                w = opt.width || ph.width() - opt.canvasMargin * 2,
-                h = opt.height,
-                min = pv.min.index(data),
-                max = pv.max.index(data);
+            w = opt.width || ph.width() - opt.canvasMargin * 2,
+            h = opt.height,
+            min = pv.min.index(data),
+            max = pv.max.index(data);
             ph.empty();
 
             var container = $("<div></div>").appendTo(ph);
@@ -137,8 +137,8 @@
         },
         implementation: function (tgt, st, opt) {
             var tblMax = Math.max.apply(Math, st.tableData.map(function (e) {
-                    return e[st.colIdx];
-                })),
+                return e[st.colIdx];
+            })),
                 tblMin = Math.min.apply(Math, st.tableData.map(function (e) {
                     return e[st.colIdx];
                 }));
@@ -206,7 +206,10 @@
             valueFormat: function (v, format, st) {
                 return sprintf(format || "%.1f", v);
             },
-            thresholds: { up: 0, down: 0 }
+            thresholds: {
+                up: 0,
+                down: 0
+            }
         },
         init: function () {
             $.fn.dataTableExt.oSort[this.name + '-asc'] = $.fn.dataTableExt.oSort['numeric-asc'];
@@ -215,12 +218,12 @@
         implementation: function (tgt, st, opt) {
             var ph = $(tgt),
                 qualityClass = opt.good ? "good" : "bad",
-            /* Anything that's not numeric is an invalid value.
-             * We consider "numeric" to mean either a number,
-             * or a string that is a fixed point for conversion
-             * to number and back to string.
-             */
-                isNumeric = typeof st.value == "number" || (typeof st.value == "string" && Number(st.value).toString() != 'NaN' ),
+                /* Anything that's not numeric is an invalid value.
+                 * We consider "numeric" to mean either a number,
+                 * or a string that is a fixed point for conversion
+                 * to number and back to string.
+                 */
+                isNumeric = typeof st.value == "number" || (typeof st.value == "string" && Number(st.value).toString() != 'NaN'),
                 trendClass = !isNumeric ? "invalid" : (st.value > opt.thresholds.up ? "up" : st.value < opt.thresholds.down ? "down" : "neutral");
             var trend = $("<div>&nbsp;</div>");
             trend.addClass('trend ' + trendClass + ' ' + qualityClass);
@@ -302,12 +305,13 @@
                 w,
                 paper;
 
-            for (key in opt) if (opt.hasOwnProperty(key)) {
-                op = opt[key];
-                options[key] = typeof op == 'function' ?
-                    op.call(this, st) :
-                    op;
-            }
+            for (key in opt)
+                if (opt.hasOwnProperty(key)) {
+                    op = opt[key];
+                    options[key] = typeof op == 'function' ?
+                        op.call(this, st) :
+                        op;
+                }
             w = options.canvasSize;
             paper = Raphael(tgt, options.canvasSize, options.canvasSize);
             var r = paper.circle(w / 2, w / 2, options.radius);
@@ -329,9 +333,9 @@
             height: 40,
             animate: false,
             orientation: "horizontal",
-            bulletSize: 16,     // Bullet height
+            bulletSize: 16, // Bullet height
             bulletSpacing: 150, // Spacing between bullets
-            bulletMargin: 5,   // Left margin
+            bulletMargin: 5, // Left margin
             // Specific values
             bulletRanges: [30, 80, 100],
             extensionPoints: {
@@ -371,9 +375,9 @@
 
         getData: function (values) {
             var dataSet = {
-                    resultset: [values],
-                    metadata: []
-                },
+                resultset: [values],
+                metadata: []
+            },
                 i;
             for (i = 0; i < values.length; i++) {
                 dataSet.metadata.push({
@@ -480,7 +484,7 @@
              *   - when the value for the current cell is
              *     different from the one immediately before it
              */
-            if (visRowIdx === 0 || $row.prev().hasClass('groupHeader') || ( st.value != dt.fnGetData($row.prev().get(0))[st.colIdx]  )) {
+            if (visRowIdx === 0 || $row.prev().hasClass('groupHeader') || (st.value != dt.fnGetData($row.prev().get(0))[st.colIdx])) {
                 $group = this.buildHeader(tgt, st, opt);
                 $group.insertBefore($row);
             }

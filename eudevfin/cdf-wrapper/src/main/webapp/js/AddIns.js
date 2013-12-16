@@ -29,7 +29,7 @@ function AddIn(options) {
     var _name = options.name,
         _label = options.label,
         _type = options.implementation ? "scriptable" : "static",
-    /* It's OK if any of these ends up being undefined */
+        /* It's OK if any of these ends up being undefined */
         _implementation = options.implementation,
         _defaults = options.defaults,
         _value = options.options;
@@ -74,8 +74,7 @@ function AddIn(options) {
         var compiledOptions = jQuery.extend(true, {}, evaluatedDefaults, options);
         try {
             return _implementation.call(myself, target, state, compiledOptions);
-        }
-        catch (e) {
+        } catch (e) {
             Dashboards.log("Addin Error [" + this.getName() + "]: " + e, "error");
         }
     };
@@ -84,8 +83,7 @@ function AddIn(options) {
 
         if (typeof defaults == 'function') {
             _defaults = defaults;
-        }
-        else {
+        } else {
             _defaults = jQuery.extend(true, {}, _defaults, defaults);
         }
     };

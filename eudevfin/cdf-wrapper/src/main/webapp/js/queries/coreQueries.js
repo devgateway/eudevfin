@@ -2,7 +2,7 @@
  * queryTypes.js
  *
  * Registers several query types and sets the base query class.
- * 
+ *
  * Additional query types can be registered at any time using the Dashboards method:
  *    Dashboards.registerQuery( name, query )
  * The second argument, the query definition, can be one of two things:
@@ -22,7 +22,7 @@
     var BaseQuery = Base.extend({
         name: "baseQuery",
         label: "Base Query",
-        deepProperties: [ 'defaults' , 'interfaces' ],
+        deepProperties: ['defaults', 'interfaces'],
         defaults: {
             successCallback: function () {
                 Dashboards.log('Query callback not defined. Override.');
@@ -39,10 +39,19 @@
             url: ''
         },
         interfaces: {
-            params: { reader: 'propertiesObject', validator: 'isObjectOrPropertiesArray'},
-            successCallback: { validator: 'isFunction'},
-            errorCallback: { validator: 'isFunction'},
-            pageSize: { validator: 'isPositive'}
+            params: {
+                reader: 'propertiesObject',
+                validator: 'isObjectOrPropertiesArray'
+            },
+            successCallback: {
+                validator: 'isFunction'
+            },
+            errorCallback: {
+                validator: 'isFunction'
+            },
+            pageSize: {
+                validator: 'isPositive'
+            }
 
         },
         constructor: function (config) {
@@ -87,7 +96,7 @@
             }
             var url = this.getOption('url'),
                 callback = (outsideCallback ? outsideCallback : this.getOption('successCallback')),
-                errorCallback = this.getOption('errorCallback') ,
+                errorCallback = this.getOption('errorCallback'),
                 queryDefinition = this.buildQueryDefinition();
 
             var settings = _.extend({}, this.getOption('ajaxOptions'), {
@@ -113,40 +122,40 @@
         },
         fetchData: function (params, successCallback, errorCallback) {
             switch (arguments.length) {
-                case 0:
-                    if (this.getOption('params') && this.getOption('successCallback')) {
-                        return this.doQuery();
-                    }
-                    break;
-                case 1:
-                    if (typeof arguments[0] == "function") {
-                        /* If we're receiving _only_ the callback, we're not
-                         * going to change the internal callback
-                         */
-                        return this.doQuery(arguments[0]);
-                    } else if (!_.isEmpty(arguments[0]) &&
-                        (_.isObject(arguments[0]) || _.isArray(arguments[0]) )) {
-                        this.setOption('params', arguments[0] || {});
-                        return this.doQuery();
-                    }
-                    break;
-                case 2:
-                    if (typeof arguments[0] == "function") {
-                        this.setOption('successCallback', arguments[0]);
-                        this.setOption('errorCallback', arguments[1]);
-                        return this.doQuery();
-                    } else {
-                        this.setOption('params', arguments[0] || {});
-                        this.setOption('successCallback', arguments[1]);
-                        return this.doQuery();
-                    }
-                    break;
-                default:
-                    /* We're just going to discard anything over two params */
-                    this.setOption('params', params);
-                    this.setOption('successCallback', successCallback);
-                    this.setOption('errorCallback', errorCallback);
+            case 0:
+                if (this.getOption('params') && this.getOption('successCallback')) {
                     return this.doQuery();
+                }
+                break;
+            case 1:
+                if (typeof arguments[0] == "function") {
+                    /* If we're receiving _only_ the callback, we're not
+                     * going to change the internal callback
+                     */
+                    return this.doQuery(arguments[0]);
+                } else if (!_.isEmpty(arguments[0]) &&
+                    (_.isObject(arguments[0]) || _.isArray(arguments[0]))) {
+                    this.setOption('params', arguments[0] || {});
+                    return this.doQuery();
+                }
+                break;
+            case 2:
+                if (typeof arguments[0] == "function") {
+                    this.setOption('successCallback', arguments[0]);
+                    this.setOption('errorCallback', arguments[1]);
+                    return this.doQuery();
+                } else {
+                    this.setOption('params', arguments[0] || {});
+                    this.setOption('successCallback', arguments[1]);
+                    return this.doQuery();
+                }
+                break;
+            default:
+                /* We're just going to discard anything over two params */
+                this.setOption('params', params);
+                this.setOption('successCallback', successCallback);
+                this.setOption('errorCallback', errorCallback);
+                return this.doQuery();
             }
             /* If we haven't hit a return by this time,
              * the user gave us some wrong input
@@ -302,14 +311,14 @@
             if (_.isString(opts.pluginId) && _.isString(opts.endpoint)) {
                 this.setOption('pluginId', opts.pluginId);
                 this.setOption('endpoint', opts.endpoint);
-                var urlArray = [ this.getOption('baseUrl') , this.getOption('pluginId') , this.getOption('endpoint') ],
+                var urlArray = [this.getOption('baseUrl'), this.getOption('pluginId'), this.getOption('endpoint')],
                     url = urlArray.join('/');
                 this.setOption('url', url);
             }
         },
 
         buildQueryDefinition: function (overrides) {
-            overrides = ( overrides instanceof Array) ? Dashboards.propertiesArrayToObject(overrides) : ( overrides || {} );
+            overrides = (overrides instanceof Array) ? Dashboards.propertiesArrayToObject(overrides) : (overrides || {});
             var queryDefinition = this.getOption('systemParams');
 
             var cachedParams = this.getOption('params'),
@@ -348,7 +357,7 @@
             id: '',
             outputIdx: '1',
             sortBy: '',
-            ajaxOptions: { },
+            ajaxOptions: {},
             searchPattern: ''
         },
 
@@ -372,7 +381,7 @@
         },
 
         buildQueryDefinition: function (overrides) {
-            overrides = ( overrides instanceof Array) ? Dashboards.propertiesArrayToObject(overrides) : ( overrides || {} );
+            overrides = (overrides instanceof Array) ? Dashboards.propertiesArrayToObject(overrides) : (overrides || {});
             var queryDefinition = {};
 
             var cachedParams = this.getOption('params'),
@@ -435,7 +444,10 @@
                 var _exportIframe = $('<iframe style="display:none">');
                 _exportIframe.detach();
                 //_exportIframe[0].src = webAppPath + 'content/cda/unwrapQuery?' + $.param( {"path": queryDefinition.path, "uuid": uuid});
-                _exportIframe[0].src = '/pentaho/content/cda/unwrapQuery?' + $.param({"path": queryDefinition.path, "uuid": uuid});
+                _exportIframe[0].src = '/pentaho/content/cda/unwrapQuery?' + $.param({
+                    "path": queryDefinition.path,
+                    "uuid": uuid
+                });
                 _exportIframe.appendTo($('body'));
             };
             $.ajax({
@@ -531,7 +543,11 @@
 
 
     function makeMetadataElement(idx, name, type) {
-        return { "colIndex": idx || 0, "colType": type || "String", "colName": name || "Name" }
+        return {
+            "colIndex": idx || 0,
+            "colType": type || "String",
+            "colName": name || "Name"
+        }
     }
 
     var legacyOpts = {
@@ -545,7 +561,10 @@
             lastResultSet: {
                 reader: function (json) {
                     json = eval("(" + json + ")");
-                    var result = { metadata: [ makeMetadataElement(0)], resultset: json.values || [] };
+                    var result = {
+                        metadata: [makeMetadataElement(0)],
+                        resultset: json.values || []
+                    };
                     _.each(json.metadata, function (el, idx) {
                         return result.metadata.push(makeMetadataElement(idx + 1, el));
                     });
@@ -568,7 +587,10 @@
                         // async + legacy errors while parsing json response aren't caught
                         var msg = Dashboards.getErrorObj('COMPONENT_ERROR').msg + ":" + e.message;
                         Dashboards.error(msg);
-                        json = {"metadata": [msg], "values": []};
+                        json = {
+                            "metadata": [msg],
+                            "values": []
+                        };
                     } else {
                         //exceptions while parsing json response are 
                         //already being caught+handled in updateLifecyle()  
@@ -593,4 +615,3 @@
     Dashboards.registerQuery("mdx", legacyOpts);
     Dashboards.registerQuery("sql", legacyOpts);
 })();
-

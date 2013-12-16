@@ -29,14 +29,14 @@
 
             var holder;
             switch (typeof what) {
-                case 'function':
-                    holder = new FactoryHolder(this, what, scope);
-                    break;
-                case 'object':
-                    holder = new InstanceHolder(this, what, scope);
-                    break;
-                default:
-                    throw new Error("Argument 'what' is of an invalid type.");
+            case 'function':
+                holder = new FactoryHolder(this, what, scope);
+                break;
+            case 'object':
+                holder = new InstanceHolder(this, what, scope);
+                break;
+            default:
+                throw new Error("Argument 'what' is of an invalid type.");
             }
 
             if (!name) {
@@ -135,7 +135,7 @@
                 if (!holder && !isTry) {
                     throw new Error(
                         "There is no registration for type '" + type + "'" +
-                            (name ? (" and name '" + name + "'") : "") + ".");
+                        (name ? (" and name '" + name + "'") : "") + ".");
                 }
             }
 
@@ -211,7 +211,7 @@
             scope = 'external';
         }
 
-        this.build = function (/*config, buildNew*/) {
+        this.build = function ( /*config, buildNew*/ ) {
             return instance;
         };
 
@@ -334,8 +334,8 @@
             });
         }
 
-        var QueryClass = ( _.isFunction(query) && query ) ||
-            ( _.isObject(query) && BaseQuery.extend(_.extend({}, query, deepProperties)) );
+        var QueryClass = (_.isFunction(query) && query) ||
+            (_.isObject(query) && BaseQuery.extend(_.extend({}, query, deepProperties)));
 
         // Registers a new query factory with a custom class
         this.queryFactories.register('Query', type, function (container, config) {

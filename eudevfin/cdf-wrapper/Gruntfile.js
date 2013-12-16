@@ -11,6 +11,40 @@ module.exports = function(grunt) {
 			'  * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %> (<%= pkg.author.homepage %>)\n' +
 			'  */\n',
 
+		jsbeautifier: {
+		    files: [
+					'src/main/webapp/js/*.js',
+					'!src/main/webapp/js/cdfplugin.js', 
+					'!src/main/webapp/js/cdfplugin.min.js',
+					'!src/main/webapp/js/libs/**/*.js',
+					'!src/main/webapp/js/dataTables/**/*.js', 
+					'!src/main/webapp/js/jquery-libs/**/*.js',
+					'!src/main/webapp/js/modernizr-2.0.6.js',
+					'!src/main/webapp/js/mustache.js'
+					],
+			options: {
+				js: {
+					braceStyle: "collapse",
+					breakChainedMethods: false,
+					e4x: false,
+					evalCode: false,
+					indentChar: " ",
+					indentLevel: 0,
+					indentSize: 4,
+					indentWithTabs: false,
+					jslintHappy: true,
+					keepArrayIndentation: false,
+					keepFunctionIndentation: true,
+					maxPreserveNewlines: 4,
+					preserveNewlines: true,
+					spaceBeforeConditional: true,
+					spaceInParen: false,
+					unescapeStrings: false,
+					wrapLineLength: 0
+				}
+			}
+		},
+
 		jshint: {
 			// configure JSHint (documented at http://www.jshint.com/docs/)
 			options: {
@@ -65,7 +99,7 @@ module.exports = function(grunt) {
 			src: {
 				// all source files excluding libraries
 				src: [
-					'src/main/webapp/js/Dashboards.js', 
+					'src/main/webapp/js/components/*.js', 
 					// 'src/main/webapp/js/**/*.js', 
 					'!src/main/webapp/js/cdfplugin.js', 
 					'!src/main/webapp/js/cdfplugin.min.js',
@@ -181,6 +215,9 @@ module.exports = function(grunt) {
 
 	// Load the plugin that provides the "clean" task.
 	grunt.loadNpmTasks('grunt-contrib-clean');
+
+	// Load the plugin that provides the "beautifier" task.
+	grunt.loadNpmTasks('grunt-jsbeautifier');
 
 	// dist task
 	grunt.registerTask('dist', ['jshint:grunt', 'qunit', 'clean', 'concat', 'cssmin', 'uglify']);

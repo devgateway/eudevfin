@@ -87,8 +87,8 @@ BaseComponent = Base.extend({
 
 
         var jXML;
-        if (typeof(this.valuesArray) == 'undefined' || this.valuesArray.length == 0) {
-            if (typeof(this.queryDefinition) != 'undefined') {
+        if (typeof (this.valuesArray) == 'undefined' || this.valuesArray.length == 0) {
+            if (typeof (this.queryDefinition) != 'undefined') {
 
                 var vid = (this.queryDefinition.queryType == "sql") ? "sql" : "none";
                 if ((this.queryDefinition.queryType == "mdx") && (!this.valueAsId)) {
@@ -98,8 +98,9 @@ BaseComponent = Base.extend({
                 }
                 QueryComponent.makeQuery(this);
                 var myArray = new Array();
-                for (p in this.result) if (this.result.hasOwnProperty(p)) {
-                    switch (vid) {
+                for (p in this.result)
+                    if (this.result.hasOwnProperty(p)) {
+                        switch (vid) {
                         case "sql":
                             myArray.push([this.result[p][0], this.result[p][1]]);
                             break;
@@ -112,8 +113,8 @@ BaseComponent = Base.extend({
                         default:
                             myArray.push([this.result[p][0], this.result[p][0]]);
                             break;
+                        }
                     }
-                }
                 return myArray;
             } else {
 
@@ -183,7 +184,7 @@ BaseComponent = Base.extend({
 
         var jHeaders = $(jData).find("ColumnMetaData");
         if (jHeaders.size() > 0) {
-            if (includeHeader) {//get column names
+            if (includeHeader) { //get column names
                 var _a = new Array();
                 jHeaders.each(function () {
                     _a.push($(this).attr("name"));
@@ -284,8 +285,7 @@ BaseComponent = Base.extend({
 
         if (this.logColor) {
             return this.logColor;
-        }
-        else {
+        } else {
             // generate a unique,
 
             var hashCode = function (str) {
@@ -383,24 +383,64 @@ var CommentsComponent = BaseComponent.extend({
             processOperation: function (operation, comment, collection, callback, defaults) {
                 var ajaxOptions = {};
                 switch (operation) {
-                    case 'LIST_ALL':
-                        ajaxOptions = {data: { action: 'list', page: defaults.page, firstResult: defaults.paginate.firstResult, maxResults: defaults.paginate.maxResults, where: false} };
-                        break;
-                    case 'LIST_ACTIVE':
-                        ajaxOptions = {data: { action: 'list', page: defaults.page, firstResult: defaults.paginate.firstResult, maxResults: defaults.paginate.maxResults} };
-                        break;
-                    case 'GET_LAST':
-                        ajaxOptions = {data: { action: 'list', page: defaults.page, firstResult: 0, maxResults: 1} };
-                        break;
-                    case 'DELETE_COMMENT':
-                        ajaxOptions = {data: { action: 'delete', page: defaults.page, commentId: comment} };
-                        break;
-                    case 'ARCHIVE_COMMENT':
-                        ajaxOptions = {data: { action: 'archive', page: defaults.page, commentId: comment} };
-                        break;
-                    case 'ADD_COMMENT':
-                        ajaxOptions = {data: { action: 'add', page: defaults.page, comment: comment} };
-                        break;
+                case 'LIST_ALL':
+                    ajaxOptions = {
+                        data: {
+                            action: 'list',
+                            page: defaults.page,
+                            firstResult: defaults.paginate.firstResult,
+                            maxResults: defaults.paginate.maxResults,
+                            where: false
+                        }
+                    };
+                    break;
+                case 'LIST_ACTIVE':
+                    ajaxOptions = {
+                        data: {
+                            action: 'list',
+                            page: defaults.page,
+                            firstResult: defaults.paginate.firstResult,
+                            maxResults: defaults.paginate.maxResults
+                        }
+                    };
+                    break;
+                case 'GET_LAST':
+                    ajaxOptions = {
+                        data: {
+                            action: 'list',
+                            page: defaults.page,
+                            firstResult: 0,
+                            maxResults: 1
+                        }
+                    };
+                    break;
+                case 'DELETE_COMMENT':
+                    ajaxOptions = {
+                        data: {
+                            action: 'delete',
+                            page: defaults.page,
+                            commentId: comment
+                        }
+                    };
+                    break;
+                case 'ARCHIVE_COMMENT':
+                    ajaxOptions = {
+                        data: {
+                            action: 'archive',
+                            page: defaults.page,
+                            commentId: comment
+                        }
+                    };
+                    break;
+                case 'ADD_COMMENT':
+                    ajaxOptions = {
+                        data: {
+                            action: 'add',
+                            page: defaults.page,
+                            comment: comment
+                        }
+                    };
+                    break;
                 }
                 this.requestProcessing(ajaxOptions, operation, collection, callback);
             },
@@ -443,24 +483,22 @@ var CommentsComponent = BaseComponent.extend({
                     myself.options.queyResult = json.result;
                     collection.reset(this.resetCollection(json.result));
                     if ((paginate.activePageNumber == 0) && ((json) && (typeof json.result != 'undefined')) && (json.result.length == 0)) {
-                        json.result = [
-                            {
-                                id: 0,
-                                comment: 'No Comments to show!',
-                                createdOn: '',
-                                elapsedMinutes: '',
-                                isArchived: false,
-                                isDeleted: false,
-                                isMe: true,
-                                page: '',
-                                user: '',
-                                permissions: {
-                                    add: false,
-                                    archive: false,
-                                    remove: false
-                                }
+                        json.result = [{
+                            id: 0,
+                            comment: 'No Comments to show!',
+                            createdOn: '',
+                            elapsedMinutes: '',
+                            isArchived: false,
+                            isDeleted: false,
+                            isMe: true,
+                            page: '',
+                            user: '',
+                            permissions: {
+                                add: false,
+                                archive: false,
+                                remove: false
                             }
-                        ];
+                        }];
                         if ((collection) && (typeof collection != 'undefined')) {
                             collection.reset(this.resetCollection(json.result));
                         }
@@ -657,7 +695,7 @@ var CommentsComponent = BaseComponent.extend({
                     var lastCommentDate = myself.options.queyResult[0].createdOn;
                     var callback = function (data) {
                         if (data.result.length > 0) {
-                            if (!!(data.result[0].createdOn == lastCommentDate)) {
+                            if ( !! (data.result[0].createdOn == lastCommentDate)) {
                                 Dashboards.log("Comments Component: New Comments? false", "debug");
                             } else {
                                 Dashboards.log("Comments Component: New Comments? true", "debug");
@@ -783,64 +821,64 @@ var CommentsComponent = BaseComponent.extend({
 
 
 var QueryComponent = BaseComponent.extend({
-        visible: false,
-        update: function () {
-            QueryComponent.makeQuery(this);
-        },
-        warnOnce: function () {
-            Dashboards.log("Warning: QueryComponent behaviour is due to change. See " +
-                "http://www.webdetails.org/redmine/projects/cdf/wiki/QueryComponent" +
-                " for more information");
-            delete(this.warnOnce);
-        }
+    visible: false,
+    update: function () {
+        QueryComponent.makeQuery(this);
     },
-    {
-        makeQuery: function (object) {
-
-            if (this.warnOnce) {
-                this.warnOnce();
-            }
-            var cd = object.queryDefinition;
-            if (cd == undefined) {
-                Dashboards.log("Fatal - No query definition passed", "error");
-                return;
-            }
-            var query = Dashboards.getQuery(cd);
-            object.queryState = query;
-
-            // Force synchronous queries
-            query.setAjaxOptions({async: false});
-
-            query.fetchData(object.parameters, function (values) {
-                // We need to make sure we're getting data from the right place,
-                // depending on whether we're using CDA
-
-                changedValues = undefined;
-                object.metadata = values.metadata;
-                object.result = values.resultset !== undefined ? values.resultset : values;
-                object.queryInfo = values.queryInfo;
-
-                if ((typeof(object.postFetch) == 'function')) {
-                    changedValues = object.postFetch(values);
-                }
-                if (changedValues != undefined) {
-                    values = changedValues;
-
-                }
-
-                if (object.resultvar != undefined) {
-                    Dashboards.setParameter(object.resultvar, object.result);
-                }
-                object.result = values.resultset != undefined ? values.resultset : values;
-                if (typeof values.resultset != "undefined") {
-                    object.metadata = values.metadata;
-                    object.queryInfo = values.queryInfo;
-                }
-            });
-
-        }
+    warnOnce: function () {
+        Dashboards.log("Warning: QueryComponent behaviour is due to change. See " +
+            "http://www.webdetails.org/redmine/projects/cdf/wiki/QueryComponent" +
+            " for more information");
+        delete(this.warnOnce);
     }
-);
+}, {
+    makeQuery: function (object) {
+
+        if (this.warnOnce) {
+            this.warnOnce();
+        }
+        var cd = object.queryDefinition;
+        if (cd == undefined) {
+            Dashboards.log("Fatal - No query definition passed", "error");
+            return;
+        }
+        var query = Dashboards.getQuery(cd);
+        object.queryState = query;
+
+        // Force synchronous queries
+        query.setAjaxOptions({
+            async: false
+        });
+
+        query.fetchData(object.parameters, function (values) {
+            // We need to make sure we're getting data from the right place,
+            // depending on whether we're using CDA
+
+            changedValues = undefined;
+            object.metadata = values.metadata;
+            object.result = values.resultset !== undefined ? values.resultset : values;
+            object.queryInfo = values.queryInfo;
+
+            if ((typeof (object.postFetch) == 'function')) {
+                changedValues = object.postFetch(values);
+            }
+            if (changedValues != undefined) {
+                values = changedValues;
+
+            }
+
+            if (object.resultvar != undefined) {
+                Dashboards.setParameter(object.resultvar, object.result);
+            }
+            object.result = values.resultset != undefined ? values.resultset : values;
+            if (typeof values.resultset != "undefined") {
+                object.metadata = values.metadata;
+                object.queryInfo = values.queryInfo;
+            }
+        });
+
+    }
+});
 
 var MdxQueryGroupComponent = BaseComponent.extend({
     visible: false,
@@ -983,8 +1021,7 @@ var UnmanagedComponent = BaseComponent.extend({
         var silent = this.isSilent();
         if (!silent) {
             this.block();
-        }
-        ;
+        };
         userQueryOptions = userQueryOptions || {};
         /*
          * The query response handler should trigger the component-provided callback
@@ -1036,8 +1073,7 @@ var UnmanagedComponent = BaseComponent.extend({
         var silent = this.isSilent();
         if (!silent) {
             this.block();
-        }
-        ;
+        };
         var ajaxParameters = {
             async: true
         };
@@ -1083,8 +1119,7 @@ var UnmanagedComponent = BaseComponent.extend({
         msg = msg || Dashboards.getErrorObj('COMPONENT_ERROR').msg;
         if (!this.isSilent()) {
             this.unblock();
-        }
-        ;
+        };
         this.errorNotification({
             error: cause,
             msg: msg
@@ -1140,14 +1175,14 @@ var UnmanagedComponent = BaseComponent.extend({
     },
 
     getErrorHandler: function () {
-        return  _.bind(function () {
+        return _.bind(function () {
                 var err = Dashboards.parseServerError.apply(this, arguments);
                 this.error(err.msg, err.error);
             },
             this);
     },
     errorNotification: function (err, ph) {
-        ph = ph || ( ( this.htmlObject ) ? $('#' + this.htmlObject) : undefined );
+        ph = ph || ((this.htmlObject) ? $('#' + this.htmlObject) : undefined);
         var name = this.name.replace('render_', '');
         err.msg = err.msg + ' (' + name + ')';
         Dashboards.errorNotification(err, ph);
@@ -1181,7 +1216,7 @@ var UnmanagedComponent = BaseComponent.extend({
     },
 
     isSilent: function () {
-        return (this.lifecycle) ? !!this.lifecycle.silent : false;
+        return (this.lifecycle) ? !! this.lifecycle.silent : false;
     }
 });
 
@@ -1201,4 +1236,3 @@ var FreeformComponent = UnmanagedComponent.extend({
         this.customfunction(parameters);
     }
 });
-

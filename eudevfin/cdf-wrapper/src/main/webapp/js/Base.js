@@ -83,7 +83,9 @@ Base.prototype = {
             if (!Base._prototyping && typeof this != "function") {
                 extend = this.extend || extend;
             }
-            var proto = {toSource: null};
+            var proto = {
+                toSource: null
+            };
             // do the "toString" and other methods manually
             var hidden = ["constructor", "toString", "valueOf"];
             // if we are prototyping then include the constructor
