@@ -32,6 +32,11 @@ public class BasicDataTab extends Panel implements PermissionAwareComponent {
         addComponents();
         addExtensionPanel1();
         addExtensionPanel2();
+        addExtensionPanel3();
+    }
+
+    protected void addExtensionPanel3() {
+        add(new WebMarkupContainer("extensionPanel3").setVisibilityAllowed(false));
     }
 
     /**

@@ -13,6 +13,18 @@
     <entry key="7bCPA.placeholder"></entry>
     <entry key="7bCPA.help">TODO: edit help text</entry>
 
+    <entry key="7aRecipientCode.label">Recipient Code</entry>
+    <entry key="7aRecipientCode.placeholder"></entry>
+    <entry key="7aRecipientCode.help">TODO: edit help text</entry>
+
+    <entry key="7cPriorityStatus.label">Priority status of the Recipient</entry>
+    <entry key="7cPriorityStatus.placeholder"></entry>
+    <entry key="7cPriorityStatus.help">TODO: edit help text</entry>
+
+    <entry key="7dPhasingOutYear.label">If phasing out, by which year?</entry>
+    <entry key="7dPhasingOutYear.placeholder"></entry>
+    <entry key="7dPhasingOutYear.help">TODO: edit help text</entry>
+
     <entry key="14bisUploadDocumentation.label">Upload Available Documentation</entry>
     <entry key="14bisUploadDocumentation.placeholder"></entry>
     <entry key="14bisUploadDocumentation.help">TODO: edit help text</entry>

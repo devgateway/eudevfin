@@ -21,7 +21,7 @@ public class CustomFinancialTransaction extends FinancialTransaction {
     private BigMoney futureDebtInterest;
 
     private LocalDateTime dataAsPerDate;
-
+    private LocalDateTime phasingOutYear;
 
     private Organization firstCoFinancingAgency;
     private Organization secondCoFinancingAgency;
@@ -36,6 +36,8 @@ public class CustomFinancialTransaction extends FinancialTransaction {
     private BigMoney thirdAgencyAmount;
 
     private Category rmnch;
+    private Category recipientCode;
+    private Category recipientPriority;
 
     private String budgetCode;
     private String budgetLine;
@@ -183,5 +185,29 @@ public class CustomFinancialTransaction extends FinancialTransaction {
 
     public void setBudgetActivity(String budgetActivity) {
         this.budgetActivity = budgetActivity;
+    }
+
+    public Category getRecipientCode() {
+        return recipientCode;
+    }
+
+    public void setRecipientCode(Category recipientCode) {
+        this.recipientCode = recipientCode;
+    }
+
+    public Category getRecipientPriority() {
+        return recipientPriority;
+    }
+
+    public void setRecipientPriority(Category recipientPriority) {
+        this.recipientPriority = recipientPriority;
+    }
+
+    public LocalDateTime getPhasingOutYear() {
+        return phasingOutYear;
+    }
+
+    public void setPhasingOutYear(LocalDateTime phasingOutYear) {
+        this.phasingOutYear = phasingOutYear;
     }
 }

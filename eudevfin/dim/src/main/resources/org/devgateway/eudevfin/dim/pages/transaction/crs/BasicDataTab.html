@@ -10,25 +10,32 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
 <body>
 <wicket:panel>
+    <wicket:container wicket:id="extensionPanel3"/>
     <div class="row">
         <div class="span4">
             <div wicket:id="7recipient"/>
-            <div wicket:id="extensionPanel1"/>
+        </div>
+        <div class="span4">
+        <div wicket:id="extensionPanel1"/>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span4">
             <div wicket:id="8channelDelivery"/>
             <div wicket:id="9channelCode"/>
             <div wicket:id="10bilateralMultilateral"/>
+            <div wicket:id="11typeOfFlow"/>
         </div>
         <div class="span4">
-            <div wicket:id="11typeOfFlow"/>
             <div wicket:id="12typeOfFinance"/>
             <div wicket:id="13typeOfAid"/>
             <div wicket:id="14activityProjectTitle"/>
             <div wicket:id="15sectorPurposeCode"/>
         </div>
-        <div wicket:id="extensionPanel2"/>
-        <wicket:child/>
     </div>
-
+    <wicket:container wicket:id="extensionPanel2"/>
+    <wicket:child/>
 </wicket:panel>
 </body>
 </html>

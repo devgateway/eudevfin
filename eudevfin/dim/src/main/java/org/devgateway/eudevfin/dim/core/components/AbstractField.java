@@ -41,6 +41,7 @@ public abstract class AbstractField<T> extends Panel implements PermissionAwareC
 
     AbstractField(String id, IModel<T> model, String messageKeyGroup) {
         super(id, model);
+        this.setRenderBodyOnly(true);
 
         xPenderController = new WebMarkupContainer("xPenderController");
         prepender = new Label("prepender").setVisible(false);

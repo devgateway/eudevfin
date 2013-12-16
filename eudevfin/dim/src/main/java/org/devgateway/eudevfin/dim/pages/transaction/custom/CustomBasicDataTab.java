@@ -21,11 +21,14 @@ import org.devgateway.eudevfin.dim.core.components.TextInputField;
 import org.devgateway.eudevfin.dim.core.events.CurrencyChangedEvent;
 import org.devgateway.eudevfin.dim.core.events.CurrencyUpdateBehavior;
 import org.devgateway.eudevfin.dim.core.models.BigMoneyModel;
+import org.devgateway.eudevfin.dim.core.models.YearToLocalDateTimeModel;
 import org.devgateway.eudevfin.dim.core.temporary.SB;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.BasicDataTab;
+import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.Organization;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
+import org.joda.time.LocalDateTime;
 
 /**
  * Basic Data Tab extension for the EU-DEVFIN Form
@@ -53,12 +56,23 @@ class CustomBasicDataTab extends BasicDataTab {
         add(new Extension2("extensionPanel2", "extension2", this));
     }
 
+    @Override
+    protected void addExtensionPanel3() {
+        add(new Extension3("extensionPanel3", "extension3", this));
+    }
+
     public class Extension1 extends Fragment {
         public Extension1(String id, String markupId, MarkupContainer markupProvider) {
             super(id, markupId, markupProvider);
             DropDownField<Boolean> cpa = new DropDownField<>("7bCPA", new RWComponentPropertyModel<Boolean>("CPA"),
                     SB.boolProvider);
             add(cpa);
+
+            TextInputField<Integer> reportingYear = new TextInputField<>("7dPhasingOutYear", new YearToLocalDateTimeModel(new RWComponentPropertyModel<LocalDateTime>("phasingOutYear")));
+            reportingYear.typeInteger().required().range(1900, 2099).decorateMask("9999");
+            add(reportingYear);
+
+
         }
     }
 
@@ -135,6 +149,24 @@ class CustomBasicDataTab extends BasicDataTab {
                     new BigMoneyModel(new RWComponentPropertyModel<BigMoney>("thirdAgencyAmount"), thirdAgencyCurrencyModel));
             thirdAgencyAmount.typeBigDecimal().add(new CurrencyUpdateBehavior());
             add(thirdAgencyAmount);
+
+
+        }
+    }
+
+    public class Extension3 extends Fragment {
+        public Extension3(String id, String markupId, MarkupContainer markupProvider) {
+            super(id, markupId, markupProvider);
+
+            DropDownField<Category> recipientCode = new DropDownField<>("7aRecipientCode", new RWComponentPropertyModel<Category>("recipientCode"),
+                    SB.categoryProvider);
+            recipientCode.required();
+            add(recipientCode);
+
+            DropDownField<Category> recipientPriority = new DropDownField<>("7cPriorityStatus", new RWComponentPropertyModel<Category>("recipientPriority"),
+                    SB.categoryProvider);
+            recipientPriority.required();
+            add(recipientPriority);
 
 
         }
