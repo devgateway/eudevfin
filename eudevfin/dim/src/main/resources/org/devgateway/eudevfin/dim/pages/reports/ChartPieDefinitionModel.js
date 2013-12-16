@@ -4,8 +4,8 @@ var app = app || {};
 // Model that define a chart pie definition
 (function () {
     'use strict';
-    
-    var ChartPieDefinitionModel = Backbone.Model.extend ({
+
+    var ChartPieDefinitionModel = Backbone.Model.extend({
         defaults: function () {
             return {
                 chart: {
@@ -57,7 +57,7 @@ var app = app || {};
                         style: {
                             fontWeight: 'bold',
                             color: '#333',
-                            fontSize: '12px'    
+                            fontSize: '12px'
                         }
                     },
                     x: 0,
@@ -76,13 +76,13 @@ var app = app || {};
                     },
                     borderWidth: 1,
                     style: {
-                        padding: 10                   
+                        padding: 10
                     },
 
                     formatter: function () {
                         var value = '€' + sprintf('%d', this.y).replace(/,/g, " ");
 
-                        return '<b>' + this.point.name + '</b><br />' + value;  // + ' - ' + sprintf('%.2f', this.percentage) + '%';
+                        return '<b>' + this.point.name + '</b><br />' + value; // + ' - ' + sprintf('%.2f', this.percentage) + '%';
                     },
 
                     percentageDecimals: 2,
@@ -101,7 +101,7 @@ var app = app || {};
                             color: '#000000',
                             connectorColor: '#000000',
                             formatter: function () {
-                                return '<b>'+ this.point.name +'</b>: '+ sprintf('%.2f', this.percentage) +' %';
+                                return '<b>' + this.point.name + '</b>: ' + sprintf('%.2f', this.percentage) + ' %';
                             }
                         },
                         showInLegend: true

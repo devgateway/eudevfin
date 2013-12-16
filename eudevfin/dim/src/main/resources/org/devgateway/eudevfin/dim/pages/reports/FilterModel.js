@@ -4,8 +4,8 @@ var app = app || {};
 // Model that define a filter
 (function () {
     'use strict';
-    
-    var FilterModel = Backbone.Model.extend ({
+
+    var FilterModel = Backbone.Model.extend({
         defaults: function () {
             return {
                 name: "",
@@ -15,7 +15,7 @@ var app = app || {};
                 valueAsId: true,
                 htmlObject: "",
                 queryDefinition: {
-                    dataAccessId:  "",
+                    dataAccessId: "",
                     path: '/some/path'
                 },
                 executeAtStart: true,

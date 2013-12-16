@@ -23,10 +23,8 @@ var app = app || {};
                 chartDefinition: null,
                 htmlObject: "",
                 executeAtStart: true,
-                preExecution: function () {
-                },
-                postExecution: function () {
-                }
+                preExecution: function () {},
+                postExecution: function () {}
             };
         },
 

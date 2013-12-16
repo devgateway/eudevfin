@@ -4,18 +4,18 @@ var app = app || {};
 // Model that define a chart
 (function () {
     'use strict';
-    
-    var ChartModel = Backbone.Model.extend ({
+
+    var ChartModel = Backbone.Model.extend({
         defaults: function () {
             return {
                 name: "",
                 type: "queryComponent",
-                listeners:[],
+                listeners: [],
                 parameters: [],
                 resultvar: "",
                 executeAtStart: true,
                 queryDefinition: {
-                    dataAccessId:  "",
+                    dataAccessId: "",
                     path: '/some/path'
                 },
                 preExecution: function () {},
@@ -23,7 +23,7 @@ var app = app || {};
             };
         },
 
-        initialize: function() {
+        initialize: function () {
             //console.log("Create new Chart");
         }
 

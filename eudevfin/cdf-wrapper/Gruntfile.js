@@ -14,6 +14,7 @@ module.exports = function(grunt) {
 		jsbeautifier: {
 		    files: [
 					'src/main/webapp/js/*.js',
+					'../dim/src/main/resources/org/devgateway/eudevfin/dim/pages/reports/**/*.js',
 					'!src/main/webapp/js/cdfplugin.js', 
 					'!src/main/webapp/js/cdfplugin.min.js',
 					'!src/main/webapp/js/libs/**/*.js',
@@ -75,12 +76,10 @@ module.exports = function(grunt) {
 					module: true,
 					define: true,
 					require: true,
+					app: true,
 					Dashboards: true,
-					Mustache: true,
-					Base: true,
+					Highcharts: true,
 					AddIn: true,
-					BaseComponent: true,
-					OlapUtils: true,
 					sprintf: true,
 
 					// this are global variables for tests
@@ -103,7 +102,7 @@ module.exports = function(grunt) {
 			src: {
 				// all source files excluding libraries
 				src: [
-					'src/main/webapp/js/AddIns.js', 
+					'../dim/src/main/resources/org/devgateway/eudevfin/dim/pages/reports/**/*.js', 
 					// 'src/main/webapp/js/**/*.js', 
 					'!src/main/webapp/js/cdfplugin.js', 
 					'!src/main/webapp/js/cdfplugin.min.js',
@@ -224,7 +223,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-jsbeautifier');
 
 	// dist task
-	grunt.registerTask('dist', ['jshint:grunt', 'qunit', 'clean', 'jsbeautifier', 'concat', 'cssmin', 'uglify']);
+	grunt.registerTask('dist', ['jshint', 'qunit', 'clean', 'jsbeautifier', 'concat', 'cssmin', 'uglify']);
 
 	// Default task
 	grunt.registerTask('default', ['jshint:grunt', 'concat', 'cssmin']);

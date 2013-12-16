@@ -17,7 +17,11 @@ $(document).ready(function () {
 
     Highcharts.getOptions().colors = $.map(Highcharts.getOptions().colors, function (color) {
         return {
-            radialGradient: { cx: 0.5, cy: 0.3, r: 0.7 },
+            radialGradient: {
+                cx: 0.5,
+                cy: 0.3,
+                r: 0.7
+            },
             stops: [
                 [0, color],
                 [1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
@@ -40,7 +44,7 @@ var pieChart,
     stackedBarChartQuery,
     stackedBarQueryResult,
 
-pieChartDefinition = new app.ChartPieDefinitionModel();
+    pieChartDefinition = new app.ChartPieDefinitionModel();
 pieChartDefinition.get('chart').renderTo = 'pie-chart';
 pieChartDefinition.get('plotOptions').series.events.click = function (event) {
     setTimeout(function () {
@@ -122,7 +126,7 @@ columnChartQuery = new app.ChartModel({
                     name: columnQueryResult[i][1],
                     y: Math.floor(Math.random() * 1000),
                     // y: parseInt(columnQueryResult[i][2], 10), 
-                    color: colors[i % len]      // access colors array in a circular manner
+                    color: colors[i % len] // access colors array in a circular manner
                 });
             }
         }

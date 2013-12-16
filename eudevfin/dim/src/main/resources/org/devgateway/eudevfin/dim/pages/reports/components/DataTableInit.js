@@ -7,27 +7,26 @@
  */
 
 function initDataTable(parametersJson) {
-	var table = new app.TableModel(_.extend(parametersJson, {
-		preChange : function(value) {
-			return value;
-		},
+    var table = new app.TableModel(_.extend(parametersJson, {
+        preChange: function (value) {
+            return value;
+        },
 
-		postFetch : function(values) {
-			//console.log(values);
-			return values;
-		},
+        postFetch: function (values) {
+            //console.log(values);
+            return values;
+        },
 
-		preExecution : function() {
-			return undefined;
-		},
+        preExecution: function () {
+            return undefined;
+        },
 
-		postExecution : function() {
-		}
-	}));
+        postExecution: function () {}
+    }));
 
-	table = table.toJSON();
+    table = table.toJSON();
 
-	Dashboards.addComponent(table);
+    Dashboards.addComponent(table);
 
-	Dashboards.update(table);
+    Dashboards.update(table);
 }

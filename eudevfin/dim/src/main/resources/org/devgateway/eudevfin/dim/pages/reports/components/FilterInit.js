@@ -8,7 +8,7 @@
 
 // TODO: onChange event is not working!
 var sectorListParameter,
-	organizationListParameter;
+    organizationListParameter;
 
 function initFilter(filterId, dataAccessId, parameter) {
     var filter = new app.FilterModel({
@@ -25,14 +25,12 @@ function initFilter(filterId, dataAccessId, parameter) {
         preExecution: function () {
             return undefined;
         },
-        postExecution: function () {
-        }
+        postExecution: function () {}
     });
-    
+
     filter = filter.toJSON();
-    
+
     Dashboards.addComponent(filter);
-    
+
     Dashboards.update(filter);
 }
-

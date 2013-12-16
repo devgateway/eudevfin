@@ -4,8 +4,8 @@ var app = app || {};
 // Model that define a stacked bar definition
 (function () {
     'use strict';
-    
-    var StackedBarDefinitionModel = Backbone.Model.extend ({
+
+    var StackedBarDefinitionModel = Backbone.Model.extend({
         defaults: function () {
             return {
                 chart: {
@@ -35,7 +35,7 @@ var app = app || {};
                 series: [{
                     name: 'John',
                     data: [5, 3, 4, 7, 2]
-                    }, {
+                }, {
                     name: 'Jane',
                     data: [2, 2, 3, 2, 1]
                 }, {

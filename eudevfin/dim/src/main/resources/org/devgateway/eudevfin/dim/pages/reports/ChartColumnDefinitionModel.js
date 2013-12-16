@@ -4,8 +4,8 @@ var app = app || {};
 // Model that define a chart column definition
 (function () {
     'use strict';
-    
-    var ChartColumnDefinitionModel = Backbone.Model.extend ({
+
+    var ChartColumnDefinitionModel = Backbone.Model.extend({
         defaults: function () {
             return {
                 chart: {
@@ -90,7 +90,7 @@ var app = app || {};
                             color: '#000000',
                             connectorColor: '#000000',
                             formatter: function () {
-                                return '<b>'+ this.point.name +'</b>: '+ sprintf('%.2f', this.percentage) +' %';
+                                return '<b>' + this.point.name + '</b>: ' + sprintf('%.2f', this.percentage) + ' %';
                             }
                         },
                         showInLegend: true
