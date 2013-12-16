@@ -17,7 +17,6 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.dim.core.permissions.RoleActionMapping;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.TransactionPage;
-import org.devgateway.eudevfin.dim.pages.transaction.crs.VolumeDataTab;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.wicketstuff.annotation.mount.MountPath;
@@ -41,7 +40,7 @@ public class CustomTransactionPage extends TransactionPage {
         tabList.add(CustomIdentificationDataTab.class);
         tabList.add(CustomBasicDataTab.class);
         tabList.add(CustomSupplementaryDataTab.class);
-        tabList.add(VolumeDataTab.class);
+        tabList.add(CustomVolumeDataTab.class);
         tabList.add(CustomForLoansOnlyTab.class);
         return tabList;
     }

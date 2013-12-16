@@ -37,6 +37,10 @@ public class CustomFinancialTransaction extends FinancialTransaction {
 
     private Category rmnch;
 
+    private String budgetCode;
+    private String budgetLine;
+    private String budgetActivity;
+
     public LocalDateTime getDataAsPerDate() {
         return dataAsPerDate;
     }
@@ -155,5 +159,29 @@ public class CustomFinancialTransaction extends FinancialTransaction {
 
     public void setRmnch(Category rmnch) {
         this.rmnch = rmnch;
+    }
+
+    public String getBudgetCode() {
+        return budgetCode;
+    }
+
+    public void setBudgetCode(String budgetCode) {
+        this.budgetCode = budgetCode;
+    }
+
+    public String getBudgetLine() {
+        return budgetLine;
+    }
+
+    public void setBudgetLine(String budgetLine) {
+        this.budgetLine = budgetLine;
+    }
+
+    public String getBudgetActivity() {
+        return budgetActivity;
+    }
+
+    public void setBudgetActivity(String budgetActivity) {
+        this.budgetActivity = budgetActivity;
     }
 }
