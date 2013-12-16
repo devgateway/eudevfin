@@ -8,6 +8,8 @@
 
 package org.devgateway.eudevfin.dim.core.components.tabs;
 
+import java.util.List;
+
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.ComponentTag;
@@ -20,8 +22,6 @@ import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.devgateway.eudevfin.dim.core.components.PermissionAwareLabel;
-
-import java.util.List;
 
 /**
  * @author aartimon@developmentgateway.org

@@ -11,12 +11,13 @@
 
 package org.devgateway.eudevfin.dim.core.components;
 
-import com.vaynberg.wicket.select2.ChoiceProvider;
-import com.vaynberg.wicket.select2.Select2MultiChoice;
+import java.util.Collection;
+
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.model.IModel;
 
-import java.util.Collection;
+import com.vaynberg.wicket.select2.ChoiceProvider;
+import com.vaynberg.wicket.select2.Select2MultiChoice;
 
 /**
  * @author aartimon@developmentgateway.org

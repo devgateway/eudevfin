@@ -8,13 +8,13 @@
 
 package org.devgateway.eudevfin.dim.core.models;
 
+import java.math.BigDecimal;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.model.IComponentAssignedModel;
 import org.apache.wicket.model.IWrapModel;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
-
-import java.math.BigDecimal;
 
 /**
  * @author aartimon

@@ -12,13 +12,13 @@ import org.apache.wicket.authroles.authorization.strategies.role.annotations.Aut
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
-import org.devgateway.eudevfin.dim.core.Constants;
+import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.dim.core.pages.HeaderFooter;
 import org.devgateway.eudevfin.dim.pages.reports.components.DataTable;
 import org.wicketstuff.annotation.mount.MountPath;
 
 @MountPath(value = "/reports")
-@AuthorizeInstantiation(Constants.ROLE_USER)
+@AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
 public class ReportsPage extends HeaderFooter {
 
     public ReportsPage() {

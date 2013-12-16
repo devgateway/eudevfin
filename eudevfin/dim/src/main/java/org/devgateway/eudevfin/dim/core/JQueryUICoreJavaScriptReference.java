@@ -11,13 +11,15 @@
 
 package org.devgateway.eudevfin.dim.core;
 
-import com.google.common.collect.Lists;
-import de.agilecoders.wicket.webjars.request.resource.WebjarsJavaScriptResourceReference;
+import java.util.List;
+
 import org.apache.wicket.Application;
 import org.apache.wicket.markup.head.HeaderItem;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 
-import java.util.List;
+import com.google.common.collect.Lists;
+
+import de.agilecoders.wicket.webjars.request.resource.WebjarsJavaScriptResourceReference;
 
 /**
  * core jquery ui package (core, widget, mouse, position, draggable, resizeable)

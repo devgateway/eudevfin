@@ -8,14 +8,14 @@
 
 package org.devgateway.eudevfin.dim.core.components.tabs;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.StringResourceModel;
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 
 /**
  * Class that builds an {@link AbstractTabWithKey} wrapped around a given {@link Panel} that has to implement {@link ITabWithKey}

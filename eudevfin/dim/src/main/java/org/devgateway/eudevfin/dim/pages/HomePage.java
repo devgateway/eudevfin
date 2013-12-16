@@ -17,7 +17,7 @@ import java.util.List;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.devgateway.eudevfin.dim.core.Constants;
+import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.dim.core.components.tabs.BootstrapJSTabbedPanel;
 import org.devgateway.eudevfin.dim.core.components.tabs.ITabWithKey;
 import org.devgateway.eudevfin.dim.core.pages.HeaderFooter;
@@ -34,7 +34,7 @@ import org.joda.money.BigMoney;
 import org.wicketstuff.annotation.mount.MountPath;
 
 @MountPath(value = "/home")
-@AuthorizeInstantiation(Constants.ROLE_USER)
+@AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
 public class HomePage extends HeaderFooter {
 	
 	private static final String DESKTOP_LAST_TX_BY_TRANSPORT = "desktop.lastTxByTransport";

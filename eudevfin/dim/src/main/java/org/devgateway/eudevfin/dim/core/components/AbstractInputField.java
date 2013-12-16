@@ -8,11 +8,12 @@
 
 package org.devgateway.eudevfin.dim.core.components;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.StringResourceModel;
+
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
 
 
 public abstract class AbstractInputField<T> extends AbstractField<T> {

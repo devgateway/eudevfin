@@ -8,19 +8,19 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.custom;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.devgateway.eudevfin.dim.core.Constants;
+import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.dim.core.permissions.RoleActionMapping;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.TransactionPage;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.VolumeDataTab;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.wicketstuff.annotation.mount.MountPath;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * Custom Transaction Page for the EU-DEVFIN Form, extends the CRS Form with extended tabs and permissions
@@ -30,7 +30,7 @@ import java.util.List;
  * @since 11/12/13
  */
 @MountPath(value = "/custom")
-@AuthorizeInstantiation(Constants.ROLE_USER)
+@AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
 public class CustomTransactionPage extends TransactionPage {
 
     private static final CustomTransactionPermissionProvider permissions = new CustomTransactionPermissionProvider();

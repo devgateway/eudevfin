@@ -8,6 +8,10 @@
 
 package org.devgateway.eudevfin.dim.core.permissions;
 
+import java.util.HashMap;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.authorization.Action;
@@ -16,9 +20,6 @@ import org.apache.wicket.request.component.IRequestableComponent;
 import org.devgateway.eudevfin.dim.core.Constants;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
 
 /**
  * Implements an authorization strategy that works with the permission scheme

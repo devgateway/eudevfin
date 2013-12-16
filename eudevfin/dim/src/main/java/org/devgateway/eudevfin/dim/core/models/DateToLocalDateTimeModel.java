@@ -8,10 +8,10 @@
 
 package org.devgateway.eudevfin.dim.core.models;
 
+import java.util.Date;
+
 import org.apache.wicket.model.IWrapModel;
 import org.joda.time.LocalDateTime;
-
-import java.util.Date;
 
 /**
  * Wrapper model of {@link LocalDateTime} that gets the input from a {@link Date} field

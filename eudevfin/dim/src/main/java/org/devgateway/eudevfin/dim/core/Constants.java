@@ -16,9 +16,6 @@ package org.devgateway.eudevfin.dim.core;
  * @since 18 October 2013
  */
 public class Constants {
-    public static final String ROLE_USER = "ROLE_USER";
-    public static final String ROLE_SUPERVISOR = "ROLE_SUPERVISOR";
-
     public static final String TRANSACTION_TYPE = "transactionType";
 
     public static final String ACTION_RENDER = "ACTION_RENDER";

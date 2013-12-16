@@ -8,7 +8,10 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.ControlGroup;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -21,7 +24,7 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
-import org.devgateway.eudevfin.dim.core.Constants;
+import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.dim.core.components.tabs.BootstrapJSTabbedPanel;
 import org.devgateway.eudevfin.dim.core.components.tabs.DefaultTabWithKey;
 import org.devgateway.eudevfin.dim.core.components.tabs.ITabWithKey;
@@ -32,12 +35,10 @@ import org.devgateway.eudevfin.dim.core.temporary.SB;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.wicketstuff.annotation.mount.MountPath;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.ControlGroup;
 
 @MountPath(value = "/transaction")
-@AuthorizeInstantiation(Constants.ROLE_USER)
+@AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
 public class TransactionPage extends HeaderFooter implements PermissionAwarePage {
     private static final Logger logger = Logger.getLogger(TransactionPage.class);
 

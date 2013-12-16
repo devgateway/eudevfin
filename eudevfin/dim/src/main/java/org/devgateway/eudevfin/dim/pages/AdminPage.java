@@ -12,7 +12,7 @@
 package org.devgateway.eudevfin.dim.pages;
 
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
-import org.devgateway.eudevfin.dim.core.Constants;
+import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.dim.core.pages.HeaderFooter;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -20,7 +20,7 @@ import org.wicketstuff.annotation.mount.MountPath;
  * @author aartimon@developmentgateway.org
  * @since 18 October 2013
  */
-@AuthorizeInstantiation(Constants.ROLE_SUPERVISOR)
+@AuthorizeInstantiation(AuthConstants.Roles.ROLE_SUPERVISOR)
 @MountPath(value = "/admin")
 public class AdminPage extends HeaderFooter {
 }

@@ -8,6 +8,8 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
+import java.math.BigDecimal;
+
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.event.Broadcast;
@@ -23,8 +25,6 @@ import org.devgateway.eudevfin.dim.core.permissions.PermissionAwareComponent;
 import org.devgateway.eudevfin.dim.core.temporary.SB;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
-
-import java.math.BigDecimal;
 
 /**
  * @author aartimon@developmentgateway.org

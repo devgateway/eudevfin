@@ -8,11 +8,11 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
+import java.util.HashMap;
+
 import org.devgateway.eudevfin.dim.core.permissions.PermissionProvider;
 import org.devgateway.eudevfin.dim.core.permissions.RoleActionMapping;
 import org.devgateway.eudevfin.dim.core.temporary.SB;
-
-import java.util.HashMap;
 
 /**
  * Basic class that will be used to get the permissions

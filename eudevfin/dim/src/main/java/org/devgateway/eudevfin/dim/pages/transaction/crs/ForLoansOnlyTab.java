@@ -8,6 +8,8 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
+import java.math.BigDecimal;
+
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.ComponentPropertyModel;
 import org.devgateway.eudevfin.dim.core.RWComponentPropertyModel;
@@ -23,8 +25,6 @@ import org.devgateway.eudevfin.financial.Category;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 import org.joda.time.LocalDateTime;
-
-import java.math.BigDecimal;
 
 /**
  * @author aartimon@developmentgateway.org
