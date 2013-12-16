@@ -8,8 +8,8 @@
 
 package org.devgateway.eudevfin.dim.core.components;
 
-import java.math.BigDecimal;
-
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
+import de.agilecoders.wicket.extensions.javascript.jasny.InputMaskBehavior;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
@@ -17,7 +17,8 @@ import org.apache.wicket.validation.IValidator;
 import org.apache.wicket.validation.validator.EmailAddressValidator;
 import org.apache.wicket.validation.validator.RangeValidator;
 
-import de.agilecoders.wicket.extensions.javascript.jasny.InputMaskBehavior;
+import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * <p>Creates an input field with attached label and placeholder, see constructor for more info</p>
@@ -105,6 +106,23 @@ public class TextInputField<T> extends AbstractInputField<T> {
         if (!field.getType().isAssignableFrom(Integer.class))
             throw new RuntimeException("Please use the typeInteger() method to set the type, or range validator won't work!");
         field.add(RangeValidator.range(min, max));
+        return this;
+    }
+
+    @Override
+    public TextInputField<T> hideLabel() {
+        super.hideLabel();
+        return this;
+    }
+
+    public TextInputField<T> setSize(InputBehavior.Size size) {
+        List<InputBehavior> list = field.getBehaviors(InputBehavior.class);
+        if (list.size() != 1)
+            throw new AssertionError("an InputBehavior must be attached to current field!");
+
+        for (InputBehavior b : list)
+            b.size(size);
+
         return this;
     }
 }

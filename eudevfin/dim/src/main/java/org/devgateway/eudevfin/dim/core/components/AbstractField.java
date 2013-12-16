@@ -8,6 +8,7 @@
 
 package org.devgateway.eudevfin.dim.core.components;
 
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.ControlGroup;
 import org.apache.wicket.Component;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -20,9 +21,8 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
+import org.devgateway.eudevfin.dim.core.models.ProxyModel;
 import org.devgateway.eudevfin.dim.core.permissions.PermissionAwareComponent;
-
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.ControlGroup;
 
 /**
  * @author aartimon@developmentgateway.org
@@ -30,7 +30,7 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.form.ControlGroup;
  */
 public abstract class AbstractField<T> extends Panel implements PermissionAwareComponent {
     private static final long serialVersionUID = -5883044564199075156L;
-    private final StringResourceModel labelText;
+    private ProxyModel<String> labelText;
 
     final Component prepender;
     private final Component appender;
@@ -48,7 +48,7 @@ public abstract class AbstractField<T> extends Panel implements PermissionAwareC
         appender = new Label("appender").setVisible(false);
 
         //for label text we don't set a default value, this is mandatory for now
-        labelText = new StringResourceModel(messageKeyGroup + ".label", this, null);
+        labelText = new ProxyModel<String>(new StringResourceModel(messageKeyGroup + ".label", this, null));
 
         //if the help text is not found an empty String is going to be used
         StringResourceModel helpText = new StringResourceModel(messageKeyGroup + ".help", this, null, "");
@@ -112,6 +112,11 @@ public abstract class AbstractField<T> extends Panel implements PermissionAwareC
 
     AbstractField<T> required() {
         field.setRequired(true);
+        return this;
+    }
+
+    AbstractField<T> hideLabel() {
+        labelText.replaceModel(Model.of(""));
         return this;
     }
 

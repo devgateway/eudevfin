@@ -8,15 +8,16 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.custom;
 
-import java.math.BigDecimal;
-
 import org.apache.wicket.model.ComponentPropertyModel;
 import org.devgateway.eudevfin.dim.core.RWComponentPropertyModel;
 import org.devgateway.eudevfin.dim.core.components.TextInputField;
+import org.devgateway.eudevfin.dim.core.events.CurrencyUpdateBehavior;
 import org.devgateway.eudevfin.dim.core.models.BigMoneyModel;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.ForLoansOnlyTab;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
+
+import java.math.BigDecimal;
 
 /**
  * For Loans Only Tab extension for the EU-DEVFIN Form
@@ -39,12 +40,12 @@ class CustomForLoansOnlyTab extends ForLoansOnlyTab {
 
         TextInputField<BigDecimal> futureDebtPrincipal = new TextInputField<>("54futureDebtPrincipal",
                 new BigMoneyModel(new RWComponentPropertyModel<BigMoney>("futureDebtPrincipal"), readOnlyCurrencyModel));
-        futureDebtPrincipal.typeInteger();
+        futureDebtPrincipal.typeBigDecimal().add(new CurrencyUpdateBehavior());
         add(futureDebtPrincipal);
 
         TextInputField<BigDecimal> futureDebtInterest = new TextInputField<>("54futureDebtInterest",
                 new BigMoneyModel(new RWComponentPropertyModel<BigMoney>("futureDebtInterest"), readOnlyCurrencyModel));
-        futureDebtInterest.typeInteger();
+        futureDebtInterest.typeBigDecimal().add(new CurrencyUpdateBehavior());
         add(futureDebtInterest);
     }
 }

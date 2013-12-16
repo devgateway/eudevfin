@@ -23,4 +23,15 @@
     <entry key="34dBudgetActivity.placeholder"></entry>
     <entry key="34dBudgetActivity.help">TODO: edit help text</entry>
 
+    <entry key="table.currentYear">Current Year</entry>
+    <entry key="table.currentYearP1">Current Year + 1</entry>
+    <entry key="table.currentYearP2">Current Year + 2</entry>
+    <entry key="table.currentYearP3">Current Year + 3</entry>
+    <entry key="table.currentYearP4">Current Year + 4</entry>
+    <entry key="table.budgetMtef">Budget/MTEF</entry>
+    <entry key="table.disbursement">Disbursement</entry>
+    <entry key="table.code">Code</entry>
+    <entry key="table.line">Line</entry>
+    <entry key="table.activity">Activity</entry>
+
 </properties>
