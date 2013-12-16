@@ -16,7 +16,9 @@
  * but this is a risky operation which considerable implications. Use at your own risk!
  *
  */
+;
 (function () {
+
     var BaseQuery = Base.extend({
         name: "baseQuery",
         label: "Base Query",
@@ -79,17 +81,17 @@
                 myself.setOption('lastResultSet', json);
                 var clone = $.extend(true, {}, myself.getOption('lastResultSet'));
                 callback(clone);
-            };
+            }
         },
         getErrorHandler: function (callback) {
             return function (resp, txtStatus, error) {
                 if (callback) {
                     callback(resp, txtStatus, error);
                 }
-            };
+            }
         },
         doQuery: function (outsideCallback) {
-            if (typeof this.getOption('successCallback') !== 'function') {
+            if (typeof this.getOption('successCallback') != 'function') {
                 throw 'QueryNotInitialized';
             }
             var url = this.getOption('url'),
@@ -126,7 +128,7 @@
                 }
                 break;
             case 1:
-                if (typeof arguments[0] === "function") {
+                if (typeof arguments[0] == "function") {
                     /* If we're receiving _only_ the callback, we're not
                      * going to change the internal callback
                      */
@@ -138,7 +140,7 @@
                 }
                 break;
             case 2:
-                if (typeof arguments[0] === "function") {
+                if (typeof arguments[0] == "function") {
                     this.setOption('successCallback', arguments[0]);
                     this.setOption('errorCallback', arguments[1]);
                     return this.doQuery();
@@ -238,9 +240,9 @@
         getPage: function (targetPage, outsideCallback) {
             var page = this.getOption('page'),
                 pageSize = this.getOption('pageSize');
-            if (targetPage * pageSize === page) {
+            if (targetPage * pageSize == page) {
                 return false;
-            } else if (typeof targetPage === 'number' && targetPage >= 0) {
+            } else if (typeof targetPage == 'number' && targetPage >= 0) {
                 this.setOption('page', targetPage * pageSize);
                 return this.doQuery(outsideCallback);
             } else {
@@ -250,9 +252,9 @@
 
         // Gets pageSize results starting at page
         setPageStartingAt: function (targetPage) {
-            if (targetPage === this.getOption('page')) {
+            if (targetPage == this.getOption('page')) {
                 return false;
-            } else if (typeof targetPage === 'number' && targetPage >= 0) {
+            } else if (typeof targetPage == 'number' && targetPage >= 0) {
                 this.setOption('page', targetPage);
             } else {
                 throw "InvalidPage";
@@ -274,9 +276,9 @@
 
         // sets _pageSize to pageSize, and gets the first page of results
         initPage: function (pageSize, outsideCallback) {
-            if (pageSize === this.getOption('pageSize') && this.getOption('page') === 0) {
+            if (pageSize == this.getOption('pageSize') && this.getOption('page') == 0) {
                 return false;
-            } else if (typeof pageSize === 'number' && pageSize > 0) {
+            } else if (typeof pageSize == 'number' && pageSize > 0) {
                 this.setOption('page', 0);
                 this.setOption('pageSize', pageSize);
                 return this.doQuery(outsideCallback);
@@ -288,6 +290,63 @@
     // Sets the query class that can extended to create new ones. 
     // The registered Base needs to have an extend method.
     Dashboards.setBaseQuery(BaseQuery);
+
+
+    var CpkEndpoints = BaseQuery.extend({
+        name: "cpk",
+        label: "CPK",
+        defaults: {
+            baseUrl: Dashboards.getWebAppPath() + '/content',
+            pluginId: '',
+            endpoint: '',
+            systemParams: {},
+            ajaxOptions: {
+                dataType: 'json',
+                type: 'POST',
+                async: true
+            }
+        },
+
+        init: function (opts) {
+            if (_.isString(opts.pluginId) && _.isString(opts.endpoint)) {
+                this.setOption('pluginId', opts.pluginId);
+                this.setOption('endpoint', opts.endpoint);
+                var urlArray = [this.getOption('baseUrl'), this.getOption('pluginId'), this.getOption('endpoint')],
+                    url = urlArray.join('/');
+                this.setOption('url', url);
+            }
+        },
+
+        buildQueryDefinition: function (overrides) {
+            overrides = (overrides instanceof Array) ? Dashboards.propertiesArrayToObject(overrides) : (overrides || {});
+            var queryDefinition = this.getOption('systemParams');
+
+            var cachedParams = this.getOption('params'),
+                params = $.extend({}, cachedParams, overrides);
+
+            _.each(params, function (value, name) {
+                value = Dashboards.getParameterValue(value);
+                if ($.isArray(value) && value.length == 1 && ('' + value[0]).indexOf(';') >= 0) {
+                    //special case where single element will wrongly be treated as a parseable array by cda
+                    value = doCsvQuoting(value[0], ';');
+                }
+                //else will not be correctly handled for functions that return arrays
+                if (typeof value == 'function') {
+                    value = value();
+                }
+                queryDefinition['param' + name] = value;
+            });
+
+            return queryDefinition;
+        }
+
+        /*
+         * Public interface
+         */
+    });
+    // Registering a class will use that class directly when getting new queries.
+    Dashboards.registerQuery("cpk", CpkEndpoints);
+
 
     var cdaQueryOpts = {
         name: 'cda',
@@ -303,17 +362,17 @@
         },
 
         init: function (opts) {
-            if (typeof opts.path !== 'undefined' && typeof opts.dataAccessId !== 'undefined') {
+            if (typeof opts.path != 'undefined' && typeof opts.dataAccessId != 'undefined') {
                 // CDA-style cd object
                 this.setOption('file', opts.path);
                 this.setOption('id', opts.dataAccessId);
-                if (typeof opts.sortBy === 'string' && opts.sortBy.match("^(?:[0-9]+[adAD]?,?)*$")) {
+                if (typeof opts.sortBy == 'string' && opts.sortBy.match("^(?:[0-9]+[adAD]?,?)*$")) {
                     this.setOption('sortBy', opts.sortBy);
                 }
-                if (opts.pageSize !== null) {
+                if (opts.pageSize != null) {
                     this.setOption('pageSize', opts.pageSize);
                 }
-                if (opts.outputIndexId !== null) {
+                if (opts.outputIndexId != null) {
                     this.setOption('outputIdx', opts.outputIndexId);
                 }
             } else {
@@ -330,12 +389,12 @@
 
             _.each(params, function (value, name) {
                 value = Dashboards.getParameterValue(value);
-                if ($.isArray(value) && value.length === 1 && ('' + value[0]).indexOf(';') >= 0) {
+                if ($.isArray(value) && value.length == 1 && ('' + value[0]).indexOf(';') >= 0) {
                     //special case where single element will wrongly be treated as a parseable array by cda
                     value = doCsvQuoting(value[0], ';');
                 }
                 //else will not be correctly handled for functions that return arrays
-                if (typeof value === 'function') {
+                if (typeof value == 'function') {
                     value = value();
                 }
                 queryDefinition['param' + name] = value;
@@ -360,22 +419,22 @@
             }
             var queryDefinition = this.buildQueryDefinition(overrides);
             queryDefinition.outputType = outputType;
-            if (outputType === 'csv' && options.separator) {
+            if (outputType == 'csv' && options.separator) {
                 queryDefinition.settingcsvSeparator = options.separator;
             }
             if (options.filename) {
                 queryDefinition.settingattachmentName = options.filename;
             }
-            if (outputType === 'xls' && options.template) {
+            if (outputType == 'xls' && options.template) {
                 queryDefinition.settingtemplateName = options.template;
             }
             if (options.columnHeaders) {
                 queryDefinition.settingcolumnHeaders = options.columnHeaders;
             }
 
-            if (options.dtFilter !== null) {
+            if (options.dtFilter != null) {
                 queryDefinition.settingdtFilter = options.dtFilter;
-                if (options.dtSearchableColumns !== null) {
+                if (options.dtSearchableColumns != null) {
                     queryDefinition.settingdtSearchableColumns = options.dtSearchableColumns;
                 }
             }
@@ -423,7 +482,7 @@
              * type, we need to convert everything to upper case, since want
              * to accept 'a' and 'd' even though CDA demands capitals.
              */
-            else if (typeof sortBy === "string") {
+            else if (typeof sortBy == "string") {
                 /* Valid sortBy Strings are column numbers, optionally
                  * succeeded by A or D (ascending or descending), and separated by commas
                  */
@@ -440,7 +499,7 @@
                 });
                 /* We also need to validate that each individual term is valid */
                 var invalidEntries = newSort.filter(function (e) {
-                    return !e.match("^[0-9]+[adAD]?,?$");
+                    return !e.match("^[0-9]+[adAD]?,?$")
                 });
                 if (invalidEntries.length > 0) {
                     throw "InvalidSortExpression";
@@ -452,9 +511,9 @@
              */
             var same;
             if (newSort instanceof Array) {
-                same = newSort.length !== myself.getOption('sortBy').length;
+                same = newSort.length != myself.getOption('sortBy').length;
                 $.each(newSort, function (i, d) {
-                    same = (same && d === myself.getOption('sortBy')[i]);
+                    same = (same && d == myself.getOption('sortBy')[i]);
                     if (!same) {
                         return false;
                     }
@@ -481,4 +540,78 @@
     // Registering an object will use it to create a class by extending Dashboards.BaseQuery, 
     // and use that class to generate new queries.
     Dashboards.registerQuery("cda", cdaQueryOpts);
+
+
+    function makeMetadataElement(idx, name, type) {
+        return {
+            "colIndex": idx || 0,
+            "colType": type || "String",
+            "colName": name || "Name"
+        }
+    }
+
+    var legacyOpts = {
+        name: "legacy",
+        label: "Legacy",
+        defaults: {
+            url: webAppPath + "/ViewAction?solution=system&path=pentaho-cdf/actions&action=jtable.xaction",
+            queryDef: {}
+        },
+        interfaces: {
+            lastResultSet: {
+                reader: function (json) {
+                    json = eval("(" + json + ")");
+                    var result = {
+                        metadata: [makeMetadataElement(0)],
+                        resultset: json.values || []
+                    };
+                    _.each(json.metadata, function (el, idx) {
+                        return result.metadata.push(makeMetadataElement(idx + 1, el));
+                    });
+                    return result
+                }
+            }
+        },
+
+        init: function (opts) {
+            this.setOption('queryDef', opts);
+        },
+
+        getSuccessHandler: function (callback) {
+            var myself = this;
+            return function (json) {
+                try {
+                    myself.setOption('lastResultSet', json);
+                } catch (e) {
+                    if (this.async) {
+                        // async + legacy errors while parsing json response aren't caught
+                        var msg = Dashboards.getErrorObj('COMPONENT_ERROR').msg + ":" + e.message;
+                        Dashboards.error(msg);
+                        json = {
+                            "metadata": [msg],
+                            "values": []
+                        };
+                    } else {
+                        //exceptions while parsing json response are 
+                        //already being caught+handled in updateLifecyle()  
+                        throw e;
+                    }
+                }
+                var clone = $.extend(true, {}, myself.getOption('lastResultSet'));
+                callback(clone);
+            }
+        },
+
+        //TODO: is this enough?
+        buildQueryDefinition: function (overrides) {
+            return _.extend({}, this.getOption('queryDef'), overrides);
+        }
+
+    };
+    Dashboards.registerQuery("legacy", legacyOpts);
+
+    // TODO: Temporary until CDE knows how to write queryTypes definitions, with all these old queries 
+    // falling under the 'legacy' umbrella.
+    Dashboards.registerQuery("mdx", legacyOpts);
+    Dashboards.registerQuery("sql", legacyOpts);
 })();
