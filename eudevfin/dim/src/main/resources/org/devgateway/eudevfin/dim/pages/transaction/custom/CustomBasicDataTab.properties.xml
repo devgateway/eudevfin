@@ -69,5 +69,12 @@
     <entry key="14j3rdAgencyCurrency.placeholder"></entry>
     <entry key="14j3rdAgencyCurrency.help">TODO: edit help text</entry>
 
+    <entry key="14table.name">Name</entry>
+    <entry key="14table.amount">Amount</entry>
+    <entry key="14table.currency">Currency</entry>
+    <entry key="14table.cofinancingAgency">Co-financing Agency</entry>
+    <entry key="14table.1stAgency">1st Agency</entry>
+    <entry key="14table.2ndAgency">2nd Agency</entry>
+    <entry key="14table.3rdAgency">3rd Agency</entry>
 
 </properties>

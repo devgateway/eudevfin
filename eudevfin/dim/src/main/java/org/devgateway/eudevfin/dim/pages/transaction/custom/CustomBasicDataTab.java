@@ -8,8 +8,7 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.custom;
 
-import java.math.BigDecimal;
-
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.event.Broadcast;
@@ -29,6 +28,8 @@ import org.devgateway.eudevfin.financial.Organization;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 import org.joda.time.LocalDateTime;
+
+import java.math.BigDecimal;
 
 /**
  * Basic Data Tab extension for the EU-DEVFIN Form
@@ -90,14 +91,17 @@ class CustomBasicDataTab extends BasicDataTab {
 
             DropDownField<Organization> firstCoFinancingAgency = new DropDownField<>("14b1stAgency",
                     new RWComponentPropertyModel<Organization>("firstCoFinancingAgency"), SB.organizationProvider);
+            firstCoFinancingAgency.hideLabel().setSize(InputBehavior.Size.Small);
             add(firstCoFinancingAgency);
 
             DropDownField<Organization> secondCoFinancingAgency = new DropDownField<>("14e2ndAgency",
                     new RWComponentPropertyModel<Organization>("secondCoFinancingAgency"), SB.organizationProvider);
+            secondCoFinancingAgency.hideLabel().setSize(InputBehavior.Size.Small);
             add(secondCoFinancingAgency);
 
             DropDownField<Organization> thirdCoFinancingAgency = new DropDownField<>("14h3rdAgency",
                     new RWComponentPropertyModel<Organization>("thirdCoFinancingAgency"), SB.organizationProvider);
+            thirdCoFinancingAgency.hideLabel().setSize(InputBehavior.Size.Small);
             add(thirdCoFinancingAgency);
 
             RWComponentPropertyModel<CurrencyUnit> firstAgencyCurrencyModel = new RWComponentPropertyModel<>("firstAgencyCurrency");
@@ -108,12 +112,12 @@ class CustomBasicDataTab extends BasicDataTab {
                     send(CustomBasicDataTab.this, Broadcast.DEPTH, new CurrencyChangedEvent(target));
                 }
             };
-            firstAgencyCurrency.required();
+            firstAgencyCurrency.hideLabel().setSize(InputBehavior.Size.Small).required();
             add(firstAgencyCurrency);
 
             TextInputField<BigDecimal> firstAgencyAmount = new TextInputField<>("14c1stAgencyAmount",
                     new BigMoneyModel(new RWComponentPropertyModel<BigMoney>("firstAgencyAmount"), firstAgencyCurrencyModel));
-            firstAgencyAmount.typeBigDecimal().add(new CurrencyUpdateBehavior());
+            firstAgencyAmount.typeBigDecimal().hideLabel().setSize(InputBehavior.Size.Small).add(new CurrencyUpdateBehavior());
             add(firstAgencyAmount);
 
 
@@ -125,12 +129,12 @@ class CustomBasicDataTab extends BasicDataTab {
                     send(CustomBasicDataTab.this, Broadcast.DEPTH, new CurrencyChangedEvent(target));
                 }
             };
-            secondAgencyCurrency.required();
+            secondAgencyCurrency.hideLabel().setSize(InputBehavior.Size.Small).required();
             add(secondAgencyCurrency);
 
             TextInputField<BigDecimal> secondAgencyAmount = new TextInputField<>("14f2ndAgencyAmount",
                     new BigMoneyModel(new RWComponentPropertyModel<BigMoney>("secondAgencyAmount"), secondAgencyCurrencyModel));
-            secondAgencyAmount.typeBigDecimal().add(new CurrencyUpdateBehavior());
+            secondAgencyAmount.typeBigDecimal().hideLabel().setSize(InputBehavior.Size.Small).add(new CurrencyUpdateBehavior());
             add(secondAgencyAmount);
 
 
@@ -142,12 +146,12 @@ class CustomBasicDataTab extends BasicDataTab {
                     send(CustomBasicDataTab.this, Broadcast.DEPTH, new CurrencyChangedEvent(target));
                 }
             };
-            thirdAgencyCurrency.required();
+            thirdAgencyCurrency.hideLabel().setSize(InputBehavior.Size.Small).required();
             add(thirdAgencyCurrency);
 
             TextInputField<BigDecimal> thirdAgencyAmount = new TextInputField<>("14i3rdAgencyAmount",
                     new BigMoneyModel(new RWComponentPropertyModel<BigMoney>("thirdAgencyAmount"), thirdAgencyCurrencyModel));
-            thirdAgencyAmount.typeBigDecimal().add(new CurrencyUpdateBehavior());
+            thirdAgencyAmount.typeBigDecimal().hideLabel().setSize(InputBehavior.Size.Small).add(new CurrencyUpdateBehavior());
             add(thirdAgencyAmount);
 
 

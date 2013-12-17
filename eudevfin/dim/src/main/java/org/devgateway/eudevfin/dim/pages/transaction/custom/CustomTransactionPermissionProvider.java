@@ -8,10 +8,10 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.custom;
 
-import java.util.HashMap;
-
 import org.devgateway.eudevfin.dim.core.permissions.RoleActionMapping;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.CRSTransactionPermissionProvider;
+
+import java.util.HashMap;
 
 /**
  * Different permission provider for the {@link CustomTransactionPage}
@@ -23,7 +23,11 @@ public class CustomTransactionPermissionProvider extends CRSTransactionPermissio
     @Override
     protected HashMap<String, RoleActionMapping> initPermissions() {
         HashMap<String, RoleActionMapping> permissions = super.initPermissions();
-        //TODO: add permissions
+
+        /**
+         * Identification Data
+         */
+
         return permissions;
     }
 }

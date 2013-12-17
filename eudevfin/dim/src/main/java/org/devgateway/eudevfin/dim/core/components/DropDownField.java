@@ -1,21 +1,18 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2013 Development Gateway.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v3.0
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/gpl.html
- *
- * Contributors:
- *    aartimon
- ******************************************************************************/
+ */
 
 package org.devgateway.eudevfin.dim.core.components;
 
-import org.apache.wicket.markup.html.form.FormComponent;
-import org.apache.wicket.model.IModel;
-
 import com.vaynberg.wicket.select2.ChoiceProvider;
 import com.vaynberg.wicket.select2.Select2Choice;
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
+import org.apache.wicket.markup.html.form.FormComponent;
+import org.apache.wicket.model.IModel;
 
 /**
  * @author aartimon@developmentgateway.org
@@ -39,11 +36,23 @@ public class DropDownField<T> extends AbstractInputField<T> {
     @Override
     @SuppressWarnings("unchecked")
     protected Select2Choice<T> getField() {
-        return (Select2Choice<T>)field;
+        return (Select2Choice<T>) field;
     }
 
-    public DropDownField<T> disableSearch(){
+    public DropDownField<T> disableSearch() {
         getField().getSettings().setMinimumResultsForSearch(Integer.MAX_VALUE);
+        return this;
+    }
+
+    @Override
+    public DropDownField<T> hideLabel() {
+        super.hideLabel();
+        return this;
+    }
+
+    @Override
+    public DropDownField<T> setSize(InputBehavior.Size size) {
+        super.setSize(size);
         return this;
     }
 }

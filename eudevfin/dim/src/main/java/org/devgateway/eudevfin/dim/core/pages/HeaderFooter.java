@@ -8,10 +8,20 @@
 
 package org.devgateway.eudevfin.dim.core.pages;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
+import de.agilecoders.wicket.core.Bootstrap;
+import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.BootstrapBaseBehavior;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.*;
+import de.agilecoders.wicket.core.markup.html.bootstrap.html.ChromeFrameMetaTag;
+import de.agilecoders.wicket.core.markup.html.bootstrap.html.HtmlTag;
+import de.agilecoders.wicket.core.markup.html.bootstrap.html.OptimizedMobileViewportMetaTag;
+import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconType;
+import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
+import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarButton;
+import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarComponents;
+import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarDropDownButton;
+import de.agilecoders.wicket.core.settings.IBootstrapSettings;
+import de.agilecoders.wicket.core.settings.ITheme;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.button.DropDownAutoOpen;
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.Session;
@@ -38,27 +48,13 @@ import org.devgateway.eudevfin.dim.pages.HomePage;
 import org.devgateway.eudevfin.dim.pages.LogoutPage;
 import org.devgateway.eudevfin.dim.pages.reports.ReportsPage;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.TransactionPage;
+import org.devgateway.eudevfin.dim.pages.transaction.custom.CustomTransactionPage;
 import org.devgateway.eudevfin.dim.spring.WicketSpringApplication;
 import org.devgateway.eudevfin.financial.util.LocaleHelper;
 
-import de.agilecoders.wicket.core.Bootstrap;
-import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.BootstrapBaseBehavior;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.DropDownButton;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.DropDownSubMenu;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuBookmarkablePageLink;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuDivider;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuHeader;
-import de.agilecoders.wicket.core.markup.html.bootstrap.html.ChromeFrameMetaTag;
-import de.agilecoders.wicket.core.markup.html.bootstrap.html.HtmlTag;
-import de.agilecoders.wicket.core.markup.html.bootstrap.html.OptimizedMobileViewportMetaTag;
-import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconType;
-import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
-import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarButton;
-import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarComponents;
-import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarDropDownButton;
-import de.agilecoders.wicket.core.settings.IBootstrapSettings;
-import de.agilecoders.wicket.core.settings.ITheme;
-import de.agilecoders.wicket.extensions.markup.html.bootstrap.button.DropDownAutoOpen;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 @SuppressWarnings("WicketForgeJavaIdInspection")
 public abstract class HeaderFooter extends GenericWebPage {
@@ -206,7 +202,7 @@ public abstract class HeaderFooter extends GenericWebPage {
         for (String item : values) {
             PageParameters params = new PageParameters();
             params.set(Constants.TRANSACTION_TYPE, item);
-            list.add(new MenuBookmarkablePageLink<TransactionPage>(TransactionPage.class, params, new StringResourceModel("navbar.newTransaction." + item, this, null, null)));
+            list.add(new MenuBookmarkablePageLink<TransactionPage>(CustomTransactionPage.class, params, new StringResourceModel("navbar.newTransaction." + item, this, null, null)));
         }
         return list;
     }
