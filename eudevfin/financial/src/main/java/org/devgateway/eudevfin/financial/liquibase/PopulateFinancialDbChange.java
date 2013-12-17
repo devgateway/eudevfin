@@ -42,31 +42,40 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 		createSectors();
 		createTypesOfFlow();
 		createTypesOfAid();
+		createBiMultilateral();
 		Random r = new Random();
 		
 		for (int i=1; i<=NUM_OF_TX; i++ ) {
 			FinancialTransaction tx 	= new FinancialTransaction();
 			tx.setCommitments(BigMoney.parse("EUR " + Math.ceil(Math.random()*100000)));
 			Organization org = null;
+			Organization extAgency = null;
 			Category sector = null;
 			Category typeOfFlow = null;
 			Category typeOfAid = null;
+			Category biMultilateral = null;
 			
 			List<Organization> listOrgs = orgDao.findAllAsList();
 			List<Category> listSec = catDao.findByTagsCode(FinancialConstants.SUBSECTORS_TAG);
 			List<Category> listTof = catDao.findByTagsCode(FinancialConstants.TYPEOFFLOW_TAG);
 			List<Category> listToa = catDao.findByTagsCode(FinancialConstants.TYPEOFAID_TAG);
+			List<Category> listGroup = catDao.findByTagsCode(FinancialConstants.BIMULTILATERAL_TAG);
 			int orgRandomIndex=r.nextInt(listOrgs.size());
+			int extAgencyRandomIndex=r.nextInt(listOrgs.size());
 			int secRandomIndex=r.nextInt(listSec.size());
 			int tofRandomIndex=r.nextInt(listTof.size());
 			int toaRandomIndex=r.nextInt(listToa.size());
+			int groupRandomIndex=r.nextInt(listGroup.size());
 			
 			org = listOrgs.get(orgRandomIndex);
+			extAgency = listOrgs.get(extAgencyRandomIndex);
 			sector = listSec.get(secRandomIndex);
 			typeOfFlow = listTof.get(tofRandomIndex);
 			typeOfAid = listToa.get(toaRandomIndex);
+			biMultilateral = listGroup.get(groupRandomIndex);
 			
 			tx.setReportingOrganization( org );
+			tx.setExtendingAgency(extAgency);
 			tx.setLocale("en");
 			tx.setDescription("CDA Test Transaction " + i + " en");
 			tx.setLocale("ro");
@@ -74,9 +83,40 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 			tx.setSector(sector);
 			tx.setTypeOfFlow(typeOfFlow);
 			tx.setTypeOfAid(typeOfAid);
+			tx.setBiMultilateral(biMultilateral);
 			txDao.save(tx);
 		}
 	}
+	
+	private void createBiMultilateral() {
+		//First create the tags that define a Group
+		Category odaGroupTag = new Category();
+		odaGroupTag.setName("ODA Bi/Multilateral Tag");
+		odaGroupTag.setCode(FinancialConstants.BIMULTILATERAL_TAG);
+		catDao.save(odaGroupTag);
+		
+		Category group1 = new Category();
+		group1.setCode("MULTI");
+		group1.setLocale("en");
+		group1.setName("Multilateral en");
+		group1.setLocale("ro");
+		group1.setName("Multilateral ro");
+		group1.setTags(new HashSet<Category>());
+		group1.getTags().add(odaGroupTag);
+		catDao.save(group1);
+
+		Category group2 = new Category();
+		group2.setCode("BILAT");
+		group2.setLocale("en");
+		group2.setName("Bilateral en");
+		group2.setLocale("ro");
+		group2.setName("Bilateral ro");
+		group2.setTags(new HashSet<Category>());
+		group2.getTags().add(odaGroupTag);
+		catDao.save(group2);
+
+
+	}	
 	private void createTypesOfAid() {
 		//First create the tags that define a Sector
 		Category typeOfAidTag = new Category();

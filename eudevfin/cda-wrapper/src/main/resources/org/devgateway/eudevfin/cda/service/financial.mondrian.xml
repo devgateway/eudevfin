@@ -66,6 +66,23 @@
       </Level>
     </Hierarchy>
   </Dimension>
+  <Dimension visible="true" highCardinality="false" name="BiMultilateral">
+    <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="BiMultilateral" allMemberCaption="%{allBiMultilateral}" allLevelName="%{allBiMultilateral}" description="%{biMultilateral}" allMemberName="%{allBiMultilateral}">
+      <View alias="BiMultilalteralView">
+        <SQL dialect="generic">
+          <![CDATA[
+			select "CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE"
+			from "APP"."CATEGORY" as "CATEGORY", "APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION", "APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
+			WHERE "CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND "CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND "CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='bi_multilateral')
+			group by "CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE" 
+			order by CASE WHEN "CATEGORY"."ID" IS NULL THEN 1 ELSE 0 END, "CATEGORY"."ID" ASC, CASE WHEN "CATEGORY"."CODE" IS NULL THEN 1 ELSE 0 END, "CATEGORY"."CODE" ASC
+			]]>
+        </SQL>
+      </View>
+      <Level name="Name" visible="true" column="NAME" uniqueMembers="false">
+      </Level>
+    </Hierarchy>
+  </Dimension>
   <Cube name="Financial" visible="true" cache="false" enabled="true">
     <Table name="FINANCIALTRANSACTION" schema="APP" alias="financialtransaction">
     </Table>
@@ -78,6 +95,8 @@
     <DimensionUsage source="Type of Aid" name="Type of Aid" visible="true" foreignKey="TYPEOFAID_ID" highCardinality="false">
     </DimensionUsage>
     <DimensionUsage source="Type of Flow" name="Type of Flow" visible="true" foreignKey="TYPEOFFLOW_ID" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="BiMultilateral" name="BiMultilateral" visible="true" foreignKey="BIMULTILATERAL_ID" highCardinality="false">
     </DimensionUsage>
     <Measure name="Export Credit Amount" column="AMOUNTS_EXP_EXPORT_CREDIT_AMOUNT" aggregator="sum" visible="true" caption="%{exportCreditAmount}">
     </Measure>

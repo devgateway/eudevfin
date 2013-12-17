@@ -17,5 +17,6 @@ public class FinancialConstants {
 
 	public static final String TYPEOFFLOW_TAG = "type_of_flow";
 	public static final String TYPEOFAID_TAG = "type_of_aid";
+	public static final String BIMULTILATERAL_TAG = "bi_multilateral";
 	
 }
