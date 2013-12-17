@@ -6,7 +6,6 @@ package org.devgateway.eudevfin.auth.common.domain;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +14,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.Table;
 
 import org.springframework.security.core.userdetails.User;
 
@@ -41,7 +39,7 @@ public class PersistedUser implements Serializable {
 	private boolean enabled = true;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	private Set<PersistedAuthority> authorites = new HashSet<PersistedAuthority>();
+	private Set<PersistedAuthority> authorities = new HashSet<PersistedAuthority>();
 
 	@ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
 	private Set<PersistedUserGroup> groups = new HashSet<PersistedUserGroup>();
@@ -109,16 +107,16 @@ public class PersistedUser implements Serializable {
 	/**
 	 * @return the authorites
 	 */
-	public Set<PersistedAuthority> getAuthorites() {
-		return authorites;
+	public Set<PersistedAuthority> getAuthorities() {
+		return authorities;
 	}
 
 	/**
 	 * @param authorites
 	 *            the authorites to set
 	 */
-	public void setAuthorites(Set<PersistedAuthority> authorites) {
-		this.authorites = authorites;
+	public void setAuthorities(Set<PersistedAuthority> authorites) {
+		this.authorities = authorites;
 	}
 
 	/**

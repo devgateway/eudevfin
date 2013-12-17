@@ -57,7 +57,7 @@ public class CustomJPAUserDetailsService implements UserDetailsService {
 
 	/**
 	 * Reads {@link PersistedAuthority} objects from the
-	 * {@link org.devgateway.eudevfin.auth.common.domain.PersistedUser#getAuthorites()} and also from the
+	 * {@link org.devgateway.eudevfin.auth.common.domain.PersistedUser#getAuthorities()} and also from the
 	 * {@link PersistedUserGroup#getAuthorities()} (only if the {@link User} belongs to only one
 	 * {@link PersistedUserGroup}) and converts all {@link PersistedAuthority} objects to
 	 * {@link GrantedAuthority}. 
@@ -71,7 +71,7 @@ public class CustomJPAUserDetailsService implements UserDetailsService {
 		Set<GrantedAuthority> grantedAuth = new HashSet<GrantedAuthority>();
 
 		// get user authorities
-		for (PersistedAuthority authority : domainUser.getAuthorites()) {
+		for (PersistedAuthority authority : domainUser.getAuthorities()) {
 			grantedAuth
 					.add(new SimpleGrantedAuthority(authority.getAuthority()));
 		}

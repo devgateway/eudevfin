@@ -25,7 +25,8 @@ import com.vaynberg.wicket.select2.Select2MultiChoice;
  */
 public class MultiSelectField<T> extends AbstractInputField<Collection<T>> {
 
-    private ChoiceProvider<T> choiceProvider;
+	private static final long serialVersionUID = -2955458671417231490L;
+
 
     @SuppressWarnings("unchecked")
     public MultiSelectField(String id, IModel<Collection<T>> model, ChoiceProvider<T> choiceProvider) {

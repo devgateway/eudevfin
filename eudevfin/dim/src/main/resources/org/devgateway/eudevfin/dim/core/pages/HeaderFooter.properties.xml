@@ -17,6 +17,9 @@
     <entry key="navbar.reports">Reports</entry>
     <entry key="navbar.logout">Log Out</entry>
     <entry key="navbar.admin">Admin</entry>
+    
+    <entry key="navbar.admin.users">Users</entry>
+    
     <entry key="navbar.lang">Languages</entry>
     <entry key="navbar.lang.header">all available languages:</entry>
 

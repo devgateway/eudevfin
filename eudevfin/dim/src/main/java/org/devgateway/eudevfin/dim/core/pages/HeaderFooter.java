@@ -43,9 +43,9 @@ import org.devgateway.eudevfin.dim.core.ApplicationJavaScript;
 import org.devgateway.eudevfin.dim.core.Constants;
 import org.devgateway.eudevfin.dim.core.FixBootstrapStylesCssResourceReference;
 import org.devgateway.eudevfin.dim.core.temporary.SB;
-import org.devgateway.eudevfin.dim.pages.AdminPage;
 import org.devgateway.eudevfin.dim.pages.HomePage;
 import org.devgateway.eudevfin.dim.pages.LogoutPage;
+import org.devgateway.eudevfin.dim.pages.admin.UsersPage;
 import org.devgateway.eudevfin.dim.pages.reports.ReportsPage;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.TransactionPage;
 import org.devgateway.eudevfin.dim.pages.transaction.custom.CustomTransactionPage;
@@ -94,12 +94,14 @@ public abstract class HeaderFooter extends GenericWebPage {
         NavbarDropDownButton transactionPageNavbarButton = newTransactionDropdown();
         MetaDataRoleAuthorizationStrategy.authorize(transactionPageNavbarButton, Component.RENDER, AuthConstants.Roles.ROLE_USER);
 
-
+        NavbarDropDownButton adminPageNavbarButton = newAdminDropDown();
+        MetaDataRoleAuthorizationStrategy.authorize(adminPageNavbarButton, Component.RENDER, AuthConstants.Roles.ROLE_SUPERVISOR);
+        
         NavbarButton<ReportsPage> reportsPageNavbarButton = new NavbarButton<ReportsPage>(ReportsPage.class, new StringResourceModel("navbar.reports", this, null, null)).setIconType(IconType.thlist);
         MetaDataRoleAuthorizationStrategy.authorize(reportsPageNavbarButton, Component.RENDER, AuthConstants.Roles.ROLE_USER);
 
-        NavbarButton<AdminPage> adminPageNavbarButton = new NavbarButton<AdminPage>(AdminPage.class, new StringResourceModel("navbar.admin", this, null, null)).setIconType(IconType.wrench);
-        MetaDataRoleAuthorizationStrategy.authorize(adminPageNavbarButton, Component.RENDER, AuthConstants.Roles.ROLE_SUPERVISOR);
+  //      NavbarButton<UsersPage> adminPageNavbarButton = new NavbarButton<UsersPage>(UsersPage.class, new StringResourceModel("navbar.admin", this, null, null)).setIconType(IconType.wrench);
+//        MetaDataRoleAuthorizationStrategy.authorize(adminPageNavbarButton, Component.RENDER, AuthConstants.Roles.ROLE_SUPERVISOR);
 
 
         navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.LEFT,
@@ -122,6 +124,32 @@ public abstract class HeaderFooter extends GenericWebPage {
 
         return navbar;
     }
+    
+    
+    
+    private NavbarDropDownButton newAdminDropDown() {
+        NavbarDropDownButton navbarDropDownButton = new NavbarDropDownButton(new StringResourceModel("navbar.admin", this, null, null)) {
+            @Override
+            public boolean isActive(Component item) {
+                return false;
+            }
+
+			@Override
+			protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
+	            List<AbstractLink> list = new ArrayList<>();
+	            list.add(new MenuBookmarkablePageLink<TransactionPage>(UsersPage.class, null, new StringResourceModel("navbar.admin.users", this, null, null)));
+	            return list;
+			}
+
+  
+        };
+        navbarDropDownButton.setIconType(IconType.plus);
+        navbarDropDownButton.add(new DropDownAutoOpen());
+        return navbarDropDownButton;
+    }
+
+    
+    
 
     private NavbarDropDownButton newTransactionDropdown() {
         NavbarDropDownButton navbarDropDownButton = new NavbarDropDownButton(new StringResourceModel("navbar.newTransaction", this, null, null)) {
