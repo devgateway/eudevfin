@@ -9,7 +9,7 @@
   Contributors:
      mpostelnicu
 -->
-<beans xmlns="http://www.springframework.org/schema/beans"
+<beans default-lazy-init="default" xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:int="http://www.springframework.org/schema/integration"
 	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
@@ -30,7 +30,6 @@
 	<int:annotation-config />
 	<context:component-scan base-package="org.devgateway.eudevfin.common" />
 	<context:annotation-config />
-
 
 
 </beans>

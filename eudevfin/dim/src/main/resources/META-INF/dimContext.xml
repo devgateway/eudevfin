@@ -9,7 +9,7 @@
   ~ Contributors:
   ~    aartimon
   -->
-<beans xmlns="http://www.springframework.org/schema/beans"
+<beans default-lazy-init="default" xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:security="http://www.springframework.org/schema/security"
