@@ -3,10 +3,16 @@ package org.devgateway.eudevfin.reports;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +26,7 @@ import mondrian.olap.Result;
 import mondrian.olap.Util.PropertyList;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -167,7 +174,21 @@ public class ReportsController {
 			parameters.put(JRMondrianQueryExecuterFactory.PARAMETER_MONDRIAN_CONNECTION, conn);
 			parameters.put("Subreport1", subreport1);
 			// pass query parameters
-			parameters.put("DIM_NAME", "Name");		
+			parameters.put("DIM_NAME", "Name");
+			
+			// set locale
+			Locale locale = new Locale("ro");
+			parameters.put(JRParameter.REPORT_LOCALE, locale);
+			
+			// set resource bundle
+			try {
+				URL[] urls = {this.getClass().getResource("./").toURI().toURL()};
+				ClassLoader loader = new URLClassLoader(urls);
+				ResourceBundle resourceBundle = java.util.ResourceBundle.getBundle("i18n", locale, loader); 
+				parameters.put(JRParameter.REPORT_RESOURCE_BUNDLE, resourceBundle);
+			} catch (URISyntaxException e) {
+				e.printStackTrace();
+			}  
 			
 			// creates the JasperPrint object, it needs a JasperReport layout and extra params
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters);

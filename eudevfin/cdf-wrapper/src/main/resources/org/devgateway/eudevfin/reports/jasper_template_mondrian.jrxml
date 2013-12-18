@@ -27,13 +27,13 @@ FROM [Financial]]]>
 	</background>
 	<title>
 		<band height="79" splitType="Stretch">
-			<staticText>
-				<reportElement x="205" y="22" width="150" height="40" uuid="dbfd8668-f9ad-415d-829f-ecf39dedb8b5"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="150" y="22" width="250" height="40" uuid="dbfd8668-f9ad-415d-829f-ecf39dedb8b5"/>
 				<textElement>
 					<font size="20"/>
 				</textElement>
-				<text><![CDATA[Type of Aid]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$R{text.message}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
