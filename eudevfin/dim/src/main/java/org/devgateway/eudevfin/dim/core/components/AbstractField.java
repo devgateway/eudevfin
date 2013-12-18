@@ -101,7 +101,7 @@ public abstract class AbstractField<T> extends Panel implements PermissionAwareC
     }
 
     private String getUpdateMethod() {
-        if (this instanceof DateInputField || this instanceof DropDownField)
+        if (this instanceof DateInputField || this instanceof DropDownField || this instanceof MultiSelectField)
             return "onchange";
         return "onblur";
     }

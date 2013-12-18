@@ -16,17 +16,21 @@ import java.util.Collection;
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
-import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
+import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.validation.IValidatable;
+import org.apache.wicket.validation.IValidator;
+import org.apache.wicket.validation.ValidationError;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.domain.PersistedAuthority;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.auth.repository.PersistedUserRepository;
 import org.devgateway.eudevfin.dim.core.RWComponentPropertyModel;
+import org.devgateway.eudevfin.dim.core.components.BootstrapSubmitButton;
 import org.devgateway.eudevfin.dim.core.components.CheckBoxField;
 import org.devgateway.eudevfin.dim.core.components.MultiSelectField;
 import org.devgateway.eudevfin.dim.core.components.PasswordInputField;
@@ -53,6 +57,29 @@ public class UsersPage extends HeaderFooter {
 	private static final long serialVersionUID = -4276784345759050002L;
 	private static final Logger logger = Logger.getLogger(UsersPage.class);
 
+	public class UniqueUsernameValidator extends Behavior implements
+			IValidator<String> {
+	
+		private Long userId;
+
+		public UniqueUsernameValidator(Long userId) {
+			this.userId=userId;
+		}
+		
+		@Override
+		public void validate(IValidatable<String> validatable) {
+			String username = validatable.getValue();
+			PersistedUser persistedUser2 = persistedUserRepository
+					.findByUsername(username);
+			if (persistedUser2 != null
+					&& !persistedUser2.getId().equals(userId)) {
+				ValidationError error = new ValidationError();
+				error.addKey("uniqueUsernameError");
+				validatable.error(error);
+			}
+		}
+	}
+
 	@SuppressWarnings("unchecked")
 	public UsersPage(final PageParameters parameters) {
 		Form form = new Form("form");
@@ -72,6 +99,8 @@ public class UsersPage extends HeaderFooter {
 
 		TextInputField<String> userName = new TextInputField<String>(
 				"username", new RWComponentPropertyModel<String>("username"));
+		
+		userName.getField().add( new UniqueUsernameValidator(persistedUser.getId()));
 
 		PasswordInputField password = new PasswordInputField("password",
 				new PasswordEncryptModel(new RWComponentPropertyModel<String>(
@@ -85,20 +114,32 @@ public class UsersPage extends HeaderFooter {
 				new RWComponentPropertyModel<Collection<PersistedAuthority>>(
 				"authorities"), authorityChoiceProvider);
 
+		authorities.required();
+
 		form.add(userName);
 		form.add(password);
 		form.add(enabled);
 		form.add(authorities);
 
-		form.add(new IndicatingAjaxButton("submit", Model.of("Submit")) {
+		form.add(new BootstrapSubmitButton("submit", Model.of("Submit")) {
+			
+			@Override
+			protected void onError(AjaxRequestTarget target, Form<?> form) {
+				// TODO Auto-generated method stub
+				super.onError(target, form);
+				
+				
+			}
+
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				logger.info("Submitted ok!");
 				logger.info("Object:" + getModel().getObject());
 				persistedUserRepository.save(persistedUser);
 			}
+			
 		});
-
+	
 		add(form);
 	}
 

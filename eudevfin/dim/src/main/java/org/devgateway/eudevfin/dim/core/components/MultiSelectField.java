@@ -13,8 +13,13 @@ package org.devgateway.eudevfin.dim.core.components;
 
 import java.util.Collection;
 
+import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.validation.IValidatable;
+import org.apache.wicket.validation.IValidator;
+import org.apache.wicket.validation.ValidationError;
+import org.apache.wicket.validation.validator.RangeValidator;
 
 import com.vaynberg.wicket.select2.ChoiceProvider;
 import com.vaynberg.wicket.select2.Select2MultiChoice;
@@ -27,6 +32,17 @@ public class MultiSelectField<T> extends AbstractInputField<Collection<T>> {
 
 	private static final long serialVersionUID = -2955458671417231490L;
 
+	public class NotEmptyCollectionValidator<T> extends Behavior implements IValidator<Collection<T>> {
+		@Override
+		public void validate(IValidatable<Collection<T>> validatable) {			
+			if(validatable.getValue().size()<1) {
+                ValidationError error = new ValidationError();
+                error.addKey("notEmptyCollectionValidator");               
+                validatable.error(error);
+			}
+		}
+		
+	}
 
     @SuppressWarnings("unchecked")
     public MultiSelectField(String id, IModel<Collection<T>> model, ChoiceProvider<T> choiceProvider) {
@@ -34,6 +50,13 @@ public class MultiSelectField<T> extends AbstractInputField<Collection<T>> {
         //the field will already be populated by the AbstractInputField constructor
         ((Select2MultiChoice<T>)field).setProvider(choiceProvider);
     }
+    
+    @Override
+    public AbstractInputField<Collection<T>> required() {        	
+    	field.add(new NotEmptyCollectionValidator<Collection<T>>());
+        return this;
+    }
+    
 
     @Override
     protected FormComponent<Collection<T>> newField(String id, IModel<Collection<T>> model) {

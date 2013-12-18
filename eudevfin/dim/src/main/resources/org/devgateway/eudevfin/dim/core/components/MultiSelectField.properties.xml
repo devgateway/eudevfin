@@ -8,10 +8,6 @@
   -->
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
-<properties>    
-    <entry key="username.label">User Name</entry>
-    <entry key="password.label">Password</entry>
-    <entry key="enabled.label">Enabled</entry>
-    <entry key="authorities.label">Authorities</entry>
-    <entry key="uniqueUsernameError">Another user with the same user name exists!</entry>
+<properties>
+	<entry key="notEmptyCollectionValidator">List cannot be empty!</entry>
 </properties>
