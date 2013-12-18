@@ -41,11 +41,17 @@ FROM [Financial]]]>
 		<band height="61" splitType="Stretch">
 			<staticText>
 				<reportElement x="160" y="26" width="100" height="20" uuid="61b6e629-4e54-4715-96b9-b4d2ade6afd0"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
 				<text><![CDATA[Amount]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="30" y="26" width="100" height="20" uuid="dcffcb79-3bd9-44d5-99b8-08fcfc360f39"/>
-				<text><![CDATA[Name]]></text>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Type of Aid]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -73,6 +79,9 @@ FROM [Financial]]]>
 			</subreport>
 			<staticText>
 				<reportElement x="40" y="16" width="100" height="20" uuid="1b661426-8782-45df-8b10-561e0e7aae5d"/>
+				<textElement>
+					<font size="15"/>
+				</textElement>
 				<text><![CDATA[Sub-report]]></text>
 			</staticText>
 		</band>
@@ -81,17 +90,6 @@ FROM [Financial]]]>
 		<band height="45" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="39" splitType="Stretch">
-			<textField>
-				<reportElement x="431" y="0" width="80" height="20" uuid="11d6a1b4-65a6-458f-8eda-b7eec2119140"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
-			</textField>
-			<textField evaluationTime="Report">
-				<reportElement x="511" y="0" width="40" height="20" uuid="b6dfbae7-c2a4-4310-a22e-4e8cbee5f922"/>
-				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
-		</band>
 	</pageFooter>
 	<summary>
 		<band height="310" splitType="Stretch">

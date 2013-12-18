@@ -23,10 +23,5 @@
     <bean id="csvReport"
           class="org.springframework.web.servlet.view.jasperreports.JasperReportsCsvView"
           p:url="classpath:org/devgateway/eudevfin/reports/jasper_template.jrxml"
-          p:reportDataKey="datasource"/>
-          
-	<bean id="mondrianReport"
-          class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
-          p:url="classpath:org/devgateway/eudevfin/reports/jasper_template_mondrian.jrxml"
-          p:attributes="parameters"/>         
+          p:reportDataKey="datasource"/>   
 </beans>

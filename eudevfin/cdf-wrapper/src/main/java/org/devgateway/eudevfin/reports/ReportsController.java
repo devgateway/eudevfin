@@ -1,6 +1,6 @@
 package org.devgateway.eudevfin.reports;
 
-import java.io.FileNotFoundException;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -8,17 +8,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import mondrian.olap.Connection;
 import mondrian.olap.DriverManager;
+import mondrian.olap.Query;
+import mondrian.olap.Result;
 import mondrian.olap.Util.PropertyList;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -68,7 +70,6 @@ public class ReportsController {
     public String generateXlsReport(ModelMap model) {
 		logger.debug(">>> generate XLS report");
 		
-//		Map<String, Object> parameterMap = new HashMap<String, Object>();
 		List<Person> personList = new ArrayList<Person>();
 		Person p1 = new Person(1, "name 1", "lastName 1");
 		Person p2 = new Person(2, "name 2", "lastName 2");
@@ -80,8 +81,6 @@ public class ReportsController {
 		JRDataSource jrdataSource = new JRBeanCollectionDataSource(personList);
 		
 		model.addAttribute("datasource", jrdataSource);
-//		parameterMap.put("datasource", jrdataSource);
-//		modelAndView = new ModelAndView("xlsReport", parameterMap);
 		
         return "xlsReport";
     }
@@ -130,21 +129,8 @@ public class ReportsController {
 	
 	@RequestMapping(value = "/mondrian", method = RequestMethod.GET)
     public ModelAndView generateMondrianReport(HttpServletRequest request, HttpServletResponse response, ModelAndView modelAndView)  throws IOException {
-		logger.debug(">>> generate Mondrian report");
-		
-		Map<String, Object> parameterMap = new HashMap<String, Object>();
-//		JRDataSource jrdataSource = new JRBeanCollectionDataSource(personList);
-		
-//		Connection conn = DriverManager.getConnection(
-//			"Provider=mondrian;" + 
-//			"JdbcDrivers=­org­.­apache­.­derby­.­jdbc­.­EmbeddedDriver;" +
-//			"Jdbc=jdbc:derby:memory:eudevfin;" +
-//			"JdbcUser=app;" +
-//			"JdbcPassword=;" +
-//			"Catalog=" + this.getClass().getResource("./financial.mondrian.xml").toString() + ";",
-//			null
-//			);
-		
+		logger.info(">>> generate raport with Mondrian");
+				
 		PropertyList propertyList = new PropertyList();
 		propertyList.put("Provider", "mondrian");
 		propertyList.put("Catalog",
@@ -154,45 +140,73 @@ public class ReportsController {
 				cdaDataSource);
 		
 		// used to test the connection
-//		Query query = connection.parseQuery(
-//			    "SELECT {[Measures].[Unit Sales], [Measures].[Store Sales]} on columns," +
-//			    " {[Product].children} on rows " +
-//			    "FROM [Sales] " +
-//			    "WHERE ([Time].[1997].[Q1], [Store].[CA].[San Francisco])");
-//		Result result = connection.execute(query);
-//		result.print(new PrintWriter(System.out));
+		Query query = conn.parseQuery(
+			    "SELECT NON EMPTY {Hierarchize({[Measures].[Commitments Amount]})} ON COLUMNS," +
+			    " NON EMPTY CrossJoin({[BiMultilateral].[Bilateral en]}, [Type of Aid].[Name].Members) ON ROWS " +
+			    "FROM [Financial]");
+		@SuppressWarnings("deprecation")
+		Result result = conn.execute(query);
+		logger.info(result.getAxes().length);
 		
-		Map<String, Object> parameters = new HashMap<String, Object>();
-//		parameters.put(JRMondrianQueryExecuterFactory.PARAMETER_MONDRIAN_CONNECTION, conn);
-		
+		// parameters is used for passing extra parameters 
+		Map<String, Object> parameters = new HashMap<String, Object>();		
 		
 		InputStream inputStream;
 		try {
 			inputStream = ReportsController.class.getResourceAsStream("./jasper_template_mondrian.jrxml");
+			// retrieve the report template
 			JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
+			// compile the report layout
 			JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
 			
+			// retrieve and compile the sub-report
 			JasperReport subreport1 = JasperCompileManager.compileReport(
 					JRXmlLoader.load(
 							ReportsController.class.getResourceAsStream("./report1_subreport3.jrxml")));
 
 			parameters.put("Subreport1", subreport1);
 			parameters.put(JRMondrianQueryExecuterFactory.PARAMETER_MONDRIAN_CONNECTION, conn);
+			
+			// creates the JasperPrint object, it needs a JasperReport layout and extra params
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters);
 			
-			JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
-//			JasperExportManager.exportReportToPdfFile(jasperPrint, "testjasper.pdf");
-//			JasperViewer.viewReport(jasperPrint);
-//			JasperPrintManager.printReport(jasperPrint, true);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			// this is the stream where the data will be written
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			
+			// export XLS to output stream
+			ReportExporter reportExporter = new ReportExporter();
+			reportExporter.exportXLS(jasperPrint, baos);
+			
+			// set the response properties
+			String fileName = "Report.xls";
+			response.setHeader("Content-Disposition", "inline; filename=" + fileName);
+			
+			// make sure to set the correct content type
+			response.setContentType("application/vnd.ms-excel");
+			response.setContentLength(baos.size());
+			 
+			// write to response stream
+			this.writeReportToResponseStream(response, baos);
 		} catch (JRException e) {
 			e.printStackTrace();
 		}
 		
-//		parameterMap.put("parameters", parameters);
-//		modelAndView = new ModelAndView("mondrianReport", parameterMap);
-		
         return null;
     }
+	
+	/**
+	  * Writes the report to the output stream
+	  */
+	private void writeReportToResponseStream(HttpServletResponse response, ByteArrayOutputStream baos) {
+		logger.debug("Writing report to the stream");
+		try {
+			// retrieve the output stream
+			ServletOutputStream outputStream = response.getOutputStream();
+			// write and flush to the output stream
+			baos.writeTo(outputStream);
+			outputStream.flush();
+		} catch (Exception e) {
+			logger.error("Unable to write report to the output stream");
+		}
+	}
 }
