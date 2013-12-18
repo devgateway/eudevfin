@@ -172,6 +172,11 @@ public class ReportsController {
 			JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
 			JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
 			
+			JasperReport subreport1 = JasperCompileManager.compileReport(
+					JRXmlLoader.load(
+							ReportsController.class.getResourceAsStream("./report1_subreport3.jrxml")));
+
+			parameters.put("Subreport1", subreport1);
 			parameters.put(JRMondrianQueryExecuterFactory.PARAMETER_MONDRIAN_CONNECTION, conn);
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters);
 			

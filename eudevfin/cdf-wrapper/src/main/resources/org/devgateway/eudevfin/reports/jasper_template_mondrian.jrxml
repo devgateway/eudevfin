@@ -1,75 +1,116 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="MondrianReport" pageWidth="595" pageHeight="842" columnWidth="515" leftMargin="40" rightMargin="40" topMargin="50" bottomMargin="50" uuid="72a6dd2d-74fc-4f56-bc0a-d3ee5239681c">
-	<style name="Sans_Normal" isDefault="true" fontName="Verdana" fontSize="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
-	<style name="Sans_Bold" fontName="Verdana" fontSize="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
-	<queryString language="mdx">
-		<![CDATA[
-			SELECT
-			NON EMPTY {Hierarchize({[Reporting Organization].[code].Members})} ON COLUMNS,
-			NON EMPTY {[Measures].[Commitments Amount]} ON ROWS
-			FROM [Financial]
-		]]>
-	</queryString>
-	<field name="code" class="java.lang.String">
-		<fieldDescription><![CDATA[Columns[Reporting Organization][code]]]></fieldDescription>
-	</field>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4d81083f-52a3-45df-97af-b93a485e497a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="48"/>
 	
+	<parameter name="Subreport1" class="net.sf.jasperreports.engine.JasperReport"/>
+	<queryString language="mdx">
+		<![CDATA[SELECT
+NON EMPTY {Hierarchize({[Measures].[Commitments Amount]})} ON COLUMNS,
+NON EMPTY CrossJoin({[BiMultilateral].[Bilateral en]}, [Type of Aid].[Name].Members) ON ROWS
+FROM [Financial]]]>
+	</queryString>
+	<field name="Commitments Amount" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount],?)]]></fieldDescription>
+	</field>
+	<field name="BiMultilateral" class="java.lang.String">
+		<fieldDescription><![CDATA[Rows[BiMultilateral][Name]]]></fieldDescription>
+	</field>
+	<field name="Type of Aid" class="java.lang.String">
+		<fieldDescription><![CDATA[Rows[Type of Aid][Name]]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
 	<title>
-      <band height="50" isSplitAllowed="true">
-         <staticText>
-            <reportElement x="0" y="0" width="180" height="15" positionType="FixRelativeToTop" stretchType="NoStretch" isPrintRepeatedValues="true" isRemoveLineWhenBlank="false" isPrintInFirstWholeBand="false" isPrintWhenDetailOverflows="false" />
-            <textElement />
-            <text><![CDATA[JasperReports with Mondrian]]></text>
-         </staticText>
-      </band>
-   </title>
-   <pageHeader>
-		<band height="16">
-			<frame>
-				<reportElement mode="Opaque" x="0" y="0" width="515" height="15" backcolor="#E0E0E0" uuid="8fed2c2d-fab9-4e86-a5c0-8b310ea46f45"/>
-				<box>
-					<pen lineWidth="0.5"/>
-				</box>
-				<staticText>
-					<reportElement x="20" y="0" width="150" height="15" uuid="13d397e4-dab4-4458-abcb-affcacbc057b"/>
-					<textElement verticalAlignment="Middle"/>
-					<text><![CDATA[Organization]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="300" y="0" width="100" height="15" uuid="c83a0d8b-c17c-45e0-88df-0362489fb473"/>
-					<textElement textAlignment="Right" verticalAlignment="Middle"/>
-					<text><![CDATA[Amount]]></text>
-				</staticText>
-			</frame>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="205" y="22" width="150" height="40" uuid="dbfd8668-f9ad-415d-829f-ecf39dedb8b5"/>
+				<textElement>
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[Type of Aid]]></text>
+			</staticText>
 		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
 	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="160" y="26" width="100" height="20" uuid="61b6e629-4e54-4715-96b9-b4d2ade6afd0"/>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="26" width="100" height="20" uuid="dcffcb79-3bd9-44d5-99b8-08fcfc360f39"/>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
 	<detail>
-      <band height="20" isSplitAllowed="true">
-         <textField isStretchWithOverflow="false" evaluationTime="Now" bookmarkLevel="0">
-            <reportElement x="180" y="0" width="180" height="15" positionType="FixRelativeToTop" stretchType="NoStretch" isPrintRepeatedValues="true" isRemoveLineWhenBlank="false" isPrintInFirstWholeBand="false" isPrintWhenDetailOverflows="false" />
-            <textElement />
-            <textFieldExpression class="java.lang.String"><![CDATA[$F{code}]]></textFieldExpression>
-         </textField>
-      </band>
-   </detail>
-   <columnFooter>
-      <band height="0" isSplitAllowed="true" />
-   </columnFooter>
-   <pageFooter>
-      <band height="15" isSplitAllowed="true">
-         <staticText>
-            <reportElement x="0" y="0" width="40" height="15" positionType="FixRelativeToTop" stretchType="NoStretch" isPrintRepeatedValues="true" isRemoveLineWhenBlank="false" isPrintInFirstWholeBand="false" isPrintWhenDetailOverflows="false" />
-            <textElement />
-            <text><![CDATA[Page:]]></text>
-         </staticText>
-         <textField isStretchWithOverflow="false" evaluationTime="Now" bookmarkLevel="0">
-            <reportElement x="40" y="0" width="100" height="15" positionType="FixRelativeToTop" stretchType="NoStretch" isPrintRepeatedValues="true" isRemoveLineWhenBlank="false" isPrintInFirstWholeBand="false" isPrintWhenDetailOverflows="false" />
-            <textElement />
-            <textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
-         </textField>
-      </band>
-   </pageFooter>
-   <summary>
-      <band height="0" isSplitAllowed="true" />
-   </summary>
-</jasperReport>	
+		<band height="28" splitType="Stretch">
+			<textField>
+				<reportElement x="30" y="0" width="100" height="20" uuid="7a431be9-615c-491b-a97d-718df4cd50a5"/>
+				<textFieldExpression><![CDATA[$F{Type of Aid}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="0" width="100" height="20" uuid="5724f34b-c76e-43fb-bfa6-17099437d490"/>
+				<textFieldExpression><![CDATA[$F{Commitments Amount}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="20" width="468" height="1" uuid="1c4fd19f-0916-43a4-9350-a42814eef213"/>
+			</line>
+		</band>
+		<band height="222">
+			<subreport isUsingCache="false" runToBottom="false">
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="160" y="0" width="389" height="207" isPrintWhenDetailOverflows="true" uuid="31805ebd-22c9-4dcc-9364-ba6e5634b585"/>
+				<subreportParameter name="MONDRIAN_CONNECTION">
+    				<subreportParameterExpression>$P{MONDRIAN_CONNECTION}</subreportParameterExpression>
+  				</subreportParameter>
+				<subreportExpression><![CDATA[$P{Subreport1}]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement x="40" y="16" width="100" height="20" uuid="1b661426-8782-45df-8b10-561e0e7aae5d"/>
+				<text><![CDATA[Sub-report]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="39" splitType="Stretch">
+			<textField>
+				<reportElement x="431" y="0" width="80" height="20" uuid="11d6a1b4-65a6-458f-8eda-b7eec2119140"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="511" y="0" width="40" height="20" uuid="b6dfbae7-c2a4-4310-a22e-4e8cbee5f922"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="310" splitType="Stretch">
+			<pieChart>
+				<chart>
+					<reportElement x="58" y="13" width="453" height="279" uuid="9a7500b8-51f4-4fd3-a2fd-85f63cfada2d"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{Type of Aid}]]></keyExpression>
+					<valueExpression><![CDATA[$F{Commitments Amount}]]></valueExpression>
+				</pieDataset>
+				<piePlot>
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+		</band>
+	</summary>
+</jasperReport>

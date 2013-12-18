@@ -1,6 +1,6 @@
 <Schema name="EUDevfin">
   <Dimension visible="true" highCardinality="false" name="Reporting Organization">
-    <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allReportingOrganizations}" allLevelName="%{allReportingOrganizations}" description="%{reportingOrganizations}" allMemberName="%{allReportingOrganizations}">
+    <Hierarchy visible="true" hasAll="true" primaryKey="ID">
       <Table name="ORGANIZATION" schema="APP">
       </Table>
       <Level name="code" visible="true" table="ORGANIZATION" column="CODE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
@@ -8,7 +8,7 @@
     </Hierarchy>
   </Dimension>
   <Dimension visible="true" highCardinality="false" name="Extending Agency">
-    <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Extending Agency" allMemberCaption="%{allExtendingAgencies}" allLevelName="%{allExtendingAgencies}" description="%{extendingAgencies}" allMemberName="%{allExtendingAgencies}">
+    <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Extending Agency">
       <Table name="ORGANIZATION" schema="APP">
       </Table>
       <Level name="code" visible="true" table="ORGANIZATION" column="CODE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
@@ -16,13 +16,13 @@
     </Hierarchy>
   </Dimension>
   <Dimension visible="true" highCardinality="false" name="Type of Aid">
-    <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Type of Aid" allMemberCaption="%{allTypesOfAid}" allLevelName="%{allTypesOfAid}" description="%{typesOfAid}" allMemberName="%{allTypesOfAid}">
+    <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Type of Aid">
       <View alias="TypeOfAidView">
         <SQL dialect="generic">
           <![CDATA[
 			select "CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE"
 			from "APP"."CATEGORY" as "CATEGORY", "APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION", "APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
-			WHERE "CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND "CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND "CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='type_of_aid')
+			WHERE "CATEGORYTRANSLATION"."LOCALE" ='en' AND "CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND "CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='type_of_aid')
 			group by "CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE" 
 			order by CASE WHEN "CATEGORY"."ID" IS NULL THEN 1 ELSE 0 END, "CATEGORY"."ID" ASC, CASE WHEN "CATEGORY"."CODE" IS NULL THEN 1 ELSE 0 END, "CATEGORY"."CODE" ASC
 			]]>
@@ -33,13 +33,13 @@
     </Hierarchy>
   </Dimension>
   <Dimension visible="true" highCardinality="false" name="Type of Flow">
-    <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Type of Flow" allMemberCaption="%{allTypesOfFlow}" allLevelName="%{allTypesOfFlow}" description="%{typesOfFlow}" allMemberName="%{allTypesOfFlow}">
+    <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Type of Flow">
       <View alias="TypeOfFlowView">
         <SQL dialect="generic">
           <![CDATA[
 			select "CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE"
 			from "APP"."CATEGORY" as "CATEGORY", "APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION", "APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
-			WHERE "CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND "CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND "CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='type_of_flow')
+			WHERE "CATEGORYTRANSLATION"."LOCALE" ='en' AND "CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND "CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='type_of_flow')
 			group by "CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE" 
 			order by CASE WHEN "CATEGORY"."ID" IS NULL THEN 1 ELSE 0 END, "CATEGORY"."ID" ASC, CASE WHEN "CATEGORY"."CODE" IS NULL THEN 1 ELSE 0 END, "CATEGORY"."CODE" ASC
 			]]>
@@ -50,13 +50,30 @@
     </Hierarchy>
   </Dimension>
   <Dimension type="StandardDimension" visible="true" name="Sector">
-    <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="%{sectors}" allMemberCaption="%{allSectors}" allLevelName="%{allSectors}" description="%{sectors}" allMemberName="%{allSectors}">
+    <Hierarchy visible="true" hasAll="true" primaryKey="ID">
       <View alias="SectorView">
         <SQL dialect="generic">
           <![CDATA[
 			select "CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE"
 			from "APP"."CATEGORY" as "CATEGORY", "APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION", "APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
-			WHERE "CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND "CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND "CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='subsectors')
+			WHERE "CATEGORYTRANSLATION"."LOCALE" ='en' AND "CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND "CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='subsectors')
+			group by "CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE" 
+			order by CASE WHEN "CATEGORY"."ID" IS NULL THEN 1 ELSE 0 END, "CATEGORY"."ID" ASC, CASE WHEN "CATEGORY"."CODE" IS NULL THEN 1 ELSE 0 END, "CATEGORY"."CODE" ASC
+			]]>
+        </SQL>
+      </View>
+      <Level name="Name" visible="true" column="NAME" uniqueMembers="false">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension visible="true" highCardinality="false" name="BiMultilateral">
+    <Hierarchy visible="true" hasAll="true" primaryKey="ID">
+      <View alias="BiMultilalteralView">
+        <SQL dialect="generic">
+          <![CDATA[
+			select "CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE"
+			from "APP"."CATEGORY" as "CATEGORY", "APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION", "APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
+			WHERE "CATEGORYTRANSLATION"."LOCALE" ='en' AND "CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND "CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='bi_multilateral')
 			group by "CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE" 
 			order by CASE WHEN "CATEGORY"."ID" IS NULL THEN 1 ELSE 0 END, "CATEGORY"."ID" ASC, CASE WHEN "CATEGORY"."CODE" IS NULL THEN 1 ELSE 0 END, "CATEGORY"."CODE" ASC
 			]]>
@@ -79,39 +96,41 @@
     </DimensionUsage>
     <DimensionUsage source="Type of Flow" name="Type of Flow" visible="true" foreignKey="TYPEOFFLOW_ID" highCardinality="false">
     </DimensionUsage>
-    <Measure name="Export Credit Amount" column="AMOUNTS_EXP_EXPORT_CREDIT_AMOUNT" aggregator="sum" visible="true" caption="%{exportCreditAmount}">
+    <DimensionUsage source="BiMultilateral" name="BiMultilateral" visible="true" foreignKey="BIMULTILATERAL_ID" highCardinality="false">
+    </DimensionUsage>
+    <Measure name="Export Credit Amount" column="AMOUNTS_EXP_EXPORT_CREDIT_AMOUNT" aggregator="sum" visible="true">
     </Measure>
-    <Measure name="IRTC Amount" column="AMOUNTS_IRTC_AMOUNT" aggregator="sum" visible="true" caption="%{IRTCAmount}">
+    <Measure name="IRTC Amount" column="AMOUNTS_IRTC_AMOUNT" aggregator="sum" visible="true">
     </Measure>
-    <Measure name="Extended Amount" column="AMOUNTS_EXTENDED_AMOUNT" aggregator="sum" visible="true" caption="%{extendedAmount}">
+    <Measure name="Extended Amount" column="AMOUNTS_EXTENDED_AMOUNT" aggregator="sum" visible="true">
     </Measure>
-    <Measure name="Current Extended Amount" column="AMOUNTS_EXTENDED_CURRENT_AMOUNT" aggregator="sum" visible="true" caption="%{currentExtendedAmount}">
+    <Measure name="Current Extended Amount" column="AMOUNTS_EXTENDED_CURRENT_AMOUNT" aggregator="sum" visible="true">
     </Measure>
-    <Measure name="Year 1 Extended Amount" column="AMOUNTS_EXTENDED_YEAR1_AMOUNT" aggregator="sum" visible="true" caption="%{year1ExtendedAmount}">
+    <Measure name="Year 1 Extended Amount" column="AMOUNTS_EXTENDED_YEAR1_AMOUNT" aggregator="sum" visible="true">
     </Measure>
-    <Measure name="Year 2 Extended Amount" column="AMOUNTS_EXTENDED_YEAR2_AMOUNT" aggregator="sum" visible="true" caption="%{year2ExtendedAmount}">
+    <Measure name="Year 2 Extended Amount" column="AMOUNTS_EXTENDED_YEAR2_AMOUNT" aggregator="sum" visible="true">
     </Measure>
-    <Measure name="Partially Untied Amount" column="AMOUNTS_PARTIALLY_UNTIED_AMOUNT" aggregator="sum" visible="true" caption="%{partiallyUntiedAmount}">
+    <Measure name="Partially Untied Amount" column="AMOUNTS_PARTIALLY_UNTIED_AMOUNT" aggregator="sum" visible="true">
     </Measure>
-    <Measure name="Received Amount" column="AMOUNTS_RECEIVED_AMOUNT" aggregator="sum" visible="true" caption="%{receivedAmount}">
+    <Measure name="Received Amount" column="AMOUNTS_RECEIVED_AMOUNT" aggregator="sum" visible="true">
     </Measure>
-    <Measure name="Tied Amount" column="AMOUNTS_TIED_AMOUNT" aggregator="sum" visible="true" caption="%{tiedAmount}">
+    <Measure name="Tied Amount" column="AMOUNTS_TIED_AMOUNT" aggregator="sum" visible="true">
     </Measure>
-    <Measure name="Untied Amount" column="AMOUNTS_UNTIED_AMOUNT" aggregator="sum" visible="true" caption="%{untiedAmount}">
+    <Measure name="Untied Amount" column="AMOUNTS_UNTIED_AMOUNT" aggregator="sum" visible="true">
     </Measure>
-    <Measure name="Interest Arrears Amount" column="AMOUNTS_AREARS_INTEREST_AMOUNT" aggregator="sum" visible="true" caption="%{interestArrearsAmount}">
+    <Measure name="Interest Arrears Amount" column="AMOUNTS_AREARS_INTEREST_AMOUNT" aggregator="sum" visible="true">
     </Measure>
-    <Measure name="Principal Arrears Amount" column="AMOUNTS_AREARS_PRIN_AMOUNT" aggregator="sum" visible="true" caption="%{principalArrearsAmount}">
+    <Measure name="Principal Arrears Amount" column="AMOUNTS_AREARS_PRIN_AMOUNT" aggregator="sum" visible="true">
     </Measure>
-    <Measure name="Commitments Amount" column="COMMITMENT_AMOUNT" aggregator="sum" visible="true" caption="%{commitmentsAmount}">
+    <Measure name="Commitments Amount" column="COMMITMENT_AMOUNT" aggregator="sum" visible="true">
     </Measure>
-    <Measure name="Interest Received Amount" column="AMOUNTS_INTEREST_RECEIVED_AMOUNT" aggregator="sum" visible="true" caption="%{interestReceivedAmount}">
+    <Measure name="Interest Received Amount" column="AMOUNTS_INTEREST_RECEIVED_AMOUNT" aggregator="sum" visible="true">
     </Measure>
-    <Measure name="Principal Disbursed Amount" column="AMOUNTS_PRIN_DISB_AMOUNT" aggregator="sum" visible="true" caption="%{principalDisbursedAmount}">
+    <Measure name="Principal Disbursed Amount" column="AMOUNTS_PRIN_DISB_AMOUNT" aggregator="sum" visible="true">
     </Measure>
-    <Measure name="Expert Commitments Amount" column="AMOUNTS_EXP_COMMIT_AMOUNT" aggregator="sum" visible="true" caption="%{expertCommitmentsAmount}">
+    <Measure name="Expert Commitments Amount" column="AMOUNTS_EXP_COMMIT_AMOUNT" aggregator="sum" visible="true">
     </Measure>
-    <Measure name="Expert Extended Amount" column="AMOUNTS_EXP_EXTENDED_AMOUNT" aggregator="sum" visible="true" caption="%{expertExtendedAmount}">
+    <Measure name="Expert Extended Amount" column="AMOUNTS_EXP_EXTENDED_AMOUNT" aggregator="sum" visible="true">
     </Measure>
   </Cube>
 </Schema>
