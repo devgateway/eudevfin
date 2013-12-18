@@ -164,8 +164,10 @@ public class ReportsController {
 					JRXmlLoader.load(
 							ReportsController.class.getResourceAsStream("./report1_subreport3.jrxml")));
 
-			parameters.put("Subreport1", subreport1);
 			parameters.put(JRMondrianQueryExecuterFactory.PARAMETER_MONDRIAN_CONNECTION, conn);
+			parameters.put("Subreport1", subreport1);
+			// pass query parameters
+			parameters.put("DIM_NAME", "Name");		
 			
 			// creates the JasperPrint object, it needs a JasperReport layout and extra params
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters);

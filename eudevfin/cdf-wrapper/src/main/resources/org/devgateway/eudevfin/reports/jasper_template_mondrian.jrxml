@@ -5,10 +5,12 @@
 	<property name="ireport.y" value="48"/>
 	
 	<parameter name="Subreport1" class="net.sf.jasperreports.engine.JasperReport"/>
+	<parameter name="DIM_NAME" class="java.lang.String"/>
+	
 	<queryString language="mdx">
 		<![CDATA[SELECT
 NON EMPTY {Hierarchize({[Measures].[Commitments Amount]})} ON COLUMNS,
-NON EMPTY CrossJoin({[BiMultilateral].[Bilateral en]}, [Type of Aid].[Name].Members) ON ROWS
+NON EMPTY CrossJoin({[BiMultilateral].[Bilateral en]}, [Type of Aid].[$P{DIM_NAME}].Members) ON ROWS
 FROM [Financial]]]>
 	</queryString>
 	<field name="Commitments Amount" class="java.lang.Number">
