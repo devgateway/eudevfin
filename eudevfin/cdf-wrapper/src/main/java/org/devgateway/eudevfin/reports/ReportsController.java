@@ -3,7 +3,6 @@ package org.devgateway.eudevfin.reports;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -231,5 +230,50 @@ public class ReportsController {
 		} catch (Exception e) {
 			logger.error("Unable to write report to the output stream");
 		}
+	}
+}
+
+//Test class for jasperreports
+class Person {
+	private int id;
+	private String name;
+	private String lastName;
+
+	public Person() {
+	}
+
+	public Person(String name, String lastName) {
+		this.name = name;
+		this.lastName = lastName;
+	}
+
+	public Person(int id, String name, String lastName) {
+		this.id = id;
+		this.name = name;
+		this.lastName = lastName;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }
