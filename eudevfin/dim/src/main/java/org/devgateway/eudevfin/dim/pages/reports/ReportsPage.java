@@ -14,8 +14,11 @@ import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.dim.core.pages.HeaderFooter;
+import org.devgateway.eudevfin.dim.pages.reports.components.ColumnsChart;
 import org.devgateway.eudevfin.dim.pages.reports.components.DataTable;
 import org.devgateway.eudevfin.dim.pages.reports.components.Filter;
+import org.devgateway.eudevfin.dim.pages.reports.components.PieChart;
+import org.devgateway.eudevfin.dim.pages.reports.components.StackedBarChart;
 import org.wicketstuff.annotation.mount.MountPath;
 
 @MountPath(value = "/reports")
@@ -38,6 +41,15 @@ public class ReportsPage extends HeaderFooter {
         testTable.parameters().addFilter(sectorFilter);
         testTable.parameters().addFilter(orgFilter);
         add(testTable);
+        
+        PieChart pieChart = new PieChart("pieChart", "simpleSQLQuery", "dashboards.pieChart");
+        add(pieChart);
+        
+        ColumnsChart columnsChart = new ColumnsChart("columnsChart", "simpleSQLQuery", "dashboards.columnChart");
+        add(columnsChart);
+        
+        StackedBarChart stackedBarChart = new StackedBarChart("stackedBarChart", "simpleSQLQuery", "dashboards.stackedBarChart");
+        add(stackedBarChart);
     }
 
     @Override
