@@ -30,11 +30,6 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
-	<tx:annotation-driven />
-	<int:annotation-config />
-	<context:component-scan base-package="org.devgateway.eudevfin.financial" />
-	<context:annotation-config />
-
 	<!-- Defines the packages where the jpa entity repositories are. These provide access to the entities 
 		(orgs, transactions,etc) stored in the db 
 	-->

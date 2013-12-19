@@ -26,10 +26,6 @@
 
 	<int:channel id="userChannel" />
 
-	<tx:annotation-driven />
-	<int:annotation-config />
-	<context:component-scan base-package="org.devgateway.eudevfin.auth.common" />
-	<context:annotation-config />
 
 	<int:gateway id="authenticationService"
 		service-interface="org.devgateway.eudevfin.auth.common.service.AuthenticationService">

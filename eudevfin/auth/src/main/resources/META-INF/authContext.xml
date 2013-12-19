@@ -24,10 +24,6 @@
 	<int:channel id="createUserChannel"/>
 	<int:channel id="getUserChannel"/>
 
-	<tx:annotation-driven />
-	<int:annotation-config />
-	<context:component-scan base-package="org.devgateway.eudevfin.auth" />
-	<context:annotation-config />
    
 	<jpa:repositories base-package="org.devgateway.eudevfin.auth.repository" />
 

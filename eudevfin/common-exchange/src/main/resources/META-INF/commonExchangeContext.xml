@@ -13,10 +13,6 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
-	<tx:annotation-driven />
-	<context:component-scan base-package="org.devgateway.eudevfin.exchange" />
-	<context:annotation-config />
-
 	<int:channel id="exchangeChannel" />
 
 	<int:gateway id="exchangeService"

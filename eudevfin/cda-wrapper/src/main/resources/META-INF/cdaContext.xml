@@ -29,11 +29,7 @@
 	<!-- we need a retrieving-outbound-gateway here to provide the Authentication 
 		token -->
 
-	<tx:annotation-driven />
-	<int:annotation-config />
-	<context:component-scan base-package="org.devgateway.eudevfin.cda" />
 	<context:component-scan base-package="pt.webdetails" />
-	<context:annotation-config />
 
 	<int:channel id="getCDAQueryChannel"/>
 	<int:channel id="replyCDAQueryChannel"/>
@@ -42,9 +38,6 @@
 		service-interface="org.devgateway.eudevfin.cda.service.QueryService" />
 	
 	<mvc:annotation-driven/>
-
-    <context:component-scan base-package="org.devgateway.eudevfin.cda.rest" />
-	<context:component-scan base-package="org.devgateway.eudevfin.cda.service" />
 
 	<!--
 		 TODO

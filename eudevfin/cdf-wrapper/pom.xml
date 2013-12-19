@@ -45,7 +45,14 @@
 			<groupId>pentaho</groupId>
 			<artifactId>mondrian</artifactId>
 			<version>3.5.0</version>
-		</dependency>            
+		</dependency>
+
+	<dependency>
+		<groupId>org.devgateway.eudevfin</groupId>
+		<artifactId>common</artifactId>
+		<version>${project.version}</version>
+	</dependency>
+		            
  	</dependencies>
  	
     <build>

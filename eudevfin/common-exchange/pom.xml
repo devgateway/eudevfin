@@ -7,4 +7,13 @@
   </parent>
   <artifactId>common-exchange</artifactId>
   <name>EU-DEVFIN Common Exchange</name>
+  
+  <dependencies>
+       	<dependency>
+            <groupId>org.devgateway.eudevfin</groupId>
+            <artifactId>common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+  
+  </dependencies>
 </project>

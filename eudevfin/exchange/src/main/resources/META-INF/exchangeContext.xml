@@ -25,10 +25,6 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
-	<int:annotation-config />
-	<tx:annotation-driven />
-	<context:component-scan base-package="org.devgateway.eudevfin.exchange" />
-	<context:annotation-config />
 	<jpa:repositories base-package="org.devgateway.eudevfin.exchange" />
 
 	<!-- load properties regarding the openexchangerates service, url, params, 
