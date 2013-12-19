@@ -6,7 +6,7 @@
  * http://www.gnu.org/licenses/gpl.html
  *
  * Contributors:
- *    aartimon
+ *    mihai
  ******************************************************************************/
 
 package org.devgateway.eudevfin.dim.pages.admin;
@@ -28,6 +28,7 @@ import org.apache.wicket.validation.ValidationError;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.domain.PersistedAuthority;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
+import org.devgateway.eudevfin.auth.common.service.UserService;
 import org.devgateway.eudevfin.auth.repository.PersistedUserRepository;
 import org.devgateway.eudevfin.dim.core.RWComponentPropertyModel;
 import org.devgateway.eudevfin.dim.core.components.BootstrapSubmitButton;
@@ -45,17 +46,17 @@ import org.wicketstuff.annotation.mount.MountPath;
  * @since 17.12.2013
  */
 @AuthorizeInstantiation(AuthConstants.Roles.ROLE_SUPERVISOR)
-@MountPath(value = "/users")
-public class UsersPage extends HeaderFooter {
+@MountPath(value = "/user")
+public class EditUserPage extends HeaderFooter {
 
 	@SpringBean
-	private PersistedUserRepository persistedUserRepository;
+	private UserService userService;
 	
 	@SpringBean
 	private PersistedAuthorityChoiceProvider authorityChoiceProvider;
 
 	private static final long serialVersionUID = -4276784345759050002L;
-	private static final Logger logger = Logger.getLogger(UsersPage.class);
+	private static final Logger logger = Logger.getLogger(EditUserPage.class);
 
 	public class UniqueUsernameValidator extends Behavior implements
 			IValidator<String> {
@@ -69,7 +70,7 @@ public class UsersPage extends HeaderFooter {
 		@Override
 		public void validate(IValidatable<String> validatable) {
 			String username = validatable.getValue();
-			PersistedUser persistedUser2 = persistedUserRepository
+			PersistedUser persistedUser2 = userService
 					.findByUsername(username);
 			if (persistedUser2 != null
 					&& !persistedUser2.getId().equals(userId)) {
@@ -81,14 +82,14 @@ public class UsersPage extends HeaderFooter {
 	}
 
 	@SuppressWarnings("unchecked")
-	public UsersPage(final PageParameters parameters) {
+	public EditUserPage(final PageParameters parameters) {
 		Form form = new Form("form");
 		Long userId = null;
 		final PersistedUser persistedUser;
 
 		if (!parameters.get("userId").isNull()) {
 			userId = parameters.get("userId").toLong();
-			persistedUser = persistedUserRepository.findOne(userId);
+			persistedUser = userService.findOne(userId);
 		} else {
 			persistedUser = new PersistedUser();
 		}
@@ -135,7 +136,7 @@ public class UsersPage extends HeaderFooter {
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				logger.info("Submitted ok!");
 				logger.info("Object:" + getModel().getObject());
-				persistedUserRepository.save(persistedUser);
+				userService.save(persistedUser);
 			}
 			
 		});

@@ -26,9 +26,9 @@ public class UserServiceTest extends AbstractAuthTest {
 		u.setPassword("testpassword");
 		u.setEnabled(true);
 
-		service.createUser(u);
+		service.save(u);
 
-		PersistedUser userByUsername = service.getUserByUsername("test");
+		PersistedUser userByUsername = service.findByUsername("test");
 
 		Assert.assertNotNull(userByUsername);
 

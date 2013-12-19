@@ -45,7 +45,7 @@ import org.devgateway.eudevfin.dim.core.FixBootstrapStylesCssResourceReference;
 import org.devgateway.eudevfin.dim.core.temporary.SB;
 import org.devgateway.eudevfin.dim.pages.HomePage;
 import org.devgateway.eudevfin.dim.pages.LogoutPage;
-import org.devgateway.eudevfin.dim.pages.admin.UsersPage;
+import org.devgateway.eudevfin.dim.pages.admin.EditUserPage;
 import org.devgateway.eudevfin.dim.pages.reports.ReportsPage;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.TransactionPage;
 import org.devgateway.eudevfin.dim.pages.transaction.custom.CustomTransactionPage;
@@ -137,7 +137,7 @@ public abstract class HeaderFooter extends GenericWebPage {
 			@Override
 			protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
 	            List<AbstractLink> list = new ArrayList<>();
-	            list.add(new MenuBookmarkablePageLink<TransactionPage>(UsersPage.class, null, new StringResourceModel("navbar.admin.users", this, null, null)));
+	            list.add(new MenuBookmarkablePageLink<TransactionPage>(EditUserPage.class, null, new StringResourceModel("navbar.admin.users", this, null, null)));
 	            return list;
 			}
 

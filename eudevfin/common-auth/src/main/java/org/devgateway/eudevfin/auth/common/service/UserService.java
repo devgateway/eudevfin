@@ -10,8 +10,12 @@ import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
  */
 public interface UserService {
 	
-	PersistedUser createUser(PersistedUser u);
+	PersistedUser save(PersistedUser u);
 	
-	PersistedUser getUserByUsername(String username);
+	PersistedUser findByUsername(String username);
+
+	PersistedUser findOne(Long userId);
+	
+	Iterable<PersistedUser> findAll();
 
 }

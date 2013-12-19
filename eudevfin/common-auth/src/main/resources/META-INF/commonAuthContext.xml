@@ -25,6 +25,7 @@
 		secured-annotations="enabled" />
 
 	<int:channel id="userChannel" />
+	<int:channel id="authorityChannel" />
 
 
 	<int:gateway id="authenticationService"
@@ -34,15 +35,36 @@
 
 	<int:gateway id="userService"
 		service-interface="org.devgateway.eudevfin.auth.common.service.UserService">
-		<int:method name="createUser" request-channel="userChannel">
-			<int:header name="requestName" value="createUserChannel" />
+		<int:method name="save" request-channel="userChannel">
+			<int:header name="requestName" value="saveUserChannel" />
 		</int:method>
 
-		<int:method name="getUserByUsername" request-channel="userChannel">
-			<int:header name="requestName" value="getUserChannel" />
+		<int:method name="findByUsername" request-channel="userChannel">
+			<int:header name="requestName" value="findByUsernameUserChannel" />
+		</int:method>
+
+		<int:method name="findOne" reply-channel="userChannel">
+			<int:header name="requestName" value="findOneUserChannel" />
 		</int:method>
 
 	</int:gateway>
+	
+	<int:gateway id="authorityService"
+		service-interface="org.devgateway.eudevfin.auth.common.service.AuthorityService">
+		<int:method name="save" request-channel="authorityChannel">
+			<int:header name="requestName" value="saveAuthorityChannel" />
+		</int:method>
+
+		<int:method name="findOne" reply-channel="authorityChannel">
+			<int:header name="requestName" value="findOneAuthorityChannel" />
+		</int:method>
+		
+		<int:method name="findAll" reply-channel="authorityChannel">	
+			<int:header name="requestName" value="findAllAuthorityChannel"/>
+		</int:method>
+
+	</int:gateway>
+	
 
 	<!-- The following is an authenticationManager that delegates all its requests 
 		to another (remote) authentication manager It does this by using a remoteAuthenticationProvider 

@@ -16,4 +16,5 @@ public interface PersistedUserRepository extends
 		PagingAndSortingRepository<PersistedUser, Long> {
 
 	PersistedUser findByUsername(String username);
+	
 }

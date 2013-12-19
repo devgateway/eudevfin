@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.devgateway.eudevfin.auth.common.domain.PersistedAuthority;
+import org.devgateway.eudevfin.auth.common.service.AuthorityService;
 import org.devgateway.eudevfin.auth.repository.PersistedAuthorityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,12 +28,12 @@ public class PersistedAuthorityChoiceProvider extends
 	private static final long serialVersionUID = 6601111337536432388L;
 	
 	@Autowired
-	private PersistedAuthorityRepository persistedAuthorityRepository;
+	private AuthorityService persistedAuthorityService;
 
 	
 
 	/**
-	 * @param persistedAuthorityRepository 
+	 * @param persistedAuthorityService 
 	 * 
 	 */
 	public PersistedAuthorityChoiceProvider() {
@@ -50,7 +51,7 @@ public class PersistedAuthorityChoiceProvider extends
 	public void query(String term, int page,
 			Response<PersistedAuthority> response) {
 		CollectionUtils.<PersistedAuthority> addAll(response.getResults(),
-				persistedAuthorityRepository.findAll());
+				persistedAuthorityService.findAll());
 	}
 
 	@Override
@@ -67,7 +68,7 @@ public class PersistedAuthorityChoiceProvider extends
 	public Collection<PersistedAuthority> toChoices(Collection<String> ids) {
 		List<PersistedAuthority> returnable = new ArrayList<PersistedAuthority>();
 		for (String string : ids)
-			returnable.add(persistedAuthorityRepository.findOne(string));
+			returnable.add(persistedAuthorityService.findOne(string));
 		return returnable;
 	}
 
