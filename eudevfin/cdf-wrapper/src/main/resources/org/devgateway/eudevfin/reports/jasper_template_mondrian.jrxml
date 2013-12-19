@@ -94,10 +94,10 @@ FROM [Financial]]]>
 	<pageFooter>
 	</pageFooter>
 	<summary>
-		<band height="310" splitType="Stretch">
+		<band height="526" splitType="Stretch">
 			<pieChart>
 				<chart>
-					<reportElement x="58" y="13" width="453" height="279" uuid="9a7500b8-51f4-4fd3-a2fd-85f63cfada2d"/>
+					<reportElement x="40" y="235" width="453" height="279" uuid="9a7500b8-51f4-4fd3-a2fd-85f63cfada2d"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend/>
@@ -111,6 +111,13 @@ FROM [Financial]]]>
 					<itemLabel/>
 				</piePlot>
 			</pieChart>
+			<componentElement>
+				<reportElement x="16" y="0" width="511" height="225" uuid="c4af7c40-89a1-4395-a1db-8277bc28525e"/>
+				<mp:map xmlns:mp="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<mp:latitudeExpression><![CDATA[37.7750f]]></mp:latitudeExpression>
+					<mp:longitudeExpression><![CDATA[-122.4183f]]></mp:longitudeExpression>
+				</mp:map>
+			</componentElement>
 		</band>
 	</summary>
 </jasperReport>
