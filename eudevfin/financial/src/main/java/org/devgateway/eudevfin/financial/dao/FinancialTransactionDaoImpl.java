@@ -8,12 +8,10 @@ import java.util.List;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.repository.FinancialTransactionRepository;
 import org.devgateway.eudevfin.financial.util.PagingHelper;
-import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.integration.annotation.Header;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
@@ -23,6 +21,7 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
+@Lazy(value=false)
 public class FinancialTransactionDaoImpl extends AbstractDaoImpl<FinancialTransaction, FinancialTransactionRepository> {
 
 	@Autowired

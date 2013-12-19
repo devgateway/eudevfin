@@ -28,6 +28,7 @@ import org.joda.money.ExchangeRate;
 import org.joda.money.IllegalCurrencyException;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
 
@@ -37,6 +38,7 @@ import org.springframework.stereotype.Component;
  * @see HistoricalExchangeRateService
  */
 @Component
+@Lazy(value=false)
 public class HistoricalExchangeRateDaoImplEndpoint {
 
 	@Autowired

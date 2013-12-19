@@ -8,6 +8,7 @@ import java.util.List;
 import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.integration.annotation.Header;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
@@ -20,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
  *
  */
 @Component
+@Lazy(value=false)
 //@Transactional( readOnly=false, propagation=Propagation.REQUIRED)
 public class CategoryDaoImpl extends AbstractDaoImpl<Category, CategoryRepository> {
 

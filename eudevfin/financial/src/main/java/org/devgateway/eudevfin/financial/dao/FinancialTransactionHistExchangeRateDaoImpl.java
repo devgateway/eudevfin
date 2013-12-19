@@ -12,10 +12,12 @@ import javax.persistence.criteria.Root;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
 
 @Component
+@Lazy(value=false)
 public class FinancialTransactionHistExchangeRateDaoImpl {
 
 	@Autowired
