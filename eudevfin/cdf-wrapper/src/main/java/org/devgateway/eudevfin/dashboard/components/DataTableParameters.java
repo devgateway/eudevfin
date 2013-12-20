@@ -6,7 +6,7 @@
  * http://www.gnu.org/licenses/gpl.html
  */
 
-package org.devgateway.eudevfin.dim.pages.reports.components;
+package org.devgateway.eudevfin.dashboard.components;
 
 /**
  * Extends {@link org.devgateway.eudevfin.dim.pages.reports.components.BaseParameters} with the custom fields

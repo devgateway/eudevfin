@@ -21,12 +21,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.2.4</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.devgateway.eudevfin</groupId>
             <artifactId>auth</artifactId>
             <version>${project.version}</version>
@@ -49,6 +43,7 @@
             <artifactId>common-financial</artifactId>
             <version>${project.version}</version>
         </dependency>
+        
         <dependency>
             <groupId>org.devgateway.eudevfin</groupId>
             <artifactId>financial</artifactId>
@@ -61,12 +56,18 @@
             <version>${project.version}</version>
         </dependency>
 
-
         <dependency>
             <groupId>org.devgateway.eudevfin</groupId>
             <artifactId>cdf-wrapper</artifactId>
             <version>${project.version}</version>
             <type>war</type>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.devgateway.eudevfin</groupId>
+            <artifactId>cdf-wrapper</artifactId>
+            <version>${project.version}</version>
+            <type>jar</type>
         </dependency>
 
         <dependency>

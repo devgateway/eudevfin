@@ -13,12 +13,13 @@ import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
+import org.devgateway.eudevfin.dashboard.Dashboards;
+import org.devgateway.eudevfin.dashboard.components.ColumnsChart;
+import org.devgateway.eudevfin.dashboard.components.DataTable;
+import org.devgateway.eudevfin.dashboard.components.Filter;
+import org.devgateway.eudevfin.dashboard.components.PieChart;
+import org.devgateway.eudevfin.dashboard.components.StackedBarChart;
 import org.devgateway.eudevfin.dim.core.pages.HeaderFooter;
-import org.devgateway.eudevfin.dim.pages.reports.components.ColumnsChart;
-import org.devgateway.eudevfin.dim.pages.reports.components.DataTable;
-import org.devgateway.eudevfin.dim.pages.reports.components.Filter;
-import org.devgateway.eudevfin.dim.pages.reports.components.PieChart;
-import org.devgateway.eudevfin.dim.pages.reports.components.StackedBarChart;
 import org.wicketstuff.annotation.mount.MountPath;
 
 @MountPath(value = "/reports")
@@ -62,14 +63,14 @@ public class ReportsPage extends HeaderFooter {
         response.render(JavaScriptHeaderItem.forUrl("/js/Highcharts-3.0.7/js/modules/exporting.js"));
         
         // dashboard models
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(ReportsPage.class, "FilterModel.js")));
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(ReportsPage.class, "TableModel.js")));
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(ReportsPage.class, "TableDefinitionModel.js")));
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(ReportsPage.class, "ChartModel.js")));
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(ReportsPage.class, "ChartPieDefinitionModel.js")));
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(ReportsPage.class, "ChartColumnDefinitionModel.js")));
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(ReportsPage.class, "StackedBarDefinitionModel.js")));
+        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "FilterModel.js")));
+        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "TableModel.js")));
+        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "TableDefinitionModel.js")));
+        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "ChartModel.js")));
+        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "ChartPieDefinitionModel.js")));
+        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "ChartColumnDefinitionModel.js")));
+        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "StackedBarDefinitionModel.js")));
 
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(ReportsPage.class, "reports.js")));
+        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "reports.js")));
     }
 }

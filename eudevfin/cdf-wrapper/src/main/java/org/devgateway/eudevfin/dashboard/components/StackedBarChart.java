@@ -1,4 +1,4 @@
-package org.devgateway.eudevfin.dim.pages.reports.components;
+package org.devgateway.eudevfin.dashboard.components;
 
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
@@ -32,7 +32,7 @@ public class StackedBarChart extends Panel {
     public void renderHead(IHeaderResponse response) {
         super.renderHead(response);
         
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Filter.class, "StackedBarChartInit.js")));
+        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(StackedBarChart.class, "StackedBarChartInit.js")));
         response.render(OnDomReadyHeaderItem.forScript("initStackedBarChart('" + stackedBarChart.getMarkupId() + "', '" + dataAccessId + "');"));
     }
 }
