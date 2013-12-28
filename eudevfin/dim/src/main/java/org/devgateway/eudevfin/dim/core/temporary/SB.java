@@ -14,7 +14,7 @@ import java.util.Collection;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.devgateway.eudevfin.financial.Category;
-import org.devgateway.eudevfin.financial.Country;
+import org.devgateway.eudevfin.financial.Area;
 import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.RecipientCategory;
 import org.joda.money.CurrencyUnit;
@@ -72,9 +72,9 @@ public class SB {
         RecipientCategory recipientCategory = new RecipientCategory();
         recipientCategory.setId(id);
         recipientCategory.setName(name);
-        Country c = new Country();
+        Area c = new Area();
         c.setName(country);
-        recipientCategory.setCountry(c);
+        recipientCategory.setArea(c);
         return recipientCategory;
     }
 
@@ -141,7 +141,7 @@ public class SB {
     public static ChoiceProvider<RecipientCategory> recipientCategoryProvider = new TempCP<RecipientCategory>(recipientCateg) {
         @Override
         protected String getDisplayText(RecipientCategory choice) {
-            return choice.getCountry().getName();
+            return choice.getArea().getName();
         }
     };
 

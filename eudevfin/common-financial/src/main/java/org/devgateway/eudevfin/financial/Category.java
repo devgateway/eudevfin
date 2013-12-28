@@ -16,6 +16,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.devgateway.eudevfin.financial.translate.CategoryTranslation;
 import org.devgateway.eudevfin.financial.translate.CategoryTrnInterface;
@@ -25,15 +27,18 @@ import org.hibernate.envers.Audited;
 @Audited
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(
-    name="CategoryType",
+    name="category_type",
     discriminatorType= DiscriminatorType.STRING)
 @DiscriminatorValue("Category")
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"category_type", "code"}))
 public class Category extends AbstractTranslateable<CategoryTranslation>
 					implements CategoryTrnInterface, Serializable{
 
 	private static final long serialVersionUID = -6173469233250737236L;
 
-	@Column(unique=true)
+	/**
+	 * The code should be unique within a certain type of category
+	 */
 	private String code;
 	
 	@ManyToOne

@@ -21,6 +21,8 @@ import org.hibernate.envers.Audited;
 public class OrganizationTranslation extends AbstractTranslation<Organization> implements OrganizationTrnInterface {
 	
 	private String name;
+	
+	private String donorName;
 
 	/* (non-Javadoc)
 	 * @see org.devgateway.eudevfin.financial.translate.OrganizationTrnInterface#getName()
@@ -36,6 +38,14 @@ public class OrganizationTranslation extends AbstractTranslation<Organization> i
 	@Override
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getDonorName() {
+		return donorName;
+	}
+
+	public void setDonorName(String donorName) {
+		this.donorName = donorName;
 	}
 	
 	

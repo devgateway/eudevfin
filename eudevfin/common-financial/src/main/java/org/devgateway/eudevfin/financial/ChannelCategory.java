@@ -24,9 +24,13 @@ public class ChannelCategory extends Category {
 	private static final long serialVersionUID = 2465172777390623507L;
 	
 	@ManyToOne
-	Organization organization;
+	private Organization organization;
 	
-	BigDecimal coefficient;
+	private BigDecimal coefficient;
+	
+	private String acronym;
+	private Integer dac2a3a;
+	private Boolean mcd;
 	
 	public Organization getOrganization() {
 		return organization;
@@ -40,7 +44,26 @@ public class ChannelCategory extends Category {
 	public void setCoefficient(BigDecimal coefficient) {
 		this.coefficient = coefficient;
 	}
+	public String getAcronym() {
+		return acronym;
+	}
+	public void setAcronym(String acronym) {
+		this.acronym = acronym;
+	}
+	public Integer getDac2a3a() {
+		return dac2a3a;
+	}
+	public void setDac2a3a(Integer dac2a3a) {
+		this.dac2a3a = dac2a3a;
+	}
+	public Boolean getMcd() {
+		return mcd;
+	}
+	public void setMcd(Boolean mcd) {
+		this.mcd = mcd;
+	}
 		
+	
 	
 	
 }

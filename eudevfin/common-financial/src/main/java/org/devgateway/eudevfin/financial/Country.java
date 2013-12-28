@@ -1,50 +1,31 @@
+/**
+ * 
+ */
 package org.devgateway.eudevfin.financial;
 
 import java.math.BigDecimal;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-import org.devgateway.eudevfin.financial.translate.CountryTranslation;
-import org.devgateway.eudevfin.financial.translate.CountryTrnInterface;
 import org.hibernate.envers.Audited;
 
-
+/**
+ * @author Alex
+ *
+ */
 @Entity
 @Audited
-public class Country extends AbstractTranslateable<CountryTranslation> 
-					implements CountryTrnInterface {
-	
-	
-	private String code;
+@DiscriminatorValue("Country")
+public class Country extends Area {
+
+	private static final long serialVersionUID = 4597228380360940999L;
 	
 	private BigDecimal GDI;
 	private BigDecimal odaOfGDI;
 	private BigDecimal totalFlowsOfGDI;
-	private BigDecimal population;
+	private Integer population;
 	
-	@Override
-	protected CountryTranslation newTranslationInstance() {
-		return new CountryTranslation();
-	}
-	
-	@Override
-	public String getName() {
-		return (String) get("name");
-	}
-
-	@Override
-	public void setName(String name) {
-		set("name",name);
-	}
-
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
-	}
-
 	public BigDecimal getGDI() {
 		return GDI;
 	}
@@ -69,12 +50,13 @@ public class Country extends AbstractTranslateable<CountryTranslation>
 		this.totalFlowsOfGDI = totalFlowsOfGDI;
 	}
 
-	public BigDecimal getPopulation() {
+	public Integer getPopulation() {
 		return population;
 	}
 
-	public void setPopulation(BigDecimal population) {
+	public void setPopulation(Integer population) {
 		this.population = population;
 	}
+
 
 }

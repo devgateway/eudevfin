@@ -22,15 +22,19 @@ public class RecipientCategory extends Category {
 	 */
 	private static final long serialVersionUID = -7973525314051632466L;
 	
+	
+	/**
+	 * Country or area
+	 */
 	@ManyToOne
-	Country country;
+	Area area;
 
-	public Country getCountry() {
-		return country;
+	public Area getArea() {
+		return area;
 	}
 
-	public void setCountry(Country country) {
-		this.country = country;
+	public void setArea(Area area) {
+		this.area = area;
 	}
 	
 }

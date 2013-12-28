@@ -18,10 +18,15 @@ public class Organization extends AbstractTranslateable<OrganizationTranslation>
 	private String code;
 	
 	@ManyToOne
-	private Country country;
+	private Area area;
 	
 	@ManyToOne
 	private Category organizationType; 
+	
+	/**
+	 * This is the code of the parent Donor (group/country)
+	 */
+	private String donorCode;
 	
 	@Override
 	public String getName() {
@@ -32,6 +37,18 @@ public class Organization extends AbstractTranslateable<OrganizationTranslation>
 	public void setName(String name) {
 		this.set("name", name);
 	}
+	
+	@Override
+	public String getDonorName() {
+		return (String) get("donorName");
+	}
+
+	@Override
+	public void setDonorName(String donorName) {
+		this.set("donorName", donorName);
+		
+	}
+	
 
 	@Override
 	public String toString() {
@@ -51,12 +68,29 @@ public class Organization extends AbstractTranslateable<OrganizationTranslation>
 		this.code = code;
 	}
 
-	public Country getCountry() {
-		return country;
+
+	public Category getOrganizationType() {
+		return organizationType;
 	}
 
-	public void setCountry(Country country) {
-		this.country = country;
+	public void setOrganizationType(Category organizationType) {
+		this.organizationType = organizationType;
 	}
-	
+
+	public Area getArea() {
+		return area;
+	}
+
+	public void setArea(Area area) {
+		this.area = area;
+	}
+
+	public String getDonorCode() {
+		return donorCode;
+	}
+
+	public void setDonorCode(String donorCode) {
+		this.donorCode = donorCode;
+	}
+
 }
