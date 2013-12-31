@@ -6,7 +6,7 @@
  * http://www.gnu.org/licenses/gpl.html
  */
 
-function initDataTable(parametersJson) {
+function initDataTable(parametersJson) {    
     var table = new app.TableModel(_.extend(parametersJson, {
         preChange: function (value) {
             return value;

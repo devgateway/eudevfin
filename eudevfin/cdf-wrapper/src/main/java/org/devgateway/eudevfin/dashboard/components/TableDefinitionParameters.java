@@ -26,12 +26,13 @@ public class TableDefinitionParameters {
     private Boolean info = Boolean.TRUE;
     private String dataAccessId = "simpleSQLQuery";
 
-
     private String tableStyle = "themeroller";
     private String paginationType = "full_numbers";
     private Boolean paginateServerside = Boolean.FALSE;
     private Boolean sort = Boolean.TRUE;
     private Boolean lengthChange = Boolean.FALSE;
     private Integer displayLength = 10;
+    private String sDom = "T<'clear'>lfrtip";
+    private String sTitle = "export_table";
     private String path = "/some/path";
 }

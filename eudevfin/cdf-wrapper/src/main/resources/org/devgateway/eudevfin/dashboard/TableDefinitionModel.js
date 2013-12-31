@@ -31,6 +31,10 @@ var app = app || {};
                 sort: true,
                 lengthChange: false,
                 displayLength: 10,
+                sDom: 'T<"clear">lfrtip',
+                oTableTools: {
+                    sSwfPath: 'js/tableTools/swf/copy_csv_xls_pdf.swf'
+                },
                 // query properties
                 dataAccessId: "",
                 path: '/some/path'

@@ -56,5 +56,5 @@ function initColumnsChart(columnChartId, dataAccessId) {
 
     Dashboards.addComponent(columnChartQuery);
 
-    Dashboards.update(columnChartQuery);
+//    Dashboards.update(columnChartQuery);
 }

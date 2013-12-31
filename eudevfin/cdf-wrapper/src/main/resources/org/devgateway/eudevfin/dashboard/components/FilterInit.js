@@ -32,5 +32,5 @@ function initFilter(filterId, dataAccessId, parameter) {
 
     Dashboards.addComponent(filter);
 
-    Dashboards.update(filter);
+//    Dashboards.update(filter);
 }

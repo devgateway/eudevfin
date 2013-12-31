@@ -77,7 +77,7 @@
             var myself = this;
             return function (json) {
                 // TODO - changed this in order to make the response a JSON object
-                // var JSONresponse = $.parseJSON(json
+                // var JSONresponse = $.parseJSON(json);
                 myself.setOption('lastResultSet', json);
                 var clone = $.extend(true, {}, myself.getOption('lastResultSet'));
                 callback(clone);
