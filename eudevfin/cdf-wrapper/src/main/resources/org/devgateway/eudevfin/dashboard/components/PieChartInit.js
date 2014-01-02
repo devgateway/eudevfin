@@ -47,5 +47,5 @@ function initPieChart(pieChartId, dataAccessId) {
 
     Dashboards.addComponent(pieChartQuery);
 
-//    Dashboards.update(pieChartQuery);
+    Dashboards.update(pieChartQuery);
 }

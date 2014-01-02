@@ -29,5 +29,5 @@ function initStackedBarChart(stackedBarChartId, dataAccessId) {
 
     Dashboards.addComponent(stackedBarChartQuery);
 
-//    Dashboards.update(stackedBarChartQuery);
+    Dashboards.update(stackedBarChartQuery);
 }

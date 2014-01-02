@@ -49,9 +49,6 @@ public class DataTable extends Panel implements IParametersProvider {
         response.render(CssHeaderItem.forUrl("/js/dataTables/css/demo_page.css"));
         response.render(CssHeaderItem.forUrl("/js/dataTables/css/demo_table.css"));
         response.render(CssHeaderItem.forUrl("/js/dataTables/css/demo_table_jui.css"));
-        
-        response.render(CssHeaderItem.forUrl("/js/tableTools/css/TableTools.css"));
-        response.render(CssHeaderItem.forUrl("/js/tableTools/css/TableTools_JUI.css"));
 
         response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(DataTable.class, "DataTableInit.js")));
         response.render(OnDomReadyHeaderItem.forScript("initDataTable(" + parameters().toJson() + ");"));
