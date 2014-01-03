@@ -6,9 +6,7 @@ import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -23,14 +21,12 @@ import mondrian.olap.DriverManager;
 import mondrian.olap.Query;
 import mondrian.olap.Result;
 import mondrian.olap.Util.PropertyList;
-import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.olap.JRMondrianQueryExecuterFactory;
@@ -38,100 +34,16 @@ import net.sf.jasperreports.olap.JRMondrianQueryExecuterFactory;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ReportsController {
-	
 	@Autowired
 	private DataSource cdaDataSource;
 	
 	private static final Logger logger = Logger.getLogger(ReportsController.class);
-	
-	@RequestMapping(value = "/pdf", method = RequestMethod.GET)
-    public ModelAndView generatePdfReport(ModelAndView modelAndView) {
-		logger.debug(">>> generate PDF report");
-		
-		Map<String, Object> parameterMap = new HashMap<String, Object>();
-		List<Person> personList = new ArrayList<Person>();
-		Person p1 = new Person(1, "name 1", "lastName 1");
-		Person p2 = new Person(2, "name 2", "lastName 2");
-		Person p3 = new Person(3, "name 3", "lastName 3");
-		personList.add(p1);
-		personList.add(p2);
-		personList.add(p3);
-		
-		JRDataSource jrdataSource = new JRBeanCollectionDataSource(personList);
-		
-		parameterMap.put("datasource", jrdataSource);
-		modelAndView = new ModelAndView("pdfReport", parameterMap);
-		
-        return modelAndView;
-    }
-	
-	@RequestMapping(value = "/xls", method = RequestMethod.GET)
-    public String generateXlsReport(ModelMap model) {
-		logger.debug(">>> generate XLS report");
-		
-		List<Person> personList = new ArrayList<Person>();
-		Person p1 = new Person(1, "name 1", "lastName 1");
-		Person p2 = new Person(2, "name 2", "lastName 2");
-		Person p3 = new Person(3, "name 3", "lastName 3");
-		personList.add(p1);
-		personList.add(p2);
-		personList.add(p3);
-		
-		JRDataSource jrdataSource = new JRBeanCollectionDataSource(personList);
-		
-		model.addAttribute("datasource", jrdataSource);
-		
-        return "xlsReport";
-    }
-	
-	@RequestMapping(value = "/html", method = RequestMethod.GET)
-    public ModelAndView generateHtmlReport(ModelAndView modelAndView) {
-		logger.debug(">>> generate HTML report");
-		
-		Map<String, Object> parameterMap = new HashMap<String, Object>();
-		List<Person> personList = new ArrayList<Person>();
-		Person p1 = new Person(1, "name 1", "lastName 1");
-		Person p2 = new Person(2, "name 2", "lastName 2");
-		Person p3 = new Person(3, "name 3", "lastName 3");
-		personList.add(p1);
-		personList.add(p2);
-		personList.add(p3);
-		
-		JRDataSource jrdataSource = new JRBeanCollectionDataSource(personList);
-		
-		parameterMap.put("datasource", jrdataSource);
-		modelAndView = new ModelAndView("htmlReport", parameterMap);
-		
-        return modelAndView;
-    }
-	
-	@RequestMapping(value = "/csv", method = RequestMethod.GET)
-    public ModelAndView generateCsvReport(ModelAndView modelAndView) {
-		logger.debug(">>> generate CSV report");
-		
-		Map<String, Object> parameterMap = new HashMap<String, Object>();
-		List<Person> personList = new ArrayList<Person>();
-		Person p1 = new Person(1, "name 1", "lastName 1");
-		Person p2 = new Person(2, "name 2", "lastName 2");
-		Person p3 = new Person(3, "name 3", "lastName 3");
-		personList.add(p1);
-		personList.add(p2);
-		personList.add(p3);
-		
-		JRDataSource jrdataSource = new JRBeanCollectionDataSource(personList);
-		
-		parameterMap.put("datasource", jrdataSource);
-		modelAndView = new ModelAndView("csvReport", parameterMap);
-		
-        return modelAndView;
-    }
 	
 	@RequestMapping(value = "/mondrian", method = RequestMethod.GET)
     public ModelAndView generateMondrianReport(HttpServletRequest request, HttpServletResponse response, ModelAndView modelAndView)  throws IOException {
@@ -281,50 +193,5 @@ public class ReportsController {
 		} catch (Exception e) {
 			logger.error("Unable to write report to the output stream");
 		}
-	}
-}
-
-//Test class for jasperreports
-class Person {
-	private int id;
-	private String name;
-	private String lastName;
-
-	public Person() {
-	}
-
-	public Person(String name, String lastName) {
-		this.name = name;
-		this.lastName = lastName;
-	}
-
-	public Person(int id, String name, String lastName) {
-		this.id = id;
-		this.name = name;
-		this.lastName = lastName;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 }
