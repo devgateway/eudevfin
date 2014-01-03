@@ -59,7 +59,7 @@ public abstract class HeaderFooter extends GenericWebPage {
 
     private final static String LANGUAGE_PAGE_PARAM = "lang";
     
-    @SpringBean
+  
     protected Navbar navbar;
 
     protected HeaderFooter() {

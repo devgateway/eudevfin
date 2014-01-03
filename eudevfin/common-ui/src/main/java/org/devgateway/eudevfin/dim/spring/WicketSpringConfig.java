@@ -10,12 +10,8 @@
  ******************************************************************************/
 package org.devgateway.eudevfin.dim.spring;
 
-import org.apache.wicket.model.Model;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
-
-import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
 
 @Configuration
 public class WicketSpringConfig {
