@@ -13,6 +13,7 @@ import org.apache.wicket.authorization.strategies.CompoundAuthorizationStrategy;
 import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.request.resource.CssResourceReference;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
@@ -21,7 +22,6 @@ import org.devgateway.eudevfin.dim.core.ApplicationJavaScript;
 import org.devgateway.eudevfin.dim.core.FixBootstrapStylesCssResourceReference;
 import org.devgateway.eudevfin.dim.core.JQueryUICoreJavaScriptReference;
 import org.devgateway.eudevfin.dim.core.permissions.PermissionAuthorizationStrategy;
-import org.devgateway.eudevfin.dim.pages.HomePage;
 import org.devgateway.eudevfin.dim.pages.LoginPage;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -30,6 +30,7 @@ import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
 
 import de.agilecoders.wicket.core.Bootstrap;
 import de.agilecoders.wicket.core.markup.html.RenderJavaScriptToFooterHeaderResponseDecorator;
+import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
 import de.agilecoders.wicket.core.markup.html.references.BootstrapPrettifyCssReference;
 import de.agilecoders.wicket.core.markup.html.references.BootstrapPrettifyJavaScriptReference;
 import de.agilecoders.wicket.core.markup.html.references.ModernizrJavaScriptReference;
@@ -69,6 +70,16 @@ public class WicketSpringApplication extends AuthenticatedWebApplication impleme
             CompoundAuthorizationStrategy cas = (CompoundAuthorizationStrategy) getSecuritySettings().getAuthorizationStrategy();
             cas.add(new PermissionAuthorizationStrategy());
         }
+        
+        
+        //add the navbar 
+//        Navbar navbar = new Navbar("navbar");
+//        navbar.setPosition(Navbar.Position.TOP);
+//        // show brand name
+//        navbar.brandName(Model.of("EU-DEVFIN"));
+//        //register the navbar as a spring bean
+//        springContext.getAutowireCapableBeanFactory().initializeBean(navbar, "wicketNavbar");
+        
     }
 
     /**
@@ -123,7 +134,7 @@ public class WicketSpringApplication extends AuthenticatedWebApplication impleme
 
     @Override
     public Class<? extends Page> getHomePage() {
-        return HomePage.class;
+        return LoginPage.class;
     }
 
     @Override

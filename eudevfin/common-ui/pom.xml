@@ -19,6 +19,7 @@
   		<artifactId>common-financial</artifactId>
   		<version>${project.version}</version>
   	</dependency>
+    	
 
   </dependencies>
 </project>

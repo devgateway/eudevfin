@@ -8,20 +8,9 @@
 
 package org.devgateway.eudevfin.dim.core.pages;
 
-import de.agilecoders.wicket.core.Bootstrap;
-import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.BootstrapBaseBehavior;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.*;
-import de.agilecoders.wicket.core.markup.html.bootstrap.html.ChromeFrameMetaTag;
-import de.agilecoders.wicket.core.markup.html.bootstrap.html.HtmlTag;
-import de.agilecoders.wicket.core.markup.html.bootstrap.html.OptimizedMobileViewportMetaTag;
-import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconType;
-import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
-import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarButton;
-import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarComponents;
-import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarDropDownButton;
-import de.agilecoders.wicket.core.settings.IBootstrapSettings;
-import de.agilecoders.wicket.core.settings.ITheme;
-import de.agilecoders.wicket.extensions.markup.html.bootstrap.button.DropDownAutoOpen;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
@@ -38,29 +27,40 @@ import org.apache.wicket.markup.html.link.AbstractLink;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.StringValue;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
-import org.devgateway.eudevfin.cdf.pages.reports.ReportsPage;
 import org.devgateway.eudevfin.dim.core.ApplicationJavaScript;
-import org.devgateway.eudevfin.dim.core.Constants;
 import org.devgateway.eudevfin.dim.core.FixBootstrapStylesCssResourceReference;
-import org.devgateway.eudevfin.dim.core.temporary.SB;
-import org.devgateway.eudevfin.dim.pages.HomePage;
 import org.devgateway.eudevfin.dim.pages.LogoutPage;
-import org.devgateway.eudevfin.dim.pages.admin.EditUserPage;
-import org.devgateway.eudevfin.dim.pages.transaction.crs.TransactionPage;
-import org.devgateway.eudevfin.dim.pages.transaction.custom.CustomTransactionPage;
 import org.devgateway.eudevfin.dim.spring.WicketSpringApplication;
 import org.devgateway.eudevfin.financial.util.LocaleHelper;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import de.agilecoders.wicket.core.Bootstrap;
+import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.BootstrapBaseBehavior;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.DropDownButton;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuBookmarkablePageLink;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuDivider;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuHeader;
+import de.agilecoders.wicket.core.markup.html.bootstrap.html.ChromeFrameMetaTag;
+import de.agilecoders.wicket.core.markup.html.bootstrap.html.HtmlTag;
+import de.agilecoders.wicket.core.markup.html.bootstrap.html.OptimizedMobileViewportMetaTag;
+import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconType;
+import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
+import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarButton;
+import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarComponents;
+import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarDropDownButton;
+import de.agilecoders.wicket.core.settings.IBootstrapSettings;
+import de.agilecoders.wicket.core.settings.ITheme;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.button.DropDownAutoOpen;
 
 @SuppressWarnings("WicketForgeJavaIdInspection")
 public abstract class HeaderFooter extends GenericWebPage {
 
     private final static String LANGUAGE_PAGE_PARAM = "lang";
+    
+    @SpringBean
+    protected Navbar navbar;
 
     protected HeaderFooter() {
 
@@ -80,36 +80,25 @@ public abstract class HeaderFooter extends GenericWebPage {
 
     @SuppressWarnings("Convert2Diamond")
     private Component createNavBar() {
-        Navbar navbar = new Navbar("navbar");
-        navbar.setPosition(Navbar.Position.TOP);
-        // show brand name
-        navbar.brandName(Model.of("EU-DEVFIN"));
-
-
-        NavbarButton<HomePage> homePageNavbarButton = new NavbarButton<HomePage>(getApplication().getHomePage(), new StringResourceModel("navbar.home", this, null, null)).setIconType(IconType.home);
-        MetaDataRoleAuthorizationStrategy.authorize(homePageNavbarButton, Component.RENDER, AuthConstants.Roles.ROLE_USER);
+    
+//      NavbarButton<HomePage> homePageNavbarButton = new NavbarButton<HomePage>(getApplication().getHomePage(), new StringResourceModel("navbar.home", this, null, null)).setIconType(IconType.home);
+//        MetaDataRoleAuthorizationStrategy.authorize(homePageNavbarButton, Component.RENDER, AuthConstants.Roles.ROLE_USER);
 
         //NavbarButton<TransactionPage> transactionPageNavbarButton = new NavbarButton<TransactionPage>(TransactionPage.class, new StringResourceModel("navbar.newTransaction", this, null, null)).setIconType(IconType.plus);
         //MetaDataRoleAuthorizationStrategy.authorize(transactionPageNavbarButton, Component.RENDER, AuthConstants.Roles.ROLE_USER);
 
-        NavbarDropDownButton transactionPageNavbarButton = newTransactionDropdown();
-        MetaDataRoleAuthorizationStrategy.authorize(transactionPageNavbarButton, Component.RENDER, AuthConstants.Roles.ROLE_USER);
 
-        NavbarDropDownButton adminPageNavbarButton = newAdminDropDown();
-        MetaDataRoleAuthorizationStrategy.authorize(adminPageNavbarButton, Component.RENDER, AuthConstants.Roles.ROLE_SUPERVISOR);
+     //   NavbarDropDownButton adminPageNavbarButton = newAdminDropDown();
+       // MetaDataRoleAuthorizationStrategy.authorize(adminPageNavbarButton, Component.RENDER, AuthConstants.Roles.ROLE_SUPERVISOR);
         
-        NavbarButton<ReportsPage> reportsPageNavbarButton = new NavbarButton<ReportsPage>(ReportsPage.class, new StringResourceModel("navbar.reports", this, null, null)).setIconType(IconType.thlist);
-        MetaDataRoleAuthorizationStrategy.authorize(reportsPageNavbarButton, Component.RENDER, AuthConstants.Roles.ROLE_USER);
-
+  
   //      NavbarButton<UsersPage> adminPageNavbarButton = new NavbarButton<UsersPage>(UsersPage.class, new StringResourceModel("navbar.admin", this, null, null)).setIconType(IconType.wrench);
 //        MetaDataRoleAuthorizationStrategy.authorize(adminPageNavbarButton, Component.RENDER, AuthConstants.Roles.ROLE_SUPERVISOR);
 
 
-        navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.LEFT,
-                homePageNavbarButton,
-                transactionPageNavbarButton,
-                reportsPageNavbarButton
-        ));
+//        navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.LEFT,
+//                homePageNavbarButton
+//        ));
 
 
         DropDownButton themesDropdown = newThemesDropdown();
@@ -120,7 +109,7 @@ public abstract class HeaderFooter extends GenericWebPage {
         navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.RIGHT,
                 themesDropdown,
                 languageDropDown,
-                adminPageNavbarButton,
+             //   adminPageNavbarButton,
                 logoutPageNavbarButton));
 
         return navbar;
@@ -128,113 +117,31 @@ public abstract class HeaderFooter extends GenericWebPage {
     
     
     
-    private NavbarDropDownButton newAdminDropDown() {
-        NavbarDropDownButton navbarDropDownButton = new NavbarDropDownButton(new StringResourceModel("navbar.admin", this, null, null)) {
-            @Override
-            public boolean isActive(Component item) {
-                return false;
-            }
-
-			@Override
-			protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
-	            List<AbstractLink> list = new ArrayList<>();
-	            list.add(new MenuBookmarkablePageLink<TransactionPage>(EditUserPage.class, null, new StringResourceModel("navbar.admin.users", this, null, null)));
-	            return list;
-			}
-
-  
-        };
-        navbarDropDownButton.setIconType(IconType.plus);
-        navbarDropDownButton.add(new DropDownAutoOpen());
-        return navbarDropDownButton;
-    }
+//    private NavbarDropDownButton newAdminDropDown() {
+//        NavbarDropDownButton navbarDropDownButton = new NavbarDropDownButton(new StringResourceModel("navbar.admin", this, null, null)) {
+//            @Override
+//            public boolean isActive(Component item) {
+//                return false;
+//            }
+//
+//			@Override
+//			protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
+//	            List<AbstractLink> list = new ArrayList<>();
+//	            list.add(new MenuBookmarkablePageLink<EditUserPage>(EditUserPage.class, null, new StringResourceModel("navbar.admin.users", this, null, null)));
+//	            return list;
+//			}
+//
+//  
+//        };
+//        navbarDropDownButton.setIconType(IconType.plus);
+//        navbarDropDownButton.add(new DropDownAutoOpen());
+//        return navbarDropDownButton;
+//    }
 
     
     
 
-    private NavbarDropDownButton newTransactionDropdown() {
-        NavbarDropDownButton navbarDropDownButton = new NavbarDropDownButton(new StringResourceModel("navbar.newTransaction", this, null, null)) {
-            @Override
-            public boolean isActive(Component item) {
-                return false;
-            }
 
-            @Override
-            @SuppressWarnings("Convert2Diamond")
-            protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
-                List<AbstractLink> list = new ArrayList<>();
-                DropDownSubMenu bilateralOda = new DropDownSubMenu(new StringResourceModel("navbar.newTransaction.bilateralOda", this, null, null)) {
-                    @Override
-                    public boolean isActive(Component item) {
-                        return false;
-                    }
-
-                    @Override
-                    protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
-                        List<String> values = new ArrayList<>();
-                        values.add(SB.BILATERAL_ODA_ADVANCED_QUESTIONNAIRE);
-                        values.add(SB.BILATERAL_ODA_CRS);
-                        values.add(SB.BILATERAL_ODA_FORWARD_SPENDING);
-
-                        return getTransactionLinks(values);
-                    }
-
-                };
-                bilateralOda.setIconType(IconType.resizehorizontal);
-                list.add(bilateralOda);
-
-                DropDownSubMenu multilateralOda = new DropDownSubMenu(Model.of("Multilateral ODA")) {
-                    @Override
-                    public boolean isActive(Component item) {
-                        return false;
-                    }
-
-                    @Override
-                    protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
-                        List<String> values = new ArrayList<>();
-                        values.add(SB.MULTILATERAL_ODA_ADVANCED_QUESTIONNAIRE);
-                        values.add(SB.MULTILATERAL_ODA_CRS);
-
-                        return getTransactionLinks(values);
-                    }
-                };
-                multilateralOda.setIconType(IconType.fullscreen);
-                list.add(multilateralOda);
-
-                DropDownSubMenu nonOda = new DropDownSubMenu(Model.of("non-ODA")) {
-                    @Override
-                    protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
-                        List<String> values = new ArrayList<>();
-                        values.add(SB.NON_ODA_OOF_NON_EXPORT);
-                        values.add(SB.NON_ODA_OOF_EXPORT);
-                        values.add(SB.NON_ODA_PRIVATE_GRANTS);
-                        values.add(SB.NON_ODA_PRIVATE_MARKET);
-                        values.add(SB.NON_ODA_OTHER_FLOWS);
-
-                        return getTransactionLinks(values);
-                    }
-                };
-                nonOda.setIconType(IconType.random);
-                list.add(nonOda);
-
-                return list;
-            }
-        };
-        navbarDropDownButton.setIconType(IconType.plus);
-        navbarDropDownButton.add(new DropDownAutoOpen());
-        return navbarDropDownButton;
-    }
-
-    @SuppressWarnings("Convert2Diamond")
-    private List<AbstractLink> getTransactionLinks(List<String> values) {
-        List<AbstractLink> list = new ArrayList<>();
-        for (String item : values) {
-            PageParameters params = new PageParameters();
-            params.set(Constants.TRANSACTION_TYPE, item);
-            list.add(new MenuBookmarkablePageLink<TransactionPage>(CustomTransactionPage.class, params, new StringResourceModel("navbar.newTransaction." + item, this, null, null)));
-        }
-        return list;
-    }
 
     private NavbarDropDownButton newLanguageDropdown() {
         NavbarDropDownButton languageDropDown = new NavbarDropDownButton(new StringResourceModel("navbar.lang", this, null, null)) {
