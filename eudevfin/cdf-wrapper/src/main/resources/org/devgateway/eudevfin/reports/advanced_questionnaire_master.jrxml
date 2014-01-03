@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4d81083f-52a3-45df-97af-b93a485e497a">
+	<property name="ireport.callouts" value="##Mon Dec 30 08:46:00 ART 2013"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="bilateralToASubreport" class="net.sf.jasperreports.engine.JasperReport"/>
+	<parameter name="bilateralToFSubreport" class="net.sf.jasperreports.engine.JasperReport"/>
+	<queryString language="mdx">
+		<![CDATA[SELECT
+NON EMPTY {[Measures].[Commitments Amount]} ON COLUMNS,
+NON EMPTY {Hierarchize({[BiMultilateral].[All BiMultilaterals]})} ON ROWS
+FROM [Financial]]]>
+	</queryString>
+	<field name="Commitments Amount" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount],?)]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="130" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="1" width="555" height="15" uuid="b2847462-8dc7-42d4-a144-53fa5129a91f"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ADVANCE QUESTIONNAIRE ON MAIN ODA AGGREGATES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="17" width="555" height="15" uuid="7d2520e0-f1b3-4536-bb21-ea7fbe4ec892"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[(2012 Edition)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="32" width="159" height="25" uuid="d971475c-3ae3-4306-800d-edad48554bf8"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporting Country:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="159" y="32" width="138" height="23" uuid="2e4c34c4-da8c-4853-bec3-b5474eeb25eb"/>
+				<textFieldExpression><![CDATA[]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="297" y="32" width="130" height="25" uuid="7f64e3e1-16c4-49f6-8568-3307a1043be8"/>
+				<textElement>
+					<font size="12" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Exchange rates used]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="427" y="57" width="128" height="35" uuid="2c4a8cb4-0274-457a-8ced-05603e84aeb2"/>
+				<textElement>
+					<font size="12" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[2010 1 $ U.S. =
+2011 1 $ U.S. =]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="100" width="107" height="15" uuid="1b63871e-604e-4c71-b49a-8fab9e500103"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DISBURSEMENTS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="393" y="100" width="154" height="15" uuid="c839ccf7-3877-4dda-9b0a-d76ab6e374b8"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Millions US dollars]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="250" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="201" height="15" uuid="301f0e82-d09a-4e11-bc67-b831104674d9"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DEVELOPING COUNTRIES (3)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="15" width="355" height="15" uuid="ddc91962-c1c2-4435-9c9b-d886869782e9"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Official Development Assistance, net]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="393" y="15" width="154" height="20" uuid="9dd9f963-69eb-4482-b38e-96daffa140e8"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Commitments Amount}]]></textFieldExpression>
+			</textField>
+			<subreport isUsingCache="false" runToBottom="false">
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="0" y="35" width="555" height="72" isPrintWhenDetailOverflows="true" uuid="31805ebd-22c9-4dcc-9364-ba6e5634b585"/>
+				<subreportParameter name="MONDRIAN_CONNECTION">
+					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression><![CDATA[$P{bilateralToASubreport}]]></subreportExpression>
+			</subreport>
+			<subreport isUsingCache="false" runToBottom="false">
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="0" y="129" width="555" height="72" isPrintWhenDetailOverflows="true" uuid="31805ebd-22c9-4dcc-9364-ba6e5634b585"/>
+				<subreportParameter name="MONDRIAN_CONNECTION">
+					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression><![CDATA[$P{bilateralToFSubreport}]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="37" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="1" width="555" height="1" uuid="ff41f0d2-265c-4f89-b6a3-969b28608d31"/>
+			</line>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

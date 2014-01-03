@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1_subreport3" language="groovy" pageWidth="555" pageHeight="180" whenNoDataType="BlankPage" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="ff64a141-27a5-482c-ae54-08584269c1f9">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="LOCALE" class="java.lang.String"/>
+	<queryString language="mdx">
+		<![CDATA[SELECT
+NON EMPTY {[Measures].[Commitments Amount]} ON COLUMNS,
+NON EMPTY {Hierarchize({[Type of Flow].[Name].Members})} ON ROWS
+FROM [Financial]]]>
+	</queryString>
+	<field name="Commitments Amount" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount],?)]]></fieldDescription>
+	</field>
+	<field name="Type of Flow" class="java.lang.String">
+		<fieldDescription><![CDATA[Rows[Type of Flow][Name]]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="50" y="2" width="332" height="20" uuid="dee8131b-28c7-4ad4-89bf-bb3125bb21ab"/>
+				<textFieldExpression><![CDATA[$F{Type of Flow}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="398" y="2" width="157" height="20" uuid="5724f34b-c76e-43fb-bfa6-17099437d490"/>
+				<textFieldExpression><![CDATA[$F{Commitments Amount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
