@@ -8,6 +8,13 @@
 
 package org.devgateway.eudevfin.financial;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+
 import org.devgateway.eudevfin.financial.translate.FinancialTransactionTranslation;
 import org.devgateway.eudevfin.financial.translate.FinancialTransactionTrnInterface;
 import org.hibernate.annotations.Columns;
@@ -16,13 +23,6 @@ import org.hibernate.envers.Audited;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 import org.joda.time.LocalDateTime;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import java.io.Serializable;
-import java.math.BigDecimal;
 
 @Entity
 @Audited
@@ -45,10 +45,6 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
     private String crsIdentificationNumber;
     private String geoTargetArea;
 
-    @Lob
-    private String shortDescription;
-    @Lob
-    private String description;
 
     private Boolean cpa;
     private Boolean programmeBasedApproach;
@@ -267,8 +263,6 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
                 "\n   donorProjectNumber='" + donorProjectNumber + '\'' +
                 "\n   crsIdentificationNumber='" + crsIdentificationNumber + '\'' +
                 "\n   geoTargetArea='" + geoTargetArea + '\'' +
-                "\n   shortDescription='" + shortDescription + '\'' +
-                "\n   description='" + description + '\'' +
                 "\n   cpa=" + cpa +
                 "\n   programmeBasedApproach=" + programmeBasedApproach +
                 "\n   investment=" + investment +
@@ -339,6 +333,16 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
     @Override
     public void setDescription(String description) {
         this.set("description", description);
+    }
+    
+    @Override
+    public String getShortDescription() {
+        return (String) this.get("shortDescription");
+    }
+
+    @Override
+    public void setShortDescription(String shortDescription) {
+        this.set("shortDescription", shortDescription);
     }
 
     public String getDonorProjectNumber() {
@@ -411,14 +415,6 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
 
     public void setSecondInterestRate(BigDecimal secondInterestRate) {
         this.secondInterestRate = secondInterestRate;
-    }
-
-    public String getShortDescription() {
-        return shortDescription;
-    }
-
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
     }
 
     public Boolean getProgrammeBasedApproach() {

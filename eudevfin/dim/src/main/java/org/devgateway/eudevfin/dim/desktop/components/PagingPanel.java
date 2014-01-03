@@ -11,11 +11,11 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.devgateway.eudevfin.financial.util.PagingItem;
 
-public class SortingPanel extends Panel {
+public class PagingPanel extends Panel {
 
 	private ListView<PagingItem> paginationListView;
 
-	public SortingPanel(String id, IModel<List<PagingItem>> model) {
+	public PagingPanel(String id, IModel<List<PagingItem>> model) {
 		super(id, model) ;
 		
 		
@@ -26,7 +26,7 @@ public class SortingPanel extends Panel {
 			@Override
 			protected void populateItem(ListItem<PagingItem> item) {
 				PagingItem pagingItem					= item.getModelObject();
-				Pageable parent	= (Pageable) SortingPanel.this.getParent();
+				Pageable parent	= (Pageable) PagingPanel.this.getParent();
 				
 				AjaxLink<PagingItem> link	= parent.createLink(pagingItem);
 				Label label				= new Label("page-number-label", pagingItem.getLabel());

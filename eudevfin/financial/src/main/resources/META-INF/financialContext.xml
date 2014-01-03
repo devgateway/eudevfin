@@ -170,6 +170,7 @@
 	<int:channel id="findCategoryByLabelCodeChannel" />
 	<int:channel id="findTransactionBySectorCodePageableChannel" />
 	<int:channel id="getFinancialTransactionHistoricalExchangeRatesChannel"/>
+	<int:channel id="findTransactionByGeneralSearchPageableChannel"/>
 
 	<!-- 	Router that sends the requests to the appropriate channels where they will usually be handled by ServiceActivators. 
 			The name of the request channels is taken from the 'requestName' header parameter

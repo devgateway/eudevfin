@@ -8,6 +8,7 @@ import java.util.List;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
@@ -21,4 +22,7 @@ public interface FinancialTransactionRepository extends
 	List<FinancialTransaction> findByReportingOrganizationId(Long orgId);
 	
 	Page<FinancialTransaction> findBySectorCode(String sectorCode, Pageable pageable );
+	
+	@Query(" select trn.parent from FinancialTransactionTranslation trn where lower(trn.description) like %?1%")
+	Page<FinancialTransaction> findByTranslationsDescriptionContaining(String searchString, Pageable pageable);
 }

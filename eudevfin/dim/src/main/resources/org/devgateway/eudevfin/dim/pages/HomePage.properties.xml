@@ -14,4 +14,6 @@
 <properties>
     <entry key="desktop.lastTxByAgriculture">Last transactions - Agriculture</entry>
     <entry key="desktop.lastTxByTransport">Last transactions - Transport</entry>
+    <entry key="desktop.search.label">Search for transactions:</entry>
+    <entry key="desktop.search.placeholder">Start typing</entry>
 </properties>

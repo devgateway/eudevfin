@@ -103,8 +103,8 @@ public class AllLastTransactionPanel extends Panel implements Pageable {
 	}
 	
 	private void populatePaging() {
-		SortingPanel sortingPanel 	= new SortingPanel("sorting-panel", new ListModel<>(this.pagingItems) );
-		this.add(sortingPanel);
+		PagingPanel pagingPanel 	= new PagingPanel("paging-panel", new ListModel<>(this.pagingItems) );
+		this.add(pagingPanel);
 	}
 	
 	public void generateListOfTransactions( int pageNumber) {
@@ -112,8 +112,10 @@ public class AllLastTransactionPanel extends Panel implements Pageable {
 		this.pagingItems.clear();
 		
 		PagingHelper<FinancialTransaction> results	= this.listGenerator.getResultsList(pageNumber, PAGE_SIZE); 
-		this.transactions.addAll( results.getEntities() );
-		this.pagingItems.addAll( results.createPagingItems() );
+		if (results != null && results.getTotalNumOfEntities() > 0 ) {
+			this.transactions.addAll( results.getEntities() );
+			this.pagingItems.addAll( results.createPagingItems() );
+		}
 		
 	}
 	

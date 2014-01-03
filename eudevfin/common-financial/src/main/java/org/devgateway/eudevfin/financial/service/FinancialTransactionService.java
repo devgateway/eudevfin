@@ -18,5 +18,8 @@ public interface FinancialTransactionService extends BaseEntityService<Financial
 	
 	public PagingHelper<FinancialTransaction> findBySectorCode(String sectorCode, 
 			@Header("pageNumber")int pageNumber, @Header("pageSize")int pageSize);
+	
+	public PagingHelper<FinancialTransaction> findByGeneralSearch(String searchString, 
+			@Header("pageNumber")int pageNumber, @Header("pageSize")int pageSize);
 
 }
