@@ -12,6 +12,9 @@ import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
 import org.apache.wicket.model.StringResourceModel;
 
 /**
+ * Basic {@link org.apache.wicket.extensions.markup.html.tabs.AbstractTab} that provides a key which can be used to
+ * identify the tab in the html DOM
+ *
  * @author aartimon
  * @see ITabWithKey
  * @since 28/11/13
@@ -20,9 +23,9 @@ public abstract class AbstractTabWithKey extends AbstractTab implements ITabWith
     private final String tabKey;
 
     /**
-     * Constructor
-     *
+     * {@inheritDoc}
      * @param title IModel used to represent the title of the tab. Must contain a string
+     * @param tabKey unique tab key in the current container
      */
     public AbstractTabWithKey(StringResourceModel title, String tabKey) {
         super(title);

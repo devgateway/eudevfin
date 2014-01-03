@@ -8,14 +8,14 @@
 
 package org.devgateway.eudevfin.dim.core.components.tabs;
 
-import java.util.List;
-
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
 import org.apache.wicket.extensions.markup.html.tabs.ITab;
 import org.apache.wicket.extensions.markup.html.tabs.TabbedPanel;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.model.IModel;
+
+import java.util.List;
 
 /**
  * Copy of AjaxTabbedPanel, with bootstrap compatibility
@@ -32,6 +32,12 @@ public class BootstrapAjaxTabbedPanel<T extends ITab> extends TabbedPanel<T> {
 
     private Orientation orientation = Orientation.TOP;
 
+    /**
+     * Creates a new tabbed panel with ajax support and bootstrap look
+     *
+     * @param id   wicket placeholder id
+     * @param tabs list of tabs that are going to populate the panel
+     */
     public BootstrapAjaxTabbedPanel(final String id, final List<T> tabs) {
         this(id, tabs, null);
     }
@@ -64,7 +70,7 @@ public class BootstrapAjaxTabbedPanel<T extends ITab> extends TabbedPanel<T> {
             return super.newLink(linkId, index);
     }
 
-    private void onAjaxUpdate(final AjaxRequestTarget target) {
+    protected void onAjaxUpdate(final AjaxRequestTarget target) {
         //Override if needed
     }
 
@@ -89,6 +95,7 @@ public class BootstrapAjaxTabbedPanel<T extends ITab> extends TabbedPanel<T> {
         return "tabbable " + css;
     }
 
+
     @Override
     protected String getSelectedTabCssClass() {
         return "active";
@@ -99,11 +106,23 @@ public class BootstrapAjaxTabbedPanel<T extends ITab> extends TabbedPanel<T> {
         return "";
     }
 
+    /**
+     * Allows the tabbed panel to work with ajax enabled or not
+     *
+     * @param ajax set to false in order to disable ajax loading of panels
+     * @return current instance of {@link org.devgateway.eudevfin.dim.core.components.tabs.BootstrapAjaxTabbedPanel}
+     */
     public BootstrapAjaxTabbedPanel<T> setAjax(boolean ajax) {
         this.ajax = ajax;
         return this;
     }
 
+    /**
+     * Allows to change the tabs placement relative to the panel
+     *
+     * @param orientation
+     * @return
+     */
     public BootstrapAjaxTabbedPanel<T> positionTabs(Orientation orientation) {
         this.orientation = orientation;
         return this;

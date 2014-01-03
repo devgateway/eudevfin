@@ -8,8 +8,6 @@
 
 package org.devgateway.eudevfin.dim.core.components.tabs;
 
-import java.util.List;
-
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.ComponentTag;
@@ -23,7 +21,11 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.devgateway.eudevfin.dim.core.components.PermissionAwareLabel;
 
+import java.util.List;
+
 /**
+ * Tabbed Panel that renders all the tabs in the page and uses JS to instantly switch between tabs
+ *
  * @author aartimon@developmentgateway.org
  * @since 05 November 2013
  */
@@ -34,6 +36,12 @@ public class BootstrapJSTabbedPanel<T extends ITabWithKey> extends Panel {
 
     private Orientation orientation = Orientation.TOP;
 
+    /**
+     * Create a new tabbed panel that instantly switches between tabs using js
+     *
+     * @param id   wicket placeholder id
+     * @param tabs list of tabs to render
+     */
     @SuppressWarnings("WicketForgeJavaIdInspection")
     public BootstrapJSTabbedPanel(String id, final List<T> tabs) {
         super(id);
