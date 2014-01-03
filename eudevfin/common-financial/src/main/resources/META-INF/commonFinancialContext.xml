@@ -41,6 +41,9 @@
 		<int:method name="findBySectorCode" request-channel="getChannel">
 			<int:header name="requestName" value="findTransactionBySectorCodePageableChannel"/>
 		</int:method>
+		<int:method name="findByGeneralSearch" request-channel="getChannel">
+			<int:header name="requestName" value="findTransactionByGeneralSearchPageableChannel"/>
+		</int:method>
 	</int:gateway>
 		
 		

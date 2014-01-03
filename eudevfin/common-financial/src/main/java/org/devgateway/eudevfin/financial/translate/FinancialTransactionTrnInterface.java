@@ -6,4 +6,8 @@ public interface FinancialTransactionTrnInterface {
 
 	public void setDescription(String description);
 
+	public String getShortDescription();
+
+	public void setShortDescription(String shortDescription);
+
 }

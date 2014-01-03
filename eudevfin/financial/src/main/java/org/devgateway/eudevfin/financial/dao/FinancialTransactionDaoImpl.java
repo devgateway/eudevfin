@@ -61,15 +61,21 @@ public class FinancialTransactionDaoImpl extends AbstractDaoImpl<FinancialTransa
 		
 		//Sort sort	= new Sort(Direction.ASC, "sectorName");
 		PageRequest pageRequest = new PageRequest(realPageNumber, pageSize, null);
-		Page<FinancialTransaction> resultPage	= this.getRepo().findBySectorCode(sectorCode, pageRequest);
 		
-		PagingHelper<FinancialTransaction> pagingHelper	= 
-				new PagingHelper<>(resultPage.getNumber(), resultPage.getTotalPages(), resultPage.getContent().size(), resultPage.getContent());
-				
-		return pagingHelper;
+		return this.createPagingHelperFromPage( this.getRepo().findBySectorCode(sectorCode, pageRequest) );
 		
 	}
-
+	
+	@ServiceActivator(inputChannel="findTransactionByGeneralSearchPageableChannel")
+	public PagingHelper<FinancialTransaction> findByGeneralSearch(String searchString,
+			@Header("pageNumber")int pageNumber, @Header("pageSize")int pageSize ) {
+		int realPageNumber	= pageNumber-1;
+		PageRequest pageRequest = new PageRequest(realPageNumber, pageSize, null);
+		
+		
+		return this.createPagingHelperFromPage( this.getRepo().findByTranslationsDescriptionContaining(searchString.toLowerCase(), pageRequest) ) ;
+	}
+	
 	@Override
 	FinancialTransactionRepository getRepo() {
 		return repo;

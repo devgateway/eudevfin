@@ -6,6 +6,9 @@ package org.devgateway.eudevfin.financial.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.devgateway.eudevfin.financial.FinancialTransaction;
+import org.devgateway.eudevfin.financial.util.PagingHelper;
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
@@ -24,6 +27,14 @@ public abstract class AbstractDaoImpl<Entity,Repo extends PagingAndSortingReposi
 			
 		}
 		return ret;
+	}
+	
+	protected PagingHelper<Entity> createPagingHelperFromPage (Page<Entity> resultPage) {
+		PagingHelper<Entity> pagingHelper	= 
+				new PagingHelper<>(resultPage.getNumber(), resultPage.getTotalPages(), resultPage.getContent().size(), resultPage.getContent());
+				
+		return pagingHelper; 
+		
 	}
 	
 	public Entity save(Entity e) {

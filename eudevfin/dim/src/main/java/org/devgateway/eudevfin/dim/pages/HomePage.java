@@ -22,7 +22,10 @@ import org.devgateway.eudevfin.dim.core.components.tabs.BootstrapJSTabbedPanel;
 import org.devgateway.eudevfin.dim.core.components.tabs.ITabWithKey;
 import org.devgateway.eudevfin.dim.core.pages.HeaderFooter;
 import org.devgateway.eudevfin.dim.desktop.components.AllLastTransactionPanel;
+import org.devgateway.eudevfin.dim.desktop.components.SearchBoxPanel;
 import org.devgateway.eudevfin.dim.desktop.components.config.ListGeneratorInterface;
+import org.devgateway.eudevfin.dim.desktop.components.util.GeneralSearchListGenerator;
+import org.devgateway.eudevfin.dim.desktop.components.util.SectorListGenerator;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.service.CategoryService;
@@ -125,30 +128,17 @@ public class HomePage extends HeaderFooter {
     	
   
     	List<ITabWithKey> tabList = new ArrayList<>();
-    	ListGeneratorInterface<FinancialTransaction> agricTxGenerator	= new ListGeneratorInterface<FinancialTransaction>() {
-			@Override
-			public PagingHelper<FinancialTransaction> getResultsList(
-					int pageNumber, int pageSize) {
-				return HomePage.this.txService.findBySectorCode(SECTOR_CODE_AGRIC, pageNumber, pageSize);
-			}
-			
-		};
-		
-		ListGeneratorInterface<FinancialTransaction> transportTxGenerator	= new ListGeneratorInterface<FinancialTransaction>() {
-			@Override
-			public PagingHelper<FinancialTransaction> getResultsList(
-					int pageNumber, int pageSize) {
-				return HomePage.this.txService.findBySectorCode(SECTOR_CODE_TRANSPORT, pageNumber, pageSize);
-			}
-			
-		};
+
     	
-    	tabList.add( AllLastTransactionPanel.newTab(this,DESKTOP_LAST_TX_BY_AGRICULTURE, agricTxGenerator) );
-    	tabList.add( AllLastTransactionPanel.newTab(this,DESKTOP_LAST_TX_BY_TRANSPORT, transportTxGenerator ) );
+    	tabList.add( AllLastTransactionPanel.newTab( this,DESKTOP_LAST_TX_BY_AGRICULTURE, new SectorListGenerator(SECTOR_CODE_AGRIC, txService) ) );
+    	tabList.add( AllLastTransactionPanel.newTab( this,DESKTOP_LAST_TX_BY_TRANSPORT, new SectorListGenerator(SECTOR_CODE_TRANSPORT, txService) ) );
     	
     	BootstrapJSTabbedPanel<ITabWithKey> bc = new BootstrapJSTabbedPanel<>("tops-panel", tabList).
                 positionTabs(BootstrapJSTabbedPanel.Orientation.RIGHT);
     	
     	this.add(bc);
+    	
+    	GeneralSearchListGenerator generalSearchListGenerator	= new GeneralSearchListGenerator(null, txService);
+    	this.add( new SearchBoxPanel("search-box-panel", new AllLastTransactionPanel("search-results-panel",generalSearchListGenerator ), generalSearchListGenerator ) );
     }
 }

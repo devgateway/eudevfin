@@ -3,17 +3,11 @@
  */
 package org.devgateway.eudevfin.financial.translate;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.Lob;
 
 import org.devgateway.eudevfin.financial.FinancialTransaction;
-import org.hibernate.annotations.Type;
 import org.hibernate.envers.Audited;
-import org.joda.time.LocalDateTime;
 
 /**
  * @author Alex
@@ -23,7 +17,10 @@ import org.joda.time.LocalDateTime;
 @Audited
 public class FinancialTransactionTranslation extends AbstractTranslation<FinancialTransaction> implements FinancialTransactionTrnInterface {
 	
+//	@Lob
 	private String description;
+//	@Lob
+	private String shortDescription;
 	
 	/* (non-Javadoc)
 	 * @see org.devgateway.eudevfin.financial.translate.FinancialTransactionTrnInterface#getDescription()
@@ -40,5 +37,17 @@ public class FinancialTransactionTranslation extends AbstractTranslation<Financi
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	@Override
+	public String getShortDescription() {
+		return shortDescription;
+	}
+
+	@Override
+	public void setShortDescription(String shortDescription) {
+		this.shortDescription = shortDescription;
+	}
+	
+	
 	
 }

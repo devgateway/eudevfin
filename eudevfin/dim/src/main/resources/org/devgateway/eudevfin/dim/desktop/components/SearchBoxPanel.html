@@ -7,7 +7,7 @@
   ~ http://www.gnu.org/licenses/gpl.html
   ~
   ~ Contributors:
-  ~    aartimon
+  ~    Alex
   -->
 
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
@@ -15,23 +15,14 @@
 
 </head>
 <body>
-<wicket:extend>
-	<div class="container">
-		<div class="row"><div class="span12">&nbsp;</div></div>
-	</div>
-	<div class="container">
-		<div class="row">
-			<div class="span10 offset1 well" wicket:id="search-box-panel"></div>
+	<wicket:panel>
+		<div class="search-box-panel ">
+			
+			<div wicket:id="search-box" />
 		</div>
-	</div>
-	<div class="container">
-		<div class="row"><div class="span12">&nbsp;</div></div>
-	</div>
-	<div class="container">
-		<div class="row">
-			<div class="span10 offset1 well" wicket:id="tops-panel"></div>
+		<div wicket:id="search-results-panel-wrapper">
+			<div wicket:id="search-results-panel" />
 		</div>
-	</div>
-</wicket:extend>
+	</wicket:panel>
 </body>
 </html>
