@@ -21,6 +21,8 @@ public class Constants {
     public static final String ACTION_RENDER = "ACTION_RENDER";
     public static final String ACTION_REQUIRED = "ACTION_REQUIRED";
 
+    public final static String LANGUAGE_PAGE_PARAM = "lang";
+    
     private Constants() {
         //no need for instantiation
     }

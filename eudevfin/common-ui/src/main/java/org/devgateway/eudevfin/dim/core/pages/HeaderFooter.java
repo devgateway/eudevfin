@@ -27,18 +27,24 @@ import org.apache.wicket.markup.html.link.AbstractLink;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.StringValue;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.dim.core.ApplicationJavaScript;
+import org.devgateway.eudevfin.dim.core.Constants;
 import org.devgateway.eudevfin.dim.core.FixBootstrapStylesCssResourceReference;
+import org.devgateway.eudevfin.dim.core.temporary.SB;
 import org.devgateway.eudevfin.dim.pages.LogoutPage;
 import org.devgateway.eudevfin.dim.spring.WicketSpringApplication;
 import org.devgateway.eudevfin.financial.util.LocaleHelper;
+import org.reflections.Reflections;
+import org.reflections.scanners.MethodAnnotationsScanner;
+import org.reflections.scanners.SubTypesScanner;
+import org.reflections.util.ClasspathHelper;
 
 import de.agilecoders.wicket.core.Bootstrap;
 import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.BootstrapBaseBehavior;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.DropDownButton;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.DropDownSubMenu;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuBookmarkablePageLink;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuDivider;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuHeader;
@@ -57,10 +63,7 @@ import de.agilecoders.wicket.extensions.markup.html.bootstrap.button.DropDownAut
 @SuppressWarnings("WicketForgeJavaIdInspection")
 public abstract class HeaderFooter extends GenericWebPage {
 
-    private final static String LANGUAGE_PAGE_PARAM = "lang";
     
-  
-    protected Navbar navbar;
 
     protected HeaderFooter() {
 
@@ -80,25 +83,30 @@ public abstract class HeaderFooter extends GenericWebPage {
 
     @SuppressWarnings("Convert2Diamond")
     private Component createNavBar() {
-    
-//      NavbarButton<HomePage> homePageNavbarButton = new NavbarButton<HomePage>(getApplication().getHomePage(), new StringResourceModel("navbar.home", this, null, null)).setIconType(IconType.home);
-//        MetaDataRoleAuthorizationStrategy.authorize(homePageNavbarButton, Component.RENDER, AuthConstants.Roles.ROLE_USER);
+        Navbar navbar = new Navbar("navbar");
+        navbar.setPosition(Navbar.Position.TOP);
+        // show brand name
+        navbar.brandName(Model.of("EU-DEVFIN"));
 
+     
         //NavbarButton<TransactionPage> transactionPageNavbarButton = new NavbarButton<TransactionPage>(TransactionPage.class, new StringResourceModel("navbar.newTransaction", this, null, null)).setIconType(IconType.plus);
         //MetaDataRoleAuthorizationStrategy.authorize(transactionPageNavbarButton, Component.RENDER, AuthConstants.Roles.ROLE_USER);
 
+        Reflections reflections = new Reflections(
+				ClasspathHelper.forPackage("org.devgateway.eudevfin"), new MethodAnnotationsScanner());
 
-     //   NavbarDropDownButton adminPageNavbarButton = newAdminDropDown();
-       // MetaDataRoleAuthorizationStrategy.authorize(adminPageNavbarButton, Component.RENDER, AuthConstants.Roles.ROLE_SUPERVISOR);
+     
         
-  
+        
   //      NavbarButton<UsersPage> adminPageNavbarButton = new NavbarButton<UsersPage>(UsersPage.class, new StringResourceModel("navbar.admin", this, null, null)).setIconType(IconType.wrench);
 //        MetaDataRoleAuthorizationStrategy.authorize(adminPageNavbarButton, Component.RENDER, AuthConstants.Roles.ROLE_SUPERVISOR);
 
 
-//        navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.LEFT,
-//                homePageNavbarButton
-//        ));
+        navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.LEFT,
+                homePageNavbarButton,
+                transactionPageNavbarButton,
+                reportsPageNavbarButton
+        ));
 
 
         DropDownButton themesDropdown = newThemesDropdown();
@@ -109,7 +117,7 @@ public abstract class HeaderFooter extends GenericWebPage {
         navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.RIGHT,
                 themesDropdown,
                 languageDropDown,
-             //   adminPageNavbarButton,
+                adminPageNavbarButton,
                 logoutPageNavbarButton));
 
         return navbar;
@@ -117,99 +125,18 @@ public abstract class HeaderFooter extends GenericWebPage {
     
     
     
-//    private NavbarDropDownButton newAdminDropDown() {
-//        NavbarDropDownButton navbarDropDownButton = new NavbarDropDownButton(new StringResourceModel("navbar.admin", this, null, null)) {
-//            @Override
-//            public boolean isActive(Component item) {
-//                return false;
-//            }
-//
-//			@Override
-//			protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
-//	            List<AbstractLink> list = new ArrayList<>();
-//	            list.add(new MenuBookmarkablePageLink<EditUserPage>(EditUserPage.class, null, new StringResourceModel("navbar.admin.users", this, null, null)));
-//	            return list;
-//			}
-//
-//  
-//        };
-//        navbarDropDownButton.setIconType(IconType.plus);
-//        navbarDropDownButton.add(new DropDownAutoOpen());
-//        return navbarDropDownButton;
-//    }
+    
 
     
     
 
+   
 
+  
 
-    private NavbarDropDownButton newLanguageDropdown() {
-        NavbarDropDownButton languageDropDown = new NavbarDropDownButton(new StringResourceModel("navbar.lang", this, null, null)) {
-            private static final long serialVersionUID = 2866997914075956070L;
-
-            @Override
-            public boolean isActive(Component item) {
-                return false;
-            }
-
-            @SuppressWarnings("Convert2Diamond")
-            @Override
-            protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
-                List<AbstractLink> list = new ArrayList<>();
-                list.add(new MenuHeader(new StringResourceModel("navbar.lang.header", this, null, null)));
-                list.add(new MenuDivider());
-
-
-                //TODO: get available languages
-                final List<Locale> langs = new ArrayList<>();
-                langs.add(new Locale("en"));
-                langs.add(new Locale("ro"));
-
-                for (Locale l : langs) {
-                    PageParameters params = new PageParameters();
-                    params.set(LANGUAGE_PAGE_PARAM, l.getLanguage());
-                    list.add(new MenuBookmarkablePageLink<Page>(getPageClass(), params, Model.of(l.getDisplayName())));
-                }
-
-                return list;
-            }
-        };
-        languageDropDown.setIconType(IconType.flag);
-        languageDropDown.add(new DropDownAutoOpen());
-        return languageDropDown;
-    }
-
-    private DropDownButton newThemesDropdown() {
-        return new NavbarDropDownButton(Model.of("Themes")) {
-            @Override
-            public boolean isActive(Component item) {
-                return false;
-            }
-
-            @SuppressWarnings("Convert2Diamond")
-            @Override
-            protected List<AbstractLink> newSubMenuButtons(final String buttonMarkupId) {
-                final List<AbstractLink> subMenu = new ArrayList<AbstractLink>();
-                subMenu.add(new MenuHeader(Model.of("all available themes:")));
-                subMenu.add(new MenuDivider());
-
-                final IBootstrapSettings settings = Bootstrap.getSettings(getApplication());
-                final List<ITheme> themes = settings.getThemeProvider().available();
-
-                for (final ITheme theme : themes) {
-                    PageParameters params = new PageParameters();
-                    params.set("theme", theme.name());
-
-                    subMenu.add(new MenuBookmarkablePageLink<Page>(getPageClass(), params, Model.of(theme.name())));
-                }
-
-                return subMenu;
-            }
-        }.setIconType(IconType.book);
-    }
-
+  
     @Override
-    public void renderHead(IHeaderResponse response) {
+    public void renderHead(IHeaderResponse response) {    	
         response.render(CssHeaderItem.forReference(FixBootstrapStylesCssResourceReference.INSTANCE));
         response.render(new FilteredHeaderItem(JavaScriptHeaderItem.forReference(ApplicationJavaScript.INSTANCE), "footer-container"));
     }
@@ -223,7 +150,7 @@ public abstract class HeaderFooter extends GenericWebPage {
     }
 
     private void configureLanguage(PageParameters pageParameters) {
-        StringValue lang = pageParameters.get(LANGUAGE_PAGE_PARAM);
+        StringValue lang = pageParameters.get(Constants.LANGUAGE_PAGE_PARAM);
 
         LocaleHelper beanSession = ((WicketSpringApplication) getApplication()).getSpringContext().getBean("localeHelperSession", LocaleHelper.class);
         LocaleHelper beanRequest = ((WicketSpringApplication) getApplication()).getSpringContext().getBean("localeHelperRequest", LocaleHelper.class);
