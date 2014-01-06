@@ -8,14 +8,15 @@
 
 package org.devgateway.eudevfin.dim.core.pages;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 import java.util.Locale;
+import java.util.Set;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.Page;
 import org.apache.wicket.Session;
-import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
@@ -23,42 +24,27 @@ import org.apache.wicket.markup.head.filter.FilteredHeaderItem;
 import org.apache.wicket.markup.head.filter.HeaderResponseContainer;
 import org.apache.wicket.markup.html.GenericWebPage;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.markup.html.link.AbstractLink;
 import org.apache.wicket.model.Model;
-import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.util.string.StringValue;
-import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.dim.core.ApplicationJavaScript;
 import org.devgateway.eudevfin.dim.core.Constants;
 import org.devgateway.eudevfin.dim.core.FixBootstrapStylesCssResourceReference;
-import org.devgateway.eudevfin.dim.core.temporary.SB;
-import org.devgateway.eudevfin.dim.pages.LogoutPage;
+import org.devgateway.eudevfin.dim.core.WicketNavbarComponentInitializer;
 import org.devgateway.eudevfin.dim.spring.WicketSpringApplication;
 import org.devgateway.eudevfin.financial.util.LocaleHelper;
 import org.reflections.Reflections;
 import org.reflections.scanners.MethodAnnotationsScanner;
-import org.reflections.scanners.SubTypesScanner;
 import org.reflections.util.ClasspathHelper;
 
 import de.agilecoders.wicket.core.Bootstrap;
 import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.BootstrapBaseBehavior;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.DropDownButton;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.DropDownSubMenu;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuBookmarkablePageLink;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuDivider;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuHeader;
 import de.agilecoders.wicket.core.markup.html.bootstrap.html.ChromeFrameMetaTag;
 import de.agilecoders.wicket.core.markup.html.bootstrap.html.HtmlTag;
 import de.agilecoders.wicket.core.markup.html.bootstrap.html.OptimizedMobileViewportMetaTag;
-import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconType;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
-import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarButton;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarComponents;
-import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarDropDownButton;
 import de.agilecoders.wicket.core.settings.IBootstrapSettings;
-import de.agilecoders.wicket.core.settings.ITheme;
-import de.agilecoders.wicket.extensions.markup.html.bootstrap.button.DropDownAutoOpen;
 
 @SuppressWarnings("WicketForgeJavaIdInspection")
 public abstract class HeaderFooter extends GenericWebPage {
@@ -82,58 +68,39 @@ public abstract class HeaderFooter extends GenericWebPage {
     }
 
     @SuppressWarnings("Convert2Diamond")
-    private Component createNavBar() {
+    private Component createNavBar()  {
         Navbar navbar = new Navbar("navbar");
         navbar.setPosition(Navbar.Position.TOP);
         // show brand name
         navbar.brandName(Model.of("EU-DEVFIN"));
 
-     
-        //NavbarButton<TransactionPage> transactionPageNavbarButton = new NavbarButton<TransactionPage>(TransactionPage.class, new StringResourceModel("navbar.newTransaction", this, null, null)).setIconType(IconType.plus);
-        //MetaDataRoleAuthorizationStrategy.authorize(transactionPageNavbarButton, Component.RENDER, AuthConstants.Roles.ROLE_USER);
+		Reflections reflections = new Reflections(
+				ClasspathHelper.forPackage("org.devgateway.eudevfin"),
+				new MethodAnnotationsScanner());
 
-        Reflections reflections = new Reflections(
-				ClasspathHelper.forPackage("org.devgateway.eudevfin"), new MethodAnnotationsScanner());
+		Set<Method> navbarInitMethods = reflections
+				.getMethodsAnnotatedWith(WicketNavbarComponentInitializer.class);
+		
+		for (Method method : navbarInitMethods) {
+			WicketNavbarComponentInitializer navbarAnnotation = method
+					.getAnnotation(WicketNavbarComponentInitializer.class);
 
-     
-        
-        
-  //      NavbarButton<UsersPage> adminPageNavbarButton = new NavbarButton<UsersPage>(UsersPage.class, new StringResourceModel("navbar.admin", this, null, null)).setIconType(IconType.wrench);
-//        MetaDataRoleAuthorizationStrategy.authorize(adminPageNavbarButton, Component.RENDER, AuthConstants.Roles.ROLE_SUPERVISOR);
+			Component navBarComponent = null;
+			try {
+				navBarComponent = (Component) method.invoke(null, this);
+			} catch (IllegalAccessException | IllegalArgumentException
+					| InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
-
-        navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.LEFT,
-                homePageNavbarButton,
-                transactionPageNavbarButton,
-                reportsPageNavbarButton
-        ));
-
-
-        DropDownButton themesDropdown = newThemesDropdown();
-        NavbarDropDownButton languageDropDown = newLanguageDropdown();
-        NavbarButton<LogoutPage> logoutPageNavbarButton = new NavbarButton<LogoutPage>(LogoutPage.class, new StringResourceModel("navbar.logout", this, null, null)).setIconType(IconType.off);
-        MetaDataRoleAuthorizationStrategy.authorize(logoutPageNavbarButton, Component.RENDER, AuthConstants.Roles.ROLE_USER);
-
-        navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.RIGHT,
-                themesDropdown,
-                languageDropDown,
-                adminPageNavbarButton,
-                logoutPageNavbarButton));
+			navbar.addComponents(NavbarComponents.transform(
+					navbarAnnotation.position(), navBarComponent));
+		}
 
         return navbar;
     }
     
-    
-    
-    
-
-    
-    
-
-   
-
-  
-
   
     @Override
     public void renderHead(IHeaderResponse response) {    	

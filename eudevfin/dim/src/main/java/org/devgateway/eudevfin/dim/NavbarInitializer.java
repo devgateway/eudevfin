@@ -17,12 +17,12 @@ import org.devgateway.eudevfin.dim.core.Constants;
 import org.devgateway.eudevfin.dim.core.WicketNavbarComponentInitializer;
 import org.devgateway.eudevfin.dim.core.temporary.SB;
 import org.devgateway.eudevfin.dim.pages.HomePage;
+import org.devgateway.eudevfin.dim.pages.LogoutPage;
 import org.devgateway.eudevfin.dim.pages.admin.EditUserPage;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.TransactionPage;
 import org.devgateway.eudevfin.dim.pages.transaction.custom.CustomTransactionPage;
 
 import de.agilecoders.wicket.core.Bootstrap;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.DropDownButton;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.DropDownSubMenu;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuBookmarkablePageLink;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuDivider;
@@ -35,7 +35,15 @@ import de.agilecoders.wicket.core.settings.IBootstrapSettings;
 import de.agilecoders.wicket.core.settings.ITheme;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.button.DropDownAutoOpen;
 
-public class NavbarInitializer {
+/**
+ * Class holding static methods that initialize the wicket {@link Navbar} components.
+ * 
+ * @see WicketNavbarComponentInitializer
+ * @see org.devgateway.eudevfin.dim.core.pages.HeaderFooter
+ * @author mihai
+ *
+ */
+public final class NavbarInitializer {
 
 	
 
@@ -130,7 +138,7 @@ public class NavbarInitializer {
 	}
 	
 	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT)
-    private static NavbarDropDownButton newAdminNavbarButton(Page page) {
+	public static Component newAdminNavbarButton(Page page) {
         NavbarDropDownButton navbarDropDownButton = new NavbarDropDownButton(new StringResourceModel("navbar.admin", page, null, null)) {
             @Override
             public boolean isActive(Component item) {
@@ -155,7 +163,7 @@ public class NavbarInitializer {
 
 
 	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT)
-	  private static DropDownButton newThemesNavbarButton(final Page page) {
+	public static Component newThemesNavbarButton(final Page page) {
 	        return new NavbarDropDownButton(Model.of("Themes")) {
 	            @Override
 	            public boolean isActive(Component item) {
@@ -183,9 +191,16 @@ public class NavbarInitializer {
 	            }
 	        }.setIconType(IconType.book);
 	    }
+	
+	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT)
+	public static Component logoutPageNavbarButton(final Page page) {
+		 NavbarButton<LogoutPage> logoutPageNavbarButton = new NavbarButton<LogoutPage>(LogoutPage.class, new StringResourceModel("navbar.logout", page, null, null)).setIconType(IconType.off);
+	        MetaDataRoleAuthorizationStrategy.authorize(logoutPageNavbarButton, Component.RENDER, AuthConstants.Roles.ROLE_USER);
+	     return logoutPageNavbarButton;        
+	}
 
 	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT)
-	private static NavbarDropDownButton newLanguageNavbarButton(final Page page) {
+	public static Component newLanguageNavbarButton(final Page page) {
 	        NavbarDropDownButton languageDropDown = new NavbarDropDownButton(new StringResourceModel("navbar.lang", page, null, null)) {
 	            private static final long serialVersionUID = 2866997914075956070L;
 
@@ -223,7 +238,7 @@ public class NavbarInitializer {
 	
 	
     @SuppressWarnings("Convert2Diamond")
-    private static List<AbstractLink> getTransactionLinks(List<String> values, Page page) {
+    public static List<AbstractLink> getTransactionLinks(List<String> values, Page page) {
         List<AbstractLink> list = new ArrayList<>();
         for (String item : values) {
             PageParameters params = new PageParameters();
