@@ -35,7 +35,7 @@ public class HistoricalExchangeRateRetrieveJob implements
 	public int retrieveHistoricalExchangeRates() {
 
 		Reflections reflections = new Reflections(
-				ClasspathHelper.forPackage("org.devgateway.eudevfin"),
+				ClasspathHelper.forPackage("org.devgateway.eudevfin"), 
 				new SubTypesScanner());
 
 		// get all implemented subtypes of HistoricalExchangeRateRetrievable

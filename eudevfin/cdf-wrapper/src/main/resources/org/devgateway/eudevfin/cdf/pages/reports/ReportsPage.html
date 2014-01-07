@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2013 Development Gateway.
+  ~ All rights reserved. This program and the accompanying materials
+  ~ are made available under the terms of the GNU Public License v3.0
+  ~ which accompanies this distribution, and is available at
+  ~ http://www.gnu.org/licenses/gpl.html
+  -->
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+<wicket:head>
+    <!-- load CDF libs css files -->
+    <link href="/js/theme/ui-lightness/jquery-ui-1.8.20.custom.css" rel="stylesheet" type="text/css"/>
+    <link href="/js/addIns/coltypes.css" rel="stylesheet" type="text/css"/>
+
+    <!-- load CDF general styles -->
+    <link href="/js/cdfcss.min.css" rel="stylesheet" type="text/css"/>
+</wicket:head>
+<body>
+<wicket:extend>
+    <div class="loading-bar">
+        <i class="sphere"></i>
+    </div>
+    <!-- used for loading animation instead of blockUI js library -->
+
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <h2>
+                    <wicket:message key="sectorFilter"/>
+                </h2>
+                <div class="box">
+                    <!-- 
+                    <div id="sector-list"></div>
+                    <div id="organization-list"></div> 
+                    -->
+                    <div wicket:id="sectorFilter" />
+                    <div wicket:id="orgFilter" />
+                </div>
+            </div>
+
+            <div class="span12">
+                <h2>
+                    <wicket:message key="dashboards.table"/>
+                </h2>
+                <div class="box">
+                    <div wicket:id="testTable"/>
+                </div>
+            </div>
+
+            <div class="span12">
+                <h2>
+                    <wicket:message key="dashboards.pieChart"/>
+                </h2>
+                <div class="box">
+                	<div wicket:id="pieChart"/>
+                </div>
+            </div>
+            <div class="span12">
+                <h2>
+                    <wicket:message key="dashboards.columnChart"/>
+                </h2>
+                <div class="box">
+                	<div wicket:id="columnsChart"/>
+                </div>
+            </div>
+            <div class="span12">
+                <h2>
+                    <wicket:message key="dashboards.stackedBarChart"/>
+                </h2>
+                <div class="box">
+                	<div wicket:id="stackedBarChart"/>
+                </div>
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</wicket:extend>
+</body>
+</html>

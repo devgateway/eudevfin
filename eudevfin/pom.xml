@@ -445,6 +445,7 @@
         <module>common-exchange</module>
         <module>common</module>
 		<module>saikuui</module>
+		<module>common-ui</module>
     </modules>
     <inceptionYear>2013</inceptionYear>
     <organization>

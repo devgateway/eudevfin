@@ -58,6 +58,19 @@
 			<artifactId>common</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		
+		   
+		<dependency>
+			<groupId>org.devgateway.eudevfin</groupId>
+			<artifactId>common-ui</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.devgateway.eudevfin</groupId>
+			<artifactId>common-auth</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.apache.velocity</groupId>
