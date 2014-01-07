@@ -22,9 +22,10 @@
 	<!-- we need a retrieving-outbound-gateway here to provide the Authentication 
 		token -->
 
-	<int:channel id="createUserChannel" />
-	<int:channel id="getUserChannel" />
-
+	<int:channel id="saveUserChannel" />
+	<int:channel id="findByUsernameUserChannel" />
+	<int:channel id="findOnePersistedAuthorityChannel" />
+	
 
 	<jpa:repositories base-package="org.devgateway.eudevfin.auth.repository" />
 
@@ -58,5 +59,11 @@
 	<int:header-value-router input-channel="authChannel"
 		header-name="requestName" />
 
+	<int:header-value-router input-channel="userChannel"
+		header-name="requestName" />
+		
+		
+	<int:header-value-router input-channel="authorityChannel"
+		header-name="requestName" />
 
 </beans>

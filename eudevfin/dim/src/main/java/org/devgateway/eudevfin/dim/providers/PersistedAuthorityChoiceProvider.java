@@ -10,7 +10,6 @@ import java.util.List;
 import org.apache.commons.collections4.CollectionUtils;
 import org.devgateway.eudevfin.auth.common.domain.PersistedAuthority;
 import org.devgateway.eudevfin.auth.common.service.AuthorityService;
-import org.devgateway.eudevfin.auth.repository.PersistedAuthorityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

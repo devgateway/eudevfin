@@ -14,13 +14,13 @@ public class UserDaoImplEndpoint {
 	@Autowired
 	private PersistedUserRepository repo;
 	
-	@ServiceActivator(inputChannel="getUserChannel")
+	@ServiceActivator(inputChannel="findByUsernameUserChannel")
 	public PersistedUser findByUserName(String username) {
 		return repo.findByUsername(username);
 	}
 	
 	
-	@ServiceActivator(inputChannel="createUserChannel")
+	@ServiceActivator(inputChannel="saveUserChannel")
 	public PersistedUser saveUser(PersistedUser u) {
 		repo.save(u);
 		return u;

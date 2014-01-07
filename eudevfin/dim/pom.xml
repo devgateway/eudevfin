@@ -72,13 +72,6 @@
         
         <dependency>
             <groupId>org.devgateway.eudevfin</groupId>
-            <artifactId>cdf-wrapper</artifactId>
-            <version>${project.version}</version>
-            <type>jar</type>
-        </dependency>
-
-        <dependency>
-            <groupId>org.devgateway.eudevfin</groupId>
             <artifactId>cda-wrapper</artifactId>
             <version>${project.version}</version>
             <type>war</type>

@@ -29,7 +29,6 @@ import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.domain.PersistedAuthority;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.auth.common.service.UserService;
-import org.devgateway.eudevfin.auth.repository.PersistedUserRepository;
 import org.devgateway.eudevfin.dim.core.RWComponentPropertyModel;
 import org.devgateway.eudevfin.dim.core.components.BootstrapSubmitButton;
 import org.devgateway.eudevfin.dim.core.components.CheckBoxField;

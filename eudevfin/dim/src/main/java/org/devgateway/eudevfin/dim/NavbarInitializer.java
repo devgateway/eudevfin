@@ -12,7 +12,6 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
-import org.devgateway.eudevfin.cdf.pages.reports.ReportsPage;
 import org.devgateway.eudevfin.dim.core.Constants;
 import org.devgateway.eudevfin.dim.core.WicketNavbarComponentInitializer;
 import org.devgateway.eudevfin.dim.core.temporary.SB;
@@ -54,12 +53,6 @@ public final class NavbarInitializer {
 		return homePageNavbarButton;
 	}
 	
-	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.LEFT)
-	public static Component newReportsPageNavbarButton(Page page) {
-		NavbarButton<ReportsPage> reportsPageNavbarButton = new NavbarButton<ReportsPage>(ReportsPage.class, new StringResourceModel("navbar.reports", page, null, null)).setIconType(IconType.thlist);
-        MetaDataRoleAuthorizationStrategy.authorize(reportsPageNavbarButton, Component.RENDER, AuthConstants.Roles.ROLE_USER);
-        return reportsPageNavbarButton;
-	}
 	
 	
 	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.LEFT)

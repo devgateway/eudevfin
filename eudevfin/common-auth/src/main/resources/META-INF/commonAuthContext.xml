@@ -52,15 +52,15 @@
 	<int:gateway id="authorityService"
 		service-interface="org.devgateway.eudevfin.auth.common.service.AuthorityService">
 		<int:method name="save" request-channel="authorityChannel">
-			<int:header name="requestName" value="saveAuthorityChannel" />
+			<int:header name="requestName" value="savePersistedAuthorityChannel" />
 		</int:method>
 
 		<int:method name="findOne" reply-channel="authorityChannel">
-			<int:header name="requestName" value="findOneAuthorityChannel" />
+			<int:header name="requestName" value="findOnePersistedAuthorityChannel" />
 		</int:method>
 		
 		<int:method name="findAll" reply-channel="authorityChannel">	
-			<int:header name="requestName" value="findAllAuthorityChannel"/>
+			<int:header name="requestName" value="findAllPersistedAuthorityChannel"/>
 		</int:method>
 
 	</int:gateway>
