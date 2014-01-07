@@ -25,7 +25,8 @@
 	<int:channel id="saveUserChannel" />
 	<int:channel id="findByUsernameUserChannel" />
 	<int:channel id="findOnePersistedAuthorityChannel" />
-	
+	<int:channel id="findAllPersistedAuthorityChannel" />
+	<int:channel id="savePersistedAuthorityChannel" />
 
 	<jpa:repositories base-package="org.devgateway.eudevfin.auth.repository" />
 
@@ -61,8 +62,7 @@
 
 	<int:header-value-router input-channel="userChannel"
 		header-name="requestName" />
-		
-		
+				
 	<int:header-value-router input-channel="authorityChannel"
 		header-name="requestName" />
 

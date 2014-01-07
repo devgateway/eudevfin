@@ -27,7 +27,7 @@ public class PersistedAuthorityDaoImplEndpoint {
 	}
 	
 	@ServiceActivator(inputChannel="findAllPersistedAuthorityChannel")
-	public Iterable<PersistedAuthority> findAll(PersistedAuthority a) {
+	public Iterable<PersistedAuthority> findAll() {
 		Iterable<PersistedAuthority> findAll = repo.findAll();
 		return findAll;
 	}

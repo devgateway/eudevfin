@@ -19,11 +19,10 @@
 
 	<!-- we need a retrieving-outbound-gateway here to provide the Authentication 
 		token -->
-
-	<int:channel id="authenticationChannel" />
 	<security:global-method-security
 		secured-annotations="enabled" />
 
+	<int:channel id="authenticationChannel" />
 	<int:channel id="userChannel" />
 	<int:channel id="authorityChannel" />
 
