@@ -18,12 +18,13 @@ import org.devgateway.eudevfin.financial.dao.FinancialTransactionDaoImpl;
 import org.devgateway.eudevfin.financial.dao.OrganizationDaoImpl;
 import org.devgateway.eudevfin.financial.util.FinancialConstants;
 import org.joda.money.BigMoney;
+import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 
-	public static int NUM_OF_TX	= 50;
+	public static int NUM_OF_TX	= 100;
 	
 	
 	@Autowired
@@ -84,10 +85,22 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 			tx.setTypeOfFlow(typeOfFlow);
 			tx.setTypeOfAid(typeOfAid);
 			tx.setBiMultilateral(biMultilateral);
+			tx.setReportingYear(getRandomDate());
 			txDao.save(tx);
 		}
 	}
 	
+	private LocalDateTime getRandomDate() {
+		//Generate random date between 2010/2014
+		int startYear = 2010;
+		int endYear = 2014;
+		int selectedYear = startYear + (int)(Math.random() * ((endYear - startYear) + 1));
+
+		LocalDateTime time = LocalDateTime.parse(selectedYear + "-06-06");
+		
+		return time;
+	}
+
 	private void createBiMultilateral() {
 		//First create the tags that define a Group
 		Category odaGroupTag = new Category();
