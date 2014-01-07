@@ -168,6 +168,64 @@ public class ReportsController {
 			String fileName = "advance_questionnaire.xls";
 			response.setHeader("Content-Disposition", "inline; filename=" + fileName);
 			response.setContentType("application/vnd.ms-excel");
+			
+			reportExporter.exportHTML(jasperPrint, baos);
+			
+			response.setContentLength(baos.size());
+			 
+			// write to response stream
+			this.writeReportToResponseStream(response, baos);
+		} catch (JRException e) {
+			e.printStackTrace();
+		}
+		
+        return null;
+    }
+	
+	@RequestMapping(value = "/dac1_table", method = RequestMethod.GET)
+    public ModelAndView generateDAC1Report(HttpServletRequest request, HttpServletResponse response, ModelAndView modelAndView)  throws IOException {
+
+		PropertyList propertyList = new PropertyList();
+		propertyList.put("Provider", "mondrian");
+		propertyList.put("Catalog",
+				this.getClass().getResource("./financial.mondrian.xml")
+						.toString());
+		Connection conn = DriverManager.getConnection(propertyList, null,
+				cdaDataSource);
+
+		Map<String, Object> parameters = new HashMap<String, Object>();		
+		
+		InputStream inputStream;
+		try {
+			inputStream = ReportsController.class.getResourceAsStream("./dac1_master.jrxml");
+			JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
+			JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+
+//			JasperReport bilateralToASubreport = JasperCompileManager.compileReport(
+//					JRXmlLoader.load(
+//							ReportsController.class.getResourceAsStream("./advanced_questionnaire_bilateral_type_of_aid.jrxml")));
+//			JasperReport bilateralToFSubreport = JasperCompileManager.compileReport(
+//					JRXmlLoader.load(
+//							ReportsController.class.getResourceAsStream("./advanced_questionnaire_bilateral_financial_instrument.jrxml")));
+
+			parameters.put(JRMondrianQueryExecuterFactory.PARAMETER_MONDRIAN_CONNECTION, conn);
+//			parameters.put("bilateralToASubreport", bilateralToASubreport);
+//			parameters.put("bilateralToFSubreport", bilateralToFSubreport);
+
+			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters);
+
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			
+			ReportExporter reportExporter = new ReportExporter();
+//			reportExporter.exportXLS(jasperPrint, baos);
+			
+//			String fileName = "DAC1_table.xls";
+//			response.setHeader("Content-Disposition", "inline; filename=" + fileName);
+//			response.setContentType("application/vnd.ms-excel");
+			
+			reportExporter.exportHTML(jasperPrint, baos);
+			response.setContentType("text/html");
+			
 			response.setContentLength(baos.size());
 			 
 			// write to response stream
