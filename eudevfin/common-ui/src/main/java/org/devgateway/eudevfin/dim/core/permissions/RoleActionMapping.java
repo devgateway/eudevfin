@@ -10,7 +10,7 @@ package org.devgateway.eudevfin.dim.core.permissions;
 
 import java.util.HashMap;
 
-import org.devgateway.eudevfin.dim.core.Constants;
+import org.devgateway.eudevfin.ui.common.Constants;
 
 /**
  * Used by the {@link PermissionAwarePage} to return a hashmap with the permissions for the components in the

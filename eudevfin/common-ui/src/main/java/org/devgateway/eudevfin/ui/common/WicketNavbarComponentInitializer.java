@@ -1,4 +1,4 @@
-package org.devgateway.eudevfin.dim.core;
+package org.devgateway.eudevfin.ui.common;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

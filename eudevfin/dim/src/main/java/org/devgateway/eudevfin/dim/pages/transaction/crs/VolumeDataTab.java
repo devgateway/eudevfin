@@ -14,7 +14,6 @@ import org.apache.wicket.event.Broadcast;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.ComponentPropertyModel;
-import org.devgateway.eudevfin.dim.core.RWComponentPropertyModel;
 import org.devgateway.eudevfin.dim.core.components.DropDownField;
 import org.devgateway.eudevfin.dim.core.components.TextInputField;
 import org.devgateway.eudevfin.dim.core.events.CurrencyChangedEvent;
@@ -22,6 +21,7 @@ import org.devgateway.eudevfin.dim.core.events.CurrencyUpdateBehavior;
 import org.devgateway.eudevfin.dim.core.models.BigMoneyModel;
 import org.devgateway.eudevfin.dim.core.permissions.PermissionAwareComponent;
 import org.devgateway.eudevfin.dim.core.temporary.SB;
+import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 

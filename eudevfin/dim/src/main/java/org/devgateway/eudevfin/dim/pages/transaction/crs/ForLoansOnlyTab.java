@@ -12,7 +12,6 @@ import java.math.BigDecimal;
 
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.ComponentPropertyModel;
-import org.devgateway.eudevfin.dim.core.RWComponentPropertyModel;
 import org.devgateway.eudevfin.dim.core.components.DateInputField;
 import org.devgateway.eudevfin.dim.core.components.DropDownField;
 import org.devgateway.eudevfin.dim.core.components.TextInputField;
@@ -22,6 +21,7 @@ import org.devgateway.eudevfin.dim.core.models.DateToLocalDateTimeModel;
 import org.devgateway.eudevfin.dim.core.permissions.PermissionAwareComponent;
 import org.devgateway.eudevfin.dim.core.temporary.SB;
 import org.devgateway.eudevfin.financial.Category;
+import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 import org.joda.time.LocalDateTime;

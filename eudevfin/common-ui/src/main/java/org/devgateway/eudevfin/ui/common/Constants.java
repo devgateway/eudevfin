@@ -9,7 +9,7 @@
  *    aartimon
  */
 
-package org.devgateway.eudevfin.dim.core;
+package org.devgateway.eudevfin.ui.common;
 
 /**
  * @author aartimon@developmentgateway.org

@@ -9,15 +9,16 @@
 package org.devgateway.eudevfin.dim.pages.transaction.custom;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
+
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.model.ComponentPropertyModel;
-import org.devgateway.eudevfin.dim.core.RWComponentPropertyModel;
 import org.devgateway.eudevfin.dim.core.components.PermissionAwareTransparentContainer;
 import org.devgateway.eudevfin.dim.core.components.TextInputField;
 import org.devgateway.eudevfin.dim.core.events.CurrencyUpdateBehavior;
 import org.devgateway.eudevfin.dim.core.models.BigMoneyModel;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.VolumeDataTab;
+import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 

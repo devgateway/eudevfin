@@ -8,11 +8,11 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.custom;
 
-import org.devgateway.eudevfin.dim.core.RWComponentPropertyModel;
 import org.devgateway.eudevfin.dim.core.components.DropDownField;
 import org.devgateway.eudevfin.dim.core.temporary.SB;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.SupplementaryDataTab;
 import org.devgateway.eudevfin.financial.Category;
+import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 
 /**
  * Supplementary Data Tab extension for the EU-DEVFIN Form

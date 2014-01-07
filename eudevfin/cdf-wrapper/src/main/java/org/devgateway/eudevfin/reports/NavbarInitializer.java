@@ -6,7 +6,7 @@ import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDa
 import org.apache.wicket.model.StringResourceModel;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.cdf.pages.reports.ReportsPage;
-import org.devgateway.eudevfin.dim.core.WicketNavbarComponentInitializer;
+import org.devgateway.eudevfin.ui.common.WicketNavbarComponentInitializer;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconType;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;

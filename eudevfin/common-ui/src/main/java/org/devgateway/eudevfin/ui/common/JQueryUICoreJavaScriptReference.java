@@ -9,39 +9,57 @@
  *    aartimon
  ******************************************************************************/
 
-package org.devgateway.eudevfin.dim.core;
+package org.devgateway.eudevfin.ui.common;
 
 import java.util.List;
 
 import org.apache.wicket.Application;
 import org.apache.wicket.markup.head.HeaderItem;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
-import org.apache.wicket.request.resource.JavaScriptResourceReference;
 
 import com.google.common.collect.Lists;
 
-import de.agilecoders.wicket.core.markup.html.references.BootstrapJavaScriptReference;
+import de.agilecoders.wicket.webjars.request.resource.WebjarsJavaScriptResourceReference;
 
 /**
- * TODO: document
+ * core jquery ui package (core, widget, mouse, position, draggable, resizeable)
  *
  * @author miha
- * @version 1.0
  */
-public class ApplicationJavaScript extends JavaScriptResourceReference {
+public class JQueryUICoreJavaScriptReference extends WebjarsJavaScriptResourceReference {
+    private static final long serialVersionUID = 1L;
 
-    public static final ApplicationJavaScript INSTANCE = new ApplicationJavaScript();
+    /**
+     * Singleton instance of this reference
+     */
+    private static final JQueryUICoreJavaScriptReference INSTANCE = new JQueryUICoreJavaScriptReference();
 
-    private ApplicationJavaScript() {
-        super(ApplicationJavaScript.class, "application.js");
+    /**
+     * @return the single instance of the resource reference
+     */
+    public static JQueryUICoreJavaScriptReference instance() {
+        return INSTANCE;
+    }
+
+    /**
+     * Private constructor.
+     */
+    private JQueryUICoreJavaScriptReference() {
+        super("jquery-ui/current/ui/minified/jquery.ui.core.min.js");
     }
 
     @Override
     public Iterable<? extends HeaderItem> getDependencies() {
         final List<HeaderItem> dependencies = Lists.newArrayList(super.getDependencies());
         dependencies.add(JavaScriptHeaderItem.forReference(Application.get().getJavaScriptLibrarySettings().getJQueryReference()));
-        dependencies.add(JavaScriptHeaderItem.forReference(BootstrapJavaScriptReference.instance()));
 
         return dependencies;
+    }
+
+    /**
+     * @return this resource reference singleton instance as header item
+     */
+    public static HeaderItem asHeaderItem() {
+        return JavaScriptHeaderItem.forReference(instance());
     }
 }

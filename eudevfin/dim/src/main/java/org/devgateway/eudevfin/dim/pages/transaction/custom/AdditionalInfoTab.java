@@ -9,10 +9,11 @@
 package org.devgateway.eudevfin.dim.pages.transaction.custom;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
+
 import org.apache.wicket.markup.html.panel.Panel;
-import org.devgateway.eudevfin.dim.core.RWComponentPropertyModel;
 import org.devgateway.eudevfin.dim.core.components.TextAreaInputField;
 import org.devgateway.eudevfin.dim.core.permissions.PermissionAwareComponent;
+import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 
 /**
  * @author aartimon
