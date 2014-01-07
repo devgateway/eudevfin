@@ -15,6 +15,7 @@ import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.model.IModel;
 
 /**
+ * Basic Select2 drop down field
  * @author aartimon@developmentgateway.org
  * @since 31 October 2013
  */

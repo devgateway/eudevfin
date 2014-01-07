@@ -25,6 +25,9 @@ import org.devgateway.eudevfin.dim.core.models.ProxyModel;
 import org.devgateway.eudevfin.dim.core.permissions.PermissionAwareComponent;
 
 /**
+ * Abstract class that provides the common functionality for all the fields use din the project
+ * The FormComponent is wrapped in a Bootstrap Control Group that has a prepender and an appender
+ *
  * @author aartimon@developmentgateway.org
  * @since 30 October 2013
  */
@@ -38,7 +41,12 @@ public abstract class AbstractField<T> extends Panel implements PermissionAwareC
     FormComponent<T> field;
     private final MarkupContainer xPenderController;
 
-
+    /**
+     * @param id              wicket placeholder id
+     * @param model           component's model
+     * @param messageKeyGroup Message key group prefix for the resources used by the component
+     * @see org.devgateway.eudevfin.dim.core.components.TextInputField for example on how messageKeyGroup is used
+     */
     AbstractField(String id, IModel<T> model, String messageKeyGroup) {
         super(id, model);
         this.setRenderBodyOnly(true);
@@ -71,6 +79,10 @@ public abstract class AbstractField<T> extends Panel implements PermissionAwareC
             xPenderController.add(new AttributeAppender("class", Model.of("input-append"), " "));
     }
 
+    /**
+     * Internal method used to properly init form components
+     * @param fc current form component
+     */
     void addFormComponent(FormComponent<T> fc) {
         this.field = fc;
         field.setLabel(labelText);
@@ -93,7 +105,7 @@ public abstract class AbstractField<T> extends Panel implements PermissionAwareC
     }
 
     /**
-     * Override this to intercept the ajax onUpdate event
+     * Override this method to intercept the ajax onUpdate event
      *
      * @param target the ajax request target
      */

@@ -29,12 +29,6 @@ public class TextInputField<T> extends AbstractInputField<T> {
 
     /**
      * <p>Creates an input field with attached label and placeholder</p>
-     * <p>The {@param messageKeyGroup} is the prefix name for the resource keys that are being used.</p>
-     * <p>For example if the prefix is <i>"login.username"</i> then the component will use:
-     * <li><i>"login.username<b>.label</b>"</i> for the Label text</li>
-     * <li><i>"login.username<b>.help</b>"</i> for the help text shown underneath the input field</li>
-     * <li><i>"login.username<b>.placeholder</b>"</i> for the placeholder used when the input field is empty</li>
-     * </p>
      *
      * @param id              component id
      * @param model           model to be used by the text field

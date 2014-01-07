@@ -16,7 +16,12 @@ import org.apache.wicket.model.StringResourceModel;
 
 import java.util.List;
 
-
+/**
+ * Extension of the {@link org.devgateway.eudevfin.dim.core.components.AbstractField} that adds some common functionality
+ * found in input fields: placeholder text, input behavior, etc
+ *
+ * @param <T>
+ */
 public abstract class AbstractInputField<T> extends AbstractField<T> {
     private IModel<String> placeholderText;
 
@@ -31,6 +36,20 @@ public abstract class AbstractInputField<T> extends AbstractField<T> {
         this(id, model, id);
     }
 
+    /**
+     * Base constructor, initialises the placeholder model using the messageKeyGroup
+     *
+     * <p>The {@param messageKeyGroup} is the prefix name for the resource keys that are being used.</p>
+     * <p>For example if the prefix is <i>"login.username"</i> then the component will use:
+     * <li><i>"login.username<b>.label</b>"</i> for the Label text</li>
+     * <li><i>"login.username<b>.help</b>"</i> for the help text shown underneath the input field</li>
+     * <li><i>"login.username<b>.placeholder</b>"</i> for the placeholder used when the input field is empty</li>
+     * </p>
+
+     * @param id wicket placeholder id
+     * @param model component's model
+     * @param messageKeyGroup Message key group prefix for the resources used by the component
+     */
     AbstractInputField(String id, IModel<T> model, String messageKeyGroup) {
         super(id, model, messageKeyGroup);
 
@@ -53,16 +72,29 @@ public abstract class AbstractInputField<T> extends AbstractField<T> {
         super.onBeforeRender();
     }
 
+    /**
+     * Set the current field to be required
+     * @return current component
+     */
     @Override
     @SuppressWarnings("unchecked")
     public AbstractInputField<T> required() {
         return (AbstractInputField<T>) super.required();
     }
 
+    /**
+     * Override the placeholder text that's usually set by providing a message key group
+     * @param placeholderText
+     */
     public void setPlaceholderText(IModel<String> placeholderText) {
         this.placeholderText = placeholderText;
     }
 
+    /**
+     * Modifies the width of the input field
+     * @param size input behavior size
+     * @return current component
+     */
     protected AbstractInputField<T> setSize(InputBehavior.Size size) {
         List<InputBehavior> list = field.getBehaviors(InputBehavior.class);
         if (list.size() != 1)
@@ -74,5 +106,11 @@ public abstract class AbstractInputField<T> extends AbstractField<T> {
         return this;
     }
 
+    /**
+     * Abstract method used to spawn a new form component instance
+     * @param id
+     * @param model
+     * @return
+     */
     protected abstract FormComponent<T> newField(String id, IModel<T> model);
 }

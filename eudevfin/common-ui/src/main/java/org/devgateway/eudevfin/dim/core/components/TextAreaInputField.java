@@ -14,12 +14,12 @@ import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.model.IModel;
 
 /**
+ * basic text area input field
  * @author aartimon@developmentgateway.org
  * @since 17 October 2013
  */
 public class TextAreaInputField extends AbstractInputField<String> {
     private int rows = 3;
-
 
     public TextAreaInputField(String id, IModel<String> model) {
         super(id, model);
@@ -42,6 +42,12 @@ public class TextAreaInputField extends AbstractInputField<String> {
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param size input behavior size
+     * @return
+     */
     @Override
     public TextAreaInputField setSize(InputBehavior.Size size) {
         super.setSize(size);
