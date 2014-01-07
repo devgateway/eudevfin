@@ -9,7 +9,6 @@
 package org.devgateway.eudevfin.dim.pages.transaction.custom;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
-
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.model.ComponentPropertyModel;

@@ -11,6 +11,9 @@ package org.devgateway.eudevfin.dim.core.events;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 
 /**
+ * Event triggered when the user selects a currency in the transaction form
+ * Each amount field that uses the current currency dropdown needs to update it's internal model
+ *
  * @author aartimon
  * @since 03/12/13
  */

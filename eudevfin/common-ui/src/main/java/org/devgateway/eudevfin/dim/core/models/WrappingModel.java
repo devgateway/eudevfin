@@ -14,6 +14,11 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.IWrapModel;
 
 /**
+ * Abstract model that allows the custom converting models (eg: {@link org.devgateway.eudevfin.dim.core.models.BigMoneyModel}, etc)
+ * to proxy a {@link RWComponentPropertyModel} without intercepting the wrapOnAssignment call,
+ * but passing it through. This allows the {@link org.apache.wicket.model.CompoundPropertyModel} to do it's work and bind the parent model
+ * to the RWComponentPropertyModel
+ *
  * @author aartimon
  * @since 29/11/13
  */

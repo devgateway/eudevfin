@@ -11,6 +11,10 @@ package org.devgateway.eudevfin.dim.core.events;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 
 /**
+ * Abstract Event class to be used for building specific event types
+ * Will be used as payload for the events send using Wickets internal event system
+ * Each event will store the AjaxRequestTarget of the ajax user action that generated the event
+ *
  * @author aartimon
  * @since 03/12/13
  */

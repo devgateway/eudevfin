@@ -15,6 +15,10 @@ import org.apache.wicket.event.IEvent;
 import org.apache.wicket.model.IModel;
 
 /**
+ * Extension of the {@link org.devgateway.eudevfin.dim.core.events.UpdateEventBehavior} that doesn't refresh
+ * the component on which the event was triggered, but forces the component to update it's internal model
+ * Used mainly to update the currency field inside the {@link org.joda.money.BigMoney} entities
+ *
  * @author aartimon
  * @since 03/12/13
  */
