@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2013 Development Gateway.
+  ~ All rights reserved. This program and the accompanying materials
+  ~ are made available under the terms of the GNU Public License v3.0
+  ~ which accompanies this distribution, and is available at
+  ~ http://www.gnu.org/licenses/gpl.html
+  -->
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+<wicket:head>
+    <title>Reports Export</title>
+</wicket:head>
+<body>
+<wicket:extend>
+	<div class="container">
+		<div class="row">
+			<br/><br/>
+			<div class="span6 offset2">
+				<form class="form-horizontal" action="/jasperreports/generate" method="post">
+					<div class="control-group">
+						<label class="control-label" for="reportType">Report Type</label>
+						<div class="controls">
+							<select id="reportType" name="reportType" class="span3">
+								<option value="aq">Advanced Questionnaire</option>
+								<option value="dac1">DAC 1</option>
+								<option value="dac2">DAC 2</option>
+							</select>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="exportType">Export Type</label>
+						<div class="controls">
+							<select id="exportType" name="exportType" class="span3">
+								<option value="pdf">PDF</option>
+								<option value="excel">Excel</option>
+								<option value="html">HTML</option>
+								<option value="csv">CSV</option>
+							</select>
+						</div>
+					</div>
+				    <div class="form-actions">
+						<button type="submit" class="btn btn-large btn-primary">Export</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</wicket:extend>
+</body>
+</html>

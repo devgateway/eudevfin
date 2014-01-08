@@ -134,7 +134,7 @@ public class ReportsController {
         return null;
     }
 
-	@RequestMapping(value = "/generate", method = RequestMethod.GET)
+	@RequestMapping(value = "/generate", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView generateReport(HttpServletRequest request, HttpServletResponse response, ModelAndView modelAndView)  throws IOException {
 
 		PropertyList propertyList = new PropertyList();
