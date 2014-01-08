@@ -12,14 +12,14 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
-import org.devgateway.eudevfin.dim.core.temporary.SB;
 import org.devgateway.eudevfin.dim.pages.HomePage;
-import org.devgateway.eudevfin.dim.pages.LogoutPage;
 import org.devgateway.eudevfin.dim.pages.admin.EditUserPage;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.TransactionPage;
 import org.devgateway.eudevfin.dim.pages.transaction.custom.CustomTransactionPage;
 import org.devgateway.eudevfin.ui.common.Constants;
 import org.devgateway.eudevfin.ui.common.WicketNavbarComponentInitializer;
+import org.devgateway.eudevfin.ui.common.pages.LogoutPage;
+import org.devgateway.eudevfin.ui.common.temporary.SB;
 
 import de.agilecoders.wicket.core.Bootstrap;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.DropDownSubMenu;
@@ -38,7 +38,7 @@ import de.agilecoders.wicket.extensions.markup.html.bootstrap.button.DropDownAut
  * Class holding static methods that initialize the wicket {@link Navbar} components.
  * 
  * @see WicketNavbarComponentInitializer
- * @see org.devgateway.eudevfin.dim.core.pages.HeaderFooter
+ * @see org.devgateway.eudevfin.ui.common.pages.HeaderFooter
  * @author mihai
  *
  */

@@ -5,6 +5,7 @@ package org.devgateway.eudevfin.dim.core.models;
 
 import org.apache.wicket.model.IWrapModel;
 import org.devgateway.eudevfin.auth.common.util.DigestUtils;
+import org.devgateway.eudevfin.ui.common.models.WrappingModel;
 
 /**
  * @author mihai

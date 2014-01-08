@@ -10,9 +10,9 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
-import org.devgateway.eudevfin.dim.core.components.TextInputField;
-import org.devgateway.eudevfin.dim.core.models.ProxyModel;
 import org.devgateway.eudevfin.dim.desktop.components.util.GeneralSearchListGenerator;
+import org.devgateway.eudevfin.ui.common.components.TextInputField;
+import org.devgateway.eudevfin.ui.common.models.ProxyModel;
 
 /**
  * @author Alex

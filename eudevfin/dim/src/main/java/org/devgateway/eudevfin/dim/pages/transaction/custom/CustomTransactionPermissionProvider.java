@@ -8,8 +8,8 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.custom;
 
-import org.devgateway.eudevfin.dim.core.permissions.RoleActionMapping;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.CRSTransactionPermissionProvider;
+import org.devgateway.eudevfin.ui.common.permissions.RoleActionMapping;
 
 import java.util.HashMap;
 
