@@ -1,6 +1,7 @@
 package org.devgateway.eudevfin.reports;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
@@ -28,6 +29,8 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
+import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.olap.JRMondrianQueryExecuterFactory;
 
@@ -216,17 +219,8 @@ public class ReportsController {
 			inputStream = ReportsController.class.getResourceAsStream("./dac1_master.jrxml");
 			JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
 			JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-
-//			JasperReport bilateralToASubreport = JasperCompileManager.compileReport(
-//					JRXmlLoader.load(
-//							ReportsController.class.getResourceAsStream("./advanced_questionnaire_bilateral_type_of_aid.jrxml")));
-//			JasperReport bilateralToFSubreport = JasperCompileManager.compileReport(
-//					JRXmlLoader.load(
-//							ReportsController.class.getResourceAsStream("./advanced_questionnaire_bilateral_financial_instrument.jrxml")));
-
+			
 			parameters.put(JRMondrianQueryExecuterFactory.PARAMETER_MONDRIAN_CONNECTION, conn);
-//			parameters.put("bilateralToASubreport", bilateralToASubreport);
-//			parameters.put("bilateralToFSubreport", bilateralToFSubreport);
 
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters);
 

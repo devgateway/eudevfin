@@ -6,6 +6,7 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.export.JRHtmlExporter;
+import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
 import net.sf.jasperreports.engine.export.JRXlsAbstractExporterParameter;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
 
@@ -41,6 +42,7 @@ public class ReportExporter {
 		 
 		exporter.setParameter(JRExporterParameter.JASPER_PRINT, jp);
 		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, baos);
+		exporter.setParameter(JRHtmlExporterParameter.IS_USING_IMAGES_TO_ALIGN, Boolean.FALSE);
 		 
 		// retrieve the exported report in HTML format
 		exporter.exportReport();
