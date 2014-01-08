@@ -15,7 +15,7 @@ var app = app || {};
                     text: 'Stacked bar chart'
                 },
                 xAxis: {
-                    categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
+                    categories: ['ODA equity investment', 'ODA Grant', 'ODA Loan', 'ODA Grant-like']
                 },
                 yAxis: {
                     min: 0,
@@ -33,14 +33,14 @@ var app = app || {};
                     }
                 },
                 series: [{
-                    name: 'John',
-                    data: [5, 3, 4, 7, 2]
+                    name: 'Organization 1',
+                    data: [5, 3, 4, 7]
                 }, {
-                    name: 'Jane',
-                    data: [2, 2, 3, 2, 1]
+                    name: 'Organization 1',
+                    data: [2, 2, 3, 2]
                 }, {
-                    name: 'Joe',
-                    data: [3, 4, 4, 2, 5]
+                    name: 'Organization 1',
+                    data: [3, 4, 4, 2]
                 }]
             };
         },
