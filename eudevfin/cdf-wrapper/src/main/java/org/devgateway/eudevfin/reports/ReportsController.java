@@ -44,6 +44,9 @@ public class ReportsController {
 	private DataSource cdaDataSource;
 	
 	private static final Logger logger = Logger.getLogger(ReportsController.class);
+
+	private static final String REPORT_NAME = "reportName";
+	private static final String OUTPUT_TYPE = "outputType";
 	
 	@RequestMapping(value = "/mondrian", method = RequestMethod.GET)
     public ModelAndView generateMondrianReport(HttpServletRequest request, HttpServletResponse response, ModelAndView modelAndView)  throws IOException {
@@ -128,57 +131,70 @@ public class ReportsController {
         return null;
     }
 
-	@RequestMapping(value = "/advance_questionnaire", method = RequestMethod.GET)
-    public ModelAndView generateAQReport(HttpServletRequest request, HttpServletResponse response, ModelAndView modelAndView)  throws IOException {
+	@RequestMapping(value = "/generate", method = RequestMethod.GET)
+    public ModelAndView generateReport(HttpServletRequest request, HttpServletResponse response, ModelAndView modelAndView)  throws IOException {
 
 		PropertyList propertyList = new PropertyList();
 		propertyList.put("Provider", "mondrian");
+
+		//TODO: Find a way of sharing the Schema files across the app, probably by asking the CDA Wrapper where the file is and having a default value.
 		propertyList.put("Catalog",
 				this.getClass().getResource("./financial.mondrian.xml")
 						.toString());
+		
+		String reportName = request.getParameter(REPORT_NAME);
+		String outputType = request.getParameter(OUTPUT_TYPE);
+		
 		Connection conn = DriverManager.getConnection(propertyList, null,
 				cdaDataSource);
 
 		Map<String, Object> parameters = new HashMap<String, Object>();		
 		
 		InputStream inputStream;
-		try {
-			inputStream = ReportsController.class.getResourceAsStream("./advanced_questionnaire_master.jrxml");
-			JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
-			JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-
-			JasperReport bilateralToASubreport = JasperCompileManager.compileReport(
-					JRXmlLoader.load(
-							ReportsController.class.getResourceAsStream("./advanced_questionnaire_bilateral_type_of_aid.jrxml")));
-			JasperReport bilateralToFSubreport = JasperCompileManager.compileReport(
-					JRXmlLoader.load(
-							ReportsController.class.getResourceAsStream("./advanced_questionnaire_bilateral_financial_instrument.jrxml")));
-
-			parameters.put(JRMondrianQueryExecuterFactory.PARAMETER_MONDRIAN_CONNECTION, conn);
-			parameters.put("bilateralToASubreport", bilateralToASubreport);
-			parameters.put("bilateralToFSubreport", bilateralToFSubreport);
-
-			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters);
-
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			
-			ReportExporter reportExporter = new ReportExporter();
-			reportExporter.exportXLS(jasperPrint, baos);
-			
-			String fileName = "advance_questionnaire.xls";
-			response.setHeader("Content-Disposition", "inline; filename=" + fileName);
-			response.setContentType("application/vnd.ms-excel");
-			
-			reportExporter.exportHTML(jasperPrint, baos);
-			
-			response.setContentLength(baos.size());
-			 
-			// write to response stream
-			this.writeReportToResponseStream(response, baos);
-		} catch (JRException e) {
-			e.printStackTrace();
-		}
 		
+		if (reportName != null && !reportName.equals("")) {
+			try {
+				inputStream = ReportsController.class.getResourceAsStream("./" + reportName);
+				JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
+				JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+				/*
+				JasperReport bilateralToASubreport = JasperCompileManager.compileReport(
+						JRXmlLoader.load(
+								ReportsController.class.getResourceAsStream("./advanced_questionnaire_bilateral_type_of_aid.jrxml")));
+				JasperReport bilateralToFSubreport = JasperCompileManager.compileReport(
+						JRXmlLoader.load(
+								ReportsController.class.getResourceAsStream("./advanced_questionnaire_bilateral_financial_instrument.jrxml")));
+
+				parameters.put("bilateralToASubreport", bilateralToASubreport);
+				parameters.put("bilateralToFSubreport", bilateralToFSubreport);
+				*/
+				parameters.put(JRMondrianQueryExecuterFactory.PARAMETER_MONDRIAN_CONNECTION, conn);
+				JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters);
+
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				
+				ReportExporter reportExporter = new ReportExporter();
+				if(outputType != null && !outputType.equals("") && outputType.equals("xls")){
+					reportExporter.exportXLS(jasperPrint, baos);
+					String fileName = "reportName.xls";
+					response.setHeader("Content-Disposition", "inline; filename=" + fileName);
+					response.setContentType("application/vnd.ms-excel");
+				}
+				else
+				{
+					reportExporter.exportHTML(jasperPrint, baos);
+					String fileName = "reportName.html";
+					response.setHeader("Content-Disposition", "inline; filename=" + fileName);
+					response.setContentType("text/html");
+				}
+				response.setContentLength(baos.size());
+				 
+				// write to response stream
+				this.writeReportToResponseStream(response, baos);
+			} catch (JRException e) {
+				e.printStackTrace();
+			}
+		}
         return null;
     }
 	
