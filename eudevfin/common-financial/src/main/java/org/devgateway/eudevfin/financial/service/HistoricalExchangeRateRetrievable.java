@@ -6,7 +6,7 @@
  * http://www.gnu.org/licenses/gpl.html
  */
 
-package org.devgateway.eudevfin.exchange.common.job;
+package org.devgateway.eudevfin.financial.service;
 
 import org.joda.time.LocalDateTime;
 import org.springframework.integration.annotation.Payload;
