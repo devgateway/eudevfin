@@ -5,6 +5,7 @@ package org.devgateway.eudevfin.financial.service;
 
 import java.util.List;
 
+import org.devgateway.eudevfin.common.service.BaseEntityService;
 import org.devgateway.eudevfin.financial.Category;
 import org.springframework.integration.annotation.Header;
 

@@ -14,6 +14,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.dim.pages.HomePage;
 import org.devgateway.eudevfin.dim.pages.admin.EditUserPage;
+import org.devgateway.eudevfin.dim.pages.admin.ListUsersPage;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.TransactionPage;
 import org.devgateway.eudevfin.dim.pages.transaction.custom.CustomTransactionPage;
 import org.devgateway.eudevfin.ui.common.Constants;
@@ -141,7 +142,7 @@ public final class NavbarInitializer {
 			@Override
 			protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
 	            List<AbstractLink> list = new ArrayList<>();
-	            list.add(new MenuBookmarkablePageLink<TransactionPage>(EditUserPage.class, null, new StringResourceModel("navbar.admin.users", this, null, null)));
+	            list.add(new MenuBookmarkablePageLink<TransactionPage>(ListUsersPage.class, null, new StringResourceModel("navbar.admin.users", this, null, null)));
 	            return list;
 			}
 

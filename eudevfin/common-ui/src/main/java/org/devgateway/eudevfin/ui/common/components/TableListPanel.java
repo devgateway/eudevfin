@@ -12,8 +12,8 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.util.ListModel;
-import org.devgateway.eudevfin.financial.util.PagingHelper;
-import org.devgateway.eudevfin.financial.util.PagingItem;
+import org.devgateway.eudevfin.common.service.PagingHelper;
+import org.devgateway.eudevfin.common.service.PagingItem;
 import org.devgateway.eudevfin.ui.common.components.util.ListGeneratorInterface;
 import org.devgateway.eudevfin.ui.common.components.util.Pageable;
 

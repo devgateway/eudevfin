@@ -6,7 +6,7 @@ package org.devgateway.eudevfin.financial.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.devgateway.eudevfin.financial.util.PagingHelper;
+import org.devgateway.eudevfin.common.service.PagingHelper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -16,7 +16,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  */
 public abstract class AbstractDaoImpl<Entity,Repo extends PagingAndSortingRepository<Entity, Long>> {
 	
-	abstract Repo getRepo(); 
+	protected abstract Repo getRepo(); 
 	
 	public List<Entity> findAllAsList() {
 		ArrayList<Entity> ret	= new ArrayList<>(); 

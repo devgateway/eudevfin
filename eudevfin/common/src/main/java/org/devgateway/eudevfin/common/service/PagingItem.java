@@ -1,4 +1,4 @@
-package org.devgateway.eudevfin.financial.util;
+package org.devgateway.eudevfin.common.service;
 
 import java.io.Serializable;
 

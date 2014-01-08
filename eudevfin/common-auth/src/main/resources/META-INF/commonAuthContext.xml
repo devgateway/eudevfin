@@ -45,6 +45,10 @@
 		<int:method name="findOne" request-channel="userChannel">
 			<int:header name="requestName" value="findOneUserChannel" />
 		</int:method>
+		
+		<int:method name="findByGeneralSearch" request-channel="userChannel">
+			<int:header name="requestName" value="findByGeneralSearchUserChannel" />
+		</int:method>
 
 	</int:gateway>
 	

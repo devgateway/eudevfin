@@ -23,6 +23,7 @@ public class OrganizationDaoImpl extends AbstractDaoImpl<Organization, Organizat
 	private OrganizationRepository repo;
 	
 	@Override
+	protected
 	OrganizationRepository getRepo() {
 		return repo;
 	}

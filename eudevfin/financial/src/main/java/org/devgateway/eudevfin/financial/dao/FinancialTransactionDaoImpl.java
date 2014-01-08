@@ -5,9 +5,9 @@ package org.devgateway.eudevfin.financial.dao;
 
 import java.util.List;
 
+import org.devgateway.eudevfin.common.service.PagingHelper;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.repository.FinancialTransactionRepository;
-import org.devgateway.eudevfin.financial.util.PagingHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.PageRequest;
@@ -76,6 +76,7 @@ public class FinancialTransactionDaoImpl extends AbstractDaoImpl<FinancialTransa
 	}
 	
 	@Override
+	protected
 	FinancialTransactionRepository getRepo() {
 		return repo;
 	}

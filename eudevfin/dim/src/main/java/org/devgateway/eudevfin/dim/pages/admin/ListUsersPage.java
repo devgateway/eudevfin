@@ -17,6 +17,8 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.service.UserService;
+import org.devgateway.eudevfin.dim.desktop.components.PersistedUserTableListPanel;
+import org.devgateway.eudevfin.dim.desktop.components.util.PersistedUserListGenerator;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -28,24 +30,20 @@ import org.wicketstuff.annotation.mount.MountPath;
 @MountPath(value = "/users")
 public class ListUsersPage extends HeaderFooter {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -8637428983397263676L;
-
-
 
 	@SpringBean
 	private UserService userService;
-	
-
 
 	private static final Logger logger = Logger.getLogger(ListUsersPage.class);
 
-
 	@SuppressWarnings("unchecked")
 	public ListUsersPage(final PageParameters parameters) {
-	
+
+		PersistedUserTableListPanel persistedUserTableListPanel = new PersistedUserTableListPanel(
+				"listPanel", new PersistedUserListGenerator(userService, ""));
+		add(persistedUserTableListPanel);
+
 	}
 
 }

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.devgateway.eudevfin.financial.util;
+package org.devgateway.eudevfin.common.service;
 
 import java.util.ArrayList;
 import java.util.List;

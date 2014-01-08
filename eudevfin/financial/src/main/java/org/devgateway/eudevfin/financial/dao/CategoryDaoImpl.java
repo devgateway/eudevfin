@@ -28,6 +28,7 @@ public class CategoryDaoImpl extends AbstractDaoImpl<Category, CategoryRepositor
 	private CategoryRepository repo;
 	
 	@Override
+	protected
 	CategoryRepository getRepo() {
 		return repo;
 	}
