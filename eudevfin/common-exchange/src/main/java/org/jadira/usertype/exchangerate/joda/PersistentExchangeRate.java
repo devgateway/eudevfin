@@ -2,7 +2,6 @@ package org.jadira.usertype.exchangerate.joda;
 
 import java.math.BigDecimal;
 
-import org.hibernate.annotations.Type;
 import org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency;
 import org.jadira.usertype.moneyandcurrency.joda.columnmapper.BigDecimalBigDecimalColumnMapper;
 import org.jadira.usertype.moneyandcurrency.joda.columnmapper.StringColumnCurrencyUnitMapper;

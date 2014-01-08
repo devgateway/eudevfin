@@ -8,10 +8,10 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.custom;
 
-import org.devgateway.eudevfin.dim.core.permissions.RoleActionMapping;
-import org.devgateway.eudevfin.dim.pages.transaction.crs.CRSTransactionPermissionProvider;
-
 import java.util.HashMap;
+
+import org.devgateway.eudevfin.dim.pages.transaction.crs.CRSTransactionPermissionProvider;
+import org.devgateway.eudevfin.ui.common.permissions.RoleActionMapping;
 
 /**
  * Different permission provider for the {@link CustomTransactionPage}

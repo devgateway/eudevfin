@@ -42,23 +42,23 @@
 			<int:header name="requestName" value="findByUsernameUserChannel" />
 		</int:method>
 
-		<int:method name="findOne" reply-channel="userChannel">
+		<int:method name="findOne" request-channel="userChannel">
 			<int:header name="requestName" value="findOneUserChannel" />
 		</int:method>
 
 	</int:gateway>
 	
 	<int:gateway id="authorityService"
-		service-interface="org.devgateway.eudevfin.auth.common.service.AuthorityService">
+		service-interface="org.devgateway.eudevfin.auth.common.service.PersistedAuthorityService">
 		<int:method name="save" request-channel="authorityChannel">
 			<int:header name="requestName" value="savePersistedAuthorityChannel" />
 		</int:method>
 
-		<int:method name="findOne" reply-channel="authorityChannel">
+		<int:method name="findOne" request-channel="authorityChannel">
 			<int:header name="requestName" value="findOnePersistedAuthorityChannel" />
 		</int:method>
 		
-		<int:method name="findAll" reply-channel="authorityChannel">	
+		<int:method name="findAll" request-channel="authorityChannel">	
 			<int:header name="requestName" value="findAllPersistedAuthorityChannel"/>
 		</int:method>
 

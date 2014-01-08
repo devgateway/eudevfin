@@ -11,21 +11,13 @@
 
 package org.devgateway.eudevfin.dim.pages.admin;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.service.UserService;
-import org.devgateway.eudevfin.dim.core.components.tabs.ITabWithKey;
-import org.devgateway.eudevfin.dim.core.pages.HeaderFooter;
-import org.devgateway.eudevfin.dim.desktop.components.config.ListGeneratorInterface;
-import org.devgateway.eudevfin.dim.pages.HomePage;
-import org.devgateway.eudevfin.financial.FinancialTransaction;
-import org.devgateway.eudevfin.financial.util.PagingHelper;
+import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**

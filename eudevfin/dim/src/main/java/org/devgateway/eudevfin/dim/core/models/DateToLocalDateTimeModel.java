@@ -11,6 +11,7 @@ package org.devgateway.eudevfin.dim.core.models;
 import java.util.Date;
 
 import org.apache.wicket.model.IWrapModel;
+import org.devgateway.eudevfin.ui.common.models.WrappingModel;
 import org.joda.time.LocalDateTime;
 
 /**

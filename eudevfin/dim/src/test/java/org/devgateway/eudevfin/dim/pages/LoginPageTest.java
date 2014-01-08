@@ -14,6 +14,7 @@ package org.devgateway.eudevfin.dim.pages;
 import org.apache.wicket.util.tester.FormTester;
 import org.apache.wicket.util.tester.TagTester;
 import org.devgateway.eudevfin.dim.core.BaseWicketTest;
+import org.devgateway.eudevfin.ui.common.pages.LoginPage;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.test.annotation.DirtiesContext;

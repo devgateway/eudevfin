@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.devgateway.eudevfin.auth.common.domain.PersistedAuthority;
-import org.devgateway.eudevfin.auth.common.service.AuthorityService;
+import org.devgateway.eudevfin.auth.common.service.PersistedAuthorityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -27,7 +27,7 @@ public class PersistedAuthorityChoiceProvider extends
 	private static final long serialVersionUID = 6601111337536432388L;
 	
 	@Autowired
-	private AuthorityService persistedAuthorityService;
+	private PersistedAuthorityService persistedAuthorityService;
 
 	
 
@@ -49,8 +49,9 @@ public class PersistedAuthorityChoiceProvider extends
 	@Override
 	public void query(String term, int page,
 			Response<PersistedAuthority> response) {
-		CollectionUtils.<PersistedAuthority> addAll(response.getResults(),
-				persistedAuthorityService.findAll());
+		Iterable<PersistedAuthority> findAll = persistedAuthorityService.findAll();
+		CollectionUtils.<PersistedAuthority> addAll(response.getResults(),findAll
+				);
 	}
 
 	@Override

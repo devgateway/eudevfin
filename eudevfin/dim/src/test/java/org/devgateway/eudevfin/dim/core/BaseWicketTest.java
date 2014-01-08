@@ -12,7 +12,7 @@
 package org.devgateway.eudevfin.dim.core;
 
 import org.apache.wicket.util.tester.WicketTester;
-import org.devgateway.eudevfin.dim.spring.WicketSpringApplication;
+import org.devgateway.eudevfin.ui.common.spring.WicketSpringApplication;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

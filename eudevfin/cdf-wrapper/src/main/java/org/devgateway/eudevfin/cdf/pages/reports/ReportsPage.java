@@ -19,7 +19,7 @@ import org.devgateway.eudevfin.dashboard.components.DataTable;
 import org.devgateway.eudevfin.dashboard.components.Filter;
 import org.devgateway.eudevfin.dashboard.components.PieChart;
 import org.devgateway.eudevfin.dashboard.components.StackedBarChart;
-import org.devgateway.eudevfin.dim.core.pages.HeaderFooter;
+import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.wicketstuff.annotation.mount.MountPath;
 
 @MountPath(value = "/reports")

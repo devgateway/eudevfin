@@ -8,10 +8,10 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.custom;
 
-import org.devgateway.eudevfin.dim.core.RWComponentPropertyModel;
-import org.devgateway.eudevfin.dim.core.components.DateInputField;
 import org.devgateway.eudevfin.dim.core.models.DateToLocalDateTimeModel;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.IdentificationDataTab;
+import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
+import org.devgateway.eudevfin.ui.common.components.DateInputField;
 import org.joda.time.LocalDateTime;
 
 /**

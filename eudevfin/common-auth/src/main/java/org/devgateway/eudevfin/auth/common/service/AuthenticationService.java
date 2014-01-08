@@ -1,7 +1,6 @@
 package org.devgateway.eudevfin.auth.common.service;
 
 import org.devgateway.eudevfin.auth.common.provider.RemoteAuthenticationProvider;
-import org.springframework.integration.annotation.Gateway;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 

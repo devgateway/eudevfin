@@ -8,6 +8,19 @@
 
 package org.devgateway.eudevfin.financial.translate;
 
+import java.io.Serializable;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
 import org.devgateway.eudevfin.financial.AbstractTranslateable;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
@@ -15,10 +28,6 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
-
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Date;
 
 @MappedSuperclass
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"parent_id", "locale"}))

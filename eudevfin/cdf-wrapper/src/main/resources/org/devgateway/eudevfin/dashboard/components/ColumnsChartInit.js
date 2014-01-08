@@ -32,7 +32,7 @@ function initColumnsChart(columnChartId, dataAccessId) {
 	            len = Highcharts.getOptions().colors.length,
 	            i;
 
-	        for (i = 0; i < columnQueryResult.length && i < 10; i++) {
+	        for (i = 0; i < columnQueryResult.length && i < 8; i++) {
 	            if (parseInt(columnQueryResult[i][2], 10) > 0) {
 	                resultCategories.push(columnQueryResult[i][1]);
 	                resultSeries.push({

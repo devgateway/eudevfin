@@ -10,9 +10,9 @@ package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
 import java.util.HashMap;
 
-import org.devgateway.eudevfin.dim.core.permissions.PermissionProvider;
-import org.devgateway.eudevfin.dim.core.permissions.RoleActionMapping;
-import org.devgateway.eudevfin.dim.core.temporary.SB;
+import org.devgateway.eudevfin.ui.common.permissions.PermissionProvider;
+import org.devgateway.eudevfin.ui.common.permissions.RoleActionMapping;
+import org.devgateway.eudevfin.ui.common.temporary.SB;
 
 /**
  * Basic class that will be used to get the permissions

@@ -7,8 +7,6 @@ import java.util.List;
 
 import org.devgateway.eudevfin.financial.Category;
 import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Alex

@@ -98,6 +98,15 @@
     </DimensionUsage>
     <DimensionUsage source="BiMultilateral" name="BiMultilateral" visible="true" foreignKey="BIMULTILATERAL_ID" highCardinality="false">
     </DimensionUsage>
+	<Dimension name="Reporting Year">
+		<Hierarchy hasAll="true">
+		<Level name="Reporting Year" column="REPORTINGYEAR" uniqueMembers="true">
+			<KeyExpression>
+			<SQL dialect="generic">CAST(YEAR("REPORTINGYEAR") AS CHAR(4))</SQL>
+			</KeyExpression>
+		</Level>
+	</Hierarchy>
+	</Dimension>
     <Measure name="Export Credit Amount" column="AMOUNTS_EXP_EXPORT_CREDIT_AMOUNT" aggregator="sum" visible="true">
     </Measure>
     <Measure name="IRTC Amount" column="AMOUNTS_IRTC_AMOUNT" aggregator="sum" visible="true">

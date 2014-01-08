@@ -6,7 +6,6 @@ package org.devgateway.eudevfin.financial.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.util.PagingHelper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.PagingAndSortingRepository;

@@ -29,15 +29,15 @@ import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.domain.PersistedAuthority;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.auth.common.service.UserService;
-import org.devgateway.eudevfin.dim.core.RWComponentPropertyModel;
-import org.devgateway.eudevfin.dim.core.components.BootstrapSubmitButton;
-import org.devgateway.eudevfin.dim.core.components.CheckBoxField;
-import org.devgateway.eudevfin.dim.core.components.MultiSelectField;
-import org.devgateway.eudevfin.dim.core.components.PasswordInputField;
-import org.devgateway.eudevfin.dim.core.components.TextInputField;
 import org.devgateway.eudevfin.dim.core.models.PasswordEncryptModel;
-import org.devgateway.eudevfin.dim.core.pages.HeaderFooter;
 import org.devgateway.eudevfin.dim.providers.PersistedAuthorityChoiceProvider;
+import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
+import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
+import org.devgateway.eudevfin.ui.common.components.CheckBoxField;
+import org.devgateway.eudevfin.ui.common.components.MultiSelectField;
+import org.devgateway.eudevfin.ui.common.components.PasswordInputField;
+import org.devgateway.eudevfin.ui.common.components.TextInputField;
+import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**

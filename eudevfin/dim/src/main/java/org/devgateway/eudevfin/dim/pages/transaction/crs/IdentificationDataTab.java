@@ -9,16 +9,16 @@
 package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
 import org.apache.wicket.markup.html.panel.Panel;
-import org.devgateway.eudevfin.dim.core.RWComponentPropertyModel;
-import org.devgateway.eudevfin.dim.core.components.DateInputField;
-import org.devgateway.eudevfin.dim.core.components.DropDownField;
-import org.devgateway.eudevfin.dim.core.components.TextInputField;
 import org.devgateway.eudevfin.dim.core.models.DateToLocalDateTimeModel;
 import org.devgateway.eudevfin.dim.core.models.YearToLocalDateTimeModel;
-import org.devgateway.eudevfin.dim.core.permissions.PermissionAwareComponent;
-import org.devgateway.eudevfin.dim.core.temporary.SB;
 import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.Organization;
+import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
+import org.devgateway.eudevfin.ui.common.components.DateInputField;
+import org.devgateway.eudevfin.ui.common.components.DropDownField;
+import org.devgateway.eudevfin.ui.common.components.TextInputField;
+import org.devgateway.eudevfin.ui.common.permissions.PermissionAwareComponent;
+import org.devgateway.eudevfin.ui.common.temporary.SB;
 import org.joda.time.LocalDateTime;
 
 /**

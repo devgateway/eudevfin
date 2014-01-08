@@ -4,8 +4,6 @@
 package org.devgateway.eudevfin.financial.translate;
 
 import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 import org.devgateway.eudevfin.financial.Area;
 import org.hibernate.envers.Audited;

@@ -3,11 +3,10 @@
  */
 package org.devgateway.eudevfin.dim.desktop.components.util;
 
-import org.devgateway.eudevfin.dim.desktop.components.config.ListGeneratorInterface;
-import org.devgateway.eudevfin.dim.pages.HomePage;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
 import org.devgateway.eudevfin.financial.util.PagingHelper;
+import org.devgateway.eudevfin.ui.common.components.util.ListGeneratorInterface;
 
 /**
  * @author Alex

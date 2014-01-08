@@ -14,13 +14,18 @@
  */
 package org.devgateway.eudevfin.exchange.common.domain;
 
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import org.hibernate.annotations.Columns;
 import org.hibernate.annotations.Type;
 import org.joda.money.ExchangeRate;
 import org.joda.time.LocalDateTime;
-
-import javax.persistence.*;
-import java.io.Serializable;
 
 /**
  * @author mihai

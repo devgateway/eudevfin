@@ -8,18 +8,18 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.custom;
 
-import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
-import org.apache.wicket.markup.html.panel.Panel;
-import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
-import org.devgateway.eudevfin.dim.core.permissions.RoleActionMapping;
-import org.devgateway.eudevfin.dim.pages.transaction.crs.TransactionPage;
-import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
-import org.devgateway.eudevfin.financial.FinancialTransaction;
-import org.wicketstuff.annotation.mount.MountPath;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.markup.html.panel.Panel;
+import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
+import org.devgateway.eudevfin.dim.pages.transaction.crs.TransactionPage;
+import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
+import org.devgateway.eudevfin.financial.FinancialTransaction;
+import org.devgateway.eudevfin.ui.common.permissions.RoleActionMapping;
+import org.wicketstuff.annotation.mount.MountPath;
 
 /**
  * Custom Transaction Page for the EU-DEVFIN Form, extends the CRS Form with extended tabs and permissions
