@@ -8,14 +8,14 @@
 
 package org.devgateway.eudevfin.ui.common.components.tabs;
 
+import java.util.List;
+
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
 import org.apache.wicket.extensions.markup.html.tabs.ITab;
 import org.apache.wicket.extensions.markup.html.tabs.TabbedPanel;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.model.IModel;
-
-import java.util.List;
 
 /**
  * Copy of AjaxTabbedPanel, with bootstrap compatibility

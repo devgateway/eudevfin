@@ -10,7 +10,6 @@ import org.devgateway.eudevfin.financial.repository.FinancialTransactionReposito
 import org.devgateway.eudevfin.financial.util.PagingHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.integration.annotation.Header;
 import org.springframework.integration.annotation.ServiceActivator;

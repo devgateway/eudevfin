@@ -8,6 +8,8 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.custom;
 
+import java.math.BigDecimal;
+
 import org.apache.wicket.model.ComponentPropertyModel;
 import org.devgateway.eudevfin.dim.core.models.BigMoneyModel;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.ForLoansOnlyTab;
@@ -16,8 +18,6 @@ import org.devgateway.eudevfin.ui.common.components.TextInputField;
 import org.devgateway.eudevfin.ui.common.events.CurrencyUpdateBehavior;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
-
-import java.math.BigDecimal;
 
 /**
  * For Loans Only Tab extension for the EU-DEVFIN Form

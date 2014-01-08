@@ -1,4 +1,4 @@
-package org.devgateway.eudevfin.dim.desktop.components.config;
+package org.devgateway.eudevfin.ui.common.components.util;
 
 import java.io.Serializable;
 

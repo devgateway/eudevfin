@@ -10,8 +10,6 @@ package org.devgateway.eudevfin.ui.common.pages;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Locale;
 import java.util.Set;
 

@@ -13,8 +13,8 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.Area;
+import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.RecipientCategory;
 import org.joda.money.CurrencyUnit;

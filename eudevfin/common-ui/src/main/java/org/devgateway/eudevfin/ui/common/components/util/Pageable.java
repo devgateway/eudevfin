@@ -1,4 +1,4 @@
-package org.devgateway.eudevfin.dim.desktop.components;
+package org.devgateway.eudevfin.ui.common.components.util;
 
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.devgateway.eudevfin.financial.util.PagingItem;

@@ -8,12 +8,13 @@
 
 package org.devgateway.eudevfin.ui.common.temporary;
 
-import com.vaynberg.wicket.select2.Response;
-import com.vaynberg.wicket.select2.TextChoiceProvider;
-import org.devgateway.eudevfin.financial.AbstractTranslateable;
-
 import java.util.ArrayList;
 import java.util.Collection;
+
+import org.devgateway.eudevfin.financial.AbstractTranslateable;
+
+import com.vaynberg.wicket.select2.Response;
+import com.vaynberg.wicket.select2.TextChoiceProvider;
 
 /**
  * TODO: REMOVE

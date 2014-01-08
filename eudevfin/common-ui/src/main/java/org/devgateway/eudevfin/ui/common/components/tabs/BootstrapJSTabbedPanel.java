@@ -8,6 +8,8 @@
 
 package org.devgateway.eudevfin.ui.common.components.tabs;
 
+import java.util.List;
+
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.ComponentTag;
@@ -20,8 +22,6 @@ import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.devgateway.eudevfin.ui.common.components.PermissionAwareLabel;
-
-import java.util.List;
 
 /**
  * Tabbed Panel that renders all the tabs in the page and uses JS to instantly switch between tabs

@@ -18,9 +18,8 @@ import org.apache.wicket.authroles.authorization.strategies.role.annotations.Aut
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
-import org.devgateway.eudevfin.dim.desktop.components.AllLastTransactionPanel;
 import org.devgateway.eudevfin.dim.desktop.components.SearchBoxPanel;
-import org.devgateway.eudevfin.dim.desktop.components.config.ListGeneratorInterface;
+import org.devgateway.eudevfin.dim.desktop.components.TransactionTableListPanel;
 import org.devgateway.eudevfin.dim.desktop.components.util.GeneralSearchListGenerator;
 import org.devgateway.eudevfin.dim.desktop.components.util.SectorListGenerator;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
@@ -28,7 +27,6 @@ import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.service.CategoryService;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
 import org.devgateway.eudevfin.financial.service.OrganizationService;
-import org.devgateway.eudevfin.financial.util.PagingHelper;
 import org.devgateway.eudevfin.ui.common.components.tabs.BootstrapJSTabbedPanel;
 import org.devgateway.eudevfin.ui.common.components.tabs.ITabWithKey;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
@@ -130,8 +128,8 @@ public class HomePage extends HeaderFooter {
     	List<ITabWithKey> tabList = new ArrayList<>();
 
     	
-    	tabList.add( AllLastTransactionPanel.newTab( this,DESKTOP_LAST_TX_BY_AGRICULTURE, new SectorListGenerator(SECTOR_CODE_AGRIC, txService) ) );
-    	tabList.add( AllLastTransactionPanel.newTab( this,DESKTOP_LAST_TX_BY_TRANSPORT, new SectorListGenerator(SECTOR_CODE_TRANSPORT, txService) ) );
+    	tabList.add( TransactionTableListPanel.newTab( this,DESKTOP_LAST_TX_BY_AGRICULTURE, new SectorListGenerator(SECTOR_CODE_AGRIC, txService) ) );
+    	tabList.add( TransactionTableListPanel.newTab( this,DESKTOP_LAST_TX_BY_TRANSPORT, new SectorListGenerator(SECTOR_CODE_TRANSPORT, txService) ) );
     	
     	BootstrapJSTabbedPanel<ITabWithKey> bc = new BootstrapJSTabbedPanel<>("tops-panel", tabList).
                 positionTabs(BootstrapJSTabbedPanel.Orientation.RIGHT);
@@ -139,6 +137,6 @@ public class HomePage extends HeaderFooter {
     	this.add(bc);
     	
     	GeneralSearchListGenerator generalSearchListGenerator	= new GeneralSearchListGenerator(null, txService);
-    	this.add( new SearchBoxPanel("search-box-panel", new AllLastTransactionPanel("search-results-panel",generalSearchListGenerator ), generalSearchListGenerator ) );
+    	this.add( new SearchBoxPanel("search-box-panel", new TransactionTableListPanel("search-results-panel",generalSearchListGenerator ), generalSearchListGenerator ) );
     }
 }

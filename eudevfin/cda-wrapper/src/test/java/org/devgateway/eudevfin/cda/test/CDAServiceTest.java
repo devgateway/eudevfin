@@ -1,6 +1,6 @@
 package org.devgateway.eudevfin.cda.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
 import java.util.Map;

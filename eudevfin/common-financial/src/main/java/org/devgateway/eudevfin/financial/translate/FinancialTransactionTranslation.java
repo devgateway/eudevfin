@@ -4,7 +4,6 @@
 package org.devgateway.eudevfin.financial.translate;
 
 import javax.persistence.Entity;
-import javax.persistence.Lob;
 
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.hibernate.envers.Audited;

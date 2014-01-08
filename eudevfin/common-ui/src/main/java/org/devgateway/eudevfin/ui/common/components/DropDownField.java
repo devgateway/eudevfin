@@ -8,11 +8,13 @@
 
 package org.devgateway.eudevfin.ui.common.components;
 
-import com.vaynberg.wicket.select2.ChoiceProvider;
-import com.vaynberg.wicket.select2.Select2Choice;
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.model.IModel;
+
+import com.vaynberg.wicket.select2.ChoiceProvider;
+import com.vaynberg.wicket.select2.Select2Choice;
+
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
 
 /**
  * Basic Select2 drop down field

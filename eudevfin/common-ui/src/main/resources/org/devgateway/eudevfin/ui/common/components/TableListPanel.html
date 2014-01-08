@@ -18,28 +18,7 @@
 <wicket:panel>
     <div>
         <table class="table table-striped" id="settings">
-        	<thead>
-	           <tr>
-	               <th>Transaction name</th>
-	               <th>Commitment value</th>
-	               <th>Sector name</th>
-	               <th>Organization name</th>
-	           </tr>
-            </thead>
-			<tr wicket:id="transaction-list">
-				<td>
-					<span wicket:id="transaction-name">-1</span>
-				</td>
-				<td>
-					<span wicket:id="transaction-commitment-value">0</span>
-				</td>
-				<td>
-					<span wicket:id="transaction-sector-name">unspecified</span>
-				</td>
-				<td>
-					<span wicket:id="transaction-organization-name">unspecified</span>
-				</td>
-			</tr>
+        		<wicket:child/>
 		</table>
     </div>
 	<div wicket:id="paging-panel">

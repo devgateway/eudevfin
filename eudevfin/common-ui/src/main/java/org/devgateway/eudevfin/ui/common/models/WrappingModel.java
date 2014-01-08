@@ -12,6 +12,7 @@ import org.apache.wicket.Component;
 import org.apache.wicket.model.IComponentAssignedModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.IWrapModel;
+import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 
 /**
  * Abstract model that allows the custom converting models (eg: {@link org.devgateway.eudevfin.dim.core.models.BigMoneyModel}, etc)

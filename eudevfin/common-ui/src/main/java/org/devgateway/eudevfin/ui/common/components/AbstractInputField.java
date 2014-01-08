@@ -8,13 +8,14 @@
 
 package org.devgateway.eudevfin.ui.common.components;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
+import java.util.List;
+
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.StringResourceModel;
 
-import java.util.List;
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
 
 /**
  * Extension of the {@link org.devgateway.eudevfin.ui.common.components.AbstractField} that adds some common functionality

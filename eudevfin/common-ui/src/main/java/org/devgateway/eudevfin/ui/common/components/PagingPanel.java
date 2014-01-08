@@ -1,4 +1,4 @@
-package org.devgateway.eudevfin.dim.desktop.components;
+package org.devgateway.eudevfin.ui.common.components;
 
 import java.util.List;
 
@@ -10,6 +10,7 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.devgateway.eudevfin.financial.util.PagingItem;
+import org.devgateway.eudevfin.ui.common.components.util.Pageable;
 
 public class PagingPanel extends Panel {
 

@@ -8,7 +8,7 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.custom;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
+import java.math.BigDecimal;
 
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.markup.html.panel.Fragment;
@@ -22,7 +22,7 @@ import org.devgateway.eudevfin.ui.common.events.CurrencyUpdateBehavior;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 
-import java.math.BigDecimal;
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
 
 /**
  * @author aartimon

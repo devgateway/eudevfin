@@ -11,7 +11,6 @@
  */
 package org.devgateway.eudevfin.ui.common.components;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.ControlGroup;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
@@ -20,6 +19,8 @@ import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
+
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.ControlGroup;
 
 /**
  * @author mihai

@@ -6,7 +6,6 @@ import java.util.TreeSet;
 
 import org.devgateway.eudevfin.exchange.common.job.HistoricalExchangeRateRetrievable;
 import org.devgateway.eudevfin.exchange.common.service.HistoricalExchangeRateService;
-import org.devgateway.eudevfin.exchange.dao.HistoricalExchangeRateDaoImplEndpoint;
 import org.joda.time.LocalDateTime;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;

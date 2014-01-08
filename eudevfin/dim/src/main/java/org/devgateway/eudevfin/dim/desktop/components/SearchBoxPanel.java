@@ -6,13 +6,11 @@ package org.devgateway.eudevfin.dim.desktop.components;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
-import org.apache.wicket.model.StringResourceModel;
 import org.devgateway.eudevfin.dim.desktop.components.util.GeneralSearchListGenerator;
+import org.devgateway.eudevfin.ui.common.components.TableListPanel;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
-import org.devgateway.eudevfin.ui.common.models.ProxyModel;
 
 /**
  * @author Alex
@@ -20,14 +18,14 @@ import org.devgateway.eudevfin.ui.common.models.ProxyModel;
  */
 public class SearchBoxPanel extends Panel {
 
-	private AllLastTransactionPanel resultsPanel;
+	private TableListPanel resultsPanel;
 	private GeneralSearchListGenerator listGenerator;
 	private WebMarkupContainer searchWrapperPanel;
 	/**
 	 * @param id
 	 * @param generalSearchListGenerator 
 	 */
-	public SearchBoxPanel(String id, AllLastTransactionPanel resultsPanel, GeneralSearchListGenerator generalSearchListGenerator) {
+	public SearchBoxPanel(String id, TableListPanel resultsPanel, GeneralSearchListGenerator generalSearchListGenerator) {
 		super(id);
 		this.resultsPanel		= resultsPanel;
 		this.listGenerator		= generalSearchListGenerator;
@@ -57,7 +55,7 @@ public class SearchBoxPanel extends Panel {
 	            if ( value != null && value.length() > 1 ) {
 //	            	System.out.println("VALUE IS" + value );
 	            	SearchBoxPanel.this.listGenerator.setSearchString(value);
-	            	SearchBoxPanel.this.resultsPanel.generateListOfTransactions(1);
+	            	SearchBoxPanel.this.resultsPanel.generateListOfItems(1);
 	            	SearchBoxPanel.this.resultsPanel.setVisible(true);
 	            }
 	            else

@@ -8,8 +8,6 @@
 
 package org.devgateway.eudevfin.ui.common.components;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.ControlGroup;
-
 import org.apache.wicket.Component;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -24,6 +22,8 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.devgateway.eudevfin.ui.common.models.ProxyModel;
 import org.devgateway.eudevfin.ui.common.permissions.PermissionAwareComponent;
+
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.ControlGroup;
 
 /**
  * Abstract class that provides the common functionality for all the fields use din the project

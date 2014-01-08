@@ -8,10 +8,10 @@
 
 package org.devgateway.eudevfin.exchange.common.job;
 
+import java.util.Collection;
+
 import org.joda.time.LocalDateTime;
 import org.springframework.integration.annotation.Payload;
-
-import java.util.Collection;
 
 public interface HistoricalExchangeRateRetrievable {
 
