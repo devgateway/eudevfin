@@ -130,9 +130,16 @@ public class WicketSpringApplication extends AuthenticatedWebApplication impleme
         Bootstrap.install(this, settings);
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public Class<? extends Page> getHomePage() {
-        return LoginPage.class;
+        try {
+			return  (Class<? extends Page>) Class.forName("org.devgateway.eudevfin.dim.pages.HomePage");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
     }
 
     @Override
