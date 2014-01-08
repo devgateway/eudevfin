@@ -14,12 +14,21 @@
 <wicket:extend>
         	<thead>
 	           <tr>
-	               <th>User name</th>	           
+	               <th>User name</th>	           	    
+	               <th>Groups</th>	           
+	               <th>Authorities</th>	           
 	           </tr>
+
             </thead>
 			<tr wicket:id="userList">
 				<td>
 					<span wicket:id="username">-1</span>
+				</td>
+				<td>
+					<span wicket:id="groups">-1</span>
+				</td>
+				<td>
+					<span wicket:id="authorities">-1</span>
 				</td>
 			</tr>
 </wicket:extend>

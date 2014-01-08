@@ -12,7 +12,7 @@ import org.devgateway.eudevfin.ui.common.components.util.ListGeneratorInterface;
 
 /**
  * @author mihai
- *
+ * 
  */
 public class PersistedUserTableListPanel extends TableListPanel<PersistedUser> {
 
@@ -26,21 +26,32 @@ public class PersistedUserTableListPanel extends TableListPanel<PersistedUser> {
 
 	@Override
 	protected void populateTable() {
-		this.itemsListView		= new ListView<PersistedUser>("userList", items  ) {
+		this.itemsListView = new ListView<PersistedUser>("userList", items) {
 
-			private static final long serialVersionUID = -8758662617501215830L;
+			private static final long sermiialVersionUID = -8758662617501215830L;
 
 			@Override
 			protected void populateItem(ListItem<PersistedUser> listItem) {
-				PersistedUser user			= listItem.getModelObject();
-				Label idLabel						= new Label("userName", user.getUsername());
+				PersistedUser user = listItem.getModelObject();
+				Label idLabel = new Label("username", user.getUsername());
+
+				Label groupsLabel = new Label("groups",
+						user.getGroups() != null ? user.getGroups().toString()
+								: "");
+
+				Label authoritiesLabel = new Label("authorities",
+						user.getGroups() != null ? user.getAuthorities()
+								.toString() : "");
+
 				listItem.add(idLabel);
+				listItem.add(groupsLabel);
+				listItem.add(authoritiesLabel);
+
 			}
 
 		};
-		
-		this.add(itemsListView);
-		
-	}
 
+		this.add(itemsListView);
+
+	}
 }

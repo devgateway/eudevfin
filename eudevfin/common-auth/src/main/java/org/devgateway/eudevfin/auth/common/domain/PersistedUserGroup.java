@@ -96,5 +96,10 @@ public class PersistedUserGroup implements Serializable {
 	public void setUsers(Set<PersistedUser> users) {
 		this.users = users;
 	}
+	
+	@Override
+	public String toString() {
+		return name;
+	}
 
 }
