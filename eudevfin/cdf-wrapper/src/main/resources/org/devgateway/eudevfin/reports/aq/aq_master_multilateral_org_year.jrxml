@@ -79,77 +79,77 @@ WHERE {[Reporting Year].[2010]}*{[BiMultilateral].[Bilateral en]}]]>
 				<text><![CDATA[e. Other]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="355" y="28" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<reportElement x="352" y="28" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Budget Support}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="355" y="42" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<reportElement x="352" y="42" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Core contributions and pooled programmes and funds}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="355" y="56" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<reportElement x="352" y="56" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Project-type interventions}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="355" y="70" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<reportElement x="352" y="70" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Experts and other technical assistance}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="355" y="84" width="100" height="14" uuid="c9e4e461-f3ce-4935-8d84-c74c8d4d586c"/>
+				<reportElement x="352" y="84" width="100" height="14" uuid="c9e4e461-f3ce-4935-8d84-c74c8d4d586c"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Experts and other technical assistance}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="295" y="28" width="54" height="14" uuid="9be4e8ad-9036-4f22-8244-ed28c444c7d1"/>
+				<reportElement x="297" y="28" width="50" height="14" uuid="9be4e8ad-9036-4f22-8244-ed28c444c7d1"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
 				</textElement>
 				<text><![CDATA[2101]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="295" y="84" width="54" height="14" uuid="e54d234f-5ea6-47b8-be88-b8129c77a74a"/>
+				<reportElement x="297" y="84" width="50" height="14" uuid="e54d234f-5ea6-47b8-be88-b8129c77a74a"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
 				</textElement>
 				<text><![CDATA[069]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="295" y="56" width="54" height="14" uuid="06460e08-fb77-4fef-8879-c0780ef5026e"/>
+				<reportElement x="297" y="56" width="50" height="14" uuid="06460e08-fb77-4fef-8879-c0780ef5026e"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
 				</textElement>
 				<text><![CDATA[547]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="295" y="42" width="54" height="14" uuid="e9e15d5b-72cf-4d70-80dc-ac2a6eda96ff"/>
+				<reportElement x="297" y="42" width="50" height="14" uuid="e9e15d5b-72cf-4d70-80dc-ac2a6eda96ff"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
 				</textElement>
 				<text><![CDATA[2102]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="295" y="70" width="54" height="14" uuid="3bfa9e88-e988-4a12-8827-6a539177544d"/>
+				<reportElement x="297" y="70" width="50" height="14" uuid="3bfa9e88-e988-4a12-8827-6a539177544d"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
 				</textElement>
 				<text><![CDATA[2105]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="295" y="0" width="54" height="14" uuid="0d72101f-1d35-467b-b3c8-feb8e55c510c"/>
+				<reportElement x="297" y="0" width="50" height="14" uuid="0d72101f-1d35-467b-b3c8-feb8e55c510c"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font fontName="Arial" size="10" isBold="true" isItalic="false"/>
 				</textElement>
