@@ -4,15 +4,9 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="bilateralToAYear" class="net.sf.jasperreports.engine.JasperReport"/>
-	<parameter name="bilateralToFYear" class="net.sf.jasperreports.engine.JasperReport"/>
-	<parameter name="multilateralYear" class="net.sf.jasperreports.engine.JasperReport"/>
-	<parameter name="memoRegion" class="net.sf.jasperreports.engine.JasperReport"/>
-	<parameter name="memoSector" class="net.sf.jasperreports.engine.JasperReport"/>
-	<parameter name="memoDebtRelief" class="net.sf.jasperreports.engine.JasperReport"/>
-	<parameter name="memoTotalODA" class="net.sf.jasperreports.engine.JasperReport"/>
 	<parameter name="FIRST_YEAR" class="java.lang.Number"/>
 	<parameter name="SECOND_YEAR" class="java.lang.Number"/>
+	<parameter name="SUBDIR_PATH" class="java.lang.String"/>
 	<queryString language="mdx">
 		<![CDATA[SELECT
 NON EMPTY {[Reporting Year].[$P{FIRST_YEAR}], [Reporting Year].[$P{SECOND_YEAR}]} ON ROWS,
@@ -201,24 +195,39 @@ FROM [Financial]]]>
 			</textField>
 			<subreport>
 				<reportElement x="0" y="40" width="555" height="100" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>
+				<subreportParameter name="FIRST_YEAR">
+					<subreportParameterExpression><![CDATA[$P{FIRST_YEAR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SECOND_YEAR">
+					<subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBDIR_PATH">
+					<subreportParameterExpression><![CDATA[$P{SUBDIR_PATH}]]></subreportParameterExpression>
+				</subreportParameter>
 				<subreportParameter name="MONDRIAN_CONNECTION">
 					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
 				</subreportParameter>
-				<subreportExpression><![CDATA[$P{bilateralToAYear}]]></subreportExpression>
+				<subreportExpression>
+				  <![CDATA[JasperCompileManager.compileReport($P{SUBDIR_PATH} + "/aq_master_bilateral_toa_year.jrxml")]]>
+				</subreportExpression>
 			</subreport>
 			<subreport>
 				<reportElement x="0" y="140" width="555" height="86" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>
 				<subreportParameter name="MONDRIAN_CONNECTION">
 					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
 				</subreportParameter>
-				<subreportExpression><![CDATA[$P{bilateralToFYear}]]></subreportExpression>
+				<subreportExpression>
+				  <![CDATA[JasperCompileManager.compileReport($P{SUBDIR_PATH} + "/aq_master_bilateral_tof_year.jrxml")]]>
+				</subreportExpression>
 			</subreport>
 			<subreport>
 				<reportElement x="0" y="226" width="555" height="100" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>
 				<subreportParameter name="MONDRIAN_CONNECTION">
 					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
 				</subreportParameter>
-				<subreportExpression><![CDATA[$P{multilateralYear}]]></subreportExpression>
+				<subreportExpression>
+				  <![CDATA[JasperCompileManager.compileReport($P{SUBDIR_PATH} + "/aq_master_multilateral_org_year.jrxml")]]>
+				</subreportExpression>
 			</subreport>
 			<staticText>
 				<reportElement x="0" y="326" width="107" height="20" uuid="2ed57308-69e8-4d87-9af8-6b3eb2c20ccf"/>
@@ -232,28 +241,36 @@ FROM [Financial]]]>
 				<subreportParameter name="MONDRIAN_CONNECTION">
 					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
 				</subreportParameter>
-				<subreportExpression><![CDATA[$P{memoRegion}]]></subreportExpression>
+				<subreportExpression>
+				  <![CDATA[JasperCompileManager.compileReport($P{SUBDIR_PATH} + "/aq_master_memo_region_year.jrxml")]]>
+				</subreportExpression>
 			</subreport>
 			<subreport>
 				<reportElement x="0" y="433" width="555" height="49" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>
 				<subreportParameter name="MONDRIAN_CONNECTION">
 					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
 				</subreportParameter>
-				<subreportExpression><![CDATA[$P{memoSector}]]></subreportExpression>
+				<subreportExpression>
+				  <![CDATA[JasperCompileManager.compileReport($P{SUBDIR_PATH} + "/aq_master_memo_sector_year.jrxml")]]>
+				</subreportExpression>
 			</subreport>
 			<subreport>
 				<reportElement x="0" y="483" width="555" height="15" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>
 				<subreportParameter name="MONDRIAN_CONNECTION">
 					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
 				</subreportParameter>
-				<subreportExpression><![CDATA[$P{memoDebtRelief}]]></subreportExpression>
+				<subreportExpression>
+				  <![CDATA[JasperCompileManager.compileReport($P{SUBDIR_PATH} + "/aq_master_memo_debtrelief_year.jrxml")]]>
+				</subreportExpression>
 			</subreport>
 			<subreport>
 				<reportElement x="0" y="498" width="555" height="15" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>
 				<subreportParameter name="MONDRIAN_CONNECTION">
 					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
 				</subreportParameter>
-				<subreportExpression><![CDATA[$P{memoTotalODA}]]></subreportExpression>
+				<subreportExpression>
+				  <![CDATA[JasperCompileManager.compileReport($P{SUBDIR_PATH} + "/aq_master_memo_totaloda_year.jrxml")]]>
+				</subreportExpression>
 			</subreport>
 			<staticText>
 				<reportElement x="298" y="20" width="50" height="14" uuid="b147f133-2d8c-4378-839a-9ff89a6141f0"/>

@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -195,6 +196,9 @@ public class ReportsController {
 	private void generateAdvancedQuestionnaire (HttpServletRequest request, HttpServletResponse response, 
 			Connection connection, String outputType) {
 		String yearParam = request.getParameter(REPORT_YEAR);
+		if (yearParam == null || yearParam.equals("")){
+			yearParam = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
+		}
 		int reportYear = Integer.parseInt(yearParam);
 		
 		try {
@@ -204,46 +208,12 @@ public class ReportsController {
 			parameters.put(JRMondrianQueryExecuterFactory.PARAMETER_MONDRIAN_CONNECTION, connection);
 			parameters.put("FIRST_YEAR", reportYear - 1);
 			parameters.put("SECOND_YEAR", reportYear);
+			parameters.put("SUBDIR_PATH", this.getClass().getResource("./aq").toString().replace("file:/",""));
 
 			InputStream parsedInputStream = parseInputStream(inputStream, parameters);
 			
 			JasperDesign jasperDesign = JRXmlLoader.load(parsedInputStream);
 			JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-			JasperReport bilateralToAYear = JasperCompileManager.compileReport(
-					JRXmlLoader.load(
-							ReportsController.class.getResourceAsStream("./aq/aq_master_bilateral_toa_year.jrxml")));
-			parameters.put("bilateralToAYear", bilateralToAYear);
-
-			JasperReport bilateralToFYear = JasperCompileManager.compileReport(
-					JRXmlLoader.load(
-							ReportsController.class.getResourceAsStream("./aq/aq_master_bilateral_tof_year.jrxml")));
-			parameters.put("bilateralToFYear", bilateralToFYear);
-
-			JasperReport multilateralYear = JasperCompileManager.compileReport(
-					JRXmlLoader.load(
-							ReportsController.class.getResourceAsStream("./aq/aq_master_multilateral_org_year.jrxml")));
-			parameters.put("multilateralYear", multilateralYear);
-
-			JasperReport memoRegion = JasperCompileManager.compileReport(
-					JRXmlLoader.load(
-							ReportsController.class.getResourceAsStream("./aq/aq_master_memo_region_year.jrxml")));
-			parameters.put("memoRegion", memoRegion);
-
-			JasperReport memoSector = JasperCompileManager.compileReport(
-					JRXmlLoader.load(
-							ReportsController.class.getResourceAsStream("./aq/aq_master_memo_sector_year.jrxml")));
-			parameters.put("memoSector", memoSector);
-
-			JasperReport memoDebtRelief = JasperCompileManager.compileReport(
-					JRXmlLoader.load(
-							ReportsController.class.getResourceAsStream("./aq/aq_master_memo_debtrelief_year.jrxml")));
-			parameters.put("memoDebtRelief", memoDebtRelief);
-
-			JasperReport memoTotalODA = JasperCompileManager.compileReport(
-					JRXmlLoader.load(
-							ReportsController.class.getResourceAsStream("./aq/aq_master_memo_totaloda_year.jrxml")));
-			parameters.put("memoTotalODA", memoTotalODA);
-
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters);
 			
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();

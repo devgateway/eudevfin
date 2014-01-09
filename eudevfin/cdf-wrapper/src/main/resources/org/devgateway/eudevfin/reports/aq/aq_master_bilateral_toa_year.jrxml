@@ -4,13 +4,15 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="YEAR" class="java.lang.String"/>
+	<parameter name="FIRST_YEAR" class="java.lang.String"/>
+	<parameter name="SECOND_YEAR" class="java.lang.String"/>
+	<parameter name="SUBDIR_PATH" class="java.lang.String"/>
 	<queryString language="mdx">
 		<![CDATA[SELECT
 NON EMPTY {[Type of Aid].[Budget support en], [Type of Aid].[Core contributions and pooled programmes and funds en], [Type of Aid].[Project-type interventions en], [Type of Aid].[Experts and other technical assistance en], [Type of Aid].[Debt relief en], [Type of Aid].[Administrative costs not included elsewhere en]} ON ROWS,
 NON EMPTY {[Measures].[Commitments Amount]} ON COLUMNS
 FROM [Financial]
-WHERE {[Reporting Year].[2010]}*{[BiMultilateral].[Bilateral en]}]]>
+WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[Bilateral en]}]]>
 	</queryString>
 	<field name="Budget Support" class="java.lang.Number">
 		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Aid].[Budget support en])]]></fieldDescription>
@@ -23,6 +25,12 @@ WHERE {[Reporting Year].[2010]}*{[BiMultilateral].[Bilateral en]}]]>
 	</field>
 	<field name="Experts and other technical assistance" class="java.lang.Number">
 		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Aid].[Experts and other technical assistance en])]]></fieldDescription>
+	</field>
+	<field name="Debt Relief" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Aid].[Debt relief en])]]></fieldDescription>
+	</field>
+	<field name="Administrative costs not included elsewhere" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Aid].[Administrative costs not included elsewhere en])]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -163,33 +171,31 @@ WHERE {[Reporting Year].[2010]}*{[BiMultilateral].[Bilateral en]}]]>
 				<text><![CDATA[1015]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="455" y="28" width="100" height="14" uuid="402fbca1-4c96-4301-99f4-308ff9db3d65"/>
+				<reportElement x="352" y="84" width="100" height="14" uuid="f59e5f52-7478-45d7-926a-b109a718c844"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Budget Support}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Debt Relief}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="455" y="56" width="100" height="14" uuid="bbe205f1-1a6f-4118-972b-9433246f5cef"/>
+				<reportElement x="352" y="98" width="100" height="14" uuid="917a498e-d1ba-4bbb-bacb-47ba9343baa7"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Project-type interventions}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Administrative costs not included elsewhere}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="455" y="42" width="100" height="14" uuid="302d1a5d-bce7-4523-98e9-cf32d10d2cbd"/>
-				<textElement textAlignment="Right">
-					<font fontName="Arial"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{Core contributions and pooled programmes and funds}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="455" y="70" width="100" height="14" uuid="4a437cb0-f281-439b-97e0-05342b00e2bd"/>
-				<textElement textAlignment="Right">
-					<font fontName="Arial"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{Experts and other technical assistance}]]></textFieldExpression>
-			</textField>
+			<subreport>
+				<reportElement x="455" y="28" width="100" height="84" uuid="f1671a23-5b09-4b8f-9c89-d83e08f246f7"/>
+				<subreportParameter name="YEAR">
+					<subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="MONDRIAN_CONNECTION">
+					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression>
+				  <![CDATA[JasperCompileManager.compileReport($P{SUBDIR_PATH} + "/aq_master_bilateral_toa_year_b.jrxml")]]>
+				</subreportExpression>
+			</subreport>
 		</band>
 	</pageHeader>
 	<columnHeader>
