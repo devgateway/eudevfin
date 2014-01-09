@@ -25,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 
 	public static int NUM_OF_TX	= 100;
+	public static int NUM_OF_YEARS = 5;
 	
 	
 	@Autowired
@@ -45,55 +46,57 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 		createTypesOfAid();
 		createBiMultilateral();
 		Random r = new Random();
-		
-		for (int i=1; i<=NUM_OF_TX; i++ ) {
-			FinancialTransaction tx 	= new FinancialTransaction();
-			tx.setCommitments(BigMoney.parse("EUR " + Math.ceil(Math.random()*100000)));
-			Organization org = null;
-			Organization extAgency = null;
-			Category sector = null;
-			Category typeOfFlow = null;
-			Category typeOfAid = null;
-			Category biMultilateral = null;
+		for (int j=0; j<=NUM_OF_YEARS; j++){
+			for (int i=1; i<=NUM_OF_TX; i++ ) {
+				FinancialTransaction tx 	= new FinancialTransaction();
+				tx.setCommitments(BigMoney.parse("EUR " + Math.ceil(Math.random()*100000)));
+				Organization org = null;
+				Organization extAgency = null;
+				Category sector = null;
+				Category typeOfFlow = null;
+				Category typeOfAid = null;
+				Category biMultilateral = null;
+				
+				List<Organization> listOrgs = orgDao.findAllAsList();
+				List<Category> listSec = catDao.findByTagsCode(FinancialConstants.SUBSECTORS_TAG);
+				List<Category> listTof = catDao.findByTagsCode(FinancialConstants.TYPEOFFLOW_TAG);
+				List<Category> listToa = catDao.findByTagsCode(FinancialConstants.TYPEOFAID_TAG);
+				List<Category> listGroup = catDao.findByTagsCode(FinancialConstants.BIMULTILATERAL_TAG);
+				int orgRandomIndex=r.nextInt(listOrgs.size());
+				int extAgencyRandomIndex=r.nextInt(listOrgs.size());
+				int secRandomIndex=r.nextInt(listSec.size());
+				int tofRandomIndex=r.nextInt(listTof.size());
+				int toaRandomIndex=r.nextInt(listToa.size());
+				int groupRandomIndex=r.nextInt(listGroup.size());
+				
+				org = listOrgs.get(orgRandomIndex);
+				extAgency = listOrgs.get(extAgencyRandomIndex);
+				sector = listSec.get(secRandomIndex);
+				typeOfFlow = listTof.get(tofRandomIndex);
+				typeOfAid = listToa.get(toaRandomIndex);
+				biMultilateral = listGroup.get(groupRandomIndex);
+				
+				tx.setReportingOrganization( org );
+				tx.setExtendingAgency(extAgency);
+				tx.setLocale("en");
+				tx.setDescription("CDA Test Transaction " + i + " en");
+				tx.setLocale("ro");
+				tx.setDescription("CDA Test Transaction " + i + " ro"); 
+				tx.setSector(sector);
+				tx.setTypeOfFlow(typeOfFlow);
+				tx.setTypeOfAid(typeOfAid);
+				tx.setBiMultilateral(biMultilateral);
+				tx.setReportingYear(LocalDateTime.parse((2009+j) + "-06-06"));
+				txDao.save(tx);
+			}
 			
-			List<Organization> listOrgs = orgDao.findAllAsList();
-			List<Category> listSec = catDao.findByTagsCode(FinancialConstants.SUBSECTORS_TAG);
-			List<Category> listTof = catDao.findByTagsCode(FinancialConstants.TYPEOFFLOW_TAG);
-			List<Category> listToa = catDao.findByTagsCode(FinancialConstants.TYPEOFAID_TAG);
-			List<Category> listGroup = catDao.findByTagsCode(FinancialConstants.BIMULTILATERAL_TAG);
-			int orgRandomIndex=r.nextInt(listOrgs.size());
-			int extAgencyRandomIndex=r.nextInt(listOrgs.size());
-			int secRandomIndex=r.nextInt(listSec.size());
-			int tofRandomIndex=r.nextInt(listTof.size());
-			int toaRandomIndex=r.nextInt(listToa.size());
-			int groupRandomIndex=r.nextInt(listGroup.size());
-			
-			org = listOrgs.get(orgRandomIndex);
-			extAgency = listOrgs.get(extAgencyRandomIndex);
-			sector = listSec.get(secRandomIndex);
-			typeOfFlow = listTof.get(tofRandomIndex);
-			typeOfAid = listToa.get(toaRandomIndex);
-			biMultilateral = listGroup.get(groupRandomIndex);
-			
-			tx.setReportingOrganization( org );
-			tx.setExtendingAgency(extAgency);
-			tx.setLocale("en");
-			tx.setDescription("CDA Test Transaction " + i + " en");
-			tx.setLocale("ro");
-			tx.setDescription("CDA Test Transaction " + i + " ro"); 
-			tx.setSector(sector);
-			tx.setTypeOfFlow(typeOfFlow);
-			tx.setTypeOfAid(typeOfAid);
-			tx.setBiMultilateral(biMultilateral);
-			tx.setReportingYear(getRandomDate());
-			txDao.save(tx);
 		}
 	}
 	
 	private LocalDateTime getRandomDate() {
 		//Generate random date between 2010/2014
 		int startYear = 2010;
-		int endYear = 2014;
+		int endYear = 2011;
 		int selectedYear = startYear + (int)(Math.random() * ((endYear - startYear) + 1));
 
 		LocalDateTime time = LocalDateTime.parse(selectedYear + "-06-06");
