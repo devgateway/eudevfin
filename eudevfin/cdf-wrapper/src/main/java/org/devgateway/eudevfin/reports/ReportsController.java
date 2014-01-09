@@ -1,9 +1,11 @@
 package org.devgateway.eudevfin.reports;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -29,8 +31,6 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
-import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.olap.JRMondrianQueryExecuterFactory;
 
@@ -158,19 +158,49 @@ public class ReportsController {
 		if (reportName != null && !reportName.equals("")) {
 			try {
 				inputStream = ReportsController.class.getResourceAsStream("./" + reportName);
-				JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
-				JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-				/*
-				JasperReport bilateralToASubreport = JasperCompileManager.compileReport(
-						JRXmlLoader.load(
-								ReportsController.class.getResourceAsStream("./advanced_questionnaire_bilateral_type_of_aid.jrxml")));
-				JasperReport bilateralToFSubreport = JasperCompileManager.compileReport(
-						JRXmlLoader.load(
-								ReportsController.class.getResourceAsStream("./advanced_questionnaire_bilateral_financial_instrument.jrxml")));
 
-				parameters.put("bilateralToASubreport", bilateralToASubreport);
-				parameters.put("bilateralToFSubreport", bilateralToFSubreport);
-				*/
+				parameters.put("FIRST_YEAR", 2010);
+				parameters.put("SECOND_YEAR", 2011);
+
+				InputStream parsedInputStream = parseInputStream(inputStream, parameters);
+				
+				JasperDesign jasperDesign = JRXmlLoader.load(parsedInputStream);
+				JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+				JasperReport bilateralToAYear = JasperCompileManager.compileReport(
+						JRXmlLoader.load(
+								ReportsController.class.getResourceAsStream("./aq/aq_master_bilateral_toa_year.jrxml")));
+				parameters.put("bilateralToAYear", bilateralToAYear);
+
+				JasperReport bilateralToFYear = JasperCompileManager.compileReport(
+						JRXmlLoader.load(
+								ReportsController.class.getResourceAsStream("./aq/aq_master_bilateral_tof_year.jrxml")));
+				parameters.put("bilateralToFYear", bilateralToFYear);
+
+				JasperReport multilateralYear = JasperCompileManager.compileReport(
+						JRXmlLoader.load(
+								ReportsController.class.getResourceAsStream("./aq/aq_master_multilateral_org_year.jrxml")));
+				parameters.put("multilateralYear", multilateralYear);
+
+				JasperReport memoRegion = JasperCompileManager.compileReport(
+						JRXmlLoader.load(
+								ReportsController.class.getResourceAsStream("./aq/aq_master_memo_region_year.jrxml")));
+				parameters.put("memoRegion", memoRegion);
+
+				JasperReport memoSector = JasperCompileManager.compileReport(
+						JRXmlLoader.load(
+								ReportsController.class.getResourceAsStream("./aq/aq_master_memo_sector_year.jrxml")));
+				parameters.put("memoSector", memoSector);
+
+				JasperReport memoDebtRelief = JasperCompileManager.compileReport(
+						JRXmlLoader.load(
+								ReportsController.class.getResourceAsStream("./aq/aq_master_memo_debtrelief_year.jrxml")));
+				parameters.put("memoDebtRelief", memoDebtRelief);
+
+				JasperReport memoTotalODA = JasperCompileManager.compileReport(
+						JRXmlLoader.load(
+								ReportsController.class.getResourceAsStream("./aq/aq_master_memo_totaloda_year.jrxml")));
+				parameters.put("memoTotalODA", memoTotalODA);
+
 				parameters.put(JRMondrianQueryExecuterFactory.PARAMETER_MONDRIAN_CONNECTION, conn);
 				JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters);
 
@@ -200,6 +230,41 @@ public class ReportsController {
 		}
         return null;
     }
+	
+	private InputStream parseInputStream(InputStream inputStream, Map<String, Object> parameters) {
+        BufferedReader inputReader = new BufferedReader(new InputStreamReader(inputStream));
+        InputStream parsedInputStream = null;
+
+        StringBuilder sb = new StringBuilder();
+        String inline = "";
+        try {
+			while ((inline = inputReader.readLine()) != null) {
+			  sb.append(inline);
+			  sb.append(System.getProperty("line.separator"));
+			}
+			String originalXML = sb.toString();
+			
+			for(String key : parameters.keySet()) {
+				String token = "@@" + key + "@@";
+				String value;
+				Object obj = parameters.get(key);
+				if(obj.getClass() == Integer.class){
+					value = ((Integer)obj).toString();
+				}
+				else
+				{
+					value = obj.toString();
+				}
+				originalXML = originalXML.replaceAll(token, value);
+			}
+			
+			parsedInputStream = new ByteArrayInputStream(originalXML.getBytes("UTF-8"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        
+		return parsedInputStream;
+	}
 	
 	@RequestMapping(value = "/dac1_table", method = RequestMethod.GET)
     public ModelAndView generateDAC1Report(HttpServletRequest request, HttpServletResponse response, ModelAndView modelAndView)  throws IOException {
