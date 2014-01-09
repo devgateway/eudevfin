@@ -28,9 +28,11 @@ import org.apache.wicket.validation.ValidationError;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.domain.PersistedAuthority;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
+import org.devgateway.eudevfin.auth.common.domain.PersistedUserGroup;
 import org.devgateway.eudevfin.auth.common.service.UserService;
 import org.devgateway.eudevfin.dim.core.models.PasswordEncryptModel;
 import org.devgateway.eudevfin.dim.providers.PersistedAuthorityChoiceProvider;
+import org.devgateway.eudevfin.dim.providers.PersistedUserGroupChoiceProvider;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
 import org.devgateway.eudevfin.ui.common.components.CheckBoxField;
@@ -54,9 +56,13 @@ public class EditUserPage extends HeaderFooter {
 	@SpringBean
 	private PersistedAuthorityChoiceProvider authorityChoiceProvider;
 
+	@SpringBean
+	private PersistedUserGroupChoiceProvider userGroupChoiceProvider;
+
+	
 	private static final long serialVersionUID = -4276784345759050002L;
 	private static final Logger logger = Logger.getLogger(EditUserPage.class);
-
+	
 	public class UniqueUsernameValidator extends Behavior implements
 			IValidator<String> {
 	
@@ -82,6 +88,8 @@ public class EditUserPage extends HeaderFooter {
 
 	@SuppressWarnings("unchecked")
 	public EditUserPage(final PageParameters parameters) {
+		super(parameters);
+		
 		Form form = new Form("form");
 		Long userId = null;
 		final PersistedUser persistedUser;
@@ -113,6 +121,12 @@ public class EditUserPage extends HeaderFooter {
 				"authorities",
 				new RWComponentPropertyModel<Collection<PersistedAuthority>>(
 				"authorities"), authorityChoiceProvider);
+		
+		MultiSelectField<PersistedUserGroup> groups = new MultiSelectField<>(
+				"groups",
+				new RWComponentPropertyModel<Collection<PersistedUserGroup>>(
+				"groups"), userGroupChoiceProvider);
+		
 
 		authorities.required();
 
@@ -120,6 +134,7 @@ public class EditUserPage extends HeaderFooter {
 		form.add(password);
 		form.add(enabled);
 		form.add(authorities);
+		form.add(groups);
 
 		form.add(new BootstrapSubmitButton("submit", Model.of("Submit")) {
 			
@@ -127,8 +142,6 @@ public class EditUserPage extends HeaderFooter {
 			protected void onError(AjaxRequestTarget target, Form<?> form) {
 				// TODO Auto-generated method stub
 				super.onError(target, form);
-				
-				
 			}
 
 			@Override

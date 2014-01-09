@@ -15,7 +15,7 @@ public interface UserService  extends BaseEntityService<PersistedUser> {
 	
 	PersistedUser findByUsername(String username);
 
-	PersistedUser findOne(Long userId);
+ 	PersistedUser findOne(Long userId);
 
 	
 }

@@ -4,9 +4,13 @@
 package org.devgateway.eudevfin.dim.desktop.components;
 
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.model.Model;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
+import org.devgateway.eudevfin.dim.pages.admin.EditUserPage;
 import org.devgateway.eudevfin.ui.common.components.TableListPanel;
 import org.devgateway.eudevfin.ui.common.components.util.ListGeneratorInterface;
 
@@ -32,8 +36,24 @@ public class PersistedUserTableListPanel extends TableListPanel<PersistedUser> {
 
 			@Override
 			protected void populateItem(ListItem<PersistedUser> listItem) {
-				PersistedUser user = listItem.getModelObject();
-				Label idLabel = new Label("username", user.getUsername());
+				final PersistedUser user = listItem.getModelObject();
+				
+				
+				
+				
+				Link linkToEditUser=new Link("linkToEditUser") {
+					@Override
+					public void onClick() {
+						PageParameters pageParameters = new PageParameters(); 
+				
+						pageParameters.add("userId", user.getId());
+
+						setResponsePage(EditUserPage.class, pageParameters);
+						
+					}
+				};
+				
+				linkToEditUser.setBody(Model.of(user.getUsername()));
 
 				Label groupsLabel = new Label("groups",
 						user.getGroups() != null ? user.getGroups().toString()
@@ -43,9 +63,9 @@ public class PersistedUserTableListPanel extends TableListPanel<PersistedUser> {
 						user.getGroups() != null ? user.getAuthorities()
 								.toString() : "");
 
-				listItem.add(idLabel);
 				listItem.add(groupsLabel);
 				listItem.add(authoritiesLabel);
+				listItem.add(linkToEditUser);
 
 			}
 

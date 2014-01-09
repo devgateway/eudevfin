@@ -24,7 +24,6 @@
 
 	<int:channel id="authenticationChannel" />
 	<int:channel id="userChannel" />
-	<int:channel id="authorityChannel" />
 
 
 	<int:gateway id="authenticationService"
@@ -49,20 +48,34 @@
 		<int:method name="findByGeneralSearch" request-channel="userChannel">
 			<int:header name="requestName" value="findByGeneralSearchUserChannel" />
 		</int:method>
-
 	</int:gateway>
+
+
+	<int:gateway id="userGroupService"
+		service-interface="org.devgateway.eudevfin.auth.common.service.PersistedUserGroupService">
+		<int:method name="findAll" request-channel="userChannel">
+			<int:header name="requestName" value="findAllUserGroupChannel" />
+		</int:method>
+		<int:method name="findByGeneralSearch" request-channel="userChannel">
+			<int:header name="requestName" value="findByGeneralSearchUserGroupChannel" />
+		</int:method>
+		<int:method name="findById" request-channel="userChannel">
+			<int:header name="requestName" value="findByIdUserGroupChannel" />
+		</int:method>
+	</int:gateway>
+	
 	
 	<int:gateway id="authorityService"
 		service-interface="org.devgateway.eudevfin.auth.common.service.PersistedAuthorityService">
-		<int:method name="save" request-channel="authorityChannel">
+		<int:method name="save" request-channel="userChannel">
 			<int:header name="requestName" value="savePersistedAuthorityChannel" />
 		</int:method>
 
-		<int:method name="findOne" request-channel="authorityChannel">
+		<int:method name="findOne" request-channel="userChannel">
 			<int:header name="requestName" value="findOnePersistedAuthorityChannel" />
 		</int:method>
 		
-		<int:method name="findAll" request-channel="authorityChannel">	
+		<int:method name="" request-channel="userChannel">	
 			<int:header name="requestName" value="findAllPersistedAuthorityChannel"/>
 		</int:method>
 

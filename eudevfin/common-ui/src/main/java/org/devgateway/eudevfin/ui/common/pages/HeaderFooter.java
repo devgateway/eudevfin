@@ -47,10 +47,17 @@ import de.agilecoders.wicket.core.settings.IBootstrapSettings;
 @SuppressWarnings("WicketForgeJavaIdInspection")
 public abstract class HeaderFooter extends GenericWebPage {
 
+	protected HeaderFooter() {
+		initialize();
+	}
+
+	protected HeaderFooter(PageParameters parameters) {
+		super(parameters);
+		initialize();
+	}
     
-
-    protected HeaderFooter() {
-
+    protected void initialize() {
+    	
         add(new HtmlTag("html"));
         add(new OptimizedMobileViewportMetaTag("viewport"));
         add(new ChromeFrameMetaTag("chrome-frame"));

@@ -13,5 +13,6 @@
     <entry key="password.label">Password</entry>
     <entry key="enabled.label">Enabled</entry>
     <entry key="authorities.label">Authorities</entry>
+    <entry key="groups.label">Groups</entry>
     <entry key="uniqueUsernameError">Another user with the same user name exists!</entry>
 </properties>
