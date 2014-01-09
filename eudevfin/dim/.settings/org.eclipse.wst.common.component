@@ -7,6 +7,9 @@
         <dependent-module archiveName="auth-0.0.1.CI-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/eudevfin-auth/eudevfin-auth">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="common-0.0.1.CI-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/eudevfin-common/eudevfin-common">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <dependent-module archiveName="common-auth-0.0.1.CI-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/eudevfin-common-auth/eudevfin-common-auth">
             <dependency-type>uses</dependency-type>
         </dependent-module>
@@ -15,6 +18,15 @@
         </dependent-module>
         <dependent-module archiveName="financial-0.0.1.CI-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/eudevfin-financial/eudevfin-financial">
             <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="common-exchange-0.0.1.CI-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/eudevfin-common-exchange/eudevfin-common-exchange">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="common-ui-0.0.1.CI-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/eudevfin-common-ui/eudevfin-common-ui">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module deploy-path="/" handle="module:/overlay/prj/eudevfin-cda-wrapper?includes=**/**&amp;excludes=META-INF/MANIFEST.MF">
+            <dependency-type>consumes</dependency-type>
         </dependent-module>
         <dependent-module deploy-path="/" handle="module:/overlay/prj/eudevfin-cdf-wrapper?includes=**/**&amp;excludes=META-INF/MANIFEST.MF">
             <dependency-type>consumes</dependency-type>

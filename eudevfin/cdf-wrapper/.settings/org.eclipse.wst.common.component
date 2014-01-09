@@ -3,7 +3,13 @@
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-        <dependent-module archiveName="common-0.0.1.CI-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/common/common">
+        <dependent-module archiveName="common-0.0.1.CI-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/eudevfin-common/eudevfin-common">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="common-ui-0.0.1.CI-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/eudevfin-common-ui/eudevfin-common-ui">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="common-auth-0.0.1.CI-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/eudevfin-common-auth/eudevfin-common-auth">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="java-output-path" value="/WEB-INF/classes"/>

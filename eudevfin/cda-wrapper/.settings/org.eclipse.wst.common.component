@@ -4,6 +4,21 @@
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/resources"/>
+        <dependent-module archiveName="auth-0.0.1.CI-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/eudevfin-auth/eudevfin-auth">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="common-auth-0.0.1.CI-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/eudevfin-common-auth/eudevfin-common-auth">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="common-financial-0.0.1.CI-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/eudevfin-common-financial/eudevfin-common-financial">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="common-0.0.1.CI-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/eudevfin-common/eudevfin-common">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="financial-0.0.1.CI-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/eudevfin-financial/eudevfin-financial">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="java-output-path" value="/WEB-INF/classes"/>
         <property name="context-root" value="cda-wrapper"/>
     </wb-module>
