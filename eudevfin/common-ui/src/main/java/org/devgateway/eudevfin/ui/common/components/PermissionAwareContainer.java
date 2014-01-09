@@ -8,7 +8,7 @@
 
 package org.devgateway.eudevfin.ui.common.components;
 
-import org.apache.wicket.markup.html.TransparentWebMarkupContainer;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.devgateway.eudevfin.ui.common.permissions.PermissionAwareComponent;
 
 /**
@@ -17,8 +17,8 @@ import org.devgateway.eudevfin.ui.common.permissions.PermissionAwareComponent;
  * @author aartimon
  * @since 16/12/13
  */
-public class PermissionAwareTransparentContainer extends TransparentWebMarkupContainer implements PermissionAwareComponent {
-    public PermissionAwareTransparentContainer(String id) {
+public class PermissionAwareContainer extends WebMarkupContainer implements PermissionAwareComponent {
+    public PermissionAwareContainer(String id) {
         super(id);
         this.setRenderBodyOnly(true);
     }

@@ -8,11 +8,11 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
-import java.util.HashMap;
-
 import org.devgateway.eudevfin.ui.common.permissions.PermissionProvider;
 import org.devgateway.eudevfin.ui.common.permissions.RoleActionMapping;
 import org.devgateway.eudevfin.ui.common.temporary.SB;
+
+import java.util.HashMap;
 
 /**
  * Basic class that will be used to get the permissions
@@ -58,7 +58,7 @@ public class CRSTransactionPermissionProvider extends PermissionProvider {
         permissions.put("22pdGg", new RoleActionMapping().required(SB.biODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
         permissions.put("23tradeDevelopment", new RoleActionMapping().required(SB.biODA()));
         permissions.put("24freestandingTechnicalCooperation", new RoleActionMapping().required(SB.biODA()));
-        permissions.put("25programbasedApproach", new RoleActionMapping().required(SB.biODA()));
+        permissions.put("25programmeBasedApproach", new RoleActionMapping().required(SB.biODA()));
         permissions.put("26investmentProject", new RoleActionMapping().required(SB.biODA()));
         permissions.put("27associatedFinancing", new RoleActionMapping().required(SB.biODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
         permissions.put("28biodiversity", new RoleActionMapping().required(SB.biODA()).render(SB.NON_ODA_OOF_NON_EXPORT));

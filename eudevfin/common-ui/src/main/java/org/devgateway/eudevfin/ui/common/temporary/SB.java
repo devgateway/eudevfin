@@ -8,10 +8,10 @@
 
 package org.devgateway.eudevfin.ui.common.temporary;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-
+import com.vaynberg.wicket.select2.ChoiceProvider;
+import com.vaynberg.wicket.select2.Response;
+import com.vaynberg.wicket.select2.StringTextChoiceProvider;
+import com.vaynberg.wicket.select2.TextChoiceProvider;
 import org.apache.commons.lang3.ArrayUtils;
 import org.devgateway.eudevfin.financial.Area;
 import org.devgateway.eudevfin.financial.Category;
@@ -19,10 +19,9 @@ import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.RecipientCategory;
 import org.joda.money.CurrencyUnit;
 
-import com.vaynberg.wicket.select2.ChoiceProvider;
-import com.vaynberg.wicket.select2.Response;
-import com.vaynberg.wicket.select2.StringTextChoiceProvider;
-import com.vaynberg.wicket.select2.TextChoiceProvider;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * Temporary class to simulate binds with other modules
@@ -212,6 +211,14 @@ public class SB {
 
     public static String[] allPriv() {
         return new String[]{NON_ODA_PRIVATE_GRANTS, NON_ODA_PRIVATE_MARKET};
+    }
+
+    public static String[] allNonODA() {
+        return new String[]{NON_ODA_OOF_EXPORT, NON_ODA_OOF_NON_EXPORT, NON_ODA_PRIVATE_GRANTS, NON_ODA_PRIVATE_MARKET, NON_ODA_OTHER_FLOWS};
+    }
+
+    public static String[] all() {
+        return ArrayUtils.addAll(allODA(), allNonODA());
     }
 
 }

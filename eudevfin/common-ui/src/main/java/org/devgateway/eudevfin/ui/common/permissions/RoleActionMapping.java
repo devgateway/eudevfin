@@ -8,9 +8,9 @@
 
 package org.devgateway.eudevfin.ui.common.permissions;
 
-import java.util.HashMap;
-
 import org.devgateway.eudevfin.ui.common.Constants;
+
+import java.util.HashMap;
 
 /**
  * Used by the {@link PermissionAwarePage} to return a hashmap with the permissions for the components in the
@@ -42,6 +42,31 @@ public class RoleActionMapping {
         return this;
     }
 
+    /**
+     * See {@link org.devgateway.eudevfin.ui.common.permissions.RoleActionMapping#notCollected(String)}
+     *
+     * @param roles set of roles to be removed
+     * @return this instance
+     */
+    public RoleActionMapping notCollected(String[] roles) {
+        for (String role : roles)
+            notCollected(role);
+        return this;
+    }
+
+    /**
+     * Method used to remove roles when overriding an existing permission scheme
+     *
+     * @param role to be removed
+     * @return this instance
+     */
+    public RoleActionMapping notCollected(String role) {
+        if (!mapping.containsKey(role))
+            throw new AssertionError("Role not found:" + role);
+        mapping.remove(role);
+        return this;
+    }
+
     public RoleActionMapping required(String[] roles) {
         for (String role : roles)
             required(role);
@@ -50,7 +75,7 @@ public class RoleActionMapping {
 
     public RoleActionMapping required(String role) {
         if (mapping.containsKey(role))
-            throw new AssertionError("Overlapping permissions");
+            throw new AssertionError("Overlapping permissions for role:" + role);
         mapping.put(role, Constants.ACTION_REQUIRED);
         return this;
     }
