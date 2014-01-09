@@ -57,6 +57,7 @@ public class ReportsController {
 	private static final String OUTPUT_TYPE_EXCEL = "excel";
 	private static final String OUTPUT_TYPE_HTML = "html";
 	private static final String OUTPUT_TYPE_CSV = "csv";
+	private static final String REPORT_YEAR = "reportYear";
 	
 	@RequestMapping(value = "/mondrian", method = RequestMethod.GET)
     public ModelAndView generateMondrianReport(HttpServletRequest request, HttpServletResponse response, ModelAndView modelAndView)  throws IOException {
@@ -168,13 +169,13 @@ public class ReportsController {
 		
 		switch (reportType) {
 			case REPORT_TYPE_AQ:
-				generateAdvancedQuestionnaire(response, connection, outputType);
+				generateAdvancedQuestionnaire(request, response, connection, outputType);
 	            break;
 	        case REPORT_TYPE_DAC1:
-	        	generateDAC1(response, connection, outputType);
+	        	generateDAC1(request, response, connection, outputType);
 	            break;
 	        case REPORT_TYPE_DAC2:
-	        	generateDAC2(response, connection, outputType);
+	        	generateDAC2(request, response, connection, outputType);
 	            break;
 	        default: 
 	        	break;
@@ -186,18 +187,23 @@ public class ReportsController {
 	/**
 	 * Create the Advanced Questionnaire report
 	 * 
+	 * @param request
 	 * @param response
 	 * @param connection the Mondrian connection
 	 * @param outputType the output for the report: HTML, Excel, PDF, CSV
 	 */
-	private void generateAdvancedQuestionnaire (HttpServletResponse response, Connection connection, String outputType) {
+	private void generateAdvancedQuestionnaire (HttpServletRequest request, HttpServletResponse response, 
+			Connection connection, String outputType) {
+		String yearParam = request.getParameter(REPORT_YEAR);
+		int reportYear = Integer.parseInt(yearParam);
+		
 		try {
 			InputStream inputStream = ReportsController.class.getResourceAsStream("./aq/aq_master.jrxml");
 			
 			Map<String, Object> parameters = new HashMap<String, Object>();
 			parameters.put(JRMondrianQueryExecuterFactory.PARAMETER_MONDRIAN_CONNECTION, connection);
-			parameters.put("FIRST_YEAR", 2010);
-			parameters.put("SECOND_YEAR", 2011);
+			parameters.put("FIRST_YEAR", reportYear - 1);
+			parameters.put("SECOND_YEAR", reportYear);
 
 			InputStream parsedInputStream = parseInputStream(inputStream, parameters);
 			
@@ -285,11 +291,13 @@ public class ReportsController {
 	/**
 	 * Create the DAC 1 report
 	 * 
+	 * @param request
 	 * @param response
 	 * @param connection the Mondrian connection
 	 * @param outputType the output for the report: HTML, Excel, PDF, CSV
 	 */
-	private void generateDAC1 (HttpServletResponse response, Connection connection, String outputType) {
+	private void generateDAC1 (HttpServletRequest request, HttpServletResponse response, 
+			Connection connection, String outputType) {
 		try {
 			InputStream inputStream = ReportsController.class.getResourceAsStream("./dac1_master.jrxml");
 			
@@ -346,11 +354,13 @@ public class ReportsController {
 	/**
 	 * Create the DAC 2 report2
 	 * 
+	 * @param request
 	 * @param response
 	 * @param connection the Mondrian connection
 	 * @param outputType the output for the report: HTML, Excel, PDF, CSV
 	 */
-	private void generateDAC2 (HttpServletResponse response, Connection connection, String outputType) {
+	private void generateDAC2 (HttpServletRequest request, HttpServletResponse response, 
+			Connection connection, String outputType) {
 		
 	}
 	
