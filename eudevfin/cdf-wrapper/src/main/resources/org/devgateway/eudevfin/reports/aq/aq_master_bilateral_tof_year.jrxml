@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="555" pageHeight="842" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4d81083f-52a3-45df-97af-b93a485e497a">
+	<property name="ireport.callouts" value="##Mon Dec 30 08:46:00 ART 2013"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="YEAR" class="java.lang.String"/>
+	<queryString language="mdx">
+		<![CDATA[SELECT
+NON EMPTY {[Type of Aid].[Budget support en], [Type of Aid].[Core contributions and pooled programmes and funds en], [Type of Aid].[Project-type interventions en], [Type of Aid].[Experts and other technical assistance en], [Type of Aid].[Debt relief en], [Type of Aid].[Administrative costs not included elsewhere en]} ON ROWS,
+NON EMPTY {[Measures].[Commitments Amount]} ON COLUMNS
+FROM [Financial]
+WHERE {[Reporting Year].[2010]}*{[BiMultilateral].[Multilateral en]}]]>
+	</queryString>
+	<field name="Budget Support" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Aid].[Budget support en])]]></fieldDescription>
+	</field>
+	<field name="Core contributions and pooled programmes and funds" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Aid].[Core contributions and pooled programmes and funds en])]]></fieldDescription>
+	</field>
+	<field name="Project-type interventions" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Aid].[Project-type interventions en])]]></fieldDescription>
+	</field>
+	<field name="Experts and other technical assistance" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Aid].[Experts and other technical assistance en])]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="124" splitType="Stretch">
+			<staticText>
+				<reportElement x="14" y="14" width="281" height="14" uuid="e60ba32c-718d-42f9-90c3-250d57e8e9ba"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Financial Instruments]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="32" y="28" width="263" height="14" uuid="b0eebc25-9b0e-44ca-91b3-fde67f3274f1"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[a. Grants]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="32" y="42" width="263" height="14" uuid="c03c6a7a-d273-4ff0-a6b8-f056be956483"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[b. Non grants, gross]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="32" y="56" width="263" height="14" uuid="3748c4d0-1cea-4812-8d61-a9180137bdc4"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[c. Non grants, net]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="49" y="70" width="246" height="14" uuid="98df0763-f62e-49e9-9314-57c8d501ca49"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[of which: Offsetting entry for debt forgiveness]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="355" y="28" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Budget Support}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="355" y="42" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Core contributions and pooled programmes and funds}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="355" y="56" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Project-type interventions}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="355" y="70" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Experts and other technical assistance}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="295" y="28" width="56" height="14" uuid="e56b0cfc-bcf5-4680-b4d8-c5d679b7135c"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[1921]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="295" y="56" width="56" height="14" uuid="a6cb5a9b-78fe-4279-a850-8af295ef5b37"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[1924]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="295" y="42" width="56" height="14" uuid="33669db6-7d56-4764-8861-1f9286d18383"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[1922]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="295" y="70" width="56" height="14" uuid="c7345f8d-1510-42b1-8cd6-8e189cec6bfb"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[1630]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="455" y="28" width="100" height="14" uuid="b7869743-88b8-4cc7-ad1d-a57ab8ba2058"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Budget Support}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="56" width="100" height="14" uuid="6f4a548a-2f9f-4cbc-ae84-bb39f8f17aae"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Project-type interventions}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="42" width="100" height="14" uuid="4f048166-a8d3-48c4-ab8d-e85844dd5b92"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Core contributions and pooled programmes and funds}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="70" width="100" height="14" uuid="9c649037-a9ba-41bd-b4fb-993823cc46a4"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Experts and other technical assistance}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

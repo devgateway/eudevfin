@@ -3,24 +3,27 @@
 	<property name="ireport.callouts" value="##Mon Dec 30 08:46:00 ART 2013"/>
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
-	<style name="Crosstab Data Text" hAlign="Center"/>
-	<parameter name="bilateralODA1" class="net.sf.jasperreports.engine.JasperReport"/>
-	<parameter name="bilateralODA2" class="net.sf.jasperreports.engine.JasperReport"/>
+	<property name="ireport.y" value="169"/>
+	<parameter name="bilateralToAYear" class="net.sf.jasperreports.engine.JasperReport"/>
+	<parameter name="bilateralToFYear" class="net.sf.jasperreports.engine.JasperReport"/>
+	<parameter name="multilateralYear" class="net.sf.jasperreports.engine.JasperReport"/>
+	<parameter name="memoRegion" class="net.sf.jasperreports.engine.JasperReport"/>
+	<parameter name="memoSector" class="net.sf.jasperreports.engine.JasperReport"/>
+	<parameter name="memoDebtRelief" class="net.sf.jasperreports.engine.JasperReport"/>
+	<parameter name="memoTotalODA" class="net.sf.jasperreports.engine.JasperReport"/>
+	<parameter name="FIRST_YEAR" class="java.lang.Number"/>
+	<parameter name="SECOND_YEAR" class="java.lang.Number"/>
 	<queryString language="mdx">
 		<![CDATA[SELECT
-NON EMPTY {[Measures].[Commitments Amount]} ON COLUMNS,
-NON EMPTY CrossJoin([BiMultilateral].[Name].Members, {[Reporting Year].[Reporting Year].[2011],[Reporting Year].[Reporting Year].[2010]}) ON ROWS
+NON EMPTY {[Reporting Year].[$P{FIRST_YEAR}], [Reporting Year].[$P{SECOND_YEAR}]} ON ROWS,
+NON EMPTY {[Measures].[Commitments Amount]} ON COLUMNS
 FROM [Financial]]]>
 	</queryString>
-	<field name="Commitments Amount" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], ?)]]></fieldDescription>
+	<field name="Commitments Amount Year 1" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Reporting Year].[@@FIRST_YEAR@@])]]></fieldDescription>
 	</field>
-	<field name="Type of Aid" class="java.lang.String">
-		<fieldDescription><![CDATA[Rows[BiMultilateral][Name]]]></fieldDescription>
-	</field>
-	<field name="Reporting Year" class="java.lang.String">
-		<fieldDescription><![CDATA[Rows[Reporting Year][Reporting Year]]]></fieldDescription>
+	<field name="Commitments Amount Year 2" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Reporting Year].[@@SECOND_YEAR@@])]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -42,16 +45,12 @@ FROM [Financial]]]>
 				<text><![CDATA[(2012 Edition)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="32" width="159" height="25" uuid="d971475c-3ae3-4306-800d-edad48554bf8"/>
+				<reportElement x="0" y="32" width="159" height="23" uuid="d971475c-3ae3-4306-800d-edad48554bf8"/>
 				<textElement>
-					<font size="12" isBold="true"/>
+					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Reporting Country:]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="159" y="32" width="138" height="23" uuid="2e4c34c4-da8c-4853-bec3-b5474eeb25eb"/>
-				<textFieldExpression><![CDATA[]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement x="297" y="32" width="130" height="25" uuid="7f64e3e1-16c4-49f6-8568-3307a1043be8"/>
 				<textElement>
@@ -60,12 +59,11 @@ FROM [Financial]]]>
 				<text><![CDATA[Exchange rates used]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="427" y="57" width="128" height="35" uuid="2c4a8cb4-0274-457a-8ced-05603e84aeb2"/>
+				<reportElement x="463" y="57" width="58" height="15" uuid="2c4a8cb4-0274-457a-8ced-05603e84aeb2"/>
 				<textElement>
-					<font size="12" isBold="false" isItalic="false"/>
+					<font size="10" isBold="false" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[2010 1 $ U.S. =
-2011 1 $ U.S. =]]></text>
+				<text><![CDATA[1 $ U.S. =]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="100" width="107" height="15" uuid="1b63871e-604e-4c71-b49a-8fab9e500103"/>
@@ -81,16 +79,31 @@ FROM [Financial]]]>
 				</textElement>
 				<text><![CDATA[Millions US dollars]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="367" y="57" width="96" height="15" uuid="d202c553-1036-4bf8-8299-8b94584b521a"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{FIRST_YEAR}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="463" y="72" width="58" height="15" uuid="1c387a29-2663-4745-8005-d4f7cf8f625f"/>
+				<textElement>
+					<font size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[1 $ U.S. =]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="367" y="72" width="96" height="15" uuid="7b01d2b4-1752-4d07-91ac-b08533bdec6e"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{SECOND_YEAR}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
-		<band splitType="Stretch"/>
-	</pageHeader>
-	<columnHeader>
-		<band splitType="Stretch"/>
-	</columnHeader>
-	<detail>
-		<band height="250" splitType="Stretch">
+		<band height="524" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="0" width="204" height="20" uuid="301f0e82-d09a-4e11-bc67-b831104674d9"/>
 				<textElement verticalAlignment="Top">
@@ -99,80 +112,108 @@ FROM [Financial]]]>
 				<text><![CDATA[DEVELOPING COUNTRIES (3)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="40" width="256" height="14" uuid="75a9d431-f9ec-4d1d-8f7a-bb967d39b954"/>
-				<textElement verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="true"/>
-				</textElement>
-				<text><![CDATA[I. Bilateral ODA, net]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="20" width="256" height="20" uuid="d05c28ea-11fc-4465-9454-b57c3e9f9c69"/>
+				<reportElement x="0" y="20" width="229" height="14" uuid="d05c28ea-11fc-4465-9454-b57c3e9f9c69"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="Arial" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Official Development Assistance, net]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="14" y="54" width="242" height="14" uuid="e60ba32c-718d-42f9-90c3-250d57e8e9ba"/>
-				<textElement verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="false" isItalic="true"/>
+			<textField>
+				<reportElement x="355" y="20" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
 				</textElement>
-				<text><![CDATA[Of which: selected types of aid]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="32" y="68" width="224" height="14" uuid="b0eebc25-9b0e-44ca-91b3-fde67f3274f1"/>
-				<textElement verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				<textFieldExpression><![CDATA[$F{Commitments Amount Year 1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="20" width="100" height="14" uuid="c9942bc6-86f5-404f-84db-195b820e9cde"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
 				</textElement>
-				<text><![CDATA[a. Budget Support]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="32" y="82" width="224" height="14" uuid="c03c6a7a-d273-4ff0-a6b8-f056be956483"/>
-				<textElement verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				<textFieldExpression><![CDATA[$F{Commitments Amount Year 2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="0" width="100" height="14" uuid="9f1a26a5-dbd6-44bb-8b80-ec043b9c1fc9"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
 				</textElement>
-				<text><![CDATA[b. Bilateral core support & pooled programmes & funds]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="32" y="96" width="224" height="14" uuid="3748c4d0-1cea-4812-8d61-a9180137bdc4"/>
-				<textElement verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				<textFieldExpression><![CDATA[$P{SECOND_YEAR}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="355" y="0" width="100" height="14" uuid="d71ade2d-2a16-4b8c-acbd-f127f86352f6"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
 				</textElement>
-				<text><![CDATA[c. Project-type interventions]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="32" y="110" width="224" height="14" uuid="98df0763-f62e-49e9-9314-57c8d501ca49"/>
-				<textElement verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
-				</textElement>
-				<text><![CDATA[d. Experts and other technical assistance]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="32" y="124" width="224" height="14" uuid="df2f387a-f274-4304-9fe5-73fa1725fb89"/>
-				<textElement verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
-				</textElement>
-				<text><![CDATA[e. Debt relief]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="32" y="138" width="224" height="14" uuid="a2e31938-fba7-44c0-bc26-9f5f371528c6"/>
-				<textElement verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
-				</textElement>
-				<text><![CDATA[f. Administrative costs not included elsewhere]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$P{FIRST_YEAR}]]></textFieldExpression>
+			</textField>
 			<subreport>
-				<reportElement x="305" y="20" width="122" height="132" uuid="f9d72826-c11d-40e7-971b-9eed65201fb4"/>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "aq_master_bilateral_oda_firstyear.jasper"]]></subreportExpression>
+				<reportElement x="0" y="40" width="555" height="100" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>
+				<subreportParameter name="MONDRIAN_CONNECTION">
+					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression><![CDATA[$P{bilateralToAYear}]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement x="433" y="20" width="122" height="132" uuid="8705d8d0-047a-4c38-9dfe-a836ca1b8d30"/>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "aq_master_bilateral_oda_firstyear.jasper"]]></subreportExpression>
+				<reportElement x="0" y="140" width="555" height="86" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>
+				<subreportParameter name="MONDRIAN_CONNECTION">
+					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression><![CDATA[$P{bilateralToFYear}]]></subreportExpression>
 			</subreport>
+			<subreport>
+				<reportElement x="0" y="226" width="555" height="100" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>
+				<subreportParameter name="MONDRIAN_CONNECTION">
+					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression><![CDATA[$P{multilateralYear}]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement x="0" y="326" width="107" height="20" uuid="2ed57308-69e8-4d87-9af8-6b3eb2c20ccf"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Memo items:]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="346" width="555" height="87" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>
+				<subreportParameter name="MONDRIAN_CONNECTION">
+					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression><![CDATA[$P{memoRegion}]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="0" y="433" width="555" height="49" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>
+				<subreportParameter name="MONDRIAN_CONNECTION">
+					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression><![CDATA[$P{memoSector}]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="0" y="492" width="555" height="15" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>
+				<subreportParameter name="MONDRIAN_CONNECTION">
+					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression><![CDATA[$P{memoDebtRelief}]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="0" y="507" width="555" height="15" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>
+				<subreportParameter name="MONDRIAN_CONNECTION">
+					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression><![CDATA[$P{memoTotalODA}]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement x="295" y="20" width="54" height="14" uuid="b147f133-2d8c-4378-839a-9ff89a6141f0"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[1010]]></text>
+			</staticText>
 		</band>
-	</detail>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
 	<columnFooter>
 		<band splitType="Stretch"/>
 	</columnFooter>

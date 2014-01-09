@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="555" pageHeight="14" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4d81083f-52a3-45df-97af-b93a485e497a">
+	<property name="ireport.callouts" value="##Mon Dec 30 08:46:00 ART 2013"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="YEAR" class="java.lang.String"/>
+	<queryString language="mdx">
+		<![CDATA[SELECT
+NON EMPTY {[Type of Aid].[Budget support en], [Type of Aid].[Core contributions and pooled programmes and funds en], [Type of Aid].[Project-type interventions en], [Type of Aid].[Experts and other technical assistance en], [Type of Aid].[Debt relief en], [Type of Aid].[Administrative costs not included elsewhere en]} ON ROWS,
+NON EMPTY {[Measures].[Commitments Amount]} ON COLUMNS
+FROM [Financial]
+WHERE {[Reporting Year].[2010]}*{[BiMultilateral].[Bilateral en]}]]>
+	</queryString>
+	<field name="Budget Support" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Aid].[Budget support en])]]></fieldDescription>
+	</field>
+	<field name="Core contributions and pooled programmes and funds" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Aid].[Core contributions and pooled programmes and funds en])]]></fieldDescription>
+	</field>
+	<field name="Project-type interventions" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Aid].[Project-type interventions en])]]></fieldDescription>
+	</field>
+	<field name="Experts and other technical assistance" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Aid].[Experts and other technical assistance en])]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="14" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="295" height="14" uuid="75a9d431-f9ec-4d1d-8f7a-bb967d39b954"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[3. Debt relief grants, gross]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="355" y="0" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Budget Support}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="295" y="0" width="54" height="14" uuid="8845796c-265a-4b77-81ea-1f5f64d2e523"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[087]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="455" y="0" width="100" height="14" uuid="06c21184-297a-4831-ac10-26e82ac9d29a"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Budget Support}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
