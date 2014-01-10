@@ -8,6 +8,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URLClassLoader;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -208,7 +210,12 @@ public class ReportsController {
 			parameters.put(JRMondrianQueryExecuterFactory.PARAMETER_MONDRIAN_CONNECTION, connection);
 			parameters.put("FIRST_YEAR", reportYear - 1);
 			parameters.put("SECOND_YEAR", reportYear);
-			parameters.put("SUBDIR_PATH", this.getClass().getResource("./aq").getPath());
+			try {
+				String subdirPath = new URI(this.getClass().getResource("./aq").toString()).getPath();
+				parameters.put("SUBDIR_PATH", subdirPath);
+			} catch (URISyntaxException e) {
+				e.printStackTrace();
+			}  
 
 			InputStream parsedInputStream = parseInputStream(inputStream, parameters);
 			
