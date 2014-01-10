@@ -58,7 +58,7 @@ public class WicketSpringApplication extends AuthenticatedWebApplication impleme
         setHeaderResponseDecorator(new RenderJavaScriptToFooterHeaderResponseDecorator());
 
         //mount annotated pages
-        new AnnotatedMountScanner().scanPackage("org.devgateway.eudevfin.dim").mount(this);
+        new AnnotatedMountScanner().scanPackage("org.devgateway.eudevfin").mount(this);
 
         //implemented ApplicationContextAware and added context as a parameter to help JUnit tests work
         getComponentInstantiationListeners().add(
