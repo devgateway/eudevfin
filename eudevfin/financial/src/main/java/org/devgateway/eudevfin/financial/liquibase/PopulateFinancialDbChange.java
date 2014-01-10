@@ -320,9 +320,9 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 		Category s2 = new Category();
 		s2.setCode("510");
 		s2.setLocale("en");
-		s2.setName("General Budget Support en");
+		s2.setName("Humanitarian Aid");
 		s2.setLocale("ro");
-		s2.setName("General Budget Support ro");
+		s2.setName("Humanitarian Aid");
 		s2.setTags(new HashSet<Category>());
 		s2.getTags().add(sectorsTag);
 		s2.getTags().add(subsectorsTag);
@@ -332,9 +332,9 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 		Category s3 = new Category();
 		s3.setCode("210");
 		s3.setLocale("en");
-		s3.setName("Transport and Storage en");
+		s3.setName("Development food aid");
 		s3.setLocale("ro");
-		s3.setName("Transport and Storage ro");
+		s3.setName("Development food aid");
 		s3.setTags(new HashSet<Category>());
 		s3.getTags().add(sectorsTag);
 		s3.getTags().add(subsectorsTag);
@@ -370,47 +370,47 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 	private void createOrganizations() {
 		Organization o1 = new Organization();
 		
-		o1.setCode("anOrgCode1");
+		o1.setCode("ONU");
 		o1.setLocale("en");
-		o1.setName("CDA Test Org 1 en");
+		o1.setName("United Nations");
 		o1.setLocale("ro");
-		o1.setName("CDA Test Org 1 ro");
+		o1.setName("United Nations");
 		
 		orgDao.save(o1);
 		
 		Organization o2 = new Organization();
-		o2.setCode("anOrgCode2");
+		o2.setCode("EU");
 		o2.setLocale("en");
-		o2.setName("CDA Test Org 2 en");
+		o2.setName("EU");
 		o2.setLocale("ro");
-		o2.setName("CDA Test Org 2 ro");
+		o2.setName("EU");
 		
 		orgDao.save(o2);
 
 		Organization o3 = new Organization();
-		o3.setCode("anOrgCode3");
+		o3.setCode("WB");
 		o3.setLocale("en");
-		o3.setName("CDA Test Org 3 en");
+		o3.setName("World Bank");
 		o3.setLocale("ro");
-		o3.setName("CDA Test Org 3 ro");
+		o3.setName("World Bank");
 		
 		orgDao.save(o3);
 
 		Organization o4 = new Organization();
-		o4.setCode("anOrgCode4");
+		o4.setCode("GRP1");
 		o4.setLocale("en");
-		o4.setName("CDA Test Org 4 en");
+		o4.setName("Regional development banks and funds");
 		o4.setLocale("ro");
-		o4.setName("CDA Test Org 4 ro");
+		o4.setName("Regional development banks and funds");
 		
 		orgDao.save(o4);
 
 		Organization o5 = new Organization();
-		o5.setCode("anOrgCode5");
+		o5.setCode("OTHER");
 		o5.setLocale("en");
-		o5.setName("CDA Test Org 5 en");
+		o5.setName("Other");
 		o5.setLocale("ro");
-		o5.setName("CDA Test Org 5 ro");
+		o5.setName("Other");
 		
 		orgDao.save(o5);
 	}
