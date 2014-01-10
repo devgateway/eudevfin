@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="100" pageHeight="112" columnWidth="100" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4d81083f-52a3-45df-97af-b93a485e497a">
+	<property name="ireport.callouts" value="##Mon Dec 30 08:46:00 ART 2013"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="YEAR" class="java.lang.String"/>
+	<queryString language="mdx">
+		<![CDATA[SELECT
+NON EMPTY {[Type of Flow].[ODA Grant en], [Type of Flow].[ODA Grant-like en], [Type of Flow].[ODA Loan en], [Type of Flow].[ODA equity investment en]} ON ROWS,
+NON EMPTY {[Measures].[Commitments Amount]} ON COLUMNS
+FROM [Financial]
+WHERE {[Reporting Year].[$P{YEAR}]}*{[BiMultilateral].[Bilateral en]}]]>
+	</queryString>
+	<field name="ODA Grant" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Flow].[ODA Grant en])]]></fieldDescription>
+	</field>
+	<field name="ODA Grant-like" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Flow].[ODA Grant-like en])]]></fieldDescription>
+	</field>
+	<field name="ODA Loan" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Flow].[ODA Loan en])]]></fieldDescription>
+	</field>
+	<field name="ODA equity investment" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Flow].[ODA equity investment en])]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="56" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="14" uuid="d6692bea-e609-43b5-a08a-3169cc4aa170"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ODA Grant}+$F{ODA Grant-like}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="28" width="100" height="14" uuid="406d03b2-5be1-44be-98b6-02aacd9fed20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[0]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="42" width="100" height="14" uuid="c9e230c0-6f23-44e2-abd4-299d8b1e2f4e"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[0]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="14" width="100" height="14" uuid="4549f8f0-fd13-4a73-a5d9-980c2dd11f07"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ODA Loan}+$F{ODA equity investment}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+</jasperReport>

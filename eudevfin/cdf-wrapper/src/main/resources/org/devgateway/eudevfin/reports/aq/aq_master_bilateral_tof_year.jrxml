@@ -4,25 +4,27 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="YEAR" class="java.lang.String"/>
+	<parameter name="FIRST_YEAR" class="java.lang.String"/>
+	<parameter name="SECOND_YEAR" class="java.lang.String"/>
+	<parameter name="SUBDIR_PATH" class="java.lang.String"/>
 	<queryString language="mdx">
 		<![CDATA[SELECT
-NON EMPTY {[Type of Aid].[Budget support en], [Type of Aid].[Core contributions and pooled programmes and funds en], [Type of Aid].[Project-type interventions en], [Type of Aid].[Experts and other technical assistance en], [Type of Aid].[Debt relief en], [Type of Aid].[Administrative costs not included elsewhere en]} ON ROWS,
+NON EMPTY {[Type of Flow].[ODA Grant en], [Type of Flow].[ODA Grant-like en], [Type of Flow].[ODA Loan en], [Type of Flow].[ODA equity investment en]} ON ROWS,
 NON EMPTY {[Measures].[Commitments Amount]} ON COLUMNS
 FROM [Financial]
-WHERE {[Reporting Year].[2010]}*{[BiMultilateral].[Multilateral en]}]]>
+WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[Bilateral en]}]]>
 	</queryString>
-	<field name="Budget Support" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Aid].[Budget support en])]]></fieldDescription>
+	<field name="ODA Grant" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Flow].[ODA Grant en])]]></fieldDescription>
 	</field>
-	<field name="Core contributions and pooled programmes and funds" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Aid].[Core contributions and pooled programmes and funds en])]]></fieldDescription>
+	<field name="ODA Grant-like" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Flow].[ODA Grant-like en])]]></fieldDescription>
 	</field>
-	<field name="Project-type interventions" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Aid].[Project-type interventions en])]]></fieldDescription>
+	<field name="ODA Loan" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Flow].[ODA Loan en])]]></fieldDescription>
 	</field>
-	<field name="Experts and other technical assistance" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Aid].[Experts and other technical assistance en])]]></fieldDescription>
+	<field name="ODA equity investment" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Flow].[ODA equity investment en])]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -69,28 +71,28 @@ WHERE {[Reporting Year].[2010]}*{[BiMultilateral].[Multilateral en]}]]>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Budget Support}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{ODA Grant}+$F{ODA Grant-like}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="352" y="42" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Core contributions and pooled programmes and funds}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{ODA Loan}+$F{ODA equity investment}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="352" y="56" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Project-type interventions}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[0]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="352" y="70" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Experts and other technical assistance}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[0]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="298" y="28" width="50" height="14" uuid="e56b0cfc-bcf5-4680-b4d8-c5d679b7135c"/>
@@ -120,34 +122,16 @@ WHERE {[Reporting Year].[2010]}*{[BiMultilateral].[Multilateral en]}]]>
 				</textElement>
 				<text><![CDATA[1630]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="455" y="28" width="100" height="14" uuid="b7869743-88b8-4cc7-ad1d-a57ab8ba2058"/>
-				<textElement textAlignment="Right">
-					<font fontName="Arial"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{Budget Support}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="455" y="56" width="100" height="14" uuid="6f4a548a-2f9f-4cbc-ae84-bb39f8f17aae"/>
-				<textElement textAlignment="Right">
-					<font fontName="Arial"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{Project-type interventions}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="455" y="42" width="100" height="14" uuid="4f048166-a8d3-48c4-ab8d-e85844dd5b92"/>
-				<textElement textAlignment="Right">
-					<font fontName="Arial"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{Core contributions and pooled programmes and funds}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="455" y="70" width="100" height="14" uuid="9c649037-a9ba-41bd-b4fb-993823cc46a4"/>
-				<textElement textAlignment="Right">
-					<font fontName="Arial"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{Experts and other technical assistance}]]></textFieldExpression>
-			</textField>
+			<subreport>
+				<reportElement x="455" y="28" width="100" height="56" uuid="f1671a23-5b09-4b8f-9c89-d83e08f246f7"/>
+				<subreportParameter name="YEAR">
+					<subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="MONDRIAN_CONNECTION">
+					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression><![CDATA[JasperCompileManager.compileReport($P{SUBDIR_PATH} + "/aq_master_bilateral_tof_year_b.jrxml")]]></subreportExpression>
+			</subreport>
 		</band>
 	</pageHeader>
 	<columnHeader>

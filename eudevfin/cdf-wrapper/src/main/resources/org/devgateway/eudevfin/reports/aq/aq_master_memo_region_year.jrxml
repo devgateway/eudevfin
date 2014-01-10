@@ -76,28 +76,28 @@ WHERE {[Reporting Year].[2010]}*{[BiMultilateral].[Bilateral en]}]]>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Budget Support}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[0]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="352" y="42" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Core contributions and pooled programmes and funds}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[0]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="352" y="56" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Project-type interventions}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[0]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="352" y="70" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Experts and other technical assistance}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[0]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="297" y="56" width="50" height="14" uuid="2b4b17ea-722f-43f7-9d31-24484b9b0222"/>
@@ -139,42 +139,42 @@ WHERE {[Reporting Year].[2010]}*{[BiMultilateral].[Bilateral en]}]]>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Budget Support}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[0]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="455" y="70" width="100" height="14" uuid="4d8a3312-fd69-47fc-a5df-33a8a4c5b985"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Experts and other technical assistance}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[0]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="455" y="14" width="100" height="14" uuid="06786896-59c0-4632-8d14-8d96863585a0"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Budget Support}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[0]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="455" y="56" width="100" height="14" uuid="f53f6924-bc20-4713-98be-704e6230bce8"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Project-type interventions}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[0]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="455" y="28" width="100" height="14" uuid="f1b3dabd-7302-4ab9-ae19-76eb434dc7e0"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Budget Support}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[0]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="455" y="42" width="100" height="14" uuid="c585b4e9-06c1-4264-9da4-a77ee3faa6ed"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Core contributions and pooled programmes and funds}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[0]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>

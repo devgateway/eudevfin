@@ -213,6 +213,15 @@ FROM [Financial]]]>
 			</subreport>
 			<subreport>
 				<reportElement x="0" y="140" width="555" height="86" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>
+				<subreportParameter name="FIRST_YEAR">
+					<subreportParameterExpression><![CDATA[$P{FIRST_YEAR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SECOND_YEAR">
+					<subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBDIR_PATH">
+					<subreportParameterExpression><![CDATA[$P{SUBDIR_PATH}]]></subreportParameterExpression>
+				</subreportParameter>
 				<subreportParameter name="MONDRIAN_CONNECTION">
 					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -222,6 +231,15 @@ FROM [Financial]]]>
 			</subreport>
 			<subreport>
 				<reportElement x="0" y="226" width="555" height="100" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>
+				<subreportParameter name="FIRST_YEAR">
+					<subreportParameterExpression><![CDATA[$P{FIRST_YEAR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SECOND_YEAR">
+					<subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBDIR_PATH">
+					<subreportParameterExpression><![CDATA[$P{SUBDIR_PATH}]]></subreportParameterExpression>
+				</subreportParameter>
 				<subreportParameter name="MONDRIAN_CONNECTION">
 					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -238,6 +256,15 @@ FROM [Financial]]]>
 			</staticText>
 			<subreport>
 				<reportElement x="0" y="346" width="555" height="87" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>
+				<subreportParameter name="FIRST_YEAR">
+					<subreportParameterExpression><![CDATA[$P{FIRST_YEAR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SECOND_YEAR">
+					<subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBDIR_PATH">
+					<subreportParameterExpression><![CDATA[$P{SUBDIR_PATH}]]></subreportParameterExpression>
+				</subreportParameter>
 				<subreportParameter name="MONDRIAN_CONNECTION">
 					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -247,6 +274,15 @@ FROM [Financial]]]>
 			</subreport>
 			<subreport>
 				<reportElement x="0" y="433" width="555" height="49" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>
+				<subreportParameter name="FIRST_YEAR">
+					<subreportParameterExpression><![CDATA[$P{FIRST_YEAR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SECOND_YEAR">
+					<subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBDIR_PATH">
+					<subreportParameterExpression><![CDATA[$P{SUBDIR_PATH}]]></subreportParameterExpression>
+				</subreportParameter>
 				<subreportParameter name="MONDRIAN_CONNECTION">
 					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -256,6 +292,15 @@ FROM [Financial]]]>
 			</subreport>
 			<subreport>
 				<reportElement x="0" y="483" width="555" height="15" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>
+				<subreportParameter name="FIRST_YEAR">
+					<subreportParameterExpression><![CDATA[$P{FIRST_YEAR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SECOND_YEAR">
+					<subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBDIR_PATH">
+					<subreportParameterExpression><![CDATA[$P{SUBDIR_PATH}]]></subreportParameterExpression>
+				</subreportParameter>
 				<subreportParameter name="MONDRIAN_CONNECTION">
 					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -265,6 +310,15 @@ FROM [Financial]]]>
 			</subreport>
 			<subreport>
 				<reportElement x="0" y="498" width="555" height="15" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>
+				<subreportParameter name="FIRST_YEAR">
+					<subreportParameterExpression><![CDATA[$P{FIRST_YEAR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SECOND_YEAR">
+					<subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBDIR_PATH">
+					<subreportParameterExpression><![CDATA[$P{SUBDIR_PATH}]]></subreportParameterExpression>
+				</subreportParameter>
 				<subreportParameter name="MONDRIAN_CONNECTION">
 					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
 				</subreportParameter>
