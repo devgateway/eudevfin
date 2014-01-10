@@ -208,7 +208,7 @@ public class ReportsController {
 			parameters.put(JRMondrianQueryExecuterFactory.PARAMETER_MONDRIAN_CONNECTION, connection);
 			parameters.put("FIRST_YEAR", reportYear - 1);
 			parameters.put("SECOND_YEAR", reportYear);
-			parameters.put("SUBDIR_PATH", this.getClass().getResource("./aq").toString().replace("file:/",""));
+			parameters.put("SUBDIR_PATH", this.getClass().getResource("./aq").getPath());
 
 			InputStream parsedInputStream = parseInputStream(inputStream, parameters);
 			
