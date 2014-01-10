@@ -84,6 +84,7 @@
             /WEB-INF/*/common*.jar!/*/commonContext.xml
             /WEB-INF/*/common-auth*.jar!/*/commonAuthContext.xml
             /WEB-INF/*/META-INF/*Context.xml
+			classpath*:**/*Context.xml  
             /WEB-INF/*/financial*.jar!/*/financialContext.xml
             /WEB-INF/*/common-financial*.jar!/*/commonFinancialContext.xml
             /WEB-INF/*/import-metadata*.jar!/*/importMetadataContext.xml
