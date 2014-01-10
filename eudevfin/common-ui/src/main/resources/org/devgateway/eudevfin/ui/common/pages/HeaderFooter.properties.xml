@@ -15,8 +15,10 @@
     <entry key="navbar.home">Home</entry>
     <entry key="navbar.newTransaction">New Transaction</entry>
     <entry key="navbar.reports">Reports</entry>
+    <entry key="navbar.reports.export">Export Reports</entry>
     <entry key="navbar.logout">Log Out</entry>
     <entry key="navbar.admin">Admin</entry>
+    <entry key="navbar.dashboard">Dashboard</entry>
     
     <entry key="navbar.admin.users">Users</entry>
     
