@@ -75,7 +75,7 @@
 			<int:header name="requestName" value="findOnePersistedAuthorityChannel" />
 		</int:method>
 		
-		<int:method name="" request-channel="userChannel">	
+		<int:method name="findAll" request-channel="userChannel">	
 			<int:header name="requestName" value="findAllPersistedAuthorityChannel"/>
 		</int:method>
 
