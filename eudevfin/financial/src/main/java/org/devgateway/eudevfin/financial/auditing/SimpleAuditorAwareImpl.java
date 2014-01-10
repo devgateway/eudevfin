@@ -14,7 +14,7 @@ public class SimpleAuditorAwareImpl implements AuditorAware<String> {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
 	    if (authentication == null || !authentication.isAuthenticated()) {
-	      return null;
+	      return "none";
 	    }
 
 	    return ((User) authentication.getPrincipal()).getUsername();
