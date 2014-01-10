@@ -360,7 +360,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore></ignore>
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
                             </pluginExecutions>
@@ -449,7 +449,8 @@
         <module>common</module>
 		<module>saikuui</module>
 		<module>common-ui</module>
-    </modules>
+    	<module>import-metadata</module>
+  </modules>
     <inceptionYear>2013</inceptionYear>
     <organization>
         <name>Development Gateway</name>

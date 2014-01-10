@@ -12,7 +12,12 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 
 import org.devgateway.eudevfin.financial.translate.FinancialTransactionTranslation;
@@ -26,6 +31,11 @@ import org.joda.time.LocalDateTime;
 
 @Entity
 @Audited
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(
+    name="financial_tx_class_type",
+    discriminatorType= DiscriminatorType.STRING)
+@DiscriminatorValue("Standard")
 //@Table(name="FINANCIAL_TRANSACTION")
 public class FinancialTransaction extends AbstractTranslateable<FinancialTransactionTranslation>
         implements FinancialTransactionTrnInterface, Serializable {

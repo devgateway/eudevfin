@@ -8,10 +8,17 @@
 
 package org.devgateway.eudevfin.financial;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
+import org.hibernate.envers.Audited;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 import org.joda.time.LocalDateTime;
 
+@Entity
+@Audited
+@DiscriminatorValue("Custom")
 public class CustomFinancialTransaction extends FinancialTransaction {
     private Boolean CPA;
     private Boolean projectCoFinanced;

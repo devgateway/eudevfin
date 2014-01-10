@@ -14,6 +14,8 @@ public class Organization extends AbstractTranslateable<OrganizationTranslation>
 	
 	private String code;
 	
+	private String acronym;
+	
 	@ManyToOne
 	private Area area;
 	
@@ -88,6 +90,14 @@ public class Organization extends AbstractTranslateable<OrganizationTranslation>
 
 	public void setDonorCode(String donorCode) {
 		this.donorCode = donorCode;
+	}
+
+	public String getAcronym() {
+		return acronym;
+	}
+
+	public void setAcronym(String acronym) {
+		this.acronym = acronym;
 	}
 
 }
