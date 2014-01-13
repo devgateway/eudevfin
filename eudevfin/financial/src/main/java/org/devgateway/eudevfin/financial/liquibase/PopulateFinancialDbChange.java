@@ -306,7 +306,7 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 		
 		
 		Category s1 = new Category();
-		s1.setCode("430");
+		s1.setCode("x430");
 		s1.setLocale("en");
 		s1.setName("Others en");
 		s1.setLocale("ro");
@@ -318,7 +318,7 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 		catDao.save(s1);
 		
 		Category s2 = new Category();
-		s2.setCode("510");
+		s2.setCode("x510");
 		s2.setLocale("en");
 		s2.setName("Humanitarian Aid");
 		s2.setLocale("ro");
@@ -330,7 +330,7 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 		catDao.save(s2);
 
 		Category s3 = new Category();
-		s3.setCode("210");
+		s3.setCode("x210");
 		s3.setLocale("en");
 		s3.setName("Development food aid");
 		s3.setLocale("ro");
@@ -342,7 +342,7 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 		catDao.save(s3);
 
 		Category s4 = new Category();
-		s4.setCode("230");
+		s4.setCode("x230");
 		s4.setLocale("en");
 		s4.setName("Energy Generation and Support en");
 		s4.setLocale("ro");
@@ -354,7 +354,7 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 		catDao.save(s4);
 
 		Category s5 = new Category();
-		s5.setCode("311");
+		s5.setCode("x311");
 		s5.setLocale("en");
 		s5.setName("Agriculture en");
 		s5.setLocale("ro");

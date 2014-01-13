@@ -17,5 +17,4 @@ public interface CategoryService extends BaseEntityService<Category> {
 	public List<Category> findByTagsCode(String labelCode);
 
 	public Category findByCode(String string, @Header("initializeChildren") Boolean initializeChildren);
-	
 }

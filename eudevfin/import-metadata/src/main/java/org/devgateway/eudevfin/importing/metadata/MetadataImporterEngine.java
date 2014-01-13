@@ -12,6 +12,7 @@ import org.devgateway.eudevfin.financial.dao.AbstractDaoImpl;
 import org.devgateway.eudevfin.financial.dao.AreaDaoImpl;
 import org.devgateway.eudevfin.financial.dao.CategoryDaoImpl;
 import org.devgateway.eudevfin.financial.dao.OrganizationDaoImpl;
+import org.devgateway.eudevfin.importing.metadata.exception.InvalidDataException;
 import org.devgateway.eudevfin.importing.metadata.mapping.AreaMapper;
 import org.devgateway.eudevfin.importing.metadata.mapping.CategoryMapper;
 import org.devgateway.eudevfin.importing.metadata.mapping.ChannelCategoryMapper;
@@ -19,6 +20,7 @@ import org.devgateway.eudevfin.importing.metadata.mapping.OrganizationMapper;
 import org.devgateway.eudevfin.importing.metadata.streamprocessors.ExcelStreamProcessor;
 import org.devgateway.eudevfin.importing.metadata.streamprocessors.StreamProcessorInterface;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -56,8 +58,15 @@ public class MetadataImporterEngine {
 			int numOfSavedEntities	= 0;
 			while ( streamProcessorInterface.hasNextObject() ) {
 				Object entity	= streamProcessorInterface.generateNextObject();
-				service.save(entity);
-				numOfSavedEntities++;
+				try {
+					service.save(entity);
+					numOfSavedEntities++;
+				}
+				catch(DataIntegrityViolationException e) {
+					throw new InvalidDataException(
+							String.format("There was a problem with saving the following entity to the db: %s", entity.toString() )
+							, e);
+				}
 			}
 			logger.info(String.format("-> finsihed! Imported %d entities !", numOfSavedEntities));
 			
