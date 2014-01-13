@@ -6,10 +6,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -27,6 +26,7 @@ import mondrian.olap.DriverManager;
 import mondrian.olap.Query;
 import mondrian.olap.Result;
 import mondrian.olap.Util.PropertyList;
+import mondrian.rolap.RolapConnectionProperties;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -69,10 +69,11 @@ public class ReportsController {
 		PropertyList propertyList = new PropertyList();
 		propertyList.put("Provider", "mondrian");
 		propertyList.put("Catalog",
-				this.getClass().getResource("./financial.mondrian.xml")
-						.toString());
-		Connection conn = DriverManager.getConnection(propertyList, null,
-				cdaDataSource);
+				this.getClass().getResource("/org/devgateway/eudevfin/cda/service/financial.mondrian.xml").toString());
+		propertyList.put(RolapConnectionProperties.DynamicSchemaProcessor.toString(),
+	            "org.devgateway.eudevfin.cda.utils.SchemaProcessor");
+		
+		Connection conn = DriverManager.getConnection(propertyList, null, cdaDataSource);
 		
 		// used to test the connection
 		Query query = conn.parseQuery(
@@ -155,10 +156,12 @@ public class ReportsController {
 		
 		// create the Mondrian connection
 		PropertyList propertyList = new PropertyList();
-		propertyList.put("Provider", "mondrian");
-		// TODO: Find a way of sharing the Schema files across the app, probably by asking the CDA Wrapper where the file is and having a default value.
+		propertyList.put("Provider", "mondrian");		
 		propertyList.put("Catalog",
-				this.getClass().getResource("./financial.mondrian.xml").toString());
+				this.getClass().getResource("/org/devgateway/eudevfin/cda/service/financial.mondrian.xml").toString());
+		propertyList.put(RolapConnectionProperties.DynamicSchemaProcessor.toString(),
+	            "org.devgateway.eudevfin.cda.utils.SchemaProcessor");
+		
 		Connection connection = DriverManager.getConnection(propertyList, null, cdaDataSource);
 		
 		// add default values
