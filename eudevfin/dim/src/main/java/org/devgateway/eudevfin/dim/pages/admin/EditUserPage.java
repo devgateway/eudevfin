@@ -113,6 +113,8 @@ public class EditUserPage extends HeaderFooter {
 		PasswordInputField password = new PasswordInputField("password",
 				new PasswordEncryptModel(new RWComponentPropertyModel<String>(
 						"password")));
+		password.getField().setResetPassword(false);
+	
 
 		CheckBoxField enabled = new CheckBoxField("enabled",
 				new RWComponentPropertyModel<Boolean>("enabled"));

@@ -19,7 +19,7 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
  * @author aartimon@developmentgateway.org
  * @since 17 October 2013
  */
-public class TextAreaInputField extends AbstractInputField<String> {
+public class TextAreaInputField extends AbstractInputField<String,TextArea<String>> {
     private int rows = 3;
 
     public TextAreaInputField(String id, IModel<String> model) {
@@ -35,7 +35,7 @@ public class TextAreaInputField extends AbstractInputField<String> {
 
     @Override
     protected TextArea<String> newField(String id, IModel<String> model) {
-        return new TextArea<>(id, model);
+        return new TextArea<String>(id, model);
     }
 
     public TextAreaInputField setRows(int rows){

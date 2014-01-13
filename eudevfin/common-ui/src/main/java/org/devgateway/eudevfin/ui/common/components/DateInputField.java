@@ -22,7 +22,7 @@ import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.DateTextField
  * @author aartimon@developmentgateway.org
  * @since 17 October 2013
  */
-public class DateInputField extends AbstractInputField<Date> {
+public class DateInputField extends AbstractInputField<Date,TextField<Date>> {
 
     public DateInputField(String id, IModel<Date> model) {
         super(id, model);

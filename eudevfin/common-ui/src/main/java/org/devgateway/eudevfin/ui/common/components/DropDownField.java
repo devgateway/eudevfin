@@ -8,7 +8,6 @@
 
 package org.devgateway.eudevfin.ui.common.components;
 
-import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.model.IModel;
 
 import com.vaynberg.wicket.select2.ChoiceProvider;
@@ -21,7 +20,7 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
  * @author aartimon@developmentgateway.org
  * @since 31 October 2013
  */
-public class DropDownField<T> extends AbstractInputField<T> {
+public class DropDownField<T> extends AbstractInputField<T,Select2Choice<T>> {
 
     private ChoiceProvider<T> choiceProvider;
 
@@ -32,14 +31,8 @@ public class DropDownField<T> extends AbstractInputField<T> {
     }
 
     @Override
-    protected FormComponent<T> newField(String id, IModel<T> model) {
-        return new Select2Choice<>(id, model);
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    protected Select2Choice<T> getField() {
-        return (Select2Choice<T>) field;
+    protected Select2Choice<T> newField(String id, IModel<T> model) {
+        return new Select2Choice<T>(id, model);
     }
 
     public DropDownField<T> disableSearch() {

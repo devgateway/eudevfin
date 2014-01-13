@@ -11,7 +11,6 @@ package org.devgateway.eudevfin.ui.common.components;
 import java.util.Collection;
 
 import org.apache.wicket.behavior.Behavior;
-import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.IValidator;
@@ -25,7 +24,7 @@ import com.vaynberg.wicket.select2.Select2MultiChoice;
  * @author aartimon@developmentgateway.org
  * @since 31 October 2013
  */
-public class MultiSelectField<T> extends AbstractInputField<Collection<T>> {
+public class MultiSelectField<T> extends AbstractInputField<Collection<T>,Select2MultiChoice<T>> {
 
 	private static final long serialVersionUID = -2955458671417231490L;
 
@@ -49,14 +48,13 @@ public class MultiSelectField<T> extends AbstractInputField<Collection<T>> {
     }
     
     @Override
-    public AbstractInputField<Collection<T>> required() {        	
+    public AbstractInputField<Collection<T>, Select2MultiChoice<T>> required() {
     	field.add(new NotEmptyCollectionValidator<Collection<T>>());
         return this;
     }
-    
-
+   
     @Override
-    protected FormComponent<Collection<T>> newField(String id, IModel<Collection<T>> model) {
+    protected Select2MultiChoice<T> newField(String id, IModel<Collection<T>> model) {
         return new Select2MultiChoice<>(id, model);
     }
 }

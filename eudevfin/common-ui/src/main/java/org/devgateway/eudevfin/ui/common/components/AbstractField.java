@@ -31,14 +31,14 @@ import org.devgateway.eudevfin.ui.common.permissions.PermissionAwareComponent;
  * @author aartimon@developmentgateway.org
  * @since 30 October 2013
  */
-public abstract class AbstractField<T> extends Panel implements PermissionAwareComponent {
+public abstract class AbstractField<T, FIELD extends FormComponent<T>> extends Panel implements PermissionAwareComponent {
     private static final long serialVersionUID = -5883044564199075156L;
     private ProxyModel<String> labelText;
 
     final Component prepender;
     private final Component appender;
     private final ControlGroup controlGroup;
-    FormComponent<T> field;
+    FIELD field;
     private final MarkupContainer xPenderController;
 
     /**
@@ -85,7 +85,7 @@ public abstract class AbstractField<T> extends Panel implements PermissionAwareC
      *
      * @param fc current form component
      */
-    void addFormComponent(FormComponent<T> fc) {
+    void addFormComponent(FIELD fc) {
         this.field = fc;
         field.setLabel(labelText);
         fc.setOutputMarkupId(true);
@@ -120,16 +120,16 @@ public abstract class AbstractField<T> extends Panel implements PermissionAwareC
         return "onblur";
     }
 
-    FormComponent<T> getField() {
+    public FIELD getField() {
         return field;
     }
 
-    AbstractField<T> required() {
+    AbstractField<T,FIELD> required() {
         field.setRequired(true);
         return this;
     }
 
-    AbstractField<T> hideLabel() {
+    AbstractField<T,FIELD> hideLabel() {
         labelText.replaceModel(Model.of(""));
         return this;
     }

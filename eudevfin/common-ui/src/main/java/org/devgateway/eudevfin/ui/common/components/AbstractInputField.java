@@ -21,9 +21,10 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
  * Extension of the {@link org.devgateway.eudevfin.ui.common.components.AbstractField} that adds some common functionality
  * found in input fields: placeholder text, input behavior, etc
  *
- * @param <T>
+ * @param <T> the data type of the field
+ * @param <FIELD> the enclosing field, descendant of {@link FormComponent}
  */
-public abstract class AbstractInputField<T> extends AbstractField<T> {
+public abstract class AbstractInputField<T,  FIELD extends FormComponent<T>> extends AbstractField<T, FIELD > {
     private IModel<String> placeholderText;
 
 
@@ -79,8 +80,8 @@ public abstract class AbstractInputField<T> extends AbstractField<T> {
      */
     @Override
     @SuppressWarnings("unchecked")
-    public AbstractInputField<T> required() {
-        return (AbstractInputField<T>) super.required();
+    public AbstractInputField<T,FIELD> required() {
+        return (AbstractInputField<T,FIELD>) super.required();
     }
 
     /**
@@ -96,7 +97,7 @@ public abstract class AbstractInputField<T> extends AbstractField<T> {
      * @param size input behavior size
      * @return current component
      */
-    protected AbstractInputField<T> setSize(InputBehavior.Size size) {
+    protected AbstractInputField<T,FIELD> setSize(InputBehavior.Size size) {
         List<InputBehavior> list = field.getBehaviors(InputBehavior.class);
         if (list.size() != 1)
             throw new AssertionError("an InputBehavior must be attached to current field!");
@@ -113,5 +114,5 @@ public abstract class AbstractInputField<T> extends AbstractField<T> {
      * @param model
      * @return
      */
-    protected abstract FormComponent<T> newField(String id, IModel<T> model);
+    protected abstract FIELD newField(String id, IModel<T> model);
 }

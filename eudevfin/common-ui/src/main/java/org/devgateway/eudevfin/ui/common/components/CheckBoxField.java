@@ -17,7 +17,7 @@ import org.apache.wicket.model.IModel;
  * @author aartimon@developmentgateway.org
  * @since 31 October 2013
  */
-public class CheckBoxField extends AbstractInputField<Boolean> {
+public class CheckBoxField extends AbstractInputField<Boolean,CheckBox> {
 
 
     public CheckBoxField(String id, IModel<Boolean> model) {
@@ -25,7 +25,7 @@ public class CheckBoxField extends AbstractInputField<Boolean> {
     }
 
     @Override
-    protected FormComponent<Boolean> newField(String id, IModel<Boolean> model) {
+    protected CheckBox newField(String id, IModel<Boolean> model) {
         return new CheckBox(id, model);
     }
 }

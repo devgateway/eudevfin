@@ -45,7 +45,7 @@ public final class LoginPage extends HeaderFooter {
             username.getField().setRequired(true);
             add(username);
 
-            AbstractInputField<String> password = new PasswordInputField("password", new PropertyModel<String>(this, "password"), "login.password");
+            PasswordInputField password = new PasswordInputField("password", new PropertyModel<String>(this, "password"), "login.password");
             add(password);
 
 		}

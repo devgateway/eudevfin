@@ -26,7 +26,7 @@ import de.agilecoders.wicket.extensions.javascript.jasny.InputMaskBehavior;
  * @author aartimon@developmentgateway.org
  * @since 17 October 2013
  */
-public class TextInputField<T> extends AbstractInputField<T> {
+public class TextInputField<T> extends AbstractInputField<T,TextField<T>> {
 
     /**
      * <p>Creates an input field with attached label and placeholder</p>
@@ -62,7 +62,7 @@ public class TextInputField<T> extends AbstractInputField<T> {
     }
 
     @SuppressWarnings("unchecked")
-    public AbstractInputField<T> decorateAsEmailField() {
+    public AbstractInputField<T,TextField<T>> decorateAsEmailField() {
         field.add((IValidator) EmailAddressValidator.getInstance());
         prepender.setVisible(true);
         prepender.setDefaultModel(Model.of("@"));

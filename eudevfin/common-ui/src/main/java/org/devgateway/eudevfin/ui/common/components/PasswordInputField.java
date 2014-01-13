@@ -12,15 +12,13 @@
 package org.devgateway.eudevfin.ui.common.components;
 
 import org.apache.wicket.markup.html.form.PasswordTextField;
-import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
 
 /**
  * @author aartimon@developmentgateway.org
  * @since 17 October 2013
  */
-public class PasswordInputField extends AbstractInputField<String> {
-
+public class PasswordInputField extends AbstractInputField<String,PasswordTextField> {
 
     public PasswordInputField(String id, IModel<String> model) {
         this(id, model, id);
@@ -30,7 +28,7 @@ public class PasswordInputField extends AbstractInputField<String> {
     }
 
     @Override
-    protected TextField<String> newField(String id, IModel<String> model) {
+    protected PasswordTextField newField(String id, IModel<String> model) {
         return new PasswordTextField(id, model);
     }
 }
