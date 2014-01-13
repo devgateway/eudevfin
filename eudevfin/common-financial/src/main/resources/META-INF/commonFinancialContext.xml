@@ -80,7 +80,7 @@
 	</int:gateway>
 	
 	<int:gateway id="channelCategoryService"
-		service-interface="org.devgateway.eudevfin.financial.service.CategoryService">
+		service-interface="org.devgateway.eudevfin.financial.service.ChannelCategoryService">
 		<int:method name="save" request-channel="getChannel">
 			<int:header name="requestName" value="saveCategoryChannel"/>
 		</int:method>
