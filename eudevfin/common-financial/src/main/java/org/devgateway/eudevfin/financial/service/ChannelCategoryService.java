@@ -15,7 +15,6 @@ import org.springframework.integration.annotation.Header;
  *
  */
 public interface ChannelCategoryService extends BaseEntityService<ChannelCategory> {
-	public List<ChannelCategory> findByTagsCode(String labelCode);
 
 	public ChannelCategory findByCode(String string, @Header("initializeChildren") Boolean initializeChildren);
 }

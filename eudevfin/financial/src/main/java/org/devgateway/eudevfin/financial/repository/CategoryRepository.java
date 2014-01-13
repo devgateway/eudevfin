@@ -17,8 +17,8 @@ public interface CategoryRepository extends
 	
 	List<Category> findByTagsCode(String code);
 	
-	Category findByCode(String code);
+	//Category findByCode(String code);
 	
-	List<Category> readByCode(String code);
+	List<Category> findByCode(String code);
 
 }

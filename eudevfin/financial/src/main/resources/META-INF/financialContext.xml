@@ -166,12 +166,16 @@
 	<int:channel id="saveCategoryChannel" />
 	<int:channel id="findAllAsListCategoryChannel" />
 	<int:channel id="findCategoryByIdChannel" />
-	<int:channel id="findCategoryByCodeChannel" />
-	<int:channel id="findCategoryByLabelCodeChannel" />
+	<int:channel id="findCategoryByCodeAndClassChannel" />
+	<int:channel id="findCategoryByTagCodeChannel" />
 	<int:channel id="findTransactionBySectorCodePageableChannel" />
 	<int:channel id="getFinancialTransactionHistoricalExchangeRatesChannel"/>
 	<int:channel id="findTransactionByGeneralSearchPageableChannel"/>
 	<int:channel id="findAllAsListChannelCategoryChannel"/>
+	<int:channel id="findChannelCategoryByCodeChannel"/>
+	<int:channel id="saveAreaChannel"/>
+	<int:channel id="findAllAsListAreaChannel"/>
+	<int:channel id="findAreaByIdChannel"/>
 
 	<!-- 	Router that sends the requests to the appropriate channels where they will usually be handled by ServiceActivators. 
 			The name of the request channels is taken from the 'requestName' header parameter

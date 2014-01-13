@@ -42,9 +42,9 @@ public class HomePage extends HeaderFooter {
 
 	private static final String DESKTOP_LAST_TX_BY_AGRICULTURE = "desktop.lastTxByAgriculture";
 
-	private static final String SECTOR_CODE_AGRIC = "311";
+	private static final String SECTOR_CODE_AGRIC = "x311";
 
-	private static final String SECTOR_CODE_TRANSPORT = "210";
+	private static final String SECTOR_CODE_TRANSPORT = "x210";
 	
     protected ListView<FinancialTransaction> transactionListView = null;
     @SpringBean

@@ -10,13 +10,17 @@ import static org.junit.Assert.assertTrue;
 import java.util.HashSet;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.devgateway.eudevfin.financial.Category;
+import org.devgateway.eudevfin.financial.SectorCategory;
 import org.devgateway.eudevfin.financial.service.CategoryService;
 import org.hibernate.LazyInitializationException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -28,7 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:/META-INF/financialContext.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/financialContext.xml", "classpath:/META-INF/commonContext.xml",
 		"classpath:META-INF/commonFinancialContext.xml","classpath:testFinancialContext.xml" })
 @Component 
 @TransactionConfiguration(defaultRollback=false, transactionManager="transactionManager")
@@ -42,6 +46,10 @@ public class CategoryServiceTest {
 	
 	@Autowired
 	CategoryService categoryService;
+	
+//	@Resource(name="si.defaultReplyTimeout")
+	@Value("${si.defaultReplyTimeout}")
+	String defaultReplyTimeout;
 	
 	/**
 	 * @throws java.lang.Exception
@@ -86,13 +94,15 @@ public class CategoryServiceTest {
 		List<Category> allSubSectors			= categoryService.findByTagsCode(SUBSECTORS_LABEL_TEST);
 		assertEquals(allSubSectors.size(), 2);
 		
-		Category rootSectorsInitialized			= categoryService.findByCode(SECTORS_ROOT_TEST, true);
+		Category rootSectorsInitialized			= categoryService.findByCodeAndClass(SECTORS_ROOT_TEST, 
+													SectorCategory.class,true);
 		assertNotNull(rootSectorsInitialized);
 		assertNotNull(rootSectorsInitialized.getChildren());
 		assertNotNull(rootSectorsInitialized.getChildren().iterator().next());
 		assertNotNull(rootSectorsInitialized.getTags().iterator().next());
 		
-		Category rootSectorsNonInitialized		= categoryService.findByCode(SECTORS_ROOT_TEST, false);
+		Category rootSectorsNonInitialized		= categoryService.findByCodeAndClass(SECTORS_ROOT_TEST, 
+													SectorCategory.class, false);
 		try {
 			rootSectorsNonInitialized.getChildren().iterator().next();
 		}
@@ -111,16 +121,18 @@ public class CategoryServiceTest {
 
 	@Transactional
 	private void createFakeSectors() {
-		Category sectorLabel	= categoryService.findByCode(SECTORS_LABEL_TEST, false);
-		Category subSectorLabel	= categoryService.findByCode(SUBSECTORS_LABEL_TEST, false);
+		Category sectorLabel	= 
+				categoryService.findByCodeAndClass(SECTORS_LABEL_TEST, Category.class, false);
+		Category subSectorLabel	= 
+				categoryService.findByCodeAndClass(SUBSECTORS_LABEL_TEST, Category.class, false);
 		
-		Category sectorsRoot = new Category();
+		Category sectorsRoot = new SectorCategory();
 		sectorsRoot.setName("Sectors Root");
 		sectorsRoot.setCode(SECTORS_ROOT_TEST);
 		sectorsRoot.setTags(new HashSet<Category>());
 		sectorsRoot.getTags().add(sectorLabel);
 		
-		Category sector1	= new Category();
+		Category sector1	= new SectorCategory();
 		sector1.setName("Sector 1");
 		sector1.setCode("sector_1_test");
 		sector1.setParentCategory(sectorsRoot);
@@ -128,7 +140,7 @@ public class CategoryServiceTest {
 		sector1.getTags().add(sectorLabel);
 		sector1.getTags().add(subSectorLabel);
 		
-		Category sector2	= new Category();
+		Category sector2	= new SectorCategory();
 		sector2.setName("Sector 2");
 		sector2.setCode("sector_2_test");
 		sector2.setParentCategory(sectorsRoot);

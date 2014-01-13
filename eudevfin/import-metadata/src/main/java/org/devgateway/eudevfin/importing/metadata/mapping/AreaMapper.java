@@ -47,7 +47,7 @@ public class AreaMapper extends AbstractMapper<Area> {
 	
 	public void __incomeGroup(Area newArea, String incomeGroupCode) {
 		if (incomeGroupCode != null && incomeGroupCode.length() > 0) {
-			Category incomeGroup	= categDao.readByCodeAndClass(incomeGroupCode, Category.class, false);
+			Category incomeGroup	= categDao.findByCodeAndClass(incomeGroupCode, Category.class, false);
 			if ( incomeGroup != null )
 				newArea.setIncomeGroup(incomeGroup);
 			else {

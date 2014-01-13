@@ -6,6 +6,7 @@ package org.devgateway.eudevfin.financial.dao;
 import java.util.List;
 
 import org.devgateway.eudevfin.financial.Category;
+import org.devgateway.eudevfin.financial.exception.NoDataFoundException;
 import org.devgateway.eudevfin.financial.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -39,47 +40,50 @@ public class CategoryDaoImpl extends AbstractDaoImpl<Category, CategoryRepositor
 		return super.save(o);
 	}
 	
-	@ServiceActivator(inputChannel="findCategoryByLabelCodeChannel")
+	@ServiceActivator(inputChannel="findCategoryByTagCodeChannel")
 	public List<Category> findByTagsCode(String code) {
 		return getRepo().findByTagsCode(code);
 	}
 	
-	@ServiceActivator(inputChannel="findCategoryByCodeChannel")
+//	@ServiceActivator(inputChannel="findCategoryByCodeChannel")
+//	@Transactional
+//	public Category findByCode(String code, @Header("initializeChildren") Boolean initializeChildren) {
+//		Category category	= null;
+//		if ( initializeChildren != null && initializeChildren) {
+//			category	= findByCodeTransactional(code);
+//		}
+//		else {
+//			category	= getRepo().findByCode(code);
+//		}
+//		
+//		return category;
+//	}
+	
+//	public Category findByCodeTransactional (String code) {
+//		Category category	= getRepo().findByCode(code);
+//		if ( category != null )
+//			initializeChildren(category);
+//		return category;
+//	}
+	
+	public List<Category> findByCode(String code) {
+		return getRepo().findByCode(code);
+	}
+	
+	@ServiceActivator(inputChannel="findCategoryByCodeAndClassChannel")
 	@Transactional
-	public Category findByCode(String code, @Header("initializeChildren") Boolean initializeChildren) {
-		Category category	= null;
-		if ( initializeChildren != null && initializeChildren) {
-			category	= findByCodeTransactional(code);
-		}
-		else {
-			category	= getRepo().findByCode(code);
-		}
-		
-		return category;
-	}
-	
-	public Category findByCodeTransactional (String code) {
-		Category category	= getRepo().findByCode(code);
-		if ( category != null )
-			initializeChildren(category);
-		return category;
-	}
-	
-	public List<Category> readByCode(String code) {
-		return getRepo().readByCode(code);
-	}
-	
-	@Transactional
-	public Category readByCodeAndClass(String code, Class<? extends Category> clazz, 
+	public Category findByCodeAndClass(String code, @Header("clazz")Class<? extends Category> clazz, 
 			@Header("initializeChildren") Boolean initializeChildren) {
-		List<Category> categories	= this.readByCode(code);
+		List<Category> categories	= this.findByCode(code);
 		for ( Category category:categories ) {
 			if ( category.getClass().equals(clazz) ) {
 				this.initializeChildren(category);
 				return category;
 			}
 		}
-		return null;
+		throw new NoDataFoundException(
+				String.format("No category found for code %s and class %s ", code,clazz.getName())
+			);
 	}
 	
 	public void initializeChildren(Category category) {

@@ -33,5 +33,10 @@ public class ChannelCategoryDao extends AbstractDaoImpl<ChannelCategory, Channel
 	public List<ChannelCategory> findAllAsList() {
 		return super.findAllAsList();
 	}
+	
+	@ServiceActivator(inputChannel="findChannelCategoryByCodeChannel")
+	public ChannelCategory findByCode(String code) {
+		return this.getRepo().findByCode(code);
+	}
 
 }

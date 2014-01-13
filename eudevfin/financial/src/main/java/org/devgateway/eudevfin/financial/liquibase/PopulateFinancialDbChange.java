@@ -181,7 +181,7 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 		catDao.save(toa4);
 
 		Category toa5 = new Category();
-		toa5.setCode("E");
+		toa5.setCode("xE");
 		toa5.setLocale("en");
 		toa5.setName("Scholarships and student costs in donor countries en");
 		toa5.setLocale("ro");
@@ -191,7 +191,7 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 		catDao.save(toa5);
 
 		Category toa6 = new Category();
-		toa6.setCode("F");
+		toa6.setCode("xF");
 		toa6.setLocale("en");
 		toa6.setName("Debt relief en");
 		toa6.setLocale("ro");
@@ -201,7 +201,7 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 		catDao.save(toa6);
 
 		Category toa7 = new Category();
-		toa7.setCode("G");
+		toa7.setCode("xG");
 		toa7.setLocale("en");
 		toa7.setName("Administrative costs not included elsewhere en");
 		toa7.setLocale("ro");
@@ -211,7 +211,7 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 		catDao.save(toa7);
 
 		Category toa8 = new Category();
-		toa8.setCode("H");
+		toa8.setCode("xH");
 		toa8.setLocale("en");
 		toa8.setName("Other in-donor expenditures en");
 		toa8.setLocale("ro");

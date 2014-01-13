@@ -16,5 +16,7 @@ import org.springframework.integration.annotation.Header;
 public interface CategoryService extends BaseEntityService<Category> {
 	public List<Category> findByTagsCode(String labelCode);
 
-	public Category findByCode(String string, @Header("initializeChildren") Boolean initializeChildren);
+	public Category findByCodeAndClass(String string, 
+			@Header("clazz")Class<? extends Category> clazz, 
+			@Header("initializeChildren") Boolean initializeChildren);
 }

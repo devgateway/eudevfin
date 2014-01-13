@@ -26,9 +26,17 @@
 	<bean class="org.devgateway.eudevfin.financial.util.LocaleHelper" id="localeHelperSession" scope="session" />
 	
 	<int:channel id="getChannel"/>
+
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>classpath:/module.properties</value>
+		</property>
+	</bean>
 	
 	<!-- This section contains the definition of the services that are made available to the other modules -->
-	<int:gateway id="financialTransactionService" service-interface="org.devgateway.eudevfin.financial.service.FinancialTransactionService" >
+	<int:gateway id="financialTransactionService"
+		default-reply-timeout="${si.defaultReplyTimeout}" 
+		service-interface="org.devgateway.eudevfin.financial.service.FinancialTransactionService" >
 		<int:method name="findAll" request-channel="getChannel">
 			<int:header name="requestName" value="findAllAsListTransactionChannel"/>
 		</int:method>
@@ -48,6 +56,7 @@
 		
 		
 	<int:gateway id="financialTransactionHistExchRateService"
+		default-reply-timeout="${si.defaultReplyTimeout}" 
 		service-interface="org.devgateway.eudevfin.financial.service.FinancialTransactionHistExchRateService">
 		<int:method name="getHistoricalExchangeRates" request-channel="getChannel">
 			<int:header name="requestName" value="getFinancialTransactionHistoricalExchangeRatesChannel"/>
@@ -55,12 +64,14 @@
 	</int:gateway>		
 		
 	<int:gateway id="organizationService"
+		default-reply-timeout="${si.defaultReplyTimeout}" 
 		service-interface="org.devgateway.eudevfin.financial.service.OrganizationService">
 		<int:method name="save" request-channel="getChannel">
 			<int:header name="requestName" value="saveOrganizationChannel"/>
 		</int:method>
 	</int:gateway>
 	<int:gateway id="categoryService"
+		default-reply-timeout="${si.defaultReplyTimeout}" 
 		service-interface="org.devgateway.eudevfin.financial.service.CategoryService">
 		<int:method name="save" request-channel="getChannel">
 			<int:header name="requestName" value="saveCategoryChannel"/>
@@ -72,20 +83,37 @@
 			<int:header name="requestName" value="findCategoryByIdChannel"/>
 		</int:method>
 		<int:method name="findByTagsCode" request-channel="getChannel">
-			<int:header name="requestName" value="findCategoryByLabelCodeChannel"/>
+			<int:header name="requestName" value="findCategoryByTagCodeChannel"/>
 		</int:method>
-		<int:method name="findByCode" request-channel="getChannel">
-			<int:header name="requestName" value="findCategoryByCodeChannel"/>
+		<int:method name="findByCodeAndClass" request-channel="getChannel">
+			<int:header name="requestName" value="findCategoryByCodeAndClassChannel"/>
 		</int:method>
 	</int:gateway>
 	
 	<int:gateway id="channelCategoryService"
+		default-reply-timeout="${si.defaultReplyTimeout}" 
 		service-interface="org.devgateway.eudevfin.financial.service.ChannelCategoryService">
 		<int:method name="save" request-channel="getChannel">
 			<int:header name="requestName" value="saveCategoryChannel"/>
 		</int:method>
 		<int:method name="findAll" request-channel="getChannel">
 			<int:header name="requestName" value="findAllAsListChannelCategoryChannel"/>
+		</int:method>
+		<int:method name="findByCode" request-channel="getChannel">
+			<int:header name="requestName" value="findChannelCategoryByCodeChannel"/>
+		</int:method>
+	</int:gateway>
+	<int:gateway id="areaService"
+		default-reply-timeout="${si.defaultReplyTimeout}" 
+		service-interface="org.devgateway.eudevfin.financial.service.AreaService">
+		<int:method name="save" request-channel="getChannel">
+			<int:header name="requestName" value="saveAreaChannel"/>
+		</int:method>
+		<int:method name="findAll" request-channel="getChannel">
+			<int:header name="requestName" value="findAllAsListAreaChannel"/>
+		</int:method>
+		<int:method name="findById" request-channel="getChannel">
+			<int:header name="requestName" value="findAreaByIdChannel"/>
 		</int:method>
 	</int:gateway>
 </beans>
