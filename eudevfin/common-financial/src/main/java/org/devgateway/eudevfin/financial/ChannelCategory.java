@@ -9,6 +9,9 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
+import org.devgateway.eudevfin.financial.translate.CategoryTranslation;
+import org.devgateway.eudevfin.financial.translate.ChannelCategoryTranslation;
+import org.devgateway.eudevfin.financial.translate.ChannelCategoryTrnInterface;
 import org.hibernate.envers.Audited;
 
 /**
@@ -17,7 +20,7 @@ import org.hibernate.envers.Audited;
  */
 @Entity @Audited
 @DiscriminatorValue("Channel")
-public class ChannelCategory extends Category {
+public class ChannelCategory extends Category implements ChannelCategoryTrnInterface {
 	/**
 	 * 
 	 */
@@ -28,9 +31,23 @@ public class ChannelCategory extends Category {
 	
 	private BigDecimal coefficient;
 	
-	private String acronym;
 	private Integer dac2a3a;
 	private Boolean mcd;
+	
+	
+	
+	@Override
+	protected ChannelCategoryTranslation newTranslationInstance() {
+		return new ChannelCategoryTranslation();
+	}
+	@Override
+	public String getAcronym() {
+		return (String)this.get("acronym");
+	}
+	@Override
+	public void setAcronym(String acronym) {
+		this.set("acronym",acronym);
+	}
 	
 	public Organization getOrganization() {
 		return organization;
@@ -43,12 +60,6 @@ public class ChannelCategory extends Category {
 	}
 	public void setCoefficient(BigDecimal coefficient) {
 		this.coefficient = coefficient;
-	}
-	public String getAcronym() {
-		return acronym;
-	}
-	public void setAcronym(String acronym) {
-		this.acronym = acronym;
 	}
 	public Integer getDac2a3a() {
 		return dac2a3a;

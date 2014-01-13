@@ -13,7 +13,6 @@ import org.apache.poi.hssf.usermodel.HSSFDataFormatter;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.devgateway.eudevfin.financial.AbstractTranslateable;
 import org.devgateway.eudevfin.importing.metadata.exception.EntityMapperGenerationException;
 import org.devgateway.eudevfin.importing.metadata.exception.InvalidDataException;
 import org.devgateway.eudevfin.importing.metadata.mapping.MapperInterface;
@@ -29,60 +28,70 @@ public class ExcelStreamProcessor implements StreamProcessorInterface {
 	private static final int MAPPER_CLASS_COL_NUM = 1;
 
 	private static final int MAPPER_CLASS_ROW_NUM = 0;
+	
+	private static final int ACTUAL_ATA_START_ROW_NUM = 3;
 
 	public final static Integer OFFSET 	= 1; 
 	
 	private HSSFWorkbook workbook;
 	private HSSFSheet sheet;
 	
-	List<String> metadataInfoList;
+	private List<String> metadataInfoList;
+	private String mapperClassName;
+	
+	private int currentRowNum = ACTUAL_ATA_START_ROW_NUM;
+
+	private int endRowNum;
 
 	public ExcelStreamProcessor(InputStream is) {
 		try {
 			workbook 	= new HSSFWorkbook(is);
 			sheet		= workbook.getSheetAt(0);
+			endRowNum	= this.sheet.getLastRowNum();
 			
 			this.generateMetadataInfoList();
+			this.findMapperClassName();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
 	}
 
-	/* (non-Javadoc)
-	 * @see org.devgateway.eudevfin.importing.metadata.streamprocessors.StreamProcessorInterface#generateObjectList()
-	 */
-	@SuppressWarnings("rawtypes")
 	@Override
-	public List<? extends AbstractTranslateable> generateObjectList() {
-		List<AbstractTranslateable> list	= new ArrayList<AbstractTranslateable>();
-		
-		int endRowNum	= this.sheet.getLastRowNum();
-		for (int i=3; i<endRowNum; i++ ) {
-			HSSFRow row 	= sheet.getRow(i);
+	public Object generateNextObject() {
+		if ( currentRowNum <= endRowNum ) {
+			HSSFRow row 	= sheet.getRow(currentRowNum);
 			try {
-				Class clazz	= Class.forName(this.getEntityClassName());
-				MapperInterface<? extends AbstractTranslateable> mapper	= 
-						(MapperInterface)clazz.newInstance();
-				mapper.setMetainfos(this.metadataInfoList);
-				AbstractTranslateable entity	= this.generateObject(mapper, row);
-				if (entity != null)
-					list.add(entity);
-				else 
-					break;
+				MapperInterface mapper			= this.instantiateMapper();
+				Object entity	= this.generateObject(mapper, row);
+				return entity;
 			} catch (ClassNotFoundException | InstantiationException
 					| IllegalAccessException e) {
 				
 				e.printStackTrace();
 				
-				throw new EntityMapperGenerationException("Problems generating objects",e);
+				throw new EntityMapperGenerationException("Problems generating object",e);
+			}
+			finally{
+				currentRowNum++;
 			}
 		}
-		return list;
+		return null;
+		
 	}
 	
+	@Override
+	public boolean hasNextObject() {
+		if ( currentRowNum <= endRowNum ) {
+			return true;
+		}
+		return false;
+		
+	}
+	
+	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private AbstractTranslateable generateObject(MapperInterface<? extends AbstractTranslateable> mapper, HSSFRow row) 
+	private Object generateObject(MapperInterface<?> mapper, HSSFRow row) 
 			throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		
 		boolean allCellsAreNull	= true; 
@@ -91,14 +100,20 @@ public class ExcelStreamProcessor implements StreamProcessorInterface {
 			HSSFCell cell	= row.getCell(j);
 			if (cell != null) {
 				allCellsAreNull = false;
+				String val		= null;
 				if ( HSSFCell.CELL_TYPE_STRING == cell.getCellType() ) {
-					values.add( cell.getStringCellValue() );
+					val	= cell.getStringCellValue() ;
 				}
 				else if ( HSSFCell.CELL_TYPE_NUMERIC == cell.getCellType() ) {
 					HSSFDataFormatter dataFormatter	= new HSSFDataFormatter();
-					values.add( dataFormatter.formatCellValue(cell) );
+					val	= dataFormatter.formatCellValue(cell);
 					//values.add( new Double(cell.getNumericCellValue()).toString() );
 				}
+				if ( val != null && val.trim().length() > 0 )
+					values.add(val.trim());
+				else
+					values.add(null);
+				
 			}
 			else
 				values.add( null );
@@ -106,19 +121,40 @@ public class ExcelStreamProcessor implements StreamProcessorInterface {
 		}
 		if ( allCellsAreNull ) 
 						return null;
-		AbstractTranslateable result	=  mapper.createEntity(values);
+		Object result	=  mapper.createEntity(values);
 		return result;
 	}
-
-	/* (non-Javadoc)
-	 * @see org.devgateway.eudevfin.importing.metadata.streamprocessors.StreamProcessorInterface#getEntityClassName()
+	
+	/**
+	 * 
+	 * @param mapperClassName the name of the mapper class that needs to be instantiated
+	 * @param metadataInfoList the metainformation needed for each field of the mapping
+	 * @throws ClassNotFoundException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
 	 */
-	@Override
-	public String getEntityClassName() {
+	@SuppressWarnings("rawtypes")
+	private MapperInterface<?> instantiateMapper() {
+		try {
+			Class clazz = Class.forName(mapperClassName);
+			MapperInterface<?> mapper = 
+					(MapperInterface<?>) clazz.newInstance();
+			mapper.setMetainfos(metadataInfoList);
+
+			return mapper;
+		} catch (ClassNotFoundException | InstantiationException
+				| IllegalAccessException e) {
+			e.printStackTrace();
+			throw new EntityMapperGenerationException(
+					"Problems generating objects", e);
+		}
+	}
+
+	private void findMapperClassName() {
 		HSSFRow row 	= sheet.getRow(MAPPER_CLASS_ROW_NUM);
 		HSSFCell cell	= row.getCell(MAPPER_CLASS_COL_NUM);
 		if ( HSSFCell.CELL_TYPE_STRING == cell.getCellType() ) {
-			return cell.getStringCellValue();
+			this.mapperClassName = cell.getStringCellValue();
 		}
 		else
 			throw new InvalidDataException("Expecting mapper name in cell B1");
@@ -143,5 +179,25 @@ public class ExcelStreamProcessor implements StreamProcessorInterface {
 		}
 		
 	}
+
+	@Override
+	public List<String> getMetadataInfoList() {
+		return metadataInfoList;
+	}
+
+	public void setMetadataInfoList(List<String> metadataInfoList) {
+		this.metadataInfoList = metadataInfoList;
+	}
+
+	@Override
+	public String getMapperClassName() {
+		return mapperClassName;
+	}
+
+	public void setMapperClassName(String mapperClassName) {
+		this.mapperClassName = mapperClassName;
+	}
+	
+	
 
 }

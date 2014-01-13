@@ -3,11 +3,16 @@ package org.devgateway.eudevfin.importing.metadata.streamprocessors;
 import java.util.List;
 
 import org.devgateway.eudevfin.financial.AbstractTranslateable;
+import org.devgateway.eudevfin.importing.metadata.mapping.MapperInterface;
 
 public interface StreamProcessorInterface {
 
-	public List<? extends AbstractTranslateable> generateObjectList();
+	List<String> getMetadataInfoList();
 
-	public String getEntityClassName();
+	String getMapperClassName();
+
+	Object generateNextObject();
+
+	boolean hasNextObject();
 
 }

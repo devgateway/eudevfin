@@ -1,6 +1,6 @@
 package org.devgateway.eudevfin.financial.translate;
 
-public interface CountryTrnInterface {
+public interface AreaTrnInterface {
 
 	public String getName();
 

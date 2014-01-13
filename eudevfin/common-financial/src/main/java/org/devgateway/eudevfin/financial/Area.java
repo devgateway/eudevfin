@@ -9,7 +9,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 
 import org.devgateway.eudevfin.financial.translate.AreaTranslation;
-import org.devgateway.eudevfin.financial.translate.CountryTrnInterface;
+import org.devgateway.eudevfin.financial.translate.AreaTrnInterface;
 import org.hibernate.envers.Audited;
 
 
@@ -21,7 +21,7 @@ import org.hibernate.envers.Audited;
     discriminatorType= DiscriminatorType.STRING)
 @DiscriminatorValue("Area")
 public class Area extends AbstractTranslateable<AreaTranslation> 
-					implements CountryTrnInterface {
+					implements AreaTrnInterface {
 	
 	private static final long serialVersionUID = 4477382814048134799L;
 

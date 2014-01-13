@@ -5,14 +5,17 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 
+import liquibase.exception.SetupException;
+
+import org.devgateway.eudevfin.common.spring.ContextHelper;
 import org.devgateway.eudevfin.financial.AbstractTranslateable;
 import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.translate.AbstractTranslation;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
+import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 
-public abstract class AbstractMapper
-	<T extends AbstractTranslateable<? extends AbstractTranslation<T>>> 
+public abstract class AbstractMapper<T> 
 	implements MapperInterface<T> {
 
 	List<String> metainfos; 
@@ -27,6 +30,7 @@ public abstract class AbstractMapper
 				methodMap.put(method.getName(), method);
 			}
 		}
+		
 	}
 
 	protected abstract T instantiate();
@@ -54,7 +58,6 @@ public abstract class AbstractMapper
 					String infoType	= infoParts[0];
 					String info		= infoParts[1];
 					String lang		= null;
-					result.setLocale(lang);
 					if ( infoParts.length == 3 ) {
 						lang	= infoParts[2];
 						this.set(result, "locale", lang);
@@ -63,7 +66,17 @@ public abstract class AbstractMapper
 					if ( "method".equals(infoType) ) {
 						Method m 	= this.methodMap.get(info);
 						try {
-							m.invoke(this, value);
+							m.invoke(this, result ,value);
+						} catch (IllegalAccessException
+								| IllegalArgumentException
+								| InvocationTargetException e) {
+							e.printStackTrace();
+						}
+					}
+					else if ("constructor".equals(infoType)) {
+						Method m 	= this.methodMap.get(info);
+						try {
+							result	= (T) m.invoke(this ,value);
 						} catch (IllegalAccessException
 								| IllegalArgumentException
 								| InvocationTargetException e) {
@@ -90,5 +103,10 @@ public abstract class AbstractMapper
 		this.metainfos = metainfos;
 	}
 	
+	protected void setUp() throws SetupException {
+		AutowireCapableBeanFactory factory = ContextHelper.newInstance()
+				.getAutowireCapableBeanFactory();
+		factory.autowireBean(this);
+	}
 
 }

@@ -32,6 +32,10 @@
 
 	<util:list id="metadataSourceList" value-type="java.lang.String">
 		<value>/sourcefiles/orgs.xls</value>
+		<value>/sourcefiles/category_tags.xls</value>
+		<value>/sourcefiles/category_income_groups.xls</value>
+		<value>/sourcefiles/areas.xls</value>
+		<value>/sourcefiles/channel_category.xls</value>
 	</util:list>
 
 </beans>

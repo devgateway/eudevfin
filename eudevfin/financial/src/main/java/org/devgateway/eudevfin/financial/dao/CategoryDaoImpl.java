@@ -65,6 +65,23 @@ public class CategoryDaoImpl extends AbstractDaoImpl<Category, CategoryRepositor
 		return category;
 	}
 	
+	public List<Category> readByCode(String code) {
+		return getRepo().readByCode(code);
+	}
+	
+	@Transactional
+	public Category readByCodeAndClass(String code, Class<? extends Category> clazz, 
+			@Header("initializeChildren") Boolean initializeChildren) {
+		List<Category> categories	= this.readByCode(code);
+		for ( Category category:categories ) {
+			if ( category.getClass().equals(clazz) ) {
+				this.initializeChildren(category);
+				return category;
+			}
+		}
+		return null;
+	}
+	
 	public void initializeChildren(Category category) {
 		if ( category.getChildren() != null ) {
 			for (Category childCateg : category.getChildren()) {

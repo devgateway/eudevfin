@@ -15,7 +15,7 @@ import org.hibernate.envers.Audited;
 
 @Entity
 @Audited
-public class AreaTranslation extends AbstractTranslation<Area> implements CountryTrnInterface {
+public class AreaTranslation extends AbstractTranslation<Area> implements AreaTrnInterface {
 	
 	private String name;
 	
@@ -25,7 +25,7 @@ public class AreaTranslation extends AbstractTranslation<Area> implements Countr
 	private String geography;
 
 	/* (non-Javadoc)
-	 * @see org.devgateway.eudevfin.financial.translate.CountryTrnInterface#getName()
+	 * @see org.devgateway.eudevfin.financial.translate.AreaTrnInterface#getName()
 	 */
 	@Override
 	public String getName() {
@@ -33,7 +33,7 @@ public class AreaTranslation extends AbstractTranslation<Area> implements Countr
 	}
 
 	/* (non-Javadoc)
-	 * @see org.devgateway.eudevfin.financial.translate.CountryTrnInterface#setName(java.lang.String)
+	 * @see org.devgateway.eudevfin.financial.translate.AreaTrnInterface#setName(java.lang.String)
 	 */
 	@Override
 	public void setName(String name) {
