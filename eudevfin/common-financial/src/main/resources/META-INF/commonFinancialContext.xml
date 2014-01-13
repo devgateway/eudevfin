@@ -78,4 +78,14 @@
 			<int:header name="requestName" value="findCategoryByCodeChannel"/>
 		</int:method>
 	</int:gateway>
+	
+	<int:gateway id="channelCategoryService"
+		service-interface="org.devgateway.eudevfin.financial.service.CategoryService">
+		<int:method name="save" request-channel="getChannel">
+			<int:header name="requestName" value="saveCategoryChannel"/>
+		</int:method>
+		<int:method name="findAll" request-channel="getChannel">
+			<int:header name="requestName" value="findAllAsListChannelCategoryChannel"/>
+		</int:method>
+	</int:gateway>
 </beans>
