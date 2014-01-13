@@ -30,14 +30,14 @@
 	</background>
 	<title>
 		<band height="113" splitType="Stretch">
-			<staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="10" y="11" width="397" height="32" uuid="9d08b850-c5b4-4a5b-8600-900de3d6d321"/>
-				<textElement verticalAlignment="Top">
+				<textElement verticalAlignment="Top" markup="styled">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[TABLE DAC 1
-DISBURSEMENTS AND COMMITMENTS OF OFFICIAL AND PRIVATE FLOWS]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$R{dac1.title}]]></textFieldExpression>
+			</textField>
+			
 			<staticText>
 				<reportElement x="613" y="53" width="123" height="43" uuid="0ec0336c-7bad-4791-98a5-750066188036"/>
 				<textElement textAlignment="Right">
