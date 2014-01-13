@@ -20,7 +20,7 @@ var app = app || {};
                 yAxis: {
                     min: 0,
                     title: {
-                        text: 'Total fruit consumption'
+                        text: 'Type of Flow'
                     }
                 },
                 legend: {
