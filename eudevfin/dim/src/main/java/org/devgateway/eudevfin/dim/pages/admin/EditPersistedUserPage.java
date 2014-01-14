@@ -61,6 +61,7 @@ public class EditPersistedUserPage extends HeaderFooter {
 	
 	private static final long serialVersionUID = -4276784345759050002L;
 	private static final Logger logger = Logger.getLogger(EditPersistedUserPage.class);
+	public static final String PARAM_USER_ID="userId";
 	
 	public class UniqueUsernameValidator extends Behavior implements
 			IValidator<String> {
@@ -93,8 +94,8 @@ public class EditPersistedUserPage extends HeaderFooter {
 		Long userId = null;
 		final PersistedUser persistedUser;
 
-		if (!parameters.get("userId").isNull()) {
-			userId = parameters.get("userId").toLong();
+		if (!parameters.get(PARAM_USER_ID).isNull()) {
+			userId = parameters.get(PARAM_USER_ID).toLong();
 			persistedUser = userService.findOne(userId).getEntity();
 		} else {
 			persistedUser = new PersistedUser();

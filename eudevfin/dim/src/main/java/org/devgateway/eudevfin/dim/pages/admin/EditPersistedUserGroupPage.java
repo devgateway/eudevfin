@@ -24,13 +24,14 @@ import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.IValidator;
 import org.apache.wicket.validation.ValidationError;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
-import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUserGroup;
 import org.devgateway.eudevfin.auth.common.service.PersistedUserGroupService;
-import org.devgateway.eudevfin.dim.pages.admin.EditPersistedUserPage.UniqueUsernameValidator;
+import org.devgateway.eudevfin.dim.providers.OrganizationChoiceProvider;
 import org.devgateway.eudevfin.dim.providers.PersistedUserGroupChoiceProvider;
+import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
+import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.wicketstuff.annotation.mount.MountPath;
@@ -48,6 +49,9 @@ public class EditPersistedUserGroupPage extends HeaderFooter {
 
 	@SpringBean
 	private PersistedUserGroupChoiceProvider userGroupChoiceProvider;
+	
+	@SpringBean
+	private OrganizationChoiceProvider organizationChoiceProvider;
 
 	
 	public static final String PARAM_GROUP_ID="groupId";
@@ -97,10 +101,13 @@ public class EditPersistedUserGroupPage extends HeaderFooter {
 		setModel(model);
 
 		TextInputField<String> groupName = new TextInputField<String>(
-				"groupName", new RWComponentPropertyModel<String>("name"));
+				"name", new RWComponentPropertyModel<String>("name"));
 		
-		//userName.getField().add( new UniqueUsernameValidator(persistedUserGroup.getId()));
+		groupName.getField().add( new UniqueGroupNameValidator(persistedUserGroup.getId()));
+		
 
+		DropDownField<Organization> organization = new DropDownField<Organization>("organization",
+				new RWComponentPropertyModel<Organization>("organization"), organizationChoiceProvider);
 				
 		form.add(new BootstrapSubmitButton("submit", Model.of("Submit")) {
 			
@@ -115,11 +122,13 @@ public class EditPersistedUserGroupPage extends HeaderFooter {
 				logger.info("Submitted ok!");
 				logger.info("Object:" + getModel().getObject());
 				userGroupService.save(persistedUserGroup);
-				setResponsePage(ListPersistedUsersPage.class);
+				setResponsePage(ListPersistedUserGroupsPage.class);
 			}
 			
 		});
 	
+		form.add(groupName);
+		form.add(organization);
 		add(form);
 	}
 

@@ -33,6 +33,7 @@
 	<int:channel id="findAllUserGroupChannel"/>
 	<int:channel id="findByGeneralSearchUserGroupChannel"/>
 	<int:channel id="findByNameUserGroupChannel"/>
+	<int:channel id="saveUserGroupChannel"/>
 
 	<jpa:repositories base-package="org.devgateway.eudevfin.auth.repository" />
 

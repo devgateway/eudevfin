@@ -66,7 +66,9 @@
 			<int:header name="requestName" value="findByNameUserGroupChannel" />
 		</int:method>
 		
-		
+		<int:method name="save" request-channel="userChannel">
+			<int:header name="requestName" value="saveUserGroupChannel" />
+		</int:method>
 		
 	</int:gateway>
 	

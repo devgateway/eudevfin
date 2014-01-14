@@ -50,8 +50,8 @@ public class PersistedUserGroupDaoImplEndpoint extends
 	 * @return
 	 */
 	@ServiceActivator(inputChannel="findByNameUserGroupChannel")
-	public PersistedUserGroup findByName(String name) {
-		return persistedUserGroupRepository.findByName(name);
+	public NullableWrapper<PersistedUserGroup> findByName(String name) {
+		return newWrapper(persistedUserGroupRepository.findByName(name));
 	}
 	
 	/**
@@ -62,6 +62,15 @@ public class PersistedUserGroupDaoImplEndpoint extends
 	public Iterable<PersistedUserGroup> findAll() {
 		// TODO Auto-generated method stub
 		return super.findAll();
+	}
+	
+	/**
+	 * @see PersistedUserGroupService#save(PersistedUserGroup)
+	 */
+	@ServiceActivator(inputChannel = "saveUserGroupChannel")
+	@Override
+	public NullableWrapper<PersistedUserGroup> save(PersistedUserGroup e) {
+		return super.save(e);
 	}
 	
 	

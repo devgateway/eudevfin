@@ -13,10 +13,12 @@ package org.devgateway.eudevfin.ui.common.components;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
 
@@ -31,8 +33,9 @@ public abstract class BootstrapSubmitButton extends IndicatingAjaxButton {
      * @param id
      * @param model
      */
-    public BootstrapSubmitButton(String id, IModel<String> model) {
+    public BootstrapSubmitButton(String id, IModel<String> model) {    	
         super(id, model);
+        add(new AttributeAppender("class", new Model<String>("btn btn-large btn-primary"), " "));
     }
 
     @Override

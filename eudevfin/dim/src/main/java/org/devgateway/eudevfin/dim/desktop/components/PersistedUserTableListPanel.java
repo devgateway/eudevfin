@@ -46,7 +46,7 @@ public class PersistedUserTableListPanel extends TableListPanel<PersistedUser> {
 					public void onClick() {
 						PageParameters pageParameters = new PageParameters(); 
 				
-						pageParameters.add("userId", user.getId());
+						pageParameters.add(EditPersistedUserPage.PARAM_USER_ID, user.getId());
 
 						setResponsePage(EditPersistedUserPage.class, pageParameters);
 						

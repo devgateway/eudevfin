@@ -9,6 +9,7 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUserGroup;
+import org.devgateway.eudevfin.dim.pages.admin.EditPersistedUserGroupPage;
 import org.devgateway.eudevfin.dim.pages.admin.EditPersistedUserPage;
 import org.devgateway.eudevfin.ui.common.components.TableListPanel;
 import org.devgateway.eudevfin.ui.common.components.util.ListGeneratorInterface;
@@ -42,9 +43,9 @@ public class PersistedUserGroupTableListPanel extends TableListPanel<PersistedUs
 					public void onClick() {
 						PageParameters pageParameters = new PageParameters(); 
 				
-						pageParameters.add("groupId", group.getId());
+						pageParameters.add(EditPersistedUserGroupPage.PARAM_GROUP_ID, group.getId());
 
-						setResponsePage(EditPersistedUserPage.class, pageParameters);
+						setResponsePage(EditPersistedUserGroupPage.class, pageParameters);
 						
 					}
 				};
