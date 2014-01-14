@@ -48,7 +48,7 @@ public class PopulateAuthDbChange extends AbstractSpringCustomTaskChange {
 		
 		PersistedAuthority authorityLead = new PersistedAuthority(
 				AuthConstants.Roles.ROLE_TEAMLEAD);
-		authoritySuper = authorityRepo.save(authorityLead);
+		authorityLead = authorityRepo.save(authorityLead);
 		
 		PersistedUserGroup defaultGroup = new PersistedUserGroup();
 		defaultGroup.setName("The Default Test Group");
