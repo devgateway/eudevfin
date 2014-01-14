@@ -10,19 +10,13 @@
      mpostelnicu
 -->
 <beans default-lazy-init="true" xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:int="http://www.springframework.org/schema/integration"
-	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
-		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-2.2.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-2.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
-	
-	<bean class="org.devgateway.eudevfin.financial.util.LocaleHelper" id="localeHelperRequest" scope="request" />
+
+    <bean class="org.devgateway.eudevfin.financial.util.LocaleHelper" id="localeHelperRequest" scope="request" />
 	<bean class="org.devgateway.eudevfin.financial.util.LocaleHelper" id="localeHelperSession" scope="session" />
 	
 	<int:channel id="getChannel"/>
@@ -69,8 +63,14 @@
 		<int:method name="save" request-channel="getChannel">
 			<int:header name="requestName" value="saveOrganizationChannel"/>
 		</int:method>
-	</int:gateway>
-	<int:gateway id="categoryService"
+        <int:method name="findAll" request-channel="getChannel">
+            <int:header name="requestName" value="findAllAsListOrganizationChannel"/>
+        </int:method>
+        <int:method name="findById" request-channel="getChannel">
+            <int:header name="requestName" value="findOrganizationByIdChannel"/>
+        </int:method>
+    </int:gateway>
+    <int:gateway id="categoryService"
 		default-reply-timeout="${si.defaultReplyTimeout}" 
 		service-interface="org.devgateway.eudevfin.financial.service.CategoryService">
 		<int:method name="save" request-channel="getChannel">

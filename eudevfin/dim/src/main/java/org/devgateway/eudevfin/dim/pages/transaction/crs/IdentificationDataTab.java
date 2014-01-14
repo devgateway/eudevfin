@@ -9,8 +9,10 @@
 package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.dim.core.models.DateToLocalDateTimeModel;
 import org.devgateway.eudevfin.dim.core.models.YearToLocalDateTimeModel;
+import org.devgateway.eudevfin.dim.providers.OrganizationChoiceProvider;
 import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
@@ -28,6 +30,10 @@ import org.joda.time.LocalDateTime;
 public class IdentificationDataTab extends Panel implements PermissionAwareComponent {
     public static final String KEY = "tabs.identification";
 
+    @SpringBean
+    private OrganizationChoiceProvider organizationProvider;
+
+
     public IdentificationDataTab(String id) {
         super(id);
         addComponents();
@@ -42,12 +48,12 @@ public class IdentificationDataTab extends Panel implements PermissionAwareCompo
         add(commitmentDate);
 
         DropDownField<Organization> reportingCountry = new DropDownField<>("2reportingCountry",
-                new RWComponentPropertyModel<Organization>("reportingOrganization"), SB.organizationProvider);
+                new RWComponentPropertyModel<Organization>("reportingOrganization"), organizationProvider);
         reportingCountry.required();
         add(reportingCountry);
 
         DropDownField<Organization> extendingAgency = new DropDownField<>("3extendingAgency",
-                new RWComponentPropertyModel<Organization>("extendingAgency"), SB.organizationProvider);
+                new RWComponentPropertyModel<Organization>("extendingAgency"), organizationProvider);
         extendingAgency.required();
         add(extendingAgency);
 

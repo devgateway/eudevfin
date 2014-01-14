@@ -11,6 +11,8 @@ package org.devgateway.eudevfin.dim.pages.transaction.crs;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.devgateway.eudevfin.dim.providers.OrganizationChoiceProvider;
 import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.RecipientCategory;
@@ -26,6 +28,9 @@ import org.devgateway.eudevfin.ui.common.temporary.SB;
  */
 public class BasicDataTab extends Panel implements PermissionAwareComponent {
     public static final String KEY = "tabs.basic";
+
+    @SpringBean
+    private OrganizationChoiceProvider organizationProvider;
 
     public BasicDataTab(String id) {
         super(id);
@@ -60,7 +65,7 @@ public class BasicDataTab extends Panel implements PermissionAwareComponent {
         add(recipient);
 
         DropDownField<Organization> channelOfDelivery = new DropDownField<>("8channelDelivery",
-                new RWComponentPropertyModel<Organization>("channelOfDelivery"), SB.organizationProvider);
+                new RWComponentPropertyModel<Organization>("channelOfDelivery"), organizationProvider);
         add(channelOfDelivery);
 
         //TODO: fix storing channel code

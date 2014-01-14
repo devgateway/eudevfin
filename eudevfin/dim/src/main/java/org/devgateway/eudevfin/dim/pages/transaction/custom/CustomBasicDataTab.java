@@ -14,9 +14,11 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.event.Broadcast;
 import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.dim.core.models.BigMoneyModel;
 import org.devgateway.eudevfin.dim.core.models.YearToLocalDateTimeModel;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.BasicDataTab;
+import org.devgateway.eudevfin.dim.providers.OrganizationChoiceProvider;
 import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
@@ -79,6 +81,10 @@ public class CustomBasicDataTab extends BasicDataTab {
     }
 
     public class Extension2 extends Fragment {
+
+        @SpringBean
+        private OrganizationChoiceProvider organizationProvider;
+
         public Extension2(String id, String markupId, MarkupContainer markupProvider) {
             super(id, markupId, markupProvider);
 
@@ -94,17 +100,17 @@ public class CustomBasicDataTab extends BasicDataTab {
             add(projectCoFinanced);
 
             DropDownField<Organization> firstCoFinancingAgency = new DropDownField<>("14b1stAgency",
-                    new RWComponentPropertyModel<Organization>("firstCoFinancingAgency"), SB.organizationProvider);
+                    new RWComponentPropertyModel<Organization>("firstCoFinancingAgency"), organizationProvider);
             firstCoFinancingAgency.hideLabel().setSize(InputBehavior.Size.Small);
             pac.add(firstCoFinancingAgency);
 
             DropDownField<Organization> secondCoFinancingAgency = new DropDownField<>("14e2ndAgency",
-                    new RWComponentPropertyModel<Organization>("secondCoFinancingAgency"), SB.organizationProvider);
+                    new RWComponentPropertyModel<Organization>("secondCoFinancingAgency"), organizationProvider);
             secondCoFinancingAgency.hideLabel().setSize(InputBehavior.Size.Small);
             pac.add(secondCoFinancingAgency);
 
             DropDownField<Organization> thirdCoFinancingAgency = new DropDownField<>("14h3rdAgency",
-                    new RWComponentPropertyModel<Organization>("thirdCoFinancingAgency"), SB.organizationProvider);
+                    new RWComponentPropertyModel<Organization>("thirdCoFinancingAgency"), organizationProvider);
             thirdCoFinancingAgency.hideLabel().setSize(InputBehavior.Size.Small);
             pac.add(thirdCoFinancingAgency);
 
