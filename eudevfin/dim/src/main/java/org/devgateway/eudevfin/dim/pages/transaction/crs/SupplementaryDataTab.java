@@ -9,7 +9,9 @@
 package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.dim.core.models.DateToLocalDateTimeModel;
+import org.devgateway.eudevfin.dim.providers.CategoryProviderFactory;
 import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.DateInputField;
@@ -26,6 +28,9 @@ import org.joda.time.LocalDateTime;
  */
 public class SupplementaryDataTab extends Panel implements PermissionAwareComponent {
     public static final String KEY = "tabs.supplementary";
+
+    @SpringBean
+    private CategoryProviderFactory categoryFactory;
 
     public SupplementaryDataTab(String id) {
         super(id);

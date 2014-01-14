@@ -18,9 +18,11 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.dim.core.models.BigMoneyModel;
 import org.devgateway.eudevfin.dim.core.models.YearToLocalDateTimeModel;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.BasicDataTab;
+import org.devgateway.eudevfin.dim.providers.CategoryProviderFactory;
 import org.devgateway.eudevfin.dim.providers.OrganizationChoiceProvider;
 import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.Organization;
+import org.devgateway.eudevfin.financial.util.CategoryConstants;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.components.PermissionAwareContainer;
@@ -41,6 +43,10 @@ import java.math.BigDecimal;
  * @since 11/12/13
  */
 public class CustomBasicDataTab extends BasicDataTab {
+
+    @SpringBean
+    private CategoryProviderFactory categoryFactory;
+
     public CustomBasicDataTab(String id) {
         super(id);
         addComponents();
@@ -173,7 +179,7 @@ public class CustomBasicDataTab extends BasicDataTab {
             super(id, markupId, markupProvider);
 
             DropDownField<Category> recipientCode = new DropDownField<>("7aRecipientCode", new RWComponentPropertyModel<Category>("recipientCode"),
-                    SB.categoryProvider);
+                    categoryFactory.get(CategoryConstants.RECIPIENT_TAG));
             recipientCode.required();
             add(recipientCode);
 

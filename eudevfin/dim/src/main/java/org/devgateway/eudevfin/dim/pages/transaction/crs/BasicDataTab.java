@@ -10,12 +10,15 @@ package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.devgateway.eudevfin.dim.providers.CategoryProviderFactory;
+import org.devgateway.eudevfin.dim.providers.ChannelCategoryChoiceProvider;
 import org.devgateway.eudevfin.dim.providers.OrganizationChoiceProvider;
 import org.devgateway.eudevfin.financial.Category;
+import org.devgateway.eudevfin.financial.ChannelCategory;
 import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.RecipientCategory;
+import org.devgateway.eudevfin.financial.util.CategoryConstants;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.components.TextAreaInputField;
@@ -31,6 +34,10 @@ public class BasicDataTab extends Panel implements PermissionAwareComponent {
 
     @SpringBean
     private OrganizationChoiceProvider organizationProvider;
+    @SpringBean
+    private ChannelCategoryChoiceProvider channelProvider;
+    @SpringBean
+    private CategoryProviderFactory categoryFactory;
 
     public BasicDataTab(String id) {
         super(id);
@@ -69,33 +76,33 @@ public class BasicDataTab extends Panel implements PermissionAwareComponent {
         add(channelOfDelivery);
 
         //TODO: fix storing channel code
-        DropDownField<String> channelCode = new DropDownField<>("9channelCode", Model.of("")/*new RWComponentPropertyModel<String>("channelCode")*/,
-                SB.countryProvider);
+        DropDownField<ChannelCategory> channelCode = new DropDownField<>("9channelCode", new RWComponentPropertyModel<ChannelCategory>("channel"),
+                channelProvider);
         add(channelCode);
 
         DropDownField<Category> bilateralMultilateral = new DropDownField<>("10bilateralMultilateral",
-                new RWComponentPropertyModel<Category>("biMultilateral"), SB.categoryProvider);
+                new RWComponentPropertyModel<Category>("biMultilateral"), categoryFactory.get(CategoryConstants.BI_MULTILATERAL_TAG));
         add(bilateralMultilateral);
 
         DropDownField<Category> typeOfFlow = new DropDownField<>("11typeOfFlow", new RWComponentPropertyModel<Category>("typeOfFlow"),
-                SB.categoryProvider);
+                categoryFactory.get(CategoryConstants.TYPE_OF_FLOW_TAG));
         typeOfFlow.required();
         add(typeOfFlow);
 
         DropDownField<Category> typeOfFinance = new DropDownField<>("12typeOfFinance", new RWComponentPropertyModel<Category>("typeOfFinance"),
-                SB.categoryProvider);
+                categoryFactory.get(CategoryConstants.TYPE_OF_FINANCE_TAG));
         typeOfFinance.required();
         add(typeOfFinance);
 
         DropDownField<Category> typeOfAid = new DropDownField<>("13typeOfAid", new RWComponentPropertyModel<Category>("typeOfAid"),
-                SB.categoryProvider);
+                categoryFactory.get(CategoryConstants.TYPE_OF_AID_TAG));
         add(typeOfAid);
 
         TextAreaInputField activityProjectTitle = new TextAreaInputField("14activityProjectTitle", new RWComponentPropertyModel<String>("shortDescription"));
         add(activityProjectTitle);
 
         DropDownField<Category> sectorPurposeCode = new DropDownField<>("15sectorPurposeCode", new RWComponentPropertyModel<Category>("sector"),
-                SB.categoryProvider);
+                categoryFactory.get(CategoryConstants.SECTOR_TAG));
         add(sectorPurposeCode);
     }
 

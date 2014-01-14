@@ -6,14 +6,11 @@
  * http://www.gnu.org/licenses/gpl.html
  */
 
-/**
- *
- */
 package org.devgateway.eudevfin.dim.providers;
 
 import org.devgateway.eudevfin.common.service.BaseEntityService;
-import org.devgateway.eudevfin.financial.Organization;
-import org.devgateway.eudevfin.financial.service.OrganizationService;
+import org.devgateway.eudevfin.financial.Area;
+import org.devgateway.eudevfin.financial.service.AreaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,23 +19,19 @@ import org.springframework.stereotype.Component;
  * @since 14/01/14
  */
 @Component
-public class OrganizationChoiceProvider extends AbstractTranslatableProvider<Organization> {
+public class AreaChoiceProvider extends AbstractTranslatableProvider<Area> {
 
     @Autowired
-    private OrganizationService organizationService;
+    private AreaService areaService;
 
 
-    public OrganizationChoiceProvider() {
-        super();
+    @Override
+    protected BaseEntityService<Area> getService() {
+        return areaService;
     }
 
     @Override
-    public String getDisplayText(Organization choice) {
+    protected String getDisplayText(Area choice) {
         return choice.getName();
-    }
-
-    @Override
-    protected BaseEntityService<Organization> getService() {
-        return organizationService;
     }
 }

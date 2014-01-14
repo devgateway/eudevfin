@@ -12,15 +12,16 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.dim.core.models.DateToLocalDateTimeModel;
 import org.devgateway.eudevfin.dim.core.models.YearToLocalDateTimeModel;
+import org.devgateway.eudevfin.dim.providers.CategoryProviderFactory;
 import org.devgateway.eudevfin.dim.providers.OrganizationChoiceProvider;
 import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.Organization;
+import org.devgateway.eudevfin.financial.util.CategoryConstants;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.DateInputField;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
 import org.devgateway.eudevfin.ui.common.permissions.PermissionAwareComponent;
-import org.devgateway.eudevfin.ui.common.temporary.SB;
 import org.joda.time.LocalDateTime;
 
 /**
@@ -32,6 +33,8 @@ public class IdentificationDataTab extends Panel implements PermissionAwareCompo
 
     @SpringBean
     private OrganizationChoiceProvider organizationProvider;
+    @SpringBean
+    private CategoryProviderFactory categoryFactory;
 
 
     public IdentificationDataTab(String id) {
@@ -66,7 +69,7 @@ public class IdentificationDataTab extends Panel implements PermissionAwareCompo
         add(donorProjectNumber);
 
         DropDownField<Category> natureOfSubmission = new DropDownField<>("6natureSubmission",
-                new RWComponentPropertyModel<Category>("natureOfSubmission"), SB.categoryProvider);
+                new RWComponentPropertyModel<Category>("natureOfSubmission"), categoryFactory.get(CategoryConstants.NATURE_OF_SUBMISSION_TAG));
         natureOfSubmission.required();
         add(natureOfSubmission);
     }

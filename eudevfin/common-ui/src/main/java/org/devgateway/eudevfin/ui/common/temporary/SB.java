@@ -10,17 +10,14 @@ package org.devgateway.eudevfin.ui.common.temporary;
 
 import com.vaynberg.wicket.select2.ChoiceProvider;
 import com.vaynberg.wicket.select2.Response;
-import com.vaynberg.wicket.select2.StringTextChoiceProvider;
 import com.vaynberg.wicket.select2.TextChoiceProvider;
 import org.apache.commons.lang3.ArrayUtils;
 import org.devgateway.eudevfin.financial.Area;
 import org.devgateway.eudevfin.financial.Category;
-import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.RecipientCategory;
 import org.joda.money.CurrencyUnit;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 
 /**
@@ -31,18 +28,6 @@ import java.util.Collection;
  * @since 30 October 2013
  */
 public class SB {
-    private static final Organization[] orgs = {
-            newOrganization(1L, "UNDP"),
-            newOrganization(2L, "DFID"),
-            newOrganization(3L, "World Bank")
-    };
-
-    private static Organization newOrganization(Long id, String name) {
-        Organization org = new Organization();
-        org.setId(id);
-        org.setName(name);
-        return org;
-    }
 
     private static final Category[] categs = {
             newCategory(1L, "First Category"),
@@ -77,27 +62,6 @@ public class SB {
         return recipientCategory;
     }
 
-
-    public static final ChoiceProvider<String> countryProvider = new StringTextChoiceProvider() {
-        @Override
-        public void query(String term, int page, Response<String> response) {
-            response.addAll(Arrays.asList("Bulgaria", "Romania", "Georgia", "Italia", "Slovacia", "Rusia"));
-        }
-    };
-
-    public static final ChoiceProvider<String> yesNoProvider = new StringTextChoiceProvider() {
-        @Override
-        public void query(String term, int page, Response<String> response) {
-            response.addAll(Arrays.asList("Yes", "No"));
-        }
-    };
-
-    public static final ChoiceProvider<Organization> organizationProvider = new TempCP<Organization>(orgs) {
-        @Override
-        protected String getDisplayText(Organization choice) {
-            return choice.getName();
-        }
-    };
 
     public static final ChoiceProvider<Category> categoryProvider = new TempCP<Category>(categs) {
         @Override
