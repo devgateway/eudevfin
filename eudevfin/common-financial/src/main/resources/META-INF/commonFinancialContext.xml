@@ -43,7 +43,7 @@
 		<int:method name="findBySectorCode" request-channel="getChannel">
 			<int:header name="requestName" value="findTransactionBySectorCodePageableChannel"/>
 		</int:method>
-		<int:method name="findByGeneralSearch" request-channel="getChannel">
+		<int:method name="findByGeneralSearchPageable" request-channel="getChannel">
 			<int:header name="requestName" value="findTransactionByGeneralSearchPageableChannel"/>
 		</int:method>
 	</int:gateway>
@@ -69,6 +69,9 @@
         <int:method name="findById" request-channel="getChannel">
             <int:header name="requestName" value="findOrganizationByIdChannel"/>
         </int:method>
+        <int:method name="findByGeneralSearch" request-channel="getChannel">
+			<int:header name="requestName" value="findOrganizationByGeneralSearchChannel"/>
+		</int:method>
     </int:gateway>
     <int:gateway id="categoryService"
 		default-reply-timeout="${si.defaultReplyTimeout}" 

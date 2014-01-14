@@ -55,7 +55,7 @@ public class UserDaoImplEndpoint extends AbstractDaoImpl<PersistedUser, Persiste
 	
 	/**
 	 * 
-	 * @see UserService#findByGeneralSearch(String, int, int)
+	 * @see UserService#findByGeneralSearchPageable(String, int, int)
 	 */
 	@ServiceActivator(inputChannel = "findByGeneralSearchUserChannel")
 	public PagingHelper<PersistedUser> findByGeneralSearch(String searchString,

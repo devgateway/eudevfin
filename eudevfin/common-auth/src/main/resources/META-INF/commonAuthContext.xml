@@ -45,7 +45,7 @@
 			<int:header name="requestName" value="findOneUserChannel" />
 		</int:method>
 		
-		<int:method name="findByGeneralSearch" request-channel="userChannel">
+		<int:method name="findByGeneralSearchPageable" request-channel="userChannel">
 			<int:header name="requestName" value="findByGeneralSearchUserChannel" />
 		</int:method>
 	</int:gateway>
@@ -56,7 +56,7 @@
 		<int:method name="findAll" request-channel="userChannel">
 			<int:header name="requestName" value="findAllUserGroupChannel" />
 		</int:method>
-		<int:method name="findByGeneralSearch" request-channel="userChannel">
+		<int:method name="findByGeneralSearchPageable" request-channel="userChannel">
 			<int:header name="requestName" value="findByGeneralSearchUserGroupChannel" />
 		</int:method>
 		<int:method name="findById" request-channel="userChannel">

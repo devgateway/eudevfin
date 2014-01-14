@@ -66,7 +66,7 @@ public class FinancialTransactionDaoImpl extends AbstractDaoImpl<FinancialTransa
 	}
 	
 	@ServiceActivator(inputChannel="findTransactionByGeneralSearchPageableChannel")
-	public PagingHelper<FinancialTransaction> findByGeneralSearch(String searchString,
+	public PagingHelper<FinancialTransaction> findByGeneralSearchPageable(String searchString,
 			@Header("pageNumber")int pageNumber, @Header("pageSize")int pageSize ) {
 		int realPageNumber	= pageNumber-1;
 		PageRequest pageRequest = new PageRequest(realPageNumber, pageSize, null);

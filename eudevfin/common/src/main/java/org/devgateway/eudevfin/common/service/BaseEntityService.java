@@ -19,6 +19,8 @@ public interface BaseEntityService<T> {
 	
 	T findById(Long id);
 	
-	public PagingHelper<T> findByGeneralSearch(String searchString, 
+	public PagingHelper<T> findByGeneralSearchPageable(String searchString, 
 			@Header("pageNumber")int pageNumber, @Header("pageSize")int pageSize);
+	
+	public List<T> findByGeneralSearch(@Header("locale")String locale, String searchString);
 }

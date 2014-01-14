@@ -59,7 +59,7 @@ public class PersistedUserGroupDaoImplEndpoint extends
 	}
 	
 	/**
-	 * @see PersistedUserGroupService#findByGeneralSearch(String, int, int)
+	 * @see PersistedUserGroupService#findByGeneralSearchPageable(String, int, int)
 	 */
 	@ServiceActivator(inputChannel = "findByGeneralSearchUserGroupChannel")
 	public PagingHelper<PersistedUserGroup> findByGeneralSearch(String searchString,

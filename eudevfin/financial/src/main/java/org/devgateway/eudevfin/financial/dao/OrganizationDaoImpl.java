@@ -11,14 +11,15 @@
  */
 package org.devgateway.eudevfin.financial.dao;
 
+import java.util.List;
+
 import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.repository.OrganizationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.integration.annotation.Header;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 /**
  * 
@@ -49,4 +50,14 @@ public class OrganizationDaoImpl extends AbstractDaoImpl<Organization, Organizat
     public List<Organization> findAllAsList() {
         return super.findAllAsList();
     }
+    @ServiceActivator(inputChannel="findOrganizationByGeneralSearchChannel")
+	public List<Organization> findByGeneralSearchPageable(@Header("locale")String locale, String searchString) {
+		return this.getRepo().findByTranslationLocaleAndOrganizationNameContaining(locale, searchString);
+	}
+
+	@Override
+	@ServiceActivator(inputChannel="findOrganizationByIdChannel")
+	public Organization findOne(Long id) {
+		return super.findOne(id);
+	}
 }

@@ -154,7 +154,9 @@
 	<int:channel id="findAllAsListTransactionChannel"/>
 	<int:channel id="saveTransactionChannel" />
 	<int:channel id="findTransactionByIdChannel" />
+	<int:channel id="findOrganizationByIdChannel" />
 	<int:channel id="saveOrganizationChannel" />
+	<int:channel id="findOrganizationByGeneralSearchChannel" />
 	<int:channel id="saveCategoryChannel" />
 	<int:channel id="findAllAsListCategoryChannel" />
 	<int:channel id="findCategoryByIdChannel" />
