@@ -62,7 +62,7 @@ public class OrganizationChoiceProvider extends TextChoiceProvider<Organization>
         List<Organization> returnable = new ArrayList<>();
         for (String string : ids) {
             Long id = Long.parseLong(string);
-            returnable.add(organizationService.findById(id));
+            returnable.add(organizationService.findById(id).getEntity());
         }
         return returnable;
     }

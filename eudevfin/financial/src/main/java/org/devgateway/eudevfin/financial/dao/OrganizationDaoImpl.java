@@ -13,6 +13,8 @@ package org.devgateway.eudevfin.financial.dao;
 
 import java.util.List;
 
+import org.devgateway.eudevfin.common.dao.AbstractDaoImpl;
+import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.repository.OrganizationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +59,7 @@ public class OrganizationDaoImpl extends AbstractDaoImpl<Organization, Long, Org
 
 	@Override
 	@ServiceActivator(inputChannel="findOrganizationByIdChannel")
-	public Organization findOne(Long id) {
+	public NullableWrapper<Organization> findOne(Long id) {
 		return super.findOne(id);
 	}
 }

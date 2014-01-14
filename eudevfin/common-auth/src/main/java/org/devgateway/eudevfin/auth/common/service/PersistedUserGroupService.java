@@ -7,5 +7,6 @@ import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 public interface PersistedUserGroupService extends BaseEntityService<PersistedUserGroup>{
 	
 	NullableWrapper<PersistedUserGroup> findByName(String groupName);
+
 	
 }

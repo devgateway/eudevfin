@@ -62,7 +62,7 @@
 		<int:method name="findById" request-channel="userChannel">
 			<int:header name="requestName" value="findByIdUserGroupChannel" />
 		</int:method>
-		<int:method name="findByGroupName" request-channel="userChannel">
+		<int:method name="findByName" request-channel="userChannel">
 			<int:header name="requestName" value="findByNameUserGroupChannel" />
 		</int:method>
 		
