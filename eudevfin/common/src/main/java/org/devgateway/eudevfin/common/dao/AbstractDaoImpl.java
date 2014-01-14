@@ -1,12 +1,14 @@
 /**
  * 
  */
-package org.devgateway.eudevfin.financial.dao;
+package org.devgateway.eudevfin.common.dao;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.devgateway.eudevfin.common.service.PagingHelper;
+import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -14,7 +16,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  * @author Alex
  *
  */
-public abstract class AbstractDaoImpl<Entity,Repo extends PagingAndSortingRepository<Entity, Long>> {
+public abstract class AbstractDaoImpl<Entity,IDType extends Serializable,Repo extends PagingAndSortingRepository<Entity,IDType>> {
 	
 	protected abstract Repo getRepo(); 
 	
@@ -28,6 +30,18 @@ public abstract class AbstractDaoImpl<Entity,Repo extends PagingAndSortingReposi
 		return ret;
 	}
 	
+	/**
+	 * return a new {@link NullableWrapper} wrapping the <Entity>. Use this for
+	 * possible null replies.
+	 * 
+	 * @param entity
+	 *            the <Entity> that has to be wrapped
+	 * @return the {@link NullableWrapper} wrapping the <Entity>
+	 */
+	protected NullableWrapper<Entity> newWrapper(Entity entity) {
+		return new NullableWrapper<Entity>(entity);
+	}
+
 	protected PagingHelper<Entity> createPagingHelperFromPage (Page<Entity> resultPage) {
 		PagingHelper<Entity> pagingHelper	= 
 				new PagingHelper<>(resultPage.getNumber(), resultPage.getTotalPages(), resultPage.getContent().size(), resultPage.getContent());
@@ -36,9 +50,9 @@ public abstract class AbstractDaoImpl<Entity,Repo extends PagingAndSortingReposi
 		
 	}
 	
-	public Entity save(Entity e) {
+	public NullableWrapper<Entity> save(Entity e) {
 		Entity r = getRepo().save(e);
-		return r;
+		return newWrapper(r);
 	}
 	
 	public Iterable<Entity> findAll() {
@@ -53,7 +67,7 @@ public abstract class AbstractDaoImpl<Entity,Repo extends PagingAndSortingReposi
 		getRepo().delete(iterable);
 	}
 	
-	public Entity findOne(Long id) {
-		return getRepo().findOne(id);
+	public  NullableWrapper<Entity> findOne(IDType id) {
+		return newWrapper(getRepo().findOne(id));
 	}
 }

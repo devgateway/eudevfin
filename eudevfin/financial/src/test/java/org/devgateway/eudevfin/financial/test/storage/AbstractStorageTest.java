@@ -43,7 +43,7 @@ public abstract class AbstractStorageTest {
 			ft.setDescription("Transaction description " + i);
 			ft.setDonorProjectNumber("3333/2013");
 			ft.setReportingOrganization( allOrgs.get(j) );
-			ft	= txDao.save(ft);
+			ft	= txDao.save(ft).getEntity();
 		}
 	
 	}

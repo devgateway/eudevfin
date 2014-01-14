@@ -28,7 +28,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Lazy(value=false)
-public class OrganizationDaoImpl extends AbstractDaoImpl<Organization, OrganizationRepository> {
+public class OrganizationDaoImpl extends AbstractDaoImpl<Organization, Long, OrganizationRepository> {
 
 	@Autowired
 	private OrganizationRepository repo;
@@ -41,7 +41,7 @@ public class OrganizationDaoImpl extends AbstractDaoImpl<Organization, Organizat
 
 	@Override
 	@ServiceActivator(inputChannel="saveOrganizationChannel")
-	public Organization save(Organization o) {
+	public NullableWrapper<Organization> save(Organization o) {
 		return super.save(o);
 	}
 

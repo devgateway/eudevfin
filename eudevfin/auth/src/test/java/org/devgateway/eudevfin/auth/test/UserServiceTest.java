@@ -4,7 +4,7 @@
 package org.devgateway.eudevfin.auth.test;
 
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
-import org.devgateway.eudevfin.auth.common.service.UserService;
+import org.devgateway.eudevfin.auth.common.service.PersistedUserService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class UserServiceTest extends AbstractAuthTest {
 
 	@Autowired
-	UserService service;
+	PersistedUserService service;
 
 	@Test
 	public void testCreateGetUser() {
@@ -28,7 +28,7 @@ public class UserServiceTest extends AbstractAuthTest {
 
 		service.save(u);
 
-		PersistedUser userByUsername = service.findByUsername("test");
+		PersistedUser userByUsername = service.findByUsername("test").getEntity();
 
 		Assert.assertNotNull(userByUsername);
 

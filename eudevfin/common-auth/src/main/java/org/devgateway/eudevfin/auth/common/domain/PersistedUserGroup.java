@@ -14,6 +14,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+
+import org.devgateway.eudevfin.financial.Organization;
 
 /**
  * @author mihai
@@ -36,6 +39,9 @@ public class PersistedUserGroup implements Serializable {
 
 	@ManyToMany
 	private Set<PersistedUser> users = new HashSet<PersistedUser>();
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Organization organization;
 
 	/**
 	 * @return the id
@@ -100,6 +106,20 @@ public class PersistedUserGroup implements Serializable {
 	@Override
 	public String toString() {
 		return name;
+	}
+
+	/**
+	 * @return the organization
+	 */
+	public Organization getOrganization() {
+		return organization;
+	}
+
+	/**
+	 * @param organization the organization to set
+	 */
+	public void setOrganization(Organization organization) {
+		this.organization = organization;
 	}
 
 }

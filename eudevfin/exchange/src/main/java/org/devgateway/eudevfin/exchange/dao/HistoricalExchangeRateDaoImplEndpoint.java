@@ -19,6 +19,8 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 
 import org.apache.log4j.Logger;
+import org.devgateway.eudevfin.common.dao.AbstractDaoImpl;
+import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 import org.devgateway.eudevfin.exchange.common.domain.HistoricalExchangeRate;
 import org.devgateway.eudevfin.exchange.common.service.HistoricalExchangeRateService;
 import org.devgateway.eudevfin.exchange.repository.HistoricalExchangeRateRepository;
@@ -33,13 +35,14 @@ import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
 
 /**
- * @author mihai Endpoint for the spring integration service to access exchange
+ * @author mihai 
+ * Endpoint for the spring integration service to access exchange
  *         rates Do NOT use this on the client side!
  * @see HistoricalExchangeRateService
  */
 @Component
 @Lazy(value=false)
-public class HistoricalExchangeRateDaoImplEndpoint {
+public class HistoricalExchangeRateDaoImplEndpoint extends AbstractDaoImpl<HistoricalExchangeRate,Long, HistoricalExchangeRateRepository> {
 
 	@Autowired
 	private HistoricalExchangeRateRepository repo;
@@ -59,8 +62,8 @@ public class HistoricalExchangeRateDaoImplEndpoint {
 	 * @return
 	 */
 	@ServiceActivator(inputChannel = "getHistoricalExchangeRateByIdChannel")
-	public HistoricalExchangeRate findById(Long id) {
-		return repo.findOne(id);
+	public NullableWrapper<HistoricalExchangeRate> findById(Long id) {
+		return newWrapper(repo.findOne(id));
 	}
 
 	/**
@@ -69,10 +72,9 @@ public class HistoricalExchangeRateDaoImplEndpoint {
 	 * @return
 	 */
 	@ServiceActivator(inputChannel = "createHistoricalExchangeRateChannel")
-	public HistoricalExchangeRate saveHistoricalExchangeRate(
+	public NullableWrapper<HistoricalExchangeRate> saveHistoricalExchangeRate(
 			HistoricalExchangeRate u) {
-		repo.save(u);
-		return u;
+		return newWrapper(repo.save(u));		
 	}
 
 	/**
@@ -131,6 +133,11 @@ public class HistoricalExchangeRateDaoImplEndpoint {
 			savedRates++;
 		}
 		return savedRates;
+	}
+
+	@Override
+	protected HistoricalExchangeRateRepository getRepo() {
+		return repo;		
 	}
 
 }

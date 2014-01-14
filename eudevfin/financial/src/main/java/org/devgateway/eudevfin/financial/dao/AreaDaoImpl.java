@@ -5,6 +5,8 @@ package org.devgateway.eudevfin.financial.dao;
 
 import java.util.List;
 
+import org.devgateway.eudevfin.common.dao.AbstractDaoImpl;
+import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 import org.devgateway.eudevfin.financial.Area;
 import org.devgateway.eudevfin.financial.repository.AreaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Lazy(value=false)
-public class AreaDaoImpl extends AbstractDaoImpl<Area, AreaRepository> {
+public class AreaDaoImpl extends AbstractDaoImpl<Area,Long, AreaRepository> {
 
 	@Autowired
 	private AreaRepository areaRepository;
@@ -37,13 +39,13 @@ public class AreaDaoImpl extends AbstractDaoImpl<Area, AreaRepository> {
 
 	@Override
 	@ServiceActivator(inputChannel="findAreaByIdChannel")
-	public Area findOne(Long id) {
+	public NullableWrapper<Area> findOne(Long id) {
 		return super.findOne(id);
 	}
 
 	@Override
 	@ServiceActivator(inputChannel="saveAreaChannel")
-	public Area save(Area e) {
+	public NullableWrapper<Area> save(Area e) {
 		return super.save(e);
 	}
 	

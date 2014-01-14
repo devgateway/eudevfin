@@ -6,8 +6,9 @@ package org.devgateway.eudevfin.auth.dao;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUserGroup;
 import org.devgateway.eudevfin.auth.common.service.PersistedUserGroupService;
 import org.devgateway.eudevfin.auth.repository.PersistedUserGroupRepository;
+import org.devgateway.eudevfin.common.dao.AbstractDaoImpl;
 import org.devgateway.eudevfin.common.service.PagingHelper;
-import org.devgateway.eudevfin.financial.dao.AbstractDaoImpl;
+import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.PageRequest;
@@ -22,7 +23,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Lazy(value=false)
 public class PersistedUserGroupDaoImplEndpoint extends
-		AbstractDaoImpl<PersistedUserGroup, PersistedUserGroupRepository> {
+		AbstractDaoImpl<PersistedUserGroup,Long, PersistedUserGroupRepository> {
 
 	@Autowired
 	protected PersistedUserGroupRepository persistedUserGroupRepository;
@@ -43,6 +44,19 @@ public class PersistedUserGroupDaoImplEndpoint extends
 		return persistedUserGroupRepository;
 	}
 	
+	/**
+	 * @see PersistedUserGroupService#findByName(String)
+	 * @param name
+	 * @return
+	 */
+	@ServiceActivator(inputChannel="findByNameUserGroupChannel")
+	public PersistedUserGroup findByName(String name) {
+		return persistedUserGroupRepository.findByName(name);
+	}
+	
+	/**
+	 * @see PersistedUserGroupService#findAll()
+	 */
 	@ServiceActivator(inputChannel = "findAllUserGroupChannel")
 	@Override
 	public Iterable<PersistedUserGroup> findAll() {
@@ -51,9 +65,12 @@ public class PersistedUserGroupDaoImplEndpoint extends
 	}
 	
 	
+	/**
+	 * @see PersistedUserGroupService#findById(Long)
+	 */
 	@ServiceActivator(inputChannel = "findByIdUserGroupChannel")
 	@Override
-	public PersistedUserGroup findOne(Long id) {
+	public NullableWrapper<PersistedUserGroup> findOne(Long id) {
 		// TODO Auto-generated method stub
 		return super.findOne(id);
 	}

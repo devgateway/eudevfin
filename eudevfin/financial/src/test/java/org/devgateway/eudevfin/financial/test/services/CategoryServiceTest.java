@@ -76,7 +76,7 @@ public class CategoryServiceTest {
 		c2.setCode("SC-test");
 		c.getChildren().add(c2);
 		
-		Category result 	= categoryService.save(c);
+		Category result 	= categoryService.save(c).getEntity();
 		assertNotNull(result.getChildren());
 		assertEquals(result.getChildren().size(), 2);
 		
@@ -95,14 +95,14 @@ public class CategoryServiceTest {
 		assertEquals(allSubSectors.size(), 2);
 		
 		Category rootSectorsInitialized			= categoryService.findByCodeAndClass(SECTORS_ROOT_TEST, 
-													SectorCategory.class,true);
+													SectorCategory.class,true).getEntity();
 		assertNotNull(rootSectorsInitialized);
 		assertNotNull(rootSectorsInitialized.getChildren());
 		assertNotNull(rootSectorsInitialized.getChildren().iterator().next());
 		assertNotNull(rootSectorsInitialized.getTags().iterator().next());
 		
 		Category rootSectorsNonInitialized		= categoryService.findByCodeAndClass(SECTORS_ROOT_TEST, 
-													SectorCategory.class, false);
+													SectorCategory.class, false).getEntity();
 		try {
 			rootSectorsNonInitialized.getChildren().iterator().next();
 		}
@@ -122,9 +122,9 @@ public class CategoryServiceTest {
 	@Transactional
 	private void createFakeSectors() {
 		Category sectorLabel	= 
-				categoryService.findByCodeAndClass(SECTORS_LABEL_TEST, Category.class, false);
+				categoryService.findByCodeAndClass(SECTORS_LABEL_TEST, Category.class, false).getEntity();
 		Category subSectorLabel	= 
-				categoryService.findByCodeAndClass(SUBSECTORS_LABEL_TEST, Category.class, false);
+				categoryService.findByCodeAndClass(SUBSECTORS_LABEL_TEST, Category.class, false).getEntity();
 		
 		Category sectorsRoot = new SectorCategory();
 		sectorsRoot.setName("Sectors Root");

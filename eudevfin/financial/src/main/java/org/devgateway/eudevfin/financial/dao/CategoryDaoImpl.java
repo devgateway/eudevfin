@@ -5,6 +5,8 @@ package org.devgateway.eudevfin.financial.dao;
 
 import java.util.List;
 
+import org.devgateway.eudevfin.common.dao.AbstractDaoImpl;
+import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.exception.NoDataFoundException;
 import org.devgateway.eudevfin.financial.repository.CategoryRepository;
@@ -23,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 @Lazy(value=false)
 //@Transactional( readOnly=false, propagation=Propagation.REQUIRED)
-public class CategoryDaoImpl extends AbstractDaoImpl<Category, CategoryRepository> {
+public class CategoryDaoImpl extends AbstractDaoImpl<Category, Long, CategoryRepository> {
 
 	@Autowired
 	private CategoryRepository repo;
@@ -36,7 +38,7 @@ public class CategoryDaoImpl extends AbstractDaoImpl<Category, CategoryRepositor
 
 	@Override
 	@ServiceActivator(inputChannel="saveCategoryChannel")
-	public Category save(Category o) {
+	public NullableWrapper<Category> save(Category o) {
 		return super.save(o);
 	}
 	
@@ -72,13 +74,13 @@ public class CategoryDaoImpl extends AbstractDaoImpl<Category, CategoryRepositor
 	
 	@ServiceActivator(inputChannel="findCategoryByCodeAndClassChannel")
 	@Transactional
-	public Category findByCodeAndClass(String code, @Header("clazz")Class<? extends Category> clazz, 
+	public  NullableWrapper<Category> findByCodeAndClass(String code, @Header("clazz")Class<? extends Category> clazz, 
 			@Header("initializeChildren") Boolean initializeChildren) {
 		List<Category> categories	= this.findByCode(code);
 		for ( Category category:categories ) {
 			if ( category.getClass().equals(clazz) ) {
 				this.initializeChildren(category);
-				return category;
+				return newWrapper(category);
 			}
 		}
 		throw new NoDataFoundException(

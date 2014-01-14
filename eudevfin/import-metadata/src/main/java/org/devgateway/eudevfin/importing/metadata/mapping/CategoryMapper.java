@@ -75,7 +75,7 @@ public class CategoryMapper extends AbstractMapper<Category> {
 	
 	public void __insertParent(Category newCateg, String parentCode) {
 		if (parentCode != null && parentCode.length() > 0) {
-			Category parent	= categDao.findByCodeAndClass(parentCode, newCateg.getClass(), true);
+			Category parent	= categDao.findByCodeAndClass(parentCode, newCateg.getClass(), true).getEntity();
 			if (parent != null) {
 				Set<Category> children	= parent.getChildren();
 				children.add(newCateg);
@@ -92,7 +92,7 @@ public class CategoryMapper extends AbstractMapper<Category> {
 	
 	public void __insertTag(Category newCateg, String tagCode) {
 		if ( tagCode != null && tagCode.length() > 0 ) {
-			Category tag	= categDao.findByCodeAndClass(tagCode, Category.class, true);
+			Category tag	= categDao.findByCodeAndClass(tagCode, Category.class, true).getEntity();
 			if (tag != null) {
 				if ( newCateg.getTags() == null )
 					newCateg.setTags(new HashSet<Category>());

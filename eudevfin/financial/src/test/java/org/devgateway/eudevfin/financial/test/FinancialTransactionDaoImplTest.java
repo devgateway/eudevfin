@@ -40,7 +40,7 @@ public class FinancialTransactionDaoImplTest {
 		ft.setAmount(new BigDecimal(123));
 		ft.setDescription("Auditing test descr");
 		ft.setReportingOrganization(o);
-		ft	= txDao.save(ft);
+		ft	= txDao.save(ft).getEntity();
 		Assert.assertNotNull(ft);
 	}
 

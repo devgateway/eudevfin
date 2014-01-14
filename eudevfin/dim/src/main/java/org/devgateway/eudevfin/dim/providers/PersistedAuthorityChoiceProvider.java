@@ -68,7 +68,7 @@ public class PersistedAuthorityChoiceProvider extends
 	public Collection<PersistedAuthority> toChoices(Collection<String> ids) {
 		List<PersistedAuthority> returnable = new ArrayList<PersistedAuthority>();
 		for (String string : ids)
-			returnable.add(persistedAuthorityService.findOne(string));
+			returnable.add(persistedAuthorityService.findOne(string).getEntity());
 		return returnable;
 	}
 

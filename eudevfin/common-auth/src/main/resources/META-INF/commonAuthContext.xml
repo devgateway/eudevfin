@@ -32,7 +32,7 @@
 	</int:gateway>
 
 	<int:gateway id="userService"
-		service-interface="org.devgateway.eudevfin.auth.common.service.UserService">
+		service-interface="org.devgateway.eudevfin.auth.common.service.PersistedUserService">
 		<int:method name="save" request-channel="userChannel">
 			<int:header name="requestName" value="saveUserChannel" />
 		</int:method>
@@ -62,6 +62,12 @@
 		<int:method name="findById" request-channel="userChannel">
 			<int:header name="requestName" value="findByIdUserGroupChannel" />
 		</int:method>
+		<int:method name="findByGroupName" request-channel="userChannel">
+			<int:header name="requestName" value="findByNameUserGroupChannel" />
+		</int:method>
+		
+		
+		
 	</int:gateway>
 	
 	

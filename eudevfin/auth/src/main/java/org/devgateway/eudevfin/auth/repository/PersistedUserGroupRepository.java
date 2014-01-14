@@ -14,5 +14,5 @@ import org.springframework.stereotype.Component;
 @Component
 public interface PersistedUserGroupRepository extends
 		PagingAndSortingRepository<PersistedUserGroup, Long> {
-
+	PersistedUserGroup findByName(String name);
 }

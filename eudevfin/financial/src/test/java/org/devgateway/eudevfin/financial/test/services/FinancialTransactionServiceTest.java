@@ -58,7 +58,7 @@ public class FinancialTransactionServiceTest {
 
 			logger.info(tx);
 			FinancialTransaction result = service
-					.save(tx);
+					.save(tx).getEntity();
 
 			// Assert.assertNotNull(result.getId() );
 			logger.info(result);
@@ -80,7 +80,7 @@ public class FinancialTransactionServiceTest {
 	@Test
 	public void testSave() {
 		FinancialTransaction tx	= this.createTransaction();
-		tx	= service.save(tx);
+		tx	= service.save(tx).getEntity();
 		Assert.assertNotNull(tx.getId());
 		Assert.assertNotNull(tx.getCreatedBy());
 		Assert.assertNotNull(tx.getCreatedDate());
@@ -92,9 +92,9 @@ public class FinancialTransactionServiceTest {
 	@Test
 	public void testFindById() {
 		FinancialTransaction tx	= this.createTransaction();
-		tx	= service.save(tx);
+		tx	= service.save(tx).getEntity();
 		
-		FinancialTransaction result	= service.findById(tx.getId() );
+		FinancialTransaction result	= service.findById(tx.getId() ).getEntity();
 		Assert.assertNotNull(result);
 		Assert.assertNotNull(result.getCommitmentDate());
 	}
@@ -102,7 +102,7 @@ public class FinancialTransactionServiceTest {
 	private FinancialTransaction createTransaction() {
 		Organization org = new Organization();
 		org.setName("Org name for tx service testing");
-		org 	= orgService.save(org);
+		org 	= orgService.save(org).getEntity();
 		
 		FinancialTransaction tx = new FinancialTransaction();
 		tx.setAmountsReceived(BigMoney.parse("EUR 1230"));

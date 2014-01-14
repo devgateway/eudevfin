@@ -5,7 +5,9 @@ package org.devgateway.eudevfin.financial.dao;
 
 import java.util.List;
 
+import org.devgateway.eudevfin.common.dao.AbstractDaoImpl;
 import org.devgateway.eudevfin.common.service.PagingHelper;
+import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.repository.FinancialTransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Lazy(value=false)
-public class FinancialTransactionDaoImpl extends AbstractDaoImpl<FinancialTransaction, FinancialTransactionRepository> {
+public class FinancialTransactionDaoImpl extends AbstractDaoImpl<FinancialTransaction, Long, FinancialTransactionRepository> {
 
 	@Autowired
 	private FinancialTransactionRepository repo;
@@ -34,7 +36,7 @@ public class FinancialTransactionDaoImpl extends AbstractDaoImpl<FinancialTransa
 	
 	@Override
 	@ServiceActivator(inputChannel="saveTransactionChannel")
-	public FinancialTransaction save(FinancialTransaction tx) {
+	public NullableWrapper<FinancialTransaction> save(FinancialTransaction tx) {
 		return super.save(tx);
 		
 	}
@@ -44,7 +46,7 @@ public class FinancialTransactionDaoImpl extends AbstractDaoImpl<FinancialTransa
 	 */
 	@Override
 	@ServiceActivator(inputChannel="findTransactionByIdChannel")
-	public FinancialTransaction findOne(Long id) {
+	public NullableWrapper<FinancialTransaction> findOne(Long id) {
 		return super.findOne(id);
 	}
 

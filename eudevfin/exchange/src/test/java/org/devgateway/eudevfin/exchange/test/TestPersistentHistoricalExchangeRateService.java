@@ -51,7 +51,7 @@ public class TestPersistentHistoricalExchangeRateService {
 		
 		Long id = her.getId();
 		
-		HistoricalExchangeRate one = service.findById(id);
+		HistoricalExchangeRate one = service.findById(id).getEntity();
 		
 		Assert.assertEquals(her.getId(), one.getId());
 		Assert.assertEquals(her.getDate(), one.getDate());

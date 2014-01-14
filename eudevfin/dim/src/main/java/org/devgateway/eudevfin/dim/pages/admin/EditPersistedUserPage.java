@@ -28,8 +28,7 @@ import org.apache.wicket.validation.ValidationError;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.domain.PersistedAuthority;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
-import org.devgateway.eudevfin.auth.common.domain.PersistedUserGroup;
-import org.devgateway.eudevfin.auth.common.service.UserService;
+import org.devgateway.eudevfin.auth.common.service.PersistedUserService;
 import org.devgateway.eudevfin.dim.core.models.PasswordEncryptModel;
 import org.devgateway.eudevfin.dim.providers.PersistedAuthorityChoiceProvider;
 import org.devgateway.eudevfin.dim.providers.PersistedUserGroupChoiceProvider;
@@ -48,10 +47,10 @@ import org.wicketstuff.annotation.mount.MountPath;
  */
 @AuthorizeInstantiation(AuthConstants.Roles.ROLE_SUPERVISOR)
 @MountPath(value = "/user")
-public class EditUserPage extends HeaderFooter {
+public class EditPersistedUserPage extends HeaderFooter {
 
 	@SpringBean
-	private UserService userService;
+	private PersistedUserService userService;
 	
 	@SpringBean
 	private PersistedAuthorityChoiceProvider authorityChoiceProvider;
@@ -61,7 +60,7 @@ public class EditUserPage extends HeaderFooter {
 
 	
 	private static final long serialVersionUID = -4276784345759050002L;
-	private static final Logger logger = Logger.getLogger(EditUserPage.class);
+	private static final Logger logger = Logger.getLogger(EditPersistedUserPage.class);
 	
 	public class UniqueUsernameValidator extends Behavior implements
 			IValidator<String> {
@@ -76,7 +75,7 @@ public class EditUserPage extends HeaderFooter {
 		public void validate(IValidatable<String> validatable) {
 			String username = validatable.getValue();
 			PersistedUser persistedUser2 = userService
-					.findByUsername(username);
+					.findByUsername(username).getEntity();
 			if (persistedUser2 != null
 					&& !persistedUser2.getId().equals(userId)) {
 				ValidationError error = new ValidationError();
@@ -87,7 +86,7 @@ public class EditUserPage extends HeaderFooter {
 	}
 
 	@SuppressWarnings("unchecked")
-	public EditUserPage(final PageParameters parameters) {
+	public EditPersistedUserPage(final PageParameters parameters) {
 		super(parameters);
 		
 		Form form = new Form("form");
@@ -96,7 +95,7 @@ public class EditUserPage extends HeaderFooter {
 
 		if (!parameters.get("userId").isNull()) {
 			userId = parameters.get("userId").toLong();
-			persistedUser = userService.findOne(userId);
+			persistedUser = userService.findOne(userId).getEntity();
 		} else {
 			persistedUser = new PersistedUser();
 		}
@@ -123,11 +122,8 @@ public class EditUserPage extends HeaderFooter {
 				"authorities",
 				new RWComponentPropertyModel<Collection<PersistedAuthority>>(
 				"authorities"), authorityChoiceProvider);
+	
 		
-		MultiSelectField<PersistedUserGroup> groups = new MultiSelectField<>(
-				"groups",
-				new RWComponentPropertyModel<Collection<PersistedUserGroup>>(
-				"groups"), userGroupChoiceProvider);
 		
 
 		authorities.required();
@@ -136,7 +132,6 @@ public class EditUserPage extends HeaderFooter {
 		form.add(password);
 		form.add(enabled);
 		form.add(authorities);
-		form.add(groups);
 
 		form.add(new BootstrapSubmitButton("submit", Model.of("Submit")) {
 			
@@ -151,6 +146,7 @@ public class EditUserPage extends HeaderFooter {
 				logger.info("Submitted ok!");
 				logger.info("Object:" + getModel().getObject());
 				userService.save(persistedUser);
+				setResponsePage(ListPersistedUsersPage.class);
 			}
 			
 		});

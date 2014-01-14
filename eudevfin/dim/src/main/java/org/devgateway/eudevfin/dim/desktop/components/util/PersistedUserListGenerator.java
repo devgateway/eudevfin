@@ -4,7 +4,7 @@
 package org.devgateway.eudevfin.dim.desktop.components.util;
 
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
-import org.devgateway.eudevfin.auth.common.service.UserService;
+import org.devgateway.eudevfin.auth.common.service.PersistedUserService;
 import org.devgateway.eudevfin.common.service.PagingHelper;
 import org.devgateway.eudevfin.ui.common.components.util.ListGeneratorInterface;
 
@@ -16,10 +16,10 @@ public class PersistedUserListGenerator implements
 		ListGeneratorInterface<PersistedUser> {
 
 	private static final long serialVersionUID = -6936731401076768620L;
-	private UserService userService;
+	private PersistedUserService userService;
 	private String searchString;
 	
-	public PersistedUserListGenerator(UserService userService,String searchString) {
+	public PersistedUserListGenerator(PersistedUserService userService,String searchString) {
 		this.userService=userService;
 		this.searchString=searchString;
 	}

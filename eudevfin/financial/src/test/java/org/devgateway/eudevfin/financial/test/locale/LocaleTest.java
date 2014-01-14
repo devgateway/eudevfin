@@ -58,7 +58,7 @@ public class LocaleTest {
 		for (int i = 1; i <= 10; i++) {
 			Organization org = new Organization();
 			org.setName("Org name " + i);
-			org 	= orgService.save(org);
+			org 	= orgService.save(org).getEntity();
 			
 			FinancialTransaction tx = new FinancialTransaction();
 			int amount	= i * 100;
@@ -73,7 +73,7 @@ public class LocaleTest {
 
 			logger.info(tx);
 			service.save(tx);
-			FinancialTransaction result =  service.findById(tx.getId());
+			FinancialTransaction result =  service.findById(tx.getId()).getEntity();
 
 			Assert.assertNotNull(result.getId());
 			logger.info(result);

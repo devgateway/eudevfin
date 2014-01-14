@@ -5,6 +5,8 @@ package org.devgateway.eudevfin.financial.dao;
 
 import java.util.List;
 
+import org.devgateway.eudevfin.common.dao.AbstractDaoImpl;
+import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 import org.devgateway.eudevfin.financial.ChannelCategory;
 import org.devgateway.eudevfin.financial.repository.ChannelCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Lazy(value=false)
-public class ChannelCategoryDao extends AbstractDaoImpl<ChannelCategory, ChannelCategoryRepository> {
+public class ChannelCategoryDao extends AbstractDaoImpl<ChannelCategory, Long, ChannelCategoryRepository> {
 	@Autowired
 	private ChannelCategoryRepository repo;
 
@@ -35,8 +37,8 @@ public class ChannelCategoryDao extends AbstractDaoImpl<ChannelCategory, Channel
 	}
 	
 	@ServiceActivator(inputChannel="findChannelCategoryByCodeChannel")
-	public ChannelCategory findByCode(String code) {
-		return this.getRepo().findByCode(code);
+	public NullableWrapper<ChannelCategory> findByCode(String code) {
+		return newWrapper(this.getRepo().findByCode(code));
 	}
 
 }
