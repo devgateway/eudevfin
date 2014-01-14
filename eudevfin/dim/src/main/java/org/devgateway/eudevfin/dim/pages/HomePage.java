@@ -58,8 +58,8 @@ public class HomePage extends HeaderFooter {
 
     public HomePage() {
         super();
-        
-        List<Organization> testList	= orgService.findByGeneralSearch("en","ministry");
+           
+       // List<Organization> testList	= orgService.findByGeneralSearch("en","ministry");
         
 		Organization o			= new Organization();
         o.setName("WicketTest Org - default locale");
