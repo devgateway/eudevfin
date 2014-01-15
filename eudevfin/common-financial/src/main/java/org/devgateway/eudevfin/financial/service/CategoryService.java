@@ -20,4 +20,7 @@ public interface CategoryService extends BaseEntityService<Category> {
 	public NullableWrapper<Category> findByCodeAndClass(String string, 
 			@Header("clazz")Class<? extends Category> clazz, 
 			@Header("initializeChildren") Boolean initializeChildren);
+	
+	public List<Category> findByGeneralSearchAndTagsCode(@Header("locale")String locale, 
+			String searchString, @Header("tagsCode") String tagsCode);
 }

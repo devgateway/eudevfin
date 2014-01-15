@@ -88,6 +88,15 @@ public class CategoryDaoImpl extends AbstractDaoImpl<Category, Long, CategoryRep
 			);
 	}
 	
+	@ServiceActivator(inputChannel="findCategoryByGeneralSearchAndTagsCodeChannel")
+	public List<Category> findByGeneralSearchAndTagsCode(@Header("locale")String locale, 
+			String searchString, @Header("tagsCode") String tagsCode) {
+		return this.getRepo().
+			findByTranslationsLocaleAndTranslationsNameIgnoreCaseContainsAndTagsCode(
+					locale, searchString, tagsCode);
+	}
+	
+	
 	public void initializeChildren(Category category) {
 		if ( category.getChildren() != null ) {
 			for (Category childCateg : category.getChildren()) {

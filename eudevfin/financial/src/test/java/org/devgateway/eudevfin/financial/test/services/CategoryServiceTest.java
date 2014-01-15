@@ -118,6 +118,41 @@ public class CategoryServiceTest {
 		
 		
 	}
+	
+	@Test
+	public void testFindByGeneralSearchAndTagsCode() {
+		
+		String testTagCode			= "Test Tag Category For General Search";
+		
+		Category testTagCategory	= new Category();
+		testTagCategory.setName("Test Tag Category For General Search");
+		testTagCategory.setCode(testTagCode);
+		categoryService.save(testTagCategory);
+		
+		Category testCategory1 = new Category();
+		testCategory1.setLocale("en");
+		testCategory1.setName("Test category for general search: x1234");
+		testCategory1.setCode("Test category for general search1");
+		testCategory1.setTags(new HashSet<Category>());
+		testCategory1.getTags().add(testTagCategory);
+		
+		categoryService.save(testCategory1);
+		
+		Category testCategory2 = new Category();
+		testCategory2.setLocale("xx");
+		testCategory2.setName("Test category for general search: x1234");
+		testCategory2.setCode("Test category for general search2");
+		testCategory2.setTags(new HashSet<Category>());
+		testCategory2.getTags().add(testTagCategory);
+		
+		categoryService.save(testCategory2);
+		
+		List<Category> responseList	
+				= categoryService.findByGeneralSearchAndTagsCode("xx", "x1234", testTagCode);
+		
+		assertTrue(responseList.size()  == 1);
+		
+	}
 
 	@Transactional
 	private void createFakeSectors() {

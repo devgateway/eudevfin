@@ -19,6 +19,6 @@ public interface OrganizationRepository extends
 		PagingAndSortingRepository<Organization, Long> {
 	
 	@Query(" select trn.parent from OrganizationTranslation trn where trn.locale=?1 AND lower(trn.name) like %?2% ")
-	List<Organization> findByTranslationLocaleAndOrganizationNameContaining(String locale, String searchString);
+	List<Organization> findByTranslationLocaleAndTranslationNameContaining(String locale, String searchString);
 
 }

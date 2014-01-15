@@ -53,8 +53,8 @@ public class OrganizationDaoImpl extends AbstractDaoImpl<Organization, Long, Org
         return super.findAllAsList();
     }
     @ServiceActivator(inputChannel="findOrganizationByGeneralSearchChannel")
-	public List<Organization> findByGeneralSearchPageable(@Header("locale")String locale, String searchString) {
-		return this.getRepo().findByTranslationLocaleAndOrganizationNameContaining(locale, searchString);
+	public List<Organization> findByGeneralSearch(@Header("locale")String locale, String searchString) {
+		return this.getRepo().findByTranslationLocaleAndTranslationNameContaining(locale, searchString.toLowerCase());
 	}
 
 	@Override

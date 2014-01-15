@@ -11,6 +11,7 @@ import org.hibernate.envers.Audited;
 
 /**
  * @author Alex
+ * @deprecated Area should be used directly instead of this
  *
  */
 @Entity

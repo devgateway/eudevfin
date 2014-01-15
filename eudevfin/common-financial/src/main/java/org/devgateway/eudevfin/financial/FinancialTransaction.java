@@ -152,9 +152,11 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney arrearsOfInterest;
 
-    @ManyToOne
-    private RecipientCategory recipient;
+//    @ManyToOne
+//    private RecipientCategory recipient;
 
+    @ManyToOne
+    private Area recipient;
 
     @ManyToOne
     private Category sector;
@@ -622,15 +624,27 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
         this.arrearsOfInterest = arrearsOfInterest;
     }
 
-    public RecipientCategory getRecipient() {
-        return recipient;
-    }
+//    public RecipientCategory getRecipient() {
+//        return recipient;
+//    }
+//
+//    public void setRecipient(RecipientCategory recipient) {
+//        this.recipient = recipient;
+//    }
+    
+    
 
-    public void setRecipient(RecipientCategory recipient) {
-        this.recipient = recipient;
-    }
+    public Area getRecipient() {
+		return recipient;
+	}
 
-    public Category getSector() {
+
+	public void setRecipient(Area recipient) {
+		this.recipient = recipient;
+	}
+
+
+	public Category getSector() {
         return sector;
     }
 

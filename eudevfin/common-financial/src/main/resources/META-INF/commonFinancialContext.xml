@@ -91,6 +91,9 @@
 		<int:method name="findByCodeAndClass" request-channel="getChannel">
 			<int:header name="requestName" value="findCategoryByCodeAndClassChannel"/>
 		</int:method>
+		<int:method name="findByGeneralSearchAndTagsCode" request-channel="getChannel">
+			<int:header name="requestName" value="findCategoryByGeneralSearchAndTagsCodeChannel"/>
+		</int:method>
 	</int:gateway>
 	
 	<int:gateway id="channelCategoryService"
@@ -117,6 +120,9 @@
 		</int:method>
 		<int:method name="findById" request-channel="getChannel">
 			<int:header name="requestName" value="findAreaByIdChannel"/>
+		</int:method>
+		<int:method name="findByGeneralSearch" request-channel="getChannel">
+			<int:header name="requestName" value="findAreaByGeneralSearchChannel"/>
 		</int:method>
 	</int:gateway>
 </beans>

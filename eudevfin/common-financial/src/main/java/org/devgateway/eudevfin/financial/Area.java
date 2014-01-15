@@ -27,6 +27,8 @@ public class Area extends AbstractTranslateable<AreaTranslation>
 
 	private String code;
 	
+	private String iso;
+	
 	/**
 	 * This is a category since it needs both a code and a translateable description of it
 	 */
