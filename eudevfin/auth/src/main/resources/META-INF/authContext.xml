@@ -27,9 +27,9 @@
 	<int:channel id="findOnePersistedAuthorityChannel" />
 	<int:channel id="findAllPersistedAuthorityChannel" />
 	<int:channel id="savePersistedAuthorityChannel" />
-	<int:channel id="findByGeneralSearchUserChannel"/>
+	<int:channel id="findByGeneralSearchPageableUserChannel"/>
 	<int:channel id="findOneUserChannel"/>
-	<int:channel id="findByIdUserGroupChannel"/>
+	<int:channel id="findOneUserGroupChannel"/>
 	<int:channel id="findAllUserGroupChannel"/>
 	<int:channel id="findByGeneralSearchUserGroupChannel"/>
 	<int:channel id="findByNameUserGroupChannel"/>

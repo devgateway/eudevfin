@@ -90,11 +90,11 @@ public class FinancialTransactionServiceTest {
 	}
 	
 	@Test
-	public void testFindById() {
+	public void testfindOne() {
 		FinancialTransaction tx	= this.createTransaction();
 		tx	= service.save(tx).getEntity();
 		
-		FinancialTransaction result	= service.findById(tx.getId() ).getEntity();
+		FinancialTransaction result	= service.findOne(tx.getId() ).getEntity();
 		Assert.assertNotNull(result);
 		Assert.assertNotNull(result.getCommitmentDate());
 	}

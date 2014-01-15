@@ -63,7 +63,7 @@ public abstract class AbstractTranslatableProvider<T extends AbstractTranslateab
         ArrayList<T> ret = new ArrayList<>();
         for (String strId : ids) {
             Long id = Long.parseLong(strId);
-            T item = getService().findById(id).getEntity();
+            T item = getService().findOne(id).getEntity();
             if (item == null)
                 logger.error("Can't find object with id: " + id);
             else

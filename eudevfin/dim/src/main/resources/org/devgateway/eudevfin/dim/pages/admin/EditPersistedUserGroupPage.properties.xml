@@ -11,4 +11,5 @@
 <properties>    
     <entry key="name.label">Group Name</entry>
     <entry key="organization.label">Organization</entry>
+    <entry key="users.label">Users</entry>
 </properties>

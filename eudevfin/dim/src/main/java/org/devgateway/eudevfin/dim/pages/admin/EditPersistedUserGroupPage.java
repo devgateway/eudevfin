@@ -11,6 +11,8 @@
 
 package org.devgateway.eudevfin.dim.pages.admin;
 
+import java.util.Collection;
+
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
@@ -24,14 +26,18 @@ import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.IValidator;
 import org.apache.wicket.validation.ValidationError;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
+import org.devgateway.eudevfin.auth.common.domain.PersistedAuthority;
+import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUserGroup;
 import org.devgateway.eudevfin.auth.common.service.PersistedUserGroupService;
 import org.devgateway.eudevfin.dim.providers.OrganizationChoiceProvider;
+import org.devgateway.eudevfin.dim.providers.PersistedUserChoiceProvider;
 import org.devgateway.eudevfin.dim.providers.PersistedUserGroupChoiceProvider;
 import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
+import org.devgateway.eudevfin.ui.common.components.MultiSelectField;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.wicketstuff.annotation.mount.MountPath;
@@ -49,6 +55,9 @@ public class EditPersistedUserGroupPage extends HeaderFooter {
 
 	@SpringBean
 	private PersistedUserGroupChoiceProvider userGroupChoiceProvider;
+	
+	@SpringBean
+	private PersistedUserChoiceProvider userChoiceProvider;
 	
 	@SpringBean
 	private OrganizationChoiceProvider organizationChoiceProvider;
@@ -91,7 +100,7 @@ public class EditPersistedUserGroupPage extends HeaderFooter {
 
 		if (!parameters.get(PARAM_GROUP_ID).isNull()) {
 			groupId = parameters.get(PARAM_GROUP_ID).toLong();
-			persistedUserGroup = userGroupService.findById(groupId).getEntity();
+			persistedUserGroup = userGroupService.findOne(groupId).getEntity();
 		} else {
 			persistedUserGroup = new PersistedUserGroup();
 		}
@@ -108,6 +117,12 @@ public class EditPersistedUserGroupPage extends HeaderFooter {
 
 		DropDownField<Organization> organization = new DropDownField<Organization>("organization",
 				new RWComponentPropertyModel<Organization>("organization"), organizationChoiceProvider);
+		
+		MultiSelectField<PersistedUser> users = new MultiSelectField<PersistedUser>(
+				"users",
+				new RWComponentPropertyModel<Collection<PersistedUser>>(
+				"users"), userChoiceProvider);
+
 				
 		form.add(new BootstrapSubmitButton("submit", Model.of("Submit")) {
 			
@@ -129,6 +144,7 @@ public class EditPersistedUserGroupPage extends HeaderFooter {
 	
 		form.add(groupName);
 		form.add(organization);
+		form.add(users);
 		add(form);
 	}
 

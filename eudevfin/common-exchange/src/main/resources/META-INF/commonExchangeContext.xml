@@ -17,7 +17,7 @@
 
 	<int:gateway id="exchangeService"
 		service-interface="org.devgateway.eudevfin.exchange.common.service.HistoricalExchangeRateService">
-		<int:method name="findById" request-channel="exchangeChannel">
+		<int:method name="findOne" request-channel="exchangeChannel">
 			<int:header name="requestName" value="getHistoricalExchangeRateByIdChannel" />
 		</int:method>
 		<int:method name="save" request-channel="exchangeChannel">

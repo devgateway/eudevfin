@@ -70,7 +70,7 @@ public class PersistedUserGroupChoiceProvider extends
 	public Collection<PersistedUserGroup> toChoices(Collection<String> ids) {
 		List<PersistedUserGroup> returnable = new ArrayList<PersistedUserGroup>();
 		for (String string : ids)
-			returnable.add(persistedUserGroupService.findById(Long.parseLong(string)).getEntity());
+			returnable.add(persistedUserGroupService.findOne(Long.parseLong(string)).getEntity());
 		return returnable;
 	}
 

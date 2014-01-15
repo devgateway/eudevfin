@@ -73,7 +73,7 @@ public class LocaleTest {
 
 			logger.info(tx);
 			service.save(tx);
-			FinancialTransaction result =  service.findById(tx.getId()).getEntity();
+			FinancialTransaction result =  service.findOne(tx.getId()).getEntity();
 
 			Assert.assertNotNull(result.getId());
 			logger.info(result);

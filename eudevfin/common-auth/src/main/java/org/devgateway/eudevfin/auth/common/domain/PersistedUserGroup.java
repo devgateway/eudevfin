@@ -37,7 +37,7 @@ public class PersistedUserGroup implements Serializable {
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<PersistedAuthority> authorities = new HashSet<PersistedAuthority>();
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<PersistedUser> users = new HashSet<PersistedUser>();
 	
 	@ManyToOne(fetch = FetchType.EAGER)

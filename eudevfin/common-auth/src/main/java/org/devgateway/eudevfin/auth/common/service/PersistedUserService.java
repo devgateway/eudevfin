@@ -14,9 +14,5 @@ public interface PersistedUserService  extends BaseEntityService<PersistedUser> 
 	
 	NullableWrapper<PersistedUser> save(PersistedUser u);
 	
-	NullableWrapper<PersistedUser> findByUsername(String username);
-
-	NullableWrapper<PersistedUser> findOne(Long userId);
-
-	
+	NullableWrapper<PersistedUser> findByUsername(String username);		
 }

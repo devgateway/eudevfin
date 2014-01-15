@@ -18,7 +18,7 @@ public interface BaseEntityService<T> {
 	@Payload("new java.util.Date()")
 	List<T> findAll();
 	
-	NullableWrapper<T> findById(Long id);
+	NullableWrapper<T> findOne(Long id);
 	
 	public PagingHelper<T> findByGeneralSearchPageable(String searchString, 
 			@Header("pageNumber")int pageNumber, @Header("pageSize")int pageSize);

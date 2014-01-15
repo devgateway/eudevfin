@@ -57,12 +57,12 @@ public class HistoricalExchangeRateDaoImplEndpoint extends AbstractDaoImpl<Histo
 			.getLogger(HistoricalExchangeRateDaoImplEndpoint.class);
 
 	/**
-	 * @see HistoricalExchangeRateService#findById(Long)
+	 * @see HistoricalExchangeRateService#findOne(Long)
 	 * @param id
 	 * @return
 	 */
 	@ServiceActivator(inputChannel = "getHistoricalExchangeRateByIdChannel")
-	public NullableWrapper<HistoricalExchangeRate> findById(Long id) {
+	public NullableWrapper<HistoricalExchangeRate> findOne(Long id) {
 		return newWrapper(repo.findOne(id));
 	}
 

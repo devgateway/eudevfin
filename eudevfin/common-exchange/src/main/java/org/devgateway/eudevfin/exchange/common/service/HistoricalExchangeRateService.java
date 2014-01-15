@@ -39,7 +39,7 @@ public interface HistoricalExchangeRateService {
 	 *            the id
 	 * @return the {@link HistoricalExchangeRate}
 	 */
-	NullableWrapper<HistoricalExchangeRate> findById(Long id);
+	NullableWrapper<HistoricalExchangeRate> findOne(Long id);
 
 	/**
 	 * Finds the {@link HistoricalExchangeRate}S from the database for the

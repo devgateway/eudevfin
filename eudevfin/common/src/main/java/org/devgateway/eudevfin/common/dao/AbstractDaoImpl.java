@@ -7,10 +7,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.devgateway.eudevfin.common.service.BaseEntityService;
 import org.devgateway.eudevfin.common.service.PagingHelper;
 import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.integration.annotation.Header;
 
 /**
  * @author Alex
@@ -50,11 +53,20 @@ public abstract class AbstractDaoImpl<Entity,IDType extends Serializable,Repo ex
 		
 	}
 	
+	/**
+	 * @see BaseEntityService#save(Object)
+	 * @param e
+	 * @return
+	 */
 	public NullableWrapper<Entity> save(Entity e) {
 		Entity r = getRepo().save(e);
 		return newWrapper(r);
 	}
 	
+	/**
+	 * @see BaseEntityService#findAll()
+	 * @return
+	 */
 	public Iterable<Entity> findAll() {
 		return getRepo().findAll();
 	}
@@ -67,7 +79,21 @@ public abstract class AbstractDaoImpl<Entity,IDType extends Serializable,Repo ex
 		getRepo().delete(iterable);
 	}
 	
+	/**
+	 * @see BaseEntityService#findOne(Long)
+	 * @param id
+	 * @return
+	 */
 	public  NullableWrapper<Entity> findOne(IDType id) {
 		return newWrapper(getRepo().findOne(id));
+	}
+	
+	public PagingHelper<Entity> findByGeneralSearchPageable(String searchString,
+			 int pageNumber,int pageSize) {
+		int realPageNumber = pageNumber - 1;
+		PageRequest pageRequest = new PageRequest(realPageNumber, pageSize,
+				null);
+		return this.createPagingHelperFromPage(this.getRepo().findAll(
+				pageRequest));
 	}
 }

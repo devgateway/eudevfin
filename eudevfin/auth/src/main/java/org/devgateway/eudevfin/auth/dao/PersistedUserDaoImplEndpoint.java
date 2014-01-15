@@ -8,11 +8,15 @@ import org.devgateway.eudevfin.common.service.PagingHelper;
 import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.integration.annotation.Header;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
 
+/**
+ * 
+ * @author mihai
+ * 
+ */
 @Component
 @Lazy(value=false)
 public class PersistedUserDaoImplEndpoint extends AbstractDaoImpl<PersistedUser, Long, PersistedUserRepository> {
@@ -52,19 +56,20 @@ public class PersistedUserDaoImplEndpoint extends AbstractDaoImpl<PersistedUser,
 		return super.findOne(id);
 	}
 	
+
 	/**
-	 * 
-	 * @see PersistedUserService#findByGeneralSearch(String, int, int)
+	 * @see PersistedUserService#findByGeneralSearchPageable(String, int, int)
+	 * @param searchString
+	 * @param pageNumber
+	 * @param pageSize
+	 * @return
 	 */
-	@ServiceActivator(inputChannel = "findByGeneralSearchUserChannel")
-	public PagingHelper<PersistedUser> findByGeneralSearch(String searchString,
-			@Header("pageNumber") int pageNumber,
+	@ServiceActivator(inputChannel = "findByGeneralSearchPageableUserChannel")
+	public PagingHelper<PersistedUser> findByGeneralSearchPageable(
+			String searchString, @Header("pageNumber") int pageNumber,
 			@Header("pageSize") int pageSize) {
-		int realPageNumber = pageNumber - 1;
-		PageRequest pageRequest = new PageRequest(realPageNumber, pageSize,
-				null);
-		return this.createPagingHelperFromPage(this.getRepo().findAll(
-				pageRequest));
+		return super.findByGeneralSearchPageable(searchString, pageNumber,
+				pageSize);
 	}
 
  }

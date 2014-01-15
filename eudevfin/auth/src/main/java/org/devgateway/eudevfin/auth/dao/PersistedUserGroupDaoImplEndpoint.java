@@ -75,9 +75,9 @@ public class PersistedUserGroupDaoImplEndpoint extends
 	
 	
 	/**
-	 * @see PersistedUserGroupService#findById(Long)
+	 * @see PersistedUserGroupService#findOne(Long)
 	 */
-	@ServiceActivator(inputChannel = "findByIdUserGroupChannel")
+	@ServiceActivator(inputChannel = "findOneUserGroupChannel")
 	@Override
 	public NullableWrapper<PersistedUserGroup> findOne(Long id) {
 		// TODO Auto-generated method stub
