@@ -14,11 +14,13 @@ package org.devgateway.eudevfin.financial.dao;
 import java.util.List;
 
 import org.devgateway.eudevfin.common.dao.AbstractDaoImpl;
+import org.devgateway.eudevfin.common.service.PagingHelper;
 import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.repository.OrganizationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Sort;
 import org.springframework.integration.annotation.Header;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
@@ -61,5 +63,15 @@ public class OrganizationDaoImpl extends AbstractDaoImpl<Organization, Long, Org
 	@ServiceActivator(inputChannel="findOrganizationByIdChannel")
 	public NullableWrapper<Organization> findOne(Long id) {
 		return super.findOne(id);
+	}
+	
+	@Override
+	@ServiceActivator(inputChannel="findOrganizationByGeneralSearchPageableChannel")
+	public PagingHelper<Organization> findByGeneralSearchPageable(String searchString,
+			@Header(value="locale",required=false) String locale, @Header("pageNumber") int pageNumber, @Header("pageSize") int pageSize,
+			@Header(value="sort",required=false) Sort sort) {
+		// TODO Auto-generated method stub
+		 PagingHelper<Organization> findByGeneralSearchPageable = super.findByGeneralSearchPageable(searchString, locale, pageNumber, pageSize, sort);
+		 return findByGeneralSearchPageable;
 	}
 }

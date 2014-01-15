@@ -11,6 +11,8 @@ package org.devgateway.eudevfin.dim.providers;
 import org.devgateway.eudevfin.common.service.BaseEntityService;
 import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.service.CategoryService;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 
 import java.util.List;
 
@@ -22,7 +24,8 @@ public abstract class AbstractCategoryProvider extends AbstractTranslatableProvi
     private CategoryService categoryService;
 
     protected AbstractCategoryProvider(CategoryService categoryService) {
-        this.categoryService = categoryService;
+        this.categoryService = categoryService;    
+        this.sort=new Sort(Direction.ASC,"code");
     }
 
     @Override
@@ -36,10 +39,12 @@ public abstract class AbstractCategoryProvider extends AbstractTranslatableProvi
     }
 
     @Override
-    protected List<Category> getItemsByTerm(String term) {
+    protected List<Category> getItemsByTerm(String term,int page) {
         return categoryService.findByTagsCode(getCategoryTag());
     }
 
     protected abstract String getCategoryTag();
+    
+   
 
 }

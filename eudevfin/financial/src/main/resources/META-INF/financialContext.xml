@@ -163,6 +163,7 @@
 	<int:channel id="findOrganizationByGeneralSearchChannel" />
     <int:channel id="findAllAsListOrganizationChannel"/>
     <int:channel id="findOrganizationByIdChannel"/>
+    <int:channel id="findOrganizationByGeneralSearchPageableChannel"/>
 	
 	<int:channel id="saveCategoryChannel" />
 	<int:channel id="findAllAsListCategoryChannel" />
@@ -179,6 +180,8 @@
 	<int:channel id="findAllAsListAreaChannel"/>
 	<int:channel id="findAreaByIdChannel"/>
 	<int:channel id="findAreaByGeneralSearchChannel"/>
+	
+	
 	
 
     <!-- 	Router that sends the requests to the appropriate channels where they will usually be handled by ServiceActivators.

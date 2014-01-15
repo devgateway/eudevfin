@@ -71,6 +71,10 @@
         <int:method name="findByGeneralSearch" request-channel="getChannel">
 			<int:header name="requestName" value="findOrganizationByGeneralSearchChannel"/>
 		</int:method>
+		  <int:method name="findByGeneralSearchPageable" request-channel="getChannel">
+			<int:header name="requestName" value="findOrganizationByGeneralSearchPageableChannel"/>
+		</int:method>
+		
     </int:gateway>
     <int:gateway id="categoryService"
 		default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}" 

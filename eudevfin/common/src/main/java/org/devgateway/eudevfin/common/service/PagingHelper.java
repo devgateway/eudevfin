@@ -18,7 +18,9 @@ public class PagingHelper<T> {
 	private List<T> entities;
 	
 	
-	
+	public boolean hasMorePages() {
+		return currentPageNo+1<totalNumberOfPages;
+	}
 	
 	public PagingHelper(int currentPageNo, int totalNumberOfPages,
 			int totalNumOfEntities) {

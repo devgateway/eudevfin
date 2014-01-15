@@ -6,6 +6,7 @@ package org.devgateway.eudevfin.common.service;
 import java.util.List;
 
 import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
+import org.springframework.data.domain.Sort;
 import org.springframework.integration.annotation.Header;
 import org.springframework.integration.annotation.Payload;
 
@@ -20,8 +21,9 @@ public interface BaseEntityService<T> {
 	
 	NullableWrapper<T> findOne(Long id);
 	
-	public PagingHelper<T> findByGeneralSearchPageable(String searchString, 
-			@Header("pageNumber")int pageNumber, @Header("pageSize")int pageSize);
+	public PagingHelper<T> findByGeneralSearchPageable(String searchString,
+			@Header(value="locale",required=false) String locale, @Header("pageNumber") int pageNumber, @Header("pageSize") int pageSize,
+			@Header(value="sort",required=false) Sort sort);
 	
 	public List<T> findByGeneralSearch(@Header("locale")String locale, String searchString);
 }

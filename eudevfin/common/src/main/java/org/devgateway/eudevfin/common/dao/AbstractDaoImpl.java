@@ -12,6 +12,7 @@ import org.devgateway.eudevfin.common.service.PagingHelper;
 import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.integration.annotation.Header;
 
@@ -88,11 +89,21 @@ public abstract class AbstractDaoImpl<Entity,IDType extends Serializable,Repo ex
 		return newWrapper(getRepo().findOne(id));
 	}
 	
-	public PagingHelper<Entity> findByGeneralSearchPageable(String searchString,
-			 int pageNumber,int pageSize) {
+	/**
+	 * @see BaseEntityService#findByGeneralSearchPageable(String, String, int, int, Sort)
+	 * @param searchString
+	 * @param pageNumber
+	 * @param pageSize
+	 * @param sort
+	 * @return
+	 */
+	
+	public PagingHelper<Entity> findByGeneralSearchPageable(String searchString,String locale,
+			 int pageNumber,int pageSize, Sort sort) {
 		int realPageNumber = pageNumber - 1;
 		PageRequest pageRequest = new PageRequest(realPageNumber, pageSize,
-				null);
+				sort);
+		
 		return this.createPagingHelperFromPage(this.getRepo().findAll(
 				pageRequest));
 	}

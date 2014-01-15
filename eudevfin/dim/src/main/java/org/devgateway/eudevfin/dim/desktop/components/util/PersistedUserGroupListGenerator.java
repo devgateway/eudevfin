@@ -30,7 +30,7 @@ public class PersistedUserGroupListGenerator implements
 	@Override
 	public PagingHelper<PersistedUserGroup> getResultsList(int pageNumber,
 			int pageSize) {
-		return userGroupService.findByGeneralSearchPageable(searchString, pageNumber, pageSize);
+		return userGroupService.findByGeneralSearchPageable(searchString,null, pageNumber, pageSize,null);
 	}
 
 }

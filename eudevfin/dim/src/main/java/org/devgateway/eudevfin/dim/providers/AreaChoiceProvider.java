@@ -12,6 +12,8 @@ import org.devgateway.eudevfin.common.service.BaseEntityService;
 import org.devgateway.eudevfin.financial.Area;
 import org.devgateway.eudevfin.financial.service.AreaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Component;
 
 /**
@@ -21,6 +23,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class AreaChoiceProvider extends AbstractTranslatableProvider<Area> {
 
+	public AreaChoiceProvider() {
+		this.sort=new Sort(Direction.ASC,"code");
+	}
+	
     @Autowired
     private AreaService areaService;
 

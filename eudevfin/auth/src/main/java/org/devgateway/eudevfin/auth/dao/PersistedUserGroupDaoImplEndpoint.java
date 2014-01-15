@@ -3,6 +3,7 @@
  */
 package org.devgateway.eudevfin.auth.dao;
 
+import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUserGroup;
 import org.devgateway.eudevfin.auth.common.service.PersistedUserGroupService;
 import org.devgateway.eudevfin.auth.repository.PersistedUserGroupRepository;
@@ -12,23 +13,23 @@ import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.integration.annotation.Header;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
 
 /**
  * @author mihai
- *
+ * 
  */
 @Component
-@Lazy(value=false)
+@Lazy(value = false)
 public class PersistedUserGroupDaoImplEndpoint extends
-		AbstractDaoImpl<PersistedUserGroup,Long, PersistedUserGroupRepository> {
+		AbstractDaoImpl<PersistedUserGroup, Long, PersistedUserGroupRepository> {
 
 	@Autowired
 	protected PersistedUserGroupRepository persistedUserGroupRepository;
-	
-	
+
 	/**
 	 * 
 	 */
@@ -36,24 +37,26 @@ public class PersistedUserGroupDaoImplEndpoint extends
 		// TODO Auto-generated constructor stub
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.devgateway.eudevfin.financial.dao.AbstractDaoImpl#getRepo()
 	 */
 	@Override
 	protected PersistedUserGroupRepository getRepo() {
 		return persistedUserGroupRepository;
 	}
-	
+
 	/**
 	 * @see PersistedUserGroupService#findByName(String)
 	 * @param name
 	 * @return
 	 */
-	@ServiceActivator(inputChannel="findByNameUserGroupChannel")
+	@ServiceActivator(inputChannel = "findByNameUserGroupChannel")
 	public NullableWrapper<PersistedUserGroup> findByName(String name) {
 		return newWrapper(persistedUserGroupRepository.findByName(name));
 	}
-	
+
 	/**
 	 * @see PersistedUserGroupService#findAll()
 	 */
@@ -63,7 +66,7 @@ public class PersistedUserGroupDaoImplEndpoint extends
 		// TODO Auto-generated method stub
 		return super.findAll();
 	}
-	
+
 	/**
 	 * @see PersistedUserGroupService#save(PersistedUserGroup)
 	 */
@@ -72,8 +75,7 @@ public class PersistedUserGroupDaoImplEndpoint extends
 	public NullableWrapper<PersistedUserGroup> save(PersistedUserGroup e) {
 		return super.save(e);
 	}
-	
-	
+
 	/**
 	 * @see PersistedUserGroupService#findOne(Long)
 	 */
@@ -83,20 +85,17 @@ public class PersistedUserGroupDaoImplEndpoint extends
 		// TODO Auto-generated method stub
 		return super.findOne(id);
 	}
-	
-	/**
-	 * @see PersistedUserGroupService#findByGeneralSearchPageable(String, int, int)
-	 */
-	@ServiceActivator(inputChannel = "findByGeneralSearchUserGroupChannel")
-	public PagingHelper<PersistedUserGroup> findByGeneralSearch(String searchString,
-			@Header("pageNumber") int pageNumber,
-			@Header("pageSize") int pageSize) {
-		int realPageNumber = pageNumber - 1;
-		PageRequest pageRequest = new PageRequest(realPageNumber, pageSize,
-				null);
-		return this.createPagingHelperFromPage(this.getRepo().findAll(
-				pageRequest));
-	}
 
+	/**
+	 * @see PersistedUserGroupService#findByGeneralSearchPageable(String, int,
+	 *      int)
+	 */
+	@Override
+	@ServiceActivator(inputChannel = "findByGeneralSearchUserGroupChannel")
+	public PagingHelper<PersistedUserGroup> findByGeneralSearchPageable(String searchString,
+			@Header(value="locale",required=false) String locale, @Header("pageNumber") int pageNumber, @Header("pageSize") int pageSize,
+			@Header(value="sort",required=false) Sort sort) {
+		return super.findByGeneralSearchPageable(searchString, locale, pageNumber, pageSize, sort);
+	}
 
 }

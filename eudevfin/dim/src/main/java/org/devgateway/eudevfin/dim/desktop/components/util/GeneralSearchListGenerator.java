@@ -36,7 +36,7 @@ public class GeneralSearchListGenerator implements ListGeneratorInterface<Financ
 	public PagingHelper<FinancialTransaction> getResultsList(int pageNumber,
 			int pageSize) {
 		if ( this.searchString != null && this.searchString.length() > 1 )
-			return this.txService.findByGeneralSearchPageable(this.searchString, pageNumber, pageSize);
+			return this.txService.findByGeneralSearchPageable(this.searchString,null, pageNumber, pageSize,null);
 		else
 			return null;
 	}

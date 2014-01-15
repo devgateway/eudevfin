@@ -12,6 +12,8 @@ import org.devgateway.eudevfin.common.service.BaseEntityService;
 import org.devgateway.eudevfin.financial.ChannelCategory;
 import org.devgateway.eudevfin.financial.service.ChannelCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Component;
 
 /**
@@ -21,6 +23,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class ChannelCategoryChoiceProvider extends AbstractTranslatableProvider<ChannelCategory> {
 
+	public ChannelCategoryChoiceProvider() {
+		this.sort=new Sort(Direction.ASC,"code");
+	}
+	
     @Autowired
     private ChannelCategoryService channelCategoryService;
 

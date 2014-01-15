@@ -15,6 +15,8 @@ import org.devgateway.eudevfin.common.service.BaseEntityService;
 import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Component;
 
 /**
@@ -24,12 +26,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrganizationChoiceProvider extends AbstractTranslatableProvider<Organization> {
 
+	
+	
     @Autowired
     private OrganizationService organizationService;
 
 
     public OrganizationChoiceProvider() {
         super();
+    	//this.sort=new Sort(Direction.ASC,"code");
     }
 
     @Override
