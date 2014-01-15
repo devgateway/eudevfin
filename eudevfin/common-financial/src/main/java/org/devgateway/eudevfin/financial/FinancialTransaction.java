@@ -11,14 +11,18 @@ package org.devgateway.eudevfin.financial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.DiscriminatorValue;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 import org.devgateway.eudevfin.financial.translate.FinancialTransactionTranslation;
 import org.devgateway.eudevfin.financial.translate.FinancialTransactionTrnInterface;
@@ -56,6 +60,7 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
     private String geoTargetArea;
 
 
+    @Transient
     private Boolean cpa;
     private Boolean programmeBasedApproach;
     private Boolean investment;
@@ -81,77 +86,131 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
     private LocalDateTime reportingYear;
 
 
-    @Columns(columns = {@Column(name = "commitment_curr"), @Column(name = "commitment_amount")})
-    @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
-    private BigMoney commitments;
+//    @Columns(columns = {@Column(name = "commitment_curr"), @Column(name = "commitment_amount")})
+//    @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
+//    private BigMoney commitments;
+    
 
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentCurrencyUnit")
     private CurrencyUnit currency;
 
-    @Columns(columns = {@Column(name = "amounts_extended_curr"), @Column(name = "amounts_extended_amount")})
-    @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
-    private BigMoney amountsExtended;
+    @Columns(columns = { @Column(name = "amounts_extended_curr"),
+			@Column(name = "amounts_extended_amount"),
+			@Column(name = "amounts_extended_counter_curr"),
+			@Column(name = "amounts_extended_rate") })
+	@Type(type = "org.devgateway.eudevfin.financial.usertypes.PersistentBigMoneyWithCurrencyAndFixedRate")
+	private BigMoneyWithCurrencyAndFixedRate amountsExtended;
+    
+    
+    @Columns(columns = { @Column(name = "amounts_extended_current_curr"),
+			@Column(name = "amounts_extended_current_amount"),
+			@Column(name = "amounts_extended_current_counter_curr"),
+			@Column(name = "amounts_extended_current_rate") })
+	@Type(type = "org.devgateway.eudevfin.financial.usertypes.PersistentBigMoneyWithCurrencyAndFixedRate")
+	private BigMoneyWithCurrencyAndFixedRate amountsExtendedCurrent;
 
-    @Columns(columns = {@Column(name = "amounts_extended_current_curr"), @Column(name = "amounts_extended_current_amount")})
-    @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
-    private BigMoney amountsExtendedCurrent;
+    @Columns(columns = { @Column(name = "amounts_extended_year1_curr"),
+			@Column(name = "amounts_extended_year1_amount"),
+			@Column(name = "amounts_extended_year1_counter_curr"),
+			@Column(name = "amounts_extended_year1_rate") })
+	@Type(type = "org.devgateway.eudevfin.financial.usertypes.PersistentBigMoneyWithCurrencyAndFixedRate")
+	private BigMoneyWithCurrencyAndFixedRate amountsExtendedYear1;
 
-    @Columns(columns = {@Column(name = "amounts_extended_year1_curr"), @Column(name = "amounts_extended_year1_amount")})
-    @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
-    private BigMoney amountsExtendedYear1;
+    @Columns(columns = { @Column(name = "amounts_extended_year2_curr"),
+			@Column(name = "amounts_extended_year2_amount"),
+			@Column(name = "amounts_extended_year2_counter_curr"),
+			@Column(name = "amounts_extended_year2_rate") })
+	@Type(type = "org.devgateway.eudevfin.financial.usertypes.PersistentBigMoneyWithCurrencyAndFixedRate")
+	private BigMoneyWithCurrencyAndFixedRate amountsExtendedYear2;
 
-    @Columns(columns = {@Column(name = "amounts_extended_year2_curr"), @Column(name = "amounts_extended_year2_amount")})
-    @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
-    private BigMoney amountsExtendedYear2;
+    
+    @Columns(columns = { @Column(name = "amounts_received_curr"),
+			@Column(name = "amounts_received_amount"),
+			@Column(name = "amounts_received_counter_curr"),
+			@Column(name = "amounts_received_rate") })
+	@Type(type = "org.devgateway.eudevfin.financial.usertypes.PersistentBigMoneyWithCurrencyAndFixedRate")
+	private BigMoneyWithCurrencyAndFixedRate amountsReceived;
 
-    @Columns(columns = {@Column(name = "amounts_received_curr"), @Column(name = "amounts_received_amount")})
-    @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
-    private BigMoney amountsReceived;
+    
+    @Columns(columns = { @Column(name = "amounts_untied_curr"),
+			@Column(name = "amounts_untied_amount"),
+			@Column(name = "amounts_untied_counter_curr"),
+			@Column(name = "amounts_untied_rate") })
+	@Type(type = "org.devgateway.eudevfin.financial.usertypes.PersistentBigMoneyWithCurrencyAndFixedRate")
+	private BigMoneyWithCurrencyAndFixedRate amountsUntied;
+    
+    @Columns(columns = { @Column(name = "amounts_partially_untied_curr"),
+			@Column(name = "amounts_partially_untied_amount"),
+			@Column(name = "amounts_partially_untied_counter_curr"),
+			@Column(name = "amounts_partially_untied_rate") })
+	@Type(type = "org.devgateway.eudevfin.financial.usertypes.PersistentBigMoneyWithCurrencyAndFixedRate")
+	private BigMoneyWithCurrencyAndFixedRate amountsPartiallyUntied;
+    
+    @Columns(columns = { @Column(name = "amounts_tied_curr"),
+			@Column(name = "amounts_tied_amount"),
+			@Column(name = "amounts_tied_counter_curr"),
+			@Column(name = "amounts_tied_rate") })
+	@Type(type = "org.devgateway.eudevfin.financial.usertypes.PersistentBigMoneyWithCurrencyAndFixedRate")
+	private BigMoneyWithCurrencyAndFixedRate amountsTied;
+    
+    @Columns(columns = { @Column(name = "amounts_irtc_curr"),
+			@Column(name = "amounts_irtc_amount"),
+			@Column(name = "amounts_irtc_counter_curr"),
+			@Column(name = "amounts_irtc_rate") })
+	@Type(type = "org.devgateway.eudevfin.financial.usertypes.PersistentBigMoneyWithCurrencyAndFixedRate")
+	private BigMoneyWithCurrencyAndFixedRate amountOfIRTC;
 
-    @Columns(columns = {@Column(name = "amounts_untied_curr"), @Column(name = "amounts_untied_amount")})
-    @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
-    private BigMoney amountsUntied;
+    @Columns(columns = { @Column(name = "amounts_exp_commit_curr"),
+			@Column(name = "amounts_exp_commit_amount"),
+			@Column(name = "amounts_exp_commit_counter_curr"),
+			@Column(name = "amounts_exp_commit_rate") })
+	@Type(type = "org.devgateway.eudevfin.financial.usertypes.PersistentBigMoneyWithCurrencyAndFixedRate")
+	private BigMoneyWithCurrencyAndFixedRate projectAmountExpertCommitments;
 
-    @Columns(columns = {@Column(name = "amounts_partially_untied_curr"), @Column(name = "amounts_partially_untied_amount")})
-    @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
-    private BigMoney amountsPartiallyUntied;
+    @Columns(columns = { @Column(name = "amounts_exp_extended_curr"),
+			@Column(name = "amounts_exp_extended_amount"),
+			@Column(name = "amounts_exp_extended_counter_curr"),
+			@Column(name = "amounts_exp_extended_rate") })
+	@Type(type = "org.devgateway.eudevfin.financial.usertypes.PersistentBigMoneyWithCurrencyAndFixedRate")
+	private BigMoneyWithCurrencyAndFixedRate projectAmountExpertExtended;
 
-    @Columns(columns = {@Column(name = "amounts_tied_curr"), @Column(name = "amounts_tied_amount")})
-    @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
-    private BigMoney amountsTied;
+    
+    @Columns(columns = { @Column(name = "amounts_export_credit_curr"),
+			@Column(name = "amounts_export_credit_amount"),
+			@Column(name = "amounts_export_credit_counter_curr"),
+			@Column(name = "amounts_export_credit_rate") })
+	@Type(type = "org.devgateway.eudevfin.financial.usertypes.PersistentBigMoneyWithCurrencyAndFixedRate")
+	private BigMoneyWithCurrencyAndFixedRate amountOfExportCreditInAFPackage;
 
-    @Columns(columns = {@Column(name = "amounts_irtc_curr"), @Column(name = "amounts_irtc_amount")})
-    @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
-    private BigMoney amountOfIRTC;
+    @Columns(columns = { @Column(name = "amounts_interest_received_curr"),
+			@Column(name = "amounts_interest_received_amount"),
+			@Column(name = "amounts_interest_received_counter_curr"),
+			@Column(name = "amounts_interest_received_rate") })
+	@Type(type = "org.devgateway.eudevfin.financial.usertypes.PersistentBigMoneyWithCurrencyAndFixedRate")
+	private BigMoneyWithCurrencyAndFixedRate interestReceived;
 
-    @Columns(columns = {@Column(name = "amounts_exp_commit_curr"), @Column(name = "amounts_exp_commit_amount")})
-    @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
-    private BigMoney projectAmountExpertCommitments;
+    @Columns(columns = { @Column(name = "amounts_prin_disb_curr"),
+			@Column(name = "amounts_prin_disb_amount"),
+			@Column(name = "amounts_prin_disb_counter_curr"),
+			@Column(name = "amounts_prin_disb_rate") })
+	@Type(type = "org.devgateway.eudevfin.financial.usertypes.PersistentBigMoneyWithCurrencyAndFixedRate")
+	private BigMoneyWithCurrencyAndFixedRate principalDisbursedOutstanding;
+    
 
-    @Columns(columns = {@Column(name = "amounts_exp_extended_curr"), @Column(name = "amounts_exp_extended_amount")})
-    @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
-    private BigMoney projectAmountExpertExtended;
+    @Columns(columns = { @Column(name = "amounts_arears_prin_curr"),
+			@Column(name = "amounts_arears_prin_amount"),
+			@Column(name = "amounts_arears_prin_counter_curr"),
+			@Column(name = "amounts_arears_prin_rate") })
+	@Type(type = "org.devgateway.eudevfin.financial.usertypes.PersistentBigMoneyWithCurrencyAndFixedRate")
+	private BigMoneyWithCurrencyAndFixedRate arrearsOfPrincipal;
 
-    @Columns(columns = {@Column(name = "amounts_export_credit_curr"), @Column(name = "amounts_exp_export_credit_amount")})
-    @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
-    private BigMoney amountOfExportCreditInAFPackage;
-
-    @Columns(columns = {@Column(name = "amounts_interest_received_curr"), @Column(name = "amounts_interest_received_amount")})
-    @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
-    private BigMoney interestReceived;
-
-    @Columns(columns = {@Column(name = "amounts_prin_disb_curr"), @Column(name = "amounts_prin_disb_amount")})
-    @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
-    private BigMoney principalDisbursedOutstanding;
-
-    @Columns(columns = {@Column(name = "amounts_arears_prin_curr"), @Column(name = "amounts_arears_prin_amount")})
-    @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
-    private BigMoney arrearsOfPrincipal;
-
-    @Columns(columns = {@Column(name = "amounts_arears_interest_curr"), @Column(name = "amounts_arears_interest_amount")})
-    @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
-    private BigMoney arrearsOfInterest;
-
+    @Columns(columns = { @Column(name = "amounts_arears_interest_curr"),
+			@Column(name = "amounts_arears_interest_amount"),
+			@Column(name = "amounts_arears_interest_counter_curr"),
+			@Column(name = "amounts_arears_interest_rate") })
+	@Type(type = "org.devgateway.eudevfin.financial.usertypes.PersistentBigMoneyWithCurrencyAndFixedRate")
+	private BigMoneyWithCurrencyAndFixedRate arrearsOfInterest;
+    
 //    @ManyToOne
 //    private RecipientCategory recipient;
 
@@ -285,7 +344,6 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
                 "\n   firstRepaymentDate=" + firstRepaymentDate +
                 "\n   finalRepaymentDate=" + finalRepaymentDate +
                 "\n   reportingYear=" + reportingYear +
-                "\n   commitments=" + commitments +
                 "\n   currency=" + currency +
                 "\n   amountsExtended=" + amountsExtended +
                 "\n   amountsExtendedCurrent=" + amountsExtendedCurrent +
@@ -405,14 +463,6 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
         this.expectedStartDate = expectedStartDate;
     }
 
-    public BigMoney getCommitments() {
-        return commitments;
-    }
-
-    public void setCommitments(BigMoney commitments) {
-        this.commitments = commitments;
-    }
-
     public BigDecimal getInterestRate() {
         return interestRate;
     }
@@ -493,136 +543,7 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
         this.currency = currency;
     }
 
-    public BigMoney getAmountsExtended() {
-        return amountsExtended;
-    }
 
-    public void setAmountsExtended(BigMoney amountsExtended) {
-        this.amountsExtended = amountsExtended;
-    }
-
-    public BigMoney getAmountsExtendedCurrent() {
-        return amountsExtendedCurrent;
-    }
-
-    public void setAmountsExtendedCurrent(BigMoney amountsExtendedCurrent) {
-        this.amountsExtendedCurrent = amountsExtendedCurrent;
-    }
-
-    public BigMoney getAmountsExtendedYear1() {
-        return amountsExtendedYear1;
-    }
-
-    public void setAmountsExtendedYear1(BigMoney amountsExtendedYear1) {
-        this.amountsExtendedYear1 = amountsExtendedYear1;
-    }
-
-    public BigMoney getAmountsExtendedYear2() {
-        return amountsExtendedYear2;
-    }
-
-    public void setAmountsExtendedYear2(BigMoney amountsExtendedYear2) {
-        this.amountsExtendedYear2 = amountsExtendedYear2;
-    }
-
-    public BigMoney getAmountsReceived() {
-        return amountsReceived;
-    }
-
-    public void setAmountsReceived(BigMoney amountsReceived) {
-        this.amountsReceived = amountsReceived;
-    }
-
-    public BigMoney getAmountsUntied() {
-        return amountsUntied;
-    }
-
-    public void setAmountsUntied(BigMoney amountsUntied) {
-        this.amountsUntied = amountsUntied;
-    }
-
-    public BigMoney getAmountsPartiallyUntied() {
-        return amountsPartiallyUntied;
-    }
-
-    public void setAmountsPartiallyUntied(BigMoney amountsPartiallyUntied) {
-        this.amountsPartiallyUntied = amountsPartiallyUntied;
-    }
-
-    public BigMoney getAmountsTied() {
-        return amountsTied;
-    }
-
-    public void setAmountsTied(BigMoney amountsTied) {
-        this.amountsTied = amountsTied;
-    }
-
-    public BigMoney getAmountOfIRTC() {
-        return amountOfIRTC;
-    }
-
-    public void setAmountOfIRTC(BigMoney amountOfIRTC) {
-        this.amountOfIRTC = amountOfIRTC;
-    }
-
-    public BigMoney getProjectAmountExpertCommitments() {
-        return projectAmountExpertCommitments;
-    }
-
-    public void setProjectAmountExpertCommitments(
-            BigMoney projectAmountExpertCommitments) {
-        this.projectAmountExpertCommitments = projectAmountExpertCommitments;
-    }
-
-    public BigMoney getProjectAmountExpertExtended() {
-        return projectAmountExpertExtended;
-    }
-
-    public void setProjectAmountExpertExtended(BigMoney projectAmountExpertExtended) {
-        this.projectAmountExpertExtended = projectAmountExpertExtended;
-    }
-
-    public BigMoney getAmountOfExportCreditInAFPackage() {
-        return amountOfExportCreditInAFPackage;
-    }
-
-    public void setAmountOfExportCreditInAFPackage(
-            BigMoney amountOfExportCreditInAFPackage) {
-        this.amountOfExportCreditInAFPackage = amountOfExportCreditInAFPackage;
-    }
-
-    public BigMoney getInterestReceived() {
-        return interestReceived;
-    }
-
-    public void setInterestReceived(BigMoney interestReceived) {
-        this.interestReceived = interestReceived;
-    }
-
-    public BigMoney getPrincipalDisbursedOutstanding() {
-        return principalDisbursedOutstanding;
-    }
-
-    public void setPrincipalDisbursedOutstanding(
-            BigMoney principalDisbursedOutstanding) {
-        this.principalDisbursedOutstanding = principalDisbursedOutstanding;
-    }
-
-    public BigMoney getArrearsOfPrincipal() {
-        return arrearsOfPrincipal;
-    }
-
-    public void setArrearsOfPrincipal(BigMoney arrearsOfPrincipal) {
-        this.arrearsOfPrincipal = arrearsOfPrincipal;
-    }
-
-    public BigMoney getArrearsOfInterest() {
-        return arrearsOfInterest;
-    }
-
-    public void setArrearsOfInterest(BigMoney arrearsOfInterest) {
-        this.arrearsOfInterest = arrearsOfInterest;
-    }
 
 //    public RecipientCategory getRecipient() {
 //        return recipient;
@@ -634,7 +555,178 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
     
     
 
-    public Area getRecipient() {
+    public BigMoneyWithCurrencyAndFixedRate getAmountsExtended() {
+		return amountsExtended;
+	}
+
+
+	public void setAmountsExtended(BigMoneyWithCurrencyAndFixedRate amountsExtended) {
+		this.amountsExtended = amountsExtended;
+	}
+
+
+	public BigMoneyWithCurrencyAndFixedRate getAmountsExtendedCurrent() {
+		return amountsExtendedCurrent;
+	}
+
+
+	public void setAmountsExtendedCurrent(
+			BigMoneyWithCurrencyAndFixedRate amountsExtendedCurrent) {
+		this.amountsExtendedCurrent = amountsExtendedCurrent;
+	}
+
+
+	public BigMoneyWithCurrencyAndFixedRate getAmountsExtendedYear1() {
+		return amountsExtendedYear1;
+	}
+
+
+	public void setAmountsExtendedYear1(
+			BigMoneyWithCurrencyAndFixedRate amountsExtendedYear1) {
+		this.amountsExtendedYear1 = amountsExtendedYear1;
+	}
+
+
+	public BigMoneyWithCurrencyAndFixedRate getAmountsExtendedYear2() {
+		return amountsExtendedYear2;
+	}
+
+
+	public void setAmountsExtendedYear2(
+			BigMoneyWithCurrencyAndFixedRate amountsExtendedYear2) {
+		this.amountsExtendedYear2 = amountsExtendedYear2;
+	}
+
+
+	public BigMoneyWithCurrencyAndFixedRate getAmountsReceived() {
+		return amountsReceived;
+	}
+
+
+	public void setAmountsReceived(BigMoneyWithCurrencyAndFixedRate amountsReceived) {
+		this.amountsReceived = amountsReceived;
+	}
+
+
+	public BigMoneyWithCurrencyAndFixedRate getAmountsUntied() {
+		return amountsUntied;
+	}
+
+
+	public void setAmountsUntied(BigMoneyWithCurrencyAndFixedRate amountsUntied) {
+		this.amountsUntied = amountsUntied;
+	}
+
+
+	public BigMoneyWithCurrencyAndFixedRate getAmountsPartiallyUntied() {
+		return amountsPartiallyUntied;
+	}
+
+
+	public void setAmountsPartiallyUntied(
+			BigMoneyWithCurrencyAndFixedRate amountsPartiallyUntied) {
+		this.amountsPartiallyUntied = amountsPartiallyUntied;
+	}
+
+
+	public BigMoneyWithCurrencyAndFixedRate getAmountsTied() {
+		return amountsTied;
+	}
+
+
+	public void setAmountsTied(BigMoneyWithCurrencyAndFixedRate amountsTied) {
+		this.amountsTied = amountsTied;
+	}
+
+
+	public BigMoneyWithCurrencyAndFixedRate getAmountOfIRTC() {
+		return amountOfIRTC;
+	}
+
+
+	public void setAmountOfIRTC(BigMoneyWithCurrencyAndFixedRate amountOfIRTC) {
+		this.amountOfIRTC = amountOfIRTC;
+	}
+
+
+	public BigMoneyWithCurrencyAndFixedRate getProjectAmountExpertCommitments() {
+		return projectAmountExpertCommitments;
+	}
+
+
+	public void setProjectAmountExpertCommitments(
+			BigMoneyWithCurrencyAndFixedRate projectAmountExpertCommitments) {
+		this.projectAmountExpertCommitments = projectAmountExpertCommitments;
+	}
+
+
+	public BigMoneyWithCurrencyAndFixedRate getProjectAmountExpertExtended() {
+		return projectAmountExpertExtended;
+	}
+
+
+	public void setProjectAmountExpertExtended(
+			BigMoneyWithCurrencyAndFixedRate projectAmountExpertExtended) {
+		this.projectAmountExpertExtended = projectAmountExpertExtended;
+	}
+
+
+	public BigMoneyWithCurrencyAndFixedRate getAmountOfExportCreditInAFPackage() {
+		return amountOfExportCreditInAFPackage;
+	}
+
+
+	public void setAmountOfExportCreditInAFPackage(
+			BigMoneyWithCurrencyAndFixedRate amountOfExportCreditInAFPackage) {
+		this.amountOfExportCreditInAFPackage = amountOfExportCreditInAFPackage;
+	}
+
+
+	public BigMoneyWithCurrencyAndFixedRate getInterestReceived() {
+		return interestReceived;
+	}
+
+
+	public void setInterestReceived(
+			BigMoneyWithCurrencyAndFixedRate interestReceived) {
+		this.interestReceived = interestReceived;
+	}
+
+
+	public BigMoneyWithCurrencyAndFixedRate getPrincipalDisbursedOutstanding() {
+		return principalDisbursedOutstanding;
+	}
+
+
+	public void setPrincipalDisbursedOutstanding(
+			BigMoneyWithCurrencyAndFixedRate principalDisbursedOutstanding) {
+		this.principalDisbursedOutstanding = principalDisbursedOutstanding;
+	}
+
+
+	public BigMoneyWithCurrencyAndFixedRate getArrearsOfPrincipal() {
+		return arrearsOfPrincipal;
+	}
+
+
+	public void setArrearsOfPrincipal(
+			BigMoneyWithCurrencyAndFixedRate arrearsOfPrincipal) {
+		this.arrearsOfPrincipal = arrearsOfPrincipal;
+	}
+
+
+	public BigMoneyWithCurrencyAndFixedRate getArrearsOfInterest() {
+		return arrearsOfInterest;
+	}
+
+
+	public void setArrearsOfInterest(
+			BigMoneyWithCurrencyAndFixedRate arrearsOfInterest) {
+		this.arrearsOfInterest = arrearsOfInterest;
+	}
+
+
+	public Area getRecipient() {
 		return recipient;
 	}
 
@@ -827,4 +919,5 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
     public void setFreestandingTechnicalCooperation(Boolean freestandingTechnicalCooperation) {
         this.freestandingTechnicalCooperation = freestandingTechnicalCooperation;
     }
+    
 }
