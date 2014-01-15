@@ -89,7 +89,6 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
     @Columns(columns = {@Column(name = "commitment_curr"), @Column(name = "commitment_amount")})
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney commitments;
-    
 
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentCurrencyUnit")
     private CurrencyUnit currency;
@@ -920,7 +919,6 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
         this.freestandingTechnicalCooperation = freestandingTechnicalCooperation;
     }
 
-
 	public BigMoney getCommitments() {
 		return commitments;
 	}
@@ -929,7 +927,5 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
 	public void setCommitments(BigMoney commitments) {
 		this.commitments = commitments;
 	}
-    
-    
     
 }
