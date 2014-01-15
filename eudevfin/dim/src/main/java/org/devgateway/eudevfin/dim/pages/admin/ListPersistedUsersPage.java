@@ -12,13 +12,17 @@
 package org.devgateway.eudevfin.dim.pages.admin;
 
 import org.apache.log4j.Logger;
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.service.PersistedUserService;
 import org.devgateway.eudevfin.dim.desktop.components.PersistedUserTableListPanel;
 import org.devgateway.eudevfin.dim.desktop.components.util.PersistedUserListGenerator;
+import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
 import org.devgateway.eudevfin.ui.common.pages.ListPage;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -43,7 +47,23 @@ public class ListPersistedUsersPage extends ListPage {
 		PersistedUserTableListPanel persistedUserTableListPanel = new PersistedUserTableListPanel(
 				WICKETID_LIST_PANEL, new PersistedUserListGenerator(userService, ""));
 		add(persistedUserTableListPanel);
+		
+		Form form = new Form("form");
+		BootstrapSubmitButton submitButton = new BootstrapSubmitButton("addNewUser", new StringResourceModel("button.addNewUser", this, null, null)) {			
+			@Override
+			protected void onError(AjaxRequestTarget target, Form<?> form) {
+		
+			}
 
+			@Override
+			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+				setResponsePage(EditPersistedUserPage.class);
+			}
+			
+		};
+		submitButton.setDefaultFormProcessing(false);
+		form.add(submitButton);
+		add(form);
 	}
 
 }

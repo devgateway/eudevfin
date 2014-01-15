@@ -19,12 +19,13 @@ import org.apache.wicket.authroles.authorization.strategies.role.annotations.Aut
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.model.Model;
+import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.IValidator;
 import org.apache.wicket.validation.ValidationError;
+import org.apache.wicket.validation.validator.EmailAddressValidator;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.domain.PersistedAuthority;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
@@ -106,8 +107,21 @@ public class EditPersistedUserPage extends HeaderFooter {
 		setModel(model);
 
 		TextInputField<String> userName = new TextInputField<String>(
-				"username", new RWComponentPropertyModel<String>("username"));
+				"username", new RWComponentPropertyModel<String>("username")).required();
 		
+		TextInputField<String> firstName = new TextInputField<String>(
+				"firstName", new RWComponentPropertyModel<String>("firstName")).required();
+
+		TextInputField<String> lastName = new TextInputField<String>(
+				"lastName", new RWComponentPropertyModel<String>("lastName")).required();
+		
+		TextInputField<String> email = new TextInputField<String>(
+				"email", new RWComponentPropertyModel<String>("email"));
+		email.getField().add(EmailAddressValidator.getInstance());
+
+		TextInputField<String> phone = new TextInputField<String>(
+				"phone", new RWComponentPropertyModel<String>("phone"));
+			
 		userName.getField().add( new UniqueUsernameValidator(persistedUser.getId()));
 
 		PasswordInputField password = new PasswordInputField("password",
@@ -123,18 +137,19 @@ public class EditPersistedUserPage extends HeaderFooter {
 				"authorities",
 				new RWComponentPropertyModel<Collection<PersistedAuthority>>(
 				"authorities"), authorityChoiceProvider);
-	
-		
-		
 
 		authorities.required();
 
 		form.add(userName);
+		form.add(firstName);		
+		form.add(lastName);
+		form.add(email);		
 		form.add(password);
+		form.add(phone);
 		form.add(enabled);
 		form.add(authorities);
 
-		form.add(new BootstrapSubmitButton("submit", Model.of("Submit")) {
+		form.add(new BootstrapSubmitButton("submit", new StringResourceModel("button.submit", this, null, null)) {
 			
 			@Override
 			protected void onError(AjaxRequestTarget target, Form<?> form) {
@@ -151,6 +166,19 @@ public class EditPersistedUserPage extends HeaderFooter {
 			}
 			
 		});
+		
+		form.add(new BootstrapSubmitButton("cancel", new StringResourceModel("button.cancel", this, null, null)) {			
+			@Override
+			protected void onError(AjaxRequestTarget target, Form<?> form) {
+			}
+
+			@Override
+			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+				logger.info("Cancel pressed");
+				setResponsePage(ListPersistedUsersPage.class);
+			}
+			
+		}.setDefaultFormProcessing(false));
 	
 		add(form);
 	}

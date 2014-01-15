@@ -20,6 +20,7 @@ import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.IValidatable;
@@ -110,7 +111,7 @@ public class EditPersistedUserGroupPage extends HeaderFooter {
 		setModel(model);
 
 		TextInputField<String> groupName = new TextInputField<String>(
-				"name", new RWComponentPropertyModel<String>("name"));
+				"name", new RWComponentPropertyModel<String>("name")).required();
 		
 		groupName.getField().add( new UniqueGroupNameValidator(persistedUserGroup.getId()));
 		
@@ -124,7 +125,7 @@ public class EditPersistedUserGroupPage extends HeaderFooter {
 				"users"), userChoiceProvider);
 
 				
-		form.add(new BootstrapSubmitButton("submit", Model.of("Submit")) {
+		form.add(new BootstrapSubmitButton("submit",new StringResourceModel("button.submit", this, null, null)) {
 			
 			@Override
 			protected void onError(AjaxRequestTarget target, Form<?> form) {
@@ -141,6 +142,20 @@ public class EditPersistedUserGroupPage extends HeaderFooter {
 			}
 			
 		});
+		
+		
+		form.add(new BootstrapSubmitButton("cancel", new StringResourceModel("button.cancel", this, null, null)) {			
+			@Override
+			protected void onError(AjaxRequestTarget target, Form<?> form) {
+			}
+
+			@Override
+			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+				logger.info("Cancel pressed");
+				setResponsePage(ListPersistedUsersPage.class);
+			}
+			
+		}.setDefaultFormProcessing(false));
 	
 		form.add(groupName);
 		form.add(organization);

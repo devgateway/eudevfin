@@ -7,15 +7,7 @@
   ~ http://www.gnu.org/licenses/gpl.html
   -->
 
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
-<body>
-<wicket:extend>
-  <div class="container">
-		<div class="row span10 offset1 well">
-			<div wicket:id="listPanel"></div>			
-			<wicket:child/>	
-		</div>		
-	</div>
-</wicket:extend>
-</body>
-</html>                                                   
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>    
+    <entry key="button.addNewUser">Add New User</entry>
+</properties>
