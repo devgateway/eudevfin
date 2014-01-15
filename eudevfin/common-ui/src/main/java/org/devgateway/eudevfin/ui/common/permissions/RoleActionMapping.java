@@ -8,6 +8,7 @@
 
 package org.devgateway.eudevfin.ui.common.permissions;
 
+import org.apache.log4j.Logger;
 import org.devgateway.eudevfin.ui.common.Constants;
 
 import java.util.HashMap;
@@ -20,6 +21,7 @@ import java.util.HashMap;
  * @since 27/11/13
  */
 public class RoleActionMapping {
+    private static final Logger logger = Logger.getLogger(RoleActionMapping.class);
 
     //simple mapping between role and permission
     private HashMap<String, String> mapping;
@@ -36,8 +38,16 @@ public class RoleActionMapping {
     }
 
     public RoleActionMapping render(String role) {
-        if (mapping.containsKey(role))
-            throw new AssertionError("Overlapping permissions");
+        return render(role, false);
+    }
+
+    public RoleActionMapping render(String role, boolean override) {
+        if (mapping.containsKey(role)) {
+            if (override)
+                logger.warn("Overriding permission for role:" + role);
+            else
+                throw new AssertionError("Overlapping permissions");
+        }
         mapping.put(role, Constants.ACTION_RENDER);
         return this;
     }

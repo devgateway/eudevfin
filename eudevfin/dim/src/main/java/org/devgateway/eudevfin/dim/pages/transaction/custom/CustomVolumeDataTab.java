@@ -10,16 +10,24 @@ package org.devgateway.eudevfin.dim.pages.transaction.custom;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
 import org.apache.wicket.MarkupContainer;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.event.Broadcast;
 import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.model.ComponentPropertyModel;
+import org.apache.wicket.model.Model;
 import org.devgateway.eudevfin.dim.core.models.BigMoneyModel;
+import org.devgateway.eudevfin.dim.core.models.ExchangeRateModel;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.VolumeDataTab;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
+import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.components.PermissionAwareContainer;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
+import org.devgateway.eudevfin.ui.common.events.CurrencyChangedEvent;
 import org.devgateway.eudevfin.ui.common.events.CurrencyUpdateBehavior;
+import org.devgateway.eudevfin.ui.common.temporary.SB;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
+import org.joda.money.ExchangeRate;
 
 import java.math.BigDecimal;
 
@@ -41,6 +49,11 @@ public class CustomVolumeDataTab extends VolumeDataTab {
     @Override
     protected void addExtensionPanel2() {
         add(new Extension2("extensionPanel2", "extension2", this));
+    }
+
+    @Override
+    protected void addExtensionPanel3() {
+        add(new Extension3("extensionPanel3", "extension3", this));
     }
 
     private class Extension1 extends Fragment {
@@ -154,6 +167,35 @@ public class CustomVolumeDataTab extends VolumeDataTab {
             TextInputField<String> activityP4 = new TextInputField<>("activityP4", new RWComponentPropertyModel<String>("budgetMTEFActivityP4"));
             activityP4.hideLabel().setSize(InputBehavior.Size.Small);
             budgetMTEFTable.add(activityP4);
+
+
+        }
+    }
+
+    private class Extension3 extends Fragment {
+        public Extension3(String id, String markupId, MarkupContainer markupProvider) {
+            super(id, markupId, markupProvider);
+
+            ComponentPropertyModel<CurrencyUnit> fromCurrency = new ComponentPropertyModel<>("currency");
+            Model<CurrencyUnit> toCurrency = Model.of();
+            DropDownField<CurrencyUnit> currency = new DropDownField<CurrencyUnit>("32bOtherCurrency", toCurrency,
+                    SB.currencyProvider) {
+                @Override
+                protected void onUpdate(AjaxRequestTarget target) {
+                    send(getPage(), Broadcast.DEPTH, new CurrencyChangedEvent(target));
+                }
+            };
+            add(currency);
+
+            TextInputField<BigDecimal> commitments = new TextInputField<BigDecimal>("33commitments",
+                    new ExchangeRateModel(new RWComponentPropertyModel<ExchangeRate>("exchangeRate"), fromCurrency, toCurrency)) {
+                @Override
+                protected void onUpdate(AjaxRequestTarget target) {
+
+                }
+            };
+            commitments.typeBigDecimal().add(new CurrencyUpdateBehavior());
+            add(commitments);
 
 
         }

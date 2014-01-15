@@ -8,8 +8,6 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
-import java.math.BigDecimal;
-
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.event.Broadcast;
@@ -27,6 +25,8 @@ import org.devgateway.eudevfin.ui.common.temporary.SB;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 
+import java.math.BigDecimal;
+
 /**
  * @author aartimon@developmentgateway.org
  * @since 01 November 2013
@@ -40,6 +40,7 @@ public class VolumeDataTab extends Panel implements PermissionAwareComponent {
         addComponents();
         addExtensionPanel1();
         addExtensionPanel2();
+        addExtensionPanel3();
     }
 
     protected void addExtensionPanel1() {
@@ -48,6 +49,10 @@ public class VolumeDataTab extends Panel implements PermissionAwareComponent {
 
     protected void addExtensionPanel2() {
         add(new WebMarkupContainer("extensionPanel2").setVisibilityAllowed(false));
+    }
+
+    protected void addExtensionPanel3() {
+        add(new WebMarkupContainer("extensionPanel3").setVisibilityAllowed(false));
     }
 
     private void addComponents() {

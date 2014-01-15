@@ -33,7 +33,10 @@ public class CustomTransactionPermissionProvider extends CRSTransactionPermissio
         permissions.put("1aDataAsPerDate", new RoleActionMapping().required(SB.BILATERAL_ODA_FORWARD_SPENDING));
         //override permission for 1bCommitmentDate
         permissions.get("1bCommitmentDate").notCollected(SB.BILATERAL_ODA_ADVANCED_QUESTIONNAIRE).notCollected(SB.MULTILATERAL_ODA_ADVANCED_QUESTIONNAIRE);
-        permissions.get("4crsId").required(SB.NON_ODA_OTHER_FLOWS);
+        permissions.get("4crsId").required(SB.NON_ODA_OTHER_FLOWS).render(SB.BILATERAL_ODA_ADVANCED_QUESTIONNAIRE, true)
+                .render(SB.MULTILATERAL_ODA_ADVANCED_QUESTIONNAIRE, true);
+        permissions.get("5donorProjectNumber").render(SB.BILATERAL_ODA_ADVANCED_QUESTIONNAIRE, true)
+                .render(SB.MULTILATERAL_ODA_ADVANCED_QUESTIONNAIRE, true);
 
         /**
          * Basic Data
@@ -49,7 +52,9 @@ public class CustomTransactionPermissionProvider extends CRSTransactionPermissio
         permissions.get("9channelCode").notCollected(SB.BILATERAL_ODA_ADVANCED_QUESTIONNAIRE).notCollected(SB.NON_ODA_OOF_EXPORT);
         permissions.get("10bilateralMultilateral").notCollected(SB.BILATERAL_ODA_ADVANCED_QUESTIONNAIRE).notCollected(SB.MULTILATERAL_ODA_ADVANCED_QUESTIONNAIRE);
         permissions.put("11typeOfFlow", new RoleActionMapping().required(SB.all()).notCollected(SB.BILATERAL_ODA_ADVANCED_QUESTIONNAIRE).notCollected(SB.MULTILATERAL_ODA_ADVANCED_QUESTIONNAIRE));
-        permissions.get("14activityProjectTitle").notCollected(SB.NON_ODA_PRIVATE_GRANTS);
+        permissions.get("14activityProjectTitle").notCollected(SB.NON_ODA_PRIVATE_GRANTS).render(SB.BILATERAL_ODA_ADVANCED_QUESTIONNAIRE, true)
+                .render(SB.MULTILATERAL_ODA_ADVANCED_QUESTIONNAIRE, true);
+
         permissions.get("15sectorPurposeCode").notCollected(SB.NON_ODA_PRIVATE_GRANTS);
 
 
@@ -64,9 +69,12 @@ public class CustomTransactionPermissionProvider extends CRSTransactionPermissio
         permissions.get(SupplementaryDataTab.KEY).notCollected(SB.NON_ODA_OOF_NON_EXPORT).render(SB.MULTILATERAL_ODA_ADVANCED_QUESTIONNAIRE);
 
         permissions.get("16geographicalTargetArea").notCollected(SB.BILATERAL_ODA_ADVANCED_QUESTIONNAIRE);
-        permissions.get("17startingDate").required(SB.MULTILATERAL_ODA_ADVANCED_QUESTIONNAIRE);
-        permissions.get("18completionDate").required(SB.MULTILATERAL_ODA_ADVANCED_QUESTIONNAIRE);
-        permissions.get("19description").required(SB.MULTILATERAL_ODA_ADVANCED_QUESTIONNAIRE);
+        permissions.get("17startingDate").render(SB.BILATERAL_ODA_ADVANCED_QUESTIONNAIRE, true)
+                .render(SB.MULTILATERAL_ODA_ADVANCED_QUESTIONNAIRE);
+        permissions.get("18completionDate").render(SB.BILATERAL_ODA_ADVANCED_QUESTIONNAIRE, true)
+                .render(SB.MULTILATERAL_ODA_ADVANCED_QUESTIONNAIRE);
+        permissions.get("19description").render(SB.BILATERAL_ODA_ADVANCED_QUESTIONNAIRE, true)
+                .render(SB.MULTILATERAL_ODA_ADVANCED_QUESTIONNAIRE);
         permissions.get("20genderEquality").notCollected(SB.BILATERAL_ODA_ADVANCED_QUESTIONNAIRE);
         permissions.get("21aidToEnvironment").notCollected(SB.BILATERAL_ODA_ADVANCED_QUESTIONNAIRE);
         permissions.get("22pdGg").notCollected(SB.BILATERAL_ODA_ADVANCED_QUESTIONNAIRE);
@@ -87,7 +95,10 @@ public class CustomTransactionPermissionProvider extends CRSTransactionPermissio
         //override permissions
         permissions.get("33commitments").notCollected(SB.BILATERAL_ODA_ADVANCED_QUESTIONNAIRE).notCollected(SB.MULTILATERAL_ODA_ADVANCED_QUESTIONNAIRE);
         permissions.put("34amountsExtended", new RoleActionMapping().required(SB.all()).notCollected(SB.BILATERAL_ODA_FORWARD_SPENDING));
+        permissions.get("35amountsReceived").render(SB.BILATERAL_ODA_ADVANCED_QUESTIONNAIRE, true)
+                .render(SB.MULTILATERAL_ODA_ADVANCED_QUESTIONNAIRE, true);
         permissions.get("36amountUntied").notCollected(SB.BILATERAL_ODA_ADVANCED_QUESTIONNAIRE);
+
         permissions.get("37amountPartiallyUntied").notCollected(SB.BILATERAL_ODA_ADVANCED_QUESTIONNAIRE);
         permissions.get("38amountTied").notCollected(SB.BILATERAL_ODA_ADVANCED_QUESTIONNAIRE);
         permissions.get("39amountOfIRTC").notCollected(SB.BILATERAL_ODA_ADVANCED_QUESTIONNAIRE);
