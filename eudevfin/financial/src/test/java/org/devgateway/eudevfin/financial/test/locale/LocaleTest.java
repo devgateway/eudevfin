@@ -6,6 +6,7 @@ package org.devgateway.eudevfin.financial.test.locale;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.devgateway.eudevfin.financial.BigMoneyWithCurrencyAndFixedRate;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
@@ -62,7 +63,7 @@ public class LocaleTest {
 			
 			FinancialTransaction tx = new FinancialTransaction();
 			int amount	= i * 100;
-			tx.setAmountsReceived(BigMoney.parse("EUR " + amount));
+			tx.setAmountsReceived(BigMoneyWithCurrencyAndFixedRate.parse("EUR " + amount, "EUR/USD 1.3"));
 			tx.setCommitments(BigMoney.parse("EUR " + amount));
 			String testLocaleString			= "This is transaction (test locale) " + i;
 			String defaultLocaleString		= "This is transaction (default locale) " + i;
