@@ -3,6 +3,7 @@
  */
 package org.devgateway.eudevfin.dim.desktop.components;
 
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
@@ -38,6 +39,8 @@ public class PersistedUserGroupTableListPanel extends TableListPanel<PersistedUs
 			protected void populateItem(ListItem<PersistedUserGroup> listItem) {
 				final PersistedUserGroup group = listItem.getModelObject();
 				
+				Label orgLabel = new Label("org",group.getOrganization().getName());
+				
 				Link linkToEditUserGroup=new Link("linkToEditUserGroup") {
 					@Override
 					public void onClick() {
@@ -52,12 +55,7 @@ public class PersistedUserGroupTableListPanel extends TableListPanel<PersistedUs
 				
 				linkToEditUserGroup.setBody(Model.of(group.getName()));
 
-//				Label groupsLabel = new Label("groups",
-//						user.getGroups() != null ? user.getGroups().toString()
-//								: "");
-
-
-//				listItem.add(groupsLabel);
+				listItem.add(orgLabel);
 				listItem.add(linkToEditUserGroup);
 
 			}

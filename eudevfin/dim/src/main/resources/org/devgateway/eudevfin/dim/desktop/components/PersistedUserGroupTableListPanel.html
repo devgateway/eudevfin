@@ -14,13 +14,17 @@
 <wicket:extend>
         	<thead>
 	           <tr>
-	               <th>Group name</th>	           	    
+	               <th><wicket:message key="group.name"/></th>
+                   <th><wicket:message key="org.name"/></th>	     	           	    
 	           </tr>
 
             </thead>
 			<tr wicket:id="groupList">
 				<td>
-				<a wicket:id="linkToEditUserGroup"/>
+					<a wicket:id="linkToEditUserGroup"/>
+				</td>
+				<td>
+					<span wicket:id="org">org</span>
 				</td>
 
 			</tr>
