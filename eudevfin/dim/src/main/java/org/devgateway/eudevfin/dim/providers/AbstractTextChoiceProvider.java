@@ -41,13 +41,13 @@ public abstract class AbstractTextChoiceProvider<T> extends TextChoiceProvider<T
 
 	@Override
 	public void query(String term, int page, Response<T> response) {		
-		List<T> list = getItemsByTerm(term,page); 		
-		//response.setHasMore(pagingHelper.hasMorePages());
-		response.addAll(list);
+		PagingHelper<T> itemsByTerm = getItemsByTerm(term,page);	
+		response.setHasMore(itemsByTerm.hasMorePages());
+		response.addAll(itemsByTerm.getEntities());
 	}
 	
-	 protected List<T> getItemsByTerm(String term,int page) {
-		 return getService().findByGeneralSearchPageable(term,null, page+1, pageSize,sort).getEntities();		 
+	 protected PagingHelper<T> getItemsByTerm(String term,int page) {
+		 return getService().findByGeneralSearchPageable(term,null, page+1, pageSize,sort);		 
 	 }
 
 	@Override

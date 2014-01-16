@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.apache.wicket.Session;
+import org.devgateway.eudevfin.common.service.PagingHelper;
 import org.devgateway.eudevfin.financial.AbstractTranslateable;
 
 /**
@@ -31,9 +32,9 @@ public abstract class AbstractTranslatableProvider<T extends AbstractTranslateab
 	}
 
 	 @Override
-	 protected List<T> getItemsByTerm(String term,int page) {
-		 List<T> entities = getService().findByGeneralSearchPageable(term,
-					Session.get().getLocale().getLanguage(), page+1, pageSize,sort).getEntities();
-		 return entities;
+	 protected PagingHelper<T> getItemsByTerm(String term,int page) {
+		 PagingHelper<T> helper = getService().findByGeneralSearchPageable(term,
+					Session.get().getLocale().getLanguage(), page+1, pageSize,sort);
+		 return helper;
 	 }
 }

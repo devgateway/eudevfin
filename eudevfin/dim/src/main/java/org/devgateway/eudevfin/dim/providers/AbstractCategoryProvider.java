@@ -9,6 +9,7 @@
 package org.devgateway.eudevfin.dim.providers;
 
 import org.devgateway.eudevfin.common.service.BaseEntityService;
+import org.devgateway.eudevfin.common.service.PagingHelper;
 import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.service.CategoryService;
 import org.springframework.data.domain.Sort;
@@ -39,8 +40,9 @@ public abstract class AbstractCategoryProvider extends AbstractTranslatableProvi
     }
 
     @Override
-    protected List<Category> getItemsByTerm(String term,int page) {
-        return categoryService.findByTagsCode(getCategoryTag());
+    protected PagingHelper<Category> getItemsByTerm(String term,int page) {
+        List<Category> tagsCode = categoryService.findByTagsCode(getCategoryTag());
+        return new PagingHelper<Category>(0, 1, tagsCode.size(), tagsCode);
     }
 
     protected abstract String getCategoryTag();
