@@ -8,8 +8,6 @@
 
 package org.devgateway.eudevfin.dim.providers;
 
-import java.util.List;
-
 import org.devgateway.eudevfin.common.service.BaseEntityService;
 import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.service.CategoryService;
@@ -18,12 +16,14 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 
+import java.util.List;
+
 /**
  * @author aartimon
  * @since 14/01/14
  */
 public abstract class AbstractCategoryProvider extends AbstractTranslatableProvider<Category> {
-    private CategoryService categoryService;
+    private transient CategoryService categoryService;
 
     protected AbstractCategoryProvider(CategoryService categoryService) {
         this.categoryService = categoryService;    

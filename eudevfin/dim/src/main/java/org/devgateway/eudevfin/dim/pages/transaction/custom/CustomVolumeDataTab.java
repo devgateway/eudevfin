@@ -11,7 +11,6 @@ package org.devgateway.eudevfin.dim.pages.transaction.custom;
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.event.Broadcast;
 import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.model.ComponentPropertyModel;
 import org.apache.wicket.model.Model;
@@ -22,7 +21,6 @@ import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.components.PermissionAwareContainer;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
-import org.devgateway.eudevfin.ui.common.events.CurrencyChangedEvent;
 import org.devgateway.eudevfin.ui.common.events.CurrencyUpdateBehavior;
 import org.devgateway.eudevfin.ui.common.temporary.SB;
 import org.joda.money.BigMoney;
@@ -176,26 +174,28 @@ public class CustomVolumeDataTab extends VolumeDataTab {
         public Extension3(String id, String markupId, MarkupContainer markupProvider) {
             super(id, markupId, markupProvider);
 
-            ComponentPropertyModel<CurrencyUnit> fromCurrency = new ComponentPropertyModel<>("currency");
-            Model<CurrencyUnit> toCurrency = Model.of();
-            DropDownField<CurrencyUnit> currency = new DropDownField<CurrencyUnit>("32bOtherCurrency", toCurrency,
+            final ComponentPropertyModel<CurrencyUnit> fromCurrency = new ComponentPropertyModel<>("currency");
+            final Model<CurrencyUnit> toCurrency = Model.of();
+
+            final TextInputField<BigDecimal> exchangeRate = new TextInputField<>("32cExchangeRate",
+                    new ExchangeRateModel(new RWComponentPropertyModel<ExchangeRate>("exchangeRate"), fromCurrency, toCurrency));
+            exchangeRate.typeBigDecimal().add(new CurrencyUpdateBehavior());
+            exchangeRate.getField().setEnabled(false);
+            add(exchangeRate);
+
+            final DropDownField<CurrencyUnit> otherCurrency = new DropDownField<CurrencyUnit>("32bOtherCurrency", toCurrency,
                     SB.currencyProvider) {
                 @Override
                 protected void onUpdate(AjaxRequestTarget target) {
-                    send(getPage(), Broadcast.DEPTH, new CurrencyChangedEvent(target));
+                    //send(getPage(), Broadcast.DEPTH, new CurrencyChangedEvent(target));
+                    if (toCurrency.getObject() != null)
+                        exchangeRate.getField().setEnabled(true);
+                    else
+                        exchangeRate.getField().setEnabled(false);
+                    target.add(exchangeRate.getField());
                 }
             };
-            add(currency);
-
-            TextInputField<BigDecimal> commitments = new TextInputField<BigDecimal>("33commitments",
-                    new ExchangeRateModel(new RWComponentPropertyModel<ExchangeRate>("exchangeRate"), fromCurrency, toCurrency)) {
-                @Override
-                protected void onUpdate(AjaxRequestTarget target) {
-
-                }
-            };
-            commitments.typeBigDecimal().add(new CurrencyUpdateBehavior());
-            add(commitments);
+            add(otherCurrency);
 
 
         }

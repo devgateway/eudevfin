@@ -24,7 +24,7 @@ public class CategoryProviderFactory implements IDetachable {
     @Autowired
     private CategoryService categoryService;
 
-    private Hashtable<String, AbstractCategoryProvider> map = new Hashtable<>();
+    private transient Hashtable<String, AbstractCategoryProvider> map = new Hashtable<>();
 
     public AbstractCategoryProvider get(String tag) {
         AbstractCategoryProvider provider = map.get(tag);

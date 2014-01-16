@@ -8,13 +8,14 @@
 
 package org.devgateway.eudevfin.financial;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-
 import org.hibernate.envers.Audited;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
+import org.joda.money.ExchangeRate;
 import org.joda.time.LocalDateTime;
+
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 
 @Entity
 @Audited
@@ -71,6 +72,16 @@ public class CustomFinancialTransaction extends FinancialTransaction {
     private String budgetMTEFLineP4;
     private String budgetMTEFActivityP4;
     private String otherComments;
+
+    private ExchangeRate exchangeRate;
+
+    public ExchangeRate getExchangeRate() {
+        return exchangeRate;
+    }
+
+    public void setExchangeRate(ExchangeRate exchangeRate) {
+        this.exchangeRate = exchangeRate;
+    }
 
     public LocalDateTime getDataAsPerDate() {
         return dataAsPerDate;

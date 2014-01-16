@@ -11,6 +11,14 @@
 <properties>
     <entry key="otherMarkers.label">Other Markers</entry>
 
+    <entry key="32bOtherCurrency.label">Other currency than national</entry>
+    <entry key="32bOtherCurrency.placeholder"></entry>
+    <entry key="32bOtherCurrency.help">TODO: edit help text</entry>
+
+    <entry key="32cExchangeRate.label">Exchange rate indicated in financial documents</entry>
+    <entry key="32cExchangeRate.placeholder"></entry>
+    <entry key="32cExchangeRate.help">TODO: edit help text</entry>
+
     <entry key="34bBudgetCode.label">Budget Code</entry>
     <entry key="34bBudgetCode.placeholder"></entry>
     <entry key="34bBudgetCode.help">TODO: edit help text</entry>

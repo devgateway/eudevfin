@@ -40,6 +40,5 @@ public class ExchangeRateModel extends WrappingModel<BigDecimal, ExchangeRate> {
     public void setObject(BigDecimal object) {
         //we must ensure that the rate's have been filled prior to this moment, no null checks allowed
         originalModel.setObject(ExchangeRate.of(from.getObject(), to.getObject(), object));
-
     }
 }
