@@ -10,6 +10,7 @@ import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.exception.NoDataFoundException;
 import org.devgateway.eudevfin.financial.repository.CategoryRepository;
+import org.devgateway.eudevfin.financial.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.integration.annotation.Header;
@@ -94,6 +95,16 @@ public class CategoryDaoImpl extends AbstractDaoImpl<Category, Long, CategoryRep
 		return this.getRepo().
 			findByTranslationsLocaleAndTranslationsNameIgnoreCaseContainsAndTagsCode(
 					locale, searchString, tagsCode);
+	}
+	
+	/**
+	 * @see CategoryService#findOne(Long)
+	 */
+	@ServiceActivator(inputChannel="findCategoryByIdChannel")	
+	@Override
+	public NullableWrapper<Category> findOne(Long id) {
+		// TODO Auto-generated method stub
+		return super.findOne(id);
 	}
 	
 	
