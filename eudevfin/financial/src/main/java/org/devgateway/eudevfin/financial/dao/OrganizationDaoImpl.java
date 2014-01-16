@@ -20,7 +20,8 @@ import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.repository.OrganizationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.integration.annotation.Header;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
@@ -67,11 +68,9 @@ public class OrganizationDaoImpl extends AbstractDaoImpl<Organization, Long, Org
 	
 	@Override
 	@ServiceActivator(inputChannel="findOrganizationByGeneralSearchPageableChannel")
-	public PagingHelper<Organization> findByGeneralSearchPageable(String searchString,
-			@Header(value="locale",required=false) String locale, @Header("pageNumber") int pageNumber, @Header("pageSize") int pageSize,
-			@Header(value="sort",required=false) Sort sort) {
+	public Page<Organization> findByGeneralSearchPageable(String searchString,
+			@Header(value="locale",required=false) String locale, @Header("pageable") Pageable pageable) {
 		// TODO Auto-generated method stub
-		 PagingHelper<Organization> findByGeneralSearchPageable = super.findByGeneralSearchPageable(searchString, locale, pageNumber, pageSize, sort);
-		 return findByGeneralSearchPageable;
+		return super.findByGeneralSearchPageable(searchString, locale, pageable);		 
 	}
 }

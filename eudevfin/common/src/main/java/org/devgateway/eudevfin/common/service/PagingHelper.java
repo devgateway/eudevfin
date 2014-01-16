@@ -6,6 +6,8 @@ package org.devgateway.eudevfin.common.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 /**
  * @author Alex
  *
@@ -85,5 +87,18 @@ public class PagingHelper<T> {
 		
 		return pagingItems;
 	}
+	
+	/**
+	 * Convenient static method to convert between {@link Page} and {@link PagingHelper}.
+	 * This should be done on the client side.
+	 * @param resultPage
+	 * @return
+	 */
+	public static <E> PagingHelper<E> createPagingHelperFromPage(Page<E> resultPage) {
+		PagingHelper<E> pagingHelper = new PagingHelper<E>(resultPage.getNumber(), resultPage.getTotalPages(),
+				resultPage.getContent().size(), resultPage.getContent());
+		return pagingHelper;
+	}
+	
 	
 }

@@ -7,6 +7,7 @@ import org.devgateway.eudevfin.common.service.PagingHelper;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
 import org.devgateway.eudevfin.ui.common.components.util.ListGeneratorInterface;
+import org.springframework.data.domain.PageRequest;
 
 /**
  * @author Alex
@@ -36,7 +37,7 @@ public class GeneralSearchListGenerator implements ListGeneratorInterface<Financ
 	public PagingHelper<FinancialTransaction> getResultsList(int pageNumber,
 			int pageSize) {
 		if ( this.searchString != null && this.searchString.length() > 1 )
-			return this.txService.findByGeneralSearchPageable(this.searchString,null, pageNumber, pageSize,null);
+			return PagingHelper.createPagingHelperFromPage(this.txService.findByGeneralSearchPageable(this.searchString,null, new PageRequest(pageNumber-1, pageSize)));
 		else
 			return null;
 	}

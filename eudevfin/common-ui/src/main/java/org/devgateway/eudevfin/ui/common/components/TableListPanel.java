@@ -15,14 +15,14 @@ import org.apache.wicket.model.util.ListModel;
 import org.devgateway.eudevfin.common.service.PagingHelper;
 import org.devgateway.eudevfin.common.service.PagingItem;
 import org.devgateway.eudevfin.ui.common.components.util.ListGeneratorInterface;
-import org.devgateway.eudevfin.ui.common.components.util.Pageable;
+import org.devgateway.eudevfin.ui.common.components.util.PageableComponent;
 
 /**
  * @author mihai
  * @author Alex
  *
  */
-public abstract class TableListPanel<T> extends Panel implements Pageable {
+public abstract class TableListPanel<T> extends Panel implements PageableComponent {
 	
 	private static final long serialVersionUID = -779595395189185422L;
 
@@ -95,12 +95,13 @@ public abstract class TableListPanel<T> extends Panel implements Pageable {
 				if ( "<".equals(pagingItem.getLabel()) ) {
 					futurePageNo	= pagingItem.getCurrentPageNo()-1;
 				}
-				else if ( ">".equals(pagingItem.getLabel()) ) {
+				else if ( ">".equals(pagingItem.getLabel())) {
 					futurePageNo	= pagingItem.getCurrentPageNo()+1;
 				}
 				else
 					futurePageNo	= Integer.parseInt(pagingItem.getLabel());
-					
+				
+				if(futurePageNo<1 || futurePageNo > pagingItems.size()) return;
 				
 				TableListPanel.this.generateListOfItems(futurePageNo);
 				target.add(TableListPanel.this);

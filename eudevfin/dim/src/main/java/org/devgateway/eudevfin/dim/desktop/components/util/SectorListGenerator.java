@@ -7,6 +7,7 @@ import org.devgateway.eudevfin.common.service.PagingHelper;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
 import org.devgateway.eudevfin.ui.common.components.util.ListGeneratorInterface;
+import org.springframework.data.domain.PageRequest;
 
 /**
  * @author Alex
@@ -30,7 +31,7 @@ public class SectorListGenerator implements ListGeneratorInterface<FinancialTran
 
 	@Override
 	public PagingHelper<FinancialTransaction> getResultsList(int pageNumber, int pageSize) {
-		return this.txService.findBySectorCode(this.sectorCode, pageNumber, pageSize);
+		return PagingHelper.createPagingHelperFromPage(this.txService.findBySectorCode(this.sectorCode, new PageRequest(pageNumber-1,pageSize)));
 	}
 
 

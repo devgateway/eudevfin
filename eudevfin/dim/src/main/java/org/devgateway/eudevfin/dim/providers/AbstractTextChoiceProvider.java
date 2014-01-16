@@ -10,12 +10,13 @@ package org.devgateway.eudevfin.dim.providers;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.devgateway.eudevfin.common.service.BaseEntityService;
 import org.devgateway.eudevfin.common.service.PagingHelper;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
 import com.vaynberg.wicket.select2.Response;
@@ -41,13 +42,13 @@ public abstract class AbstractTextChoiceProvider<T> extends TextChoiceProvider<T
 
 	@Override
 	public void query(String term, int page, Response<T> response) {		
-		PagingHelper<T> itemsByTerm = getItemsByTerm(term,page);	
-		response.setHasMore(itemsByTerm.hasMorePages());
-		response.addAll(itemsByTerm.getEntities());
+		Page<T> itemsByTerm = getItemsByTerm(term,page);	
+		response.setHasMore(itemsByTerm.hasNextPage());
+		response.addAll(itemsByTerm.getContent());
 	}
 	
-	 protected PagingHelper<T> getItemsByTerm(String term,int page) {
-		 return getService().findByGeneralSearchPageable(term,null, page+1, pageSize,sort);		 
+	 protected Page<T> getItemsByTerm(String term,int page) {
+		 return getService().findByGeneralSearchPageable(term,null, new PageRequest(page, pageSize,sort));		 
 	 }
 
 	@Override

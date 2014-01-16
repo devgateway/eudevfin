@@ -8,13 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.devgateway.eudevfin.common.service.BaseEntityService;
-import org.devgateway.eudevfin.common.service.PagingHelper;
 import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.integration.annotation.Header;
 
 /**
  * @author Alex
@@ -46,13 +44,14 @@ public abstract class AbstractDaoImpl<Entity,IDType extends Serializable,Repo ex
 		return new NullableWrapper<Entity>(entity);
 	}
 
-	protected PagingHelper<Entity> createPagingHelperFromPage (Page<Entity> resultPage) {
-		PagingHelper<Entity> pagingHelper	= 
-				new PagingHelper<>(resultPage.getNumber(), resultPage.getTotalPages(), resultPage.getContent().size(), resultPage.getContent());
-				
-		return pagingHelper; 
-		
-	}
+
+//	public static PagingHelper<U> createPagingHelperFromPage (U type, Page<U> resultPage) {
+//		PagingHelper<U> pagingHelper	= 
+//				new PagingHelper<>(resultPage.getNumber(), resultPage.getTotalPages(), resultPage.getContent().size(), resultPage.getContent());
+//				
+//		return pagingHelper; 
+//		
+//	}
 	
 	/**
 	 * @see BaseEntityService#save(Object)
@@ -97,14 +96,8 @@ public abstract class AbstractDaoImpl<Entity,IDType extends Serializable,Repo ex
 	 * @param sort
 	 * @return
 	 */
-	
-	public PagingHelper<Entity> findByGeneralSearchPageable(String searchString,String locale,
-			 int pageNumber,int pageSize, Sort sort) {
-		int realPageNumber = pageNumber - 1;
-		PageRequest pageRequest = new PageRequest(realPageNumber, pageSize,
-				sort);
-		
-		return this.createPagingHelperFromPage(this.getRepo().findAll(
-				pageRequest));
+
+	public Page<Entity> findByGeneralSearchPageable(String searchString, String locale, Pageable pageable) {
+		return this.getRepo().findAll(pageable);
 	}
 }

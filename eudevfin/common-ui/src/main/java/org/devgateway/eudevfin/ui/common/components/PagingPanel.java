@@ -10,7 +10,7 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.devgateway.eudevfin.common.service.PagingItem;
-import org.devgateway.eudevfin.ui.common.components.util.Pageable;
+import org.devgateway.eudevfin.ui.common.components.util.PageableComponent;
 
 public class PagingPanel extends Panel {
 
@@ -27,7 +27,7 @@ public class PagingPanel extends Panel {
 			@Override
 			protected void populateItem(ListItem<PagingItem> item) {
 				PagingItem pagingItem					= item.getModelObject();
-				Pageable parent	= (Pageable) PagingPanel.this.getParent();
+				PageableComponent parent	= (PageableComponent) PagingPanel.this.getParent();
 				
 				AjaxLink<PagingItem> link	= parent.createLink(pagingItem);
 				Label label				= new Label("page-number-label", pagingItem.getLabel());

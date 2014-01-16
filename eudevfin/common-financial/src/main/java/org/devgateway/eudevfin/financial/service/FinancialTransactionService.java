@@ -1,8 +1,9 @@
 package org.devgateway.eudevfin.financial.service;
 
 import org.devgateway.eudevfin.common.service.BaseEntityService;
-import org.devgateway.eudevfin.common.service.PagingHelper;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.integration.annotation.Header;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public interface FinancialTransactionService extends BaseEntityService<FinancialTransaction> {
 	
-	public PagingHelper<FinancialTransaction> findBySectorCode(String sectorCode, 
-			@Header("pageNumber")int pageNumber, @Header("pageSize")int pageSize);
+	public Page<FinancialTransaction> findBySectorCode(String sectorCode, 
+			@Header("pageable") Pageable pageable);
 	
 }

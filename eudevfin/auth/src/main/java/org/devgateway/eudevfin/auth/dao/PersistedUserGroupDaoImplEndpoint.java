@@ -3,17 +3,15 @@
  */
 package org.devgateway.eudevfin.auth.dao;
 
-import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUserGroup;
 import org.devgateway.eudevfin.auth.common.service.PersistedUserGroupService;
 import org.devgateway.eudevfin.auth.repository.PersistedUserGroupRepository;
 import org.devgateway.eudevfin.common.dao.AbstractDaoImpl;
-import org.devgateway.eudevfin.common.service.PagingHelper;
 import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.integration.annotation.Header;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
@@ -92,10 +90,9 @@ public class PersistedUserGroupDaoImplEndpoint extends
 	 */
 	@Override
 	@ServiceActivator(inputChannel = "findByGeneralSearchUserGroupChannel")
-	public PagingHelper<PersistedUserGroup> findByGeneralSearchPageable(String searchString,
-			@Header(value="locale",required=false) String locale, @Header("pageNumber") int pageNumber, @Header("pageSize") int pageSize,
-			@Header(value="sort",required=false) Sort sort) {
-		return super.findByGeneralSearchPageable(searchString, locale, pageNumber, pageSize, sort);
+	public Page<PersistedUserGroup> findByGeneralSearchPageable(String searchString,
+			@Header(value="locale",required=false) String locale, @Header("pageable") Pageable pageable) {
+		return super.findByGeneralSearchPageable(searchString, locale, pageable);
 	}
 
 }

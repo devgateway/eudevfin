@@ -8,14 +8,15 @@
 
 package org.devgateway.eudevfin.dim.providers;
 
+import java.util.List;
+
 import org.devgateway.eudevfin.common.service.BaseEntityService;
-import org.devgateway.eudevfin.common.service.PagingHelper;
 import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.service.CategoryService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
-
-import java.util.List;
 
 /**
  * @author aartimon
@@ -40,9 +41,11 @@ public abstract class AbstractCategoryProvider extends AbstractTranslatableProvi
     }
 
     @Override
-    protected PagingHelper<Category> getItemsByTerm(String term,int page) {
+    protected Page<Category> getItemsByTerm(String term,int page) {
+    	//TODO: change this if you want pagination !
         List<Category> tagsCode = categoryService.findByTagsCode(getCategoryTag());
-        return new PagingHelper<Category>(0, 1, tagsCode.size(), tagsCode);
+        PageImpl<Category> pageImpl = new PageImpl<Category>(tagsCode);
+        return pageImpl;
     }
 
     protected abstract String getCategoryTag();

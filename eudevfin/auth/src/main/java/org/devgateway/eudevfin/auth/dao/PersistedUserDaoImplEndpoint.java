@@ -4,11 +4,11 @@ import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.auth.common.service.PersistedUserService;
 import org.devgateway.eudevfin.auth.repository.PersistedUserRepository;
 import org.devgateway.eudevfin.common.dao.AbstractDaoImpl;
-import org.devgateway.eudevfin.common.service.PagingHelper;
 import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.integration.annotation.Header;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
@@ -68,11 +68,10 @@ public class PersistedUserDaoImplEndpoint extends AbstractDaoImpl<PersistedUser,
 	 */
 	@Override
 	@ServiceActivator(inputChannel = "findByGeneralSearchPageableUserChannel")
-	public PagingHelper<PersistedUser> findByGeneralSearchPageable(String searchString,
-			@Header(value="locale",required=false) String locale, @Header("pageNumber") int pageNumber, @Header("pageSize") int pageSize,
-			@Header(value="sort",required=false) Sort sort) {
+	public Page<PersistedUser> findByGeneralSearchPageable(String searchString,
+			@Header(value="locale",required=false) String locale, @Header("pageable") Pageable pageable) {
 		// TODO Auto-generated method stub
-		return super.findByGeneralSearchPageable(searchString, locale, pageNumber, pageSize, sort);
+		return super.findByGeneralSearchPageable(searchString, locale, pageable);
 	}
 	
  }

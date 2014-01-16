@@ -7,6 +7,7 @@ import org.devgateway.eudevfin.auth.common.domain.PersistedUserGroup;
 import org.devgateway.eudevfin.auth.common.service.PersistedUserGroupService;
 import org.devgateway.eudevfin.common.service.PagingHelper;
 import org.devgateway.eudevfin.ui.common.components.util.ListGeneratorInterface;
+import org.springframework.data.domain.PageRequest;
 
 /**
  * @author mihai
@@ -30,7 +31,7 @@ public class PersistedUserGroupListGenerator implements
 	@Override
 	public PagingHelper<PersistedUserGroup> getResultsList(int pageNumber,
 			int pageSize) {
-		return userGroupService.findByGeneralSearchPageable(searchString,null, pageNumber, pageSize,null);
+		return PagingHelper.createPagingHelperFromPage(userGroupService.findByGeneralSearchPageable(searchString,null, new PageRequest(pageNumber-1, pageSize)));		
 	}
 
 }

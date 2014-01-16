@@ -6,13 +6,14 @@ package org.devgateway.eudevfin.financial.dao;
 import java.util.List;
 
 import org.devgateway.eudevfin.common.dao.AbstractDaoImpl;
-import org.devgateway.eudevfin.common.service.PagingHelper;
 import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.repository.FinancialTransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.integration.annotation.Header;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
@@ -55,26 +56,17 @@ public class FinancialTransactionDaoImpl extends AbstractDaoImpl<FinancialTransa
 	}
 	
 	@ServiceActivator(inputChannel="findTransactionBySectorCodePageableChannel")
-	public PagingHelper<FinancialTransaction> findBySectorCode(String sectorCode, 
-			@Header("pageNumber")int pageNumber, @Header("pageSize")int pageSize) {
-		
-		int realPageNumber	= pageNumber-1;
-		
-		//Sort sort	= new Sort(Direction.ASC, "sectorName");
-		PageRequest pageRequest = new PageRequest(realPageNumber, pageSize, null);
-		
-		return this.createPagingHelperFromPage( this.getRepo().findBySectorCode(sectorCode, pageRequest) );
+	public Page<FinancialTransaction> findBySectorCode(String sectorCode, 
+			@Header("pageable") Pageable pageable) {	
+		return  this.getRepo().findBySectorCode(sectorCode, pageable) ;
 		
 	}
 	
 	@ServiceActivator(inputChannel="findTransactionByGeneralSearchPageableChannel")
-	public PagingHelper<FinancialTransaction> findByGeneralSearchPageable(String searchString,
-			@Header("pageNumber")int pageNumber, @Header("pageSize")int pageSize ) {
-		int realPageNumber	= pageNumber-1;
-		PageRequest pageRequest = new PageRequest(realPageNumber, pageSize, null);
-		
-		
-		return this.createPagingHelperFromPage( this.getRepo().findByTranslationsDescriptionContaining(searchString.toLowerCase(), pageRequest) ) ;
+	public Page<FinancialTransaction> findByGeneralSearchPageable(String searchString,
+			@Header("pageable") Pageable pageable) {
+
+		return  this.getRepo().findByTranslationsDescriptionContaining(searchString.toLowerCase(), pageable)  ;
 	}
 	
 	@Override
