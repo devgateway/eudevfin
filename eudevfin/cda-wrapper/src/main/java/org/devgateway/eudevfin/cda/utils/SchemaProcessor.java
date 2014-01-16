@@ -8,6 +8,8 @@ import mondrian.olap.Util.PropertyList;
 
 public class SchemaProcessor extends LocalizingDynamicSchemaProcessor {
 	
+	private static final String DEFAULT_CURRENCY = "USD";
+
 	@Override
 	public String processSchema(String schemaUrl, PropertyList connectInfo)
 			throws Exception {
@@ -34,9 +36,17 @@ public class SchemaProcessor extends LocalizingDynamicSchemaProcessor {
         InputStream stream)
         throws Exception
     {
-    	connectInfo.put("Locale", org.springframework.context.i18n.LocaleContextHolder.getLocale().getLanguage());
+        String locale = org.springframework.context.i18n.LocaleContextHolder.getLocale().getLanguage();
+        String currency = connectInfo.get("CURRENCY");
+        if(currency == null || currency.equals("")){
+        	currency = DEFAULT_CURRENCY;
+        }
+
+        connectInfo.put("Locale", locale);
     	
         String schema = super.filter(schemaUrl, connectInfo, stream);
-        return schema.replaceAll("@@LOCALE@@", org.springframework.context.i18n.LocaleContextHolder.getLocale().getLanguage() );
+        schema = schema.replaceAll("@@LOCALE@@", locale);
+        schema = schema.replaceAll("@@CURRENCY@@", currency);
+        return schema;
     }
 }

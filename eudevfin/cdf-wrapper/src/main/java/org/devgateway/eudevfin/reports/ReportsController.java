@@ -61,6 +61,8 @@ public class ReportsController {
 	private static final String OUTPUT_TYPE_HTML = "html";
 	private static final String OUTPUT_TYPE_CSV = "csv";
 	private static final String REPORT_YEAR = "reportYear";
+	private static final String REPORT_CURRENCY = "reportCurrency";
+	private static final String REPORT_DEFAULT_CURRENCY_CODE = "USD";
 	
 	/**
 	 * Generate a report
@@ -78,8 +80,15 @@ public class ReportsController {
 		propertyList.put(RolapConnectionProperties.DynamicSchemaProcessor.toString(),
 	            "org.devgateway.eudevfin.cda.utils.SchemaProcessor");
 		
-		Connection connection = DriverManager.getConnection(propertyList, null, cdaDataSource);
-		
+		String currency = request.getParameter(REPORT_CURRENCY);
+		if (currency == null || currency.equals("")) {
+			currency = REPORT_DEFAULT_CURRENCY_CODE;
+		}
+		propertyList.put("CURRENCY", currency);
+
+		Connection connection = DriverManager.getConnection(propertyList, null,
+				cdaDataSource);
+
 		// add default values
 		if (reportType == null || reportType.equals("")) {
 			reportType = REPORT_TYPE_AQ;
@@ -91,7 +100,7 @@ public class ReportsController {
 		
 		switch (reportType) {
 			case REPORT_TYPE_AQ:
-				generateAdvancedQuestionnaire(request, response, connection, outputType);
+				generateAdvancedQuestionnaire(request, response, connection, outputType, currency);
 	            break;
 	        case REPORT_TYPE_DAC1:
 	        	generateDAC1(request, response, connection, outputType);
@@ -115,7 +124,7 @@ public class ReportsController {
 	 * @param outputType the output for the report: HTML, Excel, PDF, CSV
 	 */
 	private void generateAdvancedQuestionnaire (HttpServletRequest request, HttpServletResponse response, 
-			Connection connection, String outputType) {
+			Connection connection, String outputType, String currency) {
 		String yearParam = request.getParameter(REPORT_YEAR);
 		if (yearParam == null || yearParam.equals("")){
 			yearParam = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
@@ -129,6 +138,7 @@ public class ReportsController {
 			parameters.put(JRMondrianQueryExecuterFactory.PARAMETER_MONDRIAN_CONNECTION, connection);
 			parameters.put("FIRST_YEAR", reportYear - 1);
 			parameters.put("SECOND_YEAR", reportYear);
+			parameters.put("CURRENCY", currency);
 			try {
 				String subdirPath = new URI(this.getClass().getResource("./aq").toString()).getPath();
 				parameters.put("SUBDIR_PATH", subdirPath);

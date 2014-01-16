@@ -10,14 +10,14 @@
 	<queryString language="mdx">
 		<![CDATA[SELECT
 NON EMPTY {[Reporting Year].[$P{FIRST_YEAR}], [Reporting Year].[$P{SECOND_YEAR}]} ON ROWS,
-NON EMPTY {[Measures].[Commitments Amount]} ON COLUMNS
+NON EMPTY {[Measures].[Commitments Amount Currency]} ON COLUMNS
 FROM [Financial]]]>
 	</queryString>
 	<field name="Commitments Amount Year 1" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Reporting Year].[@@FIRST_YEAR@@])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount Currency], [Reporting Year].[@@FIRST_YEAR@@])]]></fieldDescription>
 	</field>
 	<field name="Commitments Amount Year 2" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Reporting Year].[@@SECOND_YEAR@@])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount Currency], [Reporting Year].[@@SECOND_YEAR@@])]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>

@@ -133,6 +133,13 @@
     </Measure>
     <Measure name="Commitments Amount" column="COMMITMENT_AMOUNT" aggregator="sum" visible="true" caption="%{commitmentsAmount}">
     </Measure>
+    <Measure name="Commitments Amount Currency" aggregator="sum" visible="true">
+		<MeasureExpression>
+			<SQL dialect="generic">
+				("financialtransaction"."COMMITMENT_AMOUNT" * (SELECT RATE FROM HISTORICALEXCHANGERATE WHERE BASE_CURRENCY = "financialtransaction"."COMMITMENT_CURR" AND COUNTER_CURRENCY = '@@CURRENCY@@' AND YEAR(DATE) = YEAR("financialtransaction"."REPORTINGYEAR")))
+			</SQL>
+		</MeasureExpression>
+    </Measure>
     <Measure name="Interest Received Amount" column="AMOUNTS_INTEREST_RECEIVED_AMOUNT" aggregator="sum" visible="true" caption="%{interestReceivedAmount}">
     </Measure>
     <Measure name="Principal Disbursed Amount" column="AMOUNTS_PRIN_DISB_AMOUNT" aggregator="sum" visible="true" caption="%{principalDisbursedAmount}">
