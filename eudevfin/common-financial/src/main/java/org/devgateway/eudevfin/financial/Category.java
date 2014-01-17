@@ -33,7 +33,9 @@ import org.hibernate.envers.Audited;
 public class Category extends AbstractTranslateable<CategoryTranslation>
 					implements CategoryTrnInterface, Serializable{
 
-	private static final long serialVersionUID = -6173469233250737236L;
+	private static final long serialVersionUID 	= -6173469233250737236L;
+	
+	public static String PREFIX_SEPARATOR		= "##"; 
 
 	/**
 	 * The code should be unique within a certain type of category
@@ -57,6 +59,15 @@ public class Category extends AbstractTranslateable<CategoryTranslation>
 	}
 
 
+	public String getDisplayableCode() {
+		String code		= this.getCode();
+		if ( code != null && code.contains(PREFIX_SEPARATOR) ) {
+			int index	= code.indexOf(PREFIX_SEPARATOR);
+			return code.substring(index + PREFIX_SEPARATOR.length() );
+		}
+		else
+			return code;
+	}
 
 	@Override
 	public String getName() {

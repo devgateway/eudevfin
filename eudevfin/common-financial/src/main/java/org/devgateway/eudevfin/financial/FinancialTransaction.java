@@ -60,7 +60,6 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
     private String geoTargetArea;
 
 
-    @Transient
     private Boolean cpa;
     private Boolean programmeBasedApproach;
     private Boolean investment;

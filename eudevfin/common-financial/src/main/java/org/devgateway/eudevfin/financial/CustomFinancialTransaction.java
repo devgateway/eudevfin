@@ -8,6 +8,7 @@
 
 package org.devgateway.eudevfin.financial;
 
+import org.hibernate.annotations.Type;
 import org.hibernate.envers.Audited;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
@@ -21,7 +22,7 @@ import javax.persistence.Entity;
 @Audited
 @DiscriminatorValue("Custom")
 public class CustomFinancialTransaction extends FinancialTransaction {
-    private Boolean CPA;
+	
     private Boolean projectCoFinanced;
 
 
@@ -32,22 +33,28 @@ public class CustomFinancialTransaction extends FinancialTransaction {
     private BigMoney budgetMTEFDisbursementP2;
     private BigMoney budgetMTEFDisbursementP3;
     private BigMoney budgetMTEFDisbursementP4;
+    
+    
+    private BigMoney firstAgencyAmount;
+    private BigMoney secondAgencyAmount;
+    private BigMoney thirdAgencyAmount;
 
 
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
     private LocalDateTime dataAsPerDate;
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
     private LocalDateTime phasingOutYear;
 
     private Organization firstCoFinancingAgency;
     private Organization secondCoFinancingAgency;
     private Organization thirdCoFinancingAgency;
 
+    @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentCurrencyUnit")
     private CurrencyUnit firstAgencyCurrency;
+    @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentCurrencyUnit")
     private CurrencyUnit secondAgencyCurrency;
+    @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentCurrencyUnit")
     private CurrencyUnit thirdAgencyCurrency;
-
-    private BigMoney firstAgencyAmount;
-    private BigMoney secondAgencyAmount;
-    private BigMoney thirdAgencyAmount;
 
     private Category rmnch;
     private Category recipientCode;
@@ -89,14 +96,6 @@ public class CustomFinancialTransaction extends FinancialTransaction {
 
     public void setDataAsPerDate(LocalDateTime dataAsPerDate) {
         this.dataAsPerDate = dataAsPerDate;
-    }
-
-    public Boolean getCPA() {
-        return CPA;
-    }
-
-    public void setCPA(Boolean CPA) {
-        this.CPA = CPA;
     }
 
     public BigMoney getFutureDebtPrincipal() {

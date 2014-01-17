@@ -8,13 +8,8 @@ import java.util.Set;
 
 import liquibase.exception.SetupException;
 
-import org.devgateway.eudevfin.financial.BiMultilateralCategory;
 import org.devgateway.eudevfin.financial.Category;
-import org.devgateway.eudevfin.financial.MarkerCategory;
-import org.devgateway.eudevfin.financial.NatureOfSubmissionCategory;
 import org.devgateway.eudevfin.financial.SectorCategory;
-import org.devgateway.eudevfin.financial.TypeOfFinanceCategory;
-import org.devgateway.eudevfin.financial.TypeOfFlowCategory;
 import org.devgateway.eudevfin.financial.dao.CategoryDaoImpl;
 import org.devgateway.eudevfin.importing.metadata.exception.InvalidDataException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class CategoryMapper extends AbstractMapper<Category> {
 	
-	private static final String NATURE_OF_SUBMISSION = "nature_of_submission";
-	private static final String BI_MULTILATERAL = "bi_multilateral";
-	private static final String TYPE_OF_FINANCE = "type_of_finance";
-	private static final String TYPE_OF_FLOW = "type_of_flow";
-	private static final String MARKER = "marker";
 	private static final String SECTOR = "sector";
 	@Autowired
 	CategoryDaoImpl categDao;
@@ -53,21 +43,6 @@ public class CategoryMapper extends AbstractMapper<Category> {
 	public Category __factory(String type){
 		if (SECTOR.equals(type)) {
 			return new SectorCategory();
-		}
-		else if (MARKER.equals(type)) {
-			return new MarkerCategory();
-		}
-		else if (TYPE_OF_FLOW.equals(type)) {
-			return new TypeOfFlowCategory();
-		}
-		else if (TYPE_OF_FINANCE.equals(type)) {
-			return new TypeOfFinanceCategory();
-		}
-		else if (BI_MULTILATERAL.equals(type)) {
-			return new BiMultilateralCategory();
-		}
-		else if (NATURE_OF_SUBMISSION.equals(type)) {
-			return new NatureOfSubmissionCategory();
 		}
 		else
 			return new Category();
