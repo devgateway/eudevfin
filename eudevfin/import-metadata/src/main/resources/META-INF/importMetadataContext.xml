@@ -38,6 +38,7 @@
 		<value>/sourcefiles/channel_category.xls</value>
 		<value>/sourcefiles/sectors_purpose.xls</value>
 		<value>/sourcefiles/other_categories.xls</value>
+		<value>/sourcefiles/currencies.xls</value>
 	</util:list>
 
 </beans>

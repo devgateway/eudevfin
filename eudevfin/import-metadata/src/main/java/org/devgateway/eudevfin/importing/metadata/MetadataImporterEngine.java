@@ -16,6 +16,7 @@ import org.devgateway.eudevfin.importing.metadata.exception.InvalidDataException
 import org.devgateway.eudevfin.importing.metadata.mapping.AreaMapper;
 import org.devgateway.eudevfin.importing.metadata.mapping.CategoryMapper;
 import org.devgateway.eudevfin.importing.metadata.mapping.ChannelCategoryMapper;
+import org.devgateway.eudevfin.importing.metadata.mapping.CurrencyCategoryMapper;
 import org.devgateway.eudevfin.importing.metadata.mapping.OrganizationMapper;
 import org.devgateway.eudevfin.importing.metadata.streamprocessors.ExcelStreamProcessor;
 import org.devgateway.eudevfin.importing.metadata.streamprocessors.StreamProcessorInterface;
@@ -89,14 +90,13 @@ public class MetadataImporterEngine {
 		return processors;
 	}
 
-
 	private void populateServicesMap() {
 		this.servicesMap	= new HashMap<String, AbstractDaoImpl>();
 		this.servicesMap.put(OrganizationMapper.class.getName(), orgDaoImpl);
 		this.servicesMap.put(CategoryMapper.class.getName(), categDaoImpl);
 		this.servicesMap.put(AreaMapper.class.getName(), areaDaoImpl);
 		this.servicesMap.put(ChannelCategoryMapper.class.getName(), categDaoImpl);
-		
+		this.servicesMap.put(CurrencyCategoryMapper.class.getName(), categDaoImpl);
 	}
 
 }

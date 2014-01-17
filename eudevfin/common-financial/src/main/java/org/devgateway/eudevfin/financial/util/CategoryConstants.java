@@ -30,23 +30,27 @@ public class CategoryConstants {
 	public static final String NUM_OF_REPAYMENTS_PER_ANNUM_TAG		= "NUM_OF_REPAYMENTS_PER_ANNUM_TAG";
 	public static final String SIGNIFICANCE_TAG						= "SIGNIFICANCE_TAG";
 	public static final String SIGNIFICANCE_FOR_PROGRAMME_TAG		= "SIGNIFICANCE_FOR_PROGRAMME_TAG";
+	public static final String CURRENCY_CATEGORY_TAG				= "CURRENCY_CATEGORY_TAG";
+	public static final String OTHER_CURRENCY_TAG					= "OTHER_CURRENCY_TAG";
+	public static final String MAIN_CURRENCY_TAG					= "MAIN_CURRENCY_TAG";
 	
 	
 	/**
 	 * codes for ROOT categories
 	 */
-	public static final String ROOT_MARKER_CATEGORY						= "ROOT_MARKER_CATEGORY";
-	public static final String ROOT_TYPE_OF_AID_CATEGORY				= "ROOT_TYPE_OF_AID_CATEGORY";
-	public static final String ROOT_TYPE_OF_FLOW_CATEGORY				= "ROOT_TYPE_OF_FLOW_CATEGORY";
-	public static final String ROOT_TYPE_OF_FINANCE_CATEGORY			= "ROOT_TYPE_OF_FINANCE_CATEGORY";
-	public static final String ROOT_BI_MULTILATERAL_CATEGORY			= "ROOT_BI_MULTILATERAL_CATEGORY";
-	public static final String ROOT_NATURE_OF_SUBMISSION_CATEGORY		= "ROOT_NATURE_OF_SUBMISSION_CATEGORY";
-	public static final String ROOT_SECTOR_CATEGORY						= "ROOT_SECTOR_CATEGORY";
-	public static final String ROOT_CHANNEL_CATEGORY					= "ROOT_CHANNEL_CATEGORY";
-	public static final String ROOT_TYPE_OF_REPAYMENT_CATEGORY			= "ROOT_TYPE_OF_REPAYMENT_CATEGORY";
-	public static final String ROOT_NUM_OF_REPAYMENTS_PER_ANNUM			= "ROOT_NUM_OF_REPAYMENTS_PER_ANNUM";
-	public static final String ROOT_SIGNIFICANCE						= "ROOT_SIGNIFICANCE";
-	public static final String ROOT_SIGNIFICANCE_FOR_PROGRAMME			= "ROOT_SIGNIFICANCE_FOR_PROGRAMME";
+	public static final String ROOT_MARKER_CATEGORY									= "ROOT_MARKER_CATEGORY";
+	public static final String ROOT_TYPE_OF_AID_CATEGORY							= "ROOT_TYPE_OF_AID_CATEGORY";
+	public static final String ROOT_TYPE_OF_FLOW_CATEGORY							= "ROOT_TYPE_OF_FLOW_CATEGORY";
+	public static final String ROOT_TYPE_OF_FINANCE_CATEGORY						= "ROOT_TYPE_OF_FINANCE_CATEGORY";
+	public static final String ROOT_BI_MULTILATERAL_CATEGORY						= "ROOT_BI_MULTILATERAL_CATEGORY";
+	public static final String ROOT_NATURE_OF_SUBMISSION_CATEGORY					= "ROOT_NATURE_OF_SUBMISSION_CATEGORY";
+	public static final String ROOT_SECTOR_CATEGORY									= "ROOT_SECTOR_CATEGORY";
+	public static final String ROOT_CHANNEL_CATEGORY								= "ROOT_CHANNEL_CATEGORY";
+	public static final String ROOT_TYPE_OF_REPAYMENT_CATEGORY						= "ROOT_TYPE_OF_REPAYMENT_CATEGORY";
+	public static final String ROOT_NUM_OF_REPAYMENTS_PER_ANNUM_CATEGORY			= "ROOT_NUM_OF_REPAYMENTS_PER_ANNUM_CATEGORY";
+	public static final String ROOT_SIGNIFICANCE_CATEGORY							= "ROOT_SIGNIFICANCE_CATEGORY";
+	public static final String ROOT_SIGNIFICANCE_FOR_PROGRAMME_CATEGORY				= "ROOT_SIGNIFICANCE_FOR_PROGRAMME_CATEGORY";
+	public static final String ROOT_CURRENCY_CATEGORY								= "ROOT_CURRENCY_CATEGORY";
 	
 			
 			
