@@ -12,6 +12,7 @@
     <entry key="7recipient.label">Recipient</entry>
     <entry key="7recipient.placeholder"></entry>
     <entry key="7recipient.help">TODO: edit help text</entry>
+    <entry key="7recipient.help.detail">TODO: edit detailed help text</entry>
 
     <entry key="7bCPA.label">Is this Country Programmable Aid (CPA)</entry>
     <entry key="7bCPA.placeholder"></entry>
