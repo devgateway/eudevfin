@@ -1,30 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dac1_master" language="groovy" pageWidth="900" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bad8772b-9ff8-49ae-a2c0-34a59258237b">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dac1_master" language="groovy" pageWidth="900" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" resourceBundle="i18n" uuid="bad8772b-9ff8-49ae-a2c0-34a59258237b">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<style name="table">
-		<box>
-			<pen lineWidth="1.0" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<subDataset name="Table Dataset 1" uuid="a4ae52d2-391d-4ea1-bec9-498f401ce056"/>
-	<subDataset name="Table Dataset 2" uuid="0aaafe6e-1e07-43f2-a749-cf365b26ee32"/>
+	<parameter name="SUBDIR_PATH" class="java.lang.String"/>
+	<queryString language="mdx">
+		<![CDATA[SELECT
+NON EMPTY {[Reporting Year].[2011], [Reporting Year].[2012]} ON ROWS,
+NON EMPTY {[Measures].[Commitments Amount]} ON COLUMNS
+FROM [Financial]]]>
+	</queryString>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -37,7 +22,6 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$R{dac1.title}]]></textFieldExpression>
 			</textField>
-			
 			<staticText>
 				<reportElement x="613" y="53" width="123" height="43" uuid="0ec0336c-7bad-4791-98a5-750066188036"/>
 				<textElement textAlignment="Right">
@@ -62,19 +46,19 @@ Date:]]></text>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="99" splitType="Stretch">
+		<band height="300" splitType="Stretch">
 			<line>
-				<reportElement x="21" y="10" width="827" height="1" forecolor="#3333FF" uuid="c3cbabaa-12de-4cb4-a373-78b8fb3858c8"/>
+				<reportElement x="10" y="10" width="839" height="1" forecolor="#3333FF" uuid="c3cbabaa-12de-4cb4-a373-78b8fb3858c8"/>
 			</line>
 			<staticText>
-				<reportElement x="0" y="36" width="113" height="20" uuid="f04c1578-6467-4505-81df-8240c1671002"/>
+				<reportElement x="49" y="40" width="113" height="20" uuid="f04c1578-6467-4505-81df-8240c1671002"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Million US dollars]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="455" y="16" width="113" height="20" uuid="c6674348-2d53-4ae0-ae86-89173391a566"/>
+				<reportElement x="448" y="16" width="113" height="20" uuid="c6674348-2d53-4ae0-ae86-89173391a566"/>
 				<textElement>
 					<font size="12" isBold="true" isUnderline="true"/>
 				</textElement>
@@ -91,27 +75,27 @@ Date:]]></text>
 				<reportElement x="632" y="10" width="1" height="89" uuid="4456227e-13d8-450f-b6ea-e9de46a4cc68"/>
 			</line>
 			<line>
-				<reportElement x="700" y="40" width="1" height="53" uuid="8e40e60a-4e8a-459a-9a62-a7038528bd2c"/>
+				<reportElement x="688" y="46" width="1" height="53" uuid="8e40e60a-4e8a-459a-9a62-a7038528bd2c"/>
 			</line>
 			<line>
-				<reportElement x="769" y="40" width="1" height="53" uuid="94501086-0e92-470b-95c4-e12fae3e5dc3"/>
+				<reportElement x="769" y="46" width="1" height="53" uuid="94501086-0e92-470b-95c4-e12fae3e5dc3"/>
 			</line>
 			<staticText>
-				<reportElement x="636" y="56" width="52" height="16" uuid="6899d318-d8a8-4170-9571-4925096f8bae"/>
+				<reportElement x="636" y="70" width="52" height="16" uuid="6899d318-d8a8-4170-9571-4925096f8bae"/>
 				<textElement textAlignment="Center">
 					<font size="10" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[Grants ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="708" y="56" width="60" height="16" uuid="3226e97f-8801-4109-9506-52e10ca2942a"/>
+				<reportElement x="701" y="70" width="60" height="16" uuid="3226e97f-8801-4109-9506-52e10ca2942a"/>
 				<textElement textAlignment="Center">
 					<font size="10" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[Non grants]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="769" y="56" width="79" height="26" uuid="34ceb82a-d2b2-44d5-b2af-47d853b90713"/>
+				<reportElement x="770" y="60" width="79" height="26" uuid="34ceb82a-d2b2-44d5-b2af-47d853b90713"/>
 				<textElement textAlignment="Center">
 					<font size="10" isBold="true" isUnderline="false"/>
 				</textElement>
@@ -119,54 +103,54 @@ Date:]]></text>
 commitments]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="636" y="36" width="52" height="16" uuid="deed4785-e794-46ee-909c-77456a2d54bc"/>
+				<reportElement x="637" y="46" width="52" height="16" uuid="deed4785-e794-46ee-909c-77456a2d54bc"/>
 				<textElement textAlignment="Center">
 					<font size="10" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[1151]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="709" y="36" width="52" height="16" uuid="00fb7038-f67c-44d1-8c75-531d99675414"/>
+				<reportElement x="701" y="44" width="52" height="16" uuid="00fb7038-f67c-44d1-8c75-531d99675414"/>
 				<textElement textAlignment="Center">
 					<font size="10" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[1152]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="782" y="36" width="52" height="16" uuid="03a185ac-5ff9-4b1b-a906-05fb676084e0"/>
+				<reportElement x="782" y="44" width="52" height="16" uuid="03a185ac-5ff9-4b1b-a906-05fb676084e0"/>
 				<textElement textAlignment="Center">
 					<font size="10" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[1150]]></text>
 			</staticText>
 			<line>
-				<reportElement x="575" y="42" width="1" height="53" uuid="88635da8-1bca-43d5-8571-30af8ad61c93"/>
+				<reportElement x="560" y="46" width="1" height="53" uuid="88635da8-1bca-43d5-8571-30af8ad61c93"/>
 			</line>
 			<line>
-				<reportElement x="530" y="42" width="1" height="53" uuid="c0fac196-108b-452f-b7ab-1bf59718b599"/>
+				<reportElement x="492" y="36" width="1" height="63" uuid="c0fac196-108b-452f-b7ab-1bf59718b599"/>
 			</line>
 			<line>
-				<reportElement x="467" y="42" width="1" height="53" uuid="9cb2a20a-990c-4b52-a9cb-aa9a8f4e93bc"/>
+				<reportElement x="429" y="46" width="1" height="53" uuid="9cb2a20a-990c-4b52-a9cb-aa9a8f4e93bc"/>
 			</line>
 			<line>
-				<reportElement x="407" y="42" width="1" height="53" uuid="67095353-8b00-48f1-9d96-b7f1fae730b0"/>
+				<reportElement x="356" y="46" width="1" height="53" uuid="67095353-8b00-48f1-9d96-b7f1fae730b0"/>
 			</line>
 			<staticText>
-				<reportElement x="356" y="52" width="52" height="16" uuid="e6aab14e-bd34-4219-ac2f-1f7d1dfca942"/>
+				<reportElement x="304" y="70" width="52" height="16" uuid="e6aab14e-bd34-4219-ac2f-1f7d1dfca942"/>
 				<textElement textAlignment="Center">
 					<font size="10" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[Grants ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="407" y="52" width="60" height="16" uuid="f1b5e343-e8a5-4bb0-84fe-1ff6922cf5c6"/>
+				<reportElement x="366" y="70" width="60" height="16" uuid="f1b5e343-e8a5-4bb0-84fe-1ff6922cf5c6"/>
 				<textElement textAlignment="Center">
 					<font size="10" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[Non grants]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="473" y="50" width="51" height="43" uuid="d98167a4-4bc1-416f-ab43-b47c4cb98d9a"/>
+				<reportElement x="430" y="62" width="62" height="37" uuid="d98167a4-4bc1-416f-ab43-b47c4cb98d9a"/>
 				<textElement textAlignment="Center">
 					<font size="10" isBold="true" isUnderline="false"/>
 				</textElement>
@@ -175,7 +159,7 @@ amounts
 extendend]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="531" y="50" width="44" height="43" uuid="f07a9463-f40b-49e8-bf4b-ae780b415348"/>
+				<reportElement x="503" y="60" width="47" height="39" uuid="f07a9463-f40b-49e8-bf4b-ae780b415348"/>
 				<textElement textAlignment="Center">
 					<font size="10" isBold="true" isUnderline="false"/>
 				</textElement>
@@ -185,7 +169,7 @@ received
 Non grants]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="576" y="52" width="52" height="43" uuid="7fd5b727-c68c-406a-b050-3cf1c11f5a1a"/>
+				<reportElement x="572" y="62" width="52" height="24" uuid="7fd5b727-c68c-406a-b050-3cf1c11f5a1a"/>
 				<textElement textAlignment="Center">
 					<font size="10" isBold="true" isUnderline="false"/>
 				</textElement>
@@ -193,62 +177,87 @@ Non grants]]></text>
 AMOUNTS]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="356" y="26" width="52" height="16" uuid="e3a4569b-8152-4065-9f63-8b8c1b7cd1f7"/>
+				<reportElement x="304" y="46" width="52" height="16" uuid="e3a4569b-8152-4065-9f63-8b8c1b7cd1f7"/>
 				<textElement textAlignment="Center">
 					<font size="10" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[1121]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="426" y="26" width="52" height="16" uuid="24965aa1-4c85-4223-921d-d75ac4789054"/>
+				<reportElement x="366" y="46" width="52" height="16" uuid="24965aa1-4c85-4223-921d-d75ac4789054"/>
 				<textElement textAlignment="Center">
 					<font size="10" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[1122]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="478" y="26" width="52" height="16" uuid="450ec37c-9ba9-4f92-b194-f115992368be"/>
+				<reportElement x="430" y="46" width="52" height="16" uuid="450ec37c-9ba9-4f92-b194-f115992368be"/>
 				<textElement textAlignment="Center">
 					<font size="10" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[1120]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="530" y="26" width="52" height="16" uuid="10eddb73-0261-4ff8-ad29-474ba6fd7a80"/>
+				<reportElement x="503" y="44" width="52" height="16" uuid="10eddb73-0261-4ff8-ad29-474ba6fd7a80"/>
 				<textElement textAlignment="Center">
 					<font size="10" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[1130]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="572" y="26" width="52" height="16" uuid="851c3e64-a89a-46d6-acea-774e87f7338b"/>
+				<reportElement x="572" y="44" width="52" height="16" uuid="851c3e64-a89a-46d6-acea-774e87f7338b"/>
 				<textElement textAlignment="Center">
 					<font size="10" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[1140]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="368" y="36" width="162" height="16" uuid="118b86e9-d104-4775-9eab-36683622d3e2"/>
+				<reportElement x="320" y="30" width="172" height="16" uuid="118b86e9-d104-4775-9eab-36683622d3e2"/>
 				<textElement textAlignment="Center">
 					<font size="10" isBold="true" isUnderline="false"/>
 				</textElement>
-				<text><![CDATA[---- Amounts extended -----]]></text>
+				<text><![CDATA[----- Amounts extended -----]]></text>
 			</staticText>
+			<subreport>
+				<reportElement x="0" y="99" width="860" height="75" uuid="fdeeb4b2-12ee-41e0-93c3-7ab824f421a9"/>
+				<subreportParameter name="SUBDIR_PATH">
+					<subreportParameterExpression><![CDATA[$P{SUBDIR_PATH}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="MONDRIAN_CONNECTION">
+					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression>
+					<![CDATA[JasperCompileManager.compileReport($P{SUBDIR_PATH} + "/dac1_key_indicators.jrxml")]]>
+				</subreportExpression>
+			</subreport>
+
+			<subreport>
+				<reportElement x="0" y="174" width="860" height="67" uuid="6253d3b5-ed7d-47b6-beac-1563271ecbf6"/>
+				<subreportParameter name="SUBDIR_PATH">
+					<subreportParameterExpression><![CDATA[$P{SUBDIR_PATH}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="MONDRIAN_CONNECTION">
+					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression>
+					<![CDATA[JasperCompileManager.compileReport($P{SUBDIR_PATH} + "/dac1_total_official_private_flows.jrxml")]]>
+				</subreportExpression>
+			</subreport>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
 		<band height="54" splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</summary>
 </jasperReport>
