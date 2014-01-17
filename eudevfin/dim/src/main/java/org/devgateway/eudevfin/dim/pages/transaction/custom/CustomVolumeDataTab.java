@@ -178,7 +178,7 @@ public class CustomVolumeDataTab extends VolumeDataTab {
             final Model<CurrencyUnit> toCurrency = Model.of();
 
             final TextInputField<BigDecimal> exchangeRate = new TextInputField<>("32cExchangeRate",
-                    new ExchangeRateModel(new RWComponentPropertyModel<ExchangeRate>("exchangeRate"), fromCurrency, toCurrency));
+                    new ExchangeRateModel(new RWComponentPropertyModel<ExchangeRate>("fixedExchangeRate"), fromCurrency, toCurrency));
             exchangeRate.typeBigDecimal().add(new CurrencyUpdateBehavior());
             exchangeRate.getField().setEnabled(false);
             add(exchangeRate);
