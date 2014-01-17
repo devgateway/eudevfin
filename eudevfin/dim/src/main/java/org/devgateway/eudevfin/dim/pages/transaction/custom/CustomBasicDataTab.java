@@ -74,7 +74,7 @@ public class CustomBasicDataTab extends BasicDataTab {
     public class Extension1 extends Fragment {
         public Extension1(String id, String markupId, MarkupContainer markupProvider) {
             super(id, markupId, markupProvider);
-            DropDownField<Boolean> cpa = new DropDownField<>("7bCPA", new RWComponentPropertyModel<Boolean>("CPA"),
+            DropDownField<Boolean> cpa = new DropDownField<>("7bCPA", new RWComponentPropertyModel<Boolean>("cpa"),
                     SB.boolProvider);
             add(cpa);
 

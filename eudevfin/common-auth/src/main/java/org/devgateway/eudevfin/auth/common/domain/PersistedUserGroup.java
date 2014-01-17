@@ -17,11 +17,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import org.devgateway.eudevfin.financial.Organization;
+import org.hibernate.envers.Audited;
 
 /**
  * @author mihai
  * 
  */
+@Audited
 @Entity
 public class PersistedUserGroup implements Serializable {
 

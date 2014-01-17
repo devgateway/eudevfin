@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import org.hibernate.envers.Audited;
 import org.springframework.security.core.userdetails.User;
 
 /**
@@ -22,6 +23,7 @@ import org.springframework.security.core.userdetails.User;
  *         {@link User}
  */
 @Entity
+@Audited
 public class PersistedUser implements Serializable {
 
 	private static final long serialVersionUID = 3330162033003739027L;
