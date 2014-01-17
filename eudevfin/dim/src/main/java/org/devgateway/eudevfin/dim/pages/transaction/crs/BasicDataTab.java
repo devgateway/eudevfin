@@ -11,19 +11,19 @@ package org.devgateway.eudevfin.dim.pages.transaction.crs;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.devgateway.eudevfin.dim.providers.AreaChoiceProvider;
 import org.devgateway.eudevfin.dim.providers.CategoryProviderFactory;
 import org.devgateway.eudevfin.dim.providers.ChannelCategoryChoiceProvider;
 import org.devgateway.eudevfin.dim.providers.OrganizationChoiceProvider;
+import org.devgateway.eudevfin.financial.Area;
 import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.ChannelCategory;
 import org.devgateway.eudevfin.financial.Organization;
-import org.devgateway.eudevfin.financial.RecipientCategory;
 import org.devgateway.eudevfin.financial.util.CategoryConstants;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.components.TextAreaInputField;
 import org.devgateway.eudevfin.ui.common.permissions.PermissionAwareComponent;
-import org.devgateway.eudevfin.ui.common.temporary.SB;
 
 /**
  * @author aartimon@developmentgateway.org
@@ -38,6 +38,8 @@ public class BasicDataTab extends Panel implements PermissionAwareComponent {
     private ChannelCategoryChoiceProvider channelProvider;
     @SpringBean
     private CategoryProviderFactory categoryFactory;
+    @SpringBean
+    private AreaChoiceProvider areaProvider;
 
     public BasicDataTab(String id) {
         super(id);
@@ -67,8 +69,8 @@ public class BasicDataTab extends Panel implements PermissionAwareComponent {
 
 
     private void addComponents() {
-        DropDownField<RecipientCategory> recipient = new DropDownField<>("7recipient",
-                new RWComponentPropertyModel<RecipientCategory>("recipient"), SB.recipientCategoryProvider);
+        DropDownField<Area> recipient = new DropDownField<>("7recipient",
+                new RWComponentPropertyModel<Area>("recipient"), areaProvider);
         add(recipient);
 
         DropDownField<Organization> channelOfDelivery = new DropDownField<>("8channelDelivery",

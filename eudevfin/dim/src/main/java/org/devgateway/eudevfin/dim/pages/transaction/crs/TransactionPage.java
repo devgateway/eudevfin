@@ -8,10 +8,6 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
@@ -20,9 +16,11 @@ import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.visit.IVisit;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
+import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
 import org.devgateway.eudevfin.ui.common.components.tabs.BootstrapJSTabbedPanel;
 import org.devgateway.eudevfin.ui.common.components.tabs.DefaultTabWithKey;
@@ -33,116 +31,131 @@ import org.devgateway.eudevfin.ui.common.permissions.RoleActionMapping;
 import org.devgateway.eudevfin.ui.common.temporary.SB;
 import org.wicketstuff.annotation.mount.MountPath;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 @MountPath(value = "/transaction")
 @AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
 public class TransactionPage extends HeaderFooter implements
-		PermissionAwarePage {
-	private static final Logger logger = Logger
-			.getLogger(TransactionPage.class);
+        PermissionAwarePage {
+    private static final Logger logger = Logger
+            .getLogger(TransactionPage.class);
 
-	private static final CRSTransactionPermissionProvider componentPermissions = new CRSTransactionPermissionProvider();
+    @SpringBean
+    private FinancialTransactionService financialTransactionService;
 
-	@SuppressWarnings("unchecked")
-	public TransactionPage() {
+    private static final CRSTransactionPermissionProvider componentPermissions = new CRSTransactionPermissionProvider();
 
-		// TODO: check that transactionType in the request parameters is the
-		// same as the loaded transaction's type
+    @SuppressWarnings("unchecked")
+    public TransactionPage() {
 
-		FinancialTransaction financialTransaction = getFinancialTransaction();
-		financialTransaction.setCurrency(SB.currencies[0]);
-		CompoundPropertyModel<? extends FinancialTransaction> model = new CompoundPropertyModel<>(
-				financialTransaction);
+        // TODO: check that transactionType in the request parameters is the
+        // same as the loaded transaction's type
 
-		setModel(model);
+        FinancialTransaction financialTransaction = getFinancialTransaction();
+        financialTransaction.setCurrency(SB.currencies[0]);
+        CompoundPropertyModel<? extends FinancialTransaction> model = new CompoundPropertyModel<>(
+                financialTransaction);
 
-		Form form = new Form("form");
-		add(form);
+        setModel(model);
 
-		List<ITabWithKey> tabList = populateTabList();
+        Form form = new Form("form");
+        add(form);
 
-		BootstrapJSTabbedPanel<ITabWithKey> bc = new BootstrapJSTabbedPanel<>(
-				"bc", tabList)
-				.positionTabs(BootstrapJSTabbedPanel.Orientation.RIGHT);
-		form.add(bc);
+        List<ITabWithKey> tabList = populateTabList();
 
-		form.add(new BootstrapSubmitButton("submit", Model.of("Submit")) {
-			Model<Boolean> shownFirstSection = null;
+        BootstrapJSTabbedPanel<ITabWithKey> bc = new BootstrapJSTabbedPanel<>(
+                "bc", tabList)
+                .positionTabs(BootstrapJSTabbedPanel.Orientation.RIGHT);
+        form.add(bc);
 
-			@Override
-			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-				logger.info("Submitted ok!");
-				logger.info("Object:" + getModel().getObject());
-			}
+        form.add(new BootstrapSubmitButton("submit", Model.of("Submit")) {
+            Model<Boolean> shownFirstSection = null;
 
-			@Override
-			public void componentVisitor(AjaxRequestTarget target,
-					FormComponent component, IVisit<Void> visit) {
-				// TODO Auto-generated method stub
-				super.componentVisitor(target, component, visit);
-				if (!shownFirstSection.getObject()) {
-					target.focusComponent(component);
-					target.appendJavaScript("$('#"
-							+ component.getMarkupId()
-							+ "').parents('[class~=\"tab-pane\"]').siblings().attr(\"class\", \"tab-pane\");");
-					target.appendJavaScript("$('#"
-							+ component.getMarkupId()
-							+ "').parents('[class~=\"tab-pane\"]').attr(\"class\", \"tab-pane active\");");
+            @Override
+            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+                FinancialTransaction transaction = (FinancialTransaction) form.getInnermostModel().getObject();
+                logger.info("Object:" + transaction);
+                logger.info("Trying to save!");
+                try {
+                    financialTransactionService.save(transaction);
+                } catch (Exception e) {
+                    logger.error("Exception while trying to save:", e);
+                    return;
+                }
+                logger.info("Saved ok!");
+            }
 
-					target.appendJavaScript("$('#"
-							+ component.getMarkupId()
-							+ "').parents('[class~=\"tabbable\"]').children('ul').find('li').attr('class', '');");
-					target.appendJavaScript("var idOfSection = $('#"
-							+ component.getMarkupId()
-							+ "').parents('[class~=\"tab-pane\"]').attr('id');$('#"
-							+ component.getMarkupId()
-							+ "').parents('[class~=\"tabbable\"]').children('ul').find('a[href=\"#' + idOfSection + '\"]').parent().attr('class', 'active');");
+            @Override
+            public void componentVisitor(AjaxRequestTarget target,
+                                         FormComponent component, IVisit<Void> visit) {
+                // TODO Auto-generated method stub
+                super.componentVisitor(target, component, visit);
+                if (!shownFirstSection.getObject()) {
+                    target.focusComponent(component);
+                    target.appendJavaScript("$('#"
+                            + component.getMarkupId()
+                            + "').parents('[class~=\"tab-pane\"]').siblings().attr(\"class\", \"tab-pane\");");
+                    target.appendJavaScript("$('#"
+                            + component.getMarkupId()
+                            + "').parents('[class~=\"tab-pane\"]').attr(\"class\", \"tab-pane active\");");
 
-					shownFirstSection.setObject(Boolean.TRUE);
-				}
-			}
+                    target.appendJavaScript("$('#"
+                            + component.getMarkupId()
+                            + "').parents('[class~=\"tabbable\"]').children('ul').find('li').attr('class', '');");
+                    target.appendJavaScript("var idOfSection = $('#"
+                            + component.getMarkupId()
+                            + "').parents('[class~=\"tab-pane\"]').attr('id');$('#"
+                            + component.getMarkupId()
+                            + "').parents('[class~=\"tabbable\"]').children('ul').find('a[href=\"#' + idOfSection + '\"]').parent().attr('class', 'active');");
 
-			@Override
-			protected void onError(AjaxRequestTarget target, Form<?> form) {
-				shownFirstSection = Model.of(Boolean.FALSE);
-				super.onError(target, form);
+                    shownFirstSection.setObject(Boolean.TRUE);
+                }
+            }
 
-			}
+            @Override
+            protected void onError(AjaxRequestTarget target, Form<?> form) {
+                shownFirstSection = Model.of(Boolean.FALSE);
+                super.onError(target, form);
 
-		});
+            }
 
-	}
+        });
 
-	protected FinancialTransaction getFinancialTransaction() {
-		return new FinancialTransaction();
-	}
+    }
 
-	private List<ITabWithKey> populateTabList() {
-		List<Class<? extends Panel>> tabClasses = getTabs();
-		ArrayList<ITabWithKey> tabs = new ArrayList<>();
-		for (final Class<? extends Panel> p : tabClasses) {
-			tabs.add(DefaultTabWithKey.of(p, this));
-		}
-		return tabs;
-	}
+    protected FinancialTransaction getFinancialTransaction() {
+        return new FinancialTransaction();
+    }
 
-	protected List<Class<? extends Panel>> getTabs() {
-		List<Class<? extends Panel>> tabList = new ArrayList<>();
-		tabList.add(IdentificationDataTab.class);
-		tabList.add(BasicDataTab.class);
-		tabList.add(SupplementaryDataTab.class);
-		tabList.add(VolumeDataTab.class);
-		tabList.add(ForLoansOnlyTab.class);
-		return tabList;
-	}
+    private List<ITabWithKey> populateTabList() {
+        List<Class<? extends Panel>> tabClasses = getTabs();
+        ArrayList<ITabWithKey> tabs = new ArrayList<>();
+        for (final Class<? extends Panel> p : tabClasses) {
+            tabs.add(DefaultTabWithKey.of(p, this));
+        }
+        return tabs;
+    }
 
-	@Override
-	protected void onAfterRenderChildren() {
-		super.onAfterRenderChildren();
+    protected List<Class<? extends Panel>> getTabs() {
+        List<Class<? extends Panel>> tabList = new ArrayList<>();
+        tabList.add(IdentificationDataTab.class);
+        tabList.add(BasicDataTab.class);
+        tabList.add(SupplementaryDataTab.class);
+        tabList.add(VolumeDataTab.class);
+        tabList.add(ForLoansOnlyTab.class);
+        return tabList;
+    }
 
-	}
+    @Override
+    protected void onAfterRenderChildren() {
+        super.onAfterRenderChildren();
 
-	@Override
-	public HashMap<String, RoleActionMapping> getPermissions() {
-		return componentPermissions.permissions();
-	}
+    }
+
+    @Override
+    public HashMap<String, RoleActionMapping> getPermissions() {
+        return componentPermissions.permissions();
+    }
 }
