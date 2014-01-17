@@ -11,7 +11,8 @@
 <properties>
     <entry key="1reportingYear.label">Reporting Year</entry>
     <entry key="1reportingYear.placeholder">YYYY</entry>
-    <entry key="1reportingYear.help">TODO: edit help text</entry>
+    <entry key="1reportingYear.help">Enter the year for which data are reported</entry>
+    <entry key="1reportingYear.help.detail">Field no. 1 - Reporting Year: Enter the year for which data are reported (e.g. if we are in year 2013, you enter 2012 because you report data for 2012)</entry>
 
     <entry key="1bCommitmentDate.label">Commitment Date</entry>
     <entry key="1bCommitmentDate.placeholder"></entry>
@@ -19,15 +20,28 @@
 
     <entry key="2reportingCountry.label">Reporting Country</entry>
     <entry key="2reportingCountry.placeholder">(choose one)</entry>
-    <entry key="2reportingCountry.help">TODO: edit help text</entry>
+    <entry key="2reportingCountry.help">Enter the full/ official name of your country</entry>
+    <entry key="2reportingCountry.help.detail">Field no.2 - Reporting country: you should report the full/official name of your country. 
+    In the future, when you become a OECD DAC member you will be assigned a country code and this field will be modified from text to the related code. 
+    For your reference see the existing country codes at http://www.oecd.org/dac/stats/dacandcrscodelists.htm
+    </entry>
 
     <entry key="3extendingAgency.label">Extending Agency</entry>
     <entry key="3extendingAgency.placeholder">(from first page)</entry>
-    <entry key="3extendingAgency.help">TODO: edit help text</entry>
+    <entry key="3extendingAgency.help">Enter the full/official name name of your institution</entry>
+ 	<entry key="3extendingAgency.help.detail">Field no. 3 - Extending agency: Enter the full/official name of your institution. 
+ 	The extending agency is the government entity (central, state or local government agency or department) financing the activity from its own budget. 
+ 	It is the budget holder, controlling the activity on its own account. 
+ 	Agencies administering activities on behalf of other government entities should not be reported as extending agencies but as channels of delivery (See fields 8 and 9 below).                                                                                                                                                                                                The extending agency is the government entity (central, state or local government agency or department) financing the activity from its own budget. It is the budget holder, controlling the activity on its own account. Agencies administering activities on behalf of other government entities should not be reported as extending agencies but as channels of delivery (See fields 8 and 9 below).
+ 	</entry>
 
     <entry key="4crsId.label">CRS ID Number</entry>
     <entry key="4crsId.placeholder">YYYYxxxxxx</entry>
-    <entry key="4crsId.help">TODO: edit help text</entry>
+    <entry key="4crsId.help">Enter the number In 10 digits</entry>
+    <entry key="4crsId.help.detail">Field no. 4 - CRS Identification number:  enter the number In 10 digits: YYYYxxxxxx . 
+    The CRS Id number ensures the unicity of each transaction in the database, and possibly the link between original commitments and subsequent disbursements over several years. 
+    It is a sequential number starting with the four digits of the original commitment year of the activity and is unique throughout the activity life (original commitment, subsequent increases and disbursements).
+    </entry>
 
     <entry key="5donorProjectNumber.label">Donor Project Number</entry>
     <entry key="5donorProjectNumber.placeholder">Number used by the agency</entry>

@@ -8,7 +8,6 @@
 
 package org.devgateway.eudevfin.ui.common.components;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.ControlGroup;
 import org.apache.wicket.Component;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -37,7 +36,7 @@ public abstract class AbstractField<T, FIELD extends FormComponent<T>> extends P
 
     final Component prepender;
     private final Component appender;
-    private final ControlGroup controlGroup;
+    private final DetailedHelpControlGroup controlGroup;
     FIELD field;
     private final MarkupContainer xPenderController;
 
@@ -60,8 +59,12 @@ public abstract class AbstractField<T, FIELD extends FormComponent<T>> extends P
 
         //if the help text is not found an empty String is going to be used
         StringResourceModel helpText = new StringResourceModel(messageKeyGroup + ".help", this, null, "");
+        
+        //if the detailed help text is not found an empty String is going to be used
+        StringResourceModel detailedHelpText = new StringResourceModel(messageKeyGroup + ".help.detail", this, null, "");
 
-        controlGroup = new ControlGroup("control-group", labelText, helpText);
+
+        controlGroup = new DetailedHelpControlGroup("control-group", labelText, helpText,detailedHelpText);
         controlGroup.setOutputMarkupId(true);
         xPenderController.add(prepender);
         xPenderController.add(appender);
