@@ -7,14 +7,12 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.devgateway.eudevfin.financial.BigMoneyWithCurrencyAndFixedRate;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
 import org.devgateway.eudevfin.financial.service.OrganizationService;
 import org.devgateway.eudevfin.financial.util.LocaleHelperInterface;
 import org.joda.money.BigMoney;
-import org.joda.money.ExchangeRate;
 import org.joda.time.LocalDateTime;
 import org.junit.Assert;
 import org.junit.Test;
@@ -107,9 +105,7 @@ public class FinancialTransactionServiceTest {
 		org 	= orgService.save(org).getEntity();
 		
 		FinancialTransaction tx = new FinancialTransaction();
-		BigMoneyWithCurrencyAndFixedRate amountsReceived 	= 
-				BigMoneyWithCurrencyAndFixedRate.of(BigMoney.parse("EUR 1230"), null );
-		tx.setAmountsReceived(amountsReceived);
+		tx.setAmountsReceived(BigMoney.parse("EUR 1230"));
 		tx.setCommitments(BigMoney.parse("EUR 4320"));
 		tx.setDescription("Some description for this tx");
 		tx.setCommitmentDate(new LocalDateTime());

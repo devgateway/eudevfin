@@ -8,6 +8,7 @@
 
 package org.devgateway.eudevfin.financial;
 
+import org.hibernate.annotations.Columns;
 import org.hibernate.annotations.Type;
 import org.hibernate.envers.Audited;
 import org.joda.money.BigMoney;
@@ -15,6 +16,7 @@ import org.joda.money.CurrencyUnit;
 import org.joda.money.ExchangeRate;
 import org.joda.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -23,20 +25,63 @@ import javax.persistence.Entity;
 @DiscriminatorValue("Custom")
 public class CustomFinancialTransaction extends FinancialTransaction {
 	
-    private Boolean projectCoFinanced;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -3864606312112731784L;
 
 
+	private Boolean projectCoFinanced;
+
+	@Columns(columns = { @Column(name = "future_debt_principal_curr"),
+			@Column(name = "future_debt_principal_amount") })
+	@Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney futureDebtPrincipal;
+	
+	@Columns(columns = { @Column(name = "future_debt_interest_curr"),
+			@Column(name = "future_debt_interest_amount") })
+	@Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney futureDebtInterest;
+	
+	@Columns(columns = { @Column(name = "budget_mtef_disb_curr"),
+			@Column(name = "budget_mtef_disb_amount") })
+	@Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney budgetMTEFDisbursement;
+	
+	@Columns(columns = { @Column(name = "budget_mtef_disb_p1_curr"),
+			@Column(name = "budget_mtef_disb_p1_amount") })
+	@Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney budgetMTEFDisbursementP1;
+	
+	@Columns(columns = { @Column(name = "budget_mtef_disb_p2_curr"),
+			@Column(name = "budget_mtef_disb_p2_amount") })
+	@Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney budgetMTEFDisbursementP2;
+	
+	@Columns(columns = { @Column(name = "budget_mtef_disb_p3_curr"),
+			@Column(name = "budget_mtef_disb_p3_amount") })
+	@Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney budgetMTEFDisbursementP3;
+	
+	@Columns(columns = { @Column(name = "budget_mtef_disb_p4_curr"),
+			@Column(name = "budget_mtef_disb_p4_amount") })
+	@Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney budgetMTEFDisbursementP4;
     
     
+	@Columns(columns = { @Column(name = "first_agency_curr"),
+			@Column(name = "first_agency_amount") })
+	@Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney firstAgencyAmount;
+	
+	@Columns(columns = { @Column(name = "second_agency_curr"),
+			@Column(name = "second_agency_amount") })
+	@Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney secondAgencyAmount;
+	
+	@Columns(columns = { @Column(name = "third_agency_curr"),
+			@Column(name = "third_agency_amount") })
+	@Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney thirdAgencyAmount;
 
 
@@ -80,17 +125,19 @@ public class CustomFinancialTransaction extends FinancialTransaction {
     private String budgetMTEFActivityP4;
     private String otherComments;
 
-    private ExchangeRate exchangeRate;
+    @Columns(columns={@Column(name="fixed_rate_base_currency"),@Column(name="fixed_rate_counter_currency"),@Column(name="fixed_rate")})	
+	@Type(type="org.jadira.usertype.exchangerate.joda.PersistentExchangeRate")
+    private ExchangeRate fixedExchangeRate;
 
-    public ExchangeRate getExchangeRate() {
-        return exchangeRate;
-    }
+    public ExchangeRate getFixedExchangeRate() {
+		return fixedExchangeRate;
+	}
 
-    public void setExchangeRate(ExchangeRate exchangeRate) {
-        this.exchangeRate = exchangeRate;
-    }
+	public void setFixedExchangeRate(ExchangeRate fixedExchangeRate) {
+		this.fixedExchangeRate = fixedExchangeRate;
+	}
 
-    public LocalDateTime getDataAsPerDate() {
+	public LocalDateTime getDataAsPerDate() {
         return dataAsPerDate;
     }
 
