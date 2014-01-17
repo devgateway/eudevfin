@@ -9,11 +9,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import org.hibernate.envers.Audited;
+
 /**
  * @author mihai
  * 
  */
 @Entity
+@Audited
 public class PersistedAuthority implements Serializable {
 
 	private static final long serialVersionUID = 1277503635558596280L;
