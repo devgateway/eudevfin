@@ -13,17 +13,29 @@
 <html wicket:id="html" xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
 <head>
     <meta charset="utf-8"/>
-    <meta wicket:id="viewport">
-    <meta wicket:id="chrome-frame">
+    <meta wicket:id="viewport"/>
+    <meta wicket:id="chrome-frame"/>
 </head>
 <body>
     <div class="container">
         <div wicket:id="navbar"/>
-    </div>
-
+    </div>	
     <wicket:child/>
-
-    <div wicket:id="footer"/>
+    
+     <footer class="footer">
+                <div class="container">
+                    <p class="pull-right"><a href="#">Back to top</a></p>
+						<img style="width:100 ;height: auto;" src="/images/euflag-200.png"/>
+					<p>Framework Contract EuropeAid/129783/C/SER/Multi</p>
+					<p>Lot 2: Communication and Training</p>
+					<p>Capacity-Building in the area of Development Cooperation Policy (Capacity Building Scheme VII 2013-2014)</p>
+					<p><b>Enhancing the ODA reporting capacities and systems of EU Member States</b></p>
+                    <p>Designed and built by the Particip Consortium</p>
+                </div>
+            </footer>
+    
     <wicket:container wicket:id="footer-container"/>
+    
+    
 </body>
 </html>

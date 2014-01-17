@@ -16,13 +16,13 @@
 </head>
 <body>
     <wicket:extend>
-        <header class="jumbotron subhead" id="overview">
+        <header class="eubanner subhead" id="overview">
             <div class="container">
-                <h1>Welcome to EU-DEVFIN</h1>
-                <p class="lead">Lorem ipsum bla bla bla bla bla.</p>
+                <h1><wicket:message key="login.welcome" /></h1>
+                <p class="lead"><wicket:message key="login.banner" /></p>
             </div>
         </header>
-
+<p/>
         <div class="container">
             <div class="row">
                 <div class="span4 offset4 well">
@@ -31,10 +31,8 @@
                         <div wicket:id="feedback" />
                         <div wicket:id="username"/>
                         <div wicket:id="password"/>
-                        <label class="checkbox">
-                            <input type="checkbox" name="remember" value="1" /> Remember Me
-                        </label>
-                        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                        <br/>
+                        <button type="submit" class="btn btn-primary btn-block">Submit</button>                        
                     </form>
                 </div>
             </div>

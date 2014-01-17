@@ -114,32 +114,97 @@
 	</entry>
 
 	<entry key="25programmeBasedApproach.label">Program-based Approach</entry>
-	<entry key="25programmeBasedApproach.placeholder"></entry>
-	<entry key="25programmeBasedApproach.help">TODO: edit help text</entry>
+	<entry key="25programmeBasedApproach.placeholder">1=Yes or Blank</entry>
+	<entry key="25programmeBasedApproach.help">Field no. 25 - Program-Based Approach (PBA)</entry>
+	<entry key="25programmeBasedApproach.help.detail">They are a way of engaging in development co-operation based on the principles of co-ordinated support
+		for a locally-owned programme of development, such as a national development strategy, a sector programme, a thematic
+		programme or a programme of a specific organisation. Donors can support and implement programme-based approaches in
+		different ways and across a range of aid modalities including budget support, sector budget support, project support,
+		pooled arrangements and trust funds. For an activity to qualify as PBA, all four of the following tests must be met:
+		A) The host country or organisation is exercising leadership over the programme supported by donors; B) A single
+		comprehensive programme and budget framework is used; C) There is a formal process for donor co-ordination and
+		harmonisation of donor procedures for at least two of the following systems: (i) reporting, (ii) budgeting, (iii)
+		financial management and (iv) procurement; D) Support to the programme uses at least two of the following local
+		systems: (i) programme design, (ii) programme implementation, (iii) financial management and (iv) monitoring and
+		evaluation.</entry>
 
 	<entry key="26investmentProject.label">Investment Project</entry>
-	<entry key="26investmentProject.placeholder"></entry>
-	<entry key="26investmentProject.help">TODO: edit help text</entry>
+	<entry key="26investmentProject.placeholder">1=Yes or Blank</entry>
+	<entry key="26investmentProject.help">Field no. 26 - Investment</entry>
+	<entry key="26investmentProject.help.detail">Activities flagged as investment comprise a) schemes to increase and/or improve the recipient’s stock
+		of physical capital and b) financing the supply of goods and services in support of such schemes. Most activities
+		assigned the “investment” flag are classified as type of aid C01 “Project-type interventions”.</entry>
 
 	<entry key="27associatedFinancing.label">Associated Financing</entry>
-	<entry key="27associatedFinancing.placeholder"></entry>
-	<entry key="27associatedFinancing.help">TODO: edit help text</entry>
+	<entry key="27associatedFinancing.placeholder">1=Yes or Blank</entry>
+	<entry key="27associatedFinancing.help">Field no. 27 - Associated Financing (AF)</entry>
+	<entry key="27associatedFinancing.help.detail">The combination of ODA, whether grants or loans, with any other funding to form finance packages. AF
+		associates two or more of the following, at least one of which is in effect tied or partially untied: i) official
+		development assistance; ii) other official flows with a grant element of at least 25 per cent; iii) officially
+		supported export credits, other official flows or other funds with a grant element of less than 25 per cent. In an
+		associated financing package, the availability of concessional funds is conditional upon acceptance of the linked
+		non-concessional component.</entry>
 
 	<entry key="rioMarkers.label">Rio Markers</entry>
 
 	<entry key="28biodiversity.label">Biodiversity</entry>
 	<entry key="28biodiversity.placeholder"></entry>
-	<entry key="28biodiversity.help">TODO: edit help text</entry>
+	<entry key="28biodiversity.help">Field no. 28 - Biodiversity</entry>
+	<entry key="28biodiversity.help.detail">The marker allows for the identification of activities that target the
+		objectives of the Rio United
+		Nations Convention on Biological Diversity (UNCBD). Principal policy objectives are those
+		which can be identified as
+		being fundamental in the design and impact of the activity and which are an explicit
+		objective of the activity. They
+		may be selected by answering the question “would the activity have been undertaken
+		without this objective?”.
+		Significant policy objectives are those which, although important, were not the prime
+		motivation for undertaking the
+		activity. The score “not targeted” means that the activity was found not to target the
+		policy objective. Leave the
+		field blank if the activity has not been screened against the objective. The definition of
+		this Rio marker, its
+		background , some examples and FAQs are given in Annex 18 of the CRS++ Gudieliens available at
+		http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-ADD2-FINAL-ENG.pdf (page 43).</entry>
 
 	<entry key="29ccMitigation.label">Climate Change - Mitigation</entry>
 	<entry key="29ccMitigation.placeholder"></entry>
-	<entry key="29ccMitigation.help">TODO: edit help text</entry>
+	<entry key="29ccMitigation.help">Field no. 29 - Climate Change - Mitigation</entry>
+	<entry key="29ccMitigation.help.detail">The marker allows for the identification of activities that target the objectives of the Rio United
+		Nations Framework Convention on Climate Change (UNFCCC) with distinct markers for adaptation and mitigation. Principal
+		policy objectives are those which can be identified as being fundamental in the design and impact of the activity and
+		which are an explicit objective of the activity. They may be selected by answering the question “would the activity
+		have been undertaken without this objective?”. Significant policy objectives are those which, although important, were
+		not the prime motivation for undertaking the activity. The score “not targeted” means that the activity was found not
+		to target the policy objective. Leave the field blank if the activity has not been screened against the objective. The
+		definition of this Rio marker, its background , some examples and FAQs are given in Annex 18 of the CRS++ Gudieliens
+		available at http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-ADD2-FINAL-ENG.pdf (page 43).</entry>
 
 	<entry key="30ccAdaptation.label">Climate Change - Adaptation</entry>
 	<entry key="30ccAdaptation.placeholder"></entry>
-	<entry key="30ccAdaptation.help">TODO: edit help text</entry>
+	<entry key="30ccAdaptation.help">Field no. 30 - Climate Change - Adaptation</entry>
+	<entry key="30ccAdaptation.help.detail">The marker allows for the identification of activities that target the objectives of the Rio United
+		Nations Framework Convention on Climate Change (UNFCCC) with distinct markers for adaptation and mitigation. Principal
+		policy objectives are those which can be identified as being fundamental in the design and impact of the activity and
+		which are an explicit objective of the activity. They may be selected by answering the question “would the activity
+		have been undertaken without this objective?”. Significant policy objectives are those which, although important, were
+		not the prime motivation for undertaking the activity. The score “not targeted” means that the activity was found not
+		to target the policy objective. Leave the field blank if the activity has not been screened against the objective. The
+		definition of this Rio marker, its background , some examples and FAQs are given in Annex 18 of the CRS++ Gudieliens
+		available at http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-ADD2-FINAL-ENG.pdf (page 43)</entry>
 
 	<entry key="31desertification.label">Desertification</entry>
 	<entry key="31desertification.placeholder"></entry>
-	<entry key="31desertification.help">TODO: edit help text</entry>
+	<entry key="31desertification.help">Field no. 31 - Desertification</entry>
+	<entry key="31desertification.help.detail">The marker allows for the identification of activities that target the
+		objectives of the Rio United Nations Convention to Combat Desertification (UNCCD). Principal policy objectives are
+		those which can be identified as being fundamental in the design and impact of the activity and which are an explicit
+		objective of the activity (a score “3” instead of "2" is used to separately identify activities in support of
+		national, sub-regional or regional action programmes). They may be selected by answering the question “would the
+		activity have been undertaken without this objective?”. Significant policy objectives are those which, although
+		important, were not the prime motivation for undertaking the activity. The score “not targeted” means that the
+		activity was found not to target the policy objective. Leave the field blank if the activity has not been screened
+		against the objective. The definition of this Rio marker, its background , some examples and FAQs are given in Annex
+		18 of the CRS++ Guidelines available at
+		http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-ADD2-FINAL-ENG.pdf (page 43).</entry>
 </properties>

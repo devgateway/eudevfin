@@ -13,7 +13,9 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
     <entry key="login.title">EU-DEVFIN - Login</entry>
+    <entry key="login.banner">Enhancing the ODA reporting capacities and systems of EU Member States</entry>
     <entry key="login.login">Login</entry>
+    <entry key="login.welcome">Welcome to EU-DEVFIN</entry>
     <entry key="login.user.label">User</entry>
     <entry key="login.user.placeholder">Type your username...</entry>
     <entry key="login.user.help">The username is usually your email address.</entry>

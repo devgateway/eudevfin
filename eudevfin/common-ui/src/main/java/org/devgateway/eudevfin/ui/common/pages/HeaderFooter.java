@@ -21,7 +21,6 @@ import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.head.filter.FilteredHeaderItem;
 import org.apache.wicket.markup.head.filter.HeaderResponseContainer;
 import org.apache.wicket.markup.html.GenericWebPage;
-import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.util.string.StringValue;
@@ -65,9 +64,7 @@ public abstract class HeaderFooter extends GenericWebPage {
         //add the navigation bar
         add(createNavBar());
 
-        //TODO: temporary placeholder for footer
-        add(new WebMarkupContainer("footer"));
-
+    
         add(new HeaderResponseContainer("footer-container", "footer-container"));
         add(new BootstrapBaseBehavior());
     }
