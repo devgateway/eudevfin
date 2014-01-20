@@ -125,7 +125,11 @@
 			<int:header name="requestName" value="findAreaByIdChannel"/>
 		</int:method>
 		<int:method name="findByGeneralSearch" request-channel="getChannel">
-			<int:header name="requestName" value="findAreaByGeneralSearchChannel"/>
+			
 		</int:method>
+		<int:method name="findByGeneralSearchPageable" request-channel="getChannel">
+			<int:header name="requestName" value="findByGeneralSearchPageableAreaChannel" />
+		</int:method>
+	
 	</int:gateway>
 </beans>
