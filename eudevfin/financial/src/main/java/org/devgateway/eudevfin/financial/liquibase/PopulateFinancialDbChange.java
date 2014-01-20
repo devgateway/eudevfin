@@ -22,7 +22,7 @@ import java.util.Random;
 
 public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 
-	//be gentle here, commit lower numbers
+	// be gentle here, commit lower numbers
 	public static int NUM_OF_TX	= 2;
 	public static int NUM_OF_YEARS = 5;
 	
@@ -50,8 +50,9 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 
 		for (int j=0; j<=NUM_OF_YEARS; j++) {
 			for (int i=1; i<=NUM_OF_TX; i++ ) {
-				FinancialTransaction tx 	= new FinancialTransaction();
-				tx.setCommitments(BigMoney.parse("EUR " + Math.ceil(Math.random()*100000)));
+				FinancialTransaction tx = new FinancialTransaction();
+				tx.setCommitments(BigMoney.parse("EUR " + Math.ceil(Math.random() * 100000)));
+				tx.setAmountsExtended(BigMoney.parse("EUR " + Math.ceil(Math.random() * 100000)));
 				Organization org = null;
 				Organization extAgency = null;
 				Category sector = null;
