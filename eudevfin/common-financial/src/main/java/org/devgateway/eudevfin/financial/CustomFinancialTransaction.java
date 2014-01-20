@@ -8,6 +8,10 @@
 
 package org.devgateway.eudevfin.financial;
 
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Columns;
@@ -17,10 +21,6 @@ import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.ExchangeRate;
 import org.joda.time.LocalDateTime;
-
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
 
 @Entity
 @Audited
@@ -33,6 +33,12 @@ public class CustomFinancialTransaction extends FinancialTransaction {
 	 */
 	private static final long serialVersionUID = -3864606312112731784L;
 
+	/**
+	 * @see SB##BILATERAL_ODA_ADVANCED_QUESTIONNAIRE
+	 */
+	private String formType;
+	
+	private Boolean draft	= false;
 
 	private Boolean projectCoFinanced;
 
@@ -132,7 +138,24 @@ public class CustomFinancialTransaction extends FinancialTransaction {
 	@Type(type="org.jadira.usertype.exchangerate.joda.PersistentExchangeRate")
     private ExchangeRate fixedExchangeRate;
 
-    public ExchangeRate getFixedExchangeRate() {
+    
+    public Boolean getDraft() {
+		return draft;
+	}
+
+	public void setDraft(Boolean draft) {
+		this.draft = draft;
+	}
+
+	public String getFormType() {
+		return formType;
+	}
+
+	public void setFormType(String formType) {
+		this.formType = formType;
+	}
+
+	public ExchangeRate getFixedExchangeRate() {
 		return fixedExchangeRate;
 	}
 

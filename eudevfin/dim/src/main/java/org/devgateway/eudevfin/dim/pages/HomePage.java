@@ -8,17 +8,23 @@
 
 package org.devgateway.eudevfin.dim.pages;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.dim.desktop.components.SearchBoxPanel;
 import org.devgateway.eudevfin.dim.desktop.components.TransactionTableListPanel;
+import org.devgateway.eudevfin.dim.desktop.components.util.DraftListGenerator;
 import org.devgateway.eudevfin.dim.desktop.components.util.GeneralSearchListGenerator;
 import org.devgateway.eudevfin.dim.desktop.components.util.SectorListGenerator;
+import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.service.CategoryService;
+import org.devgateway.eudevfin.financial.service.CustomFinancialTransactionService;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
 import org.devgateway.eudevfin.financial.service.OrganizationService;
 import org.devgateway.eudevfin.ui.common.components.tabs.BootstrapJSTabbedPanel;
@@ -27,26 +33,30 @@ import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.joda.money.BigMoney;
 import org.wicketstuff.annotation.mount.MountPath;
 
-import java.util.ArrayList;
-import java.util.List;
-
 //import org.devgateway.eudevfin.financial.test.services.CategoryServiceTest;
 
 @MountPath(value = "/home")
 @AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
 public class HomePage extends HeaderFooter {
 	
-	private static final String DESKTOP_LAST_TX_BY_TRANSPORT = "desktop.lastTxByTransport";
-
-	private static final String DESKTOP_LAST_TX_BY_AGRICULTURE = "desktop.lastTxByAgriculture";
+//	private static final String DESKTOP_LAST_TX_BY_TRANSPORT = "desktop.lastTxByTransport";
+//
+//	private static final String DESKTOP_LAST_TX_BY_AGRICULTURE = "desktop.lastTxByAgriculture";
+	
+	private static final String DESKTOP_LAST_TX_BY_DRAFT		= "desktop.lastTxByDraft";
+	private static final String DESKTOP_LAST_TX_BY_FINAL		= "desktop.lastTxByFinal";
 
     private static final String SECTOR_CODE_AGRIC = "130";
 
     private static final String SECTOR_CODE_TRANSPORT = "210";
 
     protected ListView<FinancialTransaction> transactionListView = null;
+    
     @SpringBean
     protected FinancialTransactionService txService;
+    
+    @SpringBean
+    protected CustomFinancialTransactionService customTxService;
 
     @SpringBean
     protected OrganizationService orgService;
@@ -128,8 +138,8 @@ public class HomePage extends HeaderFooter {
     	List<ITabWithKey> tabList = new ArrayList<>();
 
     	
-    	tabList.add( TransactionTableListPanel.newTab( this,DESKTOP_LAST_TX_BY_AGRICULTURE, new SectorListGenerator(SECTOR_CODE_AGRIC, txService) ) );
-    	tabList.add( TransactionTableListPanel.newTab( this,DESKTOP_LAST_TX_BY_TRANSPORT, new SectorListGenerator(SECTOR_CODE_TRANSPORT, txService) ) );
+    	tabList.add( TransactionTableListPanel.<CustomFinancialTransaction>newTab( this,DESKTOP_LAST_TX_BY_DRAFT, new DraftListGenerator(true, this.customTxService) ) );
+    	tabList.add( TransactionTableListPanel.<CustomFinancialTransaction>newTab( this,DESKTOP_LAST_TX_BY_FINAL, new DraftListGenerator(false, this.customTxService) ) );
     	
     	BootstrapJSTabbedPanel<ITabWithKey> bc = new BootstrapJSTabbedPanel<>("tops-panel", tabList).
                 positionTabs(BootstrapJSTabbedPanel.Orientation.RIGHT);
@@ -137,6 +147,8 @@ public class HomePage extends HeaderFooter {
     	this.add(bc);
     	
     	GeneralSearchListGenerator generalSearchListGenerator	= new GeneralSearchListGenerator(null, txService);
-    	this.add( new SearchBoxPanel("search-box-panel", new TransactionTableListPanel("search-results-panel",generalSearchListGenerator ), generalSearchListGenerator ) );
+    	this.add( new SearchBoxPanel("search-box-panel", 
+    			new TransactionTableListPanel<FinancialTransaction>("search-results-panel",generalSearchListGenerator ), 
+    			generalSearchListGenerator));
     }
 }

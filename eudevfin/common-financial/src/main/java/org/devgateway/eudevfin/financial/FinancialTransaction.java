@@ -43,12 +43,8 @@ import org.joda.time.LocalDateTime;
 public class FinancialTransaction extends AbstractTranslateable<FinancialTransactionTranslation>
         implements FinancialTransactionTrnInterface, Serializable {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 2191303184851850777L;
-
-
+    
     private BigDecimal amount;
     private BigDecimal interestRate;
     private BigDecimal secondInterestRate;
@@ -330,6 +326,8 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
                 "\n   channel=" + channel +
                 '}';
     }
+    
+    
 
     public BigDecimal getAmount() {
         return amount;

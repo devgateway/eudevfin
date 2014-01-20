@@ -37,7 +37,9 @@ public abstract class TableListPanel<T> extends Panel implements PageableCompone
  
 
 	protected abstract void populateTable();
-
+	
+	protected void populateHeader() {;}
+		
 	public TableListPanel(String id, ListGeneratorInterface<T> listGenerator) {
 		super(id);
 
@@ -54,6 +56,7 @@ public abstract class TableListPanel<T> extends Panel implements PageableCompone
 		this.generateListOfItems( pageNumber);
 		this.setOutputMarkupId(true);
 		
+		this.populateHeader();
 		this.populateTable();
 		this.populatePaging();
 		

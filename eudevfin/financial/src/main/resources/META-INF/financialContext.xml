@@ -161,6 +161,8 @@
 	<int:channel id="getFinancialTransactionHistoricalExchangeRatesChannel"/>
 	<int:channel id="findTransactionByGeneralSearchPageableChannel"/>
 	
+	<int:channel id="findCustomTransactionByDraftPageableChannel"/>
+	
 	<int:channel id="findOrganizationByIdChannel" />
 	<int:channel id="saveOrganizationChannel" />
 	<int:channel id="findOrganizationByGeneralSearchChannel" />

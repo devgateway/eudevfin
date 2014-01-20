@@ -14,10 +14,11 @@
 <wicket:extend>
         	<thead>
 	           <tr>
-	               <th>Transaction name</th>
-	               <th>Commitment value</th>
-	               <th>Sector name</th>
-	               <th>Organization name</th>
+	               <th><span wicket:id="transaction-name-label">Transaction name</span></th>
+	               <th><span wicket:id="transaction-commitment-value-label">Commitment value</span></th>
+	               <th><span wicket:id="transaction-sector-name-label">Sector name</span></th>
+	               <th><span wicket:id="transaction-organization-name-label">Organization name</span></th>
+	               <th><span wicket:id="transaction-actions-label">Actions</span></th>
 	           </tr>
             </thead>
 			<tr wicket:id="transaction-list">
@@ -32,6 +33,9 @@
 				</td>
 				<td>
 					<span wicket:id="transaction-organization-name">unspecified</span>
+				</td>
+				<td>
+					<a wicket:id="transaction-edit-link"><span wicket:id="transaction-edit-link-label">Edit</span></a>
 				</td>
 			</tr>
 </wicket:extend>

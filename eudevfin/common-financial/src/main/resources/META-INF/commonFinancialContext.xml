@@ -46,6 +46,14 @@
 			<int:header name="requestName" value="findTransactionByGeneralSearchPageableChannel"/>
 		</int:method>
 	</int:gateway>
+	
+	<int:gateway id="customFinancialTransactionService"
+		default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}" 
+		service-interface="org.devgateway.eudevfin.financial.service.CustomFinancialTransactionService">
+		<int:method name="findByDraftPageable" request-channel="getChannel">
+			<int:header name="requestName" value="findCustomTransactionByDraftPageableChannel"/>
+		</int:method>
+	</int:gateway>
 		
 		
 	<int:gateway id="financialTransactionHistExchRateService"
