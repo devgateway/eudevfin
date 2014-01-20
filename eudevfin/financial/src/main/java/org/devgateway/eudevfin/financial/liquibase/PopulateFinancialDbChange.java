@@ -1,14 +1,9 @@
 package org.devgateway.eudevfin.financial.liquibase;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
-
 import liquibase.database.Database;
 import liquibase.exception.CustomChangeException;
 import liquibase.exception.ValidationErrors;
 import liquibase.resource.ResourceAccessor;
-
 import org.devgateway.eudevfin.common.liquibase.AbstractSpringCustomTaskChange;
 import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
@@ -17,11 +12,13 @@ import org.devgateway.eudevfin.financial.dao.CategoryDaoImpl;
 import org.devgateway.eudevfin.financial.dao.FinancialTransactionDaoImpl;
 import org.devgateway.eudevfin.financial.dao.OrganizationDaoImpl;
 import org.devgateway.eudevfin.financial.util.CategoryConstants;
-import org.devgateway.eudevfin.financial.util.FinancialConstants;
 import org.joda.money.BigMoney;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Random;
 
 public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 
@@ -45,12 +42,13 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 		Random r = new Random();
 		List<Organization> listOrgs = orgDao.findAllAsList();
 		
-		List<Category> listSec = catDao.findByTagsCode(CategoryConstants.SUB_SECTOR_TAG);
-		List<Category> listTof = catDao.findByTagsCode(CategoryConstants.TYPE_OF_FINANCE_TAG);
-		List<Category> listToa = catDao.findByTagsCode(CategoryConstants.TYPE_OF_AID_TAG);
-		List<Category> listGroup = catDao.findByTagsCode(CategoryConstants.BI_MULTILATERAL_TAG);
+		List<Category> listSectors = catDao.findByTagsCode(CategoryConstants.SUB_SECTOR_TAG);
+		List<Category> listTypeOfFlow = catDao.findByTagsCode(CategoryConstants.TYPE_OF_FLOW_TAG);
+		List<Category> listTypeOfFinance = catDao.findByTagsCode(CategoryConstants.TYPE_OF_FINANCE_TAG);
+		List<Category> listTypeofAid = catDao.findByTagsCode(CategoryConstants.TYPE_OF_AID_TAG);
+		List<Category> listBiMultilateral = catDao.findByTagsCode(CategoryConstants.BI_MULTILATERAL_TAG);
 
-		for (int j=0; j<=NUM_OF_YEARS; j++){
+		for (int j=0; j<=NUM_OF_YEARS; j++) {
 			for (int i=1; i<=NUM_OF_TX; i++ ) {
 				FinancialTransaction tx 	= new FinancialTransaction();
 				tx.setCommitments(BigMoney.parse("EUR " + Math.ceil(Math.random()*100000)));
@@ -58,24 +56,27 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 				Organization extAgency = null;
 				Category sector = null;
 				Category typeOfFlow = null;
+				Category typeOfFinance = null;
 				Category typeOfAid = null;
 				Category biMultilateral = null;
 				
-				int orgRandomIndex=r.nextInt(listOrgs.size());
-				int extAgencyRandomIndex=r.nextInt(listOrgs.size());
-				int secRandomIndex=r.nextInt(listSec.size());
-				int tofRandomIndex=r.nextInt(listTof.size());
-				int toaRandomIndex=r.nextInt(listToa.size());
-				int groupRandomIndex=r.nextInt(listGroup.size());
+				int orgRandomIndex = r.nextInt(listOrgs.size());
+				int extAgencyRandomIndex = r.nextInt(listOrgs.size());
+				int sectorRandomIndex = r.nextInt(listSectors.size());
+				int typeOfFlowRandomIndex = r.nextInt(listTypeOfFlow.size());
+				int typeOfFinanceRandomIndex = r.nextInt(listTypeOfFinance.size());
+				int typeOfAidRandomIndex = r.nextInt(listTypeofAid.size());
+				int biMultilateralRandomIndex = r.nextInt(listBiMultilateral.size());
 				
 				org = listOrgs.get(orgRandomIndex);
 				extAgency = listOrgs.get(extAgencyRandomIndex);
-				sector = listSec.get(secRandomIndex);
-				typeOfFlow = listTof.get(tofRandomIndex);
-				typeOfAid = listToa.get(toaRandomIndex);
-				biMultilateral = listGroup.get(groupRandomIndex);
+				sector = listSectors.get(sectorRandomIndex);
+				typeOfFlow = listTypeOfFlow.get(typeOfFlowRandomIndex);
+				typeOfFinance = listTypeOfFinance.get(typeOfFinanceRandomIndex);
+				typeOfAid = listTypeofAid.get(typeOfAidRandomIndex);
+				biMultilateral = listBiMultilateral.get(biMultilateralRandomIndex);
 				
-				tx.setReportingOrganization( org );
+				tx.setReportingOrganization(org);
 				tx.setExtendingAgency(extAgency);
 				tx.setLocale("en");
 				tx.setDescription("CDA Test Transaction " + i + " en");
@@ -83,6 +84,7 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 				tx.setDescription("CDA Test Transaction " + i + " ro"); 
 				tx.setSector(sector);
 				tx.setTypeOfFlow(typeOfFlow);
+				tx.setTypeOfFinance(typeOfFinance);
 				tx.setTypeOfAid(typeOfAid);
 				tx.setBiMultilateral(biMultilateral);
 				tx.setReportingYear(LocalDateTime.parse((2009+j) + "-07-01"));
