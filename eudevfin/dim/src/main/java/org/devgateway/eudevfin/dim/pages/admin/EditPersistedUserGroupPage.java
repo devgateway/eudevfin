@@ -117,6 +117,8 @@ public class EditPersistedUserGroupPage extends HeaderFooter {
 		DropDownField<Organization> organization = new DropDownField<Organization>("organization",
 				new RWComponentPropertyModel<Organization>("organization"), organizationChoiceProvider);
 		
+		organization.required();
+		
 		MultiSelectField<PersistedUser> users = new MultiSelectField<PersistedUser>(
 				"users",
 				new RWComponentPropertyModel<Collection<PersistedUser>>(
@@ -150,7 +152,7 @@ public class EditPersistedUserGroupPage extends HeaderFooter {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				logger.info("Cancel pressed");
-				setResponsePage(ListPersistedUsersPage.class);
+				setResponsePage(ListPersistedUserGroupsPage.class);
 			}
 			
 		}.setDefaultFormProcessing(false));

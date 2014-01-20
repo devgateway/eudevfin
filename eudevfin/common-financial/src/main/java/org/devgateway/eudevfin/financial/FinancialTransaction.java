@@ -22,6 +22,8 @@ import javax.persistence.ManyToOne;
 
 import org.devgateway.eudevfin.financial.translate.FinancialTransactionTranslation;
 import org.devgateway.eudevfin.financial.translate.FinancialTransactionTrnInterface;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Columns;
 import org.hibernate.annotations.Type;
 import org.hibernate.envers.Audited;
@@ -36,6 +38,7 @@ import org.joda.time.LocalDateTime;
     name="financial_tx_class_type",
     discriminatorType= DiscriminatorType.STRING)
 @DiscriminatorValue("Standard")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 //@Table(name="FINANCIAL_TRANSACTION")
 public class FinancialTransaction extends AbstractTranslateable<FinancialTransactionTranslation>
         implements FinancialTransactionTrnInterface, Serializable {

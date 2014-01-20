@@ -32,14 +32,14 @@ public class PersistedUserGroupTableListPanel extends TableListPanel<PersistedUs
 	@Override
 	protected void populateTable() {
 		this.itemsListView = new ListView<PersistedUserGroup>("groupList", items) {
-
-			private static final long sermiialVersionUID = -8758662617501215830L;
+			
+			private static final long serialVersionUID = 1669165609822401092L;
 
 			@Override
 			protected void populateItem(ListItem<PersistedUserGroup> listItem) {
 				final PersistedUserGroup group = listItem.getModelObject();
 				
-				Label orgLabel = new Label("org",group.getOrganization().getName());
+				Label orgLabel = new Label("org",group.getOrganization()!=null?group.getOrganization().getName():"");
 				
 				Link linkToEditUserGroup=new Link("linkToEditUserGroup") {
 					@Override

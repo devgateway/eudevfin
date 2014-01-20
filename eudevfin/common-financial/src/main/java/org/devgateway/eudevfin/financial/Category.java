@@ -20,6 +20,8 @@ import javax.persistence.UniqueConstraint;
 
 import org.devgateway.eudevfin.financial.translate.CategoryTranslation;
 import org.devgateway.eudevfin.financial.translate.CategoryTrnInterface;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
 
 @Entity
@@ -30,6 +32,7 @@ import org.hibernate.envers.Audited;
     discriminatorType= DiscriminatorType.STRING)
 @DiscriminatorValue("Category")
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"category_type", "code"}))
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Category extends AbstractTranslateable<CategoryTranslation>
 					implements CategoryTrnInterface, Serializable{
 

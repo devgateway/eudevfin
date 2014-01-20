@@ -28,6 +28,8 @@ import org.devgateway.eudevfin.common.spring.ContextHelper;
 import org.devgateway.eudevfin.financial.translate.AbstractTranslation;
 import org.devgateway.eudevfin.financial.util.FinancialConstants;
 import org.devgateway.eudevfin.financial.util.LocaleHelperInterface;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -35,6 +37,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 
 @MappedSuperclass
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public abstract class AbstractTranslateable<T extends AbstractTranslation<? extends AbstractTranslateable<T>>>
         implements Serializable {
 

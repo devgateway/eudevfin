@@ -68,20 +68,20 @@
 	</bean>
 
 	<!-- Datasource for network mode, this will be instantiated only if network mode derby will be used -->
-	<bean class="org.apache.commons.dbcp.BasicDataSource" id="euDevFinDataSourceNetwork" autowire-candidate="false"
+	<bean class="org.apache.tomcat.jdbc.pool.DataSource" id="euDevFinDataSourceNetwork" autowire-candidate="false"
 		depends-on="startDerby" lazy-init="true">
 		<property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver" />
-		<property name="url"  value="jdbc:derby:eudevfin;create=true" />
+		<property name="url"  value="jdbc:derby://localhost/eudevfin;create=true" />
 		<property name="username" value="app" />
-		<property name="password" value="" />
+		<property name="password" value="app" />
 	</bean>
 
 	<!-- Datasource for embedded mode, this will be instantiated only if embedded mode derby will be used -->
-	<bean class="org.apache.commons.dbcp.BasicDataSource" id="euDevFinDataSourceEmbedded" lazy-init="true" autowire-candidate="false">
+	<bean class="org.apache.tomcat.jdbc.pool.DataSource" id="euDevFinDataSourceEmbedded" lazy-init="true" autowire-candidate="false">
 		<property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver" />
 		<property name="url" value="jdbc:derby:memory:eudevfin;create=true" />
 		<property name="username" value="app" />
-		<property name="password" value="" />	
+		<property name="password" value="app" />	
 	</bean>
 
 	<!-- this the real datasource, a proxy, it is the only one that can get autowired 
@@ -132,6 +132,9 @@
 			<props>
 				<prop key="org.hibernate.envers.global_with_modified_flag">true</prop>
 				<prop key="org.hibernate.envers.track_entities_changed_in_revision">true</prop>
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
 			</props>
 		</property>
 		

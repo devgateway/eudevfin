@@ -25,7 +25,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 
-	public static int NUM_OF_TX	= 1000;
+	//be gentle here, commit lower numbers
+	public static int NUM_OF_TX	= 2;
 	public static int NUM_OF_YEARS = 5;
 	
 	

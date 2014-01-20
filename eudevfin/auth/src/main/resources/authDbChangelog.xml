@@ -5,8 +5,10 @@
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-	<changeSet id="2" author="mpostelnicu">
+	<include file="classpath:importMetadataDbChangeLog.xml" />
 
+	<changeSet id="2" author="mpostelnicu">
+	
 		<customChange
 			class="org.devgateway.eudevfin.auth.liquibase.PopulateAuthDbChange">
 		</customChange>

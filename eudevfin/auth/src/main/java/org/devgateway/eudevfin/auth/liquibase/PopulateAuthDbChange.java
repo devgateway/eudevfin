@@ -13,10 +13,11 @@ import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.domain.PersistedAuthority;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUserGroup;
-import org.devgateway.eudevfin.auth.repository.PersistedAuthorityRepository;
-import org.devgateway.eudevfin.auth.repository.PersistedUserGroupRepository;
-import org.devgateway.eudevfin.auth.repository.PersistedUserRepository;
+import org.devgateway.eudevfin.auth.dao.PersistedAuthorityDaoImplEndpoint;
+import org.devgateway.eudevfin.auth.dao.PersistedUserDaoImplEndpoint;
+import org.devgateway.eudevfin.auth.dao.PersistedUserGroupDaoImplEndpoint;
 import org.devgateway.eudevfin.common.liquibase.AbstractSpringCustomTaskChange;
+import org.devgateway.eudevfin.financial.dao.OrganizationDaoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,32 +28,36 @@ import org.springframework.transaction.annotation.Transactional;
 public class PopulateAuthDbChange extends AbstractSpringCustomTaskChange {
 
 	@Autowired
-	private PersistedUserRepository userRepo;
+	private PersistedUserDaoImplEndpoint userDao;
 
 	@Autowired
-	private PersistedUserGroupRepository groupRepo;
+	private PersistedUserGroupDaoImplEndpoint groupDao;
+	
+	@Autowired
+	private OrganizationDaoImpl organizationDao;
 
 	@Autowired
-	private PersistedAuthorityRepository authorityRepo;
+	private PersistedAuthorityDaoImplEndpoint authorityDao;
 
 	@Override
 	@Transactional
 	public void execute(Database database) throws CustomChangeException {
 		PersistedAuthority authorityUser = new PersistedAuthority(
 				AuthConstants.Roles.ROLE_USER);
-		authorityUser = authorityRepo.save(authorityUser);
+		authorityUser = authorityDao.save(authorityUser).getEntity();
 
 		PersistedAuthority authoritySuper = new PersistedAuthority(
 				AuthConstants.Roles.ROLE_SUPERVISOR);
-		authoritySuper = authorityRepo.save(authoritySuper);
+		authoritySuper = authorityDao.save(authoritySuper).getEntity();
 		
 		PersistedAuthority authorityLead = new PersistedAuthority(
 				AuthConstants.Roles.ROLE_TEAMLEAD);
-		authorityLead = authorityRepo.save(authorityLead);
+		authorityLead = authorityDao.save(authorityLead).getEntity();
 		
 		PersistedUserGroup defaultGroup = new PersistedUserGroup();
 		defaultGroup.setName("The Default Test Group");
-		defaultGroup = groupRepo.save(defaultGroup);
+		defaultGroup.setOrganization(organizationDao.findOne(1L).getEntity());
+		groupDao.save(defaultGroup);
 
 		PersistedUser user = new PersistedUser();
 		user.setUsername("admin");
@@ -61,7 +66,7 @@ public class PopulateAuthDbChange extends AbstractSpringCustomTaskChange {
 		user.getAuthorities().add(authorityUser);
 		user.getGroups().add(defaultGroup);
 
-		userRepo.save(user);
+		userDao.save(user);
 
 		PersistedUser user2 = new PersistedUser();
 		user2.setUsername("user");
@@ -69,7 +74,7 @@ public class PopulateAuthDbChange extends AbstractSpringCustomTaskChange {
 		user2.getAuthorities().add(authorityUser);
 		user2.getGroups().add(defaultGroup);
 
-		userRepo.save(user2);
+		userDao.save(user2);
 	}
 
 	@Override

@@ -6,6 +6,8 @@ package org.devgateway.eudevfin.financial;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
 
 /**
@@ -15,6 +17,7 @@ import org.hibernate.envers.Audited;
 @Entity
 @Audited
 @DiscriminatorValue("Sector")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class SectorCategory extends Category {
 
 	public SectorCategory() {

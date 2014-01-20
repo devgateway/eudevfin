@@ -17,6 +17,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import org.devgateway.eudevfin.financial.Organization;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
 
 /**
@@ -25,6 +27,7 @@ import org.hibernate.envers.Audited;
  */
 @Audited
 @Entity
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class PersistedUserGroup implements Serializable {
 
 	private static final long serialVersionUID = -8690393283997583919L;
@@ -42,7 +45,7 @@ public class PersistedUserGroup implements Serializable {
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<PersistedUser> users = new HashSet<PersistedUser>();
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER,optional=false)
 	private Organization organization;
 
 	/**

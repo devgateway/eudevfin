@@ -5,9 +5,12 @@ import javax.persistence.ManyToOne;
 
 import org.devgateway.eudevfin.financial.translate.OrganizationTranslation;
 import org.devgateway.eudevfin.financial.translate.OrganizationTrnInterface;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
 
 @Entity @Audited
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Organization extends AbstractTranslateable<OrganizationTranslation> 
 							implements OrganizationTrnInterface {
 

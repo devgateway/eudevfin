@@ -10,6 +10,8 @@ import javax.persistence.ManyToOne;
 
 import org.devgateway.eudevfin.financial.translate.AreaTranslation;
 import org.devgateway.eudevfin.financial.translate.AreaTrnInterface;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
 
 
@@ -20,6 +22,7 @@ import org.hibernate.envers.Audited;
     name="area_type",
     discriminatorType= DiscriminatorType.STRING)
 @DiscriminatorValue("Area")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Area extends AbstractTranslateable<AreaTranslation> 
 					implements AreaTrnInterface {
 	

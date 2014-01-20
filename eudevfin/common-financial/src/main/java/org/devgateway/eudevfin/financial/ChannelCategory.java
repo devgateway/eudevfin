@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import org.devgateway.eudevfin.financial.translate.CategoryTranslation;
 import org.devgateway.eudevfin.financial.translate.ChannelCategoryTranslation;
 import org.devgateway.eudevfin.financial.translate.ChannelCategoryTrnInterface;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
 
 /**
@@ -20,6 +22,7 @@ import org.hibernate.envers.Audited;
  */
 @Entity @Audited
 @DiscriminatorValue("Channel")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class ChannelCategory extends Category implements ChannelCategoryTrnInterface {
 	/**
 	 * 

@@ -6,6 +6,8 @@ package org.devgateway.eudevfin.financial.translate;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
 
 /**
@@ -14,6 +16,7 @@ import org.hibernate.envers.Audited;
  */
 @Entity @Audited
 @DiscriminatorValue("ChannelCategoryTrn")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class ChannelCategoryTranslation extends CategoryTranslation implements ChannelCategoryTrnInterface {
 
 	private String acronym;

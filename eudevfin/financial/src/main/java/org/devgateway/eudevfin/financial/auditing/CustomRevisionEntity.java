@@ -6,6 +6,8 @@ package org.devgateway.eudevfin.financial.auditing;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
 import org.hibernate.envers.DefaultTrackingModifiedEntitiesRevisionEntity;
 import org.hibernate.envers.RevisionEntity;
@@ -20,6 +22,7 @@ import org.joda.time.LocalDateTime;
  */
 @Entity
 @RevisionEntity(CustomRevisionListener.class)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name="REVINFO")
 public class CustomRevisionEntity  extends DefaultTrackingModifiedEntitiesRevisionEntity {
 

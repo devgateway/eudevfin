@@ -8,6 +8,8 @@
 
 package org.devgateway.eudevfin.financial;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Columns;
 import org.hibernate.annotations.Type;
 import org.hibernate.envers.Audited;
@@ -23,6 +25,7 @@ import javax.persistence.Entity;
 @Entity
 @Audited
 @DiscriminatorValue("Custom")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class CustomFinancialTransaction extends FinancialTransaction {
 	
     /**

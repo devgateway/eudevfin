@@ -8,6 +8,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
 import org.devgateway.eudevfin.financial.Category;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
 @Entity
 @Audited
@@ -16,6 +18,7 @@ import org.hibernate.envers.Audited;
     name="category_trn_type",
     discriminatorType= DiscriminatorType.STRING)
 @DiscriminatorValue("CategoryTrn")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class CategoryTranslation extends AbstractTranslation<Category> implements CategoryTrnInterface {
 	
 	private String name;

@@ -8,6 +8,8 @@ import java.math.BigDecimal;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
 
 /**
@@ -17,6 +19,7 @@ import org.hibernate.envers.Audited;
 @Entity
 @Audited
 @DiscriminatorValue("Country")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Country extends Area {
 
 	private static final long serialVersionUID = 4597228380360940999L;

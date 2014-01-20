@@ -6,6 +6,8 @@ package org.devgateway.eudevfin.financial.translate;
 import javax.persistence.Entity;
 
 import org.devgateway.eudevfin.financial.FinancialTransaction;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
 
 /**
@@ -14,6 +16,7 @@ import org.hibernate.envers.Audited;
  */
 @Entity
 @Audited
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class FinancialTransactionTranslation extends AbstractTranslation<FinancialTransaction> implements FinancialTransactionTrnInterface {
 	
 //	@Lob
