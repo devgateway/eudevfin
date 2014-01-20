@@ -1,45 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  ~ Copyright (c) 2013 Development Gateway.
-  ~ All rights reserved. This program and the accompanying materials
-  ~ are made available under the terms of the GNU Public License v3.0
-  ~ which accompanies this distribution, and is available at
-  ~ http://www.gnu.org/licenses/gpl.html
-  -->
+<!-- ~ Copyright (c) 2013 Development Gateway. ~ All rights reserved. This program and the accompanying materials ~ are made 
+	available under the terms of the GNU Public License v3.0 ~ which accompanies this distribution, and is available at ~ http://www.gnu.org/licenses/gpl.html -->
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <entry key="otherMarkers.label">Other Markers</entry>
+	<entry key="otherMarkers.label">Other Markers</entry>
 
-    <entry key="32bOtherCurrency.label">Other currency than national</entry>
-    <entry key="32bOtherCurrency.placeholder"></entry>
-    <entry key="32bOtherCurrency.help">TODO: edit help text</entry>
+	<entry key="32bOtherCurrency.label">Other currency than national</entry>
+	<entry key="32bOtherCurrency.placeholder"></entry>
+	<entry key="32bOtherCurrency.help">Enter other currency than your national currency, if necessary</entry>
+	<entry key="32bOtherCurrency.help.detail">Field no. 32b - Other currency than national: enter other currency than national in case the
+		transaction is denominated in foreign currency (as per financial agreement or financial report)</entry>
 
-    <entry key="32cExchangeRate.label">Exchange rate indicated in financial documents</entry>
-    <entry key="32cExchangeRate.placeholder"></entry>
-    <entry key="32cExchangeRate.help">TODO: edit help text</entry>
+	<entry key="32cExchangeRate.label">Exchange rate indicated in financial documents</entry>
+	<entry key="32cExchangeRate.placeholder"></entry>
+	<entry key="32cExchangeRate.help">Enter exchange rates officially used in the transaction, if indicated in the financial agreement or
+		report</entry>
+	<entry key="32cExchangeRate.help.detail">Field no. 32c. Exchange rate indicated in financial documents (if any): it may be possible that the
+		exchange rate for the transaction is indicated in the financial agreement or financial report attached to it. In this
+		case indicate the applied exchange rate. If there is no specific exchange rate applied, leave this field blank
+	</entry>
 
-    <entry key="34bBudgetCode.label">Budget Code</entry>
-    <entry key="34bBudgetCode.placeholder"></entry>
-    <entry key="34bBudgetCode.help">TODO: edit help text</entry>
+	<entry key="34bBudgetCode.label">Budget Code</entry>
+	<entry key="34bBudgetCode.placeholder"></entry>
+	<entry key="34bBudgetCode.help">Insert the budget code under which resources were made available for this transaction.</entry>
+	<entry key="34bBudgetCode.help.detail">Field no. 34.b - Budget code: refer to the budget appropriations and/or the monthly/quarterly cash
+		plans for your agency and identify the budget code (or sub-code) under which resource were made available for this
+		transaction. If there is no unique code for this transaction, include the one-higher budget code (or sib-code) which
+		includes the transaction, among other initiatives
+	</entry>
 
-    <entry key="34cBudgetLine.label">Budget Line</entry>
-    <entry key="34cBudgetLine.placeholder"></entry>
-    <entry key="34cBudgetLine.help">TODO: edit help text</entry>
+	<entry key="34cBudgetLine.label">Budget Line</entry>
+	<entry key="34cBudgetLine.placeholder"></entry>
+	<entry key="34cBudgetLine.help">Insert the budget title under which resources were made available for this transaction.</entry>
+	<entry key="34cBudgetLine.help.detail">Field no. 34.c - Budget title: refer to the budget appropriations and/or the monthly/quarterly cash
+		plans for your agency and identify the budget title (or sub-title) under which resource were made available for this
+		transaction. If there is no unique title for this transaction, include the one-higher budget title (or sub-title)
+		which includes the transaction, among other initiatives. Most of the time the title is going to be an economic item,
+		e.g. other recurrent expenditures titles or investment expenditures titles.
+	</entry>
 
-    <entry key="34dBudgetActivity.label">Budget Activity</entry>
-    <entry key="34dBudgetActivity.placeholder"></entry>
-    <entry key="34dBudgetActivity.help">TODO: edit help text</entry>
+	<entry key="34dBudgetActivity.label">Budget Activity</entry>
+	<entry key="34dBudgetActivity.placeholder"></entry>
+	<entry key="34dBudgetActivity.help">Insert the budget activity under which resources were made available for this transaction.
+	</entry>
+	<entry key="34dBudgetActivity.help.detail">Field no. 34.d - Budget code: refer to the budget appropriations and/or the monthly/quarterly cash
+		plans for your agency and identify the budget activity under which resource were made available for this transaction.
+		If there is no unique activity for this transaction, include the one-higher budget activity which includes the
+		transaction, among other initiatives. In case your budget does not contain activity items, leave this filed blank.
+		Activity items are to be found under budget programs when the budget is presented as a Program-Based Budget (PBB).
+	</entry>
 
-    <entry key="table.currentYear">Current Year</entry>
-    <entry key="table.currentYearP1">Current Year + 1</entry>
-    <entry key="table.currentYearP2">Current Year + 2</entry>
-    <entry key="table.currentYearP3">Current Year + 3</entry>
-    <entry key="table.currentYearP4">Current Year + 4</entry>
-    <entry key="table.budgetMtef">Budget/MTEF</entry>
-    <entry key="table.disbursement">Disbursement</entry>
-    <entry key="table.code">Code</entry>
-    <entry key="table.line">Line</entry>
-    <entry key="table.activity">Activity</entry>
+	<entry key="table.currentYear">Current Year</entry>
+	<entry key="table.currentYearP1">Current Year + 1</entry>
+	<entry key="table.currentYearP2">Current Year + 2</entry>
+	<entry key="table.currentYearP3">Current Year + 3</entry>
+	<entry key="table.currentYearP4">Current Year + 4</entry>
+	<entry key="table.budgetMtef">Budget/MTEF</entry>
+	<entry key="table.disbursement">Disbursement</entry>
+	<entry key="table.code">Code</entry>
+	<entry key="table.line">Line</entry>
+	<entry key="table.activity">Activity</entry>
 
 </properties>

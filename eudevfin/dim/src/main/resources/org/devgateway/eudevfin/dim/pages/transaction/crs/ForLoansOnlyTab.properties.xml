@@ -1,51 +1,140 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  ~ Copyright (c) 2013 Development Gateway.
-  ~ All rights reserved. This program and the accompanying materials
-  ~ are made available under the terms of the GNU Public License v3.0
-  ~ which accompanies this distribution, and is available at
-  ~ http://www.gnu.org/licenses/gpl.html
-  -->
+<!-- ~ Copyright (c) 2013 Development Gateway. ~ All rights reserved. This program and the accompanying materials ~ are made 
+	available under the terms of the GNU Public License v3.0 ~ which accompanies this distribution, and is available at ~ http://www.gnu.org/licenses/gpl.html -->
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <entry key="44typeOfRepayment.label">Type of repayment</entry>
-    <entry key="44typeOfRepayment.placeholder"></entry>
-    <entry key="44typeOfRepayment.help">TODO: edit help text</entry>
+	<entry key="44typeOfRepayment.label">Type of repayment</entry>
+	<entry key="44typeOfRepayment.placeholder"></entry>
+	<entry key="44typeOfRepayment.help">1=equal principal payments (see glossary for explaination)
+		2=annuity;
+		3=lump sum;
+		5=other;
+	</entry>
+	<entry key="44typeOfRepayment.help.detail">Field no. 44 - Type of repayment: The terms of repayment may be the following: 1= Equal principal
+		payments (EPP) denotes a fixed schedule of equal instalments of principal
+		adding up to the face value of the loan.
+		Interest is charged on outstanding principal and the amount of individual service
+		payments decreases with each payment
+		of principal.
+		2= In the annuity method, each service payment is established as an equal amount, within which the
+		interest component
+		declines with time while the principal component increases. 3= Lump sum means the loan is repaid in
+		a single amount
+		(principal and interest) at maturity. If interest is paid at various earlier dates, then the repayment
+		schedule is a
+		particular case of equal principal payments and should be reported under that category. 5= If the type of
+		repayment
+		does not correspond to any of the three above, use the code “other”.
+	</entry>
 
-    <entry key="45numberOfRepayments.label">Number of Repayments per annum</entry>
-    <entry key="45numberOfRepayments.placeholder"></entry>
-    <entry key="45numberOfRepayments.help">TODO: edit help text</entry>
+	<entry key="45numberOfRepayments.label">Number of Repayments per annum</entry>
+	<entry key="45numberOfRepayments.placeholder"></entry>
+	<entry key="45numberOfRepayments.help">1=annual
+		2=semi-annual;
+		4=quarterly;
+		12=monthly
+	</entry>
+	<entry key="45numberOfRepayments.help.detail">Field no. 45 - Number of repayments per annum: 1=annual; 2=semi-annual; 4=quarterly; 12=monthly</entry>
 
-    <entry key="46interestRate.label">Interest Rate</entry>
-    <entry key="46interestRate.placeholder"></entry>
-    <entry key="46interestRate.help">TODO: edit help text</entry>
+	<entry key="46interestRate.label">Interest Rate</entry>
+	<entry key="46interestRate.placeholder"></entry>
+	<entry key="46interestRate.help">Enter: in 5 digits, e.g. “05200” for 5.2 % ; or
+		“0” if interest free. If ODA loan with variable
+		interest rate, report the variable rate in field 46 (e.g. LIBOR6M-1.5%)
+		and the reference
+		fixed rate in field 47.
+	</entry>
+	<entry key="46interestRate.help.detail">Field no. 46 - Interest rate: Enter in 5 digits, e.g. “05200” for 5.2 % ; or “0” if interest free.
+		Most loans have a single interest rate which applies throughout the life of the loan. Enter this rate, including in it
+		any charges in addition to the interest that are payable on the disbursed balance over the life of the loan. If ODA
+		loan with variable interest rate, report the variable rate in field 46 (e.g. LIBOR6M-1.5%) and the reference fixed
+		rate in field 47. Where interest is waived during the grace period (i.e. the interval between the commitment date and
+		the first repayment date), report the loan as having two interest rates with zero interest being charged for the grace
+		period. Loans with variable interest rates may only be classified as ODA if concessionality is guaranteed by a
+		specific mechanism. The mechanism needs to ensure that the variable rate is concessional and that it will be capped so
+		that the grant element over the life of the loan is at least 25%. To understand how the mechanism works read
+		paragraphs 52 to 56 of the CRS++ guidliens available at
+		http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-FINAL-ENG.pdf
+	</entry>
 
-    <entry key="47secondInterestRate.label">2nd Interest Rate</entry>
-    <entry key="47secondInterestRate.placeholder"></entry>
-    <entry key="47secondInterestRate.help">TODO: edit help text</entry>
+	<entry key="47secondInterestRate.label">2nd Interest Rate</entry>
+	<entry key="47secondInterestRate.placeholder"></entry>
+	<entry key="47secondInterestRate.help">"Enter
+		in 5 digits, e.g. “05200” for 5.2 % ; or
+		“0” if interest free.
+		If ODA loan with variable interest
+		rate, report the variable rate in field 46 (e.g. LIBOR6M-1.5%) and the reference
+		fixed rate in field 47. "
+	</entry>
+	<entry key="47secondInterestRate.help.detail">Field no. 47 - Second interest rate: Enter in 5 digits, e.g. “05200” for 5.2 % ; or “0” if interest
+		free. Most loans have a single interest rate which applies throughout the life of the loan. Enter this rate, including
+		in it any charges in addition to the interest that are payable on the disbursed balance over the life of the loan. If
+		ODA loan with variable interest rate, report the variable rate in field 46 (e.g. LIBOR6M-1.5%) and the reference fixed
+		rate in field 47. Where interest is waived during the grace period (i.e. the interval between the commitment date and
+		the first repayment date), report the loan as having two interest rates with zero interest being charged for the grace
+		period. Loans with variable interest rates may only be classified as ODA if concessionality is guaranteed by a
+		specific mechanism. The mechanism needs to ensure that the variable rate is concessional and that it will be capped so
+		that the grant element over the life of the loan is at least 25%. To understand how the mechanism works read
+		paragraphs 52 to 56 of the CRS++ guidliens available at
+		http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-FINAL-ENG.pdf
+	</entry>
 
-    <entry key="48firstRepaymentDate.label">1st RepaymentDate</entry>
-    <entry key="48firstRepaymentDate.placeholder"></entry>
-    <entry key="48firstRepaymentDate.help">TODO: edit help text</entry>
+	<entry key="48firstRepaymentDate.label">1st RepaymentDate</entry>
+	<entry key="48firstRepaymentDate.placeholder"></entry>
+	<entry key="48firstRepaymentDate.help">First repayment rate</entry>
+	<entry key="48firstRepaymentDate.help.detail">Field no. 48 - First repayment rate: State the dates at which the first and the final repayments of
+		principal are due. Where the repayment schedule depends on the date(s) at which disbursements are made, please provide
+		approximate repayment dates. Estimation might be based on the standard terms of repayment applied to a given recipient
+		country or country group.
+	</entry>
 
-    <entry key="49finalRepaymentDate.label">Final repayment date</entry>
-    <entry key="49finalRepaymentDate.placeholder"></entry>
-    <entry key="49finalRepaymentDate.help">TODO: edit help text</entry>
+	<entry key="49finalRepaymentDate.label">Final repayment date</entry>
+	<entry key="49finalRepaymentDate.placeholder"></entry>
+	<entry key="49finalRepaymentDate.help">Final repayment date</entry>
+	<entry key="49finalRepaymentDate.help.detail">Field no. 49 - Final repayment date: State the dates at which the first and the final repayments of
+		principal are due. Where the repayment schedule depends on the date(s) at which disbursements are made, please provide
+		approximate repayment dates. Estimation might be based on the standard terms of repayment applied to a given recipient
+		country or country group.
+	</entry>
 
-    <entry key="50interestReceived.label">Interest Received</entry>
-    <entry key="50interestReceived.placeholder"></entry>
-    <entry key="50interestReceived.help">TODO: edit help text</entry>
+	<entry key="50interestReceived.label">Interest Received</entry>
+	<entry key="50interestReceived.placeholder"></entry>
+	<entry key="50interestReceived.help">During the reporting year (full amount). DO NOT enter a negative amount.</entry>
+	<entry key="50interestReceived.help.detail">Field no. 50 - Interest received: Interest received corresponds to the amount of interest and/or other
+		charges received from the borrowing country, including payments to expunge or reduce interest due or in arrears.</entry>
 
-    <entry key="51principalDisbursed.label">Principal Disbursed and still outstanding</entry>
-    <entry key="51principalDisbursed.placeholder"></entry>
-    <entry key="51principalDisbursed.help">TODO: edit help text</entry>
+	<entry key="51principalDisbursed.label">Principal Disbursed and still outstanding</entry>
+	<entry key="51principalDisbursed.placeholder"></entry>
+	<entry key="51principalDisbursed.help">The amount of principal owed on the loan at the end of the reporting year (full amounts)</entry>
+	<entry key="51principalDisbursed.help.detail">Field no. 51 - Principal disbursed and still outstanding: Loans should be reported on the CRS++ until
+		no outstanding principal or interest remains, regardless of whether the agency continues to extend new loans. Report
+		under field 51. Principal disbursed and still outstanding the amount of principal owed on the loan at the end of the
+		reporting year.
+	</entry>
 
-    <entry key="52arrearsOfPrincipals.label">Arrears of Principals</entry>
-    <entry key="52arrearsOfPrincipals.placeholder"></entry>
-    <entry key="52arrearsOfPrincipals.help">TODO: edit help text</entry>
+	<entry key="52arrearsOfPrincipals.label">Arrears of Principals</entry>
+	<entry key="52arrearsOfPrincipals.placeholder"></entry>
+	<entry key="52arrearsOfPrincipals.help">At the end of the year (in full amount)</entry>
+	<entry key="52arrearsOfPrincipals.help.detail">Field no. 52 - Arrears of principal (included in field 51): Report separately any arrears of
+		principal and interest at the end of the reporting year, taking into account debt
+		service payments received during the year (amortisation under field 35 and interest received under field 50), and including
+		arrears that have arisen during the reporting year. Arrears of principal are part of the principal owed on the loan
+		and should be included in the amount reported under field 51 (i.e. field 52 is an “of which” field of 51). Arrears of
+		interest, by contrast, are not part of this amount. Any past due or overdue late interest (interest which accrues on
+		arrears) should be treated as arrears of interest. Total debt outstanding at the end of the year is defined as the sum
+		of principal disbursed and still outstanding and arrears of interest.
+	</entry>
 
-    <entry key="53arrearsOfInterest.label">Arrears of Interest</entry>
-    <entry key="53arrearsOfInterest.placeholder"></entry>
-    <entry key="53arrearsOfInterest.help">TODO: edit help text</entry>
+	<entry key="53arrearsOfInterest.label">Arrears of Interest</entry>
+	<entry key="53arrearsOfInterest.placeholder"></entry>
+	<entry key="53arrearsOfInterest.help">At the end of the year (in full amount)</entry>
+	<entry key="53arrearsOfInterest.help.detail">Field no. 53 - Arrears of interest: Report separately any arrears of principal and interest at the end
+		of the reporting year, taking into account debt service payments received during the year (amortisation under field 35
+		and interest received under field 50), and including arrears that have arisen during the reporting year. Arrears of
+		principal are part of the principal owed on the loan and should be included in the amount reported under field 51
+		(i.e. field 52 is an “of which” field of 51). Arrears of interest, by contrast, are not part of this amount. Any past
+		due or overdue late interest (interest which accrues on arrears) should be treated as arrears of interest. Total debt
+		outstanding at the end of the year is defined as the sum of principal disbursed and still outstanding and arrears of
+		interest.</entry>
 </properties>

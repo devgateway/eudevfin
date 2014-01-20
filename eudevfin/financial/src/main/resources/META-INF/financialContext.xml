@@ -134,7 +134,7 @@
 				<prop key="org.hibernate.envers.track_entities_changed_in_revision">true</prop>
 				<prop key="hibernate.cache.use_second_level_cache">true</prop>
 				<prop key="hibernate.cache.use_query_cache">true</prop>
-				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
+				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory</prop>
 			</props>
 		</property>
 		
@@ -185,8 +185,7 @@
 	<int:channel id="findAllAsListAreaChannel"/>
 	<int:channel id="findAreaByIdChannel"/>
 	<int:channel id="findAreaByGeneralSearchChannel"/>
-	
-	
+	<int:channel id="findByGeneralSearchPageableAreaChannel"/>
 	
 
     <!-- 	Router that sends the requests to the appropriate channels where they will usually be handled by ServiceActivators.
