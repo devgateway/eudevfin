@@ -42,10 +42,10 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 		Random r = new Random();
 		List<Organization> listOrgs = orgDao.findAllAsList();
 		
-		List<Category> listSectors = catDao.findByTagsCode(CategoryConstants.SUB_SECTOR_TAG);
+		List<Category> listSectors = catDao.findByTagsCode(CategoryConstants.ALL_SECTOR_TAG);
 		List<Category> listTypeOfFlow = catDao.findByTagsCode(CategoryConstants.TYPE_OF_FLOW_TAG);
-		List<Category> listTypeOfFinance = catDao.findByTagsCode(CategoryConstants.TYPE_OF_FINANCE_TAG);
-		List<Category> listTypeofAid = catDao.findByTagsCode(CategoryConstants.TYPE_OF_AID_TAG);
+		List<Category> listTypeOfFinance = catDao.findByTagsCode(CategoryConstants.ALL_TYPE_OF_FINANCE_TAG);
+		List<Category> listTypeofAid = catDao.findByTagsCode(CategoryConstants.ALL_TYPE_OF_AID_TAG);
 		List<Category> listBiMultilateral = catDao.findByTagsCode(CategoryConstants.BI_MULTILATERAL_TAG);
 
 		for (int j=0; j<=NUM_OF_YEARS; j++) {
