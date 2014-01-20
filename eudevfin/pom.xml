@@ -81,6 +81,7 @@
             <version>${hibernate.core.version}</version>
         </dependency>
 
+
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-envers</artifactId>
@@ -114,6 +115,13 @@
             <artifactId>wicket-spring</artifactId>
             <version>${wicket.version}</version>
         </dependency>
+        
+        <dependency>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket-jmx</artifactId>
+            <version>${wicket.version}</version>
+        </dependency>               
+        
         <dependency>
             <groupId>org.apache.wicket</groupId>
             <artifactId>wicket-ioc</artifactId>
