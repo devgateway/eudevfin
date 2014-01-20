@@ -41,5 +41,6 @@
     <entry key="navbar.newTransaction.nonOda.otherFlows">Other Flow</entry>
     
     <entry key="button.submit">Submit</entry>
+    <entry key="button.save">Save</entry>
     <entry key="button.cancel">Cancel</entry>
 </properties>

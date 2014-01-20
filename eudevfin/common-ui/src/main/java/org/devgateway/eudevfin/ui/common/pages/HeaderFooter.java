@@ -44,7 +44,7 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarComponents;
 import de.agilecoders.wicket.core.settings.IBootstrapSettings;
 
 @SuppressWarnings("WicketForgeJavaIdInspection")
-public abstract class HeaderFooter extends GenericWebPage {
+public abstract class HeaderFooter<T> extends GenericWebPage<T> {
 
 	protected HeaderFooter() {
 		initialize();
