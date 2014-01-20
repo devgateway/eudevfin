@@ -25,7 +25,7 @@
 				"CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
 				"CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
 				"CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
-				"CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='type_of_aid')
+				"CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='TYPE_OF_AID_TAG')
 			group by
 				"CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME",
 				"CATEGORY"."CODE"
@@ -36,7 +36,10 @@
 				"CATEGORY"."CODE" ASC
 			]]></SQL>
 			</View>
-			<Level name="Name" visible="true" column="NAME" uniqueMembers="false"></Level>
+			<Level name="Code" visible="true" column="CODE" uniqueMembers="false">
+			</Level>
+			<Level name="Name" visible="true" column="NAME" uniqueMembers="false">
+			</Level>
 		</Hierarchy>
 	</Dimension>
 	<Dimension visible="true" highCardinality="false" name="Type of Flow">
@@ -53,7 +56,7 @@
 				"CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
 				"CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
 				"CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
-				"CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='type_of_flow')
+				"CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='TYPE_OF_FLOW_TAG')
 			group by
 				"CATEGORY"."ID",
 				"CATEGORYTRANSLATION"."NAME",
@@ -65,7 +68,10 @@
 				"CATEGORY"."CODE" ASC
 			]]></SQL>
 			</View>
-			<Level name="Name" visible="true" column="NAME" uniqueMembers="false"></Level>
+			<Level name="Code" visible="true" column="CODE" uniqueMembers="false">
+			</Level>
+			<Level name="Name" visible="true" column="NAME" uniqueMembers="false">
+			</Level>
 		</Hierarchy>
 	</Dimension>
 	<Dimension type="StandardDimension" visible="true" name="Sector">
@@ -84,7 +90,7 @@
 						"CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
 						"CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
 						"CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
-						"CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='subsectors')
+						"CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='SECTOR_TAG')
 					group by
 						"CATEGORY"."ID",
 						"CATEGORYTRANSLATION"."NAME",
@@ -96,7 +102,10 @@
 						"CATEGORY"."CODE" ASC
 			]]></SQL>
 			</View>
-			<Level name="Name" visible="true" column="NAME" uniqueMembers="false"></Level>
+			<Level name="Code" visible="true" column="CODE" uniqueMembers="false">
+			</Level>
+			<Level name="Name" visible="true" column="NAME" uniqueMembers="false">
+			</Level>
 		</Hierarchy>
 	</Dimension>
 	<Dimension visible="true" highCardinality="false" name="BiMultilateral">
@@ -115,7 +124,7 @@
 						"CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
 						"CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
 						"CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
-						"CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='bi_multilateral')
+						"CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='BI_MULTILATERAL_TAG')
 					group by
 						"CATEGORY"."ID",
 						"CATEGORYTRANSLATION"."NAME",
@@ -127,7 +136,10 @@
 						"CATEGORY"."CODE" ASC
 			]]></SQL>
 			</View>
-			<Level name="Name" visible="true" column="NAME" uniqueMembers="false"></Level>
+			<Level name="Code" visible="true" column="CODE" uniqueMembers="false">
+			</Level>
+			<Level name="Name" visible="true" column="NAME" uniqueMembers="false">
+			</Level>
 		</Hierarchy>
 	</Dimension>
 	<Cube name="Financial" visible="true" cache="false" enabled="true">
