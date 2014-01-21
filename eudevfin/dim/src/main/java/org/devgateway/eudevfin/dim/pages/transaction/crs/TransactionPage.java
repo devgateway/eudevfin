@@ -24,9 +24,9 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.util.time.Duration;
 import org.apache.wicket.util.visit.IVisit;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
-import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.dim.pages.HomePage;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
@@ -40,26 +40,27 @@ import org.devgateway.eudevfin.ui.common.permissions.RoleActionMapping;
 import org.devgateway.eudevfin.ui.common.temporary.SB;
 import org.wicketstuff.annotation.mount.MountPath;
 
+import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
+import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
+
 @MountPath(value = "/transaction")
 @AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
-public class TransactionPage extends HeaderFooter<FinancialTransaction> implements
-        PermissionAwarePage {
+public class TransactionPage extends HeaderFooter<FinancialTransaction> implements PermissionAwarePage {
 
 	private static final long serialVersionUID = -3616689887136295555L;
 
-	private static final Logger logger = Logger
-            .getLogger(TransactionPage.class);
-	
-	public static final String PARAM_TRANSACTION_ID="transactionId";
+	private static final Logger logger = Logger.getLogger(TransactionPage.class);
 
-    @SpringBean
-    private FinancialTransactionService financialTransactionService;
+	public static final String PARAM_TRANSACTION_ID = "transactionId";
 
-    private static final CRSTransactionPermissionProvider componentPermissions = new CRSTransactionPermissionProvider();
+	@SpringBean
+	private FinancialTransactionService financialTransactionService;
 
-    
-	public class TransactionPageSubmitButton extends
-			BootstrapSubmitButton {
+	private static final CRSTransactionPermissionProvider componentPermissions = new CRSTransactionPermissionProvider();
+
+	protected final NotificationPanel feedbackPanel;
+
+	public class TransactionPageSubmitButton extends BootstrapSubmitButton {
 		private static final long serialVersionUID = -8310280845870280505L;
 
 		public TransactionPageSubmitButton(String id, IModel<String> model) {
@@ -70,13 +71,14 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 
 		@Override
 		protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-			FinancialTransaction transaction = (FinancialTransaction) form
-					.getInnermostModel().getObject();
+			FinancialTransaction transaction = (FinancialTransaction) form.getInnermostModel().getObject();
 			logger.info("Object:" + transaction);
 			logger.info("Trying to save!");
 			try {
 				FinancialTransaction saved = financialTransactionService.save(transaction).getEntity();
 				TransactionPage.this.getModel().setObject(saved);
+				info(new NotificationMessage(new StringResourceModel("notification.saved", TransactionPage.this, null, null)));				
+				target.add(feedbackPanel);
 			} catch (Exception e) {
 				logger.error("Exception while trying to save:", e);
 				return;
@@ -85,27 +87,25 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 		}
 
 		@Override
-		protected void onError(AjaxRequestTarget target, Form<?> form) {
+		protected void onError(AjaxRequestTarget target, Form<?> form) {			
 			shownFirstSection = Model.of(Boolean.FALSE);
 			super.onError(target, form);
+			error(new NotificationMessage(new StringResourceModel("notification.validationerrors", TransactionPage.this, null, null)));
+			target.add(feedbackPanel);
 		}
 
 		@Override
-		public void componentVisitor(AjaxRequestTarget target,
-				FormComponent component, IVisit<Void> visit) {
+		public void componentVisitor(AjaxRequestTarget target, FormComponent component, IVisit<Void> visit) {
 			// TODO Auto-generated method stub
 			super.componentVisitor(target, component, visit);
 			if (!shownFirstSection.getObject()) {
 				target.focusComponent(component);
-				target.appendJavaScript("$('#"
-						+ component.getMarkupId()
+				target.appendJavaScript("$('#" + component.getMarkupId()
 						+ "').parents('[class~=\"tab-pane\"]').siblings().attr(\"class\", \"tab-pane\");");
-				target.appendJavaScript("$('#"
-						+ component.getMarkupId()
+				target.appendJavaScript("$('#" + component.getMarkupId()
 						+ "').parents('[class~=\"tab-pane\"]').attr(\"class\", \"tab-pane active\");");
 
-				target.appendJavaScript("$('#"
-						+ component.getMarkupId()
+				target.appendJavaScript("$('#" + component.getMarkupId()
 						+ "').parents('[class~=\"tabbable\"]').children('ul').find('li').attr('class', '');");
 				target.appendJavaScript("var idOfSection = $('#"
 						+ component.getMarkupId()
@@ -117,104 +117,100 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 			}
 		}
 	}
-	
-	
 
-    
-    @SuppressWarnings("unchecked")
-    public TransactionPage(final PageParameters parameters) {
-    	super(parameters);
-        // TODO: check that transactionType in the request parameters is the
-        // same as the loaded transaction's type
-    	FinancialTransaction financialTransaction=null;
-    	
+	@SuppressWarnings("unchecked")
+	public TransactionPage(final PageParameters parameters) {
+		super(parameters);
+		// TODO: check that transactionType in the request parameters is the
+		// same as the loaded transaction's type
+		FinancialTransaction financialTransaction = null;
+
 		if (!parameters.get(PARAM_TRANSACTION_ID).isNull()) {
 			long transactionId = parameters.get(PARAM_TRANSACTION_ID).toLong();
 			financialTransaction = financialTransactionService.findOne(transactionId).getEntity();
 		} else {
 			financialTransaction = getFinancialTransaction();
-		    financialTransaction.setCurrency(SB.currencies[0]);
+			financialTransaction.setCurrency(SB.currencies[0]);
 		}
 
-        CompoundPropertyModel<FinancialTransaction> model = new CompoundPropertyModel<FinancialTransaction>(
-                financialTransaction);
+		CompoundPropertyModel<FinancialTransaction> model = new CompoundPropertyModel<FinancialTransaction>(
+				financialTransaction);
 
-        setModel(model);
+		setModel(model);
 
-        Form form = new Form("form");
-        add(form);
+		Form form = new Form("form");
+		add(form);
 
-        List<ITabWithKey> tabList = populateTabList();
+		List<ITabWithKey> tabList = populateTabList();
 
-        BootstrapJSTabbedPanel<ITabWithKey> bc = new BootstrapJSTabbedPanel<>(
-                "bc", tabList)
-                .positionTabs(BootstrapJSTabbedPanel.Orientation.RIGHT);
-        form.add(bc);
+		BootstrapJSTabbedPanel<ITabWithKey> bc = new BootstrapJSTabbedPanel<>("bc", tabList)
+				.positionTabs(BootstrapJSTabbedPanel.Orientation.RIGHT);
+		form.add(bc);
 
-        
-		form.add(new TransactionPageSubmitButton("submit",
-				new StringResourceModel("button.submit", this, null, null)) {
+		form.add(new TransactionPageSubmitButton("submit", new StringResourceModel("button.submit", this, null, null)) {
 			private static final long serialVersionUID = -1909494416938537482L;
 
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				logger.info("Submit pressed");
-				super.onSubmit(target, form);				
+				super.onSubmit(target, form);
 				setResponsePage(HomePage.class);
 			}
 
 		});
 
-		form.add(new TransactionPageSubmitButton("save",
-				new StringResourceModel("button.save", this, null, null)));
+		form.add(new TransactionPageSubmitButton("save", new StringResourceModel("button.save", this, null, null)));
 
-		form.add(new TransactionPageSubmitButton("cancel",
-				new StringResourceModel("button.cancel", this, null, null)) {
-   		
+		form.add(new TransactionPageSubmitButton("cancel", new StringResourceModel("button.cancel", this, null, null)) {
+
 			private static final long serialVersionUID = -3097577464142022353L;
 
 			@Override
-   			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {  
+			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				logger.info("Cancel pressed");
-   				setResponsePage(HomePage.class);
-   			}
-           	
-           }.setDefaultFormProcessing(false));
-           
+				setResponsePage(HomePage.class);
+			}
 
-    }
+		}.setDefaultFormProcessing(false));
 
-    protected FinancialTransaction getFinancialTransaction() {
-        return new FinancialTransaction();
-    }
+		feedbackPanel = new NotificationPanel("feedback");
+		feedbackPanel.setOutputMarkupId(true);
+		feedbackPanel.hideAfter(Duration.seconds(3));
+		add(feedbackPanel);
 
-    private List<ITabWithKey> populateTabList() {
-        List<Class<? extends Panel>> tabClasses = getTabs();
-        ArrayList<ITabWithKey> tabs = new ArrayList<>();
-        for (final Class<? extends Panel> p : tabClasses) {
-            tabs.add(DefaultTabWithKey.of(p, this));
-        }
-        return tabs;
-    }
+	}
 
-    protected List<Class<? extends Panel>> getTabs() {
-        List<Class<? extends Panel>> tabList = new ArrayList<>();
-        tabList.add(IdentificationDataTab.class);
-        tabList.add(BasicDataTab.class);
-        tabList.add(SupplementaryDataTab.class);
-        tabList.add(VolumeDataTab.class);
-        tabList.add(ForLoansOnlyTab.class);
-        return tabList;
-    }
+	protected FinancialTransaction getFinancialTransaction() {
+		return new FinancialTransaction();
+	}
 
-    @Override
-    protected void onAfterRenderChildren() {
-        super.onAfterRenderChildren();
+	private List<ITabWithKey> populateTabList() {
+		List<Class<? extends Panel>> tabClasses = getTabs();
+		ArrayList<ITabWithKey> tabs = new ArrayList<>();
+		for (final Class<? extends Panel> p : tabClasses) {
+			tabs.add(DefaultTabWithKey.of(p, this));
+		}
+		return tabs;
+	}
 
-    }
+	protected List<Class<? extends Panel>> getTabs() {
+		List<Class<? extends Panel>> tabList = new ArrayList<>();
+		tabList.add(IdentificationDataTab.class);
+		tabList.add(BasicDataTab.class);
+		tabList.add(SupplementaryDataTab.class);
+		tabList.add(VolumeDataTab.class);
+		tabList.add(ForLoansOnlyTab.class);
+		return tabList;
+	}
 
-    @Override
-    public HashMap<String, RoleActionMapping> getPermissions() {
-        return componentPermissions.permissions();
-    }
+	@Override
+	protected void onAfterRenderChildren() {
+		super.onAfterRenderChildren();
+
+	}
+
+	@Override
+	public HashMap<String, RoleActionMapping> getPermissions() {
+		return componentPermissions.permissions();
+	}
 }

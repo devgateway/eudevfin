@@ -43,4 +43,6 @@
     <entry key="button.submit">Submit</entry>
     <entry key="button.save">Save</entry>
     <entry key="button.cancel">Cancel</entry>
+    <entry key="notification.saved">Form Saved!</entry>
+    <entry key="notification.validationerrors">The form has validation errors (highlighted in red). Fix them and try saving again!</entry>
 </properties>

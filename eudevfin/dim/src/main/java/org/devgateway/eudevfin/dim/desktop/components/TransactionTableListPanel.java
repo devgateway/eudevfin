@@ -85,7 +85,7 @@ public class TransactionTableListPanel<T extends FinancialTransaction> extends T
 			@Override
 			protected void populateItem(ListItem<T> ftListItem) {
 				final FinancialTransaction tempTx			= ftListItem.getModelObject();
-				Label idLabel						= new Label("transaction-name", tempTx.getDescription() );
+				Label idLabel						= new Label("transaction-name", tempTx.getShortDescription());
 				ftListItem.add(idLabel);
                 Label amountLabel = new Label("transaction-commitment-value", tempTx.getCommitments() == null ? "" : tempTx.getCommitments());
                 ftListItem.add(amountLabel);
