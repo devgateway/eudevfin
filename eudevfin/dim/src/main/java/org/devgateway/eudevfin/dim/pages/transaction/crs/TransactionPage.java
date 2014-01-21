@@ -31,7 +31,9 @@ import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.dim.pages.HomePage;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
+import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
+import org.devgateway.eudevfin.ui.common.components.CheckBoxField;
 import org.devgateway.eudevfin.ui.common.components.tabs.BootstrapJSTabbedPanel;
 import org.devgateway.eudevfin.ui.common.components.tabs.DefaultTabWithKey;
 import org.devgateway.eudevfin.ui.common.components.tabs.ITabWithKey;
@@ -61,6 +63,8 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 	private static final CRSTransactionPermissionProvider componentPermissions = new CRSTransactionPermissionProvider();
 
 	protected final NotificationPanel feedbackPanel;
+
+	protected Form form;
 
 	public class TransactionPageSubmitButton extends BootstrapSubmitButton {
 		private static final long serialVersionUID = -8310280845870280505L;
@@ -133,10 +137,10 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 		} else {
 			//define a new TransactionPage
 			financialTransaction = getFinancialTransaction();
-			financialTransaction.setCurrency(SB.currencies[0]);
+			financialTransaction.setCurrency(SB.currencies[0]);				
 			
-			PersistedUser user=(PersistedUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			
+			//set the reportingOrg to the current user's org
+			PersistedUser user=(PersistedUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();			
 			financialTransaction.setReportingOrganization(user.getGroup().getOrganization());
 		}
 
@@ -145,7 +149,7 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 
 		setModel(model);
 
-		Form form = new Form("form");
+		form = new Form("form");
 		add(form);
 
 		List<ITabWithKey> tabList = populateTabList();
@@ -184,6 +188,8 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 		feedbackPanel.setOutputMarkupId(true);
 		feedbackPanel.hideAfter(Duration.seconds(3));
 		add(feedbackPanel);
+
+
 
 	}
 

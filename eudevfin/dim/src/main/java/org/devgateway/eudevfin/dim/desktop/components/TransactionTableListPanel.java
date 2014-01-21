@@ -13,7 +13,6 @@ package org.devgateway.eudevfin.dim.desktop.components;
 
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
-import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
@@ -23,6 +22,7 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.dim.desktop.components.util.ComponentsUtil;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.TransactionPage;
+import org.devgateway.eudevfin.dim.pages.transaction.custom.CustomTransactionPage;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.ui.common.components.TableListPanel;
 import org.devgateway.eudevfin.ui.common.components.tabs.AbstractTabWithKey;
@@ -107,7 +107,7 @@ public class TransactionTableListPanel<T extends FinancialTransaction> extends T
 						logger.info("Clicked edit on " + this.getModelObject());
 						PageParameters pageParameters = new PageParameters(); 						
 						pageParameters.add(TransactionPage.PARAM_TRANSACTION_ID, tempTx.getId());
-						setResponsePage(TransactionPage.class, pageParameters);
+						setResponsePage(CustomTransactionPage.class, pageParameters);
 					}
 					
 				};

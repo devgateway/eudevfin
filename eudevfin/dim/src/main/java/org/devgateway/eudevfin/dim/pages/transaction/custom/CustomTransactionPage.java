@@ -19,6 +19,8 @@ import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.TransactionPage;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
+import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
+import org.devgateway.eudevfin.ui.common.components.CheckBoxField;
 import org.devgateway.eudevfin.ui.common.permissions.RoleActionMapping;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -60,7 +62,13 @@ public class CustomTransactionPage extends TransactionPage {
     
     public CustomTransactionPage(PageParameters parameters) {
   		super(parameters);
-  		// TODO Auto-generated constructor stub
+  		CheckBoxField finalCheck = new CheckBoxField("finalCheck",
+				new RWComponentPropertyModel<Boolean>("draft"));
+  		form.add(finalCheck);
+  		
+		//always reset this field to non-checked
+  		finalCheck.getField().getModel().setObject(false);
+		
   	}
 
 }
