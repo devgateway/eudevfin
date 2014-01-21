@@ -29,6 +29,7 @@ import org.apache.wicket.validation.validator.EmailAddressValidator;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.domain.PersistedAuthority;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
+import org.devgateway.eudevfin.auth.common.domain.PersistedUserGroup;
 import org.devgateway.eudevfin.auth.common.service.PersistedUserService;
 import org.devgateway.eudevfin.dim.core.models.PasswordEncryptModel;
 import org.devgateway.eudevfin.dim.providers.PersistedAuthorityChoiceProvider;
@@ -36,6 +37,7 @@ import org.devgateway.eudevfin.dim.providers.PersistedUserGroupChoiceProvider;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
 import org.devgateway.eudevfin.ui.common.components.CheckBoxField;
+import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.components.MultiSelectField;
 import org.devgateway.eudevfin.ui.common.components.PasswordInputField;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
@@ -134,15 +136,21 @@ public class EditPersistedUserPage extends HeaderFooter {
 				new RWComponentPropertyModel<Boolean>("enabled"));
 
 		MultiSelectField<PersistedAuthority> authorities = new MultiSelectField<>(
-				"authorities",
+				"persistedAuthorities",
 				new RWComponentPropertyModel<Collection<PersistedAuthority>>(
-				"authorities"), authorityChoiceProvider);
+				"persistedAuthorities"), authorityChoiceProvider);
 
 		authorities.required();
+		
+		
+		DropDownField<PersistedUserGroup> group = new DropDownField<PersistedUserGroup>("group",
+				new RWComponentPropertyModel<PersistedUserGroup>("group"), userGroupChoiceProvider);		
+
 
 		form.add(userName);
 		form.add(firstName);		
 		form.add(lastName);
+		form.add(group);
 		form.add(email);		
 		form.add(password);
 		form.add(phone);

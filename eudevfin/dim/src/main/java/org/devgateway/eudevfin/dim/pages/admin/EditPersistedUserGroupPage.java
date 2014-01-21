@@ -34,6 +34,7 @@ import org.devgateway.eudevfin.dim.providers.PersistedUserChoiceProvider;
 import org.devgateway.eudevfin.dim.providers.PersistedUserGroupChoiceProvider;
 import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
+import org.devgateway.eudevfin.ui.common.ReadOnlyComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.components.MultiSelectField;
@@ -121,12 +122,14 @@ public class EditPersistedUserGroupPage extends HeaderFooter {
 		
 		MultiSelectField<PersistedUser> users = new MultiSelectField<PersistedUser>(
 				"users",
-				new RWComponentPropertyModel<Collection<PersistedUser>>(
+				new ReadOnlyComponentPropertyModel<Collection<PersistedUser>>(
 				"users"), userChoiceProvider);
-
+		users.setEnabled(false);
 				
 		form.add(new BootstrapSubmitButton("submit",new StringResourceModel("button.submit", this, null, null)) {
-			
+
+			private static final long serialVersionUID = -7833958712063599191L;
+
 			@Override
 			protected void onError(AjaxRequestTarget target, Form<?> form) {
 				// TODO Auto-generated method stub

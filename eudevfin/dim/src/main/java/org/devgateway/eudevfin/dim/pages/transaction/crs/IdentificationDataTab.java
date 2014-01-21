@@ -50,10 +50,15 @@ public class IdentificationDataTab extends Panel implements PermissionAwareCompo
         DateInputField commitmentDate = new DateInputField("1bCommitmentDate", new DateToLocalDateTimeModel(new RWComponentPropertyModel<LocalDateTime>("commitmentDate")));
         add(commitmentDate);
 
-        DropDownField<Organization> reportingCountry = new DropDownField<>("2reportingCountry",
+        DropDownField<Organization> reportingOrganization = new DropDownField<>("2reportingOrganization",
                 new RWComponentPropertyModel<Organization>("reportingOrganization"), organizationProvider);
-        reportingCountry.required();
-        add(reportingCountry);
+        reportingOrganization.required();
+        
+        
+        // this field is automagically populated by PersistedUser.group.organization and should not be editable        
+        reportingOrganization.setEnabled(false);
+        
+        add(reportingOrganization);
 
         DropDownField<Organization> extendingAgency = new DropDownField<>("3extendingAgency",
                 new RWComponentPropertyModel<Organization>("extendingAgency"), organizationProvider);

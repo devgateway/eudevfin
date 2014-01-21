@@ -27,6 +27,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.time.Duration;
 import org.apache.wicket.util.visit.IVisit;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
+import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.dim.pages.HomePage;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
@@ -38,6 +39,7 @@ import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.devgateway.eudevfin.ui.common.permissions.PermissionAwarePage;
 import org.devgateway.eudevfin.ui.common.permissions.RoleActionMapping;
 import org.devgateway.eudevfin.ui.common.temporary.SB;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
@@ -129,8 +131,13 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 			long transactionId = parameters.get(PARAM_TRANSACTION_ID).toLong();
 			financialTransaction = financialTransactionService.findOne(transactionId).getEntity();
 		} else {
+			//define a new TransactionPage
 			financialTransaction = getFinancialTransaction();
 			financialTransaction.setCurrency(SB.currencies[0]);
+			
+			PersistedUser user=(PersistedUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			
+			financialTransaction.setReportingOrganization(user.getGroup().getOrganization());
 		}
 
 		CompoundPropertyModel<FinancialTransaction> model = new CompoundPropertyModel<FinancialTransaction>(

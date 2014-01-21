@@ -29,7 +29,7 @@ public class RWComponentPropertyModel<T>
     /**
      * Name of property to read
      */
-    private final String propertyName;
+    protected final String propertyName;
 
     /**
      * @param propertyName The name of the property to reference
@@ -79,7 +79,7 @@ public class RWComponentPropertyModel<T>
      *
      * @param <P> The Model Object
      */
-    private class AssignmentWrapper<P> implements IWrapModel<P> {
+    protected class AssignmentWrapper<P> implements IWrapModel<P> {
         private static final long serialVersionUID = 1L;
 
         private final Component component;

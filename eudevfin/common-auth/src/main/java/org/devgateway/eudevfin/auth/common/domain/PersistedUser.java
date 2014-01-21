@@ -4,6 +4,7 @@
 package org.devgateway.eudevfin.auth.common.domain;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,11 +15,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * @author mihai We named this {@link PersistedUser} not to confuse it with
@@ -27,7 +32,7 @@ import org.springframework.security.core.userdetails.User;
 @Entity
 @Audited
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-public class PersistedUser implements Serializable {
+public class PersistedUser implements Serializable, UserDetails {
 
 	private static final long serialVersionUID = 3330162033003739027L;
 
@@ -53,10 +58,16 @@ public class PersistedUser implements Serializable {
 	private boolean enabled = true;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	private Set<PersistedAuthority> authorities = new HashSet<PersistedAuthority>();
+	private Set<PersistedAuthority> persistedAuthorities = new HashSet<PersistedAuthority>();
 
-	@ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
-	private Set<PersistedUserGroup> groups = new HashSet<PersistedUserGroup>();
+	@ManyToOne(fetch = FetchType.EAGER)
+	private PersistedUserGroup group;
+
+	/**
+	 * this is set by CustomJPAUserDetailsService and do not want to persist it
+	 */
+	@Transient
+	private Collection<? extends GrantedAuthority> authorities;
 
 	/**
 	 * @return the username
@@ -121,32 +132,19 @@ public class PersistedUser implements Serializable {
 	/**
 	 * @return the authorites
 	 */
-	public Set<PersistedAuthority> getAuthorities() {
-		return authorities;
+	public Set<PersistedAuthority> getPersistedAuthorities() {
+		return persistedAuthorities;
 	}
 
 	/**
 	 * @param authorites
 	 *            the authorites to set
 	 */
-	public void setAuthorities(Set<PersistedAuthority> authorites) {
-		this.authorities = authorites;
+	public void setPersistedAuthorities(Set<PersistedAuthority> authorites) {
+		this.persistedAuthorities = authorites;
 	}
 
-	/**
-	 * @return the groups
-	 */
-	public Set<PersistedUserGroup> getGroups() {
-		return groups;
-	}
 
-	/**
-	 * @param groups
-	 *            the groups to set
-	 */
-	public void setGroups(Set<PersistedUserGroup> groups) {
-		this.groups = groups;
-	}
 
 	/**
 	 * @return the firstName
@@ -202,6 +200,47 @@ public class PersistedUser implements Serializable {
 	 */
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	/**
+	 * @return the group
+	 */
+	public PersistedUserGroup getGroup() {
+		return group;
+	}
+
+	/**
+	 * @param group the group to set
+	 */
+	public void setGroup(PersistedUserGroup group) {
+		this.group = group;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return authorities;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return enabled;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	/**
+	 * @param authorities the authorities to set
+	 */
+	public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+		this.authorities = authorities;
 	}
 
 	

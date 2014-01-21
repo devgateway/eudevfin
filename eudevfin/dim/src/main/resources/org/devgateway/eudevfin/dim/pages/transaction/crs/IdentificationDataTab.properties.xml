@@ -18,6 +18,11 @@
     <entry key="1bCommitmentDate.placeholder"></entry>
     <entry key="1bCommitmentDate.help">TODO: edit help text</entry>
 
+	<entry key="2reportingOrganization.label">Reporting Organization</entry>
+	<entry key="2reportingOrganization.placeholder"></entry>
+	<entry key="2reportingOrganization.help">The organization linked with your user account</entry>
+	
+	<!-- confusion between 2reportingOrganization and 2reportingCountry. For the moment we need the first but the help file declares the second -->
     <entry key="2reportingCountry.label">Reporting Country</entry>
     <entry key="2reportingCountry.placeholder">(choose one)</entry>
     <entry key="2reportingCountry.help">Enter the full/ official name of your country</entry>

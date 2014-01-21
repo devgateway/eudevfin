@@ -40,15 +40,10 @@ public class CustomJPAUserDetailsService implements UserDetailsService {
 		try {
 			PersistedUser domainUser = userRepository
 					.findByUsername(username);
-
-			boolean enabled = true;
-			boolean accountNonExpired = true;
-			boolean credentialsNonExpired = true;
-
-			return new User(domainUser.getUsername(), domainUser.getPassword()
-					.toLowerCase(), enabled, accountNonExpired,
-					credentialsNonExpired, domainUser.isEnabled(),
-					getGrantedAuthorities(domainUser));
+			
+			Set<GrantedAuthority> grantedAuthorities = getGrantedAuthorities(domainUser);
+			domainUser.setAuthorities(grantedAuthorities);
+			return domainUser;
 
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -57,8 +52,8 @@ public class CustomJPAUserDetailsService implements UserDetailsService {
 
 	/**
 	 * Reads {@link PersistedAuthority} objects from the
-	 * {@link org.devgateway.eudevfin.auth.common.domain.PersistedUser#getAuthorities()} and also from the
-	 * {@link PersistedUserGroup#getAuthorities()} (only if the {@link User} belongs to only one
+	 * {@link org.devgateway.eudevfin.auth.common.domain.PersistedUser#getPersistedAuthorities()} and also from the
+	 * {@link PersistedUserGroup#getPersistedAuthorities()} (only if the {@link User} belongs to only one
 	 * {@link PersistedUserGroup}) and converts all {@link PersistedAuthority} objects to
 	 * {@link GrantedAuthority}. 
 	 * 
@@ -71,19 +66,15 @@ public class CustomJPAUserDetailsService implements UserDetailsService {
 		Set<GrantedAuthority> grantedAuth = new HashSet<GrantedAuthority>();
 
 		// get user authorities
-		for (PersistedAuthority authority : domainUser.getAuthorities()) {
+		for (PersistedAuthority authority : domainUser.getPersistedAuthorities()) {
 			grantedAuth
 					.add(new SimpleGrantedAuthority(authority.getAuthority()));
 		}
 
-		// get group authorities ONLY IF the user belongs to one group.
-		// otherwise this selection needs to be done later, the user will be
-		// prompted to choose a working group
-		if (domainUser.getGroups() != null & domainUser.getGroups().size() == 1)
-			for (PersistedAuthority authority : domainUser.getGroups().iterator().next()
-					.getAuthorities()) {
-				grantedAuth.add(new SimpleGrantedAuthority(authority
-						.getAuthority()));
+		//add any existing group authorities, if any
+		if (domainUser.getGroup() != null && domainUser.getGroup().getPersistedAuthorities() != null)
+			for (PersistedAuthority authority : domainUser.getGroup().getPersistedAuthorities()) {
+				grantedAuth.add(new SimpleGrantedAuthority(authority.getAuthority()));
 			}
 
 		return grantedAuth;

@@ -55,15 +55,15 @@ public class PersistedUserTableListPanel extends TableListPanel<PersistedUser> {
 				
 				linkToEditUser.setBody(Model.of(user.getUsername()));
 
-				Label groupsLabel = new Label("groups",
-						user.getGroups() != null ? user.getGroups().toString()
+				Label groupLabel = new Label("group",
+						user.getGroup() != null ? user.getGroup().getName()
 								: "");
 
 				Label authoritiesLabel = new Label("authorities",
-						user.getGroups() != null ? user.getAuthorities()
+						user.getPersistedAuthorities() != null ? user.getPersistedAuthorities()
 								.toString() : "");
 
-				listItem.add(groupsLabel);
+				listItem.add(groupLabel);
 				listItem.add(authoritiesLabel);
 				listItem.add(linkToEditUser);
 

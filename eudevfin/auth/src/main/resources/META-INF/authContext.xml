@@ -61,7 +61,7 @@
 		<security:authentication-provider
 			user-service-ref="userDetailsService">
 			<security:password-encoder hash="sha-256" />
-		</security:authentication-provider>
+		</security:authentication-provider>		
 	</security:authentication-manager>
 
 	<int:header-value-router input-channel="userChannel"

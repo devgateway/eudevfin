@@ -12,9 +12,9 @@
     <entry key="username.label">User Name</entry>
     <entry key="password.label">Password</entry>
     <entry key="enabled.label">Enabled</entry>
-    <entry key="authorities.label">Authorities</entry>
-    <entry key="groups.label">Groups</entry>
-    <entry key="uniqueUsernameError">Another user with the same user name exists!</entry>
+    <entry key="persistedAuthorities.label">Authorities</entry>
+    <entry key="group.label">Group</entry>
+    <entry key="uniqueUsernameError">Another user with the same user n	ame exists!</entry>
     <entry key="firstName.label">First Name</entry>
     <entry key="lastName.label">Last Name</entry>
     <entry key="email.label">Email Address</entry>

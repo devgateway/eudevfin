@@ -13,8 +13,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.devgateway.eudevfin.financial.Organization;
 import org.hibernate.annotations.Cache;
@@ -40,9 +42,9 @@ public class PersistedUserGroup implements Serializable {
 	private String name;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	private Set<PersistedAuthority> authorities = new HashSet<PersistedAuthority>();
+	private Set<PersistedAuthority> persistedAuthorities = new HashSet<PersistedAuthority>();
 
-	@ManyToMany(fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER,mappedBy="group")	
 	private Set<PersistedUser> users = new HashSet<PersistedUser>();
 	
 	@ManyToOne(fetch = FetchType.EAGER,optional=false)
@@ -81,16 +83,16 @@ public class PersistedUserGroup implements Serializable {
 	/**
 	 * @return the authorities
 	 */
-	public Set<PersistedAuthority> getAuthorities() {
-		return authorities;
+	public Set<PersistedAuthority> getPersistedAuthorities() {
+		return persistedAuthorities;
 	}
 
 	/**
 	 * @param authorities
 	 *            the authorities to set
 	 */
-	public void setAuthorities(Set<PersistedAuthority> authorities) {
-		this.authorities = authorities;
+	public void setPersistedAuthorities(Set<PersistedAuthority> authorities) {
+		this.persistedAuthorities = authorities;
 	}
 
 	/**
