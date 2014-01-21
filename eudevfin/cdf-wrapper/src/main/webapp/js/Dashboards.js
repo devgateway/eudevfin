@@ -112,7 +112,9 @@ var Dashboards = {
      * plugins used in CDF has native internationalization support (ex: Datepicker)
      */
     i18nCurrentLanguageCode: null,
-    i18nSupport: null // Reference to i18n objects
+    i18nSupport: null, // Reference to i18n objects
+
+    loadingAnimationTimeout: undefined
 };
 
 _.extend(Dashboards, Backbone.Events);
@@ -351,7 +353,14 @@ Dashboards.showProgressIndicator = function () {
 };
 
 Dashboards.hideProgressIndicator = function () {
-    $('.loading-bar').removeClass('is-active');
+    if (Dashboards.loadingAnimationTimeout !== undefined) {
+        clearTimeout(Dashboards.loadingAnimationTimeout);
+    }
+
+    setTimeout(function () {
+        $('.loading-bar').removeClass('is-active');
+    }, 100);
+
     this.showErrorTooltip();
 };
 
@@ -659,7 +668,13 @@ Dashboards.restoreDuplicates = function () {
 
 // TODO - blockui need to be rename to reflect the new loader approach
 Dashboards.blockUIwithDrag = function () {
-    $('.loading-bar').addClass('is-active');
+    if (Dashboards.loadingAnimationTimeout !== undefined) {
+        clearTimeout(Dashboards.loadingAnimationTimeout);
+    }
+
+    Dashboards.loadingAnimationTimeout = setTimeout(function () {
+        $('.loading-bar').addClass('is-active');
+    }, 3000);
 };
 
 Dashboards.updateLifecycle = function (object) {
