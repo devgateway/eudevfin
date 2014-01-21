@@ -17,7 +17,7 @@ import org.hibernate.envers.Audited;
 @Entity
 @Audited
 @DiscriminatorValue("Sector")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class SectorCategory extends Category {
 
 	public SectorCategory() {

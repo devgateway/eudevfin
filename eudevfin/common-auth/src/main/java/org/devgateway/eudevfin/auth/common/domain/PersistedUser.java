@@ -26,7 +26,7 @@ import org.springframework.security.core.userdetails.User;
  */
 @Entity
 @Audited
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class PersistedUser implements Serializable {
 
 	private static final long serialVersionUID = 3330162033003739027L;

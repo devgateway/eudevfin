@@ -19,7 +19,7 @@ import org.hibernate.envers.Audited;
  */
 @Entity
 @Audited
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class PersistedAuthority implements Serializable {
 
 	private static final long serialVersionUID = 1277503635558596280L;

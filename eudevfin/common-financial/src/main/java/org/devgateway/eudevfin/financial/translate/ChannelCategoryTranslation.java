@@ -16,7 +16,7 @@ import org.hibernate.envers.Audited;
  */
 @Entity @Audited
 @DiscriminatorValue("ChannelCategoryTrn")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class ChannelCategoryTranslation extends CategoryTranslation implements ChannelCategoryTrnInterface {
 
 	private String acronym;

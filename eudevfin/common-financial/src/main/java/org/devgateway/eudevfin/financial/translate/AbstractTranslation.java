@@ -33,7 +33,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 @MappedSuperclass
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"parent_id", "locale"}))
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public abstract class AbstractTranslation<P extends AbstractTranslateable<? extends AbstractTranslation<P>>>
         implements Serializable {
 

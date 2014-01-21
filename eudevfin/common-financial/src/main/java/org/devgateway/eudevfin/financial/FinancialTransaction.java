@@ -38,7 +38,7 @@ import org.joda.time.LocalDateTime;
     name="financial_tx_class_type",
     discriminatorType= DiscriminatorType.STRING)
 @DiscriminatorValue("Standard")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 //@Table(name="FINANCIAL_TRANSACTION")
 public class FinancialTransaction extends AbstractTranslateable<FinancialTransactionTranslation>
         implements FinancialTransactionTrnInterface, Serializable {

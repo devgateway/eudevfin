@@ -25,7 +25,7 @@
 	<context:annotation-config />
 
 	<bean id="importMetadataLiquibase" class="liquibase.integration.spring.SpringLiquibase" lazy-init="false"
-		depends-on="contextHelper">
+		depends-on="contextHelper,ehcache">
 		<property name="dataSource" ref="euDevFinDataSource" />
 		<property name="changeLog" value="classpath:importMetadataDbChangeLog.xml" />
 	</bean>

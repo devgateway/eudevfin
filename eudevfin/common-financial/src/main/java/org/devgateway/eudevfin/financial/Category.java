@@ -32,7 +32,7 @@ import org.hibernate.envers.Audited;
     discriminatorType= DiscriminatorType.STRING)
 @DiscriminatorValue("Category")
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"category_type", "code"}))
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class Category extends AbstractTranslateable<CategoryTranslation>
 					implements CategoryTrnInterface, Serializable{
 

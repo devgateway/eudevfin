@@ -25,7 +25,7 @@ import org.joda.time.LocalDateTime;
 @Entity
 @Audited
 @DiscriminatorValue("Custom")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class CustomFinancialTransaction extends FinancialTransaction {
 	
     /**

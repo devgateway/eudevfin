@@ -18,7 +18,7 @@ import org.hibernate.envers.Audited;
     name="category_trn_type",
     discriminatorType= DiscriminatorType.STRING)
 @DiscriminatorValue("CategoryTrn")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class CategoryTranslation extends AbstractTranslation<Category> implements CategoryTrnInterface {
 	
 	private String name;

@@ -22,7 +22,7 @@ import org.hibernate.envers.Audited;
     name="area_type",
     discriminatorType= DiscriminatorType.STRING)
 @DiscriminatorValue("Area")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class Area extends AbstractTranslateable<AreaTranslation> 
 					implements AreaTrnInterface {
 	
