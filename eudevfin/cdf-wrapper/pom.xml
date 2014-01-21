@@ -133,18 +133,12 @@
 				<version>1.0-beta-2</version>
 
 				<configuration>
-					<sourceDirectory>src/main/resources/org/devgateway/eudevfin/reports/dac1</sourceDirectory>
+					<sourceDirectory>src/main/resources/org/devgateway/eudevfin/reports</sourceDirectory>
 					<sourceFileExt>.jrxml</sourceFileExt>
-					<!--<outputDirectory>${project.build.directory}/classes/org/devgateway/eudevfin/reports/dac1</outputDirectory>-->
-					<outputDirectory>${project.build.directory}/classes/org/devgateway/eudevfin/reports/dac1</outputDirectory>
-					<!-- 
-					<outputDirectory>src/main/resources/org/devgateway/eudevfin/reports/dac1</outputDirectory>
-					 -->
+					<outputDirectory>${project.build.directory}/classes/org/devgateway/eudevfin/reports</outputDirectory>
+					<!-- <outputDirectory>src/main/resources/org/devgateway/eudevfin/reports</outputDirectory>-->
 					<outputFileExt>.jasper</outputFileExt>
-					<!-- Java compiler -->
 					<compiler>net.sf.jasperreports.engine.design.JRJdtCompiler</compiler>
-					<!-- Groovy compiler -->
-					<!--<compiler>net.sf.jasperreports.compilers.JRGroovyCompiler</compiler>-->
 					<xmlValidation>true</xmlValidation>
 				</configuration>
 
