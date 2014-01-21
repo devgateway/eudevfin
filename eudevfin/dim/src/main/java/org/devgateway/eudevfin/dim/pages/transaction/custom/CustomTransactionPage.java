@@ -14,6 +14,7 @@ import java.util.List;
 
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.TransactionPage;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
@@ -31,8 +32,9 @@ import org.wicketstuff.annotation.mount.MountPath;
 @MountPath(value = "/custom")
 @AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
 public class CustomTransactionPage extends TransactionPage {
-
-    private static final CustomTransactionPermissionProvider permissions = new CustomTransactionPermissionProvider();
+	
+	private static final long serialVersionUID = -7808024425119532771L;
+	private static final CustomTransactionPermissionProvider permissions = new CustomTransactionPermissionProvider();
 
     @Override
     protected List<Class<? extends Panel>> getTabs() {
@@ -55,4 +57,10 @@ public class CustomTransactionPage extends TransactionPage {
     protected FinancialTransaction getFinancialTransaction() {
         return new CustomFinancialTransaction();
     }
+    
+    public CustomTransactionPage(PageParameters parameters) {
+  		super(parameters);
+  		// TODO Auto-generated constructor stub
+  	}
+
 }

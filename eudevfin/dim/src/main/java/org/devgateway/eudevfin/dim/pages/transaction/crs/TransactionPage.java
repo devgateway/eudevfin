@@ -22,9 +22,11 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.visit.IVisit;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
+import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.dim.pages.HomePage;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
@@ -47,6 +49,8 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 
 	private static final Logger logger = Logger
             .getLogger(TransactionPage.class);
+	
+	public static final String PARAM_TRANSACTION_ID="transactionId";
 
     @SpringBean
     private FinancialTransactionService financialTransactionService;
@@ -113,16 +117,25 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 			}
 		}
 	}
-    
+	
+	
+
     
     @SuppressWarnings("unchecked")
-    public TransactionPage() {
-
+    public TransactionPage(final PageParameters parameters) {
+    	super(parameters);
         // TODO: check that transactionType in the request parameters is the
         // same as the loaded transaction's type
+    	FinancialTransaction financialTransaction=null;
+    	
+		if (!parameters.get(PARAM_TRANSACTION_ID).isNull()) {
+			long transactionId = parameters.get(PARAM_TRANSACTION_ID).toLong();
+			financialTransaction = financialTransactionService.findOne(transactionId).getEntity();
+		} else {
+			financialTransaction = getFinancialTransaction();
+		    financialTransaction.setCurrency(SB.currencies[0]);
+		}
 
-        FinancialTransaction financialTransaction = getFinancialTransaction();
-        financialTransaction.setCurrency(SB.currencies[0]);
         CompoundPropertyModel<FinancialTransaction> model = new CompoundPropertyModel<FinancialTransaction>(
                 financialTransaction);
 

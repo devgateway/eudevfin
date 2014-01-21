@@ -14,14 +14,15 @@ package org.devgateway.eudevfin.dim.desktop.components;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
-import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.dim.desktop.components.util.ComponentsUtil;
+import org.devgateway.eudevfin.dim.pages.transaction.crs.TransactionPage;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.ui.common.components.TableListPanel;
 import org.devgateway.eudevfin.ui.common.components.tabs.AbstractTabWithKey;
@@ -83,7 +84,7 @@ public class TransactionTableListPanel<T extends FinancialTransaction> extends T
 
 			@Override
 			protected void populateItem(ListItem<T> ftListItem) {
-				FinancialTransaction tempTx			= ftListItem.getModelObject();
+				final FinancialTransaction tempTx			= ftListItem.getModelObject();
 				Label idLabel						= new Label("transaction-name", tempTx.getDescription() );
 				ftListItem.add(idLabel);
                 Label amountLabel = new Label("transaction-commitment-value", tempTx.getCommitments() == null ? "" : tempTx.getCommitments());
@@ -98,11 +99,15 @@ public class TransactionTableListPanel<T extends FinancialTransaction> extends T
 				ftListItem.add(orgLabel);
 				
 				
-				AjaxLink<Long> editLink	= new AjaxLink<Long>("transaction-edit-link", Model.of(tempTx.getId()) ) {
+				Link editLink	= new Link("transaction-edit-link") {
+					private static final long serialVersionUID = 9084184844700618410L;
 
 					@Override
-					public void onClick(AjaxRequestTarget target) {
+					public void onClick() {
 						logger.info("Clicked edit on " + this.getModelObject());
+						PageParameters pageParameters = new PageParameters(); 						
+						pageParameters.add(TransactionPage.PARAM_TRANSACTION_ID, tempTx.getId());
+						setResponsePage(TransactionPage.class, pageParameters);
 					}
 					
 				};
