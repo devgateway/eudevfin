@@ -1,5 +1,7 @@
 package org.devgateway.eudevfin.financial.liquibase;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -10,9 +12,11 @@ import liquibase.resource.ResourceAccessor;
 
 import org.devgateway.eudevfin.common.liquibase.AbstractSpringCustomTaskChange;
 import org.devgateway.eudevfin.financial.Category;
+import org.devgateway.eudevfin.financial.ChannelCategory;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
 import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.dao.CategoryDaoImpl;
+import org.devgateway.eudevfin.financial.dao.ChannelCategoryDao;
 import org.devgateway.eudevfin.financial.dao.FinancialTransactionDaoImpl;
 import org.devgateway.eudevfin.financial.dao.OrganizationDaoImpl;
 import org.devgateway.eudevfin.financial.util.CategoryConstants;
@@ -37,17 +41,22 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 	@Autowired
 	private CategoryDaoImpl catDao;
 	
+	@Autowired
+	private ChannelCategoryDao channelCatDao;
+
 	@Override
 	@Transactional
 	public void execute(Database database) throws CustomChangeException {		
 		Random r = new Random();
 		List<Organization> listOrgs = orgDao.findAllAsList();
 		
-		List<Category> listSectors = catDao.findByTagsCode(CategoryConstants.SUB_SECTOR_TAG);
+		List<Category> listSectors = catDao.findByTagsCode(CategoryConstants.ALL_SECTOR_TAG);
 		List<Category> listTypeOfFlow = catDao.findByTagsCode(CategoryConstants.TYPE_OF_FLOW_TAG);
 		List<Category> listTypeOfFinance = catDao.findByTagsCode(CategoryConstants.TYPE_OF_FINANCE_TAG);
 		List<Category> listTypeofAid = catDao.findByTagsCode(CategoryConstants.TYPE_OF_AID_TAG);
 		List<Category> listBiMultilateral = catDao.findByTagsCode(CategoryConstants.BI_MULTILATERAL_TAG);
+		List<ChannelCategory> listChannel = channelCatDao.findAllAsList();
+		List<ChannelCategory> listMultilateralChannel = getMultilaterals(listChannel);
 
 		for (int j=0; j<=NUM_OF_YEARS; j++) {
 			for (int i=1; i<=NUM_OF_TX; i++ ) {
@@ -63,6 +72,7 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 				Category typeOfFinance = null;
 				Category typeOfAid = null;
 				Category biMultilateral = null;
+				ChannelCategory channel = null;
 				
 				int orgRandomIndex = r.nextInt(listOrgs.size());
 				int extAgencyRandomIndex = r.nextInt(listOrgs.size());
@@ -71,6 +81,7 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 				int typeOfFinanceRandomIndex = r.nextInt(listTypeOfFinance.size());
 				int typeOfAidRandomIndex = r.nextInt(listTypeofAid.size());
 				int biMultilateralRandomIndex = r.nextInt(listBiMultilateral.size());
+				int channelRandomIndex = r.nextInt(listMultilateralChannel.size());
 				
 				org = listOrgs.get(orgRandomIndex);
 				extAgency = listOrgs.get(extAgencyRandomIndex);
@@ -79,8 +90,10 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 				typeOfFinance = listTypeOfFinance.get(typeOfFinanceRandomIndex);
 				typeOfAid = listTypeofAid.get(typeOfAidRandomIndex);
 				biMultilateral = listBiMultilateral.get(biMultilateralRandomIndex);
+				channel = listMultilateralChannel.get(channelRandomIndex);
 				
 				tx.setReportingOrganization(org);
+				tx.setChannel(channel);
 				tx.setExtendingAgency(extAgency);
 				tx.setLocale("en");
 				tx.setDescription("CDA Test Transaction " + i + " en");
@@ -98,6 +111,18 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 		}
 	}
 	
+	private List<ChannelCategory> getMultilaterals(
+			List<ChannelCategory> listChannel) {
+		List<ChannelCategory> filteredChannelList = new ArrayList<ChannelCategory>();
+		for(Iterator<ChannelCategory> i = listChannel.iterator(); i.hasNext(); ) {
+			ChannelCategory item = i.next();
+		    if(item.getCode().equals("41000") || item.getCode().equals("42000") || item.getCode().equals("44000") || item.getCode().equals("46000") || item.getCode().equals("47000") ){
+		    	filteredChannelList.add(item);
+		    }
+		}
+		return filteredChannelList;
+	}
+
 	@Override
 	public String getConfirmationMessage() {
 		// TODO Auto-generated method stub
