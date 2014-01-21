@@ -231,7 +231,7 @@ AMOUNTS]]></text>
 				<subreportParameter name="MONDRIAN_CONNECTION">
 					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
 				</subreportParameter>
-				<subreportExpression><![CDATA[$P{SUBDIR_PATH} + "dac1_key_indicators.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/dac1_key_indicators.jasper"]]></subreportExpression>
 			</subreport>
 
 			<subreport>
