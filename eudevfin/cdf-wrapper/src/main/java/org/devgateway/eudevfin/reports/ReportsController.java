@@ -128,6 +128,7 @@ public class ReportsController {
 			yearParam = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
 		}
 		int reportYear = Integer.parseInt(yearParam);
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		
 		try {
 			InputStream inputStream = ReportsController.class.getResourceAsStream("./aq/aq_master.jrxml");
@@ -150,7 +151,6 @@ public class ReportsController {
 			JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters);
 			
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			ReportExporter reportExporter = new ReportExporter();
 			String fileName = "";
 			
@@ -187,8 +187,15 @@ public class ReportsController {
 			 
 			// write to response stream
 			this.writeReportToResponseStream(response, baos);
-		} catch (JRException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			response.setContentType("text/html");
+			
+			try {
+				baos.write("No data/Data Invalid".getBytes());
+			} catch (IOException ioEx) {
+				ioEx.printStackTrace();
+			}
+			this.writeReportToResponseStream(response, baos);
 		}
 	}
 	

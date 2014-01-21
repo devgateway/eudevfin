@@ -9,7 +9,7 @@
 	<parameter name="SUBDIR_PATH" class="java.lang.String"/>
 	<queryString language="mdx">
 		<![CDATA[SELECT
-NON EMPTY {[Type of Finance Root].[TYPE_OF_FINANCE##100]} ON ROWS,
+{[Type of Finance Root].[TYPE_OF_FINANCE##100]} ON ROWS,
 NON EMPTY {[Measures].[Commitments Amount]} ON COLUMNS
 FROM [Financial]
 WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[Type of Aid].[F]}

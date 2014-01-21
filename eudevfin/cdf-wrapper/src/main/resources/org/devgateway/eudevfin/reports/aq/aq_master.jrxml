@@ -9,8 +9,8 @@
 	<parameter name="SUBDIR_PATH" class="java.lang.String"/>
 	<queryString language="mdx">
 		<![CDATA[SELECT
-NON EMPTY {[Reporting Year].[$P{FIRST_YEAR}], [Reporting Year].[$P{SECOND_YEAR}]} ON ROWS,
-NON EMPTY {[Measures].[Commitments Amount]} ON COLUMNS
+{[Reporting Year].[$P{FIRST_YEAR}], [Reporting Year].[$P{SECOND_YEAR}]} ON ROWS,
+{[Measures].[Commitments Amount]} ON COLUMNS
 FROM [Financial]]]>
 	</queryString>
 	<field name="Commitments Amount Year 1" class="java.lang.Number">
