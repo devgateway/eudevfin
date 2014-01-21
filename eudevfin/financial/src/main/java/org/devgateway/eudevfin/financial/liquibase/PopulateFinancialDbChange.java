@@ -1,15 +1,9 @@
 package org.devgateway.eudevfin.financial.liquibase;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
-
 import liquibase.database.Database;
 import liquibase.exception.CustomChangeException;
 import liquibase.exception.ValidationErrors;
 import liquibase.resource.ResourceAccessor;
-
 import org.devgateway.eudevfin.common.liquibase.AbstractSpringCustomTaskChange;
 import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.ChannelCategory;
@@ -24,6 +18,11 @@ import org.joda.money.BigMoney;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
 
 public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 
@@ -60,11 +59,14 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 
 		for (int j=0; j<=NUM_OF_YEARS; j++) {
 			for (int i=1; i<=NUM_OF_TX; i++ ) {
-				double amount				= Math.ceil(Math.random()*100000);
-				boolean draft				= ((int)amount)%2==0 ? true:false;
+				double disbursement = Math.ceil(Math.random() * 100000);
+				boolean draft = ((int)amount) % 2 == 0 ? true:false;
 				CustomFinancialTransaction tx 	= new CustomFinancialTransaction();
 				tx.setDraft(draft);
-				tx.setCommitments(BigMoney.parse("EUR " + amount) );
+				tx.setCommitments(BigMoney.parse("EUR " + Math.ceil(Math.random() * 100000)));
+				tx.setAmountsExtended(BigMoney.parse("EUR " + disbursement));
+				tx.setAmountsReceived(BigMoney.parse("EUR " + Math.ceil(disbursement / 2)));
+
 				Organization org = null;
 				Organization extAgency = null;
 				Category sector = null;
