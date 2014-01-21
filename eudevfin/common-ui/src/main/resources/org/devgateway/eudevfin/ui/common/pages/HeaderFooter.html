@@ -17,22 +17,23 @@
     <meta wicket:id="chrome-frame"/>
 </head>
 <body>
+<div id="wrapper">
     <div class="container">
         <div wicket:id="navbar"/>
     </div>	
-    <wicket:child/>
-    <wicket:container wicket:id="footer-container"/>
-
-    
-     <footer class="footer">
-                <div class="container">
-					<img style="width:100 ;height: auto;" src="/images/euflag-200.png"/>
-					<p>Framework Contract EuropeAid/129783/C/SER/Multi</p>
-					<p>Lot 2: Communication and Training</p>
-					<p>Capacity-Building in the area of Development Cooperation Policy (Capacity Building Scheme VII 2013-2014)</p>
-					<p><b>Enhancing the ODA reporting capacities and systems of EU Member States</b></p>
-                    <p>Designed and built by the Particip Consortium</p>
+    <div id="content">
+	    <wicket:child/>
+	    <wicket:container wicket:id="footer-container"/>
+    </div>
+    <footer id="footer">
+                <div style="text-align: center;">
+					<img style="width:80 ;height: auto;" src="/images/ec-logo-english.gif"/>
+					<p>					
+					Capacity-Building in the area of Development Cooperation Policy (Capacity Building Scheme VII 2013-2014)<br/>
+					Enhancing the ODA reporting capacities and systems of EU Member States<br/>
+                   </p>
                 </div>
      </footer>
+</div>     
 </body>
 </html>
