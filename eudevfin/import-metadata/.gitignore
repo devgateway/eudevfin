@@ -1,1 +1,6 @@
+!.settings
 /target
+/derby.log
+/derby
+/node_modules
+/.settings/com.springsource.sts.config.flow.prefs
