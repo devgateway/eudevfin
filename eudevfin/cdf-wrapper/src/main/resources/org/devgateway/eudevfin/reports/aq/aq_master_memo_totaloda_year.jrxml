@@ -4,25 +4,37 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="YEAR" class="java.lang.String"/>
+	<parameter name="FIRST_YEAR" class="java.lang.String"/>
 	<queryString language="mdx">
 		<![CDATA[SELECT
-NON EMPTY {[Type of Aid].[Budget support en], [Type of Aid].[Core contributions and pooled programmes and funds en], [Type of Aid].[Project-type interventions en], [Type of Aid].[Experts and other technical assistance en], [Type of Aid].[Debt relief en], [Type of Aid].[Administrative costs not included elsewhere en]} ON ROWS,
+{[Type of Aid].[A], [Type of Aid].[B], [Type of Aid].[C], [Type of Aid].[D], [Type of Aid].[E], [Type of Aid].[F], [Type of Aid].[G], [Type of Aid].[H]} ON ROWS,
 NON EMPTY {[Measures].[Commitments Amount]} ON COLUMNS
 FROM [Financial]
-WHERE {[Reporting Year].[2010]}*{[BiMultilateral].[Bilateral en]}]]>
+WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]}]]>
 	</queryString>
 	<field name="Budget Support" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Aid].[Budget support en])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Aid].[A])]]></fieldDescription>
 	</field>
 	<field name="Core contributions and pooled programmes and funds" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Aid].[Core contributions and pooled programmes and funds en])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Aid].[B])]]></fieldDescription>
 	</field>
 	<field name="Project-type interventions" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Aid].[Project-type interventions en])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Aid].[C])]]></fieldDescription>
 	</field>
 	<field name="Experts and other technical assistance" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Aid].[Experts and other technical assistance en])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Aid].[D])]]></fieldDescription>
+	</field>
+	<field name="Scholarships and student costs in donor countries" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Aid].[E])]]></fieldDescription>
+	</field>
+	<field name="Debt Relief" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Aid].[F])]]></fieldDescription>
+	</field>
+	<field name="Administrative costs not included elsewhere" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Aid].[G])]]></fieldDescription>
+	</field>
+	<field name="Other in-donor expenditures" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Aid].[H])]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>

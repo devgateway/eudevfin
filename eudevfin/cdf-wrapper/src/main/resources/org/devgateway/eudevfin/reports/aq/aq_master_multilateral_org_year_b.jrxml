@@ -6,26 +6,28 @@
 	<property name="ireport.y" value="0"/>
 	<parameter name="YEAR" class="java.lang.String"/>
 	<queryString language="mdx">
-		<![CDATA[SELECT
-NON EMPTY {[Reporting Organization].[EU], [Reporting Organization].[GRP1], [Reporting Organization].[ONU], [Reporting Organization].[OTHER], [Reporting Organization].[WB]} ON ROWS,
+		<![CDATA[
+SELECT
+{[Channel].[Code].[41000], [Channel].[42000], [Channel].[44000], [Channel].[46000], [Channel].[47000]} ON ROWS,
 NON EMPTY {[Measures].[Commitments Amount]} ON COLUMNS
 FROM [Financial]
-WHERE {[Reporting Year].[$P{YEAR}]}*{[BiMultilateral].[Multilateral en]}]]>
+WHERE {[Reporting Year].[$P{YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##2]}
+]]>
 	</queryString>
 	<field name="EU" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Reporting Organization].[EU])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Channel].[42000])]]></fieldDescription>
 	</field>
 	<field name="GRP1" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Reporting Organization].[GRP1])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Channel].[41000])]]></fieldDescription>
 	</field>
 	<field name="ONU" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Reporting Organization].[ONU])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Channel].[46000])]]></fieldDescription>
 	</field>
 	<field name="OTHER" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Reporting Organization].[OTHER])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Channel].[47000])]]></fieldDescription>
 	</field>
 	<field name="WB" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Reporting Organization].[WB])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Channel].[44000])]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>

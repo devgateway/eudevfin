@@ -7,13 +7,13 @@
 	<parameter name="YEAR" class="java.lang.String"/>
 	<queryString language="mdx">
 		<![CDATA[SELECT
-NON EMPTY {[Type of Aid].[Debt relief en]} ON ROWS,
+NON EMPTY {[Type of Finance Root].[TYPE_OF_FINANCE##100]} ON ROWS,
 NON EMPTY {[Measures].[Commitments Amount]} ON COLUMNS
 FROM [Financial]
-WHERE {[Reporting Year].[$P{YEAR}]}*{[Type of Flow].[ODA Grant en], [Type of Flow].[ODA Grant-like en]}]]>
+WHERE {[Reporting Year].[$P{YEAR}]}*{[Type of Aid].[F]}]]>
 	</queryString>
 	<field name="Debt Relief Grants" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Aid].[Debt relief en])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Finance Root].[TYPE_OF_FINANCE##100])]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>

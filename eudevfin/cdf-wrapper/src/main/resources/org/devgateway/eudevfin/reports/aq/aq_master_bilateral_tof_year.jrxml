@@ -9,22 +9,19 @@
 	<parameter name="SUBDIR_PATH" class="java.lang.String"/>
 	<queryString language="mdx">
 		<![CDATA[SELECT
-NON EMPTY {[Type of Flow].[ODA Grant en], [Type of Flow].[ODA Grant-like en], [Type of Flow].[ODA Loan en], [Type of Flow].[ODA equity investment en]} ON ROWS,
+{[Type of Finance Root].[TYPE_OF_FINANCE##100], [Type of Finance Root].[TYPE_OF_FINANCE##400]} ON ROWS,
 NON EMPTY {[Measures].[Commitments Amount]} ON COLUMNS
 FROM [Financial]
-WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[Bilateral en]}]]>
+WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]}]]>
 	</queryString>
-	<field name="ODA Grant" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Flow].[ODA Grant en])]]></fieldDescription>
+	<field name="Grant" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Finance Root].[TYPE_OF_FINANCE##100])]]></fieldDescription>
 	</field>
-	<field name="ODA Grant-like" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Flow].[ODA Grant-like en])]]></fieldDescription>
+	<field name="Loan Gross" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Finance Root].[TYPE_OF_FINANCE##400])]]></fieldDescription>
 	</field>
-	<field name="ODA Loan" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Flow].[ODA Loan en])]]></fieldDescription>
-	</field>
-	<field name="ODA equity investment" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Flow].[ODA equity investment en])]]></fieldDescription>
+	<field name="Loan Net" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Finance Root].[TYPE_OF_FINANCE##400])]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -71,21 +68,21 @@ WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[Bilateral en]}]]>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{ODA Grant}+$F{ODA Grant-like}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Grant}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="352" y="42" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{ODA Loan}+$F{ODA equity investment}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Loan Gross}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="352" y="56" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[0]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Loan Net}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="352" y="70" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
