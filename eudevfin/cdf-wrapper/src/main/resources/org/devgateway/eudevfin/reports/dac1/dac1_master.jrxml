@@ -5,10 +5,15 @@
 	<property name="ireport.y" value="0"/>
 	<parameter name="SUBDIR_PATH" class="java.lang.String"/>
 	<queryString language="mdx">
-		<![CDATA[SELECT
-NON EMPTY {[Reporting Year].[2011], [Reporting Year].[2012]} ON ROWS,
-NON EMPTY {[Measures].[Commitments Amount]} ON COLUMNS
-FROM [Financial]]]>
+		<![CDATA[
+WITH MEMBER Measures.[Net Amounts] AS
+[Measures].[Extended Amount] - [Measures].[Received Amount]
+SELECT
+NON EMPTY {[Measures].[Extended Amount], Measures.[Net Amounts]} ON COLUMNS,
+NON EMPTY {Hierarchize({[Type of Flow].[Name].Members})} ON ROWS
+FROM [Financial]
+WHERE {[Type of Finance].[Name].[GRANT], [Type of Finance].[Name].[Aid grant excluding debt reorganisation], [Type of Finance].[Name].[Subsidies to national private investors]}
+]]>
 	</queryString>
 	<background>
 		<band splitType="Stretch"/>
