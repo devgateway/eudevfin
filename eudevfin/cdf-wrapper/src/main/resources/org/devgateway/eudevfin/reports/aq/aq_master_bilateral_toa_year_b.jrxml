@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="100" pageHeight="112" columnWidth="100" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4d81083f-52a3-45df-97af-b93a485e497a">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="java" pageWidth="100" pageHeight="112" columnWidth="100" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4d81083f-52a3-45df-97af-b93a485e497a">
 	<property name="ireport.callouts" value="##Mon Dec 30 08:46:00 ART 2013"/>
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="YEAR" class="java.lang.String"/>
+	<parameter name="YEAR" class="java.lang.Number"/>
 	<queryString language="mdx">
 		<![CDATA[SELECT
 {[Type of Aid].[A], [Type of Aid].[B], [Type of Aid].[C], [Type of Aid].[D], [Type of Aid].[E], [Type of Aid].[F], [Type of Aid].[G], [Type of Aid].[H]} ON ROWS,
@@ -88,7 +88,7 @@ WHERE {[Reporting Year].[$P{YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]}]]>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Budget Support}+$F{Core contributions and pooled programmes and funds}+$F{Project-type interventions}+$F{Experts and other technical assistance}+$F{Debt Relief}+$F{Administrative costs not included elsewhere}+$F{Other in-donor expenditures}+$F{Scholarships and student costs in donor countries}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Budget Support}.intValue() + $F{Core contributions and pooled programmes and funds}.intValue() + $F{Project-type interventions}.intValue() + $F{Experts and other technical assistance}.intValue() + $F{Debt Relief}.intValue() + $F{Administrative costs not included elsewhere}.intValue() + $F{Other in-donor expenditures}.intValue() + $F{Scholarships and student costs in donor countries}.intValue()]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
