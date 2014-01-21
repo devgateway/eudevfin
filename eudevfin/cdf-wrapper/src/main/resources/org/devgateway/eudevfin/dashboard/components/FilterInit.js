@@ -20,6 +20,7 @@ function initFilter(filterId, dataAccessId, parameter) {
             path: '/some/path.cda'
         },
         postFetch: function (values) {
+	        console.log(values);
             return values;
         },
         preExecution: function () {

@@ -18,16 +18,28 @@
         </Connection>
     </DataSources>
 
-    <DataAccess id="simpleMDXQuery" connection="defaultConnection" type="mdx" access="public">
-		<Name>Simple MDX query</Name>
+    <DataAccess id="organizationList" connection="defaultConnection" type="mdx" access="public">
+		<Name>organizationList MDX</Name>
         <Query>
         <![CDATA[
 			SELECT
-			NON EMPTY {Hierarchize({[Reporting Organization].[code].Members})} ON COLUMNS,
-			NON EMPTY {[Measures].[Commitments Amount]} ON ROWS
-			FROM [Financial]
+            NON EMPTY {[Measures].[Commitments Amount]} ON COLUMNS,
+            NON EMPTY {[Reporting Organization].[Acronym].Members} ON ROWS
+            FROM [Financial]
 		]]>
 		</Query>       
+    </DataAccess>
+
+    <DataAccess id="sectorList" connection="defaultConnection" type="mdx" access="public">
+        <Name>sectorList MDX</Name>
+        <Query>
+        <![CDATA[
+            SELECT
+            NON EMPTY {[Measures].[Commitments Amount]} ON COLUMNS,
+            NON EMPTY {[Sector].[Name].Members} ON ROWS
+            FROM [Financial]
+        ]]>
+        </Query>
     </DataAccess>
     
     <DataAccess id="simpleMDXQuerySector" connection="defaultConnection" type="mdx" access="public">
@@ -59,21 +71,6 @@
             <Parameter name="organizationId" type="Integer" default="1"/>
         </Parameters>
     </DataAccess>
-
-    <DataAccess id="sectorList" connection="sqlConnection" type="sql" access="public">
-		<Name>List of Sectors</Name>
-        <Query><![CDATA[
-			select code from category_tags ct, category c where ct.category_id = 6 and c.id = ct.tags_id
-		]]></Query>
-    </DataAccess>
-    
-    <DataAccess id="organizationList" connection="sqlConnection" type="sql" access="public">
-		<Name>List of Sectors</Name>
-        <Query><![CDATA[
-			select code from organization
-		]]></Query>
-    </DataAccess>
-
 
     <DataAccess id="commitmentsBySector" connection="defaultConnectionLocale" type="mdx" access="public">
 		<Name>Simple Sector MDX query</Name>
@@ -110,8 +107,5 @@
 		]]>
 		</Query>       
     </DataAccess>
-
-
-
 
 </CDADescriptor>
