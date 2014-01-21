@@ -60,7 +60,7 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 		for (int j=0; j<=NUM_OF_YEARS; j++) {
 			for (int i=1; i<=NUM_OF_TX; i++ ) {
 				double disbursement = Math.ceil(Math.random() * 100000);
-				boolean draft = ((int)amount) % 2 == 0 ? true:false;
+				boolean draft = ((int)disbursement) % 2 == 0 ? true:false;
 				CustomFinancialTransaction tx 	= new CustomFinancialTransaction();
 				tx.setDraft(draft);
 				tx.setCommitments(BigMoney.parse("EUR " + Math.ceil(Math.random() * 100000)));
