@@ -30,12 +30,12 @@ WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[Type of Aid].[F]}
 				</textElement>
 				<text><![CDATA[3. Debt relief grants, gross]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="352" y="0" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Debt Relief Grants}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Debt Relief Grants}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="297" y="0" width="50" height="14" uuid="8845796c-265a-4b77-81ea-1f5f64d2e523"/>

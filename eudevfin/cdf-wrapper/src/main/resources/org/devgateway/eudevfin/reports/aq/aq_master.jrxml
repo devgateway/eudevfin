@@ -179,19 +179,19 @@ FROM [Financial]]]>
 				</textElement>
 				<text><![CDATA[Official Development Assistance, net]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="352" y="20" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Commitments Amount Year 1}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Commitments Amount Year 1}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="455" y="20" width="100" height="14" uuid="c9942bc6-86f5-404f-84db-195b820e9cde"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Commitments Amount Year 2}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Commitments Amount Year 2}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<subreport>
 				<reportElement x="0" y="40" width="555" height="100" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>

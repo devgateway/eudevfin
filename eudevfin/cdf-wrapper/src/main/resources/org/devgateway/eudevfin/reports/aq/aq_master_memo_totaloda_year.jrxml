@@ -48,12 +48,12 @@ WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]
 				</textElement>
 				<text><![CDATA[4. Total gross ODA]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="352" y="0" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Budget Support}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Budget Support}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="297" y="0" width="50" height="14" uuid="f5a62236-8df3-496e-8162-e987f702eb70"/>
@@ -62,12 +62,12 @@ WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]
 				</textElement>
 				<text><![CDATA[1920]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="455" y="0" width="100" height="14" uuid="dea22b10-8a98-4f42-886a-f7b0abe59353"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Budget Support}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Budget Support}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>

@@ -20,12 +20,12 @@ WHERE {[Reporting Year].[$P{YEAR}]}*{[Type of Aid].[F]}]]>
 	</background>
 	<pageHeader>
 		<band height="14" splitType="Stretch">
-			<textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="0" y="0" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Debt Relief Grants}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Debt Relief Grants}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>

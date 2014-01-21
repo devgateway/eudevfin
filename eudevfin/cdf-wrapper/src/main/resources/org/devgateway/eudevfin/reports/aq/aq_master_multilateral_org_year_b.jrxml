@@ -34,47 +34,47 @@ WHERE {[Reporting Year].[$P{YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##2]}
 	</background>
 	<pageHeader>
 		<band height="98" splitType="Stretch">
-			<textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="0" y="28" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{ONU}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{ONU}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="0" y="42" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{EU}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{EU}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="0" y="56" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{WB}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{WB}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="0" y="70" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{GRP1}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{GRP1}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="0" y="84" width="100" height="14" uuid="c9e4e461-f3ce-4935-8d84-c74c8d4d586c"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{OTHER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{OTHER}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="0" y="0" width="100" height="14" uuid="220e6f1c-d7eb-4387-9bd8-2c249e1ede85"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{ONU}.intValue() + $F{EU}.intValue() + $F{WB}.intValue() + $F{GRP1}.intValue() + $F{OTHER}.intValue()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{ONU}.doubleValue() + $F{EU}.doubleValue() + $F{WB}.doubleValue() + $F{GRP1}.doubleValue() + $F{OTHER}.doubleValue())/1000000]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>

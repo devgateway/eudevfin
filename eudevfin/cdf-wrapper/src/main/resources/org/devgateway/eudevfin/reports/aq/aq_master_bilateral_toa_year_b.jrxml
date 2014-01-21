@@ -41,54 +41,54 @@ WHERE {[Reporting Year].[$P{YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]}]]>
 	</background>
 	<pageHeader>
 		<band height="112" splitType="Stretch">
-			<textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="0" y="28" width="100" height="14" uuid="402fbca1-4c96-4301-99f4-308ff9db3d65"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Budget Support}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Budget Support}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="0" y="56" width="100" height="14" uuid="bbe205f1-1a6f-4118-972b-9433246f5cef"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Project-type interventions}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Project-type interventions}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="0" y="42" width="100" height="14" uuid="302d1a5d-bce7-4523-98e9-cf32d10d2cbd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Core contributions and pooled programmes and funds}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Core contributions and pooled programmes and funds}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="0" y="70" width="100" height="14" uuid="4a437cb0-f281-439b-97e0-05342b00e2bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Experts and other technical assistance}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Experts and other technical assistance}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="0" y="84" width="100" height="14" uuid="e0a83df2-75a9-456e-8392-dcf6903affd5"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Debt Relief}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Debt Relief}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="0" y="98" width="100" height="14" uuid="56ac8011-2c10-4539-8169-1dccdb239435"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Administrative costs not included elsewhere}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Administrative costs not included elsewhere}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="0" y="0" width="100" height="14" uuid="6e45c865-46ad-4215-a3d8-59da67b98978"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Budget Support}.intValue() + $F{Core contributions and pooled programmes and funds}.intValue() + $F{Project-type interventions}.intValue() + $F{Experts and other technical assistance}.intValue() + $F{Debt Relief}.intValue() + $F{Administrative costs not included elsewhere}.intValue() + $F{Other in-donor expenditures}.intValue() + $F{Scholarships and student costs in donor countries}.intValue()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{Budget Support}.doubleValue() + $F{Core contributions and pooled programmes and funds}.doubleValue() + $F{Project-type interventions}.doubleValue() + $F{Experts and other technical assistance}.doubleValue() + $F{Debt Relief}.doubleValue() + $F{Administrative costs not included elsewhere}.doubleValue() + $F{Other in-donor expenditures}.doubleValue() + $F{Scholarships and student costs in donor countries}.doubleValue())/1000000]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
