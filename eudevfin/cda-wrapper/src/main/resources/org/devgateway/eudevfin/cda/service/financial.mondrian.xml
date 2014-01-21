@@ -2,13 +2,45 @@
 	<Dimension visible="true" highCardinality="false" name="Reporting Organization">
 		<Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allReportingOrganizations}" allLevelName="%{allReportingOrganizations}" description="%{reportingOrganizations}" allMemberName="%{allReportingOrganizations}">
 			<Table name="ORGANIZATION" schema="APP"></Table>
-			<Level name="code" visible="true" table="ORGANIZATION" column="CODE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never"></Level>
+			<Level name="Code" visible="true" table="ORGANIZATION" column="CODE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never"></Level>
+			<Level name="Acronym" visible="true" table="ORGANIZATION" column="ACRONYM" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never"></Level>
 		</Hierarchy>
 	</Dimension>
 	<Dimension visible="true" highCardinality="false" name="Extending Agency">
 		<Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Extending Agency" allMemberCaption="%{allExtendingAgencies}" allLevelName="%{allExtendingAgencies}" description="%{extendingAgencies}" allMemberName="%{allExtendingAgencies}">
 			<Table name="ORGANIZATION" schema="APP"></Table>
 			<Level name="code" visible="true" table="ORGANIZATION" column="CODE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never"></Level>
+		</Hierarchy>
+	</Dimension>
+	<Dimension visible="true" highCardinality="false" name="Channel">
+		<Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Channel">
+			<View alias="ChannelView">
+				<SQL dialect="generic"><![CDATA[
+			select
+				"CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE"
+			from
+				"APP"."CATEGORY" as "CATEGORY",
+				"APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION",
+				"APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
+			WHERE
+				"CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
+				"CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
+				"CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
+				"CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='CHANNEL_TAG')
+			group by
+				"CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME",
+				"CATEGORY"."CODE"
+			order by
+				CASE WHEN "CATEGORY"."ID" IS NULL THEN 1 ELSE 0 END,
+				"CATEGORY"."ID" ASC,
+				CASE WHEN "CATEGORY"."CODE" IS NULL THEN 1 ELSE 0 END,
+				"CATEGORY"."CODE" ASC
+			]]></SQL>
+			</View>
+			<Level name="Code" visible="true" column="CODE" uniqueMembers="false">
+			</Level>
+			<Level name="Name" visible="true" column="NAME" uniqueMembers="false">
+			</Level>
 		</Hierarchy>
 	</Dimension>
 	<Dimension visible="true" highCardinality="false" name="Type of Aid">
@@ -25,7 +57,7 @@
 				"CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
 				"CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
 				"CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
-				"CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='ALL_TYPE_OF_AID_TAG')
+				"CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='TYPE_OF_AID_TAG')
 			group by
 				"CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME",
 				"CATEGORY"."CODE"
@@ -89,6 +121,38 @@
 				"CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
 				"CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
 				"CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='ALL_TYPE_OF_FINANCE_TAG')
+			group by
+				"CATEGORY"."ID",
+				"CATEGORYTRANSLATION"."NAME",
+				"CATEGORY"."CODE"
+			order by
+				CASE WHEN "CATEGORY"."ID" IS NULL THEN 1 ELSE 0 END,
+				"CATEGORY"."ID" ASC,
+				CASE WHEN "CATEGORY"."CODE" IS NULL THEN 1 ELSE 0 END,
+				"CATEGORY"."CODE" ASC
+			]]></SQL>
+			</View>
+			<Level name="Code" visible="true" column="CODE" uniqueMembers="false">
+			</Level>
+			<Level name="Name" visible="true" column="NAME" uniqueMembers="false">
+			</Level>
+		</Hierarchy>
+	</Dimension>
+	<Dimension visible="true" highCardinality="false" name="Type of Finance Root">
+		<Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Type of Finance Root">
+			<View alias="TypeOfFinanceRootView">
+				<SQL dialect="generic"><![CDATA[
+			select
+				"CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE"
+			from
+				"APP"."CATEGORY" as "CATEGORY",
+				"APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION",
+				"APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
+			WHERE
+				"CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
+				"CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
+				"CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
+				"CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='TYPE_OF_FINANCE_TAG')
 			group by
 				"CATEGORY"."ID",
 				"CATEGORYTRANSLATION"."NAME",
@@ -179,9 +243,11 @@
 		<DimensionUsage source="Reporting Organization" name="Reporting Organization" visible="true" foreignKey="REPORTINGORGANIZATION_ID" highCardinality="false"></DimensionUsage>
 		<DimensionUsage source="Extending Agency" name="Extending Agency" visible="true" foreignKey="EXTENDINGAGENCY_ID" highCardinality="false"></DimensionUsage>
 		<DimensionUsage source="Sector" name="Sector" visible="true" foreignKey="SECTOR_ID" highCardinality="false"></DimensionUsage>
+		<DimensionUsage source="Channel" name="Channel" visible="true" foreignKey="CHANNEL_ID" highCardinality="false"></DimensionUsage>
 		<DimensionUsage source="Type of Aid" name="Type of Aid" visible="true" foreignKey="TYPEOFAID_ID" highCardinality="false"></DimensionUsage>
 		<DimensionUsage source="Type of Flow" name="Type of Flow" visible="true" foreignKey="TYPEOFFLOW_ID" highCardinality="false"></DimensionUsage>
 		<DimensionUsage source="Type of Finance" name="Type of Finance" visible="true" foreignKey="TYPEOFFINANCE_ID" highCardinality="false"></DimensionUsage>
+		<DimensionUsage source="Type of Finance Root" name="Type of Finance Root" visible="true" foreignKey="TYPEOFFINANCE_ID" highCardinality="false"></DimensionUsage>
 		<DimensionUsage source="BiMultilateral" name="BiMultilateral" visible="true" foreignKey="BIMULTILATERAL_ID" highCardinality="false"></DimensionUsage>
 		<Dimension name="Reporting Year">
 			<Hierarchy hasAll="true">
