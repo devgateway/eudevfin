@@ -32,10 +32,10 @@ public class ReportsPage extends HeaderFooter {
 
     private void addComponents() {
 		// wicket ID, CDA ID, dashboard parameter
-        Filter sectorFilter = new Filter("sectorFilter", "sectorList", "sectorListParameter");
+        Filter sectorFilter = new Filter("sectorFilter", "sectorList", "dashboards.sector.filter", "sectorListParameter");
         add(sectorFilter);
         
-        Filter orgFilter = new Filter("orgFilter", "organizationList", "organizationListParameter");
+        Filter orgFilter = new Filter("orgFilter", "organizationList", "dashboards.org.filter", "organizationListParameter");
         add(orgFilter);
 
         DataTable testTable = new DataTable("testTable", "dashboards.financialTransaction");

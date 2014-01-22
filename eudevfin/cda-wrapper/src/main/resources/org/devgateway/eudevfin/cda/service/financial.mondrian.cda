@@ -10,7 +10,7 @@
         </Connection>
         <Connection id="defaultConnectionLocale" type="mondrian.jndi">
             <Jndi>java:comp/env/euDevFinDS</Jndi>
-			<Catalog>..\..\..\cda-wrapper\target\classes\org\devgateway\eudevfin\cda\service\financial.mondrian.xml;DynamicSchemaProcessor=org.devgateway.eudevfin.cda.utils.SchemaProcessor;</Catalog>
+			<Catalog>./financial.mondrian.xml;DynamicSchemaProcessor=org.devgateway.eudevfin.cda.utils.SchemaProcessor;</Catalog>
 			<Cube>Financial</Cube>
         </Connection>
         <Connection id="sqlConnection" type="sql.jndi">
@@ -18,7 +18,7 @@
         </Connection>
     </DataSources>
 
-    <DataAccess id="organizationList" connection="defaultConnection" type="mdx" access="public">
+    <DataAccess id="organizationList" connection="defaultConnectionLocale" type="mdx" access="public">
 		<Name>organizationList MDX</Name>
         <Query>
         <![CDATA[
@@ -30,7 +30,7 @@
 		</Query>       
     </DataAccess>
 
-    <DataAccess id="sectorList" connection="defaultConnection" type="mdx" access="public">
+    <DataAccess id="sectorList" connection="defaultConnectionLocale" type="mdx" access="public">
         <Name>sectorList MDX</Name>
         <Query>
         <![CDATA[

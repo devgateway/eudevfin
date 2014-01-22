@@ -10,6 +10,8 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
     <entry key="sectorFilter">Filters</entry>
+	<entry key="dashboards.org.filter">Organization</entry>
+	<entry key="dashboards.sector.filter">Sectors</entry>
     <entry key="dashboards.table">Table Dashboard</entry>
     <entry key="dashboards.financialTransaction">Financial Transaction</entry>
     <entry key="dashboards.pieChart">Pie Chart</entry>

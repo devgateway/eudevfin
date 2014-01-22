@@ -12,7 +12,9 @@ import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 
 /**
@@ -32,10 +34,13 @@ public class Filter extends Panel {
 
     }
 
-    public Filter(String id, String dataAccessId, String parameter) {
+    public Filter(String id, String dataAccessId, String messageKey, String parameter) {
         super(id);
         this.parameter = parameter;
         this.dataAccessId = dataAccessId;
+
+	    Label title = new Label("title", new StringResourceModel(messageKey, this, null, null));
+	    add(title);
 
         filter = new WebMarkupContainer("filter");
         filter.setOutputMarkupId(true);
