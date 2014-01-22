@@ -216,6 +216,10 @@
 
 	<int:channel id="findAllAsListChannelCategoryChannel"/>
 	<int:channel id="findChannelCategoryByCodeChannel"/>
+	<int:channel id="findChannelCategoryByGeneralSearchPageable"/>
+	<int:channel id="findOneChannelCategory"/>
+	
+	
 	
 	<int:channel id="saveAreaChannel"/>
 	<int:channel id="findAllAsListAreaChannel"/>

@@ -119,6 +119,14 @@
 		<int:method name="findByCode" request-channel="getChannel">
 			<int:header name="requestName" value="findChannelCategoryByCodeChannel"/>
 		</int:method>
+		<int:method name="findByGeneralSearchPageable" request-channel="getChannel">
+			<int:header name="requestName" value="findChannelCategoryByGeneralSearchPageable"/>
+		</int:method>
+		<int:method name="findOne" request-channel="getChannel">
+			<int:header name="requestName" value="findOneChannelCategory"/>
+		</int:method>
+		
+		
 	</int:gateway>
 	<int:gateway id="areaService"
 		default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}" 

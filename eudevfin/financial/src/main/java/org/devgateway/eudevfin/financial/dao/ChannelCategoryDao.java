@@ -11,6 +11,9 @@ import org.devgateway.eudevfin.financial.ChannelCategory;
 import org.devgateway.eudevfin.financial.repository.ChannelCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.integration.annotation.Header;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
 
@@ -39,6 +42,22 @@ public class ChannelCategoryDao extends AbstractDaoImpl<ChannelCategory, Long, C
 	@ServiceActivator(inputChannel="findChannelCategoryByCodeChannel")
 	public NullableWrapper<ChannelCategory> findByCode(String code) {
 		return newWrapper(this.getRepo().findByCode(code));
+	}
+	
+	
+	@ServiceActivator(inputChannel="findChannelCategoryByGeneralSearchPageable")
+	@Override
+	public Page<ChannelCategory> findByGeneralSearchPageable(String searchString,
+			@Header(value="locale",required=false) String locale, @Header("pageable") Pageable pageable) { 
+		return super.findByGeneralSearchPageable(searchString, locale, pageable);
+	}
+	
+	
+	
+	@ServiceActivator(inputChannel="findOneChannelCategory")
+	@Override
+	public NullableWrapper<ChannelCategory> findOne(Long id) {
+		return super.findOne(id);
 	}
 
 }
