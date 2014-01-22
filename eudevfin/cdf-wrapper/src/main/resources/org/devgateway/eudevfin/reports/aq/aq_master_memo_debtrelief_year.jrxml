@@ -10,7 +10,7 @@
 	<queryString language="mdx">
 		<![CDATA[SELECT
 {[Type of Finance Root].[TYPE_OF_FINANCE##100]} ON ROWS,
-NON EMPTY {[Measures].[Commitments Amount]} ON COLUMNS
+{[Measures].[Commitments Amount]} ON COLUMNS
 FROM [Financial]
 WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[Type of Aid].[F]}
 ]]>
@@ -23,13 +23,13 @@ WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[Type of Aid].[F]}
 	</background>
 	<pageHeader>
 		<band height="14" splitType="Stretch">
-			<staticText>
+			<textField>
 				<reportElement x="0" y="0" width="295" height="14" uuid="75a9d431-f9ec-4d1d-8f7a-bb967d39b954"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="Arial" size="10" isBold="false"/>
 				</textElement>
-				<text><![CDATA[3. Debt relief grants, gross]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$R{aq.debtReliefGrants}]]></textFieldExpression>
+			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="352" y="0" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">

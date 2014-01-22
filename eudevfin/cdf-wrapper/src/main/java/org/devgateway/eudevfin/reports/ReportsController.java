@@ -132,8 +132,26 @@ public class ReportsController {
 		
 		try {
 			InputStream inputStream = ReportsController.class.getResourceAsStream("./aq/aq_master.jrxml");
-			
 			Map<String, Object> parameters = new HashMap<String, Object>();
+			
+			// set locale
+			Locale locale = LocaleContextHolder.getLocale();			
+			parameters.put(JRParameter.REPORT_LOCALE, locale);
+			
+			// set resource bundle
+			try {
+				URL[] urls = {
+						this.getClass().getResource("/org/devgateway/eudevfin/reports/").toURI().toURL()
+				};
+				ClassLoader loader = new URLClassLoader(urls);
+				ResourceBundle resourceBundle = java.util.ResourceBundle.getBundle("i18n", locale, loader); 
+				parameters.put(JRParameter.REPORT_RESOURCE_BUNDLE, resourceBundle);
+			} catch (URISyntaxException e) {
+				e.printStackTrace();
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
+			
 			parameters.put(JRMondrianQueryExecuterFactory.PARAMETER_MONDRIAN_CONNECTION, connection);
 			parameters.put("FIRST_YEAR", reportYear - 1);
 			parameters.put("SECOND_YEAR", reportYear);
@@ -192,6 +210,7 @@ public class ReportsController {
 			
 			try {
 				baos.write("No data/Data Invalid".getBytes());
+				logger.error(e.getMessage());
 			} catch (IOException ioEx) {
 				ioEx.printStackTrace();
 			}

@@ -10,7 +10,7 @@
 	<queryString language="mdx">
 		<![CDATA[SELECT
 {[Type of Finance Root].[TYPE_OF_FINANCE##100], [Type of Finance Root].[TYPE_OF_FINANCE##400]} ON ROWS,
-NON EMPTY {[Measures].[Commitments Amount]} ON COLUMNS
+{[Measures].[Commitments Amount]} ON COLUMNS
 FROM [Financial]
 WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]}]]>
 	</queryString>
@@ -28,41 +28,41 @@ WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]
 	</background>
 	<pageHeader>
 		<band height="124" splitType="Stretch">
-			<staticText>
+			<textField>
 				<reportElement x="14" y="14" width="281" height="14" uuid="e60ba32c-718d-42f9-90c3-250d57e8e9ba"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="Arial" size="10" isBold="false" isItalic="true"/>
 				</textElement>
-				<text><![CDATA[Financial Instruments]]></text>
-			</staticText>
-			<staticText>
+				<textFieldExpression><![CDATA[$R{aq.bilateral.financialInstruments}]]></textFieldExpression>
+			</textField>
+			<textField>
 				<reportElement x="32" y="28" width="263" height="14" uuid="b0eebc25-9b0e-44ca-91b3-fde67f3274f1"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[a. Grants]]></text>
-			</staticText>
-			<staticText>
+				<textFieldExpression><![CDATA[$R{aq.bilateral.grants}]]></textFieldExpression>
+			</textField>
+			<textField>
 				<reportElement x="32" y="42" width="263" height="14" uuid="c03c6a7a-d273-4ff0-a6b8-f056be956483"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[b. Non grants, gross]]></text>
-			</staticText>
-			<staticText>
+				<textFieldExpression><![CDATA[$R{aq.bilateral.nonGrantsGross}]]></textFieldExpression>
+			</textField>
+			<textField>
 				<reportElement x="32" y="56" width="263" height="14" uuid="3748c4d0-1cea-4812-8d61-a9180137bdc4"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[c. Non grants, net]]></text>
-			</staticText>
-			<staticText>
+				<textFieldExpression><![CDATA[$R{aq.bilateral.nonGrantsNets}]]></textFieldExpression>
+			</textField>
+			<textField>
 				<reportElement x="49" y="70" width="246" height="14" uuid="98df0763-f62e-49e9-9314-57c8d501ca49"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[of which: Offsetting entry for debt forgiveness]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$R{aq.bilateral.nonGrantsNets.subtitle}]]></textFieldExpression>
+			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="352" y="28" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">

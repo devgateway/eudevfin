@@ -43,62 +43,62 @@ WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]
 	</background>
 	<pageHeader>
 		<band height="124" splitType="Stretch">
-			<staticText>
+			<textField>
 				<reportElement x="0" y="0" width="295" height="14" uuid="75a9d431-f9ec-4d1d-8f7a-bb967d39b954"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="Arial" size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[I. Bilateral ODA, net]]></text>
-			</staticText>
-			<staticText>
+				<textFieldExpression><![CDATA[$R{aq.bilateralODANet.title}]]></textFieldExpression>
+			</textField>
+			<textField>
 				<reportElement x="14" y="14" width="281" height="14" uuid="e60ba32c-718d-42f9-90c3-250d57e8e9ba"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="Arial" size="10" isBold="false" isItalic="true"/>
 				</textElement>
-				<text><![CDATA[Of which: selected types of aid]]></text>
-			</staticText>
-			<staticText>
+				<textFieldExpression><![CDATA[$R{aq.bilateralODANet.subtitle}]]></textFieldExpression>
+			</textField>
+			<textField>
 				<reportElement x="32" y="28" width="263" height="14" uuid="b0eebc25-9b0e-44ca-91b3-fde67f3274f1"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[a. Budget Support]]></text>
-			</staticText>
-			<staticText>
+				<textFieldExpression><![CDATA[$R{aq.bilateral.budgetSupport}]]></textFieldExpression>
+			</textField>
+			<textField>
 				<reportElement x="32" y="42" width="263" height="14" uuid="c03c6a7a-d273-4ff0-a6b8-f056be956483"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[b. Bilateral core support & pooled programmes & funds]]></text>
-			</staticText>
-			<staticText>
+				<textFieldExpression><![CDATA[$R{aq.bilateral.bilateralCoreSupport}]]></textFieldExpression>
+			</textField>
+			<textField>
 				<reportElement x="32" y="56" width="263" height="14" uuid="3748c4d0-1cea-4812-8d61-a9180137bdc4"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[c. Project-type interventions]]></text>
-			</staticText>
-			<staticText>
+				<textFieldExpression><![CDATA[$R{aq.bilateral.projectTypeInterventions}]]></textFieldExpression>
+			</textField>
+			<textField>
 				<reportElement x="32" y="70" width="263" height="14" uuid="98df0763-f62e-49e9-9314-57c8d501ca49"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[d. Experts and other technical assistance]]></text>
-			</staticText>
-			<staticText>
+				<textFieldExpression><![CDATA[$R{aq.bilateral.expertsOtherTechnicalAssistance}]]></textFieldExpression>
+			</textField>
+			<textField>
 				<reportElement x="32" y="84" width="263" height="14" uuid="df2f387a-f274-4304-9fe5-73fa1725fb89"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[e. Debt relief]]></text>
-			</staticText>
-			<staticText>
+				<textFieldExpression><![CDATA[$R{aq.bilateral.debtRelief}]]></textFieldExpression>
+			</textField>
+			<textField>
 				<reportElement x="32" y="98" width="263" height="14" uuid="a2e31938-fba7-44c0-bc26-9f5f371528c6"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[f. Administrative costs not included elsewhere]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$R{aq.bilateral.administrativeCostsNotIncluded}]]></textFieldExpression>
+			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="352" y="28" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
