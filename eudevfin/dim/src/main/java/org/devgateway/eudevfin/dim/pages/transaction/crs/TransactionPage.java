@@ -8,10 +8,8 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
+import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
+import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
@@ -31,9 +29,7 @@ import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.dim.pages.HomePage;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
-import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
-import org.devgateway.eudevfin.ui.common.components.CheckBoxField;
 import org.devgateway.eudevfin.ui.common.components.tabs.BootstrapJSTabbedPanel;
 import org.devgateway.eudevfin.ui.common.components.tabs.DefaultTabWithKey;
 import org.devgateway.eudevfin.ui.common.components.tabs.ITabWithKey;
@@ -44,8 +40,9 @@ import org.devgateway.eudevfin.ui.common.temporary.SB;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.wicketstuff.annotation.mount.MountPath;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
-import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 @MountPath(value = "/transaction")
 @AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
@@ -104,8 +101,8 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 		public void componentVisitor(AjaxRequestTarget target, FormComponent component, IVisit<Void> visit) {
 			// TODO Auto-generated method stub
 			super.componentVisitor(target, component, visit);
-			if (!shownFirstSection.getObject()) {
-				target.focusComponent(component);
+            if ((!component.isValid()) && (!shownFirstSection.getObject())) {
+                target.focusComponent(component);
 				target.appendJavaScript("$('#" + component.getMarkupId()
 						+ "').parents('[class~=\"tab-pane\"]').siblings().attr(\"class\", \"tab-pane\");");
 				target.appendJavaScript("$('#" + component.getMarkupId()

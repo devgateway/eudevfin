@@ -8,6 +8,7 @@
 
 package org.devgateway.eudevfin.ui.common.components;
 
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -40,6 +41,8 @@ public abstract class AbstractField<T, FIELD extends FormComponent<T>> extends P
     FIELD field;
     private final MarkupContainer xPenderController;
 
+    private final AttributeModifier span4AttrModifier = new AttributeAppender("class", Model.of("span4"), " ");
+
     /**
      * @param id              wicket placeholder id
      * @param model           component's model
@@ -69,7 +72,7 @@ public abstract class AbstractField<T, FIELD extends FormComponent<T>> extends P
         xPenderController.add(prepender);
         xPenderController.add(appender);
         controlGroup.add(xPenderController);
-        controlGroup.add(new AttributeAppender("class", Model.of("span4"), " "));
+        controlGroup.add(span4AttrModifier);
         add(controlGroup);
 
     }
@@ -145,5 +148,9 @@ public abstract class AbstractField<T, FIELD extends FormComponent<T>> extends P
     @Override
     public void enableRequired() {
         required();
+    }
+
+    public void removeSpanFromControlGroup() {
+        controlGroup.remove(span4AttrModifier);
     }
 }
