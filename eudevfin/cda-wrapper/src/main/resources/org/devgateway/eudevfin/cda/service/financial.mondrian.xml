@@ -239,7 +239,11 @@
 		</Hierarchy>
 	</Dimension>
 	<Cube name="Financial" visible="true" cache="false" enabled="true">
-		<Table name="FINANCIALTRANSACTION" schema="APP" alias="financialtransaction"></Table>
+		<View name="FINANCIALTRANSACTIONVIEW" alias="FINANCIALTRANSACTIONVIEW">
+			<SQL dialect="generic"><![CDATA[
+			select * from FINANCIALTRANSACTION where draft=false
+			]]></SQL>
+		</View>		
 		<DimensionUsage source="Reporting Organization" name="Reporting Organization" visible="true" foreignKey="REPORTINGORGANIZATION_ID" highCardinality="false"></DimensionUsage>
 		<DimensionUsage source="Extending Agency" name="Extending Agency" visible="true" foreignKey="EXTENDINGAGENCY_ID" highCardinality="false"></DimensionUsage>
 		<DimensionUsage source="Sector" name="Sector" visible="true" foreignKey="SECTOR_ID" highCardinality="false"></DimensionUsage>
