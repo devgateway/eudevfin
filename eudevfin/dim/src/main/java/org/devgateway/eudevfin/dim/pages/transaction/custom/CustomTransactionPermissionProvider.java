@@ -50,8 +50,8 @@ public class CustomTransactionPermissionProvider extends CRSTransactionPermissio
         //override permissions for
         permissions.get("8channelDelivery").notCollected(SB.BILATERAL_ODA_ADVANCED_QUESTIONNAIRE).notCollected(SB.NON_ODA_OOF_EXPORT);
         permissions.get("9channelCode").notCollected(SB.BILATERAL_ODA_ADVANCED_QUESTIONNAIRE).notCollected(SB.NON_ODA_OOF_EXPORT);
-        permissions.get("10bilateralMultilateral").notCollected(SB.BILATERAL_ODA_ADVANCED_QUESTIONNAIRE).notCollected(SB.MULTILATERAL_ODA_ADVANCED_QUESTIONNAIRE);
-        permissions.put("11typeOfFlow", new RoleActionMapping().required(SB.all()).notCollected(SB.BILATERAL_ODA_ADVANCED_QUESTIONNAIRE).notCollected(SB.MULTILATERAL_ODA_ADVANCED_QUESTIONNAIRE));
+        permissions.put("10bilateralMultilateral",new RoleActionMapping().required(SB.all()));
+        permissions.put("11typeOfFlow", new RoleActionMapping().required(SB.all()));
         permissions.get("14activityProjectTitle").notCollected(SB.NON_ODA_PRIVATE_GRANTS).render(SB.BILATERAL_ODA_ADVANCED_QUESTIONNAIRE, true)
                 .render(SB.MULTILATERAL_ODA_ADVANCED_QUESTIONNAIRE, true);
 
