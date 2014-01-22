@@ -24,33 +24,33 @@ public class Country extends Area {
 
 	private static final long serialVersionUID = 4597228380360940999L;
 	
-	private BigDecimal GDI;
-	private BigDecimal odaOfGDI;
-	private BigDecimal totalFlowsOfGDI;
+	private BigDecimal GNI;
+	private BigDecimal odaOfGNI;
+	private BigDecimal totalFlowsOfGNI;
 	private Integer population;
 	
-	public BigDecimal getGDI() {
-		return GDI;
+	public BigDecimal getGNI() {
+		return GNI;
 	}
 
-	public void setGDI(BigDecimal gDI) {
-		GDI = gDI;
+	public void setGNI(BigDecimal gDI) {
+		GNI = gDI;
 	}
 
-	public BigDecimal getOdaOfGDI() {
-		return odaOfGDI;
+	public BigDecimal getOdaOfGNI() {
+		return odaOfGNI;
 	}
 
-	public void setOdaOfGDI(BigDecimal odaOfGDI) {
-		this.odaOfGDI = odaOfGDI;
+	public void setOdaOfGNI(BigDecimal odaOfGDI) {
+		this.odaOfGNI = odaOfGDI;
 	}
 
-	public BigDecimal getTotalFlowsOfGDI() {
-		return totalFlowsOfGDI;
+	public BigDecimal getTotalFlowsOfGNI() {
+		return totalFlowsOfGNI;
 	}
 
-	public void setTotalFlowsOfGDI(BigDecimal totalFlowsOfGDI) {
-		this.totalFlowsOfGDI = totalFlowsOfGDI;
+	public void setTotalFlowsOfGNI(BigDecimal totalFlowsOfGDI) {
+		this.totalFlowsOfGNI = totalFlowsOfGDI;
 	}
 
 	public Integer getPopulation() {
