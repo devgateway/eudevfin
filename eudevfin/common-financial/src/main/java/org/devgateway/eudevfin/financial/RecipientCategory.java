@@ -19,7 +19,7 @@ import org.hibernate.envers.Audited;
 @Entity
 @Audited
 @DiscriminatorValue("Recipient")
-@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class RecipientCategory extends Category {
 	/**
 	 * 

@@ -29,7 +29,7 @@ import org.hibernate.envers.Audited;
  */
 @Audited
 @Entity
-@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class PersistedUserGroup implements Serializable {
 
 	private static final long serialVersionUID = -8690393283997583919L;

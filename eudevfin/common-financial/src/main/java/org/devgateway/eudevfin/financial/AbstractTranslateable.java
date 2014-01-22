@@ -37,7 +37,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 
 @MappedSuperclass
-@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public abstract class AbstractTranslateable<T extends AbstractTranslation<? extends AbstractTranslateable<T>>>
         implements Serializable {
 

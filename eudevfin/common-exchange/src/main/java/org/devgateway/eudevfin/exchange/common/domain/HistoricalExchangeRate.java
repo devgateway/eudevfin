@@ -34,7 +34,7 @@ import org.joda.time.LocalDateTime;
  *
  */
 @Entity
-@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class HistoricalExchangeRate implements Serializable {
 
 	private static final long serialVersionUID = -1514542425047805150L;

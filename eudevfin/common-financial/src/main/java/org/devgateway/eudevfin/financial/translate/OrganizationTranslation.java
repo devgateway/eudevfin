@@ -16,7 +16,7 @@ import org.hibernate.envers.Audited;
  */
 @Entity
 @Audited
-@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class OrganizationTranslation extends AbstractTranslation<Organization> implements OrganizationTrnInterface {
 	
 	private String name;

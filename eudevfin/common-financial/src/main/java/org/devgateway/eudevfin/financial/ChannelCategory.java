@@ -22,7 +22,7 @@ import org.hibernate.envers.Audited;
  */
 @Entity @Audited
 @DiscriminatorValue("Channel")
-@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class ChannelCategory extends Category implements ChannelCategoryTrnInterface {
 	/**
 	 * 

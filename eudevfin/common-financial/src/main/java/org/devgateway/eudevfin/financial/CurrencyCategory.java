@@ -17,7 +17,7 @@ import org.hibernate.envers.Audited;
 @Entity
 @Audited
 @DiscriminatorValue("Currency")
-@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class CurrencyCategory extends Category {
 
 	private static final long serialVersionUID = -7847940152929772336L;

@@ -22,7 +22,7 @@ import org.joda.time.LocalDateTime;
  */
 @Entity
 @RevisionEntity(CustomRevisionListener.class)
-@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name="REVINFO")
 public class CustomRevisionEntity  extends DefaultTrackingModifiedEntitiesRevisionEntity {
 
