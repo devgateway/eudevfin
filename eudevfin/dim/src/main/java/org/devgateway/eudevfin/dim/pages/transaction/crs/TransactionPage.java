@@ -75,7 +75,7 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 		@Override
 		protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 			FinancialTransaction transaction = (FinancialTransaction) form.getInnermostModel().getObject();
-			logger.info("Object:" + transaction);
+			logger.debug("Object:" + transaction);
 			logger.info("Trying to save!");
 			try {
 				FinancialTransaction saved = financialTransactionService.save(transaction).getEntity();
