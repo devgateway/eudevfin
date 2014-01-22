@@ -68,7 +68,7 @@ public class HomePage extends HeaderFooter {
         super();
            
        // List<Organization> testList	= orgService.findByGeneralSearch("en","ministry");
-        
+/*        
 		Organization o			= new Organization();
         o.setName("WicketTest Org - default locale");
         o.setLocale("ro");
@@ -83,7 +83,7 @@ public class HomePage extends HeaderFooter {
 		
 		ft.setReportingOrganization(o);
 		txService.save(ft);
-		
+	*/	
 //		Category sectorsRoot = new Category();
 //		sectorsRoot.setName("Sectors Root");
 //		sectorsRoot.setCode(CategoryServiceTest.SECTORS_ROOT_TEST );
