@@ -25,6 +25,12 @@ public interface BaseEntityService<T> {
 	public  Page<T> findByGeneralSearchPageable(String searchString,
 			@Header(value="locale",required=false) String locale, @Header("pageable") Pageable pageable);
 	
+	/**
+	 * @deprecated do we really need an unpaginated search by searchstring and locale?
+	 * @param locale
+	 * @param searchString
+	 * @return
+	 */
 	public List<T> findByGeneralSearch(@Header("locale")String locale, String searchString);
 	
 	

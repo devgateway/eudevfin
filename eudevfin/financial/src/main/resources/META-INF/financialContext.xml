@@ -201,7 +201,6 @@
 	
 	<int:channel id="findOrganizationByIdChannel" />
 	<int:channel id="saveOrganizationChannel" />
-	<int:channel id="findOrganizationByGeneralSearchChannel" />
     <int:channel id="findAllAsListOrganizationChannel"/>
     <int:channel id="findOrganizationByIdChannel"/>
     <int:channel id="findOrganizationByGeneralSearchPageableChannel"/>

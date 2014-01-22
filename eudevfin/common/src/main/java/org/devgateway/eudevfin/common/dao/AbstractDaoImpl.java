@@ -89,11 +89,13 @@ public abstract class AbstractDaoImpl<Entity,IDType extends Serializable,Repo ex
 	}
 	
 	/**
+	 * {@link Override} this to make smarter searches, this is just a dumb CrudRepository#findAll
 	 * @see BaseEntityService#findByGeneralSearchPageable(String, String, int, int, Sort)
-	 * @param searchString
+	 * @param searchString never really used
 	 * @param pageNumber
 	 * @param pageSize
 	 * @param sort
+	 * @param locale never really used
 	 * @return
 	 */
 
