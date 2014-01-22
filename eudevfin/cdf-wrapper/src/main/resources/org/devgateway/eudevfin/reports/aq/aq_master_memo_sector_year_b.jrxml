@@ -8,18 +8,18 @@
 	<queryString language="mdx">
 		<![CDATA[SELECT
 {[Sector].[700],[Sector].[73010],[Sector].[520]} ON ROWS,
-NON EMPTY {[Measures].[Commitments Amount]} ON COLUMNS
+NON EMPTY {[Measures].[Extended Amount]} ON COLUMNS
 FROM [Financial]
 WHERE {[Reporting Year].[$P{YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]}]]>
 	</queryString>
 	<field name="Humanitarian Aid" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Sector].[700])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Extended Amount], [Sector].[700])]]></fieldDescription>
 	</field>
 	<field name="Short-term Reconstruction" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Sector].[73010])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Extended Amount], [Sector].[73010])]]></fieldDescription>
 	</field>
 	<field name="Development food aid" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Sector].[520])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Extended Amount], [Sector].[520])]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>

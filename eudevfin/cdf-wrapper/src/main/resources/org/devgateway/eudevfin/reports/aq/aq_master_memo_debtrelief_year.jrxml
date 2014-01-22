@@ -10,13 +10,13 @@
 	<queryString language="mdx">
 		<![CDATA[SELECT
 {[Type of Finance Root].[TYPE_OF_FINANCE##100]} ON ROWS,
-{[Measures].[Commitments Amount]} ON COLUMNS
+{[Measures].[Extended Amount]} ON COLUMNS
 FROM [Financial]
 WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[Type of Aid].[F]}
 ]]>
 	</queryString>
 	<field name="Debt Relief Grants" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Commitments Amount], [Type of Finance Root].[TYPE_OF_FINANCE##100])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Extended Amount], [Type of Finance Root].[TYPE_OF_FINANCE##100])]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
