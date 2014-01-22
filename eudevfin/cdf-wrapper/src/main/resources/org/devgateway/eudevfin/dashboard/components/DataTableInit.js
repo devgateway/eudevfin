@@ -13,7 +13,14 @@ function initDataTable(parametersJson) {
         },
 
         postFetch: function (values) {
-            //console.log(values);
+	        // this is just for the demo, for the actual dashboard page we should change this behavior
+	        var newResultSet = [];
+	        var len = values.resultset.length;
+	        for (var i = 0; i < len; i++){
+		        newResultSet.push(values.resultset[i].splice(2, 6));
+	        }
+
+	        values.resultset = newResultSet;
             return values;
         },
 

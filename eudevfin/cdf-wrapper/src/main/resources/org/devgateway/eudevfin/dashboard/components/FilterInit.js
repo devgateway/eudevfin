@@ -8,7 +8,8 @@
 
 // TODO: onChange event is not working!
 var sectorListParameter,
-    organizationListParameter;
+    organizationListParameter,
+	biMultilateralListParameter;
 
 function initFilter(filterId, dataAccessId, parameter) {
     var filter = new app.FilterModel({
@@ -23,8 +24,10 @@ function initFilter(filterId, dataAccessId, parameter) {
 	        // this is just for the demo, for the actual dashboard page we should change this behavior
 	        var newResultSet = [];
 	        var len = values.resultset.length;
-	        for (var i = 0; i < len; i++){
-		        newResultSet.push([values.resultset[i][2]]);
+	        for (var i = 0; i < len; i++) {
+		        if (values.resultset[i][2] !== null && values.resultset[i][2] !== '#null') {
+		            newResultSet.push([values.resultset[i][2]]);
+		        }
 	        }
 
 	        values.resultset = newResultSet;

@@ -41,67 +41,61 @@
         ]]>
         </Query>
     </DataAccess>
+
+	<DataAccess id="typeOfFinance" connection="defaultConnectionLocale" type="mdx" access="public">
+		<Name>sectorList MDX</Name>
+		<Query>
+			<![CDATA[
+            SELECT
+			NON EMPTY Hierarchize(Union(CrossJoin({[Reporting Year].[2009]}, {[Measures].[Commitments Amount]}), Union(CrossJoin({[Reporting Year].[2010]}, {[Measures].[Commitments Amount]}), Union(CrossJoin({[Reporting Year].[2011]}, {[Measures].[Commitments Amount]}), Union(CrossJoin({[Reporting Year].[2012]}, {[Measures].[Commitments Amount]}), CrossJoin({[Reporting Year].[2013]}, {[Measures].[Commitments Amount]})))))) ON COLUMNS,
+			NON EMPTY {Hierarchize({[Type of Finance].[Name].Members})} ON ROWS
+			FROM [Financial]
+        ]]>
+		</Query>
+	</DataAccess>
+
+	<DataAccess id="typeOfAid" connection="defaultConnectionLocale" type="mdx" access="public">
+		<Name>sectorList MDX</Name>
+		<Query>
+			<![CDATA[
+            SELECT
+			NON EMPTY {[Measures].[Commitments Amount]} ON COLUMNS,
+			NON EMPTY {Hierarchize({[Type of Aid].[Name].Members})} ON ROWS
+			FROM [Financial]
+        ]]>
+		</Query>
+	</DataAccess>
+
+	<DataAccess id="typeOfFlow" connection="defaultConnectionLocale" type="mdx" access="public">
+		<Name>sectorList MDX</Name>
+		<Query>
+			<![CDATA[
+            SELECT
+			NON EMPTY {[Measures].[Commitments Amount]} ON COLUMNS,
+			NON EMPTY {Hierarchize({[Type of Flow].[Name].Members})} ON ROWS
+			FROM [Financial]
+        ]]>
+		</Query>
+	</DataAccess>
+
+	<DataAccess id="biMultilateral" connection="defaultConnectionLocale" type="mdx" access="public">
+		<Name>sectorList MDX</Name>
+		<Query>
+			<![CDATA[
+            SELECT
+			NON EMPTY {[Measures].[Commitments Amount]} ON COLUMNS,
+			NON EMPTY {Hierarchize({[BiMultilateral].[Name].Members})} ON ROWS
+			FROM [Financial]
+        ]]>
+		</Query>
+	</DataAccess>
     
-    <DataAccess id="simpleMDXQuerySector" connection="defaultConnection" type="mdx" access="public">
+    <DataAccess id="simpleMDXQuery" connection="defaultConnection" type="mdx" access="public">
 		<Name>Simple Sector MDX query</Name>
         <Query>
         <![CDATA[
 			SELECT
 			NON EMPTY {Hierarchize({[Sector].[Name].Members})} ON COLUMNS,
-			NON EMPTY {[Measures].[Commitments Amount]} ON ROWS
-			FROM [Financial]
-		]]>
-		</Query>       
-    </DataAccess>
-
-    <DataAccess id="simpleSQLQuery" connection="sqlConnection" type="sql" access="public">
-		<Name>Sql Query on Transactions</Name>
-        <Query><![CDATA[
-			select FT.REPORTINGORGANIZATION_ID, O.CODE, FT.COMMITMENT_AMOUNT from FINANCIALTRANSACTION FT, ORGANIZATION O where O.ID = FT.REPORTINGORGANIZATION_ID
-		]]></Query>
-    </DataAccess>
-    
-    <DataAccess id="parameterSQLQuery" connection="sqlConnection" type="sql" access="public">
-		<Name>Sql Query on Transactions with parameters</Name>
-        <Query><![CDATA[
-			select FT.REPORTINGORGANIZATION_ID, O.CODE, FT.AMOUNT from FINANCIALTRANSACTION FT, ORGANIZATION O where O.ID = FT.REPORTINGORGANIZATION_ID
-			and  FT.REPORTINGORGANIZATION_ID = ${organizationId}
-		]]></Query>
-        <Parameters>
-            <Parameter name="organizationId" type="Integer" default="1"/>
-        </Parameters>
-    </DataAccess>
-
-    <DataAccess id="commitmentsBySector" connection="defaultConnectionLocale" type="mdx" access="public">
-		<Name>Simple Sector MDX query</Name>
-        <Query>
-        <![CDATA[
-			SELECT
-			NON EMPTY {Hierarchize({[Sector].[Name].Members})} ON COLUMNS,
-			NON EMPTY {[Measures].[Commitments Amount]} ON ROWS
-			FROM [Financial]
-		]]>
-		</Query>       
-    </DataAccess>
-
-    <DataAccess id="commitmentsByTypeOfFlow" connection="defaultConnectionLocale" type="mdx" access="public">
-		<Name>Simple Sector MDX query</Name>
-        <Query>
-        <![CDATA[
-			SELECT
-			NON EMPTY {Hierarchize({[Type of Flow].[Name].Members})} ON COLUMNS,
-			NON EMPTY {[Measures].[Commitments Amount]} ON ROWS
-			FROM [Financial]
-		]]>
-		</Query>       
-    </DataAccess>
-
-    <DataAccess id="commitmentsByTypeOfAid" connection="defaultConnectionLocale" type="mdx" access="public">
-		<Name>Simple Sector MDX query</Name>
-        <Query>
-        <![CDATA[
-			SELECT
-			NON EMPTY {Hierarchize({[Type of Aid].[Name].Members})} ON COLUMNS,
 			NON EMPTY {[Measures].[Commitments Amount]} ON ROWS
 			FROM [Financial]
 		]]>

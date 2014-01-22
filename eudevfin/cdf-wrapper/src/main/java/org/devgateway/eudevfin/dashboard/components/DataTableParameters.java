@@ -27,4 +27,20 @@ public class DataTableParameters extends BaseParameters {
     protected BaseParameters getInstance() {
         return this;
     }
+
+	public TableDefinitionParameters getChartDefinition() {
+		return chartDefinition;
+	}
+
+	public void setChartDefinition(TableDefinitionParameters chartDefinition) {
+		this.chartDefinition = chartDefinition;
+	}
+
+	public Boolean getExecuteAtStart() {
+		return executeAtStart;
+	}
+
+	public void setExecuteAtStart(Boolean executeAtStart) {
+		this.executeAtStart = executeAtStart;
+	}
 }

@@ -19,7 +19,7 @@ function initPieChart(pieChartId, dataAccessId) {
 	    parameters: [],
 	    resultvar: "pieQueryResult",
 	    queryDefinition: {
-	        dataAccessId: "simpleSQLQuery",
+	        dataAccessId: dataAccessId,
 	        path: '/some/path'
 	    },
 	    executeAtStart: true,
@@ -28,15 +28,22 @@ function initPieChart(pieChartId, dataAccessId) {
 	    },
 	    postExecution: function () {
 	        var resultSeries = [];
-	        for (var i = 0; i < pieQueryResult.length && i < 10; i++) {
-	            // filter the results
-	            pieQueryResult[i].splice(0, 1);
-	            // we need to do this because Highcharts needs 'int' instead of 'string' :(
-	            // pieQueryResult[i][1] = parseInt(pieQueryResult[i][1], 10);
-	            pieQueryResult[i][1] = Math.floor(Math.random() * 1000);
+		    for (var i = 0; i < pieQueryResult.length; i++) {
+			    var tmpArray = [];
+			    tmpArray.push(pieQueryResult[i][2]);
+			    tmpArray.push( parseInt(pieQueryResult[i][3], 10));
+			    resultSeries.push(tmpArray);
+		    }
 
-	            resultSeries.push(pieQueryResult[i]);
-	        }
+	        //for (var i = 0; i < pieQueryResult.length && i < 10; i++) {
+	        //    // filter the results
+	        //    pieQueryResult[i].splice(0, 1);
+	        //    // we need to do this because Highcharts needs 'int' instead of 'string' :(
+	        //    // pieQueryResult[i][1] = parseInt(pieQueryResult[i][1], 10);
+	        //    pieQueryResult[i][1] = Math.floor(Math.random() * 1000);
+	        //
+	        //    resultSeries.push(pieQueryResult[i]);
+	        //}
 
 	        pieChartDefinition.get('series')[0].data = resultSeries;
 	        pieChart = new Highcharts.Chart(pieChartDefinition.toJSON());

@@ -10,7 +10,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
 <wicket:head>
     <!-- load CDF libs css files -->
-    <link href="/js/theme/ui-lightness/jquery-ui-1.8.20.custom.css" rel="stylesheet" type="text/css"/>
+    <link href="/js/theme/cupertino/jquery-ui-1.8.custom.css" rel="stylesheet" type="text/css"/>
     <link href="/js/addIns/coltypes.css" rel="stylesheet" type="text/css"/>
 
     <!-- load CDF general styles -->
@@ -37,12 +37,9 @@
                     <wicket:message key="sectorFilter"/>
                 </h2>
                 <div class="box">
-                    <!-- 
-                    <div id="sector-list"></div>
-                    <div id="organization-list"></div> 
-                    -->
                     <div wicket:id="sectorFilter" />
                     <div wicket:id="orgFilter" />
+	                <div wicket:id="biMultilateralFilter" />
                 </div>
             </div>
 

@@ -11,7 +11,7 @@ function initStackedBarChart(stackedBarChartId, dataAccessId) {
 	    parameters: [],
 	    resultvar: "stackedBarQueryResult",
 	    queryDefinition: {
-	        dataAccessId: "simpleSQLQuery",
+	        dataAccessId: "typeOfFlow",
 	        path: '/some/path'
 	    },
 	    executeAtStart: true,

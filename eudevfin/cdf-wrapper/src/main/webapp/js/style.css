@@ -195,6 +195,7 @@ div.box{
 	background-color: #fff;
 	border:0px;
 	height: auto;
+	overflow: hidden;
 }
 
 .box {

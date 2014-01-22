@@ -12,11 +12,12 @@
     <entry key="sectorFilter">Filters</entry>
 	<entry key="dashboards.org.filter">Organization</entry>
 	<entry key="dashboards.sector.filter">Sectors</entry>
+	<entry key="dashboards.biMultilateral.filter">BiMultilateral</entry>
     <entry key="dashboards.table">Table Dashboard</entry>
-    <entry key="dashboards.financialTransaction">Financial Transaction</entry>
-    <entry key="dashboards.pieChart">Pie Chart</entry>
-    <entry key="dashboards.columnChart">Column Chart</entry>
-    <entry key="dashboards.stackedBarChart">Stacked Bar Chart</entry>
-
-
+    <entry key="dashboards.typeOfFinance">Type of Finance Report</entry>
+	<entry key="dashboards.pieChart">Chart Dashboard</entry>
+    <entry key="dashboards.typeOfAid">Aid Chart Report</entry>
+	<entry key="dashboards.columnChart">Column Chart Report</entry>
+    <entry key="dashboards.typeOfFlow">Flow Chart Report</entry>
+    <entry key="dashboards.stackedBarChart">Stacked Bar Report</entry>
 </properties>

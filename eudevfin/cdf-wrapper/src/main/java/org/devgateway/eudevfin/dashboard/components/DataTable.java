@@ -8,6 +8,7 @@
 
 package org.devgateway.eudevfin.dashboard.components;
 
+import org.apache.log4j.Logger;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
@@ -18,6 +19,8 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 
+import java.util.Arrays;
+
 /**
  * Entity to spawn a Data Table
  *
@@ -25,11 +28,16 @@ import org.apache.wicket.request.resource.JavaScriptResourceReference;
  * @since 13/12/13
  */
 public class DataTable extends Panel implements IParametersProvider {
+	private static final Logger logger = Logger.getLogger(DataTable.class);
+
     private final WebMarkupContainer table;
     private DataTableParameters parameters;
+	private String dataAccessId;
 
-    public DataTable(String id, String messageKey) {
+
+    public DataTable(String id, String dataAccessId, String messageKey) {
         super(id);
+	    this.dataAccessId = dataAccessId;
 
         Label title = new Label("title", new StringResourceModel(messageKey, this, null, null));
         add(title);
@@ -40,6 +48,13 @@ public class DataTable extends Panel implements IParametersProvider {
 
         String tableId = table.getMarkupId();
         parameters = new DataTableParameters(tableId);
+
+	    parameters.getChartDefinition().setDataAccessId(dataAccessId);
+	    parameters.getChartDefinition().setColHeaders(Arrays.asList("Type of Finance", "2009", "2010", "2011", "2012", "2013"));
+	    parameters.getChartDefinition().setColTypes(Arrays.asList("string", "numeric", "numeric", "numeric", "numeric", "numeric"));
+	    parameters.getChartDefinition().setColFormats(Arrays.asList("%s", "%d", "%d", "%d", "%d", "%d"));
+	    parameters.getChartDefinition().setColWidths(Arrays.asList("25%", "15%", "15%", "15%", "15%", "15%"));
+	    parameters.getChartDefinition().setColSortable(Arrays.asList(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE));
     }
 
     @Override

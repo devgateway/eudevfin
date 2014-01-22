@@ -9,8 +9,16 @@ var app = app || {};
         defaults: function () {
             return {
                 chart: {
-                    type: 'bar'
+	                animation: {
+		                duration: 1000
+	                },
+	                plotShadow: false,
+                    type: 'bar',
+	                renderTo: ''
                 },
+	            credits: {
+		            enabled: false
+	            },
                 title: {
                     text: 'Stacked bar chart'
                 },
@@ -33,13 +41,13 @@ var app = app || {};
                     }
                 },
                 series: [{
-                    name: 'Organization 1',
+                    name: 'Foreign Office',
                     data: [5, 3, 4, 7]
                 }, {
-                    name: 'Organization 1',
+                    name: 'Federal Institutions',
                     data: [2, 2, 3, 2]
                 }, {
-                    name: 'Organization 1',
+                    name: 'Foundations/Societies/Misc. (non federal)',
                     data: [3, 4, 4, 2]
                 }]
             };

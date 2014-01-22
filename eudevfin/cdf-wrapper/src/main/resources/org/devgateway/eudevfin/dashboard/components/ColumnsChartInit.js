@@ -18,7 +18,7 @@ function initColumnsChart(columnChartId, dataAccessId) {
 	    parameters: [],
 	    resultvar: "columnQueryResult",
 	    queryDefinition: {
-	        dataAccessId: "simpleSQLQuery",
+	        dataAccessId: dataAccessId,
 	        path: '/some/path'
 	    },
 	    executeAtStart: true,
@@ -26,19 +26,18 @@ function initColumnsChart(columnChartId, dataAccessId) {
 	        // do nothing
 	    },
 	    postExecution: function () {
-	        var resultCategories = [],
+		    var resultCategories = [],
 	            resultSeries = [],
 	            colors = Highcharts.getOptions().colors,
 	            len = Highcharts.getOptions().colors.length,
 	            i;
 
-	        for (i = 0; i < columnQueryResult.length && i < 8; i++) {
-	            if (parseInt(columnQueryResult[i][2], 10) > 0) {
-	                resultCategories.push(columnQueryResult[i][1]);
+	        for (i = 0; i < columnQueryResult.length; i++) {
+	            if (parseInt(columnQueryResult[i][3], 10) > 0) {
+	                resultCategories.push(columnQueryResult[i][2]);
 	                resultSeries.push({
 	                    name: columnQueryResult[i][1],
-	                    y: Math.floor(Math.random() * 1000),
-	                    // y: parseInt(columnQueryResult[i][2], 10), 
+	                    y: parseInt(columnQueryResult[i][3], 10),
 	                    color: colors[i % len] // access colors array in a circular manner
 	                });
 	            }

@@ -8,10 +8,10 @@
 
 package org.devgateway.eudevfin.dashboard.components;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.google.gson.Gson;
 
 /**
  * POJO for the base parameters to configure the reports entities
@@ -45,4 +45,36 @@ public abstract class BaseParameters {
     }
 
     protected abstract BaseParameters getInstance();
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getHtmlObject() {
+		return htmlObject;
+	}
+
+	public void setHtmlObject(String htmlObject) {
+		this.htmlObject = htmlObject;
+	}
+
+	public List<String> getListeners() {
+		return listeners;
+	}
+
+	public void setListeners(List<String> listeners) {
+		this.listeners = listeners;
+	}
+
+	public List<String> getParameters() {
+		return parameters;
+	}
+
+	public void setParameters(List<String> parameters) {
+		this.parameters = parameters;
+	}
 }

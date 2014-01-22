@@ -36,20 +36,23 @@ public class ReportsPage extends HeaderFooter {
         add(sectorFilter);
         
         Filter orgFilter = new Filter("orgFilter", "organizationList", "dashboards.org.filter", "organizationListParameter");
-        add(orgFilter);
+	    add(orgFilter);
 
-        DataTable testTable = new DataTable("testTable", "dashboards.financialTransaction");
+	    Filter biMultilateralFilter = new Filter("biMultilateralFilter", "biMultilateral", "dashboards.biMultilateral.filter", "biMultilateralListParameter");
+	    add(biMultilateralFilter);
+
+        DataTable testTable = new DataTable("testTable", "typeOfFinance", "dashboards.typeOfFinance");
         testTable.parameters().addFilter(sectorFilter);
         testTable.parameters().addFilter(orgFilter);
         add(testTable);
-        
-        PieChart pieChart = new PieChart("pieChart", "simpleSQLQuery", "dashboards.pieChart");
+
+        PieChart pieChart = new PieChart("pieChart", "typeOfAid", "dashboards.typeOfAid");
         add(pieChart);
-        
-        ColumnsChart columnsChart = new ColumnsChart("columnsChart", "simpleSQLQuery", "dashboards.columnChart");
+
+        ColumnsChart columnsChart = new ColumnsChart("columnsChart", "typeOfFlow", "dashboards.typeOfFlow");
         add(columnsChart);
-        
-        StackedBarChart stackedBarChart = new StackedBarChart("stackedBarChart", "simpleSQLQuery", "dashboards.stackedBarChart");
+
+        StackedBarChart stackedBarChart = new StackedBarChart("stackedBarChart", "typeOfFlow", "dashboards.stackedBarChart");
         add(stackedBarChart);
     }
 
