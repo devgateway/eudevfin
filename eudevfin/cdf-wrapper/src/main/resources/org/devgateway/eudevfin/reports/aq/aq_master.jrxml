@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="java" pageWidth="595" whenNoDataType="AllSectionsNoDetail" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4d81083f-52a3-45df-97af-b93a485e497a">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4d81083f-52a3-45df-97af-b93a485e497a">
 	<property name="ireport.callouts" value="##Mon Dec 30 08:46:00 ART 2013"/>
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="6.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="4175"/>
 	<parameter name="FIRST_YEAR" class="java.lang.Number"/>
 	<parameter name="SECOND_YEAR" class="java.lang.Number"/>
 	<parameter name="SUBDIR_PATH" class="java.lang.String"/>
@@ -164,7 +164,7 @@ FROM [Financial]]]>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="527" splitType="Stretch">
+		<band height="570" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="0" width="204" height="20" uuid="301f0e82-d09a-4e11-bc67-b831104674d9"/>
 				<textElement verticalAlignment="Top">
@@ -341,16 +341,47 @@ FROM [Financial]]]>
 				<text><![CDATA[1010]]></text>
 			</staticText>
 			<line>
-				<reportElement x="0" y="513" width="555" height="1" uuid="25c188a1-eef3-40e1-849c-51935f6f8476"/>
+				<reportElement x="0" y="569" width="555" height="1" uuid="25c188a1-eef3-40e1-849c-51935f6f8476"/>
 			</line>
 			<line>
-				<reportElement x="349" y="0" width="1" height="513" uuid="ef101ed3-617e-477c-963d-10f579eccf89"/>
+				<reportElement x="295" y="0" width="1" height="514" uuid="b0979507-b9ca-49dd-b922-4ce0198d5f83"/>
 			</line>
 			<line>
-				<reportElement x="454" y="0" width="1" height="513" uuid="cadacc36-8686-48b8-b6ad-bdd9541076c4"/>
+				<reportElement x="349" y="0" width="1" height="514" uuid="ef101ed3-617e-477c-963d-10f579eccf89"/>
 			</line>
 			<line>
-				<reportElement x="295" y="0" width="2" height="513" uuid="b0979507-b9ca-49dd-b922-4ce0198d5f83"/>
+				<reportElement x="454" y="0" width="1" height="514" uuid="cadacc36-8686-48b8-b6ad-bdd9541076c4"/>
+			</line>
+			<subreport>
+				<reportElement x="0" y="516" width="555" height="50" uuid="8ed15a3d-c152-47aa-b6da-cf61f3c66340"/>
+				<subreportParameter name="FIRST_YEAR">
+					<subreportParameterExpression><![CDATA[$P{FIRST_YEAR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SECOND_YEAR">
+					<subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBDIR_PATH">
+					<subreportParameterExpression><![CDATA[$P{SUBDIR_PATH}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="MONDRIAN_CONNECTION">
+					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
+					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/aq_master_others_year.jasper"]]></subreportExpression>
+			</subreport>
+			<line>
+				<reportElement x="295" y="515" width="1" height="54" uuid="d8a9fd9b-c052-4c61-b110-eb778867157c"/>
+			</line>
+			<line>
+				<reportElement x="0" y="514" width="555" height="1" uuid="88e10b1e-1d1e-4feb-9923-6eaec69978f1"/>
+			</line>
+			<line>
+				<reportElement x="349" y="515" width="1" height="54" uuid="41a13577-8919-454d-82e2-f4c3f8576e3e"/>
+			</line>
+			<line>
+				<reportElement x="454" y="515" width="1" height="54" uuid="88d2c74c-0fd5-4e5b-a90b-6cdf7fe495fd"/>
 			</line>
 		</band>
 	</pageHeader>
@@ -360,9 +391,6 @@ FROM [Financial]]]>
 	<columnFooter>
 		<band splitType="Stretch"/>
 	</columnFooter>
-	<pageFooter>
-		<band height="69"/>
-	</pageFooter>
 	<summary>
 		<band splitType="Stretch"/>
 	</summary>
