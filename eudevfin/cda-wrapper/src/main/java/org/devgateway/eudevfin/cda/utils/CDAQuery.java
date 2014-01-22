@@ -1,13 +1,6 @@
 package org.devgateway.eudevfin.cda.utils;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Locale;
-import java.util.Map;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Logger;
 import org.devgateway.eudevfin.cda.domain.QueryResult;
 import org.devgateway.eudevfin.financial.util.LocaleHelper;
@@ -17,13 +10,18 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
-
 import pt.webdetails.cda.CdaEngine;
 import pt.webdetails.cda.query.QueryOptions;
 import pt.webdetails.cda.settings.CdaSettings;
 import pt.webdetails.cda.settings.SettingsManager;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Locale;
+import java.util.Map;
 
 @Component
 @Lazy(value=false)
@@ -43,6 +41,7 @@ public class CDAQuery implements ApplicationContextAware {
 		
 		// Define the variables that will hold the parameters for the query
 		String dataAccessId = params.get("dataAccessId");
+		Integer outputIndexId = (params.get("outputIndexId") != null) ? Integer.parseInt(params.get("outputIndexId")) : 1;
 		Boolean paginate = Boolean.parseBoolean(params.get("paginateQuery"));
 		Integer pageSize = (params.get("pageSize") != null) ? Integer.parseInt(params.get("pageSize")) : 0;
 		Integer pageStart = (params.get("pageStart") != null) ? Integer.parseInt(params.get("pageStart")) : 0;
@@ -67,6 +66,7 @@ public class CDAQuery implements ApplicationContextAware {
 		// Settings options based on the Map<String,String> params already processed
 	    final QueryOptions queryOptions = new QueryOptions();
 	    queryOptions.setDataAccessId(dataAccessId);
+		queryOptions.setOutputIndexId(outputIndexId);
 	    queryOptions.setPaginate(paginate);
 	    queryOptions.setPageSize(pageSize);
 	    queryOptions.setPageStart(pageStart);
