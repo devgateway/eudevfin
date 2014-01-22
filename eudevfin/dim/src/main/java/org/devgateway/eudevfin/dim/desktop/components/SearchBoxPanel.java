@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2014 Development Gateway.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v3.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/gpl.html
+ */
+
 /**
  * 
  */
@@ -26,8 +34,8 @@ public class SearchBoxPanel extends Panel {
 	 * @param generalSearchListGenerator 
 	 */
 	public SearchBoxPanel(String id, TableListPanel resultsPanel, GeneralSearchListGenerator generalSearchListGenerator) {
-		super(id);
-		this.resultsPanel		= resultsPanel;
+        super(id);
+        this.resultsPanel		= resultsPanel;
 		this.listGenerator		= generalSearchListGenerator;
 		this.searchWrapperPanel	= new WebMarkupContainer("search-results-panel-wrapper") ;
 		this.searchWrapperPanel.setOutputMarkupId(true);

@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2014 Development Gateway.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v3.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/gpl.html
+ */
+
 /**
  * 
  */
@@ -32,9 +40,9 @@ public class PersistedUserTableListPanel extends TableListPanel<PersistedUser> {
 	protected void populateTable() {
 		this.itemsListView = new ListView<PersistedUser>("userList", items) {
 
-			private static final long sermiialVersionUID = -8758662617501215830L;
+            private static final long serialVersionUID = -8758662617501215830L;
 
-			@Override
+            @Override
 			protected void populateItem(ListItem<PersistedUser> listItem) {
 				final PersistedUser user = listItem.getModelObject();
 				
