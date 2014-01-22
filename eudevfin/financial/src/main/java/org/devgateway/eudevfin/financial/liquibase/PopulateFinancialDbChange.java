@@ -27,7 +27,7 @@ import java.util.Random;
 public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 
 	//be gentle here, commit lower numbers
-	public static int NUM_OF_TX	= 100;
+	public static int NUM_OF_TX	= 2;
 	public static int NUM_OF_YEARS = 5;
 	
 	
