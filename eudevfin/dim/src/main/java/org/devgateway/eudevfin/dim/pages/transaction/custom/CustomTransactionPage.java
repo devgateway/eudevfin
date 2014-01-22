@@ -12,9 +12,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxCheckBox;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy;
 import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
@@ -99,7 +101,7 @@ public class CustomTransactionPage extends TransactionPage {
   		};
   		
   		
-  		
+  		MetaDataRoleAuthorizationStrategy.authorize(draft, Component.RENDER, AuthConstants.Roles.ROLE_TEAMLEAD);
   		form.add(draft);
   	  
   		
