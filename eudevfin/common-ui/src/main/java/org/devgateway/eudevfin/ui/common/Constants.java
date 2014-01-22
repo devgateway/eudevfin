@@ -16,8 +16,9 @@ package org.devgateway.eudevfin.ui.common;
  * @since 18 October 2013
  */
 public class Constants {
-    public static final String TRANSACTION_TYPE = "transactionType";
-
+ 
+	 public static final String PARAM_TRANSACTION_TYPE = "transactionType";
+	
     public static final String ACTION_RENDER = "ACTION_RENDER";
     public static final String ACTION_REQUIRED = "ACTION_REQUIRED";
 

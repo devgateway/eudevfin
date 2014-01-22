@@ -124,6 +124,18 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 		}
 	}
 
+	/**
+	 * Initialized a previously freshly constructed {@link FinancialTransaction}
+	 * @param transaction
+	 * @param parameters the {@link PageParameters}
+	 */
+	public void initializeFinancialTransaction(FinancialTransaction transaction,PageParameters parameters) {
+		transaction.setCurrency(SB.currencies[0]);		
+		//set the reportingOrg to the current user's org
+		PersistedUser user=(PersistedUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();			
+		transaction.setReportingOrganization(user.getGroup().getOrganization());
+	}
+	
 	@SuppressWarnings("unchecked")
 	public TransactionPage(final PageParameters parameters) {
 		super(parameters);
@@ -135,13 +147,8 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 			long transactionId = parameters.get(PARAM_TRANSACTION_ID).toLong();
 			financialTransaction = financialTransactionService.findOne(transactionId).getEntity();
 		} else {
-			//define a new TransactionPage
 			financialTransaction = getFinancialTransaction();
-			financialTransaction.setCurrency(SB.currencies[0]);				
-			
-			//set the reportingOrg to the current user's org
-			PersistedUser user=(PersistedUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();			
-			financialTransaction.setReportingOrganization(user.getGroup().getOrganization());
+			initializeFinancialTransaction(financialTransaction, parameters);
 		}
 
 		CompoundPropertyModel<FinancialTransaction> model = new CompoundPropertyModel<FinancialTransaction>(

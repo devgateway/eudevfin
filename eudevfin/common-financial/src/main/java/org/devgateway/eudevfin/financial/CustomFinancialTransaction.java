@@ -40,7 +40,7 @@ public class CustomFinancialTransaction extends FinancialTransaction {
 	
 	private Boolean draft	= false;
 
-	private Boolean projectCoFinanced;
+	private Boolean projectCoFinanced;	
 
 	@Columns(columns = { @Column(name = "future_debt_principal_curr"),
 			@Column(name = "future_debt_principal_amount") })

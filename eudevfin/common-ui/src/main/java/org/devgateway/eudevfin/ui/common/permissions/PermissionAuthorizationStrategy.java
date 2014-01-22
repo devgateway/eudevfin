@@ -61,7 +61,7 @@ public class PermissionAuthorizationStrategy implements IAuthorizationStrategy {
             return true; //if we haven't got any permissions defined for the current component then we let the other strategies decide
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest httpServletRequest = requestAttributes.getRequest();
-        String transactionType = httpServletRequest.getParameter(Constants.TRANSACTION_TYPE);
+        String transactionType = httpServletRequest.getParameter(Constants.PARAM_TRANSACTION_TYPE);
         if (transactionType == null || transactionType.isEmpty())
             return true; //not a transaction aware scope => others decide
 

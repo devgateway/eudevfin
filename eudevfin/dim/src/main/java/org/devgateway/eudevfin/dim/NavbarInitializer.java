@@ -231,7 +231,7 @@ public final class NavbarInitializer {
         List<AbstractLink> list = new ArrayList<>();
         for (String item : values) {
             PageParameters params = new PageParameters();
-            params.set(Constants.TRANSACTION_TYPE, item);
+            params.set(Constants.PARAM_TRANSACTION_TYPE, item);
             list.add(new MenuBookmarkablePageLink<TransactionPage>(CustomTransactionPage.class, params, new StringResourceModel("navbar.newTransaction." + item, page, null, null)));
         }
         return list;

@@ -23,7 +23,9 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.dim.desktop.components.util.ComponentsUtil;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.TransactionPage;
 import org.devgateway.eudevfin.dim.pages.transaction.custom.CustomTransactionPage;
+import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
+import org.devgateway.eudevfin.ui.common.Constants;
 import org.devgateway.eudevfin.ui.common.components.TableListPanel;
 import org.devgateway.eudevfin.ui.common.components.tabs.AbstractTabWithKey;
 import org.devgateway.eudevfin.ui.common.components.tabs.ITabWithKey;
@@ -69,7 +71,7 @@ public class TransactionTableListPanel<T extends FinancialTransaction> extends T
 	@Override
 	protected void populateHeader() {
 		this.add( ComponentsUtil.generateLabel("txtable.tx.label", "transaction-name-label", this) );
-		this.add( ComponentsUtil.generateLabel("txtable.tx.commitment-value", "transaction-commitment-value-label", this) );
+		this.add( ComponentsUtil.generateLabel("txtable.tx.reporting-year", "transaction-reporting-year-label", this) );
 		this.add( ComponentsUtil.generateLabel("txtable.tx.sector-name", "transaction-sector-name-label", this) );
 		this.add( ComponentsUtil.generateLabel("txtable.tx.reporting-org-name", "transaction-organization-name-label", this) );
 		this.add( ComponentsUtil.generateLabel("txtable.tx.actions", "transaction-actions-label", this) );
@@ -87,8 +89,8 @@ public class TransactionTableListPanel<T extends FinancialTransaction> extends T
 				final FinancialTransaction tempTx			= ftListItem.getModelObject();
 				Label idLabel						= new Label("transaction-name", tempTx.getShortDescription());
 				ftListItem.add(idLabel);
-                Label amountLabel = new Label("transaction-commitment-value", tempTx.getCommitments() == null ? "" : tempTx.getCommitments());
-                ftListItem.add(amountLabel);
+                Label reportingYear = new Label("transaction-reporting-year", tempTx.getReportingYear() == null ? "" : tempTx.getReportingYear().getYear());
+                ftListItem.add(reportingYear);
 				Label descriptionLabel	= null;
 				if ( tempTx.getSector() != null ) 
 					descriptionLabel				= new Label("transaction-sector-name", tempTx.getSector().getName() );
@@ -107,7 +109,16 @@ public class TransactionTableListPanel<T extends FinancialTransaction> extends T
 						logger.info("Clicked edit on " + this.getModelObject());
 						PageParameters pageParameters = new PageParameters(); 						
 						pageParameters.add(TransactionPage.PARAM_TRANSACTION_ID, tempTx.getId());
-						setResponsePage(CustomTransactionPage.class, pageParameters);
+						
+						//maybe we need to subclass this page and create a custom table for custom transactions
+						//for the moment we play dumb and use instanceof
+						
+						if(tempTx instanceof CustomFinancialTransaction) {
+							pageParameters.add(Constants.PARAM_TRANSACTION_TYPE, ((CustomFinancialTransaction)tempTx).getFormType());
+							setResponsePage(CustomTransactionPage.class, pageParameters);
+						} else {
+							setResponsePage(TransactionPage.class, pageParameters);
+						}
 					}
 					
 				};

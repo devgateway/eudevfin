@@ -12,8 +12,8 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <entry key="txtable.tx.label">Transaction</entry>
-    <entry key="txtable.tx.commitment-value">Commitment</entry>
+    <entry key="txtable.tx.label">Name</entry>
+    <entry key="txtable.tx.reporting-year">Reporting Year</entry>
     <entry key="txtable.tx.sector-name">Sector Name</entry>
     <entry key="txtable.tx.reporting-org-name">Reporting Organization</entry>
     <entry key="txtable.tx.actions">Actions</entry>

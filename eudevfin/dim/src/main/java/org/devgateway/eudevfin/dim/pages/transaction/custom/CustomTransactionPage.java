@@ -12,17 +12,25 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.form.AjaxCheckBox;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.TransactionPage;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
+import org.devgateway.eudevfin.ui.common.Constants;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.CheckBoxField;
 import org.devgateway.eudevfin.ui.common.permissions.RoleActionMapping;
 import org.wicketstuff.annotation.mount.MountPath;
+
+import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
 
 /**
  * Custom Transaction Page for the EU-DEVFIN Form, extends the CRS Form with extended tabs and permissions
@@ -34,6 +42,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 @MountPath(value = "/custom")
 @AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
 public class CustomTransactionPage extends TransactionPage {
+	
 	
 	private static final long serialVersionUID = -7808024425119532771L;
 	private static final CustomTransactionPermissionProvider permissions = new CustomTransactionPermissionProvider();
@@ -59,15 +68,43 @@ public class CustomTransactionPage extends TransactionPage {
     protected FinancialTransaction getFinancialTransaction() {
         return new CustomFinancialTransaction();
     }
+
+	@Override
+	public void initializeFinancialTransaction(FinancialTransaction transaction, PageParameters parameters) {
+		super.initializeFinancialTransaction(transaction, parameters);
+		if (!parameters.get(Constants.PARAM_TRANSACTION_TYPE).isNull()) {
+			String transactionType = parameters.get(Constants.PARAM_TRANSACTION_TYPE).toString();
+			CustomFinancialTransaction customFinancialTransaction = (CustomFinancialTransaction) transaction;
+			customFinancialTransaction.setFormType(transactionType);
+		}
+	}
     
     public CustomTransactionPage(PageParameters parameters) {
   		super(parameters);
-  		CheckBoxField finalCheck = new CheckBoxField("finalCheck",
-				new RWComponentPropertyModel<Boolean>("draft"));
-  		form.add(finalCheck);
+  		CheckBoxField draft = new CheckBoxField("draft",
+				new RWComponentPropertyModel<Boolean>("draft")) {  	
+  		@Override
+  		protected CheckBox newField(String id, IModel<Boolean> model) {
+  			 return new AjaxCheckBox(id, model) {
+				@Override
+				protected void onUpdate(AjaxRequestTarget target) {
+					if(this.getModel().getObject())
+  						info(new NotificationMessage(new StringResourceModel("notification.draftState", CustomTransactionPage.this, null, null)));
+  					else
+  						info(new NotificationMessage(new StringResourceModel("notification.finalState", CustomTransactionPage.this, null, null)));
+					target.add(feedbackPanel);
+				}
+  			 };
+  		}	
+  		};
   		
-		//always reset this field to non-checked
-  		finalCheck.getField().getModel().setObject(false);
+  		
+  		
+  		form.add(draft);
+  	  
+  		
+		//always set this field to true when form is opened
+  		draft.getField().getModel().setObject(true);
 		
   	}
 
