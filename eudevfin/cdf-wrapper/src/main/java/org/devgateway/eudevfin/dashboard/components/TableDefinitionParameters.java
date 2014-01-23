@@ -32,7 +32,6 @@ public class TableDefinitionParameters {
     private Boolean sort = Boolean.TRUE;
     private Boolean lengthChange = Boolean.FALSE;
     private Integer displayLength = 10;
-//    private String sDom = "T<'clear'>lfrtip";
     private String path = "/some/path";
 
 	public List<String> getColHeaders() {

@@ -27,17 +27,14 @@ import java.util.Arrays;
  * @author aartimon
  * @since 13/12/13
  */
-public class DataTable extends Panel implements IParametersProvider {
-	private static final Logger logger = Logger.getLogger(DataTable.class);
+public class Table extends Panel implements IParametersProvider {
+	private static final Logger logger = Logger.getLogger(Table.class);
 
     private final WebMarkupContainer table;
-    private DataTableParameters parameters;
-	private String dataAccessId;
+    private TableParameters parameters;
 
-
-    public DataTable(String id, String dataAccessId, String messageKey) {
+    public Table(String id, String dataAccessId, String messageKey) {
         super(id);
-	    this.dataAccessId = dataAccessId;
 
         Label title = new Label("title", new StringResourceModel(messageKey, this, null, null));
         add(title);
@@ -47,7 +44,7 @@ public class DataTable extends Panel implements IParametersProvider {
         add(table);
 
         String tableId = table.getMarkupId();
-        parameters = new DataTableParameters(tableId);
+        parameters = new TableParameters(tableId);
 
 	    parameters.getChartDefinition().setDataAccessId(dataAccessId);
 	    parameters.getChartDefinition().setColHeaders(Arrays.asList("Type of Finance", "2009", "2010", "2011", "2012", "2013"));
@@ -65,7 +62,7 @@ public class DataTable extends Panel implements IParametersProvider {
         response.render(CssHeaderItem.forUrl("/js/dataTables/css/demo_table.css"));
         response.render(CssHeaderItem.forUrl("/js/dataTables/css/demo_table_jui.css"));
 
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(DataTable.class, "DataTableInit.js")));
+        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Table.class, "TableInit.js")));
         response.render(OnDomReadyHeaderItem.forScript("initDataTable(" + parameters().toJson() + ");"));
     }
 

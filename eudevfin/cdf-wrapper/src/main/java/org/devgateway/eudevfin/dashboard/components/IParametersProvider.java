@@ -9,7 +9,7 @@
 package org.devgateway.eudevfin.dashboard.components;
 
 /**
- * Interface used to provide {@link org.devgateway.eudevfin.dim.pages.reports.components.BaseParameters} extensions
+ * Interface used to provide {@link org.devgateway.eudevfin.dashboard.components.BaseParameters} extensions
  * for the reports components
  *
  * @author aartimon

@@ -1288,7 +1288,7 @@
 
 }).call(this);
 
- /* ************************ new file ************************ */
+
 //     Backbone.js 1.1.0
 
 //     (c) 2010-2011 Jeremy Ashkenas, DocumentCloud Inc.
@@ -2890,7 +2890,7 @@
 
 }).call(this);
 
- /* ************************ new file ************************ */
+
 /*!
  * mustache.js - Logic-less {{mustache}} templates with JavaScript
  * http://github.com/janl/mustache.js
@@ -3428,7 +3428,7 @@ var Mustache = (typeof module !== "undefined" && module.exports) || {};
 
 })(Mustache);
 
- /* ************************ new file ************************ */
+
 /******************************************************************************
  * jquery.i18n.properties
  *
@@ -3671,7 +3671,7 @@ var Mustache = (typeof module !== "undefined" && module.exports) || {};
 
 })(jQuery);
 
- /* ************************ new file ************************ */
+
 /**
  *
  * jquery.sparkline.js
@@ -6724,7 +6724,7 @@ var Mustache = (typeof module !== "undefined" && module.exports) || {};
 
 }));
 
- /* ************************ new file ************************ */
+
 /*
  * jQuery Tooltip plugin 1.3
  *
@@ -7020,7 +7020,7 @@ var Mustache = (typeof module !== "undefined" && module.exports) || {};
 	
 })(jQuery);
 
- /* ************************ new file ************************ */
+
 /**
  * @summary     DataTables
  * @description Paginate, search and sort HTML tables
@@ -19121,7 +19121,7 @@ var Mustache = (typeof module !== "undefined" && module.exports) || {};
 }(window, document));
 
 
- /* ************************ new file ************************ */
+
 /*
  Base.js, version 1.1a
  Copyright 2006-2010, Dean Edwards
@@ -19264,7 +19264,7 @@ Base = Base.extend({
     }
 });
 
- /* ************************ new file ************************ */
+
 // TODO - check if we use all this functions!
 
 /**
@@ -19628,7 +19628,7 @@ var sprintf = sprintfWrapper.init;
     };
 })();
 
- /* ************************ new file ************************ */
+
 // TODO - do we need this and where is used?
 $.ajaxSetup({
     type: "POST",
@@ -21634,7 +21634,7 @@ Dashboards.hsvToRgb = function (h, s, v) {
 // };
 // QUERIES end
 
- /* ************************ new file ************************ */
+
 // CONTAINER begin
 (function (D) {
     function Container() {
@@ -22001,7 +22001,7 @@ Dashboards.hsvToRgb = function (h, s, v) {
 })(Dashboards);
 // QUERIES end
 
- /* ************************ new file ************************ */
+
 // OPTIONS MANAGER begin
 (function (D) {
 
@@ -22152,7 +22152,7 @@ Dashboards.hsvToRgb = function (h, s, v) {
     D.OptionsManager = OptionsManager;
 })(Dashboards);
 
- /* ************************ new file ************************ */
+
 /*
  * Dashboards Popups
  */
@@ -22289,7 +22289,7 @@ wd.cdf.notifications.growl = {
     firstRender: true
 };
 
- /* ************************ new file ************************ */
+
 BaseComponent = Base.extend({
     visible: true,
     isManaged: true,
@@ -23010,7 +23010,7 @@ var UnmanagedComponent = BaseComponent.extend({
     }
 });
 
- /* ************************ new file ************************ */
+
 var InputBaseComponent = UnmanagedComponent.extend({
     update: function () {
         var qd = this.queryDefinition;
@@ -24257,7 +24257,7 @@ var ButtonComponent = BaseComponent.extend({
     }
 });
 
- /* ************************ new file ************************ */
+
 /*
  * Function: fnLengthChange
  * Purpose:  Change the number of records on display
@@ -24766,7 +24766,7 @@ var TableComponent = UnmanagedComponent.extend({
         }
     });
 
- /* ************************ new file ************************ */
+
 /**
  * Creates a new AddIn.
  *
@@ -24858,7 +24858,7 @@ function AddIn(options) {
     };
 }
 
- /* ************************ new file ************************ */
+
 (function () {
 
     /* Sparkline AddIn, based on jquery.sparkline.js sparklines.
@@ -24997,7 +24997,7 @@ function AddIn(options) {
     Dashboards.registerAddIn("Table", "colType", new AddIn(localizedText));
 })();
 
- /* ************************ new file ************************ */
+
 /*
  * queryTypes.js
  *
@@ -25616,7 +25616,7 @@ function AddIn(options) {
     Dashboards.registerQuery("sql", legacyOpts);
 })();
 
- /* ************************ new file ************************ */
+
 /******************************************************************************************************/
 /**************************************** OLAP UTILS**************************************************/
 /******************************************************************************************************/

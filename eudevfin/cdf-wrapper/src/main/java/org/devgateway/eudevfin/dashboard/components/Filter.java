@@ -8,6 +8,7 @@
 
 package org.devgateway.eudevfin.dashboard.components;
 
+import org.apache.log4j.Logger;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
@@ -23,21 +24,14 @@ import org.apache.wicket.request.resource.JavaScriptResourceReference;
  * @author aartimon
  * @since 13/12/13
  */
-public class Filter extends Panel {
+public class Filter extends Panel implements IParametersProvider {
+	private static final Logger logger = Logger.getLogger(Filter.class);
 
     private final WebMarkupContainer filter;
-    private FilterProperties properties = new FilterProperties();
-    private String parameter;
-    private String dataAccessId;
-
-    private class FilterProperties {
-
-    }
+	private FilterParameters parameters;
 
     public Filter(String id, String dataAccessId, String messageKey, String parameter) {
         super(id);
-        this.parameter = parameter;
-        this.dataAccessId = dataAccessId;
 
 	    Label title = new Label("title", new StringResourceModel(messageKey, this, null, null));
 	    add(title);
@@ -45,6 +39,12 @@ public class Filter extends Panel {
         filter = new WebMarkupContainer("filter");
         filter.setOutputMarkupId(true);
         add(filter);
+
+	    String filterId = filter.getMarkupId();
+	    parameters = new FilterParameters(filterId);
+
+	    parameters.setParameter(parameter);
+	    parameters.getQueryDefinition().setDataAccessId(dataAccessId);
     }
 
     @Override
@@ -52,10 +52,15 @@ public class Filter extends Panel {
         super.renderHead(response);
 
         response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Filter.class, "FilterInit.js")));
-        response.render(OnDomReadyHeaderItem.forScript("initFilter('" + filter.getMarkupId() + "', '" + dataAccessId + "', '" + parameter + "');"));
+	    response.render(OnDomReadyHeaderItem.forScript("initFilter(" + parameters().toJson() + ");"));
     }
 
-    public String getParameter() {
-        return parameter;
-    }
+	@Override
+	public BaseParameters parameters() {
+		return parameters;
+	}
+
+	public FilterParameters getParameters() {
+		return parameters;
+	}
 }

@@ -15,10 +15,10 @@ import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.dashboard.Dashboards;
 import org.devgateway.eudevfin.dashboard.components.ColumnsChart;
-import org.devgateway.eudevfin.dashboard.components.DataTable;
 import org.devgateway.eudevfin.dashboard.components.Filter;
 import org.devgateway.eudevfin.dashboard.components.PieChart;
 import org.devgateway.eudevfin.dashboard.components.StackedBarChart;
+import org.devgateway.eudevfin.dashboard.components.Table;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -41,7 +41,7 @@ public class ReportsPage extends HeaderFooter {
 	    Filter biMultilateralFilter = new Filter("biMultilateralFilter", "biMultilateral", "dashboards.biMultilateral.filter", "biMultilateralListParameter");
 	    add(biMultilateralFilter);
 
-        DataTable testTable = new DataTable("testTable", "typeOfFinance", "dashboards.typeOfFinance");
+	    Table testTable = new Table("testTable", "typeOfFinance", "dashboards.typeOfFinance");
         testTable.parameters().addFilter(sectorFilter);
         testTable.parameters().addFilter(orgFilter);
         add(testTable);
@@ -59,7 +59,7 @@ public class ReportsPage extends HeaderFooter {
     @Override
     public void renderHead(IHeaderResponse response) {
         super.renderHead(response);
-        response.render(JavaScriptHeaderItem.forUrl("/js/cdfplugin.js"));
+        response.render(JavaScriptHeaderItem.forUrl("/js/cdfplugin.min.js"));
 
         // highcharts
         response.render(JavaScriptHeaderItem.forUrl("/js/Highcharts-3.0.7/js/highcharts.js"));

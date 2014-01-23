@@ -16,10 +16,7 @@ var app = app || {};
                     borderRadius: 20,
                     borderWidth: 2,
                     height: 380,
-                    //width: 960,                   // don't specify the widht for responsive design
                     marginBottom: null,
-                    //marginLeft: 150,
-                    //marginRight: 100,
                     marginTop: null,
                     plotShadow: false,
                     type: 'column',

@@ -9,18 +9,19 @@
 package org.devgateway.eudevfin.dashboard.components;
 
 /**
- * Extends {@link org.devgateway.eudevfin.dim.pages.reports.components.BaseParameters} with the custom fields
+ * Extends {@link org.devgateway.eudevfin.dashboard.components.BaseParameters} with the custom fields
  * needed by the DataTable
  *
  * @author aartimon
  * @since 13/12/13
  */
-public class DataTableParameters extends BaseParameters {
+public class TableParameters extends BaseParameters {
+	private static final String TYPE = "tableComponent";
     private TableDefinitionParameters chartDefinition = new TableDefinitionParameters();
-    private Boolean executeAtStart = Boolean.TRUE;
 
-    public DataTableParameters(String id) {
+    public TableParameters(String id) {
         super(id);
+	    setType(TYPE);
     }
 
     @Override
@@ -34,13 +35,5 @@ public class DataTableParameters extends BaseParameters {
 
 	public void setChartDefinition(TableDefinitionParameters chartDefinition) {
 		this.chartDefinition = chartDefinition;
-	}
-
-	public Boolean getExecuteAtStart() {
-		return executeAtStart;
-	}
-
-	public void setExecuteAtStart(Boolean executeAtStart) {
-		this.executeAtStart = executeAtStart;
 	}
 }

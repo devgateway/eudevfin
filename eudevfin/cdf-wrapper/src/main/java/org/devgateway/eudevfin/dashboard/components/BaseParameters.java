@@ -24,18 +24,23 @@ public abstract class BaseParameters {
     private String name;
     private String htmlObject;
 
+	private String type;
+
     private List<String> listeners;
     private List<String> parameters;
 
+	private Boolean executeAtStart;
+
     public BaseParameters(String id) {
+	    name = id;
+	    htmlObject = id;
         listeners = new ArrayList<>();
         parameters = new ArrayList<>();
-        name = id;
-        htmlObject = id;
+	    executeAtStart = Boolean.TRUE;
     }
 
-    public void addFilter(Filter f) {
-        listeners.add(f.getParameter());
+    public void addFilter(Filter filter) {
+        listeners.add(filter.getParameters().getParameter());
     }
 
     public String toJson() {
@@ -62,6 +67,14 @@ public abstract class BaseParameters {
 		this.htmlObject = htmlObject;
 	}
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	public List<String> getListeners() {
 		return listeners;
 	}
@@ -76,5 +89,13 @@ public abstract class BaseParameters {
 
 	public void setParameters(List<String> parameters) {
 		this.parameters = parameters;
+	}
+
+	public Boolean getExecuteAtStart() {
+		return executeAtStart;
+	}
+
+	public void setExecuteAtStart(Boolean executeAtStart) {
+		this.executeAtStart = executeAtStart;
 	}
 }

@@ -11,15 +11,8 @@ var sectorListParameter,
     organizationListParameter,
 	biMultilateralListParameter;
 
-function initFilter(filterId, dataAccessId, parameter) {
-    var filter = new app.FilterModel({
-        name: filterId,
-        parameter: parameter,
-        htmlObject: filterId,
-        queryDefinition: {
-            dataAccessId: dataAccessId,
-            path: '/some/path.cda'
-        },
+function initFilter(parametersJson) {
+    var filter = new app.FilterModel(_.extend(parametersJson, {
         postFetch: function (values) {
 	        // this is just for the demo, for the actual dashboard page we should change this behavior
 	        var newResultSet = [];
@@ -38,7 +31,7 @@ function initFilter(filterId, dataAccessId, parameter) {
             return undefined;
         },
         postExecution: function () {}
-    });
+    }));
 
     filter = filter.toJSON();
 

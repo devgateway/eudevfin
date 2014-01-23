@@ -16,10 +16,8 @@ var app = app || {};
                     borderRadius: 20,
                     borderWidth: 2,
                     height: 380,
-                    //width: 960,                   // don't specify the widht for responsive design
                     marginBottom: null,
                     marginLeft: null,
-                    //marginRight: 400,             // don't specify the marginRight for responsive design
                     marginTop: null,
                     plotShadow: false,
                     type: 'pie',

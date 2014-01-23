@@ -4,7 +4,7 @@ module.exports = function(grunt) {
 		// Metadata - Project configuration
 		pkg: grunt.file.readJSON('package.json'),
 		banner: '/**\n  * <%= pkg.name %> - v<%= pkg.version %> - ' +
-			'<%= grunt.template.today("yyyy-mm-dd") %>\n' +
+			//'<%= grunt.template.today("yyyy-mm-dd") %>\n' +
 			'<%= pkg.homepage ? "  * " + pkg.homepage + "\\n" : "" %>' +
 			'  * <%= pkg.description %>\n' +
 			'  * Licensed: <%= pkg.license %>\n' + 
@@ -122,7 +122,7 @@ module.exports = function(grunt) {
 
 		concat: {
 			options: {
-				separator: '\n /* ************************ new file ************************ */\n'
+				separator: '\n\n'
 			},
 			
 			js: {
@@ -149,6 +149,14 @@ module.exports = function(grunt) {
 					],
 				dest: 'src/main/webapp/js/cdfplugin.js'
 			},
+
+			//dashboards: {
+			//	src: [
+			//		'src/main/resources/org/devgateway/eudevfin/dashboard/*.js',
+			//		'!src/main/resources/org/devgateway/eudevfin/dashboard/reports.js'
+			//	],
+			//	dest: 'src/main/resources/org/devgateway/eudevfin/dashboard/DashboardModels.js'
+			//},
 
 			css: {
 				src: [

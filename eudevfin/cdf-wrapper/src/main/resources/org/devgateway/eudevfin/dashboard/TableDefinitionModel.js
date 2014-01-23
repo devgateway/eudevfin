@@ -22,7 +22,7 @@ var app = app || {};
                 colWidths: ['40%', '40%', '20%'],
                 colSortable: [true, true, true],
                 tableStyle: "themeroller",
-                // sortBy: [[1, 'desc']],
+                sortBy: [[1, 'desc']],
                 paginationType: "full_numbers",
                 paginateServerside: false,
                 paginate: false,
@@ -35,6 +35,7 @@ var app = app || {};
                 oTableTools: {
                     sSwfPath: 'js/tableTools/swf/copy_csv_xls_pdf.swf'
                 },
+
                 // query properties
                 dataAccessId: "",
                 path: '/some/path'
