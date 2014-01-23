@@ -13,7 +13,6 @@ package org.devgateway.eudevfin.ui.common.spring;
 import org.apache.wicket.protocol.http.ReloadingWicketFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
 
 @Configuration
 public class WicketSpringConfig {
@@ -23,7 +22,6 @@ public class WicketSpringConfig {
 	 * @return
 	 */
 	@Bean
-	@Scope("prototype")
 	public WicketSpringApplication wicketSpringApplication() {
 		return new WicketSpringApplication();
 	}

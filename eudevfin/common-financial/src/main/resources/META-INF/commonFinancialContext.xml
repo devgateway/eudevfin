@@ -99,9 +99,13 @@
 		</int:method>
 		<int:method name="findByCodeAndClass" request-channel="getChannel">
 			<int:header name="requestName" value="findCategoryByCodeAndClassChannel"/>
+		</int:method>		
+		<int:method name="findByGeneralSearchAndTagsCode">
+			<int:header name="requestName" value="findCategoryByGeneralSearchAndTagsCodeChannel"/>		
 		</int:method>
-		<int:method name="findByGeneralSearchAndTagsCode" request-channel="getChannel">
-			<int:header name="requestName" value="findCategoryByGeneralSearchAndTagsCodeChannel"/>
+		
+		<int:method name="findByGeneralSearchAndTagsCodePaginated" request-channel="getChannel">
+			<int:header name="requestName" value="findCategoryByGeneralSearchAndTagsCodePaginatedChannel"/>
 		</int:method>
 	</int:gateway>
 	

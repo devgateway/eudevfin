@@ -49,7 +49,7 @@ public class ChannelCategoryDao extends AbstractDaoImpl<ChannelCategory, Long, C
 	@Override
 	public Page<ChannelCategory> findByGeneralSearchPageable(String searchString,
 			@Header(value="locale",required=false) String locale, @Header("pageable") Pageable pageable) { 
-		return super.findByGeneralSearchPageable(searchString, locale, pageable);
+		return repo.findByTranslationNameContaining(searchString, pageable);
 	}
 	
 	

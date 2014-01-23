@@ -8,7 +8,9 @@
 
 package org.devgateway.eudevfin.dim.providers;
 
-import org.devgateway.eudevfin.financial.service.CategoryService;
+
+
+
 
 /**
  * @author aartimon
@@ -16,10 +18,11 @@ import org.devgateway.eudevfin.financial.service.CategoryService;
  */
 public class TagCategoryProvider extends AbstractCategoryProvider {
 
-    private final String tag;
+	private static final long serialVersionUID = 5293225229898330470L;
+	private final String tag;
 
-    protected TagCategoryProvider(CategoryService categoryService, String tag) {
-        super(categoryService);
+    protected TagCategoryProvider(String tag) {
+        super();
         this.tag = tag;
     }
 
