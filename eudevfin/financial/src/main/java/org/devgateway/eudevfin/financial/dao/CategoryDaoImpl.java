@@ -103,7 +103,8 @@ public class CategoryDaoImpl extends AbstractDaoImpl<Category, Long, CategoryRep
 	@ServiceActivator(inputChannel="findCategoryByGeneralSearchAndTagsCodePaginatedChannel")
 	public Page<Category> findByGeneralSearchAndTagsCodePaginated(@Header("locale")String locale, 
 			String searchString, @Header("tagsCode") String tagsCode, @Header("pageable") Pageable page) {
-		return this.getRepo().findByTranslationsNameIgnoreCaseContainsAndTagsCodePaginated(searchString.toLowerCase(), tagsCode, page);					
+		if(searchString.isEmpty()) return this.getRepo().findByTagsCode(tagsCode,page);
+		return this.getRepo().findByTranslationsNameIgnoreCaseContainsAndTagsCode(searchString.toLowerCase(), tagsCode, page);					
 	}
 	
 	

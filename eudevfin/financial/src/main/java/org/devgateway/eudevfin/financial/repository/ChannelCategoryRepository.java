@@ -22,6 +22,8 @@ public interface ChannelCategoryRepository extends
 	
 	ChannelCategory findByCode(String code);
 	
-	@Query(" select distinct(trn.parent) from ChannelCategoryTranslation trn where lower(trn.name) like %?1% ")
+	@Query(" select distinct trn.parent from ChannelCategoryTranslation trn where lower(trn.name) like %?1% ")
 	Page<ChannelCategory> findByTranslationNameContaining(String searchString,Pageable pageable);
+	
+	Page<ChannelCategory> findByParentCategoryNotNull(Pageable pageable);
 }

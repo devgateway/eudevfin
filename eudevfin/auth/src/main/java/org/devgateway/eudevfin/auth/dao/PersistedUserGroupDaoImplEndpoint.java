@@ -90,9 +90,9 @@ public class PersistedUserGroupDaoImplEndpoint extends
 	 */
 	@Override
 	@ServiceActivator(inputChannel = "findByGeneralSearchUserGroupChannel")
-	public Page<PersistedUserGroup> findByGeneralSearchPageable(String searchString,
+	public Page<PersistedUserGroup> findByGeneralSearch(String searchString,
 			@Header(value="locale",required=false) String locale, @Header("pageable") Pageable pageable) {
-		return super.findByGeneralSearchPageable(searchString, locale, pageable);
+		return super.findByGeneralSearch(searchString, locale, pageable);
 	}
 
 }

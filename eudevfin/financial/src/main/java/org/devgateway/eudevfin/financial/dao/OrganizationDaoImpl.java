@@ -78,9 +78,9 @@ public class OrganizationDaoImpl extends AbstractDaoImpl<Organization, Long, Org
 	 */
 	@Override
 	@ServiceActivator(inputChannel="findOrganizationByGeneralSearchPageableChannel")
-	public Page<Organization> findByGeneralSearchPageable(String searchString,
+	public Page<Organization> findByGeneralSearch(String searchString,
 			@Header(value="locale",required=false) String locale, @Header("pageable") Pageable pageable) {
-		// TODO Auto-generated method stub
+		if(searchString.isEmpty()) return repo.findAll(pageable);
 		return repo.findByTranslationNameContaining(searchString.toLowerCase(), pageable);		 
 	}
 }

@@ -47,8 +47,9 @@ public class ChannelCategoryDao extends AbstractDaoImpl<ChannelCategory, Long, C
 	
 	@ServiceActivator(inputChannel="findChannelCategoryByGeneralSearchPageable")
 	@Override
-	public Page<ChannelCategory> findByGeneralSearchPageable(String searchString,
+	public Page<ChannelCategory> findByGeneralSearch(String searchString,
 			@Header(value="locale",required=false) String locale, @Header("pageable") Pageable pageable) { 
+		if(searchString.isEmpty()) return this.getRepo().findByParentCategoryNotNull(pageable);
 		return repo.findByTranslationNameContaining(searchString, pageable);
 	}
 	

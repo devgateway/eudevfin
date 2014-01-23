@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component;
 public class ChannelCategoryChoiceProvider extends AbstractTranslatableProvider<ChannelCategory> {
 
 	public ChannelCategoryChoiceProvider() {
-		this.sort=new Sort(Direction.ASC,"code");
+		//this.sort=new Sort(Direction.ASC,"code");
 	}
 	
     @Autowired
@@ -37,6 +37,6 @@ public class ChannelCategoryChoiceProvider extends AbstractTranslatableProvider<
 
     @Override
     public String getDisplayText(ChannelCategory choice) {
-        return choice.getCode();
+        return choice.getDisplayableCode();
     }
 }

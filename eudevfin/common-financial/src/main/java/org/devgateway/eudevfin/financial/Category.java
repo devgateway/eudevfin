@@ -22,6 +22,7 @@ import org.devgateway.eudevfin.financial.translate.CategoryTranslation;
 import org.devgateway.eudevfin.financial.translate.CategoryTrnInterface;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Index;
 import org.hibernate.envers.Audited;
 
 @Entity
@@ -43,6 +44,7 @@ public class Category extends AbstractTranslateable<CategoryTranslation>
 	/**
 	 * The code should be unique within a certain type of category
 	 */
+	@Index(name="Category_code_idx")
 	private String code;
 	
 	@ManyToOne

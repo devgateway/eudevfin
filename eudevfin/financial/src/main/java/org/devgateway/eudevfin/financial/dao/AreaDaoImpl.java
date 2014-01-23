@@ -62,10 +62,10 @@ public class AreaDaoImpl extends AbstractDaoImpl<Area,Long, AreaRepository> {
 	
 	@Override
 	@ServiceActivator(inputChannel = "findByGeneralSearchPageableAreaChannel")
-	public Page<Area> findByGeneralSearchPageable(String searchString,
+	public Page<Area> findByGeneralSearch(String searchString,
 			@Header(value="locale",required=false) String locale, @Header("pageable") Pageable pageable) {
 		// TODO Auto-generated method stub
-		return super.findByGeneralSearchPageable(searchString, locale, pageable);
+		return super.findByGeneralSearch(searchString, locale, pageable);
 	}
 	
 	

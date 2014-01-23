@@ -99,7 +99,7 @@ public abstract class AbstractDaoImpl<Entity,IDType extends Serializable,Repo ex
 	 * @return
 	 */
 
-	public Page<Entity> findByGeneralSearchPageable(String searchString, String locale, Pageable pageable) {
+	public Page<Entity> findByGeneralSearch(String searchString, String locale, Pageable pageable) {
 		return this.getRepo().findAll(pageable);
 	}
 }
