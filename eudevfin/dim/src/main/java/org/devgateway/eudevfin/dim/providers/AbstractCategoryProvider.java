@@ -12,6 +12,7 @@ import org.apache.wicket.Session;
 import org.devgateway.eudevfin.common.service.BaseEntityService;
 import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.service.CategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -22,11 +23,12 @@ import org.springframework.data.domain.Sort.Direction;
  * @since 14/01/14
  */
 public abstract class AbstractCategoryProvider extends AbstractTranslatableProvider<Category> {
-    private transient CategoryService categoryService;
+	
+	@Autowired
+	protected transient CategoryService categoryService;
 
-    protected AbstractCategoryProvider(CategoryService categoryService) {
-        this.categoryService = categoryService;    
-        this.sort=new Sort(Direction.ASC,"code");
+    protected AbstractCategoryProvider() {
+      //  this.sort=new Sort(Direction.ASC,"code");
     }
 
     @Override

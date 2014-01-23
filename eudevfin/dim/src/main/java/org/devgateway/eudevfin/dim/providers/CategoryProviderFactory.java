@@ -8,12 +8,17 @@
 
 package org.devgateway.eudevfin.dim.providers;
 
-import org.apache.wicket.model.IDetachable;
-import org.devgateway.eudevfin.financial.service.CategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import java.util.Hashtable;
+
+import org.apache.wicket.model.IDetachable;
+import org.devgateway.eudevfin.common.spring.ContextHelper;
+import org.devgateway.eudevfin.financial.service.CategoryService;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
 
 /**
  * @author aartimon
@@ -21,8 +26,11 @@ import java.util.Hashtable;
  */
 @Component
 public class CategoryProviderFactory implements IDetachable {
-    @Autowired
-    private CategoryService categoryService;
+
+	@Autowired
+	protected CategoryService categoryService;
+	
+	private static final long serialVersionUID = 5075621973446951621L;
 
     private transient Hashtable<String, AbstractCategoryProvider> map = new Hashtable<>();
 
@@ -30,12 +38,19 @@ public class CategoryProviderFactory implements IDetachable {
         AbstractCategoryProvider provider = map.get(tag);
         if (provider != null)
             return provider;
-        provider = new TagCategoryProvider(categoryService, tag);
+    	AutowireCapableBeanFactory factory = ContextHelper.newInstance()
+    			.getAutowireCapableBeanFactory();
+		provider = new TagCategoryProvider(tag);
+		factory.autowireBean(provider);
         map.put(tag, provider);
         return provider;
     }
+    
 
-    @Override
-    public void detach() {
-    }
+	@Override
+	public void detach() {
+		
+	}
+
+
 }
