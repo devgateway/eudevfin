@@ -16,7 +16,11 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 public interface OrganizationRepository extends
 		PagingAndSortingRepository<Organization, Long> {
 	
-	@Query(" select trn.parent from OrganizationTranslation trn where trn.locale=?1 AND lower(trn.name) like %?2% ")
+	
+	@Query(" select distinct(trn.parent) from OrganizationTranslation trn where trn.locale=?1 AND lower(trn.name) like %?2% ")
 	Page<Organization> findByTranslationLocaleAndTranslationNameContaining(String locale, String searchString,Pageable pageable);
+
+	@Query(" select distinct(trn.parent) from OrganizationTranslation trn where lower(trn.name) like %?1% ")
+	Page<Organization> findByTranslationNameContaining(String searchString,Pageable pageable);
 
 }
