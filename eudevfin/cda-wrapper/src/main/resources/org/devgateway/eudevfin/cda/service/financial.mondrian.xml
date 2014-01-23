@@ -295,5 +295,8 @@
 		<Measure name="Principal Disbursed Amount" column="AMOUNTS_PRIN_DISB_AMOUNT" aggregator="sum" visible="true" caption="%{principalDisbursedAmount}"></Measure>
 		<Measure name="Expert Commitments Amount" column="AMOUNTS_EXP_COMMIT_AMOUNT" aggregator="sum" visible="true" caption="%{expertCommitmentsAmount}"></Measure>
 		<Measure name="Expert Extended Amount" column="AMOUNTS_EXP_EXTENDED_AMOUNT" aggregator="sum" visible="true" caption="%{expertExtendedAmount}"></Measure>
+		<CalculatedMember name="Net Amount" dimension="Measures">
+			<Formula>[Measures].[Extended Amount] - [Measures].[Received Amount]</Formula>
+		</CalculatedMember>
 	</Cube>
 </Schema>

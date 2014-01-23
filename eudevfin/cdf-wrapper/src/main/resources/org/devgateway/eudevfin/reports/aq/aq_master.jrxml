@@ -8,18 +8,19 @@
 	<parameter name="SECOND_YEAR" class="java.lang.Number"/>
 	<parameter name="SUBDIR_PATH" class="java.lang.String"/>
 	<queryString language="mdx">
-		<![CDATA[SELECT
+		<![CDATA[
+SELECT
 {[Reporting Year].[$P{FIRST_YEAR}], [Reporting Year].[$P{SECOND_YEAR}]} ON ROWS,
-{[Measures].[Extended Amount]} ON COLUMNS
+{[Measures].[Net Amount]} ON COLUMNS
 FROM [Financial]
 WHERE {[BiMultilateral].[BI_MULTILATERAL##1]}
 ]]>
 	</queryString>
 	<field name="Extended Amount Year 1" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Extended Amount], [Reporting Year].[@@FIRST_YEAR@@])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Net Amount], [Reporting Year].[@@FIRST_YEAR@@])]]></fieldDescription>
 	</field>
 	<field name="Extended Amount Year 2" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Extended Amount], [Reporting Year].[@@SECOND_YEAR@@])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Net Amount], [Reporting Year].[@@SECOND_YEAR@@])]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>

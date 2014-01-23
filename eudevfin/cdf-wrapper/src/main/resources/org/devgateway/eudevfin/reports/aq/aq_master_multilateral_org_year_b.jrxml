@@ -9,25 +9,25 @@
 		<![CDATA[
 SELECT
 {[Channel].[Code].[41000], [Channel].[42000], [Channel].[44000], [Channel].[46000], [Channel].[47000]} ON ROWS,
-NON EMPTY {[Measures].[Extended Amount]} ON COLUMNS
+NON EMPTY {[Measures].[Net Amount]} ON COLUMNS
 FROM [Financial]
 WHERE {[Reporting Year].[$P{YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##2]}
 ]]>
 	</queryString>
 	<field name="EU" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Extended Amount], [Channel].[42000])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Net Amount], [Channel].[42000])]]></fieldDescription>
 	</field>
 	<field name="GRP1" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Extended Amount], [Channel].[41000])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Net Amount], [Channel].[41000])]]></fieldDescription>
 	</field>
 	<field name="ONU" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Extended Amount], [Channel].[46000])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Net Amount], [Channel].[46000])]]></fieldDescription>
 	</field>
 	<field name="OTHER" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Extended Amount], [Channel].[47000])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Net Amount], [Channel].[47000])]]></fieldDescription>
 	</field>
 	<field name="WB" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Extended Amount], [Channel].[44000])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Net Amount], [Channel].[44000])]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>

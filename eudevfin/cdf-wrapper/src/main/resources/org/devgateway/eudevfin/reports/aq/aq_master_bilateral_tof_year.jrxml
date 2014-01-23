@@ -10,18 +10,18 @@
 	<queryString language="mdx">
 		<![CDATA[SELECT
 {[Type of Finance Root].[TYPE_OF_FINANCE##100], [Type of Finance Root].[TYPE_OF_FINANCE##400]} ON ROWS,
-{[Measures].[Extended Amount]} ON COLUMNS
+{[Measures].[Net Amount]} ON COLUMNS
 FROM [Financial]
 WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]}]]>
 	</queryString>
 	<field name="Grant" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Extended Amount], [Type of Finance Root].[TYPE_OF_FINANCE##100])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Net Amount], [Type of Finance Root].[TYPE_OF_FINANCE##100])]]></fieldDescription>
 	</field>
 	<field name="Loan Gross" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Extended Amount], [Type of Finance Root].[TYPE_OF_FINANCE##400])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Net Amount], [Type of Finance Root].[TYPE_OF_FINANCE##400])]]></fieldDescription>
 	</field>
 	<field name="Loan Net" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Extended Amount], [Type of Finance Root].[TYPE_OF_FINANCE##400])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Net Amount], [Type of Finance Root].[TYPE_OF_FINANCE##400])]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>

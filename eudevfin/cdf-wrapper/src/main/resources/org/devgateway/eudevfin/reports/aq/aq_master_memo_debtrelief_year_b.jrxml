@@ -8,12 +8,12 @@
 	<queryString language="mdx">
 		<![CDATA[SELECT
 {[Type of Finance Root].[TYPE_OF_FINANCE##100]} ON ROWS,
-NON EMPTY {[Measures].[Extended Amount]} ON COLUMNS
+NON EMPTY {[Measures].[Net Amount]} ON COLUMNS
 FROM [Financial]
 WHERE {[Reporting Year].[$P{YEAR}]}*{[Type of Aid].[F]}]]>
 	</queryString>
 	<field name="Debt Relief Grants" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Extended Amount], [Type of Finance Root].[TYPE_OF_FINANCE##100])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Net Amount], [Type of Finance Root].[TYPE_OF_FINANCE##100])]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
