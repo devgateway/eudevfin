@@ -13,6 +13,8 @@ import org.devgateway.eudevfin.financial.repository.CategoryRepository;
 import org.devgateway.eudevfin.financial.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.integration.annotation.Header;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
@@ -89,12 +91,27 @@ public class CategoryDaoImpl extends AbstractDaoImpl<Category, Long, CategoryRep
 			);
 	}
 	
+	/**
+	 * 
+	 * @see CategoryService#findByGeneralSearchAndTagsCodePaginated(String, String, String, Pageable)
+	 * @param locale
+	 * @param searchString
+	 * @param tagsCode
+	 * @param page 
+	 * @return
+	 */
+	@ServiceActivator(inputChannel="findCategoryByGeneralSearchAndTagsCodePaginatedChannel")
+	public Page<Category> findByGeneralSearchAndTagsCodePaginated(@Header("locale")String locale, 
+			String searchString, @Header("tagsCode") String tagsCode, @Header("pageable") Pageable page) {
+		return this.getRepo().findByTranslationsNameIgnoreCaseContainsAndTagsCodePaginated(searchString.toLowerCase(), tagsCode, page);					
+	}
+	
+	
 	@ServiceActivator(inputChannel="findCategoryByGeneralSearchAndTagsCodeChannel")
-	public List<Category> findByGeneralSearchAndTagsCode(@Header("locale")String locale, 
-			String searchString, @Header("tagsCode") String tagsCode) {
-		return this.getRepo().
-			findByTranslationsLocaleAndTranslationsNameIgnoreCaseContainsAndTagsCode(
-					locale, searchString, tagsCode);
+	public List<Category> findByGeneralSearchAndTagsCode(@Header("locale") String locale, String searchString,
+			@Header("tagsCode") String tagsCode) {
+		return this.getRepo().findByTranslationsLocaleAndTranslationsNameIgnoreCaseContainsAndTagsCode(locale,
+				searchString.toLowerCase(), tagsCode);
 	}
 	
 	/**

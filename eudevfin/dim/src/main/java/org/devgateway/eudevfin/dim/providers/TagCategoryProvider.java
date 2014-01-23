@@ -16,7 +16,8 @@ import org.devgateway.eudevfin.financial.service.CategoryService;
  */
 public class TagCategoryProvider extends AbstractCategoryProvider {
 
-    private final String tag;
+	private static final long serialVersionUID = 5293225229898330470L;
+	private final String tag;
 
     protected TagCategoryProvider(CategoryService categoryService, String tag) {
         super(categoryService);

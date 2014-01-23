@@ -10,8 +10,6 @@ import static org.junit.Assert.assertTrue;
 import java.util.HashSet;
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.SectorCategory;
 import org.devgateway.eudevfin.financial.service.CategoryService;
