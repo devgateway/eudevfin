@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="100" pageHeight="842" columnWidth="100" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4d81083f-52a3-45df-97af-b93a485e497a">
+	<property name="ireport.callouts" value="##Mon Dec 30 08:46:00 ART 2013"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="YEAR" class="java.lang.Number"/>
+	<queryString language="mdx">
+		<![CDATA[WITH
+  MEMBER [Measures].[LDC] as SUM({[Area].[225],[Area].[228],[Area].[231],[Area].[232],[Area].[233],[Area].[235],[Area].[236],[Area].[238],[Area].[240],[Area].[243],[Area].[244],[Area].[245],[Area].[249],[Area].[251],[Area].[252],[Area].[253],[Area].[255],[Area].[256],[Area].[259],[Area].[260],[Area].[266],[Area].[268],[Area].[269],[Area].[271],[Area].[272],[Area].[273],[Area].[274],[Area].[278],[Area].[279],[Area].[282],[Area].[283],[Area].[285],[Area].[287],[Area].[288],[Area].[349],[Area].[580],[Area].[625],[Area].[630],[Area].[635],[Area].[660],[Area].[666],[Area].[728],[Area].[745],[Area].[765],[Area].[836],[Area].[854],[Area].[866],[Area].[872],[Area].[880]}, [Measures].[Extended Amount])
+  MEMBER [Measures].[Africa] as SUM({[Area].[247],[Area].[248],[Area].[249],[Area].[251],[Area].[252],[Area].[253],[Area].[255],[Area].[256],[Area].[257],[Area].[259],[Area].[260],[Area].[261],[Area].[265],[Area].[266],[Area].[268],[Area].[269],[Area].[270],[Area].[271],[Area].[272],[Area].[273],[Area].[274],[Area].[275],[Area].[276],[Area].[278],[Area].[279],[Area].[280],[Area].[282],[Area].[283],[Area].[285],[Area].[287],[Area].[288]}, [Measures].[Extended Amount])
+  MEMBER [Measures].[SouthOfSahara] as SUM({[Area].[249],[Area].[251],[Area].[252],[Area].[253],[Area].[255],[Area].[256],[Area].[257],[Area].[259],[Area].[260],[Area].[261],[Area].[265],[Area].[266],[Area].[268],[Area].[269],[Area].[270],[Area].[271],[Area].[272],[Area].[273],[Area].[274],[Area].[275],[Area].[276],[Area].[278],[Area].[279],[Area].[280],[Area].[282],[Area].[283],[Area].[285],[Area].[287],[Area].[288]}, [Measures].[Extended Amount])
+  MEMBER [Measures].[Afghanistan] as SUM({[Area].[625]}, [Measures].[Extended Amount])
+  MEMBER [Measures].[Iraq] as SUM({[Area].[543]}, [Measures].[Extended Amount])
+SELECT
+{
+[Measures].[LDC],
+[Measures].[Africa],
+[Measures].[SouthOfSahara],
+[Measures].[Afghanistan],
+[Measures].[Iraq]
+}  ON COLUMNS
+FROM [Financial]
+WHERE {[Reporting Year].[$P{YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]}]]>
+	</queryString>
+	<field name="LDC" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[LDC])]]></fieldDescription>
+	</field>
+	<field name="Africa" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Africa])]]></fieldDescription>
+	</field>
+	<field name="SouthOfSahara" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[SouthOfSahara])]]></fieldDescription>
+	</field>
+	<field name="Afghanistan" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Afghanistan])]]></fieldDescription>
+	</field>
+	<field name="Iraq" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Iraq])]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="70" splitType="Stretch">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="100" height="14" uuid="6e367b7c-1d43-4f3c-9550-7e5b1252bb47"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{LDC}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="0" y="14" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Africa}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="0" y="28" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SouthOfSahara}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="0" y="42" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Afghanistan}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="0" y="56" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Iraq}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
