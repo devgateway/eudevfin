@@ -98,9 +98,11 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 				tx.setChannel(channel);
 				tx.setExtendingAgency(extAgency);
 				tx.setLocale("en");
-				tx.setDescription("CDA Test Transaction " + i + " en");
+				tx.setShortDescription( "CDA Test Transaction " + i + " en" );
+				tx.setDescription("Long" + tx.getDescription() );
 				tx.setLocale("ro");
-				tx.setDescription("CDA Test Transaction " + i + " ro"); 
+				tx.setShortDescription( "CDA Test Transaction " + i + " ro" );
+				tx.setDescription("Long" + tx.getDescription() ); 
 				tx.setSector(sector);
 				tx.setTypeOfFlow(typeOfFlow);
 				tx.setTypeOfFinance(typeOfFinance);

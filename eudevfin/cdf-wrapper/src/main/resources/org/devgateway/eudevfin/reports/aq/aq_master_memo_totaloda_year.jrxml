@@ -1,40 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="java" pageWidth="555" pageHeight="842" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4d81083f-52a3-45df-97af-b93a485e497a">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="555" pageHeight="842" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4d81083f-52a3-45df-97af-b93a485e497a">
 	<property name="ireport.callouts" value="##Mon Dec 30 08:46:00 ART 2013"/>
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="FIRST_YEAR" class="java.lang.Number"/>
+	<parameter name="SECOND_YEAR" class="java.lang.Number"/>
+	<parameter name="SUBDIR_PATH" class="java.lang.String"/>
 	<queryString language="mdx">
 		<![CDATA[SELECT
-{[Type of Aid].[A], [Type of Aid].[B], [Type of Aid].[C], [Type of Aid].[D], [Type of Aid].[E], [Type of Aid].[F], [Type of Aid].[G], [Type of Aid].[H]} ON ROWS,
 {[Measures].[Extended Amount]} ON COLUMNS
 FROM [Financial]
 WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]}]]>
 	</queryString>
-	<field name="Budget Support" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Extended Amount], [Type of Aid].[A])]]></fieldDescription>
-	</field>
-	<field name="Core contributions and pooled programmes and funds" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Extended Amount], [Type of Aid].[B])]]></fieldDescription>
-	</field>
-	<field name="Project-type interventions" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Extended Amount], [Type of Aid].[C])]]></fieldDescription>
-	</field>
-	<field name="Experts and other technical assistance" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Extended Amount], [Type of Aid].[D])]]></fieldDescription>
-	</field>
-	<field name="Scholarships and student costs in donor countries" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Extended Amount], [Type of Aid].[E])]]></fieldDescription>
-	</field>
-	<field name="Debt Relief" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Extended Amount], [Type of Aid].[F])]]></fieldDescription>
-	</field>
-	<field name="Administrative costs not included elsewhere" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Extended Amount], [Type of Aid].[G])]]></fieldDescription>
-	</field>
-	<field name="Other in-donor expenditures" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Extended Amount], [Type of Aid].[H])]]></fieldDescription>
+	<field name="Total Gross ODA" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Extended Amount])]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -53,7 +33,7 @@ WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Budget Support}.doubleValue()/1000000]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Total Gross ODA}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="297" y="0" width="50" height="14" uuid="f5a62236-8df3-496e-8162-e987f702eb70"/>
@@ -62,13 +42,16 @@ WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]
 				</textElement>
 				<text><![CDATA[1920]]></text>
 			</staticText>
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="455" y="0" width="100" height="14" uuid="dea22b10-8a98-4f42-886a-f7b0abe59353"/>
-				<textElement textAlignment="Right">
-					<font fontName="Arial"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{Budget Support}.doubleValue()/1000000]]></textFieldExpression>
-			</textField>
+			<subreport>
+				<reportElement x="455" y="0" width="100" height="14" uuid="f1671a23-5b09-4b8f-9c89-d83e08f246f7"/>
+				<subreportParameter name="YEAR">
+					<subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="MONDRIAN_CONNECTION">
+					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/aq_master_memo_totaloda_year_b.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 	</pageHeader>
 	<columnHeader>

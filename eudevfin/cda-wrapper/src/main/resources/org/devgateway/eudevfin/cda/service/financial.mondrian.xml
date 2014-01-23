@@ -1,4 +1,12 @@
 <Schema name="EUDevfin">
+	<Dimension visible="true" highCardinality="false" name="Area">
+		<Hierarchy visible="true" hasAll="true" primaryKey="ID">
+			<Table name="AREA" schema="APP">
+			</Table>
+			<Level name="Code" visible="true" table="AREA" column="CODE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+			</Level>
+		</Hierarchy>
+	</Dimension>
 	<Dimension visible="true" highCardinality="false" name="Reporting Organization">
 		<Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allReportingOrganizations}" allLevelName="%{allReportingOrganizations}" description="%{reportingOrganizations}" allMemberName="%{allReportingOrganizations}">
 			<Table name="ORGANIZATION" schema="APP"></Table>
@@ -244,6 +252,7 @@
 			select * from FINANCIALTRANSACTION where draft=false
 			]]></SQL>
 		</View>		
+		<DimensionUsage source="Area" name="Area" visible="true" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
 		<DimensionUsage source="Reporting Organization" name="Reporting Organization" visible="true" foreignKey="REPORTINGORGANIZATION_ID" highCardinality="false"></DimensionUsage>
 		<DimensionUsage source="Extending Agency" name="Extending Agency" visible="true" foreignKey="EXTENDINGAGENCY_ID" highCardinality="false"></DimensionUsage>
 		<DimensionUsage source="Sector" name="Sector" visible="true" foreignKey="SECTOR_ID" highCardinality="false"></DimensionUsage>

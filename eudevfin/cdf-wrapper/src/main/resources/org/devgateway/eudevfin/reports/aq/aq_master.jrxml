@@ -11,7 +11,9 @@
 		<![CDATA[SELECT
 {[Reporting Year].[$P{FIRST_YEAR}], [Reporting Year].[$P{SECOND_YEAR}]} ON ROWS,
 {[Measures].[Extended Amount]} ON COLUMNS
-FROM [Financial]]]>
+FROM [Financial]
+WHERE {[BiMultilateral].[BI_MULTILATERAL##1]}
+]]>
 	</queryString>
 	<field name="Extended Amount Year 1" class="java.lang.Number">
 		<fieldDescription><![CDATA[Data([Measures].[Extended Amount], [Reporting Year].[@@FIRST_YEAR@@])]]></fieldDescription>
