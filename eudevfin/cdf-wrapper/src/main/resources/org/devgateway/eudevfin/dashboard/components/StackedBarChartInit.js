@@ -2,19 +2,13 @@
 var stackedBarChart,
 	stackedBarQueryResult;	// we should parameterized this
 
-function initStackedBarChart(stackedBarChartId, dataAccessId) {	
+function initStackedBarChart(parametersJson) {
+	var stackedBarChartId = parametersJson.htmlObject;
 	var stackedBarChartDefinition = new app.StackedBarDefinitionModel();
 	stackedBarChartDefinition.get('chart').renderTo = stackedBarChartId;
 
-	var stackedBarChartQuery = new app.ChartModel({
-	    name: stackedBarChartId,
-	    parameters: [],
+	var stackedBarChartQuery = new app.ChartModel(_.extend(parametersJson, {
 	    resultvar: "stackedBarQueryResult",
-	    queryDefinition: {
-	        dataAccessId: "typeOfFlow",
-	        path: '/some/path'
-	    },
-	    executeAtStart: true,
 	    preExecution: function () {
 	        // do nothing
 	    },
@@ -23,7 +17,7 @@ function initStackedBarChart(stackedBarChartId, dataAccessId) {
 
 	        stackedBarChart = new Highcharts.Chart(stackedBarChartDefinition.toJSON());
 	    }
-	});
+	}));
 
 	stackedBarChartQuery = stackedBarChartQuery.toJSON();
 

@@ -2,7 +2,8 @@
 var columnChart,
 	columnQueryResult;	// we should parameterized this
 
-function initColumnsChart(columnChartId, dataAccessId) {		
+function initColumnsChart(parametersJson) {
+	var columnChartId = parametersJson.htmlObject;
 	var columnsChartDefinition = new app.ChartColumnDefinitionModel();
 	columnsChartDefinition.get('chart').renderTo = columnChartId;
 	columnsChartDefinition.get('series')[0].pointWidth = 115;
@@ -13,15 +14,8 @@ function initColumnsChart(columnChartId, dataAccessId) {
 	    }, 200);
 	};
 	
-	var columnChartQuery = new app.ChartModel({
-	    name: columnChartId,
-	    parameters: [],
+	var columnChartQuery = new app.ChartModel(_.extend(parametersJson, {
 	    resultvar: "columnQueryResult",
-	    queryDefinition: {
-	        dataAccessId: dataAccessId,
-	        path: '/some/path'
-	    },
-	    executeAtStart: true,
 	    preExecution: function () {
 	        // do nothing
 	    },
@@ -36,7 +30,7 @@ function initColumnsChart(columnChartId, dataAccessId) {
 	            if (parseInt(columnQueryResult[i][3], 10) > 0) {
 	                resultCategories.push(columnQueryResult[i][2]);
 	                resultSeries.push({
-	                    name: columnQueryResult[i][1],
+	                    name: columnQueryResult[i][2],
 	                    y: parseInt(columnQueryResult[i][3], 10),
 	                    color: colors[i % len] // access colors array in a circular manner
 	                });
@@ -49,7 +43,7 @@ function initColumnsChart(columnChartId, dataAccessId) {
 	            columnChart = new Highcharts.Chart(columnsChartDefinition.toJSON());
 	        }
 	    }
-	});
+	}));
 
 	columnChartQuery = columnChartQuery.toJSON();
 

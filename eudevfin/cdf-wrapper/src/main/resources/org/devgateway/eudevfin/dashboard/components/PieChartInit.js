@@ -2,9 +2,9 @@
 var pieChart,
 	pieQueryResult;	// we should parameterized this
 
-function initPieChart(pieChartId, dataAccessId) {	
+function initPieChart(parametersJson) {
+	var pieChartId = parametersJson.htmlObject;
 	var pieChartDefinition = new app.ChartPieDefinitionModel();
-//	pieChartDefinition.get('chart').renderTo = 'pie-chart';
 	pieChartDefinition.get('chart').renderTo = pieChartId;
 	pieChartDefinition.get('plotOptions').series.events.click = function (event) {
 	    setTimeout(function () {
@@ -12,17 +12,8 @@ function initPieChart(pieChartId, dataAccessId) {
 	    }, 500);
 	};
 	
-	var pieChartQuery = new app.ChartModel({
-//	    name: "pieChartQuery",
-	    name: pieChartId,
-	    listeners: ['sectorListParameter'],
-	    parameters: [],
-	    resultvar: "pieQueryResult",
-	    queryDefinition: {
-	        dataAccessId: dataAccessId,
-	        path: '/some/path'
-	    },
-	    executeAtStart: true,
+	var pieChartQuery = new app.ChartModel(_.extend(parametersJson, {
+		resultvar: "pieQueryResult",
 	    preExecution: function () {
 	        // do nothing
 	    },
@@ -48,7 +39,7 @@ function initPieChart(pieChartId, dataAccessId) {
 	        pieChartDefinition.get('series')[0].data = resultSeries;
 	        pieChart = new Highcharts.Chart(pieChartDefinition.toJSON());
 	    }
-	});
+	}));
 
     pieChartQuery = pieChartQuery.toJSON();
 

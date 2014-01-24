@@ -8,7 +8,6 @@
 
 package org.devgateway.eudevfin.dashboard.components;
 
-import org.apache.log4j.Logger;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
@@ -25,8 +24,6 @@ import org.apache.wicket.request.resource.JavaScriptResourceReference;
  * @since 13/12/13
  */
 public class Filter extends Panel implements IParametersProvider {
-	private static final Logger logger = Logger.getLogger(Filter.class);
-
     private final WebMarkupContainer filter;
 	private FilterParameters parameters;
 

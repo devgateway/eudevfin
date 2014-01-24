@@ -12,13 +12,12 @@ import org.apache.wicket.request.resource.JavaScriptResourceReference;
 /**
  * Stacked bar chart dashboard implementation
  */
-public class StackedBarChart extends Panel {
+public class StackedBarChart extends Panel implements IParametersProvider {
 	private final WebMarkupContainer stackedBarChart;
-	private String dataAccessId;
+	private ChartParameters parameters;
 	
 	public StackedBarChart(String id, String dataAccessId, String messageKey) {
         super(id);
-        this.dataAccessId = dataAccessId;
         
         Label title = new Label("title", new StringResourceModel(messageKey, this, null, null));
         add(title);
@@ -26,13 +25,24 @@ public class StackedBarChart extends Panel {
         stackedBarChart = new WebMarkupContainer("stackedBarChart");
         stackedBarChart.setOutputMarkupId(true);
         add(stackedBarChart);
+
+		String stackedBarCharttId = stackedBarChart.getMarkupId();
+		parameters = new ChartParameters(stackedBarCharttId);
+
+		parameters.getQueryDefinition().setDataAccessId(dataAccessId);
     }
 	
 	@Override
     public void renderHead(IHeaderResponse response) {
         super.renderHead(response);
-        
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(StackedBarChart.class, "StackedBarChartInit.js")));
-        response.render(OnDomReadyHeaderItem.forScript("initStackedBarChart('" + stackedBarChart.getMarkupId() + "', '" + dataAccessId + "');"));
+
+		response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(StackedBarChart.class, "StackedBarChartInit.js")));
+		response.render(OnDomReadyHeaderItem.forScript("initStackedBarChart(" + parameters().toJson() + ");"));
+
     }
+
+	@Override
+	public BaseParameters parameters() {
+		return parameters;
+	}
 }

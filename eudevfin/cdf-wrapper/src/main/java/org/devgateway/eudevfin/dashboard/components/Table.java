@@ -8,7 +8,6 @@
 
 package org.devgateway.eudevfin.dashboard.components;
 
-import org.apache.log4j.Logger;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
@@ -28,8 +27,6 @@ import java.util.Arrays;
  * @since 13/12/13
  */
 public class Table extends Panel implements IParametersProvider {
-	private static final Logger logger = Logger.getLogger(Table.class);
-
     private final WebMarkupContainer table;
     private TableParameters parameters;
 
