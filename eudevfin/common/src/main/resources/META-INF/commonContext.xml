@@ -26,14 +26,33 @@
 	<context:component-scan base-package="org.devgateway.eudevfin" />
 	<context:annotation-config />
 	
-		
-	<!-- mbean server to watch beans -->
-	<context:mbean-server id="mbeanServer"/>
-	
+<!-- JMX monitoring - disabled during development for speed purposes -->		
+<!--
+	<context:mbean-server id="mbeanServer"/>	
 	<int-jmx:mbean-export  />
+	<context:mbean-export />
 	
-	<context:mbean-export/>
+	<bean id="cacheManagementService" class="net.sf.ehcache.management.ManagementService" init-method="init" destroy-method="dispose" lazy-init="false" depends-on="ehcache,mbeanServer">
+		<constructor-arg ref="ehcache" />
+		<constructor-arg ref="mbeanServer" />
+		<constructor-arg index="2" value="true" />
+		<constructor-arg index="3" value="true" />
+		<constructor-arg index="4" value="true" />
+		<constructor-arg index="5" value="true" />
+	</bean>
 	
+	<bean id="hibernateStatisticsBean" class="org.devgateway.eudevfin.common.hibernate.HibernateStatisticsFactoryBean"/>	
+	
+	<bean id="exporter" class="org.springframework.jmx.export.MBeanExporter" lazy-init="false">
+	    <property name="beans">
+	      <map>
+	        <entry key="org.hibernate:name=hibernateStatisticsBean" value-ref="hibernateStatisticsBean"/>
+	      </map>
+	    </property>
+	    <property name="server" ref="mbeanServer"/>
+	</bean>
+	
+-->
 		
 	<!-- properties file loaded here -->
 	<util:properties id="commonProperties" location="classpath:/common.properties"/>
