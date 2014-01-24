@@ -38,7 +38,7 @@ public abstract class AbstractCategoryProvider extends AbstractTranslatableProvi
 
     @Override
     protected String getDisplayText(Category choice) {
-        return choice.getName();
+        return choice.getDisplayableCode()+ " - "+ choice.getName();
     }
 
 	@Override

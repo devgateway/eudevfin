@@ -38,6 +38,6 @@ public class AreaChoiceProvider extends AbstractTranslatableProvider<Area> {
 
     @Override
     public String getDisplayText(Area choice) {
-        return choice.getName();
+        return choice.getCode()+ " - "+ choice.getName();
     }
 }
