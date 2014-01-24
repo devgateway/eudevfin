@@ -8,8 +8,11 @@
 	<parameter name="SECOND_YEAR" class="java.lang.Number"/>
 	<parameter name="SUBDIR_PATH" class="java.lang.String"/>
 	<queryString language="mdx">
-		<![CDATA[SELECT
-{[Type of Aid].[A], [Type of Aid].[B], [Type of Aid].[C], [Type of Aid].[D], [Type of Aid].[E], [Type of Aid].[F], [Type of Aid].[G], [Type of Aid].[H]} ON ROWS,
+		<![CDATA[
+
+WITH MEMBER [Type of Aid].[AllTypes] AS SUM({[Type of Aid].[A], [Type of Aid].[B], [Type of Aid].[C], [Type of Aid].[D], [Type of Aid].[E], [Type of Aid].[F], [Type of Aid].[G], [Type of Aid].[H]})
+SELECT
+{[Type of Aid].[A], [Type of Aid].[B], [Type of Aid].[C], [Type of Aid].[D], [Type of Aid].[E], [Type of Aid].[F], [Type of Aid].[G], [Type of Aid].[H], [Type of Aid].[AllTypes] } ON ROWS,
 NON EMPTY {[Measures].[Net Amount]} ON COLUMNS
 FROM [Financial]
 WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]}]]>
@@ -37,6 +40,9 @@ WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]
 	</field>
 	<field name="Other in-donor expenditures" class="java.lang.Number">
 		<fieldDescription><![CDATA[Data([Measures].[Net Amount], [Type of Aid].[H])]]></fieldDescription>
+	</field>
+	<field name="All Types" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Net Amount], [Type of Aid].[AllTypes])]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -205,7 +211,7 @@ WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($F{Budget Support}.doubleValue() + $F{Core contributions and pooled programmes and funds}.doubleValue() + $F{Project-type interventions}.doubleValue() + $F{Experts and other technical assistance}.doubleValue() + $F{Debt Relief}.doubleValue() + $F{Administrative costs not included elsewhere}.doubleValue() + $F{Other in-donor expenditures}.doubleValue() + $F{Scholarships and student costs in donor countries}.doubleValue())/1000000]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{All Types}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>

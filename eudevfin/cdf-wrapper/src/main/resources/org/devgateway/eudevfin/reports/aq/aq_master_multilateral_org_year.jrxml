@@ -9,8 +9,9 @@
 	<parameter name="SUBDIR_PATH" class="java.lang.String"/>
 	<queryString language="mdx">
 		<![CDATA[
+WITH MEMBER [Channel].[AllCodes] AS SUM({[Channel].[Code].[41000], [Channel].[42000], [Channel].[44000], [Channel].[46000], [Channel].[47000]})
 SELECT
-{[Channel].[Code].[41000], [Channel].[42000], [Channel].[44000], [Channel].[46000], [Channel].[47000]} ON ROWS,
+{[Channel].[Code].[41000], [Channel].[42000], [Channel].[44000], [Channel].[46000], [Channel].[47000], [Channel].[AllCodes]} ON ROWS,
 {[Measures].[Net Amount]} ON COLUMNS
 FROM [Financial]
 WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##2]}
@@ -30,6 +31,9 @@ WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##2]
 	</field>
 	<field name="WB" class="java.lang.Number">
 		<fieldDescription><![CDATA[Data([Measures].[Net Amount], [Channel].[44000])]]></fieldDescription>
+	</field>
+	<field name="All Codes" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Net Amount], [Channel].[AllCodes])]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -177,7 +181,7 @@ WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##2]
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($F{ONU}.doubleValue() + $F{EU}.doubleValue() + $F{WB}.doubleValue() + $F{GRP1}.doubleValue() + $F{OTHER}.doubleValue())/1000000]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{All Codes}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>

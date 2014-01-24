@@ -13,7 +13,6 @@ SELECT
 {[Reporting Year].[$P{FIRST_YEAR}], [Reporting Year].[$P{SECOND_YEAR}]} ON ROWS,
 {[Measures].[Net Amount]} ON COLUMNS
 FROM [Financial]
-WHERE {[BiMultilateral].[BI_MULTILATERAL##1]}
 ]]>
 	</queryString>
 	<field name="Extended Amount Year 1" class="java.lang.Number">
