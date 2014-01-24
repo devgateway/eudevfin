@@ -12,4 +12,5 @@
     <entry key="99otherComments.label">Other comments</entry>
     <entry key="99otherComments.placeholder"></entry>
     <entry key="99otherComments.help">TODO: edit help text</entry>
+    <entry key="99otherComments.help.detail">TODO: edit full glossary text</entry>
 </properties>

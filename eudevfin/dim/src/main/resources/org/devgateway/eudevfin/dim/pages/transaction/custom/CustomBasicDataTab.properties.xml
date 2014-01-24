@@ -12,63 +12,81 @@
     <entry key="7bCPA.label">Is this Country Programmable Aid (CPA)</entry>
     <entry key="7bCPA.placeholder"></entry>
     <entry key="7bCPA.help">TODO: edit help text</entry>
+    <entry key="7bCPA.help.detail">TODO: edit full glossary text</entry>
 
     <entry key="7aRecipientCode.label">Recipient Code</entry>
     <entry key="7aRecipientCode.placeholder"></entry>
     <entry key="7aRecipientCode.help">TODO: edit help text</entry>
+    <entry key="7aRecipientCode.help.detail">TODO: edit full glossary text</entry>
+    
 
     <entry key="7cPriorityStatus.label">Priority status of the Recipient</entry>
     <entry key="7cPriorityStatus.placeholder"></entry>
     <entry key="7cPriorityStatus.help">TODO: edit help text</entry>
+    <entry key="7cPriorityStatus.help.detail">TODO: edit full glossary text</entry>
+    
 
     <entry key="7dPhasingOutYear.label">If phasing out, by which year?</entry>
     <entry key="7dPhasingOutYear.placeholder"></entry>
     <entry key="7dPhasingOutYear.help">TODO: edit help text</entry>
-
+    <entry key="7dPhasingOutYear.help.detail">TODO: edit full glossary text</entry>
+    
     <entry key="14bisUploadDocumentation.label">Upload Available Documentation</entry>
     <entry key="14bisUploadDocumentation.placeholder"></entry>
     <entry key="14bisUploadDocumentation.help">TODO: edit help text</entry>
-
+    <entry key="14bisUploadDocumentation.help.detail">TODO: edit full glossary text</entry>
+    
     <entry key="14aProjectCoFinanced.label">Is this project co-financed?</entry>
     <entry key="14aProjectCoFinanced.placeholder"></entry>
     <entry key="14aProjectCoFinanced.help">TODO: edit help text</entry>
+    <entry key="14aProjectCoFinanced.help.detail">TODO: edit full glossary text</entry>
 
     <entry key="14b1stAgency.label">Name of 1st co-financing agency</entry>
     <entry key="14b1stAgency.placeholder"></entry>
     <entry key="14b1stAgency.help">TODO: edit help text</entry>
+    <entry key="14b1stAgency.help.detail">TODO: edit full glossary text</entry>
 
     <entry key="14c1stAgencyAmount.label">Amount co-financed</entry>
     <entry key="14c1stAgencyAmount.placeholder"></entry>
     <entry key="14c1stAgencyAmount.help">TODO: edit help text</entry>
-
+    <entry key="14c1stAgencyAmount.help.detail">TODO: edit full glossary text</entry>
+    
     <entry key="14d1stAgencyCurrency.label">Currency</entry>
     <entry key="14d1stAgencyCurrency.placeholder"></entry>
     <entry key="14d1stAgencyCurrency.help">TODO: edit help text</entry>
+    <entry key="14d1stAgencyCurrency.help.detail">TODO: edit full glossary text</entry>
+
 
     <entry key="14e2ndAgency.label">Name of 2nd co-financing agency</entry>
     <entry key="14e2ndAgency.placeholder"></entry>
     <entry key="14e2ndAgency.help">TODO: edit help text</entry>
+    <entry key="14e2ndAgency.help.detail">TODO: edit full glossary text</entry>    
 
     <entry key="14f2ndAgencyAmount.label">Amount co-financed</entry>
     <entry key="14f2ndAgencyAmount.placeholder"></entry>
     <entry key="14f2ndAgencyAmount.help">TODO: edit help text</entry>
-
+    <entry key="14f2ndAgencyAmount.help.detail">TODO: edit full glossary text</entry>
+    
     <entry key="14g2ndAgencyCurrency.label">Currency</entry>
     <entry key="14g2ndAgencyCurrency.placeholder"></entry>
     <entry key="14g2ndAgencyCurrency.help">TODO: edit help text</entry>
-
+    <entry key="14g2ndAgencyCurrency.help.detail">TODO: edit full glossary text</entry>
+    
     <entry key="14h3rdAgency.label">Name of 3rd co-financing agency</entry>
     <entry key="14h3rdAgency.placeholder"></entry>
     <entry key="14h3rdAgency.help">TODO: edit help text</entry>
-
+    <entry key="14h3rdAgency.help.detail">TODO: edit full glossary text</entry>
+    
     <entry key="14i3rdAgencyAmount.label">Amount co-financed</entry>
     <entry key="14i3rdAgencyAmount.placeholder"></entry>
     <entry key="14i3rdAgencyAmount.help">TODO: edit help text</entry>
-
+    <entry key="14i3rdAgencyAmount.help.detail">TODO: edit full glossary text</entry>
+    
     <entry key="14j3rdAgencyCurrency.label">Currency</entry>
     <entry key="14j3rdAgencyCurrency.placeholder"></entry>
     <entry key="14j3rdAgencyCurrency.help">TODO: edit help text</entry>
-
+    <entry key="14j3rdAgencyCurrency.help.detail">TODO: edit full glossary text</entry>
+    
     <entry key="14table.name">Name</entry>
     <entry key="14table.amount">Amount</entry>
     <entry key="14table.currency">Currency</entry>

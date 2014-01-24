@@ -6,7 +6,7 @@
 <properties>
 	<entry key="draft.label">Draft Form</entry>
 	<entry key="draft.help">Uncheck this when the form data becomes final</entry>
-	<entry key="draft.help">Uncheck this when the form data becomes final</entry>
+	
 	<entry key="notification.draftState">The form will be placed in draft state, pending final review</entry>
 	<entry key="notification.finalState">The form will be placed in final state, its data will show in reports</entry>
 </properties>
