@@ -9,6 +9,21 @@
 // aplication variable
 var app = app || {};
 
+// function to check if an array has all the elements equal to a value
+app.checkArrayValue = function (array, value){
+	var i;
+
+	if(array.length > 0) {
+		for(i = 0; i < array.length; i++) {
+			if (array[i] !== value) {
+				return false;
+			}
+		}
+	}
+
+	return true;
+}
+
 $(document).ready(function () {
     // add more colors for Highcharts
     Highcharts.setOptions({

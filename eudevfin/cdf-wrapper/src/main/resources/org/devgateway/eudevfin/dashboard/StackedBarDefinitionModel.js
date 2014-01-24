@@ -12,6 +12,12 @@ var app = app || {};
 	                animation: {
 		                duration: 1000
 	                },
+	                borderColor: '#DEEDF7',
+	                borderRadius: 20,
+	                borderWidth: 2,
+	                height: 380,
+	                marginBottom: null,
+	                marginTop: null,
 	                plotShadow: false,
                     type: 'bar',
 	                renderTo: ''
@@ -19,17 +25,33 @@ var app = app || {};
 	            credits: {
 		            enabled: false
 	            },
+	            exporting: {
+		            enabled: true
+	            },
                 title: {
-                    text: 'Stacked bar chart'
+                    text: ''
                 },
                 xAxis: {
-                    categories: ['ODA equity investment', 'ODA Grant', 'ODA Loan', 'ODA Grant-like']
+	                labels: {
+		                rotation: -15,
+		                align: 'right',
+		                style: {
+			                fontSize: '13px',
+			                fontFamily: 'Verdana, sans-serif'
+		                }
+	                },
+                    categories: []
                 },
                 yAxis: {
                     min: 0,
                     title: {
-                        text: 'Type of Flow'
-                    }
+                        text: 'Amount'
+                    },
+	                labels: {
+		                formatter: function () {
+			                return Highcharts.numberFormat(this.value, 0, '.', ' ');
+		                }
+	                }
                 },
                 legend: {
                     backgroundColor: '#FFFFFF',
@@ -37,41 +59,19 @@ var app = app || {};
                 },
                 plotOptions: {
                     series: {
-                        stacking: 'normal'
+                        stacking: 'normal',
+	                    //minPointLength: 10,
+	                    cursor: 'pointer',
+	                    events: {
+		                    click: function () {
+			                    // implementation of the click event
+		                    }
+	                    }
                     }
                 },
-                series: [{
-                    name: 'Foreign Office',
-                    data: [5, 3, 4, 7]
-                }, {
-                    name: 'Federal Institutions',
-                    data: [2, 2, 3, 2]
-                }, {
-                    name: 'Foundations/Societies/Misc. (non federal)',
-                    data: [3, 4, 4, 2]
-                }]
+                series: []
             };
         },
-
-        // y-axis
-        //  {
-        // top: 300,
-        // lineWidth: 0,
-        // min: 0,
-        // max: 0,
-        // gridLineWidth: 0,
-        // offset: 0,
-        // height: 50,
-        // labels: {
-        //     enabled: false
-        // },
-        // title: {
-        //     text: 'my title',
-        //     align: 'low'
-        // }
-
-
-        // },
 
         initialize: function () {
             //console.log("Create new Stacked Bar Definition");

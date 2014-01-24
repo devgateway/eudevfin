@@ -12,7 +12,7 @@ var app = app || {};
                     animation: {
                         duration: 1000
                     },
-                    borderColor: '#EBBA95',
+                    borderColor: '#DEEDF7',
                     borderRadius: 20,
                     borderWidth: 2,
                     height: 380,
@@ -41,7 +41,7 @@ var app = app || {};
                 yAxis: {
                     min: 0,
                     title: {
-                        text: 'Contracts Value'
+                        text: 'Amount'
                     },
                     labels: {
                         formatter: function () {
@@ -52,7 +52,6 @@ var app = app || {};
                 legend: {
                     enabled: false
                 },
-                colors: ['#ff0000', '#ff6600', '#ffcc00'],
                 title: {
                     text: ''
                 },

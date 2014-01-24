@@ -12,7 +12,7 @@ var app = app || {};
                     animation: {
                         duration: 1000
                     },
-                    borderColor: '#EBBA95',
+                    borderColor: '#DEEDF7',
                     borderRadius: 20,
                     borderWidth: 2,
                     height: 380,

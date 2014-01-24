@@ -38,7 +38,7 @@ public class ReportsPage extends HeaderFooter {
         Filter orgFilter = new Filter("orgFilter", "organizationList", "dashboards.org.filter", "organizationListParameter");
 	    add(orgFilter);
 
-	    Filter biMultilateralFilter = new Filter("biMultilateralFilter", "biMultilateral", "dashboards.biMultilateral.filter", "biMultilateralListParameter");
+	    Filter biMultilateralFilter = new Filter("biMultilateralFilter", "biMultilateralList", "dashboards.biMultilateral.filter", "biMultilateralListParameter");
 	    add(biMultilateralFilter);
 
 	    Table testTable = new Table("testTable", "typeOfFinance", "dashboards.typeOfFinance");
@@ -52,7 +52,7 @@ public class ReportsPage extends HeaderFooter {
         ColumnsChart columnsChart = new ColumnsChart("columnsChart", "typeOfFlow", "dashboards.typeOfFlow");
         add(columnsChart);
 
-        StackedBarChart stackedBarChart = new StackedBarChart("stackedBarChart", "typeOfFlow", "dashboards.stackedBarChart");
+        StackedBarChart stackedBarChart = new StackedBarChart("stackedBarChart", "typeOfSectorsByFlow", "dashboards.typeOfSectorsByFlow");
         add(stackedBarChart);
     }
 
