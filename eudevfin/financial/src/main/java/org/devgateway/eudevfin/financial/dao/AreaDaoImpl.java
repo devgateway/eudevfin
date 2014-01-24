@@ -8,11 +8,13 @@ import java.util.List;
 import org.devgateway.eudevfin.common.dao.AbstractDaoImpl;
 import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 import org.devgateway.eudevfin.financial.Area;
+import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.repository.AreaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.integration.annotation.Header;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
@@ -64,10 +66,7 @@ public class AreaDaoImpl extends AbstractDaoImpl<Area,Long, AreaRepository> {
 	@ServiceActivator(inputChannel = "findByGeneralSearchPageableAreaChannel")
 	public Page<Area> findByGeneralSearch(String searchString,
 			@Header(value="locale",required=false) String locale, @Header("pageable") Pageable pageable) {
-		// TODO Auto-generated method stub
-		return super.findByGeneralSearch(searchString, locale, pageable);
+		if(searchString.isEmpty()) return getRepo().findAll(pageable);
+		return getRepo().findByTranslationNameContaining(searchString.toLowerCase(), pageable);
 	}
-	
-	
-
-}
+	}

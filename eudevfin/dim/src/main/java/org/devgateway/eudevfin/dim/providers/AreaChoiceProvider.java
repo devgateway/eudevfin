@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component;
 public class AreaChoiceProvider extends AbstractTranslatableProvider<Area> {
 
 	public AreaChoiceProvider() {
-		this.sort=new Sort(Direction.ASC,"code");
+		//this.sort=new Sort(Direction.ASC,"code");
 	}
 	
     @Autowired
