@@ -109,7 +109,7 @@ public class FinancialTransactionServiceTest {
 		tx.setCommitments(BigMoney.parse("EUR 4320"));
 		tx.setDescription("Some description for this tx");
 		tx.setCommitmentDate(new LocalDateTime());
-		tx.setReportingOrganization(org);
+		tx.setExtendingAgency(org);
 
 		logger.info(tx);
 	

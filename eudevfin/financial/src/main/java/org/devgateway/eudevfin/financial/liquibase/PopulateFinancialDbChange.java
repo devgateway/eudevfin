@@ -94,7 +94,7 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 				biMultilateral = listBiMultilateral.get(biMultilateralRandomIndex);
 				channel = listMultilateralChannel.get(channelRandomIndex);
 				
-				tx.setReportingOrganization(org);
+				tx.setExtendingAgency(org);
 				tx.setChannel(channel);
 				tx.setExtendingAgency(extAgency);
 				tx.setLocale("en");

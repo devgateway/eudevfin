@@ -56,7 +56,7 @@ public class TestHistoricalExchangeRateRetrieveJob {
 		FinancialTransaction ft = new FinancialTransaction();
 		ft.setAmount(new BigDecimal(123));
 		ft.setDescription("Auditing test descr");
-		ft.setReportingOrganization(o);
+		ft.setExtendingAgency(o);
 		ft.setCommitmentDate(LocalDateTime.now());
 
 		financialTransactionService.save(ft);

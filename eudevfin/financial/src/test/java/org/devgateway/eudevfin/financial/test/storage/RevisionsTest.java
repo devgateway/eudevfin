@@ -59,10 +59,10 @@ public class RevisionsTest extends AbstractStorageTest{
 		
 		for ( Object [] oArray: auditObjects ) {
 			FinancialTransaction fTransaction								= (FinancialTransaction) oArray[0]; 
-			assertNotNull(fTransaction.getReportingOrganization());
+			assertNotNull(fTransaction.getExtendingAgency());
 			DefaultTrackingModifiedEntitiesRevisionEntity trackingObject 	= (DefaultTrackingModifiedEntitiesRevisionEntity) oArray[1];
 			logger.info(String.format("For transaction with id %d and amount %f and organization %s.Revision numbers is %d. Modified entities: %s ", 
-					fTransaction.getId(), fTransaction.getAmount().doubleValue(),fTransaction.getReportingOrganization().getName(), 
+					fTransaction.getId(), fTransaction.getAmount().doubleValue(),fTransaction.getExtendingAgency().getName(), 
 					trackingObject.getId(), trackingObject.getModifiedEntityNames()));
 			assertTrue( trackingObject.getModifiedEntityNames().contains(FinancialTransaction.class.getName()) );
 		}

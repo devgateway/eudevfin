@@ -97,7 +97,7 @@ public class TransactionTableListPanel<T extends FinancialTransaction> extends T
 				else
 					descriptionLabel				= new Label("transaction-sector-name", "none" );
 				ftListItem.add(descriptionLabel);
-				Label orgLabel						= new Label("transaction-organization-name", tempTx.getReportingOrganization().getName() );
+				Label orgLabel						= new Label("transaction-organization-name", tempTx.getExtendingAgency().getName() );
 				ftListItem.add(orgLabel);
 				
 				

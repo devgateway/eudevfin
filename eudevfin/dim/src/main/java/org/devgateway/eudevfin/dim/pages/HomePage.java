@@ -81,7 +81,7 @@ public class HomePage extends HeaderFooter {
 		ft.setLocale("ro");
 		ft.setDescription("Wicket test descr - ro locale");
 		
-		ft.setReportingOrganization(o);
+		ft.setExtendingAgency(o);
 		txService.save(ft);
 	*/	
 //		Category sectorsRoot = new Category();
@@ -118,7 +118,7 @@ public class HomePage extends HeaderFooter {
 //				ftListItem.add(amountLabel);
 //				Label descriptionLabel						= new Label("transaction-description", tempTx.getDescription() );
 //				ftListItem.add(descriptionLabel);
-//				Label orgLabel						= new Label("organization-name", tempTx.getReportingOrganization().getName() );
+//				Label orgLabel						= new Label("organization-name", tempTx.getExtendingAgency().getName() );
 //				ftListItem.add(orgLabel);
 //				
 //			}

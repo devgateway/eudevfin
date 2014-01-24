@@ -52,7 +52,7 @@ public class FinancialTransactionDaoImpl extends AbstractDaoImpl<FinancialTransa
 	}
 
 	public List<FinancialTransaction> findBySourceOrganizationId(Long orgId) {
-		return getRepo().findByReportingOrganizationId(orgId);
+		return getRepo().findByExtendingAgencyId(orgId);
 	}
 	
 	@ServiceActivator(inputChannel="findTransactionBySectorCodePageableChannel")

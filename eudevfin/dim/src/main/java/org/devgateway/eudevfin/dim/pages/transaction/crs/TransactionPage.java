@@ -130,7 +130,7 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 		transaction.setCurrency(SB.currencies[0]);		
 		//set the reportingOrg to the current user's org
 		PersistedUser user=(PersistedUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();			
-		transaction.setReportingOrganization(user.getGroup().getOrganization());
+		transaction.setExtendingAgency(user.getGroup().getOrganization());
 	}
 	
 	@SuppressWarnings("unchecked")

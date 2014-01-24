@@ -50,7 +50,7 @@ public class PopulateDb  extends AbstractSpringCustomTaskChange {
 				org = o1;
 			else
 				org = o2;
-			tx.setReportingOrganization( org );
+			tx.setExtendingAgency( org );
 			tx.setDescription("CDA Test Transaction " + i);
 			txDao.save(tx);
 		}

@@ -220,9 +220,6 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
 //	@JoinColumn(name="organization_id")
 //	private Organization sourceOrganization;
 
-    @ManyToOne(optional = false)
-    private Organization reportingOrganization;
-
     @ManyToOne
     private Organization extendingAgency;
 
@@ -319,8 +316,7 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
                 "\n   genderEquality=" + genderEquality +
                 "\n   aidToEnvironment=" + aidToEnvironment +
                 "\n   pdgg=" + pdgg +
-                "\n   tradeDevelopment=" + tradeDevelopment +
-                "\n   reportingOrganization=" + reportingOrganization +
+                "\n   tradeDevelopment=" + tradeDevelopment +              
                 "\n   extendingAgency=" + extendingAgency +
                 "\n   channelOfDelivery=" + channelOfDelivery +
                 "\n   channel=" + channel +
@@ -779,14 +775,6 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
 
     public void setTradeDevelopment(Category tradeDevelopment) {
         this.tradeDevelopment = tradeDevelopment;
-    }
-
-    public Organization getReportingOrganization() {
-        return reportingOrganization;
-    }
-
-    public void setReportingOrganization(Organization reportingOrganization) {
-        this.reportingOrganization = reportingOrganization;
     }
 
     public Organization getExtendingAgency() {

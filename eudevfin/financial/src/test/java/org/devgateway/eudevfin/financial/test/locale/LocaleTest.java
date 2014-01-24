@@ -69,7 +69,7 @@ public class LocaleTest {
 			tx.setDescription(testLocaleString);
 			tx.setLocale(FinancialConstants.DEFAULT_LOCALE);
 			tx.setDescription(defaultLocaleString);
-			tx.setReportingOrganization(org);
+			tx.setExtendingAgency(org);
 
 			logger.info(tx);
 			service.save(tx);
@@ -91,7 +91,7 @@ public class LocaleTest {
 		}
 		List<FinancialTransaction> list = service.findAll();
 		for (FinancialTransaction financialTransaction : list) {
-			Assert.assertNotNull( financialTransaction.getReportingOrganization() );
+			Assert.assertNotNull( financialTransaction.getExtendingAgency() );
 		}
 
 	}

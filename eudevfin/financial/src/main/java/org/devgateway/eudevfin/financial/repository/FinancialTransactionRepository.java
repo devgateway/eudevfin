@@ -19,7 +19,7 @@ public interface FinancialTransactionRepository extends
 		PagingAndSortingRepository<FinancialTransaction, Long> {
 	
 //	List<FinancialTransaction> findByDescriptionOrderByIdAsc(String description);
-	List<FinancialTransaction> findByReportingOrganizationId(Long orgId);
+	List<FinancialTransaction> findByExtendingAgencyId(Long orgId);
 	
 	Page<FinancialTransaction> findBySectorCode(String sectorCode, Pageable pageable );
 	
