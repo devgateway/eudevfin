@@ -84,8 +84,6 @@ public abstract class AbstractCategoryProvider extends AbstractTranslatableProvi
 	
 	@Override
 	public void toJson(Category choice, JSONWriter writer) throws JSONException {
-		System.out.println("Dealing with choice: " + choice.getCode() + " -- "
-				+ choice.getName());
 		super.toJson(choice, writer);
 		if (choice.getChildren() != null && choice.getFilteredChildren().size() > 0) {
 			writer.key("children");
