@@ -224,10 +224,6 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
     private Organization extendingAgency;
 
     @ManyToOne
-    private Organization channelOfDelivery;
-
-
-    @ManyToOne
     private ChannelCategory channel;
 
 
@@ -318,7 +314,6 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
                 "\n   pdgg=" + pdgg +
                 "\n   tradeDevelopment=" + tradeDevelopment +              
                 "\n   extendingAgency=" + extendingAgency +
-                "\n   channelOfDelivery=" + channelOfDelivery +
                 "\n   channel=" + channel +
                 '}';
     }
@@ -784,15 +779,7 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
     public void setExtendingAgency(Organization extendingAgency) {
         this.extendingAgency = extendingAgency;
     }
-
-    public Organization getChannelOfDelivery() {
-        return channelOfDelivery;
-    }
-
-    public void setChannelOfDelivery(Organization channelOfDelivery) {
-        this.channelOfDelivery = channelOfDelivery;
-    }
-
+    
     public ChannelCategory getChannel() {
         return channel;
     }
