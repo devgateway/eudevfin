@@ -64,6 +64,7 @@ public class PopulateAuthDbChange extends AbstractSpringCustomTaskChange {
 		user.setPassword(DigestUtils.sha256Hex("admin"));
 		user.getPersistedAuthorities().add(authoritySuper);
 		user.getPersistedAuthorities().add(authorityUser);
+		user.getPersistedAuthorities().add(authorityLead);
 		user.setGroup(defaultGroup);
 
 		userDao.save(user);
