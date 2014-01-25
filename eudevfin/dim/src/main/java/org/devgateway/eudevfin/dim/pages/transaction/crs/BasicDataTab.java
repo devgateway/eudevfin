@@ -73,14 +73,9 @@ public class BasicDataTab extends Panel implements PermissionAwareComponent {
                 new RWComponentPropertyModel<Area>("recipient"), areaProvider);
         add(recipient);
 
-        DropDownField<Organization> channelOfDelivery = new DropDownField<>("8channelDelivery",
-                new RWComponentPropertyModel<Organization>("channelOfDelivery"), organizationProvider);
+        DropDownField<ChannelCategory> channelOfDelivery = new DropDownField<>("8channelDelivery",
+                new RWComponentPropertyModel<ChannelCategory>("channel"), channelProvider);
         add(channelOfDelivery);
-
-        //TODO: fix storing channel code
-        DropDownField<ChannelCategory> channelCode = new DropDownField<>("9channelCode", new RWComponentPropertyModel<ChannelCategory>("channel"),
-                channelProvider);
-        add(channelCode);
 
         DropDownField<Category> bilateralMultilateral = new DropDownField<>("10bilateralMultilateral",
                 new RWComponentPropertyModel<Category>("biMultilateral"), categoryFactory.get(CategoryConstants.BI_MULTILATERAL_TAG));

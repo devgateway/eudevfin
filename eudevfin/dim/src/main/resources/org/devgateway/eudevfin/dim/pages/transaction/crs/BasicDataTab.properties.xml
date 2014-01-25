@@ -48,8 +48,8 @@
 		agency). For more info go to
 		http://www.oecd.org/development/effectiveness/countryprogrammableaidcpafrequentlyaskedquestions.htm</entry>
 
-	<entry key="8channelDelivery.label">Channel of Delivery Name</entry>
-	<entry key="8channelDelivery.placeholder">Name of implementing agency</entry>
+	<entry key="8channelDelivery.label">Channel of Delivery</entry>
+	<entry key="8channelDelivery.placeholder"></entry>
 	<entry key="8channelDelivery.help">Enter the name of the bilateral or multilateral implementing agency (e.g. UN agency, NGO) from the ODA
 		list</entry>
 	<entry key="8channelDelivery.help.detail">Field no. 8 - Channel of delivery name: Enter the name of the bilateral or multilateral implementing
