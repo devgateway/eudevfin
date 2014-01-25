@@ -1,7 +1,9 @@
 package org.devgateway.eudevfin.financial;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -16,6 +18,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 import org.devgateway.eudevfin.financial.translate.CategoryTranslation;
@@ -63,6 +66,9 @@ public class Category extends AbstractTranslateable<CategoryTranslation>
 		return new CategoryTranslation();
 	}
 
+	@Transient
+	private List<Category> filteredChildren;
+
 
 	public String getDisplayableCode() {
 		String code		= this.getCode();
@@ -72,6 +78,10 @@ public class Category extends AbstractTranslateable<CategoryTranslation>
 		}
 		else
 			return code;
+	}
+	
+	public boolean isLastAncestor() {
+		return this.getParentCategory().getParentCategory() == null;
 	}
 
 	@Override
@@ -91,6 +101,12 @@ public class Category extends AbstractTranslateable<CategoryTranslation>
 		return "Category [code=" + code + ", getName()=" + getName() + "]";
 	}
 
+	
+	public List<Category> getFilteredChildren() {
+		if ( filteredChildren == null )
+			filteredChildren	= new ArrayList<Category>();
+		return filteredChildren;
+	}
 
 
 	public String getCode() {

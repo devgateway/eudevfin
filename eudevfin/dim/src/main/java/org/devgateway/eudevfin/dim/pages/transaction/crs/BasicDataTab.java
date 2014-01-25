@@ -87,19 +87,19 @@ public class BasicDataTab extends Panel implements PermissionAwareComponent {
         add(typeOfFlow);
 
         DropDownField<Category> typeOfFinance = new DropDownField<>("12typeOfFinance", new RWComponentPropertyModel<Category>("typeOfFinance"),
-                categoryFactory.get(CategoryConstants.TYPE_OF_FINANCE_TAG));
+                categoryFactory.get(CategoryConstants.ALL_TYPE_OF_FINANCE_TAG));
         typeOfFinance.required();
         add(typeOfFinance);
 
         DropDownField<Category> typeOfAid = new DropDownField<>("13typeOfAid", new RWComponentPropertyModel<Category>("typeOfAid"),
-                categoryFactory.get(CategoryConstants.TYPE_OF_AID_TAG));
+                categoryFactory.get(CategoryConstants.ALL_TYPE_OF_AID_TAG));
         add(typeOfAid);
 
         TextAreaInputField activityProjectTitle = new TextAreaInputField("14activityProjectTitle", new RWComponentPropertyModel<String>("shortDescription"));
         add(activityProjectTitle);
 
         DropDownField<Category> sectorPurposeCode = new DropDownField<>("15sectorPurposeCode", new RWComponentPropertyModel<Category>("sector"),
-                categoryFactory.get(CategoryConstants.SECTOR_TAG));
+                categoryFactory.get(CategoryConstants.ALL_SECTOR_TAG));
         add(sectorPurposeCode);
     }
 

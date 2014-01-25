@@ -8,25 +8,27 @@
 
 package org.devgateway.eudevfin.dim.providers;
 
+import java.awt.List;
 import java.util.ArrayList;
 import java.util.Collection;
 
 import org.apache.log4j.Logger;
 import org.devgateway.eudevfin.common.service.BaseEntityService;
-import org.devgateway.eudevfin.common.service.PagingHelper;
+import org.json.JSONException;
+import org.json.JSONWriter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
+import com.vaynberg.wicket.select2.ChoiceProvider;
 import com.vaynberg.wicket.select2.Response;
-import com.vaynberg.wicket.select2.TextChoiceProvider;
 
 /**
  * @author aartimon
  * @since 14/01/14
  */
-public abstract class AbstractTextChoiceProvider<T> extends TextChoiceProvider<T> {
+public abstract class AbstractTextChoiceProvider<T> extends ChoiceProvider<T> {
 
 	private static final long serialVersionUID = -5058430903550172780L;
 
@@ -79,5 +81,14 @@ public abstract class AbstractTextChoiceProvider<T> extends TextChoiceProvider<T
 		this.sort = sort;
 		return this;
 	}
+	
+	protected abstract String getDisplayText(T choice);
+
+    protected abstract Object getId(T choice);
+
+    @Override
+    public void toJson(T choice, JSONWriter writer) throws JSONException {
+    	writer.key("id").value(getId(choice)).key("text").value(getDisplayText(choice));
+    };
 
 }

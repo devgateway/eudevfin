@@ -146,7 +146,7 @@ public class CategoryServiceTest {
 		categoryService.save(testCategory2);
 		
 		List<Category> responseList	
-				= categoryService.findByGeneralSearchAndTagsCode("xx", "x1234", testTagCode);
+				= categoryService.findByGeneralSearchAndTagsCode("xx", "x1234", testTagCode, true);
 		
 		assertTrue(responseList.size()  == 1);
 		

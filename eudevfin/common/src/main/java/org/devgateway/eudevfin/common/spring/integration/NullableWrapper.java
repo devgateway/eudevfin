@@ -24,4 +24,8 @@ public final class NullableWrapper<ENTITY> implements Serializable {
 		return entity;
 	}
 	
+	public boolean isNull() {
+		return entity==null;
+	}
+	
 }

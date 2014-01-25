@@ -24,9 +24,14 @@ public interface CategoryService extends BaseEntityService<Category> {
 			@Header("clazz")Class<? extends Category> clazz, 
 			@Header("initializeChildren") Boolean initializeChildren);
 	
-	public Page<Category> findByGeneralSearchAndTagsCodePaginated(@Header("locale")String locale, 
-			String searchString, @Header("tagsCode") String tagsCode, @Header("pageable") Pageable page);
-	
-	public List<Category> findByGeneralSearchAndTagsCode(@Header("locale")String locale, 
-			String searchString, @Header("tagsCode") String tagsCode);
+	public Page<Category> findByGeneralSearchAndTagsCodePaginated(
+			@Header("locale") String locale, String searchString,
+			@Header("tagsCode") String tagsCode,
+			@Header("pageable") Pageable page,
+			@Header("initializeChildren") Boolean initializeChildren);
+
+	public List<Category> findByGeneralSearchAndTagsCode(
+			@Header("locale") String locale, String searchString,
+			@Header("tagsCode") String tagsCode,
+			@Header("initializeChildren") Boolean initializeChildren);
 }

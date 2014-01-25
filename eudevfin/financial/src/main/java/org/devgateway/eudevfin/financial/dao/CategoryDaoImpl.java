@@ -3,6 +3,7 @@
  */
 package org.devgateway.eudevfin.financial.dao;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.devgateway.eudevfin.common.dao.AbstractDaoImpl;
@@ -100,19 +101,46 @@ public class CategoryDaoImpl extends AbstractDaoImpl<Category, Long, CategoryRep
 	 * @param page 
 	 * @return
 	 */
-	@ServiceActivator(inputChannel="findCategoryByGeneralSearchAndTagsCodePaginatedChannel")
-	public Page<Category> findByGeneralSearchAndTagsCodePaginated(@Header("locale")String locale, 
-			String searchString, @Header("tagsCode") String tagsCode, @Header("pageable") Pageable page) {
-		if(searchString.isEmpty()) return this.getRepo().findByTagsCode(tagsCode,page);
-		return this.getRepo().findByTranslationsNameIgnoreCaseContainsAndTagsCode(searchString.toLowerCase(), tagsCode, page);					
+	@ServiceActivator(inputChannel = "findCategoryByGeneralSearchAndTagsCodePaginatedChannel")
+	@Transactional
+	public Page<Category> findByGeneralSearchAndTagsCodePaginated(
+			@Header("locale") String locale, String searchString,
+			@Header("tagsCode") String tagsCode,
+			@Header("pageable") Pageable page,
+			@Header("initializeChildren") Boolean initializeChildren) {
+		
+		Page<Category> result	= null;
+		if (searchString.isEmpty())
+			result 	= this.getRepo().findByTagsCode(tagsCode, page);
+		else
+			result	= this.getRepo().findByTranslationsNameIgnoreCaseContainsAndTagsCode(
+						searchString.toLowerCase(), tagsCode, page);
+		
+		this.initializeChildrenIfNeeded(result, initializeChildren);
+		
+		return result;
+		
 	}
 	
 	
 	@ServiceActivator(inputChannel="findCategoryByGeneralSearchAndTagsCodeChannel")
-	public List<Category> findByGeneralSearchAndTagsCode(@Header("locale") String locale, String searchString,
-			@Header("tagsCode") String tagsCode) {
-		return this.getRepo().findByTranslationsLocaleAndTranslationsNameIgnoreCaseContainsAndTagsCode(locale,
-				searchString.toLowerCase(), tagsCode);
+	@Transactional
+	public List<Category> findByGeneralSearchAndTagsCode(
+			@Header("locale") String locale, String searchString,
+			@Header("tagsCode") String tagsCode,
+			@Header("initializeChildren") Boolean initializeChildren) {
+		
+		List<Category> result = null;
+		if ( searchString == null || searchString.isEmpty() )
+			result	= this.getRepo().findByTagsCode(tagsCode);
+		else
+			result 	= this.getRepo().
+					findByTranslationsLocaleAndTranslationsNameIgnoreCaseContainsAndTagsCode(
+						locale, searchString.toLowerCase(), tagsCode);
+		
+		this.initializeChildrenIfNeeded(result, initializeChildren);
+		
+		return result;
 	}
 	
 	/**
@@ -120,11 +148,25 @@ public class CategoryDaoImpl extends AbstractDaoImpl<Category, Long, CategoryRep
 	 */
 	@ServiceActivator(inputChannel="findCategoryByIdChannel")	
 	@Override
+	@Transactional
 	public NullableWrapper<Category> findOne(Long id) {
-		// TODO Auto-generated method stub
-		return super.findOne(id);
+		Boolean initializeChildren			= true;
+		NullableWrapper<Category> result	= super.findOne(id);
+		if ( initializeChildren && !result.isNull() ) {
+			this.initializeChildren(result.getEntity());
+		}
+		return result;
 	}
 	
+	
+	public void initializeChildrenIfNeeded(Iterable<Category> categories, Boolean initializeChildren) {
+		initializeChildren	= initializeChildren == null ? false : initializeChildren;
+		if ( initializeChildren && categories != null ) {
+			for (Category category : categories) {
+				this.initializeChildren(category);
+			}
+		}
+	}
 	
 	public void initializeChildren(Category category) {
 		if ( category.getChildren() != null ) {
