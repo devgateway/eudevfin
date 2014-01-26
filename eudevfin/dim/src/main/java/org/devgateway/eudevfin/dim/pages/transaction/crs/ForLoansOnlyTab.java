@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.ComponentPropertyModel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.dim.core.models.BigMoneyModel;
 import org.devgateway.eudevfin.dim.core.models.DateToLocalDateTimeModel;
 import org.devgateway.eudevfin.financial.Category;
@@ -32,9 +33,11 @@ import org.joda.time.LocalDateTime;
  */
 public class ForLoansOnlyTab extends Panel implements PermissionAwareComponent {
     public static final String KEY = "tabs.loans";
+	private PageParameters parameters;
 
-    public ForLoansOnlyTab(String id) {
+    public ForLoansOnlyTab(String id,PageParameters parameters) {
         super(id);
+        this.parameters=parameters;
         addComponents();
     }
 

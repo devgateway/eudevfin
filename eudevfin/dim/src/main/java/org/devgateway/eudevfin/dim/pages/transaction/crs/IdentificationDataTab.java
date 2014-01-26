@@ -9,6 +9,7 @@
 package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.dim.core.models.DateToLocalDateTimeModel;
 import org.devgateway.eudevfin.dim.core.models.YearToLocalDateTimeModel;
@@ -29,6 +30,7 @@ import org.joda.time.LocalDateTime;
  * @since 01 November 2013
  */
 public class IdentificationDataTab extends Panel implements PermissionAwareComponent {
+	protected PageParameters parameters;
     public static final String KEY = "tabs.identification";
 
     @SpringBean
@@ -37,8 +39,9 @@ public class IdentificationDataTab extends Panel implements PermissionAwareCompo
     private CategoryProviderFactory categoryFactory;
 
 
-    public IdentificationDataTab(String id) {
+    public IdentificationDataTab(String id,PageParameters parameters) {
         super(id);
+        this.parameters=parameters;
         addComponents();
     }
 

@@ -16,6 +16,7 @@ import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.StringResourceModel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 /**
  * Class that builds an {@link AbstractTabWithKey} wrapped around a given {@link Panel} that has to implement {@link ITabWithKey}
@@ -26,24 +27,26 @@ import org.apache.wicket.model.StringResourceModel;
 public class DefaultTabWithKey extends AbstractTabWithKey {
     private static final Logger logger = Logger.getLogger(DefaultTabWithKey.class);
     private final Class<? extends Panel> panel;
+	private PageParameters parameters;
 
-    private DefaultTabWithKey(StringResourceModel title, String tabKey, Class<? extends Panel> panel) {
+    private DefaultTabWithKey(StringResourceModel title, String tabKey, Class<? extends Panel> panel,PageParameters parameters) {
         super(title, tabKey);
         this.panel = panel;
+        this.parameters=parameters;
     }
 
     @Override
     public WebMarkupContainer getPanel(String panelId) {
         try {
-            Constructor<? extends Panel> constructor = panel.getConstructor(String.class);
-            return constructor.newInstance(panelId);
+            Constructor<? extends Panel> constructor = panel.getConstructor(String.class,PageParameters.class);
+            return constructor.newInstance(panelId,parameters);
         } catch (Exception e) {
             logger.error("Can't spawn new panel: " + panel, e);
             throw new AssertionError("Can't create new panel: " + panel);
         }
     }
 
-    public static DefaultTabWithKey of(Class<? extends Panel> panel, Component askingComponent) {
+    public static DefaultTabWithKey of(Class<? extends Panel> panel, Component askingComponent,PageParameters parameters) {
         String key;
         try {
             Field field = panel.getField("KEY");
@@ -52,6 +55,6 @@ public class DefaultTabWithKey extends AbstractTabWithKey {
             logger.error("Can't get KEY field:", e);
             throw new AssertionError("KEY field is required for panel:" + panel);
         }
-        return new DefaultTabWithKey(new StringResourceModel(key, askingComponent, null), key, panel);
+        return new DefaultTabWithKey(new StringResourceModel(key, askingComponent, null), key, panel,parameters);
     }
 }

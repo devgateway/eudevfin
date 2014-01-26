@@ -11,6 +11,7 @@ package org.devgateway.eudevfin.dim.pages.transaction.custom;
 import java.math.BigDecimal;
 
 import org.apache.wicket.model.ComponentPropertyModel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.dim.core.models.BigMoneyModel;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.ForLoansOnlyTab;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
@@ -26,8 +27,8 @@ import org.joda.money.CurrencyUnit;
  * @since 11/12/13
  */
 public class CustomForLoansOnlyTab extends ForLoansOnlyTab {
-    public CustomForLoansOnlyTab(String id) {
-        super(id);
+    public CustomForLoansOnlyTab(String id,PageParameters parameters) {
+        super(id, parameters);
         addComponents();
     }
 

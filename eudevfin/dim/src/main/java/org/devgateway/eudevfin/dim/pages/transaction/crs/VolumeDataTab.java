@@ -8,12 +8,15 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
+import java.math.BigDecimal;
+
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.event.Broadcast;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.ComponentPropertyModel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.dim.core.models.BigMoneyModel;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
@@ -25,8 +28,6 @@ import org.devgateway.eudevfin.ui.common.temporary.SB;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 
-import java.math.BigDecimal;
-
 /**
  * @author aartimon@developmentgateway.org
  * @since 01 November 2013
@@ -34,9 +35,11 @@ import java.math.BigDecimal;
 public class VolumeDataTab extends Panel implements PermissionAwareComponent {
     private static final Logger logger = Logger.getLogger(VolumeDataTab.class);
     public static final String KEY = "tabs.volume";
+	private PageParameters parameters;
 
-    public VolumeDataTab(String id) {
+    public VolumeDataTab(String id,PageParameters parameters) {
         super(id);
+        this.parameters=parameters;
         addComponents();
         addExtensionPanel1();
         addExtensionPanel2();

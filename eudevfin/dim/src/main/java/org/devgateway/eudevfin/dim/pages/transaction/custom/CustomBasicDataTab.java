@@ -8,12 +8,14 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.custom;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
+import java.math.BigDecimal;
+
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.event.Broadcast;
 import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.dim.core.models.BigMoneyModel;
 import org.devgateway.eudevfin.dim.core.models.YearToLocalDateTimeModel;
@@ -34,7 +36,7 @@ import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 import org.joda.time.LocalDateTime;
 
-import java.math.BigDecimal;
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
 
 /**
  * Basic Data Tab extension for the EU-DEVFIN Form
@@ -47,8 +49,8 @@ public class CustomBasicDataTab extends BasicDataTab {
     @SpringBean
     private CategoryProviderFactory categoryFactory;
 
-    public CustomBasicDataTab(String id) {
-        super(id);
+    public CustomBasicDataTab(String id,PageParameters parameters) {
+        super(id, parameters);
         addComponents();
     }
 

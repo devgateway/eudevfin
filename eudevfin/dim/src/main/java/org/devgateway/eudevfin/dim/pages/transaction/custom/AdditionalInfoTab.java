@@ -9,6 +9,7 @@
 package org.devgateway.eudevfin.dim.pages.transaction.custom;
 
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.TextAreaInputField;
 import org.devgateway.eudevfin.ui.common.permissions.PermissionAwareComponent;
@@ -21,10 +22,11 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
  */
 public class AdditionalInfoTab extends Panel implements PermissionAwareComponent {
     public static final String KEY = "tabs.additional";
+	private PageParameters parameters;
 
-    public AdditionalInfoTab(String id) {
+    public AdditionalInfoTab(String id,PageParameters parameters) {
         super(id);
-
+        this.parameters=parameters;
         TextAreaInputField activityProjectTitle = new TextAreaInputField("99otherComments", new RWComponentPropertyModel<String>("otherComments"));
         activityProjectTitle.setSize(InputBehavior.Size.XXLarge).setRows(10);
         add(activityProjectTitle);

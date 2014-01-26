@@ -8,6 +8,7 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.custom;
 
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.dim.core.models.DateToLocalDateTimeModel;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.IdentificationDataTab;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
@@ -19,8 +20,8 @@ import org.joda.time.LocalDateTime;
  * @since 12/12/13
  */
 public class CustomIdentificationDataTab extends IdentificationDataTab {
-    public CustomIdentificationDataTab(String id) {
-        super(id);
+    public CustomIdentificationDataTab(String id,PageParameters parameters) {
+        super(id, parameters);
         addComponents();
     }
 

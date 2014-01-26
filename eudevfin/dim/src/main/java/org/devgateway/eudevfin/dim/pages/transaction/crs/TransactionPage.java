@@ -8,11 +8,14 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
-import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -40,9 +43,8 @@ import org.devgateway.eudevfin.ui.common.temporary.SB;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.wicketstuff.annotation.mount.MountPath;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
+import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
 
 @MountPath(value = "/transaction")
 @AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
@@ -136,6 +138,10 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 	@SuppressWarnings("unchecked")
 	public TransactionPage(final PageParameters parameters) {
 		super(parameters);
+		
+		Label pageType=new Label("pageType",Model.of(parameters.get(PARAM_TRANSACTION_ID)));
+		add(pageType);
+		
 		// TODO: check that transactionType in the request parameters is the
 		// same as the loaded transaction's type
 		FinancialTransaction financialTransaction = null;
@@ -156,7 +162,7 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 		form = new Form("form");
 		add(form);
 
-		List<ITabWithKey> tabList = populateTabList();
+		List<ITabWithKey> tabList = populateTabList(parameters);
 
 		BootstrapJSTabbedPanel<ITabWithKey> bc = new BootstrapJSTabbedPanel<>("bc", tabList)
 				.positionTabs(BootstrapJSTabbedPanel.Orientation.RIGHT);
@@ -192,20 +198,17 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 		feedbackPanel.setOutputMarkupId(true);
 		feedbackPanel.hideAfter(Duration.seconds(3));
 		add(feedbackPanel);
-
-
-
 	}
 
 	protected FinancialTransaction getFinancialTransaction() {
 		return new FinancialTransaction();
 	}
 
-	private List<ITabWithKey> populateTabList() {
+	private List<ITabWithKey> populateTabList(PageParameters parameters) {
 		List<Class<? extends Panel>> tabClasses = getTabs();
 		ArrayList<ITabWithKey> tabs = new ArrayList<>();
 		for (final Class<? extends Panel> p : tabClasses) {
-			tabs.add(DefaultTabWithKey.of(p, this));
+			tabs.add(DefaultTabWithKey.of(p, this,parameters));
 		}
 		return tabs;
 	}

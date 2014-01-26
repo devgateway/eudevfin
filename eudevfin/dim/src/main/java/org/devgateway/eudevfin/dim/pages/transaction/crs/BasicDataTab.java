@@ -10,7 +10,11 @@ package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.util.string.Strings;
+import org.apache.wicket.validation.IValidatable;
+import org.apache.wicket.validation.ValidationError;
 import org.devgateway.eudevfin.dim.providers.AreaChoiceProvider;
 import org.devgateway.eudevfin.dim.providers.CategoryProviderFactory;
 import org.devgateway.eudevfin.dim.providers.ChannelCategoryChoiceProvider;
@@ -18,19 +22,26 @@ import org.devgateway.eudevfin.dim.providers.OrganizationChoiceProvider;
 import org.devgateway.eudevfin.financial.Area;
 import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.ChannelCategory;
-import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.util.CategoryConstants;
+import org.devgateway.eudevfin.ui.common.Constants;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.components.TextAreaInputField;
 import org.devgateway.eudevfin.ui.common.permissions.PermissionAwareComponent;
+import org.devgateway.eudevfin.ui.common.temporary.SB;
+import org.devgateway.eudevfin.ui.common.validators.CodePatternCategoryValidator;
 
 /**
  * @author aartimon@developmentgateway.org
  * @since 01 November 2013
  */
 public class BasicDataTab extends Panel implements PermissionAwareComponent {
-    public static final String KEY = "tabs.basic";
+	private static final long serialVersionUID = 8923172292469016906L;
+	public static final String KEY = "tabs.basic";
+    public static final String REGEX_MULTILATERAL_CHANNEL_CODE="4[0-9]{4}";
+    public static final String ERRORKEY_MULTILATERAL_CHANNEL_CODE="validation.multilateralChannelCode";
+	protected PageParameters parameters;
+ 
 
     @SpringBean
     private OrganizationChoiceProvider organizationProvider;
@@ -41,8 +52,9 @@ public class BasicDataTab extends Panel implements PermissionAwareComponent {
     @SpringBean
     private AreaChoiceProvider areaProvider;
 
-    public BasicDataTab(String id) {
-        super(id);
+    public BasicDataTab(String id,PageParameters parameters) {
+        super(id);        
+        this.parameters=parameters;
         addComponents();
         addExtensionPanel1();
         addExtensionPanel2();
@@ -75,6 +87,19 @@ public class BasicDataTab extends Panel implements PermissionAwareComponent {
 
         DropDownField<ChannelCategory> channelOfDelivery = new DropDownField<>("8channelDelivery",
                 new RWComponentPropertyModel<ChannelCategory>("channel"), channelProvider);
+        
+        String transactionType=parameters.get(Constants.PARAM_TRANSACTION_TYPE).toString("");
+        if(!Strings.isEmpty(transactionType) 
+        		&& (Strings.isEqual(transactionType,SB.MULTILATERAL_ODA_ADVANCED_QUESTIONNAIRE) || 
+        		Strings.isEqual(transactionType,SB.MULTILATERAL_ODA_CRS)))        
+        channelOfDelivery.getField().add(new CodePatternCategoryValidator(REGEX_MULTILATERAL_CHANNEL_CODE) {
+			private static final long serialVersionUID = 691836793052873358L;
+			@Override
+        	protected ValidationError decorate(ValidationError error, IValidatable<Category> validatable) {
+        		error.addKey(ERRORKEY_MULTILATERAL_CHANNEL_CODE);
+        		return super.decorate(error, validatable);
+        	}
+        });
         add(channelOfDelivery);
 
         DropDownField<Category> bilateralMultilateral = new DropDownField<>("10bilateralMultilateral",

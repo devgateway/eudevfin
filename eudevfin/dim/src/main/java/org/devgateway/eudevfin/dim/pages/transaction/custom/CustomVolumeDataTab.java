@@ -8,12 +8,14 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.custom;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
+import java.math.BigDecimal;
+
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.model.ComponentPropertyModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.dim.core.models.BigMoneyModel;
 import org.devgateway.eudevfin.dim.core.models.ExchangeRateModel;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.VolumeDataTab;
@@ -27,7 +29,7 @@ import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.ExchangeRate;
 
-import java.math.BigDecimal;
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
 
 /**
  * @author aartimon
@@ -35,8 +37,8 @@ import java.math.BigDecimal;
  */
 @SuppressWarnings("WicketForgeJavaIdInspection")
 public class CustomVolumeDataTab extends VolumeDataTab {
-    public CustomVolumeDataTab(String id) {
-        super(id);
+    public CustomVolumeDataTab(String id,PageParameters parameters) {
+        super(id, parameters);
     }
 
     @Override

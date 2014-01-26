@@ -8,6 +8,7 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.custom;
 
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.SupplementaryDataTab;
 import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
@@ -21,8 +22,8 @@ import org.devgateway.eudevfin.ui.common.temporary.SB;
  * @since 11/12/13
  */
 public class CustomSupplementaryDataTab extends SupplementaryDataTab {
-    public CustomSupplementaryDataTab(String id) {
-        super(id);
+    public CustomSupplementaryDataTab(String id,PageParameters parameters) {
+        super(id,parameters);
         addComponents();
     }
 
