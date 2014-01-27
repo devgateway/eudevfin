@@ -20452,11 +20452,14 @@ Dashboards.getComponent = function (name) {
 };
 
 Dashboards.getComponentByName = function (name) {
-    if (this.globalContext) {
-        return eval(name);
-    } else {
-        return this.getComponent(name);
-    }
+    /*
+     * weird things happens when global context is true - CDF thinks that
+     * the components are attached to the window object.
+     *
+     * 'globalContext' - determines if components and params are retrieved
+     * from the current window's object or from the Dashboards singleton
+     */
+    return this.getComponent(name);
 };
 
 Dashboards.addComponents = function (components) {
