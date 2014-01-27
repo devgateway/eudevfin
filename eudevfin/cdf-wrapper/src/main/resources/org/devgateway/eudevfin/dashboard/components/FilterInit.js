@@ -31,10 +31,10 @@ function initFilter(parametersJson) {
 	        $('#' + filterId + ' select').prepend('<option value="Members">All Options</option>');
 
 	        // mark the first option as selected
-	        $('#' + filterId + ' select').val($('#' + filterId + ' select option:first').val());
+	        $('#' + filterId + ' select').val($('#' + filterId + ' select option:first').val()).change();
 	        // TODO - this should be done in a pretty way
 
-	        //app.sectorListParameter = "All Options";
+	        //app.biMultilateralListParameter = "Members";
 	        eval(this.parameter + ' =  "Members"');
         }
     }));
