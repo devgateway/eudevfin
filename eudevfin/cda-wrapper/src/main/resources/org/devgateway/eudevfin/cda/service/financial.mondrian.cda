@@ -18,19 +18,29 @@
         </Connection>
     </DataSources>
 
-    <DataAccess id="organizationList" connection="defaultConnectionLocale" type="mdx" access="public">
+    <DataAccess id="organizationList"
+                connection="defaultConnectionLocale"
+                type="mdx"
+                access="public">
+	    <BandedMode>compact</BandedMode>
+	    <Columns/>
 		<Name>organizationList MDX</Name>
         <Query>
         <![CDATA[
 			SELECT
             NON EMPTY {[Measures].[Commitments Amount]} ON COLUMNS,
-            NON EMPTY {[Reporting Organization].[Acronym].Members} ON ROWS
+            NON EMPTY {[Extending Agency].[Acronym].Members} ON ROWS
             FROM [Financial]
 		]]>
 		</Query>       
     </DataAccess>
 
-    <DataAccess id="sectorList" connection="defaultConnectionLocale" type="mdx" access="public">
+    <DataAccess id="sectorList"
+                connection="defaultConnectionLocale"
+                type="mdx"
+                access="public">
+	    <BandedMode>compact</BandedMode>
+	    <Columns/>
         <Name>sectorList MDX</Name>
         <Query>
         <![CDATA[
@@ -42,8 +52,13 @@
         </Query>
     </DataAccess>
 
-	<DataAccess id="biMultilateralList" connection="defaultConnectionLocale" type="mdx" access="public">
-		<Name>sectorList MDX</Name>
+	<DataAccess id="biMultilateralList"
+	            connection="defaultConnectionLocale"
+	            type="mdx"
+	            access="public">
+		<BandedMode>compact</BandedMode>
+		<Columns/>
+		<Name>biMultilateralList MDX</Name>
 		<Query>
 			<![CDATA[
             SELECT
@@ -54,20 +69,38 @@
 		</Query>
 	</DataAccess>
 
-	<DataAccess id="typeOfFinance" connection="defaultConnectionLocale" type="mdx" access="public">
-		<Name>sectorList MDX</Name>
+	<!--cache="true"-->
+	<!--cacheDuration="172800"-->
+	<DataAccess id="typeOfFinance"
+	            connection="defaultConnectionLocale"
+	            type="mdx"
+	            access="public">
+		<BandedMode>compact</BandedMode>
+		<Columns/>
+		<Name>Table Dashboard MDX</Name>
+		<Parameters>
+			<Parameter default="Members" name="app.sectorListParameter" type="String"/>
+			<Parameter default="Members" name="app.organizationListParameter" type="String"/>
+			<Parameter default="Members" name="app.biMultilateralListParameter" type="String"/>
+		</Parameters>
 		<Query>
 			<![CDATA[
             SELECT
-			NON EMPTY Hierarchize(Union(CrossJoin({[Reporting Year].[2009]}, {[Measures].[Commitments Amount]}), Union(CrossJoin({[Reporting Year].[2010]}, {[Measures].[Commitments Amount]}), Union(CrossJoin({[Reporting Year].[2011]}, {[Measures].[Commitments Amount]}), Union(CrossJoin({[Reporting Year].[2012]}, {[Measures].[Commitments Amount]}), CrossJoin({[Reporting Year].[2013]}, {[Measures].[Commitments Amount]})))))) ON COLUMNS,
+			Hierarchize(Union(CrossJoin({[Reporting Year].[2009]}, {[Measures].[Commitments Amount]}), Union(CrossJoin({[Reporting Year].[2010]}, {[Measures].[Commitments Amount]}), Union(CrossJoin({[Reporting Year].[2011]}, {[Measures].[Commitments Amount]}), Union(CrossJoin({[Reporting Year].[2012]}, {[Measures].[Commitments Amount]}), CrossJoin({[Reporting Year].[2013]}, {[Measures].[Commitments Amount]})))))) ON COLUMNS,
 			NON EMPTY {Hierarchize({[Type of Finance].[Name].Members})} ON ROWS
 			FROM [Financial]
+			WHERE ({[BiMultilateral].[Name].${app.biMultilateralListParameter}})
         ]]>
 		</Query>
 	</DataAccess>
 
-	<DataAccess id="typeOfAid" connection="defaultConnectionLocale" type="mdx" access="public">
-		<Name>sectorList MDX</Name>
+	<DataAccess id="typeOfAid"
+	            connection="defaultConnectionLocale"
+	            type="mdx"
+	            access="public">
+		<BandedMode>compact</BandedMode>
+		<Columns/>
+		<Name>typeOfAid MDX</Name>
 		<Query>
 			<![CDATA[
             SELECT
@@ -78,8 +111,13 @@
 		</Query>
 	</DataAccess>
 
-	<DataAccess id="typeOfFlow" connection="defaultConnectionLocale" type="mdx" access="public">
-		<Name>sectorList MDX</Name>
+	<DataAccess id="typeOfFlow"
+	            connection="defaultConnectionLocale"
+	            type="mdx"
+	            access="public">
+		<BandedMode>compact</BandedMode>
+		<Columns/>
+		<Name>typeOfFlow MDX</Name>
 		<Query>
 			<![CDATA[
             SELECT
@@ -90,8 +128,13 @@
 		</Query>
 	</DataAccess>
 
-	<DataAccess id="typeOfSectorsByFlow" connection="defaultConnectionLocale" type="mdx" access="public">
-		<Name>sectorList MDX</Name>
+	<DataAccess id="typeOfSectorsByFlow"
+	            connection="defaultConnectionLocale"
+	            type="mdx"
+	            access="public">
+		<BandedMode>compact</BandedMode>
+		<Columns/>
+		<Name>typeOfSectorsByFlow MDX</Name>
 		<Query>
 			<![CDATA[
 			SELECT

@@ -7,22 +7,44 @@
 			</Level>
 		</Hierarchy>
 	</Dimension>
-	<Dimension visible="true" highCardinality="false" name="Reporting Organization">
-		<Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allReportingOrganizations}" allLevelName="%{allReportingOrganizations}" description="%{reportingOrganizations}" allMemberName="%{allReportingOrganizations}">
-			<Table name="ORGANIZATION" schema="APP"></Table>
-			<Level name="Code" visible="true" table="ORGANIZATION" column="CODE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never"></Level>
-			<Level name="Acronym" visible="true" table="ORGANIZATION" column="ACRONYM" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never"></Level>
-		</Hierarchy>
-	</Dimension>
 	<Dimension visible="true" highCardinality="false" name="Extending Agency">
 		<Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Extending Agency" allMemberCaption="%{allExtendingAgencies}" allLevelName="%{allExtendingAgencies}" description="%{extendingAgencies}" allMemberName="%{allExtendingAgencies}">
 			<Table name="ORGANIZATION" schema="APP"></Table>
 			<Level name="code" visible="true" table="ORGANIZATION" column="CODE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never"></Level>
+			<Level name="Acronym" visible="true" table="ORGANIZATION" column="ACRONYM" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never"></Level>
 		</Hierarchy>
 	</Dimension>
 	<Dimension visible="true" highCardinality="false" name="Channel">
 		<Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Channel">
 			<View alias="ChannelView">
+				<SQL dialect="generic"><![CDATA[
+			select
+				DISTINCT "CATEGORY"."ID", "CATEGORY"."CODE"
+			from
+				"APP"."CATEGORY" as "CATEGORY",
+				"APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION",
+				"APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
+			WHERE
+				"CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
+				"CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
+				"CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='CHANNEL_TAG')
+			group by
+				"CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME",
+				"CATEGORY"."CODE"
+			order by
+				CASE WHEN "CATEGORY"."ID" IS NULL THEN 1 ELSE 0 END,
+				"CATEGORY"."ID" ASC,
+				CASE WHEN "CATEGORY"."CODE" IS NULL THEN 1 ELSE 0 END,
+				"CATEGORY"."CODE" ASC
+			]]></SQL>
+			</View>
+			<Level name="Code" visible="true" column="CODE" uniqueMembers="false">
+			</Level>
+		</Hierarchy>
+	</Dimension>
+	<Dimension visible="true" highCardinality="false" name="Channel Localized">
+		<Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Channel Localized">
+			<View alias="ChannelLocalizedView">
 				<SQL dialect="generic"><![CDATA[
 			select
 				"CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE"
@@ -253,7 +275,6 @@
 			]]></SQL>
 		</View>		
 		<DimensionUsage source="Area" name="Area" visible="true" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
-		<DimensionUsage source="Reporting Organization" name="Reporting Organization" visible="true" foreignKey="REPORTINGORGANIZATION_ID" highCardinality="false"></DimensionUsage>
 		<DimensionUsage source="Extending Agency" name="Extending Agency" visible="true" foreignKey="EXTENDINGAGENCY_ID" highCardinality="false"></DimensionUsage>
 		<DimensionUsage source="Sector" name="Sector" visible="true" foreignKey="SECTOR_ID" highCardinality="false"></DimensionUsage>
 		<DimensionUsage source="Channel" name="Channel" visible="true" foreignKey="CHANNEL_ID" highCardinality="false"></DimensionUsage>

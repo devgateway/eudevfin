@@ -25,15 +25,17 @@ public abstract class BaseParameters {
     private String htmlObject;
 
 	private String type;
+	private int priority;
 
     private List<String> listeners;
-    private List<String> parameters;
+    private List<List<String>> parameters;
 
 	private Boolean executeAtStart;
 
     public BaseParameters(String id) {
 	    this.name = id;
 	    this.htmlObject = id;
+	    this.priority = 5;
 	    this.listeners = new ArrayList<>();
 	    this.parameters = new ArrayList<>();
 	    this.executeAtStart = Boolean.TRUE;
@@ -42,13 +44,18 @@ public abstract class BaseParameters {
 	public BaseParameters(String name, String id) {
 		this.name = name;
 		this.htmlObject = id;
+		this.priority = 5;
 		this.listeners = new ArrayList<>();
 		this.parameters = new ArrayList<>();
 		this.executeAtStart = Boolean.TRUE;
 	}
 
     public void addFilter(Filter filter) {
+	    List<String> param = new ArrayList<>();
         listeners.add(filter.getParameters().getParameter());
+	    param.add(filter.getParameters().getParameter());
+	    param.add(filter.getParameters().getParameter());
+	    parameters.add(param);
     }
 
     public String toJson() {
@@ -83,6 +90,14 @@ public abstract class BaseParameters {
 		this.type = type;
 	}
 
+	public int getPriority() {
+		return priority;
+	}
+
+	public void setPriority(int priority) {
+		this.priority = priority;
+	}
+
 	public List<String> getListeners() {
 		return listeners;
 	}
@@ -91,11 +106,11 @@ public abstract class BaseParameters {
 		this.listeners = listeners;
 	}
 
-	public List<String> getParameters() {
+	public List<List<String>> getParameters() {
 		return parameters;
 	}
 
-	public void setParameters(List<String> parameters) {
+	public void setParameters(List<List<String>> parameters) {
 		this.parameters = parameters;
 	}
 

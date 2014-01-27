@@ -26,19 +26,19 @@ function initStackedBarChart(parametersJson) {
 		        len,
 		        i;
 
-			len = stackedBarQueryResult.length;
-			for (i = 0; i < len; i++) {
-				resultCategories.push(stackedBarQueryResult[i][5]);
-				if(resultSeries[stackedBarQueryResult[i][2]] === undefined) {
-					resultSeries[stackedBarQueryResult[i][2]] = [];
+		    len = stackedBarQueryResult.length;
+		    for (i = 0; i < len; i++) {
+				resultCategories.push(stackedBarQueryResult[i][1]);
+				if(resultSeries[stackedBarQueryResult[i][0]] === undefined) {
+					resultSeries[stackedBarQueryResult[i][0]] = [];
 				}
 
-				if (stackedBarQueryResult[i][6] !== null && stackedBarQueryResult[i][6] != undefined) {
-					resultSeries[stackedBarQueryResult[i][2]].push(parseInt(stackedBarQueryResult[i][6], 10));
+				if (stackedBarQueryResult[i][2] !== null && stackedBarQueryResult[i][2] != undefined) {
+					resultSeries[stackedBarQueryResult[i][0]].push(parseInt(stackedBarQueryResult[i][2], 10));
 				} else {
-					resultSeries[stackedBarQueryResult[i][2]].push(0);
+					resultSeries[stackedBarQueryResult[i][0]].push(0);
 				}
-			}
+		    }
 
 		    resultCategories = _.uniq(resultCategories, false);
 

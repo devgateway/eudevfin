@@ -44,10 +44,11 @@ public class ReportsPage extends HeaderFooter {
 	    Filter biMultilateralFilter = new Filter("biMultilateralFilter", "biMultilateralList", "dashboards.biMultilateral.filter", "app.biMultilateralListParameter");
 	    add(biMultilateralFilter);
 
-	    Table testTable = new Table("testTable", "typeOfFinance", "dashboards.typeOfFinance");
-        testTable.parameters().addFilter(sectorFilter);
-        testTable.parameters().addFilter(orgFilter);
-        add(testTable);
+	    Table tableDashboard = new Table("tableDashboard", "typeOfFinance", "dashboards.typeOfFinance");
+	    tableDashboard.parameters().addFilter(sectorFilter);
+	    tableDashboard.parameters().addFilter(orgFilter);
+	    tableDashboard.parameters().addFilter(biMultilateralFilter);
+        add(tableDashboard);
 
         PieChart pieChart = new PieChart("pieChart", "typeOfAid", "dashboards.typeOfAid");
         add(pieChart);

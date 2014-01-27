@@ -6,28 +6,21 @@
  * http://www.gnu.org/licenses/gpl.html
  */
 
-// TODO: onChange event is not working!
-var sectorListParameter,
-    organizationListParameter,
-	biMultilateralListParameter;
-
 function initFilter(parametersJson) {
 	'use strict';
 
 	var filterId = parametersJson.htmlObject;
     var filter = new app.FilterModel(_.extend(parametersJson, {
+	    preChange: function (value) {
+			// we need to this in order to filter MDX results
+		    if (value !== 'Members') {
+		        return '[' + value + ']';
+		    } else {
+			    return value;
+		    }
+	    },
+
         postFetch: function (values) {
-	        // this is just for the demo, for the actual dashboard page we should change this behavior
-	        var newResultSet = [];
-	        var len = values.resultset.length;
-	        for (var i = 0; i < len; i++) {
-		        if (values.resultset[i][2] !== null && values.resultset[i][2] !== '#null') {
-		            newResultSet.push([values.resultset[i][2]]);
-		        }
-	        }
-
-	        values.resultset = newResultSet;
-
             return values;
         },
         preExecution: function () {
@@ -35,12 +28,14 @@ function initFilter(parametersJson) {
         },
         postExecution: function () {
 	        // add the 'All Options' option
-	        $('#' + filterId + ' select').prepend('<option value="All Options">All Options</option>');
+	        $('#' + filterId + ' select').prepend('<option value="Members">All Options</option>');
 
 	        // mark the first option as selected
-	        $('#' + filterId + ' select').val($('#' + filterId + ' select option:first').val());
+	        $('#' + filterId + ' select').val($('#' + filterId + ' select option:first').val()).change();
 	        // TODO - this should be done in a pretty way
-	        //sectorListParameter = "All Options";
+
+	        //app.biMultilateralListParameter = "Members";
+	        eval(this.parameter + ' =  "Members"');
         }
     }));
 

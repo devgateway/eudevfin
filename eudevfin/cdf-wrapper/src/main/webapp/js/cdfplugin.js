@@ -19979,6 +19979,10 @@ Dashboards.setGlobalContext = function (globalContext) {
     this.globalContext = globalContext;
 };
 
+Dashboards.setLogLifecycle = function (logLifecycle) {
+    this.logLifecycle = logLifecycle;
+};
+
 Dashboards.showProgressIndicator = function () {
     this.blockUIwithDrag();
 };
