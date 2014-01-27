@@ -14,13 +14,19 @@
   MEMBER [Measures].[SouthOfSahara] as SUM({[Area].[249],[Area].[251],[Area].[252],[Area].[253],[Area].[255],[Area].[256],[Area].[257],[Area].[259],[Area].[260],[Area].[261],[Area].[265],[Area].[266],[Area].[268],[Area].[269],[Area].[270],[Area].[271],[Area].[272],[Area].[273],[Area].[274],[Area].[275],[Area].[276],[Area].[278],[Area].[279],[Area].[280],[Area].[282],[Area].[283],[Area].[285],[Area].[287],[Area].[288]}, [Measures].[Net Amount])
   MEMBER [Measures].[Afghanistan] as SUM({[Area].[625]}, [Measures].[Net Amount])
   MEMBER [Measures].[Iraq] as SUM({[Area].[543]}, [Measures].[Net Amount])
+  MEMBER [Measures].[SouthOfSaharaDebtRelief] as ([Measures].[SouthOfSahara], [Type of Finance].[TYPE_OF_FINANCE##610])
+  MEMBER [Measures].[AfghanistanReconstruction] as ([Measures].[Afghanistan], [Sector].[700])
+  MEMBER [Measures].[IraqReconstruction] as ([Measures].[Iraq], [Sector].[700])
 SELECT
 {
 [Measures].[LDC],
 [Measures].[Africa],
 [Measures].[SouthOfSahara],
 [Measures].[Afghanistan],
-[Measures].[Iraq]
+[Measures].[Iraq],
+[Measures].[SouthOfSaharaDebtRelief],
+[Measures].[AfghanistanReconstruction],
+[Measures].[IraqReconstruction]
 }  ON COLUMNS
 FROM [Financial]
 WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]}]]>
@@ -40,11 +46,20 @@ WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]
 	<field name="Iraq" class="java.lang.Number">
 		<fieldDescription><![CDATA[Data([Measures].[Iraq])]]></fieldDescription>
 	</field>
+	<field name="SouthOfSaharaDebtRelief" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[SouthOfSaharaDebtRelief])]]></fieldDescription>
+	</field>
+	<field name="AfghanistanReconstruction" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[AfghanistanReconstruction])]]></fieldDescription>
+	</field>
+	<field name="IraqReconstruction" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[IraqReconstruction])]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<pageHeader>
-		<band height="92" splitType="Stretch">
+		<band height="127" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="0" width="295" height="14" uuid="75a9d431-f9ec-4d1d-8f7a-bb967d39b954"/>
 				<textElement verticalAlignment="Top">
@@ -74,14 +89,14 @@ WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]
 				<textFieldExpression><![CDATA[$R{aq.memo.subsaharanAfrica}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="32" y="56" width="263" height="14" uuid="98df0763-f62e-49e9-9314-57c8d501ca49"/>
+				<reportElement x="32" y="70" width="263" height="14" uuid="98df0763-f62e-49e9-9314-57c8d501ca49"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$R{aq.memo.afghanistan}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="32" y="70" width="263" height="14" uuid="df2f387a-f274-4304-9fe5-73fa1725fb89"/>
+				<reportElement x="32" y="98" width="263" height="14" uuid="df2f387a-f274-4304-9fe5-73fa1725fb89"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
 				</textElement>
@@ -102,21 +117,21 @@ WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]
 				<textFieldExpression><![CDATA[$F{SouthOfSahara}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="352" y="56" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<reportElement x="352" y="70" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Afghanistan}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="352" y="70" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<reportElement x="352" y="98" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Iraq}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="297" y="56" width="50" height="14" uuid="2b4b17ea-722f-43f7-9d31-24484b9b0222"/>
+				<reportElement x="297" y="70" width="50" height="14" uuid="2b4b17ea-722f-43f7-9d31-24484b9b0222"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
 				</textElement>
@@ -144,7 +159,7 @@ WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]
 				<text><![CDATA[039]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="297" y="70" width="50" height="14" uuid="8833bb80-c401-4028-990b-b934027aad75"/>
+				<reportElement x="297" y="98" width="50" height="14" uuid="8833bb80-c401-4028-990b-b934027aad75"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
 				</textElement>
@@ -158,7 +173,7 @@ WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]
 				<textFieldExpression><![CDATA[$F{LDC}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<subreport>
-				<reportElement x="455" y="14" width="100" height="70" uuid="f1671a23-5b09-4b8f-9c89-d83e08f246f7"/>
+				<reportElement x="455" y="14" width="100" height="112" uuid="f1671a23-5b09-4b8f-9c89-d83e08f246f7"/>
 				<subreportParameter name="YEAR">
 					<subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -167,6 +182,69 @@ WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]
 				</subreportParameter>
 				<subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/aq_master_memo_region_year_b.jasper"]]></subreportExpression>
 			</subreport>
+			<staticText>
+				<reportElement x="297" y="56" width="50" height="14" uuid="7a9a2d6e-a36b-4624-b651-8327c7f8e74f"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[8839]]></text>
+			</staticText>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="352" y="56" width="100" height="14" uuid="bb8e0c2a-53f4-4fe5-97fb-3ddf20252846"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SouthOfSaharaDebtRelief}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="48" y="56" width="247" height="14" uuid="24b5bd5d-bfe6-4c10-b368-3e957f628f0e"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{aq.memo.subsaharanAfrica.subtitle}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="352" y="84" width="100" height="14" uuid="2ef1b929-13e9-4871-a866-500b407b47fd"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{AfghanistanReconstruction}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="48" y="84" width="247" height="14" uuid="38b331fc-bc1b-4aa0-9ece-4f99217b09f6"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{aq.memo.afghanistan.subtitle}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="297" y="84" width="50" height="14" uuid="e3dc4ec8-1c16-4fcc-92f0-608241e0e982"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[8827]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="297" y="112" width="50" height="14" uuid="e5d89840-8b99-4f71-847c-c7ae7aa8144d"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[8828]]></text>
+			</staticText>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="352" y="112" width="100" height="14" uuid="a6091e5a-e77f-4b95-ae84-4bebb07886f6"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{IraqReconstruction}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="48" y="112" width="247" height="14" uuid="d84ee943-f265-428d-9d59-bbd1cd37f35a"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{aq.memo.iraq.subtitle}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>

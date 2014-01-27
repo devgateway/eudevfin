@@ -40,7 +40,7 @@ WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]
 		<band splitType="Stretch"/>
 	</background>
 	<pageHeader>
-		<band height="50" splitType="Stretch">
+		<band height="42" splitType="Stretch">
 			<textField>
 				<reportElement x="2" y="0" width="290" height="14" uuid="75a9d431-f9ec-4d1d-8f7a-bb967d39b954"/>
 				<textElement verticalAlignment="Top">

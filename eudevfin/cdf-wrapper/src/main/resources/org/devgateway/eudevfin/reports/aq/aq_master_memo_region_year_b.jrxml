@@ -12,13 +12,19 @@
   MEMBER [Measures].[SouthOfSahara] as SUM({[Area].[249],[Area].[251],[Area].[252],[Area].[253],[Area].[255],[Area].[256],[Area].[257],[Area].[259],[Area].[260],[Area].[261],[Area].[265],[Area].[266],[Area].[268],[Area].[269],[Area].[270],[Area].[271],[Area].[272],[Area].[273],[Area].[274],[Area].[275],[Area].[276],[Area].[278],[Area].[279],[Area].[280],[Area].[282],[Area].[283],[Area].[285],[Area].[287],[Area].[288]}, [Measures].[Net Amount])
   MEMBER [Measures].[Afghanistan] as SUM({[Area].[625]}, [Measures].[Net Amount])
   MEMBER [Measures].[Iraq] as SUM({[Area].[543]}, [Measures].[Net Amount])
+  MEMBER [Measures].[SouthOfSaharaDebtRelief] as ([Measures].[SouthOfSahara], [Type of Finance].[TYPE_OF_FINANCE##610])
+  MEMBER [Measures].[AfghanistanReconstruction] as ([Measures].[Afghanistan], [Sector].[700])
+  MEMBER [Measures].[IraqReconstruction] as ([Measures].[Iraq], [Sector].[700])
 SELECT
 {
 [Measures].[LDC],
 [Measures].[Africa],
 [Measures].[SouthOfSahara],
 [Measures].[Afghanistan],
-[Measures].[Iraq]
+[Measures].[Iraq],
+[Measures].[SouthOfSaharaDebtRelief],
+[Measures].[AfghanistanReconstruction],
+[Measures].[IraqReconstruction]
 }  ON COLUMNS
 FROM [Financial]
 WHERE {[Reporting Year].[$P{YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]}]]>
@@ -38,11 +44,20 @@ WHERE {[Reporting Year].[$P{YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]}]]>
 	<field name="Iraq" class="java.lang.Number">
 		<fieldDescription><![CDATA[Data([Measures].[Iraq])]]></fieldDescription>
 	</field>
+	<field name="SouthOfSaharaDebtRelief" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[SouthOfSaharaDebtRelief])]]></fieldDescription>
+	</field>
+	<field name="AfghanistanReconstruction" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[AfghanistanReconstruction])]]></fieldDescription>
+	</field>
+	<field name="IraqReconstruction" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[IraqReconstruction])]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<pageHeader>
-		<band height="70" splitType="Stretch">
+		<band height="112" splitType="Stretch">
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="0" y="0" width="100" height="14" uuid="6e367b7c-1d43-4f3c-9550-7e5b1252bb47"/>
 				<textElement textAlignment="Right">
@@ -65,18 +80,39 @@ WHERE {[Reporting Year].[$P{YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]}]]>
 				<textFieldExpression><![CDATA[$F{SouthOfSahara}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="0" y="42" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<reportElement x="0" y="56" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Afghanistan}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="0" y="56" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<reportElement x="0" y="84" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Iraq}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="0" y="42" width="100" height="14" uuid="eabf1c71-02e1-4c5b-8a4a-23d58eea9f77"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SouthOfSaharaDebtRelief}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="0" y="70" width="100" height="14" uuid="78e0db65-3a90-43de-ac72-076bb75c39f6"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{AfghanistanReconstruction}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="0" y="98" width="100" height="14" uuid="0adc860e-f423-4606-8d59-4003fb43e9a5"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{IraqReconstruction}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>

@@ -1,33 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" whenNoDataType="AllSectionsNoDetail" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="java" pageWidth="555" pageHeight="842" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4d81083f-52a3-45df-97af-b93a485e497a">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="555" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4d81083f-52a3-45df-97af-b93a485e497a">
 	<property name="ireport.callouts" value="##Mon Dec 30 08:46:00 ART 2013"/>
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="247"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="FIRST_YEAR" class="java.lang.Number"/>
 	<parameter name="SECOND_YEAR" class="java.lang.Number"/>
 	<parameter name="SUBDIR_PATH" class="java.lang.String"/>
 	<queryString language="mdx">
-		<![CDATA[SELECT
-{[Sector].[700],[Sector].[73010],[Sector].[520]} ON ROWS,
-{[Measures].[Net Amount]} ON COLUMNS
+		<![CDATA[WITH MEMBER [Measures].[Humanitarian Aid] AS SUM({[Sector].[700],[Sector].[720],[Sector].[72010],[Sector].[72040],[Sector].[72050],[Sector].[730],[Sector].[73010],[Sector].[740],[Sector].[74010]}, [Measures].[Net Amount])
+MEMBER [Measures].[Short Term Reconstruction] AS SUM({[Sector].[73010]}, [Measures].[Net Amount])
+MEMBER [Measures].[Development Food Aid] AS SUM({[Sector].[520],[Sector].[52010]}, [Measures].[Net Amount])
+SELECT
+{
+[Measures].[Humanitarian Aid],
+[Measures].[Short Term Reconstruction],
+[Measures].[Development Food Aid]
+} ON COLUMNS
 FROM [Financial]
 WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]}]]>
 	</queryString>
 	<field name="Humanitarian Aid" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Net Amount], [Sector].[700])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Humanitarian Aid])]]></fieldDescription>
 	</field>
 	<field name="Short-term Reconstruction" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Net Amount], [Sector].[73010])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Short Term Reconstruction])]]></fieldDescription>
 	</field>
 	<field name="Development food aid" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Net Amount], [Sector].[520])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Development Food Aid])]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<pageHeader>
-		<band height="47" splitType="Stretch">
+		<band height="56" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="0" width="295" height="14" uuid="75a9d431-f9ec-4d1d-8f7a-bb967d39b954"/>
 				<textElement verticalAlignment="Top">
@@ -43,11 +49,11 @@ WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]
 				<textFieldExpression><![CDATA[$R{aq.memo.humanitarianAid}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="32" y="28" width="263" height="14" uuid="c03c6a7a-d273-4ff0-a6b8-f056be956483"/>
+				<reportElement x="47" y="28" width="248" height="14" uuid="c03c6a7a-d273-4ff0-a6b8-f056be956483"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$R{aq.memo.developmentFoodAid}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{aq.memo.shortTermReconstruction}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="352" y="14" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
@@ -61,7 +67,7 @@ WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Development food aid}.doubleValue()/1000000]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Short-term Reconstruction}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="297" y="14" width="50" height="14" uuid="fc907d23-3983-433c-880b-17a19161b374"/>
@@ -75,10 +81,10 @@ WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[060]]></text>
+				<text><![CDATA[088]]></text>
 			</staticText>
 			<subreport>
-				<reportElement x="455" y="14" width="100" height="28" uuid="f1671a23-5b09-4b8f-9c89-d83e08f246f7"/>
+				<reportElement x="455" y="14" width="100" height="42" uuid="f1671a23-5b09-4b8f-9c89-d83e08f246f7"/>
 				<subreportParameter name="YEAR">
 					<subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -87,6 +93,27 @@ WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]
 				</subreportParameter>
 				<subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/aq_master_memo_sector_year_b.jasper"]]></subreportExpression>
 			</subreport>
+			<textField>
+				<reportElement x="32" y="42" width="263" height="14" uuid="bd582ef9-6aa6-4e39-8522-d8dc98be7c7b"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{aq.memo.developmentFoodAid}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="352" y="42" width="100" height="14" uuid="48bb8c41-75a4-40bb-a3db-8fe3429d2a15"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Development food aid}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="297" y="42" width="50" height="14" uuid="2b559879-8982-41ef-a05c-3cc16128388f"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[060]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
