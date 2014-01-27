@@ -26,8 +26,8 @@ public class StackedBarChart extends Panel implements IParametersProvider {
         stackedBarChart.setOutputMarkupId(true);
         add(stackedBarChart);
 
-		String stackedBarCharttId = stackedBarChart.getMarkupId();
-		parameters = new ChartParameters(stackedBarCharttId);
+		String stackedBarChartId = stackedBarChart.getMarkupId();
+		parameters = new ChartParameters(id, stackedBarChartId);
 
 		parameters.getQueryDefinition().setDataAccessId(dataAccessId);
     }

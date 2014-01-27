@@ -38,7 +38,7 @@ public class Filter extends Panel implements IParametersProvider {
         add(filter);
 
 	    String filterId = filter.getMarkupId();
-	    parameters = new FilterParameters(filterId);
+	    parameters = new FilterParameters(id, filterId);
 
 	    parameters.setParameter(parameter);
 	    parameters.getQueryDefinition().setDataAccessId(dataAccessId);

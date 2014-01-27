@@ -32,12 +32,20 @@ public abstract class BaseParameters {
 	private Boolean executeAtStart;
 
     public BaseParameters(String id) {
-	    name = id;
-	    htmlObject = id;
-        listeners = new ArrayList<>();
-        parameters = new ArrayList<>();
-	    executeAtStart = Boolean.TRUE;
+	    this.name = id;
+	    this.htmlObject = id;
+	    this.listeners = new ArrayList<>();
+	    this.parameters = new ArrayList<>();
+	    this.executeAtStart = Boolean.TRUE;
     }
+
+	public BaseParameters(String name, String id) {
+		this.name = name;
+		this.htmlObject = id;
+		this.listeners = new ArrayList<>();
+		this.parameters = new ArrayList<>();
+		this.executeAtStart = Boolean.TRUE;
+	}
 
     public void addFilter(Filter filter) {
         listeners.add(filter.getParameters().getParameter());

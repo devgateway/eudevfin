@@ -27,7 +27,7 @@ public class PieChart extends Panel implements IParametersProvider {
         add(pieChart);
 
 		String pieChartId = pieChart.getMarkupId();
-		parameters = new ChartParameters(pieChartId);
+		parameters = new ChartParameters(id, pieChartId);
 
 		parameters.getQueryDefinition().setDataAccessId(dataAccessId);
     }

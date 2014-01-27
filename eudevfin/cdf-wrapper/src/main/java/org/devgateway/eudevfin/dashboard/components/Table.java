@@ -41,7 +41,7 @@ public class Table extends Panel implements IParametersProvider {
         add(table);
 
         String tableId = table.getMarkupId();
-        parameters = new TableParameters(tableId);
+        parameters = new TableParameters(id, tableId);
 
 	    parameters.getChartDefinition().setDataAccessId(dataAccessId);
 	    parameters.getChartDefinition().setColHeaders(Arrays.asList("Type of Finance", "2009", "2010", "2011", "2012", "2013"));

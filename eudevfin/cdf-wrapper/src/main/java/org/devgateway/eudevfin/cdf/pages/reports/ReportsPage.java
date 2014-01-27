@@ -34,14 +34,14 @@ public class ReportsPage extends HeaderFooter {
     }
 
     private void addComponents() {
-		// wicket ID, CDA ID, dashboard parameter
-        Filter sectorFilter = new Filter("sectorFilter", "sectorList", "dashboards.sector.filter", "sectorListParameter");
+		// wicket ID, CDA ID, dashboard parameter (this is where the value of the filter will be saved)
+        Filter sectorFilter = new Filter("sectorFilter", "sectorList", "dashboards.sector.filter", "app.sectorListParameter");
         add(sectorFilter);
         
-        Filter orgFilter = new Filter("orgFilter", "organizationList", "dashboards.org.filter", "organizationListParameter");
+        Filter orgFilter = new Filter("orgFilter", "organizationList", "dashboards.org.filter", "app.organizationListParameter");
 	    add(orgFilter);
 
-	    Filter biMultilateralFilter = new Filter("biMultilateralFilter", "biMultilateralList", "dashboards.biMultilateral.filter", "biMultilateralListParameter");
+	    Filter biMultilateralFilter = new Filter("biMultilateralFilter", "biMultilateralList", "dashboards.biMultilateral.filter", "app.biMultilateralListParameter");
 	    add(biMultilateralFilter);
 
 	    Table testTable = new Table("testTable", "typeOfFinance", "dashboards.typeOfFinance");

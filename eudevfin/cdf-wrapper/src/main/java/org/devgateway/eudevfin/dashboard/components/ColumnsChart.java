@@ -27,7 +27,7 @@ public class ColumnsChart extends Panel implements IParametersProvider {
         add(columnsChart);
 
 		String columnsChartId = columnsChart.getMarkupId();
-		parameters = new ChartParameters(columnsChartId);
+		parameters = new ChartParameters(id, columnsChartId);
 
 		parameters.getQueryDefinition().setDataAccessId(dataAccessId);
     }

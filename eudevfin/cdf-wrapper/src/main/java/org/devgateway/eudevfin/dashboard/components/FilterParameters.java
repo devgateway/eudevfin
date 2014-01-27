@@ -14,6 +14,11 @@ public class FilterParameters extends BaseParameters {
 		setType(TYPE);
 	}
 
+	public FilterParameters(String name, String id) {
+		super(name, id);
+		setType(TYPE);
+	}
+
 	@Override
 	protected BaseParameters getInstance() {
 		return this;

@@ -24,6 +24,11 @@ public class TableParameters extends BaseParameters {
 	    setType(TYPE);
     }
 
+	public TableParameters(String name, String id) {
+		super(name, id);
+		setType(TYPE);
+	}
+
     @Override
     protected BaseParameters getInstance() {
         return this;

@@ -14,6 +14,11 @@ public class ChartParameters extends BaseParameters {
 		setType(TYPE);
 	}
 
+	public ChartParameters(String name, String id) {
+		super(name, id);
+		setType(TYPE);
+	}
+
 	@Override
 	protected BaseParameters getInstance() {
 		return this;
