@@ -3,6 +3,8 @@ var stackedBarChart,
 	stackedBarQueryResult;	// we should parameterized this
 
 function initStackedBarChart(parametersJson) {
+	'use strict';
+
 	var stackedBarChartId = parametersJson.htmlObject;
 	var stackedBarChartDefinition = new app.StackedBarDefinitionModel();
 	stackedBarChartDefinition.get('chart').renderTo = stackedBarChartId;
@@ -61,8 +63,5 @@ function initStackedBarChart(parametersJson) {
 	}));
 
 	stackedBarChartQuery = stackedBarChartQuery.toJSON();
-
-    Dashboards.addComponent(stackedBarChartQuery);
-
-    Dashboards.update(stackedBarChartQuery);
+	app.addComponent(stackedBarChartQuery);
 }

@@ -115,12 +115,16 @@ Highcharts.exportCharts = function(charts, options) {
 };
 
 // The components to be loaded into the dashboard within the [] separated by ,
-var components = [];
+app.components = [];
+
+app.addComponent = function (component) {
+	this.components.push(component);
+}
 
 // The initial dashboard load function definition
-var load = function () {
-    Dashboards.init(components);
+app.load = function () {
+    Dashboards.init(this.components);
 };
 
 // The initial dashboard load function execution
-load();
+//app.load();

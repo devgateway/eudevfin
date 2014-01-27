@@ -3,6 +3,8 @@ var columnChart,
 	columnQueryResult;	// we should parameterized this
 
 function initColumnsChart(parametersJson) {
+	'use strict';
+
 	var columnChartId = parametersJson.htmlObject;
 	var columnsChartDefinition = new app.ChartColumnDefinitionModel();
 	columnsChartDefinition.get('chart').renderTo = columnChartId;
@@ -46,8 +48,5 @@ function initColumnsChart(parametersJson) {
 	}));
 
 	columnChartQuery = columnChartQuery.toJSON();
-
-    Dashboards.addComponent(columnChartQuery);
-
-    Dashboards.update(columnChartQuery);
+	app.addComponent(columnChartQuery);
 }

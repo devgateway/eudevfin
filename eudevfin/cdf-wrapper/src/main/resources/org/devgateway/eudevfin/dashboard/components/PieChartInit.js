@@ -3,6 +3,8 @@ var pieChart,
 	pieQueryResult;	// we should parameterized this
 
 function initPieChart(parametersJson) {
+	'use strict';
+
 	var pieChartId = parametersJson.htmlObject;
 	var pieChartDefinition = new app.ChartPieDefinitionModel();
 	pieChartDefinition.get('chart').renderTo = pieChartId;
@@ -42,8 +44,5 @@ function initPieChart(parametersJson) {
 	}));
 
     pieChartQuery = pieChartQuery.toJSON();
-
-    Dashboards.addComponent(pieChartQuery);
-
-    Dashboards.update(pieChartQuery);
+	app.addComponent(pieChartQuery);
 }

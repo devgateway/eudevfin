@@ -6,7 +6,9 @@
  * http://www.gnu.org/licenses/gpl.html
  */
 
-function initDataTable(parametersJson) {    
+function initDataTable(parametersJson) {
+	'use strict';
+
     var table = new app.TableModel(_.extend(parametersJson, {
         preChange: function (value) {
             return value;
@@ -32,8 +34,5 @@ function initDataTable(parametersJson) {
     }));
 
     table = table.toJSON();
-
-    Dashboards.addComponent(table);
-
-    Dashboards.update(table);
+	app.addComponent(table);
 }

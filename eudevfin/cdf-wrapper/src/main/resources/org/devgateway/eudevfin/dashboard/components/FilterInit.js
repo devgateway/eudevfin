@@ -12,6 +12,9 @@ var sectorListParameter,
 	biMultilateralListParameter;
 
 function initFilter(parametersJson) {
+	'use strict';
+
+	var filterId = parametersJson.htmlObject;
     var filter = new app.FilterModel(_.extend(parametersJson, {
         postFetch: function (values) {
 	        // this is just for the demo, for the actual dashboard page we should change this behavior
@@ -30,12 +33,17 @@ function initFilter(parametersJson) {
         preExecution: function () {
             return undefined;
         },
-        postExecution: function () {}
+        postExecution: function () {
+	        // add the 'All Options' option
+	        $('#' + filterId + ' select').prepend('<option value="All Options">All Options</option>');
+
+	        // mark the first option as selected
+	        $('#' + filterId + ' select').val($('#' + filterId + ' select option:first').val());
+	        // TODO - this should be done in a pretty way
+	        //sectorListParameter = "All Options";
+        }
     }));
 
     filter = filter.toJSON();
-
-    Dashboards.addComponent(filter);
-
-    Dashboards.update(filter);
+	app.addComponent(filter);
 }

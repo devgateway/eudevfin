@@ -8,9 +8,11 @@
 
 package org.devgateway.eudevfin.cdf.pages.reports;
 
+import org.apache.log4j.Logger;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.dashboard.Dashboards;
@@ -25,6 +27,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 @MountPath(value = "/reports")
 @AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
 public class ReportsPage extends HeaderFooter {
+	private static final Logger logger = Logger.getLogger(ReportsPage.class);
 
     public ReportsPage() {
         addComponents();
@@ -59,6 +62,8 @@ public class ReportsPage extends HeaderFooter {
     @Override
     public void renderHead(IHeaderResponse response) {
         super.renderHead(response);
+
+	    // load CDF plugin
         response.render(JavaScriptHeaderItem.forUrl("/js/cdfplugin.min.js"));
 
         // highcharts
@@ -75,5 +80,7 @@ public class ReportsPage extends HeaderFooter {
         response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "StackedBarDefinitionModel.js")));
 
         response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "reports.js")));
+	    // The initial dashboard load function execution
+	    response.render(OnDomReadyHeaderItem.forScript("app.load();"));
     }
 }
