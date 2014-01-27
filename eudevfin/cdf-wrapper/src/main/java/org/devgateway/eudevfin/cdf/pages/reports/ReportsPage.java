@@ -51,12 +51,15 @@ public class ReportsPage extends HeaderFooter {
         add(tableDashboard);
 
         PieChart pieChart = new PieChart("pieChart", "typeOfAid", "dashboards.typeOfAid");
+	    pieChart.parameters().addFilter(biMultilateralFilter);
         add(pieChart);
 
         ColumnsChart columnsChart = new ColumnsChart("columnsChart", "typeOfFlow", "dashboards.typeOfFlow");
+	    columnsChart.parameters().addFilter(biMultilateralFilter);
         add(columnsChart);
 
         StackedBarChart stackedBarChart = new StackedBarChart("stackedBarChart", "typeOfSectorsByFlow", "dashboards.typeOfSectorsByFlow");
+	    stackedBarChart.parameters().addFilter(biMultilateralFilter);
         add(stackedBarChart);
     }
 

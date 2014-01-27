@@ -101,12 +101,16 @@
 		<BandedMode>compact</BandedMode>
 		<Columns/>
 		<Name>typeOfAid MDX</Name>
+		<Parameters>
+			<Parameter default="Members" name="app.biMultilateralListParameter" type="String"/>
+		</Parameters>
 		<Query>
 			<![CDATA[
             SELECT
 			NON EMPTY {[Measures].[Commitments Amount]} ON COLUMNS,
 			NON EMPTY {Hierarchize({[Type of Aid].[Name].Members})} ON ROWS
 			FROM [Financial]
+			WHERE ({[BiMultilateral].[Name].${app.biMultilateralListParameter}})
         ]]>
 		</Query>
 	</DataAccess>
@@ -118,12 +122,16 @@
 		<BandedMode>compact</BandedMode>
 		<Columns/>
 		<Name>typeOfFlow MDX</Name>
+		<Parameters>
+			<Parameter default="Members" name="app.biMultilateralListParameter" type="String"/>
+		</Parameters>
 		<Query>
 			<![CDATA[
             SELECT
 			NON EMPTY {[Measures].[Commitments Amount]} ON COLUMNS,
 			NON EMPTY {Hierarchize({[Type of Flow].[Name].Members})} ON ROWS
 			FROM [Financial]
+			WHERE ({[BiMultilateral].[Name].${app.biMultilateralListParameter}})
         ]]>
 		</Query>
 	</DataAccess>
@@ -135,12 +143,16 @@
 		<BandedMode>compact</BandedMode>
 		<Columns/>
 		<Name>typeOfSectorsByFlow MDX</Name>
+		<Parameters>
+			<Parameter default="Members" name="app.biMultilateralListParameter" type="String"/>
+		</Parameters>
 		<Query>
 			<![CDATA[
 			SELECT
 			NON EMPTY {[Measures].[Net Amount]} ON COLUMNS,
 			Union(CrossJoin({[Sector].[110].[EDUCATION]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[120].[HEALTH]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[140].[WATER AND SANITATION]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[150].[GOVERNMENT AND CIVIL SOCIETY]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[210].[TRANSPORT AND STORAGE]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[220].[COMMUNICATION]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[230].[ENERGY GENERATION AND SUPPLY]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[240].[BANKING AND FINANCIAL SERVICES]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[311].[AGRICULTURE]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[321].[INDUSTRY]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[323].[CONSTRUCTION]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[700].[HUMANITARIAN AID]}, [Type of Flow].[Name].Members), CrossJoin({[Sector].[400].[MULTISECTOR/CROSS-CUTTING]}, [Type of Flow].[Name].Members))))))))))))) ON ROWS
 			FROM [Financial]
+			WHERE ({[BiMultilateral].[Name].${app.biMultilateralListParameter}})
         ]]>
 		</Query>
 	</DataAccess>
