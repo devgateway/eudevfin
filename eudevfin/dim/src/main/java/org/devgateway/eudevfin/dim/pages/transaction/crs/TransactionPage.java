@@ -32,6 +32,7 @@ import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.dim.pages.HomePage;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
+import org.devgateway.eudevfin.ui.common.Constants;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
 import org.devgateway.eudevfin.ui.common.components.tabs.BootstrapJSTabbedPanel;
 import org.devgateway.eudevfin.ui.common.components.tabs.DefaultTabWithKey;
@@ -139,7 +140,7 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 	public TransactionPage(final PageParameters parameters) {
 		super(parameters);
 		
-		Label pageType=new Label("pageType",Model.of(parameters.get(PARAM_TRANSACTION_ID)));
+		Label pageType=new Label("pageType",new StringResourceModel(parameters.get(Constants.PARAM_TRANSACTION_TYPE).toString(""), this, null, null));
 		add(pageType);
 		
 		// TODO: check that transactionType in the request parameters is the

@@ -29,6 +29,11 @@ select, input[type="text"], input[type="password"], input[type="datetime"], inpu
     font-style: italic;
 }
 
+.transaction-title {
+    font-weight: bold;
+    font-size: x-large;
+}
+
 .eubanner {
     background: linear-gradient(45deg, #003399 0%, #000000 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
     box-shadow: 0 3px 7px rgba(0, 0, 0, 0.2) inset, 0 -3px 7px rgba(0, 0, 0, 0.2) inset;
