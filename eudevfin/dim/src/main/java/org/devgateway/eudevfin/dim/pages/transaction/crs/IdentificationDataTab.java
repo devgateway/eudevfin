@@ -58,7 +58,7 @@ public class IdentificationDataTab extends Panel implements PermissionAwareCompo
         extendingAgency.required();
 
         //see TransactionPage#initializeFinancialTransaction
-        extendingAgency.setEnabled(false);
+        extendingAgency.getField().setEnabled(false);
 
         add(extendingAgency);
 
