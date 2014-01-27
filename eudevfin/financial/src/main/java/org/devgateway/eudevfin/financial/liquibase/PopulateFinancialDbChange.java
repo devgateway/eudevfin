@@ -67,7 +67,6 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 				tx.setAmountsExtended(BigMoney.parse("EUR " + disbursement));
 				tx.setAmountsReceived(BigMoney.parse("EUR " + Math.ceil(disbursement / 2)));
 
-				Organization org = null;
 				Organization extAgency = null;
 				Category sector = null;
 				Category typeOfFlow = null;
@@ -75,8 +74,7 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 				Category typeOfAid = null;
 				Category biMultilateral = null;
 				ChannelCategory channel = null;
-				
-				int orgRandomIndex = r.nextInt(listOrgs.size());
+
 				int extAgencyRandomIndex = r.nextInt(listOrgs.size());
 				int sectorRandomIndex = r.nextInt(listSectors.size());
 				int typeOfFlowRandomIndex = r.nextInt(listTypeOfFlow.size());
@@ -84,8 +82,7 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 				int typeOfAidRandomIndex = r.nextInt(listTypeofAid.size());
 				int biMultilateralRandomIndex = r.nextInt(listBiMultilateral.size());
 				int channelRandomIndex = r.nextInt(listMultilateralChannel.size());
-				
-				org = listOrgs.get(orgRandomIndex);
+
 				extAgency = listOrgs.get(extAgencyRandomIndex);
 				sector = listSectors.get(sectorRandomIndex);
 				typeOfFlow = listTypeOfFlow.get(typeOfFlowRandomIndex);
@@ -93,8 +90,7 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 				typeOfAid = listTypeofAid.get(typeOfAidRandomIndex);
 				biMultilateral = listBiMultilateral.get(biMultilateralRandomIndex);
 				channel = listMultilateralChannel.get(channelRandomIndex);
-				
-				tx.setExtendingAgency(org);
+
 				tx.setChannel(channel);
 				tx.setExtendingAgency(extAgency);
 				tx.setLocale("en");
