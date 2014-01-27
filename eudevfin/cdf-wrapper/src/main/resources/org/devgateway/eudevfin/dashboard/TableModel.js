@@ -22,6 +22,7 @@ var app = app || {};
                 parameters: [],
                 chartDefinition: null,
                 htmlObject: "",
+	            priority: 5,
                 executeAtStart: true,
                 preExecution: function () {},
                 postExecution: function () {}

@@ -25,6 +25,7 @@ public abstract class BaseParameters {
     private String htmlObject;
 
 	private String type;
+	private int priority;
 
     private List<String> listeners;
     private List<String> parameters;
@@ -34,6 +35,7 @@ public abstract class BaseParameters {
     public BaseParameters(String id) {
 	    this.name = id;
 	    this.htmlObject = id;
+	    this.priority = 5;
 	    this.listeners = new ArrayList<>();
 	    this.parameters = new ArrayList<>();
 	    this.executeAtStart = Boolean.TRUE;
@@ -42,6 +44,7 @@ public abstract class BaseParameters {
 	public BaseParameters(String name, String id) {
 		this.name = name;
 		this.htmlObject = id;
+		this.priority = 5;
 		this.listeners = new ArrayList<>();
 		this.parameters = new ArrayList<>();
 		this.executeAtStart = Boolean.TRUE;
@@ -81,6 +84,14 @@ public abstract class BaseParameters {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public int getPriority() {
+		return priority;
+	}
+
+	public void setPriority(int priority) {
+		this.priority = priority;
 	}
 
 	public List<String> getListeners() {

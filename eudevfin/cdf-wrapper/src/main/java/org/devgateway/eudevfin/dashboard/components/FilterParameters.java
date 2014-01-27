@@ -12,11 +12,17 @@ public class FilterParameters extends BaseParameters {
 	public FilterParameters(String id) {
 		super(id);
 		setType(TYPE);
+		// give higher priority to filters because they need to be executed before other components
+		// (The lower the number, the higher priority the component has)
+		setPriority(4);
 	}
 
 	public FilterParameters(String name, String id) {
 		super(name, id);
 		setType(TYPE);
+		// give higher priority to filters because they need to be executed before other components
+		// (The lower the number, the higher priority the component has)
+		setPriority(4);
 	}
 
 	@Override

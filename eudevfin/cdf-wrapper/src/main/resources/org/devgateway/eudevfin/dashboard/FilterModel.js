@@ -14,6 +14,7 @@ var app = app || {};
                 parameter: "",
                 valueAsId: true,
                 htmlObject: "",
+	            priority: 4,
                 queryDefinition: {
                     dataAccessId: "",
                     path: '/some/path'

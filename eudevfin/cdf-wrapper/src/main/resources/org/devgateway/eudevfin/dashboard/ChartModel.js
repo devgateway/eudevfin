@@ -13,6 +13,7 @@ var app = app || {};
                 listeners: [],
                 parameters: [],
                 resultvar: "",
+	            priority: 5,
                 executeAtStart: true,
                 queryDefinition: {
                     dataAccessId: "",
