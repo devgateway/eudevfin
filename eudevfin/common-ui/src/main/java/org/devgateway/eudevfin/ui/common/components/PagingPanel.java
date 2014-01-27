@@ -26,15 +26,14 @@ public class PagingPanel extends Panel {
 
 			@Override
 			protected void populateItem(ListItem<PagingItem> item) {
-				PagingItem pagingItem					= item.getModelObject();
+				PagingItem pagingItem		= item.getModelObject();
 				PageableComponent parent	= (PageableComponent) PagingPanel.this.getParent();
 				
 				AjaxLink<PagingItem> link	= parent.createLink(pagingItem);
-				Label label				= new Label("page-number-label", pagingItem.getLabel());
-				link.add(label);
 				item.add(link);
-				if ( pagingItem.isDisabled() )
+				if ( pagingItem.isDisabled() ){
 					item.add(new AttributeAppender("class", "active"));
+				}
 			}
 			
 		};

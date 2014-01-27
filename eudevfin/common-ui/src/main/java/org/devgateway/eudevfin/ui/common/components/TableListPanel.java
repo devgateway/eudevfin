@@ -87,31 +87,7 @@ public abstract class TableListPanel<T> extends Panel implements PageableCompone
 	 */
 	@Override
 	public AjaxLink<PagingItem> createLink ( final PagingItem modelObj ) {
-		AjaxLink<PagingItem> link	= new AjaxLink<PagingItem>("page-number-link", Model.of(modelObj) ) {
-
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void onClick(AjaxRequestTarget target) {
-				int futurePageNo		= -1;
-				PagingItem pagingItem	= this.getModelObject();
-				if ( "<".equals(pagingItem.getLabel()) ) {
-					futurePageNo	= pagingItem.getCurrentPageNo()-1;
-				}
-				else if ( ">".equals(pagingItem.getLabel())) {
-					futurePageNo	= pagingItem.getCurrentPageNo()+1;
-				}
-				else
-					futurePageNo	= Integer.parseInt(pagingItem.getLabel());
-				
-				if(futurePageNo<1 || futurePageNo > pagingItems.size()) return;
-				
-				TableListPanel.this.generateListOfItems(futurePageNo);
-				target.add(TableListPanel.this);
-			}
-			
-		};
-		return link;
+		return new PagingAjaxLink("page-number-link", Model.of(modelObj), this, pagingItems);
 	}
 
 }
