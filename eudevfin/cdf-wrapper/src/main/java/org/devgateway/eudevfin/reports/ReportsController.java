@@ -155,6 +155,11 @@ public class ReportsController {
 			parameters.put(JRMondrianQueryExecuterFactory.PARAMETER_MONDRIAN_CONNECTION, connection);
 			parameters.put("FIRST_YEAR", reportYear - 1);
 			parameters.put("SECOND_YEAR", reportYear);
+
+			// TODO: Determine and get the values of exchange rates that will be used
+			parameters.put("FIRST_YEAR_EXRATE", 1);
+			parameters.put("SECOND_YEAR_EXRATE", 1);
+
 			parameters.put("CURRENCY", currency);
 			try {
 				String subdirPath = new URI(this.getClass().getResource("./aq").toString()).getPath();
