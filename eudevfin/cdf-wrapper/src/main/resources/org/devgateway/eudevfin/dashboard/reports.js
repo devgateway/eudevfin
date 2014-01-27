@@ -123,8 +123,8 @@ app.addComponent = function (component) {
 
 // The initial dashboard load function definition
 app.load = function () {
+	// don't display too many logs
+	Dashboards.setLogLifecycle(false);
     Dashboards.init(this.components);
 };
 
-// The initial dashboard load function execution
-//app.load();

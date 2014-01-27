@@ -29,11 +29,11 @@ function initColumnsChart(parametersJson) {
 	            i;
 
 	        for (i = 0; i < columnQueryResult.length; i++) {
-	            if (parseInt(columnQueryResult[i][3], 10) > 0) {
-	                resultCategories.push(columnQueryResult[i][2]);
+	            if (parseInt(columnQueryResult[i][1], 10) > 0) {
+	                resultCategories.push(columnQueryResult[i][0]);
 	                resultSeries.push({
-	                    name: columnQueryResult[i][2],
-	                    y: parseInt(columnQueryResult[i][3], 10),
+	                    name: columnQueryResult[i][0],
+	                    y: parseInt(columnQueryResult[i][1], 10),
 	                    color: colors[i % len] // access colors array in a circular manner
 	                });
 	            }

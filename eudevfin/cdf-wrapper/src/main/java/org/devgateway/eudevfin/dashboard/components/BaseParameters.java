@@ -28,7 +28,7 @@ public abstract class BaseParameters {
 	private int priority;
 
     private List<String> listeners;
-    private List<String> parameters;
+    private List<List<String>> parameters;
 
 	private Boolean executeAtStart;
 
@@ -51,7 +51,11 @@ public abstract class BaseParameters {
 	}
 
     public void addFilter(Filter filter) {
+	    List<String> param = new ArrayList<>();
         listeners.add(filter.getParameters().getParameter());
+	    param.add(filter.getParameters().getParameter());
+	    param.add(filter.getParameters().getParameter());
+	    parameters.add(param);
     }
 
     public String toJson() {
@@ -102,11 +106,11 @@ public abstract class BaseParameters {
 		this.listeners = listeners;
 	}
 
-	public List<String> getParameters() {
+	public List<List<String>> getParameters() {
 		return parameters;
 	}
 
-	public void setParameters(List<String> parameters) {
+	public void setParameters(List<List<String>> parameters) {
 		this.parameters = parameters;
 	}
 
