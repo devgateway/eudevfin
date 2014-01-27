@@ -11,8 +11,10 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.olap.JRMondrianQueryExecuterFactory;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -25,6 +27,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -131,7 +134,7 @@ public class ReportsController {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		
 		try {
-			InputStream inputStream = ReportsController.class.getResourceAsStream("./aq/aq_master.jrxml");
+			InputStream inputStream = ReportsController.class.getResourceAsStream("./aq/aq_master.jasper");
 			Map<String, Object> parameters = new HashMap<String, Object>();
 			
 			// set locale
@@ -151,11 +154,13 @@ public class ReportsController {
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			}
-			
+
+			//set connection
 			parameters.put(JRMondrianQueryExecuterFactory.PARAMETER_MONDRIAN_CONNECTION, connection);
+			
+			//set yearly parameters
 			parameters.put("FIRST_YEAR", reportYear - 1);
 			parameters.put("SECOND_YEAR", reportYear);
-
 			// TODO: Determine and get the values of exchange rates that will be used
 			parameters.put("FIRST_YEAR_EXRATE", 1);
 			parameters.put("SECOND_YEAR_EXRATE", 1);
@@ -167,11 +172,8 @@ public class ReportsController {
 			} catch (URISyntaxException e) {
 				e.printStackTrace();
 			}  
-
-			InputStream parsedInputStream = parseInputStream(inputStream, parameters);
 			
-			JasperDesign jasperDesign = JRXmlLoader.load(parsedInputStream);
-			JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+			JasperReport jasperReport = (JasperReport) JRLoader.loadObject(inputStream);
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters);
 			
 			ReportExporter reportExporter = new ReportExporter();
@@ -321,41 +323,6 @@ public class ReportsController {
 	private void generateDAC2 (HttpServletRequest request, HttpServletResponse response, 
 			Connection connection, String outputType) {
 		
-	}
-	
-	private InputStream parseInputStream(InputStream inputStream, Map<String, Object> parameters) {
-        BufferedReader inputReader = new BufferedReader(new InputStreamReader(inputStream));
-        InputStream parsedInputStream = null;
-
-        StringBuilder sb = new StringBuilder();
-        String inline = "";
-        try {
-			while ((inline = inputReader.readLine()) != null) {
-			  sb.append(inline);
-			  sb.append(System.getProperty("line.separator"));
-			}
-			String originalXML = sb.toString();
-			
-			for(String key : parameters.keySet()) {
-				String token = "@@" + key + "@@";
-				String value;
-				Object obj = parameters.get(key);
-				if(obj.getClass() == Integer.class){
-					value = ((Integer)obj).toString();
-				}
-				else
-				{
-					value = obj.toString();
-				}
-				originalXML = originalXML.replaceAll(token, value);
-			}
-			
-			parsedInputStream = new ByteArrayInputStream(originalXML.getBytes("UTF-8"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-        
-		return parsedInputStream;
 	}
 	
 	/**
