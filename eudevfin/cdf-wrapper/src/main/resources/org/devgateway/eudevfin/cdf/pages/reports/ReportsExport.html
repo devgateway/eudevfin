@@ -26,17 +26,10 @@
 		<div class="row">
 			<br/><br/>
 			<div class="span6 offset2">
+                <span class="transaction-title" wicket:id="reportTypeTitle"/>
+                <p/>
 				<form class="form-horizontal" action="/jasperreports/generate" method="post" onsubmit="target_popup(this)">
-					<div class="control-group">
-						<label class="control-label" for="reportType">Report Type</label>
-						<div class="controls">
-							<select id="reportType" name="reportType" class="span3">
-								<option value="aq">Advanced Questionnaire</option>
-								<option value="dac1">DAC 1</option>
-								<option value="dac2">DAC 2</option>
-							</select>
-						</div>
-					</div>
+	                <input wicket:id="reportType" type="hidden"/>
 					<div class="control-group">
 						<label class="control-label" for="reportYear">Report Year</label>
 						<div class="controls">

@@ -8,15 +8,16 @@ import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy;
 import org.apache.wicket.markup.html.link.AbstractLink;
 import org.apache.wicket.model.StringResourceModel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.cdf.pages.reports.ReportsExport;
 import org.devgateway.eudevfin.cdf.pages.reports.ReportsPage;
 import org.devgateway.eudevfin.ui.common.WicketNavbarComponentInitializer;
 
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.DropDownSubMenu;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuBookmarkablePageLink;
 import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconType;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
-import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarButton;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarDropDownButton;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.button.DropDownAutoOpen;
 
@@ -46,11 +47,40 @@ public final class NavbarInitializer {
 						ReportsPage.class, null, new StringResourceModel(
 								"navbar.dashboard", this, null, null))
 						.setIconType(IconType.picture));
+                DropDownSubMenu exportReports = new DropDownSubMenu(new StringResourceModel("navbar.reports.export", this, null, null)) {
+                    @Override
+                    public boolean isActive(Component item) {
+                        return false;
+                    }
+
+                    @Override
+                    protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
+                        List<AbstractLink> list = new ArrayList<>();
+
+                        //TODO: Wrap creation of links with something similar to TransactionPage.getTransactionLinks()
+                        PageParameters paramsAQ = new PageParameters();
+                        paramsAQ.set("reportType", "aq");
+                        list.add(new MenuBookmarkablePageLink<ReportsExport>(ReportsExport.class, paramsAQ, new StringResourceModel("navbar.reports.export.aq", this, null, null)));
+                        
+                        PageParameters paramsDAC1 = new PageParameters();
+                        paramsDAC1.set("reportType", "dac1");
+                        list.add(new MenuBookmarkablePageLink<ReportsExport>(ReportsExport.class, paramsDAC1, new StringResourceModel("navbar.reports.export.dac1", this, null, null)));
+
+                        PageParameters paramsDAC2 = new PageParameters();
+                        paramsDAC2.set("reportType", "dac2");
+                        list.add(new MenuBookmarkablePageLink<ReportsExport>(ReportsExport.class, paramsDAC2, new StringResourceModel("navbar.reports.export.dac2", this, null, null)));
+                        return list;
+                    }
+
+                };
+                exportReports.setIconType(IconType.resizehorizontal);
+                list.add(exportReports);
 				
+/*				
 				list.add(new MenuBookmarkablePageLink<ReportsExport>(
 						ReportsExport.class, null, new StringResourceModel(
 								"navbar.reports.export", this, null, null))
-						.setIconType(IconType.thlist));				
+						.setIconType(IconType.thlist));			*/	
 				return list;
 			}
 
