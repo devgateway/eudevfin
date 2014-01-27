@@ -31,11 +31,13 @@
 .select2-container.input-medium {
     width: 150px;
 }
-.select2-container.input-large {
-    width: 210px;
+
+.input-large {
+    width: 250px;
 }
+
 .select2-container.input-xlarge {
-    width: 270px;
+    width: 290px;
 }
 .select2-container.input-xxlarge {
     width: 530px;

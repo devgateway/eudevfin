@@ -35,7 +35,7 @@ public abstract class BootstrapSubmitButton extends IndicatingAjaxButton {
      */
     public BootstrapSubmitButton(String id, IModel<String> model) {    	
         super(id, model);
-        add(new AttributeAppender("class", new Model<String>("btn btn-large btn-primary"), " "));
+        add(new AttributeAppender("class", new Model<String>("btn btn-primary"), " "));
     }
 
     @Override
