@@ -291,63 +291,6 @@
     // The registered Base needs to have an extend method.
     Dashboards.setBaseQuery(BaseQuery);
 
-
-    var CpkEndpoints = BaseQuery.extend({
-        name: "cpk",
-        label: "CPK",
-        defaults: {
-            baseUrl: Dashboards.getWebAppPath() + '/content',
-            pluginId: '',
-            endpoint: '',
-            systemParams: {},
-            ajaxOptions: {
-                dataType: 'json',
-                type: 'POST',
-                async: true
-            }
-        },
-
-        init: function (opts) {
-            if (_.isString(opts.pluginId) && _.isString(opts.endpoint)) {
-                this.setOption('pluginId', opts.pluginId);
-                this.setOption('endpoint', opts.endpoint);
-                var urlArray = [this.getOption('baseUrl'), this.getOption('pluginId'), this.getOption('endpoint')],
-                    url = urlArray.join('/');
-                this.setOption('url', url);
-            }
-        },
-
-        buildQueryDefinition: function (overrides) {
-            overrides = (overrides instanceof Array) ? Dashboards.propertiesArrayToObject(overrides) : (overrides || {});
-            var queryDefinition = this.getOption('systemParams');
-
-            var cachedParams = this.getOption('params'),
-                params = $.extend({}, cachedParams, overrides);
-
-            _.each(params, function (value, name) {
-                value = Dashboards.getParameterValue(value);
-                if ($.isArray(value) && value.length == 1 && ('' + value[0]).indexOf(';') >= 0) {
-                    //special case where single element will wrongly be treated as a parseable array by cda
-                    value = doCsvQuoting(value[0], ';');
-                }
-                //else will not be correctly handled for functions that return arrays
-                if (typeof value == 'function') {
-                    value = value();
-                }
-                queryDefinition['param' + name] = value;
-            });
-
-            return queryDefinition;
-        }
-
-        /*
-         * Public interface
-         */
-    });
-    // Registering a class will use that class directly when getting new queries.
-    Dashboards.registerQuery("cpk", CpkEndpoints);
-
-
     var cdaQueryOpts = {
         name: 'cda',
         label: 'CDA Query',
