@@ -9,9 +9,9 @@
 	<parameter name="SUBDIR_PATH" class="java.lang.String"/>
 	<queryString language="mdx">
 		<![CDATA[
-WITH MEMBER [Channel].[AllCodes] AS SUM({[Channel].[Code].[41000], [Channel].[42000], [Channel].[44000], [Channel].[46000], [Channel].[47000]})
+WITH MEMBER [Channel].[AllCodes] AS SUM({[Channel].[41000], [Channel].[42000], [Channel].[44000], [Channel].[46000], [Channel].[47000]})
 SELECT
-{[Channel].[Code].[41000], [Channel].[42000], [Channel].[44000], [Channel].[46000], [Channel].[47000], [Channel].[AllCodes]} ON ROWS,
+{[Channel].[41000], [Channel].[42000], [Channel].[44000], [Channel].[46000], [Channel].[47000], [Channel].[AllCodes]} ON ROWS,
 {[Measures].[Net Amount]} ON COLUMNS
 FROM [Financial]
 WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##2]}

@@ -25,6 +25,34 @@
 			<View alias="ChannelView">
 				<SQL dialect="generic"><![CDATA[
 			select
+				DISTINCT "CATEGORY"."ID", "CATEGORY"."CODE"
+			from
+				"APP"."CATEGORY" as "CATEGORY",
+				"APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION",
+				"APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
+			WHERE
+				"CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
+				"CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
+				"CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='CHANNEL_TAG')
+			group by
+				"CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME",
+				"CATEGORY"."CODE"
+			order by
+				CASE WHEN "CATEGORY"."ID" IS NULL THEN 1 ELSE 0 END,
+				"CATEGORY"."ID" ASC,
+				CASE WHEN "CATEGORY"."CODE" IS NULL THEN 1 ELSE 0 END,
+				"CATEGORY"."CODE" ASC
+			]]></SQL>
+			</View>
+			<Level name="Code" visible="true" column="CODE" uniqueMembers="false">
+			</Level>
+		</Hierarchy>
+	</Dimension>
+	<Dimension visible="true" highCardinality="false" name="Channel Localized">
+		<Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Channel Localized">
+			<View alias="ChannelLocalizedView">
+				<SQL dialect="generic"><![CDATA[
+			select
 				"CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE"
 			from
 				"APP"."CATEGORY" as "CATEGORY",
