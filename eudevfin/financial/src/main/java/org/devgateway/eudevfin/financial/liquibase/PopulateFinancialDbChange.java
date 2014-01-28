@@ -27,7 +27,7 @@ import java.util.Random;
 public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 
 	//be gentle here, commit lower numbers
-	public static int NUM_OF_TX	= 2;
+	public static int NUM_OF_TX	= 50;
 	public static int NUM_OF_YEARS = 5;
 	
 	
@@ -57,8 +57,8 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 		List<ChannelCategory> listChannel = channelCatDao.findAllAsList();
 		List<ChannelCategory> listMultilateralChannel = getMultilaterals(listChannel);
 
-		for (int j=0; j<=NUM_OF_YEARS; j++) {
-			for (int i=1; i<=NUM_OF_TX; i++ ) {
+		for (int j = 0; j < NUM_OF_YEARS; j++) {
+			for (int i = 0; i < NUM_OF_TX; i++ ) {
 				double disbursement = Math.ceil(Math.random() * 100000);
 				boolean draft = ((int)disbursement) % 2 == 0 ? true:false;
 				CustomFinancialTransaction tx 	= new CustomFinancialTransaction();

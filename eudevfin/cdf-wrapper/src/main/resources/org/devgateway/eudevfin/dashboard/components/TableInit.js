@@ -16,7 +16,8 @@ function initDataTable(parametersJson) {
 
         postFetch: function (values) {
 	        var i, j , k,
-		        len = values.resultset.length;
+		        len = values.resultset.length,
+		        TOTAL_NUMBER_OF_COLUMNS = 6;
 
 	        for(i = 0; i < len; i++) {
 		        k = values.resultset[i].length;
@@ -25,6 +26,9 @@ function initDataTable(parametersJson) {
 						values.resultset[i][j] = 0;
 					}
 		        }
+				for (j = k; j < TOTAL_NUMBER_OF_COLUMNS; j++) {
+					values.resultset[i][j] = 0;
+				}
 	        }
 
             return values;
