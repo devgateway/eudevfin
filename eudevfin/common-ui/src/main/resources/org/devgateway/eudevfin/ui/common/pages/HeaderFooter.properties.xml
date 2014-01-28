@@ -21,7 +21,7 @@
     <entry key="navbar.reports.export.dac2">DAC 2</entry>
     <entry key="navbar.logout">Log Out</entry>
     <entry key="navbar.admin">Admin</entry>
-    <entry key="navbar.dashboard">Dashboard</entry>
+    <entry key="navbar.dashboard">ODA at a glance</entry>
     
     <entry key="navbar.admin.users">Users</entry>
     <entry key="navbar.admin.groups">Groups</entry>
