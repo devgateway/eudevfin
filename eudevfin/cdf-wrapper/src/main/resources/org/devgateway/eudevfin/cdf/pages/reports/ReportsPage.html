@@ -9,7 +9,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
 <wicket:head>
-	<title>Dashboards page</title>
+	<title><wicket:message key="dashboards.title"/></title>
 
     <!-- load CDF libs css files -->
     <link href="/js/theme/cupertino/jquery-ui-1.8.custom.css" rel="stylesheet" type="text/css"/>
@@ -27,11 +27,11 @@
 
     <div class="container">
 		<br/><br/>
-    	<div class="row">
-    		<div class="span6 offset5">
-    			<button id="export-all" class="btn btn-large btn-success" type="button">Export all charts</button>
-    		</div>
-    	</div>
+		<div class="row" align="center">
+        <h2>
+                    <wicket:message key="dashboards.title"/>
+        </h2>
+		</div>
     	
         <div class="row">
             <div class="span12">
@@ -80,6 +80,12 @@
             </div>
         </div>
         <!-- /row -->
+        <div class="row">
+    		<div class="span6 offset5">
+    			<button id="export-all" class="btn btn-large btn-success" type="button">Export all charts</button>
+    		</div>
+    	</div>
+        
     </div>
     <!-- /container -->
 </wicket:extend>

@@ -21,4 +21,5 @@
     <entry key="dashboards.typeOfFlow">Flow Chart Report</entry>
     <entry key="dashboards.stackedBarChart">Stacked Bar Report</entry>
 	<entry key="dashboards.typeOfSectorsByFlow">Type of Flows by Sector</entry>
+	<entry key="dashboards.title">ODA at a Glance</entry>
 </properties>
