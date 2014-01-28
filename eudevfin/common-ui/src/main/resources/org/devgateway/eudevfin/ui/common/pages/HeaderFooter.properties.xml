@@ -19,9 +19,12 @@
     <entry key="navbar.reports.export.aq">Advance Questionnaire</entry>
     <entry key="navbar.reports.export.dac1">DAC 1</entry>
     <entry key="navbar.reports.export.dac2">DAC 2a</entry>
+	<entry key="navbar.reports.export.fss">FSS</entry>    
     <entry key="navbar.logout">Log Out</entry>
     <entry key="navbar.admin">Admin</entry>
     <entry key="navbar.dashboard">ODA at a Glance</entry>
+    <entry key="navbar.customreports">Custom Reports</entry>
+    <entry key="navbar.reportsbuilder">Reports Builder</entry>
     
     <entry key="navbar.admin.users">Users</entry>
     <entry key="navbar.admin.groups">Groups</entry>
