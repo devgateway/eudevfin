@@ -1,48 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="java" pageWidth="555" pageHeight="842" columnWidth="555" leftMargin="0" whenNoDataType="AllSectionsNoDetail" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4d81083f-52a3-45df-97af-b93a485e497a">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="555" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4d81083f-52a3-45df-97af-b93a485e497a">
 	<property name="ireport.callouts" value="##Mon Dec 30 08:46:00 ART 2013"/>
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="FIRST_YEAR" class="java.lang.Number"/>
 	<parameter name="SECOND_YEAR" class="java.lang.Number"/>
 	<parameter name="SUBDIR_PATH" class="java.lang.String"/>
 	<queryString language="mdx">
-		<![CDATA[
-
-WITH MEMBER [Type of Aid].[AllTypes] AS SUM({[Type of Aid].[A], [Type of Aid].[B], [Type of Aid].[C], [Type of Aid].[D], [Type of Aid].[E], [Type of Aid].[F], [Type of Aid].[G], [Type of Aid].[H]})
+		<![CDATA[WITH
+MEMBER [Type of Aid].[Budget Support] AS SUM({[Type of Aid].[A],[Type of Aid].[A01],[Type of Aid].[A02]})
+MEMBER [Type of Aid].[Core contributions and pooled programmes and funds] AS SUM({[Type of Aid].[B],[Type of Aid].[B01],[Type of Aid].[B02],[Type of Aid].[B03],[Type of Aid].[B04]})
+MEMBER [Type of Aid].[Project-type interventions] AS SUM({[Type of Aid].[C],[Type of Aid].[C01]})
+MEMBER [Type of Aid].[Experts and other technical assistance] AS SUM({[Type of Aid].[D],[Type of Aid].[D01],[Type of Aid].[D02]})
+MEMBER [Type of Aid].[Scholarships and student costs in donor countries] AS SUM({[Type of Aid].[E],[Type of Aid].[E01],[Type of Aid].[E02]})
+MEMBER [Type of Aid].[Debt Relief] AS SUM({[Type of Aid].[F],[Type of Aid].[F01]})
+MEMBER [Type of Aid].[Administrative costs not included elsewhere] AS SUM({[Type of Aid].[G],[Type of Aid].[G01]})
+MEMBER [Type of Aid].[Other in-donor expenditures] AS SUM({[Type of Aid].[H],[Type of Aid].[H01],[Type of Aid].[H02]})
+MEMBER [Type of Aid].[AllTypes] AS SUM({[Type of Aid].[A], [Type of Aid].[B], [Type of Aid].[C], [Type of Aid].[D], [Type of Aid].[E], [Type of Aid].[F], [Type of Aid].[G], [Type of Aid].[H]})
+MEMBER [Measures].[First Year] AS SUM(CrossJoin({[Reporting Year].[$P{FIRST_YEAR}]}, {[Measures].[Net Amount]}))
+MEMBER [Measures].[Second Year] AS SUM(CrossJoin({[Reporting Year].[$P{SECOND_YEAR}]}, {[Measures].[Net Amount]}))
 SELECT
-{[Type of Aid].[A], [Type of Aid].[B], [Type of Aid].[C], [Type of Aid].[D], [Type of Aid].[E], [Type of Aid].[F], [Type of Aid].[G], [Type of Aid].[H], [Type of Aid].[AllTypes] } ON ROWS,
-NON EMPTY {[Measures].[Net Amount]} ON COLUMNS
+{[Type of Aid].[Budget Support], [Type of Aid].[Core contributions and pooled programmes and funds], [Type of Aid].[Project-type interventions], [Type of Aid].[Experts and other technical assistance], [Type of Aid].[Scholarships and student costs in donor countries], [Type of Aid].[Debt Relief], [Type of Aid].[Administrative costs not included elsewhere], [Type of Aid].[Other in-donor expenditures], [Type of Aid].[AllTypes] } ON ROWS,
+{[Measures].[First Year], [Measures].[Second Year]} ON COLUMNS
 FROM [Financial]
-WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]}]]>
+WHERE {[BiMultilateral].[BI_MULTILATERAL##1]}]]>
 	</queryString>
-	<field name="Budget Support" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Net Amount], [Type of Aid].[A])]]></fieldDescription>
+	<field name="Budget Support Y1" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[First Year], [Type of Aid].[Budget Support])]]></fieldDescription>
 	</field>
-	<field name="Core contributions and pooled programmes and funds" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Net Amount], [Type of Aid].[B])]]></fieldDescription>
+	<field name="Budget Support Y2" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Type of Aid].[Budget Support])]]></fieldDescription>
 	</field>
-	<field name="Project-type interventions" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Net Amount], [Type of Aid].[C])]]></fieldDescription>
+	<field name="Core contributions and pooled programmes and funds Y1" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[First Year], [Type of Aid].[Core contributions and pooled programmes and funds])]]></fieldDescription>
 	</field>
-	<field name="Experts and other technical assistance" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Net Amount], [Type of Aid].[D])]]></fieldDescription>
+	<field name="Core contributions and pooled programmes and funds Y2" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Type of Aid].[Core contributions and pooled programmes and funds])]]></fieldDescription>
 	</field>
-	<field name="Scholarships and student costs in donor countries" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Net Amount], [Type of Aid].[E])]]></fieldDescription>
+	<field name="Project-type interventions Y1" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[First Year], [Type of Aid].[Project-type interventions])]]></fieldDescription>
 	</field>
-	<field name="Debt Relief" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Net Amount], [Type of Aid].[F])]]></fieldDescription>
+	<field name="Project-type interventions Y2" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Type of Aid].[Project-type interventions])]]></fieldDescription>
 	</field>
-	<field name="Administrative costs not included elsewhere" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Net Amount], [Type of Aid].[G])]]></fieldDescription>
+	<field name="Experts and other technical assistance Y1" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[First Year], [Type of Aid].[Experts and other technical assistance])]]></fieldDescription>
 	</field>
-	<field name="Other in-donor expenditures" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Net Amount], [Type of Aid].[H])]]></fieldDescription>
+	<field name="Experts and other technical assistance Y2" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Type of Aid].[Experts and other technical assistance])]]></fieldDescription>
 	</field>
-	<field name="All Types" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Net Amount], [Type of Aid].[AllTypes])]]></fieldDescription>
+	<field name="Scholarships and student costs in donor countries Y1" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[First Year], [Type of Aid].[Scholarships and student costs in donor countries])]]></fieldDescription>
+	</field>
+	<field name="Scholarships and student costs in donor countries Y2" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Type of Aid].[Scholarships and student costs in donor countries])]]></fieldDescription>
+	</field>
+	<field name="Debt Relief Y1" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[First Year], [Type of Aid].[Debt Relief])]]></fieldDescription>
+	</field>
+	<field name="Debt Relief Y2" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Type of Aid].[Debt Relief])]]></fieldDescription>
+	</field>
+	<field name="Administrative costs not included elsewhere Y1" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[First Year], [Type of Aid].[Administrative costs not included elsewhere])]]></fieldDescription>
+	</field>
+	<field name="Administrative costs not included elsewhere Y2" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Type of Aid].[Administrative costs not included elsewhere])]]></fieldDescription>
+	</field>
+	<field name="Other in-donor expenditures Y1" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[First Year], [Type of Aid].[Other in-donor expenditures])]]></fieldDescription>
+	</field>
+	<field name="Other in-donor expenditures Y2" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Type of Aid].[Other in-donor expenditures])]]></fieldDescription>
+	</field>
+	<field name="All Types Y1" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[First Year], [Type of Aid].[AllTypes])]]></fieldDescription>
+	</field>
+	<field name="All Types Y2" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Type of Aid].[AllTypes])]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -110,28 +146,28 @@ WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Budget Support}.doubleValue()/1000000]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Budget Support Y1}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="352" y="42" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Core contributions and pooled programmes and funds}.doubleValue()/1000000]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Core contributions and pooled programmes and funds Y1}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="352" y="56" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Project-type interventions}.doubleValue()/1000000]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Project-type interventions Y1}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="352" y="70" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Experts and other technical assistance}.doubleValue()/1000000]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Experts and other technical assistance Y1}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="298" y="28" width="50" height="14" uuid="7e26df35-86a1-41bf-bc41-739908dedef1"/>
@@ -187,31 +223,70 @@ WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Debt Relief}.doubleValue()/1000000]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Debt Relief Y1}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="352" y="98" width="100" height="14" uuid="917a498e-d1ba-4bbb-bacb-47ba9343baa7"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Administrative costs not included elsewhere}.doubleValue()/1000000]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Administrative costs not included elsewhere Y1}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
-			<subreport>
-				<reportElement x="455" y="0" width="100" height="112" uuid="f1671a23-5b09-4b8f-9c89-d83e08f246f7"/>
-				<subreportParameter name="YEAR">
-					<subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="MONDRIAN_CONNECTION">
-					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/aq_master_bilateral_toa_year_b.jasper"]]></subreportExpression>
-			</subreport>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="352" y="0" width="100" height="14" uuid="e1f921d3-1870-4d74-ad55-80c4f2ae0902"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{All Types}.doubleValue()/1000000]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{All Types Y1}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="455" y="56" width="100" height="14" uuid="b25eadde-435c-45a3-b157-264808eaf6f2"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Project-type interventions Y2}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="455" y="28" width="100" height="14" uuid="db86fbf0-2c75-492f-939c-505f304a44fb"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Budget Support Y2}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="455" y="70" width="100" height="14" uuid="ac9a6d4a-eefb-4159-b52b-16bf8e0a7666"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Experts and other technical assistance Y2}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="455" y="84" width="100" height="14" uuid="e402334f-4de8-41a7-b75e-f8949d81d7dc"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Debt Relief Y2}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="455" y="98" width="100" height="14" uuid="c128ae36-865f-4225-8efb-e262109c0975"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Administrative costs not included elsewhere Y2}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="455" y="42" width="100" height="14" uuid="896fa2ad-bfff-4e7c-b141-712b4857747b"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Core contributions and pooled programmes and funds Y2}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="455" y="0" width="100" height="14" uuid="9c020b80-3819-4811-a8a7-b1b6fde136fc"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{All Types Y2}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
