@@ -86,18 +86,16 @@ public abstract class HeaderFooter<T> extends GenericWebPage<T> {
 		for (Method method : navbarInitMethods) {
 			WicketNavbarComponentInitializer navbarAnnotation = method
 					.getAnnotation(WicketNavbarComponentInitializer.class);
-
+			if (navbarAnnotation.disabled())
+				continue;
 			Component navBarComponent = null;
 			try {
 				navBarComponent = (Component) method.invoke(null, this);
-			} catch (IllegalAccessException | IllegalArgumentException
-					| InvocationTargetException e) {
+			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
-			navbar.addComponents(NavbarComponents.transform(
-					navbarAnnotation.position(), navBarComponent));
+			navbar.addComponents(NavbarComponents.transform(navbarAnnotation.position(), navBarComponent));
 		}
 
         return navbar;

@@ -157,7 +157,7 @@ public final class NavbarInitializer {
     }
 
 
-	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT)
+	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT,disabled=true)
 	public static Component newThemesNavbarButton(final Page page) {
 	        return new NavbarDropDownButton(Model.of("Themes")) {
 	            @Override

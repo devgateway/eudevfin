@@ -34,4 +34,10 @@ public @interface WicketNavbarComponentInitializer {
 	 * @return
 	 */
 	ComponentPosition position();
+	
+	/**
+	 * Should the annotated method be considered disabled, thus never invoked by the infrastructure
+	 * @return
+	 */
+	boolean disabled() default false;
 }
