@@ -1,6 +1,6 @@
 <Schema name="EUDevfin">
 	<Dimension visible="true" highCardinality="false" name="Area">
-		<Hierarchy visible="true" hasAll="true" primaryKey="ID">
+		<Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All Areas">
 			<Table name="AREA" schema="APP">
 			</Table>
 			<Level name="Code" visible="true" table="AREA" column="CODE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
@@ -8,14 +8,14 @@
 		</Hierarchy>
 	</Dimension>
 	<Dimension visible="true" highCardinality="false" name="Extending Agency">
-		<Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Extending Agency" allMemberCaption="%{allExtendingAgencies}" allLevelName="%{allExtendingAgencies}" description="%{extendingAgencies}" allMemberName="%{allExtendingAgencies}">
+		<Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Extending Agency" allMemberCaption="%{allExtendingAgencies}" allLevelName="%{allExtendingAgencies}" description="%{extendingAgencies}" allMemberName="All Extending Agencies">
 			<Table name="ORGANIZATION" schema="APP"></Table>
 			<Level name="code" visible="true" table="ORGANIZATION" column="CODE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never"></Level>
 			<Level name="Acronym" visible="true" table="ORGANIZATION" column="ACRONYM" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never"></Level>
 		</Hierarchy>
 	</Dimension>
 	<Dimension visible="true" highCardinality="false" name="Channel">
-		<Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Channel">
+		<Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Channel" allMemberName="All Channels">
 			<View alias="ChannelView">
 				<SQL dialect="generic"><![CDATA[
 			select
@@ -43,7 +43,7 @@
 		</Hierarchy>
 	</Dimension>
 	<Dimension visible="true" highCardinality="false" name="Channel Localized">
-		<Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Channel Localized">
+		<Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Channel Localized" allMemberName="All Channels Localized">
 			<View alias="ChannelLocalizedView">
 				<SQL dialect="generic"><![CDATA[
 			select
@@ -74,7 +74,7 @@
 		</Hierarchy>
 	</Dimension>
 	<Dimension visible="true" highCardinality="false" name="Type of Aid">
-		<Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Type of Aid" allMemberCaption="%{allTypesOfAid}" allLevelName="%{allTypesOfAid}" description="%{typesOfAid}" allMemberName="%{allTypesOfAid}">
+		<Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Type of Aid" allMemberCaption="%{allTypesOfAid}" allLevelName="%{allTypesOfAid}" description="%{typesOfAid}" allMemberName="All Types of Aid">
 			<View alias="TypeOfAidView">
 				<SQL dialect="generic"><![CDATA[
 			select
@@ -105,7 +105,7 @@
 		</Hierarchy>
 	</Dimension>
 	<Dimension visible="true" highCardinality="false" name="Type of Flow">
-		<Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Type of Flow" allMemberCaption="%{allTypesOfFlow}" allLevelName="%{allTypesOfFlow}" description="%{typesOfFlow}" allMemberName="%{allTypesOfFlow}">
+		<Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Type of Flow" allMemberCaption="%{allTypesOfFlow}" allLevelName="%{allTypesOfFlow}" description="%{typesOfFlow}" allMemberName="All Types of Flow">
 			<View alias="TypeOfFlowView">
 				<SQL dialect="generic"><![CDATA[
 			select
@@ -137,7 +137,7 @@
 		</Hierarchy>
 	</Dimension>
 	<Dimension visible="true" highCardinality="false" name="Type of Finance">
-		<Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Type of Finance" allMemberCaption="%{allTypesOfFinance}" allLevelName="%{allTypesOfFinance}" description="%{typesOfFinance}" allMemberName="%{allTypesOfFinance}">
+		<Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Type of Finance" allMemberCaption="%{allTypesOfFinance}" allLevelName="%{allTypesOfFinance}" description="%{typesOfFinance}" allMemberName="All Types of Finance">
 			<View alias="TypeOfFinanceView">
 				<SQL dialect="generic"><![CDATA[
 			select
@@ -169,7 +169,7 @@
 		</Hierarchy>
 	</Dimension>
 	<Dimension visible="true" highCardinality="false" name="Type of Finance Root">
-		<Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Type of Finance Root">
+		<Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Type of Finance Root" allMemberName="All Types of Finance Root">
 			<View alias="TypeOfFinanceRootView">
 				<SQL dialect="generic"><![CDATA[
 			select
@@ -201,7 +201,7 @@
 		</Hierarchy>
 	</Dimension>
 	<Dimension type="StandardDimension" visible="true" name="Sector">
-		<Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="%{sectors}" allMemberCaption="%{allSectors}" allLevelName="%{allSectors}" description="%{sectors}" allMemberName="%{allSectors}">
+		<Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="%{sectors}" allMemberCaption="%{allSectors}" allLevelName="%{allSectors}" description="%{sectors}" allMemberName="All Sectors">
 			<View alias="SectorView">
 				<SQL dialect="generic"><![CDATA[
 					select
@@ -235,7 +235,7 @@
 		</Hierarchy>
 	</Dimension>
 	<Dimension visible="true" highCardinality="false" name="BiMultilateral">
-		<Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="BiMultilateral" allMemberCaption="%{allBiMultilateral}" allLevelName="%{allBiMultilateral}" description="%{biMultilateral}" allMemberName="%{allBiMultilateral}">
+		<Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="BiMultilateral" allMemberCaption="%{allBiMultilateral}" allLevelName="%{allBiMultilateral}" description="%{biMultilateral}" allMemberName="All BiMultilaterals">
 			<View alias="BiMultilalteralView">
 				<SQL dialect="generic"><![CDATA[
 					select
