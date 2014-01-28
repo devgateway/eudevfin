@@ -38,27 +38,32 @@ public class ReportsPage extends HeaderFooter {
         Filter sectorFilter = new Filter("sectorFilter", "sectorList", "dashboards.sector.filter", "app.sectorListParameter");
         add(sectorFilter);
         
-        Filter orgFilter = new Filter("orgFilter", "organizationList", "dashboards.org.filter", "app.organizationListParameter");
-	    add(orgFilter);
+        Filter extendingAgenciesFilter = new Filter("extendingAgenciesFilter", "extendingAgenciesList", "dashboards.org.filter", "app.extendingAgenciesListParameter");
+	    add(extendingAgenciesFilter);
 
 	    Filter biMultilateralFilter = new Filter("biMultilateralFilter", "biMultilateralList", "dashboards.biMultilateral.filter", "app.biMultilateralListParameter");
 	    add(biMultilateralFilter);
 
 	    Table tableDashboard = new Table("tableDashboard", "typeOfFinance", "dashboards.typeOfFinance");
 	    tableDashboard.parameters().addFilter(sectorFilter);
-	    tableDashboard.parameters().addFilter(orgFilter);
+	    tableDashboard.parameters().addFilter(extendingAgenciesFilter);
 	    tableDashboard.parameters().addFilter(biMultilateralFilter);
         add(tableDashboard);
 
         PieChart pieChart = new PieChart("pieChart", "typeOfAid", "dashboards.typeOfAid");
+	    pieChart.parameters().addFilter(sectorFilter);
+	    pieChart.parameters().addFilter(extendingAgenciesFilter);
 	    pieChart.parameters().addFilter(biMultilateralFilter);
         add(pieChart);
 
         ColumnsChart columnsChart = new ColumnsChart("columnsChart", "typeOfFlow", "dashboards.typeOfFlow");
+	    columnsChart.parameters().addFilter(sectorFilter);
+	    columnsChart.parameters().addFilter(extendingAgenciesFilter);
 	    columnsChart.parameters().addFilter(biMultilateralFilter);
         add(columnsChart);
 
         StackedBarChart stackedBarChart = new StackedBarChart("stackedBarChart", "typeOfSectorsByFlow", "dashboards.typeOfSectorsByFlow");
+	    stackedBarChart.parameters().addFilter(extendingAgenciesFilter);
 	    stackedBarChart.parameters().addFilter(biMultilateralFilter);
         add(stackedBarChart);
     }

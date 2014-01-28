@@ -18,13 +18,13 @@
         </Connection>
     </DataSources>
 
-    <DataAccess id="organizationList"
+    <DataAccess id="extendingAgenciesList"
                 connection="defaultConnectionLocale"
                 type="mdx"
                 access="public">
 	    <BandedMode>compact</BandedMode>
 	    <Columns/>
-		<Name>organizationList MDX</Name>
+		<Name>extendingAgenciesList MDX</Name>
         <Query>
         <![CDATA[
 			SELECT
@@ -79,9 +79,9 @@
 		<Columns/>
 		<Name>Table Dashboard MDX</Name>
 		<Parameters>
-			<Parameter default="Members" name="app.sectorListParameter" type="String"/>
-			<Parameter default="Members" name="app.organizationListParameter" type="String"/>
-			<Parameter default="Members" name="app.biMultilateralListParameter" type="String"/>
+			<Parameter default="[All Sectors]" name="app.sectorListParameter" type="String"/>
+			<Parameter default="[All Extending Agencies]" name="app.extendingAgenciesListParameter" type="String"/>
+			<Parameter default="[All BiMultilaterals]" name="app.biMultilateralListParameter" type="String"/>
 		</Parameters>
 		<Query>
 			<![CDATA[
@@ -89,7 +89,7 @@
 			Hierarchize(Union(CrossJoin({[Reporting Year].[2009]}, {[Measures].[Commitments Amount]}), Union(CrossJoin({[Reporting Year].[2010]}, {[Measures].[Commitments Amount]}), Union(CrossJoin({[Reporting Year].[2011]}, {[Measures].[Commitments Amount]}), Union(CrossJoin({[Reporting Year].[2012]}, {[Measures].[Commitments Amount]}), CrossJoin({[Reporting Year].[2013]}, {[Measures].[Commitments Amount]})))))) ON COLUMNS,
 			NON EMPTY {Hierarchize({[Type of Finance].[Name].Members})} ON ROWS
 			FROM [Financial]
-			WHERE ({[BiMultilateral].[Name].${app.biMultilateralListParameter}})
+			WHERE ([BiMultilateral].${app.biMultilateralListParameter}, [Extending Agency].${app.extendingAgenciesListParameter}, [Sector].${app.sectorListParameter})
         ]]>
 		</Query>
 	</DataAccess>
@@ -102,7 +102,9 @@
 		<Columns/>
 		<Name>typeOfAid MDX</Name>
 		<Parameters>
-			<Parameter default="Members" name="app.biMultilateralListParameter" type="String"/>
+			<Parameter default="[All Sectors]" name="app.sectorListParameter" type="String"/>
+			<Parameter default="[All Extending Agencies]" name="app.extendingAgenciesListParameter" type="String"/>
+			<Parameter default="[All BiMultilaterals]" name="app.biMultilateralListParameter" type="String"/>
 		</Parameters>
 		<Query>
 			<![CDATA[
@@ -110,7 +112,7 @@
 			NON EMPTY {[Measures].[Commitments Amount]} ON COLUMNS,
 			NON EMPTY {Hierarchize({[Type of Aid].[Name].Members})} ON ROWS
 			FROM [Financial]
-			WHERE ({[BiMultilateral].[Name].${app.biMultilateralListParameter}})
+			WHERE ([BiMultilateral].${app.biMultilateralListParameter}, [Extending Agency].${app.extendingAgenciesListParameter}, [Sector].${app.sectorListParameter})
         ]]>
 		</Query>
 	</DataAccess>
@@ -123,7 +125,9 @@
 		<Columns/>
 		<Name>typeOfFlow MDX</Name>
 		<Parameters>
-			<Parameter default="Members" name="app.biMultilateralListParameter" type="String"/>
+			<Parameter default="[All Sectors]" name="app.sectorListParameter" type="String"/>
+			<Parameter default="[All Extending Agencies]" name="app.extendingAgenciesListParameter" type="String"/>
+			<Parameter default="[All BiMultilaterals]" name="app.biMultilateralListParameter" type="String"/>
 		</Parameters>
 		<Query>
 			<![CDATA[
@@ -131,7 +135,7 @@
 			NON EMPTY {[Measures].[Commitments Amount]} ON COLUMNS,
 			NON EMPTY {Hierarchize({[Type of Flow].[Name].Members})} ON ROWS
 			FROM [Financial]
-			WHERE ({[BiMultilateral].[Name].${app.biMultilateralListParameter}})
+			WHERE ([BiMultilateral].${app.biMultilateralListParameter}, [Extending Agency].${app.extendingAgenciesListParameter}, [Sector].${app.sectorListParameter})
         ]]>
 		</Query>
 	</DataAccess>
@@ -144,7 +148,8 @@
 		<Columns/>
 		<Name>typeOfSectorsByFlow MDX</Name>
 		<Parameters>
-			<Parameter default="Members" name="app.biMultilateralListParameter" type="String"/>
+			<Parameter default="[All Extending Agencies]" name="app.extendingAgenciesListParameter" type="String"/>
+			<Parameter default="[All BiMultilaterals]" name="app.biMultilateralListParameter" type="String"/>
 		</Parameters>
 		<Query>
 			<![CDATA[
@@ -152,7 +157,7 @@
 			NON EMPTY {[Measures].[Net Amount]} ON COLUMNS,
 			Union(CrossJoin({[Sector].[110].[EDUCATION]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[120].[HEALTH]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[140].[WATER AND SANITATION]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[150].[GOVERNMENT AND CIVIL SOCIETY]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[210].[TRANSPORT AND STORAGE]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[220].[COMMUNICATION]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[230].[ENERGY GENERATION AND SUPPLY]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[240].[BANKING AND FINANCIAL SERVICES]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[311].[AGRICULTURE]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[321].[INDUSTRY]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[323].[CONSTRUCTION]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[700].[HUMANITARIAN AID]}, [Type of Flow].[Name].Members), CrossJoin({[Sector].[400].[MULTISECTOR/CROSS-CUTTING]}, [Type of Flow].[Name].Members))))))))))))) ON ROWS
 			FROM [Financial]
-			WHERE ({[BiMultilateral].[Name].${app.biMultilateralListParameter}})
+			WHERE ([BiMultilateral].${app.biMultilateralListParameter}, [Extending Agency].${app.extendingAgenciesListParameter})
         ]]>
 		</Query>
 	</DataAccess>

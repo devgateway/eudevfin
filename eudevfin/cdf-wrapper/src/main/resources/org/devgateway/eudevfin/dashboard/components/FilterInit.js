@@ -12,11 +12,29 @@ function initFilter(parametersJson) {
 	var filterId = parametersJson.htmlObject;
     var filter = new app.FilterModel(_.extend(parametersJson, {
 	    preChange: function (value) {
-			// we need to this in order to filter MDX results
-		    if (value !== 'Members') {
-		        return '[' + value + ']';
-		    } else {
-			    return value;
+		    // we need to this in order to filter MDX results
+			if (this.name === 'biMultilateralFilter') {
+				if (value !== 'Members') {
+					return '[Name].' + '[' + value + ']';
+				} else {
+					return '[All BiMultilaterals]';
+				}
+			}
+
+		    if (this.name === 'extendingAgenciesFilter') {
+			    if (value !== 'Members') {
+				    return '[Acronym].' + '[' + value + ']';
+			    } else {
+				    return '[All Extending Agencies]';
+			    }
+		    }
+
+		    if (this.name === 'sectorFilter') {
+			    if (value !== 'Members') {
+				    return '[Name].' + '[' + value + ']';
+			    } else {
+				    return '[All Sectors]';
+			    }
 		    }
 	    },
 
@@ -32,10 +50,19 @@ function initFilter(parametersJson) {
 
 	        // mark the first option as selected
 	        $('#' + filterId + ' select').val($('#' + filterId + ' select option:first').val()).change();
-	        // TODO - this should be done in a pretty way
 
-	        //app.biMultilateralListParameter = "Members";
-	        eval(this.parameter + ' =  "Members"');
+	        // TODO - this should be done in a pretty way
+	        if (this.name === 'biMultilateralFilter') {
+		        eval(this.parameter + ' =  "[All BiMultilaterals]"');
+	        }
+
+	        if (this.name === 'extendingAgenciesFilter') {
+		        eval(this.parameter + ' =  "[All Extending Agencies]"');
+	        }
+
+	        if (this.name === 'sectorFilter') {
+		        eval(this.parameter + ' =  "[All Sectors]"');
+	        }
         }
     }));
 
