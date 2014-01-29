@@ -9,52 +9,55 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <entry key="1reportingYear.label">Reporting Year</entry>
+    <entry key="1reportingYear.label">1. Reporting Year</entry>
     <entry key="1reportingYear.placeholder">YYYY</entry>
     <entry key="1reportingYear.help">Enter the year for which data are reported</entry>
     <entry key="1reportingYear.help.detail">Field no. 1 - Reporting Year: Enter the year for which data are reported (e.g. if we are in year 2013, you enter 2012 because you report data for 2012)</entry>
 
-    <entry key="1bCommitmentDate.label">Commitment Date</entry>
+    <entry key="1bCommitmentDate.label">1.b Commitment Date</entry>
     <entry key="1bCommitmentDate.placeholder"></entry>
-    <entry key="1bCommitmentDate.help">TODO: edit help text</entry>
-	
-	<!-- confusion between 2reportingOrganization and 2reportingCountry. For the moment we need the first but the help file declares the second -->
-    <entry key="2reportingCountry.label">Reporting Country</entry>
-    <entry key="2reportingCountry.placeholder">(choose one)</entry>
-    <entry key="2reportingCountry.help">Enter the full/ official name of your country</entry>
-    <entry key="2reportingCountry.help.detail">Field no.2 - Reporting country:
-    In the future, when you become a OECD DAC member you will be assigned a country code and this field will be modified from text to the related code. 
-    For your reference see the existing country codes at http://www.oecd.org/dac/stats/dacandcrscodelists.htm
-    </entry>
+    <entry key="1bCommitmentDate.help">Commitment date</entry>
+    <entry key="1reportingYear.help.detail">Field no. 1b - Commitment date: Enter in text format DD-MM-YYYY. A commitment is a firm 
+    written obligation by a government or official agency, backed by the appropriation or availability of the necessary funds,
+    to provide resources of a specified amount under specified financial terms and conditions and for specified purposes for the 
+    benefit of a recipient country or a multilateral agency. For more info go to para 90 of the DAC GUdielines available at 
+    http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-FINAL-ENG.pdf</entry>
 
-    <entry key="3extendingAgency.label">Extending Agency</entry>
+    <entry key="3extendingAgency.label">3. Extending Agency</entry>
     <entry key="3extendingAgency.placeholder">(from first page)</entry>
     <entry key="3extendingAgency.help">Enter the full/official name name of your institution</entry>
  	<entry key="3extendingAgency.help.detail">Field no. 3 - Extending agency:
  	The extending agency is the government entity (central, state or local government agency or department) financing the activity from its own budget. 
- 	It is the budget holder, controlling the activity on its own account. 
- 	Agencies administering activities on behalf of other government entities should not be reported as extending agencies but as channels of delivery (See fields 8 and 9 below).                                                                                                                                                                                                The extending agency is the government entity (central, state or local government agency or department) financing the activity from its own budget. It is the budget holder, controlling the activity on its own account. Agencies administering activities on behalf of other government entities should not be reported as extending agencies but as channels of delivery (See fields 8 and 9 below).
+ 	It is the budget holder, controlling the activity on its own account. The extending agency is the government entity 
+         (central, state or local government agency or department) financing the activity from its own budget. It is the budget 
+         holder, controlling the activity on its own account. Agencies administering activities on behalf of other government 
+         entities should not be reported as extending agencies but as channels of delivery (See fields 8 and 9 below).	
+         Agencies administering activities on behalf of other government entities should not be reported as extending agencies but 
+         as channels of delivery (See fields 8 and 9 below).
  	</entry>
 
-    <entry key="4crsId.label">CRS ID Number</entry>
+    <entry key="4crsId.label">4. CRS ID Number</entry>
     <entry key="4crsId.placeholder">YYYYxxxxxx</entry>
-    <entry key="4crsId.help">Enter the number In 10 digits</entry>
+    <entry key="4crsId.help">Enter the number in 10 digits</entry>
     <entry key="4crsId.help.detail">Field no. 4 - CRS Identification number:
-    The CRS Id number ensures the unicity of each transaction in the database, and possibly the link between original commitments and subsequent disbursements over several years. 
+    The CRS Id number ensures the unicity of each transaction in the database, and possibly the link between original commitments and subsequent disbursements over several years.
     It is a sequential number starting with the four digits of the original commitment year of the activity and is unique throughout the activity life (original commitment, subsequent increases and disbursements).
     </entry>
 
-    <entry key="5donorProjectNumber.label">Donor Project Number</entry>
+    <entry key="5donorProjectNumber.label">5. Donor Project Number</entry>
     <entry key="5donorProjectNumber.placeholder">Number used by the agency</entry>
     <entry key="5donorProjectNumber.help">Enter the number, or combination of letters and numbers, used by your agency to identify the activity</entry>
     <entry key="5donorProjectNumber.help.detail">Field no. 5 - Donor project number: enter the number, or combination of letters and numbers, used by your agency to identify the activity.</entry>
 
-    <entry key="6natureSubmission.label">Nature of Submission</entry>
+    <entry key="6natureSubmission.label">6. Nature of Submission</entry>
     <entry key="6natureSubmission.placeholder"></entry>
-    <entry key="6natureSubmission.help">3: previously reported activity (increase/decrease of earlier commitment, disbursement on earlier commitment)</entry>
-    <entry key="6natureSubmission.help.detail">There is no menu choice here as the Questionnaire reports on disbursments only. 
-For increases or disbursements on commitments reported in previous years (code 3), the identification number of the original commitment should preferably be used. 
-If, for example, a disbursement in 2011 is reported on a transaction initially committed in 2010 with the CRS Id '2010100001', the disbursement will carry the CRS Id “2010100001” with a nature of submission equal to 3. In case a donor is not able to trace the original commitment, the disbursement would need to be reported with a new CRS Id and a nature of submission equal to 3 (In such a case, the link to the original transaction is lost and monitoring project implementation is not possible). 
-A number of donors cannot report grant aid commitments report on a disbursement basis only. Also, the commitment concept is difficult to apply to certain categories of aid (e.g. aid to refugees in donor countries), for which only disbursement data are available. For such activities, all fields in CRS++ should be completed, and the fields related to commitments should be set equal to the disbursement figure (in which case, the nature of submission should be equal to 8 'commitment=disbursement').</entry>
+    <entry key="6natureSubmission.help">1: new activity reported; 2: revision; 3: previously reported activity (increase/decrease of earlier commitment, disbursement on earlier commitment); 5: provisional data;
+    8: commitment = disbursement</entry>
+    <entry key="6natureSubmission.help.detail">Field no. 6 - Nature of submission: 1: new activity reported; 2: revision; 
+    3: previously reported activity (increase/decrease of earlier commitment, disbursement on earlier commitment); 
+    5: provisional data; 8: commitment = disbursement.                                                                                                                                                                                                       
+    When an activity is reported for the first time, it should be marked as a new activity reported (code 1). If changes need to be made to transactions reported in previous years to correct past errors (either in the amount or the qualitative information), report a revision (code 2). Fill out all data fields including the ones that have not been revised. For increases or disbursements on commitments reported in previous years (code 3), the identification number of the original commitment should preferably be used. 
+    If, for example, a disbursement in 2011 is reported on a transaction initially committed in 2010 with the CRS Id “2010100001”, the disbursement will carry the CRS Id “2010100001” with a nature of submission equal to 3. In case a donor is not able to trace the original commitment, the disbursement would need to be reported with a new CRS Id and a nature of submission equal to 3 (In such a case, the link to the original transaction is lost and monitoring project implementation is not possible). 
+    A number of donors cannot report grant aid commitments report on a disbursement basis only. Also, the commitment concept is difficult to apply to certain categories of aid (e.g. aid to refugees in donor countries), for which only disbursement data are available. For such activities, all fields in CRS++ should be completed, and the fields related to commitments should be set equal to the disbursement figure (in which case, the nature of submission should be equal to 8 “commitment=disbursement”).</entry>
     
 </properties>

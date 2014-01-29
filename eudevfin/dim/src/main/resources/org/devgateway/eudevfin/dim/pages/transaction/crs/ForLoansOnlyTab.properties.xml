@@ -4,7 +4,7 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-	<entry key="44typeOfRepayment.label">Type of repayment</entry>
+	<entry key="44typeOfRepayment.label">44. Type of repayment</entry>
 	<entry key="44typeOfRepayment.placeholder"></entry>
 	<entry key="44typeOfRepayment.help">1=equal principal payments (see glossary for explaination)
 		2=annuity;
@@ -25,10 +25,10 @@
 		schedule is a
 		particular case of equal principal payments and should be reported under that category. 5= If the type of
 		repayment
-		does not correspond to any of the three above, use the code “other”.
+		does not correspond to any of the three above, use the code â€œotherâ€.
 	</entry>
 
-	<entry key="45numberOfRepayments.label">Number of Repayments per annum</entry>
+	<entry key="45numberOfRepayments.label">45. Number of Repayments per annum</entry>
 	<entry key="45numberOfRepayments.placeholder"></entry>
 	<entry key="45numberOfRepayments.help">1=annual
 		2=semi-annual;
@@ -37,15 +37,15 @@
 	</entry>
 	<entry key="45numberOfRepayments.help.detail">Field no. 45 - Number of repayments per annum: 1=annual; 2=semi-annual; 4=quarterly; 12=monthly</entry>
 
-	<entry key="46interestRate.label">Interest Rate</entry>
+	<entry key="46interestRate.label">46. Interest Rate</entry>
 	<entry key="46interestRate.placeholder"></entry>
-	<entry key="46interestRate.help">Enter: in 5 digits, e.g. “05200” for 5.2 % ; or
-		“0” if interest free. If ODA loan with variable
+	<entry key="46interestRate.help">Enter: in 5 digits, e.g. â€œ05200â€ for 5.2 % ; or
+		â€œ0â€ if interest free. If ODA loan with variable
 		interest rate, report the variable rate in field 46 (e.g. LIBOR6M-1.5%)
 		and the reference
 		fixed rate in field 47.
 	</entry>
-	<entry key="46interestRate.help.detail">Field no. 46 - Interest rate: Enter in 5 digits, e.g. “05200” for 5.2 % ; or “0” if interest free.
+	<entry key="46interestRate.help.detail">Field no. 46 - Interest rate: Enter in 5 digits, e.g. â€œ05200â€ for 5.2 % ; or â€œ0â€ if interest free.
 		Most loans have a single interest rate which applies throughout the life of the loan. Enter this rate, including in it
 		any charges in addition to the interest that are payable on the disbursed balance over the life of the loan. If ODA
 		loan with variable interest rate, report the variable rate in field 46 (e.g. LIBOR6M-1.5%) and the reference fixed
@@ -58,16 +58,16 @@
 		http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-FINAL-ENG.pdf
 	</entry>
 
-	<entry key="47secondInterestRate.label">2nd Interest Rate</entry>
+	<entry key="47secondInterestRate.label">47. 2nd Interest Rate</entry>
 	<entry key="47secondInterestRate.placeholder"></entry>
 	<entry key="47secondInterestRate.help">"Enter
-		in 5 digits, e.g. “05200” for 5.2 % ; or
-		“0” if interest free.
+		in 5 digits, e.g. â€œ05200â€ for 5.2 % ; or
+		â€œ0â€ if interest free.
 		If ODA loan with variable interest
 		rate, report the variable rate in field 46 (e.g. LIBOR6M-1.5%) and the reference
 		fixed rate in field 47. "
 	</entry>
-	<entry key="47secondInterestRate.help.detail">Field no. 47 - Second interest rate: Enter in 5 digits, e.g. “05200” for 5.2 % ; or “0” if interest
+	<entry key="47secondInterestRate.help.detail">Field no. 47 - Second interest rate: Enter in 5 digits, e.g. â€œ05200â€ for 5.2 % ; or â€œ0â€ if interest
 		free. Most loans have a single interest rate which applies throughout the life of the loan. Enter this rate, including
 		in it any charges in addition to the interest that are payable on the disbursed balance over the life of the loan. If
 		ODA loan with variable interest rate, report the variable rate in field 46 (e.g. LIBOR6M-1.5%) and the reference fixed
@@ -80,7 +80,7 @@
 		http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-FINAL-ENG.pdf
 	</entry>
 
-	<entry key="48firstRepaymentDate.label">1st RepaymentDate</entry>
+	<entry key="48firstRepaymentDate.label">48. 1st RepaymentDate</entry>
 	<entry key="48firstRepaymentDate.placeholder"></entry>
 	<entry key="48firstRepaymentDate.help">First repayment rate</entry>
 	<entry key="48firstRepaymentDate.help.detail">Field no. 48 - First repayment rate: State the dates at which the first and the final repayments of
@@ -89,7 +89,7 @@
 		country or country group.
 	</entry>
 
-	<entry key="49finalRepaymentDate.label">Final repayment date</entry>
+	<entry key="49finalRepaymentDate.label">49. Final repayment date</entry>
 	<entry key="49finalRepaymentDate.placeholder"></entry>
 	<entry key="49finalRepaymentDate.help">Final repayment date</entry>
 	<entry key="49finalRepaymentDate.help.detail">Field no. 49 - Final repayment date: State the dates at which the first and the final repayments of
@@ -98,13 +98,13 @@
 		country or country group.
 	</entry>
 
-	<entry key="50interestReceived.label">Interest Received</entry>
+	<entry key="50interestReceived.label">50. Interest Received</entry>
 	<entry key="50interestReceived.placeholder"></entry>
 	<entry key="50interestReceived.help">During the reporting year (full amount). DO NOT enter a negative amount.</entry>
 	<entry key="50interestReceived.help.detail">Field no. 50 - Interest received: Interest received corresponds to the amount of interest and/or other
 		charges received from the borrowing country, including payments to expunge or reduce interest due or in arrears.</entry>
 
-	<entry key="51principalDisbursed.label">Principal Disbursed and still outstanding</entry>
+	<entry key="51principalDisbursed.label">51. Principal Disbursed and still outstanding</entry>
 	<entry key="51principalDisbursed.placeholder"></entry>
 	<entry key="51principalDisbursed.help">The amount of principal owed on the loan at the end of the reporting year (full amounts)</entry>
 	<entry key="51principalDisbursed.help.detail">Field no. 51 - Principal disbursed and still outstanding: Loans should be reported on the CRS++ until
@@ -113,27 +113,27 @@
 		reporting year.
 	</entry>
 
-	<entry key="52arrearsOfPrincipals.label">Arrears of Principals</entry>
+	<entry key="52arrearsOfPrincipals.label">52. Arrears of Principals (included in field 51)</entry>
 	<entry key="52arrearsOfPrincipals.placeholder"></entry>
 	<entry key="52arrearsOfPrincipals.help">At the end of the year (in full amount)</entry>
 	<entry key="52arrearsOfPrincipals.help.detail">Field no. 52 - Arrears of principal (included in field 51): Report separately any arrears of
 		principal and interest at the end of the reporting year, taking into account debt
 		service payments received during the year (amortisation under field 35 and interest received under field 50), and including
 		arrears that have arisen during the reporting year. Arrears of principal are part of the principal owed on the loan
-		and should be included in the amount reported under field 51 (i.e. field 52 is an “of which” field of 51). Arrears of
+		and should be included in the amount reported under field 51 (i.e. field 52 is an â€œof whichâ€ field of 51). Arrears of
 		interest, by contrast, are not part of this amount. Any past due or overdue late interest (interest which accrues on
 		arrears) should be treated as arrears of interest. Total debt outstanding at the end of the year is defined as the sum
 		of principal disbursed and still outstanding and arrears of interest.
 	</entry>
 
-	<entry key="53arrearsOfInterest.label">Arrears of Interest</entry>
+	<entry key="53arrearsOfInterest.label">53. Arrears of Interest</entry>
 	<entry key="53arrearsOfInterest.placeholder"></entry>
 	<entry key="53arrearsOfInterest.help">At the end of the year (in full amount)</entry>
 	<entry key="53arrearsOfInterest.help.detail">Field no. 53 - Arrears of interest: Report separately any arrears of principal and interest at the end
 		of the reporting year, taking into account debt service payments received during the year (amortisation under field 35
 		and interest received under field 50), and including arrears that have arisen during the reporting year. Arrears of
 		principal are part of the principal owed on the loan and should be included in the amount reported under field 51
-		(i.e. field 52 is an “of which” field of 51). Arrears of interest, by contrast, are not part of this amount. Any past
+		(i.e. field 52 is an â€œof whichâ€ field of 51). Arrears of interest, by contrast, are not part of this amount. Any past
 		due or overdue late interest (interest which accrues on arrears) should be treated as arrears of interest. Total debt
 		outstanding at the end of the year is defined as the sum of principal disbursed and still outstanding and arrears of
 		interest.</entry>
