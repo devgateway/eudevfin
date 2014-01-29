@@ -29,7 +29,8 @@
 	<jpa:repositories base-package="org.devgateway.eudevfin.financial.repository" />
 	<!-- auditing -->
     <jpa:auditing auditor-aware-ref="simpleAuditorAwareImpl" />
-
+	
+	<util:properties id="currencyProperties" location="classpath:/org/devgateway/eudevfin/financial/currencies-metadata.properties"/>
 
 
 	<!-- Get localhost InetAddress to start Derby network server on it. -->
@@ -202,6 +203,9 @@
 	<int:channel id="findAreaByIdChannel"/>
 	<int:channel id="findAreaByGeneralSearchChannel"/>
 	<int:channel id="findByGeneralSearchPageableAreaChannel"/>
+	
+	<int:channel id="findBySearchPageableCurrencyChannel"/>
+	<int:channel id="findByCodeCurrencyChannel"/>
 	
 
     <!-- 	Router that sends the requests to the appropriate channels where they will usually be handled by ServiceActivators.

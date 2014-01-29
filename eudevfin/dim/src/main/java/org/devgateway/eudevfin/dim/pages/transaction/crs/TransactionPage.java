@@ -29,9 +29,12 @@ import org.apache.wicket.util.time.Duration;
 import org.apache.wicket.util.visit.IVisit;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
+import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 import org.devgateway.eudevfin.dim.pages.HomePage;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
+import org.devgateway.eudevfin.financial.service.CurrencyMetadataService;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
+import org.devgateway.eudevfin.financial.util.CurrencyConstants;
 import org.devgateway.eudevfin.ui.common.Constants;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
 import org.devgateway.eudevfin.ui.common.components.tabs.BootstrapJSTabbedPanel;
@@ -41,6 +44,7 @@ import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.devgateway.eudevfin.ui.common.permissions.PermissionAwarePage;
 import org.devgateway.eudevfin.ui.common.permissions.RoleActionMapping;
 import org.devgateway.eudevfin.ui.common.temporary.SB;
+import org.joda.money.CurrencyUnit;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -59,6 +63,9 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 
 	@SpringBean
 	private FinancialTransactionService financialTransactionService;
+	
+	@SpringBean
+	private CurrencyMetadataService currencyMetadaService;
 
 	private static final CRSTransactionPermissionProvider componentPermissions = new CRSTransactionPermissionProvider();
 
@@ -130,7 +137,12 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 	 * @param parameters the {@link PageParameters}
 	 */
 	public void initializeFinancialTransaction(FinancialTransaction transaction,PageParameters parameters) {
-		transaction.setCurrency(SB.currencies[0]);		
+		NullableWrapper<CurrencyUnit> defaultCurrencyUnitNW	= 
+				this.currencyMetadaService.findByCode(CurrencyConstants.DEFAULT_CURRENCY_CODE_REQ);
+		if ( defaultCurrencyUnitNW.isNull() )
+			transaction.setCurrency( CurrencyUnit.of("EUR") );
+		else
+			transaction.setCurrency( defaultCurrencyUnitNW.getEntity() );
 		//set the reportingOrg to the current user's org
 		PersistedUser user=(PersistedUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();			
 		transaction.setExtendingAgency(user.getGroup().getOrganization());

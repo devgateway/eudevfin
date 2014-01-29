@@ -21,6 +21,7 @@ import org.devgateway.eudevfin.dim.core.models.BigMoneyModel;
 import org.devgateway.eudevfin.dim.core.models.YearToLocalDateTimeModel;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.BasicDataTab;
 import org.devgateway.eudevfin.dim.providers.CategoryProviderFactory;
+import org.devgateway.eudevfin.dim.providers.CurrencyUnitProvider;
 import org.devgateway.eudevfin.dim.providers.OrganizationChoiceProvider;
 import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.Organization;
@@ -93,6 +94,9 @@ public class CustomBasicDataTab extends BasicDataTab {
         @SpringBean
         private OrganizationChoiceProvider organizationProvider;
 
+        @SpringBean
+    	private CurrencyUnitProvider currencyUnitProvider;
+
         public Extension2(String id, String markupId, MarkupContainer markupProvider) {
             super(id, markupId, markupProvider);
 
@@ -124,7 +128,7 @@ public class CustomBasicDataTab extends BasicDataTab {
 
             RWComponentPropertyModel<CurrencyUnit> firstAgencyCurrencyModel = new RWComponentPropertyModel<>("firstAgencyCurrency");
             DropDownField<CurrencyUnit> firstAgencyCurrency = new DropDownField<CurrencyUnit>("14d1stAgencyCurrency", firstAgencyCurrencyModel,
-                    SB.currencyProvider) {
+                    this.currencyUnitProvider) {
                 @Override
                 protected void onUpdate(AjaxRequestTarget target) {
                     send(CustomBasicDataTab.this, Broadcast.DEPTH, new CurrencyChangedEvent(target));
@@ -141,7 +145,7 @@ public class CustomBasicDataTab extends BasicDataTab {
 
             RWComponentPropertyModel<CurrencyUnit> secondAgencyCurrencyModel = new RWComponentPropertyModel<>("secondAgencyCurrency");
             DropDownField<CurrencyUnit> secondAgencyCurrency = new DropDownField<CurrencyUnit>("14g2ndAgencyCurrency", secondAgencyCurrencyModel,
-                    SB.currencyProvider) {
+                    this.currencyUnitProvider) {
                 @Override
                 protected void onUpdate(AjaxRequestTarget target) {
                     send(CustomBasicDataTab.this, Broadcast.DEPTH, new CurrencyChangedEvent(target));
@@ -158,7 +162,7 @@ public class CustomBasicDataTab extends BasicDataTab {
 
             RWComponentPropertyModel<CurrencyUnit> thirdAgencyCurrencyModel = new RWComponentPropertyModel<>("thirdAgencyCurrency");
             DropDownField<CurrencyUnit> thirdAgencyCurrency = new DropDownField<CurrencyUnit>("14j3rdAgencyCurrency", thirdAgencyCurrencyModel,
-                    SB.currencyProvider) {
+                    this.currencyUnitProvider) {
                 @Override
                 protected void onUpdate(AjaxRequestTarget target) {
                     send(CustomBasicDataTab.this, Broadcast.DEPTH, new CurrencyChangedEvent(target));

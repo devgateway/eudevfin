@@ -150,4 +150,14 @@
 		</int:method>
 	
 	</int:gateway>
+	<int:gateway id="currencyMetadataService"
+		default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}" 
+		service-interface="org.devgateway.eudevfin.financial.service.CurrencyMetadataService">
+		<int:method name="findBySearch" request-channel="getChannel">
+			<int:header name="requestName" value="findBySearchPageableCurrencyChannel"/>
+		</int:method>
+		<int:method name="findByCode" request-channel="getChannel">
+			<int:header name="requestName" value="findByCodeCurrencyChannel" />
+		</int:method>
+	</int:gateway>
 </beans>

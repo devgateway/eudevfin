@@ -16,9 +16,11 @@ import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.model.ComponentPropertyModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.dim.core.models.BigMoneyModel;
 import org.devgateway.eudevfin.dim.core.models.ExchangeRateModel;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.VolumeDataTab;
+import org.devgateway.eudevfin.dim.providers.CurrencyUnitProvider;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.components.PermissionAwareContainer;
@@ -173,6 +175,10 @@ public class CustomVolumeDataTab extends VolumeDataTab {
     }
 
     private class Extension3 extends Fragment {
+
+        @SpringBean
+    	private CurrencyUnitProvider currencyUnitProvider;
+        
         public Extension3(String id, String markupId, MarkupContainer markupProvider) {
             super(id, markupId, markupProvider);
 
@@ -186,7 +192,7 @@ public class CustomVolumeDataTab extends VolumeDataTab {
             add(exchangeRate);
 
             final DropDownField<CurrencyUnit> otherCurrency = new DropDownField<CurrencyUnit>("32bOtherCurrency", toCurrency,
-                    SB.currencyProvider) {
+                    this.currencyUnitProvider) {
                 @Override
                 protected void onUpdate(AjaxRequestTarget target) {
                     //send(getPage(), Broadcast.DEPTH, new CurrencyChangedEvent(target));

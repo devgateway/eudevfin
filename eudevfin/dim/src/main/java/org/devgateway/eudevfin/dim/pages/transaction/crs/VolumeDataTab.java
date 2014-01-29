@@ -17,7 +17,9 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.ComponentPropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.dim.core.models.BigMoneyModel;
+import org.devgateway.eudevfin.dim.providers.CurrencyUnitProvider;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
@@ -36,6 +38,9 @@ public class VolumeDataTab extends Panel implements PermissionAwareComponent {
     private static final Logger logger = Logger.getLogger(VolumeDataTab.class);
     public static final String KEY = "tabs.volume";
 	private PageParameters parameters;
+	
+	@SpringBean
+	private CurrencyUnitProvider currencyUnitProvider;
 
     public VolumeDataTab(String id,PageParameters parameters) {
         super(id);
@@ -62,7 +67,7 @@ public class VolumeDataTab extends Panel implements PermissionAwareComponent {
 
         ComponentPropertyModel<CurrencyUnit> readOnlyCurrencyModel = new ComponentPropertyModel<>("currency");
         DropDownField<CurrencyUnit> currency = new DropDownField<CurrencyUnit>("32currency", new RWComponentPropertyModel<CurrencyUnit>("currency"),
-                SB.currencyProvider) {
+                this.currencyUnitProvider) {
             @Override
             protected void onUpdate(AjaxRequestTarget target) {
                 send(getPage(), Broadcast.DEPTH, new CurrencyChangedEvent(target));
