@@ -11,7 +11,8 @@
 	<parameter name="SUBDIR_PATH" class="java.lang.String"/>
 	<queryString language="mdx">
 		<![CDATA[
-WITH MEMBER [Reporting Year].[First Year] AS [Reporting Year].[$P{FIRST_YEAR}]
+WITH
+MEMBER [Reporting Year].[First Year] AS [Reporting Year].[$P{FIRST_YEAR}]
 MEMBER [Reporting Year].[Second Year] AS [Reporting Year].[$P{SECOND_YEAR}]
 SELECT
 {[Reporting Year].[First Year], [Reporting Year].[Second Year]} ON ROWS,
@@ -215,7 +216,7 @@ FROM [Financial]]]>
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/aq_master_bilateral_toa_year.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/aq_master_bilateral_toa.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
 				<reportElement x="0" y="140" width="555" height="86" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>
@@ -234,7 +235,7 @@ FROM [Financial]]]>
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/aq_master_bilateral_tof_year.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/aq_master_bilateral_tof.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
 				<reportElement x="0" y="226" width="555" height="100" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>
@@ -253,7 +254,7 @@ FROM [Financial]]]>
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/aq_master_multilateral_org_year.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/aq_master_multilateral_org.jasper"]]></subreportExpression>
 			</subreport>
 			<textField>
 				<reportElement x="0" y="326" width="107" height="14" uuid="2ed57308-69e8-4d87-9af8-6b3eb2c20ccf"/>
@@ -279,7 +280,7 @@ FROM [Financial]]]>
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/aq_master_memo_region_year.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/aq_master_memo_region.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
 				<reportElement x="0" y="466" width="555" height="56" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>
@@ -298,7 +299,7 @@ FROM [Financial]]]>
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/aq_master_memo_sector_year.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/aq_master_memo_sector.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
 				<reportElement x="0" y="522" width="555" height="14" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>
@@ -317,7 +318,7 @@ FROM [Financial]]]>
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/aq_master_memo_debtrelief_year.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/aq_master_memo_debtrelief.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
 				<reportElement x="0" y="536" width="555" height="15" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>
@@ -336,7 +337,7 @@ FROM [Financial]]]>
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/aq_master_memo_totaloda_year.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/aq_master_memo_totaloda.jasper"]]></subreportExpression>
 			</subreport>
 			<staticText>
 				<reportElement x="298" y="20" width="50" height="14" uuid="b147f133-2d8c-4378-839a-9ff89a6141f0"/>
@@ -362,7 +363,7 @@ FROM [Financial]]]>
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/aq_master_others_year.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/aq_master_others.jasper"]]></subreportExpression>
 			</subreport>
 			<line>
 				<reportElement x="295" y="552" width="1" height="50" uuid="d8a9fd9b-c052-4c61-b110-eb778867157c"/>

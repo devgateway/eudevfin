@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="555" pageHeight="14" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4d81083f-52a3-45df-97af-b93a485e497a">
+	<property name="ireport.callouts" value="##Mon Dec 30 08:46:00 ART 2013"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="FIRST_YEAR" class="java.lang.Number"/>
+	<parameter name="SECOND_YEAR" class="java.lang.Number"/>
+	<parameter name="SUBDIR_PATH" class="java.lang.String"/>
+	<queryString language="mdx">
+		<![CDATA[WITH
+    MEMBER [Type of Finance].[Grants] as SUM({[Type of Finance].[TYPE_OF_FINANCE##100],[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE##111]})
+    MEMBER [Type of Aid].[Debt Relief] AS SUM({[Type of Aid].[F],[Type of Aid].[F01]})
+	MEMBER [Measures].[First Year] AS SUM(CrossJoin({[Reporting Year].[$P{FIRST_YEAR}]}, {[Measures].[Net Amount]}))
+	MEMBER [Measures].[Second Year] AS SUM(CrossJoin({[Reporting Year].[$P{SECOND_YEAR}]}, {[Measures].[Net Amount]}))
+SELECT
+{
+[Type of Finance].[Grants]
+} ON ROWS,
+{[Measures].[First Year], [Measures].[Second Year]} ON COLUMNS
+FROM [Financial]
+WHERE [Type of Aid].[Debt Relief]]]>
+	</queryString>
+	<field name="Debt Relief Grants Y1" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[First Year], [Type of Finance].[Grants])]]></fieldDescription>
+	</field>
+	<field name="Debt Relief Grants Y2" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Type of Finance].[Grants])]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="14" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="295" height="14" uuid="75a9d431-f9ec-4d1d-8f7a-bb967d39b954"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{aq.debtReliefGrants}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="352" y="0" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Debt Relief Grants Y1}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="297" y="0" width="50" height="14" uuid="8845796c-265a-4b77-81ea-1f5f64d2e523"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[087]]></text>
+			</staticText>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="455" y="0" width="100" height="14" uuid="c93aacfe-57c9-4cbc-b216-e13e54a94e50"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Debt Relief Grants Y2}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
