@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.devgateway.eudevfin.dim.core.models;
+package org.devgateway.eudevfin.mcm.models;
 
 import org.apache.wicket.model.IWrapModel;
 import org.devgateway.eudevfin.auth.common.util.DigestUtils;

@@ -477,7 +477,8 @@
 		<module>saikuui</module>
 		<module>common-ui</module>
     	<module>import-metadata</module>
-  </modules>
+    	<module>mcm</module>
+    </modules>
     <inceptionYear>2013</inceptionYear>
     <organization>
         <name>Development Gateway</name>

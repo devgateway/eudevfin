@@ -15,6 +15,7 @@ import org.apache.wicket.Session;
 import org.devgateway.eudevfin.common.service.BaseEntityService;
 import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.service.CategoryService;
+import org.devgateway.eudevfin.ui.common.providers.AbstractTranslatableProvider;
 import org.json.JSONException;
 import org.json.JSONWriter;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,21 +1,14 @@
 /**
  * 
  */
-package org.devgateway.eudevfin.dim.providers;
+package org.devgateway.eudevfin.mcm.providers;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import org.apache.commons.collections4.CollectionUtils;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUserGroup;
 import org.devgateway.eudevfin.auth.common.service.PersistedUserGroupService;
 import org.devgateway.eudevfin.common.service.BaseEntityService;
+import org.devgateway.eudevfin.ui.common.providers.AbstractTextChoiceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import com.vaynberg.wicket.select2.Response;
-import com.vaynberg.wicket.select2.TextChoiceProvider;
 
 /**
  * @author mihai

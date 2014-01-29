@@ -9,7 +9,7 @@
  *    mihai
  ******************************************************************************/
 
-package org.devgateway.eudevfin.dim.pages.admin;
+package org.devgateway.eudevfin.mcm.pages;
 
 import java.util.Collection;
 
@@ -29,10 +29,9 @@ import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUserGroup;
 import org.devgateway.eudevfin.auth.common.service.PersistedUserGroupService;
-import org.devgateway.eudevfin.dim.providers.OrganizationChoiceProvider;
-import org.devgateway.eudevfin.dim.providers.PersistedUserChoiceProvider;
-import org.devgateway.eudevfin.dim.providers.PersistedUserGroupChoiceProvider;
 import org.devgateway.eudevfin.financial.Organization;
+import org.devgateway.eudevfin.mcm.providers.PersistedUserChoiceProvider;
+import org.devgateway.eudevfin.mcm.providers.PersistedUserGroupChoiceProvider;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.ReadOnlyComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
@@ -40,6 +39,7 @@ import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.components.MultiSelectField;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
+import org.devgateway.eudevfin.ui.common.providers.OrganizationChoiceProvider;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**

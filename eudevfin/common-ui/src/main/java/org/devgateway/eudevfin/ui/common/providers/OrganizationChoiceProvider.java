@@ -9,7 +9,7 @@
 /**
  *
  */
-package org.devgateway.eudevfin.dim.providers;
+package org.devgateway.eudevfin.ui.common.providers;
 
 import org.devgateway.eudevfin.common.service.BaseEntityService;
 import org.devgateway.eudevfin.financial.Organization;

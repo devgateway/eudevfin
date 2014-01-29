@@ -14,7 +14,6 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.dim.core.models.DateToLocalDateTimeModel;
 import org.devgateway.eudevfin.dim.core.models.YearToLocalDateTimeModel;
 import org.devgateway.eudevfin.dim.providers.CategoryProviderFactory;
-import org.devgateway.eudevfin.dim.providers.OrganizationChoiceProvider;
 import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.util.CategoryConstants;
@@ -23,6 +22,7 @@ import org.devgateway.eudevfin.ui.common.components.DateInputField;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
 import org.devgateway.eudevfin.ui.common.permissions.PermissionAwareComponent;
+import org.devgateway.eudevfin.ui.common.providers.OrganizationChoiceProvider;
 import org.joda.time.LocalDateTime;
 
 /**

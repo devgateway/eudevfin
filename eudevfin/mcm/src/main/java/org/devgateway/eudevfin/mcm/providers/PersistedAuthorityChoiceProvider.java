@@ -1,7 +1,7 @@
 /** 
  * 
  */
-package org.devgateway.eudevfin.dim.providers;
+package org.devgateway.eudevfin.mcm.providers;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -6,7 +6,7 @@
  * http://www.gnu.org/licenses/gpl.html
  */
 
-package org.devgateway.eudevfin.dim.providers;
+package org.devgateway.eudevfin.ui.common.providers;
 
 import java.awt.List;
 import java.util.ArrayList;

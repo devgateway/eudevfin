@@ -9,7 +9,7 @@
  *    mihai
  ******************************************************************************/
 
-package org.devgateway.eudevfin.dim.pages.admin;
+package org.devgateway.eudevfin.mcm.pages;
 
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -20,8 +20,8 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.service.PersistedUserService;
-import org.devgateway.eudevfin.dim.desktop.components.PersistedUserTableListPanel;
-import org.devgateway.eudevfin.dim.desktop.components.util.PersistedUserListGenerator;
+import org.devgateway.eudevfin.mcm.components.PersistedUserTableListPanel;
+import org.devgateway.eudevfin.mcm.util.PersistedUserListGenerator;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
 import org.devgateway.eudevfin.ui.common.pages.ListPage;
 import org.wicketstuff.annotation.mount.MountPath;

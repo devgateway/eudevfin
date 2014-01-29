@@ -9,7 +9,7 @@
  *    mihai
  ******************************************************************************/
 
-package org.devgateway.eudevfin.dim.pages.admin;
+package org.devgateway.eudevfin.mcm.pages;
 
 import java.util.Collection;
 
@@ -31,9 +31,9 @@ import org.devgateway.eudevfin.auth.common.domain.PersistedAuthority;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUserGroup;
 import org.devgateway.eudevfin.auth.common.service.PersistedUserService;
-import org.devgateway.eudevfin.dim.core.models.PasswordEncryptModel;
-import org.devgateway.eudevfin.dim.providers.PersistedAuthorityChoiceProvider;
-import org.devgateway.eudevfin.dim.providers.PersistedUserGroupChoiceProvider;
+import org.devgateway.eudevfin.mcm.models.PasswordEncryptModel;
+import org.devgateway.eudevfin.mcm.providers.PersistedAuthorityChoiceProvider;
+import org.devgateway.eudevfin.mcm.providers.PersistedUserGroupChoiceProvider;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
 import org.devgateway.eudevfin.ui.common.components.CheckBoxField;

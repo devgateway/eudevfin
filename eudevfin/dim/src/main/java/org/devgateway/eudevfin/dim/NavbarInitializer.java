@@ -13,8 +13,6 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.dim.pages.HomePage;
-import org.devgateway.eudevfin.dim.pages.admin.ListPersistedUserGroupsPage;
-import org.devgateway.eudevfin.dim.pages.admin.ListPersistedUsersPage;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.TransactionPage;
 import org.devgateway.eudevfin.dim.pages.transaction.custom.CustomTransactionPage;
 import org.devgateway.eudevfin.ui.common.Constants;
@@ -130,32 +128,6 @@ public final class NavbarInitializer {
         MetaDataRoleAuthorizationStrategy.authorize(navbarDropDownButton, Component.RENDER, AuthConstants.Roles.ROLE_USER);
         return navbarDropDownButton;
 	}
-	
-	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT)
-	public static Component newAdminNavbarButton(Page page) {
-        NavbarDropDownButton navbarDropDownButton = new NavbarDropDownButton(new StringResourceModel("navbar.admin", page, null, null)) {
-            @Override
-            public boolean isActive(Component item) {
-                return false;
-            }
-
-			@Override
-			protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
-	            List<AbstractLink> list = new ArrayList<>();
-	            list.add(new MenuBookmarkablePageLink<ListPersistedUsersPage>(ListPersistedUsersPage.class, null, new StringResourceModel("navbar.admin.users", this, null, null)));
-	            list.add(new MenuBookmarkablePageLink<ListPersistedUserGroupsPage>(ListPersistedUserGroupsPage.class, null, new StringResourceModel("navbar.admin.groups", this, null, null)));
-	            return list;
-			}
-
-  
-        };
-        navbarDropDownButton.setIconType(IconType.plus);
-        navbarDropDownButton.add(new DropDownAutoOpen());        
-        MetaDataRoleAuthorizationStrategy.authorize(navbarDropDownButton, Component.RENDER, AuthConstants.Roles.ROLE_SUPERVISOR);
-        
-        return navbarDropDownButton;
-    }
-
 
 	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT,disabled=true)
 	public static Component newThemesNavbarButton(final Page page) {

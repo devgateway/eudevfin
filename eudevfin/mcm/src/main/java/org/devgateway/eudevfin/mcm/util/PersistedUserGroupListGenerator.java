@@ -1,7 +1,7 @@
 /** 
  * 
  */
-package org.devgateway.eudevfin.dim.desktop.components.util;
+package org.devgateway.eudevfin.mcm.util;
 
 import org.devgateway.eudevfin.auth.common.domain.PersistedUserGroup;
 import org.devgateway.eudevfin.auth.common.service.PersistedUserGroupService;

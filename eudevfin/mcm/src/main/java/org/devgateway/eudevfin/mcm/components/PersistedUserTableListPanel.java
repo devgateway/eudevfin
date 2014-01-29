@@ -9,7 +9,7 @@
 /**
  * 
  */
-package org.devgateway.eudevfin.dim.desktop.components;
+package org.devgateway.eudevfin.mcm.components;
 
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
@@ -18,7 +18,7 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
-import org.devgateway.eudevfin.dim.pages.admin.EditPersistedUserPage;
+import org.devgateway.eudevfin.mcm.pages.EditPersistedUserPage;
 import org.devgateway.eudevfin.ui.common.components.TableListPanel;
 import org.devgateway.eudevfin.ui.common.components.util.ListGeneratorInterface;
 
