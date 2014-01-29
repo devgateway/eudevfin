@@ -33,7 +33,6 @@ import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.mcm.providers.PersistedUserChoiceProvider;
 import org.devgateway.eudevfin.mcm.providers.PersistedUserGroupChoiceProvider;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
-import org.devgateway.eudevfin.ui.common.ReadOnlyComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.components.MultiSelectField;
@@ -122,7 +121,7 @@ public class EditPersistedUserGroupPage extends HeaderFooter {
 		
 		MultiSelectField<PersistedUser> users = new MultiSelectField<PersistedUser>(
 				"users",
-				new ReadOnlyComponentPropertyModel<Collection<PersistedUser>>(
+				new RWComponentPropertyModel<Collection<PersistedUser>>(
 				"users"), userChoiceProvider);
 		users.setEnabled(false);
 				
