@@ -8,13 +8,19 @@
 	<parameter name="SECOND_YEAR" class="java.lang.Number"/>
 	<parameter name="SUBDIR_PATH" class="java.lang.String"/>
 	<queryString language="mdx">
-		<![CDATA[SELECT
+		<![CDATA[WITH
+MEMBER [Reporting Year].[First Year] AS [Reporting Year].[$P{FIRST_YEAR}]
+MEMBER [Reporting Year].[Second Year] AS [Reporting Year].[$P{SECOND_YEAR}]
+SELECT
+{[Reporting Year].[First Year], [Reporting Year].[Second Year]} ON ROWS,
 {[Measures].[Extended Amount]} ON COLUMNS
-FROM [Financial]
-WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]}]]>
+FROM [Financial]]]>
 	</queryString>
-	<field name="Total Gross ODA" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Extended Amount])]]></fieldDescription>
+	<field name="Total Gross ODA Y1" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Extended Amount], [Reporting Year].[First Year])]]></fieldDescription>
+	</field>
+	<field name="Total Gross ODA Y2" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Extended Amount], [Reporting Year].[Second Year])]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -33,7 +39,7 @@ WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Total Gross ODA}.doubleValue()/1000000]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Total Gross ODA Y1}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="297" y="0" width="50" height="14" uuid="f5a62236-8df3-496e-8162-e987f702eb70"/>
@@ -42,16 +48,13 @@ WHERE {[Reporting Year].[$P{FIRST_YEAR}]}*{[BiMultilateral].[BI_MULTILATERAL##1]
 				</textElement>
 				<text><![CDATA[1920]]></text>
 			</staticText>
-			<subreport>
-				<reportElement x="455" y="0" width="100" height="14" uuid="f1671a23-5b09-4b8f-9c89-d83e08f246f7"/>
-				<subreportParameter name="YEAR">
-					<subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="MONDRIAN_CONNECTION">
-					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/aq_master_memo_totaloda_year_b.jasper"]]></subreportExpression>
-			</subreport>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="455" y="0" width="100" height="14" uuid="792d2cd7-ebd2-4d90-bf0c-9b2a5dc360f5"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Total Gross ODA Y2}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
