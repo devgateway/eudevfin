@@ -90,7 +90,7 @@ public class BasicDataTab extends Panel implements PermissionAwareComponent {
         
         String transactionType=parameters.get(Constants.PARAM_TRANSACTION_TYPE).toString("");
         if(!Strings.isEmpty(transactionType) 
-        		&& (Strings.isEqual(transactionType,SB.MULTILATERAL_ODA_ADVANCED_QUESTIONNAIRE) || 
+        		&& (Strings.isEqual(transactionType,SB.MULTILATERAL_ODA_ADVANCE_QUESTIONNAIRE) || 
         		Strings.isEqual(transactionType,SB.MULTILATERAL_ODA_CRS)))        
         channelOfDelivery.getField().add(new CodePatternCategoryValidator(REGEX_MULTILATERAL_CHANNEL_CODE) {
 			private static final long serialVersionUID = 691836793052873358L;

@@ -75,7 +75,7 @@ public final class NavbarInitializer {
 	                    @Override
 	                    protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
 	                        List<String> values = new ArrayList<>();
-	                        values.add(SB.BILATERAL_ODA_ADVANCED_QUESTIONNAIRE);
+	                        values.add(SB.BILATERAL_ODA_ADVANCE_QUESTIONNAIRE);
 	                        values.add(SB.BILATERAL_ODA_CRS);
 	                        values.add(SB.BILATERAL_ODA_FORWARD_SPENDING);
 
@@ -95,7 +95,7 @@ public final class NavbarInitializer {
 	                    @Override
 	                    protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
 	                        List<String> values = new ArrayList<>();
-	                        values.add(SB.MULTILATERAL_ODA_ADVANCED_QUESTIONNAIRE);
+	                        values.add(SB.MULTILATERAL_ODA_ADVANCE_QUESTIONNAIRE);
 	                        values.add(SB.MULTILATERAL_ODA_CRS);
 
 	                        return getTransactionLinks(values,page);

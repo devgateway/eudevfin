@@ -101,7 +101,7 @@ public class ReportsController {
 		
 		switch (reportType) {
 			case REPORT_TYPE_AQ:
-				generateAdvancedQuestionnaire(request, response, connection, outputType, currency);
+				generateAdvanceQuestionnaire(request, response, connection, outputType, currency);
 	            break;
 	        case REPORT_TYPE_DAC1:
 	        	generateDAC1(request, response, connection, outputType);
@@ -117,14 +117,14 @@ public class ReportsController {
     }
 	
 	/**
-	 * Create the Advanced Questionnaire report
+	 * Create the Advance Questionnaire report
 	 * 
 	 * @param request
 	 * @param response
 	 * @param connection the Mondrian connection
 	 * @param outputType the output for the report: HTML, Excel, PDF, CSV
 	 */
-	private void generateAdvancedQuestionnaire (HttpServletRequest request, HttpServletResponse response, 
+	private void generateAdvanceQuestionnaire (HttpServletRequest request, HttpServletResponse response, 
 			Connection connection, String outputType, String currency) {
 		String yearParam = request.getParameter(REPORT_YEAR);
 		if (yearParam == null || yearParam.equals("")){
@@ -182,25 +182,25 @@ public class ReportsController {
 			switch (outputType) {
 				case OUTPUT_TYPE_PDF:
 					reportExporter.exportPDF(jasperPrint, baos);
-					fileName = "Advanced Questionnaire.pdf";
+					fileName = "Advance Questionnaire.pdf";
 					response.setHeader("Content-Disposition", "inline; filename=" + fileName);
 					response.setContentType("application/pdf");
 		            break;
 		        case OUTPUT_TYPE_EXCEL:
 		        	reportExporter.exportXLS(jasperPrint, baos);
-					fileName = "Advanced Questionnaire.xls";
+					fileName = "Advance Questionnaire.xls";
 					response.setHeader("Content-Disposition", "inline; filename=" + fileName);
 					response.setContentType("application/vnd.ms-excel");
 		            break;
 		        case OUTPUT_TYPE_HTML:
 		        	reportExporter.exportHTML(jasperPrint, baos);
-					fileName = "Advanced Questionnaire.html";
+					fileName = "Advance Questionnaire.html";
 					response.setHeader("Content-Disposition", "inline; filename=" + fileName);
 					response.setContentType("text/html");
 		            break;
 		        case OUTPUT_TYPE_CSV:
 		        	reportExporter.exportCSV(jasperPrint, baos);
-					fileName = "Advanced Questionnaire.csv";
+					fileName = "Advance Questionnaire.csv";
 					response.setHeader("Content-Disposition", "inline; filename=" + fileName);
 					response.setContentType("text/csv");
 		            break;

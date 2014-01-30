@@ -33,12 +33,12 @@
     <entry key="navbar.lang.header">all available languages:</entry>
 
     <entry key="navbar.newTransaction.bilateralOda">Bilateral ODA</entry>
-    <entry key="navbar.newTransaction.bilateralOda.advancedQuestionnaire">Advanced Questionnaire</entry>
-    <entry key="navbar.newTransaction.bilateralOda.CRS">CRS</entry>
+    <entry key="navbar.newTransaction.bilateralOda.advanceQuestionnaire">Advance Questionnaire</entry>
+    <entry key="navbar.newTransaction.bilateralOda.CRS">CRS++</entry>
     <entry key="navbar.newTransaction.bilateralOda.forwardSpending">Forward Spending</entry>
     <entry key="navbar.newTransaction.multilateralOda">Multilateral ODA</entry>
-    <entry key="navbar.newTransaction.multilateralOda.advancedQuestionnaire">Advanced Questionnaire</entry>
-    <entry key="navbar.newTransaction.multilateralOda.CRS">CRS</entry>
+    <entry key="navbar.newTransaction.multilateralOda.advanceQuestionnaire">Advance Questionnaire</entry>
+    <entry key="navbar.newTransaction.multilateralOda.CRS">CRS++</entry>
     <entry key="navbar.newTransaction.nonOda">Non ODA</entry>
     <entry key="navbar.newTransaction.nonOda.nonExport">Non Export</entry>
     <entry key="navbar.newTransaction.nonOda.export">Export</entry>

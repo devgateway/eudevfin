@@ -34,7 +34,7 @@ public class CustomFinancialTransaction extends FinancialTransaction {
 	private static final long serialVersionUID = -3864606312112731784L;
 
 	/**
-	 * @see SB##BILATERAL_ODA_ADVANCED_QUESTIONNAIRE
+	 * @see SB##BILATERAL_ODA_ADVANCE_QUESTIONNAIRE
 	 */
 	private String formType;
 	

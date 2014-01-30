@@ -144,11 +144,11 @@ public class SB {
     };
 
 
-    public static final String BILATERAL_ODA_ADVANCED_QUESTIONNAIRE = "bilateralOda.advancedQuestionnaire";
+    public static final String BILATERAL_ODA_ADVANCE_QUESTIONNAIRE = "bilateralOda.advanceQuestionnaire";
     public static final String BILATERAL_ODA_CRS = "bilateralOda.CRS";
     public static final String BILATERAL_ODA_FORWARD_SPENDING = "bilateralOda.forwardSpending";
 
-    public static final String MULTILATERAL_ODA_ADVANCED_QUESTIONNAIRE = "multilateralOda.advancedQuestionnaire";
+    public static final String MULTILATERAL_ODA_ADVANCE_QUESTIONNAIRE = "multilateralOda.advanceQuestionnaire";
     public static final String MULTILATERAL_ODA_CRS = "multilateralOda.CRS";
 
     public static final String NON_ODA_OOF_NON_EXPORT = "nonOda.nonExport";
@@ -158,11 +158,11 @@ public class SB {
     public static final String NON_ODA_OTHER_FLOWS = "nonOda.otherFlows";
 
     public static String[] biODA() {
-        return new String[]{BILATERAL_ODA_ADVANCED_QUESTIONNAIRE, BILATERAL_ODA_CRS, BILATERAL_ODA_FORWARD_SPENDING};
+        return new String[]{BILATERAL_ODA_ADVANCE_QUESTIONNAIRE, BILATERAL_ODA_CRS, BILATERAL_ODA_FORWARD_SPENDING};
     }
 
     public static String[] mulODA() {
-        return new String[]{MULTILATERAL_ODA_ADVANCED_QUESTIONNAIRE, MULTILATERAL_ODA_CRS};
+        return new String[]{MULTILATERAL_ODA_ADVANCE_QUESTIONNAIRE, MULTILATERAL_ODA_CRS};
     }
 
     public static String[] allODA() {

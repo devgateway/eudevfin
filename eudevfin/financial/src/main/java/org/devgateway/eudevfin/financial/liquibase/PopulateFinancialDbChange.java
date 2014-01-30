@@ -115,7 +115,7 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 				tx.setTypeOfFinance(typeOfFinance);
 				tx.setTypeOfAid(typeOfAid);
 				tx.setReportingYear(LocalDateTime.parse((2009+j) + "-07-01"));
-				tx.setFormType((biMultilateralRandomIndex%2==0)?"bilateralOda.advancedQuestionnaire":"multilateralOda.advancedQuestionnaire");
+				tx.setFormType((biMultilateralRandomIndex%2==0)?"bilateralOda.advanceQuestionnaire":"multilateralOda.advanceQuestionnaire");
 				tx.setBiMultilateral((biMultilateralRandomIndex%2==0)? bilateral.get(0): multilateral.get(0));
 				tx.setRecipient(area);
 				txDao.save(tx);
