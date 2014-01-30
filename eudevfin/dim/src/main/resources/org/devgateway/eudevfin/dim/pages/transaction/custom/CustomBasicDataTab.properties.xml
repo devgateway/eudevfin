@@ -9,84 +9,92 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <entry key="7bCPA.label">Is this Country Programmable Aid (CPA)</entry>
+    <entry key="7bCPA.label">7.b Is this Country Programmable Aid (CPA)</entry>
     <entry key="7bCPA.placeholder"></entry>
-    <entry key="7bCPA.help">TODO: edit help text</entry>
-    <entry key="7bCPA.help.detail">TODO: edit full glossary text</entry>
+    <entry key="7bCPA.help">See definition of CPA in the Glossary</entry>
+    <entry key="7bCPA.help.detail">Field no. 7 bis  - Is this Country Programmable Aid (CPA)?: Country Programmable Aid (CPA) 
+    reflects the amount of aid that can be programmed by the donor at partner country level. CPA is aid which is NOT included in 
+    the following categories: (i) aid that is unpredictable by nature (humanitarian aid and debt forgiveness and reorganisation), 
+    entails no cross-border flows (development research in donor country, promotion of development awareness, imputed student costs, 
+    refugees in donor country and administrative costs), does not form part of co-operation agreements between governments 
+    (food aid and aid extended by local governments in donor countries), is not country programmable by the donor 
+    (core funding to national NGOs and International NGOs), or is not susceptible for programming at country level 
+    (e.g. contributions to Public Private Partnerships, for some donors aid extended by other agencies than the main aid agency). 
+    For more info go to http://www.oecd.org/development/effectiveness/countryprogrammableaidcpafrequentlyaskedquestions.htm</entry>
 
-    <entry key="7aRecipientCode.label">Recipient Code</entry>
+    <entry key="7aRecipientCode.label">7.a Recipient Code</entry>
     <entry key="7aRecipientCode.placeholder"></entry>
-    <entry key="7aRecipientCode.help">TODO: edit help text</entry>
-    <entry key="7aRecipientCode.help.detail">TODO: edit full glossary text</entry>
+    <entry key="7aRecipientCode.help">Choose a code associated to the releted country from the drop down menu based on the DAC List of ODA (see glossary)</entry>
+    <entry key="7aRecipientCode.help.detail">Field no. 7a - Recipent code: The term 'recipient' and its related code is limited to the countries and regions in the DAC List of ODA available at http://www.oecd.org/dac/stats/Codelist09082013.xls   . Regional projects and programmes are reportable under the most specific available “regional/multi-country” category (e.g. use South of Sahara for a regional project in West Africa). The category “bilateral, unallocated” is used if an activity benefits several regions. It is also used for a number of activities undertaken in donor countries such as administrative costs not included elsewhere. Development-related research, studies or seminars undertaken in the donor country but relating to a particular recipient country/region should be coded under the recipient country/region. Training courses in the donor country for developing country participants should be coded under the country/countries of origin of the participants. </entry>
     
 
-    <entry key="7cPriorityStatus.label">Priority status of the Recipient</entry>
+    <entry key="7cPriorityStatus.label">7.c Priority status of the Recipient</entry>
     <entry key="7cPriorityStatus.placeholder"></entry>
-    <entry key="7cPriorityStatus.help">TODO: edit help text</entry>
-    <entry key="7cPriorityStatus.help.detail">TODO: edit full glossary text</entry>
+    <entry key="7cPriorityStatus.help">Type 'Priority'  if the partner country is a priority partner country. If not, please leave blank.</entry>
+    <entry key="7cPriorityStatus.help.detail">Field no. 7c  - Priority status of the recipient: ype 'Priority'  if the partner country is a priority partner country. If not, please leave blank.</entry>
     
 
-    <entry key="7dPhasingOutYear.label">If phasing out, by which year?</entry>
+    <entry key="7dPhasingOutYear.label">7.d If phasing out, by which year?</entry>
     <entry key="7dPhasingOutYear.placeholder"></entry>
-    <entry key="7dPhasingOutYear.help">TODO: edit help text</entry>
-    <entry key="7dPhasingOutYear.help.detail">TODO: edit full glossary text</entry>
+    <entry key="7dPhasingOutYear.help">YYYY (If there are plans to phase out operations from the partner country, please indicate the projected year of last disbursement)</entry>
+    <entry key="7dPhasingOutYear.help.detail">Field no. 7d - If phasing out, by which year?: If there are plans to phase out operations from the partner country, please indicate the projected year of last disbursement</entry>
     
-    <entry key="14bisUploadDocumentation.label">Upload Available Documentation</entry>
+    <entry key="14bisUploadDocumentation.label">14.bis Upload Available Documentation</entry>
     <entry key="14bisUploadDocumentation.placeholder"></entry>
-    <entry key="14bisUploadDocumentation.help">TODO: edit help text</entry>
-    <entry key="14bisUploadDocumentation.help.detail">TODO: edit full glossary text</entry>
-    
-    <entry key="14aProjectCoFinanced.label">Is this project co-financed?</entry>
+    <entry key="14bisUploadDocumentation.help">Project Terms of Reference and latest project report</entry>
+    <entry key="14bisUploadDocumentation.help.detail">Field no. 14 bis - Upload available documentation: If terms of reference is not available, the call of proposal or parts of the contract agreement could be uploaded. The latest porject report could be the Inception report, the proegress report or the final report. An evaluation report after the conclusion of the project would also be fine.</entry>
+
+    <entry key="14aProjectCoFinanced.label">14.a Is this project co-financed?</entry>
     <entry key="14aProjectCoFinanced.placeholder"></entry>
-    <entry key="14aProjectCoFinanced.help">TODO: edit help text</entry>
-    <entry key="14aProjectCoFinanced.help.detail">TODO: edit full glossary text</entry>
+    <entry key="14aProjectCoFinanced.help">Yes or NO</entry>
+    <entry key="14aProjectCoFinanced.help.detail">Fields no. 14a - Is this project co-financed? : There may be two types of co-financing: i) cofinaning between your agency and other international donor(s) (e.g. tri-partate projects); ii) cofinaning between your agency and other national agency(ies). In both cases input only the amount related to your  financing in the fields  no. 33 and below. The fields no. 14b  to 14l will be used to provide information about the financial contributions by the other co-financiers, for simple reference. </entry>
 
     <entry key="14b1stAgency.label">Name of 1st co-financing agency</entry>
     <entry key="14b1stAgency.placeholder"></entry>
-    <entry key="14b1stAgency.help">TODO: edit help text</entry>
-    <entry key="14b1stAgency.help.detail">TODO: edit full glossary text</entry>
+    <entry key="14b1stAgency.help"></entry>
+    <entry key="14b1stAgency.help.detail"></entry>
 
     <entry key="14c1stAgencyAmount.label">Amount co-financed</entry>
     <entry key="14c1stAgencyAmount.placeholder"></entry>
-    <entry key="14c1stAgencyAmount.help">TODO: edit help text</entry>
-    <entry key="14c1stAgencyAmount.help.detail">TODO: edit full glossary text</entry>
-    
+    <entry key="14c1stAgencyAmount.help"></entry>
+    <entry key="14c1stAgencyAmount.help.detail"></entry>
+
     <entry key="14d1stAgencyCurrency.label">Currency</entry>
     <entry key="14d1stAgencyCurrency.placeholder"></entry>
-    <entry key="14d1stAgencyCurrency.help">TODO: edit help text</entry>
-    <entry key="14d1stAgencyCurrency.help.detail">TODO: edit full glossary text</entry>
+    <entry key="14d1stAgencyCurrency.help">Currency used by the co-fiancing agency</entry>
+    <entry key="14d1stAgencyCurrency.help.detail">Currency used by the co-financing agency if different from the currency used by your agency</entry>
 
 
     <entry key="14e2ndAgency.label">Name of 2nd co-financing agency</entry>
     <entry key="14e2ndAgency.placeholder"></entry>
-    <entry key="14e2ndAgency.help">TODO: edit help text</entry>
-    <entry key="14e2ndAgency.help.detail">TODO: edit full glossary text</entry>    
+    <entry key="14e2ndAgency.help"></entry>
+    <entry key="14e2ndAgency.help.detail"></entry>
 
     <entry key="14f2ndAgencyAmount.label">Amount co-financed</entry>
     <entry key="14f2ndAgencyAmount.placeholder"></entry>
-    <entry key="14f2ndAgencyAmount.help">TODO: edit help text</entry>
-    <entry key="14f2ndAgencyAmount.help.detail">TODO: edit full glossary text</entry>
-    
+    <entry key="14f2ndAgencyAmount.help"></entry>
+    <entry key="14f2ndAgencyAmount.help.detail"></entry>
+
     <entry key="14g2ndAgencyCurrency.label">Currency</entry>
     <entry key="14g2ndAgencyCurrency.placeholder"></entry>
-    <entry key="14g2ndAgencyCurrency.help">TODO: edit help text</entry>
-    <entry key="14g2ndAgencyCurrency.help.detail">TODO: edit full glossary text</entry>
-    
+    <entry key="14g2ndAgencyCurrency.help">Currency used by the co-fiancing agency</entry>
+    <entry key="14g2ndAgencyCurrency.help.detail">Currency used by the co-financing agency if different from the currency used by your agencyt</entry>
+
     <entry key="14h3rdAgency.label">Name of 3rd co-financing agency</entry>
     <entry key="14h3rdAgency.placeholder"></entry>
-    <entry key="14h3rdAgency.help">TODO: edit help text</entry>
-    <entry key="14h3rdAgency.help.detail">TODO: edit full glossary text</entry>
-    
+    <entry key="14h3rdAgency.help"></entry>
+    <entry key="14h3rdAgency.help.detail"></entry>
+
     <entry key="14i3rdAgencyAmount.label">Amount co-financed</entry>
     <entry key="14i3rdAgencyAmount.placeholder"></entry>
-    <entry key="14i3rdAgencyAmount.help">TODO: edit help text</entry>
-    <entry key="14i3rdAgencyAmount.help.detail">TODO: edit full glossary text</entry>
-    
+    <entry key="14i3rdAgencyAmount.help"></entry>
+    <entry key="14i3rdAgencyAmount.help.detail"></entry>
+
     <entry key="14j3rdAgencyCurrency.label">Currency</entry>
     <entry key="14j3rdAgencyCurrency.placeholder"></entry>
-    <entry key="14j3rdAgencyCurrency.help">TODO: edit help text</entry>
-    <entry key="14j3rdAgencyCurrency.help.detail">TODO: edit full glossary text</entry>
-    
+    <entry key="14j3rdAgencyCurrency.help">Currency used by the co-fiancing agency</entry>
+    <entry key="14j3rdAgencyCurrency.help.detail">Currency used by the co-financing agency if different from the currency used by your agency</entry>
+
     <entry key="14table.name">Name</entry>
     <entry key="14table.amount">Amount</entry>
     <entry key="14table.currency">Currency</entry>

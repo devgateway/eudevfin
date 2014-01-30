@@ -6,13 +6,13 @@
 <properties>
 	<entry key="otherMarkers.label">Other Markers</entry>
 
-	<entry key="32bOtherCurrency.label">Other currency than national</entry>
+	<entry key="32bOtherCurrency.label">32.b Other currency than national</entry>
 	<entry key="32bOtherCurrency.placeholder"></entry>
 	<entry key="32bOtherCurrency.help">Enter other currency than your national currency, if necessary</entry>
 	<entry key="32bOtherCurrency.help.detail">Field no. 32b - Other currency than national: enter other currency than national in case the
 		transaction is denominated in foreign currency (as per financial agreement or financial report)</entry>
 
-	<entry key="32cExchangeRate.label">Exchange rate indicated in financial documents</entry>
+	<entry key="32cExchangeRate.label">32.c Exchange rate indicated in financial documents</entry>
 	<entry key="32cExchangeRate.placeholder"></entry>
 	<entry key="32cExchangeRate.help">Enter exchange rates officially used in the transaction, if indicated in the financial agreement or
 		report</entry>
@@ -21,7 +21,7 @@
 		case indicate the applied exchange rate. If there is no specific exchange rate applied, leave this field blank
 	</entry>
 
-	<entry key="34bBudgetCode.label">Budget Code</entry>
+	<entry key="34bBudgetCode.label">34.b Budget Code</entry>
 	<entry key="34bBudgetCode.placeholder"></entry>
 	<entry key="34bBudgetCode.help">Insert the budget code under which resources were made available for this transaction.</entry>
 	<entry key="34bBudgetCode.help.detail">Field no. 34.b - Budget code: refer to the budget appropriations and/or the monthly/quarterly cash
@@ -30,7 +30,7 @@
 		includes the transaction, among other initiatives
 	</entry>
 
-	<entry key="34cBudgetLine.label">Budget Line</entry>
+	<entry key="34cBudgetLine.label">34.c Budget Line</entry>
 	<entry key="34cBudgetLine.placeholder"></entry>
 	<entry key="34cBudgetLine.help">Insert the budget title under which resources were made available for this transaction.</entry>
 	<entry key="34cBudgetLine.help.detail">Field no. 34.c - Budget title: refer to the budget appropriations and/or the monthly/quarterly cash
@@ -40,7 +40,7 @@
 		e.g. other recurrent expenditures titles or investment expenditures titles.
 	</entry>
 
-	<entry key="34dBudgetActivity.label">Budget Activity</entry>
+	<entry key="34dBudgetActivity.label">34.d Budget Activity</entry>
 	<entry key="34dBudgetActivity.placeholder"></entry>
 	<entry key="34dBudgetActivity.help">Insert the budget activity under which resources were made available for this transaction.
 	</entry>

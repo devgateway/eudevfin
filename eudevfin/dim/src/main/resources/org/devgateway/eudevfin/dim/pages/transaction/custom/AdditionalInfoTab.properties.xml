@@ -9,8 +9,10 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <entry key="99otherComments.label">Other comments</entry>
+    <entry key="99otherComments.label">A. Other comments</entry>
     <entry key="99otherComments.placeholder"></entry>
-    <entry key="99otherComments.help">TODO: edit help text</entry>
-    <entry key="99otherComments.help.detail">TODO: edit full glossary text</entry>
+    <entry key="99otherComments.help">Any additional comments that are useful to understand the nature of this project can be inserted here. </entry>
+    <entry key="99otherComments.help.detail">Field A - Other comments: Any additional comments that are useful to understand 
+    the nature of this project can be inserted here. These can for instance be comments related to specific budget lines, or 
+    additional information on the type of aid or implementing channel. </entry>
 </properties>

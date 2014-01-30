@@ -9,8 +9,10 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <entry key="1aDataAsPerDate.label">Data as per date</entry>
+    <entry key="1aDataAsPerDate.label">1a. Data as per date</entry>
     <entry key="1aDataAsPerDate.placeholder"></entry>
-    <entry key="1aDataAsPerDate.help">TODO: edit help text</entry>
-    <entry key="1aDataAsPerDate.help.detail">TODO: edit full glossary text</entry>
+    <entry key="1aDataAsPerDate.help">Date when the information was collected or extracted from your aid management systems.</entry>
+    <entry key="1aDataAsPerDate.help.detail">Field no. 1 - Data as per date: Enter the year for which data are reported 
+    (e.g. if we are in year 2013, you enter 2012 because you report data for 2012). This field is included to keep track of 
+    the exact date when the information was collected or extracted from donors' aid management systems</entry>
 </properties>
