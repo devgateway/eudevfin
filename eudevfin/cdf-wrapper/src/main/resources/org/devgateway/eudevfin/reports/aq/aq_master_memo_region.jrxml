@@ -16,8 +16,8 @@
   MEMBER [Area].[SouthOfSaharaDebtRelief] as ([Measures].[SouthOfSahara], [Type of Finance].[TYPE_OF_FINANCE##610])
   MEMBER [Area].[AfghanistanReconstruction] as ([Measures].[Afghanistan], [Sector].[700])
   MEMBER [Area].[IraqReconstruction] as ([Measures].[Iraq], [Sector].[700])
-  MEMBER [Measures].[First Year] AS SUM(CrossJoin({[Reporting Year].[$P{FIRST_YEAR}]}, {[Measures].[Net Amount]}))
-  MEMBER [Measures].[Second Year] AS SUM(CrossJoin({[Reporting Year].[$P{SECOND_YEAR}]}, {[Measures].[Net Amount]}))
+  MEMBER [Measures].[First Year] AS SUM(CrossJoin({[Reporting Year].[$P{FIRST_YEAR}]}, {[Measures].[Net Amount Currency]}))
+  MEMBER [Measures].[Second Year] AS SUM(CrossJoin({[Reporting Year].[$P{SECOND_YEAR}]}, {[Measures].[Net Amount Currency]}))
 SELECT
 {
 [Area].[LDC],

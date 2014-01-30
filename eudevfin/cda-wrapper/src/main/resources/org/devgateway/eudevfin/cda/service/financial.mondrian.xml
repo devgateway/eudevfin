@@ -295,29 +295,40 @@
 		<Measure name="Export Credit Amount" column="AMOUNTS_EXP_EXPORT_CREDIT_AMOUNT" aggregator="sum" visible="true" caption="%{exportCreditAmount}"></Measure>
 		<Measure name="IRTC Amount" column="AMOUNTS_IRTC_AMOUNT" aggregator="sum" visible="true" caption="%{IRTCAmount}"></Measure>
 		<Measure name="Extended Amount" column="AMOUNTS_EXTENDED_AMOUNT" aggregator="sum" visible="true" caption="%{extendedAmount}"></Measure>
+	<Measure name="Extended Amount Currency" aggregator="sum" visible="true">
+		<MeasureExpression>
+			<SQL dialect="generic">
+				("FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXTENDED_AMOUNT" * (SELECT AVG(RATE) FROM HISTORICALEXCHANGERATE WHERE BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXTENDED_CURR" AND COUNTER_CURRENCY = '@@CURRENCY@@' AND YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")))
+			</SQL>
+		</MeasureExpression>
+	</Measure>
 		<Measure name="Current Extended Amount" column="AMOUNTS_EXTENDED_CURRENT_AMOUNT" aggregator="sum" visible="true" caption="%{currentExtendedAmount}"></Measure>
 		<Measure name="Year 1 Extended Amount" column="AMOUNTS_EXTENDED_YEAR1_AMOUNT" aggregator="sum" visible="true" caption="%{year1ExtendedAmount}"></Measure>
 		<Measure name="Year 2 Extended Amount" column="AMOUNTS_EXTENDED_YEAR2_AMOUNT" aggregator="sum" visible="true" caption="%{year2ExtendedAmount}"></Measure>
 		<Measure name="Partially Untied Amount" column="AMOUNTS_PARTIALLY_UNTIED_AMOUNT" aggregator="sum" visible="true" caption="%{partiallyUntiedAmount}"></Measure>
 		<Measure name="Received Amount" column="AMOUNTS_RECEIVED_AMOUNT" aggregator="sum" visible="true" caption="%{receivedAmount}"></Measure>
+
+	<Measure name="Received Amount Currency" aggregator="sum" visible="true">
+		<MeasureExpression>
+			<SQL dialect="generic">
+				("FINANCIALTRANSACTIONVIEW"."AMOUNTS_RECEIVED_AMOUNT" * (SELECT AVG(RATE) FROM HISTORICALEXCHANGERATE WHERE BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_RECEIVED_CURR" AND COUNTER_CURRENCY = '@@CURRENCY@@' AND YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")))
+			</SQL>
+		</MeasureExpression>
+	</Measure>
 		<Measure name="Tied Amount" column="AMOUNTS_TIED_AMOUNT" aggregator="sum" visible="true" caption="%{tiedAmount}"></Measure>
 		<Measure name="Untied Amount" column="AMOUNTS_UNTIED_AMOUNT" aggregator="sum" visible="true" caption="%{untiedAmount}"></Measure>
 		<Measure name="Interest Arrears Amount" column="AMOUNTS_AREARS_INTEREST_AMOUNT" aggregator="sum" visible="true" caption="%{interestArrearsAmount}"></Measure>
 		<Measure name="Principal Arrears Amount" column="AMOUNTS_AREARS_PRIN_AMOUNT" aggregator="sum" visible="true" caption="%{principalArrearsAmount}"></Measure>
 		<Measure name="Commitments Amount" column="COMMITMENT_AMOUNT" aggregator="sum" visible="true" caption="%{commitmentsAmount}"></Measure>
-		<Measure name="Commitments Amount Currency" aggregator="sum" visible="true">
-			<MeasureExpression>
-				<SQL dialect="generic">
-					("financialtransaction"."COMMITMENT_AMOUNT" * (SELECT RATE FROM HISTORICALEXCHANGERATE WHERE BASE_CURRENCY = "financialtransaction"."COMMITMENT_CURR" AND COUNTER_CURRENCY = '@@CURRENCY@@' AND YEAR(DATE) = YEAR("financialtransaction"."REPORTINGYEAR")))
-				</SQL>
-			</MeasureExpression>
-		</Measure>
 		<Measure name="Interest Received Amount" column="AMOUNTS_INTEREST_RECEIVED_AMOUNT" aggregator="sum" visible="true" caption="%{interestReceivedAmount}"></Measure>
 		<Measure name="Principal Disbursed Amount" column="AMOUNTS_PRIN_DISB_AMOUNT" aggregator="sum" visible="true" caption="%{principalDisbursedAmount}"></Measure>
 		<Measure name="Expert Commitments Amount" column="AMOUNTS_EXP_COMMIT_AMOUNT" aggregator="sum" visible="true" caption="%{expertCommitmentsAmount}"></Measure>
 		<Measure name="Expert Extended Amount" column="AMOUNTS_EXP_EXTENDED_AMOUNT" aggregator="sum" visible="true" caption="%{expertExtendedAmount}"></Measure>
-		<CalculatedMember name="Net Amount" dimension="Measures">
-			<Formula>[Measures].[Extended Amount] - [Measures].[Received Amount]</Formula>
-		</CalculatedMember>
+	<CalculatedMember name="Net Amount" dimension="Measures">
+		<Formula>[Measures].[Extended Amount] - [Measures].[Received Amount]</Formula>
+	</CalculatedMember>
+	<CalculatedMember name="Net Amount Currency" dimension="Measures">
+		<Formula>[Measures].[Extended Amount Currency] - [Measures].[Received Amount Currency]</Formula>
+	</CalculatedMember>
 	</Cube>
 </Schema>

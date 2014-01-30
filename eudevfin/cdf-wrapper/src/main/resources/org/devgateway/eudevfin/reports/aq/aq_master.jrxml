@@ -16,14 +16,14 @@ MEMBER [Reporting Year].[First Year] AS [Reporting Year].[$P{FIRST_YEAR}]
 MEMBER [Reporting Year].[Second Year] AS [Reporting Year].[$P{SECOND_YEAR}]
 SELECT
 {[Reporting Year].[First Year], [Reporting Year].[Second Year]} ON ROWS,
-{[Measures].[Net Amount]} ON COLUMNS
+{[Measures].[Net Amount Currency]} ON COLUMNS
 FROM [Financial]]]>
 	</queryString>
 	<field name="Extended Amount Year 1" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Net Amount], [Reporting Year].[First Year])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Net Amount Currency], [Reporting Year].[First Year])]]></fieldDescription>
 	</field>
 	<field name="Extended Amount Year 2" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Net Amount], [Reporting Year].[Second Year])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Net Amount Currency], [Reporting Year].[Second Year])]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>

@@ -11,8 +11,8 @@
 MEMBER [Type of Finance].[GNI] AS [Type of Finance].[TYPE_OF_FINANCE##1]
 MEMBER [Type of Finance].[ODA GNI] AS [Type of Finance].[TYPE_OF_FINANCE##2]
 MEMBER [Type of Finance].[Population] AS [Type of Finance].[TYPE_OF_FINANCE##4]
-MEMBER [Measures].[First Year] AS SUM(CrossJoin({[Reporting Year].[$P{FIRST_YEAR}]}, {[Measures].[Extended Amount]}))
-MEMBER [Measures].[Second Year] AS SUM(CrossJoin({[Reporting Year].[$P{SECOND_YEAR}]}, {[Measures].[Extended Amount]}))
+MEMBER [Measures].[First Year] AS SUM(CrossJoin({[Reporting Year].[$P{FIRST_YEAR}]}, {[Measures].[Extended Amount Currency]}))
+MEMBER [Measures].[Second Year] AS SUM(CrossJoin({[Reporting Year].[$P{SECOND_YEAR}]}, {[Measures].[Extended Amount Currency]}))
 SELECT
 {[Type of Finance].[GNI], [Type of Finance].[ODA GNI], [Type of Finance].[Population]} ON ROWS,
 {[Measures].[First Year], [Measures].[Second Year]} ON COLUMNS

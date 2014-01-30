@@ -11,8 +11,8 @@
 MEMBER [Sector].[Humanitarian Aid] AS SUM({[Sector].[700],[Sector].[720],[Sector].[72010],[Sector].[72040],[Sector].[72050],[Sector].[730],[Sector].[73010],[Sector].[740],[Sector].[74010]})
 MEMBER [Sector].[Short Term Reconstruction] AS SUM({[Sector].[73010]})
 MEMBER [Sector].[Development Food Aid] AS SUM({[Sector].[520],[Sector].[52010]})
-MEMBER [Measures].[First Year] AS SUM(CrossJoin({[Reporting Year].[$P{FIRST_YEAR}]}, {[Measures].[Net Amount]}))
-MEMBER [Measures].[Second Year] AS SUM(CrossJoin({[Reporting Year].[$P{SECOND_YEAR}]}, {[Measures].[Net Amount]}))
+MEMBER [Measures].[First Year] AS SUM(CrossJoin({[Reporting Year].[$P{FIRST_YEAR}]}, {[Measures].[Net Amount Currency]}))
+MEMBER [Measures].[Second Year] AS SUM(CrossJoin({[Reporting Year].[$P{SECOND_YEAR}]}, {[Measures].[Net Amount Currency]}))
 SELECT
 {
 [Sector].[Humanitarian Aid],
