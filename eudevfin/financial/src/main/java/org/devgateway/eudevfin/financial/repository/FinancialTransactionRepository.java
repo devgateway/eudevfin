@@ -26,4 +26,8 @@ public interface FinancialTransactionRepository extends
 	//@Query(" select trn.parent from FinancialTransactionTranslation trn where lower(trn.description) like %?1%")
 	@Query ("select tx from FinancialTransaction tx join tx.translations trn where lower(trn.description) like %?1% or lower(trn.shortDescription) like %?1% ")
 	Page<FinancialTransaction> findByTranslationsDescriptionContaining(String searchString, Pageable pageable);
+	
+	
+	//List<FinancialTransaction> findByTranslationsDescriptionContaining(String searchString, Pageable pageable);
+	
 }
