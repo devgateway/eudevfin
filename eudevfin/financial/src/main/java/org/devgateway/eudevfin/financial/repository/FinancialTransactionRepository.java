@@ -6,6 +6,7 @@ package org.devgateway.eudevfin.financial.repository;
 import java.util.List;
 
 import org.devgateway.eudevfin.financial.FinancialTransaction;
+import org.joda.time.LocalDateTime;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -27,7 +28,7 @@ public interface FinancialTransactionRepository extends
 	@Query ("select tx from FinancialTransaction tx join tx.translations trn where lower(trn.description) like %?1% or lower(trn.shortDescription) like %?1% ")
 	Page<FinancialTransaction> findByTranslationsDescriptionContaining(String searchString, Pageable pageable);
 	
-	
-	//List<FinancialTransaction> findByTranslationsDescriptionContaining(String searchString, Pageable pageable);
+	@Query ("select tx from FinancialTransaction tx where tx.reportingYear=?1")
+	List<FinancialTransaction> findByReportingYearAndTypeOfFlowNonFlow(LocalDateTime reportingYear);
 	
 }

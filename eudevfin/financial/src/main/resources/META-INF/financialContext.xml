@@ -207,6 +207,9 @@
 	<int:channel id="findBySearchPageableCurrencyChannel"/>
 	<int:channel id="findByCodeCurrencyChannel"/>
 	
+	<int:channel id="findTransactionByReportingYearAndTypeOfFlowNonFlow"/>
+	
+	
 
     <!-- 	Router that sends the requests to the appropriate channels where they will usually be handled by ServiceActivators.
             The name of the request channels is taken from the 'requestName' header parameter

@@ -9,10 +9,10 @@ import org.devgateway.eudevfin.common.dao.AbstractDaoImpl;
 import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.repository.FinancialTransactionRepository;
+import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.integration.annotation.Header;
 import org.springframework.integration.annotation.ServiceActivator;
@@ -68,6 +68,12 @@ public class FinancialTransactionDaoImpl extends AbstractDaoImpl<FinancialTransa
 
 		return  this.getRepo().findByTranslationsDescriptionContaining(searchString.toLowerCase(), pageable)  ;
 	}
+	
+	@ServiceActivator(inputChannel="findTransactionByReportingYearAndTypeOfFlowNonFlow")
+	public List<FinancialTransaction> findByReportingYearAndTypeOfFlowNonFlow(LocalDateTime reportingYear) {
+		return this.getRepo().findByReportingYearAndTypeOfFlowNonFlow(reportingYear);
+	}
+	
 	
 	@Override
 	protected
