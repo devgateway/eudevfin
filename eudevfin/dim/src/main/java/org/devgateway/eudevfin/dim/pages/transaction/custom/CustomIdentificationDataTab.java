@@ -9,10 +9,10 @@
 package org.devgateway.eudevfin.dim.pages.transaction.custom;
 
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.devgateway.eudevfin.dim.core.models.DateToLocalDateTimeModel;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.IdentificationDataTab;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.DateInputField;
+import org.devgateway.eudevfin.ui.common.models.DateToLocalDateTimeModel;
 import org.joda.time.LocalDateTime;
 
 /**

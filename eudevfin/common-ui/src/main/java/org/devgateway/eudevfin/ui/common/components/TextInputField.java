@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.model.util.SetModel;
 import org.apache.wicket.validation.IValidator;
 import org.apache.wicket.validation.validator.EmailAddressValidator;
 import org.apache.wicket.validation.validator.RangeValidator;
@@ -47,7 +48,7 @@ public class TextInputField<T> extends AbstractInputField<T,TextField<T>> {
      * @see TextInputField(String, IModel, String)
      */
     public TextInputField(String id, IModel<T> model) {
-        this(id, model, id);
+        this(id, model, id);      
     }
 
     @Override
@@ -65,7 +66,7 @@ public class TextInputField<T> extends AbstractInputField<T,TextField<T>> {
     public AbstractInputField<T,TextField<T>> decorateAsEmailField() {
         field.add((IValidator) EmailAddressValidator.getInstance());
         prepender.setVisible(true);
-        prepender.setDefaultModel(Model.of("@"));
+        prepender.setDefaultModel(Model.of("@"));        
         return this;
     }
 

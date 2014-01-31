@@ -9,5 +9,5 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>    
-    <entry key="username.label">User Name</entry>
+    <entry key="reportingYear.label">Reporting Year</entry>
 </properties>

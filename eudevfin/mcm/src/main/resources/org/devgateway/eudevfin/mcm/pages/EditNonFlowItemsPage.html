@@ -10,14 +10,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
 <body>
 <wicket:extend>
-<<<<<<< Upstream, based on branch 'mihai-devel' of ssh://mpostelnicu@git.developmentgateway.org:20006/home/mpostelnicu/projects/eudevfin.git
-<form wicket:id="form">                 
-                  
-<input wicket:id="addNewGroup" type="button"/>
-                    
-</form>
-=======
-
   <div class="container">
         <div class="row">
             <div class="span12">
@@ -30,14 +22,13 @@
             <div class="span8 offset2 well">
                 <form wicket:id="form">
                     <div class="row">
-                        <div wicket:id="name"/>
-                        <div wicket:id="organization"/>
-                        <div wicket:id="users"/>
+                    	<div wicket:id="reportingYearContainer">
+                    		<div wicket:id="reportingYear"/>
+                    	</div>
                     </div>
                     <div class="row">
                         <div class="span4">
-                            <input wicket:id="submit" type="button"/>
-                            <input wicket:id="cancel" type="button"/>
+                            <input wicket:id="submit" type="button"/>                        
                         </div>
                     </div>
                 </form>
@@ -45,8 +36,6 @@
             </div>
         </div>
     </div>
-
->>>>>>> 71bb1aa admin - edit non flow items
 </wicket:extend>
 </body>
 </html>                                                   
