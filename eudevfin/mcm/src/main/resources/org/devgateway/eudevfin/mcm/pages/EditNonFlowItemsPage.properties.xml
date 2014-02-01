@@ -10,4 +10,9 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>    
     <entry key="reportingYear.label">Reporting Year</entry>
+    <entry key="population.label">Population</entry>
+    <entry key="gni.label">GNI</entry>
+    <entry key="totalFlows.label">Total Flows</entry>
+    <entry key="odaOfGni.label">ODA of GNI</entry>
 </properties>
+

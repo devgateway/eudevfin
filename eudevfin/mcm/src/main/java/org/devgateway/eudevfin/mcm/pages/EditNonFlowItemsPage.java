@@ -16,8 +16,9 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.ComponentPropertyModel;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -30,9 +31,10 @@ import org.devgateway.eudevfin.financial.util.FinancialTransactionUtil;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
-import org.devgateway.eudevfin.ui.common.models.YearToLocalDateTimeModel;
+import org.devgateway.eudevfin.ui.common.models.BigMoneyModel;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
-import org.joda.time.LocalDateTime;
+import org.joda.money.BigMoney;
+import org.joda.money.CurrencyUnit;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -50,10 +52,28 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 	@SpringBean
 	private CurrencyMetadataService currencyMetadataService;
 
-	
-	
 	private static final Logger logger = Logger.getLogger(EditNonFlowItemsPage.class);
 
+	public WebMarkupContainer initializeFakeFinancialContainer(String id,String fieldId,PageParameters parameters) {
+		//initialize a wrapping container
+		WebMarkupContainer container = new WebMarkupContainer(id);
+		
+		//initialize a non flow transaction
+		final FinancialTransaction financialTransaction = initializeNonFlowTransaction(new FinancialTransaction(),parameters);
+		
+		//create a compoundmodel and assign it to he container
+		container.setDefaultModel(new CompoundPropertyModel<FinancialTransaction>(financialTransaction));
+		
+		//create a read only model to read the currency
+		ComponentPropertyModel<CurrencyUnit> readOnlyCurrencyModel = new ComponentPropertyModel<>("currency");
+		
+		//create textinputfield to edit the amount
+		container.add(new TextInputField<>(fieldId, new BigMoneyModel(new RWComponentPropertyModel<BigMoney>("amountsExtended"),
+    			readOnlyCurrencyModel)).typeBigDecimal());
+		
+        return container;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public EditNonFlowItemsPage(final PageParameters parameters) {
 		super(parameters);
@@ -61,20 +81,32 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 		Form form = new Form("form");
 		add(form);
 		
-		WebMarkupContainer reportingYearContainer = new WebMarkupContainer("reportingYearContainer");
-		form.add(reportingYearContainer);
-		
-		final FinancialTransaction financialTransaction = initializeNonFlowTransaction(new FinancialTransaction(),parameters);
-		
-		CompoundPropertyModel<FinancialTransaction> model = new CompoundPropertyModel<FinancialTransaction>(
-				financialTransaction);
-		
-		reportingYearContainer.setDefaultModel(model);
+		//dummy integer for the year
+		final Integer selectedYear=2000;
 	
-		TextInputField<Integer> reportingYear = new TextInputField<>("reportingYear", new YearToLocalDateTimeModel(
-				 new RWComponentPropertyModel<LocalDateTime>("reportingYear")));
-		reportingYear.typeInteger().required().range(1900, 2099).decorateMask("9999");
-		reportingYearContainer.add(reportingYear);
+		//initialize containers
+		WebMarkupContainer populationContainer = initializeFakeFinancialContainer("populationContainer","population", parameters);
+		WebMarkupContainer gniContainer = initializeFakeFinancialContainer("gniContainer","gni", parameters);
+		WebMarkupContainer totalFlowsContainer = initializeFakeFinancialContainer("totalFlowsContainer","totalFlows", parameters);
+		WebMarkupContainer odaOfGniContainer = initializeFakeFinancialContainer("odaOfGniContainer","odaOfGni", parameters);
+
+		//initialize textinput for reportingYear
+		TextInputField<Integer> reportingYear = new TextInputField<Integer>("reportingYear",new Model<Integer>(selectedYear)) {
+				@Override
+				protected void onUpdate(AjaxRequestTarget target) {
+					super.onUpdate(target);
+					//change internal model for containers, fetch from repo and reassign
+					
+				}
+		};
+		reportingYear.typeInteger().required().range(2000, 2099).decorateMask("9999");
+	
+		form.add(reportingYear);
+
+		form.add(populationContainer);
+		form.add(gniContainer);
+		form.add(totalFlowsContainer);
+		form.add(odaOfGniContainer);
 		
 		form.add(new BootstrapSubmitButton("submit",new StringResourceModel("button.submit", this, null, null)) {
 			private static final long serialVersionUID = 1064657874335641769L;
@@ -89,7 +121,6 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				logger.info("Submitted ok!");
 				logger.info("Object:" + getModel().getObject());				
-				financialTransaction.toString();
 			}
 			
 		});
