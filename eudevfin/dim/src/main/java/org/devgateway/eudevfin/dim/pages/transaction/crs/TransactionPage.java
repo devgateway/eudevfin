@@ -8,13 +8,13 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
+import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
+import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.FormComponent;
@@ -43,13 +43,13 @@ import org.devgateway.eudevfin.ui.common.components.tabs.ITabWithKey;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.devgateway.eudevfin.ui.common.permissions.PermissionAwarePage;
 import org.devgateway.eudevfin.ui.common.permissions.RoleActionMapping;
-import org.devgateway.eudevfin.ui.common.temporary.SB;
 import org.joda.money.CurrencyUnit;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.wicketstuff.annotation.mount.MountPath;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
-import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 @MountPath(value = "/transaction")
 @AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
@@ -246,4 +246,12 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 	public HashMap<String, RoleActionMapping> getPermissions() {
 		return componentPermissions.permissions();
 	}
+
+    @Override
+    public void renderHead(IHeaderResponse response) {
+        response.render(OnDomReadyHeaderItem.forScript(
+                "window.onbeforeunload = function() {\n" +
+                        "    return \"" + new StringResourceModel("leaveMessage", this, null, null).getObject() + "\";\n" +
+                        "};"));
+    }
 }
