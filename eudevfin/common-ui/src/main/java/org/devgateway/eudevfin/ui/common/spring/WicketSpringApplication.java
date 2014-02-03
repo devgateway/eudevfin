@@ -67,8 +67,10 @@ public class WicketSpringApplication extends AuthenticatedWebApplication impleme
             CompoundAuthorizationStrategy cas = (CompoundAuthorizationStrategy) getSecuritySettings().getAuthorizationStrategy();
             cas.add(new PermissionAuthorizationStrategy());
         }
-        
-        
+
+        getResourceSettings().setUseMinifiedResources(false); //prevents bug in wicket-bootstrap that's trying to minify a png
+
+
         //add the navbar 
 //        Navbar navbar = new Navbar("navbar");
 //        navbar.setPosition(Navbar.Position.TOP);
