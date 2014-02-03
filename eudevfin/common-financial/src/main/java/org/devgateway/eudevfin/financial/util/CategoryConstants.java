@@ -54,8 +54,20 @@ public class CategoryConstants {
 	
 			
 			
+	public static final class TypeOfFlow {
+		public static final String NON_FLOW="TYPE_OF_FLOW##40";
+	}
 			
-			
+	
+	public static final class TypeOfFinance {		
+		public static final String ROOT_NON_FLOW="TYPE_OF_FINANCE##0";
+		public static final class NonFlow {			
+			public static final String GNI = "TYPE_OF_FINANCE##1";
+			public static final String ODA_PERCENT_GNI = "TYPE_OF_FINANCE##2";
+			public static final String TOTAL_FLOWS_PERCENT_GNI = "TYPE_OF_FINANCE##3";
+			public static final String POPULATION = "TYPE_OF_FINANCE##4";
+		}
+	}	
 			
 			
 

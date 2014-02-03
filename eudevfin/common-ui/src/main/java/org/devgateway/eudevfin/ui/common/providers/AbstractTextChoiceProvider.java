@@ -8,12 +8,12 @@
 
 package org.devgateway.eudevfin.ui.common.providers;
 
-import java.awt.List;
 import java.util.ArrayList;
 import java.util.Collection;
 
 import org.apache.log4j.Logger;
 import org.devgateway.eudevfin.common.service.BaseEntityService;
+import org.devgateway.eudevfin.common.spring.SpringPropertyExpressions;
 import org.json.JSONException;
 import org.json.JSONWriter;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,7 +36,7 @@ public abstract class AbstractTextChoiceProvider<T> extends ChoiceProvider<T> {
 	
 	protected Sort sort;
 
-	@Value("#{commonProperties['sel.defaultSelectorPageSize']}")
+	@Value(SpringPropertyExpressions.SELECT2_PAGE_SIZE)
 	protected Integer pageSize;
 
 	protected abstract BaseEntityService<T> getService();

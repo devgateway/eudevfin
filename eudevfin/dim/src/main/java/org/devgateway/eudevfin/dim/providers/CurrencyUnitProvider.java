@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.devgateway.eudevfin.common.spring.SpringPropertyExpressions;
 import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 import org.devgateway.eudevfin.financial.service.CurrencyMetadataService;
 import org.joda.money.CurrencyUnit;
@@ -32,7 +33,7 @@ public class CurrencyUnitProvider extends TextChoiceProvider<CurrencyUnit> {
 	@Autowired
 	private CurrencyMetadataService service;
 	
-	@Value("#{commonProperties['sel.defaultSelectorPageSize']}")
+	@Value(SpringPropertyExpressions.SELECT2_PAGE_SIZE)
 	private Integer pageSize;
 
 	@Override

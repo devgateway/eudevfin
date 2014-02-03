@@ -20,5 +20,5 @@ public interface FinancialTransactionService extends BaseEntityService<Financial
 	public Page<FinancialTransaction> findBySectorCode(String sectorCode, 
 			@Header("pageable") Pageable pageable);
 	
-	public List<FinancialTransaction> findByReportingYearAndTypeOfFlowNonFlow(LocalDateTime reportingYear);	
+	public List<FinancialTransaction> findByReportingYearAndTypeOfFlowCode(LocalDateTime reportingYear, @Header("typeOfFlowCode")  String typeOfFlowCode);	
 }
