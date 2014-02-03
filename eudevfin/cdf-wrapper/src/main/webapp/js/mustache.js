@@ -133,7 +133,8 @@ var Mustache = (typeof module !== "undefined" && module.exports) || {};
         var lastIndex = names.length - 1;
         var target = names[lastIndex];
 
-        var value, context, i = stack.length, j, localStack;
+        var value, context, i = stack.length,
+            j, localStack;
         while (i) {
             localStack = stack.slice(0);
             context = stack[--i];
@@ -229,8 +230,8 @@ var Mustache = (typeof module !== "undefined" && module.exports) || {};
             '\nbuffer += "'
         ];
 
-        var spaces = [],      // indices of whitespace in code on the current line
-            hasTag = false,   // is there a {{tag}} on the current line?
+        var spaces = [], // indices of whitespace in code on the current line
+            hasTag = false, // is there a {{tag}} on the current line?
             nonSpace = false; // is there a non-space char on the current line?
 
         // Strips all space characters from the code array for the current line
@@ -248,7 +249,8 @@ var Mustache = (typeof module !== "undefined" && module.exports) || {};
             nonSpace = false;
         };
 
-        var sectionStack = [], updateLine, nextOpenTag, nextCloseTag;
+        var sectionStack = [],
+            updateLine, nextOpenTag, nextCloseTag;
 
         var setTags = function (source) {
             tags = trim(source).split(/\s+/);
@@ -275,7 +277,10 @@ var Mustache = (typeof module !== "undefined" && module.exports) || {};
                 throw debug(new Error("Section name may not be empty"), template, line, options.file);
             }
 
-            sectionStack.push({name: name, inverted: inverted});
+            sectionStack.push({
+                name: name,
+                inverted: inverted
+            });
 
             code.push(
                 '";',
@@ -336,7 +341,8 @@ var Mustache = (typeof module !== "undefined" && module.exports) || {};
             );
         };
 
-        var line = 1, c, callback;
+        var line = 1,
+            c, callback;
         for (var i = 0, len = template.length; i < len; ++i) {
             if (template.slice(i, i + openTag.length) === openTag) {
                 i += openTag.length;
@@ -347,42 +353,42 @@ var Mustache = (typeof module !== "undefined" && module.exports) || {};
                 hasTag = true;
 
                 switch (c) {
-                    case "!": // comment
-                        i++;
-                        callback = null;
-                        break;
-                    case "=": // change open/close tags, e.g. {{=<% %>=}}
-                        i++;
-                        closeTag = "=" + closeTag;
-                        callback = setTags;
-                        break;
-                    case ">": // include partial
-                        i++;
-                        callback = includePartial;
-                        break;
-                    case "#": // start section
-                        i++;
-                        callback = openSection;
-                        break;
-                    case "^": // start inverted section
-                        i++;
-                        callback = openInvertedSection;
-                        break;
-                    case "/": // end section
-                        i++;
-                        callback = closeSection;
-                        break;
-                    case "{": // plain variable
-                        closeTag = "}" + closeTag;
+                case "!": // comment
+                    i++;
+                    callback = null;
+                    break;
+                case "=": // change open/close tags, e.g. {{=<% %>=}}
+                    i++;
+                    closeTag = "=" + closeTag;
+                    callback = setTags;
+                    break;
+                case ">": // include partial
+                    i++;
+                    callback = includePartial;
+                    break;
+                case "#": // start section
+                    i++;
+                    callback = openSection;
+                    break;
+                case "^": // start inverted section
+                    i++;
+                    callback = openInvertedSection;
+                    break;
+                case "/": // end section
+                    i++;
+                    callback = closeSection;
+                    break;
+                case "{": // plain variable
+                    closeTag = "}" + closeTag;
                     // fall through
-                    case "&": // plain variable
-                        i++;
-                        nonSpace = true;
-                        callback = sendPlain;
-                        break;
-                    default: // escaped variable
-                        nonSpace = true;
-                        callback = sendEscaped;
+                case "&": // plain variable
+                    i++;
+                    nonSpace = true;
+                    callback = sendPlain;
+                    break;
+                default: // escaped variable
+                    nonSpace = true;
+                    callback = sendEscaped;
                 }
 
                 var end = template.indexOf(closeTag, i);
@@ -411,28 +417,28 @@ var Mustache = (typeof module !== "undefined" && module.exports) || {};
                 c = template.substr(i, 1);
 
                 switch (c) {
-                    case '"':
-                    case "\\":
-                        nonSpace = true;
-                        code.push("\\" + c);
-                        break;
-                    case "\r":
-                        // Ignore carriage returns.
-                        break;
-                    case "\n":
+                case '"':
+                case "\\":
+                    nonSpace = true;
+                    code.push("\\" + c);
+                    break;
+                case "\r":
+                    // Ignore carriage returns.
+                    break;
+                case "\n":
+                    spaces.push(code.length);
+                    code.push("\\n");
+                    stripSpace(); // Check for whitespace on the current line.
+                    line++;
+                    break;
+                default:
+                    if (isWhitespace(c)) {
                         spaces.push(code.length);
-                        code.push("\\n");
-                        stripSpace(); // Check for whitespace on the current line.
-                        line++;
-                        break;
-                    default:
-                        if (isWhitespace(c)) {
-                            spaces.push(code.length);
-                        } else {
-                            nonSpace = true;
-                        }
+                    } else {
+                        nonSpace = true;
+                    }
 
-                        code.push(c);
+                    code.push(c);
                 }
             }
         }

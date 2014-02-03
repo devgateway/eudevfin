@@ -20,8 +20,7 @@ module.exports = function(grunt) {
 					'!src/main/webapp/js/libs/**/*.js',
 					'!src/main/webapp/js/dataTables/**/*.js', 
 					'!src/main/webapp/js/jquery-libs/**/*.js',
-					'!src/main/webapp/js/modernizr-2.0.6.js',
-					'!src/main/webapp/js/mustache.js'
+					'!src/main/webapp/js/modernizr-2.0.6.js'
 					],
 			options: {
 				js: {
@@ -129,7 +128,7 @@ module.exports = function(grunt) {
 				src: [
 						'src/main/webapp/js/libs/underscore-1.5.2.js', 
 						'src/main/webapp/js/libs/backbone-1.1.0.js', 
-						'src/main/webapp/js/mustache.js',
+						// 'src/main/webapp/js/mustache.js',
 						// 'src/main/webapp/js/modernizr-2.0.6.js', 
 						'src/main/webapp/js/jquery-libs/**/*.js',
 						'src/main/webapp/js/dataTables/js/jquery.dataTables.js',

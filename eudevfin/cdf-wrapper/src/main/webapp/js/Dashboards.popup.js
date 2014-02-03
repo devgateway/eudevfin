@@ -7,7 +7,7 @@ wd.cdf = wd.cdf || {};
 wd.cdf.popups = wd.cdf.popups || {};
 
 wd.cdf.popups.okPopup = {
-    template: Mustache.compile(
+    template: _.template(
         "<div class='cdfPopup'>" +
         "  <div class='cdfPopupHeader'>{{{header}}}</div>" +
         "  <div class='cdfPopupBody'>" +
@@ -62,7 +62,7 @@ wd.cdf.popups.okPopup = {
 wd.cdf.notifications = wd.cdf.notifications || {};
 
 wd.cdf.notifications.component = {
-    template: Mustache.compile(
+    template: _.template(
         "<div class='cdfNotification component {{#isSmallComponent}}small{{/isSmallComponent}}'>" +
         "  <div class='cdfNotificationBody'>" +
         "    <div class='cdfNotificationImg'>&nbsp;</div>" +
@@ -86,7 +86,7 @@ wd.cdf.notifications.component = {
 };
 
 wd.cdf.notifications.growl = {
-    template: Mustache.compile(
+    template: _.template(
         "<div class='cdfNotification growl'>" +
         "  <div class='cdfNotificationBody'>" +
         "    <h1 class='cdfNotificationTitle' title='{{title}}'>{{{title}}}</h1>" +
