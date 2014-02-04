@@ -24,6 +24,19 @@ app.checkArrayValue = function (array, value){
 	return true;
 }
 
+// format the Amount column from tables (remove the comma)
+app.tableValueFormat = function (v, st) {
+	if (v >= 1000) {
+		return sprintf(st.colFormat, v / 1000).replace(/,/g, " ") + " 000";
+	} else {
+		if (v !== 0) {
+			return v;
+		} else {
+			return '';
+		}
+	}
+}
+
 $(document).ready(function () {
     // add more colors for Highcharts
     Highcharts.setOptions({

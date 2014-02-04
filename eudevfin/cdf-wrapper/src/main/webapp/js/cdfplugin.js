@@ -23628,6 +23628,37 @@ function AddIn(options) {
 
     };
     Dashboards.registerAddIn("Table", "colType", new AddIn(localizedText));
+
+	/*
+	 Format for displaying percentages in tables results
+
+	 Added the following style for this add in component
+	 .tableComponent td.percentFormat {
+	 text-align: right;
+	 font-family: monospace;
+	 }
+	 */
+	var percentFormat = {
+		name: "percentFormat",
+		label: "percentFormat",
+		defaults: {
+			valueFormat: function (v, format, st) {
+				return sprintf('%.2f', v) + ' %';
+			}
+		},
+
+		init: function (){
+			$.fn.dataTableExt.oSort[this.name+'-asc'] = $.fn.dataTableExt.oSort['numeric-asc'];
+			$.fn.dataTableExt.oSort[this.name+'-desc'] = $.fn.dataTableExt.oSort['numeric-desc'];
+		},
+
+		implementation: function (tgt, st, opt) {
+			var t = $(tgt);
+			t.html((st.colFormat ? sprintf(st.colFormat, st.value) : st.value) + ' %');
+		}
+	};
+
+	Dashboards.registerAddIn("Table", "colType", new AddIn(percentFormat));
 })();
 
 
