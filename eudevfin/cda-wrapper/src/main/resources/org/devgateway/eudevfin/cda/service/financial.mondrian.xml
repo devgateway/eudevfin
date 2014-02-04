@@ -7,6 +7,27 @@
 			</Level>
 		</Hierarchy>
 	</Dimension>
+	<Dimension visible="true" highCardinality="false" name="Region">
+		<Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All Regions">
+			<View alias="RegionView">
+				<SQL dialect="generic"><![CDATA[
+			select
+				"AREA"."ID", "AREA"."CODE",  "AREATRANSLATION"."NAME"
+			from
+				"APP"."AREA" as "AREA",
+				"APP"."AREATRANSLATION" as "AREATRANSLATION"
+			WHERE
+				"AREATRANSLATION"."LOCALE" ='@@LOCALE@@' AND
+				"AREATRANSLATION"."PARENT_ID" = "AREA"."ID" AND
+				"AREA"."AREA_TYPE" = 'Area'
+			]]></SQL>
+			</View>
+			<Level name="Code" visible="true" column="CODE" uniqueMembers="false" levelType="Regular" type="String">
+			</Level>
+			<Level name="Name" visible="true" column="NAME" uniqueMembers="false" levelType="Regular" type="String">
+			</Level>
+		</Hierarchy>
+	</Dimension>
 	<Dimension visible="true" highCardinality="false" name="Extending Agency">
 		<Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Extending Agency" allMemberCaption="%{allExtendingAgencies}" allLevelName="%{allExtendingAgencies}" description="%{extendingAgencies}" allMemberName="All Extending Agencies">
 			<Table name="ORGANIZATION" schema="APP"></Table>
@@ -275,6 +296,7 @@
 			]]></SQL>
 		</View>		
 		<DimensionUsage source="Area" name="Area" visible="true" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
+		<DimensionUsage source="Region" name="Region" visible="true" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
 		<DimensionUsage source="Extending Agency" name="Extending Agency" visible="true" foreignKey="EXTENDINGAGENCY_ID" highCardinality="false"></DimensionUsage>
 		<DimensionUsage source="Sector" name="Sector" visible="true" foreignKey="SECTOR_ID" highCardinality="false"></DimensionUsage>
 		<DimensionUsage source="Channel" name="Channel" visible="true" foreignKey="CHANNEL_ID" highCardinality="false"></DimensionUsage>
@@ -295,26 +317,37 @@
 		<Measure name="Export Credit Amount" column="AMOUNTS_EXP_EXPORT_CREDIT_AMOUNT" aggregator="sum" visible="true" caption="%{exportCreditAmount}"></Measure>
 		<Measure name="IRTC Amount" column="AMOUNTS_IRTC_AMOUNT" aggregator="sum" visible="true" caption="%{IRTCAmount}"></Measure>
 		<Measure name="Extended Amount" column="AMOUNTS_EXTENDED_AMOUNT" aggregator="sum" visible="true" caption="%{extendedAmount}"></Measure>
-	<Measure name="Extended Amount Currency" aggregator="sum" visible="true">
-		<MeasureExpression>
-			<SQL dialect="generic">
-				("FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXTENDED_AMOUNT" * (SELECT AVG(RATE) FROM HISTORICALEXCHANGERATE WHERE BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXTENDED_CURR" AND COUNTER_CURRENCY = '@@CURRENCY@@' AND YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")))
-			</SQL>
-		</MeasureExpression>
-	</Measure>
+		<Measure name="Extended Amount Currency" aggregator="sum" visible="true">
+			<MeasureExpression>
+				<SQL dialect="generic">
+					("FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXTENDED_AMOUNT" * (SELECT AVG(RATE)
+					FROM
+						HISTORICALEXCHANGERATE
+					WHERE
+						BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXTENDED_CURR" AND
+						COUNTER_CURRENCY = '@@CURRENCY@@' AND
+						YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")))
+				</SQL>
+			</MeasureExpression>
+		</Measure>
 		<Measure name="Current Extended Amount" column="AMOUNTS_EXTENDED_CURRENT_AMOUNT" aggregator="sum" visible="true" caption="%{currentExtendedAmount}"></Measure>
 		<Measure name="Year 1 Extended Amount" column="AMOUNTS_EXTENDED_YEAR1_AMOUNT" aggregator="sum" visible="true" caption="%{year1ExtendedAmount}"></Measure>
 		<Measure name="Year 2 Extended Amount" column="AMOUNTS_EXTENDED_YEAR2_AMOUNT" aggregator="sum" visible="true" caption="%{year2ExtendedAmount}"></Measure>
 		<Measure name="Partially Untied Amount" column="AMOUNTS_PARTIALLY_UNTIED_AMOUNT" aggregator="sum" visible="true" caption="%{partiallyUntiedAmount}"></Measure>
 		<Measure name="Received Amount" column="AMOUNTS_RECEIVED_AMOUNT" aggregator="sum" visible="true" caption="%{receivedAmount}"></Measure>
-
-	<Measure name="Received Amount Currency" aggregator="sum" visible="true">
-		<MeasureExpression>
-			<SQL dialect="generic">
-				("FINANCIALTRANSACTIONVIEW"."AMOUNTS_RECEIVED_AMOUNT" * (SELECT AVG(RATE) FROM HISTORICALEXCHANGERATE WHERE BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_RECEIVED_CURR" AND COUNTER_CURRENCY = '@@CURRENCY@@' AND YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")))
-			</SQL>
-		</MeasureExpression>
-	</Measure>
+		<Measure name="Received Amount Currency" aggregator="sum" visible="true">
+			<MeasureExpression>
+				<SQL dialect="generic">
+					("FINANCIALTRANSACTIONVIEW"."AMOUNTS_RECEIVED_AMOUNT" * (SELECT AVG(RATE)
+					FROM
+						HISTORICALEXCHANGERATE
+					WHERE
+						BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_RECEIVED_CURR" AND
+						COUNTER_CURRENCY = '@@CURRENCY@@' AND
+						YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")))
+				</SQL>
+			</MeasureExpression>
+		</Measure>
 		<Measure name="Tied Amount" column="AMOUNTS_TIED_AMOUNT" aggregator="sum" visible="true" caption="%{tiedAmount}"></Measure>
 		<Measure name="Untied Amount" column="AMOUNTS_UNTIED_AMOUNT" aggregator="sum" visible="true" caption="%{untiedAmount}"></Measure>
 		<Measure name="Interest Arrears Amount" column="AMOUNTS_AREARS_INTEREST_AMOUNT" aggregator="sum" visible="true" caption="%{interestArrearsAmount}"></Measure>
@@ -324,6 +357,7 @@
 		<Measure name="Principal Disbursed Amount" column="AMOUNTS_PRIN_DISB_AMOUNT" aggregator="sum" visible="true" caption="%{principalDisbursedAmount}"></Measure>
 		<Measure name="Expert Commitments Amount" column="AMOUNTS_EXP_COMMIT_AMOUNT" aggregator="sum" visible="true" caption="%{expertCommitmentsAmount}"></Measure>
 		<Measure name="Expert Extended Amount" column="AMOUNTS_EXP_EXTENDED_AMOUNT" aggregator="sum" visible="true" caption="%{expertExtendedAmount}"></Measure>
+		<Measure name="NumberOfTransactions" column="ID" datatype="Integer" aggregator="count" formatString="#,###"/>
 	<CalculatedMember name="Net Amount" dimension="Measures">
 		<Formula>[Measures].[Extended Amount] - [Measures].[Received Amount]</Formula>
 	</CalculatedMember>

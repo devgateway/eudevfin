@@ -6,7 +6,7 @@
  * http://www.gnu.org/licenses/gpl.html
  */
 
-function initDataTable(parametersJson) {
+function addNetODATable(parametersJson) {
 	'use strict';
 
     var table = new app.TableModel(_.extend(parametersJson, {
@@ -16,9 +16,9 @@ function initDataTable(parametersJson) {
 
         postFetch: function (values) {
 	        var i, j , k,
-		        len = values.resultset.length,
-		        TOTAL_NUMBER_OF_COLUMNS = 6;
+		        len = values.resultset.length;
 
+			// set 0 to 'null' values
 	        for(i = 0; i < len; i++) {
 		        k = values.resultset[i].length;
 		        for(j = 1; j < k; j++) {
@@ -26,10 +26,26 @@ function initDataTable(parametersJson) {
 						values.resultset[i][j] = 0;
 					}
 		        }
-				for (j = k; j < TOTAL_NUMBER_OF_COLUMNS; j++) {
-					values.resultset[i][j] = 0;
-				}
 	        }
+
+	        for(i = 0; i < len - 2; i++) {
+		        k = values.resultset[i].length;
+		        // add (last_year - 1 / last_year) column
+		        values.resultset[i][k] = values.resultset[i][k - 2] / values.resultset[i][k - 1];
+	        }
+
+	        for(i = len - 2; i < len; i++) {
+		        k = values.resultset[i].length;
+		        // add (last_year - 1 / last_year) column
+		        values.resultset[i][k] = 0;
+	        }
+
+	        // add colIndex, colName and colType metadata
+	        values.metadata.push({
+		        colIndex: 4,
+		        colName: "percent",
+		        colType: "Numeric"
+	        });
 
             return values;
         },
