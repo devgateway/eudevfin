@@ -1,9 +1,25 @@
+/*
+ * Copyright (c) 2014 Development Gateway.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v3.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/gpl.html
+ */
+
 package org.devgateway.eudevfin.dim;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
+import de.agilecoders.wicket.core.Bootstrap;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.DropDownSubMenu;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuBookmarkablePageLink;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuDivider;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuHeader;
+import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconType;
+import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
+import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarButton;
+import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarDropDownButton;
+import de.agilecoders.wicket.core.settings.IBootstrapSettings;
+import de.agilecoders.wicket.core.settings.ITheme;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.button.DropDownAutoOpen;
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy;
@@ -20,18 +36,9 @@ import org.devgateway.eudevfin.ui.common.WicketNavbarComponentInitializer;
 import org.devgateway.eudevfin.ui.common.pages.LogoutPage;
 import org.devgateway.eudevfin.ui.common.temporary.SB;
 
-import de.agilecoders.wicket.core.Bootstrap;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.DropDownSubMenu;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuBookmarkablePageLink;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuDivider;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuHeader;
-import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconType;
-import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
-import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarButton;
-import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarDropDownButton;
-import de.agilecoders.wicket.core.settings.IBootstrapSettings;
-import de.agilecoders.wicket.core.settings.ITheme;
-import de.agilecoders.wicket.extensions.markup.html.bootstrap.button.DropDownAutoOpen;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * Class holding static methods that initialize the wicket {@link Navbar} components.
@@ -184,8 +191,8 @@ public final class NavbarInitializer {
 	                langs.add(new Locale("ro"));
 
 	                for (Locale l : langs) {
-	                    PageParameters params = new PageParameters();
-	                    params.set(Constants.LANGUAGE_PAGE_PARAM, l.getLanguage());
+                        PageParameters params = new PageParameters(page.getPageParameters());
+                        params.set(Constants.LANGUAGE_PAGE_PARAM, l.getLanguage());
 	                    list.add(new MenuBookmarkablePageLink<Page>(page.getPageClass(), params, Model.of(l.getDisplayName())));
 	                }
 
