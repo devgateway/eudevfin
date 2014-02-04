@@ -35,6 +35,7 @@ import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.service.CurrencyMetadataService;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
 import org.devgateway.eudevfin.financial.util.CurrencyConstants;
+import org.devgateway.eudevfin.ui.common.AttributePrepender;
 import org.devgateway.eudevfin.ui.common.Constants;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
 import org.devgateway.eudevfin.ui.common.components.tabs.BootstrapJSTabbedPanel;
@@ -61,8 +62,11 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 
 	public static final String PARAM_TRANSACTION_ID = "transactionId";
 
-	@SpringBean
-	private FinancialTransactionService financialTransactionService;
+    public final String onUnloadScript;
+
+
+    @SpringBean
+    private FinancialTransactionService financialTransactionService;
 	
 	@SpringBean
 	private CurrencyMetadataService currencyMetadaService;
@@ -154,8 +158,12 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 		
 		Label pageType=new Label("pageType",new StringResourceModel(parameters.get(Constants.PARAM_TRANSACTION_TYPE).toString(""), this, null, null));
 		add(pageType);
-		
-		// TODO: check that transactionType in the request parameters is the
+
+        onUnloadScript = "window.onbeforeunload = function() {\n" +
+                "    return \"" + new StringResourceModel("leaveMessage", this, null, null).getObject() + "\";\n" +
+                "};";
+
+        // TODO: check that transactionType in the request parameters is the
 		// same as the loaded transaction's type
 		FinancialTransaction financialTransaction = null;
 
@@ -181,19 +189,26 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 				.positionTabs(BootstrapJSTabbedPanel.Orientation.RIGHT);
 		form.add(bc);
 
-		form.add(new TransactionPageSubmitButton("submit", new StringResourceModel("button.submit", this, null, null)) {
-			private static final long serialVersionUID = -1909494416938537482L;
+        TransactionPageSubmitButton submitButton = new TransactionPageSubmitButton("submit", new StringResourceModel("button.submit", this, null, null)) {
+            private static final long serialVersionUID = -1909494416938537482L;
 
-			@Override
-			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-				logger.info("Submit pressed");
-				super.onSubmit(target, form);
-				setResponsePage(HomePage.class);
-			}
+            @Override
+            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+                logger.info("Submit pressed");
+                super.onSubmit(target, form);
+                setResponsePage(HomePage.class);
+            }
 
-		});
+            @Override
+            protected void onError(AjaxRequestTarget target, Form<?> form) {
+                super.onError(target, form);
+                target.appendJavaScript(onUnloadScript);
+            }
+        };
+        submitButton.add(new AttributePrepender("onclick", new Model<String>("window.onbeforeunload = null;"), " "));
+        form.add(submitButton);
 
-		form.add(new TransactionPageSubmitButton("save", new StringResourceModel("button.save", this, null, null)));
+        form.add(new TransactionPageSubmitButton("save", new StringResourceModel("button.save", this, null, null)));
 
 		form.add(new TransactionPageSubmitButton("cancel", new StringResourceModel("button.cancel", this, null, null)) {
 
@@ -249,9 +264,8 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 
     @Override
     public void renderHead(IHeaderResponse response) {
+        super.renderHead(response);
         response.render(OnDomReadyHeaderItem.forScript(
-                "window.onbeforeunload = function() {\n" +
-                        "    return \"" + new StringResourceModel("leaveMessage", this, null, null).getObject() + "\";\n" +
-                        "};"));
+                onUnloadScript));
     }
 }
