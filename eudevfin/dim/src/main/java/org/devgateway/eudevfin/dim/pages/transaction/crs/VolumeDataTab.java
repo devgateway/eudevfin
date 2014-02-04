@@ -8,8 +8,7 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
-import java.math.BigDecimal;
-
+import com.vaynberg.wicket.select2.ChoiceProvider;
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.event.Broadcast;
@@ -19,7 +18,6 @@ import org.apache.wicket.model.ComponentPropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.dim.core.models.BigMoneyModel;
-import org.devgateway.eudevfin.dim.providers.CurrencyUnitProvider;
 import org.devgateway.eudevfin.dim.providers.CurrencyUnitProviderFactory;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
@@ -29,6 +27,8 @@ import org.devgateway.eudevfin.ui.common.events.CurrencyUpdateBehavior;
 import org.devgateway.eudevfin.ui.common.permissions.PermissionAwareComponent;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
+
+import java.math.BigDecimal;
 
 /**
  * @author aartimon@developmentgateway.org
@@ -68,8 +68,8 @@ public class VolumeDataTab extends Panel implements PermissionAwareComponent {
     private void addComponents() {
 
         ComponentPropertyModel<CurrencyUnit> readOnlyCurrencyModel = new ComponentPropertyModel<>("currency");
-        CurrencyUnitProvider nationalCurrenciesProvider	= 
-        		this.currencyUnitProviderFactory.getCurrencyUnitProviderInstance(CurrencyUnitProviderFactory.NATIONAL_UNSORTED_CURRENCIES_PROVIDER);
+        ChoiceProvider<CurrencyUnit> nationalCurrenciesProvider =
+                this.currencyUnitProviderFactory.getCurrencyUnitProviderInstance(CurrencyUnitProviderFactory.NATIONAL_UNSORTED_CURRENCIES_PROVIDER);
         currency = new DropDownField<CurrencyUnit>("32currency", new RWComponentPropertyModel<CurrencyUnit>("currency"),
                 nationalCurrenciesProvider) {
             @Override

@@ -1,5 +1,13 @@
+/*
+ * Copyright (c) 2014 Development Gateway.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v3.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/gpl.html
+ */
+
 /**
- * 
+ *
  */
 package org.devgateway.eudevfin.mcm.providers;
 
@@ -12,42 +20,44 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author mihai
- *
  */
 @Component
 public class PersistedUserGroupChoiceProvider extends AbstractTextChoiceProvider<PersistedUserGroup> {
 
-	private static final long serialVersionUID = 7528820465678340874L;
-	@Autowired
-	protected PersistedUserGroupService persistedUserGroupService;
-	
-	/**
-	 * 
-	 */
-	public PersistedUserGroupChoiceProvider() {
-		// TODO Auto-generated constructor stub
-	}
+    private static final long serialVersionUID = 7528820465678340874L;
+    @Autowired
+    protected PersistedUserGroupService persistedUserGroupService;
 
-	/* (non-Javadoc)
-	 * @see com.vaynberg.wicket.select2.TextChoiceProvider#getDisplayText(java.lang.Object)
-	 */
-	@Override
-	public String getDisplayText(PersistedUserGroup choice) {
-		return choice.getName();
-	}
+    /**
+     *
+     */
+    public PersistedUserGroupChoiceProvider() {
+        // TODO Auto-generated constructor stub
+    }
 
-	/* (non-Javadoc)
-	 * @see com.vaynberg.wicket.select2.TextChoiceProvider#getId(java.lang.Object)
-	 */
-	@Override
-	public Object getId(PersistedUserGroup choice) {
-		return choice.getId();
-	}
+    /* (non-Javadoc)
+     * @see com.vaynberg.wicket.select2.TextChoiceProvider#getDisplayText(java.lang.Object)
+     */
+    @Override
+    public String getDisplayText(PersistedUserGroup choice) {
+        return choice.getName();
+    }
 
-	@Override
-	protected BaseEntityService<PersistedUserGroup> getService() {
-		return persistedUserGroupService;
-	}
+    /* (non-Javadoc)
+     * @see com.vaynberg.wicket.select2.TextChoiceProvider#getId(java.lang.Object)
+     */
+    @Override
+    public Object getId(PersistedUserGroup choice) {
+        return choice.getId();
+    }
 
+    @Override
+    protected BaseEntityService<PersistedUserGroup> getService() {
+        return persistedUserGroupService;
+    }
 
+    @Override
+    public void detach() {
+        persistedUserGroupService = null;
+    }
 }

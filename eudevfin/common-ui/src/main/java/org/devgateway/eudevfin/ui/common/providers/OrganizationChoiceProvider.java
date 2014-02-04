@@ -24,24 +24,28 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrganizationChoiceProvider extends AbstractTranslatableProvider<Organization> {
 
-	
-	
+
     @Autowired
     private OrganizationService organizationService;
 
 
     public OrganizationChoiceProvider() {
         super();
-    	//this.sort=new Sort(Direction.ASC,"code");
+        //this.sort=new Sort(Direction.ASC,"code");
     }
 
     @Override
     public String getDisplayText(Organization choice) {
-        return choice.getCode()+ " - "+choice.getName();
+        return choice.getCode() + " - " + choice.getName();
     }
 
     @Override
     protected BaseEntityService<Organization> getService() {
         return organizationService;
+    }
+
+    @Override
+    public void detach() {
+        //Spring component no need to detach if added into wicket components with @SpringBean
     }
 }

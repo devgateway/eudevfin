@@ -8,10 +8,9 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.custom;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
+import com.vaynberg.wicket.select2.ChoiceProvider;
+import com.vaynberg.wicket.select2.Select2Choice;
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.form.Form;
@@ -26,7 +25,6 @@ import org.apache.wicket.validation.ValidationError;
 import org.devgateway.eudevfin.dim.core.models.BigMoneyModel;
 import org.devgateway.eudevfin.dim.core.models.ExchangeRateModel;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.VolumeDataTab;
-import org.devgateway.eudevfin.dim.providers.CurrencyUnitProvider;
 import org.devgateway.eudevfin.dim.providers.CurrencyUnitProviderFactory;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
@@ -38,9 +36,9 @@ import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.ExchangeRate;
 
-import com.vaynberg.wicket.select2.Select2Choice;
-
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author aartimon
@@ -210,8 +208,8 @@ public class CustomVolumeDataTab extends VolumeDataTab {
             exchangeRate.getField().setEnabled(false);
             add(exchangeRate);
 
-            CurrencyUnitProvider currencyUnitProvider	= 
-            		this.currencyUnitProviderFactory.
+            ChoiceProvider<CurrencyUnit> currencyUnitProvider =
+                    this.currencyUnitProviderFactory.
             			getCurrencyUnitProviderInstance(CurrencyUnitProviderFactory.ALL_SORTED_CURRENCIES_PROVIDER);
             
             final DropDownField<CurrencyUnit> otherCurrency = new DropDownField<CurrencyUnit>("32bOtherCurrency", toCurrency,

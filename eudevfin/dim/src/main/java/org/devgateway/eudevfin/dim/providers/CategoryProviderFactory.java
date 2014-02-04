@@ -8,17 +8,14 @@
 
 package org.devgateway.eudevfin.dim.providers;
 
-import java.util.Hashtable;
-
 import org.apache.wicket.model.IDetachable;
-import org.devgateway.eudevfin.common.spring.ContextHelper;
+import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.service.CategoryService;
-import org.springframework.beans.BeansException;
+import org.devgateway.eudevfin.ui.common.providers.SpringCategoryProviderProxy;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
+
+import java.util.Hashtable;
 
 /**
  * @author aartimon
@@ -27,30 +24,25 @@ import org.springframework.stereotype.Component;
 @Component
 public class CategoryProviderFactory implements IDetachable {
 
-	@Autowired
-	protected CategoryService categoryService;
-	
-	private static final long serialVersionUID = 5075621973446951621L;
+    @Autowired
+    protected CategoryService categoryService;
 
-    private transient Hashtable<String, AbstractCategoryProvider> map = new Hashtable<>();
+    private static final long serialVersionUID = 5075621973446951621L;
 
-    public AbstractCategoryProvider get(String tag) {
-        AbstractCategoryProvider provider = map.get(tag);
+    private transient Hashtable<String, SpringCategoryProviderProxy<Category>> map = new Hashtable<>();
+
+    public SpringCategoryProviderProxy<Category> get(String tag) {
+        SpringCategoryProviderProxy<Category> provider = map.get(tag);
         if (provider != null)
             return provider;
-    	AutowireCapableBeanFactory factory = ContextHelper.newInstance()
-    			.getAutowireCapableBeanFactory();
-		provider = new TagCategoryProvider(tag);
-		factory.autowireBean(provider);
+        provider = new SpringCategoryProviderProxy<>(new TagCategoryProvider(tag));
         map.put(tag, provider);
         return provider;
     }
-    
 
-	@Override
-	public void detach() {
-		
-	}
 
+    @Override
+    public void detach() {
+    }
 
 }

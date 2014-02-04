@@ -13,8 +13,6 @@ import org.devgateway.eudevfin.financial.ChannelCategory;
 import org.devgateway.eudevfin.financial.service.ChannelCategoryService;
 import org.devgateway.eudevfin.ui.common.providers.AbstractTranslatableProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Component;
 
 /**
@@ -24,10 +22,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class ChannelCategoryChoiceProvider extends AbstractTranslatableProvider<ChannelCategory> {
 
-	public ChannelCategoryChoiceProvider() {
-		//this.sort=new Sort(Direction.ASC,"code");
-	}
-	
+    public ChannelCategoryChoiceProvider() {
+        //this.sort=new Sort(Direction.ASC,"code");
+    }
+
     @Autowired
     private ChannelCategoryService channelCategoryService;
 
@@ -38,6 +36,11 @@ public class ChannelCategoryChoiceProvider extends AbstractTranslatableProvider<
 
     @Override
     public String getDisplayText(ChannelCategory choice) {
-       return choice.getDisplayableCode()+" - "+choice.getName();
+        return choice.getDisplayableCode() + " - " + choice.getName();
+    }
+
+    @Override
+    public void detach() {
+        //Spring component no need to detach if added into wicket components with @SpringBean
     }
 }

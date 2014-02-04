@@ -1,5 +1,13 @@
+/*
+ * Copyright (c) 2014 Development Gateway.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v3.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/gpl.html
+ */
+
 /**
- * 
+ *
  */
 package org.devgateway.eudevfin.mcm.providers;
 
@@ -12,48 +20,51 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author mihai
- * 
  */
 @Component
 public class PersistedUserChoiceProvider extends
-		AbstractTextChoiceProvider<PersistedUser> {
+        AbstractTextChoiceProvider<PersistedUser> {
 
-	@Autowired
-	protected PersistedUserService persistedUserService;
+    @Autowired
+    protected PersistedUserService persistedUserService;
 
-	private static final long serialVersionUID = -7413659137155284215L;
+    private static final long serialVersionUID = -7413659137155284215L;
 
-	public PersistedUserChoiceProvider() {
-		
-	}
+    public PersistedUserChoiceProvider() {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.vaynberg.wicket.select2.TextChoiceProvider#getDisplayText(java.lang
-	 * .Object)
-	 */
-	@Override
-	public String getDisplayText(PersistedUser choice) {
-		return choice.getUsername();
-	}
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.vaynberg.wicket.select2.TextChoiceProvider#getId(java.lang.Object)
-	 */
-	@Override
-	public Object getId(PersistedUser choice) {
-		return choice.getId();
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * com.vaynberg.wicket.select2.TextChoiceProvider#getDisplayText(java.lang
+     * .Object)
+     */
+    @Override
+    public String getDisplayText(PersistedUser choice) {
+        return choice.getUsername();
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * com.vaynberg.wicket.select2.TextChoiceProvider#getId(java.lang.Object)
+     */
+    @Override
+    public Object getId(PersistedUser choice) {
+        return choice.getId();
+    }
 
 
-	@Override
-	protected BaseEntityService<PersistedUser> getService() {
-		return persistedUserService;
-	}
+    @Override
+    protected BaseEntityService<PersistedUser> getService() {
+        return persistedUserService;
+    }
 
+    @Override
+    public void detach() {
+        persistedUserService = null;
+    }
 }

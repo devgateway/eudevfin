@@ -8,8 +8,8 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.custom;
 
-import java.math.BigDecimal;
-
+import com.vaynberg.wicket.select2.ChoiceProvider;
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.event.Broadcast;
@@ -21,7 +21,6 @@ import org.devgateway.eudevfin.dim.core.models.BigMoneyModel;
 import org.devgateway.eudevfin.dim.core.models.YearToLocalDateTimeModel;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.BasicDataTab;
 import org.devgateway.eudevfin.dim.providers.CategoryProviderFactory;
-import org.devgateway.eudevfin.dim.providers.CurrencyUnitProvider;
 import org.devgateway.eudevfin.dim.providers.CurrencyUnitProviderFactory;
 import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.Organization;
@@ -38,7 +37,7 @@ import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 import org.joda.time.LocalDateTime;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
+import java.math.BigDecimal;
 
 /**
  * Basic Data Tab extension for the EU-DEVFIN Form
@@ -90,6 +89,7 @@ public class CustomBasicDataTab extends BasicDataTab {
         }
     }
 
+    @SuppressWarnings("WicketForgeJavaIdInspection")
     public class Extension2 extends Fragment {
 
         @SpringBean
@@ -127,9 +127,9 @@ public class CustomBasicDataTab extends BasicDataTab {
             thirdCoFinancingAgency.hideLabel().setSize(InputBehavior.Size.Small);
             pac.add(thirdCoFinancingAgency);
 
-            
-            CurrencyUnitProvider currencyUnitProvider	= 
-            		this.currencyUnitProviderFactory.
+
+            ChoiceProvider<CurrencyUnit> currencyUnitProvider =
+                    this.currencyUnitProviderFactory.
             			getCurrencyUnitProviderInstance(CurrencyUnitProviderFactory.ALL_SORTED_CURRENCIES_PROVIDER);
             
             RWComponentPropertyModel<CurrencyUnit> firstAgencyCurrencyModel = new RWComponentPropertyModel<>("firstAgencyCurrency");
