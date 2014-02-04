@@ -15,6 +15,7 @@ import org.apache.wicket.request.resource.JavaScriptResourceReference;
 public class ColumnsChart extends Panel implements IParametersProvider {
 	private final WebMarkupContainer columnsChart;
 	private ChartParameters parameters;
+	private String initFunction;
 	
 	public ColumnsChart(String id, String dataAccessId, String messageKey) {
         super(id);
@@ -37,11 +38,27 @@ public class ColumnsChart extends Panel implements IParametersProvider {
         super.renderHead(response);
         
         response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(ColumnsChart.class, "ColumnsChartInit.js")));
-		response.render(OnDomReadyHeaderItem.forScript("initColumnsChart(" + parameters().toJson() + ");"));
+		response.render(OnDomReadyHeaderItem.forScript(this.initFunction + "(" + parameters().toJson() + ");"));
     }
 
 	@Override
 	public BaseParameters parameters() {
 		return parameters;
+	}
+
+	public ChartParameters getParameters() {
+		return parameters;
+	}
+
+	public void setParameters(ChartParameters parameters) {
+		this.parameters = parameters;
+	}
+
+	public String getInitFunction() {
+		return initFunction;
+	}
+
+	public void setInitFunction(String initFunction) {
+		this.initFunction = initFunction;
 	}
 }

@@ -10,7 +10,7 @@ var app = app || {};
             return {
                 chart: {
                     animation: {
-                        duration: 10
+                        duration: 1000
                     },
                     borderColor: '#DEEDF7',
                     borderRadius: 20,
@@ -92,7 +92,7 @@ var app = app || {};
                         allowPointSelect: true,
                         cursor: 'pointer',
                         animation: {
-                            duration: 10
+                            duration: 1000
                         },
                         dataLabels: {
                             enabled: false,
@@ -115,7 +115,7 @@ var app = app || {};
                 },
                 series: [{
                     animation: {
-                        duration: 10
+                        duration: 1000
                     },
                     type: 'pie',
                     name: '',

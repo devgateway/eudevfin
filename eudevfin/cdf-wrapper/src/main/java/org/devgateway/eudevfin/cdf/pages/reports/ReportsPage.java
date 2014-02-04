@@ -15,7 +15,6 @@ import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.dashboard.Dashboards;
-import org.devgateway.eudevfin.dashboard.components.ColumnsChart;
 import org.devgateway.eudevfin.dashboard.components.PieChart;
 import org.devgateway.eudevfin.dashboard.components.StackedBarChart;
 import org.devgateway.eudevfin.dashboard.components.Table;
@@ -78,8 +77,6 @@ public class ReportsPage extends HeaderFooter {
 
 	    add(topTenRecipients);
 
-
-
 	    Table topTenMemoShare = new Table("topTenMemoShare", "topTenMemoShare", "dashboards.topTenMemoShare");
 	    topTenMemoShare.setInitFunction("addTopTenMemoShare");
 
@@ -97,14 +94,21 @@ public class ReportsPage extends HeaderFooter {
 
 	    add(topTenMemoShare);
 
-        PieChart pieChart = new PieChart("pieChart", "typeOfAid", "dashboards.typeOfAid");
-        add(pieChart);
+	    PieChart odaByRegionChart = new PieChart("odaByRegionChart", "odaByRegionChart", "dashboards.odaByRegionChart");
+	    odaByRegionChart.setInitFunction("addOdaByRegionChart");
+	    add(odaByRegionChart);
 
-        ColumnsChart columnsChart = new ColumnsChart("columnsChart", "typeOfFlow", "dashboards.typeOfFlow");
-        add(columnsChart);
 
-        StackedBarChart stackedBarChart = new StackedBarChart("stackedBarChart", "typeOfSectorsByFlow", "dashboards.typeOfSectorsByFlow");
-        add(stackedBarChart);
+	    PieChart odaByIncomeGroupChart = new PieChart("odaByIncomeGroupChart", "odaByIncomeGroupChart", "dashboards.odaByIncomeGroupChart");
+	    odaByIncomeGroupChart.setInitFunction("addOdaByIncomeGroupChart");
+	    add(odaByIncomeGroupChart);
+
+
+
+
+        StackedBarChart odaBySectorChart = new StackedBarChart("odaBySectorChart", "odaBySectorChart", "dashboards.odaBySectorChart");
+	    odaBySectorChart.setInitFunction("addOdaBySectorChart");
+        add(odaBySectorChart);
     }
 
     @Override

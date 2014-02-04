@@ -99,6 +99,59 @@
 		</Query>
 	</DataAccess>
 
+	<DataAccess id="odaByIncomeGroupChart"
+	            connection="defaultConnectionLocale"
+	            type="mdx"
+	            access="public">
+		<BandedMode>compact</BandedMode>
+		<Columns/>
+		<Name>ODA by Income Group Chart</Name>
+		<Query>
+			<![CDATA[
+			SELECT
+			NON EMPTY {[Measures].[Net Amount Currency]} ON COLUMNS,
+			NON EMPTY Order([IncomeGroup].[Name].Members, [Measures].[Net Amount Currency], DESC)  ON ROWS
+			FROM [Financial]
+			WHERE {[Type of Flow].[Name].[ODA (Official Development Assistance)]}
+		]]>
+		</Query>
+	</DataAccess>
+
+	<DataAccess id="odaByRegionChart"
+	            connection="defaultConnectionLocale"
+	            type="mdx"
+	            access="public">
+		<BandedMode>compact</BandedMode>
+		<Columns/>
+		<Name>ODA by Region Chart</Name>
+		<Query>
+			<![CDATA[
+			SELECT
+			NON EMPTY {[Measures].[Net Amount Currency]} ON COLUMNS,
+			NON EMPTY TOPCOUNT([Region].[Name].Members, 10, [Measures].[Net Amount Currency]) ON ROWS
+			FROM [Financial]
+			WHERE {[Type of Flow].[Name].[ODA (Official Development Assistance)]}
+		]]>
+		</Query>
+	</DataAccess>
+
+	<DataAccess id="odaBySectorChart"
+	            connection="defaultConnectionLocale"
+	            type="mdx"
+	            access="public">
+		<BandedMode>compact</BandedMode>
+		<Columns/>
+		<Name>ODA by Sector Chart</Name>
+		<Query>
+			<![CDATA[
+			SELECT
+			NON EMPTY {[Measures].[Net Amount Currency]} ON COLUMNS,
+			NON EMPTY TOPCOUNT(CrossJoin([Sector].[Name].Members, {[Type of Flow].[Name].[ODA (Official Development Assistance)]}), 10, [Measures].[Net Amount Currency]) ON ROWS
+			FROM [Financial]
+        ]]>
+		</Query>
+	</DataAccess>
+
     <!-- queries used for the demo -->
     <DataAccess id="extendingAgenciesList"
                 connection="defaultConnectionLocale"
@@ -218,28 +271,6 @@
 			NON EMPTY {Hierarchize({[Type of Flow].[Name].Members})} ON ROWS
 			FROM [Financial]
 			WHERE ([BiMultilateral].${app.biMultilateralListParameter}, [Extending Agency].${app.extendingAgenciesListParameter}, [Sector].${app.sectorListParameter})
-        ]]>
-		</Query>
-	</DataAccess>
-
-	<DataAccess id="typeOfSectorsByFlow"
-	            connection="defaultConnectionLocale"
-	            type="mdx"
-	            access="public">
-		<BandedMode>compact</BandedMode>
-		<Columns/>
-		<Name>typeOfSectorsByFlow MDX</Name>
-		<Parameters>
-			<Parameter default="[All Extending Agencies]" name="app.extendingAgenciesListParameter" type="String"/>
-			<Parameter default="[All BiMultilaterals]" name="app.biMultilateralListParameter" type="String"/>
-		</Parameters>
-		<Query>
-			<![CDATA[
-			SELECT
-			NON EMPTY {[Measures].[Net Amount]} ON COLUMNS,
-			Union(CrossJoin({[Sector].[110].[EDUCATION]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[120].[HEALTH]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[140].[WATER AND SANITATION]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[150].[GOVERNMENT AND CIVIL SOCIETY]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[210].[TRANSPORT AND STORAGE]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[220].[COMMUNICATION]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[230].[ENERGY GENERATION AND SUPPLY]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[240].[BANKING AND FINANCIAL SERVICES]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[311].[AGRICULTURE]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[321].[INDUSTRY]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[323].[CONSTRUCTION]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[700].[HUMANITARIAN AID]}, [Type of Flow].[Name].Members), CrossJoin({[Sector].[400].[MULTISECTOR/CROSS-CUTTING]}, [Type of Flow].[Name].Members))))))))))))) ON ROWS
-			FROM [Financial]
-			WHERE ([BiMultilateral].${app.biMultilateralListParameter}, [Extending Agency].${app.extendingAgenciesListParameter})
         ]]>
 		</Query>
 	</DataAccess>

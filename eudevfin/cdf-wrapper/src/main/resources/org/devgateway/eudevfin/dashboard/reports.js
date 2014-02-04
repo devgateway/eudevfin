@@ -58,7 +58,7 @@ $(document).ready(function () {
     });
     
     $('#export-all').click(function() {
-        Highcharts.exportCharts([pieChart, columnChart, stackedBarChart], {
+        Highcharts.exportCharts([odaByRegionChart, odaByIncomeGroupChart, odaBySectorChart], {
         	type: 'application/pdf',	// possible values are image/png, image/jpeg, application/pdf and image/svg+xml. defaults is image/png
         	filename: 'export-pdf'
         });

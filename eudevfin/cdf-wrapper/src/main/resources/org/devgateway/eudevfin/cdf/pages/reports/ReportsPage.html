@@ -41,7 +41,9 @@
             </div>
 
 	        <div class="span5">
-			        <h2>By Income Group (USD m)</h2>
+		        <div class="box">
+			        <div wicket:id="odaByIncomeGroupChart"/>
+		        </div>
 	        </div>
 
 	        <div class="span6">
@@ -52,37 +54,18 @@
 	        </div>
 
 	        <div class="span6">
-		        <h2>By Region (USD m)</h2>
+		        <div class="box">
+			        <div wicket:id="odaByRegionChart"/>
+		        </div>
 	        </div>
+
 
 	        <div class="span12">
-		        <h2>By Sector</h2>
+		        <div class="box">
+			        <div wicket:id="odaBySectorChart"/>
+		        </div>
 	        </div>
 
-            <div class="span12">
-                <h2>
-                    <wicket:message key="dashboards.pieChart"/>
-                </h2>
-                <div class="box">
-                	<div wicket:id="pieChart"/>
-                </div>
-            </div>
-            <div class="span12">
-                <h2>
-                    <wicket:message key="dashboards.columnChart"/>
-                </h2>
-                <div class="box">
-                	<div wicket:id="columnsChart"/>
-                </div>
-            </div>
-            <div class="span12">
-                <h2>
-                    <wicket:message key="dashboards.stackedBarChart"/>
-                </h2>
-                <div class="box">
-                	<div wicket:id="stackedBarChart"/>
-                </div>
-            </div>
         </div> <!-- /row -->
         <div class="row">
     		<div class="span6 offset5">

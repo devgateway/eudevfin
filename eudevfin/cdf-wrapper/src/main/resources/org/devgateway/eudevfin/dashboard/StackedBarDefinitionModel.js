@@ -10,7 +10,7 @@ var app = app || {};
             return {
                 chart: {
 	                animation: {
-		                duration: 10
+		                duration: 1000
 	                },
 	                borderColor: '#DEEDF7',
 	                borderRadius: 20,

@@ -15,6 +15,7 @@ import org.apache.wicket.request.resource.JavaScriptResourceReference;
 public class StackedBarChart extends Panel implements IParametersProvider {
 	private final WebMarkupContainer stackedBarChart;
 	private ChartParameters parameters;
+	private String initFunction;
 	
 	public StackedBarChart(String id, String dataAccessId, String messageKey) {
         super(id);
@@ -37,12 +38,27 @@ public class StackedBarChart extends Panel implements IParametersProvider {
         super.renderHead(response);
 
 		response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(StackedBarChart.class, "StackedBarChartInit.js")));
-		response.render(OnDomReadyHeaderItem.forScript("initStackedBarChart(" + parameters().toJson() + ");"));
-
+		response.render(OnDomReadyHeaderItem.forScript(this.initFunction + "(" + parameters().toJson() + ");"));
     }
 
 	@Override
 	public BaseParameters parameters() {
 		return parameters;
+	}
+
+	public ChartParameters getParameters() {
+		return parameters;
+	}
+
+	public void setParameters(ChartParameters parameters) {
+		this.parameters = parameters;
+	}
+
+	public String getInitFunction() {
+		return initFunction;
+	}
+
+	public void setInitFunction(String initFunction) {
+		this.initFunction = initFunction;
 	}
 }
