@@ -158,7 +158,16 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 					if (fakeNonFlowTransaction.getTypeOfFinance() != null)
 						trnsByTypeOfFinance.put(fakeNonFlowTransaction.getTypeOfFinance().getCode(),
 								fakeNonFlowTransaction);
-
+				
+				refreshTransactionInContainer(populationContainer,CategoryConstants.TypeOfFinance.NonFlow.POPULATION,
+						parameters,trnsByTypeOfFinance,reportingYear);
+				refreshTransactionInContainer(gniContainer,CategoryConstants.TypeOfFinance.NonFlow.GNI,
+						parameters,trnsByTypeOfFinance,reportingYear);
+				refreshTransactionInContainer(totalFlowsContainer,CategoryConstants.TypeOfFinance.NonFlow.ODA_PERCENT_GNI,
+						parameters,trnsByTypeOfFinance,reportingYear);
+				refreshTransactionInContainer(odaOfGniContainer,CategoryConstants.TypeOfFinance.NonFlow.TOTAL_FLOWS_PERCENT_GNI,
+						parameters,trnsByTypeOfFinance,reportingYear);
+				
 				target.add(populationContainer.setEnabled(true));
 				target.add(gniContainer.setEnabled(true));
 				target.add(totalFlowsContainer.setEnabled(true));
@@ -183,15 +192,24 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 			}
 
 			@Override
-			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {			
+				saveTransactionFromContainer(populationContainer);
+				saveTransactionFromContainer(gniContainer);
+				saveTransactionFromContainer(odaOfGniContainer);
+				saveTransactionFromContainer(totalFlowsContainer);				
 				logger.info("Submitted ok!");
-				logger.info("Object:" + getModel().getObject());
 			}
 
 		});
 
 	}
 
+	public void saveTransactionFromContainer(WebMarkupContainer container) {
+		FinancialTransaction transaction=(FinancialTransaction) container.getInnermostModel().getObject();
+		FinancialTransaction saved = financialTransactionService.save(transaction).getEntity();
+		container.setDefaultModelObject(saved);
+	}
+	
 	/**
 	 * 
 	 * @param container
@@ -203,13 +221,13 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 	public void refreshTransactionInContainer(WebMarkupContainer container, String typeOfFinanceCode,
 			PageParameters parameters, Map<String, FinancialTransaction> trnsByTypeOfFinance,
 			LocalDateTime reportingYear) {
-		if (trnsByTypeOfFinance.get(CategoryConstants.TypeOfFinance.NonFlow.POPULATION) != null)
-			populationContainer.setDefaultModel(new CompoundPropertyModel<FinancialTransaction>(trnsByTypeOfFinance
-					.get(CategoryConstants.TypeOfFinance.NonFlow.POPULATION)));
+		if (trnsByTypeOfFinance.get(typeOfFinanceCode) != null)
+			container.setDefaultModel(new CompoundPropertyModel<FinancialTransaction>(trnsByTypeOfFinance
+					.get(typeOfFinanceCode)));
 		else
-			populationContainer.setDefaultModel((new CompoundPropertyModel<FinancialTransaction>(
+			container.setDefaultModel((new CompoundPropertyModel<FinancialTransaction>(
 					initializeNonFlowTransaction(new FinancialTransaction(), parameters,
-							CategoryConstants.TypeOfFinance.NonFlow.POPULATION, reportingYear))));
+							typeOfFinanceCode, reportingYear))));
 	}
 
 	/**
