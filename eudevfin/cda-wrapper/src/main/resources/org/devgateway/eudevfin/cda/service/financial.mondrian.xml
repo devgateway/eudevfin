@@ -7,6 +7,27 @@
 			</Level>
 		</Hierarchy>
 	</Dimension>
+	<Dimension visible="true" highCardinality="false" name="Country">
+		<Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All Countries">
+			<View alias="RegionView">
+				<SQL dialect="generic"><![CDATA[
+			select
+				"AREA"."ID", "AREA"."CODE",  "AREATRANSLATION"."NAME"
+			from
+				"APP"."AREA" as "AREA",
+				"APP"."AREATRANSLATION" as "AREATRANSLATION"
+			WHERE
+				"AREATRANSLATION"."LOCALE" = '@@LOCALE@@' AND
+				"AREATRANSLATION"."PARENT_ID" = "AREA"."ID" AND
+				"AREA"."AREA_TYPE" = 'Country'
+			]]></SQL>
+			</View>
+			<Level name="Code" visible="true" column="CODE" uniqueMembers="false" levelType="Regular" type="String">
+			</Level>
+			<Level name="Name" visible="true" column="NAME" uniqueMembers="false" levelType="Regular" type="String">
+			</Level>
+		</Hierarchy>
+	</Dimension>
 	<Dimension visible="true" highCardinality="false" name="Region">
 		<Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All Regions">
 			<View alias="RegionView">
@@ -17,7 +38,7 @@
 				"APP"."AREA" as "AREA",
 				"APP"."AREATRANSLATION" as "AREATRANSLATION"
 			WHERE
-				"AREATRANSLATION"."LOCALE" ='@@LOCALE@@' AND
+				"AREATRANSLATION"."LOCALE" = '@@LOCALE@@' AND
 				"AREATRANSLATION"."PARENT_ID" = "AREA"."ID" AND
 				"AREA"."AREA_TYPE" = 'Area'
 			]]></SQL>
@@ -296,6 +317,7 @@
 			]]></SQL>
 		</View>		
 		<DimensionUsage source="Area" name="Area" visible="true" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
+		<DimensionUsage source="Country" name="Country" visible="true" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
 		<DimensionUsage source="Region" name="Region" visible="true" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
 		<DimensionUsage source="Extending Agency" name="Extending Agency" visible="true" foreignKey="EXTENDINGAGENCY_ID" highCardinality="false"></DimensionUsage>
 		<DimensionUsage source="Sector" name="Sector" visible="true" foreignKey="SECTOR_ID" highCardinality="false"></DimensionUsage>

@@ -37,7 +37,7 @@
 	            access="public">
 		<BandedMode>compact</BandedMode>
 		<Columns/>
-		<Name>extendingAgenciesList MDX</Name>
+		<Name>Net ODA Table</Name>
 		<Parameters>
 			<Parameter default="EUR (million)" name="REPORT_CURRENCY_CODE" type="String"/>
 			<Parameter default="2011" name="YEAR2" type="Integer"/>
@@ -60,6 +60,44 @@
 		</Query>
 	</DataAccess>
 
+	<DataAccess id="topTenRecipients"
+	            connection="defaultConnectionLocale"
+	            type="mdx"
+	            access="public">
+		<BandedMode>compact</BandedMode>
+		<Columns/>
+		<Name>Top 10 recipients table</Name>
+		<Query>
+			<![CDATA[
+			SELECT
+			NON EMPTY {[Measures].[Net Amount Currency]} ON COLUMNS,
+			TOPCOUNT([Country].[Name].Members, 10, [Measures].[Net Amount Currency]) ON ROWS
+			FROM [Financial]
+			WHERE {[Type of Flow].[Name].[ODA (Official Development Assistance)]}
+		]]>
+		</Query>
+	</DataAccess>
+
+	<DataAccess id="topTenMemoShare"
+	            connection="defaultConnectionLocale"
+	            type="mdx"
+	            access="public">
+		<BandedMode>compact</BandedMode>
+		<Columns/>
+		<Name>Top 10 memo share</Name>
+		<Query>
+			<![CDATA[
+			WITH
+			MEMBER Measures.[Top 5 recipients] AS (SUM(CrossJoin({TOPCOUNT([Country].[Name].Members, 5, [Measures].[NumberOfTransactions])}, {[Measures].[NumberOfTransactions]})) / SUM(CrossJoin({[Type of Finance].[Name].Members}, {[Measures].[NumberOfTransactions]}))) * 100
+			MEMBER Measures.[Top 10 recipients] AS (SUM(CrossJoin({TOPCOUNT([Country].[Name].Members, 10, [Measures].[NumberOfTransactions])}, {[Measures].[NumberOfTransactions]})) / SUM(CrossJoin({[Type of Finance].[Name].Members}, {[Measures].[NumberOfTransactions]}))) * 100
+			MEMBER Measures.[Top 20 recipients] AS (SUM(CrossJoin({TOPCOUNT([Country].[Name].Members, 20, [Measures].[NumberOfTransactions])}, {[Measures].[NumberOfTransactions]})) / SUM(CrossJoin({[Type of Finance].[Name].Members}, {[Measures].[NumberOfTransactions]}))) * 100
+			SELECT
+			NON EMPTY {Measures.[Top 5 recipients], Measures.[Top 10 recipients], Measures.[Top 20 recipients]} ON COLUMNS
+			FROM [Financial]
+			WHERE {[Type of Flow].[TYPE_OF_FLOW##10].[ODA (Official Development Assistance)]}
+		]]>
+		</Query>
+	</DataAccess>
 
     <!-- queries used for the demo -->
     <DataAccess id="extendingAgenciesList"

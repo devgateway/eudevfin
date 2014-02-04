@@ -14,6 +14,8 @@
 	<entry key="dashboards.sector.filter">Sectors</entry>
 	<entry key="dashboards.biMultilateral.filter">BiMultilateral</entry>
     <entry key="dashboards.netODA">Net ODA</entry>
+	<entry key="dashboards.topTenRecipients">Top Ten Recipients of Gross ODA (USD million)</entry>
+	<entry key="dashboards.topTenMemoShare">Memo: Share of gross bilateral ODA</entry>
 	<entry key="dashboards.pieChart">Chart Dashboard</entry>
     <entry key="dashboards.typeOfAid">Aid Chart Report</entry>
 	<entry key="dashboards.columnChart">Column Chart Report</entry>
