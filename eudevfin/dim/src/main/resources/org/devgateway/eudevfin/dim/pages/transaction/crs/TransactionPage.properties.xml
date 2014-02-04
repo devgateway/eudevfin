@@ -34,4 +34,6 @@
     
    <entry key="button.submit">Save and exit the form</entry>
    <entry key="button.save">Save and stay on the page</entry>
+   
+   <entry key="currencies.duplicate">This currency should not be the same as the default currency</entry>
 </properties>

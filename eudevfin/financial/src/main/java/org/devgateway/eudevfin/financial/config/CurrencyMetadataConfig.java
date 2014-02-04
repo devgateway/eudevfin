@@ -32,9 +32,11 @@ public class CurrencyMetadataConfig {
 	
 	private List<String> nationalCurrenciesList;
 	private List<String> otherCurrenciesList;
+	private List<String> allCurrenciesList;
 	
 	private List<CurrencyUnit> nationalCurrencyUnitList;
 	private List<CurrencyUnit> otherCurrencyUnitList;
+	private List<CurrencyUnit> allCurrencyUnitList;
 	private CurrencyUnit defaultCurrencyUnit;
 
 	@PostConstruct
@@ -49,11 +51,20 @@ public class CurrencyMetadataConfig {
 		this.otherCurrenciesList		= 
 				this.convertStringToUnmodifiableList(this.otherCurrencies);
 		
+		List<String> allCurrencies		= new ArrayList<String>(
+				this.nationalCurrenciesList.size() + this.otherCurrenciesList.size());
+		allCurrencies.addAll(this.nationalCurrenciesList);
+		allCurrencies.addAll(this.otherCurrenciesList);
+		this.allCurrenciesList			= Collections.unmodifiableList(allCurrencies);
+		
 		this.nationalCurrencyUnitList	= 
 				this.convertStringToUnmodifiableList(nationalCurrenciesList);
-		
 		this.otherCurrencyUnitList		= 
 				this.convertStringToUnmodifiableList(otherCurrenciesList);
+		this.allCurrencyUnitList = 
+				this.convertStringToUnmodifiableList(allCurrenciesList);
+		
+		
 	}
 	
 	private List<String> convertStringToUnmodifiableList(String source) {
@@ -100,4 +111,12 @@ public class CurrencyMetadataConfig {
 		return defaultCurrencyUnit;
 	}
 
+	public List<String> getAllCurrenciesList() {
+		return allCurrenciesList;
+	}
+
+	public List<CurrencyUnit> getAllCurrencyUnitList() {
+		return allCurrencyUnitList;
+	}
+	
 }

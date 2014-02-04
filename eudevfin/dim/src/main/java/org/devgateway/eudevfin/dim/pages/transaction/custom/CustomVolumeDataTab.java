@@ -9,27 +9,36 @@
 package org.devgateway.eudevfin.dim.pages.transaction.custom;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.FormComponent;
+import org.apache.wicket.markup.html.form.validation.IFormValidator;
 import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.model.ComponentPropertyModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.validation.ValidationError;
 import org.devgateway.eudevfin.dim.core.models.BigMoneyModel;
 import org.devgateway.eudevfin.dim.core.models.ExchangeRateModel;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.VolumeDataTab;
 import org.devgateway.eudevfin.dim.providers.CurrencyUnitProvider;
+import org.devgateway.eudevfin.dim.providers.CurrencyUnitProviderFactory;
+import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.components.PermissionAwareContainer;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
 import org.devgateway.eudevfin.ui.common.events.CurrencyUpdateBehavior;
-import org.devgateway.eudevfin.ui.common.temporary.SB;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.ExchangeRate;
+
+import com.vaynberg.wicket.select2.Select2Choice;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
 
@@ -177,11 +186,21 @@ public class CustomVolumeDataTab extends VolumeDataTab {
     private class Extension3 extends Fragment {
 
         @SpringBean
-    	private CurrencyUnitProvider currencyUnitProvider;
+    	private CurrencyUnitProviderFactory currencyUnitProviderFactory;
         
-        public Extension3(String id, String markupId, MarkupContainer markupProvider) {
-            super(id, markupId, markupProvider);
+        private IFormValidator otherCurrencyValidator;
+        
+         
+        @Override
+		protected void onInitialize() {
+			super.onInitialize();
+			Form<?> form	= this.findParent(Form.class);
+			form.add(otherCurrencyValidator);
+		}
 
+
+		public Extension3(String id, String markupId, MarkupContainer markupProvider) {
+            super(id, markupId, markupProvider);
             final ComponentPropertyModel<CurrencyUnit> fromCurrency = new ComponentPropertyModel<>("currency");
             final Model<CurrencyUnit> toCurrency = Model.of();
 
@@ -191,8 +210,12 @@ public class CustomVolumeDataTab extends VolumeDataTab {
             exchangeRate.getField().setEnabled(false);
             add(exchangeRate);
 
+            CurrencyUnitProvider currencyUnitProvider	= 
+            		this.currencyUnitProviderFactory.
+            			getCurrencyUnitProviderInstance(CurrencyUnitProviderFactory.ALL_SORTED_CURRENCIES_PROVIDER);
+            
             final DropDownField<CurrencyUnit> otherCurrency = new DropDownField<CurrencyUnit>("32bOtherCurrency", toCurrency,
-                    this.currencyUnitProvider) {
+                    currencyUnitProvider) {
                 @Override
                 protected void onUpdate(AjaxRequestTarget target) {
                     //send(getPage(), Broadcast.DEPTH, new CurrencyChangedEvent(target));
@@ -201,7 +224,43 @@ public class CustomVolumeDataTab extends VolumeDataTab {
                     else
                         exchangeRate.getField().setEnabled(false);
                     target.add(exchangeRate.getField());
+                    
                 }
+            };
+//            otherCurrency.getField().add(new DuplicateCurrencyValidator(otherCurrency.getField()));
+//            otherCurrency.add(new CurrencyUpdateBehavior() {
+//            	@Override
+//            	protected void updateComponents(AjaxRequestTarget target) {
+//            		target.add(otherCurrency);
+//            	}
+//            });
+            
+            
+            this.otherCurrencyValidator	= new IFormValidator() {
+
+				@Override
+				public FormComponent<CurrencyUnit>[] getDependentFormComponents() {
+					List<FormComponent<CurrencyUnit>> list	= new ArrayList<FormComponent<CurrencyUnit>>();
+					list.add( CustomVolumeDataTab.this.getCurrency().getField() );
+					list.add( otherCurrency.getField() );
+					
+					return list.toArray( new FormComponent[0] );
+				}
+
+				@Override
+				public void validate(Form<?> form) {
+					FormComponent<CurrencyUnit>[] components = this.getDependentFormComponents();
+					Select2Choice<CurrencyUnit> defaultCurrencyComp	= (Select2Choice<CurrencyUnit>) components[0];
+					Select2Choice<CurrencyUnit> otherCurrencyComp	= (Select2Choice<CurrencyUnit>) components[1];
+					CurrencyUnit defaultCurrencyUnit				= ((CustomFinancialTransaction)form.getInnermostModel().getObject()).getCurrency();
+					if ( defaultCurrencyUnit.equals(otherCurrencyComp.getModelObject()) ) {
+						ValidationError error = new ValidationError();
+						error.addKey("currencies.duplicate");
+						otherCurrencyComp.error(error);
+					}
+					
+				}
+            	
             };
             add(otherCurrency);
 

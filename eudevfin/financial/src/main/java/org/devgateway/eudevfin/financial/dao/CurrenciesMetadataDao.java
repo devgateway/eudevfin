@@ -4,10 +4,12 @@
 package org.devgateway.eudevfin.financial.dao;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 import org.devgateway.eudevfin.financial.config.CurrencyMetadataConfig;
+import org.devgateway.eudevfin.financial.exception.InitializingCurrenciesException;
 import org.devgateway.eudevfin.financial.util.CurrencyConstants;
 import org.joda.money.CurrencyUnit;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,18 +67,33 @@ public class CurrenciesMetadataDao {
 	}
 
 	@ServiceActivator(inputChannel="findBySearchPageableCurrencyChannel")
-	public Page<CurrencyUnit> findBySearch(String term, @Header("pageable")Pageable pageable) {
+	public Page<CurrencyUnit> findBySearch(String term, @Header("pageable")Pageable pageable, @Header("type") String type) {
 		List<CurrencyUnit> resultList	= new ArrayList<CurrencyUnit>();
 		int numOfResults				= 0;
+		List<CurrencyUnit> sourceList	= this.decideOnSrcList(type);
 		
 		numOfResults = findCurrenciesInCollection(term, pageable, resultList, 
-				currencyMetadataConfig.getNationalCurrencyUnitList(), numOfResults );
-		numOfResults = findCurrenciesInCollection(term, pageable, resultList, 
-				currencyMetadataConfig.getOtherCurrencyUnitList(), numOfResults );
+				sourceList, numOfResults );
 		
 		PageImpl<CurrencyUnit> result	= new PageImpl<CurrencyUnit>(resultList,pageable, numOfResults);
 		return result;
 	}
+
+	private List<CurrencyUnit> decideOnSrcList(String type) {
+		List<CurrencyUnit> retList	= null;
+		if ( CurrencyConstants.NATIONAL_CURRENCIES_LIST.equals(type) )
+			retList	=  currencyMetadataConfig.getNationalCurrencyUnitList();
+		else if ( CurrencyConstants.OTHER_CURRENCIES_LIST.equals(type) ) {
+			retList	= currencyMetadataConfig.getOtherCurrencyUnitList();
+		}
+		else if ( CurrencyConstants.ALL_CURRENCIES_LIST.equals(type) ){
+			retList	= currencyMetadataConfig.getAllCurrencyUnitList();
+		}
+		else
+			throw new InitializingCurrenciesException("There's no currency list of type: " + type);
+		return retList;
+	}
+
 
 	private int findCurrenciesInCollection(String term, Pageable pageable,
 			List<CurrencyUnit> resultList, List<CurrencyUnit> currencyUnitList,

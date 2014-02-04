@@ -66,8 +66,8 @@
 	<bean id="startDerby" 
 		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean" lazy-init="true" autowire-candidate="false">
 		<property name="targetObject" ref="derbyServer" />
-		<property name="targetMethod" value="#{'network'.equals(systemProperties['eudevfin.derby.mode'])?'start':'equals'}" />
-		<property name="arguments" ref="#{'network'.equals(systemProperties['eudevfin.derby.mode'])?'pw':'pw'}" />
+		<property name="targetMethod" value="#{'network'.equals(commonProperties['derby.mode'])?'start':'equals'}" />
+		<property name="arguments" ref="#{'network'.equals(commonProperties['derby.mode'])?'pw':'pw'}" />
 	</bean>
 
 	<!-- Datasource for network mode, this will be instantiated only if network mode derby will be used -->
@@ -91,7 +91,7 @@
 		and it behaves like its target(s) which are never autowired candidates -->
 	<bean id="euDevFinDataSource" class="org.springframework.aop.framework.ProxyFactoryBean">
 		<property name="target"
-			ref="#{'network'.equals(systemProperties['eudevfin.derby.mode'])?'euDevFinDataSourceNetwork':'euDevFinDataSourceEmbedded'}" />
+			ref="#{'network'.equals(commonProperties['derby.mode'])?'euDevFinDataSourceNetwork':'euDevFinDataSourceEmbedded'}" />
 	</bean>
 	  
 	<!-- initialize a mock jndi builder we use internally to access this datasource 
