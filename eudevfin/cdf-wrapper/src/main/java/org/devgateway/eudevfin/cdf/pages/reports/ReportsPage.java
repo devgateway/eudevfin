@@ -8,7 +8,6 @@
 
 package org.devgateway.eudevfin.cdf.pages.reports;
 
-import org.apache.log4j.Logger;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
@@ -17,54 +16,57 @@ import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.dashboard.Dashboards;
 import org.devgateway.eudevfin.dashboard.components.ColumnsChart;
-import org.devgateway.eudevfin.dashboard.components.Filter;
 import org.devgateway.eudevfin.dashboard.components.PieChart;
 import org.devgateway.eudevfin.dashboard.components.StackedBarChart;
 import org.devgateway.eudevfin.dashboard.components.Table;
+import org.devgateway.eudevfin.dashboard.components.TableParameters;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.wicketstuff.annotation.mount.MountPath;
+
+import java.util.Arrays;
 
 @MountPath(value = "/reports")
 @AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
 public class ReportsPage extends HeaderFooter {
-	private static final Logger logger = Logger.getLogger(ReportsPage.class);
+	private static final int TABLE_YEAR = 2013;
 
     public ReportsPage() {
         addComponents();
     }
 
     private void addComponents() {
-		// wicket ID, CDA ID, dashboard parameter (this is where the value of the filter will be saved)
-        Filter sectorFilter = new Filter("sectorFilter", "sectorList", "dashboards.sector.filter", "app.sectorListParameter");
-        add(sectorFilter);
-        
-        Filter extendingAgenciesFilter = new Filter("extendingAgenciesFilter", "extendingAgenciesList", "dashboards.org.filter", "app.extendingAgenciesListParameter");
-	    add(extendingAgenciesFilter);
+	    Table netODADashboard = new Table("netODADashboard", "netODATable", "dashboards.netODA");
+	    // js function that will be called to initialize the table dashboard
+	    netODADashboard.setInitFunction("addNetODATable");
 
-	    Filter biMultilateralFilter = new Filter("biMultilateralFilter", "biMultilateralList", "dashboards.biMultilateral.filter", "app.biMultilateralListParameter");
-	    add(biMultilateralFilter);
+	    TableParameters parameters = netODADashboard.getParameters();
 
-	    Table tableDashboard = new Table("tableDashboard", "typeOfFinance", "dashboards.typeOfFinance");
-	    tableDashboard.parameters().addFilter(sectorFilter);
-	    tableDashboard.parameters().addFilter(extendingAgenciesFilter);
-	    tableDashboard.parameters().addFilter(biMultilateralFilter);
-        add(tableDashboard);
+	    // for now we use a hardcoded value for year in order to display the last 3 years data for 'Net ODA' table
+	    parameters.addParameter("YEAR", Integer.toString(TABLE_YEAR));
+	    parameters.addParameter("YEAR1", Integer.toString(TABLE_YEAR - 1));
+	    parameters.addParameter("YEAR2", Integer.toString(TABLE_YEAR - 2));
+
+	    parameters.getChartDefinition().setColHeaders(Arrays.asList("Net ODA", Integer.toString(TABLE_YEAR - 2),
+			    Integer.toString(TABLE_YEAR - 1),
+			    Integer.toString(TABLE_YEAR ),
+			    Integer.toString(TABLE_YEAR - 1) + "/ " + Integer.toString(TABLE_YEAR)));
+	    parameters.getChartDefinition().setColTypes(Arrays.asList("string", "numeric", "numeric", "numeric", "percentFormat"));
+	    parameters.getChartDefinition().setColFormats(Arrays.asList("%s", "%.0f", "%.0f", "%.0f", "%.2f"));
+	    parameters.getChartDefinition().setColWidths(Arrays.asList("20%", "20%", "20%", "20%", "20%"));
+	    parameters.getChartDefinition().setSort(Boolean.FALSE);
+	    parameters.getChartDefinition().setPaginate(Boolean.FALSE);
+	    parameters.getChartDefinition().setInfo(Boolean.FALSE);
+	    parameters.getChartDefinition().setColSortable(Arrays.asList(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE));
+
+        add(netODADashboard);
 
         PieChart pieChart = new PieChart("pieChart", "typeOfAid", "dashboards.typeOfAid");
-	    pieChart.parameters().addFilter(sectorFilter);
-	    pieChart.parameters().addFilter(extendingAgenciesFilter);
-	    pieChart.parameters().addFilter(biMultilateralFilter);
         add(pieChart);
 
         ColumnsChart columnsChart = new ColumnsChart("columnsChart", "typeOfFlow", "dashboards.typeOfFlow");
-	    columnsChart.parameters().addFilter(sectorFilter);
-	    columnsChart.parameters().addFilter(extendingAgenciesFilter);
-	    columnsChart.parameters().addFilter(biMultilateralFilter);
         add(columnsChart);
 
         StackedBarChart stackedBarChart = new StackedBarChart("stackedBarChart", "typeOfSectorsByFlow", "dashboards.typeOfSectorsByFlow");
-	    stackedBarChart.parameters().addFilter(extendingAgenciesFilter);
-	    stackedBarChart.parameters().addFilter(biMultilateralFilter);
         add(stackedBarChart);
     }
 

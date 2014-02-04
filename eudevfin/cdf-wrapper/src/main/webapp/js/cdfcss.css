@@ -720,6 +720,10 @@ td.formattedNumeric {
 	border: 1px solid #ccc;
 }
 
+.tableComponent td.percentFormat {
+	text-align: right;
+	font-family: monospace;
+}
 
 tr.odd {
 	background-color: #f5f5f5;

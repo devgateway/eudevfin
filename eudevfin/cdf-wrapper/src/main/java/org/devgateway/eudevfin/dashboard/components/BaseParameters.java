@@ -58,6 +58,13 @@ public abstract class BaseParameters {
 	    parameters.add(param);
     }
 
+	public void addParameter(String name, String value) {
+		List<String> param = new ArrayList<>();
+		param.add(name);
+		param.add(value);
+		parameters.add(param);
+	}
+
     public String toJson() {
         Gson gson = new Gson();
         String ret = gson.toJson(getInstance());

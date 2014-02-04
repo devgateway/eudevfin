@@ -18,6 +18,50 @@
         </Connection>
     </DataSources>
 
+	<!-- used for testing (CDASimpleMDXTest.java) -->
+	<DataAccess id="simpleMDXQuery" connection="defaultConnection" type="mdx" access="public">
+		<Name>Simple Sector MDX query</Name>
+		<Query>
+			<![CDATA[
+			SELECT
+			NON EMPTY {Hierarchize({[Sector].[Name].Members})} ON COLUMNS,
+			NON EMPTY {[Measures].[Commitments Amount]} ON ROWS
+			FROM [Financial]
+		]]>
+		</Query>
+	</DataAccess>
+
+	<DataAccess id="netODATable"
+	            connection="defaultConnectionLocale"
+	            type="mdx"
+	            access="public">
+		<BandedMode>compact</BandedMode>
+		<Columns/>
+		<Name>extendingAgenciesList MDX</Name>
+		<Parameters>
+			<Parameter default="EUR (million)" name="REPORT_CURRENCY_CODE" type="String"/>
+			<Parameter default="2011" name="YEAR2" type="Integer"/>
+			<Parameter default="2012" name="YEAR1" type="Integer"/>
+			<Parameter default="2013" name="YEAR" type="Integer"/>
+		</Parameters>
+		<Query>
+			<![CDATA[
+			WITH
+			MEMBER Measures.[Curent (USD)] AS [Measures].[Net Amount]
+			MEMBER Measures.[${REPORT_CURRENCY_CODE}] AS [Measures].[Net Amount Currency]
+			MEMBER Measures.[ODA/GNI] AS SUM(CrossJoin({[Type of Finance].[Name].[GNI: Gross National Income]}, {[Measures].[Extended Amount]}))
+			MEMBER Measures.[Bilateral share] AS (SUM(CrossJoin({[Type of Finance].[Name].[NON FLOW ITEMS]}, {[Measures].[NumberOfTransactions]})) / SUM(CrossJoin({[Type of Finance].[Name].Members}, {[Measures].[NumberOfTransactions]}))) * 100
+			SELECT
+			{{[Reporting Year].[${YEAR2}], [Reporting Year].[${YEAR1}], [Reporting Year].[${YEAR}]}} ON COLUMNS,
+			{[Measures].[Curent (USD)], [Measures].[${REPORT_CURRENCY_CODE}], Measures.[ODA/GNI], Measures.[Bilateral share]} ON ROWS
+			FROM [Financial]
+			WHERE ([Type of Flow].[Name].[ODA (Official Development Assistance)])
+		]]>
+		</Query>
+	</DataAccess>
+
+
+    <!-- queries used for the demo -->
     <DataAccess id="extendingAgenciesList"
                 connection="defaultConnectionLocale"
                 type="mdx"
@@ -161,17 +205,5 @@
         ]]>
 		</Query>
 	</DataAccess>
-    
-    <DataAccess id="simpleMDXQuery" connection="defaultConnection" type="mdx" access="public">
-		<Name>Simple Sector MDX query</Name>
-        <Query>
-        <![CDATA[
-			SELECT
-			NON EMPTY {Hierarchize({[Sector].[Name].Members})} ON COLUMNS,
-			NON EMPTY {[Measures].[Commitments Amount]} ON ROWS
-			FROM [Financial]
-		]]>
-		</Query>       
-    </DataAccess>
 
 </CDADescriptor>

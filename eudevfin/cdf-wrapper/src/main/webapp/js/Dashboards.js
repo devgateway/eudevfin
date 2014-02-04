@@ -521,7 +521,9 @@ Dashboards._addLogLifecycleToControl = function (control) {
                 break;
             }
 
-            var timeInfo = Mustache.render("Timing: {{elapsedSinceStartDesc}} since start, {{elapsedSinceStartDesc}} since last event", this.splitTimer());
+            var timeInfo = _.template("Timing: {{elapsedSinceStartDesc}} since start, {{elapsedSinceStartDesc}} since last event", {
+                elapsedSinceStartDesc: this.splitTimer()
+            });
             console.log("%c          [Lifecycle " + eventStr + "] " + this.name + " [" + this.type + "]" + " (P: " + this.priority + " ): " +
                 e.substr(4) + " " + timeInfo + " (Running: " + this.dashboard.runningCalls + ")", "color: " + this.getLogColor());
         }
@@ -920,6 +922,12 @@ Dashboards.setI18nSupport = function (lc, i18nRef) {
 
 Dashboards.init = function (components) {
     var myself = this;
+
+    // perform Mustache.js style templating with underscore
+    _.templateSettings = {
+        interpolate: /\{\{(.+?)\}\}/g
+    };
+
     // here it was Storage initialization which was removed since we don't use it
     if (this.context !== null && this.context.sessionTimeout !== null) {
         //defaulting to 90% of ms value of sessionTimeout

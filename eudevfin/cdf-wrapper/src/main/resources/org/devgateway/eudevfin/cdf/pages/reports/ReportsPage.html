@@ -26,31 +26,17 @@
     <!-- used for loading animation instead of blockUI js library -->
 
     <div class="container">
-		<br/><br/>
+		<br/>
 		<div class="row" align="center">
         <h2>
-                    <wicket:message key="dashboards.title"/>
+			<wicket:message key="dashboards.title"/>
         </h2>
 		</div>
     	
         <div class="row">
-            <div class="span12">
-                <h2>
-                    <wicket:message key="sectorFilter"/>
-                </h2>
+            <div class="span8 offset2">
                 <div class="box">
-                    <div wicket:id="sectorFilter" />
-                    <div wicket:id="extendingAgenciesFilter" />
-	                <div wicket:id="biMultilateralFilter" />
-                </div>
-            </div>
-
-            <div class="span12">
-                <h2>
-                    <wicket:message key="dashboards.table"/>
-                </h2>
-                <div class="box">
-                    <div wicket:id="tableDashboard"/>
+                    <div wicket:id="netODADashboard"/>
                 </div>
             </div>
 
@@ -78,16 +64,15 @@
                 	<div wicket:id="stackedBarChart"/>
                 </div>
             </div>
-        </div>
-        <!-- /row -->
+        </div> <!-- /row -->
         <div class="row">
     		<div class="span6 offset5">
     			<button id="export-all" class="btn btn-large btn-success" type="button">Export all charts</button>
     		</div>
+	        <br/><br/><br/>
     	</div>
         
-    </div>
-    <!-- /container -->
+    </div> <!-- /container -->
 </wicket:extend>
 </body>
 </html>
