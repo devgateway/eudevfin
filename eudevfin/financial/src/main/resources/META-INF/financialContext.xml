@@ -148,7 +148,7 @@
 	</bean> 
 	
 	<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" id="jpaVendorAdapter">
-		<property name="showSql" value="true" />
+		<property name="showSql" value="false" />
 		<property name="generateDdl" value="true"/>
 		<property name="database" value="DERBY"/>
 		<property name="databasePlatform" value="org.hibernate.dialect.DerbyTenSevenDialect"/>
