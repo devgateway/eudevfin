@@ -37,6 +37,10 @@ app.tableValueFormat = function (v, st) {
 	}
 }
 
+app.noData = function () {
+	$('.no-data').show(1000);
+}
+
 $(document).ready(function () {
     // add more colors for Highcharts
     Highcharts.setOptions({

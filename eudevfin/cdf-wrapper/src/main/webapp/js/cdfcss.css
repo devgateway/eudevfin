@@ -838,3 +838,7 @@ div.box{
 	   -moz-box-shadow: 0 1px 0px rgba(255, 255, 255, .6);
 			box-shadow: 0 1px 0px rgba(255, 255, 255, .6);
 }
+
+.no-data {
+	display: none;
+}

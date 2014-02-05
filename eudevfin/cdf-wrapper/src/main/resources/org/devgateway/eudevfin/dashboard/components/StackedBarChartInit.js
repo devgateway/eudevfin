@@ -56,6 +56,11 @@ function addOdaBySectorChart(parametersJson) {
 			    }
 		    }
 
+		    if (_.isEmpty(odaBySectorQueryResult)) {
+			    stackedBarChartDefinition.get('chart').height = 100;
+			    app.noData();
+		    }
+
 		    stackedBarChartDefinition.get('xAxis').categories = resultCategories;
 		    stackedBarChartDefinition.set({series: finalResultSeries});
 

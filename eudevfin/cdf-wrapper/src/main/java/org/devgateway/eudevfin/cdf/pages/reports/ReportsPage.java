@@ -33,83 +33,98 @@ public class ReportsPage extends HeaderFooter {
         addComponents();
     }
 
-    private void addComponents() {
-	    Table netODADashboard = new Table("netODADashboard", "netODATable", "dashboards.netODA");
-	    // js function that will be called to initialize the table dashboard
-	    netODADashboard.setInitFunction("addNetODATable");
-
-	    TableParameters netODAParameters = netODADashboard.getParameters();
-
-	    // for now we use a hardcoded value for year in order to display the last 3 years data for 'Net ODA' table
-	    netODAParameters.addParameter("YEAR", Integer.toString(TABLE_YEAR));
-	    netODAParameters.addParameter("YEAR1", Integer.toString(TABLE_YEAR - 1));
-	    netODAParameters.addParameter("YEAR2", Integer.toString(TABLE_YEAR - 2));
-
-	    netODAParameters.getChartDefinition().setColHeaders(Arrays.asList("Net ODA", Integer.toString(TABLE_YEAR - 2),
-			    Integer.toString(TABLE_YEAR - 1),
-			    Integer.toString(TABLE_YEAR ),
-			    Integer.toString(TABLE_YEAR - 1) + "/ " + Integer.toString(TABLE_YEAR)));
-	    netODAParameters.getChartDefinition().setColTypes(Arrays.asList("string", "numeric", "numeric", "numeric", "percentFormat"));
-	    netODAParameters.getChartDefinition().setColFormats(Arrays.asList("%s", "%.0f", "%.0f", "%.0f", "%.2f"));
-	    netODAParameters.getChartDefinition().setColWidths(Arrays.asList("20%", "20%", "20%", "20%", "20%"));
-	    netODAParameters.getChartDefinition().setSort(Boolean.FALSE);
-	    netODAParameters.getChartDefinition().setPaginate(Boolean.FALSE);
-	    netODAParameters.getChartDefinition().setInfo(Boolean.FALSE);
-	    netODAParameters.getChartDefinition().setFilter(Boolean.FALSE);
-	    netODAParameters.getChartDefinition().setColSortable(Arrays.asList(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE));
-
-        add(netODADashboard);
-
-	    Table topTenRecipients = new Table("topTenRecipients", "topTenRecipients", "dashboards.topTenRecipients");
-	    topTenRecipients.setInitFunction("addTopTenRecipients");
-
-	    TableParameters topTenRecipientsParameters = topTenRecipients.getParameters();
-
-	    topTenRecipientsParameters.getChartDefinition().setColHeaders(Arrays.asList("Countries", "Amount"));
-	    topTenRecipientsParameters.getChartDefinition().setColTypes(Arrays.asList("string", "numeric"));
-	    topTenRecipientsParameters.getChartDefinition().setColFormats(Arrays.asList("%s", "%.0f"));
-	    topTenRecipientsParameters.getChartDefinition().setColWidths(Arrays.asList("60%", "40%"));
-	    topTenRecipientsParameters.getChartDefinition().setSort(Boolean.TRUE);
-	    topTenRecipientsParameters.getChartDefinition().setPaginate(Boolean.FALSE);
-	    topTenRecipientsParameters.getChartDefinition().setInfo(Boolean.FALSE);
-	    topTenRecipientsParameters.getChartDefinition().setFilter(Boolean.FALSE);
-	    topTenRecipientsParameters.getChartDefinition().setColSortable(Arrays.asList(Boolean.TRUE, Boolean.TRUE));
-
-	    add(topTenRecipients);
-
-	    Table topTenMemoShare = new Table("topTenMemoShare", "topTenMemoShare", "dashboards.topTenMemoShare");
-	    topTenMemoShare.setInitFunction("addTopTenMemoShare");
-
-	    TableParameters topTenMemoShareParameters = topTenMemoShare.getParameters();
-
-	    topTenMemoShareParameters.getChartDefinition().setColHeaders(Arrays.asList("Top", "Percent"));
-	    topTenMemoShareParameters.getChartDefinition().setColTypes(Arrays.asList("string", "percentFormat"));
-	    topTenMemoShareParameters.getChartDefinition().setColFormats(Arrays.asList("%s", "%.0f"));
-	    topTenMemoShareParameters.getChartDefinition().setColWidths(Arrays.asList("60%", "40%"));
-	    topTenMemoShareParameters.getChartDefinition().setSort(Boolean.FALSE);
-	    topTenMemoShareParameters.getChartDefinition().setPaginate(Boolean.FALSE);
-	    topTenMemoShareParameters.getChartDefinition().setInfo(Boolean.FALSE);
-	    topTenMemoShareParameters.getChartDefinition().setFilter(Boolean.FALSE);
-	    topTenMemoShareParameters.getChartDefinition().setColSortable(Arrays.asList(Boolean.FALSE, Boolean.FALSE));
-
-	    add(topTenMemoShare);
-
-	    PieChart odaByRegionChart = new PieChart("odaByRegionChart", "odaByRegionChart", "dashboards.odaByRegionChart");
-	    odaByRegionChart.setInitFunction("addOdaByRegionChart");
-	    add(odaByRegionChart);
-
-
-	    PieChart odaByIncomeGroupChart = new PieChart("odaByIncomeGroupChart", "odaByIncomeGroupChart", "dashboards.odaByIncomeGroupChart");
-	    odaByIncomeGroupChart.setInitFunction("addOdaByIncomeGroupChart");
-	    add(odaByIncomeGroupChart);
-
-
-
-
-        StackedBarChart odaBySectorChart = new StackedBarChart("odaBySectorChart", "odaBySectorChart", "dashboards.odaBySectorChart");
-	    odaBySectorChart.setInitFunction("addOdaBySectorChart");
-        add(odaBySectorChart);
+    private void addComponents () {
+	    addNetODATable();
+	    addTopTenRecipientsTable();
+	    addTopTenMemoShareTAble();
+	    addOdaByRegionChart();
+	    addOdaByIncomeGroupChart();
+	    addOdaBySectorChart();
     }
+
+	private void addNetODATable () {
+		Table netODADashboard = new Table("netODADashboard", "netODATable", "dashboards.netODA");
+		// js function that will be called to initialize the table dashboard
+		netODADashboard.setInitFunction("addNetODATable");
+
+		TableParameters netODAParameters = netODADashboard.getParameters();
+
+		// for now we use a hardcoded value for year in order to display the last 3 years data for 'Net ODA' table
+		netODAParameters.addParameter("YEAR", Integer.toString(TABLE_YEAR));
+		netODAParameters.addParameter("YEAR1", Integer.toString(TABLE_YEAR - 1));
+		netODAParameters.addParameter("YEAR2", Integer.toString(TABLE_YEAR - 2));
+
+		netODAParameters.getChartDefinition().setColHeaders(Arrays.asList("Net ODA", Integer.toString(TABLE_YEAR - 2),
+				Integer.toString(TABLE_YEAR - 1),
+				Integer.toString(TABLE_YEAR ),
+				Integer.toString(TABLE_YEAR - 1) + "/ " + Integer.toString(TABLE_YEAR)));
+		netODAParameters.getChartDefinition().setColTypes(Arrays.asList("string", "numeric", "numeric", "numeric", "percentFormat"));
+		netODAParameters.getChartDefinition().setColFormats(Arrays.asList("%s", "%.0f", "%.0f", "%.0f", "%.2f"));
+		netODAParameters.getChartDefinition().setColWidths(Arrays.asList("20%", "20%", "20%", "20%", "20%"));
+		netODAParameters.getChartDefinition().setSort(Boolean.FALSE);
+		netODAParameters.getChartDefinition().setPaginate(Boolean.FALSE);
+		netODAParameters.getChartDefinition().setInfo(Boolean.FALSE);
+		netODAParameters.getChartDefinition().setFilter(Boolean.FALSE);
+		netODAParameters.getChartDefinition().setColSortable(Arrays.asList(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE));
+
+		add(netODADashboard);
+	}
+
+	private void addTopTenRecipientsTable () {
+		Table topTenRecipients = new Table("topTenRecipients", "topTenRecipients", "dashboards.topTenRecipients");
+		topTenRecipients.setInitFunction("addTopTenRecipients");
+
+		TableParameters topTenRecipientsParameters = topTenRecipients.getParameters();
+
+		topTenRecipientsParameters.getChartDefinition().setColHeaders(Arrays.asList("Countries", "Amount"));
+		topTenRecipientsParameters.getChartDefinition().setColTypes(Arrays.asList("string", "numeric"));
+		topTenRecipientsParameters.getChartDefinition().setColFormats(Arrays.asList("%s", "%.0f"));
+		topTenRecipientsParameters.getChartDefinition().setColWidths(Arrays.asList("60%", "40%"));
+		topTenRecipientsParameters.getChartDefinition().setSort(Boolean.TRUE);
+		topTenRecipientsParameters.getChartDefinition().setPaginate(Boolean.FALSE);
+		topTenRecipientsParameters.getChartDefinition().setInfo(Boolean.FALSE);
+		topTenRecipientsParameters.getChartDefinition().setFilter(Boolean.FALSE);
+		topTenRecipientsParameters.getChartDefinition().setColSortable(Arrays.asList(Boolean.TRUE, Boolean.TRUE));
+
+		add(topTenRecipients);
+	}
+
+	private void addTopTenMemoShareTAble () {
+		Table topTenMemoShare = new Table("topTenMemoShare", "topTenMemoShare", "dashboards.topTenMemoShare");
+		topTenMemoShare.setInitFunction("addTopTenMemoShare");
+
+		TableParameters topTenMemoShareParameters = topTenMemoShare.getParameters();
+
+		topTenMemoShareParameters.getChartDefinition().setColHeaders(Arrays.asList("Top", "Percent"));
+		topTenMemoShareParameters.getChartDefinition().setColTypes(Arrays.asList("string", "percentFormat"));
+		topTenMemoShareParameters.getChartDefinition().setColFormats(Arrays.asList("%s", "%.0f"));
+		topTenMemoShareParameters.getChartDefinition().setColWidths(Arrays.asList("60%", "40%"));
+		topTenMemoShareParameters.getChartDefinition().setSort(Boolean.FALSE);
+		topTenMemoShareParameters.getChartDefinition().setPaginate(Boolean.FALSE);
+		topTenMemoShareParameters.getChartDefinition().setInfo(Boolean.FALSE);
+		topTenMemoShareParameters.getChartDefinition().setFilter(Boolean.FALSE);
+		topTenMemoShareParameters.getChartDefinition().setColSortable(Arrays.asList(Boolean.FALSE, Boolean.FALSE));
+
+		add(topTenMemoShare);
+	}
+
+	private void addOdaByRegionChart () {
+		PieChart odaByRegionChart = new PieChart("odaByRegionChart", "odaByRegionChart", "dashboards.odaByRegionChart");
+		odaByRegionChart.setInitFunction("addOdaByRegionChart");
+		add(odaByRegionChart);
+	}
+
+	private void addOdaByIncomeGroupChart () {
+		PieChart odaByIncomeGroupChart = new PieChart("odaByIncomeGroupChart", "odaByIncomeGroupChart", "dashboards.odaByIncomeGroupChart");
+		odaByIncomeGroupChart.setInitFunction("addOdaByIncomeGroupChart");
+		add(odaByIncomeGroupChart);
+	}
+
+	private void addOdaBySectorChart () {
+		StackedBarChart odaBySectorChart = new StackedBarChart("odaBySectorChart", "odaBySectorChart", "dashboards.odaBySectorChart");
+		odaBySectorChart.setInitFunction("addOdaBySectorChart");
+		add(odaBySectorChart);
+	}
 
     @Override
     public void renderHead(IHeaderResponse response) {
@@ -121,6 +136,7 @@ public class ReportsPage extends HeaderFooter {
         // highcharts
         response.render(JavaScriptHeaderItem.forUrl("/js/Highcharts-3.0.7/js/highcharts.js"));
         response.render(JavaScriptHeaderItem.forUrl("/js/Highcharts-3.0.7/js/modules/exporting.js"));
+	    response.render(JavaScriptHeaderItem.forUrl("/js/Highcharts-3.0.7/js/highcharts-no-data-to-display.js"));
         
         // dashboard models
         response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "FilterModel.js")));
