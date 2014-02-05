@@ -13,6 +13,7 @@ import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.cdf.pages.reports.ReportsExport;
 import org.devgateway.eudevfin.cdf.pages.reports.ReportsPage;
 import org.devgateway.eudevfin.ui.common.WicketNavbarComponentInitializer;
+import org.devgateway.eudevfin.ui.common.components.RepairedNavbarDropDownButton;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.DropDownSubMenu;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuBookmarkablePageLink;
@@ -33,7 +34,7 @@ public final class NavbarInitializer {
 	
 	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT)
 	public static Component newReportsNavbarMenu(Page page) {
-		NavbarDropDownButton navbarDropDownButton = new NavbarDropDownButton(
+		NavbarDropDownButton navbarDropDownButton = new RepairedNavbarDropDownButton(
 				new StringResourceModel("navbar.reports", page, null, null)) {
 			@Override
 			public boolean isActive(Component item) {

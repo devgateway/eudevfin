@@ -8,18 +8,10 @@
 
 package org.devgateway.eudevfin.dim;
 
-import de.agilecoders.wicket.core.Bootstrap;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.DropDownSubMenu;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuBookmarkablePageLink;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuDivider;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuHeader;
-import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconType;
-import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
-import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarButton;
-import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarDropDownButton;
-import de.agilecoders.wicket.core.settings.IBootstrapSettings;
-import de.agilecoders.wicket.core.settings.ITheme;
-import de.agilecoders.wicket.extensions.markup.html.bootstrap.button.DropDownAutoOpen;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy;
@@ -33,12 +25,22 @@ import org.devgateway.eudevfin.dim.pages.transaction.crs.TransactionPage;
 import org.devgateway.eudevfin.dim.pages.transaction.custom.CustomTransactionPage;
 import org.devgateway.eudevfin.ui.common.Constants;
 import org.devgateway.eudevfin.ui.common.WicketNavbarComponentInitializer;
+import org.devgateway.eudevfin.ui.common.components.RepairedNavbarDropDownButton;
 import org.devgateway.eudevfin.ui.common.pages.LogoutPage;
 import org.devgateway.eudevfin.ui.common.temporary.SB;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import de.agilecoders.wicket.core.Bootstrap;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.DropDownSubMenu;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuBookmarkablePageLink;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuDivider;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuHeader;
+import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconType;
+import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
+import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarButton;
+import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarDropDownButton;
+import de.agilecoders.wicket.core.settings.IBootstrapSettings;
+import de.agilecoders.wicket.core.settings.ITheme;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.button.DropDownAutoOpen;
 
 /**
  * Class holding static methods that initialize the wicket {@link Navbar} components.
@@ -63,7 +65,7 @@ public final class NavbarInitializer {
 	
 	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.LEFT)
 	public static Component newTransactionNavbarButton(final Page page) {
-		   NavbarDropDownButton navbarDropDownButton = new NavbarDropDownButton(new StringResourceModel("navbar.newTransaction", page, null, null)) {
+		   NavbarDropDownButton navbarDropDownButton = new RepairedNavbarDropDownButton(new StringResourceModel("navbar.newTransaction", page, null, null)) {
 	            @Override
 	            public boolean isActive(Component item) {
 	                return false;
