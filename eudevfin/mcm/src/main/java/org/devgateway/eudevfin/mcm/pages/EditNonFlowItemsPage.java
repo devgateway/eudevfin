@@ -11,6 +11,7 @@ a * Copyright (c) 2013 Development Gateway.
 
 package org.devgateway.eudevfin.mcm.pages;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,7 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.util.time.Duration;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.financial.Category;
@@ -38,6 +40,7 @@ import org.devgateway.eudevfin.financial.util.CategoryConstants;
 import org.devgateway.eudevfin.financial.util.FinancialTransactionUtil;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
+import org.devgateway.eudevfin.ui.common.components.NumberTextInputField;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
 import org.devgateway.eudevfin.ui.common.models.BigMoneyModel;
 import org.devgateway.eudevfin.ui.common.models.YearToLocalDateTimeModel;
@@ -47,6 +50,9 @@ import org.joda.money.CurrencyUnit;
 import org.joda.time.LocalDateTime;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.wicketstuff.annotation.mount.MountPath;
+
+import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
+import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
 
 /**
  * @author mihai
@@ -77,8 +83,10 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 	
 	private TextInputField<Integer> reportingYearField;
 
+	private NotificationPanel feedbackPanel;
+
 	public WebMarkupContainer initializeFakeFinancialContainer(String id, String fieldId, PageParameters parameters,
-			String typeOfFinanceCode) {
+			String typeOfFinanceCode, boolean percentage) {
 		// initialize a wrapping container
 		WebMarkupContainer container = new WebMarkupContainer(id);
 
@@ -93,8 +101,10 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 		ComponentPropertyModel<CurrencyUnit> readOnlyCurrencyModel = new ComponentPropertyModel<>("currency");
 
 		// create textinputfield to edit the amount
-		container.add(new TextInputField<>(fieldId, new BigMoneyModel(new RWComponentPropertyModel<BigMoney>(
-				"amountsExtended"), readOnlyCurrencyModel)).typeBigDecimal());
+		NumberTextInputField<BigDecimal> field = new NumberTextInputField<>(fieldId, new BigMoneyModel(new RWComponentPropertyModel<BigMoney>(
+				"amountsExtended"), readOnlyCurrencyModel)).typeBigDecimal().required();		
+		if(percentage) field.range(new BigDecimal(0),new BigDecimal(100));
+		container.add(field);
 
 		return container;
 	}
@@ -128,17 +138,17 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 		};
 
 		populationContainer = (WebMarkupContainer) initializeFakeFinancialContainer(
-				"populationContainer", "population", parameters, CategoryConstants.TypeOfFinance.NonFlow.POPULATION)
+				"populationContainer", "population", parameters, CategoryConstants.TypeOfFinance.NonFlow.POPULATION,false)
 				.setEnabled(false).setOutputMarkupId(true);
 		gniContainer = (WebMarkupContainer) initializeFakeFinancialContainer("gniContainer",
-				"gni", parameters, CategoryConstants.TypeOfFinance.NonFlow.GNI).setEnabled(false).setOutputMarkupId(
+				"gni", parameters, CategoryConstants.TypeOfFinance.NonFlow.GNI,false).setEnabled(false).setOutputMarkupId(
 				true);
 		totalFlowsContainer = (WebMarkupContainer) initializeFakeFinancialContainer(
 				"totalFlowsContainer", "totalFlows", parameters,
-				CategoryConstants.TypeOfFinance.NonFlow.TOTAL_FLOWS_PERCENT_GNI).setEnabled(false).setOutputMarkupId(
+				CategoryConstants.TypeOfFinance.NonFlow.TOTAL_FLOWS_PERCENT_GNI,true).setEnabled(false).setOutputMarkupId(
 				true);
 		odaOfGniContainer = (WebMarkupContainer) initializeFakeFinancialContainer(
-				"odaOfGniContainer", "odaOfGni", parameters, CategoryConstants.TypeOfFinance.NonFlow.ODA_PERCENT_GNI)
+				"odaOfGniContainer", "odaOfGni", parameters, CategoryConstants.TypeOfFinance.NonFlow.ODA_PERCENT_GNI,true)
 				.setEnabled(false).setOutputMarkupId(true);
 
 		// initialize textinput for reportingYear
@@ -152,7 +162,7 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 				List<FinancialTransaction> findByReportingYearAndTypeOfFlowCode = financialTransactionService
 						.findByReportingYearAndTypeOfFlowCode(reportingYear, CategoryConstants.TypeOfFlow.NON_FLOW);
 
-				// put the transactions in a map for quicker access
+				//put the transactions in a map for quicker access
 				Map<String, FinancialTransaction> trnsByTypeOfFinance = new HashMap<>();
 				for (FinancialTransaction fakeNonFlowTransaction : findByReportingYearAndTypeOfFlowCode)
 					if (fakeNonFlowTransaction.getTypeOfFinance() != null)
@@ -198,9 +208,17 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 				saveTransactionFromContainer(odaOfGniContainer);
 				saveTransactionFromContainer(totalFlowsContainer);				
 				logger.info("Submitted ok!");
+				info(new NotificationMessage(new StringResourceModel("notification.saved", EditNonFlowItemsPage.this, null, null)));
+				target.add(feedbackPanel);
 			}
 
 		});
+		
+
+		feedbackPanel = new NotificationPanel("feedback");
+		feedbackPanel.setOutputMarkupId(true);
+		feedbackPanel.hideAfter(Duration.seconds(3));
+		add(feedbackPanel);
 
 	}
 

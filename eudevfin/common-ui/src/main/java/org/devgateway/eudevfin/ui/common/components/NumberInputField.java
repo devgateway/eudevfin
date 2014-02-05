@@ -10,23 +10,22 @@ package org.devgateway.eudevfin.ui.common.components;
 
 import java.math.BigDecimal;
 
-import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.form.NumberTextField;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.Model;
-import org.apache.wicket.validation.IValidator;
-import org.apache.wicket.validation.validator.EmailAddressValidator;
 import org.apache.wicket.validation.validator.RangeValidator;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
 import de.agilecoders.wicket.extensions.javascript.jasny.InputMaskBehavior;
 
 /**
- * <p>Creates an input field with attached label and placeholder, see constructor for more info</p>
- *
- * @author aartimon@developmentgateway.org
+ * <p>Creates a similar input field as {@link TextInputField} but for {@link Number}S
+ * This is HTML5 
+ * 
+ * @author mihai
  * @since 17 October 2013
+ * @see TextInputField
  */
-public class TextInputField<T> extends AbstractInputField<T,TextField<T>> {
+public class NumberInputField<T extends Number & Comparable<T>> extends AbstractInputField<T,NumberTextField<T>> {
 
     /**
      * <p>Creates an input field with attached label and placeholder</p>
@@ -35,7 +34,7 @@ public class TextInputField<T> extends AbstractInputField<T,TextField<T>> {
      * @param model           model to be used by the text field
      * @param messageKeyGroup Message key group prefix for the resources used by the component
      */
-    public TextInputField(String id, IModel<T> model, String messageKeyGroup) {
+    public NumberInputField(String id, IModel<T> model, String messageKeyGroup) {
         super(id, model, messageKeyGroup);
     }
 
@@ -46,30 +45,22 @@ public class TextInputField<T> extends AbstractInputField<T,TextField<T>> {
      * @param model model to be used by the text field
      * @see TextInputField(String, IModel, String)
      */
-    public TextInputField(String id, IModel<T> model) {
+    public NumberInputField(String id, IModel<T> model) {
         this(id, model, id);      
     }
 
     @Override
-    protected TextField<T> newField(String id, IModel<T> model) {
-        return new TextField<>(id, model);
+    protected NumberTextField<T> newField(String id, IModel<T> model) {
+        return new NumberTextField<>(id, model);
     }
 
     @SuppressWarnings("unchecked")
-    public TextField<T> getField() {
-        return (TextField<T>) field;
+    public NumberTextField<T> getField() {
+        return (NumberTextField<T>) field;
 
     }
 
-    @SuppressWarnings("unchecked")
-    public AbstractInputField<T,TextField<T>> decorateAsEmailField() {
-        field.add((IValidator) EmailAddressValidator.getInstance());
-        prepender.setVisible(true);
-        prepender.setDefaultModel(Model.of("@"));        
-        return this;
-    }
-
-    public TextInputField<T> decorateMask(final String mask) {
+    public NumberInputField<T> decorateMask(final String mask) {
         field.add(new InputMaskBehavior() {
             @Override
             protected String getMask() {
@@ -79,38 +70,36 @@ public class TextInputField<T> extends AbstractInputField<T,TextField<T>> {
         return this;
     }
 
-    public TextInputField<T> typeInteger() {
+    public NumberInputField<T> typeInteger() {
         field.setType(Integer.class);
         return this;
     }
 
-    public TextInputField<T> typeBigDecimal() {
+    public NumberInputField<T> typeBigDecimal() {
         field.setType(BigDecimal.class);
         return this;
     }
 
 
     @Override
-    public TextInputField<T> required() {
+    public NumberInputField<T> required() {
         super.required();
         return this;
     }
 
-    public TextInputField<T> range(Integer min, Integer max) {
-        if (!field.getType().isAssignableFrom(Integer.class))
-            throw new RuntimeException("Please use the typeInteger() method to set the type, or range validator won't work!");
+    public NumberInputField<T> range(T min, T max) {                   
         field.add(RangeValidator.range(min, max));
         return this;
     }
 
     @Override
-    public TextInputField<T> hideLabel() {
+    public NumberInputField<T> hideLabel() {
         super.hideLabel();
         return this;
     }
 
     @Override
-    public TextInputField<T> setSize(InputBehavior.Size size) {
+    public NumberInputField<T> setSize(InputBehavior.Size size) {
         super.setSize(size);
         return this;
     }
