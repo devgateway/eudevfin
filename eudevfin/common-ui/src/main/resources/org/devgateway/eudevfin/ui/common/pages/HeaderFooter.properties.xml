@@ -28,6 +28,7 @@
     
     <entry key="navbar.admin.users">Users</entry>
     <entry key="navbar.admin.groups">Groups</entry>
+    <entry key="navbar.admin.nonflow">Edit CRS++ Non-Flow Data</entry>
     
     <entry key="navbar.lang">Languages</entry>
     <entry key="navbar.lang.header">all available languages:</entry>

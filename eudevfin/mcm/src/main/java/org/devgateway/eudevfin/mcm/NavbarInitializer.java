@@ -9,6 +9,7 @@ import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDa
 import org.apache.wicket.markup.html.link.AbstractLink;
 import org.apache.wicket.model.StringResourceModel;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
+import org.devgateway.eudevfin.mcm.pages.EditNonFlowItemsPage;
 import org.devgateway.eudevfin.mcm.pages.ListPersistedUserGroupsPage;
 import org.devgateway.eudevfin.mcm.pages.ListPersistedUsersPage;
 import org.devgateway.eudevfin.ui.common.WicketNavbarComponentInitializer;
@@ -42,6 +43,7 @@ public final class NavbarInitializer {
 	            List<AbstractLink> list = new ArrayList<>();
 	            list.add(new MenuBookmarkablePageLink<ListPersistedUsersPage>(ListPersistedUsersPage.class, null, new StringResourceModel("navbar.admin.users", this, null, null)));
 	            list.add(new MenuBookmarkablePageLink<ListPersistedUserGroupsPage>(ListPersistedUserGroupsPage.class, null, new StringResourceModel("navbar.admin.groups", this, null, null)));
+	            list.add(new MenuBookmarkablePageLink<ListPersistedUserGroupsPage>(EditNonFlowItemsPage.class, null, new StringResourceModel("navbar.admin.nonflow", this, null, null)));
 	            return list;
 			}
 
