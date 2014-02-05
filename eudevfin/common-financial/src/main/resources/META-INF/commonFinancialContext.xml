@@ -45,6 +45,10 @@
 		<int:method name="findByGeneralSearchPageable" request-channel="getChannel">
 			<int:header name="requestName" value="findTransactionByGeneralSearchPageableChannel"/>
 		</int:method>
+		<int:method name="findByReportingYearAndTypeOfFlowCode" request-channel="getChannel">
+			<int:header name="requestName" value="findTransactionByReportingYearAndTypeOfFlowNonFlow"/>
+		</int:method>
+		
 	</int:gateway>
 	
 	<int:gateway id="customFinancialTransactionService"

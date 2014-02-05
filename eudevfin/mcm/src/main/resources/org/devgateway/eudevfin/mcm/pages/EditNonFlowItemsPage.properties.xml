@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2013 Development Gateway.
+  ~ All rights reserved. This program and the accompanying materials
+  ~ are made available under the terms of the GNU Public License v3.0
+  ~ which accompanies this distribution, and is available at
+  ~ http://www.gnu.org/licenses/gpl.html
+  -->
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>    
+    <entry key="reportingYear.label">Reporting Year</entry>
+    <entry key="reportingYear.placeholder">YYYY</entry>
+    <entry key="reportingYear.help">Enter the reporting year for which you want to edit non flow information</entry>
+    <entry key="reportingYear.help.detail">additional glossary will be added here</entry>
+        
+    <entry key="population.label">Population</entry>
+    <entry key="population.placeholder">in millions</entry>
+    <entry key="population.help">Enter the population of the country above for the selected reporting year</entry>
+    <entry key="population.help.detail">additional glossary will be added here</entry>
+    
+    <entry key="gni.label">GNI</entry>
+    <entry key="gni.placeholder">millions of USD</entry>
+    <entry key="gni.help">Enter the GNI of the country above for the selected reporting year</entry>
+    <entry key="gni.help.detail">additional glossary will be added here</entry>
+       
+    <entry key="totalFlows.label">Total Flows</entry>
+    <entry key="totalFlows.placeholder">millions of USD</entry>
+    <entry key="totalFlows.help">Enter the Total Flows of the country above for the selected reporting year</entry>
+    <entry key="totalFlows.help.detail">additional glossary will be added here</entry>
+   
+    <entry key="odaOfGni.label">ODA of GNI</entry>
+    <entry key="odaOfGni.placeholder">percentage</entry>
+    <entry key="odaOfGni.help">Enter the percentage of GNI which is ODA of the country above for the selected reporting year</entry>
+    <entry key="odaOfGni.help.detail">additional glossary will be added here</entry>
+   
+</properties>
+

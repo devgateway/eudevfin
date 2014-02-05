@@ -25,10 +25,10 @@ import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
  */
 public abstract class WrappingModel<T, V> implements IModel<T>, IComponentAssignedModel<T>, IWrapModel<T> {
 
-    protected IWrapModel<V> originalModel;
-    private IWrapModel<V> originalModelNotWrapped;
+    protected IModel<V> originalModel;
+    private IModel<V> originalModelNotWrapped;
 
-    public WrappingModel(IWrapModel<V> originalModel) {
+    public WrappingModel(IModel<V> originalModel) {
         this.originalModelNotWrapped = originalModel;
         this.originalModel = originalModel;
     }

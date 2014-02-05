@@ -9,10 +9,11 @@ import org.devgateway.eudevfin.common.dao.AbstractDaoImpl;
 import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.repository.FinancialTransactionRepository;
+import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
+import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.integration.annotation.Header;
 import org.springframework.integration.annotation.ServiceActivator;
@@ -58,7 +59,7 @@ public class FinancialTransactionDaoImpl extends AbstractDaoImpl<FinancialTransa
 	@ServiceActivator(inputChannel="findTransactionBySectorCodePageableChannel")
 	public Page<FinancialTransaction> findBySectorCode(String sectorCode, 
 			@Header("pageable") Pageable pageable) {	
-		return  this.getRepo().findBySectorCode(sectorCode, pageable) ;
+		return  this.getRepo().findBySectorCode(sectorCode, pageable);
 		
 	}
 	
@@ -68,6 +69,18 @@ public class FinancialTransactionDaoImpl extends AbstractDaoImpl<FinancialTransa
 
 		return  this.getRepo().findByTranslationsDescriptionContaining(searchString.toLowerCase(), pageable)  ;
 	}
+	
+	
+	/**
+	 * @see FinancialTransactionService#findByReportingYearAndTypeOfFlowCode(LocalDateTime,String)
+	 * @param reportingYear
+	 * @return
+	 */
+	@ServiceActivator(inputChannel="findTransactionByReportingYearAndTypeOfFlowNonFlow")
+	public List<FinancialTransaction> findByReportingYearAndTypeOfFlowCode(LocalDateTime reportingYear, @Header("typeOfFlowCode") String typeOfFlowCode) {
+		return this.getRepo().findByReportingYearAndTypeOfFlowCode(reportingYear,typeOfFlowCode);
+	}
+	
 	
 	@Override
 	protected

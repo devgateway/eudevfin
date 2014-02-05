@@ -6,14 +6,13 @@
  * http://www.gnu.org/licenses/gpl.html
  */
 
-package org.devgateway.eudevfin.dim.core.models;
+package org.devgateway.eudevfin.ui.common.models;
 
 import java.math.BigDecimal;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.model.IComponentAssignedModel;
 import org.apache.wicket.model.IWrapModel;
-import org.devgateway.eudevfin.ui.common.models.WrappingModel;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 

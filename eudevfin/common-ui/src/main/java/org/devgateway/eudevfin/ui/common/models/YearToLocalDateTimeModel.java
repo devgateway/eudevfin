@@ -6,10 +6,9 @@
  * http://www.gnu.org/licenses/gpl.html
  */
 
-package org.devgateway.eudevfin.dim.core.models;
+package org.devgateway.eudevfin.ui.common.models;
 
-import org.apache.wicket.model.IWrapModel;
-import org.devgateway.eudevfin.ui.common.models.WrappingModel;
+import org.apache.wicket.model.IComponentAssignedModel;
 import org.joda.time.LocalDateTime;
 
 /**
@@ -20,9 +19,10 @@ import org.joda.time.LocalDateTime;
  * @since 29/11/13
  */
 public class YearToLocalDateTimeModel extends WrappingModel<Integer, LocalDateTime> {
-    public YearToLocalDateTimeModel(IWrapModel<LocalDateTime> originalModel) {
+    public YearToLocalDateTimeModel(IComponentAssignedModel<LocalDateTime> originalModel) {
         super(originalModel);
     }
+    
 
     @Override
     public Integer getObject() {
