@@ -9,16 +9,11 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <entry key="sectorFilter">Filters</entry>
-	<entry key="dashboards.org.filter">Organization</entry>
-	<entry key="dashboards.sector.filter">Sectors</entry>
-	<entry key="dashboards.biMultilateral.filter">BiMultilateral</entry>
-    <entry key="dashboards.netODA">Net ODA</entry>
-	<entry key="dashboards.pieChart">Chart Dashboard</entry>
-    <entry key="dashboards.typeOfAid">Aid Chart Report</entry>
-	<entry key="dashboards.columnChart">Column Chart Report</entry>
-    <entry key="dashboards.typeOfFlow">Flow Chart Report</entry>
-    <entry key="dashboards.stackedBarChart">Stacked Bar Report</entry>
-	<entry key="dashboards.typeOfSectorsByFlow">Type of Flows by Sector</entry>
 	<entry key="dashboards.title">ODA at a Glance</entry>
+    <entry key="dashboards.netODA">Net ODA</entry>
+	<entry key="dashboards.topTenRecipients">Top Ten Recipients of Gross ODA (USD million)</entry>
+	<entry key="dashboards.topTenMemoShare">Memo: Share of gross bilateral ODA</entry>
+	<entry key="dashboards.odaByRegionChart">By Region (USD m)</entry>
+	<entry key="dashboards.odaByIncomeGroupChart">By Income Group (USD m)</entry>
+	<entry key="dashboards.odaBySectorChart">By Sector</entry>
 </properties>

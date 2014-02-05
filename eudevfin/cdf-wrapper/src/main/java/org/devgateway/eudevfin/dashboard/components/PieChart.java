@@ -15,6 +15,7 @@ import org.apache.wicket.request.resource.JavaScriptResourceReference;
 public class PieChart extends Panel implements IParametersProvider {
 	private final WebMarkupContainer pieChart;
 	private ChartParameters parameters;
+	private String initFunction;
 	
 	public PieChart(String id, String dataAccessId, String messageKey) {
         super(id);
@@ -37,11 +38,27 @@ public class PieChart extends Panel implements IParametersProvider {
         super.renderHead(response);
         
         response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(PieChart.class, "PieChartInit.js")));
-		response.render(OnDomReadyHeaderItem.forScript("initPieChart(" + parameters().toJson() + ");"));
+		response.render(OnDomReadyHeaderItem.forScript(this.initFunction + "(" + parameters().toJson() + ");"));
     }
 
 	@Override
 	public BaseParameters parameters() {
 		return parameters;
+	}
+
+	public ChartParameters getParameters() {
+		return parameters;
+	}
+
+	public void setParameters(ChartParameters parameters) {
+		this.parameters = parameters;
+	}
+
+	public String getInitFunction() {
+		return initFunction;
+	}
+
+	public void setInitFunction(String initFunction) {
+		this.initFunction = initFunction;
 	}
 }

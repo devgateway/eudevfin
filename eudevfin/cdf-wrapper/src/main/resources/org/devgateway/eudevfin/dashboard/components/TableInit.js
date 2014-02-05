@@ -6,7 +6,7 @@
  * http://www.gnu.org/licenses/gpl.html
  */
 
-function addNetODATable(parametersJson) {
+function addNetODATable (parametersJson) {
 	'use strict';
 
     var table = new app.TableModel(_.extend(parametersJson, {
@@ -58,5 +58,74 @@ function addNetODATable(parametersJson) {
     }));
 
     table = table.toJSON();
+	app.addComponent(table);
+}
+
+function addTopTenRecipients (parametersJson) {
+	'use strict';
+
+	var table = new app.TableModel(_.extend(parametersJson, {
+		preChange: function (value) {
+			return value;
+		},
+
+		postFetch: function (values) {
+			return values;
+		},
+
+		preExecution: function () {
+			return undefined;
+		},
+
+		postExecution: function () {}
+	}));
+
+	table = table.toJSON();
+	app.addComponent(table);
+}
+
+function addTopTenMemoShare (parametersJson) {
+	'use strict';
+
+	var table = new app.TableModel(_.extend(parametersJson, {
+		preChange: function (value) {
+			return value;
+		},
+
+		postFetch: function (values) {
+			// swap axis
+			var metadata = [],
+				resultset = [];
+
+			metadata.push({
+				colIndex: 0,
+				colName: "Top",
+				colType: "String"
+			});
+
+			metadata.push({
+				colIndex: 0,
+				colName: "percent",
+				colType: "Number"
+			});
+
+			resultset.push(['Top 5 recipients', values.resultset[0][0]]);
+			resultset.push(['Top 10 recipients', values.resultset[0][1]]);
+			resultset.push(['Top 20 recipients', values.resultset[0][2]]);
+
+			values.metadata = metadata;
+			values.resultset = resultset;
+
+			return values;
+		},
+
+		preExecution: function () {
+			return undefined;
+		},
+
+		postExecution: function () {}
+	}));
+
+	table = table.toJSON();
 	app.addComponent(table);
 }

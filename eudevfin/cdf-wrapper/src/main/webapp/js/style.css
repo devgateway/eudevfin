@@ -175,6 +175,10 @@ td.formattedNumeric {
 	font-family: monospace;
 }
 
+.removeHeader .dataTables_wrapper table thead {
+	display: none;
+}
+
 tr.odd {
 	background-color: #f5f5f5;
 }

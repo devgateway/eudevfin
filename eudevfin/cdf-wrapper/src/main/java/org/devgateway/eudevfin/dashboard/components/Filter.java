@@ -26,6 +26,7 @@ import org.apache.wicket.request.resource.JavaScriptResourceReference;
 public class Filter extends Panel implements IParametersProvider {
     private final WebMarkupContainer filter;
 	private FilterParameters parameters;
+	private String initFunction;
 
     public Filter(String id, String dataAccessId, String messageKey, String parameter) {
         super(id);
@@ -49,7 +50,7 @@ public class Filter extends Panel implements IParametersProvider {
         super.renderHead(response);
 
         response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Filter.class, "FilterInit.js")));
-	    response.render(OnDomReadyHeaderItem.forScript("initFilter(" + parameters().toJson() + ");"));
+	    response.render(OnDomReadyHeaderItem.forScript(this.initFunction + "(" + parameters().toJson() + ");"));
     }
 
 	@Override
@@ -59,5 +60,17 @@ public class Filter extends Panel implements IParametersProvider {
 
 	public FilterParameters getParameters() {
 		return parameters;
+	}
+
+	public void setParameters(FilterParameters parameters) {
+		this.parameters = parameters;
+	}
+
+	public String getInitFunction() {
+		return initFunction;
+	}
+
+	public void setInitFunction(String initFunction) {
+		this.initFunction = initFunction;
 	}
 }
