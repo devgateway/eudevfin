@@ -65,6 +65,6 @@ public class PersistedUserChoiceProvider extends
 
     @Override
     public void detach() {
-        persistedUserService = null;
+        //Spring component no need to detach if added into wicket components with @SpringBean
     }
 }
