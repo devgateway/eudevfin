@@ -8,10 +8,6 @@
 
 package org.devgateway.eudevfin.financial;
 
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Columns;
@@ -19,78 +15,82 @@ import org.hibernate.annotations.Type;
 import org.hibernate.envers.Audited;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
-import org.joda.money.ExchangeRate;
 import org.joda.time.LocalDateTime;
+
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import java.math.BigDecimal;
 
 @Entity
 @Audited
 @DiscriminatorValue("Custom")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class CustomFinancialTransaction extends FinancialTransaction {
-	
+
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = -3864606312112731784L;
+     *
+     */
+    private static final long serialVersionUID = -3864606312112731784L;
 
-	/**
-	 * @see SB##BILATERAL_ODA_ADVANCE_QUESTIONNAIRE
-	 */
-	private String formType;
-	
-	private Boolean draft	= false;
+    /**
+     * @see SB##BILATERAL_ODA_ADVANCE_QUESTIONNAIRE
+     */
+    private String formType;
 
-	private Boolean projectCoFinanced;	
+    private Boolean draft = false;
 
-	@Columns(columns = { @Column(name = "future_debt_principal_curr"),
-			@Column(name = "future_debt_principal_amount") })
-	@Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
+    private Boolean projectCoFinanced;
+
+    @Columns(columns = {@Column(name = "future_debt_principal_curr"),
+            @Column(name = "future_debt_principal_amount")})
+    @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney futureDebtPrincipal;
-	
-	@Columns(columns = { @Column(name = "future_debt_interest_curr"),
-			@Column(name = "future_debt_interest_amount") })
-	@Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
+
+    @Columns(columns = {@Column(name = "future_debt_interest_curr"),
+            @Column(name = "future_debt_interest_amount")})
+    @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney futureDebtInterest;
-	
-	@Columns(columns = { @Column(name = "budget_mtef_disb_curr"),
-			@Column(name = "budget_mtef_disb_amount") })
-	@Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
+
+    @Columns(columns = {@Column(name = "budget_mtef_disb_curr"),
+            @Column(name = "budget_mtef_disb_amount")})
+    @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney budgetMTEFDisbursement;
-	
-	@Columns(columns = { @Column(name = "budget_mtef_disb_p1_curr"),
-			@Column(name = "budget_mtef_disb_p1_amount") })
-	@Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
+
+    @Columns(columns = {@Column(name = "budget_mtef_disb_p1_curr"),
+            @Column(name = "budget_mtef_disb_p1_amount")})
+    @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney budgetMTEFDisbursementP1;
-	
-	@Columns(columns = { @Column(name = "budget_mtef_disb_p2_curr"),
-			@Column(name = "budget_mtef_disb_p2_amount") })
-	@Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
+
+    @Columns(columns = {@Column(name = "budget_mtef_disb_p2_curr"),
+            @Column(name = "budget_mtef_disb_p2_amount")})
+    @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney budgetMTEFDisbursementP2;
-	
-	@Columns(columns = { @Column(name = "budget_mtef_disb_p3_curr"),
-			@Column(name = "budget_mtef_disb_p3_amount") })
-	@Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
+
+    @Columns(columns = {@Column(name = "budget_mtef_disb_p3_curr"),
+            @Column(name = "budget_mtef_disb_p3_amount")})
+    @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney budgetMTEFDisbursementP3;
-	
-	@Columns(columns = { @Column(name = "budget_mtef_disb_p4_curr"),
-			@Column(name = "budget_mtef_disb_p4_amount") })
-	@Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
+
+    @Columns(columns = {@Column(name = "budget_mtef_disb_p4_curr"),
+            @Column(name = "budget_mtef_disb_p4_amount")})
+    @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney budgetMTEFDisbursementP4;
-    
-    
-	@Columns(columns = { @Column(name = "first_agency_curr"),
-			@Column(name = "first_agency_amount") })
-	@Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
+
+
+    @Columns(columns = {@Column(name = "first_agency_curr"),
+            @Column(name = "first_agency_amount")})
+    @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney firstAgencyAmount;
-	
-	@Columns(columns = { @Column(name = "second_agency_curr"),
-			@Column(name = "second_agency_amount") })
-	@Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
+
+    @Columns(columns = {@Column(name = "second_agency_curr"),
+            @Column(name = "second_agency_amount")})
+    @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney secondAgencyAmount;
-	
-	@Columns(columns = { @Column(name = "third_agency_curr"),
-			@Column(name = "third_agency_amount") })
-	@Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
+
+    @Columns(columns = {@Column(name = "third_agency_curr"),
+            @Column(name = "third_agency_amount")})
+    @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney thirdAgencyAmount;
 
 
@@ -134,36 +134,50 @@ public class CustomFinancialTransaction extends FinancialTransaction {
     private String budgetMTEFActivityP4;
     private String otherComments;
 
-    @Columns(columns={@Column(name="fixed_rate_base_currency"),@Column(name="fixed_rate_counter_currency"),@Column(name="fixed_rate")})	
-	@Type(type="org.jadira.usertype.exchangerate.joda.PersistentExchangeRate")
-    private ExchangeRate fixedExchangeRate;
+//    DEPRECATED: because we're just going to store the rate as BigDecimal
+//    @Columns(columns={@Column(name="fixed_rate_base_currency"),@Column(name="fixed_rate_counter_currency"),@Column(name="fixed_rate")})
+//	  @Type(type="org.jadira.usertype.exchangerate.joda.PersistentExchangeRate")
+//    private ExchangeRate fixedExchangeRate;
 
-    
+
+    private BigDecimal fixedRate;
+
+    private CurrencyUnit otherCurrency;
+
+
     public Boolean getDraft() {
-		return draft;
-	}
+        return draft;
+    }
 
-	public void setDraft(Boolean draft) {
-		this.draft = draft;
-	}
+    public void setDraft(Boolean draft) {
+        this.draft = draft;
+    }
 
-	public String getFormType() {
-		return formType;
-	}
+    public String getFormType() {
+        return formType;
+    }
 
-	public void setFormType(String formType) {
-		this.formType = formType;
-	}
+    public void setFormType(String formType) {
+        this.formType = formType;
+    }
 
-	public ExchangeRate getFixedExchangeRate() {
-		return fixedExchangeRate;
-	}
+    public BigDecimal getFixedRate() {
+        return fixedRate;
+    }
 
-	public void setFixedExchangeRate(ExchangeRate fixedExchangeRate) {
-		this.fixedExchangeRate = fixedExchangeRate;
-	}
+    public void setFixedRate(BigDecimal fixedRate) {
+        this.fixedRate = fixedRate;
+    }
 
-	public LocalDateTime getDataAsPerDate() {
+    public CurrencyUnit getOtherCurrency() {
+        return otherCurrency;
+    }
+
+    public void setOtherCurrency(CurrencyUnit otherCurrency) {
+        this.otherCurrency = otherCurrency;
+    }
+
+    public LocalDateTime getDataAsPerDate() {
         return dataAsPerDate;
     }
 
