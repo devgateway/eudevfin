@@ -131,7 +131,7 @@ public class ReportsPage extends HeaderFooter {
         super.renderHead(response);
 
 	    // load CDF plugin
-        response.render(JavaScriptHeaderItem.forUrl("/js/cdfplugin.min.js"));
+        response.render(JavaScriptHeaderItem.forUrl("/js/cdfplugin.js"));
 
         // highcharts
         response.render(JavaScriptHeaderItem.forUrl("/js/Highcharts-3.0.7/js/highcharts.js"));
