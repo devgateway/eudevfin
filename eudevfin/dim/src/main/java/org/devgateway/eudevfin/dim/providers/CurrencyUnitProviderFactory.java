@@ -28,7 +28,7 @@ public class CurrencyUnitProviderFactory {
     @Autowired
     private CurrencyMetadataService service;
 
-    @Value("#{commonProperties['sel.defaultSelectorPageSize']}")
+    @Value("#{commonProperties['select2.pageSize']}")
     private Integer pageSize;
 
     private SpringCategoryProviderProxy<CurrencyUnit> nationalUnsorted;
