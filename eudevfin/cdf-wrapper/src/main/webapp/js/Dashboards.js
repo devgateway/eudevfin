@@ -1,3 +1,8 @@
+// latest gem for Date.now() in IE8
+Date.now = Date.now || function () {
+    return +new Date;
+};
+
 // TODO - do we need this and where is used?
 $.ajaxSetup({
     type: "POST",
@@ -51,20 +56,15 @@ var CDF_ERROR_DIV = 'cdfErrorDiv';
 
 var Dashboards = {
     ERROR_CODES: {
-        'QUERY_TIMEOUT': {
+        QUERY_TIMEOUT: {
             msg: "Query timeout reached"
         },
-
-        "COMPONENT_ERROR": {
+        COMPONENT_ERROR: {
             msg: "Error processing component"
         }
     },
 
     CDF_BASE_PATH: webAppPath + "/content/pentaho-cdf/",
-
-    // TRAFFIC_RED: webAppPath + "/content/pentaho-cdf/resources/style/images/traffic_red.png",
-    // TRAFFIC_YELLOW: webAppPath + "/content/pentaho-cdf/resources/style/images/traffic_yellow.png",
-    // TRAFFIC_GREEN: webAppPath + "/content/pentaho-cdf/resources/style/images/traffic_green.png",
 
     viewFlags: {
         UNUSED: "unused",
