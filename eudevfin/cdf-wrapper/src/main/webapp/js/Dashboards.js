@@ -838,7 +838,7 @@ Dashboards.getComponentByName = function (name) {
 };
 
 Dashboards.addComponents = function (components) {
-    components.forEach(function (component) {
+    _.each(components, function (component) {
         this.bindControl(component);
         this.components.push(component);
     }, this);
@@ -1977,7 +1977,7 @@ Dashboards.hsvToRgb = function (h, s, v) {
         break;
     }
 
-    rgb.forEach(function (val, i) {
+    _.each(rgb, function (val, i) {
         rgb[i] = Math.min(255, Math.round(val * 256));
     });
 
