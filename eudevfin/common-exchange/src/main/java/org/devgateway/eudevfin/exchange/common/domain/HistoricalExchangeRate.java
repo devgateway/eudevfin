@@ -15,6 +15,7 @@
 package org.devgateway.eudevfin.exchange.common.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,6 +27,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Columns;
 import org.hibernate.annotations.Type;
+import org.joda.money.CurrencyUnit;
 import org.joda.money.ExchangeRate;
 import org.joda.time.LocalDateTime;
 
@@ -94,6 +96,13 @@ public class HistoricalExchangeRate implements Serializable {
 	}
 	
 	
+
+	public static HistoricalExchangeRate of(CurrencyUnit base, CurrencyUnit counter, BigDecimal rate, LocalDateTime date) {
+		HistoricalExchangeRate histRate=new HistoricalExchangeRate();
+		histRate.setDate(date);
+		histRate.setRate(ExchangeRate.of(base, counter, rate));
+		return histRate;
+	}
 	
 
 }

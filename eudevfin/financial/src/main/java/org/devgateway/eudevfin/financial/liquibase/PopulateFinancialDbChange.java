@@ -4,7 +4,10 @@ import liquibase.database.Database;
 import liquibase.exception.CustomChangeException;
 import liquibase.exception.ValidationErrors;
 import liquibase.resource.ResourceAccessor;
+
 import org.devgateway.eudevfin.common.liquibase.AbstractSpringCustomTaskChange;
+import org.devgateway.eudevfin.exchange.common.domain.HistoricalExchangeRate;
+import org.devgateway.eudevfin.exchange.common.service.HistoricalExchangeRateService;
 import org.devgateway.eudevfin.financial.Area;
 import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.ChannelCategory;
@@ -17,10 +20,12 @@ import org.devgateway.eudevfin.financial.dao.FinancialTransactionDaoImpl;
 import org.devgateway.eudevfin.financial.dao.OrganizationDaoImpl;
 import org.devgateway.eudevfin.financial.util.CategoryConstants;
 import org.joda.money.BigMoney;
+import org.joda.money.CurrencyUnit;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -121,6 +126,7 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 			}
 			
 		}
+				
 	}
 	
 	private List<ChannelCategory> getMultilaterals(

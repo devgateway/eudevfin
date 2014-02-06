@@ -84,6 +84,13 @@
 		<property name="readTimeout" value="5000" />
 	</bean>
 
+
+	<bean id="exchangeLiquibase" class="liquibase.integration.spring.SpringLiquibase" lazy-init="false"
+		depends-on="contextHelper">
+		<property name="dataSource" ref="euDevFinDataSource" />
+		<property name="changeLog" value="classpath:exchangeDbChangelog.xml" />
+	</bean>
+
 	<int:header-value-router input-channel="exchangeChannel"
 		header-name="requestName" />
 
