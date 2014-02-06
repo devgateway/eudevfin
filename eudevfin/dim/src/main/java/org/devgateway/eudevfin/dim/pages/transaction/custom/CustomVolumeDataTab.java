@@ -8,9 +8,10 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.custom;
 
-import com.vaynberg.wicket.select2.ChoiceProvider;
-import com.vaynberg.wicket.select2.Select2Choice;
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.form.Form;
@@ -21,7 +22,6 @@ import org.apache.wicket.model.ComponentPropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.ValidationError;
-import org.devgateway.eudevfin.dim.core.models.BigMoneyModel;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.VolumeDataTab;
 import org.devgateway.eudevfin.dim.providers.CurrencyUnitProviderFactory;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
@@ -31,13 +31,13 @@ import org.devgateway.eudevfin.ui.common.components.PermissionAwareContainer;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
 import org.devgateway.eudevfin.ui.common.events.CurrencyUpdateBehavior;
 import org.devgateway.eudevfin.ui.common.models.BigMoneyModel;
-import org.devgateway.eudevfin.ui.common.models.ExchangeRateModel;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import com.vaynberg.wicket.select2.ChoiceProvider;
+import com.vaynberg.wicket.select2.Select2Choice;
+
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
 
 /**
  * @author aartimon
