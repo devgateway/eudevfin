@@ -1,3 +1,24 @@
+// latest gem for Date.now() in IE8
+Date.now = Date.now || function () {
+    return +new Date;
+};
+
+// Fix for Object.create in IE 8
+if (!Object.create) {
+    Object.create = (function () {
+        function F() {}
+
+        return function (o) {
+            if (arguments.length != 1) {
+                throw new Error('Object.create implementation only accepts one parameter.');
+            }
+
+            F.prototype = o;
+            return new F()
+        }
+    })();
+}
+
 // TODO - do we need this and where is used?
 $.ajaxSetup({
     type: "POST",
@@ -51,20 +72,15 @@ var CDF_ERROR_DIV = 'cdfErrorDiv';
 
 var Dashboards = {
     ERROR_CODES: {
-        'QUERY_TIMEOUT': {
+        QUERY_TIMEOUT: {
             msg: "Query timeout reached"
         },
-
-        "COMPONENT_ERROR": {
+        COMPONENT_ERROR: {
             msg: "Error processing component"
         }
     },
 
     CDF_BASE_PATH: webAppPath + "/content/pentaho-cdf/",
-
-    // TRAFFIC_RED: webAppPath + "/content/pentaho-cdf/resources/style/images/traffic_red.png",
-    // TRAFFIC_YELLOW: webAppPath + "/content/pentaho-cdf/resources/style/images/traffic_yellow.png",
-    // TRAFFIC_GREEN: webAppPath + "/content/pentaho-cdf/resources/style/images/traffic_green.png",
 
     viewFlags: {
         UNUSED: "unused",
@@ -838,7 +854,7 @@ Dashboards.getComponentByName = function (name) {
 };
 
 Dashboards.addComponents = function (components) {
-    components.forEach(function (component) {
+    _.each(components, function (component) {
         this.bindControl(component);
         this.components.push(component);
     }, this);
@@ -1977,7 +1993,7 @@ Dashboards.hsvToRgb = function (h, s, v) {
         break;
     }
 
-    rgb.forEach(function (val, i) {
+    _.each(rgb, function (val, i) {
         rgb[i] = Math.min(255, Math.round(val * 256));
     });
 
