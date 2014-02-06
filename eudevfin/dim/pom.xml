@@ -55,14 +55,13 @@
             <artifactId>common-exchange</artifactId>
             <version>${project.version}</version>
         </dependency>
-
-<!-- 
+ 
         <dependency>
             <groupId>org.devgateway.eudevfin</groupId>
             <artifactId>exchange</artifactId>
             <version>${project.version}</version>
         </dependency>
- -->
+
         <dependency>
             <groupId>org.devgateway.eudevfin</groupId>
             <artifactId>common-ui</artifactId>
@@ -120,7 +119,7 @@
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>${jetty.version}</version>
                 <configuration>
-                    <jvmArgs>-Xmx512M -XX:MaxPermSize=128M</jvmArgs>
+                    <jvmArgs>-Xmx784M -XX:MaxPermSize=256M</jvmArgs>
                     <war>${basedir}/target/dim-${project.version}</war>
                     <scanIntervalSeconds>1</scanIntervalSeconds>
                     <stopKey>chuck</stopKey>
