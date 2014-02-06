@@ -6,7 +6,7 @@
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
 
-	<changeSet id="1" author="agartner" failOnError="false" runAlways="true" runInTransaction="false">
+	<changeSet id="1" author="agartner" failOnError="false" runAlways="false" runInTransaction="false">
 		 
 		<delete tableName="FINANCIALTRANSACTIONTRANSLATION">
 	    </delete>
