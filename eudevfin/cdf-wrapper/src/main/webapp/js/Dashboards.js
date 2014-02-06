@@ -3,6 +3,22 @@ Date.now = Date.now || function () {
     return +new Date;
 };
 
+// Fix for Object.create in IE 8
+if (!Object.create) {
+    Object.create = (function () {
+        function F() {}
+
+        return function (o) {
+            if (arguments.length != 1) {
+                throw new Error('Object.create implementation only accepts one parameter.');
+            }
+
+            F.prototype = o;
+            return new F()
+        }
+    })();
+}
+
 // TODO - do we need this and where is used?
 $.ajaxSetup({
     type: "POST",
