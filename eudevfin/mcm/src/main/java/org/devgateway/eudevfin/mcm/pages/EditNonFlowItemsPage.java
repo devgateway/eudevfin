@@ -25,12 +25,14 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.ComponentDetachableModel;
 import org.apache.wicket.model.ComponentPropertyModel;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.IComponentAssignedModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.time.Duration;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
+import org.devgateway.eudevfin.auth.common.util.AuthUtils;
 import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.service.CategoryService;
@@ -80,10 +82,44 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 	private WebMarkupContainer totalFlowsContainer;
 
 	private WebMarkupContainer odaOfGniContainer;
-	
+
 	private TextInputField<Integer> reportingYearField;
 
 	private NotificationPanel feedbackPanel;
+
+	/**
+	 * Simple model compliant with {@link IComponentAssignedModel} even if we
+	 * dont need to know the {@link Component}
+	 * 
+	 * @author mihai
+	 * 
+	 * @param <T>
+	 */
+	public class LocalComponentDetachableModel<T> extends ComponentDetachableModel<T> {
+
+		transient T t;
+
+		@Override
+		protected T getObject(Component component) {
+			return t;
+		}
+
+		/**
+		 * no state between refreshes
+		 */
+		@Override
+		protected void attach() {
+			t = null;
+		}
+
+		/**
+		 * we receive the component and we really don't care much...
+		 */
+		@Override
+		protected void setObject(Component component, T object) {
+			t = object;
+		}
+	};
 
 	public WebMarkupContainer initializeFakeFinancialContainer(String id, String fieldId, PageParameters parameters,
 			String typeOfFinanceCode, boolean percentage) {
@@ -92,7 +128,7 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 
 		// initialize a non flow transaction
 		final FinancialTransaction financialTransaction = initializeNonFlowTransaction(new FinancialTransaction(),
-				parameters, typeOfFinanceCode,null);
+				parameters, typeOfFinanceCode, null);
 
 		// create a compoundmodel and assign it to he container
 		container.setDefaultModel(new CompoundPropertyModel<FinancialTransaction>(financialTransaction));
@@ -101,9 +137,11 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 		ComponentPropertyModel<CurrencyUnit> readOnlyCurrencyModel = new ComponentPropertyModel<>("currency");
 
 		// create textinputfield to edit the amount
-		NumberTextInputField<BigDecimal> field = new NumberTextInputField<>(fieldId, new BigMoneyModel(new RWComponentPropertyModel<BigMoney>(
-				"amountsExtended"), readOnlyCurrencyModel)).typeBigDecimal().required();		
-		if(percentage) field.range(new BigDecimal(0),new BigDecimal(100));
+		NumberTextInputField<BigDecimal> field = new NumberTextInputField<>(fieldId, new BigMoneyModel(
+				new RWComponentPropertyModel<BigMoney>("amountsExtended"), readOnlyCurrencyModel)).typeBigDecimal()
+				.required();
+		if (percentage)
+			field.range(new BigDecimal(0), new BigDecimal(100));
 		container.add(field);
 
 		return container;
@@ -116,44 +154,25 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 		Form form = new Form("form");
 		add(form);
 
-		//this only holds the current year selection
-		final ComponentDetachableModel<LocalDateTime> reportingYearModel = new ComponentDetachableModel<LocalDateTime>() {
-			private static final long serialVersionUID = 2319512411792987520L;
-			transient LocalDateTime reportingDateTime;
+		// this only holds the current year selection
 
-			@Override
-			protected LocalDateTime getObject(Component component) {
-				return reportingDateTime;
-			}
+		final LocalComponentDetachableModel<LocalDateTime> reportingYearModel = new LocalComponentDetachableModel<LocalDateTime>();
 
-			@Override
-			protected void attach() {
-				reportingDateTime = null;
-			}
-
-			@Override
-			protected void setObject(Component component, LocalDateTime object) {
-				reportingDateTime = object;
-			}
-		};
-
-		populationContainer = (WebMarkupContainer) initializeFakeFinancialContainer(
-				"populationContainer", "population", parameters, CategoryConstants.TypeOfFinance.NonFlow.POPULATION,false)
+		populationContainer = (WebMarkupContainer) initializeFakeFinancialContainer("populationContainer",
+				"population", parameters, CategoryConstants.TypeOfFinance.NonFlow.POPULATION, false).setEnabled(false)
+				.setOutputMarkupId(true);
+		gniContainer = (WebMarkupContainer) initializeFakeFinancialContainer("gniContainer", "gni", parameters,
+				CategoryConstants.TypeOfFinance.NonFlow.GNI, false).setEnabled(false).setOutputMarkupId(true);
+		totalFlowsContainer = (WebMarkupContainer) initializeFakeFinancialContainer("totalFlowsContainer",
+				"totalFlows", parameters, CategoryConstants.TypeOfFinance.NonFlow.TOTAL_FLOWS_PERCENT_GNI, true)
 				.setEnabled(false).setOutputMarkupId(true);
-		gniContainer = (WebMarkupContainer) initializeFakeFinancialContainer("gniContainer",
-				"gni", parameters, CategoryConstants.TypeOfFinance.NonFlow.GNI,false).setEnabled(false).setOutputMarkupId(
-				true);
-		totalFlowsContainer = (WebMarkupContainer) initializeFakeFinancialContainer(
-				"totalFlowsContainer", "totalFlows", parameters,
-				CategoryConstants.TypeOfFinance.NonFlow.TOTAL_FLOWS_PERCENT_GNI,true).setEnabled(false).setOutputMarkupId(
-				true);
-		odaOfGniContainer = (WebMarkupContainer) initializeFakeFinancialContainer(
-				"odaOfGniContainer", "odaOfGni", parameters, CategoryConstants.TypeOfFinance.NonFlow.ODA_PERCENT_GNI,true)
-				.setEnabled(false).setOutputMarkupId(true);
+		odaOfGniContainer = (WebMarkupContainer) initializeFakeFinancialContainer("odaOfGniContainer", "odaOfGni",
+				parameters, CategoryConstants.TypeOfFinance.NonFlow.ODA_PERCENT_GNI, true).setEnabled(false)
+				.setOutputMarkupId(true);
 
 		// initialize textinput for reportingYear
-		reportingYearField = new TextInputField<Integer>("reportingYear",
-				new YearToLocalDateTimeModel(reportingYearModel)) {
+		reportingYearField = new TextInputField<Integer>("reportingYear", new YearToLocalDateTimeModel(
+				reportingYearModel)) {
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
 				super.onUpdate(target);
@@ -162,22 +181,24 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 				List<FinancialTransaction> findByReportingYearAndTypeOfFlowCode = financialTransactionService
 						.findByReportingYearAndTypeOfFlowCode(reportingYear, CategoryConstants.TypeOfFlow.NON_FLOW);
 
-				//put the transactions in a map for quicker access
+				// put the transactions in a map for quicker access
 				Map<String, FinancialTransaction> trnsByTypeOfFinance = new HashMap<>();
 				for (FinancialTransaction fakeNonFlowTransaction : findByReportingYearAndTypeOfFlowCode)
 					if (fakeNonFlowTransaction.getTypeOfFinance() != null)
 						trnsByTypeOfFinance.put(fakeNonFlowTransaction.getTypeOfFinance().getCode(),
 								fakeNonFlowTransaction);
-				
-				refreshTransactionInContainer(populationContainer,CategoryConstants.TypeOfFinance.NonFlow.POPULATION,
-						parameters,trnsByTypeOfFinance,reportingYear);
-				refreshTransactionInContainer(gniContainer,CategoryConstants.TypeOfFinance.NonFlow.GNI,
-						parameters,trnsByTypeOfFinance,reportingYear);
-				refreshTransactionInContainer(totalFlowsContainer,CategoryConstants.TypeOfFinance.NonFlow.ODA_PERCENT_GNI,
-						parameters,trnsByTypeOfFinance,reportingYear);
-				refreshTransactionInContainer(odaOfGniContainer,CategoryConstants.TypeOfFinance.NonFlow.TOTAL_FLOWS_PERCENT_GNI,
-						parameters,trnsByTypeOfFinance,reportingYear);
-				
+
+				refreshTransactionInContainer(populationContainer, CategoryConstants.TypeOfFinance.NonFlow.POPULATION,
+						parameters, trnsByTypeOfFinance, reportingYear);
+				refreshTransactionInContainer(gniContainer, CategoryConstants.TypeOfFinance.NonFlow.GNI, parameters,
+						trnsByTypeOfFinance, reportingYear);
+				refreshTransactionInContainer(totalFlowsContainer,
+						CategoryConstants.TypeOfFinance.NonFlow.ODA_PERCENT_GNI, parameters, trnsByTypeOfFinance,
+						reportingYear);
+				refreshTransactionInContainer(odaOfGniContainer,
+						CategoryConstants.TypeOfFinance.NonFlow.TOTAL_FLOWS_PERCENT_GNI, parameters,
+						trnsByTypeOfFinance, reportingYear);
+
 				target.add(populationContainer.setEnabled(true));
 				target.add(gniContainer.setEnabled(true));
 				target.add(totalFlowsContainer.setEnabled(true));
@@ -202,18 +223,18 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 			}
 
 			@Override
-			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {			
+			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				saveTransactionFromContainer(populationContainer);
 				saveTransactionFromContainer(gniContainer);
 				saveTransactionFromContainer(odaOfGniContainer);
-				saveTransactionFromContainer(totalFlowsContainer);				
+				saveTransactionFromContainer(totalFlowsContainer);
 				logger.info("Submitted ok!");
-				info(new NotificationMessage(new StringResourceModel("notification.saved", EditNonFlowItemsPage.this, null, null)));
+				info(new NotificationMessage(new StringResourceModel("notification.saved", EditNonFlowItemsPage.this,
+						null, null)));
 				target.add(feedbackPanel);
 			}
 
 		});
-		
 
 		feedbackPanel = new NotificationPanel("feedback");
 		feedbackPanel.setOutputMarkupId(true);
@@ -223,11 +244,11 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 	}
 
 	public void saveTransactionFromContainer(WebMarkupContainer container) {
-		FinancialTransaction transaction=(FinancialTransaction) container.getInnermostModel().getObject();
+		FinancialTransaction transaction = (FinancialTransaction) container.getInnermostModel().getObject();
 		FinancialTransaction saved = financialTransactionService.save(transaction).getEntity();
 		container.setDefaultModelObject(saved);
 	}
-	
+
 	/**
 	 * 
 	 * @param container
@@ -243,17 +264,19 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 			container.setDefaultModel(new CompoundPropertyModel<FinancialTransaction>(trnsByTypeOfFinance
 					.get(typeOfFinanceCode)));
 		else
-			container.setDefaultModel((new CompoundPropertyModel<FinancialTransaction>(
-					initializeNonFlowTransaction(new FinancialTransaction(), parameters,
-							typeOfFinanceCode, reportingYear))));
+			container.setDefaultModel((new CompoundPropertyModel<FinancialTransaction>(initializeNonFlowTransaction(
+					new FinancialTransaction(), parameters, typeOfFinanceCode, reportingYear))));
 	}
 
 	/**
-	 * Initialize a  {@link CategoryConstants.TypeOfFlow#NON_FLOW} transaction 
-	 * @param transaction the {@link FinancialTransaction} 
-	 * @param parameters 
-	 * @param typeOfFinanceCode {@link CategoryConstants.TypeOfFinance}
-	 * @param reportingYear 
+	 * Initialize a {@link CategoryConstants.TypeOfFlow#NON_FLOW} transaction
+	 * 
+	 * @param transaction
+	 *            the {@link FinancialTransaction}
+	 * @param parameters
+	 * @param typeOfFinanceCode
+	 *            {@link CategoryConstants.TypeOfFinance}
+	 * @param reportingYear
 	 * @return
 	 */
 	public FinancialTransaction initializeNonFlowTransaction(FinancialTransaction transaction,
@@ -261,8 +284,8 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 		PersistedUser user = (PersistedUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 		// get a stub financial transaction initialized
-		FinancialTransactionUtil.initializeFinancialTransaction(transaction, this.currencyMetadataService, user
-				.getGroup().getOrganization());
+		FinancialTransactionUtil.initializeFinancialTransaction(transaction, this.currencyMetadataService,
+				AuthUtils.getOrganizationForCurrentUser(), AuthUtils.getIsoCountryForCurrentUser());
 
 		// initialize type of finance
 		Category typeOfFinanceCategory = categoryService.findByCodeAndClass(typeOfFinanceCode, Category.class, false)
@@ -273,7 +296,7 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 		Category typeOfFlowNonFlowCategory = categoryService.findByCodeAndClass(CategoryConstants.TypeOfFlow.NON_FLOW,
 				Category.class, false).getEntity();
 		transaction.setTypeOfFlow(typeOfFlowNonFlowCategory);
-		
+
 		transaction.setReportingYear(reportingYear);
 
 		return transaction;

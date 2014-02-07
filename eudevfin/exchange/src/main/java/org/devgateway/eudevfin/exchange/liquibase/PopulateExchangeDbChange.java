@@ -23,8 +23,11 @@ public class PopulateExchangeDbChange extends AbstractSpringCustomTaskChange {
 	@Override
 	@Transactional
 	public void execute(Database database) throws CustomChangeException {		
-		//add some hard coded exchange rates
+		//fake rates
 		exchangeRateDaoImplEndpoint.save(HistoricalExchangeRate.of(CurrencyUnit.EUR, CurrencyUnit.USD, BigDecimal.valueOf(1.3133), LocalDateTime.parse("2010-06-06")));
+		
+		//OECD real rates. Will be move to a nice XLS file at some point		
+		//2011
 		exchangeRateDaoImplEndpoint.save(HistoricalExchangeRate.of(CurrencyUnit.EUR, CurrencyUnit.USD, BigDecimal.valueOf(1.2949), LocalDateTime.parse("2011-06-06")));
 		exchangeRateDaoImplEndpoint.save(HistoricalExchangeRate.of(CurrencyUnit.EUR, CurrencyUnit.USD, BigDecimal.valueOf(1.3215), LocalDateTime.parse("2012-06-06")));
 		exchangeRateDaoImplEndpoint.save(HistoricalExchangeRate.of(CurrencyUnit.EUR, CurrencyUnit.USD, BigDecimal.valueOf(1.3766), LocalDateTime.parse("2013-06-06")));

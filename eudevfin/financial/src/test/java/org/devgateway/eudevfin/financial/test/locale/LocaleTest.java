@@ -6,11 +6,11 @@ package org.devgateway.eudevfin.financial.test.locale;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.devgateway.eudevfin.common.Constants;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
 import org.devgateway.eudevfin.financial.service.OrganizationService;
-import org.devgateway.eudevfin.financial.util.FinancialConstants;
 import org.devgateway.eudevfin.financial.util.LocaleHelperInterface;
 import org.joda.money.BigMoney;
 import org.junit.Assert;
@@ -67,7 +67,7 @@ public class LocaleTest {
 			String testLocaleString			= "This is transaction (test locale) " + i;
 			String defaultLocaleString		= "This is transaction (default locale) " + i;
 			tx.setDescription(testLocaleString);
-			tx.setLocale(FinancialConstants.DEFAULT_LOCALE);
+			tx.setLocale(Constants.DEFAULT_LOCALE);
 			tx.setDescription(defaultLocaleString);
 			tx.setExtendingAgency(org);
 
@@ -81,8 +81,8 @@ public class LocaleTest {
 			Assert.assertNotNull( result.getTranslations().get(TEST_LOCALE) );
 			Assert.assertEquals( result.getDescription(), testLocaleString );
 			
-			Assert.assertNotNull( result.getTranslations().get( FinancialConstants.DEFAULT_LOCALE ) );
-			result.setLocale(FinancialConstants.DEFAULT_LOCALE);
+			Assert.assertNotNull( result.getTranslations().get( Constants.DEFAULT_LOCALE ) );
+			result.setLocale(Constants.DEFAULT_LOCALE);
 			Assert.assertEquals( result.getDescription(), defaultLocaleString );
 			
 			result.setLocale("Inexistent locale");

@@ -31,6 +31,7 @@ import org.apache.wicket.util.time.Duration;
 import org.apache.wicket.util.visit.IVisit;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
+import org.devgateway.eudevfin.auth.common.util.AuthUtils;
 import org.devgateway.eudevfin.dim.pages.HomePage;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.service.CurrencyMetadataService;
@@ -141,7 +142,7 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 	 */
 	public void initializeFinancialTransaction(FinancialTransaction transaction,PageParameters parameters) {
 		PersistedUser user=(PersistedUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();					
-		FinancialTransactionUtil.initializeFinancialTransaction(transaction, this.currencyMetadaService, user.getGroup().getOrganization());
+		FinancialTransactionUtil.initializeFinancialTransaction(transaction, this.currencyMetadaService, AuthUtils.getOrganizationForCurrentUser(), AuthUtils.getIsoCountryForCurrentUser());
 	}
 	
 	@SuppressWarnings("unchecked")
