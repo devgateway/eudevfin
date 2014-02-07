@@ -35,6 +35,7 @@ import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.auth.common.util.AuthUtils;
 import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
+import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.service.CategoryService;
 import org.devgateway.eudevfin.financial.service.CurrencyMetadataService;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
@@ -73,7 +74,8 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 	@SpringBean
 	private CurrencyMetadataService currencyMetadataService;
 
-	private static final Logger logger = Logger.getLogger(EditNonFlowItemsPage.class);
+	private static final Logger logger = Logger
+			.getLogger(EditNonFlowItemsPage.class);
 
 	private WebMarkupContainer populationContainer;
 
@@ -87,6 +89,10 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 
 	private NotificationPanel feedbackPanel;
 
+	private TextInputField<String> reportingCountryField;
+
+	private TextInputField<String> reportingCurrencyField;
+
 	/**
 	 * Simple model compliant with {@link IComponentAssignedModel} even if we
 	 * dont need to know the {@link Component}
@@ -95,7 +101,8 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 	 * 
 	 * @param <T>
 	 */
-	public class LocalComponentDetachableModel<T> extends ComponentDetachableModel<T> {
+	public class LocalComponentDetachableModel<T> extends
+			ComponentDetachableModel<T> {
 
 		transient T t;
 
@@ -121,25 +128,31 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 		}
 	};
 
-	public WebMarkupContainer initializeFakeFinancialContainer(String id, String fieldId, PageParameters parameters,
+	public WebMarkupContainer initializeFakeFinancialContainer(String id,
+			String fieldId, PageParameters parameters,
 			String typeOfFinanceCode, boolean percentage) {
 		// initialize a wrapping container
 		WebMarkupContainer container = new WebMarkupContainer(id);
 
 		// initialize a non flow transaction
-		final FinancialTransaction financialTransaction = initializeNonFlowTransaction(new FinancialTransaction(),
-				parameters, typeOfFinanceCode, null);
+		final FinancialTransaction financialTransaction = initializeNonFlowTransaction(
+				new FinancialTransaction(), parameters, typeOfFinanceCode, null);
 
 		// create a compoundmodel and assign it to he container
-		container.setDefaultModel(new CompoundPropertyModel<FinancialTransaction>(financialTransaction));
+		container
+				.setDefaultModel(new CompoundPropertyModel<FinancialTransaction>(
+						financialTransaction));
 
 		// create a read only model to read the currency
-		ComponentPropertyModel<CurrencyUnit> readOnlyCurrencyModel = new ComponentPropertyModel<>("currency");
+		ComponentPropertyModel<CurrencyUnit> readOnlyCurrencyModel = new ComponentPropertyModel<>(
+				"currency");
 
 		// create textinputfield to edit the amount
-		NumberTextInputField<BigDecimal> field = new NumberTextInputField<>(fieldId, new BigMoneyModel(
-				new RWComponentPropertyModel<BigMoney>("amountsExtended"), readOnlyCurrencyModel)).typeBigDecimal()
-				.required();
+		NumberTextInputField<BigDecimal> field = new NumberTextInputField<>(
+				fieldId, new BigMoneyModel(
+						new RWComponentPropertyModel<BigMoney>(
+								"amountsExtended"), readOnlyCurrencyModel))
+				.typeBigDecimal().required();
 		if (percentage)
 			field.range(new BigDecimal(0), new BigDecimal(100));
 		container.add(field);
@@ -158,46 +171,90 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 
 		final LocalComponentDetachableModel<LocalDateTime> reportingYearModel = new LocalComponentDetachableModel<LocalDateTime>();
 
-		populationContainer = (WebMarkupContainer) initializeFakeFinancialContainer("populationContainer",
-				"population", parameters, CategoryConstants.TypeOfFinance.NonFlow.POPULATION, false).setEnabled(false)
-				.setOutputMarkupId(true);
-		gniContainer = (WebMarkupContainer) initializeFakeFinancialContainer("gniContainer", "gni", parameters,
-				CategoryConstants.TypeOfFinance.NonFlow.GNI, false).setEnabled(false).setOutputMarkupId(true);
-		totalFlowsContainer = (WebMarkupContainer) initializeFakeFinancialContainer("totalFlowsContainer",
-				"totalFlows", parameters, CategoryConstants.TypeOfFinance.NonFlow.TOTAL_FLOWS_PERCENT_GNI, true)
+		final LocalComponentDetachableModel<String> countryModel = new LocalComponentDetachableModel<String>() {
+			protected void attach() {
+				Organization organizationForCurrentUser = AuthUtils
+						.getOrganizationForCurrentUser();
+				if (organizationForCurrentUser != null)
+					t = organizationForCurrentUser.getDonorName();
+			}
+		};
+
+		final LocalComponentDetachableModel<String> currencyModel = new LocalComponentDetachableModel<String>() {
+			protected void attach() {
+				CurrencyUnit currencyForCountryIso = FinancialTransactionUtil
+						.getCurrencyForCountryIso(AuthUtils
+								.getIsoCountryForCurrentUser());
+				if (currencyForCountryIso != null)
+					t = currencyForCountryIso.getCode();
+			}
+		};
+
+		populationContainer = (WebMarkupContainer) initializeFakeFinancialContainer(
+				"populationContainer", "population", parameters,
+				CategoryConstants.TypeOfFinance.NonFlow.POPULATION, false)
 				.setEnabled(false).setOutputMarkupId(true);
-		odaOfGniContainer = (WebMarkupContainer) initializeFakeFinancialContainer("odaOfGniContainer", "odaOfGni",
-				parameters, CategoryConstants.TypeOfFinance.NonFlow.ODA_PERCENT_GNI, true).setEnabled(false)
-				.setOutputMarkupId(true);
+		gniContainer = (WebMarkupContainer) initializeFakeFinancialContainer(
+				"gniContainer", "gni", parameters,
+				CategoryConstants.TypeOfFinance.NonFlow.GNI, false).setEnabled(
+				false).setOutputMarkupId(true);
+		totalFlowsContainer = (WebMarkupContainer) initializeFakeFinancialContainer(
+				"totalFlowsContainer",
+				"totalFlows",
+				parameters,
+				CategoryConstants.TypeOfFinance.NonFlow.TOTAL_FLOWS_PERCENT_GNI,
+				true).setEnabled(false).setOutputMarkupId(true);
+		odaOfGniContainer = (WebMarkupContainer) initializeFakeFinancialContainer(
+				"odaOfGniContainer", "odaOfGni", parameters,
+				CategoryConstants.TypeOfFinance.NonFlow.ODA_PERCENT_GNI, true)
+				.setEnabled(false).setOutputMarkupId(true);
 
 		// initialize textinput for reportingYear
-		reportingYearField = new TextInputField<Integer>("reportingYear", new YearToLocalDateTimeModel(
-				reportingYearModel)) {
+
+		reportingCountryField = new TextInputField<String>("reportingCountry",
+				countryModel);
+		reportingCountryField.setEnabled(false);
+		form.add(reportingCountryField);
+		
+		reportingCurrencyField = new TextInputField<String>("reportingCurrency",
+				currencyModel);
+		reportingCurrencyField.setEnabled(false);
+		form.add(reportingCurrencyField);
+
+		reportingYearField = new TextInputField<Integer>("reportingYear",
+				new YearToLocalDateTimeModel(reportingYearModel)) {
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
 				super.onUpdate(target);
 
-				LocalDateTime reportingYear = reportingYearModel.wrapOnAssignment(this).getObject();
+				LocalDateTime reportingYear = reportingYearModel
+						.wrapOnAssignment(this).getObject();
 				List<FinancialTransaction> findByReportingYearAndTypeOfFlowCode = financialTransactionService
-						.findByReportingYearAndTypeOfFlowCode(reportingYear, CategoryConstants.TypeOfFlow.NON_FLOW);
+						.findByReportingYearAndTypeOfFlowCode(reportingYear,
+								CategoryConstants.TypeOfFlow.NON_FLOW);
 
 				// put the transactions in a map for quicker access
 				Map<String, FinancialTransaction> trnsByTypeOfFinance = new HashMap<>();
 				for (FinancialTransaction fakeNonFlowTransaction : findByReportingYearAndTypeOfFlowCode)
 					if (fakeNonFlowTransaction.getTypeOfFinance() != null)
-						trnsByTypeOfFinance.put(fakeNonFlowTransaction.getTypeOfFinance().getCode(),
+						trnsByTypeOfFinance.put(fakeNonFlowTransaction
+								.getTypeOfFinance().getCode(),
 								fakeNonFlowTransaction);
 
-				refreshTransactionInContainer(populationContainer, CategoryConstants.TypeOfFinance.NonFlow.POPULATION,
+				refreshTransactionInContainer(populationContainer,
+						CategoryConstants.TypeOfFinance.NonFlow.POPULATION,
 						parameters, trnsByTypeOfFinance, reportingYear);
-				refreshTransactionInContainer(gniContainer, CategoryConstants.TypeOfFinance.NonFlow.GNI, parameters,
-						trnsByTypeOfFinance, reportingYear);
-				refreshTransactionInContainer(totalFlowsContainer,
-						CategoryConstants.TypeOfFinance.NonFlow.ODA_PERCENT_GNI, parameters, trnsByTypeOfFinance,
-						reportingYear);
-				refreshTransactionInContainer(odaOfGniContainer,
-						CategoryConstants.TypeOfFinance.NonFlow.TOTAL_FLOWS_PERCENT_GNI, parameters,
-						trnsByTypeOfFinance, reportingYear);
+				refreshTransactionInContainer(gniContainer,
+						CategoryConstants.TypeOfFinance.NonFlow.GNI,
+						parameters, trnsByTypeOfFinance, reportingYear);
+				refreshTransactionInContainer(
+						totalFlowsContainer,
+						CategoryConstants.TypeOfFinance.NonFlow.ODA_PERCENT_GNI,
+						parameters, trnsByTypeOfFinance, reportingYear);
+				refreshTransactionInContainer(
+						odaOfGniContainer,
+						CategoryConstants.TypeOfFinance.NonFlow.TOTAL_FLOWS_PERCENT_GNI,
+						parameters, trnsByTypeOfFinance, reportingYear);
 
 				target.add(populationContainer.setEnabled(true));
 				target.add(gniContainer.setEnabled(true));
@@ -205,7 +262,8 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 				target.add(odaOfGniContainer.setEnabled(true));
 			}
 		};
-		reportingYearField.typeInteger().required().range(2000, 2099).decorateMask("9999");
+		reportingYearField.typeInteger().required().range(2000, 2099)
+				.decorateMask("9999");
 
 		form.add(reportingYearField);
 
@@ -214,7 +272,8 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 		form.add(totalFlowsContainer);
 		form.add(odaOfGniContainer);
 
-		form.add(new BootstrapSubmitButton("submit", new StringResourceModel("button.submit", this, null, null)) {
+		form.add(new BootstrapSubmitButton("submit", new StringResourceModel(
+				"button.submit", this, null, null)) {
 			private static final long serialVersionUID = 1064657874335641769L;
 
 			@Override
@@ -229,8 +288,9 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 				saveTransactionFromContainer(odaOfGniContainer);
 				saveTransactionFromContainer(totalFlowsContainer);
 				logger.info("Submitted ok!");
-				info(new NotificationMessage(new StringResourceModel("notification.saved", EditNonFlowItemsPage.this,
-						null, null)));
+				info(new NotificationMessage(new StringResourceModel(
+						"notification.saved", EditNonFlowItemsPage.this, null,
+						null)));
 				target.add(feedbackPanel);
 			}
 
@@ -244,8 +304,10 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 	}
 
 	public void saveTransactionFromContainer(WebMarkupContainer container) {
-		FinancialTransaction transaction = (FinancialTransaction) container.getInnermostModel().getObject();
-		FinancialTransaction saved = financialTransactionService.save(transaction).getEntity();
+		FinancialTransaction transaction = (FinancialTransaction) container
+				.getInnermostModel().getObject();
+		FinancialTransaction saved = financialTransactionService.save(
+				transaction).getEntity();
 		container.setDefaultModelObject(saved);
 	}
 
@@ -257,15 +319,20 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 	 * @param trnsByTypeOfFinance
 	 * @param reportingYear
 	 */
-	public void refreshTransactionInContainer(WebMarkupContainer container, String typeOfFinanceCode,
-			PageParameters parameters, Map<String, FinancialTransaction> trnsByTypeOfFinance,
+	public void refreshTransactionInContainer(WebMarkupContainer container,
+			String typeOfFinanceCode, PageParameters parameters,
+			Map<String, FinancialTransaction> trnsByTypeOfFinance,
 			LocalDateTime reportingYear) {
 		if (trnsByTypeOfFinance.get(typeOfFinanceCode) != null)
-			container.setDefaultModel(new CompoundPropertyModel<FinancialTransaction>(trnsByTypeOfFinance
-					.get(typeOfFinanceCode)));
+			container
+					.setDefaultModel(new CompoundPropertyModel<FinancialTransaction>(
+							trnsByTypeOfFinance.get(typeOfFinanceCode)));
 		else
-			container.setDefaultModel((new CompoundPropertyModel<FinancialTransaction>(initializeNonFlowTransaction(
-					new FinancialTransaction(), parameters, typeOfFinanceCode, reportingYear))));
+			container
+					.setDefaultModel((new CompoundPropertyModel<FinancialTransaction>(
+							initializeNonFlowTransaction(
+									new FinancialTransaction(), parameters,
+									typeOfFinanceCode, reportingYear))));
 	}
 
 	/**
@@ -279,22 +346,27 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 	 * @param reportingYear
 	 * @return
 	 */
-	public FinancialTransaction initializeNonFlowTransaction(FinancialTransaction transaction,
-			PageParameters parameters, String typeOfFinanceCode, LocalDateTime reportingYear) {
-		PersistedUser user = (PersistedUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	public FinancialTransaction initializeNonFlowTransaction(
+			FinancialTransaction transaction, PageParameters parameters,
+			String typeOfFinanceCode, LocalDateTime reportingYear) {
+		PersistedUser user = (PersistedUser) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
 
 		// get a stub financial transaction initialized
-		FinancialTransactionUtil.initializeFinancialTransaction(transaction, this.currencyMetadataService,
-				AuthUtils.getOrganizationForCurrentUser(), AuthUtils.getIsoCountryForCurrentUser());
+		FinancialTransactionUtil.initializeFinancialTransaction(transaction,
+				this.currencyMetadataService,
+				AuthUtils.getOrganizationForCurrentUser(),
+				AuthUtils.getIsoCountryForCurrentUser());
 
 		// initialize type of finance
-		Category typeOfFinanceCategory = categoryService.findByCodeAndClass(typeOfFinanceCode, Category.class, false)
-				.getEntity();
+		Category typeOfFinanceCategory = categoryService.findByCodeAndClass(
+				typeOfFinanceCode, Category.class, false).getEntity();
 		transaction.setTypeOfFinance(typeOfFinanceCategory);
 
 		// initialize type of flow
-		Category typeOfFlowNonFlowCategory = categoryService.findByCodeAndClass(CategoryConstants.TypeOfFlow.NON_FLOW,
-				Category.class, false).getEntity();
+		Category typeOfFlowNonFlowCategory = categoryService
+				.findByCodeAndClass(CategoryConstants.TypeOfFlow.NON_FLOW,
+						Category.class, false).getEntity();
 		transaction.setTypeOfFlow(typeOfFlowNonFlowCategory);
 
 		transaction.setReportingYear(reportingYear);
