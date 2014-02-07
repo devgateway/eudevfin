@@ -12,6 +12,7 @@ import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.mcm.pages.EditNonFlowItemsPage;
 import org.devgateway.eudevfin.mcm.pages.ListPersistedUserGroupsPage;
 import org.devgateway.eudevfin.mcm.pages.ListPersistedUsersPage;
+import org.devgateway.eudevfin.mcm.pages.SystemMaintenance;
 import org.devgateway.eudevfin.ui.common.WicketNavbarComponentInitializer;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuBookmarkablePageLink;
@@ -44,6 +45,7 @@ public final class NavbarInitializer {
 	            list.add(new MenuBookmarkablePageLink<ListPersistedUsersPage>(ListPersistedUsersPage.class, null, new StringResourceModel("navbar.admin.users", this, null, null)));
 	            list.add(new MenuBookmarkablePageLink<ListPersistedUserGroupsPage>(ListPersistedUserGroupsPage.class, null, new StringResourceModel("navbar.admin.groups", this, null, null)));
 	            list.add(new MenuBookmarkablePageLink<ListPersistedUserGroupsPage>(EditNonFlowItemsPage.class, null, new StringResourceModel("navbar.admin.nonflow", this, null, null)));
+				list.add((AbstractLink) new MenuBookmarkablePageLink<ListPersistedUserGroupsPage>(SystemMaintenance.class, null, new StringResourceModel("navbar.admin.maintenance", this, null, null)).setEnabled(false));
 	            return list;
 			}
 
