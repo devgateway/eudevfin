@@ -113,7 +113,7 @@ public final class NavbarInitializer {
 	                multilateralOda.setIconType(IconType.fullscreen);
 	                list.add(multilateralOda);
 
-	                DropDownSubMenu nonOda = new DropDownSubMenu(new StringResourceModel("navbar.transaction.oof", this, null, null)) {
+	                DropDownSubMenu nonOda = new DropDownSubMenu(new StringResourceModel("navbar.newTransaction.nonOda", this, null, null)) {
 	                    @Override
 	                    protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
 	                        List<String> values = new ArrayList<>();
@@ -123,7 +123,7 @@ public final class NavbarInitializer {
 	                        values.add(SB.NON_ODA_PRIVATE_MARKET);
 	                        values.add(SB.NON_ODA_OTHER_FLOWS);
 
-	                        return getTransactionLinks(values,page);
+	                        return getTransactionLinks(values, page);
 	                    }
 	                };
 	                nonOda.setIconType(IconType.random);

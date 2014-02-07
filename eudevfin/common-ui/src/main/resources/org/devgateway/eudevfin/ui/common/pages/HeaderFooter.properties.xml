@@ -15,8 +15,6 @@
     <entry key="navbar.home">Home</entry>
     <entry key="navbar.newTransaction">New Transaction</entry>
 
-	<entry key="navbar.transaction.oof">OOF</entry>
-
     <entry key="navbar.reports">Reports</entry>
     <entry key="navbar.reports.export">Standard Reports</entry>
     <entry key="navbar.reports.export.aq">Advance Questionnaire</entry>
@@ -45,9 +43,9 @@
     <entry key="navbar.newTransaction.multilateralOda">Multilateral ODA</entry>
     <entry key="navbar.newTransaction.multilateralOda.advanceQuestionnaire">Advance Questionnaire</entry>
     <entry key="navbar.newTransaction.multilateralOda.CRS">CRS++</entry>
-    <entry key="navbar.newTransaction.nonOda">Non ODA</entry>
-    <entry key="navbar.newTransaction.nonOda.nonExport">Non Export</entry>
-    <entry key="navbar.newTransaction.nonOda.export">Export</entry>
+    <entry key="navbar.newTransaction.nonOda">OOF</entry>
+    <entry key="navbar.newTransaction.nonOda.nonExport">Non Export Credit</entry>
+    <entry key="navbar.newTransaction.nonOda.export">Export Credit</entry>
     <entry key="navbar.newTransaction.nonOda.publicGrants">Public Grants</entry>
     <entry key="navbar.newTransaction.nonOda.publicMarket">Public Market</entry>
     <entry key="navbar.newTransaction.nonOda.otherFlows">Other Flow</entry>
