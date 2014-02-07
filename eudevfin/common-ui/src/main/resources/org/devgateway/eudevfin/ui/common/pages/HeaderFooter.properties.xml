@@ -15,7 +15,7 @@
     <entry key="navbar.home">Home</entry>
     <entry key="navbar.newTransaction">New Transaction</entry>
     <entry key="navbar.reports">Reports</entry>
-    <entry key="navbar.reports.export">Export Reports</entry>
+    <entry key="navbar.reports.export">Standard Reports</entry>
     <entry key="navbar.reports.export.aq">Advance Questionnaire</entry>
     <entry key="navbar.reports.export.dac1">DAC 1</entry>
     <entry key="navbar.reports.export.dac2">DAC 2a</entry>

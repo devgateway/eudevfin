@@ -48,6 +48,41 @@ public final class NavbarInitializer {
 						ReportsPage.class, null, new StringResourceModel(
 								"navbar.dashboard", this, null, null))
 						.setIconType(IconType.picture));
+
+				DropDownSubMenu exportReports = new DropDownSubMenu(new StringResourceModel("navbar.reports.export", this, null, null)) {
+					@Override
+					public boolean isActive(Component item) {
+						return false;
+					}
+
+					@Override
+					protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
+						List<AbstractLink> list = new ArrayList<>();
+
+						//TODO: Wrap creation of links with something similar to TransactionPage.getTransactionLinks()
+						PageParameters paramsAQ = new PageParameters();
+						paramsAQ.set("reportType", "aq");
+						list.add(new MenuBookmarkablePageLink<ReportsExport>(ReportsExport.class, paramsAQ, new StringResourceModel("navbar.reports.export.aq", this, null, null)));
+
+						PageParameters paramsDAC1 = new PageParameters();
+						paramsDAC1.set("reportType", "dac1");
+						list.add((AbstractLink) new MenuBookmarkablePageLink<ReportsExport>(ReportsExport.class, paramsDAC1, new StringResourceModel("navbar.reports.export.dac1", this, null, null)).setEnabled(false));
+
+						PageParameters paramsDAC2 = new PageParameters();
+						paramsDAC2.set("reportType", "dac2");
+						list.add((AbstractLink) new MenuBookmarkablePageLink<ReportsExport>(ReportsExport.class, paramsDAC2, new StringResourceModel("navbar.reports.export.dac2", this, null, null)).setEnabled(false));
+
+						PageParameters paramsFSS = new PageParameters();
+						paramsDAC2.set("reportType", "fss");
+						list.add((AbstractLink) new MenuBookmarkablePageLink<ReportsExport>(ReportsExport.class, paramsFSS, new StringResourceModel("navbar.reports.export.fss", this, null, null)).setEnabled(false));
+
+
+						return list;
+					}
+
+				};
+				exportReports.setIconType(IconType.resizehorizontal);
+				list.add(exportReports);
 				
 				list.add((AbstractLink) new MenuBookmarkablePageLink<ReportsPage>(
 						ReportsPage.class, null, new StringResourceModel(
@@ -58,42 +93,6 @@ public final class NavbarInitializer {
 						ReportsPage.class, null, new StringResourceModel(
 								"navbar.reportsbuilder", this, null, null))
 						.setIconType(IconType.play).setEnabled(false));
-
-				
-                DropDownSubMenu exportReports = new DropDownSubMenu(new StringResourceModel("navbar.reports.export", this, null, null)) {
-                    @Override
-                    public boolean isActive(Component item) {
-                        return false;
-                    }
-
-                    @Override
-                    protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
-                        List<AbstractLink> list = new ArrayList<>();
-
-                        //TODO: Wrap creation of links with something similar to TransactionPage.getTransactionLinks()
-                        PageParameters paramsAQ = new PageParameters();
-                        paramsAQ.set("reportType", "aq");
-                        list.add(new MenuBookmarkablePageLink<ReportsExport>(ReportsExport.class, paramsAQ, new StringResourceModel("navbar.reports.export.aq", this, null, null)));
-                        
-                        PageParameters paramsDAC1 = new PageParameters();
-                        paramsDAC1.set("reportType", "dac1");
-                        list.add((AbstractLink) new MenuBookmarkablePageLink<ReportsExport>(ReportsExport.class, paramsDAC1, new StringResourceModel("navbar.reports.export.dac1", this, null, null)).setEnabled(false));
-
-                        PageParameters paramsDAC2 = new PageParameters();
-                        paramsDAC2.set("reportType", "dac2");
-                        list.add((AbstractLink) new MenuBookmarkablePageLink<ReportsExport>(ReportsExport.class, paramsDAC2, new StringResourceModel("navbar.reports.export.dac2", this, null, null)).setEnabled(false));
-                        
-                        PageParameters paramsFSS = new PageParameters();
-                        paramsDAC2.set("reportType", "fss");
-                        list.add((AbstractLink) new MenuBookmarkablePageLink<ReportsExport>(ReportsExport.class, paramsFSS, new StringResourceModel("navbar.reports.export.fss", this, null, null)).setEnabled(false));
-
-                        
-                        return list;
-                    }
-
-                };
-                exportReports.setIconType(IconType.resizehorizontal);
-                list.add(exportReports);
 				
 /*				
 				list.add(new MenuBookmarkablePageLink<ReportsExport>(
