@@ -14,6 +14,9 @@
 <properties>
     <entry key="navbar.home">Home</entry>
     <entry key="navbar.newTransaction">New Transaction</entry>
+
+	<entry key="navbar.transaction.oof">OOF</entry>
+
     <entry key="navbar.reports">Reports</entry>
     <entry key="navbar.reports.export">Standard Reports</entry>
     <entry key="navbar.reports.export.aq">Advance Questionnaire</entry>

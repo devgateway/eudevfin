@@ -113,7 +113,7 @@ public final class NavbarInitializer {
 	                multilateralOda.setIconType(IconType.fullscreen);
 	                list.add(multilateralOda);
 
-	                DropDownSubMenu nonOda = new DropDownSubMenu(Model.of("non-ODA")) {
+	                DropDownSubMenu nonOda = new DropDownSubMenu(new StringResourceModel("navbar.transaction.oof", this, null, null)) {
 	                    @Override
 	                    protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
 	                        List<String> values = new ArrayList<>();
