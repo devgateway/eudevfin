@@ -8,4 +8,15 @@
   <artifactId>common</artifactId>
   <name>EU-DEVFIN Common</name>
   <description>Common jar with generic util methods and classes that may be used by all modules</description>
+
+<build>
+	<resources>
+		<resource>
+			<directory>src/main/resources</directory>
+			<filtering>true</filtering>
+		</resource>
+	</resources>
+
+</build>
+
 </project>
