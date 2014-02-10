@@ -152,8 +152,13 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 		Label pageType=new Label("pageType",new StringResourceModel(parameters.get(Constants.PARAM_TRANSACTION_TYPE).toString(""), this, null, null));
 		add(pageType);
 
-        onUnloadScript = "window.onbeforeunload = function() {\n" +
-                "    return \"" + new StringResourceModel("leaveMessage", this, null, null).getObject() + "\";\n" +
+		onUnloadScript = "window.onbeforeunload = function(e) {\n" +
+				"   var message = '" + new StringResourceModel("leaveMessage", this, null, null).getObject() + "';\n" +
+				"   e = e || window.event;\n" +
+				"   if(e) {\n" +
+				"       e.returnValue = message;\n" +   // For IE 8 and old Firefox
+				"   }\n" +
+                "   return message;\n" +
                 "};";
 
         // TODO: check that transactionType in the request parameters is the
