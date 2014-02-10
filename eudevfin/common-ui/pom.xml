@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.devgateway.eudevfin</groupId>
     <artifactId>integration</artifactId>
-    <version>0.0.1.CI-SNAPSHOT</version>
+    <version>0.9.0-SNAPSHOT</version>
   </parent>
   <artifactId>common-ui</artifactId>
   
