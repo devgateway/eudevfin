@@ -13,7 +13,7 @@
 	<parent>
 		<groupId>org.devgateway.eudevfin</groupId>
 		<artifactId>eudevfin</artifactId>
-		<version>0.9.0</version>
+		<version>0.9.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>cda-wrapper</artifactId>
 	<packaging>war</packaging>
