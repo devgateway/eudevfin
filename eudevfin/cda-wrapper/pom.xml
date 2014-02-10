@@ -13,7 +13,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.devgateway.eudevfin</groupId>
-		<artifactId>integration</artifactId>
+		<artifactId>eudevfin</artifactId>
 		<version>0.9.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>cda-wrapper</artifactId>

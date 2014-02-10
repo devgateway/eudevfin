@@ -4,10 +4,10 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.devgateway.eudevfin</groupId>
-    <artifactId>integration</artifactId>
+    <artifactId>eudevfin</artifactId>
     <version>0.9.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>EU-DEVFIN Package</name>
+    <name>EU-DEVFIN Parent Package</name>
     <url>http://www.springframework.org</url>
     <properties>
         <maven.test.failure.ignore>true</maven.test.failure.ignore>
@@ -27,12 +27,7 @@
         <liquibase.version>3.0.8</liquibase.version>
     </properties>
 
-	<scm>
-		<url>ssh://mpostelnicu@git.developmentgateway.org:20006/home/mpostelnicu/projects/eudevfin.git</url>
-		<developerConnection>scm:git:ssh://mpostelnicu@git.developmentgateway.org:20006/home/mpostelnicu/projects/eudevfin.git</developerConnection>
-		<connection>scm:git:ssh://mpostelnicu@git.developmentgateway.org:20006/home/mpostelnicu/projects/eudevfin.git</connection>
-		<tag>HEAD</tag>
-	</scm>
+
 
     <dependencies>
 
@@ -502,4 +497,12 @@
         <system>Jenkins</system>
         <url>https://ci.ampdev.net</url>
     </ciManagement>
+    
+   	<scm>
+		<url>ssh://mpostelnicu@git.developmentgateway.org:20006/home/mpostelnicu/projects/eudevfin.git</url>
+		<developerConnection>scm:git:ssh://mpostelnicu@git.developmentgateway.org:20006/home/mpostelnicu/projects/eudevfin.git</developerConnection>
+		<connection>scm:git:ssh://mpostelnicu@git.developmentgateway.org:20006/home/mpostelnicu/projects/eudevfin.git</connection>
+		<tag>HEAD</tag>
+	</scm>
+    
 </project>
