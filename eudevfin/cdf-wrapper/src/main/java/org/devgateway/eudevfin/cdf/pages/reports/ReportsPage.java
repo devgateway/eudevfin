@@ -8,18 +8,24 @@
 
 package org.devgateway.eudevfin.cdf.pages.reports;
 
+import org.apache.log4j.Logger;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
+import org.devgateway.eudevfin.auth.common.util.AuthUtils;
 import org.devgateway.eudevfin.dashboard.Dashboards;
 import org.devgateway.eudevfin.dashboard.components.PieChart;
 import org.devgateway.eudevfin.dashboard.components.StackedBarChart;
 import org.devgateway.eudevfin.dashboard.components.Table;
 import org.devgateway.eudevfin.dashboard.components.TableParameters;
+import org.devgateway.eudevfin.financial.Organization;
+import org.devgateway.eudevfin.financial.util.FinancialTransactionUtil;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
+import org.joda.money.CurrencyUnit;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.Arrays;
@@ -27,6 +33,8 @@ import java.util.Arrays;
 @MountPath(value = "/reports")
 @AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
 public class ReportsPage extends HeaderFooter {
+	private static final Logger logger = Logger.getLogger(ReportsPage.class);
+
 	private static final int TABLE_YEAR = 2013;
 
     public ReportsPage() {
@@ -34,13 +42,26 @@ public class ReportsPage extends HeaderFooter {
     }
 
     private void addComponents () {
-	    addNetODATable();
+	    addReportingCountry();
+		addNetODATable();
 	    addTopTenRecipientsTable();
 	    addTopTenMemoShareTAble();
 	    addOdaByRegionChart();
 	    addOdaByIncomeGroupChart();
 	    addOdaBySectorChart();
     }
+
+	private void addReportingCountry() {
+		String donorName = "";
+		Organization organizationForCurrentUser = AuthUtils.getOrganizationForCurrentUser();
+
+		if (organizationForCurrentUser != null) {
+			donorName = organizationForCurrentUser.getDonorName();
+		}
+
+		Label reportingCountry = new Label("reportingCountry", donorName);
+		add(reportingCountry);
+	}
 
 	private void addNetODATable () {
 		Table netODADashboard = new Table("netODADashboard", "netODATable", "dashboards.netODA");
