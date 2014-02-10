@@ -4,6 +4,7 @@
 	<property name="ireport.zoom" value="3.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="1891"/>
+	<parameter name="REPORTING_COUNTRY" class="java.lang.String"/>
 	<parameter name="FIRST_YEAR" class="java.lang.Number"/>
 	<parameter name="FIRST_YEAR_EXRATE" class="java.lang.Number"/>
 	<parameter name="SECOND_YEAR" class="java.lang.Number"/>
@@ -167,6 +168,13 @@ FROM [Financial]]]>
 			<line>
 				<reportElement x="453" y="89" width="1" height="32" uuid="7094d931-7aca-4899-bac8-352fde6976b3"/>
 			</line>
+			<textField>
+				<reportElement x="118" y="32" width="138" height="23" uuid="33b33971-c38e-4eda-9915-bfbd5d4feba2"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{REPORTING_COUNTRY}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>

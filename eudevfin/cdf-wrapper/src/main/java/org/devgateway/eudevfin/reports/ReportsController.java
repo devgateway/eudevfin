@@ -16,6 +16,10 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.olap.JRMondrianQueryExecuterFactory;
 
 import org.apache.log4j.Logger;
+import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
+import org.devgateway.eudevfin.auth.common.util.AuthUtils;
+import org.devgateway.eudevfin.financial.Organization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
@@ -171,7 +175,16 @@ public class ReportsController {
 				parameters.put("SUBDIR_PATH", subdirPath);
 			} catch (URISyntaxException e) {
 				e.printStackTrace();
-			}  
+			}
+
+			// put Reporting Country parameter
+			String donorName = "";
+			Organization organizationForCurrentUser = AuthUtils.getOrganizationForCurrentUser();
+
+			if (organizationForCurrentUser != null) {
+				donorName = organizationForCurrentUser.getDonorName();
+			}
+			parameters.put("REPORTING_COUNTRY", donorName);
 			
 			JasperReport jasperReport = (JasperReport) JRLoader.loadObject(inputStream);
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters);
