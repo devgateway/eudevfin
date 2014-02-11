@@ -31,6 +31,8 @@ import java.math.BigInteger;
  * This class is mutable and intended for use by a single thread.
  */
 final class Ser implements Externalizable {
+	
+	private static final long serialVersionUID = 1L;
 
     /** Type for BigMoney. */
     static final byte BIG_MONEY = 'B';
