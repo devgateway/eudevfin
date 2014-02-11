@@ -334,7 +334,7 @@
 	<Cube name="Financial" visible="true" cache="false" enabled="true">
 		<View name="FINANCIALTRANSACTIONVIEW" alias="FINANCIALTRANSACTIONVIEW">
 			<SQL dialect="generic"><![CDATA[
-			select * from FINANCIALTRANSACTION where draft=false
+			select * from FINANCIALTRANSACTION ft, CATEGORY cat where ft.draft = false and ft.channel_id = cat.id
 			]]></SQL>
 		</View>		
 		<DimensionUsage source="Area" name="Area" visible="true" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
@@ -360,11 +360,17 @@
 		</Dimension>
 		<Measure name="Export Credit Amount" column="AMOUNTS_EXP_EXPORT_CREDIT_AMOUNT" aggregator="sum" visible="true" caption="%{exportCreditAmount}"></Measure>
 		<Measure name="IRTC Amount" column="AMOUNTS_IRTC_AMOUNT" aggregator="sum" visible="true" caption="%{IRTCAmount}"></Measure>
-		<Measure name="Extended Amount" column="AMOUNTS_EXTENDED_AMOUNT" aggregator="sum" visible="true" caption="%{extendedAmount}"></Measure>
+		<Measure name="Extended Amount" aggregator="sum" visible="true" caption="%{extendedAmount}">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    CASE WHEN coefficient IS NULL THEN AMOUNTS_EXTENDED_AMOUNT ELSE (AMOUNTS_EXTENDED_AMOUNT * COEFFICIENT) / 100  END
+                </SQL>
+            </MeasureExpression>
+		</Measure>
 		<Measure name="Extended Amount Currency" aggregator="sum" visible="true">
 			<MeasureExpression>
 				<SQL dialect="generic">
-					("FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXTENDED_AMOUNT" * (SELECT AVG(RATE)
+					(CASE WHEN coefficient IS NULL THEN AMOUNTS_EXTENDED_AMOUNT ELSE (AMOUNTS_EXTENDED_AMOUNT * COEFFICIENT) / 100  END * (SELECT AVG(RATE)
 					FROM
 						HISTORICALEXCHANGERATE
 					WHERE
@@ -402,11 +408,11 @@
 		<Measure name="Expert Commitments Amount" column="AMOUNTS_EXP_COMMIT_AMOUNT" aggregator="sum" visible="true" caption="%{expertCommitmentsAmount}"></Measure>
 		<Measure name="Expert Extended Amount" column="AMOUNTS_EXP_EXTENDED_AMOUNT" aggregator="sum" visible="true" caption="%{expertExtendedAmount}"></Measure>
 		<Measure name="NumberOfTransactions" column="ID" datatype="Integer" aggregator="count" formatString="#,###"/>
-	<CalculatedMember name="Net Amount" dimension="Measures">
-		<Formula>[Measures].[Extended Amount] - [Measures].[Received Amount]</Formula>
-	</CalculatedMember>
-	<CalculatedMember name="Net Amount Currency" dimension="Measures">
-		<Formula>[Measures].[Extended Amount Currency] - [Measures].[Received Amount Currency]</Formula>
-	</CalculatedMember>
+        <CalculatedMember name="Net Amount" dimension="Measures">
+            <Formula>[Measures].[Extended Amount] - [Measures].[Received Amount]</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="Net Amount Currency" dimension="Measures">
+            <Formula>[Measures].[Extended Amount Currency] - [Measures].[Received Amount Currency]</Formula>
+        </CalculatedMember>
 	</Cube>
 </Schema>
