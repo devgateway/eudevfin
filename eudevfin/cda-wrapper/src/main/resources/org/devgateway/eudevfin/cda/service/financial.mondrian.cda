@@ -49,13 +49,13 @@
 			WITH
 			MEMBER Measures.[Curent (USD)] AS [Measures].[Net Amount]
 			MEMBER Measures.[${REPORT_CURRENCY_CODE}] AS [Measures].[Net Amount Currency]
-			MEMBER Measures.[ODA/GNI] AS SUM(CrossJoin({[Type of Finance].[Name].[GNI: Gross National Income]}, {[Measures].[Extended Amount]}))
+			MEMBER Measures.[ODA/GNI] AS SUM(CrossJoin({[Type of Finance].[TYPE_OF_FINANCE##2].[ODA % GNI]}, {[Measures].[Extended Amount]}))
 			MEMBER Measures.[Bilateral share] AS (SUM(CrossJoin({[Type of Finance].[Name].[NON FLOW ITEMS]}, {[Measures].[NumberOfTransactions]})) / SUM(CrossJoin({[Type of Finance].[Name].Members}, {[Measures].[NumberOfTransactions]}))) * 100
 			SELECT
 			{{[Reporting Year].[${YEAR2}], [Reporting Year].[${YEAR1}], [Reporting Year].[${YEAR}]}} ON COLUMNS,
 			{[Measures].[Curent (USD)], [Measures].[${REPORT_CURRENCY_CODE}], Measures.[ODA/GNI], Measures.[Bilateral share]} ON ROWS
 			FROM [Financial]
-			WHERE ([Type of Flow].[Name].[ODA (Official Development Assistance)])
+			WHERE ({[Type of Flow].[Name].[ODA (Official Development Assistance)], [Type of Flow].[Name].[Non flow (e.g. GNI)]})
 		]]>
 		</Query>
 	</DataAccess>
