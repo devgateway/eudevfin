@@ -334,7 +334,7 @@
 	<Cube name="Financial" visible="true" cache="false" enabled="true">
 		<View name="FINANCIALTRANSACTIONVIEW" alias="FINANCIALTRANSACTIONVIEW">
 			<SQL dialect="generic"><![CDATA[
-			select * from FINANCIALTRANSACTION ft, CATEGORY cat where ft.draft = false and ft.channel_id = cat.id
+			select ft.*, cat.coefficient from FINANCIALTRANSACTION ft, CATEGORY cat where ft.draft = false and ft.channel_id = cat.id
 			]]></SQL>
 		</View>		
 		<DimensionUsage source="Area" name="Area" visible="true" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
