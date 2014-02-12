@@ -11,11 +11,8 @@ a * Copyright (c) 2013 Development Gateway.
 
 package org.devgateway.eudevfin.mcm.pages;
 
-import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
+import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -33,6 +30,7 @@ import org.apache.wicket.util.time.Duration;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.auth.common.util.AuthUtils;
+import org.devgateway.eudevfin.dashboard.mondrian.MondrianCacheUtil;
 import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.Organization;
@@ -54,8 +52,10 @@ import org.joda.time.LocalDateTime;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.wicketstuff.annotation.mount.MountPath;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
-import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author mihai
@@ -73,6 +73,9 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 
 	@SpringBean
 	private CurrencyMetadataService currencyMetadataService;
+
+    @SpringBean
+    MondrianCacheUtil mondrianCacheUtil;
 
 	private static final Logger logger = Logger
 			.getLogger(EditNonFlowItemsPage.class);
@@ -294,6 +297,9 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 						"notification.saved", EditNonFlowItemsPage.this, null,
 						null)));
 				target.add(feedbackPanel);
+
+                // clear the mondrian cache
+                mondrianCacheUtil.flushMondrianCache();
 			}
 
 		});

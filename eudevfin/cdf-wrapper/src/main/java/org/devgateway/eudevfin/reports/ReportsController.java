@@ -87,7 +87,7 @@ public class ReportsController {
 		Connection connection = DriverManager.getConnection(propertyList, null,
 				cdaDataSource);
 
-		// add default values
+        // add default values
 		if (reportType == null || reportType.equals("")) {
 			reportType = REPORT_TYPE_AQ;
 		}

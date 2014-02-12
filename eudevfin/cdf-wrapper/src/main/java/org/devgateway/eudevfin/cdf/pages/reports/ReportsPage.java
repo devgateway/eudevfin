@@ -23,9 +23,7 @@ import org.devgateway.eudevfin.dashboard.components.StackedBarChart;
 import org.devgateway.eudevfin.dashboard.components.Table;
 import org.devgateway.eudevfin.dashboard.components.TableParameters;
 import org.devgateway.eudevfin.financial.Organization;
-import org.devgateway.eudevfin.financial.util.FinancialTransactionUtil;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
-import org.joda.money.CurrencyUnit;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.Arrays;

@@ -32,6 +32,7 @@ import org.apache.wicket.util.visit.IVisit;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.auth.common.util.AuthUtils;
+import org.devgateway.eudevfin.dashboard.mondrian.MondrianCacheUtil;
 import org.devgateway.eudevfin.dim.pages.HomePage;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.service.CurrencyMetadataService;
@@ -71,6 +72,9 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 	@SpringBean
 	private CurrencyMetadataService currencyMetadaService;
 
+    @SpringBean
+    MondrianCacheUtil mondrianCacheUtil;
+
 	private static final CRSTransactionPermissionProvider componentPermissions = new CRSTransactionPermissionProvider();
 
 	protected final NotificationPanel feedbackPanel;
@@ -96,6 +100,9 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 				TransactionPage.this.getModel().setObject(saved);
 				info(new NotificationMessage(new StringResourceModel("notification.saved", TransactionPage.this, null, null)));				
 				target.add(feedbackPanel);
+
+                // clear the mondrian cache
+                mondrianCacheUtil.flushMondrianCache();
 			} catch (Exception e) {
 				logger.error("Exception while trying to save:", e);
 				return;
