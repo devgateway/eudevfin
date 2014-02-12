@@ -32,7 +32,7 @@ import org.apache.wicket.util.visit.IVisit;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.auth.common.util.AuthUtils;
-import org.devgateway.eudevfin.dashboard.mondrian.MondrianCacheUtil;
+import org.devgateway.eudevfin.ui.common.components.util.MondrianCacheUtil;
 import org.devgateway.eudevfin.dim.pages.HomePage;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.service.CurrencyMetadataService;

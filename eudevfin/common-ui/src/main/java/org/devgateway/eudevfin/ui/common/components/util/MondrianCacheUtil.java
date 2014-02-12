@@ -1,4 +1,4 @@
-package org.devgateway.eudevfin.dashboard.mondrian;
+package org.devgateway.eudevfin.ui.common.components.util;
 
 import mondrian.olap.CacheControl;
 import mondrian.olap.Connection;
