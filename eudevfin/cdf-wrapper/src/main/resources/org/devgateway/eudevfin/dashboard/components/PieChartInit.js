@@ -1,38 +1,88 @@
 
-var pieChart,
-	pieQueryResult;	// we should parameterized this
+var odaByRegionChart,
+	odaByRegionQueryResult,
+	odaByIncomeGroupChart,
+	odaByIncomeGroupQueryResult
+	MILLION = 1000000;
 
-function initPieChart(parametersJson) {
+function addOdaByIncomeGroupChart(parametersJson) {
 	'use strict';
 
 	var pieChartId = parametersJson.htmlObject;
 	var pieChartDefinition = new app.ChartPieDefinitionModel();
 	pieChartDefinition.get('chart').renderTo = pieChartId;
 	pieChartDefinition.get('plotOptions').series.events.click = function (event) {
-	    setTimeout(function () {
-	        console.log('pie chart clicked!');
-	    }, 500);
+		setTimeout(function () {
+			console.log('pie chart clicked!');
+		}, 500);
 	};
-	
-	var pieChartQuery = new app.ChartModel(_.extend(parametersJson, {
-		resultvar: "pieQueryResult",
-	    preExecution: function () {
-	        // do nothing
-	    },
-	    postExecution: function () {
-	        var resultSeries = [];
-		    for (var i = 0; i < pieQueryResult.length; i++) {
-			    var tmpArray = [];
-			    tmpArray.push(pieQueryResult[i][0]);
-			    tmpArray.push( parseInt(pieQueryResult[i][1], 10));
-			    resultSeries.push(tmpArray);
-		    }
 
-	        pieChartDefinition.get('series')[0].data = resultSeries;
-	        pieChart = new Highcharts.Chart(pieChartDefinition.toJSON());
-	    }
+	var pieChartQuery = new app.ChartModel(_.extend(parametersJson, {
+		resultvar: "odaByIncomeGroupQueryResult",
+		preExecution: function () {
+			// do nothing
+		},
+		postExecution: function () {
+			var resultSeries = [];
+			for (var i = 0; i < odaByIncomeGroupQueryResult.length; i++) {
+				var tmpArray = [];
+				tmpArray.push(odaByIncomeGroupQueryResult[i][0]);
+				tmpArray.push(parseFloat(odaByIncomeGroupQueryResult[i][1]) / MILLION);
+				resultSeries.push(tmpArray);
+			}
+
+			if (_.isEmpty(odaByRegionQueryResult)) {
+				pieChartDefinition.get('chart').height = 100;
+				app.noData();
+			} else {
+				pieChartDefinition.get('chart').height = 200;
+			}
+
+			pieChartDefinition.get('series')[0].data = resultSeries;
+			odaByIncomeGroupChart = new Highcharts.Chart(pieChartDefinition.toJSON());
+		}
 	}));
 
-    pieChartQuery = pieChartQuery.toJSON();
+	pieChartQuery = pieChartQuery.toJSON();
+	app.addComponent(pieChartQuery);
+}
+
+function addOdaByRegionChart(parametersJson) {
+	'use strict';
+
+	var pieChartId = parametersJson.htmlObject;
+	var pieChartDefinition = new app.ChartPieDefinitionModel();
+	pieChartDefinition.get('chart').renderTo = pieChartId;
+	pieChartDefinition.get('plotOptions').series.events.click = function (event) {
+		setTimeout(function () {
+			console.log('pie chart clicked!');
+		}, 500);
+	};
+
+	var pieChartQuery = new app.ChartModel(_.extend(parametersJson, {
+		resultvar: "odaByRegionQueryResult",
+		preExecution: function () {
+			// do nothing
+		},
+		postExecution: function () {
+			var resultSeries = [];
+			for (var i = 0; i < odaByRegionQueryResult.length; i++) {
+				var tmpArray = [];
+				tmpArray.push(odaByRegionQueryResult[i][0]);
+				tmpArray.push(parseFloat(odaByRegionQueryResult[i][1]) / MILLION);
+				resultSeries.push(tmpArray);
+			}
+
+			if (_.isEmpty(odaByRegionQueryResult)) {
+				pieChartDefinition.get('chart').height = 100;
+				app.noData();
+			}
+
+			pieChartDefinition.get('series')[0].data = resultSeries;
+			odaByRegionChart = new Highcharts.Chart(pieChartDefinition.toJSON());
+		}
+	}));
+
+	pieChartQuery = pieChartQuery.toJSON();
 	app.addComponent(pieChartQuery);
 }

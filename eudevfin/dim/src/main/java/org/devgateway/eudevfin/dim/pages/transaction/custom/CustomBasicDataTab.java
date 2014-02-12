@@ -8,8 +8,8 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.custom;
 
-import java.math.BigDecimal;
-
+import com.vaynberg.wicket.select2.ChoiceProvider;
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.event.Broadcast;
@@ -19,7 +19,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.BasicDataTab;
 import org.devgateway.eudevfin.dim.providers.CategoryProviderFactory;
-import org.devgateway.eudevfin.dim.providers.CurrencyUnitProvider;
+import org.devgateway.eudevfin.dim.providers.CurrencyUnitProviderFactory;
 import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.util.CategoryConstants;
@@ -37,7 +37,7 @@ import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 import org.joda.time.LocalDateTime;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
+import java.math.BigDecimal;
 
 /**
  * Basic Data Tab extension for the EU-DEVFIN Form
@@ -89,13 +89,14 @@ public class CustomBasicDataTab extends BasicDataTab {
         }
     }
 
+    @SuppressWarnings("WicketForgeJavaIdInspection")
     public class Extension2 extends Fragment {
 
         @SpringBean
         private OrganizationChoiceProvider organizationProvider;
 
         @SpringBean
-    	private CurrencyUnitProvider currencyUnitProvider;
+    	private CurrencyUnitProviderFactory currencyUnitProviderFactory;
 
         public Extension2(String id, String markupId, MarkupContainer markupProvider) {
             super(id, markupId, markupProvider);
@@ -126,9 +127,14 @@ public class CustomBasicDataTab extends BasicDataTab {
             thirdCoFinancingAgency.hideLabel().setSize(InputBehavior.Size.Small);
             pac.add(thirdCoFinancingAgency);
 
+
+            ChoiceProvider<CurrencyUnit> currencyUnitProvider =
+                    this.currencyUnitProviderFactory.
+            			getCurrencyUnitProviderInstance(CurrencyUnitProviderFactory.ALL_SORTED_CURRENCIES_PROVIDER);
+            
             RWComponentPropertyModel<CurrencyUnit> firstAgencyCurrencyModel = new RWComponentPropertyModel<>("firstAgencyCurrency");
             DropDownField<CurrencyUnit> firstAgencyCurrency = new DropDownField<CurrencyUnit>("14d1stAgencyCurrency", firstAgencyCurrencyModel,
-                    this.currencyUnitProvider) {
+                    currencyUnitProvider) {
                 @Override
                 protected void onUpdate(AjaxRequestTarget target) {
                     send(CustomBasicDataTab.this, Broadcast.DEPTH, new CurrencyChangedEvent(target));
@@ -145,7 +151,7 @@ public class CustomBasicDataTab extends BasicDataTab {
 
             RWComponentPropertyModel<CurrencyUnit> secondAgencyCurrencyModel = new RWComponentPropertyModel<>("secondAgencyCurrency");
             DropDownField<CurrencyUnit> secondAgencyCurrency = new DropDownField<CurrencyUnit>("14g2ndAgencyCurrency", secondAgencyCurrencyModel,
-                    this.currencyUnitProvider) {
+                    currencyUnitProvider) {
                 @Override
                 protected void onUpdate(AjaxRequestTarget target) {
                     send(CustomBasicDataTab.this, Broadcast.DEPTH, new CurrencyChangedEvent(target));
@@ -162,7 +168,7 @@ public class CustomBasicDataTab extends BasicDataTab {
 
             RWComponentPropertyModel<CurrencyUnit> thirdAgencyCurrencyModel = new RWComponentPropertyModel<>("thirdAgencyCurrency");
             DropDownField<CurrencyUnit> thirdAgencyCurrency = new DropDownField<CurrencyUnit>("14j3rdAgencyCurrency", thirdAgencyCurrencyModel,
-                    this.currencyUnitProvider) {
+                    currencyUnitProvider) {
                 @Override
                 protected void onUpdate(AjaxRequestTarget target) {
                     send(CustomBasicDataTab.this, Broadcast.DEPTH, new CurrencyChangedEvent(target));

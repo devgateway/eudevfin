@@ -5,14 +5,13 @@
   ~ which accompanies this distribution, and is available at
   ~ http://www.gnu.org/licenses/gpl.html
   -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.devgateway.eudevfin</groupId>
-        <artifactId>integration</artifactId>
-        <version>0.0.1.CI-SNAPSHOT</version>
+        <artifactId>eudevfin</artifactId>
+        <version>0.9.1-SNAPSHOT</version>
     </parent>
     <artifactId>dim</artifactId>
     <packaging>war</packaging>
@@ -53,6 +52,12 @@
         <dependency>
             <groupId>org.devgateway.eudevfin</groupId>
             <artifactId>common-exchange</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+ 
+        <dependency>
+            <groupId>org.devgateway.eudevfin</groupId>
+            <artifactId>exchange</artifactId>
             <version>${project.version}</version>
         </dependency>
 
@@ -113,7 +118,7 @@
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>${jetty.version}</version>
                 <configuration>
-                    <jvmArgs>-Xmx512M -XX:MaxPermSize=128M</jvmArgs>
+                    <jvmArgs>-Xmx784M -XX:MaxPermSize=256M</jvmArgs>
                     <war>${basedir}/target/dim-${project.version}</war>
                     <scanIntervalSeconds>1</scanIntervalSeconds>
                     <stopKey>chuck</stopKey>

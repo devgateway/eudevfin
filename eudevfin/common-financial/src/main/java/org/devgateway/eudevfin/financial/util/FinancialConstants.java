@@ -8,8 +8,6 @@ package org.devgateway.eudevfin.financial.util;
  *
  */
 public class FinancialConstants {
-	public static final String DEFAULT_LOCALE = "en";
-	
 	//SECTORS_ROOT defines the top level tag in a tree structure
 	/**
 	 * @deprecated These category constants where just for testing use the ones CategoryConstants

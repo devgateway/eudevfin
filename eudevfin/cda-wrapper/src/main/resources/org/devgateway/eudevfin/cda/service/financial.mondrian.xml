@@ -1,23 +1,86 @@
 <Schema name="EUDevfin">
-	<Dimension visible="true" highCardinality="false" name="Area">
-		<Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All Areas">
-			<Table name="AREA" schema="APP">
-			</Table>
-			<Level name="Code" visible="true" table="AREA" column="CODE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
-			</Level>
-		</Hierarchy>
-	</Dimension>
-	<Dimension visible="true" highCardinality="false" name="Extending Agency">
-		<Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Extending Agency" allMemberCaption="%{allExtendingAgencies}" allLevelName="%{allExtendingAgencies}" description="%{extendingAgencies}" allMemberName="All Extending Agencies">
-			<Table name="ORGANIZATION" schema="APP"></Table>
-			<Level name="code" visible="true" table="ORGANIZATION" column="CODE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never"></Level>
-			<Level name="Acronym" visible="true" table="ORGANIZATION" column="ACRONYM" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never"></Level>
-		</Hierarchy>
-	</Dimension>
-	<Dimension visible="true" highCardinality="false" name="Channel">
-		<Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Channel" allMemberName="All Channels">
-			<View alias="ChannelView">
-				<SQL dialect="generic"><![CDATA[
+    <Dimension visible="true" highCardinality="false" name="Area">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All Areas">
+            <Table name="AREA" schema="APP">
+            </Table>
+            <Level name="Code" visible="true" table="AREA" column="CODE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+            </Level>
+        </Hierarchy>
+    </Dimension>
+    <Dimension visible="true" highCardinality="false" name="Country">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All Countries">
+            <View alias="CountryView">
+                <SQL dialect="generic"><![CDATA[
+			select
+				"AREA"."ID", "AREA"."CODE",  "AREATRANSLATION"."NAME"
+			from
+				"APP"."AREA" as "AREA",
+				"APP"."AREATRANSLATION" as "AREATRANSLATION"
+			WHERE
+				"AREATRANSLATION"."LOCALE" = '@@LOCALE@@' AND
+				"AREATRANSLATION"."PARENT_ID" = "AREA"."ID" AND
+				"AREA"."AREA_TYPE" = 'Country'
+			]]></SQL>
+            </View>
+            <Level name="Code" visible="true" column="CODE" uniqueMembers="false" levelType="Regular" type="String">
+            </Level>
+            <Level name="Name" visible="true" column="NAME" uniqueMembers="false" levelType="Regular" type="String">
+            </Level>
+        </Hierarchy>
+    </Dimension>
+    <Dimension visible="true" highCardinality="false" name="Region">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All Regions">
+            <View alias="RegionView">
+                <SQL dialect="generic"><![CDATA[
+			select
+				"AREA"."ID", "AREA"."CODE",  "AREATRANSLATION"."NAME"
+			from
+				"APP"."AREA" as "AREA",
+				"APP"."AREATRANSLATION" as "AREATRANSLATION"
+			WHERE
+				"AREATRANSLATION"."LOCALE" = '@@LOCALE@@' AND
+				"AREATRANSLATION"."PARENT_ID" = "AREA"."ID" AND
+				"AREA"."AREA_TYPE" = 'Area'
+			]]></SQL>
+            </View>
+            <Level name="Code" visible="true" column="CODE" uniqueMembers="false" levelType="Regular" type="String">
+            </Level>
+            <Level name="Name" visible="true" column="NAME" uniqueMembers="false" levelType="Regular" type="String">
+            </Level>
+        </Hierarchy>
+    </Dimension>
+    <Dimension visible="true" highCardinality="false" name="IncomeGroup">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All IncomeGroups">
+            <View alias="IncomeGroupView">
+                <SQL dialect="generic"><![CDATA[
+			select
+				"AREA"."ID", "AREA"."INCOMEGROUP_ID",  "CATEGORYTRANSLATION"."NAME"
+			from
+				"APP"."AREA" as "AREA",
+				"APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION"
+			WHERE
+				"CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
+				"CATEGORYTRANSLATION"."PARENT_ID" = "AREA"."INCOMEGROUP_ID" AND
+				"AREA"."AREA_TYPE" = 'Country'
+			]]></SQL>
+            </View>
+            <Level name="Incomegroup" visible="true" column="INCOMEGROUP_ID" uniqueMembers="false" levelType="Regular" type="String">
+            </Level>
+            <Level name="Name" visible="true" column="NAME" uniqueMembers="false" levelType="Regular" type="String">
+            </Level>
+        </Hierarchy>
+    </Dimension>
+    <Dimension visible="true" highCardinality="false" name="Extending Agency">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Extending Agency" allMemberCaption="%{allExtendingAgencies}" allLevelName="%{allExtendingAgencies}" description="%{extendingAgencies}" allMemberName="All Extending Agencies">
+            <Table name="ORGANIZATION" schema="APP"></Table>
+            <Level name="code" visible="true" table="ORGANIZATION" column="CODE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never"></Level>
+            <Level name="Acronym" visible="true" table="ORGANIZATION" column="ACRONYM" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never"></Level>
+        </Hierarchy>
+    </Dimension>
+    <Dimension visible="true" highCardinality="false" name="Channel">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Channel" allMemberName="All Channels">
+            <View alias="ChannelView">
+                <SQL dialect="generic"><![CDATA[
 			select
 				DISTINCT "CATEGORY"."ID", "CATEGORY"."CODE"
 			from
@@ -37,15 +100,15 @@
 				CASE WHEN "CATEGORY"."CODE" IS NULL THEN 1 ELSE 0 END,
 				"CATEGORY"."CODE" ASC
 			]]></SQL>
-			</View>
-			<Level name="Code" visible="true" column="CODE" uniqueMembers="false">
-			</Level>
-		</Hierarchy>
-	</Dimension>
-	<Dimension visible="true" highCardinality="false" name="Channel Localized">
-		<Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Channel Localized" allMemberName="All Channels Localized">
-			<View alias="ChannelLocalizedView">
-				<SQL dialect="generic"><![CDATA[
+            </View>
+            <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
+            </Level>
+        </Hierarchy>
+    </Dimension>
+    <Dimension visible="true" highCardinality="false" name="Channel Localized">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Channel Localized" allMemberName="All Channels Localized">
+            <View alias="ChannelLocalizedView">
+                <SQL dialect="generic"><![CDATA[
 			select
 				"CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE"
 			from
@@ -66,17 +129,17 @@
 				CASE WHEN "CATEGORY"."CODE" IS NULL THEN 1 ELSE 0 END,
 				"CATEGORY"."CODE" ASC
 			]]></SQL>
-			</View>
-			<Level name="Code" visible="true" column="CODE" uniqueMembers="false">
-			</Level>
-			<Level name="Name" visible="true" column="NAME" uniqueMembers="false">
-			</Level>
-		</Hierarchy>
-	</Dimension>
-	<Dimension visible="true" highCardinality="false" name="Type of Aid">
-		<Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Type of Aid" allMemberCaption="%{allTypesOfAid}" allLevelName="%{allTypesOfAid}" description="%{typesOfAid}" allMemberName="All Types of Aid">
-			<View alias="TypeOfAidView">
-				<SQL dialect="generic"><![CDATA[
+            </View>
+            <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
+            </Level>
+            <Level name="Name" visible="true" column="NAME" uniqueMembers="false">
+            </Level>
+        </Hierarchy>
+    </Dimension>
+    <Dimension visible="true" highCardinality="false" name="Type of Aid">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Type of Aid" allMemberCaption="%{allTypesOfAid}" allLevelName="%{allTypesOfAid}" description="%{typesOfAid}" allMemberName="All Types of Aid">
+            <View alias="TypeOfAidView">
+                <SQL dialect="generic"><![CDATA[
 			select
 				"CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE"
 			from
@@ -97,17 +160,17 @@
 				CASE WHEN "CATEGORY"."CODE" IS NULL THEN 1 ELSE 0 END,
 				"CATEGORY"."CODE" ASC
 			]]></SQL>
-			</View>
-			<Level name="Code" visible="true" column="CODE" uniqueMembers="false">
-			</Level>
-			<Level name="Name" visible="true" column="NAME" uniqueMembers="false">
-			</Level>
-		</Hierarchy>
-	</Dimension>
-	<Dimension visible="true" highCardinality="false" name="Type of Flow">
-		<Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Type of Flow" allMemberCaption="%{allTypesOfFlow}" allLevelName="%{allTypesOfFlow}" description="%{typesOfFlow}" allMemberName="All Types of Flow">
-			<View alias="TypeOfFlowView">
-				<SQL dialect="generic"><![CDATA[
+            </View>
+            <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
+            </Level>
+            <Level name="Name" visible="true" column="NAME" uniqueMembers="false">
+            </Level>
+        </Hierarchy>
+    </Dimension>
+    <Dimension visible="true" highCardinality="false" name="Type of Flow">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Type of Flow" allMemberCaption="%{allTypesOfFlow}" allLevelName="%{allTypesOfFlow}" description="%{typesOfFlow}" allMemberName="All Types of Flow">
+            <View alias="TypeOfFlowView">
+                <SQL dialect="generic"><![CDATA[
 			select
 				"CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE"
 			from
@@ -129,17 +192,17 @@
 				CASE WHEN "CATEGORY"."CODE" IS NULL THEN 1 ELSE 0 END,
 				"CATEGORY"."CODE" ASC
 			]]></SQL>
-			</View>
-			<Level name="Code" visible="true" column="CODE" uniqueMembers="false">
-			</Level>
-			<Level name="Name" visible="true" column="NAME" uniqueMembers="false">
-			</Level>
-		</Hierarchy>
-	</Dimension>
-	<Dimension visible="true" highCardinality="false" name="Type of Finance">
-		<Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Type of Finance" allMemberCaption="%{allTypesOfFinance}" allLevelName="%{allTypesOfFinance}" description="%{typesOfFinance}" allMemberName="All Types of Finance">
-			<View alias="TypeOfFinanceView">
-				<SQL dialect="generic"><![CDATA[
+            </View>
+            <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
+            </Level>
+            <Level name="Name" visible="true" column="NAME" uniqueMembers="false">
+            </Level>
+        </Hierarchy>
+    </Dimension>
+    <Dimension visible="true" highCardinality="false" name="Type of Finance">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Type of Finance" allMemberCaption="%{allTypesOfFinance}" allLevelName="%{allTypesOfFinance}" description="%{typesOfFinance}" allMemberName="All Types of Finance">
+            <View alias="TypeOfFinanceView">
+                <SQL dialect="generic"><![CDATA[
 			select
 				"CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE"
 			from
@@ -161,17 +224,17 @@
 				CASE WHEN "CATEGORY"."CODE" IS NULL THEN 1 ELSE 0 END,
 				"CATEGORY"."CODE" ASC
 			]]></SQL>
-			</View>
-			<Level name="Code" visible="true" column="CODE" uniqueMembers="false">
-			</Level>
-			<Level name="Name" visible="true" column="NAME" uniqueMembers="false">
-			</Level>
-		</Hierarchy>
-	</Dimension>
-	<Dimension visible="true" highCardinality="false" name="Type of Finance Root">
-		<Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Type of Finance Root" allMemberName="All Types of Finance Root">
-			<View alias="TypeOfFinanceRootView">
-				<SQL dialect="generic"><![CDATA[
+            </View>
+            <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
+            </Level>
+            <Level name="Name" visible="true" column="NAME" uniqueMembers="false">
+            </Level>
+        </Hierarchy>
+    </Dimension>
+    <Dimension visible="true" highCardinality="false" name="Type of Finance Root">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Type of Finance Root" allMemberName="All Types of Finance Root">
+            <View alias="TypeOfFinanceRootView">
+                <SQL dialect="generic"><![CDATA[
 			select
 				"CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE"
 			from
@@ -193,17 +256,17 @@
 				CASE WHEN "CATEGORY"."CODE" IS NULL THEN 1 ELSE 0 END,
 				"CATEGORY"."CODE" ASC
 			]]></SQL>
-			</View>
-			<Level name="Code" visible="true" column="CODE" uniqueMembers="false">
-			</Level>
-			<Level name="Name" visible="true" column="NAME" uniqueMembers="false">
-			</Level>
-		</Hierarchy>
-	</Dimension>
-	<Dimension type="StandardDimension" visible="true" name="Sector">
-		<Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="%{sectors}" allMemberCaption="%{allSectors}" allLevelName="%{allSectors}" description="%{sectors}" allMemberName="All Sectors">
-			<View alias="SectorView">
-				<SQL dialect="generic"><![CDATA[
+            </View>
+            <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
+            </Level>
+            <Level name="Name" visible="true" column="NAME" uniqueMembers="false">
+            </Level>
+        </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" name="Sector">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="%{sectors}" allMemberCaption="%{allSectors}" allLevelName="%{allSectors}" description="%{sectors}" allMemberName="All Sectors">
+            <View alias="SectorView">
+                <SQL dialect="generic"><![CDATA[
 					select
 						"CATEGORY"."ID",
 						"CATEGORYTRANSLATION"."NAME",
@@ -227,17 +290,17 @@
 						CASE WHEN "CATEGORY"."CODE" IS NULL THEN 1 ELSE 0 END,
 						"CATEGORY"."CODE" ASC
 			]]></SQL>
-			</View>
-			<Level name="Code" visible="true" column="CODE" uniqueMembers="false">
-			</Level>
-			<Level name="Name" visible="true" column="NAME" uniqueMembers="false">
-			</Level>
-		</Hierarchy>
-	</Dimension>
-	<Dimension visible="true" highCardinality="false" name="BiMultilateral">
-		<Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="BiMultilateral" allMemberCaption="%{allBiMultilateral}" allLevelName="%{allBiMultilateral}" description="%{biMultilateral}" allMemberName="All BiMultilaterals">
-			<View alias="BiMultilalteralView">
-				<SQL dialect="generic"><![CDATA[
+            </View>
+            <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
+            </Level>
+            <Level name="Name" visible="true" column="NAME" uniqueMembers="false">
+            </Level>
+        </Hierarchy>
+    </Dimension>
+    <Dimension visible="true" highCardinality="false" name="BiMultilateral">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="BiMultilateral" allMemberCaption="%{allBiMultilateral}" allLevelName="%{allBiMultilateral}" description="%{biMultilateral}" allMemberName="All BiMultilaterals">
+            <View alias="BiMultilalteralView">
+                <SQL dialect="generic"><![CDATA[
 					select
 						"CATEGORY"."ID",
 						"CATEGORYTRANSLATION"."NAME",
@@ -261,63 +324,95 @@
 						CASE WHEN "CATEGORY"."CODE" IS NULL THEN 1 ELSE 0 END,
 						"CATEGORY"."CODE" ASC
 			]]></SQL>
-			</View>
-			<Level name="Code" visible="true" column="CODE" uniqueMembers="false">
-			</Level>
-			<Level name="Name" visible="true" column="NAME" uniqueMembers="false">
-			</Level>
-		</Hierarchy>
-	</Dimension>
-	<Cube name="Financial" visible="true" cache="false" enabled="true">
-		<View name="FINANCIALTRANSACTIONVIEW" alias="FINANCIALTRANSACTIONVIEW">
-			<SQL dialect="generic"><![CDATA[
-			select * from FINANCIALTRANSACTION where draft=false
+            </View>
+            <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
+            </Level>
+            <Level name="Name" visible="true" column="NAME" uniqueMembers="false">
+            </Level>
+        </Hierarchy>
+    </Dimension>
+    <Cube name="Financial" visible="true" cache="false" enabled="true">
+        <View name="FINANCIALTRANSACTIONVIEW" alias="FINANCIALTRANSACTIONVIEW">
+            <SQL dialect="generic"><![CDATA[
+                select ft.*, cat.coefficient from FINANCIALTRANSACTION ft left join CATEGORY cat ON cat.id = ft.channel_id WHERE ft.draft = false OR draft IS NULL
 			]]></SQL>
-		</View>		
-		<DimensionUsage source="Area" name="Area" visible="true" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
-		<DimensionUsage source="Extending Agency" name="Extending Agency" visible="true" foreignKey="EXTENDINGAGENCY_ID" highCardinality="false"></DimensionUsage>
-		<DimensionUsage source="Sector" name="Sector" visible="true" foreignKey="SECTOR_ID" highCardinality="false"></DimensionUsage>
-		<DimensionUsage source="Channel" name="Channel" visible="true" foreignKey="CHANNEL_ID" highCardinality="false"></DimensionUsage>
-		<DimensionUsage source="Type of Aid" name="Type of Aid" visible="true" foreignKey="TYPEOFAID_ID" highCardinality="false"></DimensionUsage>
-		<DimensionUsage source="Type of Flow" name="Type of Flow" visible="true" foreignKey="TYPEOFFLOW_ID" highCardinality="false"></DimensionUsage>
-		<DimensionUsage source="Type of Finance" name="Type of Finance" visible="true" foreignKey="TYPEOFFINANCE_ID" highCardinality="false"></DimensionUsage>
-		<DimensionUsage source="Type of Finance Root" name="Type of Finance Root" visible="true" foreignKey="TYPEOFFINANCE_ID" highCardinality="false"></DimensionUsage>
-		<DimensionUsage source="BiMultilateral" name="BiMultilateral" visible="true" foreignKey="BIMULTILATERAL_ID" highCardinality="false"></DimensionUsage>
-		<Dimension name="Reporting Year">
-			<Hierarchy hasAll="true">
-				<Level name="Reporting Year" column="REPORTINGYEAR" uniqueMembers="true">
-					<KeyExpression>
-						<SQL dialect="generic">CAST(YEAR("REPORTINGYEAR") AS CHAR(4))</SQL>
-					</KeyExpression>
-				</Level>
-			</Hierarchy>
-		</Dimension>
-		<Measure name="Export Credit Amount" column="AMOUNTS_EXP_EXPORT_CREDIT_AMOUNT" aggregator="sum" visible="true" caption="%{exportCreditAmount}"></Measure>
-		<Measure name="IRTC Amount" column="AMOUNTS_IRTC_AMOUNT" aggregator="sum" visible="true" caption="%{IRTCAmount}"></Measure>
-		<Measure name="Extended Amount" column="AMOUNTS_EXTENDED_AMOUNT" aggregator="sum" visible="true" caption="%{extendedAmount}"></Measure>
-		<Measure name="Current Extended Amount" column="AMOUNTS_EXTENDED_CURRENT_AMOUNT" aggregator="sum" visible="true" caption="%{currentExtendedAmount}"></Measure>
-		<Measure name="Year 1 Extended Amount" column="AMOUNTS_EXTENDED_YEAR1_AMOUNT" aggregator="sum" visible="true" caption="%{year1ExtendedAmount}"></Measure>
-		<Measure name="Year 2 Extended Amount" column="AMOUNTS_EXTENDED_YEAR2_AMOUNT" aggregator="sum" visible="true" caption="%{year2ExtendedAmount}"></Measure>
-		<Measure name="Partially Untied Amount" column="AMOUNTS_PARTIALLY_UNTIED_AMOUNT" aggregator="sum" visible="true" caption="%{partiallyUntiedAmount}"></Measure>
-		<Measure name="Received Amount" column="AMOUNTS_RECEIVED_AMOUNT" aggregator="sum" visible="true" caption="%{receivedAmount}"></Measure>
-		<Measure name="Tied Amount" column="AMOUNTS_TIED_AMOUNT" aggregator="sum" visible="true" caption="%{tiedAmount}"></Measure>
-		<Measure name="Untied Amount" column="AMOUNTS_UNTIED_AMOUNT" aggregator="sum" visible="true" caption="%{untiedAmount}"></Measure>
-		<Measure name="Interest Arrears Amount" column="AMOUNTS_AREARS_INTEREST_AMOUNT" aggregator="sum" visible="true" caption="%{interestArrearsAmount}"></Measure>
-		<Measure name="Principal Arrears Amount" column="AMOUNTS_AREARS_PRIN_AMOUNT" aggregator="sum" visible="true" caption="%{principalArrearsAmount}"></Measure>
-		<Measure name="Commitments Amount" column="COMMITMENT_AMOUNT" aggregator="sum" visible="true" caption="%{commitmentsAmount}"></Measure>
-		<Measure name="Commitments Amount Currency" aggregator="sum" visible="true">
-			<MeasureExpression>
-				<SQL dialect="generic">
-					("financialtransaction"."COMMITMENT_AMOUNT" * (SELECT RATE FROM HISTORICALEXCHANGERATE WHERE BASE_CURRENCY = "financialtransaction"."COMMITMENT_CURR" AND COUNTER_CURRENCY = '@@CURRENCY@@' AND YEAR(DATE) = YEAR("financialtransaction"."REPORTINGYEAR")))
-				</SQL>
-			</MeasureExpression>
-		</Measure>
-		<Measure name="Interest Received Amount" column="AMOUNTS_INTEREST_RECEIVED_AMOUNT" aggregator="sum" visible="true" caption="%{interestReceivedAmount}"></Measure>
-		<Measure name="Principal Disbursed Amount" column="AMOUNTS_PRIN_DISB_AMOUNT" aggregator="sum" visible="true" caption="%{principalDisbursedAmount}"></Measure>
-		<Measure name="Expert Commitments Amount" column="AMOUNTS_EXP_COMMIT_AMOUNT" aggregator="sum" visible="true" caption="%{expertCommitmentsAmount}"></Measure>
-		<Measure name="Expert Extended Amount" column="AMOUNTS_EXP_EXTENDED_AMOUNT" aggregator="sum" visible="true" caption="%{expertExtendedAmount}"></Measure>
-		<CalculatedMember name="Net Amount" dimension="Measures">
-			<Formula>[Measures].[Extended Amount] - [Measures].[Received Amount]</Formula>
-		</CalculatedMember>
-	</Cube>
+        </View>
+        <DimensionUsage source="Area" name="Area" visible="true" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
+        <DimensionUsage source="Country" name="Country" visible="true" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
+        <DimensionUsage source="Region" name="Region" visible="true" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
+        <DimensionUsage source="IncomeGroup" name="IncomeGroup" visible="true" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
+        <DimensionUsage source="Extending Agency" name="Extending Agency" visible="true" foreignKey="EXTENDINGAGENCY_ID" highCardinality="false"></DimensionUsage>
+        <DimensionUsage source="Sector" name="Sector" visible="true" foreignKey="SECTOR_ID" highCardinality="false"></DimensionUsage>
+        <DimensionUsage source="Channel" name="Channel" visible="true" foreignKey="CHANNEL_ID" highCardinality="false"></DimensionUsage>
+        <DimensionUsage source="Type of Aid" name="Type of Aid" visible="true" foreignKey="TYPEOFAID_ID" highCardinality="false"></DimensionUsage>
+        <DimensionUsage source="Type of Flow" name="Type of Flow" visible="true" foreignKey="TYPEOFFLOW_ID" highCardinality="false"></DimensionUsage>
+        <DimensionUsage source="Type of Finance" name="Type of Finance" visible="true" foreignKey="TYPEOFFINANCE_ID" highCardinality="false"></DimensionUsage>
+        <DimensionUsage source="Type of Finance Root" name="Type of Finance Root" visible="true" foreignKey="TYPEOFFINANCE_ID" highCardinality="false"></DimensionUsage>
+        <DimensionUsage source="BiMultilateral" name="BiMultilateral" visible="true" foreignKey="BIMULTILATERAL_ID" highCardinality="false"></DimensionUsage>
+        <Dimension name="Reporting Year">
+            <Hierarchy hasAll="true">
+                <Level name="Reporting Year" column="REPORTINGYEAR" uniqueMembers="true">
+                    <KeyExpression>
+                        <SQL dialect="generic">CAST(YEAR("REPORTINGYEAR") AS CHAR(4))</SQL>
+                    </KeyExpression>
+                </Level>
+            </Hierarchy>
+        </Dimension>
+        <Measure name="Export Credit Amount" column="AMOUNTS_EXP_EXPORT_CREDIT_AMOUNT" aggregator="sum" visible="true" caption="%{exportCreditAmount}"></Measure>
+        <Measure name="IRTC Amount" column="AMOUNTS_IRTC_AMOUNT" aggregator="sum" visible="true" caption="%{IRTCAmount}"></Measure>
+        <Measure name="Extended Amount" aggregator="sum" visible="true" caption="%{extendedAmount}">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    CASE WHEN coefficient IS NULL THEN AMOUNTS_EXTENDED_AMOUNT ELSE (AMOUNTS_EXTENDED_AMOUNT * COEFFICIENT) / 100  END
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        <Measure name="Extended Amount Currency" aggregator="sum" visible="true">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (CASE WHEN coefficient IS NULL THEN AMOUNTS_EXTENDED_AMOUNT ELSE (AMOUNTS_EXTENDED_AMOUNT * COEFFICIENT) / 100  END * (SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXTENDED_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        <Measure name="Current Extended Amount" column="AMOUNTS_EXTENDED_CURRENT_AMOUNT" aggregator="sum" visible="true" caption="%{currentExtendedAmount}"></Measure>
+        <Measure name="Year 1 Extended Amount" column="AMOUNTS_EXTENDED_YEAR1_AMOUNT" aggregator="sum" visible="true" caption="%{year1ExtendedAmount}"></Measure>
+        <Measure name="Year 2 Extended Amount" column="AMOUNTS_EXTENDED_YEAR2_AMOUNT" aggregator="sum" visible="true" caption="%{year2ExtendedAmount}"></Measure>
+        <Measure name="Partially Untied Amount" column="AMOUNTS_PARTIALLY_UNTIED_AMOUNT" aggregator="sum" visible="true" caption="%{partiallyUntiedAmount}"></Measure>
+        <Measure name="Received Amount" column="AMOUNTS_RECEIVED_AMOUNT" aggregator="sum" visible="true" caption="%{receivedAmount}"></Measure>
+        <Measure name="Received Amount Currency" aggregator="sum" visible="true">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    ("FINANCIALTRANSACTIONVIEW"."AMOUNTS_RECEIVED_AMOUNT" * (SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_RECEIVED_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        <Measure name="Tied Amount" column="AMOUNTS_TIED_AMOUNT" aggregator="sum" visible="true" caption="%{tiedAmount}"></Measure>
+        <Measure name="Untied Amount" column="AMOUNTS_UNTIED_AMOUNT" aggregator="sum" visible="true" caption="%{untiedAmount}"></Measure>
+        <Measure name="Interest Arrears Amount" column="AMOUNTS_AREARS_INTEREST_AMOUNT" aggregator="sum" visible="true" caption="%{interestArrearsAmount}"></Measure>
+        <Measure name="Principal Arrears Amount" column="AMOUNTS_AREARS_PRIN_AMOUNT" aggregator="sum" visible="true" caption="%{principalArrearsAmount}"></Measure>
+        <Measure name="Commitments Amount" column="COMMITMENT_AMOUNT" aggregator="sum" visible="true" caption="%{commitmentsAmount}"></Measure>
+        <Measure name="Interest Received Amount" column="AMOUNTS_INTEREST_RECEIVED_AMOUNT" aggregator="sum" visible="true" caption="%{interestReceivedAmount}"></Measure>
+        <Measure name="Principal Disbursed Amount" column="AMOUNTS_PRIN_DISB_AMOUNT" aggregator="sum" visible="true" caption="%{principalDisbursedAmount}"></Measure>
+        <Measure name="Expert Commitments Amount" column="AMOUNTS_EXP_COMMIT_AMOUNT" aggregator="sum" visible="true" caption="%{expertCommitmentsAmount}"></Measure>
+        <Measure name="Expert Extended Amount" column="AMOUNTS_EXP_EXTENDED_AMOUNT" aggregator="sum" visible="true" caption="%{expertExtendedAmount}"></Measure>
+        <Measure name="NumberOfTransactions" column="ID" datatype="Integer" aggregator="count" formatString="#,###"/>
+        <CalculatedMember name="Net Amount" dimension="Measures">
+            <Formula>[Measures].[Extended Amount] - [Measures].[Received Amount]</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="Net Amount Currency" dimension="Measures">
+            <Formula>[Measures].[Extended Amount Currency] - [Measures].[Received Amount Currency]</Formula>
+        </CalculatedMember>
+    </Cube>
 </Schema>

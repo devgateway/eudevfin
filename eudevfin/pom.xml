@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.devgateway.eudevfin</groupId>
-    <artifactId>integration</artifactId>
-    <version>0.0.1.CI-SNAPSHOT</version>
+    <artifactId>eudevfin</artifactId>
+    <version>0.9.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>EU-DEVFIN Package</name>
+    <name>EU-DEVFIN Parent Package</name>
     <url>http://www.springframework.org</url>
     <properties>
         <maven.test.failure.ignore>true</maven.test.failure.ignore>
-        <spring.framework.version>3.2.6.RELEASE</spring.framework.version>
+        <spring.framework.version>3.2.7.RELEASE</spring.framework.version>
         <spring.integration.version>2.2.6.RELEASE</spring.integration.version>
         <spring.datajpa.version>1.4.3.RELEASE</spring.datajpa.version>
         <jetty.version>9.1.0.v20131115</jetty.version>
@@ -26,6 +24,8 @@
         <ehcache.version>2.4.7</ehcache.version>
         <liquibase.version>3.0.8</liquibase.version>
     </properties>
+
+
 
     <dependencies>
 
@@ -133,6 +133,11 @@
             <version>${wicket.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket-devutils</artifactId>
+            <version>${wicket.version}</version>
+        </dependency>
+        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>${servlet.api.version}</version>
@@ -209,7 +214,7 @@
 		<dependency>
 			<groupId>org.joda</groupId>
 			<artifactId>joda-money</artifactId>
-			<version>0.9</version>
+			<version>0.9-exchangerate</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jadira.usertype</groupId>
@@ -312,6 +317,9 @@
         	<artifactId>xercesImpl</artifactId>
         	<version>2.11.0</version>
         </dependency>
+        
+	      
+	            
     </dependencies>
 
     <build>
@@ -382,7 +390,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore/>
+                                        <ignore />
                                     </action>
                                 </pluginExecution>
                             </pluginExecutions>
@@ -492,4 +500,12 @@
         <system>Jenkins</system>
         <url>https://ci.ampdev.net</url>
     </ciManagement>
+    
+   	<scm>
+		<url>ssh://mpostelnicu@git.developmentgateway.org:20006/home/mpostelnicu/projects/eudevfin.git</url>
+		<developerConnection>scm:git:ssh://mpostelnicu@git.developmentgateway.org:20006/home/mpostelnicu/projects/eudevfin.git</developerConnection>
+		<connection>scm:git:ssh://mpostelnicu@git.developmentgateway.org:20006/home/mpostelnicu/projects/eudevfin.git</connection>
+		<tag>HEAD</tag>
+	</scm>
+    
 </project>

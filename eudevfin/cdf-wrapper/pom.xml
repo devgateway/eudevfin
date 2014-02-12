@@ -13,8 +13,8 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.devgateway.eudevfin</groupId>
-		<artifactId>integration</artifactId>
-		<version>0.0.1.CI-SNAPSHOT</version>
+		<artifactId>eudevfin</artifactId>
+		<version>0.9.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>cdf-wrapper</artifactId>
 	<packaging>war</packaging>
@@ -199,9 +199,9 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-									 <execute >
+									 <execute>
             							 <runOnIncremental>true</runOnIncremental>            					
-           							</execute >
+           							</execute>
 									</action>
 								</pluginExecution>
 							</pluginExecutions>

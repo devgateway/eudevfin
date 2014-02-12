@@ -3,6 +3,7 @@
  */
 package org.devgateway.eudevfin.common.service;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
@@ -14,7 +15,7 @@ import org.springframework.integration.annotation.Payload;
 /**
  * @author Alex
  */
-public interface BaseEntityService<T> {
+public interface BaseEntityService<T> extends Serializable {
 	NullableWrapper<T> save(T t);
 	
 	@Payload("new java.util.Date()")

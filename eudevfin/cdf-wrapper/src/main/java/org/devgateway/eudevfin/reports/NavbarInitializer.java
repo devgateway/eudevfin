@@ -13,6 +13,7 @@ import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.cdf.pages.reports.ReportsExport;
 import org.devgateway.eudevfin.cdf.pages.reports.ReportsPage;
 import org.devgateway.eudevfin.ui.common.WicketNavbarComponentInitializer;
+import org.devgateway.eudevfin.ui.common.components.RepairedNavbarDropDownButton;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.DropDownSubMenu;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuBookmarkablePageLink;
@@ -33,7 +34,7 @@ public final class NavbarInitializer {
 	
 	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT)
 	public static Component newReportsNavbarMenu(Page page) {
-		NavbarDropDownButton navbarDropDownButton = new NavbarDropDownButton(
+		NavbarDropDownButton navbarDropDownButton = new RepairedNavbarDropDownButton(
 				new StringResourceModel("navbar.reports", page, null, null)) {
 			@Override
 			public boolean isActive(Component item) {
@@ -47,6 +48,48 @@ public final class NavbarInitializer {
 						ReportsPage.class, null, new StringResourceModel(
 								"navbar.dashboard", this, null, null))
 						.setIconType(IconType.picture));
+
+				DropDownSubMenu exportReports = new DropDownSubMenu(new StringResourceModel("navbar.reports.export", this, null, null)) {
+					@Override
+					public boolean isActive(Component item) {
+						return false;
+					}
+
+					@Override
+					protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
+						List<AbstractLink> list = new ArrayList<>();
+
+						//TODO: Wrap creation of links with something similar to TransactionPage.getTransactionLinks()
+						PageParameters paramsAQ = new PageParameters();
+						paramsAQ.set("reportType", "aq");
+						list.add(new MenuBookmarkablePageLink<ReportsExport>(ReportsExport.class, paramsAQ, new StringResourceModel("navbar.reports.export.aq", this, null, null)));
+
+						PageParameters paramsDAC1 = new PageParameters();
+						paramsDAC1.set("reportType", "dac1");
+						list.add((AbstractLink) new MenuBookmarkablePageLink<ReportsExport>(ReportsExport.class, paramsDAC1, new StringResourceModel("navbar.reports.export.dac1", this, null, null)).setEnabled(false));
+
+						PageParameters paramsDAC2 = new PageParameters();
+						paramsDAC2.set("reportType", "dac2");
+						list.add((AbstractLink) new MenuBookmarkablePageLink<ReportsExport>(ReportsExport.class, paramsDAC2, new StringResourceModel("navbar.reports.export.dac2", this, null, null)).setEnabled(false));
+
+						PageParameters paramsCRS = new PageParameters();
+						paramsCRS.set("reportType", "CRS");
+						list.add((AbstractLink) new MenuBookmarkablePageLink<ReportsExport>(ReportsExport.class, paramsCRS, new StringResourceModel("navbar.reports.export.crs", this, null, null)).setEnabled(false));
+
+						PageParameters paramsFSS = new PageParameters();
+						paramsFSS.set("reportType", "fss");
+						list.add((AbstractLink) new MenuBookmarkablePageLink<ReportsExport>(ReportsExport.class, paramsFSS, new StringResourceModel("navbar.reports.export.fss", this, null, null)).setEnabled(false));
+
+						PageParameters paramsIATI = new PageParameters();
+						paramsIATI.set("reportType", "iati");
+						list.add((AbstractLink) new MenuBookmarkablePageLink<ReportsExport>(ReportsExport.class, paramsIATI, new StringResourceModel("navbar.reports.export.iati", this, null, null)).setEnabled(false));
+
+						return list;
+					}
+
+				};
+				exportReports.setIconType(IconType.resizehorizontal);
+				list.add(exportReports);
 				
 				list.add((AbstractLink) new MenuBookmarkablePageLink<ReportsPage>(
 						ReportsPage.class, null, new StringResourceModel(
@@ -57,42 +100,6 @@ public final class NavbarInitializer {
 						ReportsPage.class, null, new StringResourceModel(
 								"navbar.reportsbuilder", this, null, null))
 						.setIconType(IconType.play).setEnabled(false));
-
-				
-                DropDownSubMenu exportReports = new DropDownSubMenu(new StringResourceModel("navbar.reports.export", this, null, null)) {
-                    @Override
-                    public boolean isActive(Component item) {
-                        return false;
-                    }
-
-                    @Override
-                    protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
-                        List<AbstractLink> list = new ArrayList<>();
-
-                        //TODO: Wrap creation of links with something similar to TransactionPage.getTransactionLinks()
-                        PageParameters paramsAQ = new PageParameters();
-                        paramsAQ.set("reportType", "aq");
-                        list.add(new MenuBookmarkablePageLink<ReportsExport>(ReportsExport.class, paramsAQ, new StringResourceModel("navbar.reports.export.aq", this, null, null)));
-                        
-                        PageParameters paramsDAC1 = new PageParameters();
-                        paramsDAC1.set("reportType", "dac1");
-                        list.add((AbstractLink) new MenuBookmarkablePageLink<ReportsExport>(ReportsExport.class, paramsDAC1, new StringResourceModel("navbar.reports.export.dac1", this, null, null)).setEnabled(false));
-
-                        PageParameters paramsDAC2 = new PageParameters();
-                        paramsDAC2.set("reportType", "dac2");
-                        list.add((AbstractLink) new MenuBookmarkablePageLink<ReportsExport>(ReportsExport.class, paramsDAC2, new StringResourceModel("navbar.reports.export.dac2", this, null, null)).setEnabled(false));
-                        
-                        PageParameters paramsFSS = new PageParameters();
-                        paramsDAC2.set("reportType", "fss");
-                        list.add((AbstractLink) new MenuBookmarkablePageLink<ReportsExport>(ReportsExport.class, paramsFSS, new StringResourceModel("navbar.reports.export.fss", this, null, null)).setEnabled(false));
-
-                        
-                        return list;
-                    }
-
-                };
-                exportReports.setIconType(IconType.resizehorizontal);
-                list.add(exportReports);
 				
 /*				
 				list.add(new MenuBookmarkablePageLink<ReportsExport>(

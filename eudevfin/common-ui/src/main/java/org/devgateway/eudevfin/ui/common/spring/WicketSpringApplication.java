@@ -8,25 +8,19 @@
 
 package org.devgateway.eudevfin.ui.common.spring;
 
-import de.agilecoders.wicket.core.Bootstrap;
-import de.agilecoders.wicket.core.markup.html.RenderJavaScriptToFooterHeaderResponseDecorator;
-import de.agilecoders.wicket.core.markup.html.references.BootstrapPrettifyCssReference;
-import de.agilecoders.wicket.core.markup.html.references.BootstrapPrettifyJavaScriptReference;
-import de.agilecoders.wicket.core.markup.html.references.ModernizrJavaScriptReference;
-import de.agilecoders.wicket.core.settings.BootstrapSettings;
-import de.agilecoders.wicket.core.settings.ThemeProvider;
-import de.agilecoders.wicket.extensions.markup.html.bootstrap.html5player.Html5PlayerCssReference;
-import de.agilecoders.wicket.extensions.markup.html.bootstrap.html5player.Html5PlayerJavaScriptReference;
-import de.agilecoders.wicket.extensions.markup.html.bootstrap.icon.OpenWebIconsCssReference;
-import de.agilecoders.wicket.themes.markup.html.bootstrap3.Bootstrap3Theme;
-import de.agilecoders.wicket.themes.markup.html.google.GoogleTheme;
-import de.agilecoders.wicket.themes.markup.html.metro.MetroTheme;
-import de.agilecoders.wicket.themes.markup.html.wicket.WicketTheme;
-import de.agilecoders.wicket.themes.settings.BootswatchThemeProvider;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.wicket.Page;
+import org.apache.wicket.RuntimeConfigurationType;
 import org.apache.wicket.authorization.strategies.CompoundAuthorizationStrategy;
 import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
+import org.apache.wicket.devutils.debugbar.DebugBar;
+import org.apache.wicket.devutils.debugbar.IDebugBarContributor;
+import org.apache.wicket.devutils.debugbar.InspectorDebugPanel;
+import org.apache.wicket.devutils.debugbar.SessionSizeDebugPanel;
+import org.apache.wicket.devutils.debugbar.VersionDebugContributor;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.request.resource.CssResourceReference;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
@@ -41,6 +35,26 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
+
+import com.google.javascript.jscomp.CompilationLevel;
+
+import de.agilecoders.wicket.core.Bootstrap;
+import de.agilecoders.wicket.core.markup.html.RenderJavaScriptToFooterHeaderResponseDecorator;
+import de.agilecoders.wicket.core.markup.html.references.BootstrapPrettifyCssReference;
+import de.agilecoders.wicket.core.markup.html.references.BootstrapPrettifyJavaScriptReference;
+import de.agilecoders.wicket.core.markup.html.references.ModernizrJavaScriptReference;
+import de.agilecoders.wicket.core.settings.BootstrapSettings;
+import de.agilecoders.wicket.core.settings.ThemeProvider;
+import de.agilecoders.wicket.extensions.javascript.GoogleClosureJavaScriptCompressor;
+import de.agilecoders.wicket.extensions.javascript.YuiCssCompressor;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.html5player.Html5PlayerCssReference;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.html5player.Html5PlayerJavaScriptReference;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.icon.OpenWebIconsCssReference;
+import de.agilecoders.wicket.themes.markup.html.bootstrap3.Bootstrap3Theme;
+import de.agilecoders.wicket.themes.markup.html.google.GoogleTheme;
+import de.agilecoders.wicket.themes.markup.html.metro.MetroTheme;
+import de.agilecoders.wicket.themes.markup.html.wicket.WicketTheme;
+import de.agilecoders.wicket.themes.settings.BootswatchThemeProvider;
 
 
 public class WicketSpringApplication extends AuthenticatedWebApplication implements ApplicationContextAware {
@@ -67,8 +81,28 @@ public class WicketSpringApplication extends AuthenticatedWebApplication impleme
             CompoundAuthorizationStrategy cas = (CompoundAuthorizationStrategy) getSecuritySettings().getAuthorizationStrategy();
             cas.add(new PermissionAuthorizationStrategy());
         }
-        
-        
+
+        getResourceSettings().setUseMinifiedResources(false); //prevents bug in wicket-bootstrap that's trying to minify a png       
+
+        //DEPLOYMENT MODE?
+		if (RuntimeConfigurationType.DEPLOYMENT.equals(this.getConfigurationType())) {
+			//compress resources
+			getResourceSettings().setJavaScriptCompressor(
+					new GoogleClosureJavaScriptCompressor(CompilationLevel.SIMPLE_OPTIMIZATIONS));
+			getResourceSettings().setCssCompressor(new YuiCssCompressor());			
+		} else {
+			//see https://issues.apache.org/jira/browse/WICKET-5388
+			//we do not use SessionSizeDebugPanel
+			List<IDebugBarContributor> debugContributors=new ArrayList<>();
+        	debugContributors.add(VersionDebugContributor.DEBUG_BAR_CONTRIB);
+        	debugContributors.add(InspectorDebugPanel.DEBUG_BAR_CONTRIB);
+        	debugContributors.add(SessionSizeDebugPanel.DEBUG_BAR_CONTRIB);
+            DebugBar.setContributors(debugContributors,this);
+		}
+		
+		//set response for session timeout:
+		getApplicationSettings().setPageExpiredErrorPage(LoginPage.class);
+
         //add the navbar 
 //        Navbar navbar = new Navbar("navbar");
 //        navbar.setPosition(Navbar.Position.TOP);

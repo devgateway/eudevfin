@@ -18,8 +18,6 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 
-import java.util.Arrays;
-
 /**
  * Entity to spawn a Data Table
  *
@@ -29,6 +27,7 @@ import java.util.Arrays;
 public class Table extends Panel implements IParametersProvider {
     private final WebMarkupContainer table;
     private TableParameters parameters;
+	private String initFunction;
 
     public Table(String id, String dataAccessId, String messageKey) {
         super(id);
@@ -44,11 +43,6 @@ public class Table extends Panel implements IParametersProvider {
         parameters = new TableParameters(id, tableId);
 
 	    parameters.getChartDefinition().setDataAccessId(dataAccessId);
-	    parameters.getChartDefinition().setColHeaders(Arrays.asList("Type of Finance", "2009", "2010", "2011", "2012", "2013"));
-	    parameters.getChartDefinition().setColTypes(Arrays.asList("string", "numeric", "numeric", "numeric", "numeric", "numeric"));
-	    parameters.getChartDefinition().setColFormats(Arrays.asList("%s", "%d", "%d", "%d", "%d", "%d"));
-	    parameters.getChartDefinition().setColWidths(Arrays.asList("25%", "15%", "15%", "15%", "15%", "15%"));
-	    parameters.getChartDefinition().setColSortable(Arrays.asList(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE));
     }
 
     @Override
@@ -60,11 +54,27 @@ public class Table extends Panel implements IParametersProvider {
         response.render(CssHeaderItem.forUrl("/js/dataTables/css/demo_table_jui.css"));
 
         response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Table.class, "TableInit.js")));
-        response.render(OnDomReadyHeaderItem.forScript("initDataTable(" + parameters().toJson() + ");"));
+        response.render(OnDomReadyHeaderItem.forScript(this.initFunction + "(" + parameters().toJson() + ");"));
     }
 
     @Override
     public BaseParameters parameters() {
         return parameters;
     }
+
+	public TableParameters getParameters() {
+		return parameters;
+	}
+
+	public void setParameters(TableParameters parameters) {
+		this.parameters = parameters;
+	}
+
+	public String getInitFunction() {
+		return initFunction;
+	}
+
+	public void setInitFunction(String initFunction) {
+		this.initFunction = initFunction;
+	}
 }

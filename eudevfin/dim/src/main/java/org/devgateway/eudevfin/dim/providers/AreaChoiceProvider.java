@@ -13,8 +13,6 @@ import org.devgateway.eudevfin.financial.Area;
 import org.devgateway.eudevfin.financial.service.AreaService;
 import org.devgateway.eudevfin.ui.common.providers.AbstractTranslatableProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Component;
 
 /**
@@ -24,10 +22,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class AreaChoiceProvider extends AbstractTranslatableProvider<Area> {
 
-	public AreaChoiceProvider() {
-		//this.sort=new Sort(Direction.ASC,"code");
-	}
-	
+    public AreaChoiceProvider() {
+        //this.sort=new Sort(Direction.ASC,"code");
+    }
+
     @Autowired
     private AreaService areaService;
 
@@ -39,6 +37,11 @@ public class AreaChoiceProvider extends AbstractTranslatableProvider<Area> {
 
     @Override
     public String getDisplayText(Area choice) {
-        return choice.getCode()+ " - "+ choice.getName();
+        return choice.getCode() + " - " + choice.getName();
+    }
+
+    @Override
+    public void detach() {
+        //Spring component no need to detach if added into wicket components with @SpringBean
     }
 }

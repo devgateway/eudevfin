@@ -1,8 +1,9 @@
 
-var stackedBarChart,
-	stackedBarQueryResult;	// we should parameterized this
+var odaBySectorChart,
+	odaBySectorQueryResult,
+	MILLION = 1000000;
 
-function initStackedBarChart(parametersJson) {
+function addOdaBySectorChart(parametersJson) {
 	'use strict';
 
 	var stackedBarChartId = parametersJson.htmlObject;
@@ -10,7 +11,7 @@ function initStackedBarChart(parametersJson) {
 	stackedBarChartDefinition.get('chart').renderTo = stackedBarChartId;
 
 	var stackedBarChartQuery = new app.ChartModel(_.extend(parametersJson, {
-	    resultvar: "stackedBarQueryResult",
+	    resultvar: "odaBySectorQueryResult",
 		postFetch: function (values) {
 			return values;
 		},
@@ -26,23 +27,23 @@ function initStackedBarChart(parametersJson) {
 		        len,
 		        i;
 
-		    len = stackedBarQueryResult.length;
+		    len = odaBySectorQueryResult.length;
 		    for (i = 0; i < len; i++) {
-				resultCategories.push(stackedBarQueryResult[i][1]);
-				if(resultSeries[stackedBarQueryResult[i][0]] === undefined) {
-					resultSeries[stackedBarQueryResult[i][0]] = [];
+				resultCategories.push(odaBySectorQueryResult[i][1]);
+				if(resultSeries[odaBySectorQueryResult[i][0]] === undefined) {
+					resultSeries[odaBySectorQueryResult[i][0]] = [];
 				}
 
-				if (stackedBarQueryResult[i][2] !== null && stackedBarQueryResult[i][2] != undefined) {
-					resultSeries[stackedBarQueryResult[i][0]].push(parseInt(stackedBarQueryResult[i][2], 10));
+				if (odaBySectorQueryResult[i][2] !== null && odaBySectorQueryResult[i][2] != undefined) {
+					resultSeries[odaBySectorQueryResult[i][0]].push(parseFloat(odaBySectorQueryResult[i][2]) / MILLION);
 				} else {
-					resultSeries[stackedBarQueryResult[i][0]].push(0);
+					resultSeries[odaBySectorQueryResult[i][0]].push(0);
 				}
 		    }
 
 		    resultCategories = _.uniq(resultCategories, false);
 
-		    for (var key in resultSeries) {
+		    for (key in resultSeries) {
 			    if (resultSeries.hasOwnProperty(key)) {
 					// add only non-null values
 				    if (app.checkArrayValue(resultSeries[key], 0) === false) {
@@ -55,10 +56,15 @@ function initStackedBarChart(parametersJson) {
 			    }
 		    }
 
+		    if (_.isEmpty(odaBySectorQueryResult)) {
+			    stackedBarChartDefinition.get('chart').height = 100;
+			    app.noData();
+		    }
+
 		    stackedBarChartDefinition.get('xAxis').categories = resultCategories;
 		    stackedBarChartDefinition.set({series: finalResultSeries});
 
-	        stackedBarChart = new Highcharts.Chart(stackedBarChartDefinition.toJSON());
+		    odaBySectorChart = new Highcharts.Chart(stackedBarChartDefinition.toJSON());
 	    }
 	}));
 

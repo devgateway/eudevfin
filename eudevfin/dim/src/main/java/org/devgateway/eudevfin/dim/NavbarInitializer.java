@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2014 Development Gateway.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v3.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/gpl.html
+ */
+
 package org.devgateway.eudevfin.dim;
 
 import java.util.ArrayList;
@@ -17,6 +25,7 @@ import org.devgateway.eudevfin.dim.pages.transaction.crs.TransactionPage;
 import org.devgateway.eudevfin.dim.pages.transaction.custom.CustomTransactionPage;
 import org.devgateway.eudevfin.ui.common.Constants;
 import org.devgateway.eudevfin.ui.common.WicketNavbarComponentInitializer;
+import org.devgateway.eudevfin.ui.common.components.RepairedNavbarDropDownButton;
 import org.devgateway.eudevfin.ui.common.pages.LogoutPage;
 import org.devgateway.eudevfin.ui.common.temporary.SB;
 
@@ -56,7 +65,7 @@ public final class NavbarInitializer {
 	
 	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.LEFT)
 	public static Component newTransactionNavbarButton(final Page page) {
-		   NavbarDropDownButton navbarDropDownButton = new NavbarDropDownButton(new StringResourceModel("navbar.newTransaction", page, null, null)) {
+		   NavbarDropDownButton navbarDropDownButton = new RepairedNavbarDropDownButton(new StringResourceModel("navbar.newTransaction", page, null, null)) {
 	            @Override
 	            public boolean isActive(Component item) {
 	                return false;
@@ -104,7 +113,7 @@ public final class NavbarInitializer {
 	                multilateralOda.setIconType(IconType.fullscreen);
 	                list.add(multilateralOda);
 
-	                DropDownSubMenu nonOda = new DropDownSubMenu(Model.of("non-ODA")) {
+	                DropDownSubMenu nonOda = new DropDownSubMenu(new StringResourceModel("navbar.newTransaction.nonOda", this, null, null)) {
 	                    @Override
 	                    protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
 	                        List<String> values = new ArrayList<>();
@@ -114,7 +123,7 @@ public final class NavbarInitializer {
 	                        values.add(SB.NON_ODA_PRIVATE_MARKET);
 	                        values.add(SB.NON_ODA_OTHER_FLOWS);
 
-	                        return getTransactionLinks(values,page);
+	                        return getTransactionLinks(values, page);
 	                    }
 	                };
 	                nonOda.setIconType(IconType.random);
@@ -184,8 +193,8 @@ public final class NavbarInitializer {
 	                langs.add(new Locale("ro"));
 
 	                for (Locale l : langs) {
-	                    PageParameters params = new PageParameters();
-	                    params.set(Constants.LANGUAGE_PAGE_PARAM, l.getLanguage());
+                        PageParameters params = new PageParameters(page.getPageParameters());
+                        params.set(Constants.LANGUAGE_PAGE_PARAM, l.getLanguage());
 	                    list.add(new MenuBookmarkablePageLink<Page>(page.getPageClass(), params, Model.of(l.getDisplayName())));
 	                }
 

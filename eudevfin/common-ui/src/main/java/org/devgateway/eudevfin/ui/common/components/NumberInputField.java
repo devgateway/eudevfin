@@ -19,7 +19,7 @@ import de.agilecoders.wicket.extensions.javascript.jasny.InputMaskBehavior;
 
 /**
  * <p>Creates a similar input field as {@link TextInputField} but for {@link Number}S
- * This is HTML5 
+ * This is HTML5 and has some limitations (input type=number). Use {@link NumberTextField} for non HTML5 
  * 
  * @author mihai
  * @since 17 October 2013

@@ -14,8 +14,9 @@ import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.olap.JRMondrianQueryExecuterFactory;
-
 import org.apache.log4j.Logger;
+import org.devgateway.eudevfin.auth.common.util.AuthUtils;
+import org.devgateway.eudevfin.financial.Organization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
@@ -27,13 +28,9 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
-
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -90,7 +87,7 @@ public class ReportsController {
 		Connection connection = DriverManager.getConnection(propertyList, null,
 				cdaDataSource);
 
-		// add default values
+        // add default values
 		if (reportType == null || reportType.equals("")) {
 			reportType = REPORT_TYPE_AQ;
 		}
@@ -171,7 +168,16 @@ public class ReportsController {
 				parameters.put("SUBDIR_PATH", subdirPath);
 			} catch (URISyntaxException e) {
 				e.printStackTrace();
-			}  
+			}
+
+			// put Reporting Country parameter
+			String donorName = "";
+			Organization organizationForCurrentUser = AuthUtils.getOrganizationForCurrentUser();
+
+			if (organizationForCurrentUser != null) {
+				donorName = organizationForCurrentUser.getDonorName();
+			}
+			parameters.put("REPORTING_COUNTRY", donorName);
 			
 			JasperReport jasperReport = (JasperReport) JRLoader.loadObject(inputStream);
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters);

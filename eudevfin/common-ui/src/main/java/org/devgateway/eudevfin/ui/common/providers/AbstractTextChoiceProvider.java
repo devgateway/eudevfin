@@ -8,9 +8,8 @@
 
 package org.devgateway.eudevfin.ui.common.providers;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
+import com.vaynberg.wicket.select2.ChoiceProvider;
+import com.vaynberg.wicket.select2.Response;
 import org.apache.log4j.Logger;
 import org.devgateway.eudevfin.common.service.BaseEntityService;
 import org.devgateway.eudevfin.common.spring.SpringPropertyExpressions;
@@ -21,8 +20,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
-import com.vaynberg.wicket.select2.ChoiceProvider;
-import com.vaynberg.wicket.select2.Response;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * @author aartimon
@@ -89,6 +88,13 @@ public abstract class AbstractTextChoiceProvider<T> extends ChoiceProvider<T> {
     @Override
     public void toJson(T choice, JSONWriter writer) throws JSONException {
     	writer.key("id").value(getId(choice)).key("text").value(getDisplayText(choice));
-    };
+    }
 
+    @Override
+    public void detach() {
+        /**
+         * Do override this method and detach all Spring services that might get serialized by Wicket
+         */
+        throw new AssertionError("Must override detach method!");
+    }
 }

@@ -8,8 +8,7 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
-import java.math.BigDecimal;
-
+import com.vaynberg.wicket.select2.ChoiceProvider;
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.event.Broadcast;
@@ -18,7 +17,7 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.ComponentPropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.devgateway.eudevfin.dim.providers.CurrencyUnitProvider;
+import org.devgateway.eudevfin.dim.providers.CurrencyUnitProviderFactory;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
@@ -26,9 +25,10 @@ import org.devgateway.eudevfin.ui.common.events.CurrencyChangedEvent;
 import org.devgateway.eudevfin.ui.common.events.CurrencyUpdateBehavior;
 import org.devgateway.eudevfin.ui.common.models.BigMoneyModel;
 import org.devgateway.eudevfin.ui.common.permissions.PermissionAwareComponent;
-import org.devgateway.eudevfin.ui.common.temporary.SB;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
+
+import java.math.BigDecimal;
 
 /**
  * @author aartimon@developmentgateway.org
@@ -39,8 +39,10 @@ public class VolumeDataTab extends Panel implements PermissionAwareComponent {
     public static final String KEY = "tabs.volume";
 	private PageParameters parameters;
 	
+	private DropDownField<CurrencyUnit> currency;
+	
 	@SpringBean
-	private CurrencyUnitProvider currencyUnitProvider;
+	private CurrencyUnitProviderFactory currencyUnitProviderFactory;
 
     public VolumeDataTab(String id,PageParameters parameters) {
         super(id);
@@ -66,8 +68,10 @@ public class VolumeDataTab extends Panel implements PermissionAwareComponent {
     private void addComponents() {
 
         ComponentPropertyModel<CurrencyUnit> readOnlyCurrencyModel = new ComponentPropertyModel<>("currency");
-        DropDownField<CurrencyUnit> currency = new DropDownField<CurrencyUnit>("32currency", new RWComponentPropertyModel<CurrencyUnit>("currency"),
-                this.currencyUnitProvider) {
+        ChoiceProvider<CurrencyUnit> nationalCurrenciesProvider =
+                this.currencyUnitProviderFactory.getCurrencyUnitProviderInstance(CurrencyUnitProviderFactory.NATIONAL_UNSORTED_CURRENCIES_PROVIDER);
+        currency = new DropDownField<CurrencyUnit>("32currency", new RWComponentPropertyModel<CurrencyUnit>("currency"),
+                nationalCurrenciesProvider) {
             @Override
             protected void onUpdate(AjaxRequestTarget target) {
                 send(getPage(), Broadcast.DEPTH, new CurrencyChangedEvent(target));
@@ -75,7 +79,6 @@ public class VolumeDataTab extends Panel implements PermissionAwareComponent {
         };
         currency.required();
         add(currency);
-
         TextInputField<BigDecimal> commitments = new TextInputField<>("33commitments", new BigMoneyModel(new RWComponentPropertyModel<BigMoney>("commitments"), readOnlyCurrencyModel));
         commitments.typeBigDecimal().add(new CurrencyUpdateBehavior());
         add(commitments);
@@ -125,4 +128,13 @@ public class VolumeDataTab extends Panel implements PermissionAwareComponent {
     @Override
     public void enableRequired() {
     }
+
+	public DropDownField<CurrencyUnit> getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(DropDownField<CurrencyUnit> currency) {
+		this.currency = currency;
+	}
+    
 }

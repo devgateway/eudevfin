@@ -18,6 +18,141 @@
         </Connection>
     </DataSources>
 
+	<!-- used for testing (CDASimpleMDXTest.java) -->
+	<DataAccess id="simpleMDXQuery" connection="defaultConnection" type="mdx" access="public">
+		<Name>Simple Sector MDX query</Name>
+		<Query>
+			<![CDATA[
+			SELECT
+			NON EMPTY {Hierarchize({[Sector].[Name].Members})} ON COLUMNS,
+			NON EMPTY {[Measures].[Commitments Amount]} ON ROWS
+			FROM [Financial]
+		]]>
+		</Query>
+	</DataAccess>
+
+	<DataAccess id="netODATable"
+	            connection="defaultConnectionLocale"
+	            type="mdx"
+	            access="public">
+		<BandedMode>compact</BandedMode>
+		<Columns/>
+		<Name>Net ODA Table</Name>
+		<Parameters>
+			<Parameter default="EUR (million)" name="REPORT_CURRENCY_CODE" type="String"/>
+			<Parameter default="2011" name="YEAR2" type="Integer"/>
+			<Parameter default="2012" name="YEAR1" type="Integer"/>
+			<Parameter default="2013" name="YEAR" type="Integer"/>
+		</Parameters>
+		<Query>
+			<![CDATA[
+			WITH
+			MEMBER Measures.[Curent (USD)] AS [Measures].[Net Amount]
+			MEMBER Measures.[${REPORT_CURRENCY_CODE}] AS [Measures].[Net Amount Currency]
+			MEMBER Measures.[ODA/GNI] AS SUM(CrossJoin({[Type of Finance].[TYPE_OF_FINANCE##2].[ODA % GNI]}, {[Measures].[Extended Amount]}))
+			MEMBER Measures.[Bilateral share] AS (SUM(CrossJoin({[Type of Finance].[Name].[NON FLOW ITEMS]}, {[Measures].[NumberOfTransactions]})) / SUM(CrossJoin({[Type of Finance].[Name].Members}, {[Measures].[NumberOfTransactions]}))) * 100
+			SELECT
+			{{[Reporting Year].[${YEAR2}], [Reporting Year].[${YEAR1}], [Reporting Year].[${YEAR}]}} ON COLUMNS,
+			{[Measures].[Curent (USD)], [Measures].[${REPORT_CURRENCY_CODE}], Measures.[ODA/GNI], Measures.[Bilateral share]} ON ROWS
+			FROM [Financial]
+			WHERE ({[Type of Flow].[Name].[ODA (Official Development Assistance)], [Type of Flow].[Name].[Non flow (e.g. GNI)]})
+		]]>
+		</Query>
+	</DataAccess>
+
+	<DataAccess id="topTenRecipients"
+	            connection="defaultConnectionLocale"
+	            type="mdx"
+	            access="public">
+		<BandedMode>compact</BandedMode>
+		<Columns/>
+		<Name>Top 10 recipients table</Name>
+		<Query>
+			<![CDATA[
+			SELECT
+			NON EMPTY {[Measures].[Net Amount Currency]} ON COLUMNS,
+			TOPCOUNT([Country].[Name].Members, 10, [Measures].[Net Amount Currency]) ON ROWS
+			FROM [Financial]
+			WHERE {[Type of Flow].[Name].[ODA (Official Development Assistance)]}
+		]]>
+		</Query>
+	</DataAccess>
+
+	<DataAccess id="topTenMemoShare"
+	            connection="defaultConnectionLocale"
+	            type="mdx"
+	            access="public">
+		<BandedMode>compact</BandedMode>
+		<Columns/>
+		<Name>Top 10 memo share</Name>
+		<Query>
+			<![CDATA[
+			WITH
+			MEMBER Measures.[Top 5 recipients] AS (SUM(CrossJoin({TOPCOUNT([Country].[Name].Members, 5, [Measures].[NumberOfTransactions])}, {[Measures].[NumberOfTransactions]})) / SUM(CrossJoin({[Type of Finance].[Name].Members}, {[Measures].[NumberOfTransactions]}))) * 100
+			MEMBER Measures.[Top 10 recipients] AS (SUM(CrossJoin({TOPCOUNT([Country].[Name].Members, 10, [Measures].[NumberOfTransactions])}, {[Measures].[NumberOfTransactions]})) / SUM(CrossJoin({[Type of Finance].[Name].Members}, {[Measures].[NumberOfTransactions]}))) * 100
+			MEMBER Measures.[Top 20 recipients] AS (SUM(CrossJoin({TOPCOUNT([Country].[Name].Members, 20, [Measures].[NumberOfTransactions])}, {[Measures].[NumberOfTransactions]})) / SUM(CrossJoin({[Type of Finance].[Name].Members}, {[Measures].[NumberOfTransactions]}))) * 100
+			SELECT
+			NON EMPTY {Measures.[Top 5 recipients], Measures.[Top 10 recipients], Measures.[Top 20 recipients]} ON COLUMNS
+			FROM [Financial]
+			WHERE {[Type of Flow].[TYPE_OF_FLOW##10].[ODA (Official Development Assistance)]}
+		]]>
+		</Query>
+	</DataAccess>
+
+	<DataAccess id="odaByIncomeGroupChart"
+	            connection="defaultConnectionLocale"
+	            type="mdx"
+	            access="public">
+		<BandedMode>compact</BandedMode>
+		<Columns/>
+		<Name>ODA by Income Group Chart</Name>
+		<Query>
+			<![CDATA[
+			SELECT
+			NON EMPTY {[Measures].[Net Amount Currency]} ON COLUMNS,
+			NON EMPTY Order([IncomeGroup].[Name].Members, [Measures].[Net Amount Currency], DESC)  ON ROWS
+			FROM [Financial]
+			WHERE {[Type of Flow].[Name].[ODA (Official Development Assistance)]}
+		]]>
+		</Query>
+	</DataAccess>
+
+	<DataAccess id="odaByRegionChart"
+	            connection="defaultConnectionLocale"
+	            type="mdx"
+	            access="public">
+		<BandedMode>compact</BandedMode>
+		<Columns/>
+		<Name>ODA by Region Chart</Name>
+		<Query>
+			<![CDATA[
+			SELECT
+			NON EMPTY {[Measures].[Net Amount Currency]} ON COLUMNS,
+			NON EMPTY TOPCOUNT([Region].[Name].Members, 10, [Measures].[Net Amount Currency]) ON ROWS
+			FROM [Financial]
+			WHERE {[Type of Flow].[Name].[ODA (Official Development Assistance)]}
+		]]>
+		</Query>
+	</DataAccess>
+
+	<DataAccess id="odaBySectorChart"
+	            connection="defaultConnectionLocale"
+	            type="mdx"
+	            access="public">
+		<BandedMode>compact</BandedMode>
+		<Columns/>
+		<Name>ODA by Sector Chart</Name>
+		<Query>
+			<![CDATA[
+			SELECT
+			NON EMPTY {[Measures].[Net Amount Currency]} ON COLUMNS,
+			NON EMPTY TOPCOUNT(CrossJoin([Sector].[Name].Members, {[Type of Flow].[Name].[ODA (Official Development Assistance)]}), 10, [Measures].[Net Amount Currency]) ON ROWS
+			FROM [Financial]
+        ]]>
+		</Query>
+	</DataAccess>
+
+    <!-- queries used for the demo -->
     <DataAccess id="extendingAgenciesList"
                 connection="defaultConnectionLocale"
                 type="mdx"
@@ -139,39 +274,5 @@
         ]]>
 		</Query>
 	</DataAccess>
-
-	<DataAccess id="typeOfSectorsByFlow"
-	            connection="defaultConnectionLocale"
-	            type="mdx"
-	            access="public">
-		<BandedMode>compact</BandedMode>
-		<Columns/>
-		<Name>typeOfSectorsByFlow MDX</Name>
-		<Parameters>
-			<Parameter default="[All Extending Agencies]" name="app.extendingAgenciesListParameter" type="String"/>
-			<Parameter default="[All BiMultilaterals]" name="app.biMultilateralListParameter" type="String"/>
-		</Parameters>
-		<Query>
-			<![CDATA[
-			SELECT
-			NON EMPTY {[Measures].[Net Amount]} ON COLUMNS,
-			Union(CrossJoin({[Sector].[110].[EDUCATION]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[120].[HEALTH]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[140].[WATER AND SANITATION]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[150].[GOVERNMENT AND CIVIL SOCIETY]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[210].[TRANSPORT AND STORAGE]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[220].[COMMUNICATION]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[230].[ENERGY GENERATION AND SUPPLY]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[240].[BANKING AND FINANCIAL SERVICES]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[311].[AGRICULTURE]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[321].[INDUSTRY]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[323].[CONSTRUCTION]}, [Type of Flow].[Name].Members), Union(CrossJoin({[Sector].[700].[HUMANITARIAN AID]}, [Type of Flow].[Name].Members), CrossJoin({[Sector].[400].[MULTISECTOR/CROSS-CUTTING]}, [Type of Flow].[Name].Members))))))))))))) ON ROWS
-			FROM [Financial]
-			WHERE ([BiMultilateral].${app.biMultilateralListParameter}, [Extending Agency].${app.extendingAgenciesListParameter})
-        ]]>
-		</Query>
-	</DataAccess>
-    
-    <DataAccess id="simpleMDXQuery" connection="defaultConnection" type="mdx" access="public">
-		<Name>Simple Sector MDX query</Name>
-        <Query>
-        <![CDATA[
-			SELECT
-			NON EMPTY {Hierarchize({[Sector].[Name].Members})} ON COLUMNS,
-			NON EMPTY {[Measures].[Commitments Amount]} ON ROWS
-			FROM [Financial]
-		]]>
-		</Query>       
-    </DataAccess>
 
 </CDADescriptor>

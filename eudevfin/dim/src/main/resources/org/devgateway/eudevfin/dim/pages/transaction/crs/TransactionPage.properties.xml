@@ -16,22 +16,20 @@
     <entry key="tabs.loans">For Loans Only</entry>
     <entry key="tabs.additional">Additional Info</entry>
     <entry key="tabs.available">Available Components</entry>
-    
-    
-     <entry key="tabs.available">Available Components</entry>
 
     <entry key="bilateralOda.advanceQuestionnaire">Advance Questionnaire Form for Bilateral ODA</entry>
     <entry key="bilateralOda.CRS">CRS Form for Bilateral ODA</entry>
     <entry key="bilateralOda.forwardSpending">Forward Spending Form for Bilateral ODA</entry>
     <entry key="multilateralOda.advanceQuestionnaire">Advance Questionnaire Form for Multilateral ODA</entry>
     <entry key="multilateralOda.CRS">CRS Form for Multilateral ODA</entry>
-    <entry key="nonOda.nonExport">Non Export Form for Non-ODA</entry>
+    <entry key="nonOda.nonExport">Non Export Credit Form for Non-ODA</entry>
     <entry key="nonOda.export">Export Form for Non-ODA</entry>
     <entry key="nonOda.publicGrants">Public Grants Form for Non-ODA</entry>
     <entry key="nonOda.export">Public Market Form for Non-ODA</entry>
-    <entry key="nonOda.export">Other Flows Form for Non-ODA</entry>
-    
-    
-   <entry key="button.submit">Save and exit the form</entry>
-   <entry key="button.save">Save and stay on the page</entry>
+    <entry key="nonOda.export">Export Credit Form for Non-ODA</entry>
+
+    <entry key="button.submit">Save and exit the form</entry>
+    <entry key="button.save">Save and stay on the page</entry>
+    <entry key="currencies.duplicate">This currency should not be the same as the default currency</entry>
+    <entry key="leaveMessage">Remember to save or cancel the data you have inputted by using the blue buttons</entry>
 </properties>

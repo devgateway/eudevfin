@@ -12,8 +12,6 @@
 	    </delete>
 		<delete tableName="FINANCIALTRANSACTION">
 	    </delete>
-	    
- 		
 
 		<customChange
 			class="org.devgateway.eudevfin.financial.liquibase.PopulateFinancialDbChange">

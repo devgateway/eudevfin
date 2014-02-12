@@ -6,21 +6,20 @@
 	<property name="ireport.y" value="0"/>
 	<parameter name="FIRST_YEAR" class="java.lang.Number"/>
 	<parameter name="SECOND_YEAR" class="java.lang.Number"/>
-	<parameter name="SUBDIR_PATH" class="java.lang.String"/>
 	<queryString language="mdx">
 		<![CDATA[WITH
 MEMBER [Reporting Year].[First Year] AS [Reporting Year].[$P{FIRST_YEAR}]
 MEMBER [Reporting Year].[Second Year] AS [Reporting Year].[$P{SECOND_YEAR}]
 SELECT
 {[Reporting Year].[First Year], [Reporting Year].[Second Year]} ON ROWS,
-{[Measures].[Extended Amount]} ON COLUMNS
+{[Measures].[Extended Amount Currency]} ON COLUMNS
 FROM [Financial]]]>
 	</queryString>
 	<field name="Total Gross ODA Y1" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Extended Amount], [Reporting Year].[First Year])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Extended Amount Currency], [Reporting Year].[First Year])]]></fieldDescription>
 	</field>
 	<field name="Total Gross ODA Y2" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Extended Amount], [Reporting Year].[Second Year])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Extended Amount Currency], [Reporting Year].[Second Year])]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>

@@ -34,7 +34,17 @@
         <level value="info"/>
     </logger>
 
+	<logger name="pt.webdetails.cda.DefaultCdaEnvironment">
+		<level value="error"/>
+	</logger>
 
+	<logger name="org.pentaho.reporting.libraries.base.boot.AbstractBoot">
+		<level value="warn"/>
+	</logger>
+
+	<logger name="org.pentaho.reporting.libraries.fonts.registry.AbstractFontFileRegistry">
+		<level value="warn"/>
+	</logger>
 
 	<!-- Root Logger -->
 	<root>

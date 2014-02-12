@@ -9,10 +9,21 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>    
+
+	<entry key="nonflow.title">CRS++ Non-Flow Data</entry>
+
     <entry key="reportingYear.label">Reporting Year</entry>
     <entry key="reportingYear.placeholder">YYYY</entry>
     <entry key="reportingYear.help">Enter the reporting year for which you want to edit non flow information</entry>
     <entry key="reportingYear.help.detail">additional glossary will be added here</entry>
+   
+    <entry key="reportingCountry.label">Reporting Country</entry>
+    <entry key="reportingCountry.help">The reporting country</entry>
+   
+    <entry key="reportingCurrency.label">Reporting Currency</entry>
+    <entry key="reportingCurrency.help">The reporting currency</entry>
+
+  
         
     <entry key="population.label">Population</entry>
     <entry key="population.placeholder">in millions</entry>
@@ -25,7 +36,7 @@
     <entry key="gni.help.detail">additional glossary will be added here</entry>
        
     <entry key="totalFlows.label">Total Flows</entry>
-    <entry key="totalFlows.placeholder">millions of USD</entry>
+    <entry key="totalFlows.placeholder">percentage</entry>
     <entry key="totalFlows.help">Enter the Total Flows of the country above for the selected reporting year</entry>
     <entry key="totalFlows.help.detail">additional glossary will be added here</entry>
    

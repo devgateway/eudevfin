@@ -15,6 +15,8 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.FormComponent;
@@ -29,13 +31,14 @@ import org.apache.wicket.util.time.Duration;
 import org.apache.wicket.util.visit.IVisit;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
-import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
+import org.devgateway.eudevfin.auth.common.util.AuthUtils;
+import org.devgateway.eudevfin.ui.common.components.util.MondrianCacheUtil;
 import org.devgateway.eudevfin.dim.pages.HomePage;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.service.CurrencyMetadataService;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
-import org.devgateway.eudevfin.financial.util.CurrencyConstants;
 import org.devgateway.eudevfin.financial.util.FinancialTransactionUtil;
+import org.devgateway.eudevfin.ui.common.AttributePrepender;
 import org.devgateway.eudevfin.ui.common.Constants;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
 import org.devgateway.eudevfin.ui.common.components.tabs.BootstrapJSTabbedPanel;
@@ -44,8 +47,6 @@ import org.devgateway.eudevfin.ui.common.components.tabs.ITabWithKey;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.devgateway.eudevfin.ui.common.permissions.PermissionAwarePage;
 import org.devgateway.eudevfin.ui.common.permissions.RoleActionMapping;
-import org.devgateway.eudevfin.ui.common.temporary.SB;
-import org.joda.money.CurrencyUnit;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -62,11 +63,17 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 
 	public static final String PARAM_TRANSACTION_ID = "transactionId";
 
-	@SpringBean
-	private FinancialTransactionService financialTransactionService;
+    public final String onUnloadScript;
+
+
+    @SpringBean
+    private FinancialTransactionService financialTransactionService;
 	
 	@SpringBean
 	private CurrencyMetadataService currencyMetadaService;
+
+    @SpringBean
+    MondrianCacheUtil mondrianCacheUtil;
 
 	private static final CRSTransactionPermissionProvider componentPermissions = new CRSTransactionPermissionProvider();
 
@@ -93,6 +100,9 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 				TransactionPage.this.getModel().setObject(saved);
 				info(new NotificationMessage(new StringResourceModel("notification.saved", TransactionPage.this, null, null)));				
 				target.add(feedbackPanel);
+
+                // clear the mondrian cache
+                mondrianCacheUtil.flushMondrianCache();
 			} catch (Exception e) {
 				logger.error("Exception while trying to save:", e);
 				return;
@@ -139,7 +149,7 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 	 */
 	public void initializeFinancialTransaction(FinancialTransaction transaction,PageParameters parameters) {
 		PersistedUser user=(PersistedUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();					
-		FinancialTransactionUtil.initializeFinancialTransaction(transaction, this.currencyMetadaService, user.getGroup().getOrganization());
+		FinancialTransactionUtil.initializeFinancialTransaction(transaction, this.currencyMetadaService, AuthUtils.getOrganizationForCurrentUser(), AuthUtils.getIsoCountryForCurrentUser());
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -148,8 +158,17 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 		
 		Label pageType=new Label("pageType",new StringResourceModel(parameters.get(Constants.PARAM_TRANSACTION_TYPE).toString(""), this, null, null));
 		add(pageType);
-		
-		// TODO: check that transactionType in the request parameters is the
+
+		onUnloadScript = "window.onbeforeunload = function(e) {\n" +
+				"   var message = '" + new StringResourceModel("leaveMessage", this, null, null).getObject() + "';\n" +
+				"   e = e || window.event;\n" +
+				"   if(e) {\n" +
+				"       e.returnValue = message;\n" +   // For IE 8 and old Firefox
+				"   }\n" +
+                "   return message;\n" +
+                "};";
+
+        // TODO: check that transactionType in the request parameters is the
 		// same as the loaded transaction's type
 		FinancialTransaction financialTransaction = null;
 
@@ -175,19 +194,26 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 				.positionTabs(BootstrapJSTabbedPanel.Orientation.RIGHT);
 		form.add(bc);
 
-		form.add(new TransactionPageSubmitButton("submit", new StringResourceModel("button.submit", this, null, null)) {
-			private static final long serialVersionUID = -1909494416938537482L;
+        TransactionPageSubmitButton submitButton = new TransactionPageSubmitButton("submit", new StringResourceModel("button.submit", this, null, null)) {
+            private static final long serialVersionUID = -1909494416938537482L;
 
-			@Override
-			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-				logger.info("Submit pressed");
-				super.onSubmit(target, form);
-				setResponsePage(HomePage.class);
-			}
+            @Override
+            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+                logger.info("Submit pressed");
+                super.onSubmit(target, form);
+                setResponsePage(HomePage.class);
+            }
 
-		});
+            @Override
+            protected void onError(AjaxRequestTarget target, Form<?> form) {
+                super.onError(target, form);
+                target.appendJavaScript(onUnloadScript);
+            }
+        };
+        submitButton.add(new AttributePrepender("onclick", new Model<String>("window.onbeforeunload = null;"), " "));
+        form.add(submitButton);
 
-		form.add(new TransactionPageSubmitButton("save", new StringResourceModel("button.save", this, null, null)));
+        form.add(new TransactionPageSubmitButton("save", new StringResourceModel("button.save", this, null, null)));
 
 		form.add(new TransactionPageSubmitButton("cancel", new StringResourceModel("button.cancel", this, null, null)) {
 
@@ -240,4 +266,11 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 	public HashMap<String, RoleActionMapping> getPermissions() {
 		return componentPermissions.permissions();
 	}
+
+    @Override
+    public void renderHead(IHeaderResponse response) {
+        super.renderHead(response);
+        response.render(OnDomReadyHeaderItem.forScript(
+                onUnloadScript));
+    }
 }

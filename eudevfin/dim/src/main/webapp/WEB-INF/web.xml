@@ -80,14 +80,13 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-			/WEB-INF/*/auth*.jar!/*/authContext.xml
-			/WEB-INF/*/common*.jar!/*/commonContext.xml
-			/WEB-INF/*/common-auth*.jar!/*/commonAuthContext.xml
-			classpath*:**/*Context.xml
-			/WEB-INF/*/financial*.jar!/*/financialContext.xml
-			/WEB-INF/*/common-financial*.jar!/*/commonFinancialContext.xml
-			/WEB-INF/*/import-metadata*.jar!/*/importMetadataContext.xml
-
+			classpath*:META-INF/*Context.xml
 		</param-value>
 	</context-param>
+
+	<session-config>
+		<session-timeout>1</session-timeout>
+	</session-config>
+	
+	
 </web-app>

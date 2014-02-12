@@ -4,6 +4,7 @@
 	<property name="ireport.zoom" value="3.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="1891"/>
+	<parameter name="REPORTING_COUNTRY" class="java.lang.String"/>
 	<parameter name="FIRST_YEAR" class="java.lang.Number"/>
 	<parameter name="FIRST_YEAR_EXRATE" class="java.lang.Number"/>
 	<parameter name="SECOND_YEAR" class="java.lang.Number"/>
@@ -16,14 +17,14 @@ MEMBER [Reporting Year].[First Year] AS [Reporting Year].[$P{FIRST_YEAR}]
 MEMBER [Reporting Year].[Second Year] AS [Reporting Year].[$P{SECOND_YEAR}]
 SELECT
 {[Reporting Year].[First Year], [Reporting Year].[Second Year]} ON ROWS,
-{[Measures].[Net Amount]} ON COLUMNS
+{[Measures].[Net Amount Currency]} ON COLUMNS
 FROM [Financial]]]>
 	</queryString>
 	<field name="Extended Amount Year 1" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Net Amount], [Reporting Year].[First Year])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Net Amount Currency], [Reporting Year].[First Year])]]></fieldDescription>
 	</field>
 	<field name="Extended Amount Year 2" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Net Amount], [Reporting Year].[Second Year])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Net Amount Currency], [Reporting Year].[Second Year])]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -42,7 +43,7 @@ FROM [Financial]]]>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font fontName="Arial" size="12" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$R{aq.subtitle}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["(" + $P{SECOND_YEAR} + " " + $R{aq.subtitle} + ")"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="32" width="118" height="23" uuid="d971475c-3ae3-4306-800d-edad48554bf8"/>
@@ -167,6 +168,13 @@ FROM [Financial]]]>
 			<line>
 				<reportElement x="453" y="89" width="1" height="32" uuid="7094d931-7aca-4899-bac8-352fde6976b3"/>
 			</line>
+			<textField>
+				<reportElement x="118" y="32" width="138" height="23" uuid="33b33971-c38e-4eda-9915-bfbd5d4feba2"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{REPORTING_COUNTRY}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>

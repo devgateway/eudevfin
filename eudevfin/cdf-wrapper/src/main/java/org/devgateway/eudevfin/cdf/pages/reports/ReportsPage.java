@@ -13,71 +13,149 @@ import org.apache.wicket.authroles.authorization.strategies.role.annotations.Aut
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
+import org.devgateway.eudevfin.auth.common.util.AuthUtils;
 import org.devgateway.eudevfin.dashboard.Dashboards;
-import org.devgateway.eudevfin.dashboard.components.ColumnsChart;
-import org.devgateway.eudevfin.dashboard.components.Filter;
 import org.devgateway.eudevfin.dashboard.components.PieChart;
 import org.devgateway.eudevfin.dashboard.components.StackedBarChart;
 import org.devgateway.eudevfin.dashboard.components.Table;
+import org.devgateway.eudevfin.dashboard.components.TableParameters;
+import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.wicketstuff.annotation.mount.MountPath;
+
+import java.util.Arrays;
 
 @MountPath(value = "/reports")
 @AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
 public class ReportsPage extends HeaderFooter {
 	private static final Logger logger = Logger.getLogger(ReportsPage.class);
 
+	private static final int TABLE_YEAR = 2013;
+
     public ReportsPage() {
         addComponents();
     }
 
-    private void addComponents() {
-		// wicket ID, CDA ID, dashboard parameter (this is where the value of the filter will be saved)
-        Filter sectorFilter = new Filter("sectorFilter", "sectorList", "dashboards.sector.filter", "app.sectorListParameter");
-        add(sectorFilter);
-        
-        Filter extendingAgenciesFilter = new Filter("extendingAgenciesFilter", "extendingAgenciesList", "dashboards.org.filter", "app.extendingAgenciesListParameter");
-	    add(extendingAgenciesFilter);
-
-	    Filter biMultilateralFilter = new Filter("biMultilateralFilter", "biMultilateralList", "dashboards.biMultilateral.filter", "app.biMultilateralListParameter");
-	    add(biMultilateralFilter);
-
-	    Table tableDashboard = new Table("tableDashboard", "typeOfFinance", "dashboards.typeOfFinance");
-	    tableDashboard.parameters().addFilter(sectorFilter);
-	    tableDashboard.parameters().addFilter(extendingAgenciesFilter);
-	    tableDashboard.parameters().addFilter(biMultilateralFilter);
-        add(tableDashboard);
-
-        PieChart pieChart = new PieChart("pieChart", "typeOfAid", "dashboards.typeOfAid");
-	    pieChart.parameters().addFilter(sectorFilter);
-	    pieChart.parameters().addFilter(extendingAgenciesFilter);
-	    pieChart.parameters().addFilter(biMultilateralFilter);
-        add(pieChart);
-
-        ColumnsChart columnsChart = new ColumnsChart("columnsChart", "typeOfFlow", "dashboards.typeOfFlow");
-	    columnsChart.parameters().addFilter(sectorFilter);
-	    columnsChart.parameters().addFilter(extendingAgenciesFilter);
-	    columnsChart.parameters().addFilter(biMultilateralFilter);
-        add(columnsChart);
-
-        StackedBarChart stackedBarChart = new StackedBarChart("stackedBarChart", "typeOfSectorsByFlow", "dashboards.typeOfSectorsByFlow");
-	    stackedBarChart.parameters().addFilter(extendingAgenciesFilter);
-	    stackedBarChart.parameters().addFilter(biMultilateralFilter);
-        add(stackedBarChart);
+    private void addComponents () {
+	    addReportingCountry();
+		addNetODATable();
+	    addTopTenRecipientsTable();
+	    addTopTenMemoShareTAble();
+	    addOdaByRegionChart();
+	    addOdaByIncomeGroupChart();
+	    addOdaBySectorChart();
     }
+
+	private void addReportingCountry() {
+		String donorName = "";
+		Organization organizationForCurrentUser = AuthUtils.getOrganizationForCurrentUser();
+
+		if (organizationForCurrentUser != null) {
+			donorName = organizationForCurrentUser.getDonorName();
+		}
+
+		Label reportingCountry = new Label("reportingCountry", donorName);
+		add(reportingCountry);
+	}
+
+	private void addNetODATable () {
+		Table netODADashboard = new Table("netODADashboard", "netODATable", "dashboards.netODA");
+		// js function that will be called to initialize the table dashboard
+		netODADashboard.setInitFunction("addNetODATable");
+
+		TableParameters netODAParameters = netODADashboard.getParameters();
+
+		// for now we use a hardcoded value for year in order to display the last 3 years data for 'Net ODA' table
+		netODAParameters.addParameter("YEAR", Integer.toString(TABLE_YEAR));
+		netODAParameters.addParameter("YEAR1", Integer.toString(TABLE_YEAR - 1));
+		netODAParameters.addParameter("YEAR2", Integer.toString(TABLE_YEAR - 2));
+
+		netODAParameters.getChartDefinition().setColHeaders(Arrays.asList("Net ODA", Integer.toString(TABLE_YEAR - 2),
+				Integer.toString(TABLE_YEAR - 1),
+				Integer.toString(TABLE_YEAR ),
+				Integer.toString(TABLE_YEAR - 1) + "/ " + Integer.toString(TABLE_YEAR)));
+		netODAParameters.getChartDefinition().setColTypes(Arrays.asList("string", "numeric", "numeric", "numeric", "percentFormat"));
+		netODAParameters.getChartDefinition().setColFormats(Arrays.asList("%s", "%.0f", "%.0f", "%.0f", "%.2f"));
+		netODAParameters.getChartDefinition().setColWidths(Arrays.asList("20%", "20%", "20%", "20%", "20%"));
+		netODAParameters.getChartDefinition().setSort(Boolean.FALSE);
+		netODAParameters.getChartDefinition().setPaginate(Boolean.FALSE);
+		netODAParameters.getChartDefinition().setInfo(Boolean.FALSE);
+		netODAParameters.getChartDefinition().setFilter(Boolean.FALSE);
+		netODAParameters.getChartDefinition().setColSortable(Arrays.asList(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE));
+
+		add(netODADashboard);
+	}
+
+	private void addTopTenRecipientsTable () {
+		Table topTenRecipients = new Table("topTenRecipients", "topTenRecipients", "dashboards.topTenRecipients");
+		topTenRecipients.setInitFunction("addTopTenRecipients");
+
+		TableParameters topTenRecipientsParameters = topTenRecipients.getParameters();
+
+		topTenRecipientsParameters.getChartDefinition().setColHeaders(Arrays.asList("Countries", "Amount"));
+		topTenRecipientsParameters.getChartDefinition().setColTypes(Arrays.asList("string", "numeric"));
+		topTenRecipientsParameters.getChartDefinition().setColFormats(Arrays.asList("%s", "%.0f"));
+		topTenRecipientsParameters.getChartDefinition().setColWidths(Arrays.asList("60%", "40%"));
+		topTenRecipientsParameters.getChartDefinition().setSort(Boolean.TRUE);
+		topTenRecipientsParameters.getChartDefinition().setPaginate(Boolean.FALSE);
+		topTenRecipientsParameters.getChartDefinition().setInfo(Boolean.FALSE);
+		topTenRecipientsParameters.getChartDefinition().setFilter(Boolean.FALSE);
+		topTenRecipientsParameters.getChartDefinition().setColSortable(Arrays.asList(Boolean.TRUE, Boolean.TRUE));
+
+		add(topTenRecipients);
+	}
+
+	private void addTopTenMemoShareTAble () {
+		Table topTenMemoShare = new Table("topTenMemoShare", "topTenMemoShare", "dashboards.topTenMemoShare");
+		topTenMemoShare.setInitFunction("addTopTenMemoShare");
+
+		TableParameters topTenMemoShareParameters = topTenMemoShare.getParameters();
+
+		topTenMemoShareParameters.getChartDefinition().setColHeaders(Arrays.asList("Top", "Percent"));
+		topTenMemoShareParameters.getChartDefinition().setColTypes(Arrays.asList("string", "percentFormat"));
+		topTenMemoShareParameters.getChartDefinition().setColFormats(Arrays.asList("%s", "%.0f"));
+		topTenMemoShareParameters.getChartDefinition().setColWidths(Arrays.asList("60%", "40%"));
+		topTenMemoShareParameters.getChartDefinition().setSort(Boolean.FALSE);
+		topTenMemoShareParameters.getChartDefinition().setPaginate(Boolean.FALSE);
+		topTenMemoShareParameters.getChartDefinition().setInfo(Boolean.FALSE);
+		topTenMemoShareParameters.getChartDefinition().setFilter(Boolean.FALSE);
+		topTenMemoShareParameters.getChartDefinition().setColSortable(Arrays.asList(Boolean.FALSE, Boolean.FALSE));
+
+		add(topTenMemoShare);
+	}
+
+	private void addOdaByRegionChart () {
+		PieChart odaByRegionChart = new PieChart("odaByRegionChart", "odaByRegionChart", "dashboards.odaByRegionChart");
+		odaByRegionChart.setInitFunction("addOdaByRegionChart");
+		add(odaByRegionChart);
+	}
+
+	private void addOdaByIncomeGroupChart () {
+		PieChart odaByIncomeGroupChart = new PieChart("odaByIncomeGroupChart", "odaByIncomeGroupChart", "dashboards.odaByIncomeGroupChart");
+		odaByIncomeGroupChart.setInitFunction("addOdaByIncomeGroupChart");
+		add(odaByIncomeGroupChart);
+	}
+
+	private void addOdaBySectorChart () {
+		StackedBarChart odaBySectorChart = new StackedBarChart("odaBySectorChart", "odaBySectorChart", "dashboards.odaBySectorChart");
+		odaBySectorChart.setInitFunction("addOdaBySectorChart");
+		add(odaBySectorChart);
+	}
 
     @Override
     public void renderHead(IHeaderResponse response) {
         super.renderHead(response);
 
 	    // load CDF plugin
-        response.render(JavaScriptHeaderItem.forUrl("/js/cdfplugin.min.js"));
+        response.render(JavaScriptHeaderItem.forUrl("/js/cdfplugin.js"));
 
         // highcharts
         response.render(JavaScriptHeaderItem.forUrl("/js/Highcharts-3.0.7/js/highcharts.js"));
         response.render(JavaScriptHeaderItem.forUrl("/js/Highcharts-3.0.7/js/modules/exporting.js"));
+	    response.render(JavaScriptHeaderItem.forUrl("/js/Highcharts-3.0.7/js/highcharts-no-data-to-display.js"));
         
         // dashboard models
         response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "FilterModel.js")));

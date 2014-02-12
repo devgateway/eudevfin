@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
 <!--
   ~ Copyright (c) 2013 Development Gateway.
   ~ All rights reserved. This program and the accompanying materials
@@ -7,13 +7,17 @@
   ~ http://www.gnu.org/licenses/gpl.html
   ~
   ~ Contributors:
-  ~    aartimon, mihai
+  ~    aartimon,mihai
   -->
 <html wicket:id="html" xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
 <head>
     <meta charset="utf-8"/>
     <meta wicket:id="viewport"/>
     <meta wicket:id="chrome-frame"/>
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      
+    <![endif]-->
 </head>
 <body>
 <div id="wrapper">
@@ -25,15 +29,16 @@
 	    <wicket:container wicket:id="footer-container"/>
     </div>
     <footer id="footer">
-                <div>
-					<img style="width:80 ;height: auto;" src="/images/ec-logo-english.gif"/>
-					<p>					
-					Capacity-Building in the area of Development Cooperation Policy (Capacity Building Scheme VII 2013-2014)<br/>
-					Enhancing the ODA reporting capacities and systems of EU Member States<br/>
-					Version 0.9.0 BETA<br/>
-                   </p>
-                </div>
-     </footer>
+        <div>
+            <img style="width: 80px; height: auto;" src="/images/ec-logo-english.gif"/>
+<p>
+    Capacity-Building in the area of Development Cooperation Policy (Capacity Building Scheme VII 2013-2014)<br/>
+    Enhancing the ODA reporting capacities and systems of EU Member States<br/>
+    Version <span wicket:id="eudevfin-version"/><br/>
+    <div wicket:id="dev"/>
+</p>
+</div>
+</footer>
 </div>     
 </body>
 </html>

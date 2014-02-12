@@ -24,9 +24,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 import org.apache.log4j.Logger;
+import org.devgateway.eudevfin.common.Constants;
 import org.devgateway.eudevfin.common.spring.ContextHelper;
 import org.devgateway.eudevfin.financial.translate.AbstractTranslation;
-import org.devgateway.eudevfin.financial.util.FinancialConstants;
 import org.devgateway.eudevfin.financial.util.LocaleHelperInterface;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -81,7 +81,7 @@ public abstract class AbstractTranslateable<T extends AbstractTranslation<? exte
             Object result = this.attemptGet(locale, property);
 
             if (result == null) {
-                result = this.attemptGet(FinancialConstants.DEFAULT_LOCALE, property);
+                result = this.attemptGet(Constants.DEFAULT_LOCALE, property);
             }
 
             return result;
@@ -127,7 +127,7 @@ public abstract class AbstractTranslateable<T extends AbstractTranslation<? exte
                 logger.warn("Problem getting locale helper from request scope: " + ex.getMessage());
             }
         }
-        return FinancialConstants.DEFAULT_LOCALE;
+        return Constants.DEFAULT_LOCALE;
     }
 
     protected abstract T newTranslationInstance();

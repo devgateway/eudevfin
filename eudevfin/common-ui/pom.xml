@@ -1,25 +1,32 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.devgateway.eudevfin</groupId>
-    <artifactId>integration</artifactId>
-    <version>0.0.1.CI-SNAPSHOT</version>
-  </parent>
-  <artifactId>common-ui</artifactId>
-  
-  <dependencies>
-  	<dependency>
-  		<groupId>org.devgateway.eudevfin</groupId>
-  		<artifactId>common-auth</artifactId>
-  		<version>${project.version}</version>
-  	</dependency>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.devgateway.eudevfin</groupId>
+        <artifactId>eudevfin</artifactId>
+        <version>0.9.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>common-ui</artifactId>
 
-  	<dependency>
-  		<groupId>org.devgateway.eudevfin</groupId>
-  		<artifactId>common-financial</artifactId>
-  		<version>${project.version}</version>
-  	</dependency>
-    	
+    <name>EU-DEVFIN Common UI</name>
 
-  </dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>org.devgateway.eudevfin</groupId>
+            <artifactId>common-auth</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.devgateway.eudevfin</groupId>
+            <artifactId>common-financial</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>pentaho</groupId>
+            <artifactId>mondrian</artifactId>
+            <version>3.5.0</version>
+        </dependency>
+
+    </dependencies>
 </project>

@@ -1,16 +1,13 @@
 package org.devgateway.eudevfin.financial.liquibase;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
-
 import liquibase.database.Database;
 import liquibase.exception.CustomChangeException;
 import liquibase.exception.ValidationErrors;
 import liquibase.resource.ResourceAccessor;
 
 import org.devgateway.eudevfin.common.liquibase.AbstractSpringCustomTaskChange;
+import org.devgateway.eudevfin.exchange.common.domain.HistoricalExchangeRate;
+import org.devgateway.eudevfin.exchange.common.service.HistoricalExchangeRateService;
 import org.devgateway.eudevfin.financial.Area;
 import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.ChannelCategory;
@@ -23,9 +20,16 @@ import org.devgateway.eudevfin.financial.dao.FinancialTransactionDaoImpl;
 import org.devgateway.eudevfin.financial.dao.OrganizationDaoImpl;
 import org.devgateway.eudevfin.financial.util.CategoryConstants;
 import org.joda.money.BigMoney;
+import org.joda.money.CurrencyUnit;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
 
 public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 
@@ -55,8 +59,8 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 		Random r = new Random();
 		List<Organization> listOrgs = orgDao.findAllAsList();
 
-		List<Category> listTypeOfFlow = catDao.findByCode("TYPE_OF_FLOW##10");
-		
+		//List<Category> listTypeOfFlow = catDao.findByCode("TYPE_OF_FLOW##10");
+		List<Category> listTypeOfFlow = catDao.findByTagsCode(CategoryConstants.TYPE_OF_FLOW_TAG);
 		List<Category> listSectors = catDao.findByTagsCode(CategoryConstants.ALL_SECTOR_TAG);
 		List<Category> listTypeOfFinance = catDao.findByTagsCode(CategoryConstants.TYPE_OF_FINANCE_TAG);
 		List<Category> listTypeofAid = catDao.findByTagsCode(CategoryConstants.TYPE_OF_AID_TAG);
@@ -122,6 +126,7 @@ public class PopulateFinancialDbChange extends AbstractSpringCustomTaskChange {
 			}
 			
 		}
+				
 	}
 	
 	private List<ChannelCategory> getMultilaterals(

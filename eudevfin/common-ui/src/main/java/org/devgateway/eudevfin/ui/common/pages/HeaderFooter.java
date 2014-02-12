@@ -11,18 +11,24 @@ package org.devgateway.eudevfin.ui.common.pages;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Locale;
+import java.util.Properties;
 import java.util.Set;
 
 import org.apache.wicket.Component;
+import org.apache.wicket.RuntimeConfigurationType;
 import org.apache.wicket.Session;
+import org.apache.wicket.devutils.debugbar.DebugBar;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.head.filter.FilteredHeaderItem;
 import org.apache.wicket.markup.head.filter.HeaderResponseContainer;
 import org.apache.wicket.markup.html.GenericWebPage;
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.StringValue;
 import org.devgateway.eudevfin.financial.util.LocaleHelper;
 import org.devgateway.eudevfin.ui.common.ApplicationJavaScript;
@@ -46,6 +52,9 @@ import de.agilecoders.wicket.core.settings.IBootstrapSettings;
 @SuppressWarnings("WicketForgeJavaIdInspection")
 public abstract class HeaderFooter<T> extends GenericWebPage<T> {
 
+	@SpringBean(name="commonProperties")
+	protected Properties commonProperties;
+
 	protected HeaderFooter() {
 		initialize();
 	}
@@ -67,6 +76,15 @@ public abstract class HeaderFooter<T> extends GenericWebPage<T> {
     
         add(new HeaderResponseContainer("footer-container", "footer-container"));
         add(new BootstrapBaseBehavior());
+        
+        add(new Label("eudevfin-version",Model.of(commonProperties.getProperty("eudevfin.version"))));
+        
+      if (RuntimeConfigurationType.DEVELOPMENT.equals(this.getApplication().getConfigurationType())) {        	        
+        	DebugBar debugBar = new DebugBar("dev");
+        	add(debugBar);
+        } else {
+            add(new EmptyPanel("dev").setVisible(false));
+        }
     }
 
     @SuppressWarnings("Convert2Diamond")
