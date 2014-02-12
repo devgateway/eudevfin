@@ -244,15 +244,17 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 				refreshTransactionInContainer(populationContainer,
 						CategoryConstants.TypeOfFinance.NonFlow.POPULATION,
 						parameters, trnsByTypeOfFinance, reportingYear);
+				
 				refreshTransactionInContainer(gniContainer,
 						CategoryConstants.TypeOfFinance.NonFlow.GNI,
 						parameters, trnsByTypeOfFinance, reportingYear);
+				
 				refreshTransactionInContainer(
-						totalFlowsContainer,
+						odaOfGniContainer,
 						CategoryConstants.TypeOfFinance.NonFlow.ODA_PERCENT_GNI,
 						parameters, trnsByTypeOfFinance, reportingYear);
 				refreshTransactionInContainer(
-						odaOfGniContainer,
+						totalFlowsContainer,
 						CategoryConstants.TypeOfFinance.NonFlow.TOTAL_FLOWS_PERCENT_GNI,
 						parameters, trnsByTypeOfFinance, reportingYear);
 
