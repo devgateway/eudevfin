@@ -15,7 +15,9 @@ import java.util.Properties;
 import java.util.Set;
 
 import org.apache.wicket.Component;
+import org.apache.wicket.RuntimeConfigurationType;
 import org.apache.wicket.Session;
+import org.apache.wicket.devutils.debugbar.DebugBar;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
@@ -23,6 +25,7 @@ import org.apache.wicket.markup.head.filter.FilteredHeaderItem;
 import org.apache.wicket.markup.head.filter.HeaderResponseContainer;
 import org.apache.wicket.markup.html.GenericWebPage;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -75,6 +78,13 @@ public abstract class HeaderFooter<T> extends GenericWebPage<T> {
         add(new BootstrapBaseBehavior());
         
         add(new Label("eudevfin-version",Model.of(commonProperties.getProperty("eudevfin.version"))));
+        
+      if (RuntimeConfigurationType.DEVELOPMENT.equals(this.getApplication().getConfigurationType())) {        	        
+        	DebugBar debugBar = new DebugBar("dev");
+        	add(debugBar);
+        } else {
+            add(new EmptyPanel("dev").setVisible(false));
+        }
     }
 
     @SuppressWarnings("Convert2Diamond")

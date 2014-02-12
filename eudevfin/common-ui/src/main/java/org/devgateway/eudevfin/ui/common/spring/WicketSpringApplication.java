@@ -8,11 +8,19 @@
 
 package org.devgateway.eudevfin.ui.common.spring;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.wicket.Page;
 import org.apache.wicket.RuntimeConfigurationType;
 import org.apache.wicket.authorization.strategies.CompoundAuthorizationStrategy;
 import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
+import org.apache.wicket.devutils.debugbar.DebugBar;
+import org.apache.wicket.devutils.debugbar.IDebugBarContributor;
+import org.apache.wicket.devutils.debugbar.InspectorDebugPanel;
+import org.apache.wicket.devutils.debugbar.SessionSizeDebugPanel;
+import org.apache.wicket.devutils.debugbar.VersionDebugContributor;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.request.resource.CssResourceReference;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
@@ -82,6 +90,14 @@ public class WicketSpringApplication extends AuthenticatedWebApplication impleme
 			getResourceSettings().setJavaScriptCompressor(
 					new GoogleClosureJavaScriptCompressor(CompilationLevel.SIMPLE_OPTIMIZATIONS));
 			getResourceSettings().setCssCompressor(new YuiCssCompressor());			
+		} else {
+			//see https://issues.apache.org/jira/browse/WICKET-5388
+			//we do not use SessionSizeDebugPanel
+			List<IDebugBarContributor> debugContributors=new ArrayList<>();
+        	debugContributors.add(VersionDebugContributor.DEBUG_BAR_CONTRIB);
+        	debugContributors.add(InspectorDebugPanel.DEBUG_BAR_CONTRIB);
+        	debugContributors.add(SessionSizeDebugPanel.DEBUG_BAR_CONTRIB);
+            DebugBar.setContributors(debugContributors,this);
 		}
 
         //add the navbar 
