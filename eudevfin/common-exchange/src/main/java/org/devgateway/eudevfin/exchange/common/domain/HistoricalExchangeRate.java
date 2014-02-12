@@ -26,6 +26,8 @@ import javax.persistence.Id;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Columns;
+import org.hibernate.annotations.Index;
+import org.hibernate.annotations.Table;
 import org.hibernate.annotations.Type;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.ExchangeRate;
@@ -37,16 +39,28 @@ import org.joda.time.LocalDateTime;
  */
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@javax.persistence.Table(name=HistoricalExchangeRate.TABLE_NAME)
+@Table(appliesTo=HistoricalExchangeRate.TABLE_NAME, 
+indexes={ @Index(columnNames={HistoricalExchangeRate.BASE_CURRENCY_COLUMN_NAME}, name="historicalexchangerate_base_currecy_idx"), 
+		@Index(columnNames={HistoricalExchangeRate.COUNTER_CURRENCY_COLUMN_NAME}, name="historicalexchangerate_counter_currecy_idx")		
+})
 public class HistoricalExchangeRate implements Serializable {
 
+	public static final String TABLE_NAME="HISTORICALEXCHANGERATE";
+	public static final String BASE_CURRENCY_COLUMN_NAME="base_currency";
+	public static final String COUNTER_CURRENCY_COLUMN_NAME="counter_currency";
+	public static final String RATE_COLUMN_NAME="rate";
+	
 	private static final long serialVersionUID = -1514542425047805150L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	protected Long id=null;
 	
+	@Index(name="historicalexchangerate_source_idx")
+	private String source;	
 	
-	@Columns(columns={@Column(name="base_currency"),@Column(name="counter_currency"),@Column(name="rate")})	
+	@Columns(columns={@Column(name=BASE_CURRENCY_COLUMN_NAME),@Column(name=COUNTER_CURRENCY_COLUMN_NAME),@Column(name=RATE_COLUMN_NAME,precision=16,scale=8)})
 	@Type(type="org.jadira.usertype.exchangerate.joda.PersistentExchangeRate")
 	private ExchangeRate rate;
 	
@@ -97,11 +111,26 @@ public class HistoricalExchangeRate implements Serializable {
 	
 	
 
-	public static HistoricalExchangeRate of(CurrencyUnit base, CurrencyUnit counter, BigDecimal rate, LocalDateTime date) {
+	public static HistoricalExchangeRate of(CurrencyUnit base, CurrencyUnit counter, BigDecimal rate, LocalDateTime date, String source) {
 		HistoricalExchangeRate histRate=new HistoricalExchangeRate();
 		histRate.setDate(date);
 		histRate.setRate(ExchangeRate.of(base, counter, rate));
+		histRate.setSource(source);
 		return histRate;
+	}
+
+	/**
+	 * @return the source
+	 */
+	public String getSource() {
+		return source;
+	}
+
+	/**
+	 * @param source the source to set
+	 */
+	public void setSource(String source) {
+		this.source = source;
 	}
 	
 

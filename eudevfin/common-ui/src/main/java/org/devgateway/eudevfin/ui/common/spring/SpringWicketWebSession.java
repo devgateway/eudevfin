@@ -32,7 +32,7 @@ public class SpringWicketWebSession extends AuthenticatedWebSession {
     public SpringWicketWebSession(Request request) {
         super(request);
         injectDependencies();
-        ensureDependenciesNotNull();
+        ensureDependenciesNotNull();        
         //HttpSession httpSession = ((HttpServletRequest) request.getContainerRequest()).getSession();
     }
 

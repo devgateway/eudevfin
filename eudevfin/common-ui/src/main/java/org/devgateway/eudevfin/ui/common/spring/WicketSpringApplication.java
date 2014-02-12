@@ -99,6 +99,9 @@ public class WicketSpringApplication extends AuthenticatedWebApplication impleme
         	debugContributors.add(SessionSizeDebugPanel.DEBUG_BAR_CONTRIB);
             DebugBar.setContributors(debugContributors,this);
 		}
+		
+		//set response for session timeout:
+		getApplicationSettings().setPageExpiredErrorPage(LoginPage.class);
 
         //add the navbar 
 //        Navbar navbar = new Navbar("navbar");
