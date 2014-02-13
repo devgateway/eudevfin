@@ -6,18 +6,17 @@
  * http://www.gnu.org/licenses/gpl.html
  */
 
-package org.devgateway.eudevfin.dim.providers;
+package org.devgateway.eudevfin.ui.common.providers;
 
-import org.devgateway.eudevfin.dim.exceptions.CurrencyProviderExceptiom;
+import javax.annotation.PostConstruct;
+
 import org.devgateway.eudevfin.financial.service.CurrencyMetadataService;
 import org.devgateway.eudevfin.financial.util.CurrencyConstants;
-import org.devgateway.eudevfin.ui.common.providers.SpringCategoryProviderProxy;
+import org.devgateway.eudevfin.ui.common.exceptions.CurrencyProviderExceptiom;
 import org.joda.money.CurrencyUnit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
 
 @Component
 public class CurrencyUnitProviderFactory {

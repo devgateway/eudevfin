@@ -18,6 +18,8 @@ import org.springframework.integration.annotation.Payload;
 public interface BaseEntityService<T> extends Serializable {
 	NullableWrapper<T> save(T t);
 	
+	void delete(T t);
+	
 	@Payload("new java.util.Date()")
 	List<T> findAll();
 	

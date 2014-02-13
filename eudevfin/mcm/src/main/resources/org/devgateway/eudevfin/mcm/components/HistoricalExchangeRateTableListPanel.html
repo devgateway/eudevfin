@@ -14,17 +14,18 @@
 <wicket:extend>
         	<thead>
 	           <tr>
-	               <th><wicket:message key="rate.name"/></th>
+	            
 				   <th><wicket:message key="rate.base"/></th>	               	           	    
 	               <th><wicket:message key="rate.counter"/></th>	               
+	               <th><wicket:message key="rate.source"/></th>
 	               <th><wicket:message key="rate.date"/></th>
+	               <th><wicket:message key="rate.rate"/></th>
+	               <th><wicket:message key="rate.operations"/></th>
 	           </tr>
 
             </thead>
 			<tr wicket:id="list">
-				<td>
-				<a wicket:id="linkToEdit"/>
-				</td>
+	
 				<td>
 					<span wicket:id="baseCurrency">-1</span>
 				</td>
@@ -32,7 +33,16 @@
 					<span wicket:id="counterCurrency">-1</span>
 				</td>
 				<td>
+					<span wicket:id="source">-1</span>
+				</td>
+				<td>
 					<span wicket:id="date">-1</span>
+				</td>
+					<td>
+					<span wicket:id="rate">-1</span>
+				</td>
+				<td>
+				<a wicket:id="linkToEdit"/>
 				</td>
 
 			</tr>

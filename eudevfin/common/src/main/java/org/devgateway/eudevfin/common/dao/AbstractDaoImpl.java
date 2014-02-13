@@ -41,7 +41,7 @@ public abstract class AbstractDaoImpl<Entity,IDType extends Serializable,Repo ex
 	 * @return the {@link NullableWrapper} wrapping the <Entity>
 	 */
 	protected NullableWrapper<Entity> newWrapper(Entity entity) {
-		return new NullableWrapper<Entity>(entity);
+		return new NullableWrapper<Entity>(entity);		
 	}
 
 

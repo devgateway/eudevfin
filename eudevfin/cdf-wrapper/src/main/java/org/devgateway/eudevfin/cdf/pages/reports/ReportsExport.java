@@ -25,10 +25,9 @@ public class ReportsExport extends HeaderFooter {
 	public ReportsExport (final PageParameters parameters) {
 		super(parameters);
 		String reportType = parameters.get("reportType").toString("");
-
-		Label pageType=new Label("reportTypeTitle",new StringResourceModel("navbar.reports.export." + reportType, this, null, null));
-		add(pageType);
-
+		
+		pageTitle.setDefaultModel(new StringResourceModel("navbar.reports.export." + reportType, this, null, null));
+		
 		HiddenField<String> field = new HiddenField<String>("reportType", Model.of(""));
 		field.setModelValue(new String[]{reportType});
 		add(field);

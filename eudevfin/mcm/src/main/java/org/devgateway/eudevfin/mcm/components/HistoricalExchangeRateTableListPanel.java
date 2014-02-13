@@ -11,11 +11,13 @@
  */
 package org.devgateway.eudevfin.mcm.components;
 
+import java.text.SimpleDateFormat;
+
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
-import org.apache.wicket.model.Model;
+import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.exchange.common.domain.HistoricalExchangeRate;
 import org.devgateway.eudevfin.mcm.pages.EditHistoricalExchangeRatePage;
@@ -53,17 +55,22 @@ public class HistoricalExchangeRateTableListPanel extends TableListPanel<Histori
 						setResponsePage(EditHistoricalExchangeRatePage.class, pageParameters);
 					}
 				};
+				linkToEditRate.setBody( new StringResourceModel("link.edit", this, null, null));
 
-				linkToEditRate.setBody(Model.of("a cute name"));
-
+				
+				
 				Label baseCurrencyLabel = new Label("baseCurrency", rate.getRate().getBase().getCode());
 				Label counterCurrencyLabel = new Label("counterCurrency", rate.getRate().getCounter().getCode());
-				Label dateLabel = new Label("date", rate.getDate().toString());
+				Label source = new Label("source", rate.getSource());
+				Label dateLabel = new Label("date", rate.getDate().toString("dd-MM-yyyy"));
+				Label rateLabel = new Label("rate", rate.getRate().getRate());
 
 				listItem.add(baseCurrencyLabel);
 				listItem.add(counterCurrencyLabel);
+				listItem.add(source);
 				listItem.add(dateLabel);
-				listItem.add(linkToEditRate);
+				listItem.add(linkToEditRate);				
+				listItem.add(rateLabel);
 			}
 
 		};

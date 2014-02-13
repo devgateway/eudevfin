@@ -19,9 +19,9 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
-import org.devgateway.eudevfin.auth.common.service.PersistedUserService;
-import org.devgateway.eudevfin.mcm.components.PersistedUserTableListPanel;
-import org.devgateway.eudevfin.mcm.util.PersistedUserListGenerator;
+import org.devgateway.eudevfin.exchange.common.service.HistoricalExchangeRateService;
+import org.devgateway.eudevfin.mcm.components.HistoricalExchangeRateTableListPanel;
+import org.devgateway.eudevfin.mcm.util.HistoricalExchangeRateListGenerator;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
 import org.devgateway.eudevfin.ui.common.pages.ListPage;
 import org.wicketstuff.annotation.mount.MountPath;
@@ -32,24 +32,24 @@ import org.wicketstuff.annotation.mount.MountPath;
  */
 @AuthorizeInstantiation(AuthConstants.Roles.ROLE_SUPERVISOR)
 @MountPath(value = "/rates")
-public class ListHistoricalCurrencyExchangePage extends ListPage {
+public class ListHistoricalExchangeRatePage extends ListPage {
 
 	private static final long serialVersionUID = -8637428983397263676L;
 
 	@SpringBean
-	private PersistedUserService userService;
+	private HistoricalExchangeRateService historicalExchangeRateService;
 
-	private static final Logger logger = Logger.getLogger(ListHistoricalCurrencyExchangePage.class);
+	private static final Logger logger = Logger.getLogger(ListHistoricalExchangeRatePage.class);
 
 	@SuppressWarnings("unchecked")
-	public ListHistoricalCurrencyExchangePage(final PageParameters parameters) {
+	public ListHistoricalExchangeRatePage(final PageParameters parameters) {
 
-		PersistedUserTableListPanel persistedUserTableListPanel = new PersistedUserTableListPanel(
-				WICKETID_LIST_PANEL, new PersistedUserListGenerator(userService, ""));
-		add(persistedUserTableListPanel);
+		HistoricalExchangeRateTableListPanel historicalExchangeRateTableListPanel = new HistoricalExchangeRateTableListPanel(
+				WICKETID_LIST_PANEL, new HistoricalExchangeRateListGenerator(historicalExchangeRateService, ""));
+		add(historicalExchangeRateTableListPanel);
 		
 		Form form = new Form("form");
-		BootstrapSubmitButton submitButton = new BootstrapSubmitButton("addNewUser", new StringResourceModel("button.addNewUser", this, null, null)) {			
+		BootstrapSubmitButton submitButton = new BootstrapSubmitButton("addNewRate", new StringResourceModel("button.addNewRate", this, null, null)) {			
 			@Override
 			protected void onError(AjaxRequestTarget target, Form<?> form) {
 		

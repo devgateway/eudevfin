@@ -18,4 +18,5 @@
     <entry key="desktop.lastTxByFinal">Final</entry>
     <entry key="desktop.search.label">Search for transactions:</entry>
     <entry key="desktop.search.placeholder">Start typing</entry>
+	<entry key="page.title">List of Saved Transactions</entry>    
 </properties>
