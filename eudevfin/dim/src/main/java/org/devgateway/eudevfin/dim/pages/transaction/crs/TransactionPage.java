@@ -156,9 +156,9 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 	public TransactionPage(final PageParameters parameters) {
 		super(parameters);
 		
-		Label pageType=new Label("pageType",new StringResourceModel(parameters.get(Constants.PARAM_TRANSACTION_TYPE).toString(""), this, null, null));
-		add(pageType);
-
+		//override the title
+		pageTitle.setDefaultModel(new StringResourceModel(parameters.get(Constants.PARAM_TRANSACTION_TYPE).toString(""), this, null, null));
+		
 		onUnloadScript = "window.onbeforeunload = function(e) {\n" +
 				"   var message = '" + new StringResourceModel("leaveMessage", this, null, null).getObject() + "';\n" +
 				"   e = e || window.event;\n" +

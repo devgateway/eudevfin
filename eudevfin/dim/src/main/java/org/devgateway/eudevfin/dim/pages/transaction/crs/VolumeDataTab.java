@@ -8,7 +8,8 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
-import com.vaynberg.wicket.select2.ChoiceProvider;
+import java.math.BigDecimal;
+
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.event.Broadcast;
@@ -17,7 +18,6 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.ComponentPropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.devgateway.eudevfin.dim.providers.CurrencyUnitProviderFactory;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
@@ -25,10 +25,11 @@ import org.devgateway.eudevfin.ui.common.events.CurrencyChangedEvent;
 import org.devgateway.eudevfin.ui.common.events.CurrencyUpdateBehavior;
 import org.devgateway.eudevfin.ui.common.models.BigMoneyModel;
 import org.devgateway.eudevfin.ui.common.permissions.PermissionAwareComponent;
+import org.devgateway.eudevfin.ui.common.providers.CurrencyUnitProviderFactory;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 
-import java.math.BigDecimal;
+import com.vaynberg.wicket.select2.ChoiceProvider;
 
 /**
  * @author aartimon@developmentgateway.org

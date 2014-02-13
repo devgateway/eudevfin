@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.devgateway.eudevfin.dim.exceptions;
+package org.devgateway.eudevfin.ui.common.exceptions;
 
 /**
  * @author alex

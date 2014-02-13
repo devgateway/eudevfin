@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2013 Development Gateway.
+  ~ All rights reserved. This program and the accompanying materials
+  ~ are made available under the terms of the GNU Public License v3.0
+  ~ which accompanies this distribution, and is available at
+  ~ http://www.gnu.org/licenses/gpl.html
+  ~
+  ~ Contributors:
+  ~    Mihai
+  -->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+<body>
+<wicket:extend>
+        	<thead>
+	           <tr>
+	            
+				   <th><wicket:message key="rate.base"/></th>	               	           	    
+	               <th><wicket:message key="rate.counter"/></th>	               
+	               <th><wicket:message key="rate.source"/></th>
+	               <th><wicket:message key="rate.date"/></th>
+	               <th><wicket:message key="rate.rate"/></th>
+	               <th><wicket:message key="rate.operations"/></th>
+	           </tr>
+
+            </thead>
+			<tr wicket:id="list">
+	
+				<td>
+					<span wicket:id="baseCurrency">-1</span>
+				</td>
+				<td>
+					<span wicket:id="counterCurrency">-1</span>
+				</td>
+				<td>
+					<span wicket:id="source">-1</span>
+				</td>
+				<td>
+					<span wicket:id="date">-1</span>
+				</td>
+					<td>
+					<span wicket:id="rate">-1</span>
+				</td>
+				<td>
+				<a wicket:id="linkToEdit"/>
+				</td>
+
+			</tr>
+</wicket:extend>
+</body>
+</html>

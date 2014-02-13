@@ -42,6 +42,8 @@
 	<int:channel id="getExchangeRateChannel" />
 	<int:channel id="fetchRatesForDateChannel"/>
 	<int:channel id="findRatesForDateChannel"/>
+	<int:channel id="findHistoricalExchangeRateByGeneralSearchPageableChannel"/>
+	<int:channel id="deleteHistoricalExchangeRate"/>
 
 
 

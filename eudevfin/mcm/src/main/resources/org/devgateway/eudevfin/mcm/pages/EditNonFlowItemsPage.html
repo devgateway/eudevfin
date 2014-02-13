@@ -10,21 +10,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
 <body>
 <wicket:extend>
-  <div class="container">
-        <div class="row">
-            <div class="span12">
-                &nbsp;
-            </div>
-        </div>
-    </div>
     <div class="container">
-    <div class="row" align="center">
-        <h2>
-			<wicket:message key="nonflow.title"/>
-        </h2>
-		</div>
-    
-    
+
         <div class="row">
             <div class="span8 offset2 well">
                 <form wicket:id="form">
@@ -49,7 +36,8 @@
                     </div>
                     <div class="row">
                         <div class="span4">
-                            <input wicket:id="submit" type="button"/>                        
+                            <input wicket:id="submit" type="button"/>
+                            <input wicket:id="cancel" type="button"/>  
                         </div>
                     </div>
                 </form>

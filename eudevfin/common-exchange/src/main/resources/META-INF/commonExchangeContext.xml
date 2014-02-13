@@ -31,6 +31,16 @@
 			<int:header name="requestName" value="findRatesForDateChannel" />
 		</int:method>
 		
+		<int:method name="findByGeneralSearchPageable" request-channel="exchangeChannel">
+			<int:header name="requestName" value="findHistoricalExchangeRateByGeneralSearchPageableChannel" />
+		</int:method>
+		
+		<int:method name="delete" request-channel="exchangeChannel">
+			<int:header name="requestName" value="deleteHistoricalExchangeRate" />
+		</int:method>
+
+		
+		
 	</int:gateway>
 
 </beans>

@@ -10,4 +10,5 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>    
     <entry key="button.addNewGroup">Add New Group</entry>
+    <entry key="page.title">Groups List</entry>
 </properties>

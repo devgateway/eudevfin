@@ -31,8 +31,9 @@
     
     <entry key="navbar.admin.users">Users</entry>
     <entry key="navbar.admin.groups">Groups</entry>
-    <entry key="navbar.admin.nonflow">Edit CRS++ Non-Flow Data</entry>
+    <entry key="navbar.admin.nonflow">CRS++ Non-Flow Data</entry>
 	<entry key="navbar.admin.maintenance">Maintenance of the system</entry>
+	<entry key="navbar.admin.rates">Exchange Rates</entry>
     
     <entry key="navbar.lang">Languages</entry>
     <entry key="navbar.lang.header">all available languages:</entry>
@@ -53,7 +54,12 @@
     
     <entry key="button.submit">Submit</entry>    
     <entry key="button.cancel">Cancel</entry>
+    <entry key="button.delete">Delete</entry>
     <entry key="notification.saved">Form Saved!</entry>
     <entry key="notification.validationerrors">The form has validation errors (highlighted in red). Fix them and try saving again!</entry>    	
 	<entry key="validation.multilateralChannelCode">Select only 4xxxx format codes when in multilateral forms</entry>
+	<entry key="page.title"> </entry>
+	<entry key="link.edit">Edit</entry>
+	
+	<entry key="validation.positiveAmount">The amount needs to be a positive number!</entry>
 </properties>

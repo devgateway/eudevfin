@@ -31,6 +31,9 @@ import org.joda.money.IllegalCurrencyException;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.integration.annotation.Header;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
 
@@ -140,4 +143,23 @@ public class HistoricalExchangeRateDaoImplEndpoint extends AbstractDaoImpl<Histo
 		return repo;		
 	}
 
+	@Override
+	@ServiceActivator(inputChannel = "findHistoricalExchangeRateByGeneralSearchPageableChannel")
+	public Page<HistoricalExchangeRate> findByGeneralSearch(String searchString,
+			@Header(value="locale",required=false) String locale, @Header("pageable") Pageable pageable) {
+		// TODO Auto-generated method stub
+		return super.findByGeneralSearch(searchString, locale, pageable);
+	}
+	
+	
+	/**
+	 * @see HistoricalExchangeRateService#delete(HistoricalExchangeRate)
+	 * @param e 
+	 */
+	@Override
+	@ServiceActivator(inputChannel = "deleteHistoricalExchangeRate")
+	public void delete(HistoricalExchangeRate e) {
+		super.delete(e);
+	}
+	
 }

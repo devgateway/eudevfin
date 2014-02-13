@@ -18,14 +18,23 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       
     <![endif]-->
+   	<title>EU-DEVFIN - <wicket:message key="page.title"/></title>  
 </head>
 <body>
 <div id="wrapper">
     <div class="container">
         <div wicket:id="navbar"/>
     </div>	
+   
+       
     <div id="content">
-	    <wicket:child/>
+   
+    <p/>
+    <div align="center">
+   	<span class="transaction-title" wicket:id="pageTitle"/>
+   	</div>
+   	<p/>
+       <wicket:child/>
 	    <wicket:container wicket:id="footer-container"/>
     </div>
     <footer id="footer">

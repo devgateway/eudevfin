@@ -14,7 +14,7 @@
  */
 package org.devgateway.eudevfin.exchange.common.service;
 
-import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
+import org.devgateway.eudevfin.common.service.BaseEntityService;
 import org.devgateway.eudevfin.exchange.common.domain.HistoricalExchangeRate;
 import org.joda.time.LocalDateTime;
 
@@ -22,26 +22,9 @@ import org.joda.time.LocalDateTime;
  * @author mihai
  * 
  */
-public interface HistoricalExchangeRateService {
+public interface HistoricalExchangeRateService  extends BaseEntityService<HistoricalExchangeRate> {
 
-	/**
-	 * Saves a new {@link HistoricalExchangeRate}
-	 * 
-	 * @param t
-	 * @return the {@link HistoricalExchangeRate} entity that was persisted
-	 */
-	NullableWrapper<HistoricalExchangeRate> save(HistoricalExchangeRate t);
-
-	/**
-	 * Finds {@link HistoricalExchangeRate}S by id
-	 * 
-	 * @param id
-	 *            the id
-	 * @return the {@link HistoricalExchangeRate}
-	 */
-	NullableWrapper<HistoricalExchangeRate> findOne(Long id);
-
-	/**
+		/**
 	 * Finds the {@link HistoricalExchangeRate}S from the database for the
 	 * given date
 	 * 

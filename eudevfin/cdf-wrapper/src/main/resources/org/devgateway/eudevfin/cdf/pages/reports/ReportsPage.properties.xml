@@ -9,7 +9,7 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-	<entry key="dashboards.title">ODA at a Glance</entry>
+	<entry key="page.title">ODA at a Glance</entry>
     <entry key="dashboards.netODA">Net ODA</entry>
 	<entry key="dashboards.topTenRecipients">Top Ten Recipients of Gross ODA (USD million)</entry>
 	<entry key="dashboards.topTenMemoShare">Memo: Share of gross bilateral ODA</entry>

@@ -110,6 +110,11 @@ public class HistoricalExchangeRate implements Serializable {
 	}
 	
 	
+	public HistoricalExchangeRate rate(ExchangeRate rate) {
+		this.rate=rate;
+		return this;
+	}
+	
 
 	public static HistoricalExchangeRate of(CurrencyUnit base, CurrencyUnit counter, BigDecimal rate, LocalDateTime date, String source) {
 		HistoricalExchangeRate histRate=new HistoricalExchangeRate();

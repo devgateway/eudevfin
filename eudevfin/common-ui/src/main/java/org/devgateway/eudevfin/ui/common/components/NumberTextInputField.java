@@ -13,13 +13,18 @@ import java.math.BigDecimal;
 import org.apache.wicket.markup.html.form.NumberTextField;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.validation.validator.RangeValidator;
+import org.devgateway.eudevfin.ui.common.validators.FinancialAmountBigDecimalValidator;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
 
 /**
  * 
- * @author mihai better solution will be to use {@link NumberTextField} but it
- *         is HTML5
+ * A {@link TextInputField} for {@link Number}S
+ * 
+ * better solution will be to use {@link NumberTextField} but it is HTML5
+ * 
+ * 
+ * @author mihai
  */
 public class NumberTextInputField<T extends Number & Comparable<T>> extends TextInputField<T> {
 

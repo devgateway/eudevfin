@@ -11,8 +11,11 @@ a * Copyright (c) 2013 Development Gateway.
 
 package org.devgateway.eudevfin.mcm.pages;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
-import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -30,7 +33,6 @@ import org.apache.wicket.util.time.Duration;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.auth.common.util.AuthUtils;
-import org.devgateway.eudevfin.ui.common.components.util.MondrianCacheUtil;
 import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.Organization;
@@ -41,8 +43,9 @@ import org.devgateway.eudevfin.financial.util.CategoryConstants;
 import org.devgateway.eudevfin.financial.util.FinancialTransactionUtil;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
-import org.devgateway.eudevfin.ui.common.components.NumberTextInputField;
+import org.devgateway.eudevfin.ui.common.components.FinancialAmountTextInputField;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
+import org.devgateway.eudevfin.ui.common.components.util.MondrianCacheUtil;
 import org.devgateway.eudevfin.ui.common.models.BigMoneyModel;
 import org.devgateway.eudevfin.ui.common.models.YearToLocalDateTimeModel;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
@@ -52,10 +55,8 @@ import org.joda.time.LocalDateTime;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.wicketstuff.annotation.mount.MountPath;
 
-import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
+import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
 
 /**
  * @author mihai
@@ -151,11 +152,10 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 				"currency");
 
 		// create textinputfield to edit the amount
-		NumberTextInputField<BigDecimal> field = new NumberTextInputField<>(
+		FinancialAmountTextInputField field = new FinancialAmountTextInputField(
 				fieldId, new BigMoneyModel(
 						new RWComponentPropertyModel<BigMoney>(
-								"amountsExtended"), readOnlyCurrencyModel))
-				.typeBigDecimal().required();
+								"amountsExtended"), readOnlyCurrencyModel)).required();
 		if (percentage)
 			field.range(new BigDecimal(0), new BigDecimal(100));
 		container.add(field);
@@ -303,6 +303,20 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 			}
 
 		});
+		
+		
+		form.add(new BootstrapSubmitButton("cancel", new StringResourceModel("button.cancel", this, null, null)) {
+			@Override
+			protected void onError(AjaxRequestTarget target, Form<?> form) {
+			}
+
+			@Override
+			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+				logger.info("Cancel pressed");
+				setResponsePage(getApplication().getHomePage());
+			}
+
+		}.setDefaultFormProcessing(false));
 
 		feedbackPanel = new NotificationPanel("feedback");
 		feedbackPanel.setOutputMarkupId(true);

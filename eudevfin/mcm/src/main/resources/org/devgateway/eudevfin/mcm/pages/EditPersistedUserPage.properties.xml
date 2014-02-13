@@ -19,4 +19,5 @@
     <entry key="lastName.label">Last Name</entry>
     <entry key="email.label">Email Address</entry>
     <entry key="phone.label">Phone Number</entry>
+    <entry key="page.title">Edit User Details</entry>
 </properties>

@@ -8,9 +8,12 @@
 
 package org.devgateway.eudevfin.ui.common.spring;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.wicket.ConverterLocator;
+import org.apache.wicket.IConverterLocator;
 import org.apache.wicket.Page;
 import org.apache.wicket.RuntimeConfigurationType;
 import org.apache.wicket.authorization.strategies.CompoundAuthorizationStrategy;
@@ -29,6 +32,7 @@ import org.devgateway.eudevfin.ui.common.ApplicationCss;
 import org.devgateway.eudevfin.ui.common.ApplicationJavaScript;
 import org.devgateway.eudevfin.ui.common.FixBootstrapStylesCssResourceReference;
 import org.devgateway.eudevfin.ui.common.JQueryUICoreJavaScriptReference;
+import org.devgateway.eudevfin.ui.common.converters.CustomBigDecimalConverter;
 import org.devgateway.eudevfin.ui.common.pages.LoginPage;
 import org.devgateway.eudevfin.ui.common.permissions.PermissionAuthorizationStrategy;
 import org.springframework.beans.BeansException;
@@ -61,6 +65,16 @@ public class WicketSpringApplication extends AuthenticatedWebApplication impleme
 
     private ApplicationContext springContext;
 
+    /**
+     * Add custom coverters
+     */
+    @Override
+    protected IConverterLocator newConverterLocator() {    
+    	ConverterLocator locator =(ConverterLocator) super.newConverterLocator();
+    	locator.set(BigDecimal.class, new CustomBigDecimalConverter());
+    	return locator;
+    }
+    
     @Override
     protected void init() {
         super.init();

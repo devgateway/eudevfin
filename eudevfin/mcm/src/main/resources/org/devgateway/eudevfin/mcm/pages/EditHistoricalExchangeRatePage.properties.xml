@@ -9,6 +9,11 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>    
-    <entry key="button.addNewUser">Add New User</entry>
-    <entry key="page.title">Users List</entry>
+    <entry key="baseCurrency.label">Base Currency</entry>
+    <entry key="counterCurrency.label">Counter Currency</entry>
+	<entry key="rate.label">Rate</entry>
+	<entry key="source.label">Source</entry>
+	<entry key="date.label">Date</entry>	
+	<entry key="notification.equalcounterbase">The Base and Counter currency cannot be the same!</entry>
+	<entry key="page.title">Edit Historical Exchange Rate</entry>
 </properties>

@@ -27,6 +27,7 @@ import org.apache.wicket.markup.html.GenericWebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.StringValue;
@@ -54,6 +55,7 @@ public abstract class HeaderFooter<T> extends GenericWebPage<T> {
 
 	@SpringBean(name="commonProperties")
 	protected Properties commonProperties;
+	protected Label pageTitle;
 
 	protected HeaderFooter() {
 		initialize();
@@ -78,6 +80,10 @@ public abstract class HeaderFooter<T> extends GenericWebPage<T> {
         add(new BootstrapBaseBehavior());
         
         add(new Label("eudevfin-version",Model.of(commonProperties.getProperty("eudevfin.version"))));
+        
+        pageTitle=new Label("pageTitle",new StringResourceModel("page.title", this, null, null));
+        
+        add(pageTitle);
         
       if (RuntimeConfigurationType.DEVELOPMENT.equals(this.getApplication().getConfigurationType())) {        	        
         	DebugBar debugBar = new DebugBar("dev");

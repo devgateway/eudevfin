@@ -9,6 +9,6 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>    
-    <entry key="button.addNewUser">Add New User</entry>
-    <entry key="page.title">Users List</entry>
+    <entry key="button.addNewRate">Add New Rate</entry>
+    <entry key="page.title">Available Historical Exchange Rates</entry>
 </properties>
