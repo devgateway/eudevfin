@@ -96,6 +96,25 @@ public class PopulateExchangeDbChange extends AbstractSpringCustomTaskChange {
 				invert(1.523), LocalDateTime.parse("2012-06-06"),ExchangeRateConstants.SOURCE_OECD));
 //		exchangeRateDaoImplEndpoint.save(HistoricalExchangeRate.of(CurrencyUnit.of(BGN), CurrencyUnit.USD,
 //				new BigDecimal(1/17.6722,mc), LocalDateTime.parse("2013-06-06"),ExchangeRateConstants.EXCHANGE_RATE_OECD));
+		
+		
+		//RON
+		Currency RON = Currency.getInstance("RON");
+		exchangeRateDaoImplEndpoint.save(HistoricalExchangeRate.of(CurrencyUnit.of(RON), CurrencyUnit.USD,
+				invert(3.3279), LocalDateTime.parse("2013-06-06"), ExchangeRateConstants.SOURCE_NATIONAL));
+		
+		//HRK
+		Currency HRK = Currency.getInstance("HRK");
+		exchangeRateDaoImplEndpoint.save(HistoricalExchangeRate.of(CurrencyUnit.of(HRK), CurrencyUnit.USD,
+				invert(5.500015), LocalDateTime.parse("2010-06-06"), ExchangeRateConstants.SOURCE_NATIONAL));
+		exchangeRateDaoImplEndpoint.save(HistoricalExchangeRate.of(CurrencyUnit.of(HRK), CurrencyUnit.USD,
+				invert(5.343508), LocalDateTime.parse("2011-06-06"), ExchangeRateConstants.SOURCE_NATIONAL));
+		exchangeRateDaoImplEndpoint.save(HistoricalExchangeRate.of(CurrencyUnit.of(HRK), CurrencyUnit.USD,
+				invert(5.850861), LocalDateTime.parse("2012-06-06"), ExchangeRateConstants.SOURCE_NATIONAL));
+		exchangeRateDaoImplEndpoint.save(HistoricalExchangeRate.of(CurrencyUnit.of(HRK), CurrencyUnit.USD,
+				invert(5.705883), LocalDateTime.parse("2013-06-06"), ExchangeRateConstants.SOURCE_NATIONAL));
+
+		
 	}
 
 	@Override
