@@ -36,7 +36,7 @@ public class OrganizationChoiceProvider extends AbstractTranslatableProvider<Org
 
     @Override
     public String getDisplayText(Organization choice) {
-        return choice.getCode() + " - " + choice.getName();
+        return choice.getCode() + " - " + choice.getName()+(choice.getDonorName()==null?"":" ("+choice.getDonorName()+")");
     }
 
     @Override
