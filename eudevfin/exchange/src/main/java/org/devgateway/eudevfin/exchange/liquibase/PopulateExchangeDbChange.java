@@ -102,6 +102,14 @@ public class PopulateExchangeDbChange extends AbstractSpringCustomTaskChange {
 		Currency RON = Currency.getInstance("RON");
 		exchangeRateDaoImplEndpoint.save(HistoricalExchangeRate.of(CurrencyUnit.of(RON), CurrencyUnit.USD,
 				invert(3.3279), LocalDateTime.parse("2013-06-06"), ExchangeRateConstants.SOURCE_NATIONAL));
+		exchangeRateDaoImplEndpoint.save(HistoricalExchangeRate.of(CurrencyUnit.of(RON), CurrencyUnit.USD,
+				invert(3.4682), LocalDateTime.parse("2012-06-06"), ExchangeRateConstants.SOURCE_NATIONAL));
+		exchangeRateDaoImplEndpoint.save(HistoricalExchangeRate.of(CurrencyUnit.of(RON), CurrencyUnit.USD,
+				invert(3.0486), LocalDateTime.parse("2011-06-06"), ExchangeRateConstants.SOURCE_NATIONAL));
+		exchangeRateDaoImplEndpoint.save(HistoricalExchangeRate.of(CurrencyUnit.of(RON), CurrencyUnit.USD,
+				invert(3.1779), LocalDateTime.parse("2010-06-06"), ExchangeRateConstants.SOURCE_NATIONAL));
+	
+		
 		
 		//HRK
 		Currency HRK = Currency.getInstance("HRK");
