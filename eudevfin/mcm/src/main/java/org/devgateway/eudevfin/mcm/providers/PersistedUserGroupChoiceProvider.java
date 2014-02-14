@@ -57,7 +57,6 @@ public class PersistedUserGroupChoiceProvider extends AbstractTextChoiceProvider
     }
 
     @Override
-    public void detach() {
-        persistedUserGroupService = null;
+    public void detach() {       
     }
 }
