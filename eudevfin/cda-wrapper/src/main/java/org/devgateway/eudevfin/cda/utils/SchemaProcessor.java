@@ -1,16 +1,18 @@
 package org.devgateway.eudevfin.cda.utils;
 
-import mondrian.i18n.LocalizingDynamicSchemaProcessor;
-import mondrian.olap.MondrianProperties;
-import mondrian.olap.Util;
-import mondrian.olap.Util.PropertyList;
-import org.apache.log4j.Logger;
-
 import java.io.InputStream;
+import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import mondrian.i18n.LocalizingDynamicSchemaProcessor;
+import mondrian.olap.MondrianProperties;
+import mondrian.olap.Util;
+import mondrian.olap.Util.PropertyList;
+
+import org.apache.log4j.Logger;
 
 public class SchemaProcessor extends LocalizingDynamicSchemaProcessor {
 	private static final Logger logger = Logger.getLogger(SchemaProcessor.class);
@@ -69,7 +71,8 @@ public class SchemaProcessor extends LocalizingDynamicSchemaProcessor {
 	 * @throws Exception if an error occurs
 	 */
 	public String filter(String schemaUrl, Util.PropertyList connectInfo, InputStream stream) throws Exception {
-		String locale = org.springframework.context.i18n.LocaleContextHolder.getLocale().getLanguage();
+		//FIX THIS:String locale = org.springframework.context.i18n.LocaleContextHolder.getLocale().getLanguage();
+		String locale=new Locale("en").getLanguage();
 		setLocale(locale);
 
 		String currency = connectInfo.get("CURRENCY");

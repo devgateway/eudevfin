@@ -14,7 +14,9 @@ import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.olap.JRMondrianQueryExecuterFactory;
+
 import org.apache.log4j.Logger;
+import org.apache.wicket.Session;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.util.AuthUtils;
 import org.devgateway.eudevfin.financial.Organization;
@@ -30,6 +32,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -138,7 +141,10 @@ public class ReportsController {
 			Map<String, Object> parameters = new HashMap<String, Object>();
 			
 			// set locale
-			Locale locale = LocaleContextHolder.getLocale();			
+			//FIX THIS: Locale locale = LocaleContextHolder.getLocale();
+			Locale locale= new Locale("en");
+			
+			
 			parameters.put(JRParameter.REPORT_LOCALE, locale);
 			
 			// set resource bundle
