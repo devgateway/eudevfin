@@ -17,11 +17,9 @@ import java.util.Collection;
 
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -34,6 +32,7 @@ import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
 import org.devgateway.eudevfin.ui.common.components.DateInputField;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.components.FinancialAmountTextInputField;
+import org.devgateway.eudevfin.ui.common.components.util.MondrianCacheUtil;
 import org.devgateway.eudevfin.ui.common.models.DateToLocalDateTimeModel;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.devgateway.eudevfin.ui.common.providers.CurrencyUnitProviderFactory;
@@ -49,9 +48,6 @@ import com.vaynberg.wicket.select2.TextChoiceProvider;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
 import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
-import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.Modal;
-import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.ModalCloseButton;
-import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.TextContentModal;
 
 /**
  * @author mihai
@@ -64,6 +60,9 @@ public class EditHistoricalExchangeRatePage extends HeaderFooter {
 	@SpringBean
 	private HistoricalExchangeRateService historicalExchangeRateService;
 
+    @SpringBean
+    MondrianCacheUtil mondrianCacheUtil;
+	
 	@SpringBean
 	private CurrencyUnitProviderFactory currencyUnitProviderFactory;
 
@@ -112,6 +111,8 @@ public class EditHistoricalExchangeRatePage extends HeaderFooter {
 
 		DateInputField date = new DateInputField("date", new DateToLocalDateTimeModel(
 				new RWComponentPropertyModel<LocalDateTime>("date")));
+		
+		
 		date.required();
 		form.add(date);
 
@@ -130,7 +131,8 @@ public class EditHistoricalExchangeRatePage extends HeaderFooter {
 
 			@Override
 			public void query(String term, int page, Response<String> response) {
-				response.addAll(ExchangeRateConstants.all);
+				response.add(ExchangeRateConstants.SOURCE_OECD);
+				response.add(ExchangeRateConstants.SOURCE_NATIONAL);
 			}
 
 			@Override
@@ -162,6 +164,7 @@ public class EditHistoricalExchangeRatePage extends HeaderFooter {
 				logger.info("Submitted ok!");
 				logger.info("Object:" + getModel().getObject());
 				historicalExchangeRateService.save(historicalExchangeRate);
+				mondrianCacheUtil.flushMondrianCache();
 				setResponsePage(ListHistoricalExchangeRatePage.class);
 			}
 
@@ -192,6 +195,7 @@ public class EditHistoricalExchangeRatePage extends HeaderFooter {
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				logger.info("Rate Deleted!");
 				historicalExchangeRateService.delete(historicalExchangeRate);
+				mondrianCacheUtil.flushMondrianCache();
 				setResponsePage(ListHistoricalExchangeRatePage.class);
 			}
 

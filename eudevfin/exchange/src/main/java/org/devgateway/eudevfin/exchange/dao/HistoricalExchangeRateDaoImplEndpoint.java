@@ -143,12 +143,18 @@ public class HistoricalExchangeRateDaoImplEndpoint extends AbstractDaoImpl<Histo
 		return repo;		
 	}
 
-	@Override
-	@ServiceActivator(inputChannel = "findHistoricalExchangeRateByGeneralSearchPageableChannel")
-	public Page<HistoricalExchangeRate> findByGeneralSearch(String searchString,
-			@Header(value="locale",required=false) String locale, @Header("pageable") Pageable pageable) {
+	
+	/**
+	 * @see HistoricalExchangeRateService#findByInvertedSource(String, Pageable)
+	 * @param source
+	 * @param locale
+	 * @param pageable
+	 * @return
+	 */
+	@ServiceActivator(inputChannel = "findHistoricalExchangeRateByInvertedSourceChannel")
+	public Page<HistoricalExchangeRate> findByInvertedSource(String source, @Header("pageable") Pageable pageable) {
 		// TODO Auto-generated method stub
-		return super.findByGeneralSearch(searchString, locale, pageable);
+		return repo.findBySourceNot(source, pageable);
 	}
 	
 	

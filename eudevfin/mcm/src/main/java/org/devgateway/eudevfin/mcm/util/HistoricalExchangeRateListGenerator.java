@@ -7,6 +7,7 @@ import org.devgateway.eudevfin.common.service.PagingHelper;
 import org.devgateway.eudevfin.exchange.common.domain.HistoricalExchangeRate;
 import org.devgateway.eudevfin.exchange.common.service.HistoricalExchangeRateService;
 import org.devgateway.eudevfin.ui.common.components.util.ListGeneratorInterface;
+import org.jadira.usertype.exchangerate.ExchangeRateConstants;
 import org.springframework.data.domain.PageRequest;
 
 /**
@@ -34,8 +35,8 @@ public class HistoricalExchangeRateListGenerator implements ListGeneratorInterfa
 	 */
 	@Override
 	public PagingHelper<HistoricalExchangeRate> getResultsList(int pageNumber, int pageSize) {
-		return PagingHelper.createPagingHelperFromPage(historicalExchangeRateService.findByGeneralSearchPageable(
-				searchString, null, new PageRequest(pageNumber - 1, pageSize)));
+		return PagingHelper.createPagingHelperFromPage(historicalExchangeRateService.findByInvertedSource(ExchangeRateConstants.SOURCE_INTERNET,
+				new PageRequest(pageNumber - 1, pageSize)));
 	}
 
 }

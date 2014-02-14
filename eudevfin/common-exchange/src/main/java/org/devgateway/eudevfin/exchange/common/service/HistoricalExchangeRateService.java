@@ -17,16 +17,19 @@ package org.devgateway.eudevfin.exchange.common.service;
 import org.devgateway.eudevfin.common.service.BaseEntityService;
 import org.devgateway.eudevfin.exchange.common.domain.HistoricalExchangeRate;
 import org.joda.time.LocalDateTime;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.integration.annotation.Header;
 
 /**
  * @author mihai
  * 
  */
-public interface HistoricalExchangeRateService  extends BaseEntityService<HistoricalExchangeRate> {
+public interface HistoricalExchangeRateService extends BaseEntityService<HistoricalExchangeRate> {
 
-		/**
-	 * Finds the {@link HistoricalExchangeRate}S from the database for the
-	 * given date
+	/**
+	 * Finds the {@link HistoricalExchangeRate}S from the database for the given
+	 * date
 	 * 
 	 * @param date
 	 *            the date
@@ -45,4 +48,8 @@ public interface HistoricalExchangeRateService  extends BaseEntityService<Histor
 	 *         the date already has exchange rates
 	 */
 	int fetchRatesForDate(LocalDateTime date);
+
+	public Page<HistoricalExchangeRate> findByInvertedSource(String source,
+			@Header("pageable") Pageable pageable);
+
 }

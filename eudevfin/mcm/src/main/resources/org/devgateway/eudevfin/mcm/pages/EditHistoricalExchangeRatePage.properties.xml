@@ -9,8 +9,8 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>    
-    <entry key="baseCurrency.label">Base Currency</entry>
-    <entry key="counterCurrency.label">Counter Currency</entry>
+    <entry key="baseCurrency.label">National Currency</entry>
+    <entry key="counterCurrency.label">Reporting Currency</entry>
 	<entry key="rate.label">Rate</entry>
 	<entry key="source.label">Source</entry>
 	<entry key="date.label">Date</entry>	

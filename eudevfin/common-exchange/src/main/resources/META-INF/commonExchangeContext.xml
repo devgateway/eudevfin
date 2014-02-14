@@ -31,8 +31,8 @@
 			<int:header name="requestName" value="findRatesForDateChannel" />
 		</int:method>
 		
-		<int:method name="findByGeneralSearchPageable" request-channel="exchangeChannel">
-			<int:header name="requestName" value="findHistoricalExchangeRateByGeneralSearchPageableChannel" />
+		<int:method name="findByInvertedSource" request-channel="exchangeChannel">
+			<int:header name="requestName" value="findHistoricalExchangeRateByInvertedSourceChannel" />
 		</int:method>
 		
 		<int:method name="delete" request-channel="exchangeChannel">

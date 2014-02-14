@@ -42,7 +42,7 @@ public class PopulateExchangeDbChange extends AbstractSpringCustomTaskChange {
 		// fake rates
 		exchangeRateDaoImplEndpoint.save(HistoricalExchangeRate.of(CurrencyUnit.EUR, CurrencyUnit.USD,
 				new BigDecimal(1.3133,mc), LocalDateTime.parse("2010-06-06"),
-				ExchangeRateConstants.SOURCE_CUSTOM));
+				ExchangeRateConstants.SOURCE_NATIONAL));
 
 		// OECD real rates. Will be move to a nice XLS file at some point
  

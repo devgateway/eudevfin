@@ -13,8 +13,8 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
     <entry key="rate.operations">Operations</entry>
-    <entry key="rate.base">Base Currency</entry>
-	<entry key="rate.counter">Counter Currency</entry>
+    <entry key="rate.base">National Currency</entry>
+	<entry key="rate.counter">Reporting Currency</entry>
 	<entry key="rate.date">Date</entry>
 	<entry key="rate.source">Source</entry>
 	<entry key="rate.rate">Rate</entry>
