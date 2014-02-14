@@ -118,7 +118,7 @@
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>${jetty.version}</version>
                 <configuration>
-                    <jvmArgs>-Xmx784M -XX:MaxPermSize=256M</jvmArgs>
+                    <jvmArgs>-Xmx784M -XX:MaxPermSize=256M -server -XX:+UseParallelGC -XX:+DisableExplicitGC</jvmArgs>
                     <war>${basedir}/target/dim-${project.version}</war>
                     <scanIntervalSeconds>1</scanIntervalSeconds>
                     <stopKey>chuck</stopKey>
