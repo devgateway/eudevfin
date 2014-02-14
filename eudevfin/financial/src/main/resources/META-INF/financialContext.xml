@@ -47,7 +47,7 @@
 	<bean id="derbyServer" class="org.apache.derby.drda.NetworkServerControl"
 		destroy-method="shutdown" lazy-init="true">
 		<constructor-arg ref="derbyServerIP" />
-		<constructor-arg value="1527" />
+		<constructor-arg value="#{systemProperties['eudevfin.derby.port']!=null?systemProperties['eudevfin.derby.port']:'1527'}" />
 	</bean>
 
 	<!-- Create Printwriter object to use as log output reader for derby network 
@@ -73,14 +73,14 @@
 	<!-- Datasource for network mode, this will be instantiated only if network mode derby will be used -->
 	<!-- tomcat-jdbc settings taken from here http://www.tomcatexpert.com/blog/2010/04/01/configuring-jdbc-pool-high-concurrency -->
 	<bean class="org.apache.tomcat.jdbc.pool.DataSource" id="euDevFinDataSourceNetwork" autowire-candidate="false"
-		depends-on="startDerby" lazy-init="true" 
-		p:driverClassName="org.apache.derby.jdbc.ClientDriver" p:url="jdbc:derby://localhost/eudevfin;create=true"
-		p:username="app" p:password="app" p:testWhileIdle="true" p:testOnBorrow="true" p:testOnReturn="false"
-		p:validationQuery="SELECT 1" p:validationInterval="30000" p:timeBetweenEvictionRunsMillis="5000" p:maxActive="100"
-		p:minIdle="10" p:maxIdle="20" p:maxWait="10000" p:initialSize="10" p:removeAbandonedTimeout="60" p:removeAbandoned="true"
-		p:logAbandoned="true" p:minEvictableIdleTimeMillis="30000" p:jmxEnabled="true"
-		p:jdbcInterceptors="ConnectionState;StatementFinalizer;SlowQueryReportJmx(threshold=10000)"
-		p:abandonWhenPercentageFull="75" />
+	depends-on="startDerby" lazy-init="true" p:driverClassName="org.apache.derby.jdbc.ClientDriver"
+	p:url="jdbc:derby://localhost:#{systemProperties['eudevfin.derby.port']!=null?systemProperties['eudevfin.derby.port']:'1527'}/eudevfin;create=true"
+	p:username="app" p:password="app" p:testWhileIdle="true" p:testOnBorrow="true" p:testOnReturn="false"
+	p:validationQuery="SELECT 1" p:validationInterval="30000" p:timeBetweenEvictionRunsMillis="5000" p:maxActive="100"
+	p:minIdle="10" p:maxIdle="20" p:maxWait="10000" p:initialSize="10" p:removeAbandonedTimeout="60" p:removeAbandoned="true"
+	p:logAbandoned="true" p:minEvictableIdleTimeMillis="30000" p:jmxEnabled="true"
+	p:jdbcInterceptors="ConnectionState;StatementFinalizer;SlowQueryReportJmx(threshold=10000)"
+	p:abandonWhenPercentageFull="75" />
 
 	<!-- Datasource for embedded mode, this will be instantiated only if embedded mode derby will be used -->
 	<bean class="org.apache.tomcat.jdbc.pool.DataSource" id="euDevFinDataSourceEmbedded" lazy-init="true" autowire-candidate="false">
