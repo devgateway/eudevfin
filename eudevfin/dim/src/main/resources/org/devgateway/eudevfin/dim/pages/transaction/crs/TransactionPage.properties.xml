@@ -18,10 +18,10 @@
     <entry key="tabs.available">Available Components</entry>
 
     <entry key="bilateralOda.advanceQuestionnaire">Advance Questionnaire Form for Bilateral ODA</entry>
-    <entry key="bilateralOda.CRS">CRS Form for Bilateral ODA</entry>
+    <entry key="bilateralOda.CRS">CRS++ Form for Bilateral ODA</entry>
     <entry key="bilateralOda.forwardSpending">Forward Spending Form for Bilateral ODA</entry>
     <entry key="multilateralOda.advanceQuestionnaire">Advance Questionnaire Form for Multilateral ODA</entry>
-    <entry key="multilateralOda.CRS">CRS Form for Multilateral ODA</entry>
+    <entry key="multilateralOda.CRS">CRS++ Form for Multilateral ODA</entry>
     <entry key="nonOda.nonExport">Non Export Credit Form for Non-ODA</entry>
     <entry key="nonOda.export">Export Form for Non-ODA</entry>
     <entry key="nonOda.publicGrants">Public Grants Form for Non-ODA</entry>
