@@ -15,10 +15,12 @@ import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.olap.JRMondrianQueryExecuterFactory;
 import org.apache.log4j.Logger;
+import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.util.AuthUtils;
 import org.devgateway.eudevfin.financial.Organization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -65,6 +67,7 @@ public class ReportsController {
 	/**
 	 * Generate a report
 	 */
+    @PreAuthorize("hasRole('" + AuthConstants.Roles.ROLE_USER + "')")
 	@RequestMapping(value = "/generate", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView generateReport(HttpServletRequest request, HttpServletResponse response, ModelAndView modelAndView)  throws IOException {
 		String reportType = request.getParameter(REPORT_TYPE);

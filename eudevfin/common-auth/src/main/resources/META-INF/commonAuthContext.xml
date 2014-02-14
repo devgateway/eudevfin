@@ -20,7 +20,7 @@
 	<!-- we need a retrieving-outbound-gateway here to provide the Authentication 
 		token -->
 	<security:global-method-security
-		secured-annotations="enabled" />
+		secured-annotations="enabled" pre-post-annotations="enabled"/>
 
 	<int:channel id="authenticationChannel" />
 	<int:channel id="userChannel" />

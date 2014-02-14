@@ -1,18 +1,20 @@
 package org.devgateway.eudevfin.cda.rest;
 
-import java.util.Map;
-
 import org.apache.log4j.Logger;
+import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.cda.domain.QueryResult;
 import org.devgateway.eudevfin.cda.service.QueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.View;
+
+import java.util.Map;
 
 @Controller
 public class QueryController {
@@ -26,6 +28,7 @@ public class QueryController {
 	private static final Logger logger = Logger
 			.getLogger(QueryController.class);
 
+    @PreAuthorize("hasRole('" + AuthConstants.Roles.ROLE_USER + "')")
 	@RequestMapping(value = "/doQuery", method = {RequestMethod.GET, RequestMethod.POST})
 	public @ResponseBody
 	QueryResult doQuery(

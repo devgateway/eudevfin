@@ -21,6 +21,8 @@
 	<security:http create-session="never" auto-config="true">
 		<security:remember-me />
 		<security:intercept-url pattern="/**" />
+        <security:form-login login-page="/login" default-target-url="/" />
+        <security:access-denied-handler error-page="/login" />
 		<security:logout logout-url="/logout"/>
 	</security:http>
 </beans>
