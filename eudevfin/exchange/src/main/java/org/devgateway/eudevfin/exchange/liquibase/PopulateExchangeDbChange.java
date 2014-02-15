@@ -82,9 +82,9 @@ public class PopulateExchangeDbChange extends AbstractSpringCustomTaskChange {
 		exchangeRateDaoImplEndpoint.save(HistoricalExchangeRate.of(CurrencyUnit.of(CZK), CurrencyUnit.USD,
 				invert(17.6722), LocalDateTime.parse("2011-06-06"),ExchangeRateConstants.SOURCE_OECD));
 		exchangeRateDaoImplEndpoint.save(HistoricalExchangeRate.of(CurrencyUnit.of(CZK), CurrencyUnit.USD,
-				invert(17.6722), LocalDateTime.parse("2012-06-06"),ExchangeRateConstants.SOURCE_OECD));
+				invert(19.5383), LocalDateTime.parse("2012-06-06"),ExchangeRateConstants.SOURCE_OECD));
 		exchangeRateDaoImplEndpoint.save(HistoricalExchangeRate.of(CurrencyUnit.of(CZK), CurrencyUnit.USD,
-				invert(17.6722), LocalDateTime.parse("2013-06-06"),ExchangeRateConstants.SOURCE_OECD));
+				invert(19.5585), LocalDateTime.parse("2013-06-06"),ExchangeRateConstants.SOURCE_OECD));
 
 		
 		
