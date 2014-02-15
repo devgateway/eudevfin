@@ -13,9 +13,9 @@
   MEMBER [Area].[SouthOfSahara] as SUM({[Area].[249],[Area].[251],[Area].[252],[Area].[253],[Area].[255],[Area].[256],[Area].[257],[Area].[259],[Area].[260],[Area].[261],[Area].[265],[Area].[266],[Area].[268],[Area].[269],[Area].[270],[Area].[271],[Area].[272],[Area].[273],[Area].[274],[Area].[275],[Area].[276],[Area].[278],[Area].[279],[Area].[280],[Area].[282],[Area].[283],[Area].[285],[Area].[287],[Area].[288]})
   MEMBER [Area].[Afghanistan] as SUM({[Area].[625]})
   MEMBER [Area].[Iraq] as SUM({[Area].[543]})
-  MEMBER [Area].[SouthOfSaharaDebtRelief] as ([Measures].[SouthOfSahara], [Type of Finance].[TYPE_OF_FINANCE##610])
-  MEMBER [Area].[AfghanistanReconstruction] as ([Measures].[Afghanistan], [Sector].[700])
-  MEMBER [Area].[IraqReconstruction] as ([Measures].[Iraq], [Sector].[700])
+  MEMBER [Area].[SouthOfSaharaDebtRelief] as ([Area].[SouthOfSahara], [Type of Finance].[TYPE_OF_FINANCE##610])
+  MEMBER [Area].[AfghanistanReconstruction] as SUM({[Sector].[730],[Sector].[73010]},[Area].[625])
+  MEMBER [Area].[IraqReconstruction] as SUM({[Sector].[730],[Sector].[73010]},[Area].[543])
   MEMBER [Measures].[First Year] AS SUM(CrossJoin({[Reporting Year].[$P{FIRST_YEAR}]}, {[Measures].[Net Amount Currency]}))
   MEMBER [Measures].[Second Year] AS SUM(CrossJoin({[Reporting Year].[$P{SECOND_YEAR}]}, {[Measures].[Net Amount Currency]}))
 SELECT
