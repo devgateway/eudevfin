@@ -38,7 +38,7 @@ public class FinancialTransactionDaoImpl extends AbstractDaoImpl<FinancialTransa
 	
 	@Override
 	@ServiceActivator(inputChannel="saveTransactionChannel")
-	public NullableWrapper<FinancialTransaction> save(FinancialTransaction tx) {
+	public NullableWrapper<FinancialTransaction> save(final FinancialTransaction tx) {
 		return super.save(tx);
 		
 	}
@@ -48,24 +48,24 @@ public class FinancialTransactionDaoImpl extends AbstractDaoImpl<FinancialTransa
 	 */
 	@Override
 	@ServiceActivator(inputChannel="findTransactionByIdChannel")
-	public NullableWrapper<FinancialTransaction> findOne(Long id) {
+	public NullableWrapper<FinancialTransaction> findOne(final Long id) {
 		return super.findOne(id);
 	}
 
-	public List<FinancialTransaction> findBySourceOrganizationId(Long orgId) {
-		return getRepo().findByExtendingAgencyId(orgId);
+	public List<FinancialTransaction> findBySourceOrganizationId(final Long orgId) {
+		return this.getRepo().findByExtendingAgencyId(orgId);
 	}
 	
 	@ServiceActivator(inputChannel="findTransactionBySectorCodePageableChannel")
-	public Page<FinancialTransaction> findBySectorCode(String sectorCode, 
-			@Header("pageable") Pageable pageable) {	
+	public Page<FinancialTransaction> findBySectorCode(final String sectorCode, 
+			@Header("pageable") final Pageable pageable) {	
 		return  this.getRepo().findBySectorCode(sectorCode, pageable);
 		
 	}
 	
 	@ServiceActivator(inputChannel="findTransactionByGeneralSearchPageableChannel")
-	public Page<FinancialTransaction> findByGeneralSearchPageable(String searchString,
-			@Header("pageable") Pageable pageable) {
+	public Page<FinancialTransaction> findByGeneralSearchPageable(final String searchString,
+			@Header("pageable") final Pageable pageable) {
 
 		return  this.getRepo().findByTranslationsDescriptionContaining(searchString.toLowerCase(), pageable)  ;
 	}
@@ -77,7 +77,7 @@ public class FinancialTransactionDaoImpl extends AbstractDaoImpl<FinancialTransa
 	 * @return
 	 */
 	@ServiceActivator(inputChannel="findTransactionByReportingYearAndTypeOfFlowNonFlow")
-	public List<FinancialTransaction> findByReportingYearAndTypeOfFlowCode(LocalDateTime reportingYear, @Header("typeOfFlowCode") String typeOfFlowCode) {
+	public List<FinancialTransaction> findByReportingYearAndTypeOfFlowCode(final LocalDateTime reportingYear, @Header("typeOfFlowCode") final String typeOfFlowCode) {
 		return this.getRepo().findByReportingYearAndTypeOfFlowCode(reportingYear,typeOfFlowCode);
 	}
 	
@@ -85,6 +85,6 @@ public class FinancialTransactionDaoImpl extends AbstractDaoImpl<FinancialTransa
 	@Override
 	protected
 	FinancialTransactionRepository getRepo() {
-		return repo;
+		return this.repo;
 	}
 }

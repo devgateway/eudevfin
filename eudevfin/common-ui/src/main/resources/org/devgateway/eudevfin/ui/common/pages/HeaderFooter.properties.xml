@@ -52,6 +52,9 @@
     <entry key="navbar.newTransaction.nonOda.publicMarket">Public Market</entry>
     <entry key="navbar.newTransaction.nonOda.otherFlows">Other Flow</entry>
     
+    <entry key="navbar.spreadsheets.export">Export</entry>
+    <entry key="navbar.spreadsheets.fss">Forward Spending Survey</entry>
+    
     <entry key="button.submit">Submit</entry>    
     <entry key="button.cancel">Cancel</entry>
     <entry key="button.delete">Delete</entry>

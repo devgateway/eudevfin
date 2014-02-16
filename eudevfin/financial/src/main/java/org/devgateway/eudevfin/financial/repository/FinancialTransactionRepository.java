@@ -6,7 +6,6 @@ package org.devgateway.eudevfin.financial.repository;
 import java.util.List;
 
 import org.devgateway.eudevfin.financial.FinancialTransaction;
-import org.devgateway.eudevfin.financial.util.CategoryConstants;
 import org.joda.time.LocalDateTime;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

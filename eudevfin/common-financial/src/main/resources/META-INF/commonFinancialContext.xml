@@ -57,6 +57,9 @@
 		<int:method name="findByDraftPageable" request-channel="getChannel">
 			<int:header name="requestName" value="findCustomTransactionByDraftPageableChannel"/>
 		</int:method>
+		<int:method name="findByReportingYearAndDraftFalse" request-channel="getChannel">
+			<int:header name="requestName" value="findCustomTransactionByReportingYearAndDraftFalseChannel"/>
+		</int:method>
 	</int:gateway>
 		
 		

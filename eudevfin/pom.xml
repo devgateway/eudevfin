@@ -486,6 +486,7 @@
 		<module>common-ui</module>
     	<module>import-metadata</module>
     	<module>mcm</module>
+    	<module>spreadsheet-exporter</module>
     </modules>
     <inceptionYear>2013</inceptionYear>
     <organization>

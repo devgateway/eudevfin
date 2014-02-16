@@ -176,8 +176,10 @@
 	<int:channel id="findTransactionBySectorCodePageableChannel" />
 	<int:channel id="getFinancialTransactionHistoricalExchangeRatesChannel"/>
 	<int:channel id="findTransactionByGeneralSearchPageableChannel"/>
+	<int:channel id="findTransactionByReportingYearAndTypeOfFlowNonFlow"/>
 	
 	<int:channel id="findCustomTransactionByDraftPageableChannel"/>
+	<int:channel id="findCustomTransactionByReportingYearAndDraftFalseChannel"/>
 	
 	<int:channel id="findOrganizationByIdChannel" />
 	<int:channel id="saveOrganizationChannel" />
@@ -210,7 +212,7 @@
 	<int:channel id="findBySearchPageableCurrencyChannel"/>
 	<int:channel id="findByCodeCurrencyChannel"/>
 	
-	<int:channel id="findTransactionByReportingYearAndTypeOfFlowNonFlow"/>
+	
 	
 	
 

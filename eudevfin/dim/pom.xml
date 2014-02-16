@@ -72,6 +72,12 @@
             <artifactId>import-metadata</artifactId>
             <version>${project.version}</version>
         </dependency>
+        
+        <dependency>
+            <groupId>org.devgateway.eudevfin</groupId>
+            <artifactId>spreadsheet-exporter</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.devgateway.eudevfin</groupId>
