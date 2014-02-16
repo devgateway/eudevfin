@@ -18,7 +18,6 @@
     <entry key="login.welcome">Welcome to EU-DEVFIN</entry>
     <entry key="login.user.label">User</entry>
     <entry key="login.user.placeholder">Type your username...</entry>
-    <entry key="login.user.help">The username is usually your email address.</entry>
     <entry key="login.password.label">Password</entry>
     <entry key="login.password.placeholder">Type your password...</entry>
     <entry key="login.password.help">Keep your password secret!</entry>
