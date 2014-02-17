@@ -56,10 +56,9 @@ public final class LoginPage extends HeaderFooter {
 					.getSpringWicketWebSession();
 			if (session.signIn(username, password)) {
 				continueToOriginalDestination();
-			} else {
 				setResponsePage(getApplication().getHomePage());
 			}
 		}
-
 	}
+
 }

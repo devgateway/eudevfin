@@ -15,6 +15,7 @@ import java.util.List;
 import org.apache.wicket.ConverterLocator;
 import org.apache.wicket.IConverterLocator;
 import org.apache.wicket.Page;
+import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.RuntimeConfigurationType;
 import org.apache.wicket.authorization.strategies.CompoundAuthorizationStrategy;
 import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
@@ -207,4 +208,10 @@ public class WicketSpringApplication extends AuthenticatedWebApplication impleme
     public ApplicationContext getSpringContext() {
         return springContext;
     }
+    
+    @Override
+    protected void onUnauthorizedPage(final Page page) {
+    	throw new RestartResponseException(getHomePage());
+    }
+    
 }
