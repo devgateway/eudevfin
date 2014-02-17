@@ -19,7 +19,7 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarButton;
  *
  */
 public final class NavbarInitializer {
-	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT)
+	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT,disabled=true)
 	public static Component newExportSpreadSheetButton(final Page page) {
 		final NavbarButton<ExportSpreadsheetsPage> exportSpreadsheetButton = new NavbarButton<ExportSpreadsheetsPage>(
 				ExportSpreadsheetsPage.class, new StringResourceModel(
