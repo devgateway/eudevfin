@@ -1,411 +1,430 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="555" pageHeight="802" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4d81083f-52a3-45df-97af-b93a485e497a">
-	<property name="ireport.callouts" value="##Mon Dec 30 08:46:00 ART 2013"/>
-	<property name="ireport.zoom" value="3.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="1891"/>
-	<parameter name="REPORTING_COUNTRY" class="java.lang.String"/>
-	<parameter name="FIRST_YEAR" class="java.lang.Number"/>
-	<parameter name="FIRST_YEAR_EXRATE" class="java.lang.Number"/>
-	<parameter name="SECOND_YEAR" class="java.lang.Number"/>
-	<parameter name="SECOND_YEAR_EXRATE" class="java.lang.Number"/>
-	<parameter name="SUBDIR_PATH" class="java.lang.String"/>
-	<queryString language="mdx">
-		<![CDATA[
+    <property name="ireport.callouts" value="##Mon Dec 30 08:46:00 ART 2013"/>
+    <property name="ireport.zoom" value="3.0"/>
+    <property name="ireport.x" value="0"/>
+    <property name="ireport.y" value="1891"/>
+    <parameter name="REPORTING_COUNTRY" class="java.lang.String"/>
+    <parameter name="FIRST_YEAR" class="java.lang.Number"/>
+    <parameter name="SECOND_YEAR" class="java.lang.Number"/>
+    <parameter name="SUBDIR_PATH" class="java.lang.String"/>
+    <queryString language="mdx">
+        <![CDATA[
 WITH
 MEMBER [Reporting Year].[First Year] AS [Reporting Year].[$P{FIRST_YEAR}]
 MEMBER [Reporting Year].[Second Year] AS [Reporting Year].[$P{SECOND_YEAR}]
 SELECT
 {[Reporting Year].[First Year], [Reporting Year].[Second Year]} ON ROWS,
-{[Measures].[Net Amount Currency]} ON COLUMNS
+{[Measures].[Net Amount Currency], [Measures].[Exchange Rate]} ON COLUMNS
 FROM [Financial]]]>
-	</queryString>
-	<field name="Extended Amount Year 1" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Net Amount Currency], [Reporting Year].[First Year])]]></fieldDescription>
-	</field>
-	<field name="Extended Amount Year 2" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Net Amount Currency], [Reporting Year].[Second Year])]]></fieldDescription>
-	</field>
-	<background>
-		<band splitType="Stretch"/>
-	</background>
-	<title>
-		<band height="166" splitType="Stretch">
-			<textField>
-				<reportElement x="0" y="1" width="555" height="15" uuid="b2847462-8dc7-42d4-a144-53fa5129a91f"/>
-				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$R{aq.title}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="0" y="17" width="555" height="15" uuid="7d2520e0-f1b3-4536-bb21-ea7fbe4ec892"/>
-				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="12" isBold="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA["(" + $P{SECOND_YEAR} + " " + $R{aq.subtitle} + ")"]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="0" y="32" width="118" height="23" uuid="d971475c-3ae3-4306-800d-edad48554bf8"/>
-				<textElement>
-					<font fontName="Arial" size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$R{aq.reportingCountry}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="297" y="32" width="130" height="13" uuid="7f64e3e1-16c4-49f6-8568-3307a1043be8"/>
-				<textElement>
-					<font fontName="Arial" size="10" isBold="false" isItalic="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$R{aq.exchangeRatesUsed}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="463" y="45" width="58" height="15" uuid="2c4a8cb4-0274-457a-8ced-05603e84aeb2"/>
-				<textElement>
-					<font size="10" isBold="false" isItalic="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA["1 $ U.S. = " + $P{FIRST_YEAR_EXRATE}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="0" y="136" width="107" height="15" uuid="1b63871e-604e-4c71-b49a-8fab9e500103"/>
-				<textElement verticalAlignment="Top">
-					<font fontName="Arial" size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$R{aq.disbursements}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="380" y="136" width="154" height="15" uuid="c839ccf7-3877-4dda-9b0a-d76ab6e374b8"/>
-				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$R{aq.millionUSDollars}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="367" y="45" width="96" height="15" uuid="d202c553-1036-4bf8-8299-8b94584b521a"/>
-				<textElement>
-					<font size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{FIRST_YEAR}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="463" y="60" width="58" height="15" uuid="1c387a29-2663-4745-8005-d4f7cf8f625f"/>
-				<textElement>
-					<font size="10" isBold="false" isItalic="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA["1 $ U.S. = " + $P{SECOND_YEAR_EXRATE}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="367" y="60" width="96" height="15" uuid="7b01d2b4-1752-4d07-91ac-b08533bdec6e"/>
-				<textElement>
-					<font size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{SECOND_YEAR}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="297" y="151" width="52" height="15" uuid="8422c3e6-a07a-4041-96a5-b6678fa8b527"/>
-				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$R{aq.row}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="455" y="106" width="100" height="14" uuid="9f1a26a5-dbd6-44bb-8b80-ec043b9c1fc9"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{SECOND_YEAR}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="352" y="106" width="100" height="14" uuid="d71ade2d-2a16-4b8c-acbd-f127f86352f6"/>
-				<box leftPadding="0">
-					<pen lineWidth="0.0"/>
-					<topPen lineWidth="0.0"/>
-					<leftPen lineWidth="0.0"/>
-					<bottomPen lineWidth="0.0"/>
-					<rightPen lineWidth="0.0"/>
-				</box>
-				<textElement textAlignment="Center">
-					<font fontName="Arial"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{FIRST_YEAR}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="352" y="91" width="100" height="15" uuid="0f7ad486-4820-4d35-af49-708198fdf975"/>
-				<box leftPadding="0">
-					<pen lineWidth="0.0"/>
-					<topPen lineWidth="0.0"/>
-					<leftPen lineWidth="0.0"/>
-					<bottomPen lineWidth="0.0"/>
-					<rightPen lineWidth="0.0"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="false"/>
-				</textElement>
-				<text><![CDATA[1140]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="455" y="91" width="100" height="15" uuid="4076164a-f007-4161-b44f-cfe03760aac0"/>
-				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="false"/>
-				</textElement>
-				<text><![CDATA[1140]]></text>
-			</staticText>
-			<line>
-				<reportElement x="0" y="88" width="555" height="1" uuid="5940c78d-13bb-40aa-b635-d7ec354c9d1f"/>
-			</line>
-			<line>
-				<reportElement x="0" y="165" width="555" height="1" uuid="46f58c61-b96b-468d-8d02-15d4c2a74f48"/>
-			</line>
-			<line>
-				<reportElement x="349" y="121" width="206" height="1" uuid="0e3d7725-3866-4b32-a643-a6c7348b9915"/>
-			</line>
-			<line>
-				<reportElement x="349" y="90" width="1" height="31" uuid="93ea682c-3e78-4596-ab09-e60b91cfba6e"/>
-			</line>
-			<line>
-				<reportElement x="555" y="89" width="1" height="32" uuid="d58c833d-1c32-48d1-b1ce-e2bc54cb4231"/>
-			</line>
-			<line>
-				<reportElement x="453" y="89" width="1" height="32" uuid="7094d931-7aca-4899-bac8-352fde6976b3"/>
-			</line>
-			<textField>
-				<reportElement x="118" y="32" width="138" height="23" uuid="33b33971-c38e-4eda-9915-bfbd5d4feba2"/>
-				<textElement>
-					<font fontName="Arial" size="12" isBold="false" isItalic="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{REPORTING_COUNTRY}]]></textFieldExpression>
-			</textField>
-		</band>
-	</title>
-	<pageHeader>
-		<band height="605" splitType="Stretch">
-			<textField>
-				<reportElement x="0" y="0" width="204" height="20" uuid="301f0e82-d09a-4e11-bc67-b831104674d9"/>
-				<textElement verticalAlignment="Top">
-					<font fontName="Arial" size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$R{aq.developingCountries}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="0" y="20" width="229" height="14" uuid="d05c28ea-11fc-4465-9454-b57c3e9f9c69"/>
-				<textElement verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$R{aq.odaNet}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="352" y="20" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
-				<textElement textAlignment="Right">
-					<font fontName="Arial"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{Extended Amount Year 1}.doubleValue()/1000000]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="455" y="20" width="100" height="14" uuid="c9942bc6-86f5-404f-84db-195b820e9cde"/>
-				<textElement textAlignment="Right">
-					<font fontName="Arial"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{Extended Amount Year 2}.doubleValue()/1000000]]></textFieldExpression>
-			</textField>
-			<subreport>
-				<reportElement x="0" y="40" width="555" height="100" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>
-				<subreportParameter name="FIRST_YEAR">
-					<subreportParameterExpression><![CDATA[$P{FIRST_YEAR}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="SECOND_YEAR">
-					<subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="SUBDIR_PATH">
-					<subreportParameterExpression><![CDATA[$P{SUBDIR_PATH}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="MONDRIAN_CONNECTION">
-					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
-					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/aq_master_bilateral_toa.jasper"]]></subreportExpression>
-			</subreport>
-			<subreport>
-				<reportElement x="0" y="140" width="555" height="86" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>
-				<subreportParameter name="FIRST_YEAR">
-					<subreportParameterExpression><![CDATA[$P{FIRST_YEAR}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="SECOND_YEAR">
-					<subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="SUBDIR_PATH">
-					<subreportParameterExpression><![CDATA[$P{SUBDIR_PATH}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="MONDRIAN_CONNECTION">
-					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
-					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/aq_master_bilateral_tof.jasper"]]></subreportExpression>
-			</subreport>
-			<subreport>
-				<reportElement x="0" y="226" width="555" height="100" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>
-				<subreportParameter name="FIRST_YEAR">
-					<subreportParameterExpression><![CDATA[$P{FIRST_YEAR}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="SECOND_YEAR">
-					<subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="SUBDIR_PATH">
-					<subreportParameterExpression><![CDATA[$P{SUBDIR_PATH}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="MONDRIAN_CONNECTION">
-					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
-					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/aq_master_multilateral_org.jasper"]]></subreportExpression>
-			</subreport>
-			<textField>
-				<reportElement x="0" y="326" width="107" height="14" uuid="2ed57308-69e8-4d87-9af8-6b3eb2c20ccf"/>
-				<textElement>
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$R{aq.memoItems}]]></textFieldExpression>
-			</textField>
-			<subreport>
-				<reportElement x="0" y="340" width="555" height="127" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>
-				<subreportParameter name="FIRST_YEAR">
-					<subreportParameterExpression><![CDATA[$P{FIRST_YEAR}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="SECOND_YEAR">
-					<subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="SUBDIR_PATH">
-					<subreportParameterExpression><![CDATA[$P{SUBDIR_PATH}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="MONDRIAN_CONNECTION">
-					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
-					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/aq_master_memo_region.jasper"]]></subreportExpression>
-			</subreport>
-			<subreport>
-				<reportElement x="0" y="466" width="555" height="56" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>
-				<subreportParameter name="FIRST_YEAR">
-					<subreportParameterExpression><![CDATA[$P{FIRST_YEAR}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="SECOND_YEAR">
-					<subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="SUBDIR_PATH">
-					<subreportParameterExpression><![CDATA[$P{SUBDIR_PATH}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="MONDRIAN_CONNECTION">
-					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
-					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/aq_master_memo_sector.jasper"]]></subreportExpression>
-			</subreport>
-			<subreport>
-				<reportElement x="0" y="522" width="555" height="14" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>
-				<subreportParameter name="FIRST_YEAR">
-					<subreportParameterExpression><![CDATA[$P{FIRST_YEAR}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="SECOND_YEAR">
-					<subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="SUBDIR_PATH">
-					<subreportParameterExpression><![CDATA[$P{SUBDIR_PATH}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="MONDRIAN_CONNECTION">
-					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
-					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/aq_master_memo_debtrelief.jasper"]]></subreportExpression>
-			</subreport>
-			<subreport>
-				<reportElement x="0" y="536" width="555" height="15" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>
-				<subreportParameter name="FIRST_YEAR">
-					<subreportParameterExpression><![CDATA[$P{FIRST_YEAR}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="SECOND_YEAR">
-					<subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="SUBDIR_PATH">
-					<subreportParameterExpression><![CDATA[$P{SUBDIR_PATH}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="MONDRIAN_CONNECTION">
-					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
-					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/aq_master_memo_totaloda.jasper"]]></subreportExpression>
-			</subreport>
-			<staticText>
-				<reportElement x="298" y="20" width="50" height="14" uuid="b147f133-2d8c-4378-839a-9ff89a6141f0"/>
-				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
-				</textElement>
-				<text><![CDATA[1010]]></text>
-			</staticText>
-			<subreport>
-				<reportElement x="0" y="556" width="555" height="42" uuid="8ed15a3d-c152-47aa-b6da-cf61f3c66340"/>
-				<subreportParameter name="FIRST_YEAR">
-					<subreportParameterExpression><![CDATA[$P{FIRST_YEAR}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="SECOND_YEAR">
-					<subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="SUBDIR_PATH">
-					<subreportParameterExpression><![CDATA[$P{SUBDIR_PATH}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="MONDRIAN_CONNECTION">
-					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
-					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/aq_master_others.jasper"]]></subreportExpression>
-			</subreport>
-			<line>
-				<reportElement x="295" y="552" width="1" height="50" uuid="d8a9fd9b-c052-4c61-b110-eb778867157c"/>
-			</line>
-			<line>
-				<reportElement x="0" y="602" width="555" height="1" uuid="88e10b1e-1d1e-4feb-9923-6eaec69978f1"/>
-			</line>
-			<line>
-				<reportElement x="349" y="552" width="1" height="50" uuid="41a13577-8919-454d-82e2-f4c3f8576e3e"/>
-			</line>
-			<line>
-				<reportElement x="454" y="552" width="1" height="50" uuid="88d2c74c-0fd5-4e5b-a90b-6cdf7fe495fd"/>
-			</line>
-			<line>
-				<reportElement x="295" y="0" width="1" height="551" uuid="b0979507-b9ca-49dd-b922-4ce0198d5f83"/>
-			</line>
-			<line>
-				<reportElement x="349" y="0" width="1" height="551" uuid="ef101ed3-617e-477c-963d-10f579eccf89"/>
-			</line>
-			<line>
-				<reportElement x="454" y="0" width="1" height="551" uuid="cadacc36-8686-48b8-b6ad-bdd9541076c4"/>
-			</line>
-			<line>
-				<reportElement x="0" y="551" width="555" height="1" uuid="25c188a1-eef3-40e1-849c-51935f6f8476"/>
-			</line>
-		</band>
-	</pageHeader>
-	<columnHeader>
-		<band splitType="Stretch"/>
-	</columnHeader>
-	<columnFooter>
-		<band splitType="Stretch"/>
-	</columnFooter>
-	<summary>
-		<band splitType="Stretch"/>
-	</summary>
+    </queryString>
+    <field name="Extended Amount Year 1" class="java.lang.Number">
+        <fieldDescription><![CDATA[Data([Measures].[Net Amount Currency], [Reporting Year].[First Year])]]></fieldDescription>
+    </field>
+    <field name="Extended Amount Year 2" class="java.lang.Number">
+        <fieldDescription><![CDATA[Data([Measures].[Net Amount Currency], [Reporting Year].[Second Year])]]></fieldDescription>
+    </field>
+    <field name="FIRST_YEAR_EXRATE" class="java.lang.Number">
+        <fieldDescription><![CDATA[Data([Measures].[Exchange Rate], [Reporting Year].[First Year])]]></fieldDescription>
+    </field>
+    <field name="SECOND_YEAR_EXRATE" class="java.lang.Number">
+        <fieldDescription><![CDATA[Data([Measures].[Exchange Rate], [Reporting Year].[Second Year])]]></fieldDescription>
+    </field>
+
+    <background>
+        <band splitType="Stretch"/>
+    </background>
+    <title>
+        <band height="166" splitType="Stretch">
+            <textField>
+                <reportElement x="0" y="1" width="555" height="15" uuid="b2847462-8dc7-42d4-a144-53fa5129a91f"/>
+                <textElement textAlignment="Center" verticalAlignment="Top">
+                    <font fontName="Arial" size="12" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$R{aq.title}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="0" y="17" width="555" height="15" uuid="7d2520e0-f1b3-4536-bb21-ea7fbe4ec892"/>
+                <textElement textAlignment="Center" verticalAlignment="Top">
+                    <font fontName="Arial" size="12" isBold="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA["(" + $P{SECOND_YEAR} + " " + $R{aq.subtitle} + ")"]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="0" y="32" width="118" height="23" uuid="d971475c-3ae3-4306-800d-edad48554bf8"/>
+                <textElement>
+                    <font fontName="Arial" size="12" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$R{aq.reportingCountry}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="297" y="32" width="130" height="13" uuid="7f64e3e1-16c4-49f6-8568-3307a1043be8"/>
+                <textElement>
+                    <font fontName="Arial" size="10" isBold="false" isItalic="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$R{aq.exchangeRatesUsed}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="463" y="45" width="55" height="15" uuid="2c4a8cb4-0274-457a-8ced-05603e84aeb2"/>
+                <textElement>
+                    <font size="10" isBold="false" isItalic="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA["1 $ U.S. = "]]></textFieldExpression>
+            </textField>
+            <textField pattern="#,##0.00" isBlankWhenNull="true">
+                <reportElement x="518" y="45" width="30" height="15" uuid="1c387a29-2663-4745-8005-d4f7cf8f625f"/>
+                <textElement>
+                    <font size="10" isBold="false" isItalic="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{FIRST_YEAR_EXRATE}.doubleValue()]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="0" y="136" width="107" height="15" uuid="1b63871e-604e-4c71-b49a-8fab9e500103"/>
+                <textElement verticalAlignment="Top">
+                    <font fontName="Arial" size="12" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$R{aq.disbursements}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="380" y="136" width="154" height="15" uuid="c839ccf7-3877-4dda-9b0a-d76ab6e374b8"/>
+                <textElement textAlignment="Center" verticalAlignment="Top">
+                    <font fontName="Arial" size="10" isBold="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$R{aq.millionUSDollars}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="367" y="45" width="96" height="15" uuid="d202c553-1036-4bf8-8299-8b94584b521a"/>
+                <textElement>
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{FIRST_YEAR}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="463" y="60" width="55" height="15" uuid="1c387a29-2663-4745-8005-d4f7cf8f625f"/>
+                <textElement>
+                    <font size="10" isBold="false" isItalic="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA["1 $ U.S. = "]]></textFieldExpression>
+            </textField>
+            <textField pattern="#,##0.00" isBlankWhenNull="true">
+                <reportElement x="518" y="60" width="30" height="15" uuid="1c387a29-2663-4745-8005-d4f7cf8f625f"/>
+                <textElement>
+                    <font size="10" isBold="false" isItalic="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{SECOND_YEAR_EXRATE}.doubleValue()]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="367" y="60" width="96" height="15" uuid="7b01d2b4-1752-4d07-91ac-b08533bdec6e"/>
+                <textElement>
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{SECOND_YEAR}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="297" y="151" width="52" height="15" uuid="8422c3e6-a07a-4041-96a5-b6678fa8b527"/>
+                <textElement textAlignment="Center" verticalAlignment="Top">
+                    <font fontName="Arial" size="10" isBold="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$R{aq.row}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="455" y="106" width="100" height="14" uuid="9f1a26a5-dbd6-44bb-8b80-ec043b9c1fc9"/>
+                <textElement textAlignment="Center">
+                    <font fontName="Arial"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{SECOND_YEAR}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="352" y="106" width="100" height="14" uuid="d71ade2d-2a16-4b8c-acbd-f127f86352f6"/>
+                <box leftPadding="0">
+                    <pen lineWidth="0.0"/>
+                    <topPen lineWidth="0.0"/>
+                    <leftPen lineWidth="0.0"/>
+                    <bottomPen lineWidth="0.0"/>
+                    <rightPen lineWidth="0.0"/>
+                </box>
+                <textElement textAlignment="Center">
+                    <font fontName="Arial"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{FIRST_YEAR}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="352" y="91" width="100" height="15" uuid="0f7ad486-4820-4d35-af49-708198fdf975"/>
+                <box leftPadding="0">
+                    <pen lineWidth="0.0"/>
+                    <topPen lineWidth="0.0"/>
+                    <leftPen lineWidth="0.0"/>
+                    <bottomPen lineWidth="0.0"/>
+                    <rightPen lineWidth="0.0"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Top">
+                    <font fontName="Arial" size="10" isBold="false"/>
+                </textElement>
+                <text><![CDATA[1140]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="455" y="91" width="100" height="15" uuid="4076164a-f007-4161-b44f-cfe03760aac0"/>
+                <textElement textAlignment="Center" verticalAlignment="Top">
+                    <font fontName="Arial" size="10" isBold="false"/>
+                </textElement>
+                <text><![CDATA[1140]]></text>
+            </staticText>
+            <line>
+                <reportElement x="0" y="88" width="555" height="1" uuid="5940c78d-13bb-40aa-b635-d7ec354c9d1f"/>
+            </line>
+            <line>
+                <reportElement x="0" y="165" width="555" height="1" uuid="46f58c61-b96b-468d-8d02-15d4c2a74f48"/>
+            </line>
+            <line>
+                <reportElement x="349" y="121" width="206" height="1" uuid="0e3d7725-3866-4b32-a643-a6c7348b9915"/>
+            </line>
+            <line>
+                <reportElement x="349" y="90" width="1" height="31" uuid="93ea682c-3e78-4596-ab09-e60b91cfba6e"/>
+            </line>
+            <line>
+                <reportElement x="555" y="89" width="1" height="32" uuid="d58c833d-1c32-48d1-b1ce-e2bc54cb4231"/>
+            </line>
+            <line>
+                <reportElement x="453" y="89" width="1" height="32" uuid="7094d931-7aca-4899-bac8-352fde6976b3"/>
+            </line>
+            <textField>
+                <reportElement x="118" y="32" width="138" height="23" uuid="33b33971-c38e-4eda-9915-bfbd5d4feba2"/>
+                <textElement>
+                    <font fontName="Arial" size="12" isBold="false" isItalic="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{REPORTING_COUNTRY}]]></textFieldExpression>
+            </textField>
+        </band>
+    </title>
+    <pageHeader>
+        <band height="605" splitType="Stretch">
+            <textField>
+                <reportElement x="0" y="0" width="204" height="20" uuid="301f0e82-d09a-4e11-bc67-b831104674d9"/>
+                <textElement verticalAlignment="Top">
+                    <font fontName="Arial" size="12" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$R{aq.developingCountries}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="0" y="20" width="229" height="14" uuid="d05c28ea-11fc-4465-9454-b57c3e9f9c69"/>
+                <textElement verticalAlignment="Top">
+                    <font fontName="Arial" size="10" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$R{aq.odaNet}]]></textFieldExpression>
+            </textField>
+            <textField pattern="#,##0.00" isBlankWhenNull="true">
+                <reportElement x="352" y="20" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+                <textElement textAlignment="Right">
+                    <font fontName="Arial"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{Extended Amount Year 1}.doubleValue()/1000000]]></textFieldExpression>
+            </textField>
+            <textField pattern="#,##0.00" isBlankWhenNull="true">
+                <reportElement x="455" y="20" width="100" height="14" uuid="c9942bc6-86f5-404f-84db-195b820e9cde"/>
+                <textElement textAlignment="Right">
+                    <font fontName="Arial"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{Extended Amount Year 2}.doubleValue()/1000000]]></textFieldExpression>
+            </textField>
+            <subreport>
+                <reportElement x="0" y="40" width="555" height="100" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>
+                <subreportParameter name="FIRST_YEAR">
+                    <subreportParameterExpression><![CDATA[$P{FIRST_YEAR}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="SECOND_YEAR">
+                    <subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="SUBDIR_PATH">
+                    <subreportParameterExpression><![CDATA[$P{SUBDIR_PATH}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="MONDRIAN_CONNECTION">
+                    <subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="REPORT_RESOURCE_BUNDLE">
+                    <subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/aq_master_bilateral_toa.jasper"]]></subreportExpression>
+            </subreport>
+            <subreport>
+                <reportElement x="0" y="140" width="555" height="86" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>
+                <subreportParameter name="FIRST_YEAR">
+                    <subreportParameterExpression><![CDATA[$P{FIRST_YEAR}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="SECOND_YEAR">
+                    <subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="SUBDIR_PATH">
+                    <subreportParameterExpression><![CDATA[$P{SUBDIR_PATH}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="MONDRIAN_CONNECTION">
+                    <subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="REPORT_RESOURCE_BUNDLE">
+                    <subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/aq_master_bilateral_tof.jasper"]]></subreportExpression>
+            </subreport>
+            <subreport>
+                <reportElement x="0" y="226" width="555" height="100" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>
+                <subreportParameter name="FIRST_YEAR">
+                    <subreportParameterExpression><![CDATA[$P{FIRST_YEAR}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="SECOND_YEAR">
+                    <subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="SUBDIR_PATH">
+                    <subreportParameterExpression><![CDATA[$P{SUBDIR_PATH}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="MONDRIAN_CONNECTION">
+                    <subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="REPORT_RESOURCE_BUNDLE">
+                    <subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/aq_master_multilateral_org.jasper"]]></subreportExpression>
+            </subreport>
+            <textField>
+                <reportElement x="0" y="326" width="107" height="14" uuid="2ed57308-69e8-4d87-9af8-6b3eb2c20ccf"/>
+                <textElement>
+                    <font fontName="Arial" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$R{aq.memoItems}]]></textFieldExpression>
+            </textField>
+            <subreport>
+                <reportElement x="0" y="340" width="555" height="127" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>
+                <subreportParameter name="FIRST_YEAR">
+                    <subreportParameterExpression><![CDATA[$P{FIRST_YEAR}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="SECOND_YEAR">
+                    <subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="SUBDIR_PATH">
+                    <subreportParameterExpression><![CDATA[$P{SUBDIR_PATH}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="MONDRIAN_CONNECTION">
+                    <subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="REPORT_RESOURCE_BUNDLE">
+                    <subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/aq_master_memo_region.jasper"]]></subreportExpression>
+            </subreport>
+            <subreport>
+                <reportElement x="0" y="466" width="555" height="56" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>
+                <subreportParameter name="FIRST_YEAR">
+                    <subreportParameterExpression><![CDATA[$P{FIRST_YEAR}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="SECOND_YEAR">
+                    <subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="SUBDIR_PATH">
+                    <subreportParameterExpression><![CDATA[$P{SUBDIR_PATH}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="MONDRIAN_CONNECTION">
+                    <subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="REPORT_RESOURCE_BUNDLE">
+                    <subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/aq_master_memo_sector.jasper"]]></subreportExpression>
+            </subreport>
+            <subreport>
+                <reportElement x="0" y="522" width="555" height="14" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>
+                <subreportParameter name="FIRST_YEAR">
+                    <subreportParameterExpression><![CDATA[$P{FIRST_YEAR}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="SECOND_YEAR">
+                    <subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="SUBDIR_PATH">
+                    <subreportParameterExpression><![CDATA[$P{SUBDIR_PATH}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="MONDRIAN_CONNECTION">
+                    <subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="REPORT_RESOURCE_BUNDLE">
+                    <subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/aq_master_memo_debtrelief.jasper"]]></subreportExpression>
+            </subreport>
+            <subreport>
+                <reportElement x="0" y="536" width="555" height="15" uuid="e5f585b8-bdbc-4df5-ac96-513086bdbdba"/>
+                <subreportParameter name="FIRST_YEAR">
+                    <subreportParameterExpression><![CDATA[$P{FIRST_YEAR}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="SECOND_YEAR">
+                    <subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="SUBDIR_PATH">
+                    <subreportParameterExpression><![CDATA[$P{SUBDIR_PATH}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="MONDRIAN_CONNECTION">
+                    <subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="REPORT_RESOURCE_BUNDLE">
+                    <subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/aq_master_memo_totaloda.jasper"]]></subreportExpression>
+            </subreport>
+            <staticText>
+                <reportElement x="298" y="20" width="50" height="14" uuid="b147f133-2d8c-4378-839a-9ff89a6141f0"/>
+                <textElement textAlignment="Center" verticalAlignment="Top">
+                    <font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+                </textElement>
+                <text><![CDATA[1010]]></text>
+            </staticText>
+            <subreport>
+                <reportElement x="0" y="556" width="555" height="42" uuid="8ed15a3d-c152-47aa-b6da-cf61f3c66340"/>
+                <subreportParameter name="FIRST_YEAR">
+                    <subreportParameterExpression><![CDATA[$P{FIRST_YEAR}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="SECOND_YEAR">
+                    <subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="SUBDIR_PATH">
+                    <subreportParameterExpression><![CDATA[$P{SUBDIR_PATH}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="MONDRIAN_CONNECTION">
+                    <subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="REPORT_RESOURCE_BUNDLE">
+                    <subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/aq_master_others.jasper"]]></subreportExpression>
+            </subreport>
+            <line>
+                <reportElement x="295" y="552" width="1" height="50" uuid="d8a9fd9b-c052-4c61-b110-eb778867157c"/>
+            </line>
+            <line>
+                <reportElement x="0" y="602" width="555" height="1" uuid="88e10b1e-1d1e-4feb-9923-6eaec69978f1"/>
+            </line>
+            <line>
+                <reportElement x="349" y="552" width="1" height="50" uuid="41a13577-8919-454d-82e2-f4c3f8576e3e"/>
+            </line>
+            <line>
+                <reportElement x="454" y="552" width="1" height="50" uuid="88d2c74c-0fd5-4e5b-a90b-6cdf7fe495fd"/>
+            </line>
+            <line>
+                <reportElement x="295" y="0" width="1" height="551" uuid="b0979507-b9ca-49dd-b922-4ce0198d5f83"/>
+            </line>
+            <line>
+                <reportElement x="349" y="0" width="1" height="551" uuid="ef101ed3-617e-477c-963d-10f579eccf89"/>
+            </line>
+            <line>
+                <reportElement x="454" y="0" width="1" height="551" uuid="cadacc36-8686-48b8-b6ad-bdd9541076c4"/>
+            </line>
+            <line>
+                <reportElement x="0" y="551" width="555" height="1" uuid="25c188a1-eef3-40e1-849c-51935f6f8476"/>
+            </line>
+        </band>
+    </pageHeader>
+    <columnHeader>
+        <band splitType="Stretch"/>
+    </columnHeader>
+    <columnFooter>
+        <band splitType="Stretch"/>
+    </columnFooter>
+    <summary>
+        <band splitType="Stretch"/>
+    </summary>
 </jasperReport>

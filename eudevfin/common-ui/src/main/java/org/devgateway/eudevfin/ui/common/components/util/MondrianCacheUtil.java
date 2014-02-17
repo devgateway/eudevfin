@@ -16,7 +16,7 @@ import javax.sql.DataSource;
  * Created by idobre on 2/12/14.
  */
 
-@Lazy(value=false)
+@Lazy(value=true)
 @Component
 public class MondrianCacheUtil {
     @Autowired

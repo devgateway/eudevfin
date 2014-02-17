@@ -359,7 +359,21 @@
             </Hierarchy>
         </Dimension>
         <Measure name="Export Credit Amount" column="AMOUNTS_EXP_EXPORT_CREDIT_AMOUNT" aggregator="sum" visible="true" caption="%{exportCreditAmount}"></Measure>
-        <Measure name="IRTC Amount" column="AMOUNTS_IRTC_AMOUNT" aggregator="sum" visible="true" caption="%{IRTCAmount}"></Measure>
+        <Measure name="Exchange Rate" aggregator="avg" visible="true" datatype="Integer" formatString="#,###.00" caption="Exchange Rate">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (1 / (SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXTENDED_CURR" AND
+                    BASE_CURRENCY = '@@COUNTRY_CURRENCY@@' AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    "FINANCIALTRANSACTIONVIEW"."DRAFT" IS NOT NULL AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
         <Measure name="Extended Amount" aggregator="sum" visible="true" caption="%{extendedAmount}">
             <MeasureExpression>
                 <SQL dialect="generic">
