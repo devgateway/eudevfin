@@ -17,8 +17,8 @@ public class SchemaProcessor extends LocalizingDynamicSchemaProcessor {
     private static final Logger logger = Logger.getLogger(SchemaProcessor.class);
 
     private static final String DEFAULT_CURRENCY = "USD";
+	private static final String DEFAULT_LOCALE = "en";
     private static final String DEFAULT_COUNTRY_CURRENCY = "EUR";
-
     private static final String DEFAULT_MONDRIAN_SCHEMA = "/org/devgateway/eudevfin/cda/service/financial.mondrian.xml";
 
     private ResourceBundle bundle;
@@ -70,9 +70,6 @@ public class SchemaProcessor extends LocalizingDynamicSchemaProcessor {
      * @throws Exception if an error occurs
      */
     public String filter(String schemaUrl, Util.PropertyList connectInfo, InputStream stream) throws Exception {
-        //FIX THIS:String locale = org.springframework.context.i18n.LocaleContextHolder.getLocale().getLanguage();
-        String locale=new Locale("en").getLanguage();
-        setLocale(locale);
 
         String currency = connectInfo.get("CURRENCY");
         if (currency == null || currency.equals("")) {
@@ -84,7 +81,13 @@ public class SchemaProcessor extends LocalizingDynamicSchemaProcessor {
             countryCurrency = DEFAULT_COUNTRY_CURRENCY;
         }
 
-        connectInfo.put("Locale", locale);
+		String locale = connectInfo.get("LOCALE");
+		if(locale == null || locale.equals("")){
+			locale = DEFAULT_LOCALE;
+			connectInfo.put("Locale", locale);
+		}
+		setLocale(locale);
+
 
         // load local properties files
         loadProperties();

@@ -19,8 +19,10 @@ import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.util.AuthUtils;
 import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.util.FinancialTransactionUtil;
+import org.devgateway.eudevfin.financial.util.LocaleHelper;
 import org.joda.money.CurrencyUnit;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -66,6 +68,9 @@ public class ReportsController {
     private static final String REPORT_CURRENCY = "reportCurrency";
     private static final String REPORT_DEFAULT_CURRENCY_CODE = "USD";
 
+	@Autowired
+	ApplicationContext applicationContext;
+
     /**
      * Generate a report
      */
@@ -88,6 +93,10 @@ public class ReportsController {
             currency = REPORT_DEFAULT_CURRENCY_CODE;
         }
         propertyList.put("CURRENCY", currency);
+
+	    LocaleHelper localeHelper = (LocaleHelper) applicationContext.getBean("localeHelperSession");
+		String locale = (localeHelper.getLocale() != null) ? localeHelper.getLocale() : "en";
+		propertyList.put("LOCALE", locale);
 
         // add the country currency parameter
         String countryCurrency = "";
@@ -148,12 +157,7 @@ public class ReportsController {
         try {
             InputStream inputStream = ReportsController.class.getResourceAsStream("./aq/aq_master.jasper");
             Map<String, Object> parameters = new HashMap<String, Object>();
-
-            // set locale
-            //FIX THIS: Locale locale = LocaleContextHolder.getLocale();
-            Locale locale= new Locale("en");
-
-
+			Locale locale = connection.getLocale();
             parameters.put(JRParameter.REPORT_LOCALE, locale);
 
             // set resource bundle
