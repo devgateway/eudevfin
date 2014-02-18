@@ -73,6 +73,7 @@ public class SpringWicketWebSession extends AuthenticatedWebSession {
     public Roles getRoles() {
         Roles roles = new Roles();
         getRolesIfSignedIn(roles);
+        logger.debug("Roles are: "+roles);
         return roles;
     }
 

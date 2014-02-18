@@ -88,7 +88,7 @@ public class WicketSpringApplication extends AuthenticatedWebApplication impleme
         configureResourceBundles();
         
         //http://stackoverflow.com/questions/15996913/wicket-avoid-302-redirect-to-homepage
-        getRequestCycleSettings().setRenderStrategy(RenderStrategy.ONE_PASS_RENDER);
+        //getRequestCycleSettings().setRenderStrategy(RenderStrategy.ONE_PASS_RENDER);
 
         setHeaderResponseDecorator(new RenderJavaScriptToFooterHeaderResponseDecorator());
 
