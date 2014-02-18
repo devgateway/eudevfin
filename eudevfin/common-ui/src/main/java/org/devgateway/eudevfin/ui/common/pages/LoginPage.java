@@ -10,6 +10,7 @@
  ******************************************************************************/
 package org.devgateway.eudevfin.ui.common.pages;
 
+import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.IFormSubmitter;
 import org.apache.wicket.model.Model;
@@ -18,6 +19,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.ui.common.components.PasswordInputField;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
 import org.devgateway.eudevfin.ui.common.spring.SpringWicketWebSession;
+import org.devgateway.eudevfin.ui.common.spring.WicketSpringApplication;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
@@ -26,6 +28,7 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.form.BootstrapForm;
 @MountPath(value = "/login")
 public final class LoginPage extends HeaderFooter {
     private static final long serialVersionUID = 8126072556090927364L;
+    private static final Logger logger = Logger.getLogger(LoginPage.class);
 
     public LoginPage(final PageParameters parameters) {
 		add(new LoginForm("loginform"));
@@ -58,6 +61,8 @@ public final class LoginPage extends HeaderFooter {
 					if (session.signIn(LoginForm.this.username, LoginForm.this.password)) {
 						continueToOriginalDestination();
 						setResponsePage(getApplication().getHomePage());
+					} else {
+						logger.warn("Authentication failed for user:"+LoginForm.this.username+" and passsword:"+LoginForm.this.password);
 					}
 				}
 			};
