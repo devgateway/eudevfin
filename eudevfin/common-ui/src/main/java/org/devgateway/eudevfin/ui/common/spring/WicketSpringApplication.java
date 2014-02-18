@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.apache.wicket.ConverterLocator;
 import org.apache.wicket.IConverterLocator;
 import org.apache.wicket.Page;
@@ -65,6 +66,8 @@ import de.agilecoders.wicket.themes.settings.BootswatchThemeProvider;
 public class WicketSpringApplication extends AuthenticatedWebApplication implements ApplicationContextAware {
 
     private ApplicationContext springContext;
+    
+    private static final Logger logger = Logger.getLogger(WicketSpringApplication.class);
 
     /**
      * Add custom coverters
@@ -211,7 +214,8 @@ public class WicketSpringApplication extends AuthenticatedWebApplication impleme
     
     @Override
     protected void onUnauthorizedPage(final Page page) {
-    	throw new RestartResponseException(getHomePage());
+    	logger.warn("Unauthorized page requested:"+page.getRequest().getUrl().toString());
+    	throw new RestartResponseException(getSignInPageClass());
     }
     
 }
