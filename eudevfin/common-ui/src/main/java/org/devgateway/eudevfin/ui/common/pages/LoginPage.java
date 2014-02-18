@@ -61,7 +61,7 @@ public final class LoginPage extends HeaderFooter {
 					}
 				}
 			};
-			
+			setDefaultButton(submit); 
 			add(submit);
 		}
 
