@@ -59,10 +59,10 @@ public final class LoginPage extends HeaderFooter {
 				public void onSubmit() {
 					SpringWicketWebSession session = SpringWicketWebSession.getSpringWicketWebSession();
 					if (session.signIn(LoginForm.this.username, LoginForm.this.password)) {
-						continueToOriginalDestination();
+					//	continueToOriginalDestination(); -- this is buggy, we don't use it right now, problems in some IEs (11), we should try in newer versions of wicket
 						setResponsePage(getApplication().getHomePage());
 					} else {
-						logger.warn("Authentication failed for user:"+LoginForm.this.username+" and passsword:"+LoginForm.this.password);
+						logger.warn("Authentication failed for user:"+LoginForm.this.username);
 					}
 				}
 			};
