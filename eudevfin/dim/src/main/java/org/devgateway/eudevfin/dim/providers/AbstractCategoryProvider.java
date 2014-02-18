@@ -9,9 +9,12 @@
 package org.devgateway.eudevfin.dim.providers;
 
 import com.vaynberg.wicket.select2.Response;
+
+import org.apache.log4j.Logger;
 import org.apache.wicket.Session;
 import org.devgateway.eudevfin.common.service.BaseEntityService;
 import org.devgateway.eudevfin.financial.Category;
+import org.devgateway.eudevfin.financial.exception.CategoryOperationException;
 import org.devgateway.eudevfin.financial.service.CategoryService;
 import org.devgateway.eudevfin.ui.common.providers.AbstractTranslatableProvider;
 import org.json.JSONException;
@@ -28,6 +31,8 @@ import java.util.List;
  * @since 14/01/14
  */
 public abstract class AbstractCategoryProvider extends AbstractTranslatableProvider<Category> {
+	
+	private static Logger logger	= Logger.getLogger(AbstractCategoryProvider.class);
 
     @Autowired
     protected transient CategoryService categoryService;
@@ -71,14 +76,19 @@ public abstract class AbstractCategoryProvider extends AbstractTranslatableProvi
     }
 
     private void addCategoryToHierarchicalList(Category category, List<Category> list) {
-        if (!category.isLastAncestor()) {
-            Category parent = category.getParentCategory();
-            if (!parent.getFilteredChildren().contains(category))
-                parent.getFilteredChildren().add(category);
-            this.addCategoryToHierarchicalList(category.getParentCategory(), list);
-        } else if (!list.contains(category)) {
-            list.add(category);
-        }
+    	try{
+	        if (!category.isLastAncestor()) {
+	            Category parent = category.getParentCategory();
+	            if (!parent.getFilteredChildren().contains(category))
+	                parent.getFilteredChildren().add(category);
+	            this.addCategoryToHierarchicalList(category.getParentCategory(), list);
+	        } else if (!list.contains(category)) {
+	            list.add(category);
+	        }
+    	}
+        catch (CategoryOperationException e) {
+			logger.error("Problem with isLasAncestor:" + e.getMessage());
+		}
     }
 
     @Override

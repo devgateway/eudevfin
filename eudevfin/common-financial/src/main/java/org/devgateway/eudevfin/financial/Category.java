@@ -21,6 +21,8 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
+import org.apache.log4j.Logger;
+import org.devgateway.eudevfin.financial.exception.CategoryOperationException;
 import org.devgateway.eudevfin.financial.translate.CategoryTranslation;
 import org.devgateway.eudevfin.financial.translate.CategoryTrnInterface;
 import org.hibernate.annotations.Cache;
@@ -80,7 +82,16 @@ public class Category extends AbstractTranslateable<CategoryTranslation>
 			return code;
 	}
 	
-	public boolean isLastAncestor() {
+	/**
+	 * 
+	 * @return true if this category is on the first level
+	 * @throws CategoryOperationException if this is called on a ROOT category which should only be used for grouping
+	 * other categories. This could point to a data problem.
+	 */
+	public boolean isLastAncestor() throws CategoryOperationException {
+		if ( this.getParentCategory() == null )
+			throw new CategoryOperationException("This function should not be called on root categories. "
+					+ "Root categories are just for grouping, they shouldn't hold valuable info.");
 		return this.getParentCategory().getParentCategory() == null;
 	}
 
