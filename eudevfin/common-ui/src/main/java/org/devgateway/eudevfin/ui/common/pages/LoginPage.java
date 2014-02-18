@@ -11,15 +11,16 @@
 package org.devgateway.eudevfin.ui.common.pages;
 
 import org.apache.log4j.Logger;
-import org.apache.wicket.markup.html.form.Button;
-import org.apache.wicket.markup.html.form.IFormSubmitter;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.form.AjaxButton;
+import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
+import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.ui.common.components.PasswordInputField;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
 import org.devgateway.eudevfin.ui.common.spring.SpringWicketWebSession;
-import org.devgateway.eudevfin.ui.common.spring.WicketSpringApplication;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
@@ -54,10 +55,10 @@ public final class LoginPage extends HeaderFooter {
             password.getField().setResetPassword(false);
             add(password);
             
-			Button submit = new Button("submit",Model.of("Submit")) {
-				@Override
-				public void onSubmit() {
-					SpringWicketWebSession session = SpringWicketWebSession.getSpringWicketWebSession();
+            IndicatingAjaxButton submit = new IndicatingAjaxButton("submit",Model.of("Submit")) {
+            	@Override
+            	protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+            		SpringWicketWebSession session = SpringWicketWebSession.getSpringWicketWebSession();
 					if (session.signIn(LoginForm.this.username, LoginForm.this.password)) {
 					//	continueToOriginalDestination(); -- this is buggy, we don't use it right now, problems in some IEs (11), we should try in newer versions of wicket
 						setResponsePage(getApplication().getHomePage());
@@ -65,21 +66,9 @@ public final class LoginPage extends HeaderFooter {
 						logger.warn("Authentication failed for user:"+LoginForm.this.username);
 					}
 				}
-			};
-			setDefaultButton(submit); 
+            };
 			add(submit);
 		}
-
-
-		@Override
-		protected void delegateSubmit(IFormSubmitter submittingComponent) {
-			   if(submittingComponent==null) {
-		            submittingComponent = getDefaultButton();
-		        }
-		        super.delegateSubmit(submittingComponent);
-		}
-		
-		
 	}
 
 }
