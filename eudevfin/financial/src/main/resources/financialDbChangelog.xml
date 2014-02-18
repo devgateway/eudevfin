@@ -22,5 +22,26 @@
 
 	</changeSet>
  -->
+ 	<changeSet id="2" author="agartner" failOnError="true" runAlways="false" runInTransaction="true" >
+ 		<preConditions onFail="MARK_RAN" onError="CONTINUE">
+ 			<sqlCheck expectedResult="1">select count(*) from category WHERE code='600' AND category_type='Sector' AND parentcategory_id is null</sqlCheck>
+ 		</preConditions>
+ 		<sql>UPDATE category 
+ 			SET parentcategory_id= (SELECT id FROM category WHERE code='ROOT_SECTOR_CATEGORY' AND category_type='Sector' ) 
+ 			WHERE code='600' AND category_type='Sector';
+ 		</sql>
+ 		
+ 	</changeSet>
+ 	
+ 	<changeSet id="3" author="agartner" failOnError="true" runAlways="false" runInTransaction="true" >
+ 		<preConditions onFail="MARK_RAN" onError="CONTINUE">
+ 			<sqlCheck expectedResult="1">select count(*) from category WHERE code='22000' AND category_type='Channel' AND parentcategory_id is null</sqlCheck>
+ 		</preConditions>
+ 		<sql>UPDATE category 
+ 			SET parentcategory_id= (SELECT id FROM category WHERE code='ROOT_CHANNEL_CATEGORY' AND category_type='Channel' ) 
+ 			WHERE code='22000' AND category_type='Channel';
+ 		</sql>
+ 		
+ 	</changeSet>
  
 </databaseChangeLog>
