@@ -63,9 +63,14 @@ public final class LoginPage extends HeaderFooter {
 					//	continueToOriginalDestination(); -- this is buggy, we don't use it right now, problems in some IEs (11), we should try in newer versions of wicket
 						setResponsePage(getApplication().getHomePage());
 					} else {
-						logger.warn("Authentication failed for user:"+LoginForm.this.username);
+						target.add(LoginForm.this);
 					}
 				}
+            	
+            	@Override
+            	protected void onError(AjaxRequestTarget target, Form<?> form) {
+            		target.add(LoginForm.this);
+            	}
             };
 			add(submit);
 		}
