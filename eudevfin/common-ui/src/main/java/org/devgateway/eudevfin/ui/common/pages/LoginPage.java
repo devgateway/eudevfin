@@ -10,7 +10,6 @@
  ******************************************************************************/
 package org.devgateway.eudevfin.ui.common.pages;
 
-import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.ui.common.components.AbstractInputField;
@@ -57,7 +56,7 @@ public final class LoginPage extends HeaderFooter {
 					.getSpringWicketWebSession();
 			if (session.signIn(username, password)) {
 				continueToOriginalDestination();
-				throw new RestartResponseException(getApplication().getHomePage());
+				setResponsePage(getApplication().getHomePage());
 			}
 		}
 	}
