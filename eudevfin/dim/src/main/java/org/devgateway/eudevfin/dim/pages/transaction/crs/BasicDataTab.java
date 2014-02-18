@@ -31,6 +31,8 @@ import org.devgateway.eudevfin.ui.common.providers.OrganizationChoiceProvider;
 import org.devgateway.eudevfin.ui.common.temporary.SB;
 import org.devgateway.eudevfin.ui.common.validators.CodePatternCategoryValidator;
 
+import com.vaynberg.wicket.select2.ChoiceProvider;
+
 /**
  * @author aartimon@developmentgateway.org
  * @since 01 November 2013
@@ -45,8 +47,8 @@ public class BasicDataTab extends Panel implements PermissionAwareComponent {
 
     @SpringBean
     private OrganizationChoiceProvider organizationProvider;
-    @SpringBean
-    private ChannelCategoryChoiceProvider channelProvider;
+    //@SpringBean
+    //private ChannelCategoryChoiceProvider channelProvider;
     @SpringBean
     private CategoryProviderFactory categoryFactory;
     @SpringBean
@@ -86,7 +88,7 @@ public class BasicDataTab extends Panel implements PermissionAwareComponent {
         add(recipient);
 
         DropDownField<ChannelCategory> channelOfDelivery = new DropDownField<>("8channelDelivery",
-                new RWComponentPropertyModel<ChannelCategory>("channel"), channelProvider);
+                new RWComponentPropertyModel<ChannelCategory>("channel"), (ChoiceProvider)categoryFactory.get(CategoryConstants.CHANNEL_TAG));
         
         String transactionType=parameters.get(Constants.PARAM_TRANSACTION_TYPE).toString("");
         if(!Strings.isEmpty(transactionType) 

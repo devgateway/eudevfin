@@ -18,7 +18,9 @@ import org.springframework.stereotype.Component;
 /**
  * @author aartimon
  * @since 14/01/14
+ * @deprecated use {@link CategoryProviderFactory} instead
  */
+@Deprecated
 @Component
 public class ChannelCategoryChoiceProvider extends AbstractTranslatableProvider<ChannelCategory> {
 
