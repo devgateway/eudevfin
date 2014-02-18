@@ -10,9 +10,11 @@
  ******************************************************************************/
 package org.devgateway.eudevfin.ui.common.pages;
 
+import org.apache.wicket.markup.html.form.Button;
+import org.apache.wicket.markup.html.form.IFormSubmitter;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.devgateway.eudevfin.ui.common.components.AbstractInputField;
 import org.devgateway.eudevfin.ui.common.components.PasswordInputField;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
 import org.devgateway.eudevfin.ui.common.spring.SpringWicketWebSession;
@@ -46,19 +48,33 @@ public final class LoginPage extends HeaderFooter {
             add(username);
 
             PasswordInputField password = new PasswordInputField("password", new PropertyModel<String>(this, "password"), "login.password");
+            password.getField().setResetPassword(false);
             add(password);
-
+            
+			Button submit = new Button("submit",Model.of("Submit")) {
+				@Override
+				public void onSubmit() {
+					SpringWicketWebSession session = SpringWicketWebSession.getSpringWicketWebSession();
+					if (session.signIn(LoginForm.this.username, LoginForm.this.password)) {
+						continueToOriginalDestination();
+						setResponsePage(getApplication().getHomePage());
+					}
+				}
+			};
+			
+			add(submit);
 		}
+
 
 		@Override
-		protected void onSubmit() {
-			SpringWicketWebSession session = SpringWicketWebSession
-					.getSpringWicketWebSession();
-			if (session.signIn(username, password)) {
-				continueToOriginalDestination();
-				setResponsePage(getApplication().getHomePage());
-			}
+		protected void delegateSubmit(IFormSubmitter submittingComponent) {
+			   if(submittingComponent==null) {
+		            submittingComponent = getDefaultButton();
+		        }
+		        super.delegateSubmit(submittingComponent);
 		}
+		
+		
 	}
 
 }
