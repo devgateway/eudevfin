@@ -85,7 +85,7 @@
 	</context-param>
 
 	<session-config>
-		<session-timeout>20</session-timeout>
+		<session-timeout>60</session-timeout>
 	</session-config>
 	
 	

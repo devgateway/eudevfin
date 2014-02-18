@@ -19,10 +19,8 @@ import org.devgateway.eudevfin.dim.desktop.components.SearchBoxPanel;
 import org.devgateway.eudevfin.dim.desktop.components.TransactionTableListPanel;
 import org.devgateway.eudevfin.dim.desktop.components.util.DraftListGenerator;
 import org.devgateway.eudevfin.dim.desktop.components.util.GeneralSearchListGenerator;
-import org.devgateway.eudevfin.dim.desktop.components.util.SectorListGenerator;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
-import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.service.CategoryService;
 import org.devgateway.eudevfin.financial.service.CustomFinancialTransactionService;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
@@ -30,7 +28,6 @@ import org.devgateway.eudevfin.financial.service.OrganizationService;
 import org.devgateway.eudevfin.ui.common.components.tabs.BootstrapJSTabbedPanel;
 import org.devgateway.eudevfin.ui.common.components.tabs.ITabWithKey;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
-import org.joda.money.BigMoney;
 import org.wicketstuff.annotation.mount.MountPath;
 
 //import org.devgateway.eudevfin.financial.test.services.CategoryServiceTest;
