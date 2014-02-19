@@ -19,7 +19,7 @@
     </DataSources>
 
 	<!-- used for testing (CDASimpleMDXTest.java) -->
-	<DataAccess id="simpleMDXQuery" connection="defaultConnection" type="mdx" access="public">
+	<DataAccess id="simpleMDXQuery" connection="defaultConnectionLocale" type="mdx" access="public">
 		<Name>Simple Sector MDX query</Name>
 		<Query>
 			<![CDATA[
@@ -30,6 +30,14 @@
 		]]>
 		</Query>
 	</DataAccess>
+
+    <!-- used for testing (CDASimpleSQLTest.java) -->
+    <DataAccess id="simpleSQLQuery" connection="sqlConnection" type="sql" access="public">
+        <Name>Sql Query on Transactions</Name>
+        <Query><![CDATA[
+			SELECT * FROM FINANCIALTRANSACTION
+		]]></Query>
+    </DataAccess>
 
 	<DataAccess id="netODATable"
 	            connection="defaultConnectionLocale"
