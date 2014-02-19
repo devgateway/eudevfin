@@ -14,8 +14,8 @@ MEMBER [Channel].[World Bank] AS SUM({[Channel].[44000],[Channel].[44001],[Chann
 MEMBER [Channel].[Regional Banks] AS SUM({[Channel].[46000],[Channel].[46002],[Channel].[46003],[Channel].[46004],[Channel].[46005],[Channel].[46006],[Channel].[46007],[Channel].[46008],[Channel].[46009],[Channel].[46012],[Channel].[46013],[Channel].[46015],[Channel].[46016],[Channel].[46017],[Channel].[46018],[Channel].[46019],[Channel].[46020],[Channel].[46021],[Channel].[46022],[Channel].[46023]})
 MEMBER [Channel].[Others] AS SUM({[Channel].[47000], [Channel].[21002],[Channel].[30010],[Channel].[47001],[Channel].[47002],[Channel].[47003],[Channel].[47005],[Channel].[47009],[Channel].[47011],[Channel].[47012],[Channel].[47013],[Channel].[47015],[Channel].[47019],[Channel].[47022],[Channel].[47025],[Channel].[47026],[Channel].[47027],[Channel].[47029],[Channel].[47034],[Channel].[47036],[Channel].[47037],[Channel].[47040],[Channel].[47044],[Channel].[47045],[Channel].[47046],[Channel].[47050],[Channel].[47058],[Channel].[47059],[Channel].[47061],[Channel].[47064],[Channel].[47065],[Channel].[47066],[Channel].[47067],[Channel].[47068],[Channel].[47073],[Channel].[47074],[Channel].[47076],[Channel].[47077],[Channel].[47078],[Channel].[47079],[Channel].[47080],[Channel].[47081],[Channel].[47082],[Channel].[47083],[Channel].[47084],[Channel].[47086],[Channel].[47087],[Channel].[47089],[Channel].[47092],[Channel].[47093],[Channel].[47095],[Channel].[47096],[Channel].[47097],[Channel].[47098],[Channel].[47100],[Channel].[47102],[Channel].[47105],[Channel].[47106],[Channel].[47107],[Channel].[47109],[Channel].[47110],[Channel].[47111],[Channel].[47112],[Channel].[47113],[Channel].[47116],[Channel].[47117],[Channel].[47118],[Channel].[47119],[Channel].[47120],[Channel].[47121],[Channel].[47122],[Channel].[47123],[Channel].[47127],[Channel].[47128],[Channel].[47129],[Channel].[47130],[Channel].[47131],[Channel].[47132],[Channel].[47136]})
 MEMBER [Channel].[AllCodes] AS SUM({[Channel].[United Nations], [Channel].[European Union], [Channel].[World Bank], [Channel].[Regional Banks], [Channel].[Others]})
-MEMBER [Measures].[First Year] AS SUM(CrossJoin({[Reporting Year].[$P{FIRST_YEAR}]}, {[Measures].[Net Amount Currency]}))
-MEMBER [Measures].[Second Year] AS SUM(CrossJoin({[Reporting Year].[$P{SECOND_YEAR}]}, {[Measures].[Net Amount Currency]}))
+MEMBER [Measures].[First Year] AS SUM(CrossJoin({[Reporting Year].[$P{FIRST_YEAR}]}, {[Measures].[Net Amount Currency OECD]}))
+MEMBER [Measures].[Second Year] AS SUM(CrossJoin({[Reporting Year].[$P{SECOND_YEAR}]}, {[Measures].[Net Amount Currency OECD]}))
 SELECT
 {[Channel].[United Nations], [Channel].[European Union], [Channel].[World Bank], [Channel].[Regional Banks], [Channel].[Others], [Channel].[AllCodes]} ON ROWS,
 {[Measures].[First Year], [Measures].[Second Year]} ON COLUMNS
@@ -117,35 +117,35 @@ WHERE {[BiMultilateral].[BI_MULTILATERAL##2]}]]>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{United Nations Y1}.doubleValue()/1000000]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{United Nations Y1}.doubleValue()]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="352" y="42" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{European Union Y1}.doubleValue()/1000000]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{European Union Y1}.doubleValue()]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="352" y="56" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{World Bank Y1}.doubleValue()/1000000]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{World Bank Y1}.doubleValue()]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="352" y="70" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Regional Banks Y1}.doubleValue()/1000000]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Regional Banks Y1}.doubleValue()]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="352" y="84" width="100" height="14" uuid="c9e4e461-f3ce-4935-8d84-c74c8d4d586c"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Others Y1}.doubleValue()/1000000]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Others Y1}.doubleValue()]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="297" y="28" width="50" height="14" uuid="9be4e8ad-9036-4f22-8244-ed28c444c7d1"/>
@@ -194,49 +194,49 @@ WHERE {[BiMultilateral].[BI_MULTILATERAL##2]}]]>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{All Codes Y1}.doubleValue()/1000000]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{All Codes Y1}.doubleValue()]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="455" y="42" width="100" height="14" uuid="0fcacc85-613a-4711-aac5-1017b82c26fe"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{European Union Y2}.doubleValue()/1000000]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{European Union Y2}.doubleValue()]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="455" y="84" width="100" height="14" uuid="1c862bf1-079f-407f-91ca-edb0fafef7d5"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Others Y2}.doubleValue()/1000000]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Others Y2}.doubleValue()]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="455" y="56" width="100" height="14" uuid="f0cdebf9-f723-4649-a3b6-550312e499b1"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{World Bank Y2}.doubleValue()/1000000]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{World Bank Y2}.doubleValue()]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="455" y="0" width="100" height="14" uuid="f2656424-6c84-437a-aae3-fd94e9efb236"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{All Codes Y2}.doubleValue()/1000000]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{All Codes Y2}.doubleValue()]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="455" y="70" width="100" height="14" uuid="02986715-209c-4262-8400-9a91a9c4f25c"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Regional Banks Y2}.doubleValue()/1000000]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Regional Banks Y2}.doubleValue()]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="455" y="28" width="100" height="14" uuid="9db7d719-4f21-47c5-9402-45fc2ce76d93"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{United Nations Y2}.doubleValue()/1000000]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{United Nations Y2}.doubleValue()]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>

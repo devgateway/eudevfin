@@ -10,8 +10,8 @@
 		<![CDATA[WITH
     MEMBER [Type of Finance].[Grants] as SUM({[Type of Finance].[TYPE_OF_FINANCE##100],[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE##111]})
     MEMBER [Type of Aid].[Debt Relief] AS SUM({[Type of Aid].[F],[Type of Aid].[F01]})
-	MEMBER [Measures].[First Year] AS SUM(CrossJoin({[Reporting Year].[$P{FIRST_YEAR}]}, {[Measures].[Net Amount Currency]}))
-	MEMBER [Measures].[Second Year] AS SUM(CrossJoin({[Reporting Year].[$P{SECOND_YEAR}]}, {[Measures].[Net Amount Currency]}))
+	MEMBER [Measures].[First Year] AS SUM(CrossJoin({[Reporting Year].[$P{FIRST_YEAR}]}, {[Measures].[Net Amount Currency OECD]}))
+	MEMBER [Measures].[Second Year] AS SUM(CrossJoin({[Reporting Year].[$P{SECOND_YEAR}]}, {[Measures].[Net Amount Currency OECD]}))
 SELECT
 {
 [Type of Finance].[Grants]

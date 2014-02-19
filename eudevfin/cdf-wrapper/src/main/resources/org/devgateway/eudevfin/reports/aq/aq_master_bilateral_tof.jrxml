@@ -11,10 +11,10 @@
 WITH MEMBER [Type of Finance].[Grants] as SUM({[Type of Finance].[TYPE_OF_FINANCE##100],[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE##111]})
      MEMBER [Type of Finance].[Non Grants] as SUM({[Type of Finance].[TYPE_OF_FINANCE##410],[Type of Finance].[TYPE_OF_FINANCE##411],[Type of Finance].[TYPE_OF_FINANCE##412],[Type of Finance].[TYPE_OF_FINANCE##413],[Type of Finance].[TYPE_OF_FINANCE##414],[Type of Finance].[TYPE_OF_FINANCE##450],[Type of Finance].[TYPE_OF_FINANCE##451],[Type of Finance].[TYPE_OF_FINANCE##452],[Type of Finance].[TYPE_OF_FINANCE##453],[Type of Finance].[TYPE_OF_FINANCE##600],[Type of Finance].[TYPE_OF_FINANCE##610],[Type of Finance].[TYPE_OF_FINANCE##611],[Type of Finance].[TYPE_OF_FINANCE##612],[Type of Finance].[TYPE_OF_FINANCE##613],[Type of Finance].[TYPE_OF_FINANCE##614],[Type of Finance].[TYPE_OF_FINANCE##615],[Type of Finance].[TYPE_OF_FINANCE##616],[Type of Finance].[TYPE_OF_FINANCE##617],[Type of Finance].[TYPE_OF_FINANCE##618],[Type of Finance].[TYPE_OF_FINANCE##620],[Type of Finance].[TYPE_OF_FINANCE##621],[Type of Finance].[TYPE_OF_FINANCE##622],[Type of Finance].[TYPE_OF_FINANCE##623],[Type of Finance].[TYPE_OF_FINANCE##624],[Type of Finance].[TYPE_OF_FINANCE##625],[Type of Finance].[TYPE_OF_FINANCE##626],[Type of Finance].[TYPE_OF_FINANCE##627],[Type of Finance].[TYPE_OF_FINANCE##630],[Type of Finance].[TYPE_OF_FINANCE##631],[Type of Finance].[TYPE_OF_FINANCE##632]})
      MEMBER [Type of Finance].[Non Grants Debt Forgiveness] as SUM([Type of Finance].[TYPE_OF_FINANCE##610])
-     MEMBER [Measures].[First Year Net] AS SUM(CrossJoin({[Reporting Year].[$P{FIRST_YEAR}]}, {[Measures].[Net Amount Currency]}))
-     MEMBER [Measures].[Second Year Net] AS SUM(CrossJoin({[Reporting Year].[$P{SECOND_YEAR}]}, {[Measures].[Net Amount Currency]}))
-     MEMBER [Measures].[First Year Gross] AS SUM(CrossJoin({[Reporting Year].[$P{FIRST_YEAR}]}, {[Measures].[Extended Amount Currency]}))
-     MEMBER [Measures].[Second Year Gross] AS SUM(CrossJoin({[Reporting Year].[$P{SECOND_YEAR}]}, {[Measures].[Extended Amount Currency]}))
+     MEMBER [Measures].[First Year Net] AS SUM(CrossJoin({[Reporting Year].[$P{FIRST_YEAR}]}, {[Measures].[Net Amount Currency OECD]}))
+     MEMBER [Measures].[Second Year Net] AS SUM(CrossJoin({[Reporting Year].[$P{SECOND_YEAR}]}, {[Measures].[Net Amount Currency OECD]}))
+     MEMBER [Measures].[First Year Gross] AS SUM(CrossJoin({[Reporting Year].[$P{FIRST_YEAR}]}, {[Measures].[Extended Amount Currency OECD]}))
+     MEMBER [Measures].[Second Year Gross] AS SUM(CrossJoin({[Reporting Year].[$P{SECOND_YEAR}]}, {[Measures].[Extended Amount Currency OECD]}))
 SELECT
 {[Type of Finance].[Grants], [Type of Finance].[Non Grants], [Type of Finance].[Non Grants Debt Forgiveness]} ON ROWS,
 {[Measures].[First Year Gross], [Measures].[Second Year Gross],[Measures].[First Year Net], [Measures].[Second Year Net]} ON COLUMNS
