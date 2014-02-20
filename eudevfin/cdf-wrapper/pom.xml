@@ -24,6 +24,42 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>org.devgateway.eudevfin</groupId>
+			<artifactId>common</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.devgateway.eudevfin</groupId>
+			<artifactId>common-ui</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.devgateway.eudevfin</groupId>
+			<artifactId>common-auth</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.devgateway.eudevfin</groupId>
+			<artifactId>auth</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+        <dependency>
+            <groupId>org.devgateway.eudevfin</groupId>
+            <artifactId>import-metadata</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.devgateway.eudevfin</groupId>
+            <artifactId>cda-wrapper</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
 			<version>5.5.0</version>
@@ -51,25 +87,6 @@
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 			<version>2.2.4</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.devgateway.eudevfin</groupId>
-			<artifactId>common</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-
-
-		<dependency>
-			<groupId>org.devgateway.eudevfin</groupId>
-			<artifactId>common-ui</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.devgateway.eudevfin</groupId>
-			<artifactId>common-auth</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 
 		<dependency>
