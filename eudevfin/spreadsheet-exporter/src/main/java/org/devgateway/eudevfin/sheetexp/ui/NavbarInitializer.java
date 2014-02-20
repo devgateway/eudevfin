@@ -3,33 +3,56 @@
  */
 package org.devgateway.eudevfin.sheetexp.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy;
+import org.apache.wicket.markup.html.link.AbstractLink;
 import org.apache.wicket.model.StringResourceModel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.ui.common.WicketNavbarComponentInitializer;
+import org.devgateway.eudevfin.ui.common.components.RepairedNavbarDropDownButton;
 
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuBookmarkablePageLink;
 import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconType;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
-import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarButton;
+import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarDropDownButton;
 
 /**
  * @author Alex
- *
+ * 
  */
 public final class NavbarInitializer {
-	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT,disabled=true)
+
+	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT)
 	public static Component newExportSpreadSheetButton(final Page page) {
-		final NavbarButton<ExportSpreadsheetsPage> exportSpreadsheetButton = new NavbarButton<ExportSpreadsheetsPage>(
-				ExportSpreadsheetsPage.class, new StringResourceModel(
-						"navbar.spreadsheets.export", page, null, null))
-				.setIconType(IconType.file);
-		
-		
-		
-		MetaDataRoleAuthorizationStrategy.authorize(exportSpreadsheetButton,
-				Component.RENDER, AuthConstants.Roles.ROLE_USER);
-		return exportSpreadsheetButton;
+
+		final NavbarDropDownButton exportMenu = new RepairedNavbarDropDownButton(new StringResourceModel(
+				"navbar.spreadsheets.export", page, null, null)) {
+
+			@Override
+			protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
+				List<AbstractLink> list = new ArrayList<>();
+
+				PageParameters paramsCRS = new PageParameters();
+				paramsCRS.set("reportType", "CRS");
+				list.add((AbstractLink) new MenuBookmarkablePageLink<ExportSpreadsheetsPage>(ExportSpreadsheetsPage.class,
+						paramsCRS, new StringResourceModel("navbar.reports.export.crs", this, null, null)).setEnabled(false));
+				
+				PageParameters paramsFSS = new PageParameters();
+				paramsFSS.set("reportType", "fss");
+				list.add((AbstractLink) new MenuBookmarkablePageLink<ExportSpreadsheetsPage>(ExportSpreadsheetsPage.class,
+						paramsFSS, new StringResourceModel("navbar.reports.export.fss", this, null, null)).setEnabled(true));
+				return list;
+			}
+
+		};
+		exportMenu.setIconType(IconType.file);
+
+		MetaDataRoleAuthorizationStrategy.authorize(exportMenu, Component.RENDER, AuthConstants.Roles.ROLE_USER);
+		return exportMenu;
 	}
 }

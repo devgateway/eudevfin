@@ -32,10 +32,10 @@ public class SpreadsheetResourceReference extends ResourceReference {
 	// // TODO Auto-generated constructor stub
 	// }
 
-	public SpreadsheetResourceReference(final String name, final SpreadsheetTransformerService transformerService,
+	public SpreadsheetResourceReference(final String name, final Integer year, final SpreadsheetTransformerService transformerService,
 			final CustomFinancialTransactionService txService) {
 		super(name);
-		this.resource = new SpreadsheetResource(transformerService, txService);
+		this.resource = new SpreadsheetResource(year, transformerService, txService);
 	}
 
 	/*

@@ -24,9 +24,9 @@ public class SpreadsheetRenderer {
 
 	@ServiceActivator(inputChannel = "spreadsheetCreatorChannel")
 	public Boolean renderSpreadsheet(final List<MetadataRow> list, @Header("outputStream") final OutputStream out) {
-		for (final MetadataRow metadataRow : list) {
-			System.out.println("Row: " + metadataRow.toString());
-		}
+//		for (final MetadataRow metadataRow : list) {
+//			System.out.println("Row: " + metadataRow.toString());
+//		}
 		OutputStream usedOutStream	= null;
 		if (out == null) {
 //			final File f = new File("/home/alex/test.xls");

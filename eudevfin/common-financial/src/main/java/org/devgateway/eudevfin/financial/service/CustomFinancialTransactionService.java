@@ -10,6 +10,7 @@ import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.integration.annotation.Header;
+import org.springframework.integration.annotation.Payload;
 
 /**
  * @author Alex
@@ -19,4 +20,7 @@ public interface CustomFinancialTransactionService extends BaseEntityService<Cus
 	public Page<CustomFinancialTransaction> findByDraftPageable (Boolean draft, @Header("pageable")Pageable pageable);
 	
 	public List<CustomFinancialTransaction> findByReportingYearAndDraftFalse(final Integer year);
+	
+	@Payload("new java.util.Date()")
+	public List<Integer> findDistinctReportingYears();
 }

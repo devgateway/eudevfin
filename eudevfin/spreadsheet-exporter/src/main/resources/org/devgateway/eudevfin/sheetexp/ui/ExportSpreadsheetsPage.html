@@ -19,12 +19,17 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="span10 offset1 well">
-			<span>Available Exports:</span>
-			<ul>
-				<li><a wicket:id="fss-export-link"><span wicket:id="fss-export-label">Forward Spending Survey</span></a></li>
-			</ul>
-			</div>
+			<form wicket:id="export-filter-form">
+				<div class="span4 offset4 well">
+					<div class="">
+						<div wicket:id="year-filter" />
+					</div>
+					<div class="">
+						<input wicket:id="filter-form-submit" type="submit"></input>
+					</div>
+
+				</div>
+			</form>
 		</div>
 	</div>
 </wicket:extend>

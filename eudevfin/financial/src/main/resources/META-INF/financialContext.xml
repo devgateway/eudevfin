@@ -180,6 +180,7 @@
 	
 	<int:channel id="findCustomTransactionByDraftPageableChannel"/>
 	<int:channel id="findCustomTransactionByReportingYearAndDraftFalseChannel"/>
+	<int:channel id="findDistinctReportingYearsInTransactionChannel"/>
 	
 	<int:channel id="findOrganizationByIdChannel" />
 	<int:channel id="saveOrganizationChannel" />

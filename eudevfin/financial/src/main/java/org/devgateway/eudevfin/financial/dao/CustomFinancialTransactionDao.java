@@ -53,5 +53,11 @@ public class CustomFinancialTransactionDao
 		
 		return this.getRepo().findByReportingYearBetweenAndDraftFalse(start, end);
 	}
+	
+	@ServiceActivator(inputChannel="findDistinctReportingYearsInTransactionChannel")
+	public List<Integer> findDistinctReportingYears(){
+		final List<Integer> ret	= this.getRepo().findDistinctReportingYears();
+		return ret;
+	}
 
 }
