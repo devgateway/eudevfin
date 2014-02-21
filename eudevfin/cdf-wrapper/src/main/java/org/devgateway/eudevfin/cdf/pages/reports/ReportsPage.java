@@ -23,7 +23,9 @@ import org.devgateway.eudevfin.dashboard.components.StackedBarChart;
 import org.devgateway.eudevfin.dashboard.components.Table;
 import org.devgateway.eudevfin.dashboard.components.TableParameters;
 import org.devgateway.eudevfin.financial.Organization;
+import org.devgateway.eudevfin.financial.util.FinancialTransactionUtil;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
+import org.joda.money.CurrencyUnit;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.Arrays;
@@ -35,12 +37,15 @@ public class ReportsPage extends HeaderFooter {
 
 	private static final int TABLE_YEAR = 2013;
 
+    private String countryCurrency;
+
     public ReportsPage() {
         addComponents();
     }
 
     private void addComponents () {
 	    addReportingCountry();
+        getCurrency();
 		addNetODATable();
 	    addTopTenRecipientsTable();
 	    addTopTenMemoShareTAble();
@@ -49,7 +54,7 @@ public class ReportsPage extends HeaderFooter {
 	    addOdaBySectorChart();
     }
 
-	private void addReportingCountry() {
+	private void addReportingCountry () {
 		String donorName = "";
 		Organization organizationForCurrentUser = AuthUtils.getOrganizationForCurrentUser();
 
@@ -60,6 +65,16 @@ public class ReportsPage extends HeaderFooter {
 		Label reportingCountry = new Label("reportingCountry", donorName);
 		add(reportingCountry);
 	}
+
+    private void getCurrency () {
+        countryCurrency = "";
+        CurrencyUnit currencyForCountryIso = FinancialTransactionUtil
+                .getCurrencyForCountryIso(AuthUtils
+                        .getIsoCountryForCurrentUser());
+        if (currencyForCountryIso != null) {
+            countryCurrency = currencyForCountryIso.getCode();
+        }
+    }
 
 	private void addNetODATable () {
 		Table netODADashboard = new Table("netODADashboard", "netODATable", "dashboards.netODA");
@@ -72,6 +87,7 @@ public class ReportsPage extends HeaderFooter {
 		netODAParameters.addParameter("YEAR", Integer.toString(TABLE_YEAR));
 		netODAParameters.addParameter("YEAR1", Integer.toString(TABLE_YEAR - 1));
 		netODAParameters.addParameter("YEAR2", Integer.toString(TABLE_YEAR - 2));
+//        netODAParameters.addParameter("REPORT_CURRENCY_CODE", countryCurrency + " (million)");
 
 		netODAParameters.getChartDefinition().setColHeaders(Arrays.asList("Net ODA", Integer.toString(TABLE_YEAR - 2),
 				Integer.toString(TABLE_YEAR - 1),
