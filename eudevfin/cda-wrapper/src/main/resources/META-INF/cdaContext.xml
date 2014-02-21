@@ -43,15 +43,6 @@
 		 TODO
 	-->
 	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
-
-	<!--
-		 Configures view for returning JSON to the client
-	-->
-	<bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView">
-		<qualifier value="jsonView"/>
-		<property name="contentType" value="text/plain"/>
-	</bean>
-
 	<!--
 		 TODO
 	-->

@@ -1,6 +1,7 @@
 package org.devgateway.eudevfin.cda.test;
 
 import org.apache.log4j.Logger;
+import org.devgateway.eudevfin.cda.domain.QueryResult;
 import org.devgateway.eudevfin.cda.service.QueryService;
 import org.devgateway.eudevfin.financial.Area;
 import org.devgateway.eudevfin.financial.Category;
@@ -15,6 +16,7 @@ import org.devgateway.eudevfin.financial.dao.OrganizationDaoImpl;
 import org.devgateway.eudevfin.financial.util.LocaleHelperInterface;
 import org.joda.money.BigMoney;
 import org.joda.time.LocalDateTime;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,17 +25,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
-import pt.webdetails.cda.CdaEngine;
-import pt.webdetails.cda.query.QueryOptions;
-import pt.webdetails.cda.settings.CdaSettings;
-import pt.webdetails.cda.settings.SettingsManager;
 
-import java.io.File;
-import java.io.OutputStream;
-import java.net.URISyntaxException;
-import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Ionut Dobre on 2/20/14.
@@ -50,11 +46,10 @@ import java.util.List;
         "classpath:META-INF/cdaContext.xml",
         "classpath:testCDAContext.xml"
 })
-// we need this so that Spring can start a new transaction surrounding the test methods and @Before/@After callbacks,
-// rolling back at the end
-@Transactional
 public class OdaAtGlanceTest {
     protected static Logger logger = Logger.getLogger(OdaAtGlanceTest.class);
+
+    protected List<CustomFinancialTransaction> transactions;
 
     public static final String TEST_LOCALE = "en";
 
@@ -83,6 +78,10 @@ public class OdaAtGlanceTest {
     @Before
     public void setUp () {
         localeHelper.setLocale(TEST_LOCALE);
+
+        transactions = new ArrayList<>();
+
+        // !!!!!! add non flow data
 
         // create the database structure
         List<Category> listTypeOfFlow = catDao.findByCode("TYPE_OF_FLOW##10");
@@ -141,6 +140,15 @@ public class OdaAtGlanceTest {
         ft.setExtendingAgency(org);
 
         txDao.save(ft);
+        transactions.add(ft);           // save the transaction so we can delete it later
+    }
+
+    @After
+    public void tearDown () {
+        // remove the data from the database
+        for (CustomFinancialTransaction ft : transactions) {
+            txDao.delete(ft);
+        }
     }
 
     @Test
@@ -149,35 +157,16 @@ public class OdaAtGlanceTest {
         Assert.assertNotNull(txDao);
 
         logger.info(txDao.findAllAsList());
-        logger.info("size: " + txDao.findAllAsList().size());
+        logger.info("txDao size: " + txDao.findAllAsList().size());
 
-//        Map<String, String> params = new HashMap<>();
-//        params.put("dataAccessId", "netODATable");
-//
-//        QueryResult result = CdaService.doQuery(params);
-//        logger.info("Result: " + result.toString());
+        Map<String, String> params = new HashMap<>();
+        params.put("dataAccessId", "netODATable");
 
+        QueryResult result = CdaService.doQuery(params);
 
-
-
-        // Define an outputStream
-        OutputStream out = System.out;
-
-        final SettingsManager settingsManager = SettingsManager.getInstance();
-
-        URL file = this.getClass().getResource("../service/financial.mondrian.cda");
-        File settingsFile = new File(file.toURI());
-        final CdaSettings cdaSettings = settingsManager.parseSettingsFile(settingsFile.getAbsolutePath());
-        logger.debug("Doing query on Cda - Initializing CdaEngine");
-        final CdaEngine engine = CdaEngine.getInstance();
-
-        QueryOptions queryOptions = new QueryOptions();
-        queryOptions.setDataAccessId("netODATable");
-        queryOptions.setOutputType("json");
-
-        logger.info("Doing query");
-        engine.doQuery(out, cdaSettings, queryOptions);
-
+        logger.info("getQueryInfo: " + result.getQueryInfo());
+        logger.info("getMetadata: " + result.getMetadata());
+        logger.info("getResultset: " + result.getResultset());
 
 
 
@@ -209,7 +198,7 @@ public class OdaAtGlanceTest {
 //
 //    }
 
-    // test ODA/GNI/Population - daca le salvezi de 2 ori sunt doar 1 tranzactie
+    // test ODA/GNI/Population (non flow)
 
     private Area findAreaByName(List<Area> listAreas, String name) {
         for(Area area : listAreas) {
