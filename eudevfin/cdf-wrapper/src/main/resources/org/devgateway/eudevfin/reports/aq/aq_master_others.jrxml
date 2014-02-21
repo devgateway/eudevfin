@@ -8,8 +8,8 @@
 	<parameter name="SECOND_YEAR" class="java.lang.Number"/>
     <queryString language="mdx">
         <![CDATA[WITH
-MEMBER [Measures].[First Year] AS SUM(CrossJoin({[Reporting Year].[$P{FIRST_YEAR}]}, {[Measures].[Extended Amount OECD]}))
-MEMBER [Measures].[Second Year] AS SUM(CrossJoin({[Reporting Year].[$P{SECOND_YEAR}]}, {[Measures].[Extended Amount OECD]}))
+MEMBER [Measures].[First Year] AS SUM(CrossJoin({[Reporting Year].[$P{FIRST_YEAR}]}, {[Measures].[Extended Amount]}))
+MEMBER [Measures].[Second Year] AS SUM(CrossJoin({[Reporting Year].[$P{SECOND_YEAR}]}, {[Measures].[Extended Amount]}))
 SELECT
 {[Measures].[First Year], [Measures].[Second Year]} ON COLUMNS,
 {Hierarchize({{[Type of Finance].[TYPE_OF_FINANCE##1].[GNI: Gross National Income], [Type of Finance].[TYPE_OF_FINANCE##2].[ODA % GNI], [Type of Finance].[TYPE_OF_FINANCE##3].[Total flows % GNI], [Type of Finance].[TYPE_OF_FINANCE##4].[Population]}})} ON ROWS
