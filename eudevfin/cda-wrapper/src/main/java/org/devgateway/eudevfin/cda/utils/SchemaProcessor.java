@@ -81,13 +81,15 @@ public class SchemaProcessor extends LocalizingDynamicSchemaProcessor {
             countryCurrency = DEFAULT_COUNTRY_CURRENCY;
         }
 
-		String locale = connectInfo.get("LOCALE");
-		if(locale == null || locale.equals("")){
-			locale = DEFAULT_LOCALE;
-			connectInfo.put("Locale", locale);
-		}
+//		String locale = connectInfo.get("LOCALE");
+//		if(locale == null || locale.equals("")){
+//			locale = DEFAULT_LOCALE;
+//			connectInfo.put("Locale", locale);
+//		}
+        // TODO temporary fix for ODAEU-134
+        String locale = DEFAULT_LOCALE;
+        connectInfo.put("Locale", locale);
 		setLocale(locale);
-
 
         // load local properties files
         loadProperties();
