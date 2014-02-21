@@ -41,8 +41,10 @@ public abstract class AbstractMapper<T>
 	}
 
 	public void set(T entity, String property, Object value) {
-		 BeanWrapper beanWrapper = new BeanWrapperImpl(entity);
-		 beanWrapper.setPropertyValue(property, value);
+		if (value != null && value.toString().length() > 0) {
+			BeanWrapper beanWrapper = new BeanWrapperImpl(entity);
+			beanWrapper.setPropertyValue(property, value);
+		}
 	}
 
 	@Override

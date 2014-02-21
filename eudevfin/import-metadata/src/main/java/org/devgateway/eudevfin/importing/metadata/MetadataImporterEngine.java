@@ -49,27 +49,28 @@ public class MetadataImporterEngine {
 	public void process () {
 		this.populateServicesMap();
 		
-		List<StreamProcessorInterface> list 	= this.getStreamProcessors();
+		final List<StreamProcessorInterface> list 	= this.getStreamProcessors();
 		
 		for (int i=0; i<list.size(); i++) {
-			StreamProcessorInterface streamProcessorInterface = list.get(i);
+			final StreamProcessorInterface streamProcessorInterface = list.get(i);
 			logger.info( String.format("%d) Starting import...",i+1) );
-			AbstractDaoImpl service	= 
+			final AbstractDaoImpl service	= 
 					this.servicesMap.get(streamProcessorInterface.getMapperClassName() );
 			int numOfSavedEntities	= 0;
 			while ( streamProcessorInterface.hasNextObject() ) {
-				Object entity	= streamProcessorInterface.generateNextObject();
+				final Object entity	= streamProcessorInterface.generateNextObject();
 				try {
 					service.save(entity);
 					numOfSavedEntities++;
 				}
-				catch(DataIntegrityViolationException e) {
+				catch(final DataIntegrityViolationException e) {
 					throw new InvalidDataException(
 							String.format("There was a problem with saving the following entity to the db: %s", entity.toString() )
 							, e);
 				}
 			}
 			logger.info(String.format("-> finsihed! Imported %d entities !", numOfSavedEntities));
+			streamProcessorInterface.close();
 			
 		}
 	}
@@ -77,13 +78,13 @@ public class MetadataImporterEngine {
 
 	private List<StreamProcessorInterface> getStreamProcessors() {
 		logger.info("Will start import for the following files:");
-		ArrayList<StreamProcessorInterface> processors = new ArrayList<>();
+		final ArrayList<StreamProcessorInterface> processors = new ArrayList<>();
 		for (int i = 0; i < this.metadataSourceList.size(); i++) {
-			String filename		= this.metadataSourceList.get(i);
+			final String filename		= this.metadataSourceList.get(i);
 			logger.info( String.format("%d) %s", i+1, filename) );
-			InputStream is		= this.getClass().getResourceAsStream(filename);
+			final InputStream is		= this.getClass().getResourceAsStream(filename);
 			if ( filename.endsWith("xls") || filename.endsWith("xlsx") ) {
-				ExcelStreamProcessor processor	= new ExcelStreamProcessor(is);
+				final ExcelStreamProcessor processor	= new ExcelStreamProcessor(is);
 				processors.add(processor); 
 			}
 		}
@@ -92,11 +93,11 @@ public class MetadataImporterEngine {
 
 	private void populateServicesMap() {
 		this.servicesMap	= new HashMap<String, AbstractDaoImpl>();
-		this.servicesMap.put(OrganizationMapper.class.getName(), orgDaoImpl);
-		this.servicesMap.put(CategoryMapper.class.getName(), categDaoImpl);
-		this.servicesMap.put(AreaMapper.class.getName(), areaDaoImpl);
-		this.servicesMap.put(ChannelCategoryMapper.class.getName(), categDaoImpl);
-		this.servicesMap.put(CurrencyCategoryMapper.class.getName(), categDaoImpl);
+		this.servicesMap.put(OrganizationMapper.class.getName(), this.orgDaoImpl);
+		this.servicesMap.put(CategoryMapper.class.getName(), this.categDaoImpl);
+		this.servicesMap.put(AreaMapper.class.getName(), this.areaDaoImpl);
+		this.servicesMap.put(ChannelCategoryMapper.class.getName(), this.categDaoImpl);
+		this.servicesMap.put(CurrencyCategoryMapper.class.getName(), this.categDaoImpl);
 	}
 
 }

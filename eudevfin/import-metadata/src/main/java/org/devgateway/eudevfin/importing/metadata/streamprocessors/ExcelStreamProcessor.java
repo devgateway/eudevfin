@@ -42,8 +42,11 @@ public class ExcelStreamProcessor implements StreamProcessorInterface {
 	private int currentRowNum = ACTUAL_ATA_START_ROW_NUM;
 
 	private int endRowNum;
+	
+	private InputStream inputStream;
 
 	public ExcelStreamProcessor(InputStream is) {
+		this.inputStream	= is;
 		try {
 			workbook 	= new HSSFWorkbook(is);
 			sheet		= workbook.getSheetAt(0);
@@ -179,6 +182,16 @@ public class ExcelStreamProcessor implements StreamProcessorInterface {
 		}
 		
 	}
+	
+	@Override
+	public void close() {
+		try {
+			this.inputStream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
 
 	@Override
 	public List<String> getMetadataInfoList() {
@@ -197,6 +210,8 @@ public class ExcelStreamProcessor implements StreamProcessorInterface {
 	public void setMapperClassName(String mapperClassName) {
 		this.mapperClassName = mapperClassName;
 	}
+
+
 	
 	
 
