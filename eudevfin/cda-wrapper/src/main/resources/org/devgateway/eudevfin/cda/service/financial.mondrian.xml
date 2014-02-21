@@ -374,10 +374,25 @@
                 </SQL>
             </MeasureExpression>
         </Measure>
+        <Measure name="Extended Amount No Flow" aggregator="sum" visible="true">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    CASE WHEN DRAFT IS NULL THEN AMOUNTS_EXTENDED_AMOUNT ELSE NULL END
+                </SQL>
+            </MeasureExpression>
+        </Measure>
         <Measure name="Extended Amount" aggregator="sum" visible="true" caption="%{extendedAmount}">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    CASE WHEN coefficient IS NULL THEN AMOUNTS_EXTENDED_AMOUNT ELSE (AMOUNTS_EXTENDED_AMOUNT * COEFFICIENT) / 100  END
+                    CASE WHEN DRAFT IS NOT NULL THEN
+                        CASE WHEN coefficient IS NULL THEN
+                            AMOUNTS_EXTENDED_AMOUNT
+                        ELSE
+                            (AMOUNTS_EXTENDED_AMOUNT * COEFFICIENT) / 100
+                        END
+                    ELSE
+                        NULL
+                    END
                 </SQL>
             </MeasureExpression>
         </Measure>
@@ -390,6 +405,7 @@
                     WHERE
                     SOURCE = 'OECD' AND
                     BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXTENDED_CURR" AND
+                    "FINANCIALTRANSACTIONVIEW"."DRAFT" IS NOT NULL AND
                     COUNTER_CURRENCY = '@@CURRENCY@@' AND
                     YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")))
                 </SQL>
@@ -404,6 +420,7 @@
                     WHERE
                     SOURCE = 'National' AND
                     BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXTENDED_CURR" AND
+                    "FINANCIALTRANSACTIONVIEW"."DRAFT" IS NOT NULL AND
                     COUNTER_CURRENCY = '@@CURRENCY@@' AND
                     YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")))
                 </SQL>
