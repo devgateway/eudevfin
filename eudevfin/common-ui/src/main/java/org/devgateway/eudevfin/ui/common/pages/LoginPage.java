@@ -43,7 +43,6 @@ public final class LoginPage extends HeaderFooter {
 
 		public LoginForm(String id) {
 			super(id);
-            //this.type(FormType.Horizontal);
 
             add(new NotificationPanel("feedback"));
 
@@ -52,7 +51,6 @@ public final class LoginPage extends HeaderFooter {
             add(username);
 
             PasswordInputField password = new PasswordInputField("password", new PropertyModel<String>(this, "password"), "login.password");
-            password.getField().setResetPassword(false);
             add(password);
             
             IndicatingAjaxButton submit = new IndicatingAjaxButton("submit",Model.of("Submit")) {
