@@ -15,4 +15,5 @@ public final class SpringPropertyExpressions {
 	public static final String EUDEVFIN_REPORTING_YEAR_START="#{commonProperties['eudevfin.reportingYear.start']}";
 	public static final String EUDEVFIN_REPORTING_YEAR_END="#{commonProperties['eudevfin.reportingYear.end']}";
 	public static final String SI_DEFAULT_REPLY_TIMEOUT="#{commonProperties['si.defaultReplyTimeout']}";
+	public static final String EUDEVFIN_DATABASE_NAME="#{commonProperties['eudevfin.database.name']}";
 }

@@ -31,6 +31,8 @@
     <jpa:auditing auditor-aware-ref="simpleAuditorAwareImpl" />
 	
 	<util:properties id="currencyProperties" location="classpath:/org/devgateway/eudevfin/financial/currencies-metadata.properties"/>
+	
+
 
 
 	<!-- Get localhost InetAddress to start Derby network server on it. -->
@@ -74,7 +76,7 @@
 	<!-- tomcat-jdbc settings taken from here http://www.tomcatexpert.com/blog/2010/04/01/configuring-jdbc-pool-high-concurrency -->
 	<bean class="org.apache.tomcat.jdbc.pool.DataSource" id="euDevFinDataSourceNetwork" autowire-candidate="false"
 	depends-on="startDerby" lazy-init="true" p:driverClassName="org.apache.derby.jdbc.ClientDriver"
-	p:url="jdbc:derby://localhost:#{systemProperties['eudevfin.derby.port']!=null?systemProperties['eudevfin.derby.port']:'1527'}/eudevfin;create=true"
+	p:url="jdbc:derby://localhost:#{systemProperties['eudevfin.derby.port']!=null?systemProperties['eudevfin.derby.port']:'1527'}/#{commonProperties['eudevfin.database.name']};create=true"
 	p:username="app" p:password="app" p:testWhileIdle="true" p:testOnBorrow="true" p:testOnReturn="false"
 	p:validationQuery="SELECT 1" p:validationInterval="30000" p:timeBetweenEvictionRunsMillis="5000" p:maxActive="100"
 	p:minIdle="10" p:maxIdle="20" p:maxWait="10000" p:initialSize="10" p:removeAbandonedTimeout="60" p:removeAbandoned="true"
@@ -85,7 +87,7 @@
 	<!-- Datasource for embedded mode, this will be instantiated only if embedded mode derby will be used -->
 	<bean class="org.apache.tomcat.jdbc.pool.DataSource" id="euDevFinDataSourceEmbedded" lazy-init="true" autowire-candidate="false">
 		<property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver" />
-		<property name="url" value="jdbc:derby:memory:eudevfin;create=true" />
+		<property name="url" value="jdbc:derby:memory:#{commonProperties['eudevfin.database.name']};create=true" />
 		<property name="username" value="app" />
 		<property name="password" value="app" />	
 	</bean>
