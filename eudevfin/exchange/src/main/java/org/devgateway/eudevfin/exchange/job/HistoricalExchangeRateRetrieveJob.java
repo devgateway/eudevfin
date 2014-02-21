@@ -26,7 +26,7 @@ public class HistoricalExchangeRateRetrieveJob implements
 	@Autowired
 	private HistoricalExchangeRateService exchangeRateService;
 
-	@Scheduled(cron = "0 0 6 * * MON-FRI")
+//	@Scheduled(cron = "0 0 6 * * MON-FRI")
 	public void jobRetrieveHistoricalExchangeRates() {
 		retrieveHistoricalExchangeRates();
 	}
