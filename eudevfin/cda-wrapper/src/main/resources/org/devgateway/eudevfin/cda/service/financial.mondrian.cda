@@ -47,7 +47,7 @@
 		<Columns/>
 		<Name>Net ODA Table</Name>
 		<Parameters>
-			<Parameter default="EUR (million)" name="REPORT_CURRENCY_CODE" type="String"/>
+			<Parameter default="National Currency" name="REPORT_CURRENCY_CODE" type="String"/>
 			<Parameter default="2011" name="YEAR2" type="Integer"/>
 			<Parameter default="2012" name="YEAR1" type="Integer"/>
 			<Parameter default="2013" name="YEAR" type="Integer"/>
@@ -55,10 +55,10 @@
 		<Query>
 			<![CDATA[
 			WITH
-			MEMBER Measures.[Curent (USD)] AS [Measures].[Net Amount]
-			MEMBER Measures.[${REPORT_CURRENCY_CODE}] AS [Measures].[Net Amount Currency OECD]
-			MEMBER Measures.[ODA/GNI] AS SUM(CrossJoin({[Type of Finance].[TYPE_OF_FINANCE##2].[ODA % GNI]}, {[Measures].[Extended Amount]}))
-			MEMBER Measures.[Bilateral share] AS (SUM(CrossJoin({[Type of Finance].[Name].[NON FLOW ITEMS]}, {[Measures].[NumberOfTransactions]})) / SUM(CrossJoin({[Type of Finance].[Name].Members}, {[Measures].[NumberOfTransactions]}))) * 100
+			MEMBER Measures.[Curent (USD)] AS [Measures].[Net Amount Currency OECD]
+            MEMBER Measures.[${REPORT_CURRENCY_CODE}] AS [Measures].[Net Amount]
+			MEMBER Measures.[ODA/GNI] AS SUM(CrossJoin({[Type of Finance].[TYPE_OF_FINANCE##2].[ODA % GNI]}, {[Measures].[Extended Amount No Flow]}))
+			MEMBER Measures.[Bilateral share] AS (SUM(CrossJoin({[BiMultilateral].[Name].[Bilateral]}, {[Measures].[NumberOfTransactions]})) * 100) / SUM(CrossJoin({[BiMultilateral].[Name].Members}, {[Measures].[NumberOfTransactions]})), FORMAT_STRING='0.00'
 			SELECT
 			{{[Reporting Year].[${YEAR2}], [Reporting Year].[${YEAR1}], [Reporting Year].[${YEAR}]}} ON COLUMNS,
 			{[Measures].[Curent (USD)], [Measures].[${REPORT_CURRENCY_CODE}], Measures.[ODA/GNI], Measures.[Bilateral share]} ON ROWS
