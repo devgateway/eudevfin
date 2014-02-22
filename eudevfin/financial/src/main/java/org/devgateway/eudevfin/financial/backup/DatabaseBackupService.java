@@ -35,14 +35,25 @@ public class DatabaseBackupService {
 
 	private static final Logger logger = Logger.getLogger(DatabaseBackupService.class);
 	public static final String DATABASE_PRODUCT_NAME_APACHE_DERBY = "Apache Derby";
-
+	public static final String ARCHIVE_SUFFIX=".zip";
+	
 	@Autowired
 	private DataSource euDevFinDataSource;
+	
+	private String lastBackupURL;
+
+
 
 	@Value(SpringPropertyExpressions.EUDEVFIN_DATABASE_NAME)
 	protected String databaseName;
 
+	/**
+	 * Invokes backup database. This is invoked by Spring {@link Scheduled}
+	 * We use a cron format and invoke it every day at 21:00 server time. 
+	 * That should be a good time for backup for both EST and CET
+	 */
 	@Scheduled(cron = "0 0 21 * * ?")
+	//@Scheduled(fixedDelay=20000)
 	public void backupDatabase() {
 		String databaseProductName;
 
@@ -92,19 +103,38 @@ public class DatabaseBackupService {
 	}
 
 	/**
-	 * Backup Derby database
+	*  Use eudevfin.backup.home system variable, if exists, as homedir for backups
+	 * If eudevfin.backup.home does not exist try using derby.system.home
+	 * If that is also null, use user.dir
+	 * @return the backupURL
+	 */
+	private String createBackupURL() {
+		String backupHomeString=System.getProperty("eudevfin.backup.home");
+		if(backupHomeString==null)
+			backupHomeString = System.getProperty("derby.system.home") != null ? System
+				.getProperty("derby.system.home") : System.getProperty("user.dir");
+
+		String backupURL = createBackupURL(backupHomeString);
+		return backupURL;
+	}
+	
+	/**
+	 * Backup the On-Line Derby database. This temporarily locks the db in readonly mode
 	 * 
+	 * Invokes SYSCS_BACKUP_DATABASE and dumps the database to the temporary directory
+	 * Use {@link ZipUtil#pack(File, File)} to zip the directory
+	 * Deletes the temporary directory
+	 * @see #createBackupURL(String)
 	 * @throws UnknownHostException
 	 */
 	private void backupDerbyDatabase() {
-		String derbySystemHome = System.getProperty("derby.system.home") != null ? System
-				.getProperty("derby.system.home") : System.getProperty("user.dir");
-
-		String backupURL = createBackupURL(derbySystemHome);
+	
+		lastBackupURL = createBackupURL();
+		
 		CallableStatement cs = null;
 		try {
 			cs = euDevFinDataSource.getConnection().prepareCall("CALL SYSCS_UTIL.SYSCS_BACKUP_DATABASE(?)");
-			cs.setString(1, backupURL);
+			cs.setString(1, lastBackupURL);
 			cs.execute();
 			cs.close();
 		} catch (SQLException e) {
@@ -119,9 +149,9 @@ public class DatabaseBackupService {
 			}
 		}
 
-		File backupURLFile = new File(backupURL);
+		File backupURLFile = new File(lastBackupURL);
 		// zip the contents and delete the dir
-		ZipUtil.pack(backupURLFile, new File(backupURL + ".zip"));
+		ZipUtil.pack(backupURLFile, new File(lastBackupURL + ARCHIVE_SUFFIX));
 		// delete the backup directory that we just zipped
 		try {
 			FileUtils.deleteDirectory(backupURLFile);
@@ -129,7 +159,11 @@ public class DatabaseBackupService {
 			logger.error("Cannot delete temporary backup directory", e);
 		}
 
-		logger.info("Backed up database to " + backupURL + ".zip");
+		logger.info("Backed up database to " + lastBackupURL + ARCHIVE_SUFFIX);
+	}
+	
+	public String getLastBackupURL() {
+		return lastBackupURL;
 	}
 
 }
