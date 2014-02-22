@@ -124,8 +124,7 @@ public class DatabaseBackupService {
 	 * Invokes SYSCS_BACKUP_DATABASE and dumps the database to the temporary directory
 	 * Use {@link ZipUtil#pack(File, File)} to zip the directory
 	 * Deletes the temporary directory
-	 * @see #createBackupURL(String)
-	 * @throws UnknownHostException
+	 * @see #createBackupURL(String)	
 	 */
 	private void backupDerbyDatabase() {
 	
@@ -136,7 +135,6 @@ public class DatabaseBackupService {
 			cs = euDevFinDataSource.getConnection().prepareCall("CALL SYSCS_UTIL.SYSCS_BACKUP_DATABASE(?)");
 			cs.setString(1, lastBackupURL);
 			cs.execute();
-			cs.close();
 		} catch (SQLException e) {
 			logger.error("Cannot perform database backup!", e);
 			return;
