@@ -24,5 +24,6 @@
         <security:form-login login-page="/login" default-target-url="/" />
         <security:access-denied-handler error-page="/login" />
 		<security:logout logout-url="/logout"/>
+		<security:intercept-url pattern="/jmx/**" access="ROLE_USER"/>
 	</security:http>
 </beans>

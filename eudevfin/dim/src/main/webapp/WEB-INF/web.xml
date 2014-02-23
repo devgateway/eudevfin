@@ -45,6 +45,19 @@
 		<url-pattern>/jasperreports/*</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+	    <servlet-name>JmxMiniConsoleServlet</servlet-name>
+	    <servlet-class>
+	        org.jminix.console.servlet.SpringMiniConsoleServlet
+	    </servlet-class>
+	</servlet> 
+
+	<servlet-mapping>
+		<servlet-name>JmxMiniConsoleServlet</servlet-name>
+		<url-pattern>/jmx/*</url-pattern>
+	</servlet-mapping>
+
+
 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>

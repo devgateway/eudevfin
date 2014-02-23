@@ -29,7 +29,7 @@
 	<context:annotation-config />
 	
 <!-- JMX monitoring - disabled during development for speed purposes -->		
-<!--
+
 	<context:mbean-server id="mbeanServer"/>	
 	<int-jmx:mbean-export  />
 	<context:mbean-export />
@@ -54,7 +54,12 @@
 	    <property name="server" ref="mbeanServer"/>
 	</bean>
 	
--->
+	<bean id="miniConsoleApplication" class="org.jminix.console.application.MiniConsoleApplication">
+  		<property name="serverConnectionProvider" ref="jMiniXConnectionProvider"/>
+	</bean>
+		
+	<bean id="jMiniXConnectionProvider" class="org.jminix.server.WebSpringServerConnectionProvider"/>	
+		
 		
 	<!-- properties file loaded here -->
 	<util:properties id="commonProperties" location="classpath:/common.properties"/>

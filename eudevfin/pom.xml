@@ -23,6 +23,7 @@
         <wicket.select2.version>2.2.2</wicket.select2.version>
         <ehcache.version>2.4.7</ehcache.version>
         <liquibase.version>3.0.8</liquibase.version>
+        <jminix.version>1.1.0</jminix.version>
     </properties>
 
 
@@ -61,7 +62,12 @@
             <artifactId>derbynet</artifactId>
             <version>${derby.version}</version>
         </dependency>
-                      
+
+	<dependency>
+		<groupId>org.jminix</groupId>
+		<artifactId>jminix</artifactId>
+		<version>${jminix.version}</version>
+	</dependency>              
         
         <dependency>
             <groupId>org.apache.derby</groupId>
