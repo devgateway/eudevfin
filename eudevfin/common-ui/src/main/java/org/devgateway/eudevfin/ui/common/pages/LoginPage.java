@@ -51,6 +51,7 @@ public final class LoginPage extends HeaderFooter {
             add(username);
 
             PasswordInputField password = new PasswordInputField("password", new PropertyModel<String>(this, "password"), "login.password");
+            password.getField().setResetPassword(false);
             add(password);
             
             IndicatingAjaxButton submit = new IndicatingAjaxButton("submit",Model.of("Submit")) {
