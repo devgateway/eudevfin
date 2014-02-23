@@ -7,6 +7,7 @@
     <parameter name="REPORTING_COUNTRY" class="java.lang.String"/>
     <parameter name="FIRST_YEAR" class="java.lang.Number"/>
     <parameter name="SECOND_YEAR" class="java.lang.Number"/>
+    <parameter name="EDITION_YEAR" class="java.lang.Number"/>
     <parameter name="SUBDIR_PATH" class="java.lang.String"/>
     <queryString language="mdx">
         <![CDATA[
@@ -48,7 +49,7 @@ FROM [Financial]]]>
                 <textElement textAlignment="Center" verticalAlignment="Top">
                     <font fontName="Arial" size="12" isBold="false"/>
                 </textElement>
-                <textFieldExpression><![CDATA["(" + $P{SECOND_YEAR} + " " + $R{aq.subtitle} + ")"]]></textFieldExpression>
+                <textFieldExpression><![CDATA["(" + $P{EDITION_YEAR} + " " + $R{aq.subtitle} + ")"]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="0" y="32" width="118" height="23" uuid="d971475c-3ae3-4306-800d-edad48554bf8"/>

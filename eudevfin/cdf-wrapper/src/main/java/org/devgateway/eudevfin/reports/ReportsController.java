@@ -180,6 +180,7 @@ public class ReportsController {
             //set yearly parameters
             parameters.put("FIRST_YEAR", reportYear - 1);
             parameters.put("SECOND_YEAR", reportYear);
+            parameters.put("EDITION_YEAR", reportYear + 1);
 
             parameters.put("CURRENCY", currency);
             try {
