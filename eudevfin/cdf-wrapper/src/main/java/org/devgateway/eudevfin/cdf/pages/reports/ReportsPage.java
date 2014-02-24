@@ -92,7 +92,7 @@ public class ReportsPage extends HeaderFooter {
 		netODAParameters.getChartDefinition().setColHeaders(Arrays.asList("Net ODA", Integer.toString(TABLE_YEAR - 2),
 				Integer.toString(TABLE_YEAR - 1),
 				Integer.toString(TABLE_YEAR ),
-				Integer.toString(TABLE_YEAR - 1) + "/ " + Integer.toString(TABLE_YEAR)));
+				Integer.toString(TABLE_YEAR - 1) + " / " + Integer.toString(TABLE_YEAR)));
 		netODAParameters.getChartDefinition().setColTypes(Arrays.asList("string", "numeric", "numeric", "numeric", "percentFormat"));
 		netODAParameters.getChartDefinition().setColFormats(Arrays.asList("%s", "%.0f", "%.0f", "%.0f", "%.2f"));
 		netODAParameters.getChartDefinition().setColWidths(Arrays.asList("20%", "20%", "20%", "20%", "20%"));
