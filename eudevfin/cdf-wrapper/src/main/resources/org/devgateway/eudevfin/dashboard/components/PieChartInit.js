@@ -31,7 +31,7 @@ function addOdaByIncomeGroupChart(parametersJson) {
 				resultSeries.push(tmpArray);
 			}
 
-			if (_.isEmpty(odaByRegionQueryResult)) {
+			if (_.isEmpty(odaByIncomeGroupQueryResult)) {
 				pieChartDefinition.get('chart').height = 100;
 				app.noData();
 			} else {
