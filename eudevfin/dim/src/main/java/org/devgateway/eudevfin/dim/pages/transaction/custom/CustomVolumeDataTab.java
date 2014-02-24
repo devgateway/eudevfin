@@ -224,7 +224,7 @@ public class CustomVolumeDataTab extends VolumeDataTab {
             };
             
             //this is disabled until further notice ODAEU-113
-            otherCurrency.getField().setEnabled(false);
+            //otherCurrency.getField().setEnabled(false);
             
 //            otherCurrency.getField().add(new DuplicateCurrencyValidator(otherCurrency.getField()));
             otherCurrency.add(new CurrencyUpdateBehavior());
