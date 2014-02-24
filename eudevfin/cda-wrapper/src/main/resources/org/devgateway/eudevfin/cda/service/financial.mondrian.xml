@@ -88,17 +88,10 @@
 				"APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION",
 				"APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
 			WHERE
+			    "CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
 				"CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
 				"CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
 				"CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='CHANNEL_TAG')
-			group by
-				"CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME",
-				"CATEGORY"."CODE"
-			order by
-				CASE WHEN "CATEGORY"."ID" IS NULL THEN 1 ELSE 0 END,
-				"CATEGORY"."ID" ASC,
-				CASE WHEN "CATEGORY"."CODE" IS NULL THEN 1 ELSE 0 END,
-				"CATEGORY"."CODE" ASC
 			]]></SQL>
             </View>
             <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
@@ -120,14 +113,6 @@
 				"CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
 				"CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
 				"CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='CHANNEL_TAG')
-			group by
-				"CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME",
-				"CATEGORY"."CODE"
-			order by
-				CASE WHEN "CATEGORY"."ID" IS NULL THEN 1 ELSE 0 END,
-				"CATEGORY"."ID" ASC,
-				CASE WHEN "CATEGORY"."CODE" IS NULL THEN 1 ELSE 0 END,
-				"CATEGORY"."CODE" ASC
 			]]></SQL>
             </View>
             <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
@@ -151,14 +136,6 @@
 				"CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
 				"CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
 				"CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='ALL_TYPE_OF_AID_TAG')
-			group by
-				"CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME",
-				"CATEGORY"."CODE"
-			order by
-				CASE WHEN "CATEGORY"."ID" IS NULL THEN 1 ELSE 0 END,
-				"CATEGORY"."ID" ASC,
-				CASE WHEN "CATEGORY"."CODE" IS NULL THEN 1 ELSE 0 END,
-				"CATEGORY"."CODE" ASC
 			]]></SQL>
             </View>
             <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
@@ -182,15 +159,6 @@
 				"CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
 				"CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
 				"CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='TYPE_OF_FLOW_TAG')
-			group by
-				"CATEGORY"."ID",
-				"CATEGORYTRANSLATION"."NAME",
-				"CATEGORY"."CODE"
-			order by
-				CASE WHEN "CATEGORY"."ID" IS NULL THEN 1 ELSE 0 END,
-				"CATEGORY"."ID" ASC,
-				CASE WHEN "CATEGORY"."CODE" IS NULL THEN 1 ELSE 0 END,
-				"CATEGORY"."CODE" ASC
 			]]></SQL>
             </View>
             <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
@@ -214,15 +182,6 @@
 				"CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
 				"CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
 				"CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='ALL_TYPE_OF_FINANCE_TAG')
-			group by
-				"CATEGORY"."ID",
-				"CATEGORYTRANSLATION"."NAME",
-				"CATEGORY"."CODE"
-			order by
-				CASE WHEN "CATEGORY"."ID" IS NULL THEN 1 ELSE 0 END,
-				"CATEGORY"."ID" ASC,
-				CASE WHEN "CATEGORY"."CODE" IS NULL THEN 1 ELSE 0 END,
-				"CATEGORY"."CODE" ASC
 			]]></SQL>
             </View>
             <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
@@ -246,15 +205,6 @@
 				"CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
 				"CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
 				"CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='TYPE_OF_FINANCE_TAG')
-			group by
-				"CATEGORY"."ID",
-				"CATEGORYTRANSLATION"."NAME",
-				"CATEGORY"."CODE"
-			order by
-				CASE WHEN "CATEGORY"."ID" IS NULL THEN 1 ELSE 0 END,
-				"CATEGORY"."ID" ASC,
-				CASE WHEN "CATEGORY"."CODE" IS NULL THEN 1 ELSE 0 END,
-				"CATEGORY"."CODE" ASC
 			]]></SQL>
             </View>
             <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
@@ -280,15 +230,6 @@
 						"CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
 						"CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
 						"CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='ALL_SECTOR_TAG')
-					group by
-						"CATEGORY"."ID",
-						"CATEGORYTRANSLATION"."NAME",
-						"CATEGORY"."CODE"
-					order by
-						CASE WHEN "CATEGORY"."ID" IS NULL THEN 1 ELSE 0 END,
-						"CATEGORY"."ID" ASC,
-						CASE WHEN "CATEGORY"."CODE" IS NULL THEN 1 ELSE 0 END,
-						"CATEGORY"."CODE" ASC
 			]]></SQL>
             </View>
             <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
@@ -314,15 +255,6 @@
 						"CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
 						"CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
 						"CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='BI_MULTILATERAL_TAG')
-					group by
-						"CATEGORY"."ID",
-						"CATEGORYTRANSLATION"."NAME",
-						"CATEGORY"."CODE"
-					order by
-						CASE WHEN "CATEGORY"."ID" IS NULL THEN 1 ELSE 0 END,
-						"CATEGORY"."ID" ASC,
-						CASE WHEN "CATEGORY"."CODE" IS NULL THEN 1 ELSE 0 END,
-						"CATEGORY"."CODE" ASC
 			]]></SQL>
             </View>
             <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
@@ -334,7 +266,8 @@
     <Cube name="Financial" visible="true" cache="false" enabled="true">
         <View name="FINANCIALTRANSACTIONVIEW" alias="FINANCIALTRANSACTIONVIEW">
             <SQL dialect="generic"><![CDATA[
-                select ft.*, cat.coefficient from FINANCIALTRANSACTION ft left join CATEGORY cat ON cat.id = ft.channel_id WHERE ft.draft = false OR draft IS NULL
+                select cat.coefficient, CASE WHEN cat.coefficient IS NULL THEN AMOUNTS_EXTENDED_AMOUNT ELSE (AMOUNTS_EXTENDED_AMOUNT * cat.COEFFICIENT) / 100 END as AMOUNTS_EXTENDED_AMOUNT_WITH_COEFFICIENT, ft.*
+                from FINANCIALTRANSACTION ft left join CATEGORY cat ON cat.id = ft.channel_id WHERE ft.draft = false OR draft IS NULL
 			]]></SQL>
         </View>
         <DimensionUsage source="Area" name="Area" visible="true" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
@@ -385,11 +318,7 @@
             <MeasureExpression>
                 <SQL dialect="generic">
                     CASE WHEN DRAFT IS NOT NULL THEN
-                        CASE WHEN coefficient IS NULL THEN
-                            AMOUNTS_EXTENDED_AMOUNT
-                        ELSE
-                            (AMOUNTS_EXTENDED_AMOUNT * COEFFICIENT) / 100
-                        END
+                        AMOUNTS_EXTENDED_AMOUNT_WITH_COEFFICIENT
                     ELSE
                         NULL
                     END
@@ -399,7 +328,7 @@
         <Measure name="Extended Amount Currency OECD" aggregator="sum" visible="true">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    (CASE WHEN coefficient IS NULL THEN AMOUNTS_EXTENDED_AMOUNT ELSE (AMOUNTS_EXTENDED_AMOUNT * COEFFICIENT) / 100  END * Cast((SELECT AVG(RATE)
+                    (AMOUNTS_EXTENDED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
                     FROM
                     HISTORICALEXCHANGERATE
                     WHERE
@@ -414,7 +343,7 @@
         <Measure name="Extended Amount Currency National" aggregator="sum" visible="true">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    (CASE WHEN coefficient IS NULL THEN AMOUNTS_EXTENDED_AMOUNT ELSE (AMOUNTS_EXTENDED_AMOUNT * COEFFICIENT) / 100  END * Cast((SELECT AVG(RATE)
+                    (AMOUNTS_EXTENDED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
                     FROM
                     HISTORICALEXCHANGERATE
                     WHERE
