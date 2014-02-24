@@ -20,6 +20,8 @@ import javax.sql.DataSource;
         "classpath:META-INF/financialContext.xml",
         "classpath:META-INF/commonFinancialContext.xml",
         "classpath:META-INF/importMetadataContext.xml",
+        "classpath:META-INF/exchangeContext.xml",
+        "classpath:META-INF/commonExchangeContext.xml",
         "classpath:META-INF/cdaContext.xml"
 })
 public class CDADatabaseConnectivityTest {

@@ -57,6 +57,9 @@ public final class AuthUtils {
 	 * @return
 	 */
 	public static String getIsoCountryForCurrentUser() {
+        if (SecurityContextHolder.getContext().getAuthentication() == null) {
+            return null;
+        }
 		PersistedUser user=(PersistedUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();				
 		if(user==null) return null;
 		return getIsoCountryLocaleForUser(user);

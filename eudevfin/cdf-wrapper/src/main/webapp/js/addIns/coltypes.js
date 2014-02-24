@@ -149,6 +149,9 @@
 		label: "percentFormat",
 		defaults: {
 			valueFormat: function (v, format, st) {
+                if(v === null) {
+                    return null;
+                }
 				return sprintf('%.2f', v) + ' %';
 			}
 		},
@@ -160,7 +163,11 @@
 
 		implementation: function (tgt, st, opt) {
 			var t = $(tgt);
-			t.html((st.colFormat ? sprintf(st.colFormat, st.value) : st.value) + ' %');
+            if(st.value === null) {
+                t.html('');
+            } else {
+			    t.html((st.colFormat ? sprintf(st.colFormat, st.value) : st.value) + ' %');
+            }
 		}
 	};
 
