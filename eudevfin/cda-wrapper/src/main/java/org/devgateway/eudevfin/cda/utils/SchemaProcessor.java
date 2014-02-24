@@ -5,9 +5,11 @@ import mondrian.olap.MondrianProperties;
 import mondrian.olap.Util;
 import mondrian.olap.Util.PropertyList;
 import org.apache.log4j.Logger;
+import org.devgateway.eudevfin.auth.common.util.AuthUtils;
+import org.devgateway.eudevfin.financial.util.FinancialTransactionUtil;
+import org.joda.money.CurrencyUnit;
 
 import java.io.InputStream;
-import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
@@ -78,7 +80,14 @@ public class SchemaProcessor extends LocalizingDynamicSchemaProcessor {
 
         String countryCurrency = connectInfo.get("COUNTRY_CURRENCY");
         if (countryCurrency == null || countryCurrency.equals("")) {
-            countryCurrency = DEFAULT_COUNTRY_CURRENCY;
+            CurrencyUnit currencyForCountryIso = FinancialTransactionUtil
+                    .getCurrencyForCountryIso(AuthUtils
+                            .getIsoCountryForCurrentUser());
+            if (currencyForCountryIso != null) {
+                countryCurrency = currencyForCountryIso.getCode();
+            } else {
+                countryCurrency = DEFAULT_COUNTRY_CURRENCY;
+            }
         }
 
 //		String locale = connectInfo.get("LOCALE");
