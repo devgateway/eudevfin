@@ -11,62 +11,106 @@ function addNetODATable (parametersJson) {
 
     var table = new app.TableModel(_.extend(parametersJson, {
         postFetch: function (values) {
-	        var i, j , k, NUMBER_OF_YEARS = 3, noResults = true,
+	        var i, k,
+                item,
+                NUMBER_OF_YEARS = 3,
+                FIRST_YEAR = 2011,
+                noResults = true,
 		        len = values.resultset.length;
 
-			// set 0 for all 'null' values
-	        for(i = 0; i < len; i++) {
-		        k = values.resultset[i].length;
+            if(values.metadata[1].colName != FIRST_YEAR) {
+                item = {
+                    colIndex: 1,
+                    colName: "" + FIRST_YEAR,
+                    colType: "Numeric"
+                }
 
-		        // set the 'noResults' flag to false
-		        // indicate that we received at least 2 columns of results from the server
-		        // the first column is the one with headers: 'Curent (USD)', 'Bilateral share', etc..
-		        if (k > 1) {
-			        noResults = false;
-		        }
+                // add the new dimension
+                values.metadata.splice(1, 0, item);
+                for(i = 0; i < len; i++) {
+                    values.resultset[i].splice(1, 0, null);
+                }
 
-		        for(j = 1; j < k; j++) {
-					if (values.resultset[i][j] === null || values.resultset[i][j] === undefined || values.resultset[i][j] === NaN) {
-						values.resultset[i][j] = 0;
-					}
-		        }
-	        }
+                // update the 'colIndex' property
+                for(i = 2; i < values.metadata.length; i++) {
+                    values.metadata[i].colIndex = i;
+                }
+            }
 
-	        // if we don't have any results, update the 'values' variable
-	        // we can not use 'values.queryInfo.totalRows' variable here because the query
-	        // will always return the first column ('Curent (USD)', 'Bilateral share', etc..)
-	        if (noResults) {
-		        values.metadata = [];
-		        values.resultset = [];
-		        values.queryInfo.totalRows = 0;
+            if(values.metadata[2].colName != (FIRST_YEAR + 1)) {
+                item = {
+                    colIndex: 2,
+                    colName: "" + (FIRST_YEAR + 1),
+                    colType: "Numeric"
+                }
 
-		        return values;
-	        }
+                // add the new dimension
+                values.metadata.splice(2, 0, item);
+                for(i = 0; i < len; i++) {
+                    values.resultset[i].splice(2, 0, null);
+                }
 
-	        // add dummy data id we don't have any for some of the years
-	        for (i = 0; i < len; i++) {
-		        k = values.resultset[i].length;
-		        for(j = k; j <= NUMBER_OF_YEARS; j++) {
-			        values.resultset[i][j] = 0;
-		        }
+                // update the 'colIndex' property
+                for(i = 3; i < values.metadata.length; i++) {
+                    values.metadata[i].colIndex = i;
+                }
+            }
 
-		        values.metadata.push({
-			        colIndex: k,
-			        colName: "year",
-			        colType: "Numeric"
-		        });
-	        }
+            if(values.metadata[3].colName != (FIRST_YEAR + 2)) {
+                item = {
+                    colIndex: 3,
+                    colName: "" + (FIRST_YEAR + 2),
+                    colType: "Numeric"
+                }
+
+                // add the new dimension
+                values.metadata.splice(3, 0, item);
+                for(i = 0; i < len; i++) {
+                    values.resultset[i].splice(3, 0, null);
+                }
+
+                // update the 'colIndex' property
+                for(i = 4; i < values.metadata.length; i++) {
+                    values.metadata[i].colIndex = i;
+                }
+            }
+
+            // set the 'noResults' flag to false
+            // indicate that we received at least 2 columns of results from the server
+            // the first column is the one with headers: 'Curent (USD)', 'Bilateral share', etc..
+            if (values.resultset[0].length > 1) {
+                noResults = false;
+            }
+
+            // if we don't have any results, update the 'values' variable
+            // we can not use 'values.queryInfo.totalRows' variable here because the query
+            // will always return the first column ('Curent (USD)', 'Bilateral share', etc..)
+            if (noResults) {
+                values.metadata = [];
+                values.resultset = [];
+                values.queryInfo.totalRows = 0;
+
+                return values;
+            }
 
 	        // add '2012 / 2013' type of column
 	        for(i = 0; i < len - 2; i++) {
 		        // add (last_year - 1 / last_year) column
-		        values.resultset[i][NUMBER_OF_YEARS + 1] = values.resultset[i][NUMBER_OF_YEARS - 1] / values.resultset[i][NUMBER_OF_YEARS];
+                if (values.resultset[i][NUMBER_OF_YEARS - 1] === 0 || values.resultset[i][NUMBER_OF_YEARS - 1] === null) {
+                    values.resultset[i][NUMBER_OF_YEARS + 1] = null;
+                } else {
+                    if (values.resultset[i][NUMBER_OF_YEARS] === 0 || values.resultset[i][NUMBER_OF_YEARS] === null) {
+                        values.resultset[i][NUMBER_OF_YEARS + 1] = null;
+                    } else {
+                        values.resultset[i][NUMBER_OF_YEARS + 1] = values.resultset[i][NUMBER_OF_YEARS - 1] / values.resultset[i][NUMBER_OF_YEARS];
+                    }
+                }
 	        }
 
 	        for(i = len - 2; i < len; i++) {
 		        k = values.resultset[i].length;
 		        // add (last_year - 1 / last_year) column
-		        values.resultset[i][NUMBER_OF_YEARS + 1] = 0;
+		        values.resultset[i][NUMBER_OF_YEARS + 1] = null;
 	        }
 
 	        // add colIndex, colName and colType metadata

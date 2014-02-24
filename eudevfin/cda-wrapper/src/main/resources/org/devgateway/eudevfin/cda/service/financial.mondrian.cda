@@ -39,6 +39,7 @@
 		]]></Query>
     </DataAccess>
 
+    <!-- used for ODA@Glance -->
 	<DataAccess id="netODATable"
 	            connection="defaultConnectionLocale"
 	            type="mdx"
@@ -79,7 +80,7 @@
 			<![CDATA[
 			SELECT
 			NON EMPTY {[Measures].[Net Amount Currency OECD]} ON COLUMNS,
-			TOPCOUNT([Country].[Name].Members, 10, [Measures].[Net Amount Currency OECD]) ON ROWS
+			NON EMPTY TOPCOUNT([Country].[Name].Members, 10, [Measures].[Net Amount Currency OECD]) ON ROWS
 			FROM [Financial]
 			WHERE {[Type of Flow].[Name].[ODA (Official Development Assistance)]}
 		]]>
@@ -156,129 +157,6 @@
 			NON EMPTY {[Measures].[Net Amount Currency OECD]} ON COLUMNS,
 			NON EMPTY TOPCOUNT(CrossJoin([Sector].[Name].Members, {[Type of Flow].[Name].[ODA (Official Development Assistance)]}), 10, [Measures].[Net Amount Currency OECD]) ON ROWS
 			FROM [Financial]
-        ]]>
-		</Query>
-	</DataAccess>
-
-    <!-- queries used for the demo -->
-    <DataAccess id="extendingAgenciesList"
-                connection="defaultConnectionLocale"
-                type="mdx"
-                access="public">
-	    <BandedMode>compact</BandedMode>
-	    <Columns/>
-		<Name>extendingAgenciesList MDX</Name>
-        <Query>
-        <![CDATA[
-			SELECT
-            NON EMPTY {[Measures].[Commitments Amount]} ON COLUMNS,
-            NON EMPTY {[Extending Agency].[Acronym].Members} ON ROWS
-            FROM [Financial]
-		]]>
-		</Query>       
-    </DataAccess>
-
-    <DataAccess id="sectorList"
-                connection="defaultConnectionLocale"
-                type="mdx"
-                access="public">
-	    <BandedMode>compact</BandedMode>
-	    <Columns/>
-        <Name>sectorList MDX</Name>
-        <Query>
-        <![CDATA[
-            SELECT
-            NON EMPTY {[Measures].[Commitments Amount]} ON COLUMNS,
-            NON EMPTY {[Sector].[Name].Members} ON ROWS
-            FROM [Financial]
-        ]]>
-        </Query>
-    </DataAccess>
-
-	<DataAccess id="biMultilateralList"
-	            connection="defaultConnectionLocale"
-	            type="mdx"
-	            access="public">
-		<BandedMode>compact</BandedMode>
-		<Columns/>
-		<Name>biMultilateralList MDX</Name>
-		<Query>
-			<![CDATA[
-            SELECT
-			NON EMPTY {[Measures].[Commitments Amount]} ON COLUMNS,
-			NON EMPTY {Hierarchize({[BiMultilateral].[Name].Members})} ON ROWS
-			FROM [Financial]
-        ]]>
-		</Query>
-	</DataAccess>
-
-	<!--cache="true"-->
-	<!--cacheDuration="172800"-->
-	<DataAccess id="typeOfFinance"
-	            connection="defaultConnectionLocale"
-	            type="mdx"
-	            access="public">
-		<BandedMode>compact</BandedMode>
-		<Columns/>
-		<Name>Table Dashboard MDX</Name>
-		<Parameters>
-			<Parameter default="[All Sectors]" name="app.sectorListParameter" type="String"/>
-			<Parameter default="[All Extending Agencies]" name="app.extendingAgenciesListParameter" type="String"/>
-			<Parameter default="[All BiMultilaterals]" name="app.biMultilateralListParameter" type="String"/>
-		</Parameters>
-		<Query>
-			<![CDATA[
-            SELECT
-			Hierarchize(Union(CrossJoin({[Reporting Year].[2009]}, {[Measures].[Commitments Amount]}), Union(CrossJoin({[Reporting Year].[2010]}, {[Measures].[Commitments Amount]}), Union(CrossJoin({[Reporting Year].[2011]}, {[Measures].[Commitments Amount]}), Union(CrossJoin({[Reporting Year].[2012]}, {[Measures].[Commitments Amount]}), CrossJoin({[Reporting Year].[2013]}, {[Measures].[Commitments Amount]})))))) ON COLUMNS,
-			NON EMPTY {Hierarchize({[Type of Finance].[Name].Members})} ON ROWS
-			FROM [Financial]
-			WHERE ([BiMultilateral].${app.biMultilateralListParameter}, [Extending Agency].${app.extendingAgenciesListParameter}, [Sector].${app.sectorListParameter})
-        ]]>
-		</Query>
-	</DataAccess>
-
-	<DataAccess id="typeOfAid"
-	            connection="defaultConnectionLocale"
-	            type="mdx"
-	            access="public">
-		<BandedMode>compact</BandedMode>
-		<Columns/>
-		<Name>typeOfAid MDX</Name>
-		<Parameters>
-			<Parameter default="[All Sectors]" name="app.sectorListParameter" type="String"/>
-			<Parameter default="[All Extending Agencies]" name="app.extendingAgenciesListParameter" type="String"/>
-			<Parameter default="[All BiMultilaterals]" name="app.biMultilateralListParameter" type="String"/>
-		</Parameters>
-		<Query>
-			<![CDATA[
-            SELECT
-			NON EMPTY {[Measures].[Commitments Amount]} ON COLUMNS,
-			NON EMPTY {Hierarchize({[Type of Aid].[Name].Members})} ON ROWS
-			FROM [Financial]
-			WHERE ([BiMultilateral].${app.biMultilateralListParameter}, [Extending Agency].${app.extendingAgenciesListParameter}, [Sector].${app.sectorListParameter})
-        ]]>
-		</Query>
-	</DataAccess>
-
-	<DataAccess id="typeOfFlow"
-	            connection="defaultConnectionLocale"
-	            type="mdx"
-	            access="public">
-		<BandedMode>compact</BandedMode>
-		<Columns/>
-		<Name>typeOfFlow MDX</Name>
-		<Parameters>
-			<Parameter default="[All Sectors]" name="app.sectorListParameter" type="String"/>
-			<Parameter default="[All Extending Agencies]" name="app.extendingAgenciesListParameter" type="String"/>
-			<Parameter default="[All BiMultilaterals]" name="app.biMultilateralListParameter" type="String"/>
-		</Parameters>
-		<Query>
-			<![CDATA[
-            SELECT
-			NON EMPTY {[Measures].[Commitments Amount]} ON COLUMNS,
-			NON EMPTY {Hierarchize({[Type of Flow].[Name].Members})} ON ROWS
-			FROM [Financial]
-			WHERE ([BiMultilateral].${app.biMultilateralListParameter}, [Extending Agency].${app.extendingAgenciesListParameter}, [Sector].${app.sectorListParameter})
         ]]>
 		</Query>
 	</DataAccess>

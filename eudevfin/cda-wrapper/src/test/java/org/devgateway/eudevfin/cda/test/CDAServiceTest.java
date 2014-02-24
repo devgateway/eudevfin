@@ -25,6 +25,8 @@ import static org.junit.Assert.assertTrue;
         "classpath:META-INF/financialContext.xml",
         "classpath:META-INF/commonFinancialContext.xml",
         "classpath:META-INF/importMetadataContext.xml",
+        "classpath:META-INF/exchangeContext.xml",
+        "classpath:META-INF/commonExchangeContext.xml",
         "classpath:META-INF/cdaContext.xml",
         "classpath:testCDAContext.xml"
 })
