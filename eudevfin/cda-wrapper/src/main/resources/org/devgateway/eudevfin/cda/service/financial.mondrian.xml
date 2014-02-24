@@ -399,7 +399,7 @@
         <Measure name="Extended Amount Currency OECD" aggregator="sum" visible="true">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    (CASE WHEN coefficient IS NULL THEN AMOUNTS_EXTENDED_AMOUNT ELSE (AMOUNTS_EXTENDED_AMOUNT * COEFFICIENT) / 100  END * (SELECT AVG(RATE)
+                    (CASE WHEN coefficient IS NULL THEN AMOUNTS_EXTENDED_AMOUNT ELSE (AMOUNTS_EXTENDED_AMOUNT * COEFFICIENT) / 100  END * Cast((SELECT AVG(RATE)
                     FROM
                     HISTORICALEXCHANGERATE
                     WHERE
@@ -407,14 +407,14 @@
                     BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXTENDED_CURR" AND
                     "FINANCIALTRANSACTIONVIEW"."DRAFT" IS NOT NULL AND
                     COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")))
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(8, 2)))
                 </SQL>
             </MeasureExpression>
         </Measure>
         <Measure name="Extended Amount Currency National" aggregator="sum" visible="true">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    (CASE WHEN coefficient IS NULL THEN AMOUNTS_EXTENDED_AMOUNT ELSE (AMOUNTS_EXTENDED_AMOUNT * COEFFICIENT) / 100  END * (SELECT AVG(RATE)
+                    (CASE WHEN coefficient IS NULL THEN AMOUNTS_EXTENDED_AMOUNT ELSE (AMOUNTS_EXTENDED_AMOUNT * COEFFICIENT) / 100  END * Cast((SELECT AVG(RATE)
                     FROM
                     HISTORICALEXCHANGERATE
                     WHERE
@@ -422,7 +422,7 @@
                     BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXTENDED_CURR" AND
                     "FINANCIALTRANSACTIONVIEW"."DRAFT" IS NOT NULL AND
                     COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")))
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(8, 2)))
                 </SQL>
             </MeasureExpression>
         </Measure>
@@ -434,28 +434,28 @@
         <Measure name="Received Amount Currency OECD" aggregator="sum" visible="true">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    (CASE WHEN coefficient IS NULL THEN AMOUNTS_RECEIVED_AMOUNT ELSE (AMOUNTS_RECEIVED_AMOUNT * COEFFICIENT) / 100  END * (SELECT AVG(RATE)
+                    (CASE WHEN coefficient IS NULL THEN AMOUNTS_RECEIVED_AMOUNT ELSE (AMOUNTS_RECEIVED_AMOUNT * COEFFICIENT) / 100  END * Cast((SELECT AVG(RATE)
                     FROM
                     HISTORICALEXCHANGERATE
                     WHERE
                     SOURCE = 'OECD' AND
                     BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_RECEIVED_CURR" AND
                     COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")))
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(8, 2)))
                 </SQL>
             </MeasureExpression>
         </Measure>
         <Measure name="Received Amount Currency National" aggregator="sum" visible="true">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    (CASE WHEN coefficient IS NULL THEN AMOUNTS_RECEIVED_AMOUNT ELSE (AMOUNTS_RECEIVED_AMOUNT * COEFFICIENT) / 100  END * (SELECT AVG(RATE)
+                    (CASE WHEN coefficient IS NULL THEN AMOUNTS_RECEIVED_AMOUNT ELSE (AMOUNTS_RECEIVED_AMOUNT * COEFFICIENT) / 100  END * Cast((SELECT AVG(RATE)
                     FROM
                     HISTORICALEXCHANGERATE
                     WHERE
                     SOURCE = 'National' AND
                     BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_RECEIVED_CURR" AND
                     COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")))
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(8, 2)))
                 </SQL>
             </MeasureExpression>
         </Measure>
