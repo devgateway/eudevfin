@@ -102,7 +102,7 @@ function addNetODATable (parametersJson) {
                     if (values.resultset[i][NUMBER_OF_YEARS] === 0 || values.resultset[i][NUMBER_OF_YEARS] === null) {
                         values.resultset[i][NUMBER_OF_YEARS + 1] = null;
                     } else {
-                        values.resultset[i][NUMBER_OF_YEARS + 1] = values.resultset[i][NUMBER_OF_YEARS - 1] / values.resultset[i][NUMBER_OF_YEARS];
+                        values.resultset[i][NUMBER_OF_YEARS + 1] = (values.resultset[i][NUMBER_OF_YEARS - 1] / values.resultset[i][NUMBER_OF_YEARS]) * 100;
                     }
                 }
 	        }
