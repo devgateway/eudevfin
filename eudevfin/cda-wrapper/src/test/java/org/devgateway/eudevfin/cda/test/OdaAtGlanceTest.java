@@ -228,7 +228,7 @@ public class OdaAtGlanceTest {
         ft.setReportingYear(LocalDateTime.parse((2013) + "-07-01"));
         ft.setTypeOfFlow(typeOfFlow);
         ft.setTypeOfFinance(typeOfFinance);
-        ft.setAmountsExtended(BigMoney.parse("EUR " + 6000));
+        ft.setAmountsExtended(BigMoney.parse("EUR " + 60));
 
         txDao.save(ft);
         transactions.add(ft);           // save the transaction so we can delete it later
