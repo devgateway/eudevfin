@@ -39,6 +39,24 @@
 		]]></Query>
     </DataAccess>
 
+    <!-- used for testing (OdaAtGlanceTest.java) -->
+    <DataAccess id="nonFlowData"
+                connection="defaultConnectionLocale"
+                type="mdx"
+                access="public">
+        <BandedMode>compact</BandedMode>
+        <Columns/>
+        <Name>Non Flow Data</Name>
+        <Query>
+            <![CDATA[
+			SELECT
+            NON EMPTY CrossJoin([Reporting Year].[Reporting Year].Members, {[Measures].[Extended Amount No Flow]}) ON COLUMNS,
+            NON EMPTY {Hierarchize({[Type of Finance].[Name].Members})} ON ROWS
+            FROM [Financial]
+		]]>
+        </Query>
+    </DataAccess>
+
     <!-- used for ODA@Glance -->
 	<DataAccess id="netODATable"
 	            connection="defaultConnectionLocale"
