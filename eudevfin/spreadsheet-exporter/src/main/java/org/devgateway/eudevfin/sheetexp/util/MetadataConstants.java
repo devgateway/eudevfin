@@ -30,6 +30,8 @@ public class MetadataConstants {
 
 	public static final String DATA_TYPE = "data-type";
 	
+	public static final String REPORT_TYPE_PARAM = "reportType";
+	
 	public static final String FSS_REPORT_TYPE = "fss";
 	public static final String CRS_REPORT_TYPE = "crs";
 }

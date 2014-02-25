@@ -18,28 +18,31 @@ import org.joda.time.LocalDateTime;
 
 public class TransformationStarter {
 	
-	List<EntityWrapperInterface<?>> finalList;
+	private List<EntityWrapperInterface<?>> finalList;
+	private Filter filter;
 
 	public TransformationStarter prepareTransformation(final Filter filter, final CustomFinancialTransactionService txService) {
 		final LocalDateTime now = LocalDateTime.now();
-		final HeaderEntityWrapper<String> header = new HeaderEntityWrapper<String>(MetadataConstants.FSS_REPORT_TYPE,
+		final HeaderEntityWrapper<String> header = new HeaderEntityWrapper<String>(filter.getExportType(),
 				now, "en");
 		
 		this.finalList = new ArrayList<EntityWrapperInterface<?>>();
 		this.finalList.add(header);
 		
 		final List<CustomFinancialTransaction> txList = txService.findByReportingYearAndDraftFalse(filter.getYear());
-		new EntityWrapperListHelper<CustomFinancialTransaction>(txList, MetadataConstants.FSS_REPORT_TYPE, now, "en")
+		new EntityWrapperListHelper<CustomFinancialTransaction>(txList, filter.getExportType(), now, "en")
 				.addToWrappedList(this.finalList);
 		
+		this.filter	= filter;
 		return this;
 		
 	}
 
 	public void executeTransformation(final HttpServletResponse response, final SpreadsheetTransformerService transformerService) {
 		try {
+			final String filename	= this.filter.getExportType() + "-export.xls";
 			response.setContentType("application/vnd.ms-excel");
-			response.setHeader("Content-Disposition", "inline; filename=fss.xls");
+			response.setHeader("Content-Disposition", "inline; filename=" + filename);
 			final OutputStream out				= response.getOutputStream();
 			transformerService.createSpreadsheetOnStream(this.finalList, this.finalList.size(),
 					new BufferedOutputStream(out) );

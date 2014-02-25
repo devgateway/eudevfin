@@ -3,8 +3,6 @@
  */
 package org.devgateway.eudevfin.sheetexp.transformer;
 
-import java.util.List;
-
 import javax.annotation.PostConstruct;
 
 import org.devgateway.eudevfin.exchange.common.service.ExchangeRateUtil;
@@ -30,19 +28,6 @@ public class FssRowTransformer extends AbstractRowTransformer<EntityWrapperInter
 		this.createAllCellTransformers();
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@Override
-	protected void createHeader(final EntityWrapperInterface src, final MetadataRow row) {
-		super.createHeader(src, row);
-		final List<CellTransformerInterface<EntityWrapperInterface, ?>> cellTransformerList	= this.getCellTransformerList();
-		for (final CellTransformerInterface cellTransformerInterface : cellTransformerList) {
-			final AbstractFssCellTransformer<String> cellTransformer	= 
-					(AbstractFssCellTransformer<String>) cellTransformerInterface;
-			row.add( this.createHeaderCell(cellTransformer.getHeaderName()) );
-		}
-	}
-	
-	
 	@Override
 	public MetadataRow transform(final EntityWrapperInterface src) throws SpreadsheetTransformationException {
 		if ( src != null && src.getEntity() != null) {
@@ -54,81 +39,83 @@ public class FssRowTransformer extends AbstractRowTransformer<EntityWrapperInter
 
 
 	private void createAllCellTransformers() {
-		this.addCellTransformer( CellTransformerImplementations.EXTRACTION_DATE_TRANS );
+		this.addCellTransformer( new CellTransformerImplementations.EXTRACTION_DATE_TRANS("ExtractionDate") );
 		
-		this.addCellTransformer( CellTransformerImplementations.DISBURSEMENT_YEAR_TRANS );
+		//this maps to FSS -> Disbursement year
+		this.addCellTransformer( new CellTransformerImplementations.REPORTING_YEAR("DisbursementYear") );
 				
-		this.addCellTransformer( CellTransformerImplementations.DONOR_CODE ) ;
+		this.addCellTransformer( new CellTransformerImplementations.DONOR_CODE("DonorCode") ) ;
 		
-		this.addCellTransformer( CellTransformerImplementations.DONOR );
+		this.addCellTransformer( new CellTransformerImplementations.DONOR("Donor") );
 		
-		this.addCellTransformer( CellTransformerImplementations.AGENCY_CODE );
-		this.addCellTransformer( CellTransformerImplementations.CRSID );
-		this.addCellTransformer( CellTransformerImplementations.PROJECT_NUMBER );
+		// agency code
+		this.addCellTransformer( new CellTransformerImplementations.AGENCY_CODE("AgencyCode") );
+		this.addCellTransformer( new CellTransformerImplementations.CRSID("CRSID") );
+		this.addCellTransformer( new CellTransformerImplementations.PROJECT_NUMBER("ProjectNumber") );
 		//missing certainty code
-		this.addCellTransformer( CellTransformerImplementations.RECIPIENT_CODE );
-		this.addCellTransformer( CellTransformerImplementations.RECIPIENT );
-		this.addCellTransformer( CellTransformerImplementations.REGION );
-		this.addCellTransformer( CellTransformerImplementations.PRIORITY_CODE );
-		this.addCellTransformer( CellTransformerImplementations.PHASE_OUT );
-		this.addCellTransformer( CellTransformerImplementations.CHANNEL );
-		this.addCellTransformer( CellTransformerImplementations.CHANNEL_CODE );
+		this.addCellTransformer( new CellTransformerImplementations.RECIPIENT_CODE("RecipientCode") );
+		this.addCellTransformer( new CellTransformerImplementations.RECIPIENT("Recipient") );
+		this.addCellTransformer( new CellTransformerImplementations.REGION("Region") );
+		this.addCellTransformer( new CellTransformerImplementations.PRIORITY_CODE("Priority") );
+		this.addCellTransformer( new CellTransformerImplementations.PHASE_OUT("PhaseOut") );
+		this.addCellTransformer( new CellTransformerImplementations.CHANNEL("Channel") );
+		this.addCellTransformer( new CellTransformerImplementations.CHANNEL_CODE("ChannelCode") );
 		
-		this.addCellTransformer( CellTransformerImplementations.BI_MULTI );
-		this.addCellTransformer( CellTransformerImplementations.FLOW_CODE );
+		this.addCellTransformer( new CellTransformerImplementations.BI_MULTI_CODE("Bi_multi") );
+		this.addCellTransformer( new CellTransformerImplementations.FLOW_CODE("FlowCode") );
 		
-		this.addCellTransformer( CellTransformerImplementations.FINANCE_T );
-		this.addCellTransformer( CellTransformerImplementations.AID_T );
-		this.addCellTransformer( CellTransformerImplementations.SHORT_DESCRIPTION );
+		this.addCellTransformer( new CellTransformerImplementations.TYPE_OF_FINANCE_CODE("Finance_t") );
+		this.addCellTransformer( new CellTransformerImplementations.TYPE_OF_AID_CODE("Aid_t") );
+		this.addCellTransformer( new CellTransformerImplementations.SHORT_DESCRIPTION("ShortDescription") );
 		//missing exclusion
-		this.addCellTransformer( CellTransformerImplementations.PURPOSE_CODE );
-		this.addCellTransformer( CellTransformerImplementations.MAIN_SECTOR );
-		this.addCellTransformer( CellTransformerImplementations.GEOGRAPHY );
-		this.addCellTransformer( CellTransformerImplementations.EXPECTED_START_DATE );
-		this.addCellTransformer( CellTransformerImplementations.COMPLETION_DATE );
+		this.addCellTransformer( new CellTransformerImplementations.PURPOSE_CODE("PurposeCode") );
+		this.addCellTransformer( new CellTransformerImplementations.MAIN_SECTOR("MainSector") );
+		this.addCellTransformer( new CellTransformerImplementations.GEOGRAPHY("Geography") );
+		this.addCellTransformer( new CellTransformerImplementations.EXPECTED_START_DATE("ExpectedStartDate") );
+		this.addCellTransformer( new CellTransformerImplementations.COMPLETION_DATE("CompletionDate") );
 		
-		this.addCellTransformer( CellTransformerImplementations.LONG_DESCRIPTION );
-		this.addCellTransformer( CellTransformerImplementations.GENDER );
-		this.addCellTransformer( CellTransformerImplementations.ENVIRONMENT );
-		this.addCellTransformer( CellTransformerImplementations.PDGG );
-		this.addCellTransformer( CellTransformerImplementations.TRADE_DEVELOPMENT );
-		this.addCellTransformer( CellTransformerImplementations.FTC );
-		this.addCellTransformer( CellTransformerImplementations.PBA );
-		this.addCellTransformer( CellTransformerImplementations.INVESTMENT_PROJECT );
-		this.addCellTransformer( CellTransformerImplementations.ASSOC_FINANCE );
-		this.addCellTransformer( CellTransformerImplementations.BIODIVERSITY );
-		this.addCellTransformer( CellTransformerImplementations.CLIMATE_MITIGATION );
-		this.addCellTransformer( CellTransformerImplementations.CLIMATE_ADAPTATION );
-		this.addCellTransformer( CellTransformerImplementations.DESERTIFICATION );
-		this.addCellTransformer( CellTransformerImplementations.CURRENCY_CODE );
+		this.addCellTransformer( new CellTransformerImplementations.LONG_DESCRIPTION("LongDescription") );
+		this.addCellTransformer( new CellTransformerImplementations.GENDER("Gender") );
+		this.addCellTransformer( new CellTransformerImplementations.ENVIRONMENT("Environment") );
+		this.addCellTransformer( new CellTransformerImplementations.PDGG("PDGG") );
+		this.addCellTransformer( new CellTransformerImplementations.TRADE_DEVELOPMENT_CODE("TradeDevelopment") );
+		this.addCellTransformer( new CellTransformerImplementations.FTC_1_0("FTC") );
+		this.addCellTransformer( new CellTransformerImplementations.PBA_1_0("PBA") );
+		this.addCellTransformer( new CellTransformerImplementations.INVESTMENT_PROJECT_1_0("InvestmentProject") );
+		this.addCellTransformer( new CellTransformerImplementations.ASSOC_FINANCE_1_0("AssocFinance") );
+		this.addCellTransformer( new CellTransformerImplementations.BIODIVERSITY_CODE("Biodiversity") );
+		this.addCellTransformer( new CellTransformerImplementations.CLIMATE_MITIGATION_CODE("ClimateMitigation") );
+		this.addCellTransformer( new CellTransformerImplementations.CLIMATE_ADAPTATION_CODE("ClimateAdaptation") );
+		this.addCellTransformer( new CellTransformerImplementations.DESERTIFICATION_CODE("Desertification") );
+		this.addCellTransformer( new CellTransformerImplementations.CURRENCY_CODE("CurrencyCode") );
 		
-		this.addCellTransformer( new CellTransformerImplementations.COMMITMENT_LC (this.exchangeRateUtil) );
-		this.addCellTransformer( new CellTransformerImplementations.DISBURSEMENT_LC (this.exchangeRateUtil) );
-		this.addCellTransformer( new CellTransformerImplementations.RECEIVED(this.exchangeRateUtil) );
-		this.addCellTransformer( new CellTransformerImplementations.AMOUNT_TIED(this.exchangeRateUtil) );
-		this.addCellTransformer( new CellTransformerImplementations.AMOUNT_PARTIALLY_UNTIED(this.exchangeRateUtil) );
-		this.addCellTransformer( new CellTransformerImplementations.AMOUNT_UNTIED (this.exchangeRateUtil) );
-		this.addCellTransformer( new CellTransformerImplementations.IRTC (this.exchangeRateUtil) );
-		this.addCellTransformer( new CellTransformerImplementations.EXPERT_COMMITMENT(this.exchangeRateUtil) );
-		this.addCellTransformer( new CellTransformerImplementations.EXPERT_EXTENDED(this.exchangeRateUtil) );
-		this.addCellTransformer( new CellTransformerImplementations.EXPORT_CREDIT (this.exchangeRateUtil) );
+		this.addCellTransformer( new CellTransformerImplementations.COMMITMENT_LC (this.exchangeRateUtil, "Commitment_LC") );
+		this.addCellTransformer( new CellTransformerImplementations.AMOUNTS_EXTENDED (this.exchangeRateUtil, "Disbursement_LC") );
+		this.addCellTransformer( new CellTransformerImplementations.RECEIVED(this.exchangeRateUtil, "Received") );
+		this.addCellTransformer( new CellTransformerImplementations.AMOUNT_TIED(this.exchangeRateUtil, "AmountUntied") );
+		this.addCellTransformer( new CellTransformerImplementations.AMOUNT_PARTIALLY_UNTIED(this.exchangeRateUtil, "AmountPartiallyUntied") );
+		this.addCellTransformer( new CellTransformerImplementations.AMOUNT_UNTIED (this.exchangeRateUtil, "AmountTied") );
+		this.addCellTransformer( new CellTransformerImplementations.IRTC (this.exchangeRateUtil, "IRTC") );
+		this.addCellTransformer( new CellTransformerImplementations.EXPERT_COMMITMENT(this.exchangeRateUtil, "Expert_commitment") );
+		this.addCellTransformer( new CellTransformerImplementations.EXPERT_EXTENDED(this.exchangeRateUtil, "Expert_extended") );
+		this.addCellTransformer( new CellTransformerImplementations.EXPORT_CREDIT (this.exchangeRateUtil, "ExportCredit") );
 		
-		this.addCellTransformer( CellTransformerImplementations.COMMITMENT_DATE );
-		this.addCellTransformer( CellTransformerImplementations.TYPE_OF_REPAYMENT );
-		this.addCellTransformer( CellTransformerImplementations.NUMBER_REPAYMENT );
-		this.addCellTransformer( CellTransformerImplementations.INTEREST1 );
-		this.addCellTransformer( CellTransformerImplementations.INTEREST2 );
-		this.addCellTransformer( CellTransformerImplementations.REPAY_DATE1 );
-		this.addCellTransformer( CellTransformerImplementations.REPAY_DATE2 );
+		this.addCellTransformer( new CellTransformerImplementations.COMMITMENT_DATE("CommitmentDate") );
+		this.addCellTransformer( new CellTransformerImplementations.TYPE_OF_REPAYMENT_CODE("TypeOfRepayment") );
+		this.addCellTransformer( new CellTransformerImplementations.NUMBER_OF_REPAYMENT_CODE("NumberRepayment") );
+		this.addCellTransformer( new CellTransformerImplementations.INTEREST1("Interest1") );
+		this.addCellTransformer( new CellTransformerImplementations.INTEREST2("Interest2") );
+		this.addCellTransformer( new CellTransformerImplementations.REPAY_DATE1("RepayDate1") );
+		this.addCellTransformer( new CellTransformerImplementations.REPAY_DATE2("RepayDate2") );
 		
-		this.addCellTransformer( new CellTransformerImplementations.INTEREST_RECEIVED (this.exchangeRateUtil) );
-		this.addCellTransformer( new CellTransformerImplementations.OUTSTANDING (this.exchangeRateUtil) );
-		this.addCellTransformer( new CellTransformerImplementations.ARREARS_OF_PRINCIPAL (this.exchangeRateUtil) );
-		this.addCellTransformer( new CellTransformerImplementations.ARREARS_OF_INTEREST (this.exchangeRateUtil) );
-		this.addCellTransformer( new CellTransformerImplementations.FUTURE_DS_PRINCIPAL (this.exchangeRateUtil) );
-		this.addCellTransformer( new CellTransformerImplementations.FUTURE_DS_INTEREST (this.exchangeRateUtil) );
+		this.addCellTransformer( new CellTransformerImplementations.INTEREST_RECEIVED (this.exchangeRateUtil, "Interest") );
+		this.addCellTransformer( new CellTransformerImplementations.OUTSTANDING (this.exchangeRateUtil, "Outstanding") );
+		this.addCellTransformer( new CellTransformerImplementations.ARREARS_OF_PRINCIPAL (this.exchangeRateUtil, "Arrears_principal") );
+		this.addCellTransformer( new CellTransformerImplementations.ARREARS_OF_INTEREST (this.exchangeRateUtil, "Arrears_interest") );
+		this.addCellTransformer( new CellTransformerImplementations.FUTURE_DS_PRINCIPAL (this.exchangeRateUtil, "Future_DS_principal") );
+		this.addCellTransformer( new CellTransformerImplementations.FUTURE_DS_INTEREST (this.exchangeRateUtil, "Future_DS_interest") );
 		
-		this.addCellTransformer( CellTransformerImplementations.NOTES );
+		this.addCellTransformer( new CellTransformerImplementations.NOTES("Notes") );
 	}
 	
 	

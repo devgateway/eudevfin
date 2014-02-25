@@ -14,10 +14,10 @@ import org.joda.time.LocalDateTime;
 
 public class CellTransformerImplementations {
 
-	public static AbstractFssCellTransformer<LocalDateTime> EXTRACTION_DATE_TRANS = new AbstractFssCellTransformer<LocalDateTime>() {
-		@Override
-		public String getHeaderName() {
-			return "ExtractionDate";
+	public static class EXTRACTION_DATE_TRANS extends AbstractFssCellTransformer<LocalDateTime> {
+		
+		public EXTRACTION_DATE_TRANS(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -32,12 +32,12 @@ public class CellTransformerImplementations {
 			return cell;
 		}
 
-	};
+	}
 
-	public static AbstractFssCellTransformer<String> DISBURSEMENT_YEAR_TRANS = new AbstractFssCellTransformer<String>() {
-		@Override
-		public String getHeaderName() {
-			return "DisbursementYear";
+	public static class REPORTING_YEAR extends AbstractFssCellTransformer<String> {
+		
+		public REPORTING_YEAR(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -51,12 +51,11 @@ public class CellTransformerImplementations {
 			return cell;
 
 		}
-	};
+	}
 
-	public static AbstractFssCellTransformer<String> DONOR_CODE = new AbstractFssCellTransformer<String>() {
-		@Override
-		public String getHeaderName() {
-			return "DonorCode";
+	public static class DONOR_CODE extends AbstractFssCellTransformer<String> {
+		public DONOR_CODE(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -69,12 +68,11 @@ public class CellTransformerImplementations {
 			this.setDataTypeToString(cell);
 			return cell;
 		}
-	};
+	}
 
-	public static AbstractFssCellTransformer<String> DONOR = new AbstractFssCellTransformer<String>() {
-		@Override
-		public String getHeaderName() {
-			return "Donor";
+	public static class DONOR extends AbstractFssCellTransformer<String> {
+		public DONOR(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -87,30 +85,45 @@ public class CellTransformerImplementations {
 			this.setDataTypeToString(cell);
 			return cell;
 		}
-	};
+	}
 
-	public static AbstractFssCellTransformer<String> AGENCY_CODE = new AbstractFssCellTransformer<String>() {
-		@Override
-		public String getHeaderName() {
-			return "AgencyCode";
+	public static class AGENCY_CODE extends AbstractFssCellTransformer<String> {
+		public AGENCY_CODE(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
 		public MetadataCell<String> innerTransform(final FinancialTransaction tx) {
 			String value = null;
 			if (tx.getExtendingAgency() != null) {
-				value = tx.getExtendingAgency().getName();
+				value = tx.getExtendingAgency().getCode();
 			}
 			final MetadataCell<String> cell = new MetadataCell<String>(value);
 			this.setDataTypeToString(cell);
 			return cell;
 		}
-	};
+	}
+	
+	public static class AGENCY_NAME extends AbstractFssCellTransformer<String> {
+		public AGENCY_NAME(final String headerName) {
+			super(headerName);
+		}
 
-	public static AbstractFssCellTransformer<String> CRSID = new AbstractFssCellTransformer<String>() {
 		@Override
-		public String getHeaderName() {
-			return "CRSID";
+		public MetadataCell<String> innerTransform(final FinancialTransaction tx) {
+			String value = null;
+			if (tx.getExtendingAgency() != null) {
+				value = tx.getExtendingAgency().getCode();
+			}
+			final MetadataCell<String> cell = new MetadataCell<String>(value);
+			this.setDataTypeToString(cell);
+			return cell;
+		}
+	}
+
+	public static class CRSID extends AbstractFssCellTransformer<String> {
+		public CRSID(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -121,12 +134,12 @@ public class CellTransformerImplementations {
 			this.setDataTypeToString(cell);
 			return cell;
 		}
-	};
+	}
 
-	public static AbstractFssCellTransformer<String> PROJECT_NUMBER = new AbstractFssCellTransformer<String>() {
-		@Override
-		public String getHeaderName() {
-			return "ProjectNumber";
+	public static class PROJECT_NUMBER extends AbstractFssCellTransformer<String> {
+
+		public PROJECT_NUMBER(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -137,12 +150,11 @@ public class CellTransformerImplementations {
 			this.setDataTypeToString(cell);
 			return cell;
 		}
-	};
+	}
 
-	public static AbstractFssCellTransformer<String> RECIPIENT_CODE = new AbstractFssCellTransformer<String>() {
-		@Override
-		public String getHeaderName() {
-			return "RecipientCode";
+	public static class RECIPIENT_CODE extends AbstractFssCellTransformer<String> {
+		public RECIPIENT_CODE(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -156,12 +168,11 @@ public class CellTransformerImplementations {
 			this.setDataTypeToString(cell);
 			return cell;
 		}
-	};
+	}
 
-	public static AbstractFssCellTransformer<String> RECIPIENT = new AbstractFssCellTransformer<String>() {
-		@Override
-		public String getHeaderName() {
-			return "Recipient";
+	public static class RECIPIENT extends AbstractFssCellTransformer<String> {
+		public RECIPIENT(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -174,12 +185,11 @@ public class CellTransformerImplementations {
 			this.setDataTypeToString(cell);
 			return cell;
 		}
-	};
+	}
 
-	public static AbstractFssCellTransformer<String> REGION = new AbstractFssCellTransformer<String>() {
-		@Override
-		public String getHeaderName() {
-			return "Region";
+	public static class REGION extends AbstractFssCellTransformer<String> {
+		public REGION(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -192,13 +202,13 @@ public class CellTransformerImplementations {
 			this.setDataTypeToString(cell);
 			return cell;
 		}
-	};
+	}
 
-	public static AbstractFssCellTransformer<String> PRIORITY_CODE = new AbstractFssCellTransformer<String>() {
-		@Override
-		public String getHeaderName() {
-			return "Priority";
+	public static class PRIORITY_CODE extends AbstractFssCellTransformer<String> {
+		public PRIORITY_CODE(final String headerName) {
+			super(headerName);
 		}
+
 
 		@Override
 		public MetadataCell<String> innerTransform(final FinancialTransaction tx) {
@@ -211,12 +221,11 @@ public class CellTransformerImplementations {
 			this.setDataTypeToString(cell);
 			return cell;
 		}
-	};
+	}
 
-	public static AbstractFssCellTransformer<String> PHASE_OUT = new AbstractFssCellTransformer<String>() {
-		@Override
-		public String getHeaderName() {
-			return "PhaseOut";
+	public static class PHASE_OUT extends AbstractFssCellTransformer<String> {
+		public PHASE_OUT(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -230,12 +239,11 @@ public class CellTransformerImplementations {
 			this.setDataTypeToString(cell);
 			return cell;
 		}
-	};
+	}
 
-	public static AbstractFssCellTransformer<String> CHANNEL = new AbstractFssCellTransformer<String>() {
-		@Override
-		public String getHeaderName() {
-			return "Channel";
+	public static class CHANNEL extends AbstractFssCellTransformer<String> {
+		public CHANNEL(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -248,9 +256,13 @@ public class CellTransformerImplementations {
 			this.setDataTypeToString(cell);
 			return cell;
 		}
-	};
+	}
 
-	public static AbstractFssCellTransformer<String> CHANNEL_CODE = new AbstractFssCellTransformer<String>() {
+	public static class CHANNEL_CODE extends AbstractFssCellTransformer<String> {
+		public CHANNEL_CODE(final String headerName) {
+			super(headerName);
+		}
+
 		@Override
 		public String getHeaderName() {
 			return "ChannelCode";
@@ -266,9 +278,13 @@ public class CellTransformerImplementations {
 			this.setDataTypeToString(cell);
 			return cell;
 		}
-	};
+	}
 
-	public static AbstractFssCellTransformer<String> BI_MULTI = new AbstractFssCellTransformer<String>() {
+	public static class BI_MULTI_CODE extends AbstractFssCellTransformer<String> {
+		public BI_MULTI_CODE(final String headerName) {
+			super(headerName);
+		}
+
 		@Override
 		public String getHeaderName() {
 			return "Bi_multi";
@@ -284,13 +300,13 @@ public class CellTransformerImplementations {
 			this.setDataTypeToString(cell);
 			return cell;
 		}
-	};
+	}
 
-	public static AbstractFssCellTransformer<String> FLOW_CODE = new AbstractFssCellTransformer<String>() {
-		@Override
-		public String getHeaderName() {
-			return "FlowCode";
+	public static class FLOW_CODE extends AbstractFssCellTransformer<String> {
+		public FLOW_CODE(final String headerName) {
+			super(headerName);
 		}
+
 
 		@Override
 		public MetadataCell<String> innerTransform(final FinancialTransaction tx) {
@@ -302,12 +318,11 @@ public class CellTransformerImplementations {
 			this.setDataTypeToString(cell);
 			return cell;
 		}
-	};
+	}
 
-	public static AbstractFssCellTransformer<String> FINANCE_T = new AbstractFssCellTransformer<String>() {
-		@Override
-		public String getHeaderName() {
-			return "Finance_t";
+	public static class TYPE_OF_FINANCE_CODE extends AbstractFssCellTransformer<String> {
+		public TYPE_OF_FINANCE_CODE(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -320,12 +335,11 @@ public class CellTransformerImplementations {
 			this.setDataTypeToString(cell);
 			return cell;
 		}
-	};
+	}
 
-	public static AbstractFssCellTransformer<String> AID_T = new AbstractFssCellTransformer<String>() {
-		@Override
-		public String getHeaderName() {
-			return "Aid_t";
+	public static class TYPE_OF_AID_CODE extends AbstractFssCellTransformer<String> {
+		public TYPE_OF_AID_CODE(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -338,12 +352,29 @@ public class CellTransformerImplementations {
 			this.setDataTypeToString(cell);
 			return cell;
 		}
-	};
+	}
+	
+	public static class NATURE_OF_SUBMISSION extends AbstractFssCellTransformer<String> {
+		public NATURE_OF_SUBMISSION(final String headerName) {
+			super(headerName);
+		}
 
-	public static AbstractFssCellTransformer<String> SHORT_DESCRIPTION = new AbstractFssCellTransformer<String>() {
+
 		@Override
-		public String getHeaderName() {
-			return "ShortDescription";
+		public MetadataCell<String> innerTransform(final FinancialTransaction tx) {
+			String value = null;
+			if (tx.getNatureOfSubmission() != null) {
+				value = tx.getNatureOfSubmission().getName();
+			}
+			final MetadataCell<String> cell = new MetadataCell<String>(value);
+			this.setDataTypeToString(cell);
+			return cell;
+		}
+	}
+
+	public static class SHORT_DESCRIPTION extends AbstractFssCellTransformer<String> {
+		public SHORT_DESCRIPTION(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -353,12 +384,11 @@ public class CellTransformerImplementations {
 			this.setDataTypeToString(cell);
 			return cell;
 		}
-	};
+	}
 
-	public static AbstractFssCellTransformer<String> PURPOSE_CODE = new AbstractFssCellTransformer<String>() {
-		@Override
-		public String getHeaderName() {
-			return "PurposeCode";
+	public static class PURPOSE_CODE extends AbstractFssCellTransformer<String> {
+		public PURPOSE_CODE(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -371,11 +401,10 @@ public class CellTransformerImplementations {
 			this.setDataTypeToString(cell);
 			return cell;
 		}
-	};
-	public static AbstractFssCellTransformer<String> MAIN_SECTOR = new AbstractFssCellTransformer<String>() {
-		@Override
-		public String getHeaderName() {
-			return "MainSector";
+	}
+	public static class MAIN_SECTOR extends AbstractFssCellTransformer<String> {
+		public MAIN_SECTOR(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -396,12 +425,11 @@ public class CellTransformerImplementations {
 			return cell;
 
 		}
-	};
+	}
 
-	public static AbstractFssCellTransformer<String> GEOGRAPHY = new AbstractFssCellTransformer<String>() {
-		@Override
-		public String getHeaderName() {
-			return "Geography";
+	public static class GEOGRAPHY extends AbstractFssCellTransformer<String> {
+		public GEOGRAPHY(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -414,12 +442,11 @@ public class CellTransformerImplementations {
 			this.setDataTypeToString(cell);
 			return cell;
 		}
-	};
+	}
 
-	public static AbstractFssCellTransformer<LocalDateTime> EXPECTED_START_DATE = new AbstractFssCellTransformer<LocalDateTime>() {
-		@Override
-		public String getHeaderName() {
-			return "ExpectedStartDate";
+	public static class EXPECTED_START_DATE extends AbstractFssCellTransformer<LocalDateTime> {
+		public EXPECTED_START_DATE(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -429,12 +456,11 @@ public class CellTransformerImplementations {
 			this.setDataTypeToDate(cell);
 			return cell;
 		}
-	};
+	}
 
-	public static AbstractFssCellTransformer<LocalDateTime> COMPLETION_DATE = new AbstractFssCellTransformer<LocalDateTime>() {
-		@Override
-		public String getHeaderName() {
-			return "CompletionDate";
+	public static class COMPLETION_DATE extends AbstractFssCellTransformer<LocalDateTime> {
+		public COMPLETION_DATE(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -444,12 +470,11 @@ public class CellTransformerImplementations {
 			this.setDataTypeToDate(cell);
 			return cell;
 		}
-	};
+	}
 
-	public static AbstractFssCellTransformer<String> LONG_DESCRIPTION = new AbstractFssCellTransformer<String>() {
-		@Override
-		public String getHeaderName() {
-			return "LongDescription";
+	public static class LONG_DESCRIPTION extends AbstractFssCellTransformer<String> {
+		public LONG_DESCRIPTION(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -459,12 +484,11 @@ public class CellTransformerImplementations {
 			this.setDataTypeToString(cell);
 			return cell;
 		}
-	};
+	}
 
-	public static AbstractFssCellTransformer<String> GENDER = new AbstractFssCellTransformer<String>() {
-		@Override
-		public String getHeaderName() {
-			return "Gender";
+	public static class GENDER extends AbstractFssCellTransformer<String> {
+		public GENDER(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -477,12 +501,11 @@ public class CellTransformerImplementations {
 			this.setDataTypeToString(cell);
 			return cell;
 		}
-	};
+	}
 
-	public static AbstractFssCellTransformer<String> ENVIRONMENT = new AbstractFssCellTransformer<String>() {
-		@Override
-		public String getHeaderName() {
-			return "Environment";
+	public static class ENVIRONMENT extends AbstractFssCellTransformer<String> {
+		public ENVIRONMENT(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -495,12 +518,11 @@ public class CellTransformerImplementations {
 			this.setDataTypeToString(cell);
 			return cell;
 		}
-	};
+	}
 
-	public static AbstractFssCellTransformer<String> PDGG = new AbstractFssCellTransformer<String>() {
-		@Override
-		public String getHeaderName() {
-			return "PDGG";
+	public static class PDGG extends AbstractFssCellTransformer<String> {
+		public PDGG(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -513,12 +535,11 @@ public class CellTransformerImplementations {
 			this.setDataTypeToString(cell);
 			return cell;
 		}
-	};
+	}
 
-	public static AbstractFssCellTransformer<String> TRADE_DEVELOPMENT = new AbstractFssCellTransformer<String>() {
-		@Override
-		public String getHeaderName() {
-			return "TradeDevelopment";
+	public static class TRADE_DEVELOPMENT_CODE extends AbstractFssCellTransformer<String> {
+		public TRADE_DEVELOPMENT_CODE(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -531,12 +552,11 @@ public class CellTransformerImplementations {
 			this.setDataTypeToString(cell);
 			return cell;
 		}
-	};
+	}
 
-	public static AbstractFssCellTransformer<String> FTC = new AbstractFssCellTransformer<String>() {
-		@Override
-		public String getHeaderName() {
-			return "FTC";
+	public static class FTC_1_0 extends AbstractFssCellTransformer<String> {
+		public FTC_1_0(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -549,11 +569,10 @@ public class CellTransformerImplementations {
 			this.setDataTypeToString(cell);
 			return cell;
 		}
-	};
-	public static AbstractFssCellTransformer<String> PBA = new AbstractFssCellTransformer<String>() {
-		@Override
-		public String getHeaderName() {
-			return "PBA";
+	}
+	public static class PBA_1_0 extends AbstractFssCellTransformer<String> {
+		public PBA_1_0(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -566,12 +585,11 @@ public class CellTransformerImplementations {
 			this.setDataTypeToString(cell);
 			return cell;
 		}
-	};
+	}
 
-	public static AbstractFssCellTransformer<String> INVESTMENT_PROJECT = new AbstractFssCellTransformer<String>() {
-		@Override
-		public String getHeaderName() {
-			return "InvestmentProject";
+	public static class INVESTMENT_PROJECT_1_0 extends AbstractFssCellTransformer<String> {
+		public INVESTMENT_PROJECT_1_0(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -584,12 +602,11 @@ public class CellTransformerImplementations {
 			this.setDataTypeToString(cell);
 			return cell;
 		}
-	};
+	}
 
-	public static AbstractFssCellTransformer<String> ASSOC_FINANCE = new AbstractFssCellTransformer<String>() {
-		@Override
-		public String getHeaderName() {
-			return "AssocFinance";
+	public static class ASSOC_FINANCE_1_0 extends AbstractFssCellTransformer<String> {
+		public ASSOC_FINANCE_1_0(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -602,12 +619,11 @@ public class CellTransformerImplementations {
 			this.setDataTypeToString(cell);
 			return cell;
 		}
-	};
+	}
 
-	public static AbstractFssCellTransformer<String> BIODIVERSITY = new AbstractFssCellTransformer<String>() {
-		@Override
-		public String getHeaderName() {
-			return "Biodiversity";
+	public static class BIODIVERSITY_CODE extends AbstractFssCellTransformer<String> {
+		public BIODIVERSITY_CODE(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -620,12 +636,11 @@ public class CellTransformerImplementations {
 			this.setDataTypeToString(cell);
 			return cell;
 		}
-	};
+	}
 
-	public static AbstractFssCellTransformer<String> CLIMATE_MITIGATION = new AbstractFssCellTransformer<String>() {
-		@Override
-		public String getHeaderName() {
-			return "ClimateMitigation";
+	public static class CLIMATE_MITIGATION_CODE extends AbstractFssCellTransformer<String> {
+		public CLIMATE_MITIGATION_CODE(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -638,12 +653,11 @@ public class CellTransformerImplementations {
 			this.setDataTypeToString(cell);
 			return cell;
 		}
-	};
+	}
 
-	public static AbstractFssCellTransformer<String> CLIMATE_ADAPTATION = new AbstractFssCellTransformer<String>() {
-		@Override
-		public String getHeaderName() {
-			return "ClimateAdaptation";
+	public static class CLIMATE_ADAPTATION_CODE extends AbstractFssCellTransformer<String> {
+		public CLIMATE_ADAPTATION_CODE(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -656,12 +670,11 @@ public class CellTransformerImplementations {
 			this.setDataTypeToString(cell);
 			return cell;
 		}
-	};
+	}
 
-	public static AbstractFssCellTransformer<String> DESERTIFICATION = new AbstractFssCellTransformer<String>() {
-		@Override
-		public String getHeaderName() {
-			return "Desertification";
+	public static class DESERTIFICATION_CODE extends AbstractFssCellTransformer<String> {
+		public DESERTIFICATION_CODE(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -674,12 +687,28 @@ public class CellTransformerImplementations {
 			this.setDataTypeToString(cell);
 			return cell;
 		}
-	};
+	}
+	
+	public static class AID_TO_ENVIRONMENT_CODE extends AbstractFssCellTransformer<String> {
+		public AID_TO_ENVIRONMENT_CODE(final String headerName) {
+			super(headerName);
+		}
 
-	public static AbstractFssCellTransformer<String> CURRENCY_CODE = new AbstractFssCellTransformer<String>() {
 		@Override
-		public String getHeaderName() {
-			return "CurrencyCode";
+		public MetadataCell<String> innerTransform(final FinancialTransaction tx) {
+			String value = null;
+			if (tx.getAidToEnvironment() != null) {
+				value = tx.getAidToEnvironment().getDisplayableCode();
+			}
+			final MetadataCell<String> cell = new MetadataCell<String>(value);
+			this.setDataTypeToString(cell);
+			return cell;
+		}
+	}
+
+	public static class CURRENCY_CODE extends AbstractFssCellTransformer<String> {
+		public CURRENCY_CODE(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -692,12 +721,11 @@ public class CellTransformerImplementations {
 			this.setDataTypeToString(cell);
 			return cell;
 		}
-	};
+	}
 	
-	public static AbstractFssCellTransformer<LocalDateTime> COMMITMENT_DATE = new AbstractFssCellTransformer<LocalDateTime>() {
-		@Override
-		public String getHeaderName() {
-			return "CommitmentDate";
+	public static class COMMITMENT_DATE extends AbstractFssCellTransformer<LocalDateTime> {
+		public COMMITMENT_DATE(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -707,12 +735,11 @@ public class CellTransformerImplementations {
 			this.setDataTypeToDate(cell);
 			return cell;
 		}
-	};
+	}
 	
-	public static AbstractFssCellTransformer<String> TYPE_OF_REPAYMENT = new AbstractFssCellTransformer<String>() {
-		@Override
-		public String getHeaderName() {
-			return "TypeOfRepayment";
+	public static class TYPE_OF_REPAYMENT_CODE extends AbstractFssCellTransformer<String> {
+		public TYPE_OF_REPAYMENT_CODE(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -725,12 +752,11 @@ public class CellTransformerImplementations {
 			this.setDataTypeToString(cell);
 			return cell;
 		}
-	};
+	}
 	
-	public static AbstractFssCellTransformer<String> NUMBER_REPAYMENT = new AbstractFssCellTransformer<String>() {
-		@Override
-		public String getHeaderName() {
-			return "NumberRepayment";
+	public static class NUMBER_OF_REPAYMENT_CODE extends AbstractFssCellTransformer<String> {
+		public NUMBER_OF_REPAYMENT_CODE(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -743,12 +769,11 @@ public class CellTransformerImplementations {
 			this.setDataTypeToString(cell);
 			return cell;
 		}
-	};
+	}
 	
-	public static AbstractFssCellTransformer<BigDecimal> INTEREST1 = new AbstractFssCellTransformer<BigDecimal>() {
-		@Override
-		public String getHeaderName() {
-			return "Interest1";
+	public static class INTEREST1 extends AbstractFssCellTransformer<BigDecimal> {
+		public INTEREST1(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -759,9 +784,13 @@ public class CellTransformerImplementations {
 			this.setDataTypeToNumber(cell);
 			return cell;
 		}
-	};
+	}
 	
-	public static AbstractFssCellTransformer<BigDecimal> INTEREST2 = new AbstractFssCellTransformer<BigDecimal>() {
+	public static class INTEREST2 extends AbstractFssCellTransformer<BigDecimal> {
+		public INTEREST2(final String headerName) {
+			super(headerName);
+		}
+
 		@Override
 		public String getHeaderName() {
 			return "Interest2";
@@ -775,12 +804,11 @@ public class CellTransformerImplementations {
 			this.setDataTypeToNumber(cell);
 			return cell;
 		}
-	};
+	}
 	
-	public static AbstractFssCellTransformer<LocalDateTime> REPAY_DATE1 = new AbstractFssCellTransformer<LocalDateTime>() {
-		@Override
-		public String getHeaderName() {
-			return "RepayDate1";
+	public static class REPAY_DATE1 extends AbstractFssCellTransformer<LocalDateTime> {
+		public REPAY_DATE1(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -790,12 +818,11 @@ public class CellTransformerImplementations {
 			this.setDataTypeToDate(cell);
 			return cell;
 		}
-	};
+	}
 	
-	public static AbstractFssCellTransformer<LocalDateTime> REPAY_DATE2 = new AbstractFssCellTransformer<LocalDateTime>() {
-		@Override
-		public String getHeaderName() {
-			return "RepayDate2";
+	public static class REPAY_DATE2 extends AbstractFssCellTransformer<LocalDateTime> {
+		public REPAY_DATE2(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -805,12 +832,11 @@ public class CellTransformerImplementations {
 			this.setDataTypeToDate(cell);
 			return cell;
 		}
-	};
+	}
 	
-	public static AbstractFssCellTransformer<String> NOTES = new AbstractFssCellTransformer<String>() {
-		@Override
-		public String getHeaderName() {
-			return "Notes";
+	public static class NOTES extends AbstractFssCellTransformer<String> {
+		public NOTES(final String headerName) {
+			super(headerName);
 		}
 
 		@Override
@@ -821,7 +847,7 @@ public class CellTransformerImplementations {
 			this.setDataTypeToString(cell);
 			return cell;
 		}
-	};
+	}
 	
 	
 	
@@ -830,12 +856,12 @@ public class CellTransformerImplementations {
 	
 	
 
-	private static abstract class AbstractMoneyFssCellTransformer extends AbstractFssCellTransformer<BigMoney> {
+	static abstract class AbstractMoneyFssCellTransformer extends AbstractFssCellTransformer<BigMoney> {
 
 		private final ExchangeRateUtil exchangeRateUtil;
 
-		public AbstractMoneyFssCellTransformer(final ExchangeRateUtil exchangeRateUtil) {
-			super();
+		public AbstractMoneyFssCellTransformer(final ExchangeRateUtil exchangeRateUtil, final String headerName) {
+			super(headerName);
 			this.exchangeRateUtil = exchangeRateUtil;
 		}
 		@Override
@@ -858,13 +884,8 @@ public class CellTransformerImplementations {
 
 	public static class COMMITMENT_LC extends AbstractMoneyFssCellTransformer {
 
-		public COMMITMENT_LC(final ExchangeRateUtil exchangeRateUtil) {
-			super(exchangeRateUtil);
-		}
-
-		@Override
-		public String getHeaderName() {
-			return "Commitment_LC";
+		public COMMITMENT_LC(final ExchangeRateUtil exchangeRateUtil, final String headerName) {
+			super(exchangeRateUtil, headerName);
 		}
 
 		@Override
@@ -875,17 +896,12 @@ public class CellTransformerImplementations {
 		
 	}
 
-	public static class DISBURSEMENT_LC extends AbstractMoneyFssCellTransformer {
+	public static class AMOUNTS_EXTENDED extends AbstractMoneyFssCellTransformer {
 
-
-		public DISBURSEMENT_LC(final ExchangeRateUtil exchangeRateUtil) {
-			super(exchangeRateUtil);
+		public AMOUNTS_EXTENDED(final ExchangeRateUtil exchangeRateUtil, final String headerName) {
+			super(exchangeRateUtil, headerName);
 		}
 
-		@Override
-		public String getHeaderName() {
-			return "Disbursement_LC";
-		}
 		@Override
 		protected BigMoney getMoney(final FinancialTransaction tx) {
 			return tx.getAmountsExtended();
@@ -894,13 +910,9 @@ public class CellTransformerImplementations {
 
 	public static class RECEIVED extends AbstractMoneyFssCellTransformer {
 
-		public RECEIVED(final ExchangeRateUtil exchangeRateUtil) {
-			super(exchangeRateUtil);
-		}
 
-		@Override
-		public String getHeaderName() {
-			return "Received";
+		public RECEIVED(final ExchangeRateUtil exchangeRateUtil, final String headerName) {
+			super(exchangeRateUtil, headerName);
 		}
 
 		@Override
@@ -911,13 +923,8 @@ public class CellTransformerImplementations {
 	
 	public static class AMOUNT_UNTIED extends AbstractMoneyFssCellTransformer {
 
-		public AMOUNT_UNTIED(final ExchangeRateUtil exchangeRateUtil) {
-			super(exchangeRateUtil);
-		}
-
-		@Override
-		public String getHeaderName() {
-			return "AmountUntied";
+		public AMOUNT_UNTIED(final ExchangeRateUtil exchangeRateUtil, final String headerName) {
+			super(exchangeRateUtil, headerName);
 		}
 
 		@Override
@@ -928,13 +935,8 @@ public class CellTransformerImplementations {
 	
 	public static class AMOUNT_PARTIALLY_UNTIED extends AbstractMoneyFssCellTransformer {
 
-		public AMOUNT_PARTIALLY_UNTIED(final ExchangeRateUtil exchangeRateUtil) {
-			super(exchangeRateUtil);
-		}
-
-		@Override
-		public String getHeaderName() {
-			return "AmountPartiallyUntied";
+		public AMOUNT_PARTIALLY_UNTIED(final ExchangeRateUtil exchangeRateUtil, final String headerName) {
+			super(exchangeRateUtil, headerName);
 		}
 
 		@Override
@@ -944,13 +946,8 @@ public class CellTransformerImplementations {
 	}
 	public static class AMOUNT_TIED extends AbstractMoneyFssCellTransformer {
 
-		public AMOUNT_TIED(final ExchangeRateUtil exchangeRateUtil) {
-			super(exchangeRateUtil);
-		}
-
-		@Override
-		public String getHeaderName() {
-			return "AmountTied";
+		public AMOUNT_TIED(final ExchangeRateUtil exchangeRateUtil, final String headerName) {
+			super(exchangeRateUtil, headerName);
 		}
 
 		@Override
@@ -960,13 +957,8 @@ public class CellTransformerImplementations {
 	}
 	public static class IRTC extends AbstractMoneyFssCellTransformer {
 
-		public IRTC(final ExchangeRateUtil exchangeRateUtil) {
-			super(exchangeRateUtil);
-		}
-
-		@Override
-		public String getHeaderName() {
-			return "IRTC";
+		public IRTC(final ExchangeRateUtil exchangeRateUtil, final String headerName) {
+			super(exchangeRateUtil, headerName);
 		}
 
 		@Override
@@ -976,13 +968,8 @@ public class CellTransformerImplementations {
 	}
 	public static class EXPORT_CREDIT extends AbstractMoneyFssCellTransformer {
 
-		public EXPORT_CREDIT(final ExchangeRateUtil exchangeRateUtil) {
-			super(exchangeRateUtil);
-		}
-
-		@Override
-		public String getHeaderName() {
-			return "ExportCredit";
+		public EXPORT_CREDIT(final ExchangeRateUtil exchangeRateUtil, final String headerName) {
+			super(exchangeRateUtil, headerName);
 		}
 
 		@Override
@@ -992,13 +979,8 @@ public class CellTransformerImplementations {
 	}
 	public static class INTEREST_RECEIVED extends AbstractMoneyFssCellTransformer {
 
-		public INTEREST_RECEIVED(final ExchangeRateUtil exchangeRateUtil) {
-			super(exchangeRateUtil);
-		}
-
-		@Override
-		public String getHeaderName() {
-			return "Interest";
+		public INTEREST_RECEIVED(final ExchangeRateUtil exchangeRateUtil, final String headerName) {
+			super(exchangeRateUtil, headerName);
 		}
 
 		@Override
@@ -1009,13 +991,8 @@ public class CellTransformerImplementations {
 	
 	public static class ARREARS_OF_INTEREST extends AbstractMoneyFssCellTransformer {
 
-		public ARREARS_OF_INTEREST(final ExchangeRateUtil exchangeRateUtil) {
-			super(exchangeRateUtil);
-		}
-
-		@Override
-		public String getHeaderName() {
-			return "Arrears_interest";
+		public ARREARS_OF_INTEREST(final ExchangeRateUtil exchangeRateUtil, final String headerName) {
+			super(exchangeRateUtil, headerName);
 		}
 
 		@Override
@@ -1026,13 +1003,8 @@ public class CellTransformerImplementations {
 	
 	public static class ARREARS_OF_PRINCIPAL extends AbstractMoneyFssCellTransformer {
 
-		public ARREARS_OF_PRINCIPAL(final ExchangeRateUtil exchangeRateUtil) {
-			super(exchangeRateUtil);
-		}
-
-		@Override
-		public String getHeaderName() {
-			return "Arrears_principal";
+		public ARREARS_OF_PRINCIPAL(final ExchangeRateUtil exchangeRateUtil, final String headerName) {
+			super(exchangeRateUtil, headerName);
 		}
 
 		@Override
@@ -1042,14 +1014,8 @@ public class CellTransformerImplementations {
 	}
 	
 	public static class OUTSTANDING extends AbstractMoneyFssCellTransformer {
-
-		public OUTSTANDING(final ExchangeRateUtil exchangeRateUtil) {
-			super(exchangeRateUtil);
-		}
-
-		@Override
-		public String getHeaderName() {
-			return "Outstanding";
+		public OUTSTANDING(final ExchangeRateUtil exchangeRateUtil, final String headerName) {
+			super(exchangeRateUtil, headerName);
 		}
 
 		@Override
@@ -1059,14 +1025,8 @@ public class CellTransformerImplementations {
 	}
 	
 	public static class FUTURE_DS_PRINCIPAL extends AbstractMoneyFssCellTransformer {
-
-		public FUTURE_DS_PRINCIPAL(final ExchangeRateUtil exchangeRateUtil) {
-			super(exchangeRateUtil);
-		}
-
-		@Override
-		public String getHeaderName() {
-			return "Future_DS_principal";
+		public FUTURE_DS_PRINCIPAL(final ExchangeRateUtil exchangeRateUtil, final String headerName) {
+			super(exchangeRateUtil, headerName);
 		}
 
 		@Override
@@ -1078,13 +1038,8 @@ public class CellTransformerImplementations {
 	
 	public static class FUTURE_DS_INTEREST extends AbstractMoneyFssCellTransformer {
 
-		public FUTURE_DS_INTEREST(final ExchangeRateUtil exchangeRateUtil) {
-			super(exchangeRateUtil);
-		}
-
-		@Override
-		public String getHeaderName() {
-			return "Future_DS_interest";
+		public FUTURE_DS_INTEREST(final ExchangeRateUtil exchangeRateUtil, final String headerName) {
+			super(exchangeRateUtil, headerName);
 		}
 
 		@Override
@@ -1096,13 +1051,8 @@ public class CellTransformerImplementations {
 	
 	public static class EXPERT_COMMITMENT extends AbstractMoneyFssCellTransformer {
 
-		public EXPERT_COMMITMENT(final ExchangeRateUtil exchangeRateUtil) {
-			super(exchangeRateUtil);
-		}
-
-		@Override
-		public String getHeaderName() {
-			return "Expert_commitment";
+		public EXPERT_COMMITMENT(final ExchangeRateUtil exchangeRateUtil, final String headerName) {
+			super(exchangeRateUtil, headerName);
 		}
 
 		@Override
@@ -1112,13 +1062,8 @@ public class CellTransformerImplementations {
 	}
 	public static class EXPERT_EXTENDED extends AbstractMoneyFssCellTransformer {
 
-		public EXPERT_EXTENDED(final ExchangeRateUtil exchangeRateUtil) {
-			super(exchangeRateUtil);
-		}
-
-		@Override
-		public String getHeaderName() {
-			return "Expert_extended";
+		public EXPERT_EXTENDED(final ExchangeRateUtil exchangeRateUtil, final String headerName) {
+			super(exchangeRateUtil, headerName);
 		}
 
 		@Override

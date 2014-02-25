@@ -7,6 +7,27 @@ import org.devgateway.eudevfin.sheetexp.util.MetadataConstants;
 
 public abstract class AbstractFssCellTransformer<ReturnType> implements
 		CellTransformerInterface<EntityWrapperInterface, ReturnType> {
+	
+	private String headerName;
+	
+	public AbstractFssCellTransformer(final String headerName) {
+		this.headerName = headerName;
+	}
+
+	/**
+	 * @param headerName the headerName to set
+	 */
+	public void setHeaderName(final String headerName) {
+		this.headerName = headerName;
+	}
+
+	/**
+	 * @return the headerName
+	 */
+	public String getHeaderName() {
+		return this.headerName;
+	}
+
 
 	@Override
 	public MetadataCell<ReturnType> transform(final EntityWrapperInterface src) {
@@ -31,7 +52,6 @@ public abstract class AbstractFssCellTransformer<ReturnType> implements
 		mdCell.getMetadata().put(MetadataConstants.DATA_TYPE, MetadataConstants.DATA_TYPES.MONEY.getType());
 	}
 
-	public abstract String getHeaderName();
 	
 	public abstract MetadataCell<ReturnType> innerTransform(FinancialTransaction tx) ;
 
