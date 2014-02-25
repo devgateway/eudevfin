@@ -183,9 +183,15 @@ function addTopTenMemoShare (parametersJson) {
 					colType: "Number"
 				});
 
-				resultset.push(['Top 5 recipients', values.resultset[0][0]]);
-				resultset.push(['Top 10 recipients', values.resultset[0][1]]);
-				resultset.push(['Top 20 recipients', values.resultset[0][2]]);
+                if (values.resultset[0][0] !== undefined) {
+				    resultset.push(['Top 5 recipients', values.resultset[0][0]]);
+                }
+                if (values.resultset[0][1] !== undefined) {
+				    resultset.push(['Top 10 recipients', values.resultset[0][1]]);
+                }
+                if (values.resultset[0][2] !== undefined) {
+				    resultset.push(['Top 20 recipients', values.resultset[0][2]]);
+                }
 
 				values.metadata = metadata;
 				values.resultset = resultset;

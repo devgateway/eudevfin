@@ -98,8 +98,8 @@
 			<![CDATA[
 			WITH
 			MEMBER Measures.[Top 5 recipients] AS (SUM(CrossJoin({TOPCOUNT([Country].[Name].Members, 5, [Measures].[NumberOfTransactions])}, {[Measures].[NumberOfTransactions]})) / SUM(CrossJoin({[Type of Finance].[Name].Members}, {[Measures].[NumberOfTransactions]}))) * 100
-			MEMBER Measures.[Top 10 recipients] AS (SUM(CrossJoin({TOPCOUNT([Country].[Name].Members, 10, [Measures].[NumberOfTransactions])}, {[Measures].[NumberOfTransactions]})) / SUM(CrossJoin({[Type of Finance].[Name].Members}, {[Measures].[NumberOfTransactions]}))) * 100
-			MEMBER Measures.[Top 20 recipients] AS (SUM(CrossJoin({TOPCOUNT([Country].[Name].Members, 20, [Measures].[NumberOfTransactions])}, {[Measures].[NumberOfTransactions]})) / SUM(CrossJoin({[Type of Finance].[Name].Members}, {[Measures].[NumberOfTransactions]}))) * 100
+			MEMBER Measures.[Top 10 recipients] AS IIF(SUM(CrossJoin({TOPCOUNT([Country].[Name].Members, 20, [Measures].[NumberOfTransactions])}, {[Measures].[NumberOfTransactions]})) < 5, NULL, (SUM(CrossJoin({TOPCOUNT([Country].[Name].Members, 10, [Measures].[NumberOfTransactions])}, {[Measures].[NumberOfTransactions]})) / SUM(CrossJoin({[Type of Finance].[Name].Members}, {[Measures].[NumberOfTransactions]}))) * 100)
+			MEMBER Measures.[Top 20 recipients] AS IIF(SUM(CrossJoin({TOPCOUNT([Country].[Name].Members, 20, [Measures].[NumberOfTransactions])}, {[Measures].[NumberOfTransactions]})) < 10, NULL, (SUM(CrossJoin({TOPCOUNT([Country].[Name].Members, 20, [Measures].[NumberOfTransactions])}, {[Measures].[NumberOfTransactions]})) / SUM(CrossJoin({[Type of Finance].[Name].Members}, {[Measures].[NumberOfTransactions]}))) * 100)
 			SELECT
 			NON EMPTY {Measures.[Top 5 recipients], Measures.[Top 10 recipients], Measures.[Top 20 recipients]} ON COLUMNS
 			FROM [Financial]
