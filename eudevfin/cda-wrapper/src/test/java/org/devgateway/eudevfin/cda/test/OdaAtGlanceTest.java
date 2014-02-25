@@ -103,7 +103,7 @@ public class OdaAtGlanceTest {
         organization.setName("Testing auditing Org");
         orgDao.save(organization);
 
-        // add 1st transaction
+        /* **************************** add 1st transaction **************************** */
         listTypeOfFlow = catDao.findByCode("TYPE_OF_FLOW##10");
         listSectors = catDao.findByCode("321");
         listTypeOfFinance = catDao.findByCode("TYPE_OF_FINANCE##110");
@@ -141,7 +141,7 @@ public class OdaAtGlanceTest {
         txDao.save(ft);
         transactions.add(ft);           // save the transaction so we can delete it later
 
-        // add 2nd transaction
+        /* **************************** add 2nd transaction **************************** */
         listTypeOfFlow = catDao.findByCode("TYPE_OF_FLOW##10");
         listSectors = catDao.findByCode("322");
         listTypeOfFinance = catDao.findByCode("TYPE_OF_FINANCE##110");
@@ -179,7 +179,7 @@ public class OdaAtGlanceTest {
         txDao.save(ft);
         transactions.add(ft);           // save the transaction so we can delete it later
 
-        // add 3rd transaction
+        /* **************************** add 3rd transaction **************************** */
         listTypeOfFlow = catDao.findByCode("TYPE_OF_FLOW##10");
         listSectors = catDao.findByCode("112");
         listTypeOfFinance = catDao.findByCode("TYPE_OF_FINANCE##110");
@@ -217,7 +217,7 @@ public class OdaAtGlanceTest {
         txDao.save(ft);
         transactions.add(ft);           // save the transaction so we can delete it later
 
-        // add 4th transaction that is not ODA
+        /* **************************** add 4th transaction that is not ODA **************************** */
         listTypeOfFlow = catDao.findByCode("TYPE_OF_FLOW##30");
         listSectors = catDao.findByCode("321");
         listTypeOfFinance = catDao.findByCode("TYPE_OF_FINANCE##110");
@@ -253,7 +253,7 @@ public class OdaAtGlanceTest {
         txDao.save(ft);
         transactions.add(ft);           // save the transaction so we can delete it later
 
-        // add non flow data - GNI: Gross National Income
+        /* **************************** add non flow data - GNI: Gross National Income **************************** */
         listTypeOfFlow = catDao.findByCode("TYPE_OF_FLOW##40");
         listTypeOfFinance = catDao.findByCode("TYPE_OF_FINANCE##1");
         typeOfFlow = listTypeOfFlow.get(0);
@@ -270,7 +270,7 @@ public class OdaAtGlanceTest {
         txDao.save(ft);
         transactions.add(ft);           // save the transaction so we can delete it later
 
-        // add non flow data - ODA % GNI
+        /* **************************** add non flow data - ODA % GNI **************************** */
         listTypeOfFlow = catDao.findByCode("TYPE_OF_FLOW##40");
         listTypeOfFinance = catDao.findByCode("TYPE_OF_FINANCE##2");
         typeOfFlow = listTypeOfFlow.get(0);
@@ -287,7 +287,7 @@ public class OdaAtGlanceTest {
         txDao.save(ft);
         transactions.add(ft);           // save the transaction so we can delete it later
 
-        // add non flow data - Total flows % GNI
+        /* **************************** add non flow data - Total flows % GNI **************************** */
         listTypeOfFlow = catDao.findByCode("TYPE_OF_FLOW##40");
         listTypeOfFinance = catDao.findByCode("TYPE_OF_FINANCE##3");
         typeOfFlow = listTypeOfFlow.get(0);
@@ -304,7 +304,7 @@ public class OdaAtGlanceTest {
         txDao.save(ft);
         transactions.add(ft);           // save the transaction so we can delete it later
 
-        // add non flow data - Population
+        /* **************************** add non flow data - Population **************************** */
         listTypeOfFlow = catDao.findByCode("TYPE_OF_FLOW##40");
         listTypeOfFinance = catDao.findByCode("TYPE_OF_FINANCE##4");
         typeOfFlow = listTypeOfFlow.get(0);
