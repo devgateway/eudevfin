@@ -15,7 +15,7 @@ var app = app || {};
 	                borderColor: '#DEEDF7',
 	                borderRadius: 20,
 	                borderWidth: 2,
-	                height: 380,
+	                height: 350,
 	                marginBottom: null,
 	                marginTop: null,
 	                plotShadow: false,
@@ -52,6 +52,26 @@ var app = app || {};
 			                return Highcharts.numberFormat(this.value, 0, '.', ' ');
 		                }
 	                }
+                },
+                tooltip: {
+                    backgroundColor: {
+                        linearGradient: [0, 0, 0, 60],
+                        stops: [
+                            [0, '#FFFFFF'],
+                            [1, '#E0E0E0']
+                        ]
+                    },
+                    borderWidth: 1,
+
+                    formatter: function () {
+                        var value = '$ ' + sprintf('%d', this.y).replace(/,/g, " ");
+
+                        return value;
+                    },
+
+                    percentageDecimals: 2,
+                    shared: false,
+                    useHTML: true
                 },
                 legend: {
                     backgroundColor: '#FFFFFF',
