@@ -41,5 +41,6 @@ public class MondrianCacheUtil {
         for (Cube cube : connection.getSchema().getCubes()) {
             cacheControl.flush(cacheControl.createMeasuresRegion(cube));
         }
+        cacheControl.flushSchemaCache();
     }
 }
