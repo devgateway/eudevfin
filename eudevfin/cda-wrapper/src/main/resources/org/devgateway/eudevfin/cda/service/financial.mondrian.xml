@@ -266,7 +266,10 @@
     <Cube name="Financial" visible="true" cache="false" enabled="true">
         <View name="FINANCIALTRANSACTIONVIEW" alias="FINANCIALTRANSACTIONVIEW">
             <SQL dialect="generic"><![CDATA[
-                select cat.coefficient, CASE WHEN cat.coefficient IS NULL THEN AMOUNTS_EXTENDED_AMOUNT ELSE (AMOUNTS_EXTENDED_AMOUNT * cat.COEFFICIENT) / 100 END as AMOUNTS_EXTENDED_AMOUNT_WITH_COEFFICIENT, ft.*
+                select cat.coefficient,
+				CASE WHEN cat.coefficient IS NULL THEN AMOUNTS_EXTENDED_AMOUNT ELSE (AMOUNTS_EXTENDED_AMOUNT * cat.COEFFICIENT) / 100 END as AMOUNTS_EXTENDED_AMOUNT_WITH_COEFFICIENT,
+				CASE WHEN cat.coefficient IS NULL THEN AMOUNTS_RECEIVED_AMOUNT ELSE (AMOUNTS_RECEIVED_AMOUNT * cat.COEFFICIENT) / 100 END as AMOUNTS_RECEIVED_AMOUNT_WITH_COEFFICIENT,
+				ft.*
                 from FINANCIALTRANSACTION ft left join CATEGORY cat ON cat.id = ft.channel_id WHERE ft.draft = false OR draft IS NULL
 			]]></SQL>
         </View>
@@ -325,14 +328,14 @@
                 </SQL>
             </MeasureExpression>
         </Measure>
-        <Measure name="Extended Amount Currency OECD" aggregator="sum" visible="true">
+        <Measure name="Extended Amount Currency NATLOECD" aggregator="sum" visible="true">
             <MeasureExpression>
                 <SQL dialect="generic">
                     (AMOUNTS_EXTENDED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
                     FROM
                     HISTORICALEXCHANGERATE
                     WHERE
-                    SOURCE = 'OECD' AND
+                    (SOURCE = 'OECD' OR SOURCE='NATIONAL') AND
                     BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXTENDED_CURR" AND
                     "FINANCIALTRANSACTIONVIEW"."DRAFT" IS NOT NULL AND
                     COUNTER_CURRENCY = '@@CURRENCY@@' AND
@@ -340,14 +343,14 @@
                 </SQL>
             </MeasureExpression>
         </Measure>
-        <Measure name="Extended Amount Currency National" aggregator="sum" visible="true">
+        <Measure name="Extended Amount Currency INTERNET" aggregator="sum" visible="true">
             <MeasureExpression>
                 <SQL dialect="generic">
                     (AMOUNTS_EXTENDED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
                     FROM
                     HISTORICALEXCHANGERATE
                     WHERE
-                    SOURCE = 'National' AND
+                    SOURCE = 'INTERNET' AND
                     BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXTENDED_CURR" AND
                     "FINANCIALTRANSACTIONVIEW"."DRAFT" IS NOT NULL AND
                     COUNTER_CURRENCY = '@@CURRENCY@@' AND
@@ -360,28 +363,28 @@
         <Measure name="Year 2 Extended Amount" column="AMOUNTS_EXTENDED_YEAR2_AMOUNT" aggregator="sum" visible="true" caption="%{year2ExtendedAmount}"></Measure>
         <Measure name="Partially Untied Amount" column="AMOUNTS_PARTIALLY_UNTIED_AMOUNT" aggregator="sum" visible="true" caption="%{partiallyUntiedAmount}"></Measure>
         <Measure name="Received Amount" column="AMOUNTS_RECEIVED_AMOUNT" aggregator="sum" visible="true" caption="%{receivedAmount}"></Measure>
-        <Measure name="Received Amount Currency OECD" aggregator="sum" visible="true">
+        <Measure name="Received Amount Currency NATLOECD" aggregator="sum" visible="true">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    (CASE WHEN coefficient IS NULL THEN AMOUNTS_RECEIVED_AMOUNT ELSE (AMOUNTS_RECEIVED_AMOUNT * COEFFICIENT) / 100  END * Cast((SELECT AVG(RATE)
+                    (AMOUNTS_RECEIVED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
                     FROM
                     HISTORICALEXCHANGERATE
                     WHERE
-                    SOURCE = 'OECD' AND
+                    (SOURCE = 'OECD' OR SOURCE='NATIONAL') AND
                     BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_RECEIVED_CURR" AND
                     COUNTER_CURRENCY = '@@CURRENCY@@' AND
                     YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(8, 2)))
                 </SQL>
             </MeasureExpression>
         </Measure>
-        <Measure name="Received Amount Currency National" aggregator="sum" visible="true">
+        <Measure name="Received Amount Currency INTERNET" aggregator="sum" visible="true">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    (CASE WHEN coefficient IS NULL THEN AMOUNTS_RECEIVED_AMOUNT ELSE (AMOUNTS_RECEIVED_AMOUNT * COEFFICIENT) / 100  END * Cast((SELECT AVG(RATE)
+                    (AMOUNTS_RECEIVED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
                     FROM
                     HISTORICALEXCHANGERATE
                     WHERE
-                    SOURCE = 'National' AND
+                    SOURCE = 'INTERNET' AND
                     BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_RECEIVED_CURR" AND
                     COUNTER_CURRENCY = '@@CURRENCY@@' AND
                     YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(8, 2)))
@@ -401,11 +404,11 @@
         <CalculatedMember name="Net Amount" dimension="Measures">
             <Formula>[Measures].[Extended Amount] - [Measures].[Received Amount]</Formula>
         </CalculatedMember>
-        <CalculatedMember name="Net Amount Currency OECD" dimension="Measures">
-            <Formula>[Measures].[Extended Amount Currency OECD] - [Measures].[Received Amount Currency OECD]</Formula>
+        <CalculatedMember name="Net Amount Currency NATLOECD" dimension="Measures">
+            <Formula>[Measures].[Extended Amount Currency NATLOECD] - [Measures].[Received Amount Currency NATLOECD]</Formula>
         </CalculatedMember>
-        <CalculatedMember name="Net Amount Currency National" dimension="Measures">
-            <Formula>[Measures].[Extended Amount Currency National] - [Measures].[Received Amount Currency National]</Formula>
+        <CalculatedMember name="Net Amount Currency INTERNET" dimension="Measures">
+            <Formula>[Measures].[Extended Amount Currency INTERNET] - [Measures].[Received Amount Currency INTERNET]</Formula>
         </CalculatedMember>
     </Cube>
 </Schema>

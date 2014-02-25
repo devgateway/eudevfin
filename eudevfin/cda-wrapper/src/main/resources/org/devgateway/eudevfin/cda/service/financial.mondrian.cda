@@ -56,7 +56,7 @@
 		<Query>
 			<![CDATA[
 			WITH
-			MEMBER Measures.[Curent (USD)] AS [Measures].[Net Amount Currency OECD]
+			MEMBER Measures.[Curent (USD)] AS [Measures].[Net Amount Currency NATLOECD]
             MEMBER Measures.[${REPORT_CURRENCY_CODE}] AS [Measures].[Net Amount]
 			MEMBER Measures.[ODA/GNI] AS SUM(CrossJoin({[Type of Finance].[TYPE_OF_FINANCE##2].[ODA % GNI]}, {[Measures].[Extended Amount No Flow]}))
 			MEMBER Measures.[Bilateral share] AS (SUM(CrossJoin({[BiMultilateral].[Name].[Bilateral]}, {[Measures].[NumberOfTransactions]})) * 100) / SUM(CrossJoin({[BiMultilateral].[Name].Members}, {[Measures].[NumberOfTransactions]})), FORMAT_STRING='0.00'
@@ -79,8 +79,8 @@
 		<Query>
 			<![CDATA[
 			SELECT
-			NON EMPTY {[Measures].[Net Amount Currency OECD]} ON COLUMNS,
-			NON EMPTY TOPCOUNT([Country].[Name].Members, 10, [Measures].[Net Amount Currency OECD]) ON ROWS
+			NON EMPTY {[Measures].[Net Amount Currency NATLOECD]} ON COLUMNS,
+			NON EMPTY TOPCOUNT([Country].[Name].Members, 10, [Measures].[Net Amount Currency NATLOECD]) ON ROWS
 			FROM [Financial]
 			WHERE {[Type of Flow].[Name].[ODA (Official Development Assistance)]}
 		]]>
@@ -118,8 +118,8 @@
 		<Query>
 			<![CDATA[
 			SELECT
-			NON EMPTY {[Measures].[Net Amount Currency OECD]} ON COLUMNS,
-			NON EMPTY Order([IncomeGroup].[Name].Members, [Measures].[Net Amount Currency OECD], DESC)  ON ROWS
+			NON EMPTY {[Measures].[Net Amount Currency NATLOECD]} ON COLUMNS,
+			NON EMPTY Order([IncomeGroup].[Name].Members, [Measures].[Net Amount Currency NATLOECD], DESC)  ON ROWS
 			FROM [Financial]
 			WHERE {[Type of Flow].[Name].[ODA (Official Development Assistance)]}
 		]]>
@@ -136,8 +136,8 @@
 		<Query>
 			<![CDATA[
 			SELECT
-			NON EMPTY {[Measures].[Net Amount Currency OECD]} ON COLUMNS,
-			NON EMPTY TOPCOUNT([Region].[Name].Members, 10, [Measures].[Net Amount Currency OECD]) ON ROWS
+			NON EMPTY {[Measures].[Net Amount Currency NATLOECD]} ON COLUMNS,
+			NON EMPTY TOPCOUNT([Region].[Name].Members, 10, [Measures].[Net Amount Currency NATLOECD]) ON ROWS
 			FROM [Financial]
 			WHERE {[Type of Flow].[Name].[ODA (Official Development Assistance)]}
 		]]>
@@ -154,8 +154,8 @@
 		<Query>
 			<![CDATA[
 			SELECT
-			NON EMPTY {[Measures].[Net Amount Currency OECD]} ON COLUMNS,
-			NON EMPTY TOPCOUNT(CrossJoin([Sector].[Name].Members, {[Type of Flow].[Name].[ODA (Official Development Assistance)]}), 10, [Measures].[Net Amount Currency OECD]) ON ROWS
+			NON EMPTY {[Measures].[Net Amount Currency NATLOECD]} ON COLUMNS,
+			NON EMPTY TOPCOUNT(CrossJoin([Sector].[Name].Members, {[Type of Flow].[Name].[ODA (Official Development Assistance)]}), 10, [Measures].[Net Amount Currency NATLOECD]) ON ROWS
 			FROM [Financial]
         ]]>
 		</Query>
