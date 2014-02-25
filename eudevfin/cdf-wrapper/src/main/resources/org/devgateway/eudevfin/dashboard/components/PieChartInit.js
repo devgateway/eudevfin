@@ -27,7 +27,7 @@ function addOdaByIncomeGroupChart(parametersJson) {
 			for (var i = 0; i < odaByIncomeGroupQueryResult.length; i++) {
 				var tmpArray = [];
 				tmpArray.push(odaByIncomeGroupQueryResult[i][0]);
-				tmpArray.push(parseFloat(odaByIncomeGroupQueryResult[i][1]) / MILLION);
+				tmpArray.push(parseFloat(sprintf('%.3f', odaByIncomeGroupQueryResult[i][1] / MILLION)));
 				resultSeries.push(tmpArray);
 			}
 
@@ -37,6 +37,12 @@ function addOdaByIncomeGroupChart(parametersJson) {
 			} else {
 				pieChartDefinition.get('chart').height = 200;
 			}
+
+            pieChartDefinition.get('tooltip').formatter = function () {
+                var value = '$ ' + sprintf('%.3f', this.y).replace(/,/g, " ");
+
+                return '<b>' + this.point.name + '</b><br />' + value;
+            }
 
 			pieChartDefinition.get('series')[0].data = resultSeries;
 			odaByIncomeGroupChart = new Highcharts.Chart(pieChartDefinition.toJSON());
@@ -69,7 +75,7 @@ function addOdaByRegionChart(parametersJson) {
 			for (var i = 0; i < odaByRegionQueryResult.length; i++) {
 				var tmpArray = [];
 				tmpArray.push(odaByRegionQueryResult[i][0]);
-				tmpArray.push(parseFloat(odaByRegionQueryResult[i][1]) / MILLION);
+                tmpArray.push(parseFloat(sprintf('%.3f', odaByRegionQueryResult[i][1] / MILLION)));
 				resultSeries.push(tmpArray);
 			}
 
@@ -77,6 +83,12 @@ function addOdaByRegionChart(parametersJson) {
 				pieChartDefinition.get('chart').height = 100;
 				app.noData();
 			}
+
+            pieChartDefinition.get('tooltip').formatter = function () {
+                var value = '$ ' + sprintf('%.3f', this.y).replace(/,/g, " ");
+
+                return '<b>' + this.point.name + '</b><br />' + value;
+            }
 
 			pieChartDefinition.get('series')[0].data = resultSeries;
 			odaByRegionChart = new Highcharts.Chart(pieChartDefinition.toJSON());
