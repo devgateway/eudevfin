@@ -28,6 +28,7 @@ function addOdaBySectorChart(parametersJson) {
 		        i;
 
 		    len = odaBySectorQueryResult.length;
+            app.odaBySectorTotal = 0;
 		    for (i = 0; i < len; i++) {
 				resultCategories.push(odaBySectorQueryResult[i][1]);
 				if(resultSeries[odaBySectorQueryResult[i][0]] === undefined) {
@@ -35,7 +36,8 @@ function addOdaBySectorChart(parametersJson) {
 				}
 
 				if (odaBySectorQueryResult[i][2] !== null && odaBySectorQueryResult[i][2] != undefined) {
-					resultSeries[odaBySectorQueryResult[i][0]].push(parseFloat(odaBySectorQueryResult[i][2]) / MILLION);
+					resultSeries[odaBySectorQueryResult[i][0]].push(parseFloat(sprintf('%.3f', odaBySectorQueryResult[i][2] / MILLION)));
+                    app.odaBySectorTotal += parseFloat(sprintf('%.3f', odaBySectorQueryResult[i][2] / MILLION));
 				} else {
 					resultSeries[odaBySectorQueryResult[i][0]].push(0);
 				}
@@ -60,6 +62,18 @@ function addOdaBySectorChart(parametersJson) {
 			    stackedBarChartDefinition.get('chart').height = 100;
 			    app.noData();
 		    }
+
+            stackedBarChartDefinition.get('tooltip').formatter = function () {
+                var value = '$ ' + sprintf('%.3f', this.y).replace(/,/g, " ");
+
+                return this.point.category + '<br />' + '<b>' + this.point.series.name + '</b>: ' + value;
+            };
+            stackedBarChartDefinition.get('yAxis').max = app.odaBySectorTotal;
+            stackedBarChartDefinition.get('yAxis').tickInterval = app.odaBySectorTotal / 10;
+            stackedBarChartDefinition.get('yAxis').labels.formatter = function (a) {
+                // show percent
+                return sprintf('%d', (this.value / app.odaBySectorTotal) * 100).replace(/,/g, " ") + '%';
+            };
 
 		    stackedBarChartDefinition.get('xAxis').categories = resultCategories;
 		    stackedBarChartDefinition.set({series: finalResultSeries});
