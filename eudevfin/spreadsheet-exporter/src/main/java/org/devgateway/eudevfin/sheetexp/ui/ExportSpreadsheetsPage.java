@@ -13,15 +13,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.cycle.RequestCycle;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.financial.service.CustomFinancialTransactionService;
 import org.devgateway.eudevfin.sheetexp.integration.api.SpreadsheetTransformerService;
 import org.devgateway.eudevfin.sheetexp.ui.model.Filter;
+import org.devgateway.eudevfin.sheetexp.util.MetadataConstants;
 import org.devgateway.eudevfin.sheetexp.util.TransformationStarter;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
@@ -51,17 +55,36 @@ public class ExportSpreadsheetsPage extends HeaderFooter {
 	private CustomFinancialTransactionService txService;
 
 	private List<Integer> possibleYears;
+	
+	
+
+	public ExportSpreadsheetsPage(final PageParameters parameters) {
+		super(parameters);
+		
+		this.generalInit(parameters.get(MetadataConstants.REPORT_TYPE_PARAM).toString(MetadataConstants.FSS_REPORT_TYPE));
+	}
+
+
 
 	public ExportSpreadsheetsPage() {
 		super();
 
+		this.generalInit(MetadataConstants.FSS_REPORT_TYPE);
+
+	}
+
+
+
+	private void generalInit(final String exportType) {
 		this.possibleYears = this.txService.findDistinctReportingYears();
 		Collections.sort(this.possibleYears);
 
 		final Filter filter = new Filter();
 		filter.setYear(Calendar.getInstance().get(Calendar.YEAR) - 1);
+		filter.setExportType (exportType);
 
-		final Form<Filter> form = new Form<Filter>("export-filter-form", Model.of(filter)) {
+		final Model<Filter> formModel	= Model.of(filter);
+		final Form<Filter> form = new Form<Filter>("export-filter-form", formModel) {
 
 			/*
 			 * (non-Javadoc)
@@ -81,8 +104,19 @@ public class ExportSpreadsheetsPage extends HeaderFooter {
 			}
 
 		};
+
+		form.add(this.createYearField(formModel));
+
+		form.add(this.createButton(exportType));
+
+		this.add(form);
+	}
+
+
+
+	private DropDownField<Integer> createYearField(final Model<Filter> formModel) {
 		final DropDownField<Integer> year = new DropDownField<Integer>("year-filter", new PropertyModel<Integer>(
-				form.getModelObject(), "year"), new ChoiceProvider<Integer>() {
+				formModel, "year"), new ChoiceProvider<Integer>() {
 
 			@Override
 			public void query(final String term, final int page, final Response<Integer> response) {
@@ -128,13 +162,21 @@ public class ExportSpreadsheetsPage extends HeaderFooter {
 		});
 		year.required();
 		year.removeSpanFromControlGroup();
-		form.add(year);
+		return year;
+	}
 
-		final BootstrapButton button = new BootstrapButton("filter-form-submit", Model.of("Export sheet"), Buttons.Type.Primary);
+
+
+	private Button createButton(final String exportType) {
+		StringResourceModel stringResourceModel;
+		if ( MetadataConstants.CRS_REPORT_TYPE.equals(exportType) ) {
+			stringResourceModel	= new StringResourceModel("crs.filter-form.submit", this, null);
+		}
+		else{
+			stringResourceModel	= new StringResourceModel("fss.filter-form.submit", this, null);
+		}
+		final BootstrapButton button = new BootstrapButton("filter-form-submit", stringResourceModel, Buttons.Type.Primary);
 		button.setLabel(Model.of(""));
-		form.add(button);
-
-		this.add(form);
-
+		return button;
 	}
 }

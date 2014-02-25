@@ -13,6 +13,7 @@ import org.apache.wicket.markup.html.link.AbstractLink;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
+import org.devgateway.eudevfin.sheetexp.util.MetadataConstants;
 import org.devgateway.eudevfin.ui.common.WicketNavbarComponentInitializer;
 import org.devgateway.eudevfin.ui.common.components.RepairedNavbarDropDownButton;
 
@@ -34,16 +35,16 @@ public final class NavbarInitializer {
 				"navbar.spreadsheets.export", page, null, null)) {
 
 			@Override
-			protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
-				List<AbstractLink> list = new ArrayList<>();
+			protected List<AbstractLink> newSubMenuButtons(final String buttonMarkupId) {
+				final List<AbstractLink> list = new ArrayList<>();
 
-				PageParameters paramsCRS = new PageParameters();
-				paramsCRS.set("reportType", "CRS");
+				final PageParameters paramsCRS = new PageParameters();
+				paramsCRS.set(MetadataConstants.REPORT_TYPE_PARAM, MetadataConstants.CRS_REPORT_TYPE);
 				list.add((AbstractLink) new MenuBookmarkablePageLink<ExportSpreadsheetsPage>(ExportSpreadsheetsPage.class,
-						paramsCRS, new StringResourceModel("navbar.reports.export.crs", this, null, null)).setEnabled(false));
+						paramsCRS, new StringResourceModel("navbar.reports.export.crs", this, null, null)).setEnabled(true));
 				
-				PageParameters paramsFSS = new PageParameters();
-				paramsFSS.set("reportType", "fss");
+				final PageParameters paramsFSS = new PageParameters();
+				paramsFSS.set(MetadataConstants.REPORT_TYPE_PARAM, MetadataConstants.FSS_REPORT_TYPE);
 				list.add((AbstractLink) new MenuBookmarkablePageLink<ExportSpreadsheetsPage>(ExportSpreadsheetsPage.class,
 						paramsFSS, new StringResourceModel("navbar.reports.export.fss", this, null, null)).setEnabled(true));
 				return list;

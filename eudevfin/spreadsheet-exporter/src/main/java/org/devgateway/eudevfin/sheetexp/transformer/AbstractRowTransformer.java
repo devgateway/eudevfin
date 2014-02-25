@@ -55,8 +55,15 @@ public abstract class AbstractRowTransformer<T extends EntityWrapperInterface> i
 	 * @param row
 	 *            the resulting row
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected void createHeader(final T src, final MetadataRow row) {
 		row.getMetadata().put(MetadataConstants.HEADER, MetadataConstants.TRUE);
+		final List<CellTransformerInterface<T, ?>> cellTransformerList	= this.getCellTransformerList();
+		for (final CellTransformerInterface cellTransformerInterface : cellTransformerList) {
+			final AbstractFssCellTransformer<String> cellTransformer	= 
+					(AbstractFssCellTransformer<String>) cellTransformerInterface;
+			row.add( this.createHeaderCell(cellTransformer.getHeaderName()) );
+		}
 	}
 
 	protected MetadataCell<String> createHeaderCell(final String value) {
@@ -78,5 +85,6 @@ public abstract class AbstractRowTransformer<T extends EntityWrapperInterface> i
 	public List<CellTransformerInterface<T, ?>> getCellTransformerList() {
 		return this.cellTransformerList;
 	}
+
 
 }
