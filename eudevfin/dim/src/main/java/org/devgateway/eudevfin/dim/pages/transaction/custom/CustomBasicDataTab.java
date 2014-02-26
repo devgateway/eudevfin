@@ -14,8 +14,6 @@ import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.event.Broadcast;
 import org.apache.wicket.markup.html.panel.Fragment;
-import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.BasicDataTab;
@@ -41,7 +39,6 @@ import org.joda.money.CurrencyUnit;
 import org.joda.time.LocalDateTime;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -106,11 +103,7 @@ public class CustomBasicDataTab extends BasicDataTab {
         public Extension2(String id, String markupId, MarkupContainer markupProvider) {
             super(id, markupId, markupProvider);
 
-            IModel<Collection<FileWrapper>> fileUploadModel = new Model();
-            fileUploadModel.setObject(new ArrayList<FileWrapper>());
-
-
-            MultiFileUploadField bisUploadDocumentation = new MultiFileUploadField("14bisUploadDocumentation", fileUploadModel);
+            MultiFileUploadField bisUploadDocumentation = new MultiFileUploadField("14bisUploadDocumentation", new RWComponentPropertyModel<Collection<FileWrapper>>("uploadDocumentation"));
             bisUploadDocumentation.maxFiles(2);
             add(bisUploadDocumentation);
 

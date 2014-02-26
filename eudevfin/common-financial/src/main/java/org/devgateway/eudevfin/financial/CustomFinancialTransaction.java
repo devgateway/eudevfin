@@ -17,10 +17,9 @@ import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 import org.joda.time.LocalDateTime;
 
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Entity
 @Audited
@@ -144,6 +143,17 @@ public class CustomFinancialTransaction extends FinancialTransaction {
 
     private CurrencyUnit otherCurrency;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<FileWrapper> uploadDocumentation;
+
+
+    public Set<FileWrapper> getUploadDocumentation() {
+        return uploadDocumentation;
+    }
+
+    public void setUploadDocumentation(Set<FileWrapper> uploadDocumentation) {
+        this.uploadDocumentation = uploadDocumentation;
+    }
 
     public Boolean getDraft() {
         return draft;

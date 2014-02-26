@@ -11,44 +11,26 @@ package org.devgateway.eudevfin.financial;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
+import org.hibernate.envers.RelationTargetAuditMode;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * Entity used to store the contents of uploaded files
+ * @author Alexandru Artimon
+ * @since 26/02/14
  */
 
-
 @Entity
-@Audited
+@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class FileWrapper implements Serializable {
+public class FileWrapperContent implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private FileWrapperContent content;
-
-    private String name;
-    private String contentType;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getContentType() {
-        return contentType;
-    }
-
-    public void setContentType(String contentType) {
-        this.contentType = contentType;
-    }
+    @Lob
+    @Column(length = 10000000)
+    private byte[] bytes;
 
     public Long getId() {
         return id;
@@ -58,11 +40,12 @@ public class FileWrapper implements Serializable {
         this.id = id;
     }
 
-    public FileWrapperContent getContent() {
-        return content;
+    public byte[] getBytes() {
+        return bytes;
     }
 
-    public void setContent(FileWrapperContent content) {
-        this.content = content;
+    public void setBytes(byte[] bytes) {
+        this.bytes = bytes;
     }
+
 }

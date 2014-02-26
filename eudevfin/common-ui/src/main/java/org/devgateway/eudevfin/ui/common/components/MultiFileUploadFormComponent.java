@@ -32,11 +32,13 @@ import org.apache.wicket.request.handler.resource.ResourceStreamRequestHandler;
 import org.apache.wicket.request.resource.ContentDisposition;
 import org.apache.wicket.util.resource.AbstractResourceStreamWriter;
 import org.devgateway.eudevfin.financial.FileWrapper;
+import org.devgateway.eudevfin.financial.FileWrapperContent;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -61,11 +63,22 @@ public class MultiFileUploadFormComponent extends FormComponentPanel<Collection<
     public MultiFileUploadFormComponent(String id, final IModel<Collection<FileWrapper>> model) {
         super(id, model);
         setOutputMarkupId(true);
+    }
 
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
+
+        if (getModel().getObject() == null)
+            getModel().setObject(new HashSet<FileWrapper>());
+        addComponents();
+    }
+
+    private void addComponents() {
         WebMarkupContainer table = new WebMarkupContainer("table") {
             @Override
-            public boolean isVisible() {
-                return model.getObject().size() > 0;
+            protected void onConfigure() {
+                setVisibilityAllowed(getModel().getObject().size() > 0);
             }
         };
         add(table);
@@ -73,7 +86,7 @@ public class MultiFileUploadFormComponent extends FormComponentPanel<Collection<
         AbstractReadOnlyModel<List<FileWrapper>> roModel = new AbstractReadOnlyModel<List<FileWrapper>>() {
             @Override
             public List<FileWrapper> getObject() {
-                return new ArrayList<>(model.getObject());
+                return new ArrayList<>(getModel().getObject());
             }
         };
 
@@ -89,7 +102,7 @@ public class MultiFileUploadFormComponent extends FormComponentPanel<Collection<
                 IndicatingAjaxLink delete = new IndicatingAjaxLink("delete") {
                     @Override
                     public void onClick(AjaxRequestTarget target) {
-                        model.getObject().remove(item.getModelObject());
+                        MultiFileUploadFormComponent.this.getModel().getObject().remove(item.getModelObject());
                         target.add(MultiFileUploadFormComponent.this);
                         target.add(findParent(DetailedHelpControlGroup.class));
                     }
@@ -119,9 +132,10 @@ public class MultiFileUploadFormComponent extends FormComponentPanel<Collection<
         form.add(cancelSelection);
 
 
-        UploadButton uploadButton = new UploadButton("uploadFile", internalUploadModel, model);
+        UploadButton uploadButton = new UploadButton("uploadFile", internalUploadModel, getModel());
         form.add(uploadButton);
     }
+
 
     public MultiFileUploadFormComponent maxFiles(int maxFiles) {
         this.maxFiles = maxFiles;
@@ -151,7 +165,7 @@ public class MultiFileUploadFormComponent extends FormComponentPanel<Collection<
             AbstractResourceStreamWriter rstream = new AbstractResourceStreamWriter() {
                 @Override
                 public void write(OutputStream output) throws IOException {
-                    output.write(getModelObject().getContent());
+                    output.write(getModelObject().getContent().getBytes());
                 }
 
                 @Override
@@ -196,7 +210,9 @@ public class MultiFileUploadFormComponent extends FormComponentPanel<Collection<
                     FileWrapper fw = new FileWrapper();
                     fw.setName(file.getClientFileName());
                     fw.setContentType(file.getContentType());
-                    fw.setContent(file.getBytes());
+                    FileWrapperContent wrapperContent = new FileWrapperContent();
+                    wrapperContent.setBytes(file.getBytes());
+                    fw.setContent(wrapperContent);
                     filesModel.getObject().add(fw);
                 }
 
