@@ -1,15 +1,11 @@
 package org.devgateway.eudevfin.reports.test;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.awt.Color;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -19,21 +15,10 @@ import mondrian.olap.Connection;
 import mondrian.olap.DriverManager;
 import mondrian.olap.Util.PropertyList;
 import mondrian.rolap.RolapConnectionProperties;
-import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRParameter;
-import net.sf.jasperreports.engine.JRPrintElement;
-import net.sf.jasperreports.engine.JRPrintPage;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.design.JRDesignBand;
-import net.sf.jasperreports.engine.design.JRDesignSection;
-import net.sf.jasperreports.engine.design.JRDesignStaticText;
-import net.sf.jasperreports.engine.design.JRDesignStyle;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.fill.JRTemplatePrintText;
-import net.sf.jasperreports.engine.type.ModeEnum;
-import net.sf.jasperreports.engine.type.SplitTypeEnum;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.olap.JRMondrianQueryExecuterFactory;
 
@@ -46,12 +31,16 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:META-INF/commonAuthContext.xml",
-		"classpath:META-INF/commonContext.xml",
-		"classpath:META-INF/authContext.xml",
-		"classpath:META-INF/financialContext.xml",
-		"classpath:META-INF/commonFinancialContext.xml",
-		"classpath:META-INF/importMetadataContext.xml",
-		"classpath:META-INF/cdaContext.xml" })
+        "classpath:META-INF/commonContext.xml",
+        "classpath:META-INF/authContext.xml",
+        "classpath:META-INF/financialContext.xml",
+        "classpath:META-INF/commonFinancialContext.xml",
+        "classpath:META-INF/importMetadataContext.xml",
+        "classpath:META-INF/exchangeContext.xml",
+        "classpath:META-INF/commonExchangeContext.xml",
+        "classpath:META-INF/cdaContext.xml",
+		"classpath:META-INF/cdfContext.xml"
+		})
 
 public class ReportsSimpleTest {
 	protected static Logger logger = Logger.getLogger(ReportsSimpleTest.class);

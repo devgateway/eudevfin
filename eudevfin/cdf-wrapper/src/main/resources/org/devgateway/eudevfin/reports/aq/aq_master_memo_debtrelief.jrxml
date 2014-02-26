@@ -39,7 +39,7 @@ WHERE [Type of Aid].[Debt Relief]]]>
 				<textFieldExpression><![CDATA[$R{aq.debtReliefGrants}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="352" y="0" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<reportElement key="debtReliefGrantsYear1" x="352" y="0" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
@@ -53,7 +53,7 @@ WHERE [Type of Aid].[Debt Relief]]]>
 				<text><![CDATA[087]]></text>
 			</staticText>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="455" y="0" width="100" height="14" uuid="c93aacfe-57c9-4cbc-b216-e13e54a94e50"/>
+				<reportElement key="debtReliefGrantsYear2" x="455" y="0" width="100" height="14" uuid="c93aacfe-57c9-4cbc-b216-e13e54a94e50"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>

@@ -141,28 +141,28 @@ WHERE {[BiMultilateral].[BI_MULTILATERAL##1]}]]>
 				<textFieldExpression><![CDATA[$R{aq.bilateral.administrativeCostsNotIncluded}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="352" y="28" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<reportElement key="budgetSupportYear1" x="352" y="28" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Budget Support Y1}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="352" y="42" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<reportElement key="coreContributionsYear1" x="352" y="42" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Core contributions and pooled programmes and funds Y1}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="352" y="56" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<reportElement key="projectTypeYear1" x="352" y="56" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Project-type interventions Y1}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="352" y="70" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<reportElement key="expertsYear1" x="352" y="70" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
@@ -218,70 +218,70 @@ WHERE {[BiMultilateral].[BI_MULTILATERAL##1]}]]>
 				<text><![CDATA[1015]]></text>
 			</staticText>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="352" y="84" width="100" height="14" uuid="f59e5f52-7478-45d7-926a-b109a718c844"/>
+				<reportElement key="debtReliefYear1" x="352" y="84" width="100" height="14" uuid="f59e5f52-7478-45d7-926a-b109a718c844"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Debt Relief Y1}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="352" y="98" width="100" height="14" uuid="917a498e-d1ba-4bbb-bacb-47ba9343baa7"/>
+				<reportElement key="administrativeCostsYear1" x="352" y="98" width="100" height="14" uuid="917a498e-d1ba-4bbb-bacb-47ba9343baa7"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Administrative costs not included elsewhere Y1}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="352" y="0" width="100" height="14" uuid="e1f921d3-1870-4d74-ad55-80c4f2ae0902"/>
+				<reportElement key="allTypesYear1" x="352" y="0" width="100" height="14" uuid="e1f921d3-1870-4d74-ad55-80c4f2ae0902"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{All Types Y1}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="455" y="56" width="100" height="14" uuid="b25eadde-435c-45a3-b157-264808eaf6f2"/>
+				<reportElement key="projectTypeYear2" x="455" y="56" width="100" height="14" uuid="b25eadde-435c-45a3-b157-264808eaf6f2"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Project-type interventions Y2}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="455" y="28" width="100" height="14" uuid="db86fbf0-2c75-492f-939c-505f304a44fb"/>
+				<reportElement key="budgetSupportYear2" x="455" y="28" width="100" height="14" uuid="db86fbf0-2c75-492f-939c-505f304a44fb"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Budget Support Y2}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="455" y="70" width="100" height="14" uuid="ac9a6d4a-eefb-4159-b52b-16bf8e0a7666"/>
+				<reportElement key="expertsYear2" x="455" y="70" width="100" height="14" uuid="ac9a6d4a-eefb-4159-b52b-16bf8e0a7666"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Experts and other technical assistance Y2}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="455" y="84" width="100" height="14" uuid="e402334f-4de8-41a7-b75e-f8949d81d7dc"/>
+				<reportElement key="debtReliefYear2" x="455" y="84" width="100" height="14" uuid="e402334f-4de8-41a7-b75e-f8949d81d7dc"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Debt Relief Y2}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="455" y="98" width="100" height="14" uuid="c128ae36-865f-4225-8efb-e262109c0975"/>
+				<reportElement key="administrativeCostsYear2" x="455" y="98" width="100" height="14" uuid="c128ae36-865f-4225-8efb-e262109c0975"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Administrative costs not included elsewhere Y2}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="455" y="42" width="100" height="14" uuid="896fa2ad-bfff-4e7c-b141-712b4857747b"/>
+				<reportElement key="coreContributionsYear2" x="455" y="42" width="100" height="14" uuid="896fa2ad-bfff-4e7c-b141-712b4857747b"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Core contributions and pooled programmes and funds Y2}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="455" y="0" width="100" height="14" uuid="9c020b80-3819-4811-a8a7-b1b6fde136fc"/>
+				<reportElement key="allTypesYear2" x="455" y="0" width="100" height="14" uuid="9c020b80-3819-4811-a8a7-b1b6fde136fc"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>

@@ -34,7 +34,7 @@ FROM [Financial]]]>
 				<textFieldExpression><![CDATA[$R{aq.totalGrossODA}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="352" y="0" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<reportElement key="totalGrossODAYear1" x="352" y="0" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
@@ -48,7 +48,7 @@ FROM [Financial]]]>
 				<text><![CDATA[1920]]></text>
 			</staticText>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="455" y="0" width="100" height="14" uuid="792d2cd7-ebd2-4d90-bf0c-9b2a5dc360f5"/>
+				<reportElement key="totalGrossODAYear2" x="455" y="0" width="100" height="14" uuid="792d2cd7-ebd2-4d90-bf0c-9b2a5dc360f5"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>

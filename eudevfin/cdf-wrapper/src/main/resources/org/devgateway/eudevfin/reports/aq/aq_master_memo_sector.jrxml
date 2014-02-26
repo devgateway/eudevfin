@@ -96,42 +96,42 @@ WHERE {[BiMultilateral].[BI_MULTILATERAL##1]}]]>
 				<text><![CDATA[060]]></text>
 			</staticText>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="352" y="14" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<reportElement key="humanitarianAidYear1" x="352" y="14" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Humanitarian Aid Y1}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="352" y="28" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<reportElement key="shortTermReconstructionYear1" x="352" y="28" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Short-term Reconstruction Y1}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="352" y="42" width="100" height="14" uuid="48bb8c41-75a4-40bb-a3db-8fe3429d2a15"/>
+				<reportElement key="developmentFoodAidYear1" x="352" y="42" width="100" height="14" uuid="48bb8c41-75a4-40bb-a3db-8fe3429d2a15"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Development food aid Y1}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="455" y="14" width="100" height="14" uuid="7b74ff40-d5d1-43b8-85f7-50352b4ae445"/>
+				<reportElement key="humanitarianAidYear2" x="455" y="14" width="100" height="14" uuid="7b74ff40-d5d1-43b8-85f7-50352b4ae445"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Humanitarian Aid Y2}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="455" y="28" width="100" height="14" uuid="7675c178-b9f1-4120-9c2d-7133c17cc352"/>
+				<reportElement key="shortTermReconstructionYear2" x="455" y="28" width="100" height="14" uuid="7675c178-b9f1-4120-9c2d-7133c17cc352"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Short-term Reconstruction Y2}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="455" y="42" width="100" height="14" uuid="288aeaf1-b7f6-4b07-bf55-4b4706cb31cd"/>
+				<reportElement key="developmentFoodAidYear2" x="455" y="42" width="100" height="14" uuid="288aeaf1-b7f6-4b07-bf55-4b4706cb31cd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
