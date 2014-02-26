@@ -206,112 +206,112 @@ WHERE {[BiMultilateral].[BI_MULTILATERAL##1]}]]>
 				<text><![CDATA[8828]]></text>
 			</staticText>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="352" y="14" width="100" height="14" uuid="6e367b7c-1d43-4f3c-9550-7e5b1252bb47"/>
+				<reportElement key="LDCYear1" x="352" y="14" width="100" height="14" uuid="6e367b7c-1d43-4f3c-9550-7e5b1252bb47"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{LDC Y1}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="352" y="28" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<reportElement key="AfricaYear1" x="352" y="28" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Africa Y1}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="352" y="42" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<reportElement key="SouthOfSaharaYear1" x="352" y="42" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{SouthOfSahara Y1}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="352" y="56" width="100" height="14" uuid="bb8e0c2a-53f4-4fe5-97fb-3ddf20252846"/>
+				<reportElement key="SouthOfSaharaDebtReliefYear1" x="352" y="56" width="100" height="14" uuid="bb8e0c2a-53f4-4fe5-97fb-3ddf20252846"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{SouthOfSaharaDebtRelief Y1}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="352" y="70" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<reportElement key="AfghanistanYear1" x="352" y="70" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Afghanistan Y1}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="352" y="84" width="100" height="14" uuid="2ef1b929-13e9-4871-a866-500b407b47fd"/>
+				<reportElement key="AfghanistanReconstructionYear1" x="352" y="84" width="100" height="14" uuid="2ef1b929-13e9-4871-a866-500b407b47fd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{AfghanistanReconstruction Y1}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="352" y="98" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<reportElement key="IraqYear1" x="352" y="98" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Iraq Y1}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="352" y="112" width="100" height="14" uuid="a6091e5a-e77f-4b95-ae84-4bebb07886f6"/>
+				<reportElement key="IraqReconstructionYear1" x="352" y="112" width="100" height="14" uuid="a6091e5a-e77f-4b95-ae84-4bebb07886f6"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{IraqReconstruction Y1}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="455" y="14" width="100" height="14" uuid="2fb48d48-8b22-44d2-8c42-0a59588a8537"/>
+				<reportElement key="LDCYear2" x="455" y="14" width="100" height="14" uuid="2fb48d48-8b22-44d2-8c42-0a59588a8537"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{LDC Y2}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="455" y="28" width="100" height="14" uuid="5969aea2-848d-49de-9292-4ff57480fab8"/>
+				<reportElement key="AfricaYear2" x="455" y="28" width="100" height="14" uuid="5969aea2-848d-49de-9292-4ff57480fab8"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Africa Y2}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="455" y="42" width="100" height="14" uuid="96e4e49a-0374-4a45-b333-0762f0cfce09"/>
+				<reportElement key="SouthOfSaharaYear2" x="455" y="42" width="100" height="14" uuid="96e4e49a-0374-4a45-b333-0762f0cfce09"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{SouthOfSahara Y2}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="455" y="56" width="100" height="14" uuid="144bccde-0788-447c-8102-e7d3faf8c06d"/>
+				<reportElement key="SouthOfSaharaDebtReliefYear2" x="455" y="56" width="100" height="14" uuid="144bccde-0788-447c-8102-e7d3faf8c06d"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{SouthOfSaharaDebtRelief Y2}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="455" y="70" width="100" height="14" uuid="5819aada-0127-4067-949d-da17cb30ef60"/>
+				<reportElement key="AfghanistanYear2" x="455" y="70" width="100" height="14" uuid="5819aada-0127-4067-949d-da17cb30ef60"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Afghanistan Y2}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="455" y="84" width="100" height="14" uuid="bdf7e1eb-d6a7-40f0-9aad-908ffcab46a1"/>
+				<reportElement key="AfghanistanReconstructionYear2" x="455" y="84" width="100" height="14" uuid="bdf7e1eb-d6a7-40f0-9aad-908ffcab46a1"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{AfghanistanReconstruction Y2}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="455" y="98" width="100" height="14" uuid="6de3a25f-850e-43aa-9491-ca274b0b1afc"/>
+				<reportElement key="IraqYear2" x="455" y="98" width="100" height="14" uuid="6de3a25f-850e-43aa-9491-ca274b0b1afc"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Iraq Y2}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="455" y="112" width="100" height="14" uuid="d27bb87c-60aa-451b-a99f-813d8d774b81"/>
+				<reportElement key="IraqReconstructionYear2" x="455" y="112" width="100" height="14" uuid="d27bb87c-60aa-451b-a99f-813d8d774b81"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>

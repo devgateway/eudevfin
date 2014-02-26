@@ -43,6 +43,12 @@
 
 		<dependency>
 			<groupId>org.devgateway.eudevfin</groupId>
+			<artifactId>cda-wrapper</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.devgateway.eudevfin</groupId>
 			<artifactId>auth</artifactId>
 			<version>${project.version}</version>
 		</dependency>

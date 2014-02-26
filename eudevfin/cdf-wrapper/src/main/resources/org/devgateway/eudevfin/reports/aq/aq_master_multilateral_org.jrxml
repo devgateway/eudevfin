@@ -113,35 +113,35 @@ WHERE {[BiMultilateral].[BI_MULTILATERAL##2]}]]>
 				<textFieldExpression><![CDATA[$R{aq.multilateral.other}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="352" y="28" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<reportElement key="UnitedNationsYear1" x="352" y="28" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{United Nations Y1}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="352" y="42" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<reportElement key="EuropeanUnionYear1" x="352" y="42" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{European Union Y1}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="352" y="56" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<reportElement key="WorldBankYear1" x="352" y="56" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{World Bank Y1}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="352" y="70" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<reportElement key="RegionalBanksYear1" x="352" y="70" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Regional Banks Y1}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="352" y="84" width="100" height="14" uuid="c9e4e461-f3ce-4935-8d84-c74c8d4d586c"/>
+				<reportElement key="OthersYear1" x="352" y="84" width="100" height="14" uuid="c9e4e461-f3ce-4935-8d84-c74c8d4d586c"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
@@ -190,49 +190,49 @@ WHERE {[BiMultilateral].[BI_MULTILATERAL##2]}]]>
 				<text><![CDATA[2000]]></text>
 			</staticText>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="352" y="0" width="100" height="14" uuid="9c6b15a8-1b92-4bb5-8754-3cc4f9bb4214"/>
+				<reportElement key="allCodesYear1" x="352" y="0" width="100" height="14" uuid="9c6b15a8-1b92-4bb5-8754-3cc4f9bb4214"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{All Codes Y1}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="455" y="42" width="100" height="14" uuid="0fcacc85-613a-4711-aac5-1017b82c26fe"/>
+				<reportElement key="EuropeanUnionYear2" x="455" y="42" width="100" height="14" uuid="0fcacc85-613a-4711-aac5-1017b82c26fe"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{European Union Y2}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="455" y="84" width="100" height="14" uuid="1c862bf1-079f-407f-91ca-edb0fafef7d5"/>
+				<reportElement key="OthersYear2" x="455" y="84" width="100" height="14" uuid="1c862bf1-079f-407f-91ca-edb0fafef7d5"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Others Y2}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="455" y="56" width="100" height="14" uuid="f0cdebf9-f723-4649-a3b6-550312e499b1"/>
+				<reportElement key="WorldBankYear2" x="455" y="56" width="100" height="14" uuid="f0cdebf9-f723-4649-a3b6-550312e499b1"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{World Bank Y2}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="455" y="0" width="100" height="14" uuid="f2656424-6c84-437a-aae3-fd94e9efb236"/>
+				<reportElement key="allCodesYear2" x="455" y="0" width="100" height="14" uuid="f2656424-6c84-437a-aae3-fd94e9efb236"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{All Codes Y2}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="455" y="70" width="100" height="14" uuid="02986715-209c-4262-8400-9a91a9c4f25c"/>
+				<reportElement key="RegionalBanksYear2" x="455" y="70" width="100" height="14" uuid="02986715-209c-4262-8400-9a91a9c4f25c"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Regional Banks Y2}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="455" y="28" width="100" height="14" uuid="9db7d719-4f21-47c5-9402-45fc2ce76d93"/>
+				<reportElement key="UnitedNationsYear2" x="455" y="28" width="100" height="14" uuid="9db7d719-4f21-47c5-9402-45fc2ce76d93"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
