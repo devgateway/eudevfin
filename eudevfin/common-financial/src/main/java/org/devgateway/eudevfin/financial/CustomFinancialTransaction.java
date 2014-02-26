@@ -98,8 +98,11 @@ public class CustomFinancialTransaction extends FinancialTransaction {
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
     private LocalDateTime phasingOutYear;
 
+    @ManyToOne
     private Organization firstCoFinancingAgency;
+    @ManyToOne
     private Organization secondCoFinancingAgency;
+    @ManyToOne
     private Organization thirdCoFinancingAgency;
 
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentCurrencyUnit")
@@ -109,8 +112,11 @@ public class CustomFinancialTransaction extends FinancialTransaction {
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentCurrencyUnit")
     private CurrencyUnit thirdAgencyCurrency;
 
+    @ManyToOne
     private Category rmnch;
+    @ManyToOne
     private Category recipientCode;
+    @ManyToOne
     private Category recipientPriority;
 
     private String budgetCode;
@@ -141,9 +147,10 @@ public class CustomFinancialTransaction extends FinancialTransaction {
 
     private BigDecimal fixedRate;
 
+    @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentCurrencyUnit")
     private CurrencyUnit otherCurrency;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<FileWrapper> uploadDocumentation;
 
 
