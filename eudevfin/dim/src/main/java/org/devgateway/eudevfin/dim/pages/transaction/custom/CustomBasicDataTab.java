@@ -8,22 +8,25 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.custom;
 
-import java.math.BigDecimal;
-
+import com.vaynberg.wicket.select2.ChoiceProvider;
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.event.Broadcast;
 import org.apache.wicket.markup.html.panel.Fragment;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.BasicDataTab;
 import org.devgateway.eudevfin.dim.providers.CategoryProviderFactory;
 import org.devgateway.eudevfin.financial.Category;
+import org.devgateway.eudevfin.financial.FileWrapper;
 import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.util.CategoryConstants;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
+import org.devgateway.eudevfin.ui.common.components.MultiFileUploadField;
 import org.devgateway.eudevfin.ui.common.components.PermissionAwareContainer;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
 import org.devgateway.eudevfin.ui.common.events.CurrencyChangedEvent;
@@ -37,9 +40,9 @@ import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 import org.joda.time.LocalDateTime;
 
-import com.vaynberg.wicket.select2.ChoiceProvider;
-
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Basic Data Tab extension for the EU-DEVFIN Form
@@ -103,8 +106,12 @@ public class CustomBasicDataTab extends BasicDataTab {
         public Extension2(String id, String markupId, MarkupContainer markupProvider) {
             super(id, markupId, markupProvider);
 
-            //TODO: fid out what's with the upload doc
-            TextInputField<String> bisUploadDocumentation = new TextInputField<String>("14bisUploadDocumentation", Model.of(""));
+            IModel<Collection<FileWrapper>> fileUploadModel = new Model();
+            fileUploadModel.setObject(new ArrayList<FileWrapper>());
+
+
+            MultiFileUploadField bisUploadDocumentation = new MultiFileUploadField("14bisUploadDocumentation", fileUploadModel);
+            bisUploadDocumentation.maxFiles(2);
             add(bisUploadDocumentation);
 
             PermissionAwareContainer pac = new PermissionAwareContainer("14coFinancing");

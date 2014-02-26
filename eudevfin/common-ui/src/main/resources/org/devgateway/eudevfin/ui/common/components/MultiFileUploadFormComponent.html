@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2014 Development Gateway.
+  ~ All rights reserved. This program and the accompanying materials
+  ~ are made available under the terms of the GNU Public License v3.0
+  ~ which accompanies this distribution, and is available at
+  ~ http://www.gnu.org/licenses/gpl.html
+  -->
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+<body>
+<wicket:panel>
+
+    <table wicket:id="table" class="table table-condensed table-hover">
+        <tbody>
+        <tr wicket:id="list">
+            <td>
+                <div wicket:id="label"/>
+            </td>
+            <td>
+                <i style="cursor: pointer;" wicket:id="download"/>
+                <i style="cursor: pointer;" wicket:id="delete"/>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <form wicket:id="form">
+        <div class="fileupload fileupload-new" data-provides="fileupload">
+            <div class="input-append">
+                <div class="uneditable-input">
+                    <i class="icon-file fileupload-exists"></i>
+                    <span class="fileupload-preview"></span>
+                </div>
+                <span class="btn btn-file" wicket:id="selectFile">
+                    <span class="fileupload-new"><i class="icon-folder-open"/></span>
+                    <span class="fileupload-exists" data-placement="bottom"><i class="icon-retweet"/></span>
+                    <input type="file" wicket:id="file"/>
+                </span>
+                <a wicket:id="cancelSelection" href="#" class="btn fileupload-exists" data-dismiss="fileupload"><i
+                        class="icon-remove"/></a>
+                <a wicket:id="uploadFile" href="#" class="btn fileupload-exists"><i class="icon-upload"/></a>
+            </div>
+        </div>
+    </form>
+
+</wicket:panel>
+</body>
+</html>

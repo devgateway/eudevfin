@@ -8,43 +8,7 @@
 
 package org.devgateway.eudevfin.ui.common.spring;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.log4j.Logger;
-import org.apache.wicket.ConverterLocator;
-import org.apache.wicket.IConverterLocator;
-import org.apache.wicket.Page;
-import org.apache.wicket.RestartResponseException;
-import org.apache.wicket.RuntimeConfigurationType;
-import org.apache.wicket.authorization.strategies.CompoundAuthorizationStrategy;
-import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
-import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
-import org.apache.wicket.devutils.debugbar.DebugBar;
-import org.apache.wicket.devutils.debugbar.IDebugBarContributor;
-import org.apache.wicket.devutils.debugbar.InspectorDebugPanel;
-import org.apache.wicket.devutils.debugbar.SessionSizeDebugPanel;
-import org.apache.wicket.devutils.debugbar.VersionDebugContributor;
-import org.apache.wicket.markup.html.WebPage;
-import org.apache.wicket.request.resource.CssResourceReference;
-import org.apache.wicket.request.resource.JavaScriptResourceReference;
-import org.apache.wicket.settings.IRequestCycleSettings.RenderStrategy;
-import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
-import org.devgateway.eudevfin.ui.common.ApplicationCss;
-import org.devgateway.eudevfin.ui.common.ApplicationJavaScript;
-import org.devgateway.eudevfin.ui.common.FixBootstrapStylesCssResourceReference;
-import org.devgateway.eudevfin.ui.common.JQueryUICoreJavaScriptReference;
-import org.devgateway.eudevfin.ui.common.converters.CustomBigDecimalConverter;
-import org.devgateway.eudevfin.ui.common.pages.LoginPage;
-import org.devgateway.eudevfin.ui.common.permissions.PermissionAuthorizationStrategy;
-import org.springframework.beans.BeansException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
-import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
-
 import com.google.javascript.jscomp.CompilationLevel;
-
 import de.agilecoders.wicket.core.Bootstrap;
 import de.agilecoders.wicket.core.markup.html.RenderJavaScriptToFooterHeaderResponseDecorator;
 import de.agilecoders.wicket.core.markup.html.references.BootstrapPrettifyCssReference;
@@ -62,31 +26,57 @@ import de.agilecoders.wicket.themes.markup.html.google.GoogleTheme;
 import de.agilecoders.wicket.themes.markup.html.metro.MetroTheme;
 import de.agilecoders.wicket.themes.markup.html.wicket.WicketTheme;
 import de.agilecoders.wicket.themes.settings.BootswatchThemeProvider;
+import org.apache.log4j.Logger;
+import org.apache.wicket.*;
+import org.apache.wicket.authorization.strategies.CompoundAuthorizationStrategy;
+import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
+import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
+import org.apache.wicket.devutils.debugbar.*;
+import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.request.resource.CssResourceReference;
+import org.apache.wicket.request.resource.JavaScriptResourceReference;
+import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
+import org.apache.wicket.util.lang.Bytes;
+import org.devgateway.eudevfin.ui.common.ApplicationCss;
+import org.devgateway.eudevfin.ui.common.ApplicationJavaScript;
+import org.devgateway.eudevfin.ui.common.FixBootstrapStylesCssResourceReference;
+import org.devgateway.eudevfin.ui.common.JQueryUICoreJavaScriptReference;
+import org.devgateway.eudevfin.ui.common.converters.CustomBigDecimalConverter;
+import org.devgateway.eudevfin.ui.common.pages.LoginPage;
+import org.devgateway.eudevfin.ui.common.permissions.PermissionAuthorizationStrategy;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class WicketSpringApplication extends AuthenticatedWebApplication implements ApplicationContextAware {
 
     private ApplicationContext springContext;
-    
+
     private static final Logger logger = Logger.getLogger(WicketSpringApplication.class);
 
     /**
      * Add custom coverters
      */
     @Override
-    protected IConverterLocator newConverterLocator() {    
-    	ConverterLocator locator =(ConverterLocator) super.newConverterLocator();
-    	locator.set(BigDecimal.class, new CustomBigDecimalConverter());
-    	return locator;
+    protected IConverterLocator newConverterLocator() {
+        ConverterLocator locator = (ConverterLocator) super.newConverterLocator();
+        locator.set(BigDecimal.class, new CustomBigDecimalConverter());
+        return locator;
     }
-    
+
     @Override
     protected void init() {
         super.init();
 
         configureBootstrap();
         configureResourceBundles();
-        
+
         //http://stackoverflow.com/questions/15996913/wicket-avoid-302-redirect-to-homepage
         //getRequestCycleSettings().setRenderStrategy(RenderStrategy.ONE_PASS_RENDER);
 
@@ -106,24 +96,26 @@ public class WicketSpringApplication extends AuthenticatedWebApplication impleme
 
         getResourceSettings().setUseMinifiedResources(false); //prevents bug in wicket-bootstrap that's trying to minify a png       
 
+        getApplicationSettings().setDefaultMaximumUploadSize(Bytes.megabytes(5));//set maximum file size for upload form
+
         //DEPLOYMENT MODE?
-		if (RuntimeConfigurationType.DEPLOYMENT.equals(this.getConfigurationType())) {
-			//compress resources
-			getResourceSettings().setJavaScriptCompressor(
-					new GoogleClosureJavaScriptCompressor(CompilationLevel.SIMPLE_OPTIMIZATIONS));
-			getResourceSettings().setCssCompressor(new YuiCssCompressor());			
-		} else {
-			//see https://issues.apache.org/jira/browse/WICKET-5388
-			//we do not use SessionSizeDebugPanel
-			List<IDebugBarContributor> debugContributors=new ArrayList<>();
-        	debugContributors.add(VersionDebugContributor.DEBUG_BAR_CONTRIB);
-        	debugContributors.add(InspectorDebugPanel.DEBUG_BAR_CONTRIB);
-        	debugContributors.add(SessionSizeDebugPanel.DEBUG_BAR_CONTRIB);
-            DebugBar.setContributors(debugContributors,this);
-		}
-		
-		//set response for session timeout:
-		getApplicationSettings().setPageExpiredErrorPage(LoginPage.class);
+        if (RuntimeConfigurationType.DEPLOYMENT.equals(this.getConfigurationType())) {
+            //compress resources
+            getResourceSettings().setJavaScriptCompressor(
+                    new GoogleClosureJavaScriptCompressor(CompilationLevel.SIMPLE_OPTIMIZATIONS));
+            getResourceSettings().setCssCompressor(new YuiCssCompressor());
+        } else {
+            //see https://issues.apache.org/jira/browse/WICKET-5388
+            //we do not use SessionSizeDebugPanel
+            List<IDebugBarContributor> debugContributors = new ArrayList<>();
+            debugContributors.add(VersionDebugContributor.DEBUG_BAR_CONTRIB);
+            debugContributors.add(InspectorDebugPanel.DEBUG_BAR_CONTRIB);
+            debugContributors.add(SessionSizeDebugPanel.DEBUG_BAR_CONTRIB);
+            DebugBar.setContributors(debugContributors, this);
+        }
+
+        //set response for session timeout:
+        getApplicationSettings().setPageExpiredErrorPage(LoginPage.class);
 
         //add the navbar 
 //        Navbar navbar = new Navbar("navbar");
@@ -132,7 +124,7 @@ public class WicketSpringApplication extends AuthenticatedWebApplication impleme
 //        navbar.brandName(Model.of("EU-DEVFIN"));
 //        //register the navbar as a spring bean
 //        springContext.getAutowireCapableBeanFactory().initializeBean(navbar, "wicketNavbar");
-        
+
     }
 
     /**
@@ -186,15 +178,15 @@ public class WicketSpringApplication extends AuthenticatedWebApplication impleme
     }
 
     @SuppressWarnings("unchecked")
-	@Override
+    @Override
     public Class<? extends Page> getHomePage() {
         try {
-			return  (Class<? extends Page>) Class.forName("org.devgateway.eudevfin.dim.pages.HomePage");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
+            return (Class<? extends Page>) Class.forName("org.devgateway.eudevfin.dim.pages.HomePage");
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
@@ -215,11 +207,11 @@ public class WicketSpringApplication extends AuthenticatedWebApplication impleme
     public ApplicationContext getSpringContext() {
         return springContext;
     }
-    
+
     @Override
     protected void onUnauthorizedPage(final Page page) {
-    	logger.warn("Unauthorized page requested:"+page.getRequest().getUrl().toString());
-    	throw new RestartResponseException(getSignInPageClass());
+        logger.warn("Unauthorized page requested:" + page.getRequest().getUrl().toString());
+        throw new RestartResponseException(getSignInPageClass());
     }
-    
+
 }
