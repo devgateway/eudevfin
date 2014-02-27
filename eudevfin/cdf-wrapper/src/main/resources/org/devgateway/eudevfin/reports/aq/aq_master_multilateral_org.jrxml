@@ -8,49 +8,44 @@
 	<parameter name="SECOND_YEAR" class="java.lang.Number"/>
 	<queryString language="mdx">
 		<![CDATA[WITH
-MEMBER [Channel].[United Nations] AS SUM({[Channel].[41000],[Channel].[41101],[Channel].[41102],[Channel].[41103],[Channel].[41104],[Channel].[41105],[Channel].[41106],[Channel].[41107],[Channel].[41108],[Channel].[41110],[Channel].[41111],[Channel].[41112],[Channel].[41114],[Channel].[41116],[Channel].[41119],[Channel].[41120],[Channel].[41121],[Channel].[41122],[Channel].[41123],[Channel].[41125],[Channel].[41126],[Channel].[41127],[Channel].[41128],[Channel].[41129],[Channel].[41130],[Channel].[41131],[Channel].[41132],[Channel].[41133],[Channel].[41134],[Channel].[41135],[Channel].[41136],[Channel].[41137],[Channel].[41138],[Channel].[41140],[Channel].[41141],[Channel].[41142],[Channel].[41143],[Channel].[41144],[Channel].[41145],[Channel].[41146],[Channel].[41147],[Channel].[41148],[Channel].[41301],[Channel].[41302],[Channel].[41303],[Channel].[41304],[Channel].[41305],[Channel].[41306],[Channel].[41307],[Channel].[41308],[Channel].[41309],[Channel].[41310],[Channel].[41311],[Channel].[41312],[Channel].[41313],[Channel].[41314],[Channel].[41315],[Channel].[41316]})
-MEMBER [Channel].[European Union] AS SUM({[Channel].[42000],[Channel].[42001],[Channel].[42003],[Channel].[42004]})
-MEMBER [Channel].[World Bank] AS SUM({[Channel].[44000],[Channel].[44001],[Channel].[44002],[Channel].[44003],[Channel].[44004],[Channel].[44005],[Channel].[44006],[Channel].[44007]})
-MEMBER [Channel].[Regional Banks] AS SUM({[Channel].[46000],[Channel].[46002],[Channel].[46003],[Channel].[46004],[Channel].[46005],[Channel].[46006],[Channel].[46007],[Channel].[46008],[Channel].[46009],[Channel].[46012],[Channel].[46013],[Channel].[46015],[Channel].[46016],[Channel].[46017],[Channel].[46018],[Channel].[46019],[Channel].[46020],[Channel].[46021],[Channel].[46022],[Channel].[46023]})
-MEMBER [Channel].[Others] AS SUM({[Channel].[47000], [Channel].[21002],[Channel].[30010],[Channel].[47001],[Channel].[47002],[Channel].[47003],[Channel].[47005],[Channel].[47009],[Channel].[47011],[Channel].[47012],[Channel].[47013],[Channel].[47015],[Channel].[47019],[Channel].[47022],[Channel].[47025],[Channel].[47026],[Channel].[47027],[Channel].[47029],[Channel].[47034],[Channel].[47036],[Channel].[47037],[Channel].[47040],[Channel].[47044],[Channel].[47045],[Channel].[47046],[Channel].[47050],[Channel].[47058],[Channel].[47059],[Channel].[47061],[Channel].[47064],[Channel].[47065],[Channel].[47066],[Channel].[47067],[Channel].[47068],[Channel].[47073],[Channel].[47074],[Channel].[47076],[Channel].[47077],[Channel].[47078],[Channel].[47079],[Channel].[47080],[Channel].[47081],[Channel].[47082],[Channel].[47083],[Channel].[47084],[Channel].[47086],[Channel].[47087],[Channel].[47089],[Channel].[47092],[Channel].[47093],[Channel].[47095],[Channel].[47096],[Channel].[47097],[Channel].[47098],[Channel].[47100],[Channel].[47102],[Channel].[47105],[Channel].[47106],[Channel].[47107],[Channel].[47109],[Channel].[47110],[Channel].[47111],[Channel].[47112],[Channel].[47113],[Channel].[47116],[Channel].[47117],[Channel].[47118],[Channel].[47119],[Channel].[47120],[Channel].[47121],[Channel].[47122],[Channel].[47123],[Channel].[47127],[Channel].[47128],[Channel].[47129],[Channel].[47130],[Channel].[47131],[Channel].[47132],[Channel].[47136]})
-MEMBER [Channel].[AllCodes] AS SUM({[Channel].[United Nations], [Channel].[European Union], [Channel].[World Bank], [Channel].[Regional Banks], [Channel].[Others]})
+MEMBER [Channel].[AllCodes] AS SUM({[Channel].[UNGroup], [Channel].[EUGroup], [Channel].[WBGroup], [Channel].[RBGroup], [Channel].[OtherGroup]})
 MEMBER [Measures].[First Year] AS SUM(CrossJoin({[Reporting Year].[$P{FIRST_YEAR}]}, {[Measures].[Net Amount Currency NATLOECD]}))
 MEMBER [Measures].[Second Year] AS SUM(CrossJoin({[Reporting Year].[$P{SECOND_YEAR}]}, {[Measures].[Net Amount Currency NATLOECD]}))
 SELECT
-{[Channel].[United Nations], [Channel].[European Union], [Channel].[World Bank], [Channel].[Regional Banks], [Channel].[Others], [Channel].[AllCodes]} ON ROWS,
+{[Channel].[UNGroup], [Channel].[EUGroup], [Channel].[WBGroup], [Channel].[RBGroup], [Channel].[OtherGroup], [Channel].[AllCodes]} ON ROWS,
 {[Measures].[First Year], [Measures].[Second Year]} ON COLUMNS
 FROM [Financial]
 WHERE {[BiMultilateral].[BI_MULTILATERAL##2]}]]>
 	</queryString>
 	<field name="United Nations Y1" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[First Year], [Channel].[United Nations])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[First Year], [Channel].[UNGroup])]]></fieldDescription>
 	</field>
 	<field name="United Nations Y2" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Channel].[United Nations])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Channel].[UNGroup])]]></fieldDescription>
 	</field>
 	<field name="European Union Y1" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[First Year], [Channel].[European Union] )]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[First Year], [Channel].[EUGroup] )]]></fieldDescription>
 	</field>
 	<field name="European Union Y2" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Channel].[European Union] )]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Channel].[EUGroup] )]]></fieldDescription>
 	</field>
 	<field name="World Bank Y1" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[First Year], [Channel].[World Bank])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[First Year], [Channel].[WBGroup])]]></fieldDescription>
 	</field>
 	<field name="World Bank Y2" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Channel].[World Bank])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Channel].[WBGroup])]]></fieldDescription>
 	</field>
 	<field name="Regional Banks Y1" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[First Year], [Channel].[Regional Banks])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[First Year], [Channel].[RBGroup])]]></fieldDescription>
 	</field>
 	<field name="Regional Banks Y2" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Channel].[Regional Banks])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Channel].[RBGroup])]]></fieldDescription>
 	</field>
 	<field name="Others Y1" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[First Year], [Channel].[Others])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[First Year], [Channel].[OtherGroup])]]></fieldDescription>
 	</field>
 	<field name="Others Y2" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Channel].[Others])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Channel].[OtherGroup])]]></fieldDescription>
 	</field>
 	<field name="All Codes Y1" class="java.lang.Number">
 		<fieldDescription><![CDATA[Data([Measures].[First Year], [Channel].[AllCodes])]]></fieldDescription>
