@@ -18,6 +18,24 @@ function addNetODATable (parametersJson) {
                 noResults = true,
 		        len = values.resultset.length;
 
+            // set the 'noResults' flag to false
+            // indicate that we received at least 2 columns of results from the server
+            // the first column is the one with headers: 'Curent (USD)', 'Bilateral share', etc..
+            if (values.resultset[0].length > 1) {
+                noResults = false;
+            }
+
+            // if we don't have any results, update the 'values' variable
+            // we can not use 'values.queryInfo.totalRows' variable here because the query
+            // will always return the first column ('Curent (USD)', 'Bilateral share', etc..)
+            if (noResults) {
+                values.metadata = [];
+                values.resultset = [];
+                values.queryInfo.totalRows = 0;
+
+                return values;
+            }
+
             if(values.metadata[1].colName != FIRST_YEAR) {
                 item = {
                     colIndex: 1,
@@ -73,24 +91,6 @@ function addNetODATable (parametersJson) {
                 for(i = 4; i < values.metadata.length; i++) {
                     values.metadata[i].colIndex = i;
                 }
-            }
-
-            // set the 'noResults' flag to false
-            // indicate that we received at least 2 columns of results from the server
-            // the first column is the one with headers: 'Curent (USD)', 'Bilateral share', etc..
-            if (values.resultset[0].length > 1) {
-                noResults = false;
-            }
-
-            // if we don't have any results, update the 'values' variable
-            // we can not use 'values.queryInfo.totalRows' variable here because the query
-            // will always return the first column ('Curent (USD)', 'Bilateral share', etc..)
-            if (noResults) {
-                values.metadata = [];
-                values.resultset = [];
-                values.queryInfo.totalRows = 0;
-
-                return values;
             }
 
 	        // add '2012 / 2013' type of column
