@@ -12,7 +12,7 @@
 package org.devgateway.eudevfin.dim.core;
 
 import org.apache.wicket.util.tester.WicketTester;
-import org.devgateway.eudevfin.dim.spring.WicketSpringApplication;
+import org.devgateway.eudevfin.ui.common.spring.WicketSpringApplication;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @since 23 October 2013
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:META-INF/dimContext.xml", "classpath:META-INF/authContext.xml", "classpath:/META-INF/financialContext.xml"})
+@ContextConfiguration(locations = {"classpath:META-INF/dimContext.xml", "classpath:META-INF/authContext.xml", "classpath:META-INF/commonAuthContext.xml", "classpath:/META-INF/financialContext.xml", "classpath:/META-INF/commonFinancialContext.xml"})
 public abstract class BaseWicketTest {
     protected WicketTester tester;
 

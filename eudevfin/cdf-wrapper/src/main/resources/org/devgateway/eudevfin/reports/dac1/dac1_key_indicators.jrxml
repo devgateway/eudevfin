@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dac1_key_indicators" language="java" pageWidth="900" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="900" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="030e1e32-83fb-4fca-9c21-3dee1fb0812c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="75" splitType="Stretch">
+			<staticText>
+				<reportElement x="13" y="5" width="137" height="16" uuid="004214a1-6a1f-429c-84b1-abb8b50f46db"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[GNI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="21" width="137" height="16" uuid="16464797-3fef-4e13-a0ef-8dedce51c7e9"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[ODA % GNI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="37" width="137" height="16" uuid="a4ef330c-039e-4ba8-a523-014bc2c58927"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[TOTAL FLOWS % GNI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="53" width="137" height="16" uuid="7ea2624d-4a6d-4548-aea5-70c97cf18019"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[POPULATION (millions)]]></text>
+			</staticText>
+			<line>
+				<reportElement x="302" y="6" width="1" height="64" uuid="36c043e8-e286-4bce-8e62-57b552ddbb90"/>
+			</line>
+			<line>
+				<reportElement x="13" y="5" width="839" height="1" forecolor="#3333FF" uuid="56d29a20-c31f-49b3-a6d3-3db4c4e0c9b2"/>
+			</line>
+			<line>
+				<reportElement x="13" y="69" width="839" height="1" forecolor="#3333FF" uuid="711e5842-7398-43a7-82fb-94f2dc35c3a1"/>
+			</line>
+			<line>
+				<reportElement x="13" y="21" width="839" height="1" forecolor="#3333FF" uuid="b3c3e860-7859-48c1-afb3-4b8536160138"/>
+			</line>
+			<line>
+				<reportElement x="13" y="37" width="839" height="1" forecolor="#3333FF" uuid="d1b106ce-df25-40c9-bef1-563d7c96a73d"/>
+			</line>
+			<line>
+				<reportElement x="13" y="53" width="839" height="1" forecolor="#3333FF" uuid="c72a1074-9d62-493a-9a0b-17e94ed3c7d8"/>
+			</line>
+			<line>
+				<reportElement x="266" y="5" width="1" height="64" uuid="8932f562-7b14-427e-b0fa-0618ab64014b"/>
+			</line>
+			<staticText>
+				<reportElement x="267" y="6" width="35" height="16" uuid="e7d1edd6-c309-4d47-975f-6a8d9dd5dd87"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[001]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="267" y="38" width="35" height="16" uuid="4c128394-294f-49cd-a960-887e3d0d10d8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[003]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="267" y="22" width="35" height="16" uuid="f26cfdcb-be8d-4354-b859-530c3b911301"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[002]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="267" y="54" width="35" height="16" uuid="26e95a2e-95fa-4582-938c-f87c0a8311c4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[004]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

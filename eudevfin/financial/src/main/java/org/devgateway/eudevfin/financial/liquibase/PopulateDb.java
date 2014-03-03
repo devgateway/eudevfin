@@ -2,16 +2,20 @@ package org.devgateway.eudevfin.financial.liquibase;
 
 import java.math.BigDecimal;
 
+import liquibase.database.Database;
+import liquibase.exception.CustomChangeException;
+import liquibase.exception.ValidationErrors;
+import liquibase.resource.ResourceAccessor;
+
+import org.devgateway.eudevfin.common.liquibase.AbstractSpringCustomTaskChange;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.dao.FinancialTransactionDaoImpl;
 import org.devgateway.eudevfin.financial.dao.OrganizationDaoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-@Component  
-public class PopulateDb {
+public class PopulateDb  extends AbstractSpringCustomTaskChange {
 	
 	public static int NUM_OF_TX	= 10;
 	
@@ -23,7 +27,8 @@ public class PopulateDb {
 	private OrganizationDaoImpl orgDao;
 	
 	@Transactional 
-	public void populate() {
+	@Override
+	public void execute(Database database) throws CustomChangeException {
 		
 		Organization o1 = new Organization();
 		o1.setCode("anOrgCode1");
@@ -45,10 +50,31 @@ public class PopulateDb {
 				org = o1;
 			else
 				org = o2;
-			tx.setSourceOrganization( org );
+			tx.setExtendingAgency( org );
 			tx.setDescription("CDA Test Transaction " + i);
 			txDao.save(tx);
 		}
+	}
+
+	
+	
+
+	@Override
+	public String getConfirmationMessage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setFileOpener(ResourceAccessor resourceAccessor) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public ValidationErrors validate(Database database) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

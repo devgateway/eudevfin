@@ -3,34 +3,18 @@
  */
 package org.devgateway.eudevfin.financial.test.storage;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.logging.Logger;
 
-import javax.persistence.EntityManagerFactory;
-
-import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.Organization;
-import org.devgateway.eudevfin.financial.dao.FinancialTransactionDaoImpl;
-import org.devgateway.eudevfin.financial.dao.OrganizationDaoImpl;
-import org.hibernate.envers.AuditReader;
-import org.hibernate.envers.AuditReaderFactory;
-import org.hibernate.envers.DefaultTrackingModifiedEntitiesRevisionEntity;
-import org.hibernate.envers.query.AuditEntity;
-import org.hibernate.envers.query.AuditQuery;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 
@@ -45,7 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/financialContext.xml",
-		"classpath:META-INF/commonFinancialContext.xml" })
+		"classpath:META-INF/commonFinancialContext.xml","classpath:testFinancialContext.xml" })
 @TransactionConfiguration(defaultRollback=false, transactionManager="transactionManager")
 public class StorageTest extends AbstractStorageTest{
 	

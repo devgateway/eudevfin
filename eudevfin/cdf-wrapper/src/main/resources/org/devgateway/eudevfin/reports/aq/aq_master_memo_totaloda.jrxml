@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="555" pageHeight="842" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4d81083f-52a3-45df-97af-b93a485e497a">
+	<property name="ireport.callouts" value="##Mon Dec 30 08:46:00 ART 2013"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="FIRST_YEAR" class="java.lang.Number"/>
+	<parameter name="SECOND_YEAR" class="java.lang.Number"/>
+	<queryString language="mdx">
+		<![CDATA[WITH
+MEMBER [Reporting Year].[First Year] AS [Reporting Year].[$P{FIRST_YEAR}]
+MEMBER [Reporting Year].[Second Year] AS [Reporting Year].[$P{SECOND_YEAR}]
+SELECT
+{[Reporting Year].[First Year], [Reporting Year].[Second Year]} ON ROWS,
+{[Measures].[Extended Amount Currency NATLOECD]} ON COLUMNS
+FROM [Financial]]]>
+	</queryString>
+	<field name="Total Gross ODA Y1" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Extended Amount Currency NATLOECD], [Reporting Year].[First Year])]]></fieldDescription>
+	</field>
+	<field name="Total Gross ODA Y2" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Extended Amount Currency NATLOECD], [Reporting Year].[Second Year])]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="14" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="295" height="14" uuid="75a9d431-f9ec-4d1d-8f7a-bb967d39b954"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{aq.totalGrossODA}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement key="totalGrossODAYear1" x="352" y="0" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Total Gross ODA Y1}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="297" y="0" width="50" height="14" uuid="f5a62236-8df3-496e-8162-e987f702eb70"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[1920]]></text>
+			</staticText>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement key="totalGrossODAYear2" x="455" y="0" width="100" height="14" uuid="792d2cd7-ebd2-4d90-bf0c-9b2a5dc360f5"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Total Gross ODA Y2}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

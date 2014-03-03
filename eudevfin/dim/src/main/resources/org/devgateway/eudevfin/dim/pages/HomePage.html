@@ -15,27 +15,21 @@
 
 </head>
 <body>
-    <wicket:extend>
-		<div>
-		<table id="settings">
-			<tr>
-				<td>Transaction id</td>
-				<td>Transaction value</td>
-				<td>Organization name</td>
-			</tr>
-			<tr wicket:id="transaction-list">
-				<td>
-					<span wicket:id="transaction-id">-1</span>
-				</td>
-				<td>
-					<span wicket:id="transaction-value">0</span>
-				</td>
-				<td>
-					<span wicket:id="organization-name">unspecified</span>
-				</td>
-			</tr>
-		</table>
+<wicket:extend>
+
+	<div class="container">
+		<div class="row">
+			<div class="span10 offset1 well" wicket:id="search-box-panel"></div>
+		</div>
 	</div>
-    </wicket:extend>
+	<div class="container">
+		<div class="row"><div class="span12">&nbsp;</div></div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="span10 offset1 well" wicket:id="tops-panel"></div>
+		</div>
+	</div>
+</wicket:extend>
 </body>
 </html>

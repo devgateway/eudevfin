@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="555" pageHeight="842" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4d81083f-52a3-45df-97af-b93a485e497a">
+	<property name="ireport.callouts" value="##Mon Dec 30 08:46:00 ART 2013"/>
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="FIRST_YEAR" class="java.lang.Number"/>
+	<parameter name="SECOND_YEAR" class="java.lang.Number"/>
+	<queryString language="mdx">
+		<![CDATA[
+WITH MEMBER [Type of Finance].[Grants] as SUM({[Type of Finance].[TYPE_OF_FINANCE##100],[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE##111]})
+     MEMBER [Type of Finance].[Non Grants] as SUM({[Type of Finance].[TYPE_OF_FINANCE##400],[Type of Finance].[TYPE_OF_FINANCE##410],[Type of Finance].[TYPE_OF_FINANCE##411],[Type of Finance].[TYPE_OF_FINANCE##412],[Type of Finance].[TYPE_OF_FINANCE##413],[Type of Finance].[TYPE_OF_FINANCE##414],[Type of Finance].[TYPE_OF_FINANCE##450],[Type of Finance].[TYPE_OF_FINANCE##451],[Type of Finance].[TYPE_OF_FINANCE##452],[Type of Finance].[TYPE_OF_FINANCE##453],[Type of Finance].[TYPE_OF_FINANCE##600],[Type of Finance].[TYPE_OF_FINANCE##610],[Type of Finance].[TYPE_OF_FINANCE##611],[Type of Finance].[TYPE_OF_FINANCE##612],[Type of Finance].[TYPE_OF_FINANCE##613],[Type of Finance].[TYPE_OF_FINANCE##614],[Type of Finance].[TYPE_OF_FINANCE##615],[Type of Finance].[TYPE_OF_FINANCE##616],[Type of Finance].[TYPE_OF_FINANCE##617],[Type of Finance].[TYPE_OF_FINANCE##618],[Type of Finance].[TYPE_OF_FINANCE##620],[Type of Finance].[TYPE_OF_FINANCE##621],[Type of Finance].[TYPE_OF_FINANCE##622],[Type of Finance].[TYPE_OF_FINANCE##623],[Type of Finance].[TYPE_OF_FINANCE##624],[Type of Finance].[TYPE_OF_FINANCE##625],[Type of Finance].[TYPE_OF_FINANCE##626],[Type of Finance].[TYPE_OF_FINANCE##627],[Type of Finance].[TYPE_OF_FINANCE##630],[Type of Finance].[TYPE_OF_FINANCE##631],[Type of Finance].[TYPE_OF_FINANCE##632]})
+     MEMBER [Type of Finance].[Non Grants Debt Forgiveness] as SUM([Type of Finance].[TYPE_OF_FINANCE##610])
+     MEMBER [Measures].[First Year Net] AS SUM(CrossJoin({[Reporting Year].[$P{FIRST_YEAR}]}, {[Measures].[Net Amount Currency NATLOECD]}))
+     MEMBER [Measures].[Second Year Net] AS SUM(CrossJoin({[Reporting Year].[$P{SECOND_YEAR}]}, {[Measures].[Net Amount Currency NATLOECD]}))
+     MEMBER [Measures].[First Year Gross] AS SUM(CrossJoin({[Reporting Year].[$P{FIRST_YEAR}]}, {[Measures].[Extended Amount Currency NATLOECD]}))
+     MEMBER [Measures].[Second Year Gross] AS SUM(CrossJoin({[Reporting Year].[$P{SECOND_YEAR}]}, {[Measures].[Extended Amount Currency NATLOECD]}))
+SELECT
+{[Type of Finance].[Grants], [Type of Finance].[Non Grants], [Type of Finance].[Non Grants Debt Forgiveness]} ON ROWS,
+{[Measures].[First Year Gross], [Measures].[Second Year Gross],[Measures].[First Year Net], [Measures].[Second Year Net]} ON COLUMNS
+FROM [Financial]
+WHERE {[BiMultilateral].[BI_MULTILATERAL##1]}]]>
+	</queryString>
+	<field name="Grant Y1" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[First Year Net], [Type of Finance].[Grants])]]></fieldDescription>
+	</field>
+	<field name="Grant Y2" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Second Year Net], [Type of Finance].[Grants])]]></fieldDescription>
+	</field>
+	<field name="Non Grants Gross Y1" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[First Year Gross], [Type of Finance].[Non Grants])]]></fieldDescription>
+	</field>
+	<field name="Non Grants Gross Y2" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Second Year Gross], [Type of Finance].[Non Grants])]]></fieldDescription>
+	</field>
+	<field name="Non Grants Net Y1" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[First Year Net], [Type of Finance].[Non Grants])]]></fieldDescription>
+	</field>
+	<field name="Non Grants Net Y2" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Second Year Net], [Type of Finance].[Non Grants])]]></fieldDescription>
+	</field>
+	<field name="Non Grants Debt Forgiveness Y1" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[First Year Net], [Type of Finance].[Non Grants Debt Forgiveness])]]></fieldDescription>
+	</field>
+	<field name="Non Grants Debt Forgiveness Y2" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Second Year Net], [Type of Finance].[Non Grants Debt Forgiveness])]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="96" splitType="Stretch">
+			<textField>
+				<reportElement x="14" y="14" width="281" height="14" uuid="e60ba32c-718d-42f9-90c3-250d57e8e9ba"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{aq.bilateral.financialInstruments}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="32" y="28" width="263" height="14" uuid="b0eebc25-9b0e-44ca-91b3-fde67f3274f1"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{aq.bilateral.grants}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="32" y="42" width="263" height="14" uuid="c03c6a7a-d273-4ff0-a6b8-f056be956483"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{aq.bilateral.nonGrantsGross}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="32" y="56" width="263" height="14" uuid="3748c4d0-1cea-4812-8d61-a9180137bdc4"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{aq.bilateral.nonGrantsNets}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="49" y="70" width="246" height="14" uuid="98df0763-f62e-49e9-9314-57c8d501ca49"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{aq.bilateral.nonGrantsNets.subtitle}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="352" y="28" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Grant Y1}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="352" y="42" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Non Grants Gross Y1}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="352" y="56" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Non Grants Net Y1}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="355" y="70" width="97" height="14" uuid="1096096f-d316-4de3-8930-2eaada1e093d"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Non Grants Debt Forgiveness Y1}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="298" y="28" width="50" height="14" uuid="e56b0cfc-bcf5-4680-b4d8-c5d679b7135c"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[1921]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="298" y="56" width="50" height="14" uuid="a6cb5a9b-78fe-4279-a850-8af295ef5b37"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[1924]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="298" y="42" width="50" height="14" uuid="33669db6-7d56-4764-8861-1f9286d18383"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[1922]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="298" y="70" width="50" height="14" uuid="c7345f8d-1510-42b1-8cd6-8e189cec6bfb"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[1630]]></text>
+			</staticText>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="455" y="70" width="100" height="14" uuid="ab729ed9-2c5b-4c15-b51a-47e4ebdfa5bd"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Non Grants Debt Forgiveness Y2}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="455" y="28" width="100" height="14" uuid="f51f91b1-2801-40e6-843f-4ffdd3043a44"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Grant Y2}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="455" y="42" width="100" height="14" uuid="569f9c1e-91f7-48ef-8434-4b1e9654e071"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Non Grants Gross Y2}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="455" y="56" width="100" height="14" uuid="6f5deb92-d4cc-4300-a7f4-713ea4ad16a0"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Non Grants Net Y2}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -9,24 +9,162 @@
   Contributors:
      mpostelnicu
 -->
-<beans xmlns="http://www.springframework.org/schema/beans"
+<beans default-lazy-init="true"
+	xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:int="http://www.springframework.org/schema/integration"
-	xmlns:int-jpa="http://www.springframework.org/schema/integration/jpa"
-	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
-		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
-		http://www.springframework.org/schema/integration/jpa http://www.springframework.org/schema/integration/jpa/spring-integration-jpa.xsd">
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-2.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+
+
+    <bean class="org.devgateway.eudevfin.financial.util.LocaleHelper" id="localeHelperRequest" scope="request" />
+	<bean class="org.devgateway.eudevfin.financial.util.LocaleHelper" id="localeHelperSession" scope="session" />
+	
+	<int:channel id="getChannel"/>
 
 	
-	<tx:annotation-driven />
-	<context:component-scan base-package="org.devgateway.eudevfin.financial" />
-	<context:annotation-config />
 	
+	<!-- This section contains the definition of the services that are made available to the other modules -->
+	<int:gateway id="financialTransactionService"
+		default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}" 
+		service-interface="org.devgateway.eudevfin.financial.service.FinancialTransactionService" >
+		<int:method name="findAll" request-channel="getChannel">
+			<int:header name="requestName" value="findAllAsListTransactionChannel"/>
+		</int:method>
+		<int:method name="save" request-channel="getChannel">
+			<int:header name="requestName" value="saveTransactionChannel"/>
+		</int:method>
+		<int:method name="findOne" request-channel="getChannel">
+			<int:header name="requestName" value="findTransactionByIdChannel"/>
+		</int:method>
+		<int:method name="findBySectorCode" request-channel="getChannel">
+			<int:header name="requestName" value="findTransactionBySectorCodePageableChannel"/>
+		</int:method>
+		<int:method name="findByGeneralSearchPageable" request-channel="getChannel">
+			<int:header name="requestName" value="findTransactionByGeneralSearchPageableChannel"/>
+		</int:method>
+		<int:method name="findByReportingYearAndTypeOfFlowCode" request-channel="getChannel">
+			<int:header name="requestName" value="findTransactionByReportingYearAndTypeOfFlowNonFlow"/>
+		</int:method>
+		
+	</int:gateway>
 	
+	<int:gateway id="customFinancialTransactionService"
+		default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}" 
+		service-interface="org.devgateway.eudevfin.financial.service.CustomFinancialTransactionService">
+		<int:method name="findByDraftPageable" request-channel="getChannel">
+			<int:header name="requestName" value="findCustomTransactionByDraftPageableChannel"/>
+		</int:method>
+		<int:method name="findByReportingYearAndDraftFalse" request-channel="getChannel">
+			<int:header name="requestName" value="findCustomTransactionByReportingYearAndDraftFalseChannel"/>
+		</int:method>
+	</int:gateway>
+		
+		
+	<int:gateway id="financialTransactionHistExchRateService"
+		default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}" 
+		service-interface="org.devgateway.eudevfin.financial.service.FinancialTransactionHistExchRateService">
+		<int:method name="getHistoricalExchangeRates" request-channel="getChannel">
+			<int:header name="requestName" value="getFinancialTransactionHistoricalExchangeRatesChannel"/>
+		</int:method>
+	</int:gateway>		
+		
+	<int:gateway id="organizationService"
+		default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}" 
+		service-interface="org.devgateway.eudevfin.financial.service.OrganizationService">
+		<int:method name="save" request-channel="getChannel">
+			<int:header name="requestName" value="saveOrganizationChannel"/>
+		</int:method>
+        <int:method name="findAll" request-channel="getChannel">
+            <int:header name="requestName" value="findAllAsListOrganizationChannel"/>
+        </int:method>
+        <int:method name="findOne" request-channel="getChannel">
+            <int:header name="requestName" value="findOrganizationByIdChannel"/>
+        </int:method>
+        
+        <int:method name="findByGeneralSearchPageable" request-channel="getChannel">
+			<int:header name="requestName" value="findOrganizationByGeneralSearchPageableChannel"/>
+		</int:method>
+		
+    </int:gateway>
+    <int:gateway id="categoryService"
+		default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}" 
+		service-interface="org.devgateway.eudevfin.financial.service.CategoryService">
+		<int:method name="save" request-channel="getChannel">
+			<int:header name="requestName" value="saveCategoryChannel"/>
+		</int:method>
+		<int:method name="findAll" request-channel="getChannel">
+			<int:header name="requestName" value="findAllAsListCategoryChannel"/>
+		</int:method>
+		<int:method name="findOne" request-channel="getChannel">
+			<int:header name="requestName" value="findCategoryByIdChannel"/>
+		</int:method>
+		<int:method name="findByTagsCode" request-channel="getChannel">
+			<int:header name="requestName" value="findCategoryByTagCodeChannel"/>
+		</int:method>
+		<int:method name="findByCodeAndClass" request-channel="getChannel">
+			<int:header name="requestName" value="findCategoryByCodeAndClassChannel"/>
+		</int:method>		
+		<int:method name="findByGeneralSearchAndTagsCode">
+			<int:header name="requestName" value="findCategoryByGeneralSearchAndTagsCodeChannel"/>		
+		</int:method>
+		
+		<int:method name="findByGeneralSearchAndTagsCodePaginated" request-channel="getChannel">
+			<int:header name="requestName" value="findCategoryByGeneralSearchAndTagsCodePaginatedChannel"/>
+		</int:method>
+	</int:gateway>
+	
+	<int:gateway id="channelCategoryService"
+		default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}" 
+		service-interface="org.devgateway.eudevfin.financial.service.ChannelCategoryService">
+		<int:method name="save" request-channel="getChannel">
+			<int:header name="requestName" value="saveCategoryChannel"/>
+		</int:method>
+		<int:method name="findAll" request-channel="getChannel">
+			<int:header name="requestName" value="findAllAsListChannelCategoryChannel"/>
+		</int:method>
+		<int:method name="findByCode" request-channel="getChannel">
+			<int:header name="requestName" value="findChannelCategoryByCodeChannel"/>
+		</int:method>
+		<int:method name="findByGeneralSearchPageable" request-channel="getChannel">
+			<int:header name="requestName" value="findChannelCategoryByGeneralSearchPageable"/>
+		</int:method>
+		<int:method name="findOne" request-channel="getChannel">
+			<int:header name="requestName" value="findOneChannelCategory"/>
+		</int:method>
+		
+		
+	</int:gateway>
+	<int:gateway id="areaService"
+		default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}" 
+		service-interface="org.devgateway.eudevfin.financial.service.AreaService">
+		<int:method name="save" request-channel="getChannel">
+			<int:header name="requestName" value="saveAreaChannel"/>
+		</int:method>
+		<int:method name="findAll" request-channel="getChannel">
+			<int:header name="requestName" value="findAllAsListAreaChannel"/>
+		</int:method>
+		<int:method name="findOne" request-channel="getChannel">
+			<int:header name="requestName" value="findAreaByIdChannel"/>
+		</int:method>
+		<int:method name="findByGeneralSearch" request-channel="getChannel">
+			
+		</int:method>
+		<int:method name="findByGeneralSearchPageable" request-channel="getChannel">
+			<int:header name="requestName" value="findByGeneralSearchPageableAreaChannel" />
+		</int:method>
+	
+	</int:gateway>
+	<int:gateway id="currencyMetadataService"
+		default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}" 
+		service-interface="org.devgateway.eudevfin.financial.service.CurrencyMetadataService">
+		<int:method name="findBySearch" request-channel="getChannel">
+			<int:header name="requestName" value="findBySearchPageableCurrencyChannel"/>
+		</int:method>
+		<int:method name="findByCode" request-channel="getChannel">
+			<int:header name="requestName" value="findByCodeCurrencyChannel" />
+		</int:method>
+	</int:gateway>
 </beans>

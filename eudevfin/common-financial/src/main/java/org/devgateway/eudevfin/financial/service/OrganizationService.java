@@ -1,10 +1,9 @@
 package org.devgateway.eudevfin.financial.service;
 
+import org.devgateway.eudevfin.common.service.BaseEntityService;
 import org.devgateway.eudevfin.financial.Organization;
-import org.springframework.integration.annotation.Gateway;
 import org.springframework.stereotype.Component;
 
 @Component
-public interface OrganizationService {
-	Organization createOrganization(Organization t);
+public interface OrganizationService extends BaseEntityService<Organization> {
 }

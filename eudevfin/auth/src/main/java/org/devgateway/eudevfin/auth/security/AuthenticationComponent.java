@@ -1,6 +1,7 @@
 package org.devgateway.eudevfin.auth.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Component;
  * @author mihai
  * 
  */
+@Lazy(value=false)
 @Component
 public class AuthenticationComponent {
 

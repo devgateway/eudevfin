@@ -1,6 +1,8 @@
 package org.devgateway.eudevfin.financial.test.storage;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -24,7 +26,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/financialContext.xml",
-		"classpath:META-INF/commonFinancialContext.xml" })
+		"classpath:META-INF/commonFinancialContext.xml","classpath:testFinancialContext.xml" })
 @TransactionConfiguration(defaultRollback=false, transactionManager="transactionManager")
 public class RevisionsTest extends AbstractStorageTest{
 	
@@ -57,10 +59,10 @@ public class RevisionsTest extends AbstractStorageTest{
 		
 		for ( Object [] oArray: auditObjects ) {
 			FinancialTransaction fTransaction								= (FinancialTransaction) oArray[0]; 
-			assertNotNull(fTransaction.getSourceOrganization());
+			assertNotNull(fTransaction.getExtendingAgency());
 			DefaultTrackingModifiedEntitiesRevisionEntity trackingObject 	= (DefaultTrackingModifiedEntitiesRevisionEntity) oArray[1];
 			logger.info(String.format("For transaction with id %d and amount %f and organization %s.Revision numbers is %d. Modified entities: %s ", 
-					fTransaction.getId(), fTransaction.getAmount().doubleValue(),fTransaction.getSourceOrganization().getName(), 
+					fTransaction.getId(), fTransaction.getAmount().doubleValue(),fTransaction.getExtendingAgency().getName(), 
 					trackingObject.getId(), trackingObject.getModifiedEntityNames()));
 			assertTrue( trackingObject.getModifiedEntityNames().contains(FinancialTransaction.class.getName()) );
 		}

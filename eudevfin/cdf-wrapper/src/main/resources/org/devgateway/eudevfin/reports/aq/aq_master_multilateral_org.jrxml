@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="555" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4d81083f-52a3-45df-97af-b93a485e497a">
+	<property name="ireport.callouts" value="##Mon Dec 30 08:46:00 ART 2013"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="FIRST_YEAR" class="java.lang.Number"/>
+	<parameter name="SECOND_YEAR" class="java.lang.Number"/>
+	<queryString language="mdx">
+		<![CDATA[WITH
+MEMBER [Channel].[United Nations] AS SUM({[Channel].[41000],[Channel].[41101],[Channel].[41102],[Channel].[41103],[Channel].[41104],[Channel].[41105],[Channel].[41106],[Channel].[41107],[Channel].[41108],[Channel].[41110],[Channel].[41111],[Channel].[41112],[Channel].[41114],[Channel].[41116],[Channel].[41119],[Channel].[41120],[Channel].[41121],[Channel].[41122],[Channel].[41123],[Channel].[41125],[Channel].[41126],[Channel].[41127],[Channel].[41128],[Channel].[41129],[Channel].[41130],[Channel].[41131],[Channel].[41132],[Channel].[41133],[Channel].[41134],[Channel].[41135],[Channel].[41136],[Channel].[41137],[Channel].[41138],[Channel].[41140],[Channel].[41141],[Channel].[41142],[Channel].[41143],[Channel].[41144],[Channel].[41145],[Channel].[41146],[Channel].[41147],[Channel].[41148],[Channel].[41301],[Channel].[41302],[Channel].[41303],[Channel].[41304],[Channel].[41305],[Channel].[41306],[Channel].[41307],[Channel].[41308],[Channel].[41309],[Channel].[41310],[Channel].[41311],[Channel].[41312],[Channel].[41313],[Channel].[41314],[Channel].[41315],[Channel].[41316]})
+MEMBER [Channel].[European Union] AS SUM({[Channel].[42000],[Channel].[42001],[Channel].[42003],[Channel].[42004]})
+MEMBER [Channel].[World Bank] AS SUM({[Channel].[44000],[Channel].[44001],[Channel].[44002],[Channel].[44003],[Channel].[44004],[Channel].[44005],[Channel].[44006],[Channel].[44007]})
+MEMBER [Channel].[Regional Banks] AS SUM({[Channel].[46000],[Channel].[46002],[Channel].[46003],[Channel].[46004],[Channel].[46005],[Channel].[46006],[Channel].[46007],[Channel].[46008],[Channel].[46009],[Channel].[46012],[Channel].[46013],[Channel].[46015],[Channel].[46016],[Channel].[46017],[Channel].[46018],[Channel].[46019],[Channel].[46020],[Channel].[46021],[Channel].[46022],[Channel].[46023]})
+MEMBER [Channel].[Others] AS SUM({[Channel].[47000], [Channel].[21002],[Channel].[30010],[Channel].[47001],[Channel].[47002],[Channel].[47003],[Channel].[47005],[Channel].[47009],[Channel].[47011],[Channel].[47012],[Channel].[47013],[Channel].[47015],[Channel].[47019],[Channel].[47022],[Channel].[47025],[Channel].[47026],[Channel].[47027],[Channel].[47029],[Channel].[47034],[Channel].[47036],[Channel].[47037],[Channel].[47040],[Channel].[47044],[Channel].[47045],[Channel].[47046],[Channel].[47050],[Channel].[47058],[Channel].[47059],[Channel].[47061],[Channel].[47064],[Channel].[47065],[Channel].[47066],[Channel].[47067],[Channel].[47068],[Channel].[47073],[Channel].[47074],[Channel].[47076],[Channel].[47077],[Channel].[47078],[Channel].[47079],[Channel].[47080],[Channel].[47081],[Channel].[47082],[Channel].[47083],[Channel].[47084],[Channel].[47086],[Channel].[47087],[Channel].[47089],[Channel].[47092],[Channel].[47093],[Channel].[47095],[Channel].[47096],[Channel].[47097],[Channel].[47098],[Channel].[47100],[Channel].[47102],[Channel].[47105],[Channel].[47106],[Channel].[47107],[Channel].[47109],[Channel].[47110],[Channel].[47111],[Channel].[47112],[Channel].[47113],[Channel].[47116],[Channel].[47117],[Channel].[47118],[Channel].[47119],[Channel].[47120],[Channel].[47121],[Channel].[47122],[Channel].[47123],[Channel].[47127],[Channel].[47128],[Channel].[47129],[Channel].[47130],[Channel].[47131],[Channel].[47132],[Channel].[47136]})
+MEMBER [Channel].[AllCodes] AS SUM({[Channel].[United Nations], [Channel].[European Union], [Channel].[World Bank], [Channel].[Regional Banks], [Channel].[Others]})
+MEMBER [Measures].[First Year] AS SUM(CrossJoin({[Reporting Year].[$P{FIRST_YEAR}]}, {[Measures].[Net Amount Currency NATLOECD]}))
+MEMBER [Measures].[Second Year] AS SUM(CrossJoin({[Reporting Year].[$P{SECOND_YEAR}]}, {[Measures].[Net Amount Currency NATLOECD]}))
+SELECT
+{[Channel].[United Nations], [Channel].[European Union], [Channel].[World Bank], [Channel].[Regional Banks], [Channel].[Others], [Channel].[AllCodes]} ON ROWS,
+{[Measures].[First Year], [Measures].[Second Year]} ON COLUMNS
+FROM [Financial]
+WHERE {[BiMultilateral].[BI_MULTILATERAL##2]}]]>
+	</queryString>
+	<field name="United Nations Y1" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[First Year], [Channel].[United Nations])]]></fieldDescription>
+	</field>
+	<field name="United Nations Y2" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Channel].[United Nations])]]></fieldDescription>
+	</field>
+	<field name="European Union Y1" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[First Year], [Channel].[European Union] )]]></fieldDescription>
+	</field>
+	<field name="European Union Y2" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Channel].[European Union] )]]></fieldDescription>
+	</field>
+	<field name="World Bank Y1" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[First Year], [Channel].[World Bank])]]></fieldDescription>
+	</field>
+	<field name="World Bank Y2" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Channel].[World Bank])]]></fieldDescription>
+	</field>
+	<field name="Regional Banks Y1" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[First Year], [Channel].[Regional Banks])]]></fieldDescription>
+	</field>
+	<field name="Regional Banks Y2" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Channel].[Regional Banks])]]></fieldDescription>
+	</field>
+	<field name="Others Y1" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[First Year], [Channel].[Others])]]></fieldDescription>
+	</field>
+	<field name="Others Y2" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Channel].[Others])]]></fieldDescription>
+	</field>
+	<field name="All Codes Y1" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[First Year], [Channel].[AllCodes])]]></fieldDescription>
+	</field>
+	<field name="All Codes Y2" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Channel].[AllCodes])]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="105" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="295" height="14" uuid="75a9d431-f9ec-4d1d-8f7a-bb967d39b954"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{aq.multilateral.title}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="14" y="14" width="281" height="14" uuid="e60ba32c-718d-42f9-90c3-250d57e8e9ba"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{aq.multilateral.subtitle}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="32" y="28" width="263" height="14" uuid="b0eebc25-9b0e-44ca-91b3-fde67f3274f1"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{aq.multilateral.unitedNations}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="32" y="42" width="263" height="14" uuid="c03c6a7a-d273-4ff0-a6b8-f056be956483"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{aq.multilateral.EU}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="32" y="56" width="263" height="14" uuid="3748c4d0-1cea-4812-8d61-a9180137bdc4"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{aq.multilateral.worldBank}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="32" y="70" width="263" height="14" uuid="98df0763-f62e-49e9-9314-57c8d501ca49"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{aq.multilateral.regionalDevelopmentBanks}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="32" y="84" width="263" height="14" uuid="df2f387a-f274-4304-9fe5-73fa1725fb89"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{aq.multilateral.other}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement key="UnitedNationsYear1" x="352" y="28" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{United Nations Y1}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement key="EuropeanUnionYear1" x="352" y="42" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{European Union Y1}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement key="WorldBankYear1" x="352" y="56" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{World Bank Y1}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement key="RegionalBanksYear1" x="352" y="70" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Regional Banks Y1}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement key="OthersYear1" x="352" y="84" width="100" height="14" uuid="c9e4e461-f3ce-4935-8d84-c74c8d4d586c"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Others Y1}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="297" y="28" width="50" height="14" uuid="9be4e8ad-9036-4f22-8244-ed28c444c7d1"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[2101]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="297" y="84" width="50" height="14" uuid="e54d234f-5ea6-47b8-be88-b8129c77a74a"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[069]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="297" y="56" width="50" height="14" uuid="06460e08-fb77-4fef-8879-c0780ef5026e"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[547]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="297" y="42" width="50" height="14" uuid="e9e15d5b-72cf-4d70-80dc-ac2a6eda96ff"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[2102]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="297" y="70" width="50" height="14" uuid="3bfa9e88-e988-4a12-8827-6a539177544d"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[2105]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="297" y="0" width="50" height="14" uuid="0d72101f-1d35-467b-b3c8-feb8e55c510c"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[2000]]></text>
+			</staticText>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement key="allCodesYear1" x="352" y="0" width="100" height="14" uuid="9c6b15a8-1b92-4bb5-8754-3cc4f9bb4214"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{All Codes Y1}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement key="EuropeanUnionYear2" x="455" y="42" width="100" height="14" uuid="0fcacc85-613a-4711-aac5-1017b82c26fe"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{European Union Y2}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement key="OthersYear2" x="455" y="84" width="100" height="14" uuid="1c862bf1-079f-407f-91ca-edb0fafef7d5"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Others Y2}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement key="WorldBankYear2" x="455" y="56" width="100" height="14" uuid="f0cdebf9-f723-4649-a3b6-550312e499b1"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{World Bank Y2}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement key="allCodesYear2" x="455" y="0" width="100" height="14" uuid="f2656424-6c84-437a-aae3-fd94e9efb236"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{All Codes Y2}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement key="RegionalBanksYear2" x="455" y="70" width="100" height="14" uuid="02986715-209c-4262-8400-9a91a9c4f25c"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Regional Banks Y2}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement key="UnitedNationsYear2" x="455" y="28" width="100" height="14" uuid="9db7d719-4f21-47c5-9402-45fc2ce76d93"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{United Nations Y2}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

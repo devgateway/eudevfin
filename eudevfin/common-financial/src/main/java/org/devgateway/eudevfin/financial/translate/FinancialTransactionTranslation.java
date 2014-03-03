@@ -4,12 +4,10 @@
 package org.devgateway.eudevfin.financial.translate;
 
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 import org.devgateway.eudevfin.financial.FinancialTransaction;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
 
 /**
@@ -18,33 +16,39 @@ import org.hibernate.envers.Audited;
  */
 @Entity
 @Audited
-@Table(name="FINANCIAL_TRANSACTION_TRANSLATION",
-		uniqueConstraints=@UniqueConstraint(columnNames={"PARENT_ID","LOCALE"}))
-public class FinancialTransactionTranslation extends AbstractTranslation {
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+public class FinancialTransactionTranslation extends AbstractTranslation<FinancialTransaction> implements FinancialTransactionTrnInterface {
 	
-	@ManyToOne(  optional= false )
-	@JoinColumn(name="PARENT_ID")
-	private FinancialTransaction parent;
-	
+//	@Lob
 	private String description;
-
+//	@Lob
+	private String shortDescription;
+	
+	/* (non-Javadoc)
+	 * @see org.devgateway.eudevfin.financial.translate.FinancialTransactionTrnInterface#getDescription()
+	 */
+	@Override
 	public String getDescription() {
 		return description;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.devgateway.eudevfin.financial.translate.FinancialTransactionTrnInterface#setDescription(java.lang.String)
+	 */
+	@Override
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
-	public FinancialTransaction getParent() {
-		return parent;
+	@Override
+	public String getShortDescription() {
+		return shortDescription;
 	}
 
-	public void setParent(FinancialTransaction parent) {
-		this.parent = parent;
+	@Override
+	public void setShortDescription(String shortDescription) {
+		this.shortDescription = shortDescription;
 	}
-	
-	
 	
 	
 	

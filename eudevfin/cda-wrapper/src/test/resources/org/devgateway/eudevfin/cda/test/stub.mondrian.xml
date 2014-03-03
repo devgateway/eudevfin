@@ -1,7 +1,0 @@
-<Schema name="SteelWheels">
-	<Cube name="Stub" cache="true" enabled="true">
-		<Table name="FINANCIAL_TRANSACTIONS">
-		</Table>
-		
-	</Cube>
-</Schema>

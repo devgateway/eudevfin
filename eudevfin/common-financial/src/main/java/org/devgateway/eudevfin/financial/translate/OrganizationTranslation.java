@@ -4,43 +4,47 @@
 package org.devgateway.eudevfin.financial.translate;
 
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 import org.devgateway.eudevfin.financial.Organization;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
 
 /**
- * @author alex
+ * @author Alex
  *
  */
 @Entity
 @Audited
-@Table(name="ORGANIZATION_TRANSLATION",
-		uniqueConstraints=@UniqueConstraint(columnNames={"PARENT_ID","LOCALE"}))
-public class OrganizationTranslation extends AbstractTranslation {
-	@ManyToOne(  optional= false )
-	@JoinColumn(name="PARENT_ID")
-	private Organization parent;
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+public class OrganizationTranslation extends AbstractTranslation<Organization> implements OrganizationTrnInterface {
 	
 	private String name;
+	
+	private String donorName;
 
-	public Organization getParent() {
-		return parent;
-	}
-
-	public void setParent(Organization parent) {
-		this.parent = parent;
-	}
-
+	/* (non-Javadoc)
+	 * @see org.devgateway.eudevfin.financial.translate.OrganizationTrnInterface#getName()
+	 */
+	@Override
 	public String getName() {
 		return name;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.devgateway.eudevfin.financial.translate.OrganizationTrnInterface#setName(java.lang.String)
+	 */
+	@Override
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getDonorName() {
+		return donorName;
+	}
+
+	public void setDonorName(String donorName) {
+		this.donorName = donorName;
 	}
 	
 	

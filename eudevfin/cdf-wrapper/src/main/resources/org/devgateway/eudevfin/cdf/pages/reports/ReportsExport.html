@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2013 Development Gateway.
+  ~ All rights reserved. This program and the accompanying materials
+  ~ are made available under the terms of the GNU Public License v3.0
+  ~ which accompanies this distribution, and is available at
+  ~ http://www.gnu.org/licenses/gpl.html
+  -->
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+<wicket:head>
+    <title>Reports Export</title>
+    
+    <script>
+	    function target_popup (form) {
+	    	'use strict';
+	    	
+	        window.open('', 'formpopup', 'width=960,height=640,left=200,top=100,resizeable,scrollbars');
+	        form.target = 'formpopup';
+	    }
+    </script>
+</wicket:head>
+<body>
+<wicket:extend>
+	<div class="container">
+		<div class="row">
+			<br/><br/>
+			<div class="span6 offset2">
+				<form class="form-horizontal" action="/jasperreports/generate" method="post" onsubmit="target_popup(this)">
+	                <input wicket:id="reportType" type="hidden"/>
+					<div class="control-group">
+						<label class="control-label" for="reportYear">Report Year</label>
+						<div class="controls">
+							<select id="reportYear" name="reportYear" class="span3">
+								<option value="2010">2010</option>
+								<option value="2011">2011</option>
+								<option value="2012">2012</option>
+								<option value="2013">2013</option>
+							</select>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="outputType">Output Type</label>
+						<div class="controls">
+							<select id="outputType" name="outputType" class="span3">
+								<option value="pdf">PDF</option>
+								<option value="excel">Excel</option>
+								<option value="html">HTML</option>
+								<option value="csv">CSV</option>
+							</select>
+						</div>
+					</div>
+				    <div class="form-actions">
+						<button type="submit" class="btn btn-large btn-primary">Export</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</wicket:extend>
+</body>
+</html>

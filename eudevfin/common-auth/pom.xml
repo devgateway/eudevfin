@@ -2,9 +2,28 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.devgateway.eudevfin</groupId>
-    <artifactId>integration</artifactId>
-    <version>0.0.1.CI-SNAPSHOT</version>
+    <artifactId>eudevfin</artifactId>
+    <version>0.9.8-SNAPSHOT</version>
   </parent>
   <artifactId>common-auth</artifactId>
   <name>EU-DEVFIN Common Authentication</name>
+  
+  <dependencies>
+  
+       	<dependency>
+            <groupId>org.devgateway.eudevfin</groupId>
+            <artifactId>common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+        
+        
+       	<dependency>
+            <groupId>org.devgateway.eudevfin</groupId>
+            <artifactId>common-financial</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+  
+  
+  </dependencies>
 </project>

@@ -3,32 +3,40 @@
  */
 package org.devgateway.eudevfin.auth.test;
 
-import org.devgateway.eudevfin.auth.common.domain.User;
-import org.devgateway.eudevfin.auth.common.service.UserService;
+import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
+import org.devgateway.eudevfin.auth.common.service.PersistedUserGroupService;
+import org.devgateway.eudevfin.auth.common.service.PersistedUserService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 
  * @author mihai
  * 
  */
+@Transactional
+@TransactionConfiguration(transactionManager="transactionManager")
 public class UserServiceTest extends AbstractAuthTest {
 
 	@Autowired
-	UserService service;
-
+	PersistedUserService userService;
+	
+	@Autowired
+	PersistedUserGroupService groupService;
+	
 	@Test
 	public void testCreateGetUser() {
-		User u = new User();
+		PersistedUser u = new PersistedUser();
 		u.setUsername("test");
 		u.setPassword("testpassword");
 		u.setEnabled(true);
 
-		service.createUser(u);
+		userService.save(u);
 
-		User userByUsername = service.getUserByUsername("test");
+		PersistedUser userByUsername = userService.findByUsername("test").getEntity();
 
 		Assert.assertNotNull(userByUsername);
 

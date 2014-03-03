@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2013 Development Gateway.
+  ~ All rights reserved. This program and the accompanying materials
+  ~ are made available under the terms of the GNU Public License v3.0
+  ~ which accompanies this distribution, and is available at
+  ~ http://www.gnu.org/licenses/gpl.html
+  ~
+  ~ Contributors:
+  ~    mpostelnicu
+  -->
+
+<html xmlns:wicket="http://wicket.apache.org">
+    <head>
+        <title>ControlGroup</title>
+    </head>
+    <body>
+        <wicket:border>
+            <label wicket:id="label" class="control-label">Text input</label>
+            <div class="controls">
+                <wicket:body/>
+  				<p wicket:id="error" class="help-block"></p>
+                <span wicket:id="help" class="help-block" style="display:inline;">Supporting help text</span>
+                <i wicket:id="detailedHelpIcon" style="cursor:pointer;"></i>
+                <span wicket:id="detailedHelp" class="help-block" style="font-size: 80%;">Extra help text</span>
+            </div>
+        </wicket:border>
+    </body>
+</html>

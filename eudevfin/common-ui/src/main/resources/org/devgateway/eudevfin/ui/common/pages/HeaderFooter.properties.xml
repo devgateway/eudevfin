@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2013 Development Gateway.
+  ~ All rights reserved. This program and the accompanying materials
+  ~ are made available under the terms of the GNU Public License v3.0
+  ~ which accompanies this distribution, and is available at
+  ~ http://www.gnu.org/licenses/gpl.html
+  ~
+  ~ Contributors:
+  ~    aartimon
+  -->
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="navbar.home">Home</entry>
+    <entry key="navbar.newTransaction">New Transaction</entry>
+
+    <entry key="navbar.reports">Reports</entry>
+    <entry key="navbar.reports.export">Standard Reports</entry>
+    <entry key="navbar.reports.export.aq">Advance Questionnaire</entry>
+    <entry key="navbar.reports.export.dac1">DAC 1</entry>
+    <entry key="navbar.reports.export.dac2">DAC 2a</entry>
+	<entry key="navbar.reports.export.crs">CRS++</entry>
+	<entry key="navbar.reports.export.fss">FSS</entry>
+	<entry key="navbar.reports.export.iati">IATI</entry>
+    <entry key="navbar.logout">Log Out</entry>
+    <entry key="navbar.admin">Admin</entry>
+    <entry key="navbar.dashboard">ODA at a Glance</entry>
+    <entry key="navbar.customreports">Custom Reports</entry>
+    <entry key="navbar.reportsbuilder">Reports Builder</entry>
+    
+    <entry key="navbar.admin.users">Users</entry>
+    <entry key="navbar.admin.groups">Groups</entry>
+    <entry key="navbar.admin.nonflow">CRS++ Non-Flow Data</entry>
+	<entry key="navbar.admin.maintenance">Maintenance of the system</entry>
+	<entry key="navbar.admin.rates">Exchange Rates</entry>
+    
+    <entry key="navbar.lang">Languages</entry>
+    <entry key="navbar.lang.header">all available languages:</entry>
+
+    <entry key="navbar.newTransaction.bilateralOda">Bilateral ODA</entry>
+    <entry key="navbar.newTransaction.bilateralOda.advanceQuestionnaire">Advance Questionnaire</entry>
+    <entry key="navbar.newTransaction.bilateralOda.CRS">CRS++</entry>
+    <entry key="navbar.newTransaction.bilateralOda.forwardSpending">Forward Spending</entry>
+    <entry key="navbar.newTransaction.multilateralOda">Multilateral ODA</entry>
+    <entry key="navbar.newTransaction.multilateralOda.advanceQuestionnaire">Advance Questionnaire</entry>
+    <entry key="navbar.newTransaction.multilateralOda.CRS">CRS++</entry>
+    <entry key="navbar.newTransaction.nonOda">OOF</entry>
+    <entry key="navbar.newTransaction.nonOda.nonExport">Non Export Credit</entry>
+    <entry key="navbar.newTransaction.nonOda.export">Export Credit</entry>
+    <entry key="navbar.newTransaction.nonOda.publicGrants">Public Grants</entry>
+    <entry key="navbar.newTransaction.nonOda.publicMarket">Public Market</entry>
+    <entry key="navbar.newTransaction.nonOda.otherFlows">Other Flow</entry>
+    
+    <entry key="navbar.spreadsheets.export">Export</entry>
+    <entry key="navbar.spreadsheets.fss">Forward Spending Survey</entry>
+    
+    <entry key="button.submit">Submit</entry>    
+    <entry key="button.cancel">Cancel</entry>
+    <entry key="button.delete">Delete</entry>
+    <entry key="notification.saved">Form Saved!</entry>
+    <entry key="notification.validationerrors">The form has validation errors (highlighted in red). Fix them and try saving again!</entry>    	
+	<entry key="validation.multilateralChannelCode">Select only 4xxxx format codes when in multilateral forms</entry>
+	<entry key="page.title"> </entry>
+	<entry key="link.edit">Edit</entry>
+	
+	<entry key="validation.positiveAmount">The amount needs to be a positive number!</entry>
+</properties>

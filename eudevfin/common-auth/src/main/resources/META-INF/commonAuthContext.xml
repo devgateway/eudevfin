@@ -3,45 +3,93 @@
 	and the accompanying materials are made available under the terms of the 
 	GNU Public License v3.0 which accompanies this distribution, and is available 
 	at http://www.gnu.org/licenses/gpl.html Contributors: mpostelnicu -->
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:int="http://www.springframework.org/schema/integration"
-	xmlns:int-jpa="http://www.springframework.org/schema/integration/jpa"
+<beans default-lazy-init="true"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:security="http://www.springframework.org/schema/security"
-	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
-		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
-		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
-		http://www.springframework.org/schema/integration/jpa http://www.springframework.org/schema/integration/jpa/spring-integration-jpa.xsd
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-2.2.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 
 	<!-- we need a retrieving-outbound-gateway here to provide the Authentication 
 		token -->
+	<security:global-method-security
+		secured-annotations="enabled" pre-post-annotations="enabled"/>
 
 	<int:channel id="authenticationChannel" />
-	<security:global-method-security
-		secured-annotations="enabled" />
+	<int:channel id="userChannel" />
 
-	<int:channel id="getUserChannel" />
-	<int:channel id="createUserChannel" />
 
-	<tx:annotation-driven />
-	<int:annotation-config />
-	<context:component-scan base-package="org.devgateway.eudevfin.auth.common" />
-	<context:annotation-config />
+	<int:gateway id="authenticationService"
+		service-interface="org.devgateway.eudevfin.auth.common.service.AuthenticationService">
+		<int:method name="authenticate" request-channel="authenticationChannel" />
+	</int:gateway>
 
 	<int:gateway id="userService"
-		service-interface="org.devgateway.eudevfin.auth.common.service.UserService" />
+		service-interface="org.devgateway.eudevfin.auth.common.service.PersistedUserService">
+		<int:method name="save" request-channel="userChannel">
+			<int:header name="requestName" value="saveUserChannel" />
+		</int:method>
 
-	<!-- The following is the authentication service used to forward Authentication 
-		tokens between local and remote authentication managers -->
-	<int:gateway id="authenticationService"
-		service-interface="org.devgateway.eudevfin.auth.common.service.AuthenticationService" />
+		<int:method name="findByUsername" request-channel="userChannel">
+			<int:header name="requestName" value="findByUsernameUserChannel" />
+		</int:method>
+
+		<int:method name="findOne" request-channel="userChannel">
+			<int:header name="requestName" value="findOneUserChannel" />
+		</int:method>
+		
+		<int:method name="findByGeneralSearchPageable" request-channel="userChannel">
+			<int:header name="requestName" value="findByGeneralSearchPageableUserChannel" />
+		</int:method>
+		
+	</int:gateway>
 
 
+	<int:gateway id="userGroupService"
+		service-interface="org.devgateway.eudevfin.auth.common.service.PersistedUserGroupService">
+		<int:method name="findAll" request-channel="userChannel">
+			<int:header name="requestName" value="findAllUserGroupChannel" />
+		</int:method>
+		<int:method name="findByGeneralSearchPageable" request-channel="userChannel">
+			<int:header name="requestName" value="findByGeneralSearchUserGroupChannel" />
+		</int:method>
+		<int:method name="findOne" request-channel="userChannel">
+			<int:header name="requestName" value="findOneUserGroupChannel" />
+		</int:method>
+		<int:method name="findByName" request-channel="userChannel">
+			<int:header name="requestName" value="findByNameUserGroupChannel" />
+		</int:method>
+		
+		<int:method name="save" request-channel="userChannel">
+			<int:header name="requestName" value="saveUserGroupChannel" />
+		</int:method>
+		
+	</int:gateway>
+	
+	
+	<int:gateway id="authorityService"
+		service-interface="org.devgateway.eudevfin.auth.common.service.PersistedAuthorityService">
+		<int:method name="save" request-channel="userChannel">
+			<int:header name="requestName" value="savePersistedAuthorityChannel" />
+		</int:method>
+
+		<int:method name="findOne" request-channel="userChannel">
+			<int:header name="requestName" value="findOnePersistedAuthorityChannel" />
+		</int:method>
+		
+		<int:method name="findAll" request-channel="userChannel">	
+			<int:header name="requestName" value="findAllPersistedAuthorityChannel"/>
+		</int:method>
+
+	</int:gateway>
+	
 
 	<!-- The following is an authenticationManager that delegates all its requests 
 		to another (remote) authentication manager It does this by using a remoteAuthenticationProvider 

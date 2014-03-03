@@ -10,42 +10,96 @@
      mpostelnicu
 -->
 <web-app xmlns="http://java.sun.com/xml/ns/javaee"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-  version="2.5"> 
-  
-  <display-name>eudevfin-dim</display-name>
-  <filter>
-    <filter-name>springSecurityFilterChain</filter-name>
-    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>springSecurityFilterChain</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
-  <filter>
-    <filter-name>WicketFilter</filter-name>
-    <filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
-    <init-param>
-      <param-name>applicationFactoryClassName</param-name>
-      <param-value>org.apache.wicket.spring.SpringWebApplicationFactory</param-value>
-    </init-param>
-  </filter>
-  <filter-mapping>
-    <filter-name>WicketFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
-  <listener>
-    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-  </listener>
-  <context-param>
-    <param-name>contextConfigLocation</param-name>
-    <param-value>
-	/WEB-INF/*/auth*.jar!/*/authContext.xml
-    /WEB-INF/*/common-auth*.jar!/*/commonAuthContext.xml
-	classpath*:**/*Context.xml	
-	/WEB-INF/*/financial*.jar!/*/financialContext.xml
-	/WEB-INF/*/common-financial*.jar!/*/commonFinancialContext.xml
-    </param-value>
-  </context-param>
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         version="2.5">
+
+	<display-name>eudevfin-dim</display-name>
+	<servlet>
+		<servlet-name>restservices</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value></param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>restservices</servlet-name>
+		<url-pattern>/cda/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>jasperreports</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value></param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>jasperreports</servlet-name>
+		<url-pattern>/jasperreports/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+	    <servlet-name>JmxMiniConsoleServlet</servlet-name>
+	    <servlet-class>
+	        org.jminix.console.servlet.SpringMiniConsoleServlet
+	    </servlet-class>
+	</servlet> 
+
+	<servlet-mapping>
+		<servlet-name>JmxMiniConsoleServlet</servlet-name>
+		<url-pattern>/jmx/*</url-pattern>
+	</servlet-mapping>
+
+
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter>
+		<filter-name>WicketFilter</filter-name>
+		<filter-class>org.devgateway.eudevfin.ui.common.filter.EUDevFinReloadingWicketFilter</filter-class>
+		<init-param>
+			<param-name>applicationFactoryClassName</param-name>
+			<param-value>org.apache.wicket.spring.SpringWebApplicationFactory</param-value>
+		</init-param>
+		<init-param>
+			<param-name>applicationBean</param-name>
+			<param-value>wicketSpringApplication</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>WicketFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>
+			org.springframework.web.context.request.RequestContextListener
+		</listener-class>
+	</listener>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			classpath*:META-INF/*Context.xml
+		</param-value>
+	</context-param>
+
+	<session-config>
+		<session-timeout>60</session-timeout>
+	</session-config>
+	
+	
 </web-app>

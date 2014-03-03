@@ -2,8 +2,8 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.devgateway.eudevfin</groupId>
-    <artifactId>integration</artifactId>
-    <version>0.0.1.CI-SNAPSHOT</version>
+    <artifactId>eudevfin</artifactId>
+    <version>0.9.8-SNAPSHOT</version>
   </parent>
   <artifactId>auth</artifactId>
   
@@ -14,11 +14,24 @@
       <version>${project.version}</version>
     </dependency>    
     
+        <dependency>
+      <groupId>org.devgateway.eudevfin</groupId>
+      <artifactId>common</artifactId>
+      <version>${project.version}</version>
+    </dependency>    
+    
     <dependency>
       <groupId>org.devgateway.eudevfin</groupId>
       <artifactId>common-auth</artifactId>
       <version>${project.version}</version>
     </dependency>    
+    
+     <dependency>
+      <groupId>org.devgateway.eudevfin</groupId>
+      <artifactId>import-metadata</artifactId>
+      <version>${project.version}</version>
+    </dependency>    
+    
     
   </dependencies>
   <name>EU-DEVFIN Authentication</name>

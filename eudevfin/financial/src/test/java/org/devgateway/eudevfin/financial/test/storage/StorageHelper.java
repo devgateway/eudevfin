@@ -1,19 +1,13 @@
 package org.devgateway.eudevfin.financial.test.storage;
 
-import java.beans.ConstructorProperties;
 import java.math.BigDecimal;
 import java.util.List;
-
-import javax.inject.Inject;
 
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.dao.FinancialTransactionDaoImpl;
 import org.devgateway.eudevfin.financial.dao.OrganizationDaoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,10 +42,10 @@ public class StorageHelper {
 		modifyingTx.setAmount(new BigDecimal(999));
 		
 		for (Organization o: allOrgs) {
-			if ( !modifyingTx.getSourceOrganization().getId().equals(o.getId()) ) {
+			if ( !modifyingTx.getExtendingAgency().getId().equals(o.getId()) ) {
 				o.setName(o.getName() + " !! modified");
 				o.setCode(o.getCode() + " !! modified");
-				modifyingTx.setSourceOrganization(o);
+				modifyingTx.setExtendingAgency(o);
 				orgDao.save(o);
 				break;
 			}
