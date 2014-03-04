@@ -52,6 +52,7 @@ public class OdaAtGlanceTest {
     protected static Logger logger = Logger.getLogger(OdaAtGlanceTest.class);
 
     protected List<CustomFinancialTransaction> transactions;
+    protected List<FinancialTransaction> oldTransactions;
     protected Organization organization;
 
     private static final String TEST_LOCALE = "en";
@@ -90,19 +91,6 @@ public class OdaAtGlanceTest {
         }
 
         transactions = new ArrayList<>();
-        List<Category> listTypeOfFlow,
-                listSectors,
-                listTypeOfFinance,
-                listTypeOfAid,
-                listBiMultilateral;
-        List<Area> listAreas;
-        ChannelCategory channel;
-        Category sector,
-                typeOfFlow,
-                typeOfFinance,
-                typeOfAid,
-                biMultilateral;
-        Area area;
 
         // create the database structure
         organization = new Organization();
@@ -110,219 +98,47 @@ public class OdaAtGlanceTest {
         orgDao.save(organization);
 
         /* **************************** add 1st transaction **************************** */
-        listTypeOfFlow = catDao.findByCode("TYPE_OF_FLOW##10");
-        listSectors = catDao.findByCode("321");
-        listTypeOfFinance = catDao.findByCode("TYPE_OF_FINANCE##110");
-        listTypeOfAid = catDao.findByCode("A");
-        listBiMultilateral = catDao.findByCode("BI_MULTILATERAL##1");
-        listAreas = areaDao.findAllAsList();
-        channel = channelCatDao.findByCode("21001").getEntity();
-
-        sector = listSectors.get(0);
-        typeOfFlow = listTypeOfFlow.get(0);
-        typeOfFinance = listTypeOfFinance.get(0);
-        typeOfAid = listTypeOfAid.get(0);
-        biMultilateral = listBiMultilateral.get(0);
-        area = findAreaByName(listAreas, "Moldova");
-
-        CustomFinancialTransaction ft = new CustomFinancialTransaction();
-
-        ft.setDraft(false);
-        ft.setChannel(channel);
-        ft.setLocale("en");
-        ft.setShortDescription( "Auditing test description 1");
-        ft.setDescription("Long - " + ft.getDescription() );
-        ft.setSector(sector);
-        ft.setTypeOfFlow(typeOfFlow);
-        ft.setTypeOfFinance(typeOfFinance);
-        ft.setTypeOfAid(typeOfAid);
-        ft.setReportingYear(LocalDateTime.parse((2012) + "-07-01"));
-        ft.setFormType("bilateralOda.advanceQuestionnaire");
-        ft.setBiMultilateral(biMultilateral);
-        ft.setRecipient(area);
-
-        ft.setAmountsExtended(BigMoney.parse("EUR " + 100000));
-        ft.setExtendingAgency(organization);
-
-        txDao.save(ft);
-        transactions.add(ft);           // save the transaction so we can delete it later
+        CustomFinancialTransaction tx1 = createMockup(false, "2012", "bilateralOda.advanceQuestionnaire", "TYPE_OF_FLOW##10", "TYPE_OF_FINANCE##110",
+                "A", "321", "21001", "BI_MULTILATERAL##1", "Moldova", "en", "Auditing test description 1", "EUR 100000", "EUR 0", organization);
+        txDao.save(tx1);
+        transactions.add(tx1);          // save the transaction so we can delete it later
 
         /* **************************** add 2nd transaction **************************** */
-        listTypeOfFlow = catDao.findByCode("TYPE_OF_FLOW##10");
-        listSectors = catDao.findByCode("322");
-        listTypeOfFinance = catDao.findByCode("TYPE_OF_FINANCE##110");
-        listTypeOfAid = catDao.findByCode("A");
-        listBiMultilateral = catDao.findByCode("BI_MULTILATERAL##1");
-        listAreas = areaDao.findAllAsList();
-        channel = channelCatDao.findByCode("21001").getEntity();
-
-        sector = listSectors.get(0);
-        typeOfFlow = listTypeOfFlow.get(0);
-        typeOfFinance = listTypeOfFinance.get(0);
-        typeOfAid = listTypeOfAid.get(0);
-        biMultilateral = listBiMultilateral.get(0);
-        area = findAreaByName(listAreas, "Tunisia");
-
-        ft = new CustomFinancialTransaction();
-
-        ft.setDraft(false);
-        ft.setChannel(channel);
-        ft.setLocale("en");
-        ft.setShortDescription( "Auditing test description 2");
-        ft.setDescription("Long - " + ft.getDescription() );
-        ft.setSector(sector);
-        ft.setTypeOfFlow(typeOfFlow);
-        ft.setTypeOfFinance(typeOfFinance);
-        ft.setTypeOfAid(typeOfAid);
-        ft.setReportingYear(LocalDateTime.parse((2013) + "-07-01"));
-        ft.setFormType("bilateralOda.advanceQuestionnaire");
-        ft.setBiMultilateral(biMultilateral);
-        ft.setRecipient(area);
-
-        ft.setAmountsExtended(BigMoney.parse("EUR " + 1000000));
-        ft.setExtendingAgency(organization);
-
-        txDao.save(ft);
-        transactions.add(ft);           // save the transaction so we can delete it later
+        CustomFinancialTransaction tx2 = createMockup(false, "2013", "bilateralOda.advanceQuestionnaire", "TYPE_OF_FLOW##10", "TYPE_OF_FINANCE##110",
+                "A", "322", "21001", "BI_MULTILATERAL##1", "Tunisia", "en", "Auditing test description 2", "EUR 1000000", "EUR 0", organization);
+        txDao.save(tx2);
+        transactions.add(tx2);          // save the transaction so we can delete it later
 
         /* **************************** add 3rd transaction **************************** */
-        listTypeOfFlow = catDao.findByCode("TYPE_OF_FLOW##10");
-        listSectors = catDao.findByCode("112");
-        listTypeOfFinance = catDao.findByCode("TYPE_OF_FINANCE##110");
-        listTypeOfAid = catDao.findByCode("A");
-        listBiMultilateral = catDao.findByCode("BI_MULTILATERAL##2");
-        listAreas = areaDao.findAllAsList();
-        channel = channelCatDao.findByCode("41301").getEntity();        // add a chanel with a coefficient (it should be 51% in this case)
-
-        sector = listSectors.get(0);
-        typeOfFlow = listTypeOfFlow.get(0);
-        typeOfFinance = listTypeOfFinance.get(0);
-        typeOfAid = listTypeOfAid.get(0);
-        biMultilateral = listBiMultilateral.get(0);
-        area = findAreaByName(listAreas, "Turkey");
-
-        ft = new CustomFinancialTransaction();
-
-        ft.setDraft(false);
-        ft.setChannel(channel);
-        ft.setLocale("en");
-        ft.setShortDescription( "Auditing test description 3");
-        ft.setDescription("Long - " + ft.getDescription() );
-        ft.setSector(sector);
-        ft.setTypeOfFlow(typeOfFlow);
-        ft.setTypeOfFinance(typeOfFinance);
-        ft.setTypeOfAid(typeOfAid);
-        ft.setReportingYear(LocalDateTime.parse((2013) + "-07-01"));
-        ft.setFormType("bilateralOda.advanceQuestionnaire");
-        ft.setBiMultilateral(biMultilateral);
-        ft.setRecipient(area);
-
-        ft.setAmountsExtended(BigMoney.parse("EUR " + 1000000));
-        ft.setExtendingAgency(organization);
-
-        txDao.save(ft);
-        transactions.add(ft);           // save the transaction so we can delete it later
+        // add a chanel with a coefficient (it should be 51% in this case)
+        CustomFinancialTransaction tx3 = createMockup(false, "2013", "bilateralOda.advanceQuestionnaire", "TYPE_OF_FLOW##10", "TYPE_OF_FINANCE##110",
+                "A", "112", "41301", "BI_MULTILATERAL##2", "Turkey", "en", "Auditing test description 3", "EUR 1000000", "EUR 0", organization);
+        txDao.save(tx3);
+        transactions.add(tx3);          // save the transaction so we can delete it later
 
         /* **************************** add 4th transaction that is not ODA **************************** */
-        listTypeOfFlow = catDao.findByCode("TYPE_OF_FLOW##30");
-        listSectors = catDao.findByCode("321");
-        listTypeOfFinance = catDao.findByCode("TYPE_OF_FINANCE##110");
-        listTypeOfAid = catDao.findByCode("A");
-        listBiMultilateral = catDao.findByCode("BI_MULTILATERAL##2");
-        channel = channelCatDao.findByCode("41301").getEntity();        // add a chanel with a coefficient (it should be 51% in this case)
-
-        sector = listSectors.get(0);
-        typeOfFlow = listTypeOfFlow.get(0);
-        typeOfFinance = listTypeOfFinance.get(0);
-        typeOfAid = listTypeOfAid.get(0);
-        biMultilateral = listBiMultilateral.get(0);
-
-        ft = new CustomFinancialTransaction();
-
-        ft.setDraft(false);
-        ft.setChannel(channel);
-        ft.setLocale("en");
-        ft.setShortDescription( "Auditing test description 4");
-        ft.setDescription("Long - " + ft.getDescription() );
-        ft.setSector(sector);
-        ft.setTypeOfFlow(typeOfFlow);
-        ft.setTypeOfFinance(typeOfFinance);
-        ft.setTypeOfAid(typeOfAid);
-        ft.setReportingYear(LocalDateTime.parse((2013) + "-07-01"));
-        ft.setFormType("bilateralOda.advanceQuestionnaire");
-        ft.setBiMultilateral(biMultilateral);
-        ft.setRecipient(null);
-
-        ft.setAmountsExtended(BigMoney.parse("EUR " + 1000000));
-        ft.setExtendingAgency(organization);
-
-        txDao.save(ft);
-        transactions.add(ft);           // save the transaction so we can delete it later
+        CustomFinancialTransaction tx4 = createMockup(false, "2013", "bilateralOda.advanceQuestionnaire", "TYPE_OF_FLOW##30", "TYPE_OF_FINANCE##110",
+                "A", "321", "41301", "BI_MULTILATERAL##2", "Turkey", "en", "Auditing test description 4", "EUR 1000000", "EUR 0", organization);
+        txDao.save(tx4);
+        transactions.add(tx4);          // save the transaction so we can delete it later
 
         /* **************************** add non flow data - GNI: Gross National Income **************************** */
-        listTypeOfFlow = catDao.findByCode("TYPE_OF_FLOW##40");
-        listTypeOfFinance = catDao.findByCode("TYPE_OF_FINANCE##1");
-        typeOfFlow = listTypeOfFlow.get(0);
-        typeOfFinance = listTypeOfFinance.get(0);
-
-        ft = new CustomFinancialTransaction();
-
-        ft.setDraft(null);
-        ft.setReportingYear(LocalDateTime.parse((2013) + "-07-01"));
-        ft.setTypeOfFlow(typeOfFlow);
-        ft.setTypeOfFinance(typeOfFinance);
-        ft.setAmountsExtended(BigMoney.parse("EUR " + 60));
-
-        txDao.save(ft);
-        transactions.add(ft);           // save the transaction so we can delete it later
+        CustomFinancialTransaction tx5 = createMockup(null, "2013", null, "TYPE_OF_FLOW##40", "TYPE_OF_FINANCE##1",
+                null, null, null, null, "", "en", "GNI: Gross National Income", "EUR 60", "EUR 0", organization);
+        txDao.save(tx5);
+        transactions.add(tx5);          // save the transaction so we can delete it later
 
         /* **************************** add non flow data - ODA % GNI **************************** */
-        listTypeOfFlow = catDao.findByCode("TYPE_OF_FLOW##40");
-        listTypeOfFinance = catDao.findByCode("TYPE_OF_FINANCE##2");
-        typeOfFlow = listTypeOfFlow.get(0);
-        typeOfFinance = listTypeOfFinance.get(0);
-
-        ft = new CustomFinancialTransaction();
-
-        ft.setDraft(null);
-        ft.setReportingYear(LocalDateTime.parse((2013) + "-07-01"));
-        ft.setTypeOfFlow(typeOfFlow);
-        ft.setTypeOfFinance(typeOfFinance);
-        ft.setAmountsExtended(BigMoney.parse("EUR " + 30));
-
-        txDao.save(ft);
-        transactions.add(ft);           // save the transaction so we can delete it later
+        CustomFinancialTransaction tx6 = createMockup(null, "2013", null, "TYPE_OF_FLOW##40", "TYPE_OF_FINANCE##2",
+                null, null, null, null, "", "en", "ODA % GNI", "EUR 30", "EUR 0", organization);
+        txDao.save(tx6);
+        transactions.add(tx6);          // save the transaction so we can delete it later
 
         /* **************************** add non flow data - Total flows % GNI **************************** */
-        listTypeOfFlow = catDao.findByCode("TYPE_OF_FLOW##40");
-        listTypeOfFinance = catDao.findByCode("TYPE_OF_FINANCE##3");
-        typeOfFlow = listTypeOfFlow.get(0);
-        typeOfFinance = listTypeOfFinance.get(0);
-
-        ft = new CustomFinancialTransaction();
-
-        ft.setDraft(null);
-        ft.setReportingYear(LocalDateTime.parse((2013) + "-07-01"));
-        ft.setTypeOfFlow(typeOfFlow);
-        ft.setTypeOfFinance(typeOfFinance);
-        ft.setAmountsExtended(BigMoney.parse("EUR " + 46));
-
-        txDao.save(ft);
-        transactions.add(ft);           // save the transaction so we can delete it later
-
-        /* **************************** add non flow data - Population **************************** */
-        listTypeOfFlow = catDao.findByCode("TYPE_OF_FLOW##40");
-        listTypeOfFinance = catDao.findByCode("TYPE_OF_FINANCE##4");
-        typeOfFlow = listTypeOfFlow.get(0);
-        typeOfFinance = listTypeOfFinance.get(0);
-
-        ft = new CustomFinancialTransaction();
-
-        ft.setDraft(null);
-        ft.setReportingYear(LocalDateTime.parse((2013) + "-07-01"));
-        ft.setTypeOfFlow(typeOfFlow);
-        ft.setTypeOfFinance(typeOfFinance);
-        ft.setAmountsExtended(BigMoney.parse("EUR " + 10000));
+        CustomFinancialTransaction tx7 = createMockup(null, "2013", null, "TYPE_OF_FLOW##40", "TYPE_OF_FINANCE##3",
+                null, null, null, null, "", "en", "Total flows % GNI", "EUR 46", "EUR 0", organization);
+        txDao.save(tx7);
+        transactions.add(tx7);          // save the transaction so we can delete it later
 
         /* **************************** add non flow data - Population **************************** */
         CustomFinancialTransaction tx8 = createMockup(null, "2013", null, "TYPE_OF_FLOW##40", "TYPE_OF_FINANCE##4",
@@ -340,6 +156,11 @@ public class OdaAtGlanceTest {
 
         // remove organization
         orgDao.delete(organization);
+
+        // save again the pre-existing transactions
+        for(FinancialTransaction tx : oldTransactions) {
+            txDao.save(tx);
+        }
     }
 
     @Test
@@ -347,6 +168,7 @@ public class OdaAtGlanceTest {
         Assert.assertNotNull(txDao);
         Assert.assertNotNull(orgDao);
 
+        logger.info("Check number of transactions: "  + txDao.findAllAsList().size() + ", should be: 8");
         Assert.assertEquals("Check number of transactions", 8, txDao.findAllAsList().size());
     }
 
@@ -362,6 +184,8 @@ public class OdaAtGlanceTest {
         * 2012 - 1.28
         * 2013 - 1.32
         */
+        logger.info("Check Net ODA Table query number of rows: "  + result.getQueryInfo().getTotalRows() + ", should be: 4");
+        logger.info("Check Net ODA Table query response: "  + result.getResultset().toString() + ", should be: [[Curent (USD), 128000, 1993200], [National Currency, 100000, 1510000], [ODA/GNI, null, 30], [Bilateral share, 100, 50]]");
         Assert.assertEquals("Check Net ODA Table query number of rows", "4", result.getQueryInfo().getTotalRows());
         Assert.assertEquals("Check Net ODA Table query response",
                 "[[Curent (USD), 128000, 1993200], [National Currency, 100000, 1510000], [ODA/GNI, null, 30], [Bilateral share, 100, 50]]",
@@ -375,6 +199,8 @@ public class OdaAtGlanceTest {
 
         QueryResult result = CdaService.doQuery(params);
 
+        logger.info("Check Top Ten Recipients query number of rows: "  + result.getQueryInfo().getTotalRows() + ", should be: 3");
+        logger.info("Check Top Ten Recipients query response: "  + result.getResultset().toString() + ", should be: [[Tunisia, 1320000], [Turkey, 673200], [Moldova, 128000]]");
         // there are 3 transactions with 3 different recipient countries: Tunisia, Turkey, Moldova
         Assert.assertEquals("Check Top Ten Recipients query number of rows", "3", result.getQueryInfo().getTotalRows());
         Assert.assertEquals("Check Top Ten Recipients query response",
@@ -389,6 +215,8 @@ public class OdaAtGlanceTest {
 
         QueryResult result = CdaService.doQuery(params);
 
+        logger.info("Check Top Ten Memo Share query number of rows: "  + result.getQueryInfo().getTotalRows() + ", should be: 1");
+        logger.info("Check Top Ten Memo Share query response: "  + result.getResultset().toString() + ", should be: [[100]]");
         Assert.assertEquals("Check Top Ten Memo Share query number of rows", "1", result.getQueryInfo().getTotalRows());
         Assert.assertEquals("Check Top Ten Memo Share query response",
                 "[[100]]",
@@ -403,6 +231,8 @@ public class OdaAtGlanceTest {
 
         QueryResult result = CdaService.doQuery(params);
 
+        logger.info("Check Oda By Region query number of rows: "  + result.getQueryInfo().getTotalRows() + ", should be: 1");
+        logger.info("Check Oda By Region query response: "  + result.getResultset().toString() + ", should be: [[something]]");
         Assert.assertEquals("Check Oda By Region query number of rows", "1", result.getQueryInfo().getTotalRows());
         Assert.assertEquals("Check Oda By Region query response",
                 "[[something]]",
@@ -416,6 +246,8 @@ public class OdaAtGlanceTest {
 
         QueryResult result = CdaService.doQuery(params);
 
+        logger.info("Check Oda By Income Group query number of rows: "  + result.getQueryInfo().getTotalRows() + ", should be: 2");
+        logger.info("Check Oda By Income Group query response: "  + result.getResultset().toString() + ", should be: [[UMICs, 1993200], [LMICs, 128000]]");
         Assert.assertEquals("Check Oda By Income Group query number of rows", "2", result.getQueryInfo().getTotalRows());
         // Tunisia and Turkey are in UMICs and Moldova in LMICs
         Assert.assertEquals("Check Oda By Income Group query response",
@@ -430,10 +262,12 @@ public class OdaAtGlanceTest {
 
         QueryResult result = CdaService.doQuery(params);
 
+        logger.info("Check Oda By Sector query number of rows: "  + result.getQueryInfo().getTotalRows() + ", should be: 3");
+        logger.info("Check Oda By Sector query response: "  + result.getResultset().toString() + ", should be: [[Basic education, ODA (Official Development Assistance), 673200], [INDUSTRY, ODA (Official Development Assistance), 128000], [MINERAL RESOURCES AND MINING, ODA (Official Development Assistance), 1320000]]");
         // we used 3 different sectors
         Assert.assertEquals("Check Oda By Sector query number of rows", "3", result.getQueryInfo().getTotalRows());
         Assert.assertEquals("Check Oda By Sector query response",
-                "[[Basic education, ODA (Official Development Assistance), 673200], [INDUSTRY, ODA (Official Development Assistance), 128000], [MINERAL RESOURCES AND MINING, ODA (Official Development Assistance), 1320000]]",
+                "[[MINERAL RESOURCES AND MINING, ODA (Official Development Assistance), 1320000], [Basic education, ODA (Official Development Assistance), 673200], [INDUSTRY, ODA (Official Development Assistance), 128000]]",
                 result.getResultset().toString());
     }
 
@@ -444,10 +278,40 @@ public class OdaAtGlanceTest {
 
         QueryResult result = CdaService.doQuery(params);
 
+        logger.info("Check Non Flow Data query number of rows: "  + result.getQueryInfo().getTotalRows() + ", should be: 4");
+        logger.info("Check Non Flow Data query response: "  + result.getResultset().toString() + ", should be: [[GNI: Gross National Income, 60], [ODA % GNI, 30], [Total flows % GNI, 46], [Population, 10000]]");
         Assert.assertEquals("Check Non Flow Data query number of rows", "4", result.getQueryInfo().getTotalRows());
         Assert.assertEquals("Check Non Flow Data query response",
                 "[[GNI: Gross National Income, 60], [ODA % GNI, 30], [Total flows % GNI, 46], [Population, 10000]]",
                 result.getResultset().toString());
+    }
+
+    private CustomFinancialTransaction createMockup(Boolean draft, String year, String formType, String typeOfFlow, String typeOfFinance,
+                                                    String typeOfAid, String sector, String channel, String biMultilateral, String area,
+                                                    String locale, String description, String extendedAmount, String receivedAmount,
+                                                    Organization extendingOrg) {
+        CustomFinancialTransaction ft = new CustomFinancialTransaction();
+
+        ft.setDraft(draft); // true | false | null
+        ft.setCreatedBy("admin");
+        ft.setModifiedBy("admin");
+        ft.setReportingYear(LocalDateTime.parse((year) + "-07-01"));                                    // 2013
+        ft.setFormType(formType);                                                                       // bilateralOda.advanceQuestionnaire
+        ft.setTypeOfFlow(typeOfFlow == null ? null : catDao.findByCode(typeOfFlow).get(0));             // TYPE_OF_FLOW##10
+        ft.setTypeOfFinance(typeOfFinance == null ? null : catDao.findByCode(typeOfFinance).get(0));    // TYPE_OF_FINANCE##110
+        ft.setTypeOfAid(typeOfAid == null ? null : catDao.findByCode(typeOfAid).get(0));                // A
+        ft.setSector(sector == null ? null : catDao.findByCode(sector).get(0));                         // 321
+        ft.setChannel(channel == null ? null : (channelCatDao.findByCode(channel).getEntity()));        // 21001
+        ft.setBiMultilateral(biMultilateral == null ? null : catDao.findByCode(biMultilateral).get(0)); // BI_MULTILATERAL##1
+        ft.setRecipient(findAreaByName(area == null ? null : areaDao.findAllAsList(), area));           // Moldova
+        ft.setLocale(locale);                                                                           // en
+        ft.setShortDescription(description);                                                            // Auditing test description 1
+        ft.setDescription("Long - " + ft.getDescription() );
+        ft.setAmountsExtended(BigMoney.parse(extendedAmount));                                          // EUR 100000
+        ft.setAmountsReceived(BigMoney.parse(receivedAmount));                                          // EUR 0
+        ft.setExtendingAgency(extendingOrg);                                                            // organization
+
+        return ft;
     }
 
     private Area findAreaByName(List<Area> listAreas, String name) {
