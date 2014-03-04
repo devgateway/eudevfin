@@ -68,6 +68,7 @@ public class IdentificationDataTab extends Panel implements PermissionAwareCompo
 
         TextInputField<String> donorProjectNumber = new TextInputField<>("5donorProjectNumber",
                 new RWComponentPropertyModel<String>("donorProjectNumber"));
+        donorProjectNumber.typeString();
         add(donorProjectNumber);
 
         DropDownField<Category> natureOfSubmission = new DropDownField<>("6natureSubmission",

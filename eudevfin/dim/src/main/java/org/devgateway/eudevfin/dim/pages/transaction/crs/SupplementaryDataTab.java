@@ -42,6 +42,7 @@ public class SupplementaryDataTab extends Panel implements PermissionAwareCompon
 
     private void addComponents() {
         TextInputField<String> geographicalTargetArea = new TextInputField<>("16geographicalTargetArea", new RWComponentPropertyModel<String>("geoTargetArea"));
+        geographicalTargetArea.typeString();
         add(geographicalTargetArea);
 
         DateInputField startingDate = new DateInputField("17startingDate", new DateToLocalDateTimeModel(new RWComponentPropertyModel<LocalDateTime>("expectedStartDate")));

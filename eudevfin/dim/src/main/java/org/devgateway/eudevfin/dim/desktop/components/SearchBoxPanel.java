@@ -51,7 +51,8 @@ public class SearchBoxPanel extends Panel {
 		
 		TextInputField<String> searchInputField	= new TextInputField<String>("search-box", Model.of(""), "desktop.search");
 		//TextField<String> searchInputField	= new TextField<String>("search-box", Model.of(""));
-		searchInputField.getField().add(new OnChangeAjaxBehavior() {
+        searchInputField.typeString();
+        searchInputField.getField().add(new OnChangeAjaxBehavior() {
 			
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
