@@ -11,8 +11,6 @@
 
 package org.devgateway.eudevfin.mcm.pages;
 
-import java.util.Collection;
-
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
@@ -35,14 +33,11 @@ import org.devgateway.eudevfin.mcm.models.PasswordEncryptModel;
 import org.devgateway.eudevfin.mcm.providers.PersistedAuthorityChoiceProvider;
 import org.devgateway.eudevfin.mcm.providers.PersistedUserGroupChoiceProvider;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
-import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
-import org.devgateway.eudevfin.ui.common.components.CheckBoxField;
-import org.devgateway.eudevfin.ui.common.components.DropDownField;
-import org.devgateway.eudevfin.ui.common.components.MultiSelectField;
-import org.devgateway.eudevfin.ui.common.components.PasswordInputField;
-import org.devgateway.eudevfin.ui.common.components.TextInputField;
+import org.devgateway.eudevfin.ui.common.components.*;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.wicketstuff.annotation.mount.MountPath;
+
+import java.util.Collection;
 
 /**
  * @author mihai
@@ -104,27 +99,27 @@ public class EditPersistedUserPage extends HeaderFooter {
 			persistedUser = new PersistedUser();
 		}
 
-		CompoundPropertyModel<? extends PersistedUser> model = new CompoundPropertyModel<PersistedUser>(
-				persistedUser);
+        CompoundPropertyModel<? extends PersistedUser> model = new CompoundPropertyModel<>(
+                persistedUser);
 		setModel(model);
 
-		TextInputField<String> userName = new TextInputField<String>(
-				"username", new RWComponentPropertyModel<String>("username")).required();
-		
-		TextInputField<String> firstName = new TextInputField<String>(
-				"firstName", new RWComponentPropertyModel<String>("firstName")).required();
+        TextInputField<String> userName = new TextInputField<>(
+                "username", new RWComponentPropertyModel<String>("username")).required().typeString();
 
-		TextInputField<String> lastName = new TextInputField<String>(
-				"lastName", new RWComponentPropertyModel<String>("lastName")).required();
-		
-		TextInputField<String> email = new TextInputField<String>(
-				"email", new RWComponentPropertyModel<String>("email"));
-		email.getField().add(EmailAddressValidator.getInstance());
+        TextInputField<String> firstName = new TextInputField<>(
+                "firstName", new RWComponentPropertyModel<String>("firstName")).required().typeString();
 
-		TextInputField<String> phone = new TextInputField<String>(
-				"phone", new RWComponentPropertyModel<String>("phone"));
-			
-		userName.getField().add( new UniqueUsernameValidator(persistedUser.getId()));
+        TextInputField<String> lastName = new TextInputField<>(
+                "lastName", new RWComponentPropertyModel<String>("lastName")).required().typeString();
+
+        TextInputField<String> email = new TextInputField<>(
+                "email", new RWComponentPropertyModel<String>("email")).typeString();
+        email.getField().add(EmailAddressValidator.getInstance());
+
+        TextInputField<String> phone = new TextInputField<>(
+                "phone", new RWComponentPropertyModel<String>("phone")).typeString();
+
+        userName.getField().add( new UniqueUsernameValidator(persistedUser.getId()));
 
 		PasswordInputField password = new PasswordInputField("password",
 				new PasswordEncryptModel(new RWComponentPropertyModel<String>(
@@ -141,10 +136,10 @@ public class EditPersistedUserPage extends HeaderFooter {
 				"persistedAuthorities"), authorityChoiceProvider);
 
 		authorities.required();
-		
-		
-		DropDownField<PersistedUserGroup> group = new DropDownField<PersistedUserGroup>("group",
-				new RWComponentPropertyModel<PersistedUserGroup>("group"), userGroupChoiceProvider);		
+
+
+        DropDownField<PersistedUserGroup> group = new DropDownField<>("group",
+                new RWComponentPropertyModel<PersistedUserGroup>("group"), userGroupChoiceProvider);
 
 
 		form.add(userName);

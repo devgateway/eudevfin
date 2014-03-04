@@ -8,10 +8,9 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.custom;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
+import com.vaynberg.wicket.select2.ChoiceProvider;
+import com.vaynberg.wicket.select2.Select2Choice;
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.form.Form;
@@ -34,10 +33,9 @@ import org.devgateway.eudevfin.ui.common.providers.CurrencyUnitProviderFactory;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 
-import com.vaynberg.wicket.select2.ChoiceProvider;
-import com.vaynberg.wicket.select2.Select2Choice;
-
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author aartimon
@@ -69,12 +67,15 @@ public class CustomVolumeDataTab extends VolumeDataTab {
             super(id, markupId, markupProvider);
 
             TextInputField<String> budgetCode = new TextInputField<>("34bBudgetCode", new RWComponentPropertyModel<String>("budgetCode"));
+            budgetCode.typeString();
             add(budgetCode);
 
             TextInputField<String> budgetLine = new TextInputField<>("34cBudgetLine", new RWComponentPropertyModel<String>("budgetLine"));
+            budgetLine.typeString();
             add(budgetLine);
 
             TextInputField<String> budgetActivity = new TextInputField<>("34dBudgetActivity", new RWComponentPropertyModel<String>("budgetActivity"));
+            budgetActivity.typeString();
             add(budgetActivity);
         }
     }
@@ -115,65 +116,65 @@ public class CustomVolumeDataTab extends VolumeDataTab {
             budgetMTEFTable.add(disbursementP4);
 
             TextInputField<String> code = new TextInputField<>("code", new RWComponentPropertyModel<String>("budgetMTEFCode"));
-            code.hideLabel().setSize(InputBehavior.Size.Small);
+            code.hideLabel().setSize(InputBehavior.Size.Small).typeString();
             budgetMTEFTable.add(code);
 
             TextInputField<String> codeP1 = new TextInputField<>("codeP1", new RWComponentPropertyModel<String>("budgetMTEFCodeP1"));
-            codeP1.hideLabel().setSize(InputBehavior.Size.Small);
+            codeP1.hideLabel().setSize(InputBehavior.Size.Small).typeString();
             budgetMTEFTable.add(codeP1);
 
             TextInputField<String> codeP2 = new TextInputField<>("codeP2", new RWComponentPropertyModel<String>("budgetMTEFCodeP2"));
-            codeP2.hideLabel().setSize(InputBehavior.Size.Small);
+            codeP2.hideLabel().setSize(InputBehavior.Size.Small).typeString();
             budgetMTEFTable.add(codeP2);
 
             TextInputField<String> codeP3 = new TextInputField<>("codeP3", new RWComponentPropertyModel<String>("budgetMTEFCodeP3"));
-            codeP3.hideLabel().setSize(InputBehavior.Size.Small);
+            codeP3.hideLabel().setSize(InputBehavior.Size.Small).typeString();
             budgetMTEFTable.add(codeP3);
 
             TextInputField<String> codeP4 = new TextInputField<>("codeP4", new RWComponentPropertyModel<String>("budgetMTEFCodeP4"));
-            codeP4.hideLabel().setSize(InputBehavior.Size.Small);
+            codeP4.hideLabel().setSize(InputBehavior.Size.Small).typeString();
             budgetMTEFTable.add(codeP4);
 
 
             TextInputField<String> line = new TextInputField<>("line", new RWComponentPropertyModel<String>("budgetMTEFLine"));
-            line.hideLabel().setSize(InputBehavior.Size.Small);
+            line.hideLabel().setSize(InputBehavior.Size.Small).typeString();
             budgetMTEFTable.add(line);
 
             TextInputField<String> lineP1 = new TextInputField<>("lineP1", new RWComponentPropertyModel<String>("budgetMTEFLineP1"));
-            lineP1.hideLabel().setSize(InputBehavior.Size.Small);
+            lineP1.hideLabel().setSize(InputBehavior.Size.Small).typeString();
             budgetMTEFTable.add(lineP1);
 
             TextInputField<String> lineP2 = new TextInputField<>("lineP2", new RWComponentPropertyModel<String>("budgetMTEFLineP2"));
-            lineP2.hideLabel().setSize(InputBehavior.Size.Small);
+            lineP2.hideLabel().setSize(InputBehavior.Size.Small).typeString();
             budgetMTEFTable.add(lineP2);
 
             TextInputField<String> lineP3 = new TextInputField<>("lineP3", new RWComponentPropertyModel<String>("budgetMTEFLineP3"));
-            lineP3.hideLabel().setSize(InputBehavior.Size.Small);
+            lineP3.hideLabel().setSize(InputBehavior.Size.Small).typeString();
             budgetMTEFTable.add(lineP3);
 
             TextInputField<String> lineP4 = new TextInputField<>("lineP4", new RWComponentPropertyModel<String>("budgetMTEFLineP4"));
-            lineP4.hideLabel().setSize(InputBehavior.Size.Small);
+            lineP4.hideLabel().setSize(InputBehavior.Size.Small).typeString();
             budgetMTEFTable.add(lineP4);
 
 
             TextInputField<String> activity = new TextInputField<>("activity", new RWComponentPropertyModel<String>("budgetMTEFActivity"));
-            activity.hideLabel().setSize(InputBehavior.Size.Small);
+            activity.hideLabel().setSize(InputBehavior.Size.Small).typeString();
             budgetMTEFTable.add(activity);
 
             TextInputField<String> activityP1 = new TextInputField<>("activityP1", new RWComponentPropertyModel<String>("budgetMTEFActivityP1"));
-            activityP1.hideLabel().setSize(InputBehavior.Size.Small);
+            activityP1.hideLabel().setSize(InputBehavior.Size.Small).typeString();
             budgetMTEFTable.add(activityP1);
 
             TextInputField<String> activityP2 = new TextInputField<>("activityP2", new RWComponentPropertyModel<String>("budgetMTEFActivityP2"));
-            activityP2.hideLabel().setSize(InputBehavior.Size.Small);
+            activityP2.hideLabel().setSize(InputBehavior.Size.Small).typeString();
             budgetMTEFTable.add(activityP2);
 
             TextInputField<String> activityP3 = new TextInputField<>("activityP3", new RWComponentPropertyModel<String>("budgetMTEFActivityP3"));
-            activityP3.hideLabel().setSize(InputBehavior.Size.Small);
+            activityP3.hideLabel().setSize(InputBehavior.Size.Small).typeString();
             budgetMTEFTable.add(activityP3);
 
             TextInputField<String> activityP4 = new TextInputField<>("activityP4", new RWComponentPropertyModel<String>("budgetMTEFActivityP4"));
-            activityP4.hideLabel().setSize(InputBehavior.Size.Small);
+            activityP4.hideLabel().setSize(InputBehavior.Size.Small).typeString();
             budgetMTEFTable.add(activityP4);
 
 

@@ -17,40 +17,40 @@ MEMBER [Channel].[AllCodes] AS SUM({[Channel].[United Nations], [Channel].[Europ
 MEMBER [Measures].[First Year] AS SUM(CrossJoin({[Reporting Year].[$P{FIRST_YEAR}]}, {[Measures].[Net Amount Currency NATLOECD]}))
 MEMBER [Measures].[Second Year] AS SUM(CrossJoin({[Reporting Year].[$P{SECOND_YEAR}]}, {[Measures].[Net Amount Currency NATLOECD]}))
 SELECT
-{[Channel].[United Nations], [Channel].[European Union], [Channel].[World Bank], [Channel].[Regional Banks], [Channel].[Others], [Channel].[AllCodes]} ON ROWS,
+{[Channel].[UNGroup], [Channel].[EUGroup], [Channel].[WBGroup], [Channel].[RBGroup], [Channel].[OtherGroup], [Channel].[AllCodes]} ON ROWS,
 {[Measures].[First Year], [Measures].[Second Year]} ON COLUMNS
 FROM [Financial]
 WHERE {[BiMultilateral].[BI_MULTILATERAL##2]}]]>
 	</queryString>
 	<field name="United Nations Y1" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[First Year], [Channel].[United Nations])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[First Year], [Channel].[UNGroup])]]></fieldDescription>
 	</field>
 	<field name="United Nations Y2" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Channel].[United Nations])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Channel].[UNGroup])]]></fieldDescription>
 	</field>
 	<field name="European Union Y1" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[First Year], [Channel].[European Union] )]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[First Year], [Channel].[EUGroup] )]]></fieldDescription>
 	</field>
 	<field name="European Union Y2" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Channel].[European Union] )]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Channel].[EUGroup] )]]></fieldDescription>
 	</field>
 	<field name="World Bank Y1" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[First Year], [Channel].[World Bank])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[First Year], [Channel].[WBGroup])]]></fieldDescription>
 	</field>
 	<field name="World Bank Y2" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Channel].[World Bank])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Channel].[WBGroup])]]></fieldDescription>
 	</field>
 	<field name="Regional Banks Y1" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[First Year], [Channel].[Regional Banks])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[First Year], [Channel].[RBGroup])]]></fieldDescription>
 	</field>
 	<field name="Regional Banks Y2" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Channel].[Regional Banks])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Channel].[RBGroup])]]></fieldDescription>
 	</field>
 	<field name="Others Y1" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[First Year], [Channel].[Others])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[First Year], [Channel].[OtherGroup])]]></fieldDescription>
 	</field>
 	<field name="Others Y2" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Channel].[Others])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Channel].[OtherGroup])]]></fieldDescription>
 	</field>
 	<field name="All Codes Y1" class="java.lang.Number">
 		<fieldDescription><![CDATA[Data([Measures].[First Year], [Channel].[AllCodes])]]></fieldDescription>

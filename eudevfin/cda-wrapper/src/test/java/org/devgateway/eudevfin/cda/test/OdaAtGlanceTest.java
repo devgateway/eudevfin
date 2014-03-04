@@ -4,9 +4,8 @@ import org.apache.log4j.Logger;
 import org.devgateway.eudevfin.cda.domain.QueryResult;
 import org.devgateway.eudevfin.cda.service.QueryService;
 import org.devgateway.eudevfin.financial.Area;
-import org.devgateway.eudevfin.financial.Category;
-import org.devgateway.eudevfin.financial.ChannelCategory;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
+import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.dao.AreaDaoImpl;
 import org.devgateway.eudevfin.financial.dao.CategoryDaoImpl;
@@ -82,6 +81,13 @@ public class OdaAtGlanceTest {
     @Before
     public void setUp () {
         localeHelper.setLocale(TEST_LOCALE);
+
+        // keep old transactions if there are any
+        oldTransactions = new ArrayList<>();
+        for(FinancialTransaction tx : txDao.findAllAsList()) {
+            oldTransactions.add(tx);
+            txDao.delete(tx);
+        }
 
         transactions = new ArrayList<>();
         List<Category> listTypeOfFlow,
@@ -318,8 +324,11 @@ public class OdaAtGlanceTest {
         ft.setTypeOfFinance(typeOfFinance);
         ft.setAmountsExtended(BigMoney.parse("EUR " + 10000));
 
-        txDao.save(ft);
-        transactions.add(ft);           // save the transaction so we can delete it later
+        /* **************************** add non flow data - Population **************************** */
+        CustomFinancialTransaction tx8 = createMockup(null, "2013", null, "TYPE_OF_FLOW##40", "TYPE_OF_FINANCE##4",
+                null, null, null, null, "", "en", "Population", "EUR 10000", "EUR 0", organization);
+        txDao.save(tx8);
+        transactions.add(tx8);          // save the transaction so we can delete it later
     }
 
     @After

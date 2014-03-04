@@ -11,8 +11,6 @@
 
 package org.devgateway.eudevfin.mcm.pages;
 
-import java.util.Collection;
-
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
@@ -40,6 +38,8 @@ import org.devgateway.eudevfin.ui.common.components.TextInputField;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.devgateway.eudevfin.ui.common.providers.OrganizationChoiceProvider;
 import org.wicketstuff.annotation.mount.MountPath;
+
+import java.util.Collection;
 
 /**
  * @author mihai
@@ -110,8 +110,8 @@ public class EditPersistedUserGroupPage extends HeaderFooter {
 
 		TextInputField<String> groupName = new TextInputField<String>(
 				"name", new RWComponentPropertyModel<String>("name")).required();
-		
-		groupName.getField().add( new UniqueGroupNameValidator(persistedUserGroup.getId()));
+        groupName.typeString();
+        groupName.getField().add( new UniqueGroupNameValidator(persistedUserGroup.getId()));
 		
 
 		DropDownField<Organization> organization = new DropDownField<Organization>("organization",
