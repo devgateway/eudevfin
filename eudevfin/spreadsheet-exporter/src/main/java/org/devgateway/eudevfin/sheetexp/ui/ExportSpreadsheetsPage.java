@@ -1,16 +1,20 @@
+/*
+ * Copyright (c) 2014 Development Gateway.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v3.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/gpl.html
+ */
+
 /**
  * 
  */
 package org.devgateway.eudevfin.sheetexp.ui;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
-import javax.servlet.http.HttpServletResponse;
-
+import com.vaynberg.wicket.select2.ChoiceProvider;
+import com.vaynberg.wicket.select2.Response;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapButton;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
 import org.apache.log4j.Logger;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.form.Button;
@@ -33,11 +37,8 @@ import org.json.JSONException;
 import org.json.JSONWriter;
 import org.wicketstuff.annotation.mount.MountPath;
 
-import com.vaynberg.wicket.select2.ChoiceProvider;
-import com.vaynberg.wicket.select2.Response;
-
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapButton;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
+import javax.servlet.http.HttpServletResponse;
+import java.util.*;
 
 /**
  * @author Alex
@@ -93,13 +94,15 @@ public class ExportSpreadsheetsPage extends HeaderFooter {
 			 */
 			@Override
 			protected void onSubmit() {
-				
-				new TransformationStarter().prepareTransformation(this.getModelObject(), ExportSpreadsheetsPage.this.txService)
-						.executeTransformation((HttpServletResponse) this.getResponse().getContainerResponse(),
+                /**
+                 * TODO: check {@link org.devgateway.eudevfin.ui.common.components.MultiFileUploadFormComponent}
+                 */
+
+                new TransformationStarter().prepareTransformation(this.getModelObject(), ExportSpreadsheetsPage.this.txService)
+                        .executeTransformation((HttpServletResponse) this.getResponse().getContainerResponse(),
 								ExportSpreadsheetsPage.this.transformerService);
-				;
-				
-				RequestCycle.get().scheduleRequestHandlerAfterCurrent(null);
+
+                RequestCycle.get().scheduleRequestHandlerAfterCurrent(null);
 
 			}
 
