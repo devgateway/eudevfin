@@ -60,6 +60,9 @@
 		<int:method name="findByReportingYearAndDraftFalse" request-channel="getChannel">
 			<int:header name="requestName" value="findCustomTransactionByReportingYearAndDraftFalseChannel"/>
 		</int:method>
+		<int:method name="findDistinctReportingYears" request-channel="getChannel">
+			<int:header name="requestName" value="findDistinctReportingYearsInTransactionChannel"/>
+		</int:method>
 	</int:gateway>
 		
 		
