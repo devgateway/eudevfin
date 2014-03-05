@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.devgateway.eudevfin</groupId>
     <artifactId>eudevfin</artifactId>
-    <version>0.9.8-SNAPSHOT</version>
+    <version>0.9.9-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>EU-DEVFIN Parent Package</name>
     <url>http://www.springframework.org</url>
