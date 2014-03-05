@@ -33,6 +33,9 @@ public class Area extends AbstractTranslateable<AreaTranslation>
 	
 	private String iso;
 	
+	@ManyToOne
+	private Category geographyCategory;
+	
 	/**
 	 * This is a category since it needs both a code and a translateable description of it
 	 */
@@ -46,39 +49,42 @@ public class Area extends AbstractTranslateable<AreaTranslation>
 	
 	@Override
 	public String getName() {
-		return (String) get("name");
+		return (String) this.get("name");
 	}
 
 	@Override
-	public void setName(String name) {
-		set("name",name);
+	public void setName(final String name) {
+		this.set("name",name);
 	}
 	
-	@Override
-	public String getGeography() {
-		return (String) get("geography");
-	}
-
-	@Override
-	public void setGeography(String geography) {
-		set("geography",geography);
-	}
 
 	public String getCode() {
-		return code;
+		return this.code;
 	}
 
-	public void setCode(String code) {
+	public void setCode(final String code) {
 		this.code = code;
 	}
 
 	public Category getIncomeGroup() {
-		return incomeGroup;
+		return this.incomeGroup;
 	}
 
-	public void setIncomeGroup(Category incomeGroup) {
+	public void setIncomeGroup(final Category incomeGroup) {
 		this.incomeGroup = incomeGroup;
 	}
-	
+	/**
+	 * @return the geographyCategory
+	 */
+	public Category getGeographyCategory() {
+		return this.geographyCategory;
+	}
+
+	/**
+	 * @param geographyCategory the geographyCategory to set
+	 */
+	public void setGeographyCategory(final Category geographyCategory) {
+		this.geographyCategory = geographyCategory;
+	}
 
 }

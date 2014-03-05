@@ -23,10 +23,6 @@ public class AreaTranslation extends AbstractTranslation<Area> implements AreaTr
 	
 	private String name;
 	
-	/**
-	 * Africa (North of Sahara), Africa (South of Sahara), Europe, etc
-	 */
-	private String geography;
 
 	/* (non-Javadoc)
 	 * @see org.devgateway.eudevfin.financial.translate.AreaTrnInterface#getName()
@@ -42,14 +38,6 @@ public class AreaTranslation extends AbstractTranslation<Area> implements AreaTr
 	@Override
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getGeography() {
-		return geography;
-	}
-
-	public void setGeography(String geography) {
-		this.geography = geography;
 	}
 	
 	

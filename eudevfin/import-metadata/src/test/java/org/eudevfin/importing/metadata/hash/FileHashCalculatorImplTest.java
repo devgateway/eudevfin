@@ -127,7 +127,6 @@ public class FileHashCalculatorImplTest {
 	public void testAreaClassChange() {
 		Area a	= new Area();
 		a.setCode("code");
-		a.setGeography("geography");
 		a.setIncomeGroup(null);
 		a.setName("name");
 		
@@ -139,7 +138,6 @@ public class FileHashCalculatorImplTest {
 		
 		final Area c	= new Area();
 		c.setCode("code2");
-		c.setGeography("geography2");
 		c.setIncomeGroup(null);
 		c.setName("name2");
 		c.setId(a.getId());

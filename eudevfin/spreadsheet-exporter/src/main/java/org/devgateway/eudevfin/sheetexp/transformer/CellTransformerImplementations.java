@@ -436,7 +436,7 @@ public class CellTransformerImplementations {
 		public MetadataCell<String> innerTransform(final FinancialTransaction tx) {
 			String value = null;
 			if (tx.getRecipient() != null) {
-				value = tx.getRecipient().getGeography();
+				value = tx.getRecipient().getGeographyCategory().getName();
 			}
 			final MetadataCell<String> cell = new MetadataCell<String>(value);
 			this.setDataTypeToString(cell);

@@ -37,7 +37,9 @@ public class AreaStoringEngine extends AbstractStoringEngine<Area> {
 		area.setLocale("en");
 		result = HASH_PRIME * result + this.hashcodeFromObject(area.getCode());
 		result = HASH_PRIME * result + this.hashcodeFromObject(area.getIncomeGroup());
-		result = HASH_PRIME * result + this.hashcodeFromObject(area.getGeography());
+		if ( area.getGeographyCategory() != null ) {
+			result = HASH_PRIME * result + this.hashcodeFromObject(area.getGeographyCategory().getCode());
+		}
 		result = HASH_PRIME * result + this.hashcodeFromObject(area.getName());
 		result = HASH_PRIME * result + this.hashcodeFromObject(area.getClass().getName());
 		area.setLocale("fr");
