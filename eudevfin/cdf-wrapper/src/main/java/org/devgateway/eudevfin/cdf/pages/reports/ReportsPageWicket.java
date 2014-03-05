@@ -23,6 +23,7 @@ import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.wicketstuff.annotation.mount.MountPath;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -145,6 +146,9 @@ public class ReportsPageWicket extends HeaderFooter {
 
             odaBySectorTotal += (Float.parseFloat(item.get(2)) / 1000000);
         }
+
+        DecimalFormat twoDForm = new DecimalFormat("#.##");
+        odaBySectorTotal = Float.valueOf(twoDForm.format(odaBySectorTotal));
 
         Options options1 = new Options();
 
