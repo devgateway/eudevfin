@@ -52,6 +52,12 @@
             <artifactId>import-metadata</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.googlecode.wicked-charts</groupId>
+            <artifactId>wicked-charts-wicket6</artifactId>
+            <version>1.5.0</version>
+        </dependency>
         
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
