@@ -7,7 +7,6 @@ import com.googlecode.wickedcharts.highcharts.options.series.Point;
 import com.googlecode.wickedcharts.highcharts.options.series.PointSeries;
 import com.googlecode.wickedcharts.highcharts.options.series.SimpleSeries;
 import com.googlecode.wickedcharts.wicket6.highcharts.Chart;
-
 import org.apache.log4j.Logger;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.head.IHeaderResponse;
@@ -23,6 +22,7 @@ import org.devgateway.eudevfin.reports.core.service.QueryService;
 import org.devgateway.eudevfin.reports.ui.scripts.Dashboards;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.wicketstuff.annotation.mount.MountPath;
+import org.wicketstuff.datatables.DemoDatatable;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -51,6 +51,9 @@ public class ReportsPageWicket extends HeaderFooter {
 
     private void addComponents () {
         addReportingCountry();
+
+        DemoDatatable table = new DemoDatatable("table");
+
 
         Map<String, String> params = new HashMap<>();
         params.put("dataAccessId", "odaByIncomeGroupChart");

@@ -64,9 +64,14 @@
             <artifactId>wicked-charts-wicket6</artifactId>
             <version>1.5.0</version>
         </dependency>
-        
 
-		<dependency>
+        <dependency>
+            <groupId>org.wicketstuff</groupId>
+            <artifactId>wicketstuff-datatables</artifactId>
+            <version>${wicket.version}</version>
+        </dependency>
+
+        <dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
 			<version>3.9</version>
