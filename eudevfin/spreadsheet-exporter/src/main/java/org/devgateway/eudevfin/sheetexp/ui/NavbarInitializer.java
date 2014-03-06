@@ -28,7 +28,7 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarDropDownBut
  */
 public final class NavbarInitializer {
 
-	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT,disabled=true)
+	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT)
 	public static Component newExportSpreadSheetButton(final Page page) {
 
 		final NavbarDropDownButton exportMenu = new RepairedNavbarDropDownButton(new StringResourceModel(
