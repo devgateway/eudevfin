@@ -265,5 +265,18 @@
 </dependency>
 
 	</dependencies>
+	
+	
+	<build>
+        <resources>
+            <resource>
+                <filtering>false</filtering>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+        <plugins>
+	</plugins>
+	</build>
+	
 
 </project>
