@@ -17,8 +17,10 @@ import pt.webdetails.cda.query.QueryOptions;
 import pt.webdetails.cda.settings.CdaSettings;
 import pt.webdetails.cda.settings.SettingsManager;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -61,9 +63,26 @@ public class CDAQuery implements ApplicationContextAware {
 
 		// Settings object needed for the engine
 	    final SettingsManager settingsManager = SettingsManager.getInstance();
-	    URL file = this.getClass().getResource("../service/financial.mondrian.cda");
-	    File settingsFile = new File(file.toURI());
-	    final CdaSettings cdaSettings = settingsManager.parseSettingsFile(settingsFile.getAbsolutePath());
+	    URL file = this.getClass().getClassLoader().getResource("org/devgateway/eudevfin/reports/core/service/financial.mondrian.cda");
+
+        logger.info(file.getPath());
+
+        logger.info(">>>>>>>");
+        BufferedReader br = new BufferedReader(new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("org/devgateway/eudevfin/reports/core/service/financial.mondrian.cda")));
+        StringBuilder builder = new StringBuilder();
+        String aux = "";
+
+        while ((aux = br.readLine()) != null) {
+            builder.append(aux);
+        }
+
+        String text = builder.toString();
+
+        logger.info(text);
+
+
+//	    File settingsFile = new File(file.toURI());
+	    final CdaSettings cdaSettings = settingsManager.parseSettingsFile(file.getPath());
 
 		// Settings options based on the Map<String,String> params already processed
 	    final QueryOptions queryOptions = new QueryOptions();

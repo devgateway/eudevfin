@@ -9,64 +9,64 @@
   ~    fferreyra
   -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.devgateway.eudevfin</groupId>
-		<artifactId>eudevfin</artifactId>
-		<version>0.9.9-SNAPSHOT</version>
-	</parent>
-	<artifactId>reports-core</artifactId>
-	<packaging>jar</packaging>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.devgateway.eudevfin</groupId>
+        <artifactId>eudevfin</artifactId>
+        <version>0.9.9-SNAPSHOT</version>
+    </parent>
+    <artifactId>reports-core</artifactId>
+    <packaging>jar</packaging>
 
-	<name>EU-DEVFIN Reports Core</name>
+    <name>EU-DEVFIN Reports Core</name>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.jvnet.staxex</groupId>
-				<artifactId>stax-ex</artifactId>
-				<version>1.1</version>
-			</dependency>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.jvnet.staxex</groupId>
+                <artifactId>stax-ex</artifactId>
+                <version>1.1</version>
+            </dependency>
 
-			<dependency>
-				<groupId>org.apache.ws.commons.neethi</groupId>
-				<artifactId>neethi</artifactId>
-				<version>2.0.1</version>
-				<type>jar</type>
-			</dependency>
+            <dependency>
+                <groupId>org.apache.ws.commons.neethi</groupId>
+                <artifactId>neethi</artifactId>
+                <version>2.0.1</version>
+                <type>jar</type>
+            </dependency>
 
-		</dependencies>
-	</dependencyManagement>
-	<dependencies>
-		<dependency>
-			<groupId>org.devgateway.eudevfin</groupId>
-			<artifactId>auth</artifactId>
-			<version>${project.version}</version>
-		</dependency>
+        </dependencies>
+    </dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.devgateway.eudevfin</groupId>
+            <artifactId>auth</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.devgateway.eudevfin</groupId>
-			<artifactId>common-auth</artifactId>
-			<version>${project.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.devgateway.eudevfin</groupId>
+            <artifactId>common-auth</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.devgateway.eudevfin</groupId>
-			<artifactId>common-financial</artifactId>
-			<version>${project.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.devgateway.eudevfin</groupId>
+            <artifactId>common-financial</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
-     	<dependency>
+        <dependency>
             <groupId>org.devgateway.eudevfin</groupId>
             <artifactId>common</artifactId>
             <version>${project.version}</version>
         </dependency>
 
-		<dependency>
-			<groupId>org.devgateway.eudevfin</groupId>
-			<artifactId>financial</artifactId>
-			<version>${project.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.devgateway.eudevfin</groupId>
+            <artifactId>financial</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.devgateway.eudevfin</groupId>
@@ -92,182 +92,182 @@
             <version>${project.version}</version>
         </dependency>
 
-		<dependency>
-			<groupId>com.hazelcast</groupId>
-			<artifactId>hazelcast</artifactId>
-			<version>2.5</version>
+        <dependency>
+            <groupId>com.hazelcast</groupId>
+            <artifactId>hazelcast</artifactId>
+            <version>2.5</version>
 
-		</dependency>
-		<dependency>
-			<groupId>pentaho-library</groupId>
-			<artifactId>libbase</artifactId>
-			<version>1.2.8</version>
+        </dependency>
+        <dependency>
+            <groupId>pentaho-library</groupId>
+            <artifactId>libbase</artifactId>
+            <version>1.2.8</version>
 
-		</dependency>
+        </dependency>
 
-		<dependency>
-			<groupId>pentaho-library</groupId>
-			<artifactId>libloader</artifactId>
-			<version>1.2.8</version>
-		</dependency>
+        <dependency>
+            <groupId>pentaho-library</groupId>
+            <artifactId>libloader</artifactId>
+            <version>1.2.8</version>
+        </dependency>
 
-		<dependency>
-			<groupId>pentaho-library</groupId>
-			<artifactId>libserializer</artifactId>
-			<version>1.2.8</version>
+        <dependency>
+            <groupId>pentaho-library</groupId>
+            <artifactId>libserializer</artifactId>
+            <version>1.2.8</version>
 
-		</dependency>
+        </dependency>
 
-		<dependency>
-			<groupId>pentaho-library</groupId>
-			<artifactId>libformula</artifactId>
-			<version>1.2.8</version>
+        <dependency>
+            <groupId>pentaho-library</groupId>
+            <artifactId>libformula</artifactId>
+            <version>1.2.8</version>
 
-		</dependency>
-
-
-		<dependency>
-			<groupId>pentaho-library</groupId>
-			<artifactId>libfonts</artifactId>
-			<version>1.2.8</version>
-
-		</dependency>
-
-		<dependency>
-			<groupId>pentaho-library</groupId>
-			<artifactId>libformat</artifactId>
-			<version>1.2.8</version>
-
-		</dependency>
+        </dependency>
 
 
-		<dependency>
-			<groupId>pentaho-library</groupId>
-			<artifactId>libpixie</artifactId>
-			<version>1.2.8</version>
+        <dependency>
+            <groupId>pentaho-library</groupId>
+            <artifactId>libfonts</artifactId>
+            <version>1.2.8</version>
 
-		</dependency>
+        </dependency>
 
+        <dependency>
+            <groupId>pentaho-library</groupId>
+            <artifactId>libformat</artifactId>
+            <version>1.2.8</version>
 
-		<dependency>
-			<groupId>pentaho-library</groupId>
-			<artifactId>libdocbundle</artifactId>
-			<version>1.2.8</version>
-
-		</dependency>
-
-
-		<dependency>
-			<groupId>pentaho-library</groupId>
-			<artifactId>libxml</artifactId>
-			<version>1.2.8</version>
-
-		</dependency>
+        </dependency>
 
 
-		<dependency>
-			<groupId>pentaho-library</groupId>
-			<artifactId>librepository</artifactId>
-			<version>1.2.8</version>
+        <dependency>
+            <groupId>pentaho-library</groupId>
+            <artifactId>libpixie</artifactId>
+            <version>1.2.8</version>
 
-		</dependency>
-
-
-		<dependency>
-			<groupId>pt.webdetails</groupId>
-			<artifactId>cpf-core</artifactId>
-			<version>13.09.10</version>
-		</dependency>
+        </dependency>
 
 
-		<dependency>
-			<groupId>commons-collections</groupId>
-			<artifactId>commons-collections</artifactId>
-			<version>3.2.1</version>
-		</dependency>
+        <dependency>
+            <groupId>pentaho-library</groupId>
+            <artifactId>libdocbundle</artifactId>
+            <version>1.2.8</version>
 
-		<dependency>
-			<groupId>pentaho-reporting-engine</groupId>
-			<artifactId>
+        </dependency>
+
+
+        <dependency>
+            <groupId>pentaho-library</groupId>
+            <artifactId>libxml</artifactId>
+            <version>1.2.8</version>
+
+        </dependency>
+
+
+        <dependency>
+            <groupId>pentaho-library</groupId>
+            <artifactId>librepository</artifactId>
+            <version>1.2.8</version>
+
+        </dependency>
+
+
+        <dependency>
+            <groupId>pt.webdetails</groupId>
+            <artifactId>cpf-core</artifactId>
+            <version>13.09.10</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>pentaho-reporting-engine</groupId>
+            <artifactId>
                 pentaho-reporting-engine-classic-core-platform-plugin
             </artifactId>
-			<version>4.8.0-stable</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>spring</artifactId>
-					<groupId>org.springframework</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>icu4j</artifactId>
-					<groupId>com.ibm.icu</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-<dependency>
-	<groupId>com.ibm.icu</groupId>
-	<artifactId>icu4j</artifactId>
-	<version>3.4.4</version>
-</dependency>		
+            <version>4.8.0-stable</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>icu4j</artifactId>
+                    <groupId>com.ibm.icu</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.ibm.icu</groupId>
+            <artifactId>icu4j</artifactId>
+            <version>3.4.4</version>
+        </dependency>
 
-		<dependency>
-			<groupId>pentaho-reporting-engine</groupId>
-			<artifactId>
+        <dependency>
+            <groupId>pentaho-reporting-engine</groupId>
+            <artifactId>
                 pentaho-reporting-engine-classic-core
             </artifactId>
-			<version>3.9.1-GA</version>
-		</dependency>
+            <version>3.9.1-GA</version>
+        </dependency>
 
-		<dependency>
-			<groupId>pt.webdetails</groupId>
-			<artifactId>cda-core</artifactId>
-			<version>13.09.10</version>
-		</dependency>
+        <dependency>
+            <groupId>pt.webdetails</groupId>
+            <artifactId>cda-core</artifactId>
+            <version>13.09.10</version>
+        </dependency>
 
 
-		<dependency>
-			<groupId>pentaho</groupId>
-			<artifactId>robochef</artifactId>
-			<version>0.9.6</version>
-		</dependency>
+        <dependency>
+            <groupId>pentaho</groupId>
+            <artifactId>robochef</artifactId>
+            <version>0.9.6</version>
+        </dependency>
 
-		<dependency>
-			<groupId>pentaho</groupId>
-			<artifactId>mondrian</artifactId>
-			<version>3.6.0</version>
-		</dependency>
+        <dependency>
+            <groupId>pentaho</groupId>
+            <artifactId>mondrian</artifactId>
+            <version>3.6.0</version>
+        </dependency>
 
-		<dependency>
-			<groupId>hsqldb</groupId>
-			<artifactId>hsqldb</artifactId>
-			<version>1.8.0.10</version>
-		</dependency>
+        <dependency>
+            <groupId>hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>1.8.0.10</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.olap4j</groupId>
-			<artifactId>olap4j</artifactId>
-			<version>1.0.1.539</version>
-		</dependency>
+        <dependency>
+            <groupId>org.olap4j</groupId>
+            <artifactId>olap4j</artifactId>
+            <version>1.0.1.539</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
-			<version>${spring.framework.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>1.5.6</version>
-		</dependency>
-<dependency>
-  <groupId>org.hibernate</groupId>
-  <artifactId>hibernate-validator-annotation-processor</artifactId>
-  <version>4.1.0.Final</version>
-</dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.framework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.5.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator-annotation-processor</artifactId>
+            <version>4.1.0.Final</version>
+        </dependency>
 
-	</dependencies>
-	
-	
-	<build>
+    </dependencies>
+
+
+    <build>
         <resources>
             <resource>
                 <filtering>false</filtering>
@@ -275,8 +275,59 @@
             </resource>
         </resources>
         <plugins>
-	</plugins>
-	</build>
-	
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jasperreports-maven-plugin</artifactId>
+                <version>1.0-beta-2</version>
+
+                <configuration>
+                    <sourceDirectory>src/main/resources/org/devgateway/eudevfin/reports/core</sourceDirectory>
+                    <sourceFileExt>.jrxml</sourceFileExt>
+                    <outputDirectory>${project.build.directory}/classes/org/devgateway/eudevfin/reports/core</outputDirectory>
+                    <!-- <outputDirectory>src/main/resources/org/devgateway/eudevfin/reports</outputDirectory>-->
+                    <outputFileExt>.jasper</outputFileExt>
+                    <compiler>net.sf.jasperreports.engine.design.JRJdtCompiler</compiler>
+                    <xmlValidation>true</xmlValidation>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>compile-reports</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>net.sf.jasperreports</groupId>
+                        <artifactId>jasperreports</artifactId>
+                        <version>5.5.0</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                        <version>1.2.17</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>javax.servlet</groupId>
+                        <artifactId>javax.servlet-api</artifactId>
+                        <version>${servlet.api.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>xml-apis</groupId>
+                        <artifactId>xml-apis</artifactId>
+                        <version>1.4.01</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.lowagie</groupId>
+                        <artifactId>itext</artifactId>
+                        <version>2.1.7</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+
 
 </project>

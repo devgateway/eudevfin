@@ -144,58 +144,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>jasperreports-maven-plugin</artifactId>
-				<version>1.0-beta-2</version>
-
-				<configuration>
-					<sourceDirectory>src/main/resources/org/devgateway/eudevfin/reports</sourceDirectory>
-					<sourceFileExt>.jrxml</sourceFileExt>
-					<outputDirectory>${project.build.directory}/classes/org/devgateway/eudevfin/reports</outputDirectory>
-					<!-- <outputDirectory>src/main/resources/org/devgateway/eudevfin/reports</outputDirectory>-->
-					<outputFileExt>.jasper</outputFileExt>
-					<compiler>net.sf.jasperreports.engine.design.JRJdtCompiler</compiler>
-					<xmlValidation>true</xmlValidation>
-				</configuration>
-
-				<executions>
-					<execution>
-						<phase>generate-resources</phase>
-						<goals>
-							<goal>compile-reports</goal>
-						</goals>
-					</execution>
-				</executions>
-				<dependencies>
-					<dependency>
-						<groupId>net.sf.jasperreports</groupId>
-						<artifactId>jasperreports</artifactId>
-						<version>5.5.0</version>
-					</dependency>
-					<dependency>
-						<groupId>log4j</groupId>
-						<artifactId>log4j</artifactId>
-						<version>1.2.17</version>
-					</dependency>
-					<dependency>
-						<groupId>javax.servlet</groupId>
-						<artifactId>javax.servlet-api</artifactId>
-						<version>${servlet.api.version}</version>
-					</dependency>
-					<dependency>
-						<groupId>xml-apis</groupId>
-						<artifactId>xml-apis</artifactId>
-						<version>1.4.01</version>
-					</dependency>
-					<dependency>
-						<groupId>com.lowagie</groupId>
-						<artifactId>itext</artifactId>
-						<version>2.1.7</version>
-					</dependency>
-				</dependencies>
-			</plugin>
 		</plugins>
 		<pluginManagement>
 			<plugins>
