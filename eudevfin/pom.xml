@@ -24,11 +24,27 @@
         <ehcache.version>2.4.7</ehcache.version>
         <liquibase.version>3.0.8</liquibase.version>
         <jminix.version>1.1.0</jminix.version>
+        <jasper.version>5.5.0</jasper.version>
+        <itext.version>2.1.7</itext.version>
     </properties>
 
 
 
     <dependencies>
+
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>${jasper.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>${itext.version}</version>
+		</dependency>
+
+
 
         <dependency>
             <groupId>org.springframework</groupId>
@@ -490,8 +506,8 @@
         <module>financial</module>
         <module>auth</module>
         <module>common-auth</module>
-        <module>cda-wrapper</module>
-        <module>cdf-wrapper</module>
+        <module>reports-core</module>
+        <module>reports-ui</module>
         <module>exchange</module>
         <module>common-exchange</module>
         <module>common</module>

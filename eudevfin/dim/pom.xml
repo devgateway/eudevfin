@@ -81,7 +81,7 @@
 
         <dependency>
             <groupId>org.devgateway.eudevfin</groupId>
-            <artifactId>cdf-wrapper</artifactId>
+            <artifactId>reports-ui</artifactId>
             <version>${project.version}</version>
             <type>war</type>
         </dependency>
@@ -95,9 +95,9 @@
     
         <dependency>
             <groupId>org.devgateway.eudevfin</groupId>
-            <artifactId>cda-wrapper</artifactId>
+            <artifactId>reports-core</artifactId>
             <version>${project.version}</version>
-            <type>war</type>
+            <type>jar</type>
         </dependency>
         
         <!-- 

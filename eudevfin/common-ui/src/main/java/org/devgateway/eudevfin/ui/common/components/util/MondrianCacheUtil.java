@@ -30,9 +30,9 @@ public class MondrianCacheUtil {
         Util.PropertyList propertyList = new Util.PropertyList();
         propertyList.put("Provider", "mondrian");
         propertyList.put("Catalog",
-                MondrianCacheUtil.class.getResource("/org/devgateway/eudevfin/cda/service/financial.mondrian.xml").toString());
+                MondrianCacheUtil.class.getResource("/org/devgateway/eudevfin/reports/core/service/financial.mondrian.xml").toString());
         propertyList.put(RolapConnectionProperties.DynamicSchemaProcessor.toString(),
-                "org.devgateway.eudevfin.cda.utils.SchemaProcessor");
+                "org.devgateway.eudevfin.reports.core.utils.SchemaProcessor");
 
         Connection connection = DriverManager.getConnection(propertyList, null, cdaDataSource);
 
