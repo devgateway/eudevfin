@@ -21,7 +21,7 @@ public class SchemaProcessor extends LocalizingDynamicSchemaProcessor {
     private static final String DEFAULT_CURRENCY = "USD";
 	private static final String DEFAULT_LOCALE = "en";
     private static final String DEFAULT_COUNTRY_CURRENCY = "EUR";
-    private static final String DEFAULT_MONDRIAN_SCHEMA = "/org/devgateway/eudevfin/reports/core/service/financial.mondrian.xml";
+    private static final String DEFAULT_MONDRIAN_SCHEMA = "org/devgateway/eudevfin/reports/core/service/financial.mondrian.xml";
 
     private ResourceBundle bundle;
 
@@ -33,10 +33,13 @@ public class SchemaProcessor extends LocalizingDynamicSchemaProcessor {
     @Override
     public String processSchema(String schemaUrl, PropertyList connectInfo)
             throws Exception {
-        // get the default schema
-        schemaUrl = this.getClass().getResource(DEFAULT_MONDRIAN_SCHEMA).toString();
+        // get the default schema - load it from the class path
+        schemaUrl = this.getClass().getClassLoader().getResource(DEFAULT_MONDRIAN_SCHEMA).getPath();
 
-        InputStream in = Util.readVirtualFile(schemaUrl);
+        // don't read the schema from the file, load it as a stream from the class path
+        // InputStream in = Util.readVirtualFile(schemaUrl);
+        InputStream in = this.getClass().getClassLoader().getResourceAsStream(DEFAULT_MONDRIAN_SCHEMA);
+
         return filter(schemaUrl, connectInfo, in);
     }
 

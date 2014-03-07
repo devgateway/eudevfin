@@ -29,8 +29,9 @@ public class MondrianCacheUtil {
     public void flushMondrianCache () {
         Util.PropertyList propertyList = new Util.PropertyList();
         propertyList.put("Provider", "mondrian");
-        propertyList.put("Catalog",
-                MondrianCacheUtil.class.getResource("/org/devgateway/eudevfin/reports/core/service/financial.mondrian.xml").toString());
+        // don't add the Catalog here (but the Connect string must contain a property 'Catalog')
+        // it will be added in Schema Processor
+        propertyList.put("Catalog", "somePath");
         propertyList.put(RolapConnectionProperties.DynamicSchemaProcessor.toString(),
                 "org.devgateway.eudevfin.reports.core.utils.SchemaProcessor");
 

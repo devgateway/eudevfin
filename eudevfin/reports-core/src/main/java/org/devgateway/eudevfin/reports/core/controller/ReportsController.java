@@ -1,24 +1,5 @@
 package org.devgateway.eudevfin.reports.core.controller;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.ResourceBundle;
-
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
-
 import mondrian.olap.Connection;
 import mondrian.olap.DriverManager;
 import mondrian.olap.Util.PropertyList;
@@ -33,7 +14,6 @@ import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.olap.JRMondrianQueryExecuterFactory;
-
 import org.apache.log4j.Logger;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.util.AuthUtils;
@@ -50,6 +30,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 @Controller
 public class ReportsController {
@@ -86,8 +84,9 @@ public class ReportsController {
         // create the Mondrian connection
         PropertyList propertyList = new PropertyList();
         propertyList.put("Provider", "mondrian");
-        propertyList.put("Catalog",
-                this.getClass().getResource("/org/devgateway/eudevfin/reports/core/service/financial.mondrian.xml").toString());
+        // don't add the Catalog here (but the Connect string must contain a property 'Catalog')
+        // it will be added in Schema Processor
+        propertyList.put("Catalog", "somePath");
         propertyList.put(RolapConnectionProperties.DynamicSchemaProcessor.toString(),
                 "org.devgateway.eudevfin.reports.core.utils.SchemaProcessor");
 
@@ -158,24 +157,15 @@ public class ReportsController {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
         try {
-            InputStream inputStream = ReportsController.class.getResourceAsStream("./aq/aq_master.jasper");
+            InputStream inputStream = ReportsController.class.getClassLoader().
+                    getResourceAsStream("org/devgateway/eudevfin/reports/core/aq/aq_master.jasper");
             Map<String, Object> parameters = new HashMap<String, Object>();
 			Locale locale = connection.getLocale();
             parameters.put(JRParameter.REPORT_LOCALE, locale);
 
             // set resource bundle
-            try {
-                URL[] urls = {
-                        this.getClass().getResource("/org/devgateway/eudevfin/reports/").toURI().toURL()
-                };
-                ClassLoader loader = new URLClassLoader(urls);
-                ResourceBundle resourceBundle = java.util.ResourceBundle.getBundle("i18n", locale, loader);
-                parameters.put(JRParameter.REPORT_RESOURCE_BUNDLE, resourceBundle);
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
+            ResourceBundle resourceBundle = java.util.ResourceBundle.getBundle("org/devgateway/eudevfin/reports/i18n", locale);
+            parameters.put(JRParameter.REPORT_RESOURCE_BUNDLE, resourceBundle);
 
             //set connection
             parameters.put(JRMondrianQueryExecuterFactory.PARAMETER_MONDRIAN_CONNECTION, connection);
@@ -186,12 +176,9 @@ public class ReportsController {
             parameters.put("EDITION_YEAR", reportYear + 1);
 
             parameters.put("CURRENCY", currency);
-            try {
-                String subdirPath = new URI(this.getClass().getResource("./aq").toString()).getPath();
-                parameters.put("SUBDIR_PATH", subdirPath);
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
-            }
+            // add the path to sub-reports
+            String subdirPath =  "org/devgateway/eudevfin/reports/core/aq";
+            parameters.put("SUBDIR_PATH", subdirPath);
 
             // put Reporting Country parameter
             String donorName = "";
@@ -246,7 +233,7 @@ public class ReportsController {
 
             try {
                 baos.write("No data/Data Invalid".getBytes());
-                logger.error(e.getMessage());
+                logger.error("Error creating the AQ report", e);
             } catch (IOException ioEx) {
                 ioEx.printStackTrace();
             }

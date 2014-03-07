@@ -1,7 +1,6 @@
 package org.devgateway.eudevfin.reports.core.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.apache.log4j.Logger;
 import org.devgateway.eudevfin.financial.util.LocaleHelper;
 import org.devgateway.eudevfin.reports.core.domain.QueryResult;
@@ -11,17 +10,12 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
-
 import pt.webdetails.cda.CdaEngine;
 import pt.webdetails.cda.query.QueryOptions;
 import pt.webdetails.cda.settings.CdaSettings;
 import pt.webdetails.cda.settings.SettingsManager;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Locale;
