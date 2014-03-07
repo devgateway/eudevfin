@@ -19789,7 +19789,7 @@ Dashboards.blockUIwithDrag = function () {
 
     Dashboards.loadingAnimationTimeout = setTimeout(function () {
         $('.loading-bar').addClass('is-active');
-    }, 3000);
+    }, 500);
 };
 
 Dashboards.updateLifecycle = function (object) {
