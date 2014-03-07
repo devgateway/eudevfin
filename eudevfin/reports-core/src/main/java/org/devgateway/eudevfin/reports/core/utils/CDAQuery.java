@@ -31,6 +31,8 @@ import java.util.Map;
 @Lazy(value=false)
 public class CDAQuery implements ApplicationContextAware {
 
+	public static final String FINANCIAL_MODRIAN_CDA_FILE="res://org/devgateway/eudevfin/reports/core/service/financial.mondrian.cda";
+	
 	protected static Logger logger = Logger.getLogger(CDAQuery.class);
 	ApplicationContext applicationContext = null;
 
@@ -63,26 +65,11 @@ public class CDAQuery implements ApplicationContextAware {
 
 		// Settings object needed for the engine
 	    final SettingsManager settingsManager = SettingsManager.getInstance();
-	    URL file = this.getClass().getClassLoader().getResource("org/devgateway/eudevfin/reports/core/service/financial.mondrian.cda");
-
-        logger.info(file.getPath());
-
-        logger.info(">>>>>>>");
-        BufferedReader br = new BufferedReader(new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("org/devgateway/eudevfin/reports/core/service/financial.mondrian.cda")));
-        StringBuilder builder = new StringBuilder();
-        String aux = "";
-
-        while ((aux = br.readLine()) != null) {
-            builder.append(aux);
-        }
-
-        String text = builder.toString();
-
-        logger.info(text);
+	 
 
 
 //	    File settingsFile = new File(file.toURI());
-	    final CdaSettings cdaSettings = settingsManager.parseSettingsFile(file.getPath());
+	    final CdaSettings cdaSettings = settingsManager.parseSettingsFile(FINANCIAL_MODRIAN_CDA_FILE);
 
 		// Settings options based on the Map<String,String> params already processed
 	    final QueryOptions queryOptions = new QueryOptions();
