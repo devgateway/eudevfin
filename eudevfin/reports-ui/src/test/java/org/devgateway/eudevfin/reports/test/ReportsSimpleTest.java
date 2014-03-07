@@ -60,8 +60,8 @@ public class ReportsSimpleTest {
 			PropertyList properties = getPropertyList();
 			Connection connection = DriverManager.getConnection(properties,
 					null, cdaDataSource);
-			InputStream inputStream = ReportsSimpleTest.class
-					.getResourceAsStream("../aq/aq_master.jasper");
+            InputStream inputStream = ReportsDataTest.class.getClassLoader().
+                    getResourceAsStream("org/devgateway/eudevfin/reports/core/aq/aq_master.jasper");
 			Map<String, Object> parameters = new HashMap<String, Object>();
 			parameters.put(JRParameter.REPORT_LOCALE, new Locale("en"));
 			parameters
@@ -70,13 +70,9 @@ public class ReportsSimpleTest {
 			parameters.put("FIRST_YEAR", 2010);
 			parameters.put("SECOND_YEAR", 2011);
 			parameters.put("CURRENCY", "USD");
-			try {
-				String subdirPath = new URI(this.getClass()
-						.getResource("../aq").toString()).getPath();
-				parameters.put("SUBDIR_PATH", subdirPath);
-			} catch (URISyntaxException e) {
-				e.printStackTrace();
-			}
+            String subdirPath =  "org/devgateway/eudevfin/reports/core/aq";
+            parameters.put("SUBDIR_PATH", subdirPath);
+
 			parameters.put("REPORTING_COUNTRY", "Donor Name");
 			JasperReport jasperReport = (JasperReport) JRLoader
 					.loadObject(inputStream);
