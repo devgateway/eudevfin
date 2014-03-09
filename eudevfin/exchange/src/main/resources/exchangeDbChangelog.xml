@@ -24,5 +24,13 @@
  
 
 	</changeSet>
+	
+	
+	<changeSet id="3" author="mihai" failOnError="false" runAlways="false" runInTransaction="false">
+		<customChange
+			class="org.devgateway.eudevfin.exchange.liquibase.PopulateExchangeDbChangeLVL">
+		</customChange>
+	</changeSet>
+	
 
 </databaseChangeLog>
