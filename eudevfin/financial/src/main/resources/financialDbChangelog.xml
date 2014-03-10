@@ -57,7 +57,7 @@
 
     </changeSet>
 
-    <changeSet id="5" author="arti" failOnError="true" runAlways="false" runInTransaction="true">
+    <changeSet id="5" author="arti" failOnError="false" runAlways="false" runInTransaction="true">
         <sql>
             ALTER TABLE FINANCIALTRANSACTION DROP COLUMN RMNCH;
             ALTER TABLE FINANCIALTRANSACTION DROP COLUMN FIRSTCOFINANCINGAGENCY;
