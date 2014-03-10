@@ -9,8 +9,8 @@
 package org.devgateway.eudevfin.dim.providers;
 
 import org.devgateway.eudevfin.common.service.BaseEntityService;
-import org.devgateway.eudevfin.financial.Area;
-import org.devgateway.eudevfin.financial.service.AreaService;
+import org.devgateway.eudevfin.metadata.common.domain.Area;
+import org.devgateway.eudevfin.metadata.common.service.AreaService;
 import org.devgateway.eudevfin.ui.common.providers.AbstractTranslatableProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

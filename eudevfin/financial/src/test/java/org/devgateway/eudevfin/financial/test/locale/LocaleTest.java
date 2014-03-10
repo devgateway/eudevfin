@@ -7,11 +7,11 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.devgateway.eudevfin.common.Constants;
+import org.devgateway.eudevfin.common.locale.LocaleHelperInterface;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
-import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
-import org.devgateway.eudevfin.financial.service.OrganizationService;
-import org.devgateway.eudevfin.financial.util.LocaleHelperInterface;
+import org.devgateway.eudevfin.metadata.common.domain.Organization;
+import org.devgateway.eudevfin.metadata.common.service.OrganizationService;
 import org.joda.money.BigMoney;
 import org.junit.Assert;
 import org.junit.Before;

@@ -8,10 +8,10 @@ import java.util.List;
 
 import org.devgateway.eudevfin.common.dao.AbstractDaoImpl;
 import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
-import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.exception.NoDataFoundException;
 import org.devgateway.eudevfin.financial.repository.CategoryRepository;
-import org.devgateway.eudevfin.financial.service.CategoryService;
+import org.devgateway.eudevfin.metadata.common.domain.Category;
+import org.devgateway.eudevfin.metadata.common.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;

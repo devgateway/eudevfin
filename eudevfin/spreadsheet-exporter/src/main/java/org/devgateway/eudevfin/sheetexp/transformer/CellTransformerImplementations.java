@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import org.devgateway.eudevfin.exchange.common.service.ExchangeRateUtil;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
-import org.devgateway.eudevfin.financial.SectorCategory;
+import org.devgateway.eudevfin.metadata.common.domain.SectorCategory;
 import org.devgateway.eudevfin.sheetexp.dto.EntityWrapperInterface;
 import org.devgateway.eudevfin.sheetexp.dto.MetadataCell;
 import org.joda.money.BigMoney;

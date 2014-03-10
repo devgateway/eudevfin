@@ -6,7 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.common.Constants;
-import org.devgateway.eudevfin.financial.Organization;
+import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 

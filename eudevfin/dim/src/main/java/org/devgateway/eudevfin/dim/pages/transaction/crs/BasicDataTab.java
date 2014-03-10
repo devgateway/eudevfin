@@ -9,6 +9,7 @@
 package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
 import com.vaynberg.wicket.select2.ChoiceProvider;
+
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -18,10 +19,10 @@ import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.ValidationError;
 import org.devgateway.eudevfin.dim.providers.AreaChoiceProvider;
 import org.devgateway.eudevfin.dim.providers.CategoryProviderFactory;
-import org.devgateway.eudevfin.financial.Area;
-import org.devgateway.eudevfin.financial.Category;
-import org.devgateway.eudevfin.financial.ChannelCategory;
-import org.devgateway.eudevfin.financial.util.CategoryConstants;
+import org.devgateway.eudevfin.metadata.common.domain.Area;
+import org.devgateway.eudevfin.metadata.common.domain.Category;
+import org.devgateway.eudevfin.metadata.common.domain.ChannelCategory;
+import org.devgateway.eudevfin.metadata.common.util.CategoryConstants;
 import org.devgateway.eudevfin.ui.common.Constants;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;

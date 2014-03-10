@@ -31,7 +31,7 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.StringValue;
-import org.devgateway.eudevfin.financial.util.LocaleHelper;
+import org.devgateway.eudevfin.common.locale.LocaleHelper;
 import org.devgateway.eudevfin.ui.common.ApplicationJavaScript;
 import org.devgateway.eudevfin.ui.common.Constants;
 import org.devgateway.eudevfin.ui.common.FixBootstrapStylesCssResourceReference;

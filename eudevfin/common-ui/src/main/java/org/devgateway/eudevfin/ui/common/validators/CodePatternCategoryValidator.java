@@ -15,7 +15,7 @@ import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.IValidator;
 import org.apache.wicket.validation.ValidationError;
-import org.devgateway.eudevfin.financial.Category;
+import org.devgateway.eudevfin.metadata.common.domain.Category;
 
 import java.util.regex.Pattern;
 

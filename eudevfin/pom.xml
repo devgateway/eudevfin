@@ -516,6 +516,7 @@
     	<module>import-metadata</module>
     	<module>mcm</module>
     	<module>spreadsheet-exporter</module>
+    	<module>common-metadata</module>
     </modules>
     <inceptionYear>2013</inceptionYear>
     <organization>

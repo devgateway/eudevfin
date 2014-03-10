@@ -65,5 +65,12 @@
 	<util:properties id="commonProperties" location="classpath:/common.properties"/>
 	
 	<task:annotation-driven/>
+	
+	<bean class="org.devgateway.eudevfin.common.locale.LocaleHelper" id="localeHelperRequest" scope="request" />
+	<bean class="org.devgateway.eudevfin.common.locale.LocaleHelper" id="localeHelperSession" scope="session" />
+	
+	<int:channel id="getChannel"/>
+
+	
 
 	</beans>

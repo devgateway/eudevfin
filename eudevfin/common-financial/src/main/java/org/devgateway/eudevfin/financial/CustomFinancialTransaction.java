@@ -8,6 +8,8 @@
 
 package org.devgateway.eudevfin.financial;
 
+import org.devgateway.eudevfin.metadata.common.domain.Category;
+import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Columns;
@@ -18,6 +20,7 @@ import org.joda.money.CurrencyUnit;
 import org.joda.time.LocalDateTime;
 
 import javax.persistence.*;
+
 import java.math.BigDecimal;
 import java.util.Set;
 

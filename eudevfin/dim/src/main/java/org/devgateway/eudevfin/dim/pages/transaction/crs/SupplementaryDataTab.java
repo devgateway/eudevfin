@@ -12,7 +12,7 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.dim.providers.CategoryProviderFactory;
-import org.devgateway.eudevfin.financial.Category;
+import org.devgateway.eudevfin.metadata.common.domain.Category;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.DateInputField;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;

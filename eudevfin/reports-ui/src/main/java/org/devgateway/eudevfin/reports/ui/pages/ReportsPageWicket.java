@@ -7,6 +7,7 @@ import com.googlecode.wickedcharts.highcharts.options.series.Point;
 import com.googlecode.wickedcharts.highcharts.options.series.PointSeries;
 import com.googlecode.wickedcharts.highcharts.options.series.SimpleSeries;
 import com.googlecode.wickedcharts.wicket6.highcharts.Chart;
+
 import org.apache.log4j.Logger;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.head.CssHeaderItem;
@@ -20,7 +21,7 @@ import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.util.AuthUtils;
-import org.devgateway.eudevfin.financial.Organization;
+import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.devgateway.eudevfin.reports.core.domain.QueryResult;
 import org.devgateway.eudevfin.reports.core.service.QueryService;
 import org.devgateway.eudevfin.reports.ui.scripts.Dashboards;

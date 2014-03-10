@@ -5,6 +5,7 @@ package org.devgateway.eudevfin.financial.translate;
 
 import javax.persistence.Entity;
 
+import org.devgateway.eudevfin.common.dao.translation.AbstractTranslation;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;

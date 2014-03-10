@@ -4,9 +4,9 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import org.devgateway.eudevfin.financial.FinancialTransaction;
-import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.dao.FinancialTransactionDaoImpl;
 import org.devgateway.eudevfin.financial.dao.OrganizationDaoImpl;
+import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

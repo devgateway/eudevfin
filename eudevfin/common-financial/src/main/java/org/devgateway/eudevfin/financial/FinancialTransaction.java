@@ -20,8 +20,13 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 
+import org.devgateway.eudevfin.common.dao.translation.AbstractTranslateable;
 import org.devgateway.eudevfin.financial.translate.FinancialTransactionTranslation;
 import org.devgateway.eudevfin.financial.translate.FinancialTransactionTrnInterface;
+import org.devgateway.eudevfin.metadata.common.domain.Area;
+import org.devgateway.eudevfin.metadata.common.domain.Category;
+import org.devgateway.eudevfin.metadata.common.domain.ChannelCategory;
+import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Columns;

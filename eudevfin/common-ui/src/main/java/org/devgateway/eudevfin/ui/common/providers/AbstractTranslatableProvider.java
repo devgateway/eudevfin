@@ -10,7 +10,7 @@ package org.devgateway.eudevfin.ui.common.providers;
 
 import org.apache.log4j.Logger;
 import org.apache.wicket.Session;
-import org.devgateway.eudevfin.financial.AbstractTranslateable;
+import org.devgateway.eudevfin.common.dao.translation.AbstractTranslateable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 

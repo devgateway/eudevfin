@@ -13,6 +13,7 @@ package org.devgateway.eudevfin.mcm.pages;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
 import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
+
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -26,14 +27,14 @@ import org.apache.wicket.util.time.Duration;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.auth.common.util.AuthUtils;
-import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
-import org.devgateway.eudevfin.financial.Organization;
-import org.devgateway.eudevfin.financial.service.CategoryService;
 import org.devgateway.eudevfin.financial.service.CurrencyMetadataService;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
-import org.devgateway.eudevfin.financial.util.CategoryConstants;
 import org.devgateway.eudevfin.financial.util.FinancialTransactionUtil;
+import org.devgateway.eudevfin.metadata.common.domain.Category;
+import org.devgateway.eudevfin.metadata.common.domain.Organization;
+import org.devgateway.eudevfin.metadata.common.service.CategoryService;
+import org.devgateway.eudevfin.metadata.common.util.CategoryConstants;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
 import org.devgateway.eudevfin.ui.common.components.FinancialAmountTextInputField;

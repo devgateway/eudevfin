@@ -14,12 +14,13 @@ import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.olap.JRMondrianQueryExecuterFactory;
+
 import org.apache.log4j.Logger;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.util.AuthUtils;
-import org.devgateway.eudevfin.financial.Organization;
+import org.devgateway.eudevfin.common.locale.LocaleHelper;
 import org.devgateway.eudevfin.financial.util.FinancialTransactionUtil;
-import org.devgateway.eudevfin.financial.util.LocaleHelper;
+import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.devgateway.eudevfin.reports.core.utils.ReportExporter;
 import org.joda.money.CurrencyUnit;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;

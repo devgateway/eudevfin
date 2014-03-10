@@ -15,12 +15,10 @@
             <artifactId>common</artifactId>
             <version>${project.version}</version>
         </dependency>
-        
-        
-        
+
        	<dependency>
             <groupId>org.devgateway.eudevfin</groupId>
-            <artifactId>common-financial</artifactId>
+            <artifactId>common-metadata</artifactId>
             <version>${project.version}</version>
         </dependency>
   

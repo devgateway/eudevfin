@@ -32,15 +32,15 @@ import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.olap.JRMondrianQueryExecuterFactory;
 
 import org.apache.log4j.Logger;
-import org.devgateway.eudevfin.financial.Area;
-import org.devgateway.eudevfin.financial.ChannelCategory;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
-import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.dao.AreaDaoImpl;
 import org.devgateway.eudevfin.financial.dao.CategoryDaoImpl;
 import org.devgateway.eudevfin.financial.dao.ChannelCategoryDao;
 import org.devgateway.eudevfin.financial.dao.FinancialTransactionDaoImpl;
 import org.devgateway.eudevfin.financial.dao.OrganizationDaoImpl;
+import org.devgateway.eudevfin.metadata.common.domain.Area;
+import org.devgateway.eudevfin.metadata.common.domain.ChannelCategory;
+import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.joda.money.BigMoney;
 import org.joda.time.LocalDateTime;
 import org.junit.After;

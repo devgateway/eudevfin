@@ -10,9 +10,9 @@ import static org.junit.Assert.assertTrue;
 import java.util.HashSet;
 import java.util.List;
 
-import org.devgateway.eudevfin.financial.Category;
-import org.devgateway.eudevfin.financial.SectorCategory;
-import org.devgateway.eudevfin.financial.service.CategoryService;
+import org.devgateway.eudevfin.metadata.common.domain.Category;
+import org.devgateway.eudevfin.metadata.common.domain.SectorCategory;
+import org.devgateway.eudevfin.metadata.common.service.CategoryService;
 import org.hibernate.LazyInitializationException;
 import org.junit.Before;
 import org.junit.Test;

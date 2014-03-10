@@ -1,7 +1,7 @@
 package org.devgateway.eudevfin.reports.core.test;
 
 import org.apache.log4j.Logger;
-import org.devgateway.eudevfin.financial.util.LocaleHelperInterface;
+import org.devgateway.eudevfin.common.locale.LocaleHelperInterface;
 import org.devgateway.eudevfin.reports.core.domain.QueryResult;
 import org.devgateway.eudevfin.reports.core.service.QueryService;
 import org.junit.Before;

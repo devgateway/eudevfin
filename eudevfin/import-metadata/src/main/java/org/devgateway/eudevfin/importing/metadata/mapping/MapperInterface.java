@@ -2,7 +2,7 @@ package org.devgateway.eudevfin.importing.metadata.mapping;
 
 import java.util.List;
 
-import org.devgateway.eudevfin.financial.Organization;
+import org.devgateway.eudevfin.metadata.common.domain.Organization;
 
 public interface MapperInterface<T> {
 

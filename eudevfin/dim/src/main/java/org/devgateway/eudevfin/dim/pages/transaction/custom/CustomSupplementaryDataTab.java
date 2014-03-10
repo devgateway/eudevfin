@@ -10,7 +10,7 @@ package org.devgateway.eudevfin.dim.pages.transaction.custom;
 
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.SupplementaryDataTab;
-import org.devgateway.eudevfin.financial.Category;
+import org.devgateway.eudevfin.metadata.common.domain.Category;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.temporary.SB;

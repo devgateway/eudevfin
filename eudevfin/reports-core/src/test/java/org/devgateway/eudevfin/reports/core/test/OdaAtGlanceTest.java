@@ -1,16 +1,16 @@
 package org.devgateway.eudevfin.reports.core.test;
 
 import org.apache.log4j.Logger;
-import org.devgateway.eudevfin.financial.Area;
+import org.devgateway.eudevfin.common.locale.LocaleHelperInterface;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
-import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.dao.AreaDaoImpl;
 import org.devgateway.eudevfin.financial.dao.CategoryDaoImpl;
 import org.devgateway.eudevfin.financial.dao.ChannelCategoryDao;
 import org.devgateway.eudevfin.financial.dao.FinancialTransactionDaoImpl;
 import org.devgateway.eudevfin.financial.dao.OrganizationDaoImpl;
-import org.devgateway.eudevfin.financial.util.LocaleHelperInterface;
+import org.devgateway.eudevfin.metadata.common.domain.Area;
+import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.devgateway.eudevfin.reports.core.domain.QueryResult;
 import org.devgateway.eudevfin.reports.core.service.QueryService;
 import org.joda.money.BigMoney;

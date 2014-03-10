@@ -3,7 +3,7 @@
  */
 package org.devgateway.eudevfin.financial.repository;
 
-import org.devgateway.eudevfin.financial.Organization;
+import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;

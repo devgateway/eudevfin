@@ -3,8 +3,8 @@
  */
 package org.devgateway.eudevfin.importing.metadata.mapping;
 
-import org.devgateway.eudevfin.financial.Category;
-import org.devgateway.eudevfin.financial.CurrencyCategory;
+import org.devgateway.eudevfin.metadata.common.domain.Category;
+import org.devgateway.eudevfin.metadata.common.domain.CurrencyCategory;
 
 /**
  * @author Alex

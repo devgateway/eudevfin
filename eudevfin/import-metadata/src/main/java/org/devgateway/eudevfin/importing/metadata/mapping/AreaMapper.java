@@ -5,11 +5,11 @@ package org.devgateway.eudevfin.importing.metadata.mapping;
 
 import liquibase.exception.SetupException;
 
-import org.devgateway.eudevfin.financial.Area;
-import org.devgateway.eudevfin.financial.Category;
-import org.devgateway.eudevfin.financial.Country;
 import org.devgateway.eudevfin.financial.dao.CategoryDaoImpl;
 import org.devgateway.eudevfin.importing.metadata.exception.InvalidDataException;
+import org.devgateway.eudevfin.metadata.common.domain.Area;
+import org.devgateway.eudevfin.metadata.common.domain.Category;
+import org.devgateway.eudevfin.metadata.common.domain.Country;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**

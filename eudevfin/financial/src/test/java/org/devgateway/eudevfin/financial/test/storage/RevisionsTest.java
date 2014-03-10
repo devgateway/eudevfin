@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManagerFactory;
 
 import org.devgateway.eudevfin.financial.FinancialTransaction;
-import org.devgateway.eudevfin.financial.Organization;
+import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.hibernate.envers.AuditReader;
 import org.hibernate.envers.AuditReaderFactory;
 import org.hibernate.envers.DefaultTrackingModifiedEntitiesRevisionEntity;
