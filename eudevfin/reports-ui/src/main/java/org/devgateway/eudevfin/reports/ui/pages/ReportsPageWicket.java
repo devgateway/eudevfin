@@ -9,10 +9,14 @@ import com.googlecode.wickedcharts.highcharts.options.series.SimpleSeries;
 import com.googlecode.wickedcharts.wicket6.highcharts.Chart;
 import org.apache.log4j.Logger;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.list.ListItem;
+import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
+import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.util.AuthUtils;
@@ -52,7 +56,108 @@ public class ReportsPageWicket extends HeaderFooter {
     private void addComponents () {
         addReportingCountry();
 
-        DemoDatatable table = new DemoDatatable("table");
+        Map<String, String> params2 = new HashMap<>();
+        params2.put("dataAccessId", "netODATable");
+
+        QueryResult result2 = CdaService.doQuery(params2);
+
+        DataTable table = new DataTable("netODADashboard");
+
+        add(table);
+
+        List<String[]> rows = new ArrayList<>();
+
+        for (List<String> item : result2.getResultset()) {
+            rows.add(item.toArray(new String[item.size()]));
+        }
+
+        ListView<String[]> lv = new ListView<String[]>("rows", rows) {
+            @Override
+            protected void populateItem(ListItem<String[]> item) {
+                String[] row = item.getModelObject();
+
+                for(int i = 0; i < row.length; i++) {
+                    if(row[i] == null) {
+                        row[i] = "0";
+                    }
+                }
+
+                item.add(new Label("col1", row[0]));
+                item.add(new Label("col2", row[1]));
+                item.add(new Label("col3", row[2]));
+            }
+        };
+
+        table.add(lv);
+
+
+
+
+
+        Map<String, String> params3 = new HashMap<>();
+        params3.put("dataAccessId", "topTenRecipients");
+
+        QueryResult result3 = CdaService.doQuery(params3);
+
+        DataTable table2 = new DataTable("topTenRecipients");
+
+        add(table2);
+
+        List<String[]> rows2 = new ArrayList<>();
+
+        for (List<String> item : result3.getResultset()) {
+            rows2.add(item.toArray(new String[item.size()]));
+        }
+
+        ListView<String[]> lv2 = new ListView<String[]>("rows2", rows2) {
+            @Override
+            protected void populateItem(ListItem<String[]> item) {
+                String[] row = item.getModelObject();
+
+                item.add(new Label("col1", row[0]));
+                item.add(new Label("col2", row[1]));
+            }
+        };
+
+        table2.add(lv2);
+
+
+
+        Map<String, String> params4 = new HashMap<>();
+        params4.put("dataAccessId", "topTenMemoShare");
+
+        QueryResult result4 = CdaService.doQuery(params4);
+
+        DataTable table3 = new DataTable("topTenMemoShare");
+
+        add(table3);
+
+        List<String[]> rows3 = new ArrayList<>();
+
+        for (List<String> item : result4.getResultset()) {
+            String[] newItem = new String[2];
+
+            if (item.get(0) != null) {
+                newItem[0] = "Top 5 recipients";
+                newItem[1] = item.get(0);
+            }
+
+            rows3.add(newItem);
+        }
+
+        ListView<String[]> lv3 = new ListView<String[]>("rows3", rows3) {
+            @Override
+            protected void populateItem(ListItem<String[]> item) {
+                String[] row = item.getModelObject();
+
+                item.add(new Label("col1", row[0]));
+                item.add(new Label("col2", row[1]));
+            }
+        };
+
+        table3.add(lv3);
+
+
 
 
         Map<String, String> params = new HashMap<>();
@@ -74,7 +179,7 @@ public class ReportsPageWicket extends HeaderFooter {
                 .setBorderColor(new HexColor("#DEEDF7"))
                 .setBorderRadius(20)
                 .setBorderWidth(2)
-                .setHeight(380)
+                .setHeight(250)
                 .setMarginLeft(null)
                 .setMarginRight(null)
                 .setMarginTop(null)
@@ -237,5 +342,52 @@ public class ReportsPageWicket extends HeaderFooter {
         // load CDF plugin for some functions - we can remove it latter and add only those functions
         response.render(JavaScriptHeaderItem.forUrl("/js/cdfplugin.min.js"));
         response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "reports.js")));
+    }
+}
+
+class DataTable extends DemoDatatable {
+
+    public DataTable(String id) {
+        super(id);
+    }
+
+    @Override
+    public void renderHead(IHeaderResponse response) {
+        renderDemoCSS(response);
+        renderBasicJS(response);
+
+        StringBuilder js = new StringBuilder();
+        js.append("$(document).ready( function() {\n");
+        js.append("	$('#" + getMarkupId() + "').dataTable( {\n");
+        js.append("		\"bJQueryUI\": true,\n");
+        js.append("		\"bPaginate\": false,\n");
+        js.append("		\"bFilter\": false,\n");
+        js.append("		\"bInfo\": false,\n");
+        js.append("		\"bSort\": false,\n");
+        js.append("		\"bLengthChange\": false,\n");
+        js.append("		\"iDisplayLength\": 10,\n");
+        js.append("		\"sPaginationType\": \"full_numbers\"\n");
+        js.append("	} );\n");
+        js.append("} );");
+
+        response.render(JavaScriptHeaderItem.forScript(js, getId() + "_datatables"));
+    }
+
+    private void renderDemoCSS(IHeaderResponse response) {
+        final Class<DemoDatatable> _ = DemoDatatable.class;
+        response.render(CssHeaderItem.forReference(new PackageResourceReference(_,
+                "media/css/demo_table_jui.css"), "screen"));
+    }
+
+    private String getJUITheme() {
+        return "smoothness";
+    }
+
+    private void renderBasicJS(IHeaderResponse response) {
+        final Class<DemoDatatable> _ = DemoDatatable.class;
+
+//        response.render(JavaScriptHeaderItem.forReference(new PackageResourceReference(_, "media/js/jquery.js")));
+        response.render(JavaScriptHeaderItem.forReference(new PackageResourceReference(_,"media/js/jquery.dataTables.min.js")));
+        response.render(JavaScriptHeaderItem.forReference(new PackageResourceReference(_,"media/js/jquery-ui-1.8.10.custom.min.js")));
     }
 }
