@@ -8,6 +8,7 @@
 
 package org.devgateway.eudevfin.financial;
 
+import org.devgateway.eudevfin.auth.common.domain.PersistedUserGroup;
 import org.devgateway.eudevfin.metadata.common.domain.Category;
 import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.hibernate.annotations.Cache;
@@ -121,6 +122,9 @@ public class CustomFinancialTransaction extends FinancialTransaction {
     private Category recipientCode;
     @ManyToOne
     private Category recipientPriority;
+    
+    @ManyToOne
+    private PersistedUserGroup persistedUserGroup;
 
     private String budgetCode;
     private String budgetLine;
@@ -524,4 +528,18 @@ public class CustomFinancialTransaction extends FinancialTransaction {
     public void setOtherComments(String otherComments) {
         this.otherComments = otherComments;
     }
+
+	/**
+	 * @return the persistedUserGroup
+	 */
+	public PersistedUserGroup getPersistedUserGroup() {
+		return persistedUserGroup;
+	}
+
+	/**
+	 * @param persistedUserGroup the persistedUserGroup to set
+	 */
+	public void setPersistedUserGroup(PersistedUserGroup persistedUserGroup) {
+		this.persistedUserGroup = persistedUserGroup;
+	}
 }
