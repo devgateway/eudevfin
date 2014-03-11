@@ -11,13 +11,13 @@
  */
 package org.devgateway.eudevfin.ui.common.validators;
 
-import java.util.regex.Pattern;
-
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.IValidator;
 import org.apache.wicket.validation.ValidationError;
 import org.devgateway.eudevfin.financial.Category;
+
+import java.util.regex.Pattern;
 
 /**
  * @author mihai

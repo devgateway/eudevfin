@@ -8,18 +8,17 @@
 
 package org.devgateway.eudevfin.ui.common.temporary;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
+import com.vaynberg.wicket.select2.ChoiceProvider;
+import com.vaynberg.wicket.select2.Response;
+import com.vaynberg.wicket.select2.TextChoiceProvider;
 import org.apache.commons.lang3.ArrayUtils;
 import org.devgateway.eudevfin.financial.Area;
 import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.RecipientCategory;
 import org.joda.money.CurrencyUnit;
 
-import com.vaynberg.wicket.select2.ChoiceProvider;
-import com.vaynberg.wicket.select2.Response;
-import com.vaynberg.wicket.select2.TextChoiceProvider;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Temporary class to simulate binds with other modules

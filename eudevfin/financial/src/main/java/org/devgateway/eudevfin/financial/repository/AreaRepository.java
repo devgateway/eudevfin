@@ -6,6 +6,7 @@ package org.devgateway.eudevfin.financial.repository;
 import java.util.List;
 
 import org.devgateway.eudevfin.financial.Area;
+import org.devgateway.eudevfin.financial.Organization;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;

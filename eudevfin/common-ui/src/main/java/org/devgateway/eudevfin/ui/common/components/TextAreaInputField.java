@@ -8,12 +8,11 @@
 
 package org.devgateway.eudevfin.ui.common.components;
 
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.validation.validator.StringValidator;
-
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
 
 /**
  * basic text area input field

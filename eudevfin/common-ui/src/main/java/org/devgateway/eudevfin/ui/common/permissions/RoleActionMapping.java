@@ -8,10 +8,10 @@
 
 package org.devgateway.eudevfin.ui.common.permissions;
 
-import java.util.HashMap;
-
 import org.apache.log4j.Logger;
 import org.devgateway.eudevfin.ui.common.Constants;
+
+import java.util.HashMap;
 
 /**
  * Used by the {@link PermissionAwarePage} to return a hashmap with the permissions for the components in the

@@ -174,7 +174,6 @@
 	<!-- The list of channels that are used throughout the financial module -->
 	<int:channel id="findAllAsListTransactionChannel"/>
 	<int:channel id="saveTransactionChannel" />
-	<int:channel id="deleteTransactionChannel" />
 	<int:channel id="findTransactionByIdChannel" />
 	<int:channel id="findTransactionBySectorCodePageableChannel" />
 	<int:channel id="getFinancialTransactionHistoricalExchangeRatesChannel"/>

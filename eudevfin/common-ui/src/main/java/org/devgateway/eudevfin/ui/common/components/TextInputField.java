@@ -8,8 +8,8 @@
 
 package org.devgateway.eudevfin.ui.common.components;
 
-import java.math.BigDecimal;
-
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
+import de.agilecoders.wicket.extensions.javascript.jasny.InputMaskBehavior;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
@@ -18,8 +18,7 @@ import org.apache.wicket.validation.validator.EmailAddressValidator;
 import org.apache.wicket.validation.validator.RangeValidator;
 import org.apache.wicket.validation.validator.StringValidator;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
-import de.agilecoders.wicket.extensions.javascript.jasny.InputMaskBehavior;
+import java.math.BigDecimal;
 
 /**
  * <p>Creates an input field with attached label and placeholder, see constructor for more info</p>

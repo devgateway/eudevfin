@@ -21,6 +21,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
+import org.apache.log4j.Logger;
 import org.devgateway.eudevfin.financial.exception.CategoryOperationException;
 import org.devgateway.eudevfin.financial.translate.CategoryTranslation;
 import org.devgateway.eudevfin.financial.translate.CategoryTrnInterface;

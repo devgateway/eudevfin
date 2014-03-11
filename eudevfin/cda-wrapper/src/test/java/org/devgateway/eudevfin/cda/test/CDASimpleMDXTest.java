@@ -1,21 +1,20 @@
 package org.devgateway.eudevfin.cda.test;
 
-import java.io.File;
-import java.io.OutputStream;
-import java.net.URL;
-
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.mock.jndi.SimpleNamingContextBuilder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import pt.webdetails.cda.CdaEngine;
 import pt.webdetails.cda.dataaccess.DataAccessEnums;
 import pt.webdetails.cda.query.QueryOptions;
 import pt.webdetails.cda.settings.CdaSettings;
 import pt.webdetails.cda.settings.SettingsManager;
+
+import java.io.File;
+import java.io.OutputStream;
+import java.net.URL;
 
 /**
  * Provides testing of a simple MDX query through Mondrian JNDI. 

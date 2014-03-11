@@ -8,16 +8,15 @@
 
 package org.devgateway.eudevfin.ui.common.providers;
 
-import java.util.Collection;
-
+import com.vaynberg.wicket.select2.ChoiceProvider;
+import com.vaynberg.wicket.select2.Response;
 import org.apache.wicket.model.IDetachable;
 import org.devgateway.eudevfin.common.spring.ContextHelper;
 import org.json.JSONException;
 import org.json.JSONWriter;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 
-import com.vaynberg.wicket.select2.ChoiceProvider;
-import com.vaynberg.wicket.select2.Response;
+import java.util.Collection;
 
 /**
  * Choice Provider that will autowire the encapsulated provider's beans after it was detached

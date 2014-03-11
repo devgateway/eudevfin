@@ -11,11 +11,8 @@
  */
 package org.devgateway.eudevfin.ui.common.providers;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
+import com.vaynberg.wicket.select2.Response;
+import com.vaynberg.wicket.select2.TextChoiceProvider;
 import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 import org.devgateway.eudevfin.financial.service.CurrencyMetadataService;
 import org.joda.money.CurrencyUnit;
@@ -24,8 +21,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-import com.vaynberg.wicket.select2.Response;
-import com.vaynberg.wicket.select2.TextChoiceProvider;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author Alex

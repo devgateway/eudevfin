@@ -29,6 +29,7 @@ import org.apache.wicket.devutils.debugbar.VersionDebugContributor;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.request.resource.CssResourceReference;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
+import org.apache.wicket.settings.IRequestCycleSettings.RenderStrategy;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.devgateway.eudevfin.ui.common.ApplicationCss;
 import org.devgateway.eudevfin.ui.common.ApplicationJavaScript;

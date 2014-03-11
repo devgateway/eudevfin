@@ -55,13 +55,10 @@
     <entry key="navbar.spreadsheets.export">Export</entry>
     <entry key="navbar.spreadsheets.fss">Forward Spending Survey</entry>
     
-	<entry key="modal.delete">Proceed with delete?</entry>
-    
     <entry key="button.submit">Submit</entry>    
     <entry key="button.cancel">Cancel</entry>
     <entry key="button.delete">Delete</entry>
     <entry key="notification.saved">Form Saved!</entry>
-    <entry key="notification.deleted">Form Deleted!</entry>
     <entry key="notification.validationerrors">The form has validation errors (highlighted in red). Fix them and try saving again!</entry>    	
 	<entry key="validation.multilateralChannelCode">Select only 4xxxx format codes when in multilateral forms</entry>
 	<entry key="page.title"> </entry>

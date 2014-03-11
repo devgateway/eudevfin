@@ -8,8 +8,7 @@
 
 package org.devgateway.eudevfin.dim.providers;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.vaynberg.wicket.select2.Response;
 
 import org.apache.log4j.Logger;
 import org.apache.wicket.Session;
@@ -24,7 +23,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
-import com.vaynberg.wicket.select2.Response;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author aartimon

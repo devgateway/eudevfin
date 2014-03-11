@@ -7,6 +7,8 @@
  */
 package org.devgateway.eudevfin.ui.common.pages;
 
+import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.BootstrapForm;
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
@@ -18,9 +20,6 @@ import org.devgateway.eudevfin.ui.common.components.PasswordInputField;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
 import org.devgateway.eudevfin.ui.common.spring.SpringWicketWebSession;
 import org.wicketstuff.annotation.mount.MountPath;
-
-import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.BootstrapForm;
 
 @MountPath(value = "/login")
 public final class LoginPage extends HeaderFooter {

@@ -1,10 +1,10 @@
 package org.devgateway.eudevfin.cda.test;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.config.Scope;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Ionut Dobre on 2/19/14.

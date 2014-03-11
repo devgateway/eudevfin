@@ -8,13 +8,13 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.custom;
 
-import java.util.HashMap;
-
 import org.devgateway.eudevfin.dim.pages.transaction.crs.CRSTransactionPermissionProvider;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.ForLoansOnlyTab;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.SupplementaryDataTab;
 import org.devgateway.eudevfin.ui.common.permissions.RoleActionMapping;
 import org.devgateway.eudevfin.ui.common.temporary.SB;
+
+import java.util.HashMap;
 
 /**
  * Different permission provider for the {@link CustomTransactionPage}

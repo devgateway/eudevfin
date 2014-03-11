@@ -9,6 +9,7 @@ import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDa
 import org.apache.wicket.markup.html.link.AbstractLink;
 import org.apache.wicket.model.StringResourceModel;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
+import org.devgateway.eudevfin.mcm.pages.EditHistoricalExchangeRatePage;
 import org.devgateway.eudevfin.mcm.pages.EditNonFlowItemsPage;
 import org.devgateway.eudevfin.mcm.pages.ListHistoricalExchangeRatePage;
 import org.devgateway.eudevfin.mcm.pages.ListPersistedUserGroupsPage;

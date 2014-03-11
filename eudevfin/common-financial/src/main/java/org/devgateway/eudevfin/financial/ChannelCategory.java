@@ -9,6 +9,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
+import org.devgateway.eudevfin.financial.translate.CategoryTranslation;
 import org.devgateway.eudevfin.financial.translate.ChannelCategoryTranslation;
 import org.devgateway.eudevfin.financial.translate.ChannelCategoryTrnInterface;
 import org.hibernate.annotations.Cache;

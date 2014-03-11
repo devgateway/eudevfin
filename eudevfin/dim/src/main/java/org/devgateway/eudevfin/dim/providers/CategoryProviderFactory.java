@@ -8,14 +8,14 @@
 
 package org.devgateway.eudevfin.dim.providers;
 
-import java.util.Hashtable;
-
 import org.apache.wicket.model.IDetachable;
 import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.service.CategoryService;
 import org.devgateway.eudevfin.ui.common.providers.SpringCategoryProviderProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Hashtable;
 
 /**
  * @author aartimon

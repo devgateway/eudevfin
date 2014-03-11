@@ -3,6 +3,7 @@
  */
 package org.devgateway.eudevfin.financial.dao;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.devgateway.eudevfin.common.dao.AbstractDaoImpl;

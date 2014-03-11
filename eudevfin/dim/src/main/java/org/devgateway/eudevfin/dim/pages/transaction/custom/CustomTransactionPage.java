@@ -101,7 +101,7 @@ public class CustomTransactionPage extends TransactionPage {
   		};
   		
   		
-  		MetaDataRoleAuthorizationStrategy.authorize(draft, Component.ENABLE, AuthConstants.Roles.ROLE_TEAMLEAD);
+  		MetaDataRoleAuthorizationStrategy.authorize(draft, Component.RENDER, AuthConstants.Roles.ROLE_TEAMLEAD);
   		form.add(draft);
   	  
   		
