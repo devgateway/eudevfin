@@ -11,8 +11,6 @@
  */
 package org.devgateway.eudevfin.mcm.components;
 
-import java.text.SimpleDateFormat;
-
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;

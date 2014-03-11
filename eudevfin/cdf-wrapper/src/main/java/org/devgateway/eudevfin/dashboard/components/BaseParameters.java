@@ -8,10 +8,10 @@
 
 package org.devgateway.eudevfin.dashboard.components;
 
-import com.google.gson.Gson;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.google.gson.Gson;
 
 /**
  * POJO for the base parameters to configure the reports entities

@@ -11,7 +11,6 @@ import liquibase.exception.ValidationErrors;
 import liquibase.resource.ResourceAccessor;
 
 import org.devgateway.eudevfin.common.liquibase.AbstractSpringCustomTaskChange;
-import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 import org.devgateway.eudevfin.exchange.common.domain.HistoricalExchangeRate;
 import org.devgateway.eudevfin.exchange.dao.HistoricalExchangeRateDaoImplEndpoint;
 import org.jadira.usertype.exchangerate.ExchangeRateConstants;

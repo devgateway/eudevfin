@@ -11,6 +11,8 @@
 
 package org.devgateway.eudevfin.mcm.pages;
 
+import java.util.Collection;
+
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
@@ -38,8 +40,6 @@ import org.devgateway.eudevfin.ui.common.components.TextInputField;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.devgateway.eudevfin.ui.common.providers.OrganizationChoiceProvider;
 import org.wicketstuff.annotation.mount.MountPath;
-
-import java.util.Collection;
 
 /**
  * @author mihai

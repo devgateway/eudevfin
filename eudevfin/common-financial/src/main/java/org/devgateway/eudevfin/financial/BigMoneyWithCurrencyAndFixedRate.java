@@ -5,8 +5,6 @@ package org.devgateway.eudevfin.financial;
 
 import java.math.BigDecimal;
 
-import javax.crypto.spec.OAEPParameterSpec;
-
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.ExchangeRate;
