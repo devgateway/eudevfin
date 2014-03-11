@@ -13,11 +13,12 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
-import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -32,7 +33,6 @@ import org.apache.wicket.util.visit.IVisit;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.auth.common.util.AuthUtils;
-import org.devgateway.eudevfin.ui.common.components.util.MondrianCacheUtil;
 import org.devgateway.eudevfin.dim.pages.HomePage;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.service.CurrencyMetadataService;
@@ -40,10 +40,12 @@ import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
 import org.devgateway.eudevfin.financial.util.FinancialTransactionUtil;
 import org.devgateway.eudevfin.ui.common.AttributePrepender;
 import org.devgateway.eudevfin.ui.common.Constants;
+import org.devgateway.eudevfin.ui.common.components.BootstrapDeleteButton;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
 import org.devgateway.eudevfin.ui.common.components.tabs.BootstrapJSTabbedPanel;
 import org.devgateway.eudevfin.ui.common.components.tabs.DefaultTabWithKey;
 import org.devgateway.eudevfin.ui.common.components.tabs.ITabWithKey;
+import org.devgateway.eudevfin.ui.common.components.util.MondrianCacheUtil;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.devgateway.eudevfin.ui.common.permissions.PermissionAwarePage;
 import org.devgateway.eudevfin.ui.common.permissions.RoleActionMapping;
@@ -141,6 +143,37 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 			}
 		}
 	}
+	
+	
+	public class TransactionPageDeleteButton extends BootstrapDeleteButton {
+		private static final long serialVersionUID = 1076134119844959564L;
+
+		public TransactionPageDeleteButton(String id, IModel<String> model) {
+			super(id, model);
+			// TODO Auto-generated constructor stub
+		}
+
+		@Override
+		protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+			FinancialTransaction transaction = (FinancialTransaction) form.getInnermostModel().getObject();
+			logger.debug("Object:" + transaction);
+			logger.info("Deleting!");
+			 setResponsePage(HomePage.class);
+			try {
+				if(transaction.getId()==null) return;
+				financialTransactionService.delete(transaction);
+				info(new NotificationMessage(new StringResourceModel("notification.deleted", TransactionPage.this, null, null)));				
+				target.add(feedbackPanel);
+                // clear the mondrian cache
+                mondrianCacheUtil.flushMondrianCache();               
+			} catch (Exception e) {
+				logger.error("Exception while trying to delete:", e);
+				return;
+			}
+			logger.info("Deleted ok!");
+		}
+
+	}
 
 	/**
 	 * Initialized a previously freshly constructed {@link FinancialTransaction}
@@ -214,6 +247,10 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
         form.add(submitButton);
 
         form.add(new TransactionPageSubmitButton("save", new StringResourceModel("button.save", this, null, null)));
+        
+        TransactionPageDeleteButton transactionPageDeleteButton = new TransactionPageDeleteButton("delete", new StringResourceModel("button.delete", this, null, null));        
+        MetaDataRoleAuthorizationStrategy.authorize(transactionPageDeleteButton, Component.ENABLE, AuthConstants.Roles.ROLE_TEAMLEAD);
+        form.add(transactionPageDeleteButton);
 
 		form.add(new TransactionPageSubmitButton("cancel", new StringResourceModel("button.cancel", this, null, null)) {
 
