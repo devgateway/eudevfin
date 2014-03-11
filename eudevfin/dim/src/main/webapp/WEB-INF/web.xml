@@ -1,63 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  Copyright (c) 2013 Development Gateway.
-  All rights reserved. This program and the accompanying materials
-  are made available under the terms of the GNU Public License v3.0
-  which accompanies this distribution, and is available at
-  http://www.gnu.org/licenses/gpl.html
-  
-  Contributors:
-     mpostelnicu
--->
-<web-app xmlns="http://java.sun.com/xml/ns/javaee"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-         version="2.5">
-
+	<!--  Copyright (c) 2013 Development Gateway.  All rights reserved. This program and the accompanying materials  are made available under the terms of the GNU Public License v3.0  which accompanies this distribution, and is available at  http://www.gnu.org/licenses/gpl.html    Contributors:     mpostelnicu-->
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<display-name>eudevfin-dim</display-name>
+	<filter>
+		<filter-name>org.springframework.security.filterChainProxy</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter>
+		<filter-name>http-request-context</filter-name>
+		<filter-class>org.codehaus.enunciate.webapp.HTTPRequestContextFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>org.springframework.security.filterChainProxy</filter-name>
+		<url-pattern>/saiku</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>http-request-context</filter-name>
+		<url-pattern>/saiku</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
 	<servlet>
 		<servlet-name>restservices</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value></param-value>
+			<param-value/>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-
 	<servlet-mapping>
 		<servlet-name>restservices</servlet-name>
 		<url-pattern>/cda/*</url-pattern>
 	</servlet-mapping>
-
 	<servlet>
 		<servlet-name>jasperreports</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value></param-value>
+			<param-value/>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-
 	<servlet-mapping>
 		<servlet-name>jasperreports</servlet-name>
 		<url-pattern>/jasperreports/*</url-pattern>
 	</servlet-mapping>
-
 	<servlet>
-	    <servlet-name>JmxMiniConsoleServlet</servlet-name>
-	    <servlet-class>
-	        org.jminix.console.servlet.SpringMiniConsoleServlet
-	    </servlet-class>
-	</servlet> 
-
+		<servlet-name>JmxMiniConsoleServlet</servlet-name>
+		<servlet-class>org.jminix.console.servlet.SpringMiniConsoleServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>JmxMiniConsoleServlet</servlet-name>
 		<url-pattern>/jmx/*</url-pattern>
 	</servlet-mapping>
-
-
+	<!--  Start for Saiku Webapp Support -->
+	<servlet>
+		<servlet-name>spring</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>jersey2</servlet-name>
+		<servlet-class>org.codehaus.enunciate.modules.jersey.EnunciateJerseyServletContainer</servlet-class>
+		<init-param>
+			<param-name>com.sun.jersey.config.property.packages</param-name>
+			<param-value>org.saiku.web</param-value>
+		</init-param>
+		<init-param>
+			<param-name>com.sun.jersey.spi.container.ContainerRequestFilters</param-name>
+			<param-value>com.sun.jersey.api.container.filter.PostReplaceFilter</param-value>
+		</init-param>
+		<init-param>
+			<param-name>org.codehaus.enunciate.modules.jersey.config.ServletPath</param-name>
+			<param-value>/saiku/rest</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>jersey2</servlet-name>
+		<url-pattern>/saiku/rest/saiku/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>jersey2</servlet-name>
+		<url-pattern>/saiku/rest/saiku/session</url-pattern>
+	</servlet-mapping>
+	<!--  End Saiku Webapp Support -->
 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -86,20 +113,24 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	<listener>
-		<listener-class>
-			org.springframework.web.context.request.RequestContextListener
-		</listener-class>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>org.codehaus.enunciate.modules.spring_app.SpringComponentPostProcessor</listener-class>
 	</listener>
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>
-			classpath*:META-INF/*Context.xml
-		</param-value>
+		<param-value>/WEB-INF/applicationContext.xml			classpath*:META-INF/*Context.xml</param-value>
 	</context-param>
-
 	<session-config>
 		<session-timeout>60</session-timeout>
 	</session-config>
-	
-	
+	<mime-mapping>
+		<extension>wsdl</extension>
+		<mime-type>text/xml</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>xsd</extension>
+		<mime-type>text/xml</mime-type>
+	</mime-mapping>
 </web-app>

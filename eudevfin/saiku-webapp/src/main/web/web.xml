@@ -11,18 +11,6 @@
 		<param-value>UTF-8</param-value>
 	</context-param>
 
-
-
-	<filter>
-		<filter-name>cross-origin</filter-name>
-		<filter-class>org.eclipse.jetty.servlets.CrossOriginFilter</filter-class>
-		<init-param>
-			<param-name>allowedMethods</param-name>
-			<param-value>GET,POST,HEAD,OPTIONS</param-value>
-		</init-param>
-	</filter>
-
-
 	<filter>
 		<filter-name>org.springframework.security.filterChainProxy</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -30,16 +18,9 @@
 
 
 	<filter-mapping>
-		<filter-name>cross-origin</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-
-	<filter-mapping>
 		<filter-name>org.springframework.security.filterChainProxy</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-
-
 
 	<listener>
 		<listener-class>
@@ -47,13 +28,10 @@
 		</listener-class>
 	</listener>
 
-
-
 	<servlet>
 		<servlet-name>spring</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 	</servlet>
-
 
 	<servlet>
 		<servlet-name>jersey2</servlet-name>
@@ -66,6 +44,9 @@
 			<param-name>com.sun.jersey.spi.container.ContainerRequestFilters</param-name>
 			<param-value>com.sun.jersey.api.container.filter.PostReplaceFilter</param-value>
 		</init-param>
+		<!-- <init-param> <param-name>com.sun.jersey.spi.container.ContainerResponseFilters</param-name> 
+			<param-value>com.sun.jersey.api.container.filter.GZIPContentEncodingFilter</param-value> 
+			</init-param> -->
 		<init-param>
 			<param-name>org.codehaus.enunciate.modules.jersey.config.ServletPath</param-name>
 			<param-value>/rest</param-value>
@@ -83,9 +64,9 @@
 		<url-pattern>/rest/saiku/session</url-pattern>
 	</servlet-mapping>
 
-
 	<session-config>
 		<session-timeout>60</session-timeout>
 	</session-config>
+
 
 </web-app>

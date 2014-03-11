@@ -495,7 +495,7 @@
         <module>exchange</module>
         <module>common-exchange</module>
         <module>common</module>
-		<module>saikuui</module>
+		<module>saiku-webapp</module>
 		<module>common-ui</module>
     	<module>import-metadata</module>
     	<module>mcm</module>
