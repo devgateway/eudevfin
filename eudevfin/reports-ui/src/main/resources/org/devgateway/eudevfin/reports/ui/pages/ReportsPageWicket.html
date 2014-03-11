@@ -11,11 +11,11 @@
 <wicket:head>
     <title>ODA at a Glance with Wicket</title>
 
-    <!-- load CDF libs css files -->
+    <!-- load jquery UI css files -->
     <link href="/js/theme/cupertino/jquery-ui-1.8.custom.css" rel="stylesheet" type="text/css"/>
 
-    <!-- load CDF general styles -->
-    <link href="/js/cdfcss.min.css" rel="stylesheet" type="text/css"/>
+    <!-- load general styles -->
+    <link href="/js/style.css" rel="stylesheet" type="text/css"/>
 </wicket:head>
 <body>
 <wicket:extend>
@@ -23,86 +23,120 @@
         <h2>ODA at a Glance with Wicket</h2>
 
         <div class="row">
-            <div class="row">
-                <div class="span12">
-                    <h3 wicket:id="reportingCountry"/>
-                </div>
+            <div class="span12">
+                <h3 wicket:id="reportingCountry"/>
+            </div>
 
-                <div class="span7">
-                    <div class="box">
-                        <table wicket:id="netODADashboard" class="display">
-                            <thead>
-                                <tr>
-                                    <th>Column 1</th>
-                                    <th>Column 2</th>
-                                    <th>Column 3</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr wicket:id="rows">
-                                    <td wicket:id="col1">Row 1 Data 1</td>
-                                    <td wicket:id="col2">Row 1 Data 2</td>
-                                    <td wicket:id="col3">Row 1 Data 3</td>
-                                </tr>
-                            </tbody>
-                        </table>
+            <div class="span7">
+                <div class="box">
+                    <div class="box-header">
+                        <h2>
+                            <div wicket:id="netODADashboardTitle"/>
+                        </h2>
                     </div>
-                </div>
-
-                <div class="span5">
-                    <div class="box">
-                        <div wicket:id="odaByIncomeGroupChart"/>
-                    </div>
-                </div>
-
-                <div class="span6">
-                    <div class="box">
-                        <table wicket:id="topTenRecipients" class="display">
-                            <thead>
+                    <table wicket:id="netODADashboard">
+                        <thead>
                             <tr>
-                                <th>Countries</th>
-                                <th>Amount</th>
+                                <th>Net ODA</th>
+                                <th>2011</th>
+                                <th>2012</th>
+                                <th>2013</th>
+                                <th>2012 / 2013</th>
                             </tr>
-                            </thead>
-                            <tbody>
-                            <tr wicket:id="rows2">
-                                <td wicket:id="col1">Row 1 Data 1</td>
-                                <td wicket:id="col2">Row 1 Data 2</td>
+                        </thead>
+                        <tbody>
+                            <tr wicket:id="netODARows">
+                                <td wicket:id="col0" class="string">Row 1 Data 0</td>
+                                <td wicket:id="col1" class="numeric">Row 1 Data 1</td>
+                                <td wicket:id="col2" class="numeric">Row 1 Data 2</td>
+                                <td wicket:id="col3" class="numeric">Row 1 Data 3</td>
+                                <td wicket:id="col4" class="numeric">Row 1 Data 4</td>
                             </tr>
-                            </tbody>
-                        </table>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-                        <table wicket:id="topTenMemoShare" class="display removeHeader">
-                            <thead>
-                            <tr>
-                                <th>Top</th>
-                                <th>Percent</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr wicket:id="rows3">
-                                <td wicket:id="col1">Row 1 Data 1</td>
-                                <td wicket:id="col2">Row 1 Data 2</td>
-                            </tr>
-                            </tbody>
-                        </table>
+            <div class="span5">
+                <div class="box">
+                    <div class="box-header">
+                        <h2>
+                            <div wicket:id="odaByIncomeGroupTitle"/>
+                        </h2>
+                    </div>
+                    <div wicket:id="odaByIncomeGroupChart"/>
+                </div>
+            </div>
+
+            <div class="span6">
+                <div class="box">
+                    <div class="box-header">
+                        <h2>
+                            <div wicket:id="topTenRecipientsTitle"/>
+                        </h2>
+                    </div>
+                    <table wicket:id="topTenRecipients">
+                        <thead>
+                        <tr>
+                            <th>Countries</th>
+                            <th>Amount</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr wicket:id="topTenRows">
+                            <td wicket:id="col0" class="string">Row 1 Data 1</td>
+                            <td wicket:id="col1" class="numeric">Row 1 Data 2</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="box-header">
+                        <h2>
+                            <div wicket:id="topTenMemoShareTitle"/>
+                        </h2>
+                    </div>
+                    <div class='removeHeader'>
+                    <table wicket:id="topTenMemoShare">
+                        <thead>
+                        <tr>
+                            <th>Top</th>
+                            <th>Percent</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr wicket:id="topTenMemoRows">
+                            <td wicket:id="col0" class="string">Row 1 Data 1</td>
+                            <td wicket:id="col1" class="numeric">Row 1 Data 2</td>
+                        </tr>
+                        </tbody>
+                    </table>
                     </div>
                 </div>
+            </div>
 
-                <!--<div class="span6">-->
-                    <!--<div class="box">-->
-                        <!--<div wicket:id="odaByRegionChart"/>-->
-                    <!--</div>-->
-                <!--</div>-->
-
-                <div class="span12">
-                    <div class="box">
-                        <div wicket:id="odaBySectorChart"/>
+            <div class="span6">
+                <div class="box">
+                    <div class="box-header">
+                        <h2>
+                            <div wicket:id="odaByRegionTitle"/>
+                        </h2>
                     </div>
+                    <div wicket:id="odaByRegionChart"/>
                 </div>
+            </div>
 
-            </div> <!-- /row -->
-        </div>
+            <div class="span12">
+                <div class="box">
+                    <div class="box-header">
+                        <h2>
+                            <div wicket:id="odaBySectorTitle"/>
+                        </h2>
+                    </div>
+                    <div wicket:id="odaBySectorChart"/>
+                </div>
+            </div>
+
+        </div> <!-- /row -->
 
     </div> <!-- /container -->
 </wicket:extend>

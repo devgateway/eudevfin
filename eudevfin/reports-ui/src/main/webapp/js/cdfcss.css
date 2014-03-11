@@ -662,6 +662,14 @@ img {
     font-size: 12px;
 }
 
+.dataTables_wrapper table td {
+    border-right: 1px solid #ccc;
+}
+
+.dataTables_wrapper table th {
+    border-right: 1px solid #ccc;
+}
+
 .DataTables_sort_wrapper {
 	font-size: 12px;
 	color: #557822;
