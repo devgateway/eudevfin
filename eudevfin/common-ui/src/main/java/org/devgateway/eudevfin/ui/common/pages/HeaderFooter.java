@@ -25,10 +25,12 @@ import org.apache.wicket.markup.head.filter.FilteredHeaderItem;
 import org.apache.wicket.markup.head.filter.HeaderResponseContainer;
 import org.apache.wicket.markup.html.GenericWebPage;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.request.resource.ContextRelativeResource;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.StringValue;
 import org.devgateway.eudevfin.financial.util.LocaleHelper;
@@ -91,6 +93,10 @@ public abstract class HeaderFooter<T> extends GenericWebPage<T> {
         } else {
             add(new EmptyPanel("dev").setVisible(false));
         }
+      
+      //add footer image
+      add(new Image("eclogo", new ContextRelativeResource("/images/ec-logo-english.gif")));
+      
     }
 
     @SuppressWarnings("Convert2Diamond")
