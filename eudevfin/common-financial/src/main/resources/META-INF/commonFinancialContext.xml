@@ -36,6 +36,9 @@
 		<int:method name="save" request-channel="getChannel">
 			<int:header name="requestName" value="saveTransactionChannel"/>
 		</int:method>
+		<int:method name="delete" request-channel="getChannel">
+			<int:header name="requestName" value="deleteTransactionChannel"/>
+		</int:method>
 		<int:method name="findOne" request-channel="getChannel">
 			<int:header name="requestName" value="findTransactionByIdChannel"/>
 		</int:method>
