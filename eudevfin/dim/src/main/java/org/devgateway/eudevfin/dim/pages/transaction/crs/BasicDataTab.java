@@ -8,7 +8,6 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
-import com.vaynberg.wicket.select2.ChoiceProvider;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -30,6 +29,8 @@ import org.devgateway.eudevfin.ui.common.permissions.PermissionAwareComponent;
 import org.devgateway.eudevfin.ui.common.providers.OrganizationChoiceProvider;
 import org.devgateway.eudevfin.ui.common.temporary.SB;
 import org.devgateway.eudevfin.ui.common.validators.CodePatternCategoryValidator;
+
+import com.vaynberg.wicket.select2.ChoiceProvider;
 
 /**
  * @author aartimon@developmentgateway.org

@@ -43,6 +43,13 @@ public class FinancialTransactionDaoImpl extends AbstractDaoImpl<FinancialTransa
 		
 	}
 	
+	@Override
+	@ServiceActivator(inputChannel="deleteTransactionChannel")
+	public void delete(FinancialTransaction e) {
+		// TODO Auto-generated method stub
+		super.delete(e);
+	}
+	
 	/* (non-Javadoc)
 	 * @see org.devgateway.eudevfin.financial.dao.AbstractDaoImpl#findOne(java.lang.Long)
 	 */

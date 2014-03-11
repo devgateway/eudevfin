@@ -8,9 +8,6 @@ import java.util.List;
 import liquibase.exception.SetupException;
 
 import org.devgateway.eudevfin.common.spring.ContextHelper;
-import org.devgateway.eudevfin.financial.AbstractTranslateable;
-import org.devgateway.eudevfin.financial.Organization;
-import org.devgateway.eudevfin.financial.translate.AbstractTranslation;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;

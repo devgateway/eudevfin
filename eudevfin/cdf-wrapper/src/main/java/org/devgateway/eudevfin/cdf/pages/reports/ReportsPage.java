@@ -8,6 +8,8 @@
 
 package org.devgateway.eudevfin.cdf.pages.reports;
 
+import java.util.Arrays;
+
 import org.apache.log4j.Logger;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.head.IHeaderResponse;
@@ -27,8 +29,6 @@ import org.devgateway.eudevfin.financial.util.FinancialTransactionUtil;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.joda.money.CurrencyUnit;
 import org.wicketstuff.annotation.mount.MountPath;
-
-import java.util.Arrays;
 
 @MountPath(value = "/reports")
 @AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
