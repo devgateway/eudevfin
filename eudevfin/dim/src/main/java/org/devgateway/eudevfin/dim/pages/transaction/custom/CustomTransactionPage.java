@@ -23,6 +23,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
+import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.TransactionPage;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
@@ -30,6 +31,7 @@ import org.devgateway.eudevfin.ui.common.Constants;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.CheckBoxField;
 import org.devgateway.eudevfin.ui.common.permissions.RoleActionMapping;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
@@ -78,7 +80,10 @@ public class CustomTransactionPage extends TransactionPage {
 			String transactionType = parameters.get(Constants.PARAM_TRANSACTION_TYPE).toString();
 			CustomFinancialTransaction customFinancialTransaction = (CustomFinancialTransaction) transaction;
 			customFinancialTransaction.setFormType(transactionType);
+			PersistedUser user=(PersistedUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();			
+			customFinancialTransaction.setPersistedUserGroup(user.getGroup());
 		}
+		
 	}
     
     public CustomTransactionPage(PageParameters parameters) {
