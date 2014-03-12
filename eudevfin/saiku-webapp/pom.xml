@@ -1,14 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<parent>
-		<artifactId>saiku-core</artifactId>
-		<groupId>org.saiku</groupId>
-		<version>2.6-SNAPSHOT</version>
+		<groupId>org.devgateway.eudevfin</groupId>
+		<artifactId>eudevfin</artifactId>
+		<version>0.9.8-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.saiku</groupId>
 	<artifactId>saiku-webapp</artifactId>
-	<version>2.6-SNAPSHOT</version>
+	
 	<name>EU-DEVFIN Saiku REST</name>
 	<packaging>war</packaging>
 
@@ -17,6 +17,7 @@
 		<spring.security.version>3.2.0.RELEASE</spring.security.version>
 		<enunciate.version>1.28</enunciate.version>
 		<jersey.version>1.11</jersey.version>
+		<saiku.version>2.6-SNAPSHOT</saiku.version>
 	</properties>
 
 	<build>
@@ -196,17 +197,17 @@
 		<dependency>
 			<groupId>org.saiku</groupId>
 			<artifactId>saiku-service</artifactId>
-			<version>${project.version}</version>
+			<version>${saiku.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.saiku</groupId>
 			<artifactId>saiku-web</artifactId>
-			<version>${project.version}</version>
+			<version>${saiku.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.saiku</groupId>
 			<artifactId>saiku-olap-util</artifactId>
-			<version>${project.version}</version>
+			<version>${saiku.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.saiku</groupId>
@@ -216,59 +217,11 @@
         <dependency>
             <groupId>org.saiku</groupId>
             <artifactId>saiku-ui</artifactId>
-            <version>2.6-SNAPSHOT</version>
+            <version>${project.version}</version>
             <type>war</type>
         </dependency>
 		
-		<!-- Spring modules -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-core</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-beans</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-aop</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context-support</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-taglibs</artifactId>
-			<version>${spring.security.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.springframework</groupId>
-					<artifactId>spring-web</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
+	
 
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
