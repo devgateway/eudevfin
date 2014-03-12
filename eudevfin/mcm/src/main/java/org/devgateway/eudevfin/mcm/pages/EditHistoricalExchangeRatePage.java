@@ -28,6 +28,7 @@ import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.exchange.common.domain.HistoricalExchangeRate;
 import org.devgateway.eudevfin.exchange.common.service.HistoricalExchangeRateService;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
+import org.devgateway.eudevfin.ui.common.components.BootstrapDeleteButton;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
 import org.devgateway.eudevfin.ui.common.components.DateInputField;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
@@ -186,7 +187,7 @@ public class EditHistoricalExchangeRatePage extends HeaderFooter {
 		
 
 		
-		BootstrapSubmitButton deleteButton=new BootstrapSubmitButton("delete", new StringResourceModel("button.delete", this, null, null)) {
+		BootstrapDeleteButton deleteButton=new BootstrapDeleteButton("delete", new StringResourceModel("button.delete", this, null, null)) {
 			@Override
 			protected void onError(AjaxRequestTarget target, Form<?> form) {
 			}
@@ -200,7 +201,6 @@ public class EditHistoricalExchangeRatePage extends HeaderFooter {
 			}
 
 		};
-		deleteButton.setDefaultFormProcessing(false);
 		form.add(deleteButton);
 	
 		
