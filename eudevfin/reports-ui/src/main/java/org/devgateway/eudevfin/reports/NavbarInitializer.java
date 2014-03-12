@@ -80,10 +80,7 @@ public final class NavbarInitializer {
 //						paramsFSS.set("reportType", "fss");
 //						list.add((AbstractLink) new MenuBookmarkablePageLink<ReportsExport>(ExportS.class, paramsFSS, new StringResourceModel("navbar.reports.export.fss", this, null, null)).setEnabled(true));
 
-						PageParameters paramsIATI = new PageParameters();
-						paramsIATI.set("reportType", "iati");
-						list.add((AbstractLink) new MenuBookmarkablePageLink<ReportsExport>(ReportsExport.class, paramsIATI, new StringResourceModel("navbar.reports.export.iati", this, null, null)).setEnabled(false));
-
+			
 						return list;
 					}
 
