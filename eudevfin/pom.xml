@@ -334,13 +334,13 @@
         	<artifactId>commons-collections4</artifactId>
         	<version>4.0</version>
         </dependency>
-
+<!-- 
         <dependency>
         	<groupId>org.jboss.resteasy</groupId>
         	<artifactId>jaxrs-api</artifactId>
         	<version>3.0.5.Final</version>
         </dependency>
-
+ -->
         <dependency>
         	<groupId>xerces</groupId>
         	<artifactId>xercesImpl</artifactId>
@@ -511,6 +511,7 @@
         <module>exchange</module>
         <module>common-exchange</module>
         <module>common</module>
+		<module>saiku-webapp</module>
 		<module>saikuui</module>
 		<module>common-ui</module>
     	<module>import-metadata</module>
