@@ -100,14 +100,12 @@
             <type>jar</type>
         </dependency>
         
-        <!-- 
-        <dependency>
-            <groupId>org.devgateway.eudevfin</groupId>
-            <artifactId>saikuui</artifactId>
-            <version>${project.version}</version>
-            <type>war</type>
-        </dependency>
- 		-->
+		<dependency>
+			<groupId>org.saiku</groupId>
+			<artifactId>saiku-webapp</artifactId>
+			<version>${project.version}</version>
+			<type>war</type>
+		</dependency>
     </dependencies>
 
     <build>
