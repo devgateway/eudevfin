@@ -273,10 +273,11 @@
                 from FINANCIALTRANSACTION ft left join CATEGORY cat ON cat.id = ft.channel_id WHERE ft.draft = false OR draft IS NULL
 			]]></SQL>
         </View>
-        <DimensionUsage source="Area" name="Area" visible="true" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
-        <DimensionUsage source="Country" name="Country" visible="true" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
-        <DimensionUsage source="Region" name="Region" visible="true" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
-        <DimensionUsage source="IncomeGroup" name="IncomeGroup" visible="true" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
+        <DimensionUsage source="BiMultilateral" name="BiMultilateral" visible="true" foreignKey="BIMULTILATERAL_ID" highCardinality="false"></DimensionUsage>
+        <DimensionUsage source="Area" name="Area" visible="false" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
+        <DimensionUsage source="Country" name="Country" visible="false" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
+        <DimensionUsage source="Region" name="Region" visible="false" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
+        <DimensionUsage source="IncomeGroup" name="IncomeGroup" visible="false" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
         <DimensionUsage source="Extending Agency" name="Extending Agency" visible="true" foreignKey="EXTENDINGAGENCY_ID" highCardinality="false"></DimensionUsage>
         <DimensionUsage source="Sector" name="Sector" visible="true" foreignKey="SECTOR_ID" highCardinality="false"></DimensionUsage>
         <DimensionUsage source="Channel" name="Channel" visible="true" foreignKey="CHANNEL_ID" highCardinality="false"></DimensionUsage>
@@ -284,7 +285,6 @@
         <DimensionUsage source="Type of Flow" name="Type of Flow" visible="true" foreignKey="TYPEOFFLOW_ID" highCardinality="false"></DimensionUsage>
         <DimensionUsage source="Type of Finance" name="Type of Finance" visible="true" foreignKey="TYPEOFFINANCE_ID" highCardinality="false"></DimensionUsage>
         <DimensionUsage source="Type of Finance Root" name="Type of Finance Root" visible="true" foreignKey="TYPEOFFINANCE_ID" highCardinality="false"></DimensionUsage>
-        <DimensionUsage source="BiMultilateral" name="BiMultilateral" visible="true" foreignKey="BIMULTILATERAL_ID" highCardinality="false"></DimensionUsage>
         <Dimension name="Reporting Year">
             <Hierarchy hasAll="true">
                 <Level name="Reporting Year" column="REPORTINGYEAR" uniqueMembers="true">
@@ -294,8 +294,8 @@
                 </Level>
             </Hierarchy>
         </Dimension>
-        <Measure name="Export Credit Amount" column="AMOUNTS_EXP_EXPORT_CREDIT_AMOUNT" aggregator="sum" visible="true" caption="%{exportCreditAmount}"></Measure>
-        <Measure name="Exchange Rate" aggregator="avg" visible="true" datatype="Integer" formatString="#,###.00" caption="Exchange Rate">
+        <Measure name="Export Credit Amount" column="AMOUNTS_EXP_EXPORT_CREDIT_AMOUNT" aggregator="sum" visible="false" caption="%{exportCreditAmount}"></Measure>
+        <Measure name="Exchange Rate" aggregator="avg" visible="false" datatype="Integer" formatString="#,###.00" caption="Exchange Rate">
             <MeasureExpression>
                 <SQL dialect="generic">
                     (1 / (SELECT AVG(RATE)
@@ -318,7 +318,7 @@
                 </SQL>
             </MeasureExpression>
         </Measure>
-        <Measure name="Extended Amount" aggregator="sum" visible="true" caption="%{extendedAmount}">
+        <Measure name="Extended Amount" aggregator="sum" visible="true">
             <MeasureExpression>
                 <SQL dialect="generic">
                     CASE WHEN DRAFT IS NOT NULL THEN
@@ -359,10 +359,10 @@
                 </SQL>
             </MeasureExpression>
         </Measure>
-        <Measure name="Current Extended Amount" column="AMOUNTS_EXTENDED_CURRENT_AMOUNT" aggregator="sum" visible="true" caption="%{currentExtendedAmount}"></Measure>
-        <Measure name="Year 1 Extended Amount" column="AMOUNTS_EXTENDED_YEAR1_AMOUNT" aggregator="sum" visible="true" caption="%{year1ExtendedAmount}"></Measure>
-        <Measure name="Year 2 Extended Amount" column="AMOUNTS_EXTENDED_YEAR2_AMOUNT" aggregator="sum" visible="true" caption="%{year2ExtendedAmount}"></Measure>
-        <Measure name="Partially Untied Amount" column="AMOUNTS_PARTIALLY_UNTIED_AMOUNT" aggregator="sum" visible="true" caption="%{partiallyUntiedAmount}"></Measure>
+        <Measure name="Current Extended Amount" column="AMOUNTS_EXTENDED_CURRENT_AMOUNT" aggregator="sum" visible="false" caption="%{currentExtendedAmount}"></Measure>
+        <Measure name="Year 1 Extended Amount" column="AMOUNTS_EXTENDED_YEAR1_AMOUNT" aggregator="sum" visible="false" caption="%{year1ExtendedAmount}"></Measure>
+        <Measure name="Year 2 Extended Amount" column="AMOUNTS_EXTENDED_YEAR2_AMOUNT" aggregator="sum" visible="false" caption="%{year2ExtendedAmount}"></Measure>
+        <Measure name="Partially Untied Amount" column="AMOUNTS_PARTIALLY_UNTIED_AMOUNT" aggregator="sum" visible="false" caption="%{partiallyUntiedAmount}"></Measure>
         <Measure name="Received Amount" column="AMOUNTS_RECEIVED_AMOUNT" aggregator="sum" visible="true" caption="%{receivedAmount}"></Measure>
         <Measure name="Received Amount Currency NATLOECD" aggregator="sum" visible="true">
             <MeasureExpression>
@@ -392,16 +392,16 @@
                 </SQL>
             </MeasureExpression>
         </Measure>
-        <Measure name="Tied Amount" column="AMOUNTS_TIED_AMOUNT" aggregator="sum" visible="true" caption="%{tiedAmount}"></Measure>
-        <Measure name="Untied Amount" column="AMOUNTS_UNTIED_AMOUNT" aggregator="sum" visible="true" caption="%{untiedAmount}"></Measure>
-        <Measure name="Interest Arrears Amount" column="AMOUNTS_AREARS_INTEREST_AMOUNT" aggregator="sum" visible="true" caption="%{interestArrearsAmount}"></Measure>
-        <Measure name="Principal Arrears Amount" column="AMOUNTS_AREARS_PRIN_AMOUNT" aggregator="sum" visible="true" caption="%{principalArrearsAmount}"></Measure>
-        <Measure name="Commitments Amount" column="COMMITMENT_AMOUNT" aggregator="sum" visible="true" caption="%{commitmentsAmount}"></Measure>
-        <Measure name="Interest Received Amount" column="AMOUNTS_INTEREST_RECEIVED_AMOUNT" aggregator="sum" visible="true" caption="%{interestReceivedAmount}"></Measure>
-        <Measure name="Principal Disbursed Amount" column="AMOUNTS_PRIN_DISB_AMOUNT" aggregator="sum" visible="true" caption="%{principalDisbursedAmount}"></Measure>
-        <Measure name="Expert Commitments Amount" column="AMOUNTS_EXP_COMMIT_AMOUNT" aggregator="sum" visible="true" caption="%{expertCommitmentsAmount}"></Measure>
-        <Measure name="Expert Extended Amount" column="AMOUNTS_EXP_EXTENDED_AMOUNT" aggregator="sum" visible="true" caption="%{expertExtendedAmount}"></Measure>
-        <Measure name="NumberOfTransactions" column="ID" datatype="Integer" aggregator="count" formatString="#,###"/>
+        <Measure name="Tied Amount" column="AMOUNTS_TIED_AMOUNT" aggregator="sum" visible="false" caption="%{tiedAmount}"></Measure>
+        <Measure name="Untied Amount" column="AMOUNTS_UNTIED_AMOUNT" aggregator="sum" visible="false" caption="%{untiedAmount}"></Measure>
+        <Measure name="Interest Arrears Amount" column="AMOUNTS_AREARS_INTEREST_AMOUNT" aggregator="sum" visible="false" caption="%{interestArrearsAmount}"></Measure>
+        <Measure name="Principal Arrears Amount" column="AMOUNTS_AREARS_PRIN_AMOUNT" aggregator="sum" visible="false" caption="%{principalArrearsAmount}"></Measure>
+        <Measure name="Commitments Amount" column="COMMITMENT_AMOUNT" aggregator="sum" visible="false" caption="%{commitmentsAmount}"></Measure>
+        <Measure name="Interest Received Amount" column="AMOUNTS_INTEREST_RECEIVED_AMOUNT" aggregator="sum" visible="false" caption="%{interestReceivedAmount}"></Measure>
+        <Measure name="Principal Disbursed Amount" column="AMOUNTS_PRIN_DISB_AMOUNT" aggregator="sum" visible="false" caption="%{principalDisbursedAmount}"></Measure>
+        <Measure name="Expert Commitments Amount" column="AMOUNTS_EXP_COMMIT_AMOUNT" aggregator="sum" visible="false" caption="%{expertCommitmentsAmount}"></Measure>
+        <Measure name="Expert Extended Amount" column="AMOUNTS_EXP_EXTENDED_AMOUNT" aggregator="sum" visible="false" caption="%{expertExtendedAmount}"></Measure>
+        <Measure name="NumberOfTransactions" column="ID" datatype="Integer" aggregator="count" visible="false" formatString="#,###"/>
         <CalculatedMember name="Net Amount" dimension="Measures">
             <Formula>[Measures].[Extended Amount] - [Measures].[Received Amount]</Formula>
         </CalculatedMember>

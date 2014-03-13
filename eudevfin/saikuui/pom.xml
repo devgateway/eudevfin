@@ -8,7 +8,6 @@
 	<groupId>org.saiku</groupId>
 	<artifactId>saiku-ui</artifactId>
     <packaging>war</packaging>
-	<version>2.6-SNAPSHOT</version>
 
     <name>EU-DEVFIN Saiku UI</name>
     

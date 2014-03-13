@@ -11,17 +11,12 @@
 		</rest>
 	</services>
 
-	<webapp mergeWebXML="src/main/web/web.xml" />
-	
 	<modules>
 
 		<docs>
 			<war docsDir="serverdocs" />
 		</docs>
 		<spring-app>
-			<springImport file="src/main/web/applicationContext.xml" />
-			<springImport file="src/main/web/saiku-beans.xml" />
-			<springImport file="src/main/web/spring-servlet.xml" />
 		</spring-app>
 		<jersey useSubcontext="true" disableWildcardServletError="false"
 			disabled="true">
