@@ -1,10 +1,6 @@
 package org.devgateway.eudevfin.reports.test;
 
 import java.io.InputStream;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -61,8 +57,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 		"classpath:META-INF/importMetadataContext.xml",
 		"classpath:META-INF/exchangeContext.xml",
 		"classpath:META-INF/commonExchangeContext.xml",
-		"classpath:META-INF/cdaContext.xml",
-		"classpath:META-INF/cdfContext.xml" })
+        "classpath:META-INF/reportsCoreContext.xml",
+        "classpath:META-INF/reportsUIContext.xml"})
 public class ReportsDataTest {
 	protected static Logger logger = Logger.getLogger(ReportsSimpleTest.class);
 

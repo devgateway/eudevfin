@@ -35,7 +35,7 @@ import java.net.URL;
         "classpath:META-INF/importMetadataContext.xml",
         "classpath:META-INF/exchangeContext.xml",
         "classpath:META-INF/commonExchangeContext.xml",
-        "classpath:META-INF/cdaContext.xml"
+        "classpath:META-INF/reportsCoreContext.xml"
 })
 public class CDASimpleSQLTest {
     protected static Logger logger = Logger.getLogger(CDASimpleSQLTest.class);
