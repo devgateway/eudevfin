@@ -26,6 +26,7 @@
     <entry key="navbar.logout">Log Out</entry>
     <entry key="navbar.admin">Admin</entry>
     <entry key="navbar.dashboard">ODA at a Glance</entry>
+    <entry key="navbar.account">Account</entry>    
     <entry key="navbar.customreports">Custom Reports</entry>
     <entry key="navbar.reportsbuilder">Reports Builder</entry>
     

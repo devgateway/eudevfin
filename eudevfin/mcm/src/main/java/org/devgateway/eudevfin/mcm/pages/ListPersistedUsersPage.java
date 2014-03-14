@@ -57,7 +57,9 @@ public class ListPersistedUsersPage extends ListPage {
 
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-				setResponsePage(EditPersistedUserPage.class);
+				setResponsePage(EditPersistedUserPageElevated.class, new PageParameters().add(
+						EditPersistedUserPageElevated.PARAM_USER_ID,
+						EditPersistedUserPageElevated.PARAM_USER_ID_VALUE_NEW));
 			}
 			
 		};

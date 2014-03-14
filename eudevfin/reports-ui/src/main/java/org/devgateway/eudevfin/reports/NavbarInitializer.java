@@ -32,7 +32,7 @@ public final class NavbarInitializer {
 //	}
 //	
 	
-	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT)
+	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT,order=20)
 	public static Component newReportsNavbarMenu(Page page) {
 		NavbarDropDownButton navbarDropDownButton = new RepairedNavbarDropDownButton(
 				new StringResourceModel("navbar.reports", page, null, null)) {
@@ -96,7 +96,7 @@ public final class NavbarInitializer {
 				list.add((AbstractLink) new MenuBookmarkablePageLink<ReportsPage>(
 						ReportsPage.class, null, new StringResourceModel(
 								"navbar.reportsbuilder", this, null, null))
-						.setIconType(IconType.play).setEnabled(false));
+						.setIconType(IconType.play).setEnabled(true));
 				
 /*				
 				list.add(new MenuBookmarkablePageLink<ReportsExport>(

@@ -52,9 +52,7 @@ import de.agilecoders.wicket.extensions.markup.html.bootstrap.button.DropDownAut
  */
 public final class NavbarInitializer {
 
-	
-
-	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.LEFT)
+	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.LEFT,order=0)
 	public static Component newHomePageNavbarButton(Page page) {
 		NavbarButton<HomePage> homePageNavbarButton = new NavbarButton<HomePage>(page.getApplication().getHomePage(), new StringResourceModel("navbar.home", page, null, null)).setIconType(IconType.home);
 		MetaDataRoleAuthorizationStrategy.authorize(homePageNavbarButton, Component.RENDER, AuthConstants.Roles.ROLE_USER);
@@ -62,8 +60,7 @@ public final class NavbarInitializer {
 	}
 	
 	
-	
-	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.LEFT)
+	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.LEFT,order=2)
 	public static Component newTransactionNavbarButton(final Page page) {
 		   NavbarDropDownButton navbarDropDownButton = new RepairedNavbarDropDownButton(new StringResourceModel("navbar.newTransaction", page, null, null)) {
 	            @Override
@@ -138,7 +135,7 @@ public final class NavbarInitializer {
         return navbarDropDownButton;
 	}
 
-	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT,disabled=true)
+	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT,disabled=true,order=97)
 	public static Component newThemesNavbarButton(final Page page) {
 	        return new NavbarDropDownButton(Model.of("Themes")) {
 	            @Override
@@ -169,7 +166,7 @@ public final class NavbarInitializer {
 	    }
 	
 
-	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT)
+	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT,order=98)
 	public static Component newLanguageNavbarButton(final Page page) {
 	        NavbarDropDownButton languageDropDown = new NavbarDropDownButton(new StringResourceModel("navbar.lang", page, null, null)) {
 	            private static final long serialVersionUID = 2866997914075956070L;
@@ -219,12 +216,14 @@ public final class NavbarInitializer {
     }
 
     
-	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT)
+	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT,order=100)
 	public static Component logoutPageNavbarButton(final Page page) {
 		 NavbarButton<LogoutPage> logoutPageNavbarButton = new NavbarButton<LogoutPage>(LogoutPage.class, new StringResourceModel("navbar.logout", page, null, null)).setIconType(IconType.off);
 	        MetaDataRoleAuthorizationStrategy.authorize(logoutPageNavbarButton, Component.RENDER, AuthConstants.Roles.ROLE_USER);
 	     return logoutPageNavbarButton;        
 	}
+	
+
 	
 
 }

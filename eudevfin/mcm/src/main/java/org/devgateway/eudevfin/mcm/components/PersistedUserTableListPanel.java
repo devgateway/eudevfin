@@ -18,7 +18,7 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
-import org.devgateway.eudevfin.mcm.pages.EditPersistedUserPage;
+import org.devgateway.eudevfin.mcm.pages.EditPersistedUserPageElevated;
 import org.devgateway.eudevfin.ui.common.components.TableListPanel;
 import org.devgateway.eudevfin.ui.common.components.util.ListGeneratorInterface;
 
@@ -52,11 +52,8 @@ public class PersistedUserTableListPanel extends TableListPanel<PersistedUser> {
 				Link linkToEditUser=new Link("linkToEditUser") {
 					@Override
 					public void onClick() {
-						PageParameters pageParameters = new PageParameters(); 
-				
-						pageParameters.add(EditPersistedUserPage.PARAM_USER_ID, user.getId());
-
-						setResponsePage(EditPersistedUserPage.class, pageParameters);
+						setResponsePage(EditPersistedUserPageElevated.class,
+								new PageParameters().add(EditPersistedUserPageElevated.PARAM_USER_ID, user.getId()));
 						
 					}
 				};

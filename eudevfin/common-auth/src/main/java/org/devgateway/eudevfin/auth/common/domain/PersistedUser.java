@@ -54,6 +54,10 @@ public class PersistedUser implements Serializable, UserDetails {
 
 	@Column(length = 256)
 	private String password;
+	
+	@Transient
+	private String passwordCheck;
+	
 
 	private boolean enabled = true;
 
@@ -241,6 +245,20 @@ public class PersistedUser implements Serializable, UserDetails {
 	 */
 	public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
 		this.authorities = authorities;
+	}
+
+	/**
+	 * @return the passwordCheck
+	 */
+	public String getPasswordCheck() {
+		return passwordCheck;
+	}
+
+	/**
+	 * @param passwordCheck the passwordCheck to set
+	 */
+	public void setPasswordCheck(String passwordCheck) {
+		this.passwordCheck = passwordCheck;
 	}
 
 	
