@@ -29,7 +29,7 @@ import de.agilecoders.wicket.extensions.markup.html.bootstrap.button.DropDownAut
  */
 public final class NavbarInitializer {
 
-	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT)
+	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT,order=60)
 	public static Component newExportSpreadSheetButton(final Page page) {
 
 		final NavbarDropDownButton exportMenu = new RepairedNavbarDropDownButton(new StringResourceModel(
@@ -65,7 +65,7 @@ public final class NavbarInitializer {
 			}
 
 		};
-		exportMenu.setIconType(IconType.file);
+		exportMenu.setIconType(IconType.hdd);
 		exportMenu.add(new DropDownAutoOpen());
 		MetaDataRoleAuthorizationStrategy.authorize(exportMenu, Component.RENDER, AuthConstants.Roles.ROLE_USER);
 		return exportMenu;
