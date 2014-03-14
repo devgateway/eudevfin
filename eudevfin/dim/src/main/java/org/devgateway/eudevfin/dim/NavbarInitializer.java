@@ -60,7 +60,7 @@ public final class NavbarInitializer {
 	}
 	
 	
-	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.LEFT,order=1)
+	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.LEFT,order=2)
 	public static Component newTransactionNavbarButton(final Page page) {
 		   NavbarDropDownButton navbarDropDownButton = new RepairedNavbarDropDownButton(new StringResourceModel("navbar.newTransaction", page, null, null)) {
 	            @Override
@@ -135,7 +135,7 @@ public final class NavbarInitializer {
         return navbarDropDownButton;
 	}
 
-	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT,disabled=true,order=98)
+	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT,disabled=true,order=97)
 	public static Component newThemesNavbarButton(final Page page) {
 	        return new NavbarDropDownButton(Model.of("Themes")) {
 	            @Override
@@ -166,7 +166,7 @@ public final class NavbarInitializer {
 	    }
 	
 
-	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT,order=99)
+	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT,order=98)
 	public static Component newLanguageNavbarButton(final Page page) {
 	        NavbarDropDownButton languageDropDown = new NavbarDropDownButton(new StringResourceModel("navbar.lang", page, null, null)) {
 	            private static final long serialVersionUID = 2866997914075956070L;
@@ -222,6 +222,8 @@ public final class NavbarInitializer {
 	        MetaDataRoleAuthorizationStrategy.authorize(logoutPageNavbarButton, Component.RENDER, AuthConstants.Roles.ROLE_USER);
 	     return logoutPageNavbarButton;        
 	}
+	
+
 	
 
 }

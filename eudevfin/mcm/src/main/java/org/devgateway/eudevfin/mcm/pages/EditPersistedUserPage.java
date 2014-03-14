@@ -49,6 +49,7 @@ import org.devgateway.eudevfin.ui.common.components.MultiSelectField;
 import org.devgateway.eudevfin.ui.common.components.PasswordInputField;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
@@ -59,11 +60,11 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel
  * @since 17.12.2013
  */
 @AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
-@MountPath(value = "/user")
+@MountPath(value = "/account")
 public class EditPersistedUserPage extends HeaderFooter {
 
 	@SpringBean
-	private PersistedUserService userService;
+	protected PersistedUserService userService;
 	
 	@SpringBean
 	private PersistedAuthorityChoiceProvider authorityChoiceProvider;
@@ -76,8 +77,6 @@ public class EditPersistedUserPage extends HeaderFooter {
 	
 	private static final long serialVersionUID = -4276784345759050002L;
 	private static final Logger logger = Logger.getLogger(EditPersistedUserPage.class);
-	public static final String PARAM_USER_ID="userId";
-	
 	public class UniqueUsernameValidator extends Behavior implements
 			IValidator<String> {
 
@@ -135,21 +134,23 @@ public class EditPersistedUserPage extends HeaderFooter {
 		
 	}
 
+	/**
+	 * Override this by elevated subclasses to provide a different user to be editable (for eg by reading a userId {@link PageParameters}
+	 * @param parameters
+	 * @return
+	 */
+	public PersistedUser getEditablePersistedUser(final PageParameters parameters) {
+		return (PersistedUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	}
+	
 	@SuppressWarnings("unchecked")
 	public EditPersistedUserPage(final PageParameters parameters) {
 		super(parameters);
 		
+		final PersistedUser persistedUser = getEditablePersistedUser(parameters);
+		
 		Form form = new Form("form");
-		Long userId = null;
-		final PersistedUser persistedUser;
-
-		if (!parameters.get(PARAM_USER_ID).isNull()) {
-			userId = parameters.get(PARAM_USER_ID).toLong();
-			persistedUser = userService.findOne(userId).getEntity();
-		} else {
-			persistedUser = new PersistedUser();
-		}
-
+		
         CompoundPropertyModel<? extends PersistedUser> model = new CompoundPropertyModel<>(
                 persistedUser);
 		setModel(model);
@@ -214,7 +215,7 @@ public class EditPersistedUserPage extends HeaderFooter {
 		
 		form.add(enabled);		
 		MetaDataRoleAuthorizationStrategy.authorize(enabled, Component.ENABLE, AuthConstants.Roles.ROLE_SUPERVISOR);
-
+		
 		form.add(authorities);
 		MetaDataRoleAuthorizationStrategy.authorize(authorities, Component.ENABLE, AuthConstants.Roles.ROLE_SUPERVISOR);
 

@@ -96,7 +96,7 @@ public final class NavbarInitializer {
 				list.add((AbstractLink) new MenuBookmarkablePageLink<ReportsPage>(
 						ReportsPage.class, null, new StringResourceModel(
 								"navbar.reportsbuilder", this, null, null))
-						.setIconType(IconType.play).setEnabled(false));
+						.setIconType(IconType.play).setEnabled(true));
 				
 /*				
 				list.add(new MenuBookmarkablePageLink<ReportsExport>(
