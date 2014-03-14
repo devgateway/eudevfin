@@ -4,10 +4,10 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-	<entry key="32currency.label">32. National Ccurrency</entry>
+	<entry key="32currency.label">32. National Currency</entry>
 	<entry key="32currency.placeholder"></entry>
 	<entry key="32currency.help">Enter your national currency</entry>
-	<entry key="32currency.help.detail">Field no. 32 - National Ccurrency: Enter your national currency</entry>
+	<entry key="32currency.help.detail">Field no. 32 - National Currency: Enter your national currency</entry>
 
 	<entry key="33commitments.label">33. Commitments</entry>
 	<entry key="33commitments.placeholder"></entry>
