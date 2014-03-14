@@ -11,15 +11,23 @@
 
 package org.devgateway.eudevfin.mcm.pages;
 
+import java.util.Collection;
+
 import org.apache.log4j.Logger;
+import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy;
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.FormComponent;
+import org.apache.wicket.markup.html.form.PasswordTextField;
+import org.apache.wicket.markup.html.form.validation.AbstractFormValidator;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.util.time.Duration;
 import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.IValidator;
 import org.apache.wicket.validation.ValidationError;
@@ -33,17 +41,24 @@ import org.devgateway.eudevfin.mcm.models.PasswordEncryptModel;
 import org.devgateway.eudevfin.mcm.providers.PersistedAuthorityChoiceProvider;
 import org.devgateway.eudevfin.mcm.providers.PersistedUserGroupChoiceProvider;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
-import org.devgateway.eudevfin.ui.common.components.*;
+import org.devgateway.eudevfin.ui.common.components.BootstrapCancelButton;
+import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
+import org.devgateway.eudevfin.ui.common.components.CheckBoxField;
+import org.devgateway.eudevfin.ui.common.components.DropDownField;
+import org.devgateway.eudevfin.ui.common.components.MultiSelectField;
+import org.devgateway.eudevfin.ui.common.components.PasswordInputField;
+import org.devgateway.eudevfin.ui.common.components.TextInputField;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.wicketstuff.annotation.mount.MountPath;
 
-import java.util.Collection;
+import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
+import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
 
 /**
  * @author mihai
  * @since 17.12.2013
  */
-@AuthorizeInstantiation(AuthConstants.Roles.ROLE_SUPERVISOR)
+@AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
 @MountPath(value = "/user")
 public class EditPersistedUserPage extends HeaderFooter {
 
@@ -57,13 +72,16 @@ public class EditPersistedUserPage extends HeaderFooter {
 	private PersistedUserGroupChoiceProvider userGroupChoiceProvider;
 
 	
+	protected final NotificationPanel feedbackPanel;
+	
 	private static final long serialVersionUID = -4276784345759050002L;
 	private static final Logger logger = Logger.getLogger(EditPersistedUserPage.class);
 	public static final String PARAM_USER_ID="userId";
 	
 	public class UniqueUsernameValidator extends Behavior implements
 			IValidator<String> {
-	
+
+		private static final long serialVersionUID = -2412508063601996929L;
 		private Long userId;
 
 		public UniqueUsernameValidator(Long userId) {
@@ -82,6 +100,39 @@ public class EditPersistedUserPage extends HeaderFooter {
 				validatable.error(error);
 			}
 		}
+	}
+	
+
+	/**
+	 * Validate if the two password fields have identical input
+	 * @author mihai
+	 *
+	 */
+	public class PasswordsMatchValidator extends AbstractFormValidator {
+
+		private static final long serialVersionUID = 4020230433436102230L;
+		private final PasswordTextField[] components;
+		 
+		public PasswordsMatchValidator(PasswordTextField password1, PasswordTextField password2) {
+			 components = new PasswordTextField[] { password1, password2 };
+		}
+		
+		@Override
+		public FormComponent<?>[] getDependentFormComponents() {
+			return components;
+		}
+
+		@Override
+		public void validate(Form<?> form) {
+			if (!components[0].getValue().equals(components[1].getValue())) {
+				NotificationMessage notificationMessage = new NotificationMessage(new StringResourceModel(
+						"notification.passwordsDoNotMatchError", EditPersistedUserPage.this, null, null));
+				components[0].error(notificationMessage);
+				components[1].error(notificationMessage);				
+				form.error(notificationMessage);
+			}
+		}
+		
 	}
 
 	@SuppressWarnings("unchecked")
@@ -125,7 +176,12 @@ public class EditPersistedUserPage extends HeaderFooter {
 				new PasswordEncryptModel(new RWComponentPropertyModel<String>(
 						"password")));
 		password.getField().setResetPassword(false);
-	
+
+		PasswordInputField passwordCheck = new PasswordInputField("passwordCheck",
+				new PasswordEncryptModel(new RWComponentPropertyModel<String>(
+						"passwordCheck")));
+		passwordCheck.getField().setResetPassword(false);
+		
 
 		CheckBoxField enabled = new CheckBoxField("enabled",
 				new RWComponentPropertyModel<Boolean>("enabled"));
@@ -142,22 +198,35 @@ public class EditPersistedUserPage extends HeaderFooter {
                 new RWComponentPropertyModel<PersistedUserGroup>("group"), userGroupChoiceProvider);
 
 
-		form.add(userName);
+		form.add(userName);		
+		MetaDataRoleAuthorizationStrategy.authorize(userName, Component.ENABLE, AuthConstants.Roles.ROLE_SUPERVISOR);
+		
 		form.add(firstName);		
 		form.add(lastName);
+		
 		form.add(group);
+		MetaDataRoleAuthorizationStrategy.authorize(group, Component.ENABLE, AuthConstants.Roles.ROLE_SUPERVISOR);
+		
 		form.add(email);		
 		form.add(password);
+		form.add(passwordCheck);
 		form.add(phone);
-		form.add(enabled);
+		
+		form.add(enabled);		
+		MetaDataRoleAuthorizationStrategy.authorize(enabled, Component.ENABLE, AuthConstants.Roles.ROLE_SUPERVISOR);
+
 		form.add(authorities);
+		MetaDataRoleAuthorizationStrategy.authorize(authorities, Component.ENABLE, AuthConstants.Roles.ROLE_SUPERVISOR);
 
 		form.add(new BootstrapSubmitButton("submit", new StringResourceModel("button.submit", this, null, null)) {
+			
+		
 			
 			@Override
 			protected void onError(AjaxRequestTarget target, Form<?> form) {
 				// TODO Auto-generated method stub
 				super.onError(target, form);
+				target.add(feedbackPanel);
 			}
 
 			@Override
@@ -170,20 +239,22 @@ public class EditPersistedUserPage extends HeaderFooter {
 			
 		});
 		
-		form.add(new BootstrapSubmitButton("cancel", new StringResourceModel("button.cancel", this, null, null)) {			
-			@Override
-			protected void onError(AjaxRequestTarget target, Form<?> form) {
-			}
-
+		form.add(new BootstrapCancelButton("cancel", new StringResourceModel("button.cancel", this, null, null)) {			
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				logger.info("Cancel pressed");
 				setResponsePage(ListPersistedUsersPage.class);
 			}
 			
-		}.setDefaultFormProcessing(false));
+		});
 	
 		add(form);
+		form.add(new PasswordsMatchValidator(password.getField(), passwordCheck.getField()));
+		
+		feedbackPanel = new NotificationPanel("feedback");
+		feedbackPanel.setOutputMarkupId(true);
+		feedbackPanel.hideAfter(Duration.seconds(3));
+		add(feedbackPanel);
 	}
 
 }

@@ -11,10 +11,12 @@
 <properties>    
     <entry key="username.label">User Name</entry>
     <entry key="password.label">Password</entry>
+	<entry key="passwordCheck.label">Re-type Password</entry>
     <entry key="enabled.label">Enabled</entry>
     <entry key="persistedAuthorities.label">Authorities</entry>
     <entry key="group.label">Group</entry>
-    <entry key="uniqueUsernameError">Another user with the same user n	ame exists!</entry>
+    <entry key="uniqueUsernameError">Another user with the same user name exists!</entry>
+    <entry key="notification.passwordsDoNotMatchError">Passwords do not match!</entry>
     <entry key="firstName.label">First Name</entry>
     <entry key="lastName.label">Last Name</entry>
     <entry key="email.label">Email Address</entry>
