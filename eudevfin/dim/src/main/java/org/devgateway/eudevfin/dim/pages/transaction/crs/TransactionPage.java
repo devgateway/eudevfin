@@ -40,6 +40,7 @@ import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
 import org.devgateway.eudevfin.financial.util.FinancialTransactionUtil;
 import org.devgateway.eudevfin.ui.common.AttributePrepender;
 import org.devgateway.eudevfin.ui.common.Constants;
+import org.devgateway.eudevfin.ui.common.components.BootstrapCancelButton;
 import org.devgateway.eudevfin.ui.common.components.BootstrapDeleteButton;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
 import org.devgateway.eudevfin.ui.common.components.tabs.BootstrapJSTabbedPanel;
@@ -252,17 +253,15 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
         MetaDataRoleAuthorizationStrategy.authorize(transactionPageDeleteButton, Component.ENABLE, AuthConstants.Roles.ROLE_TEAMLEAD);
         form.add(transactionPageDeleteButton);
 
-		form.add(new TransactionPageSubmitButton("cancel", new StringResourceModel("button.cancel", this, null, null)) {
-
+		form.add(new BootstrapCancelButton("cancel", new StringResourceModel("button.cancel", this, null, null)) {
 			private static final long serialVersionUID = -3097577464142022353L;
-
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				logger.info("Cancel pressed");
 				setResponsePage(HomePage.class);
 			}
 
-		}.setDefaultFormProcessing(false));
+		});
 
 		feedbackPanel = new NotificationPanel("feedback");
 		feedbackPanel.setOutputMarkupId(true);

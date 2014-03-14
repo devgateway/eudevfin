@@ -11,6 +11,8 @@
 
 package org.devgateway.eudevfin.mcm.pages;
 
+import java.util.Collection;
+
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
@@ -31,6 +33,7 @@ import org.devgateway.eudevfin.mcm.providers.PersistedUserChoiceProvider;
 import org.devgateway.eudevfin.mcm.providers.PersistedUserGroupChoiceProvider;
 import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
+import org.devgateway.eudevfin.ui.common.components.BootstrapCancelButton;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.components.MultiSelectField;
@@ -38,8 +41,6 @@ import org.devgateway.eudevfin.ui.common.components.TextInputField;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.devgateway.eudevfin.ui.common.providers.OrganizationChoiceProvider;
 import org.wicketstuff.annotation.mount.MountPath;
-
-import java.util.Collection;
 
 /**
  * @author mihai
@@ -146,10 +147,8 @@ public class EditPersistedUserGroupPage extends HeaderFooter {
 		});
 		
 		
-		form.add(new BootstrapSubmitButton("cancel", new StringResourceModel("button.cancel", this, null, null)) {			
-			@Override
-			protected void onError(AjaxRequestTarget target, Form<?> form) {
-			}
+		form.add(new BootstrapCancelButton("cancel", new StringResourceModel("button.cancel", this, null, null)) {			
+			private static final long serialVersionUID = 4352988032579728822L;
 
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {

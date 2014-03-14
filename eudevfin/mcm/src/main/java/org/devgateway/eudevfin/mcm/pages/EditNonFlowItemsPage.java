@@ -11,8 +11,10 @@ a * Copyright (c) 2013 Development Gateway.
 
 package org.devgateway.eudevfin.mcm.pages;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
-import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
@@ -20,7 +22,11 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.model.*;
+import org.apache.wicket.model.ComponentDetachableModel;
+import org.apache.wicket.model.ComponentPropertyModel;
+import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.IComponentAssignedModel;
+import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.time.Duration;
@@ -36,6 +42,7 @@ import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.devgateway.eudevfin.metadata.common.service.CategoryService;
 import org.devgateway.eudevfin.metadata.common.util.CategoryConstants;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
+import org.devgateway.eudevfin.ui.common.components.BootstrapCancelButton;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
 import org.devgateway.eudevfin.ui.common.components.FinancialAmountTextInputField;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
@@ -49,10 +56,8 @@ import org.joda.time.LocalDateTime;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.wicketstuff.annotation.mount.MountPath;
 
-import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
+import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
 
 /**
  * @author mihai
@@ -301,10 +306,8 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 		});
 		
 		
-		form.add(new BootstrapSubmitButton("cancel", new StringResourceModel("button.cancel", this, null, null)) {
-			@Override
-			protected void onError(AjaxRequestTarget target, Form<?> form) {
-			}
+		form.add(new BootstrapCancelButton("cancel", new StringResourceModel("button.cancel", this, null, null)) {
+			private static final long serialVersionUID = -8507390274067369368L;
 
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
