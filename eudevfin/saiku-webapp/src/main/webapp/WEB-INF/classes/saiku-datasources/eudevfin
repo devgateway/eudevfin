@@ -1,7 +1,7 @@
 type=OLAP
 name=eudevfin
 driver=mondrian.olap4j.MondrianOlap4jDriver
-location=jdbc:mondrian:Jdbc=jdbc:derby://localhost:1527/eudevfin;Catalog=res:eudevfin/eudevfin.xml;
+location=jdbc:mondrian:Jdbc=jdbc:derby://localhost:1527/eudevfin;Catalog=res:/org/devgateway/eudevfin/reports/core/service/financial.mondrian.xml;
 username=app
 password=app
 
