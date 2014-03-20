@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dac1_master" pageWidth="900" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" resourceBundle="i18n" uuid="bad8772b-9ff8-49ae-a2c0-34a59258237b">
-	<property name="ireport.zoom" value="4.0"/>
-	<property name="ireport.x" value="2535"/>
-	<property name="ireport.y" value="1321"/>
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="502"/>
 	<parameter name="SUBDIR_PATH" class="java.lang.String"/>
 	<queryString language="mdx">
 		<![CDATA[WITH
@@ -21,7 +21,13 @@
     )
 )
   MEMBER [Type of Aid].[1100] as [Type of Aid].[1110] + [Type of Aid].[1120]
-
+  MEMBER [Type of Aid].[1213] as SUM(
+    CrossJoin(
+            CrossJoin(
+                    [BiMultilateral].[BI_MULTILATERAL##3], [Type of Flow].[TYPE_OF_FLOW##10]
+			), [Type of Aid].[B01]
+    )
+)
   MEMBER [Measures].[Extended] AS [Measures].[Extended Amount Currency NATLOECD]
   MEMBER [Measures].[Received] AS [Measures].[Received Amount Currency NATLOECD]
   MEMBER [Measures].[Committed] AS [Measures].[Commitments Amount Currency NATLOECD]
@@ -30,7 +36,8 @@ SELECT
 {
     [Type of Aid].[1100],
     [Type of Aid].[1110],
-    [Type of Aid].[1120]
+    [Type of Aid].[1120],
+    [Type of Aid].[1213]
 }  ON ROWS,
 
 CrossJoin({[Measures].[Extended],[Measures].[Received],[Measures].[Committed]},[Type of Finance].[Code].Members)
@@ -68,6 +75,33 @@ WHERE [Reporting Year].[2011]]]>
 	<field name="1120_1152_410_Committed" class="java.lang.Number">
 		<fieldDescription><![CDATA[Data(([Measures].[Committed], [Type of Finance].[TYPE_OF_FINANCE##410]), [Type of Aid].[1120])]]></fieldDescription>
 	</field>
+	<field name="1213_1121_110_Extended" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data(([Measures].[Extended], [Type of Finance].[TYPE_OF_FINANCE##110]), [Type of Aid].[1213])]]></fieldDescription>
+	</field>
+	<field name="1213_1122_510_Extended" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data(([Measures].[Extended], [Type of Finance].[TYPE_OF_FINANCE##510]), [Type of Aid].[1213])]]></fieldDescription>
+	</field>
+	<field name="1213_1122_511_Extended" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data(([Measures].[Extended], [Type of Finance].[TYPE_OF_FINANCE##511]), [Type of Aid].[1213])]]></fieldDescription>
+	</field>
+	<field name="1213_1122_512_Extended" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data(([Measures].[Extended], [Type of Finance].[TYPE_OF_FINANCE##512]), [Type of Aid].[1213])]]></fieldDescription>
+	</field>
+	<field name="1213_1130_512_Received" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data(([Measures].[Received], [Type of Finance].[TYPE_OF_FINANCE##512]), [Type of Aid].[1213])]]></fieldDescription>
+	</field>
+	<field name="1213_1151_110_Committed" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data(([Measures].[Committed], [Type of Finance].[TYPE_OF_FINANCE##110]), [Type of Aid].[1213])]]></fieldDescription>
+	</field>
+	<field name="1213_1152_510_Committed" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data(([Measures].[Committed], [Type of Finance].[TYPE_OF_FINANCE##510]), [Type of Aid].[1213])]]></fieldDescription>
+	</field>
+	<field name="1213_1152_511_Committed" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data(([Measures].[Committed], [Type of Finance].[TYPE_OF_FINANCE##511]), [Type of Aid].[1213])]]></fieldDescription>
+	</field>
+	<field name="1213_1152_512_Committed" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data(([Measures].[Committed], [Type of Finance].[TYPE_OF_FINANCE##512]), [Type of Aid].[1213])]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -104,7 +138,7 @@ Date:]]></text>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="300" splitType="Stretch">
+		<band height="315" splitType="Stretch">
 			<line>
 				<reportElement x="10" y="10" width="839" height="1" forecolor="#3333FF" uuid="c3cbabaa-12de-4cb4-a373-78b8fb3858c8"/>
 			</line>
@@ -379,6 +413,21 @@ AMOUNTS]]></text>
 				<textFieldExpression><![CDATA[($F{1110_1121_110_Extended} == null ? 0 :$F{1110_1121_110_Extended}.intValue())+($F{1110_1122_410_Extended} == null ? 0:$F{1110_1122_410_Extended}.intValue())+($F{1110_1130_410_Received} == null ? 0:$F{1110_1130_410_Received}.intValue())]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
+				<reportElement x="633" y="247" width="56" height="15" uuid="0b4dfef1-846e-4aee-ab83-14ffa3204ddb"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{1110_1151_110_Committed} == null ? 0:$F{1110_1151_110_Committed}.intValue()]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="689" y="247" width="79" height="15" uuid="8c430920-78f1-4a3d-aa03-91da1e82df14"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{1110_1152_410_Committed} == null ? 0:$F{1110_1152_410_Committed}.intValue()]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="770" y="247" width="62" height="15" uuid="10e207b4-ba54-4aac-868c-bb1ab441f716"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[($F{1110_1151_110_Committed} == null ? 0 :$F{1110_1151_110_Committed}.intValue())+($F{1110_1152_410_Committed} == null ? 0:$F{1110_1152_410_Committed}.intValue())]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
 				<reportElement x="301" y="262" width="56" height="15" uuid="f1e7995b-a23e-4f1d-83e6-6d8380770e67"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{1120_1121_110_Extended} == null ? 0 :$F{1120_1121_110_Extended}.intValue()]]></textFieldExpression>
@@ -402,6 +451,21 @@ AMOUNTS]]></text>
 				<reportElement x="562" y="262" width="67" height="15" uuid="a149627f-691b-48ed-9aef-5449dc4be7df"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[($F{1120_1121_110_Extended} == null ? 0 :$F{1120_1121_110_Extended}.intValue())+($F{1120_1122_410_Extended} == null ? 0:$F{1120_1122_410_Extended}.intValue())+($F{1120_1130_410_Received} == null ? 0:$F{1120_1130_410_Received}.intValue())]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="633" y="262" width="56" height="15" uuid="7d05a5e2-2724-497e-bd3d-f07fbd78b866"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{1120_1151_110_Committed} == null ? 0:$F{1120_1151_110_Committed}.intValue()]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="689" y="262" width="79" height="15" uuid="c4a68fe6-e335-46ea-8305-34c6ea0529f1"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{1120_1152_410_Committed} == null ? 0:$F{1120_1152_410_Committed}.intValue()]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="770" y="262" width="62" height="15" uuid="9828cd86-6db1-4c43-9844-bca620f052b2"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[($F{1120_1151_110_Committed} == null ? 0 :$F{1120_1151_110_Committed}.intValue())+($F{1120_1152_410_Committed} == null ? 0:$F{1120_1152_410_Committed}.intValue())]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="10" y="184" width="253" height="16" uuid="bc9ddea8-3203-47fd-9f34-13943954565e"/>
@@ -487,35 +551,81 @@ AMOUNTS]]></text>
 				</textElement>
 				<text><![CDATA[1120]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="10" y="285" width="253" height="15" uuid="ae2cdca7-5caf-4a04-be0c-0be2d16ff398"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[c) Core support to Public-Private Partnerships]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="264" y="285" width="35" height="15" uuid="c8d7e56b-af13-495b-b8c1-dffb3e4fefe6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[1213]]></text>
+			</staticText>
 			<textField pattern="#,##0.00">
-				<reportElement x="633" y="247" width="56" height="15" uuid="0b4dfef1-846e-4aee-ab83-14ffa3204ddb"/>
+				<reportElement x="301" y="285" width="56" height="15" uuid="66718ab1-b29c-4086-b3a0-c7885aa0323c"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$F{1110_1151_110_Committed} == null ? 0:$F{1110_1151_110_Committed}.intValue()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{1213_1121_110_Extended} == null ? 0 :$F{1213_1121_110_Extended}.intValue()]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="689" y="247" width="79" height="15" uuid="8c430920-78f1-4a3d-aa03-91da1e82df14"/>
+				<reportElement x="357" y="285" width="73" height="15" uuid="2f9fc212-311a-4891-85ca-54bb3a03dcf2"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$F{1110_1152_410_Committed} == null ? 0:$F{1110_1152_410_Committed}.intValue()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{1213_1122_510_Extended} == null ? 0:$F{1213_1122_510_Extended}.intValue())+
+($F{1213_1122_511_Extended} == null ? 0:$F{1213_1122_511_Extended}.intValue())+
+($F{1213_1122_512_Extended} == null ? 0:$F{1213_1122_512_Extended}.intValue())]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="770" y="247" width="62" height="15" uuid="10e207b4-ba54-4aac-868c-bb1ab441f716"/>
+				<reportElement x="431" y="285" width="62" height="15" uuid="2c57d92f-a71b-4008-b42f-4b9844b80dd3"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[($F{1110_1151_110_Committed} == null ? 0 :$F{1110_1151_110_Committed}.intValue())+($F{1110_1152_410_Committed} == null ? 0:$F{1110_1152_410_Committed}.intValue())]]></textFieldExpression>
+				<textFieldExpression><![CDATA[
+($F{1213_1122_510_Extended} == null ? 0:$F{1213_1122_510_Extended}.intValue())+
+($F{1213_1122_511_Extended} == null ? 0:$F{1213_1122_511_Extended}.intValue())+
+($F{1213_1122_512_Extended} == null ? 0:$F{1213_1122_512_Extended}.intValue())+
+($F{1213_1121_110_Extended} == null ? 0:$F{1213_1121_110_Extended}.intValue())
+]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="633" y="262" width="56" height="15" uuid="7d05a5e2-2724-497e-bd3d-f07fbd78b866"/>
+				<reportElement x="494" y="285" width="67" height="15" uuid="c3c573c6-bb0d-4eb2-811b-a8187045b296"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$F{1120_1151_110_Committed} == null ? 0:$F{1120_1151_110_Committed}.intValue()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{1213_1130_512_Received} == null ? 0:$F{1213_1130_512_Received}.intValue()]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="689" y="262" width="79" height="15" uuid="c4a68fe6-e335-46ea-8305-34c6ea0529f1"/>
+				<reportElement x="562" y="285" width="67" height="15" uuid="37f2c785-2183-44b1-9aa5-4cc8774d4bf3"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$F{1120_1152_410_Committed} == null ? 0:$F{1120_1152_410_Committed}.intValue()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[
+($F{1213_1122_510_Extended} == null ? 0:$F{1213_1122_510_Extended}.intValue())+
+($F{1213_1122_511_Extended} == null ? 0:$F{1213_1122_511_Extended}.intValue())+
+($F{1213_1122_512_Extended} == null ? 0:$F{1213_1122_512_Extended}.intValue())+
+($F{1213_1121_110_Extended} == null ? 0 :$F{1213_1121_110_Extended}.intValue())+
+($F{1213_1130_512_Received} == null ? 0:$F{1213_1130_512_Received}.intValue())
+]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="770" y="262" width="62" height="15" uuid="9828cd86-6db1-4c43-9844-bca620f052b2"/>
+				<reportElement x="633" y="285" width="56" height="15" uuid="415fde45-82af-425d-ae7f-c495dd097337"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[($F{1120_1151_110_Committed} == null ? 0 :$F{1120_1151_110_Committed}.intValue())+($F{1120_1152_410_Committed} == null ? 0:$F{1120_1152_410_Committed}.intValue())]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{1213_1151_110_Committed} == null ? 0:$F{1213_1151_110_Committed}.intValue()]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="768" y="285" width="62" height="15" uuid="b9fbd11f-4233-43f3-b146-d0ffed9b9efc"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[
+($F{1213_1152_510_Committed} == null ? 0:$F{1213_1152_510_Committed}.intValue())+
+($F{1213_1152_511_Committed} == null ? 0:$F{1213_1152_511_Committed}.intValue())+
+($F{1213_1152_512_Committed} == null ? 0:$F{1213_1152_512_Committed}.intValue())+
+($F{1213_1151_110_Committed} == null ? 0:$F{1213_1151_110_Committed}.intValue())
+]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="689" y="285" width="79" height="15" uuid="c2d2f057-3f2c-4def-a2cd-4b81765b990a"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[
+($F{1213_1152_510_Committed} == null ? 0:$F{1213_1152_510_Committed}.intValue())+
+($F{1213_1152_511_Committed} == null ? 0:$F{1213_1152_511_Committed}.intValue())+
+($F{1213_1152_512_Committed} == null ? 0:$F{1213_1152_512_Committed}.intValue())
+]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
