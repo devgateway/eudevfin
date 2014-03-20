@@ -340,7 +340,7 @@
                     BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXTENDED_CURR" AND
                     "FINANCIALTRANSACTIONVIEW"."DRAFT" IS NOT NULL AND
                     COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(8, 2)))
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
                 </SQL>
             </MeasureExpression>
         </Measure>
@@ -355,7 +355,7 @@
                     BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXTENDED_CURR" AND
                     "FINANCIALTRANSACTIONVIEW"."DRAFT" IS NOT NULL AND
                     COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(8, 2)))
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
                 </SQL>
             </MeasureExpression>
         </Measure>
@@ -374,7 +374,7 @@
                     (SOURCE = 'OECD' OR SOURCE='NATIONAL') AND
                     BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_RECEIVED_CURR" AND
                     COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(8, 2)))
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
                 </SQL>
             </MeasureExpression>
         </Measure>
@@ -388,7 +388,7 @@
                     SOURCE = 'INTERNET' AND
                     BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_RECEIVED_CURR" AND
                     COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(8, 2)))
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
                 </SQL>
             </MeasureExpression>
         </Measure>
