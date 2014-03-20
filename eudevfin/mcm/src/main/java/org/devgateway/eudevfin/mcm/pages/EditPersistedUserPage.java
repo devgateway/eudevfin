@@ -36,9 +36,9 @@ import org.devgateway.eudevfin.auth.common.domain.PersistedAuthority;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUserGroup;
 import org.devgateway.eudevfin.auth.common.service.PersistedUserService;
-import org.devgateway.eudevfin.mcm.models.PasswordEncryptModel;
 import org.devgateway.eudevfin.mcm.providers.PersistedAuthorityChoiceProvider;
 import org.devgateway.eudevfin.mcm.providers.PersistedUserGroupChoiceProvider;
+import org.devgateway.eudevfin.ui.common.LocalComponentDetachableModel;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.BootstrapCancelButton;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
@@ -146,14 +146,15 @@ public class EditPersistedUserPage extends HeaderFooter {
 				.typeString();
 
 		userName.getField().add(new UniqueUsernameValidator(persistedUser.getId()));
+		
+		final LocalComponentDetachableModel<Boolean> passwordChangeModel = new LocalComponentDetachableModel<Boolean>();
+		CheckBoxField passwordChangeField = new CheckBoxField("passwordChange", passwordChangeModel);
 
-		PasswordInputField password = new PasswordInputField("password", new PasswordEncryptModel(
-				new RWComponentPropertyModel<String>("password")));
+		PasswordInputField password = new PasswordInputField("password", new RWComponentPropertyModel<String>("plainPassword"));
 		password.getField().setResetPassword(false);
 		password.getField().add(new PasswordPatternValidator());
 
-		PasswordInputField passwordCheck = new PasswordInputField("passwordCheck", new PasswordEncryptModel(
-				new RWComponentPropertyModel<String>("passwordCheck")));
+		PasswordInputField passwordCheck = new PasswordInputField("passwordCheck", new RWComponentPropertyModel<String>("plainPasswordCheck"));
 		passwordCheck.getField().setResetPassword(false);
 
 		CheckBoxField enabled = new CheckBoxField("enabled", new RWComponentPropertyModel<Boolean>("enabled"));
