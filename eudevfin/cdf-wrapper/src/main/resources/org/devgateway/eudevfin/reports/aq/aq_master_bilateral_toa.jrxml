@@ -16,7 +16,7 @@ MEMBER [Type of Aid].[Scholarships and student costs in donor countries] AS SUM(
 MEMBER [Type of Aid].[Debt Relief] AS SUM({[Type of Aid].[F],[Type of Aid].[F01]})
 MEMBER [Type of Aid].[Administrative costs not included elsewhere] AS SUM({[Type of Aid].[G],[Type of Aid].[G01]})
 MEMBER [Type of Aid].[Other in-donor expenditures] AS SUM({[Type of Aid].[H],[Type of Aid].[H01],[Type of Aid].[H02]})
-MEMBER [Type of Aid].[AllTypes] AS SUM({[Type of Aid].[A], [Type of Aid].[B], [Type of Aid].[C], [Type of Aid].[D], [Type of Aid].[E], [Type of Aid].[F], [Type of Aid].[G], [Type of Aid].[H]})
+MEMBER [Type of Aid].[AllTypes] AS SUM({[Type of Aid].[Code].Members})
 MEMBER [Measures].[First Year] AS SUM(CrossJoin({[Reporting Year].[$P{FIRST_YEAR}]}, {[Measures].[Net Amount Currency NATLOECD]}))
 MEMBER [Measures].[Second Year] AS SUM(CrossJoin({[Reporting Year].[$P{SECOND_YEAR}]}, {[Measures].[Net Amount Currency NATLOECD]}))
 SELECT
