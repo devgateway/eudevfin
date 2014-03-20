@@ -254,16 +254,12 @@ public class ReportsController {
     private void generateDAC1 (HttpServletRequest request, HttpServletResponse response,
                                Connection connection, String outputType) {
         try {
-            InputStream inputStream = ReportsController.class.getResourceAsStream("./dac1/dac1_master.jrxml");
+            InputStream inputStream = ReportsController.class.getClassLoader().getResourceAsStream("org/devgateway/eudevfin/reports/core/dac1/dac1_master.jrxml");
 
             Map<String, Object> parameters = new HashMap<String, Object>();
             parameters.put(JRMondrianQueryExecuterFactory.PARAMETER_MONDRIAN_CONNECTION, connection);
-            try {
-                String subdirPath = new URI(this.getClass().getResource("./dac1").toString()).getPath();
-                parameters.put("SUBDIR_PATH", subdirPath);
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
-            }
+            String subdirPath =  "org/devgateway/eudevfin/reports/core/dac1";
+            parameters.put("SUBDIR_PATH", subdirPath);
 
             // set locale
             Locale locale = LocaleContextHolder.getLocale();

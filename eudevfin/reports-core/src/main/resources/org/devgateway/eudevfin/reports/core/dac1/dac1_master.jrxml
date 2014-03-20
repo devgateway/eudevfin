@@ -1,20 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dac1_master" language="java" pageWidth="900" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" resourceBundle="i18n" uuid="bad8772b-9ff8-49ae-a2c0-34a59258237b">
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dac1_master" pageWidth="900" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" resourceBundle="i18n" uuid="bad8772b-9ff8-49ae-a2c0-34a59258237b">
+	<property name="ireport.zoom" value="4.0"/>
+	<property name="ireport.x" value="2535"/>
+	<property name="ireport.y" value="1321"/>
 	<parameter name="SUBDIR_PATH" class="java.lang.String"/>
 	<queryString language="mdx">
-		<![CDATA[
-WITH MEMBER Measures.[Net Amounts] AS
-[Measures].[Extended Amount] - [Measures].[Received Amount]
+		<![CDATA[WITH
+  MEMBER [Type of Aid].[1110] as SUM(
+    CrossJoin(
+            CrossJoin(
+                    [BiMultilateral].[BI_MULTILATERAL##1], [Type of Flow].[TYPE_OF_FLOW##10]
+        	), [Type of Aid].[A01]
+    ), [Sector].[51010]
+)
+  MEMBER [Type of Aid].[1120] as SUM(
+    CrossJoin(
+            CrossJoin(
+            		[BiMultilateral].[BI_MULTILATERAL##1], [Type of Flow].[TYPE_OF_FLOW##10]
+			), [Type of Aid].[A02]
+    )
+)
+  MEMBER [Type of Aid].[1100] as [Type of Aid].[1110] + [Type of Aid].[1120]
+
+  MEMBER [Measures].[Extended] AS [Measures].[Extended Amount Currency NATLOECD]
+  MEMBER [Measures].[Received] AS [Measures].[Received Amount Currency NATLOECD]
+  MEMBER [Measures].[Committed] AS [Measures].[Commitments Amount Currency NATLOECD]
+
 SELECT
-NON EMPTY {[Measures].[Extended Amount], Measures.[Net Amounts]} ON COLUMNS,
-NON EMPTY {Hierarchize({[Type of Flow].[Name].Members})} ON ROWS
+{
+    [Type of Aid].[1100],
+    [Type of Aid].[1110],
+    [Type of Aid].[1120]
+}  ON ROWS,
+
+CrossJoin({[Measures].[Extended],[Measures].[Received],[Measures].[Committed]},[Type of Finance].[Code].Members)
+ ON COLUMNS
 FROM [Financial]
-WHERE {[Type of Finance].[Name].[GRANT], [Type of Finance].[Name].[Aid grant excluding debt reorganisation], [Type of Finance].[Name].[Subsidies to national private investors]}
-]]>
+WHERE [Reporting Year].[2011]]]>
 	</queryString>
+	<field name="1110_1121_110_Extended" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data(([Measures].[Extended], [Type of Finance].[TYPE_OF_FINANCE##110]), [Type of Aid].[1110])]]></fieldDescription>
+	</field>
+	<field name="1110_1122_410_Extended" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data(([Measures].[Extended], [Type of Finance].[TYPE_OF_FINANCE##410]), [Type of Aid].[1110])]]></fieldDescription>
+	</field>
+	<field name="1110_1130_410_Received" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data(([Measures].[Received], [Type of Finance].[TYPE_OF_FINANCE##410]), [Type of Aid].[1110])]]></fieldDescription>
+	</field>
+	<field name="1110_1151_110_Committed" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data(([Measures].[Committed], [Type of Finance].[TYPE_OF_FINANCE##110]), [Type of Aid].[1110])]]></fieldDescription>
+	</field>
+	<field name="1110_1152_410_Committed" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data(([Measures].[Committed], [Type of Finance].[TYPE_OF_FINANCE##410]), [Type of Aid].[1110])]]></fieldDescription>
+	</field>
+	<field name="1120_1121_110_Extended" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data(([Measures].[Extended], [Type of Finance].[TYPE_OF_FINANCE##110]), [Type of Aid].[1120])]]></fieldDescription>
+	</field>
+	<field name="1120_1122_410_Extended" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data(([Measures].[Extended], [Type of Finance].[TYPE_OF_FINANCE##410]), [Type of Aid].[1120])]]></fieldDescription>
+	</field>
+	<field name="1120_1130_410_Received" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data(([Measures].[Received], [Type of Finance].[TYPE_OF_FINANCE##410]), [Type of Aid].[1120])]]></fieldDescription>
+	</field>
+	<field name="1120_1151_110_Committed" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data(([Measures].[Committed], [Type of Finance].[TYPE_OF_FINANCE##110]), [Type of Aid].[1120])]]></fieldDescription>
+	</field>
+	<field name="1120_1152_410_Committed" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data(([Measures].[Committed], [Type of Finance].[TYPE_OF_FINANCE##410]), [Type of Aid].[1120])]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -223,29 +276,247 @@ AMOUNTS]]></text>
 				</textElement>
 				<text><![CDATA[----- Amounts extended -----]]></text>
 			</staticText>
-			<subreport>
-				<reportElement x="0" y="99" width="860" height="75" uuid="fdeeb4b2-12ee-41e0-93c3-7ab824f421a9"/>
-				<subreportParameter name="SUBDIR_PATH">
-					<subreportParameterExpression><![CDATA[$P{SUBDIR_PATH}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="MONDRIAN_CONNECTION">
-					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportExpression><![CDATA[$P{SUBDIR_PATH} + "/dac1_key_indicators.jasper"]]></subreportExpression>
-			</subreport>
-
-			<subreport>
-				<reportElement x="0" y="174" width="860" height="67" uuid="6253d3b5-ed7d-47b6-beac-1563271ecbf6"/>
-				<subreportParameter name="SUBDIR_PATH">
-					<subreportParameterExpression><![CDATA[$P{SUBDIR_PATH}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="MONDRIAN_CONNECTION">
-					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportExpression>
-					<![CDATA[JasperCompileManager.compileReport($P{SUBDIR_PATH} + "/dac1_total_official_private_flows.jrxml")]]>
-				</subreportExpression>
-			</subreport>
+			<staticText>
+				<reportElement x="10" y="103" width="137" height="16" uuid="004214a1-6a1f-429c-84b1-abb8b50f46db"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[GNI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="119" width="137" height="16" uuid="16464797-3fef-4e13-a0ef-8dedce51c7e9"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[ODA % GNI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="135" width="137" height="16" uuid="a4ef330c-039e-4ba8-a523-014bc2c58927"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[TOTAL FLOWS % GNI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="151" width="137" height="16" uuid="7ea2624d-4a6d-4548-aea5-70c97cf18019"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[POPULATION (millions)]]></text>
+			</staticText>
+			<line>
+				<reportElement x="299" y="104" width="1" height="64" uuid="36c043e8-e286-4bce-8e62-57b552ddbb90"/>
+			</line>
+			<line>
+				<reportElement x="10" y="103" width="839" height="1" forecolor="#3333FF" uuid="56d29a20-c31f-49b3-a6d3-3db4c4e0c9b2"/>
+			</line>
+			<line>
+				<reportElement x="10" y="167" width="839" height="1" forecolor="#3333FF" uuid="711e5842-7398-43a7-82fb-94f2dc35c3a1"/>
+			</line>
+			<line>
+				<reportElement x="10" y="119" width="839" height="1" forecolor="#3333FF" uuid="b3c3e860-7859-48c1-afb3-4b8536160138"/>
+			</line>
+			<line>
+				<reportElement x="10" y="135" width="839" height="1" forecolor="#3333FF" uuid="d1b106ce-df25-40c9-bef1-563d7c96a73d"/>
+			</line>
+			<line>
+				<reportElement x="10" y="151" width="839" height="1" forecolor="#3333FF" uuid="c72a1074-9d62-493a-9a0b-17e94ed3c7d8"/>
+			</line>
+			<line>
+				<reportElement x="263" y="103" width="1" height="64" uuid="8932f562-7b14-427e-b0fa-0618ab64014b"/>
+			</line>
+			<staticText>
+				<reportElement x="264" y="104" width="35" height="16" uuid="e7d1edd6-c309-4d47-975f-6a8d9dd5dd87"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[001]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="264" y="136" width="35" height="16" uuid="4c128394-294f-49cd-a960-887e3d0d10d8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[003]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="264" y="120" width="35" height="16" uuid="f26cfdcb-be8d-4354-b859-530c3b911301"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[002]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="264" y="152" width="35" height="16" uuid="26e95a2e-95fa-4582-938c-f87c0a8311c4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[004]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="301" y="247" width="56" height="15" uuid="f1e7995b-a23e-4f1d-83e6-6d8380770e67"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{1110_1121_110_Extended} == null ? 0 :$F{1110_1121_110_Extended}.intValue()]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="357" y="247" width="73" height="15" uuid="78cb1eb3-8efd-4a17-9467-d86c1db39443"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{1110_1122_410_Extended} == null ? 0:$F{1110_1122_410_Extended}.intValue()]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="431" y="247" width="62" height="15" uuid="6134516d-c966-49c5-989b-7015e55efae6"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[($F{1110_1121_110_Extended} == null ? 0 :$F{1110_1121_110_Extended}.intValue())+($F{1110_1122_410_Extended} == null ? 0:$F{1110_1122_410_Extended}.intValue())]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="494" y="247" width="67" height="15" uuid="78cb1eb3-8efd-4a17-9467-d86a1db39443"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{1110_1130_410_Received} == null ? 0:$F{1110_1130_410_Received}.intValue()]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="562" y="247" width="67" height="15" uuid="a149627f-691b-48ed-9aef-5449dc4be7df"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[($F{1110_1121_110_Extended} == null ? 0 :$F{1110_1121_110_Extended}.intValue())+($F{1110_1122_410_Extended} == null ? 0:$F{1110_1122_410_Extended}.intValue())+($F{1110_1130_410_Received} == null ? 0:$F{1110_1130_410_Received}.intValue())]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="301" y="262" width="56" height="15" uuid="f1e7995b-a23e-4f1d-83e6-6d8380770e67"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{1120_1121_110_Extended} == null ? 0 :$F{1120_1121_110_Extended}.intValue()]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="357" y="262" width="73" height="15" uuid="78cb1eb3-8efd-4a17-9467-d86c1db39443"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{1120_1122_410_Extended} == null ? 0:$F{1120_1122_410_Extended}.intValue()]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="431" y="262" width="62" height="15" uuid="6134516d-c966-49c5-989b-7015e55efae6"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[($F{1120_1121_110_Extended} == null ? 0 :$F{1120_1121_110_Extended}.intValue())+($F{1120_1122_410_Extended} == null ? 0:$F{1120_1122_410_Extended}.intValue())]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="494" y="262" width="67" height="15" uuid="78cb1eb3-8efd-4a17-9467-d86a1db39443"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{1120_1130_410_Received} == null ? 0:$F{1120_1130_410_Received}.intValue()]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="562" y="262" width="67" height="15" uuid="a149627f-691b-48ed-9aef-5449dc4be7df"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[($F{1120_1121_110_Extended} == null ? 0 :$F{1120_1121_110_Extended}.intValue())+($F{1120_1122_410_Extended} == null ? 0:$F{1120_1122_410_Extended}.intValue())+($F{1120_1130_410_Received} == null ? 0:$F{1120_1130_410_Received}.intValue())]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="184" width="253" height="16" uuid="bc9ddea8-3203-47fd-9f34-13943954565e"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[I. OFFICIAL DEVELOPMENT ASSISTANCE (I.A + I.B)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="168" width="253" height="16" uuid="f24a2f33-106b-4a79-92a8-92e7bda1f5e0"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[TOTAL OFFICIAL AND PRIVATE FLOWS (I+II+III+IV)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="200" width="253" height="32" uuid="0ac5a162-2fc4-4223-a316-08393312020b"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[I.A. Bilateral Official Development Assistance by types of aid (1+2+3+4+5+6+7+8+9+10)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="232" width="253" height="15" uuid="901af21c-9759-4c51-be7a-a754ee9bf5d5"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[1.  Budget support]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="247" width="253" height="15" uuid="d89b9f1f-5957-4592-9064-806b532b33fd"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[  1.1 General budget support]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="262" width="253" height="15" uuid="0074b881-1c09-4ec5-902f-2396bb4c8541"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[  1.2 Sector budget support]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="264" y="184" width="35" height="16" uuid="7f5da652-f7c6-4d01-bb6b-2cdf06636779"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[1010]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="264" y="200" width="35" height="32" uuid="a5b13412-583d-44ae-914f-1f66cea405da"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[1015]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="264" y="168" width="35" height="16" uuid="88d3140e-2add-474c-9049-306af3ef824d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[005]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="264" y="232" width="35" height="15" uuid="86395132-0d9f-4487-ba85-9ddd2bca800b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[1100]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="264" y="247" width="35" height="15" uuid="59cf0e3b-9070-48e9-a8f6-a9b50fbdd389"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[1110]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="264" y="262" width="35" height="15" uuid="14545777-b3f5-42fd-ba94-497388379f72"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[1120]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="633" y="247" width="56" height="15" uuid="0b4dfef1-846e-4aee-ab83-14ffa3204ddb"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{1110_1151_110_Committed} == null ? 0:$F{1110_1151_110_Committed}.intValue()]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="689" y="247" width="79" height="15" uuid="8c430920-78f1-4a3d-aa03-91da1e82df14"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{1110_1152_410_Committed} == null ? 0:$F{1110_1152_410_Committed}.intValue()]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="770" y="247" width="62" height="15" uuid="10e207b4-ba54-4aac-868c-bb1ab441f716"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[($F{1110_1151_110_Committed} == null ? 0 :$F{1110_1151_110_Committed}.intValue())+($F{1110_1152_410_Committed} == null ? 0:$F{1110_1152_410_Committed}.intValue())]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="633" y="262" width="56" height="15" uuid="7d05a5e2-2724-497e-bd3d-f07fbd78b866"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{1120_1151_110_Committed} == null ? 0:$F{1120_1151_110_Committed}.intValue()]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="689" y="262" width="79" height="15" uuid="c4a68fe6-e335-46ea-8305-34c6ea0529f1"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{1120_1152_410_Committed} == null ? 0:$F{1120_1152_410_Committed}.intValue()]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="770" y="262" width="62" height="15" uuid="9828cd86-6db1-4c43-9844-bca620f052b2"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[($F{1120_1151_110_Committed} == null ? 0 :$F{1120_1151_110_Committed}.intValue())+($F{1120_1152_410_Committed} == null ? 0:$F{1120_1152_410_Committed}.intValue())]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
