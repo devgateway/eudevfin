@@ -1,25 +1,24 @@
 
 package org.devgateway.eudevfin.reports.core.domain;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.annotation.Generated;
-
-import org.apache.commons.lang.builder.ToStringBuilder;
-
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+
+import javax.annotation.Generated;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("com.googlecode.jsonschema2pojo")
 @JsonPropertyOrder({
     "totalRows"
 })
-public class QueryInfo {
+public class QueryInfo implements Serializable {
 
     @JsonProperty("totalRows")
     private String totalRows;

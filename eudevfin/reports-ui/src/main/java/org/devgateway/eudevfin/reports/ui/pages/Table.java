@@ -5,7 +5,7 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.devgateway.eudevfin.reports.core.domain.QueryResult;
 import org.devgateway.eudevfin.reports.core.service.QueryService;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -13,7 +13,7 @@ import java.util.List;
  * @since 3/11/14
  */
 
-public class Table extends RunMdxQuery {
+public class Table extends RunMdxQuery implements Serializable {
     private static final Logger logger = Logger.getLogger(Table.class);
 
     private DataTableDashboard table;
