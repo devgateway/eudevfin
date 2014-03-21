@@ -211,12 +211,12 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 
 		reportingCountryField = new TextInputField<String>("reportingCountry",
 				countryModel);
-        reportingCountryField.typeString().setEnabled(false);
+        reportingCountryField.typeString().setVisible(false);
         form.add(reportingCountryField);
 		
 		reportingCurrencyField = new TextInputField<String>("reportingCurrency",
 				currencyModel);
-        reportingCurrencyField.typeString().setEnabled(false);
+        reportingCurrencyField.typeString().setVisible(false);
         form.add(reportingCurrencyField);
 
 		reportingYearField = new TextInputField<Integer>("reportingYear",
