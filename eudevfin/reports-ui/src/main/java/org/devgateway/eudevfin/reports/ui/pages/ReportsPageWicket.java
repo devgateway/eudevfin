@@ -185,7 +185,7 @@ public class ReportsPageWicket extends HeaderFooter {
                         String item = resultSet.get(i).get(j);
 
                         if (item != null) {
-                            item = df.format(Integer.parseInt(resultSet.get(i).get(j)));
+                            item = df.format(Float.parseFloat(resultSet.get(i).get(j)));
                             resultSet.get(i).set(j, item);
                         }
                     }
@@ -240,7 +240,7 @@ public class ReportsPageWicket extends HeaderFooter {
                     String item = resultSet.get(i).get(1);
 
                     if (item != null) {
-                        item = df.format(Integer.parseInt(resultSet.get(i).get(1)));
+                        item = df.format(Float.parseFloat(resultSet.get(i).get(1)));
                         resultSet.get(i).set(1, item);
                     }
                 }
