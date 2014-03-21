@@ -8,7 +8,7 @@
 	<parameter name="SECOND_YEAR" class="java.lang.Number"/>
 	<queryString language="mdx">
 		<![CDATA[WITH
-MEMBER [Channel].[AllCodes] AS SUM({[Channel].[UNGroup], [Channel].[EUGroup], [Channel].[WBGroup], [Channel].[RBGroup], [Channel].[OtherGroup]})
+MEMBER [Channel].[AllCodes] AS SUM({[Channel].[Code].Members})
 MEMBER [Measures].[First Year] AS SUM(CrossJoin({[Reporting Year].[$P{FIRST_YEAR}]}, {[Measures].[Net Amount Currency NATLOECD]}))
 MEMBER [Measures].[Second Year] AS SUM(CrossJoin({[Reporting Year].[$P{SECOND_YEAR}]}, {[Measures].[Net Amount Currency NATLOECD]}))
 SELECT
