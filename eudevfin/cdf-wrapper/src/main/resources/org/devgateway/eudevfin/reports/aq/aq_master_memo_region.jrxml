@@ -27,7 +27,7 @@ SELECT
 }  ON ROWS,
 {[Measures].[First Year], [Measures].[Second Year]} ON COLUMNS
 FROM [Financial]
-WHERE {[BiMultilateral].[BI_MULTILATERAL##1]}]]>
+WHERE {[BiMultilateral].[BI_MULTILATERAL##1], [BiMultilateral].[BI_MULTILATERAL##3], [BiMultilateral].[BI_MULTILATERAL##7]}]]>
 	</queryString>
 	<field name="LDC Y1" class="java.lang.Number">
 		<fieldDescription><![CDATA[Data([Measures].[First Year], [Area].[LDC])]]></fieldDescription>

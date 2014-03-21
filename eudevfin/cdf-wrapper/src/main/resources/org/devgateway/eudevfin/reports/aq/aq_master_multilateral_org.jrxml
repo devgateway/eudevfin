@@ -15,7 +15,7 @@ SELECT
 {[Channel].[UNGroup], [Channel].[EUGroup], [Channel].[WBGroup], [Channel].[RBGroup], [Channel].[OtherGroup], [Channel].[AllCodes]} ON ROWS,
 {[Measures].[First Year], [Measures].[Second Year]} ON COLUMNS
 FROM [Financial]
-WHERE {[BiMultilateral].[BI_MULTILATERAL##2]}]]>
+WHERE {[BiMultilateral].[BI_MULTILATERAL##2], [BiMultilateral].[BI_MULTILATERAL##4], [BiMultilateral].[BI_MULTILATERAL##5]}]]>
 	</queryString>
 	<field name="United Nations Y1" class="java.lang.Number">
 		<fieldDescription><![CDATA[Data([Measures].[First Year], [Channel].[UNGroup])]]></fieldDescription>
