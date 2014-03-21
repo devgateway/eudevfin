@@ -14,7 +14,7 @@
 	<parent>
 		<groupId>org.devgateway.eudevfin</groupId>
 		<artifactId>eudevfin</artifactId>
-		<version>0.9.12-SNAPSHOT</version>
+		<version>0.9.12</version>
 	</parent>
 	<artifactId>cdf-wrapper</artifactId>
 	<packaging>war</packaging>
