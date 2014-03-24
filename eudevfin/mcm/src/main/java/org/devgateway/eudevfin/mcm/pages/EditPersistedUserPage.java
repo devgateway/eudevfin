@@ -16,12 +16,15 @@ import java.util.Collection;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.form.AjaxCheckBox;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy;
 import org.apache.wicket.behavior.Behavior;
+import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.validation.EqualPasswordInputValidator;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -36,6 +39,7 @@ import org.devgateway.eudevfin.auth.common.domain.PersistedAuthority;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUserGroup;
 import org.devgateway.eudevfin.auth.common.service.PersistedUserService;
+import org.devgateway.eudevfin.auth.common.util.DigestUtils;
 import org.devgateway.eudevfin.mcm.providers.PersistedAuthorityChoiceProvider;
 import org.devgateway.eudevfin.mcm.providers.PersistedUserGroupChoiceProvider;
 import org.devgateway.eudevfin.ui.common.LocalComponentDetachableModel;
@@ -147,18 +151,36 @@ public class EditPersistedUserPage extends HeaderFooter {
 
 		userName.getField().add(new UniqueUsernameValidator(persistedUser.getId()));
 		
-		final LocalComponentDetachableModel<Boolean> passwordChangeModel = new LocalComponentDetachableModel<Boolean>();
-		CheckBoxField passwordChangeField = new CheckBoxField("passwordChange", passwordChangeModel);
-
-		PasswordInputField password = new PasswordInputField("password", new RWComponentPropertyModel<String>("plainPassword"));
-		password.getField().setResetPassword(false);
+		
+		final PasswordInputField password = new PasswordInputField("password", new RWComponentPropertyModel<String>("plainPassword"));
+		password.getField().setResetPassword(false).setEnabled(false);
 		password.getField().add(new PasswordPatternValidator());
 
-		PasswordInputField passwordCheck = new PasswordInputField("passwordCheck", new RWComponentPropertyModel<String>("plainPasswordCheck"));
-		passwordCheck.getField().setResetPassword(false);
+		final PasswordInputField passwordCheck = new PasswordInputField("passwordCheck", new RWComponentPropertyModel<String>("plainPasswordCheck"));
+		passwordCheck.getField().setResetPassword(false).setEnabled(false);
+		
+		final LocalComponentDetachableModel<Boolean> passwordChangeModel = new LocalComponentDetachableModel<Boolean>();
+		final CheckBoxField passwordChangeField = new CheckBoxField("passwordChange", passwordChangeModel) {
+			@Override
+			protected CheckBox newField(String id, final IModel<Boolean> model) {		
+				return new AjaxCheckBox(id, model) {
+					@Override
+					protected void onUpdate(AjaxRequestTarget target) {
+							password.getField().setEnabled(this.getModelObject());
+							passwordCheck.getField().setEnabled(this.getModelObject());
+							target.add(password.getField());
+							target.add(passwordCheck.getField());
+					}
+				};
+			}
+		};
+		
+		form.add(passwordChangeField);
+
+		
 
 		CheckBoxField enabled = new CheckBoxField("enabled", new RWComponentPropertyModel<Boolean>("enabled"));
-
+		
 		MultiSelectField<PersistedAuthority> authorities = new MultiSelectField<>("persistedAuthorities",
 				new RWComponentPropertyModel<Collection<PersistedAuthority>>("persistedAuthorities"),
 				authorityChoiceProvider);
@@ -201,6 +223,12 @@ public class EditPersistedUserPage extends HeaderFooter {
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				logger.info("Submitted ok!");
 				logger.info("Object:" + getModel().getObject());
+				
+				//password reset requested?
+				if(passwordChangeField.getField().getModelObject()) {
+					persistedUser.setPassword(DigestUtils.passwordEncrypt(persistedUser.getPlainPassword()));
+				}
+				
 				userService.save(persistedUser);
 				setResponsePage(ListPersistedUsersPage.class);
 			}

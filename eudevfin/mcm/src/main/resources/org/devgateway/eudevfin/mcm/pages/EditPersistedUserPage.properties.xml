@@ -10,6 +10,7 @@
 	<entry key="enabled.label">Enabled</entry>
 	<entry key="persistedAuthorities.label">Authorities</entry>
 	<entry key="group.label">Group</entry>
+	<entry key="passwordChange.label">Change Password</entry>
 	<entry key="uniqueUsernameError">Another user with the same user name exists!</entry>
 	<entry key="notification.passwordsDoNotMatchError">Passwords do not match!</entry>
 	<entry key="firstName.label">First Name</entry>
