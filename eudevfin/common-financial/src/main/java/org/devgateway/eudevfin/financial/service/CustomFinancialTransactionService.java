@@ -3,6 +3,7 @@
  */
 package org.devgateway.eudevfin.financial.service;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.devgateway.eudevfin.common.service.BaseEntityService;
@@ -13,13 +14,16 @@ import org.springframework.integration.annotation.Header;
 import org.springframework.integration.annotation.Payload;
 
 /**
- * @author Alex
+ * @author Alex,mihai
  *
  */
 public interface CustomFinancialTransactionService extends BaseEntityService<CustomFinancialTransaction> {
 	public Page<CustomFinancialTransaction> findByDraftPageable (Boolean draft, @Header("pageable")Pageable pageable);
 	
 	public List<CustomFinancialTransaction> findByReportingYearAndDraftFalse(final Integer year);
+	
+	public List<CustomFinancialTransaction> findByReportingYearAndDraftFalseAndFormTypeNotIn(final Integer year,
+			@Header("notFormType") Collection<String> notFormType);
 	
 	@Payload("new java.util.Date()")
 	public List<Integer> findDistinctReportingYears();

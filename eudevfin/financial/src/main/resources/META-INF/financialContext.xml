@@ -180,8 +180,11 @@
 	<int:channel id="findTransactionByGeneralSearchPageableChannel"/>
 	<int:channel id="findTransactionByReportingYearAndTypeOfFlowNonFlow"/>
 	
+	
 	<int:channel id="findCustomTransactionByDraftPageableChannel"/>
 	<int:channel id="findCustomTransactionByReportingYearAndDraftFalseChannel"/>
+	<int:channel id="findCustomTransactionByReportingYearAndDraftFalseAndFormTypeNotInChannel"/>
+	
 	<int:channel id="findDistinctReportingYearsInTransactionChannel"/>
 	
 	<int:channel id="findOrganizationByIdChannel" />

@@ -14,6 +14,7 @@ import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Columns;
+import org.hibernate.annotations.Index;
 import org.hibernate.annotations.Type;
 import org.hibernate.envers.Audited;
 import org.joda.money.BigMoney;
@@ -39,8 +40,10 @@ public class CustomFinancialTransaction extends FinancialTransaction {
     /**
      * @see SB##BILATERAL_ODA_ADVANCE_QUESTIONNAIRE
      */
+	@Index(name="customfinancialtransaction_formtype_idx")
     private String formType;
-
+	
+	@Index(name="customfinancialtransaction_draft_idx")
     private Boolean draft = false;
 
     private Boolean projectCoFinanced;

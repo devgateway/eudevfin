@@ -3,6 +3,7 @@
  */
 package org.devgateway.eudevfin.financial.repository;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
@@ -23,6 +24,9 @@ public interface CustomFinancialTransactionRepository extends
 	
 	List<CustomFinancialTransaction> findByReportingYearBetweenAndDraftFalse(LocalDateTime start, LocalDateTime end);
 	
+	List<CustomFinancialTransaction> findByReportingYearBetweenAndDraftFalseAndFormTypeNotIn(LocalDateTime start,
+			LocalDateTime end, Collection<String> notFormType);
+
 	@Query ("select distinct year(ctx.reportingYear) from CustomFinancialTransaction ctx ")
 	List<Integer> findDistinctReportingYears();
 

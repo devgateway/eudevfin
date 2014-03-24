@@ -3,11 +3,13 @@
  */
 package org.devgateway.eudevfin.financial.dao;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.devgateway.eudevfin.common.dao.AbstractDaoImpl;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
 import org.devgateway.eudevfin.financial.repository.CustomFinancialTransactionRepository;
+import org.devgateway.eudevfin.financial.service.CustomFinancialTransactionService;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -18,7 +20,7 @@ import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
 
 /**
- * @author Alex
+ * @author Alex,mihai
  *
  */
 @Component
@@ -46,12 +48,31 @@ public class CustomFinancialTransactionDao
 		return  this.getRepo().findByDraft(draft, pageable)  ;
 	}
 	
+	/**
+	 * @see CustomFinancialTransactionService#findByReportingYearAndDraftFalse(Integer)
+	 * @param year
+	 * @return
+	 */
 	@ServiceActivator(inputChannel="findCustomTransactionByReportingYearAndDraftFalseChannel")
 	public List<CustomFinancialTransaction> findByReportingYearAndDraftFalse(final Integer year) {
 		final LocalDateTime start	= new LocalDateTime(year, 1, 1, 0, 0);
 		final LocalDateTime end		= new LocalDateTime(year+1, 1, 1, 0, 0);
 		
 		return this.getRepo().findByReportingYearBetweenAndDraftFalse(start, end);
+	}
+	
+	/**
+	 * @see CustomFinancialTransactionService#findByReportingYearAndDraftFalseAndFormTypeNotIn(Integer)
+	 * @param year
+	 * @return
+	 */
+	@ServiceActivator(inputChannel = "findCustomTransactionByReportingYearAndDraftFalseAndFormTypeNotInChannel")
+	public List<CustomFinancialTransaction> findByReportingYearAndDraftFalseAndFormTypeNotIn(final Integer year,
+			@Header("notFormType") Collection<String> notFormType) {
+		final LocalDateTime start = new LocalDateTime(year, 1, 1, 0, 0);
+		final LocalDateTime end = new LocalDateTime(year + 1, 1, 1, 0, 0);
+
+		return this.getRepo().findByReportingYearBetweenAndDraftFalseAndFormTypeNotIn(start, end, notFormType);
 	}
 	
 	@ServiceActivator(inputChannel="findDistinctReportingYearsInTransactionChannel")
