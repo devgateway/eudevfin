@@ -9,38 +9,6 @@
 // aplication variable
 var app = app || {};
 
-// function to check if an array has all the elements equal to a value
-app.checkArrayValue = function (array, value){
-	var i;
-
-	if(array.length > 0) {
-		for(i = 0; i < array.length; i++) {
-			if (array[i] !== value) {
-				return false;
-			}
-		}
-	}
-
-	return true;
-}
-
-// format the Amount column from tables (remove the comma)
-app.tableValueFormat = function (v, st) {
-	if (v >= 1000) {
-		return sprintf(st.colFormat, v / 1000).replace(/,/g, " ") + " 000";
-	} else {
-		if (v !== 0) {
-			return v;
-		} else {
-			return '';
-		}
-	}
-}
-
-app.noData = function () {
-	$('.no-data').show(1000);
-}
-
 $(document).ready(function () {
     // add more colors for Highcharts
     Highcharts.setOptions({

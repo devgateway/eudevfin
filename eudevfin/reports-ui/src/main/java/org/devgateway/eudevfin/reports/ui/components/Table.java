@@ -1,80 +1,80 @@
-/*
- * Copyright (c) 2013 Development Gateway.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the GNU Public License v3.0
- * which accompanies this distribution, and is available at
- * http://www.gnu.org/licenses/gpl.html
- */
-
 package org.devgateway.eudevfin.reports.ui.components;
 
-import org.apache.wicket.markup.head.CssHeaderItem;
-import org.apache.wicket.markup.head.IHeaderResponse;
-import org.apache.wicket.markup.head.JavaScriptHeaderItem;
-import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
-import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.StringResourceModel;
-import org.apache.wicket.request.resource.JavaScriptResourceReference;
+import org.apache.log4j.Logger;
+import org.apache.wicket.markup.html.list.ListView;
+import org.devgateway.eudevfin.reports.core.domain.QueryResult;
+import org.devgateway.eudevfin.reports.core.service.QueryService;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
- * Entity to spawn a Data Table
- *
- * @author aartimon
- * @since 13/12/13
+ * @author idobre
+ * @since 3/11/14
  */
-public class Table extends Panel implements IParametersProvider {
-    private final WebMarkupContainer table;
-    private TableParameters parameters;
-	private String initFunction;
 
-    public Table(String id, String dataAccessId, String messageKey) {
-        super(id);
+public class Table extends RunMdxQuery implements Serializable {
+    private static final Logger logger = Logger.getLogger(Table.class);
 
-        Label title = new Label("title", new StringResourceModel(messageKey, this, null, null));
-        add(title);
+    private DataTableDashboard table;
 
-        table = new WebMarkupContainer("table");
-        table.setOutputMarkupId(true);
-        add(table);
+    protected String tableId;
+    protected String rowId;
+    protected List<String[]> rows;
+    protected QueryResult result;
 
-        String tableId = table.getMarkupId();
-        parameters = new TableParameters(id, tableId);
+    public Table (QueryService CdaService, String tableId, String rowId, String dataAccessId) {
+        super(CdaService);
 
-	    parameters.getChartDefinition().setDataAccessId(dataAccessId);
+        this.tableId = tableId;
+        this.rowId = rowId;
+
+        table = new DataTableDashboard(tableId);
+
+        this.setParam("dataAccessId", dataAccessId);
     }
 
-    @Override
-    public void renderHead(IHeaderResponse response) {
-        super.renderHead(response);
-
-        response.render(CssHeaderItem.forUrl("/js/dataTables/css/demo_page.css"));
-        response.render(CssHeaderItem.forUrl("/js/dataTables/css/demo_table.css"));
-        response.render(CssHeaderItem.forUrl("/js/dataTables/css/demo_table_jui.css"));
-
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Table.class, "TableInit.js")));
-        response.render(OnDomReadyHeaderItem.forScript(this.initFunction + "(" + parameters().toJson() + ");"));
+    public DataTableDashboard getTable() {
+        return table;
     }
 
-    @Override
-    public BaseParameters parameters() {
-        return parameters;
+    /**
+     * Method that process the MDX result (it's similar with postExecution function from CDF plugin)
+     * this method should be Override by each object to configure the desired output
+     */
+    public ListView<String[]> getTableRows () {
+        return null;
     }
 
-	public TableParameters getParameters() {
-		return parameters;
-	}
+    public void addTableRows () {
+        table.add(this.getTableRows());
+    }
 
-	public void setParameters(TableParameters parameters) {
-		this.parameters = parameters;
-	}
+    public void setbPaginate(Boolean bPaginate) {
+        table.setbPaginate(bPaginate);
+    }
 
-	public String getInitFunction() {
-		return initFunction;
-	}
+    public void setbFilter(Boolean bFilter) {
+        table.setbFilter(bFilter);
+    }
 
-	public void setInitFunction(String initFunction) {
-		this.initFunction = initFunction;
-	}
+    public void setbInfo(Boolean bInfo) {
+        table.setbInfo(bInfo);
+    }
+
+    public void setbSort(Boolean bSort) {
+        table.setbSort(bSort);
+    }
+
+    public void setbLengthChange(Boolean bLengthChange) {
+        table.setbLengthChange(bLengthChange);
+    }
+
+    public void setiDisplayLength(int iDisplayLength) {
+        table.setiDisplayLength(iDisplayLength);
+    }
+
+    public void setbSortableColumn(Boolean bSortableColumn) {
+        table.setbSortableColumn(bSortableColumn);
+    }
 }

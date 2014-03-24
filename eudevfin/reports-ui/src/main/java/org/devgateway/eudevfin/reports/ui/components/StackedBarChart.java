@@ -1,64 +1,104 @@
 package org.devgateway.eudevfin.reports.ui.components;
 
-import org.apache.wicket.markup.head.IHeaderResponse;
-import org.apache.wicket.markup.head.JavaScriptHeaderItem;
-import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
-import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.StringResourceModel;
-import org.apache.wicket.request.resource.JavaScriptResourceReference;
+import com.googlecode.wickedcharts.highcharts.options.*;
+import com.googlecode.wickedcharts.highcharts.options.color.HexColor;
+import com.googlecode.wickedcharts.highcharts.options.functions.DefaultFormatter;
+import com.googlecode.wickedcharts.wicket6.highcharts.Chart;
+import org.apache.log4j.Logger;
+import org.devgateway.eudevfin.reports.core.domain.QueryResult;
+import org.devgateway.eudevfin.reports.core.service.QueryService;
+
+import java.util.Map;
 
 /**
- * Stacked bar chart dashboard implementation
+ * @author idobre
+ * @since 3/12/14
  */
-public class StackedBarChart extends Panel implements IParametersProvider {
-	private final WebMarkupContainer stackedBarChart;
-	private ChartParameters parameters;
-	private String initFunction;
-	
-	public StackedBarChart(String id, String dataAccessId, String messageKey) {
-        super(id);
-        
-        Label title = new Label("title", new StringResourceModel(messageKey, this, null, null));
-        add(title);
+public class StackedBarChart extends RunMdxQuery {
+    private static final Logger logger = Logger.getLogger(StackedBarChart.class);
 
-        stackedBarChart = new WebMarkupContainer("stackedBarChart");
-        stackedBarChart.setOutputMarkupId(true);
-        add(stackedBarChart);
+    private Options options;
+    protected String chartId;
+    protected QueryResult result;
 
-		String stackedBarChartId = stackedBarChart.getMarkupId();
-		parameters = new ChartParameters(id, stackedBarChartId);
+    public StackedBarChart (QueryService CdaService, String chartId, String dataAccessId) {
+        super(CdaService);
 
-		parameters.getQueryDefinition().setDataAccessId(dataAccessId);
-    }
-	
-	@Override
-    public void renderHead(IHeaderResponse response) {
-        super.renderHead(response);
+        this.chartId = chartId;
 
-		response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(StackedBarChart.class, "StackedBarChartInit.js")));
-		response.render(OnDomReadyHeaderItem.forScript(this.initFunction + "(" + parameters().toJson() + ");"));
+        options = new Options();
+        setDefaultOptions();
+
+        this.setParam("dataAccessId", dataAccessId);
     }
 
-	@Override
-	public BaseParameters parameters() {
-		return parameters;
-	}
+    /**
+     * Method that process the MDX result (it's similar with postExecution function from CDF plugin)
+     * this method should be Override by each object to configure the desired output
+     */
+    public Map<String, Float> getResultSeries () {
+        return null;
+    }
 
-	public ChartParameters getParameters() {
-		return parameters;
-	}
+    private void setDefaultOptions () {
+        options.setTitle(new Title(""));
 
-	public void setParameters(ChartParameters parameters) {
-		this.parameters = parameters;
-	}
+        options.setChartOptions(new ChartOptions()
+                .setAnimation(Boolean.TRUE)
+                .setBorderColor(new HexColor("#DEEDF7"))
+                .setBorderRadius(20)
+                .setBorderWidth(2)
+                .setHeight(350)
+                .setMarginLeft(null)
+                .setMarginRight(null)
+                .setMarginTop(null)
+                .setMarginBottom(null)
+                .setPlotShadow(Boolean.FALSE)
+                .setType(SeriesType.BAR));
 
-	public String getInitFunction() {
-		return initFunction;
-	}
+        options.setCreditOptions(new CreditOptions().setEnabled(Boolean.FALSE));
 
-	public void setInitFunction(String initFunction) {
-		this.initFunction = initFunction;
-	}
+        options.setExporting(new ExportingOptions().setEnabled(Boolean.TRUE));
+
+        options.setxAxis(new Axis()
+                .setLabels(new Labels()
+                        .setRotation(-15)
+                        .setAlign(HorizontalAlignment.RIGHT)
+                        .setStyle(new CssStyle()
+                                .setProperty("fontSize", "13px")
+                                .setProperty("fontFamily", "Verdana, sans-serif"))));
+
+        options.setyAxis(new Axis()
+                .setMin(0)
+                .setTitle(new Title("Amount")));
+
+        options.setTooltip(new Tooltip()
+                .setBorderWidth(1)
+                .setPercentageDecimals(2)
+                .setFormatter(new DefaultFormatter().setFunction("var value = '$ ' + sprintf('%.3f', this.y).replace(/,/g, \" \");\n" +
+                        "return this.point.category + '<br />' + '<b>' + this.point.series.name + '</b>: ' + value;"))
+                .setShared(Boolean.FALSE)
+                .setUseHTML(Boolean.TRUE));
+
+        options.setLegend(new Legend()
+                .setBackgroundColor(new HexColor("#FFFFFF"))
+                .setReversed(Boolean.TRUE));
+
+        options.setPlotOptions(new PlotOptionsChoice()
+                .setSeries(new PlotOptions()
+                        .setStacking(Stacking.NORMAL)
+                        .setCursor(Cursor.POINTER)));
+    }
+
+    public Chart getChart () {
+        return new Chart(chartId, options);
+    }
+
+    public Options getOptions () {
+        return options;
+    }
+
+    public void setOptions (Options options) {
+        this.options = options;
+    }
 }
