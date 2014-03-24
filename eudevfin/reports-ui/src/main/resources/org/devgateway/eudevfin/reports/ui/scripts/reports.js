@@ -35,6 +35,10 @@ $(document).ready(function () {
         	filename: 'export-pdf'
         });
     });
+
+    $('#print-page').click(function() {
+        window.print();
+    });
 });
 
 /**
