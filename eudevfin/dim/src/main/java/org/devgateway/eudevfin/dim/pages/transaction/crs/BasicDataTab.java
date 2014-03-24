@@ -9,6 +9,7 @@
 package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
 import com.vaynberg.wicket.select2.ChoiceProvider;
+
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -29,6 +30,7 @@ import org.devgateway.eudevfin.ui.common.components.TextAreaInputField;
 import org.devgateway.eudevfin.ui.common.permissions.PermissionAwareComponent;
 import org.devgateway.eudevfin.ui.common.providers.OrganizationChoiceProvider;
 import org.devgateway.eudevfin.ui.common.temporary.SB;
+import org.devgateway.eudevfin.ui.common.validators.BilateralField10CodeValidator;
 import org.devgateway.eudevfin.ui.common.validators.CodePatternCategoryValidator;
 
 /**
@@ -39,7 +41,8 @@ public class BasicDataTab extends Panel implements PermissionAwareComponent {
     private static final long serialVersionUID = 8923172292469016906L;
     public static final String KEY = "tabs.basic";
     public static final String REGEX_MULTILATERAL_CHANNEL_CODE = "4[0-9]{4}";
-    public static final String ERRORKEY_MULTILATERAL_CHANNEL_CODE = "validation.multilateralChannelCode";
+    public static final String VALIDATIONKEY_MULTILATERAL_CHANNEL_CODE = "validation.multilateralChannelCode";
+    public static final String VALIDATIONKEY_BILATERAL_FIELD_10_CODE = "validation.bilateralField10Code";
     protected PageParameters parameters;
 
 
@@ -97,7 +100,7 @@ public class BasicDataTab extends Panel implements PermissionAwareComponent {
 
                 @Override
                 protected ValidationError decorate(ValidationError error, IValidatable<Category> validatable) {
-                    error.addKey(ERRORKEY_MULTILATERAL_CHANNEL_CODE);
+                    error.addKey(VALIDATIONKEY_MULTILATERAL_CHANNEL_CODE);
                     return super.decorate(error, validatable);
                 }
             });
@@ -105,6 +108,16 @@ public class BasicDataTab extends Panel implements PermissionAwareComponent {
 
         DropDownField<Category> bilateralMultilateral = new DropDownField<>("10bilateralMultilateral",
                 new RWComponentPropertyModel<Category>("biMultilateral"), categoryFactory.get(CategoryConstants.BI_MULTILATERAL_TAG));
+        
+     
+        bilateralMultilateral.getField().add(new BilateralField10CodeValidator(transactionType) {
+        	@Override
+        	protected ValidationError decorate(ValidationError error, IValidatable<Category> validatable) {
+        		  error.addKey(VALIDATIONKEY_BILATERAL_FIELD_10_CODE);
+        		return super.decorate(error, validatable);
+        	}
+        	
+        });
         add(bilateralMultilateral);
 
         DropDownField<Category> typeOfFlow = new DropDownField<>("11typeOfFlow", new RWComponentPropertyModel<Category>("typeOfFlow"),
