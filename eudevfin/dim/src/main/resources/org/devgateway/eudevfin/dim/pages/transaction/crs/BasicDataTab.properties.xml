@@ -179,4 +179,7 @@
 		a complete list of sectors and code please refer to paragraphs 128-to-131 on pages 32-33 of the CRS Reporting
 		Directives available at http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-FINAL-ENG.pdf
 	</entry>
+	
+	<entry key="validation.multilateralChannelCode">The selected code is invalid! Select only 4xxxx format codes when in multilateral forms!</entry>
+	<entry key="validation.bilateralField10Code">The selected code is invalid! Only the codes 1,3 and 7 are allowed here when filling in bilateral forms!</entry>
 </properties>
