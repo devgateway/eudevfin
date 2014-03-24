@@ -34,6 +34,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -50,13 +51,15 @@ import java.util.Set;
 public class ReportsPage extends HeaderFooter {
     private static final Logger logger = Logger.getLogger(ReportsPage.class);
 
-    private static final int TABLE_YEAR = 2013;
+    private int tableYear;
     private String countryCurrency;
 
     @SpringBean
     QueryService CdaService;
 
     public ReportsPage() {
+        tableYear = Calendar.getInstance().get(Calendar.YEAR) - 1;
+
         addComponents();
     }
 
@@ -159,7 +162,7 @@ public class ReportsPage extends HeaderFooter {
                     }
                 }
 
-                // add '2012 / 2013' type of column
+                // add '2013 / 2012' type of column
                 for(int i = 0; i < len - 2; i++) {
                     // add (last_year - 1 / last_year) column
                     // but first check if we have valid values
@@ -181,9 +184,10 @@ public class ReportsPage extends HeaderFooter {
                     resultSet.get(i).add(null);
                 }
 
-                // format the amounts as #,###
-                DecimalFormat df = new DecimalFormat("#,###");
-                for(int i = 0; i < len - 2; i++) {
+                // format the amounts as #,###.##
+                // and other values like 'Bilateral share'
+                DecimalFormat df = new DecimalFormat("#,###.##");
+                for(int i = 0; i < len; i++) {
                     for(int j = 1; j <= NUMBER_OF_YEARS; j++) {
                         String item = resultSet.get(i).get(j);
 
@@ -215,10 +219,19 @@ public class ReportsPage extends HeaderFooter {
             }
         };
 
-        table.setParam("YEAR", Integer.toString(TABLE_YEAR));
-        table.setParam("YEAR1", Integer.toString(TABLE_YEAR - 1));
-        table.setParam("YEAR2", Integer.toString(TABLE_YEAR - 2));
+        table.setParam("YEAR", Integer.toString(tableYear));
+        table.setParam("YEAR1", Integer.toString(tableYear - 1));
+        table.setParam("YEAR2", Integer.toString(tableYear - 2));
         //table.setParam("REPORT_CURRENCY_CODE", countryCurrency + " (million)");
+
+        Label tableYear1 = new Label("tableYear1", tableYear - 2);
+        table.getTable().add(tableYear1);
+        Label tableYear2 = new Label("tableYear2", tableYear - 1);
+        table.getTable().add(tableYear2);
+        Label tableYear3 = new Label("tableYear3", tableYear);
+        table.getTable().add(tableYear3);
+        Label tableYear4 = new Label("tableYear4", tableYear + " / " + (tableYear - 1));
+        table.getTable().add(tableYear4);
 
         add(table.getTable());
         table.addTableRows();
@@ -285,14 +298,29 @@ public class ReportsPage extends HeaderFooter {
                 this.result = this.runQuery();
 
                 for (List<String> item : this.result.getResultset()) {
-                    String[] newItem = new String[2];
-
-                    if (item.get(0) != null) {
+                    if (item.size() > 0) {
+                        String[] newItem = new String[2];
                         newItem[0] = "Top 5 recipients";
-                        newItem[1] = item.get(0) + "%";
+                        newItem[1] = twoDecimalFormat(item.get(0)) + "%";
+
+                        rows.add(newItem);
                     }
 
-                    rows.add(newItem);
+                    if (item.size() > 1) {
+                        String[] newItem = new String[2];
+                        newItem[0] = "Top 10 recipients";
+                        newItem[1] = twoDecimalFormat(item.get(1)) + "%";
+
+                        rows.add(newItem);
+                    }
+
+                    if (item.size() > 2) {
+                        String[] newItem = new String[2];
+                        newItem[0] = "Top 20 recipients";
+                        newItem[1] = twoDecimalFormat(item.get(2)) + "%";
+
+                        rows.add(newItem);
+                    }
                 }
 
                 ListView<String[]> tableRows = new ListView<String[]>(this.rowId, rows) {
@@ -332,6 +360,11 @@ public class ReportsPage extends HeaderFooter {
         };
 
         Options options = pieChart.getOptions();
+        // check if we have a result and make the chart slightly higher
+        if (pieChart.getResultSeries().size() != 0) {
+            options.getChartOptions().setHeight(350);
+        }
+        options.getPlotOptions().getPie().getDataLabels().setEnabled(Boolean.FALSE);
         options.addSeries(new PointSeries()
                 .setType(SeriesType.PIE)
                 .setData(pieChart.getResultSeries()));
@@ -405,6 +438,12 @@ public class ReportsPage extends HeaderFooter {
         }
 
         add(stackedBarChart.getChart());
+    }
+
+    private String twoDecimalFormat (String number) {
+        DecimalFormat twoDForm = new DecimalFormat("#.##");
+
+        return twoDForm.format(Float.parseFloat(number));
     }
 
     @Override
