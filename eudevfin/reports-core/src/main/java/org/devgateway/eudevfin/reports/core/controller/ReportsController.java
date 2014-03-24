@@ -61,7 +61,7 @@ public class ReportsController {
     private static final String REPORT_TYPE = "reportType";
     private static final String REPORT_TYPE_AQ = "aq";
     private static final String REPORT_TYPE_DAC1 = "dac1";
-    private static final String REPORT_TYPE_DAC2 = "dac2";
+    private static final String REPORT_TYPE_DAC2a = "dac2a";
     private static final String OUTPUT_TYPE = "outputType";
     private static final String OUTPUT_TYPE_PDF = "pdf";
     private static final String OUTPUT_TYPE_EXCEL = "excel";
@@ -131,8 +131,8 @@ public class ReportsController {
             case REPORT_TYPE_DAC1:
                 generateDAC1(request, response, connection, outputType);
                 break;
-            case REPORT_TYPE_DAC2:
-                generateDAC2(request, response, connection, outputType);
+            case REPORT_TYPE_DAC2a:
+                generateDAC2a(request, response, connection, outputType);
                 break;
             default:
                 break;
@@ -334,9 +334,79 @@ public class ReportsController {
      * @param connection the Mondrian connection
      * @param outputType the output for the report: HTML, Excel, PDF, CSV
      */
-    private void generateDAC2 (HttpServletRequest request, HttpServletResponse response,
+    private void generateDAC2a (HttpServletRequest request, HttpServletResponse response,
                                Connection connection, String outputType) {
+        try {
+            InputStream inputStream = ReportsController.class.getClassLoader().getResourceAsStream("org/devgateway/eudevfin/reports/core/dac2a/dac2a_master.jrxml");
 
+            Map<String, Object> parameters = new HashMap<String, Object>();
+            parameters.put(JRMondrianQueryExecuterFactory.PARAMETER_MONDRIAN_CONNECTION, connection);
+            String subdirPath =  "org/devgateway/eudevfin/reports/core/dac2a";
+            parameters.put("SUBDIR_PATH", subdirPath);
+
+            // set locale
+            Locale locale = LocaleContextHolder.getLocale();
+            parameters.put(JRParameter.REPORT_LOCALE, locale);
+
+            // set resource bundle
+            try {
+                URL[] urls = {
+                        this.getClass().getResource("/org/devgateway/eudevfin/reports/").toURI().toURL()
+                };
+                ClassLoader loader = new URLClassLoader(urls);
+                ResourceBundle resourceBundle = java.util.ResourceBundle.getBundle("i18n", locale, loader);
+                parameters.put(JRParameter.REPORT_RESOURCE_BUNDLE, resourceBundle);
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
+            JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters);
+
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ReportExporter reportExporter = new ReportExporter();
+            String fileName = "";
+
+            switch (outputType) {
+                case OUTPUT_TYPE_PDF:
+                    reportExporter.exportPDF(jasperPrint, baos);
+                    fileName = "DAC 2a.pdf";
+                    response.setHeader("Content-Disposition", "inline; filename=" + fileName);
+                    response.setContentType("application/pdf");
+                    break;
+                case OUTPUT_TYPE_EXCEL:
+                    reportExporter.exportXLS(jasperPrint, baos);
+                    fileName = "DAC 2a.xls";
+                    response.setHeader("Content-Disposition", "inline; filename=" + fileName);
+                    response.setContentType("application/vnd.ms-excel");
+                    break;
+                case OUTPUT_TYPE_HTML:
+                    reportExporter.exportHTML(jasperPrint, baos);
+                    fileName = "DAC 2a.html";
+                    response.setHeader("Content-Disposition", "inline; filename=" + fileName);
+                    response.setContentType("text/html");
+                    break;
+                case OUTPUT_TYPE_CSV:
+                    reportExporter.exportCSV(jasperPrint, baos);
+                    fileName = "DAC 2a.csv";
+                    response.setHeader("Content-Disposition", "inline; filename=" + fileName);
+                    response.setContentType("text/csv");
+                    break;
+                default:
+                    break;
+            }
+
+            response.setContentLength(baos.size());
+
+            // write to response stream
+            this.writeReportToResponseStream(response, baos);
+        } catch (JRException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
