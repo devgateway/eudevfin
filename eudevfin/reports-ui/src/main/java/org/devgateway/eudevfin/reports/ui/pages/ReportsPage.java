@@ -105,8 +105,8 @@ public class ReportsPage extends HeaderFooter {
             public ListView<String[]> getTableRows () {
                 super.getTableRows();
 
-                final int NUMBER_OF_YEARS = 3;
-                final String FIRST_YEAR = "2011";
+                final int NUMBER_OF_YEARS = 2;
+                final String FIRST_YEAR = "" + (tableYear - 1);
 
                 this.rows = new ArrayList<>();
                 this.result = this.runQuery();
@@ -146,21 +146,6 @@ public class ReportsPage extends HeaderFooter {
                         // add the new dimension values for missing year
                         for (int i = 0; i < len; i++) {
                             resultSet.get(i).add(2, null);
-                        }
-                    }
-
-                    if (metadata.size() > 3 && !metadata.get(3).getColName().equals("" + (Integer.parseInt(FIRST_YEAR) + 2))) {
-                        // add new Metadatum item for missing year
-                        Metadatum newItem = new Metadatum();
-                        newItem.setColIndex(3);
-                        newItem.setColType("Numeric");
-                        newItem.setColName("" + (Integer.parseInt(FIRST_YEAR) + 2));
-
-                        metadata.add(3, newItem);
-
-                        // add the new dimension values for missing year
-                        for (int i = 0; i < len; i++) {
-                            resultSet.get(i).add(3, null);
                         }
                     }
 
@@ -214,7 +199,6 @@ public class ReportsPage extends HeaderFooter {
                         item.add(new Label("col1", row[1]));
                         item.add(new Label("col2", row[2]));
                         item.add(new Label("col3", row[3]));
-                        item.add(new Label("col4", row[4]));
                     }
                 };
 
@@ -224,17 +208,14 @@ public class ReportsPage extends HeaderFooter {
 
         table.setParam("YEAR", Integer.toString(tableYear));
         table.setParam("YEAR1", Integer.toString(tableYear - 1));
-        table.setParam("YEAR2", Integer.toString(tableYear - 2));
         //table.setParam("REPORT_CURRENCY_CODE", countryCurrency + " (million)");
 
-        Label tableYear1 = new Label("tableYear1", tableYear - 2);
+        Label tableYear1 = new Label("tableYear1", tableYear - 1);
         table.getTable().add(tableYear1);
-        Label tableYear2 = new Label("tableYear2", tableYear - 1);
+        Label tableYear2 = new Label("tableYear2", tableYear);
         table.getTable().add(tableYear2);
-        Label tableYear3 = new Label("tableYear3", tableYear);
+        Label tableYear3 = new Label("tableYear3", tableYear + " / " + (tableYear - 1));
         table.getTable().add(tableYear3);
-        Label tableYear4 = new Label("tableYear4", tableYear + " / " + (tableYear - 1));
-        table.getTable().add(tableYear4);
 
         add(table.getTable());
         table.addTableRows();
