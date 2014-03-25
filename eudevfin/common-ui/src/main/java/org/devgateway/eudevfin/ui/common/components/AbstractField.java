@@ -39,7 +39,7 @@ public abstract class AbstractField<T, FIELD extends FormComponent<T>> extends P
     private final Component appender;
     private final DetailedHelpControlGroup controlGroup;
     FIELD field;
-    private final MarkupContainer xPenderController;
+    protected final MarkupContainer xPenderController;
 
     private final AttributeModifier span4AttrModifier = new AttributeAppender("class", Model.of("span4"), " ");
 

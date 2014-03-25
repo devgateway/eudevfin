@@ -33,6 +33,9 @@ public class DateToLocalDateTimeModel extends WrappingModel<Date, LocalDateTime>
 
     @Override
     public void setObject(Date object) {
-        originalModel.setObject(LocalDateTime.fromDateFields(object));
+		if (object == null)
+			originalModel.setObject(null);
+		else
+			originalModel.setObject(LocalDateTime.fromDateFields(object));
     }
 }
