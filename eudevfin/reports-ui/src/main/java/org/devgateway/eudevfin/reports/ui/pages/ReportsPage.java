@@ -113,93 +113,96 @@ public class ReportsPage extends HeaderFooter {
                 List <List<String>> resultSet = this.result.getResultset();
                 List <Metadatum>metadata = result.getMetadata();
 
-                // check programmatically that all columns are populated.
-                // there is no other elegant solution
-                // (we don't need to update the 'colIndex' property from metadata since we only use the results)
-                int len = resultSet.size();
-                if(!metadata.get(1).getColName().equals(FIRST_YEAR)) {
-                    // add new Metadatum item for missing year
-                    Metadatum newItem = new Metadatum();
-                    newItem.setColIndex(1);
-                    newItem.setColType("Numeric");
-                    newItem.setColName(FIRST_YEAR);
+                if(resultSet.get(0).size() != 1) {
+                    // check programmatically that all columns are populated.
+                    // there is no other elegant solution
+                    // (we don't need to update the 'colIndex' property from metadata since we only use the results)
+                    int len = resultSet.size();
 
-                    metadata.add(1, newItem);
+                    if (metadata.size() > 1 && !metadata.get(1).getColName().equals(FIRST_YEAR)) {
+                        // add new Metadatum item for missing year
+                        Metadatum newItem = new Metadatum();
+                        newItem.setColIndex(1);
+                        newItem.setColType("Numeric");
+                        newItem.setColName(FIRST_YEAR);
 
-                    // add the new dimension values for missing year
-                    for(int i = 0; i < len; i++) {
-                        resultSet.get(i).add(1, null);
+                        metadata.add(1, newItem);
+
+                        // add the new dimension values for missing year
+                        for (int i = 0; i < len; i++) {
+                            resultSet.get(i).add(1, null);
+                        }
                     }
-                }
 
-                if(!metadata.get(2).getColName().equals("" + (Integer.parseInt(FIRST_YEAR) + 1))) {
-                    // add new Metadatum item for missing year
-                    Metadatum newItem = new Metadatum();
-                    newItem.setColIndex(2);
-                    newItem.setColType("Numeric");
-                    newItem.setColName("" + (Integer.parseInt(FIRST_YEAR) + 1));
+                    if (metadata.size() > 2 && !metadata.get(2).getColName().equals("" + (Integer.parseInt(FIRST_YEAR) + 1))) {
+                        // add new Metadatum item for missing year
+                        Metadatum newItem = new Metadatum();
+                        newItem.setColIndex(2);
+                        newItem.setColType("Numeric");
+                        newItem.setColName("" + (Integer.parseInt(FIRST_YEAR) + 1));
 
-                    metadata.add(2, newItem);
+                        metadata.add(2, newItem);
 
-                    // add the new dimension values for missing year
-                    for(int i = 0; i < len; i++) {
-                        resultSet.get(i).add(2, null);
+                        // add the new dimension values for missing year
+                        for (int i = 0; i < len; i++) {
+                            resultSet.get(i).add(2, null);
+                        }
                     }
-                }
 
-                if(!metadata.get(3).getColName().equals("" + (Integer.parseInt(FIRST_YEAR) + 2))) {
-                    // add new Metadatum item for missing year
-                    Metadatum newItem = new Metadatum();
-                    newItem.setColIndex(3);
-                    newItem.setColType("Numeric");
-                    newItem.setColName("" + (Integer.parseInt(FIRST_YEAR) + 2));
+                    if (metadata.size() > 3 && !metadata.get(3).getColName().equals("" + (Integer.parseInt(FIRST_YEAR) + 2))) {
+                        // add new Metadatum item for missing year
+                        Metadatum newItem = new Metadatum();
+                        newItem.setColIndex(3);
+                        newItem.setColType("Numeric");
+                        newItem.setColName("" + (Integer.parseInt(FIRST_YEAR) + 2));
 
-                    metadata.add(3, newItem);
+                        metadata.add(3, newItem);
 
-                    // add the new dimension values for missing year
-                    for(int i = 0; i < len; i++) {
-                        resultSet.get(i).add(3, null);
+                        // add the new dimension values for missing year
+                        for (int i = 0; i < len; i++) {
+                            resultSet.get(i).add(3, null);
+                        }
                     }
-                }
 
-                // add '2013 / 2012' type of column
-                for(int i = 0; i < len - 2; i++) {
-                    // add (last_year - 1 / last_year) column
-                    // but first check if we have valid values
-                    if (resultSet.get(i).get(NUMBER_OF_YEARS - 1) == null) {
-                        resultSet.get(i).add(null);
-                    } else {
-                        if (resultSet.get(i).get(NUMBER_OF_YEARS) == null) {
+                    // add '2013 / 2012' type of column
+                    for (int i = 0; i < len - 2; i++) {
+                        // add (last_year - 1 / last_year) column
+                        // but first check if we have valid values
+                        if (resultSet.get(i).get(NUMBER_OF_YEARS - 1) == null) {
                             resultSet.get(i).add(null);
                         } else {
-                            Double result = Double.parseDouble(resultSet.get(i).get(NUMBER_OF_YEARS - 1)) /
-                                    Double.parseDouble(resultSet.get(i).get(NUMBER_OF_YEARS)) * 100;
-                            DecimalFormat twoDForm = new DecimalFormat("#.##");
-                            resultSet.get(i).add(Float.valueOf(twoDForm.format(result)) + "%");
+                            if (resultSet.get(i).get(NUMBER_OF_YEARS) == null) {
+                                resultSet.get(i).add(null);
+                            } else {
+                                Double result = Double.parseDouble(resultSet.get(i).get(NUMBER_OF_YEARS - 1)) /
+                                        Double.parseDouble(resultSet.get(i).get(NUMBER_OF_YEARS)) * 100;
+                                DecimalFormat twoDForm = new DecimalFormat("#.##");
+                                resultSet.get(i).add(Float.valueOf(twoDForm.format(result)) + "%");
+                            }
                         }
                     }
-                }
 
-                for(int i = len - 2; i < len; i++) {
-                    resultSet.get(i).add(null);
-                }
+                    for (int i = len - 2; i < len; i++) {
+                        resultSet.get(i).add(null);
+                    }
 
-                // format the amounts as #,###.##
-                // and other values like 'Bilateral share'
-                DecimalFormat df = new DecimalFormat("#,###.##");
-                for(int i = 0; i < len; i++) {
-                    for(int j = 1; j <= NUMBER_OF_YEARS; j++) {
-                        String item = resultSet.get(i).get(j);
+                    // format the amounts as #,###.##
+                    // and other values like 'Bilateral share'
+                    DecimalFormat df = new DecimalFormat("#,###.##");
+                    for (int i = 0; i < len; i++) {
+                        for (int j = 1; j <= NUMBER_OF_YEARS; j++) {
+                            String item = resultSet.get(i).get(j);
 
-                        if (item != null) {
-                            item = df.format(Float.parseFloat(resultSet.get(i).get(j)));
-                            resultSet.get(i).set(j, item);
+                            if (item != null) {
+                                item = df.format(Float.parseFloat(resultSet.get(i).get(j)));
+                                resultSet.get(i).set(j, item);
+                            }
                         }
                     }
-                }
 
-                for (List<String> item : resultSet) {
-                    this.rows.add(item.toArray(new String[item.size()]));
+                    for (List<String> item : resultSet) {
+                        this.rows.add(item.toArray(new String[item.size()]));
+                    }
                 }
 
                 ListView<String[]> tableRows = new ListView<String[]>(this.rowId, rows) {
