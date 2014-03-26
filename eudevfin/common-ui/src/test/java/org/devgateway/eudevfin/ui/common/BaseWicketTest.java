@@ -6,7 +6,7 @@
  * http://www.gnu.org/licenses/gpl.html
  */
 
-package org.devgateway.eudevfin.dim.core;
+package org.devgateway.eudevfin.ui.common;
 
 import org.apache.wicket.util.tester.WicketTester;
 import org.devgateway.eudevfin.ui.common.spring.TestingWicketSpringApplication;
@@ -27,8 +27,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations = {
         "classpath:META-INF/commonContext.xml",
         "classpath:META-INF/commonAuthContext.xml",
-        "classpath:META-INF/commonFinancialContext.xml",
-        "classpath:META-INF/*Context.xml"
+        "classpath:META-INF/commonFinancialContext.xml"
 })
 public abstract class BaseWicketTest {
     protected WicketTester tester;
