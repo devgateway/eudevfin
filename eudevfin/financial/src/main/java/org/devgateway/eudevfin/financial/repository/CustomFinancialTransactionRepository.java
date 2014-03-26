@@ -6,6 +6,7 @@ package org.devgateway.eudevfin.financial.repository;
 import java.util.Collection;
 import java.util.List;
 
+import org.devgateway.eudevfin.auth.common.domain.PersistedUserGroup;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
 import org.joda.time.LocalDateTime;
 import org.springframework.data.domain.Page;
@@ -21,6 +22,8 @@ public interface CustomFinancialTransactionRepository extends
 		PagingAndSortingRepository<CustomFinancialTransaction, Long> {
 	
 	Page<CustomFinancialTransaction> findByDraft(Boolean draft, Pageable pageable );
+	
+	Page<CustomFinancialTransaction> findByDraftAndPersistedUserGroup(Boolean draft,PersistedUserGroup persistedUserGroup, Pageable pageable );
 	
 	List<CustomFinancialTransaction> findByReportingYearBetweenAndDraftFalse(LocalDateTime start, LocalDateTime end);
 	

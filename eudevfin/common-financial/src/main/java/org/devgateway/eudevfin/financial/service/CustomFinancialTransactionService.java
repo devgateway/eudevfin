@@ -6,6 +6,7 @@ package org.devgateway.eudevfin.financial.service;
 import java.util.Collection;
 import java.util.List;
 
+import org.devgateway.eudevfin.auth.common.domain.PersistedUserGroup;
 import org.devgateway.eudevfin.common.service.BaseEntityService;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
 import org.springframework.data.domain.Page;
@@ -18,7 +19,8 @@ import org.springframework.integration.annotation.Payload;
  *
  */
 public interface CustomFinancialTransactionService extends BaseEntityService<CustomFinancialTransaction> {
-	public Page<CustomFinancialTransaction> findByDraftPageable (Boolean draft, @Header("pageable")Pageable pageable);
+	public Page<CustomFinancialTransaction> findByDraftAndPersistedUserGroupPageable(Boolean draft,
+			@Header("persistedUserGroup") PersistedUserGroup persistedUserGroup, @Header("pageable") Pageable pageable);
 	
 	public List<CustomFinancialTransaction> findByReportingYearAndDraftFalse(final Integer year);
 	

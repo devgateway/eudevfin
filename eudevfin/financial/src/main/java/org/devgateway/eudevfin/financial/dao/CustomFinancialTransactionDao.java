@@ -6,6 +6,7 @@ package org.devgateway.eudevfin.financial.dao;
 import java.util.Collection;
 import java.util.List;
 
+import org.devgateway.eudevfin.auth.common.domain.PersistedUserGroup;
 import org.devgateway.eudevfin.common.dao.AbstractDaoImpl;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
 import org.devgateway.eudevfin.financial.repository.CustomFinancialTransactionRepository;
@@ -41,11 +42,18 @@ public class CustomFinancialTransactionDao
 		return this.repo;
 	}
 	
-	@ServiceActivator(inputChannel="findCustomTransactionByDraftPageableChannel")
-	public Page<CustomFinancialTransaction> findByGeneralSearchPageable(final Boolean draft,
+	/**
+	 * @see CustomFinancialTransactionService#findByDraftAndPersistedUserGroupPageable(Boolean, PersistedUserGroup, Pageable)
+	 * @param draft
+	 * @param persistedUserGroup
+	 * @param pageable
+	 * @return
+	 */
+	@ServiceActivator(inputChannel="findCustomTransactionByDraftAndPersistedUserGroupPageableChannel")
+	public Page<CustomFinancialTransaction> findByDraftAndPersistedUserGroupPageable(final Boolean draft,
+			@Header("persistedUserGroup") PersistedUserGroup persistedUserGroup,
 			@Header("pageable") final Pageable pageable) {
-
-		return  this.getRepo().findByDraft(draft, pageable)  ;
+		return this.getRepo().findByDraftAndPersistedUserGroup(draft, persistedUserGroup, pageable);
 	}
 	
 	/**

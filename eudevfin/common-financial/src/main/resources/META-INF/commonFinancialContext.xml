@@ -57,8 +57,8 @@
 	<int:gateway id="customFinancialTransactionService"
 		default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}" 
 		service-interface="org.devgateway.eudevfin.financial.service.CustomFinancialTransactionService">
-		<int:method name="findByDraftPageable" request-channel="getChannel">
-			<int:header name="requestName" value="findCustomTransactionByDraftPageableChannel"/>
+		<int:method name="findByDraftAndPersistedUserGroupPageable" request-channel="getChannel">
+			<int:header name="requestName" value="findCustomTransactionByDraftAndPersistedUserGroupPageableChannel"/>
 		</int:method>
 		<int:method name="findByReportingYearAndDraftFalse" request-channel="getChannel">
 			<int:header name="requestName" value="findCustomTransactionByReportingYearAndDraftFalseChannel"/>
