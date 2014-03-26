@@ -87,9 +87,10 @@ public class CategoryDaoImpl extends AbstractDaoImpl<Category, Long, CategoryRep
 				return newWrapper(category);
 			}
 		}
-		throw new NoDataFoundException(
-				String.format("No category found for code %s and class %s ", code,clazz.getName())
-			);
+		return newWrapper(null);
+//		throw new NoDataFoundException(
+//				String.format("No category found for code %s and class %s ", code,clazz.getName())
+//			);
 	}
 	
 	/**

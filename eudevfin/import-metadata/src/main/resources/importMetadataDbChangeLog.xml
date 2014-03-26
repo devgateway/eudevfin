@@ -6,7 +6,7 @@
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
 
-	<changeSet id="3" author="agartner">
+	<changeSet id="3" author="agartner" runAlways="true">
 
 		<customChange
 			class="org.devgateway.eudevfin.importing.metadata.liquibase.MetadataTaskChange">

@@ -70,6 +70,5 @@ public class ChannelCategoryMapper extends CategoryMapper {
 			}
 		}
 	}
-	
 
 }

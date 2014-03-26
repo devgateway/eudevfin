@@ -67,4 +67,8 @@ public class AreaDaoImpl extends AbstractDaoImpl<Area,Long, AreaRepository> {
 		if(searchString.isEmpty()) return getRepo().findAll(pageable);
 		return getRepo().findByTranslationNameContaining(searchString.toLowerCase(), pageable);
 	}
+	
+	public Area findByCode(String code) {
+		return this.getRepo().findByCode(code);
 	}
+}

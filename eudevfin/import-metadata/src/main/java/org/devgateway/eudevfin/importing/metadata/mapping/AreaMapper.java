@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  */
 public class AreaMapper extends AbstractMapper<Area> {
-
+	
 	@Autowired
 	CategoryDaoImpl categDao;
 	
@@ -27,7 +27,7 @@ public class AreaMapper extends AbstractMapper<Area> {
 		super();
 		try {
 			this.setUp();
-		} catch (SetupException e) {
+		} catch (final SetupException e) {
 			e.printStackTrace();
 		}
 	}
@@ -37,20 +37,20 @@ public class AreaMapper extends AbstractMapper<Area> {
 		return new Area();
 	}
 	
-	public Area __factory(String type){
+	public Area __factory(final String type){
 		if ("country".equals(type)) {
 			return new Country();
-		}
-		else
+		} else {
 			return new Area();
+		}
 	}
 	
-	public void __incomeGroup(Area newArea, String incomeGroupCode) {
+	public void __incomeGroup(final Area newArea, final String incomeGroupCode) {
 		if (incomeGroupCode != null && incomeGroupCode.length() > 0) {
-			Category incomeGroup	= categDao.findByCodeAndClass(incomeGroupCode, Category.class, false).getEntity();
-			if ( incomeGroup != null )
+			final Category incomeGroup	= this.categDao.findByCodeAndClass(incomeGroupCode, Category.class, false).getEntity();
+			if ( incomeGroup != null ) {
 				newArea.setIncomeGroup(incomeGroup);
-			else {
+			} else {
 				throw new InvalidDataException(
 						String.format("Found null income group category for code %s for area with code %s", 
 								incomeGroupCode, newArea.getCode() )

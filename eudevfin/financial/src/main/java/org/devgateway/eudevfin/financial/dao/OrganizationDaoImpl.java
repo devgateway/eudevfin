@@ -83,4 +83,8 @@ public class OrganizationDaoImpl extends AbstractDaoImpl<Organization, Long, Org
 		if(searchString.isEmpty()) return repo.findAll(pageable);
 		return repo.findByTranslationNameContaining(searchString.toLowerCase(), pageable);		 
 	}
+	
+    public Organization findByCodeAndDonorCode(String code, String donorCode) {
+        return this.repo.findByCodeAndDonorCode(code, donorCode);
+    }
 }

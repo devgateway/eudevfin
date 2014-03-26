@@ -7,10 +7,7 @@ import java.util.List;
 
 import liquibase.exception.SetupException;
 
-import org.devgateway.eudevfin.common.dao.translation.AbstractTranslateable;
-import org.devgateway.eudevfin.common.dao.translation.AbstractTranslation;
 import org.devgateway.eudevfin.common.spring.ContextHelper;
-import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
@@ -24,10 +21,10 @@ public abstract class AbstractMapper<T>
 	public AbstractMapper() {
 		super();
 		this.methodMap	= new HashMap<String, Method>();
-		Method[] methods = this.getClass().getMethods();
-		for ( Method method: methods ) {
+		final Method[] methods = this.getClass().getMethods();
+		for ( final Method method: methods ) {
 			if ( method.getName().startsWith("__") ) {
-				methodMap.put(method.getName(), method);
+				this.methodMap.put(method.getName(), method);
 			}
 		}
 		
@@ -35,30 +32,30 @@ public abstract class AbstractMapper<T>
 
 	protected abstract T instantiate();
 	
-	public Object get(T entity, String property) {
-		BeanWrapper beanWrapper = new BeanWrapperImpl(entity);
+	public Object get(final T entity, final String property) {
+		final BeanWrapper beanWrapper = new BeanWrapperImpl(entity);
         return beanWrapper.getPropertyValue(property);
 	}
 
-	public void set(T entity, String property, Object value) {
+	public void set(final T entity, final String property, final Object value) {
 		if (value != null && value.toString().length() > 0) {
-			BeanWrapper beanWrapper = new BeanWrapperImpl(entity);
+			final BeanWrapper beanWrapper = new BeanWrapperImpl(entity);
 			beanWrapper.setPropertyValue(property, value);
 		}
 	}
 
 	@Override
-	public T createEntity(List<String> values) {
+	public T createEntity(final List<String> values) {
 		if ( values != null  ) {
 			T result	= this.instantiate();
 			for (int i=0; i<values.size(); i++) {
-				Object value 			= values.get(i);
-				String unparsedInfo		= this.metainfos.get(i);
-				String[] infoParts		=  unparsedInfo.split("##");
+				final Object value 			= values.get(i);
+				final String unparsedInfo		= this.metainfos.get(i);
+				final String[] infoParts		=  unparsedInfo.split("##");
 				
 				if ( infoParts != null && infoParts.length >= 2 ) {
-					String infoType	= infoParts[0];
-					String info		= infoParts[1];
+					final String infoType	= infoParts[0];
+					final String info		= infoParts[1];
 					String lang		= null;
 					if ( infoParts.length == 3 ) {
 						lang	= infoParts[2];
@@ -66,7 +63,7 @@ public abstract class AbstractMapper<T>
 					}
 					
 					if ( "method".equals(infoType) ) {
-						Method m 	= this.methodMap.get(info);
+						final Method m 	= this.methodMap.get(info);
 						try {
 							m.invoke(this, result ,value);
 						} catch (IllegalAccessException
@@ -76,7 +73,7 @@ public abstract class AbstractMapper<T>
 						}
 					}
 					else if ("constructor".equals(infoType)) {
-						Method m 	= this.methodMap.get(info);
+						final Method m 	= this.methodMap.get(info);
 						try {
 							result	= (T) m.invoke(this ,value);
 						} catch (IllegalAccessException
@@ -97,18 +94,18 @@ public abstract class AbstractMapper<T>
 
 	@Override
 	public List<String> getMetainfos() {
-		return metainfos;
+		return this.metainfos;
 	}
 
 	@Override
-	public void setMetainfos(List<String> metainfos) {
+	public void setMetainfos(final List<String> metainfos) {
 		this.metainfos = metainfos;
 	}
 	
 	protected void setUp() throws SetupException {
-		AutowireCapableBeanFactory factory = ContextHelper.newInstance()
+		final AutowireCapableBeanFactory factory = ContextHelper.newInstance()
 				.getAutowireCapableBeanFactory();
 		factory.autowireBean(this);
 	}
-
+	
 }

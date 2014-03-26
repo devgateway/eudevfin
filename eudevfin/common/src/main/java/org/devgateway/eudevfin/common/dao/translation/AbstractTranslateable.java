@@ -59,13 +59,13 @@ public abstract class AbstractTranslateable<T extends AbstractTranslation<? exte
     private String locale;
 
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "parent", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval=true)
     @MapKey(name = "locale")
 	protected Map<String, T> translations;
 
 
-    protected void set(String property, Object value) {
-        String locale = this.decideLocaleToUse();
+    protected void set(final String property, final Object value) {
+        final String locale = this.decideLocaleToUse();
         if (this.translations == null) {
             this.translations = new HashMap<>();
         }
@@ -74,9 +74,9 @@ public abstract class AbstractTranslateable<T extends AbstractTranslation<? exte
 
     }
 
-    protected Object get(String property) {
+    protected Object get(final String property) {
         if (this.translations != null && this.translations.size() > 0) {
-            String locale = this.decideLocaleToUse();
+            final String locale = this.decideLocaleToUse();
             Object result = this.attemptGet(locale, property);
 
             if (result == null) {
@@ -89,18 +89,18 @@ public abstract class AbstractTranslateable<T extends AbstractTranslation<? exte
 
     }
 
-    private Object attemptGet(String locale, String property) {
+    private Object attemptGet(final String locale, final String property) {
         if (locale != null) {
-            AbstractTranslation translation = this.translations.get(locale);
+            final AbstractTranslation translation = this.translations.get(locale);
             if (translation != null) {
-                Object result = translation.get(property);
+                final Object result = translation.get(property);
                 return result;
             }
         }
         return null;
     }
 
-    private void attemptSet(String locale, String property, Object value) {
+    private void attemptSet(final String locale, final String property, final Object value) {
 
         T translation = this.translations.get(locale);
         if (translation == null) {
@@ -114,15 +114,15 @@ public abstract class AbstractTranslateable<T extends AbstractTranslation<? exte
 
     private String decideLocaleToUse() {
         logger.debug("Deciding the locale to use");
-        if (this.locale != null)
-            return this.locale;
-        else {
+        if (this.locale != null) {
+			return this.locale;
+		} else {
             try {
-				LocaleHelperInterface localeHelper = ContextHelper.newInstance().getBean("localeHelperRequest");
+				final LocaleHelperInterface localeHelper = ContextHelper.newInstance().getBean("localeHelperRequest");
                 if (localeHelper != null && localeHelper.getLocale() != null) {
                     return localeHelper.getLocale();
                 }
-            } catch (RuntimeException ex) {
+            } catch (final RuntimeException ex) {
                 logger.warn("Problem getting locale helper from request scope: " + ex.getMessage());
             }
         }
@@ -135,61 +135,61 @@ public abstract class AbstractTranslateable<T extends AbstractTranslation<? exte
      * @return the locale
      */
     public String getLocale() {
-        return locale;
+        return this.locale;
     }
 
     /**
      * @param locale the locale to set
      */
-    public void setLocale(String locale) {
+    public void setLocale(final String locale) {
         this.locale = locale;
     }
 
     public Long getId() {
-        return id;
+        return this.id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
     public String getCreatedBy() {
-        return createdBy;
+        return this.createdBy;
     }
 
-    public void setCreatedBy(String createdBy) {
+    public void setCreatedBy(final String createdBy) {
         this.createdBy = createdBy;
     }
 
     public Date getCreatedDate() {
-        return createdDate;
+        return this.createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
+    public void setCreatedDate(final Date createdDate) {
         this.createdDate = createdDate;
     }
 
     public Map<String, T> getTranslations() {
-        return translations;
+        return this.translations;
     }
 
-    public void setTranslations(Map<String, T> translations) {
+    public void setTranslations(final Map<String, T> translations) {
         this.translations = translations;
     }
 
     public String getModifiedBy() {
-        return modifiedBy;
+        return this.modifiedBy;
     }
 
-    public void setModifiedBy(String modifiedBy) {
+    public void setModifiedBy(final String modifiedBy) {
         this.modifiedBy = modifiedBy;
     }
 
     public Date getModfiedDate() {
-        return modfiedDate;
+        return this.modfiedDate;
     }
 
-    public void setModfiedDate(Date modfiedDate) {
+    public void setModfiedDate(final Date modfiedDate) {
         this.modfiedDate = modfiedDate;
     }
 
