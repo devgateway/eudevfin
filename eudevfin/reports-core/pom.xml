@@ -8,7 +8,8 @@
   ~ Contributors:
   ~    fferreyra
   -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.devgateway.eudevfin</groupId>
@@ -38,6 +39,19 @@
         </dependencies>
     </dependencyManagement>
     <dependencies>
+
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>${jasper.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.lowagie</groupId>
+            <artifactId>itext</artifactId>
+            <version>${itext.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.devgateway.eudevfin</groupId>
             <artifactId>auth</artifactId>
@@ -277,7 +291,8 @@
                 <configuration>
                     <sourceDirectory>src/main/resources/org/devgateway/eudevfin/reports/core</sourceDirectory>
                     <sourceFileExt>.jrxml</sourceFileExt>
-                    <outputDirectory>${project.build.directory}/classes/org/devgateway/eudevfin/reports/core</outputDirectory>
+                    <outputDirectory>${project.build.directory}/classes/org/devgateway/eudevfin/reports/core
+                    </outputDirectory>
                     <!-- <outputDirectory>src/main/resources/org/devgateway/eudevfin/reports</outputDirectory>-->
                     <outputFileExt>.jasper</outputFileExt>
                     <compiler>net.sf.jasperreports.engine.design.JRJdtCompiler</compiler>
@@ -322,35 +337,35 @@
             </plugin>
         </plugins>
         <pluginManagement>
-        	<plugins>
-        		<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-        		<plugin>
-        			<groupId>org.eclipse.m2e</groupId>
-        			<artifactId>lifecycle-mapping</artifactId>
-        			<version>1.0.0</version>
-        			<configuration>
-        				<lifecycleMappingMetadata>
-        					<pluginExecutions>
-        						<pluginExecution>
-        							<pluginExecutionFilter>
-        								<groupId>org.codehaus.mojo</groupId>
-        								<artifactId>jasperreports-maven-plugin</artifactId>
-        								<versionRange>[1.0-beta-2,)</versionRange>
-        								<goals>
-        									<goal>compile-reports</goal>
-        								</goals>
-        							</pluginExecutionFilter>
-        							<action>
-									 <execute>
-            							 <runOnIncremental>true</runOnIncremental>            					
-           							</execute>
-									</action>
-        						</pluginExecution>
-        					</pluginExecutions>
-        				</lifecycleMappingMetadata>
-        			</configuration>
-        		</plugin>
-        	</plugins>
+            <plugins>
+                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.codehaus.mojo</groupId>
+                                        <artifactId>jasperreports-maven-plugin</artifactId>
+                                        <versionRange>[1.0-beta-2,)</versionRange>
+                                        <goals>
+                                            <goal>compile-reports</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <execute>
+                                            <runOnIncremental>true</runOnIncremental>
+                                        </execute>
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+            </plugins>
         </pluginManagement>
     </build>
 
