@@ -128,12 +128,18 @@
 		<property name="changeLog" value="classpath:financialDbChangelog.xml" />
 	</bean>
 
-	
-	
+    <bean id="exporter" class="org.springframework.jmx.export.MBeanExporter" lazy-init="false">
+        <property name="beans">
+            <map>
+                <entry key="org.hibernate:name=hibernateStatisticsBean" value-ref="hibernateStatisticsBean"/>
+            </map>
+        </property>
+        <property name="server" ref="mbeanServer"/>
+    </bean>
 
-		  
-	<!-- Hibernate / JPA related beans -->
-	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" depends-on="ehcache">
+
+    <!-- Hibernate / JPA related beans -->
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" depends-on="ehcache">
 		<property name="dataSource" ref="euDevFinDataSource" />
 		<property name="packagesToScan" value="org.devgateway.eudevfin" />
 		<property name="mappingResources" value="META-INF/orm.xml"/>
@@ -162,12 +168,6 @@
 		<constructor-arg index="0" ref="entityManagerFactory"></constructor-arg>
 	</bean>
 	
-	<!-- configures ehcache through spring, as singleton -->	
-	<!-- 
-	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager" p:cacheManager-ref="ehcache"/>
-	 -->	
-	<bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" p:configLocation="classpath:ehcache.xml" p:shared="true" lazy-init="false"/>
-
 
 	
 	<!-- The list of channels that are used throughout the financial module -->
