@@ -16,6 +16,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.context.ApplicationContext;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -27,9 +28,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations = {
         "classpath:META-INF/commonContext.xml",
         "classpath:META-INF/commonAuthContext.xml",
-        "classpath:META-INF/commonFinancialContext.xml",
-        "classpath:META-INF/*Context.xml"
+        "classpath:META-INF/commonFinancialContext.xml"
 })
+@DirtiesContext
 public abstract class BaseWicketTest {
     protected WicketTester tester;
 
