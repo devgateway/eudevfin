@@ -27,7 +27,7 @@
 
     <tx:annotation-driven/>
     <int:annotation-config/>
-    <context:component-scan base-package="org.devgateway.eudevfin.common"/>
+    <context:component-scan base-package="org.devgateway.eudevfin"/>
     <context:annotation-config/>
 
     <!-- JMX monitoring - disabled during development for speed purposes -->
