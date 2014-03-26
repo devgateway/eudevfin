@@ -27,7 +27,7 @@
 
     <tx:annotation-driven/>
     <int:annotation-config/>
-    <context:component-scan base-package="org.devgateway.eudevfin"/>
+    <context:component-scan base-package="org.devgateway.eudevfin.common"/>
     <context:annotation-config/>
 
     <!-- JMX monitoring - disabled during development for speed purposes -->
@@ -35,7 +35,6 @@
     <context:mbean-server id="mbeanServer"/>
     <int-jmx:mbean-export/>
     <context:mbean-export/>
-
     <!-- configures ehcache through spring, as singleton -->
     <!--
     <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager" p:cacheManager-ref="ehcache"/>
