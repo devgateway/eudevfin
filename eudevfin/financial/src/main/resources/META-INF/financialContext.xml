@@ -128,6 +128,8 @@
 		<property name="changeLog" value="classpath:financialDbChangelog.xml" />
 	</bean>
 
+    <bean id="hibernateStatisticsBean" class="org.devgateway.eudevfin.common.hibernate.HibernateStatisticsFactoryBean"/>
+
     <bean id="exporter" class="org.springframework.jmx.export.MBeanExporter" lazy-init="false">
         <property name="beans">
             <map>
