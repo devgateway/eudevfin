@@ -265,4 +265,6 @@
 		this Rio marker, its background , some examples and FAQs are given in Annex 18 of the CRS++ Gudieliens available at
 		http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-ADD2-FINAL-ENG.pdf (page 43).
 	</entry>
+	
+	<entry key="validation.markerDesertification">Code 3 is valid only for the Desertification marker!</entry>
 </properties>

@@ -53,18 +53,19 @@ public class CRSTransactionPermissionProvider extends PermissionProvider {
         permissions.put("17startingDate", new RoleActionMapping().required(SB.biODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
         permissions.put("18completionDate", new RoleActionMapping().required(SB.biODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
         permissions.put("19description", new RoleActionMapping().required(SB.biODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
-        permissions.put("20genderEquality", new RoleActionMapping().required(SB.biODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
-        permissions.put("21aidToEnvironment", new RoleActionMapping().required(SB.biODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
-        permissions.put("22pdGg", new RoleActionMapping().required(SB.biODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
-        permissions.put("23tradeDevelopment", new RoleActionMapping().required(SB.biODA()));
-        permissions.put("24freestandingTechnicalCooperation", new RoleActionMapping().required(SB.biODA()));
-        permissions.put("25programmeBasedApproach", new RoleActionMapping().required(SB.biODA()));
-        permissions.put("26investmentProject", new RoleActionMapping().required(SB.biODA()));
-        permissions.put("27associatedFinancing", new RoleActionMapping().required(SB.biODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
-        permissions.put("28biodiversity", new RoleActionMapping().required(SB.biODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
-        permissions.put("29ccMitigation", new RoleActionMapping().required(SB.biODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
-        permissions.put("30ccAdaptation", new RoleActionMapping().required(SB.biODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
-        permissions.put("31desertification", new RoleActionMapping().required(SB.biODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
+        permissions.put("20genderEquality", new RoleActionMapping().render(SB.biODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
+        permissions.put("21aidToEnvironment", new RoleActionMapping().render(SB.biODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
+        permissions.put("22pdGg", new RoleActionMapping().render(SB.biODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
+        permissions.put("23tradeDevelopment", new RoleActionMapping().render(SB.biODA()));
+        permissions.put("24freestandingTechnicalCooperation", new RoleActionMapping().render(SB.biODA()));
+        permissions.put("25programmeBasedApproach", new RoleActionMapping().render(SB.biODA()));
+        permissions.put("26investmentProject", new RoleActionMapping().render(SB.biODA()));
+        permissions.put("27associatedFinancing", new RoleActionMapping().render(SB.biODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
+        permissions.put("28biodiversity", new RoleActionMapping().render(SB.biODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
+        permissions.put("29ccMitigation", new RoleActionMapping().render(SB.biODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
+        permissions.put("30ccAdaptation", new RoleActionMapping().render(SB.biODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
+        permissions.put("31desertification", new RoleActionMapping().render(SB.biODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
+      
         /**
          * Volume Data
          */

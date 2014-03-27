@@ -11,6 +11,7 @@ package org.devgateway.eudevfin.dim.pages.transaction.custom;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.SupplementaryDataTab;
 import org.devgateway.eudevfin.metadata.common.domain.Category;
+import org.devgateway.eudevfin.metadata.common.util.CategoryConstants;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.temporary.SB;
@@ -29,7 +30,7 @@ public class CustomSupplementaryDataTab extends SupplementaryDataTab {
 
     private void addComponents() {
         DropDownField<Category> genderEquality = new DropDownField<>("96rmnch",
-                new RWComponentPropertyModel<Category>("rmnch"), SB.categoryProvider);
+                new RWComponentPropertyModel<Category>("rmnch"), categoryFactory.get(CategoryConstants.MARKER_TAG));
         add(genderEquality);
 
     }

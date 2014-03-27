@@ -23,32 +23,33 @@ import org.devgateway.eudevfin.ui.common.temporary.SB;
 /**
  * @author mihai
  * 
- *         ODAEU-222: bilateral forms should only allow 1,3,7 codes for field 10
- *         (bi/multi)
+ *         Rio Markers validator.
+ *         {@link CategoryConstants.Markers#MARKER_3} is valid only for desertification
+ *        
  */
-public class BilateralField10CodeValidator extends Behavior implements IValidator<Category> {
+public class MarkersValidator extends Behavior implements IValidator<Category> {
 
 	private static final long serialVersionUID = -1197816416536140235L;
-	private String transactionType;
+	private boolean desertification;
 
-	public BilateralField10CodeValidator(String transactionType) {
-		this.transactionType = transactionType;
+	public MarkersValidator(boolean desertification) {
+		this.desertification=desertification;
+	}
+	
+	public MarkersValidator() {
+		this.desertification=false;
 	}
 
 	@Override
 	public void validate(IValidatable<Category> validatable) {
-		// allowed values are 1,3,7
-		if (!Strings.isEmpty(transactionType)
-				&& (Strings.isEqual(transactionType, SB.BILATERAL_ODA_ADVANCE_QUESTIONNAIRE)
-						|| Strings.isEqual(transactionType, SB.BILATERAL_ODA_CRS) || Strings.isEqual(transactionType,
-						SB.BILATERAL_ODA_FORWARD_SPENDING))) {
-			if (validatable.getValue().getCode().equals(CategoryConstants.BiMultilateral.BI_MULTILATERAL_1)
-					|| validatable.getValue().getCode().equals(CategoryConstants.BiMultilateral.BI_MULTILATERAL_3)
-					|| validatable.getValue().getCode().equals(CategoryConstants.BiMultilateral.BI_MULTILATERAL_7))
-				return;
+		if (desertification)
+			return;
+
+		if (validatable != null && validatable.getValue().getCode().equals(CategoryConstants.Markers.MARKER_3)) {
 			ValidationError error = new ValidationError(this);
 			validatable.error(decorate(error, validatable));
 		}
+
 	}
 
 	/**
