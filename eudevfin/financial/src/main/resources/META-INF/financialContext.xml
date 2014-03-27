@@ -60,15 +60,15 @@
 	</bean>
 	
 
-	<!-- start derby network server,the SpEL provides the start() method only for network mode. This is due to a bug in 
-	spring https://jira.springsource.org/browse/SPR-11196 which makes any MethodInvokingFactoryBean to always be lazy-init=false, 
-	otherwise would would not need the SpEL here at all since this been would not be required by anyone hence not initialized -->
+
+	<!--  https://jira.springsource.org/browse/SPR-11196 MethodInvokingBean this was added for us :). -->	
 	<bean id="startDerby" 
-		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean" lazy-init="true" autowire-candidate="false">
+		class="org.springframework.beans.factory.config.MethodInvokingBean" lazy-init="true" autowire-candidate="false">
 		<property name="targetObject" ref="derbyServer" />
-		<property name="targetMethod" value="#{'network'.equals(systemProperties['eudevfin.derby.mode'])?'start':'equals'}" />
-		<property name="arguments" ref="#{'network'.equals(systemProperties['eudevfin.derby.mode'])?'pw':'pw'}" />
+		<property name="targetMethod" value="start" />
+		<property name="arguments" ref="pw" />
 	</bean>
+	
 
 	<!-- Datasource for network mode, this will be instantiated only if network mode derby will be used -->
 	<!-- tomcat-jdbc settings taken from here http://www.tomcatexpert.com/blog/2010/04/01/configuring-jdbc-pool-high-concurrency -->
