@@ -25,8 +25,8 @@ public class MetadataTaskChange extends AbstractSpringCustomTaskChange {
 	 * @see liquibase.change.custom.CustomTaskChange#execute(liquibase.database.Database)
 	 */
 	@Override
-	public void execute(Database database) throws CustomChangeException {
-		engine.process();
+	public void execute(final Database database) throws CustomChangeException {
+//		this.engine.process();
 
 	}
 
@@ -43,7 +43,7 @@ public class MetadataTaskChange extends AbstractSpringCustomTaskChange {
 	 * @see liquibase.change.custom.CustomChange#setFileOpener(liquibase.resource.ResourceAccessor)
 	 */
 	@Override
-	public void setFileOpener(ResourceAccessor resourceAccessor) {
+	public void setFileOpener(final ResourceAccessor resourceAccessor) {
 		// TODO Auto-generated method stub
 
 	}
@@ -52,7 +52,7 @@ public class MetadataTaskChange extends AbstractSpringCustomTaskChange {
 	 * @see liquibase.change.custom.CustomChange#validate(liquibase.database.Database)
 	 */
 	@Override
-	public ValidationErrors validate(Database database) {
+	public ValidationErrors validate(final Database database) {
 		// TODO Auto-generated method stub
 		return null;
 	}

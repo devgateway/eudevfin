@@ -120,15 +120,15 @@ public class MetadataImporterEngine {
 		final IFileHashHelper hashHelper	= new FileHashHelperImpl();
 		hashHelper.setup(filename, isForHash, this.importedFileDao);
 		
-		if (!firstImportOnPlatform && firstRunOfUpdaterEngine) {
-			hashHelper.markAsLoaded();
-		}
-		else {
+//		if (!firstImportOnPlatform && firstRunOfUpdaterEngine) {
+//			hashHelper.markAsLoaded();
+//		}
+//		else {
 			if ( !hashHelper.checkAlreadyLoaded() ) {
 				hashHelper.markAsLoaded();
 				result	= false;
 			}
-		}
+//		}
 
 		return result;
 		

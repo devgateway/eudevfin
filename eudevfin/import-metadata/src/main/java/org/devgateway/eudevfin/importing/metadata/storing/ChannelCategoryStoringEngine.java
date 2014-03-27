@@ -17,13 +17,16 @@ import org.springframework.stereotype.Component;
 public class ChannelCategoryStoringEngine extends CategoryStoringEngine {
 	@Override
 	public int importHashcode(final Category cat) {
-		if ( cat instanceof ChannelCategory ) {
+		if ( !(cat instanceof ChannelCategory) ) {
 			throw new IllegalArgumentException("importHashcode() function in ChannelCategoryMapper needs a ChannelCategory instance as a parameter");
 		}
 		final ChannelCategory channelCat	= (ChannelCategory) cat;
 		int result	=  super.importHashcode(cat);
 		channelCat.setLocale("en");
-		result = HASH_PRIME * result + this.hashcodeFromObject(channelCat.getCoefficient());
+		if ( channelCat.getCoefficient() != null ) {
+			final Float floatCoeff	= channelCat.getCoefficient().floatValue();
+			result = HASH_PRIME * result + this.hashcodeFromObject(floatCoeff);
+		}
 		result = HASH_PRIME * result + this.hashcodeFromObject(channelCat.getDac2a3a());
 		result = HASH_PRIME * result + this.hashcodeFromObject(channelCat.getMcd());
 		result = HASH_PRIME * result + this.hashcodeFromObject(channelCat.getAcronym());
