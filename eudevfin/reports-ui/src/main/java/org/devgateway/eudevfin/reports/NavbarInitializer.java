@@ -7,7 +7,9 @@ import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy;
 import org.apache.wicket.markup.html.link.AbstractLink;
+import org.apache.wicket.markup.html.pages.RedirectPage;
 import org.apache.wicket.model.StringResourceModel;
+import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.reports.ui.pages.ReportsExport;
@@ -31,6 +33,16 @@ public final class NavbarInitializer {
 //        return reportsPageNavbarButton;
 //	}
 //	
+	
+	public static class SaikuRedirectPage extends RedirectPage {
+		private static final long serialVersionUID = -750983217518258464L;
+		
+		public SaikuRedirectPage() {
+			super(WebApplication.get().getServletContext().getContextPath()+"/saikuui");
+		}
+
+	}
+	
 	
 	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT,order=20)
 	public static Component newReportsNavbarMenu(Page page) {
@@ -93,9 +105,10 @@ public final class NavbarInitializer {
 								"navbar.customreports", this, null, null))
 						.setIconType(IconType.file).setEnabled(false));
 
+				
 				list.add((AbstractLink) new MenuBookmarkablePageLink<ReportsPage>(
-						ReportsPage.class, null, new StringResourceModel(
-								"navbar.reportsbuilder", this, null, null))
+						SaikuRedirectPage.class, null, new StringResourceModel(
+								"navbar.customreports", this, null, null))
 						.setIconType(IconType.play).setEnabled(true));
 				
 /*				
