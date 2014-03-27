@@ -81,4 +81,13 @@
 
     </changeSet>
 
+	<changeSet id="6" author="mihai" failOnError="true" runAlways="false" runInTransaction="true">
+		<comment>Update the group id for transactions saved before this was tracked. Do this only for transactions with null group id</comment>
+		<sql>
+			UPDATE FINANCIALTRANSACTION F SET F.PERSISTEDUSERGROUP_ID=(SELECT U.GROUP_ID FROM PERSISTEDUSER U WHERE
+			U.USERNAME=F.CREATEDBY) WHERE F.PERSISTEDUSERGROUP_ID IS NULL;
+		</sql>
+	</changeSet>
+	    
+
 </databaseChangeLog>
