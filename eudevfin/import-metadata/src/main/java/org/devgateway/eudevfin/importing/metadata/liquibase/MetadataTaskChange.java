@@ -26,7 +26,7 @@ public class MetadataTaskChange extends AbstractSpringCustomTaskChange {
 	 */
 	@Override
 	public void execute(final Database database) throws CustomChangeException {
-//		this.engine.process();
+		this.engine.process();
 
 	}
 

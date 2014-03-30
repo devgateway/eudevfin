@@ -11,7 +11,6 @@ import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.devgateway.eudevfin.common.dao.AbstractDaoImpl;
 import org.devgateway.eudevfin.common.dao.translation.AbstractTranslateable;
-import org.devgateway.eudevfin.financial.dao.CategoryDaoImpl;
 import org.devgateway.eudevfin.importing.metadata.dao.IImportedFileDAO;
 import org.devgateway.eudevfin.importing.metadata.exception.InvalidDataException;
 import org.devgateway.eudevfin.importing.metadata.hash.FileHashHelperImpl;
@@ -29,15 +28,7 @@ public class MetadataImporterEngine {
 	
 	@Autowired
 	private IImportedFileDAO importedFileDao;
-	
-//	@Autowired
-//	OrganizationDaoImpl orgDaoImpl;
-//	
-	@Autowired
-	CategoryDaoImpl categDaoImpl;
-//	
-//	@Autowired
-//	AreaDaoImpl areaDaoImpl;
+
 	
 	@SuppressWarnings("rawtypes")
 	Map<String, AbstractDaoImpl> servicesMap;
@@ -47,109 +38,115 @@ public class MetadataImporterEngine {
 	
 	@SuppressWarnings("rawtypes")
 	@Resource
-	List<IStoringEngine<AbstractTranslateable>> storingEngineList;
+	List<IStoringEngine> storingEngineList;
 	
-	@SuppressWarnings("rawtypes")
-	Map<String, IStoringEngine<AbstractTranslateable>> storingEngineMap;
 
 	
 	@SuppressWarnings({ "rawtypes" })
 	public void process () {
 //		this.populateServicesMap();
-		this.populateStoringEnginesMap();
+		final Map<String, IStoringEngine<AbstractTranslateable>> storingEngineMap	= this.populateStoringEnginesMap();
 		
-		final List<StreamProcessorInterface> list 	= this.getStreamProcessors();
+		final List<StreamProcessorInterface> streamProcessors 		= this.populateStreamProcessors();
+		final List<IFileHashHelper> fileHashHelpers		= this.populateStoringEngines();
 		
-		for (int i=0; i<list.size(); i++) {
-			final StreamProcessorInterface streamProcessorInterface = list.get(i);
+		for (int i=0; i<streamProcessors.size(); i++) {
+			final StreamProcessorInterface streamProcessorInterface = streamProcessors.get(i);
+			final IFileHashHelper fileHashHelper	= fileHashHelpers.get(i);
 			logger.info( String.format("%d) Starting import...",i+1) );
-//			final AbstractDaoImpl service	= 
-//					this.servicesMap.get(streamProcessorInterface.getMapperClassName() );
-			final IStoringEngine<AbstractTranslateable> storingEngine	= 
-					this.storingEngineMap.get(streamProcessorInterface.getMapperClassName());
-			int numOfSavedEntities	= 0;
-			while ( streamProcessorInterface.hasNextObject() ) {
-				final Object entity	= streamProcessorInterface.generateNextObject();
-				try {
-//					service.save(entity);
-					if ( storingEngine.process((AbstractTranslateable)entity) ) {
-						numOfSavedEntities++;
+
+			if ( !fileHashHelper.checkAlreadyLoaded() ) {
+				final IStoringEngine<AbstractTranslateable> storingEngine	= 
+						storingEngineMap.get(streamProcessorInterface.getMapperClassName());
+				int numOfSavedEntities	= 0;
+				while ( streamProcessorInterface.hasNextObject() ) {
+					final Object entity	= streamProcessorInterface.generateNextObject();
+					try {
+						if ( storingEngine.process((AbstractTranslateable)entity) ) {
+							numOfSavedEntities++;
+						}
+					}
+					catch(final DataIntegrityViolationException e) {
+						throw new InvalidDataException(
+								String.format("There was a problem with saving the following entity to the db: %s", entity.toString() )
+								, e);
 					}
 				}
-				catch(final DataIntegrityViolationException e) {
-					throw new InvalidDataException(
-							String.format("There was a problem with saving the following entity to the db: %s", entity.toString() )
-							, e);
-				}
+				logger.info(String.format("-> finished! Imported %d entities !", numOfSavedEntities));
+				streamProcessorInterface.close();
+				fileHashHelper.markAsLoaded();
 			}
-			logger.info(String.format("-> finsihed! Imported %d entities !", numOfSavedEntities));
-			streamProcessorInterface.close();
 			
 		}
 	}
 
 
-	private List<StreamProcessorInterface> getStreamProcessors() {
-		logger.info("Will start import for the following files:");
-		// A little hack to know if the import was ever run on this platform
-		final boolean firstImportOnPlatform		= this.categDaoImpl.findAllAsList().size() == 0;
-		final boolean firstRunOfUpdaterEngine	= this.importedFileDao.findAll().size() == 0;
+	private List<StreamProcessorInterface> populateStreamProcessors() {
+		logger.info("Will check import for the following files:");
 		
 		final ArrayList<StreamProcessorInterface> processors = new ArrayList<>();
 		for (int i = 0; i < this.metadataSourceList.size(); i++) {
 			final String filename		= this.metadataSourceList.get(i);
 			logger.info( String.format("%d) %s", i+1, filename) );
 			
-			
-			if ( !this.checkFileAlreadyImported(filename,firstImportOnPlatform, firstRunOfUpdaterEngine) ) {
-				final InputStream is		= this.getClass().getResourceAsStream(filename);
-				if ( filename.endsWith("xls") || filename.endsWith("xlsx") ) {
-					final ExcelStreamProcessor processor	= new ExcelStreamProcessor(is);
-					processors.add(processor); 
-				}
+			final InputStream is = this.getClass()
+					.getResourceAsStream(filename);
+			if (filename.endsWith("xls") || filename.endsWith("xlsx")) {
+				final ExcelStreamProcessor processor = new ExcelStreamProcessor(
+						is);
+				processors.add(processor);
 			}
 		}
 		return processors;
 	}
+	
+	private List<IFileHashHelper> populateStoringEngines() {
+		final ArrayList<IFileHashHelper> list = new ArrayList<>();
+		for (int i = 0; i < this.metadataSourceList.size(); i++) {
+			final String filename			= this.metadataSourceList.get(i);
+			final IFileHashHelper fileHashHelper	= this.createFileHashHelper(filename);
+			list.add(fileHashHelper);
+		}
+		return list;
+	}
 
 
-	private boolean checkFileAlreadyImported(final String filename, final boolean firstImportOnPlatform, final boolean firstRunOfUpdaterEngine) {
-		boolean result	= true;
+	private IFileHashHelper createFileHashHelper(final String filename){
 		final InputStream isForHash		= this.getClass().getResourceAsStream(filename);
-		
 		final IFileHashHelper hashHelper	= new FileHashHelperImpl();
 		hashHelper.setup(filename, isForHash, this.importedFileDao);
 		
-//		if (!firstImportOnPlatform && firstRunOfUpdaterEngine) {
-//			hashHelper.markAsLoaded();
-//		}
-//		else {
-			if ( !hashHelper.checkAlreadyLoaded() ) {
-				hashHelper.markAsLoaded();
-				result	= false;
-			}
-//		}
-
-		return result;
-		
-	}
-
-//	private void populateServicesMap() {
-//		this.servicesMap	= new HashMap<String, AbstractDaoImpl>();
-//		this.servicesMap.put(OrganizationMapper.class.getName(), this.orgDaoImpl);
-//		this.servicesMap.put(CategoryMapper.class.getName(), this.categDaoImpl);
-//		this.servicesMap.put(AreaMapper.class.getName(), this.areaDaoImpl);
-//		this.servicesMap.put(ChannelCategoryMapper.class.getName(), this.categDaoImpl);
-//		this.servicesMap.put(CurrencyCategoryMapper.class.getName(), this.categDaoImpl);
-//	}
+		return hashHelper;
+	}  
 	
-	private void populateStoringEnginesMap() {
+//	private boolean checkFileAlreadyImported(IFileHashHelper) {
+//		boolean result	= true;
+//		final InputStream isForHash		= this.getClass().getResourceAsStream(filename);
+//		
+//		final IFileHashHelper hashHelper	= new FileHashHelperImpl();
+//		hashHelper.setup(filename, isForHash, this.importedFileDao);
+//		
+//		if ( !hashHelper.checkAlreadyLoaded() ) {
+//			hashHelper.markAsLoaded();
+//			result	= false;
+//		}
+//
+//		return result;
+//		
+//	}
+
+	
+	@SuppressWarnings("rawtypes")
+	private Map<String, IStoringEngine<AbstractTranslateable>> populateStoringEnginesMap() {
 		if ( this.storingEngineList != null ) {
-			this.storingEngineMap	= new HashMap<String, IStoringEngine<AbstractTranslateable>>();
+			final Map<String, IStoringEngine<AbstractTranslateable>> storingEngineMap	= 
+					new HashMap<String, IStoringEngine<AbstractTranslateable>>();
 			for (final IStoringEngine<AbstractTranslateable> storingEngine : this.storingEngineList) {
-				this.storingEngineMap.put(storingEngine.getRelatedMapper().getName(), storingEngine);
+				storingEngineMap.put(storingEngine.getRelatedMapper().getName(), storingEngine);
 			}
+			return storingEngineMap;
 		}
+		return null;
 	}
 
 }
