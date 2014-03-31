@@ -22,6 +22,7 @@ public class DataTableDashboard extends WebMarkupContainer {
     private Boolean bLengthChange;
     private int iDisplayLength;
     private Boolean bSortableColumn;
+    private Boolean disableStripeClasses;
 
     public DataTableDashboard(String id) {
         super(id);
@@ -38,6 +39,7 @@ public class DataTableDashboard extends WebMarkupContainer {
         bLengthChange = false;
         iDisplayLength = 10;
         bSortableColumn = false;
+        disableStripeClasses = false;
     }
 
     @Override
@@ -56,6 +58,9 @@ public class DataTableDashboard extends WebMarkupContainer {
         js.append("		\"bLengthChange\": " + bLengthChange + ",\n");
         js.append("		\"iDisplayLength\": " + iDisplayLength + ",\n");
         js.append("		\"sPaginationType\": \"full_numbers\",\n");
+        if (disableStripeClasses) {
+            js.append("		\"asStripeClasses\": [],\n");
+        }
         js.append("     \"aoColumnDefs\": [\n");
         if (bSortableColumn) {
             js.append("         { \"bSortable\": true, \"aTargets\": [] } \n");
@@ -98,6 +103,10 @@ public class DataTableDashboard extends WebMarkupContainer {
 
     public void setiDisplayLength(int iDisplayLength) {
         this.iDisplayLength = iDisplayLength;
+    }
+
+    public void setdisableStripeClasses(Boolean disableStripeClasses) {
+        this.disableStripeClasses = disableStripeClasses;
     }
 
     public void setbSortableColumn(Boolean bSortableColumn) {

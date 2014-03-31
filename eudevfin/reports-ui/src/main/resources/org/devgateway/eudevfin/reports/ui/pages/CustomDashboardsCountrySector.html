@@ -12,45 +12,75 @@
 </wicket:head>
 <body>
     <wicket:extend>
+        <div id="reports-page">
+            <div class="container">
+                <div class="row">
+                    <div class="span12">
+                        <h1>Custom Dashboards - Country Sector</h1>
+                    </div>
+
+                    <div class="span6">
+                        <div class="box">
+                            <div class="box-header">
+                                <h2>
+                                    <div wicket:id="countryTableTitle"/>
+                                </h2>
+                            </div>
+                            <table wicket:id="countryTable">
+                                <thead>
+                                    <tr>
+                                        <th rowspan="2" class="ui-state-default">Geographical area</th>
+                                        <th rowspan="2" class="ui-state-default">Country</th>
+                                        <th colspan="2" class="ui-state-default" wicket:id="firstYear"></th>
+                                        <th colspan="2" class="ui-state-default" wicket:id="secondYear"></th>
+                                    </tr>
+                                    <tr>
+                                        <th>$</th>
+                                        <th>%</th>
+                                        <th>$</th>
+                                        <th>%</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr wicket:id="countryTableRows">
+                                        <td wicket:id="col0" class="string">Row 1 Data 0</td>
+                                        <td wicket:id="col1" class="string">Row 1 Data 1</td>
+                                        <td wicket:id="col2" class="numeric">Row 1 Data 2</td>
+                                        <td wicket:id="col3" class="numeric">Row 1 Data 3</td>
+                                        <td wicket:id="col4" class="numeric">Row 1 Data 4</td>
+                                        <td wicket:id="col5" class="numeric">Row 1 Data 4</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="span6">
+                        <div class="box">
+                            <div class="box-header">
+                                <h2>
+                                    <div wicket:id="countryChartTitle"/>
+                                </h2>
+                            </div>
+                            <div wicket:id="countryChart"/>
+                        </div>
+                    </div>
+                </div> <!-- /row -->
+            </div> <!-- /container -->
+        </div> <!-- /reports-page -->
+
         <div class="container">
             <div class="row">
-                <div class="span12">
-                    <h1>Custom Dashboards - Country Sector</h1>
+                <br/><br/>
+                <div class="span6 offset5">
+                    <button id="print-page" class="btn btn-success" type="button">
+                        <i class="icon-print icon-white"></i> Print page
+                    </button>
+                    <button id="download-page" class="btn btn-success" type="button">
+                        <i class="icon-download icon-white"></i> Download page
+                    </button>
                 </div>
-
-                <div class="span6">
-                    <div class="box">
-                        <div class="box-header">
-                            <h2>
-                                <div wicket:id="countryTableTitle"/>
-                            </h2>
-                        </div>
-                        <table wicket:id="countryTable">
-                            <thead>
-                                <tr>
-                                    <th class="ui-state-default">Geographical area</th>
-                                    <th class="ui-state-default" colspan="2">2012</th>
-                                    <th class="ui-state-default" colspan="2">2013</th>
-                                </tr>
-                                <tr>
-                                    <td class="ui-state-default"></td>
-                                    <td class="ui-state-default">$</td>
-                                    <td class="ui-state-default">%</td>
-                                    <td class="ui-state-default">$</td>
-                                    <td class="ui-state-default">%</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            <tr wicket:id="countryTableRows">
-                                <td wicket:id="col0" class="string">Row 1 Data 1</td>
-                                <td wicket:id="col1" class="numeric">Row 1 Data 2</td>
-                                <td wicket:id="col2" class="numeric">Row 1 Data 3</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div> <!-- /row -->
+                <br/><br/><br/>
+            </div>
         </div> <!-- /container -->
     </wicket:extend>
 </body>

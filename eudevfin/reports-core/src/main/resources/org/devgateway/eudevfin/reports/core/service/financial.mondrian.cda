@@ -182,22 +182,53 @@
 
 
     <!-- used for Custom Dashboards - Country/Sector -->
-    <DataAccess id="customdashboardscountry"
+    <DataAccess id="customDashboardsCountryTable"
                 connection="defaultConnectionLocale"
                 type="mdx"
                 access="public">
         <BandedMode>compact</BandedMode>
         <Columns/>
+        <Parameters>
+            <Parameter default="2012" name="FIRST YEAR" type="Integer"/>
+            <Parameter default="2013" name="SECOND YEAR" type="Integer"/>
+        </Parameters>
         <Name>Custom Dashboards - Country/Sector</Name>
         <Query>
             <![CDATA[
             WITH
-            MEMBER [Measures].[First Year] AS SUM(CrossJoin([Reporting Year].[2012], {[Measures].[Extended Amount Currency NATLOECD]}))
-            MEMBER [Measures].[Second Year] AS SUM(CrossJoin([Reporting Year].[2013], {[Measures].[Extended Amount Currency NATLOECD]}))
-            MEMBER [Measures].[Level] AS IIF([Country].CurrentMember.Level.Name = "Geography", "Geography", "Country")
+            MEMBER [Measures].[First Year] AS SUM(CrossJoin([Reporting Year].[${FIRST YEAR}], {[Measures].[Extended Amount Currency NATLOECD]}))
+            MEMBER [Measures].[Second Year] AS SUM(CrossJoin([Reporting Year].[${SECOND YEAR}], {[Measures].[Extended Amount Currency NATLOECD]}))
+            MEMBER [Measures].[% of Total] as IIF([Country].CurrentMember.Level.Name = "Geography", ([Country].CurrentMember, [Measures].[Extended Amount Currency NATLOECD]) / Sum([Country].CurrentMember.Parent.Children, [Measures].[Extended Amount Currency NATLOECD]), ([Country].CurrentMember, [Measures].[Extended Amount Currency NATLOECD]) / Sum([Country].CurrentMember.Parent.Parent.Children, [Measures].[Extended Amount Currency NATLOECD])), format_string='0.00%'
+            MEMBER [Measures].[First Year %] AS SUM(CrossJoin([Reporting Year].[2012], {[Measures].[% of Total]}))
+            MEMBER [Measures].[Second Year %] AS SUM(CrossJoin([Reporting Year].[2013], {[Measures].[% of Total]}))
+            MEMBER [Measures].[Level] AS IIF([Measures].[Extended Amount Currency NATLOECD] > 0, IIF([Country].CurrentMember.Level.Name = "Geography", "Geography", "Country"), null)
             SELECT
-            NON EMPTY {[Measures].[First Year], [Measures].[Second Year], [Measures].[Level]} ON COLUMNS,
+            NON EMPTY {[Measures].[First Year], [Measures].[First Year %], [Measures].[Second Year], [Measures].[Second Year %], [Measures].[Level]} ON COLUMNS,
             NON EMPTY {Hierarchize({[Country].[Geography].Members, [Country].[Name].Members})} ON ROWS
+            FROM [Financial]
+            ]]>
+        </Query>
+    </DataAccess>
+
+    <DataAccess id="customDashboardsCountryChart"
+                connection="defaultConnectionLocale"
+                type="mdx"
+                access="public">
+        <BandedMode>compact</BandedMode>
+        <Columns/>
+        <Parameters>
+            <Parameter default="2012" name="FIRST YEAR" type="Integer"/>
+            <Parameter default="2013" name="SECOND YEAR" type="Integer"/>
+        </Parameters>
+        <Name>Custom Dashboards - Country/Sector - Chart</Name>
+        <Query>
+            <![CDATA[
+            WITH
+            MEMBER [Measures].[First Year] AS SUM(CrossJoin([Reporting Year].[${FIRST YEAR}], {[Measures].[Extended Amount Currency NATLOECD]}))
+            MEMBER [Measures].[Second Year] AS SUM(CrossJoin([Reporting Year].[${SECOND YEAR}], {[Measures].[Extended Amount Currency NATLOECD]}))
+            SELECT
+            NON EMPTY {[Measures].[First Year], [Measures].[Second Year]} ON COLUMNS,
+            NON EMPTY {[Country].[Name].Members} ON ROWS
             FROM [Financial]
             ]]>
         </Query>

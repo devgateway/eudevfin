@@ -15,7 +15,7 @@ app.downloadPDFOdaAtGlance = function () {
     * $container is the jQuery object of the div that we need to convert to image/pdf.
     * This div may contain highcharts along with other child divs, etc
     */
-    var container = $('#oda-at-glance');
+    var container = $('#reports-page');
     var svgElements = container.find('svg');
 
     // replace all svgs with a temp canvas
