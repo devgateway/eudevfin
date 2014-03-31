@@ -11,15 +11,18 @@
         <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All Countries">
             <View alias="CountryView">
                 <SQL dialect="generic"><![CDATA[
-			select
-				"AREA"."ID", "AREA"."CODE",  "AREATRANSLATION"."GEOGRAPHY", "AREATRANSLATION"."NAME"
-			from
-				"APP"."AREA" as "AREA",
-				"APP"."AREATRANSLATION" as "AREATRANSLATION"
-			WHERE
-				"AREATRANSLATION"."LOCALE" = '@@LOCALE@@' AND
-				"AREATRANSLATION"."PARENT_ID" = "AREA"."ID" AND
-				"AREA"."AREA_TYPE" = 'Country'
+		    select
+              "AREA"."ID", "AREA"."CODE",  "CATEGORYTRANSLATION"."NAME" AS GEOGRAPHY, "AREATRANSLATION"."NAME"
+            from
+              "APP"."AREA" as "AREA",
+              "APP"."AREATRANSLATION" as "AREATRANSLATION",
+              "APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION"
+            WHERE
+              "AREATRANSLATION"."LOCALE" = '@@LOCALE@@' AND
+              "AREATRANSLATION"."PARENT_ID" = "AREA"."ID" AND
+              "CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
+              "CATEGORYTRANSLATION"."PARENT_ID" = "AREA"."GEOGRAPHYCATEGORY_ID" AND
+              "AREA"."AREA_TYPE" = 'Country'
 			]]></SQL>
             </View>
             <Level name="Geography" visible="true" column="GEOGRAPHY" uniqueMembers="false" levelType="Regular" type="String">
