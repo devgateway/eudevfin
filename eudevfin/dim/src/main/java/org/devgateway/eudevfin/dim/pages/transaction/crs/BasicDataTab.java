@@ -8,8 +8,6 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
-import com.vaynberg.wicket.select2.ChoiceProvider;
-
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -32,6 +30,10 @@ import org.devgateway.eudevfin.ui.common.providers.OrganizationChoiceProvider;
 import org.devgateway.eudevfin.ui.common.temporary.SB;
 import org.devgateway.eudevfin.ui.common.validators.BilateralField10CodeValidator;
 import org.devgateway.eudevfin.ui.common.validators.CodePatternCategoryValidator;
+import org.devgateway.eudevfin.ui.common.validators.Field11CodeValidator;
+import org.devgateway.eudevfin.ui.common.validators.MultilateralField10CodeValidator;
+
+import com.vaynberg.wicket.select2.ChoiceProvider;
 
 /**
  * @author aartimon@developmentgateway.org
@@ -43,6 +45,8 @@ public class BasicDataTab extends Panel implements PermissionAwareComponent {
     public static final String REGEX_MULTILATERAL_CHANNEL_CODE = "4[0-9]{4}";
     public static final String VALIDATIONKEY_MULTILATERAL_CHANNEL_CODE = "validation.multilateralChannelCode";
     public static final String VALIDATIONKEY_BILATERAL_FIELD_10_CODE = "validation.bilateralField10Code";
+    public static final String VALIDATIONKEY_MULTILATERAL_FIELD_10_CODE = "validation.multilateralField10Code";
+    public static final String VALIDATIONKEY_FIELD_11_CODE = "validation.field11Code";
     protected PageParameters parameters;
 
 
@@ -118,11 +122,26 @@ public class BasicDataTab extends Panel implements PermissionAwareComponent {
         	}
         	
         });
+        bilateralMultilateral.getField().add(new MultilateralField10CodeValidator(transactionType) {
+        	@Override
+        	protected ValidationError decorate(ValidationError error, IValidatable<Category> validatable) {
+        		  error.addKey(VALIDATIONKEY_MULTILATERAL_FIELD_10_CODE);
+        		return super.decorate(error, validatable);
+        	}
+        	
+        });
         add(bilateralMultilateral);
 
         DropDownField<Category> typeOfFlow = new DropDownField<>("11typeOfFlow", new RWComponentPropertyModel<Category>("typeOfFlow"),
                 categoryFactory.get(CategoryConstants.TYPE_OF_FLOW_TAG));
-        typeOfFlow.required();
+        typeOfFlow.required();        
+        typeOfFlow.getField().add(new Field11CodeValidator(transactionType) {
+        	@Override
+        	protected ValidationError decorate(ValidationError error, IValidatable<Category> validatable) {
+        		  error.addKey(VALIDATIONKEY_FIELD_11_CODE);
+        		return super.decorate(error, validatable);
+        	}
+        });
         add(typeOfFlow);
 
         DropDownField<Category> typeOfFinance = new DropDownField<>("12typeOfFinance", new RWComponentPropertyModel<Category>("typeOfFinance"),
