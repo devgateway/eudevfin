@@ -183,5 +183,7 @@
 	<entry key="validation.multilateralChannelCode">The selected code is invalid! Select only 4xxxx format codes when in multilateral forms!</entry>
 	<entry key="validation.bilateralField10Code">The selected code is invalid! Only the codes 1,3 and 7 are allowed here when filling the bilateral form!</entry>
 	<entry key="validation.multilateralField10Code">The selected code is invalid! Only the code 2 is allowed here when filling in the multilateral form!</entry>	
-	<entry key="validation.field11Code">The selected code is invalid! Only the code 10 is allowed here when filling in ODA forms!</entry>		
+	<entry key="validation.field11Code">The selected code is invalid! Only the code 10 is allowed here when filling in ODA forms!</entry>	
+	<entry key="validation.field12Code">The selected code is invalid! Only the following codes and their subcodes are allowed: 100, 300, 400, 500, 600</entry>	
+	
 </properties>

@@ -38,8 +38,8 @@ public class MultilateralField10CodeValidator extends Behavior implements IValid
 	@Override
 	public void validate(IValidatable<Category> validatable) {
 		if (!Strings.isEmpty(transactionType)
-				&& (Strings.isEqual(transactionType, SB.MULTILATERAL_ODA_ADVANCE_QUESTIONNAIRE) || Strings.isEqual(
-						transactionType, SB.MULTILATERAL_ODA_CRS))) {
+				&& (Strings.isEqual(transactionType, SB.MULTILATERAL_ODA_ADVANCE_QUESTIONNAIRE) 
+				|| Strings.isEqual(transactionType, SB.BILATERAL_ODA_ADVANCE_QUESTIONNAIRE))) {
 			if (validatable.getValue().getCode().equals(CategoryConstants.BiMultilateral.BI_MULTILATERAL_2))
 				return;
 			ValidationError error = new ValidationError(this);
