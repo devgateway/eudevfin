@@ -1,16 +1,20 @@
 package org.devgateway.eudevfin.reports.ui.components;
 
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
-import org.apache.wicket.request.resource.PackageResourceReference;
-import org.wicketstuff.datatables.DemoDatatable;
+import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.model.Model;
+import org.apache.wicket.request.resource.CssResourceReference;
+import org.apache.wicket.request.resource.JavaScriptResourceReference;
+import org.devgateway.eudevfin.reports.ui.scripts.Dashboards;
 
 /**
  * @author idobre
  * @since 3/11/14
  */
-public class DataTableDashboard extends DemoDatatable {
+public class DataTableDashboard extends WebMarkupContainer {
     private Boolean bPaginate;
     private Boolean bFilter;
     private Boolean bInfo;
@@ -18,9 +22,14 @@ public class DataTableDashboard extends DemoDatatable {
     private Boolean bLengthChange;
     private int iDisplayLength;
     private Boolean bSortableColumn;
+    private Boolean disableStripeClasses;
 
     public DataTableDashboard(String id) {
         super(id);
+
+        setOutputMarkupId(true);
+
+        add(new AttributeModifier("class", Model.of("display")));
 
         // set the default Data Tables parameters
         bPaginate = false;
@@ -30,6 +39,7 @@ public class DataTableDashboard extends DemoDatatable {
         bLengthChange = false;
         iDisplayLength = 10;
         bSortableColumn = false;
+        disableStripeClasses = false;
     }
 
     @Override
@@ -48,6 +58,9 @@ public class DataTableDashboard extends DemoDatatable {
         js.append("		\"bLengthChange\": " + bLengthChange + ",\n");
         js.append("		\"iDisplayLength\": " + iDisplayLength + ",\n");
         js.append("		\"sPaginationType\": \"full_numbers\",\n");
+        if (disableStripeClasses) {
+            js.append("		\"asStripeClasses\": [],\n");
+        }
         js.append("     \"aoColumnDefs\": [\n");
         if (bSortableColumn) {
             js.append("         { \"bSortable\": true, \"aTargets\": [] } \n");
@@ -59,16 +72,13 @@ public class DataTableDashboard extends DemoDatatable {
     }
 
     private void renderDemoCSS(IHeaderResponse response) {
-        final Class<DemoDatatable> _ = DemoDatatable.class;
-        response.render(CssHeaderItem.forReference(new PackageResourceReference(_,
-                "media/css/demo_table_jui.css"), "screen"));
+        response.render(CssHeaderItem.forReference(new CssResourceReference(Dashboards.class,
+                "DataTables-1.9.4/media/css/demo_table_jui.css")));
     }
 
     private void renderBasicJS(IHeaderResponse response) {
-        final Class<DemoDatatable> _ = DemoDatatable.class;
-
-        response.render(JavaScriptHeaderItem.forReference(new PackageResourceReference(_,"media/js/jquery.dataTables.min.js")));
-        response.render(JavaScriptHeaderItem.forReference(new PackageResourceReference(_,"media/js/jquery-ui-1.8.10.custom.min.js")));
+        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class,
+                "DataTables-1.9.4/media/js/jquery.dataTables.min.js")));
     }
 
     public void setbPaginate(Boolean bPaginate) {
@@ -93,6 +103,10 @@ public class DataTableDashboard extends DemoDatatable {
 
     public void setiDisplayLength(int iDisplayLength) {
         this.iDisplayLength = iDisplayLength;
+    }
+
+    public void setdisableStripeClasses(Boolean disableStripeClasses) {
+        this.disableStripeClasses = disableStripeClasses;
     }
 
     public void setbSortableColumn(Boolean bSortableColumn) {

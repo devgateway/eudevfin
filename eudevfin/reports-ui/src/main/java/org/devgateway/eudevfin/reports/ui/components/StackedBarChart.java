@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import org.devgateway.eudevfin.reports.core.domain.QueryResult;
 import org.devgateway.eudevfin.reports.core.service.QueryService;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -40,8 +41,14 @@ public class StackedBarChart extends RunMdxQuery {
         return null;
     }
 
+    public List<List<Float>> getResultSeriesAsList () {
+        return null;
+    }
+
     private void setDefaultOptions () {
         options.setTitle(new Title(""));
+
+        options.setSubtitle(new Title(""));
 
         options.setChartOptions(new ChartOptions()
                 .setAnimation(Boolean.TRUE)

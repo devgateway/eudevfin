@@ -27,16 +27,18 @@
 			NON EMPTY {Hierarchize({[Sector].[Name].Members})} ON COLUMNS,
 			NON EMPTY {[Measures].[Commitments Amount]} ON ROWS
 			FROM [Financial]
-		]]>
+		    ]]>
 		</Query>
 	</DataAccess>
 
     <!-- used for testing (CDASimpleSQLTest.java) -->
     <DataAccess id="simpleSQLQuery" connection="sqlConnection" type="sql" access="public">
         <Name>Sql Query on Transactions</Name>
-        <Query><![CDATA[
+        <Query>
+            <![CDATA[
 			SELECT * FROM FINANCIALTRANSACTION
-		]]></Query>
+		    ]]>
+        </Query>
     </DataAccess>
 
     <!-- used for testing (OdaAtGlanceTest.java) -->
@@ -53,7 +55,7 @@
             NON EMPTY CrossJoin([Reporting Year].[Reporting Year].Members, {[Measures].[Extended Amount No Flow]}) ON COLUMNS,
             NON EMPTY {Hierarchize({[Type of Finance].[Name].Members})} ON ROWS
             FROM [Financial]
-		]]>
+		    ]]>
         </Query>
     </DataAccess>
 
@@ -82,7 +84,7 @@
 			{[Measures].[Curent (USD)], [Measures].[${REPORT_CURRENCY_CODE}], Measures.[ODA/GNI], Measures.[Bilateral share]} ON ROWS
 			FROM [Financial]
 			WHERE ({[Type of Flow].[Name].[ODA (Official Development Assistance)], [Type of Flow].[Name].[Non flow (e.g. GNI)]})
-		]]>
+		    ]]>
 		</Query>
 	</DataAccess>
 
@@ -100,7 +102,7 @@
 			NON EMPTY TOPCOUNT([Country].[Name].Members, 10, [Measures].[Net Amount Currency NATLOECD]) ON ROWS
 			FROM [Financial]
 			WHERE {[Type of Flow].[Name].[ODA (Official Development Assistance)]}
-		]]>
+		    ]]>
 		</Query>
 	</DataAccess>
 
@@ -121,7 +123,7 @@
 			NON EMPTY {Measures.[Top 5 recipients], Measures.[Top 10 recipients], Measures.[Top 20 recipients]} ON COLUMNS
 			FROM [Financial]
 			WHERE {[Type of Flow].[TYPE_OF_FLOW##10].[ODA (Official Development Assistance)]}
-		]]>
+		    ]]>
 		</Query>
 	</DataAccess>
 
@@ -139,7 +141,7 @@
 			NON EMPTY Order([IncomeGroup].[Name].Members, [Measures].[Net Amount Currency NATLOECD], DESC)  ON ROWS
 			FROM [Financial]
 			WHERE {[Type of Flow].[Name].[ODA (Official Development Assistance)]}
-		]]>
+		    ]]>
 		</Query>
 	</DataAccess>
 
@@ -157,7 +159,7 @@
 			NON EMPTY TOPCOUNT([Region].[Name].Members, 10, [Measures].[Net Amount Currency NATLOECD]) ON ROWS
 			FROM [Financial]
 			WHERE {[Type of Flow].[Name].[ODA (Official Development Assistance)]}
-		]]>
+		    ]]>
 		</Query>
 	</DataAccess>
 
@@ -174,8 +176,62 @@
 			NON EMPTY {[Measures].[Net Amount Currency NATLOECD]} ON COLUMNS,
 			NON EMPTY TOPCOUNT(CrossJoin([Sector].[Name].Members, {[Type of Flow].[Name].[ODA (Official Development Assistance)]}), 10, [Measures].[Net Amount Currency NATLOECD]) ON ROWS
 			FROM [Financial]
-        ]]>
+            ]]>
 		</Query>
 	</DataAccess>
+
+
+    <!-- used for Custom Dashboards - Country/Sector -->
+    <DataAccess id="customDashboardsCountryTable"
+                connection="defaultConnectionLocale"
+                type="mdx"
+                access="public">
+        <BandedMode>compact</BandedMode>
+        <Columns/>
+        <Parameters>
+            <Parameter default="2012" name="FIRST YEAR" type="Integer"/>
+            <Parameter default="2013" name="SECOND YEAR" type="Integer"/>
+        </Parameters>
+        <Name>Custom Dashboards - Country/Sector</Name>
+        <Query>
+            <![CDATA[
+            WITH
+            MEMBER [Measures].[First Year] AS SUM(CrossJoin([Reporting Year].[${FIRST YEAR}], {[Measures].[Extended Amount Currency NATLOECD]}))
+            MEMBER [Measures].[Second Year] AS SUM(CrossJoin([Reporting Year].[${SECOND YEAR}], {[Measures].[Extended Amount Currency NATLOECD]}))
+            MEMBER [Measures].[% of Total] as IIF([Country].CurrentMember.Level.Name = "Geography", ([Country].CurrentMember, [Measures].[Extended Amount Currency NATLOECD]) / Sum([Country].CurrentMember.Parent.Children, [Measures].[Extended Amount Currency NATLOECD]), ([Country].CurrentMember, [Measures].[Extended Amount Currency NATLOECD]) / Sum([Country].CurrentMember.Parent.Parent.Children, [Measures].[Extended Amount Currency NATLOECD])), format_string='0.00%'
+            MEMBER [Measures].[First Year %] AS SUM(CrossJoin([Reporting Year].[2012], {[Measures].[% of Total]}))
+            MEMBER [Measures].[Second Year %] AS SUM(CrossJoin([Reporting Year].[2013], {[Measures].[% of Total]}))
+            MEMBER [Measures].[Level] AS IIF([Measures].[Extended Amount Currency NATLOECD] > 0, IIF([Country].CurrentMember.Level.Name = "Geography", "Geography", "Country"), null)
+            SELECT
+            NON EMPTY {[Measures].[First Year], [Measures].[First Year %], [Measures].[Second Year], [Measures].[Second Year %], [Measures].[Level]} ON COLUMNS,
+            NON EMPTY {Hierarchize({[Country].[Geography].Members, [Country].[Name].Members})} ON ROWS
+            FROM [Financial]
+            ]]>
+        </Query>
+    </DataAccess>
+
+    <DataAccess id="customDashboardsCountryChart"
+                connection="defaultConnectionLocale"
+                type="mdx"
+                access="public">
+        <BandedMode>compact</BandedMode>
+        <Columns/>
+        <Parameters>
+            <Parameter default="2012" name="FIRST YEAR" type="Integer"/>
+            <Parameter default="2013" name="SECOND YEAR" type="Integer"/>
+        </Parameters>
+        <Name>Custom Dashboards - Country/Sector - Chart</Name>
+        <Query>
+            <![CDATA[
+            WITH
+            MEMBER [Measures].[First Year] AS SUM(CrossJoin([Reporting Year].[${FIRST YEAR}], {[Measures].[Extended Amount Currency NATLOECD]}))
+            MEMBER [Measures].[Second Year] AS SUM(CrossJoin([Reporting Year].[${SECOND YEAR}], {[Measures].[Extended Amount Currency NATLOECD]}))
+            SELECT
+            NON EMPTY {[Measures].[First Year], [Measures].[Second Year]} ON COLUMNS,
+            NON EMPTY {[Country].[Name].Members} ON ROWS
+            FROM [Financial]
+            ]]>
+        </Query>
+    </DataAccess>
 
 </CDADescriptor>

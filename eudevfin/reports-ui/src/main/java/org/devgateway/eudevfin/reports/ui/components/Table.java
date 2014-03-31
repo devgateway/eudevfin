@@ -77,4 +77,8 @@ public class Table extends RunMdxQuery implements Serializable {
     public void setbSortableColumn(Boolean bSortableColumn) {
         table.setbSortableColumn(bSortableColumn);
     }
+
+    public void setdisableStripeClasses(Boolean disableStripeClasses) {
+        table.setdisableStripeClasses(disableStripeClasses);
+    }
 }

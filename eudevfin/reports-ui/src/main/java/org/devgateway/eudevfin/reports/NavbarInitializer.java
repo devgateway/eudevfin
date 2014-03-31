@@ -1,8 +1,11 @@
 package org.devgateway.eudevfin.reports;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.DropDownSubMenu;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuBookmarkablePageLink;
+import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconType;
+import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
+import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarDropDownButton;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.button.DropDownAutoOpen;
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy;
@@ -12,17 +15,14 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
+import org.devgateway.eudevfin.reports.ui.pages.CustomDashboardsCountrySector;
 import org.devgateway.eudevfin.reports.ui.pages.ReportsExport;
 import org.devgateway.eudevfin.reports.ui.pages.ReportsPage;
 import org.devgateway.eudevfin.ui.common.WicketNavbarComponentInitializer;
 import org.devgateway.eudevfin.ui.common.components.RepairedNavbarDropDownButton;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.DropDownSubMenu;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuBookmarkablePageLink;
-import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconType;
-import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
-import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarDropDownButton;
-import de.agilecoders.wicket.extensions.markup.html.bootstrap.button.DropDownAutoOpen;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class NavbarInitializer {
 
@@ -100,10 +100,10 @@ public final class NavbarInitializer {
 				exportReports.setIconType(IconType.resizehorizontal);
 				list.add(exportReports);
 				
-				list.add((AbstractLink) new MenuBookmarkablePageLink<ReportsPage>(
-						ReportsPage.class, null, new StringResourceModel(
+				list.add((AbstractLink) new MenuBookmarkablePageLink<CustomDashboardsCountrySector>(
+                        CustomDashboardsCountrySector.class, null, new StringResourceModel(
 								"navbar.customreports", this, null, null))
-						.setIconType(IconType.file).setEnabled(false));
+						.setIconType(IconType.file).setEnabled(true));
 
 				
 				list.add((AbstractLink) new MenuBookmarkablePageLink<ReportsPage>(
