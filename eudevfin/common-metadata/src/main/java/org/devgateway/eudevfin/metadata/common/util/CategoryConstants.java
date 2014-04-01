@@ -1,4 +1,3 @@
-
 package org.devgateway.eudevfin.metadata.common.util;
 
 public class CategoryConstants {
@@ -57,17 +56,19 @@ public class CategoryConstants {
 			
 	public static final class TypeOfFlow {
 		public static final String NON_FLOW="TYPE_OF_FLOW##40";
+		public static final String ODA="TYPE_OF_FLOW##10";
 	}
-	
-	public static final class BiMultilateral {
-		public static final String BI_MULTILATERAL_1="BI_MULTILATERAL##1";
-		public static final String BI_MULTILATERAL_3="BI_MULTILATERAL##3";
-		public static final String BI_MULTILATERAL_7="BI_MULTILATERAL##7";
-	}
-	
 	
 	public static final class Markers {
 		public static final String MARKER_3="MARKER##3";
+	}
+			
+	
+	public static final class BiMultilateral {
+		public static final String BI_MULTILATERAL_1="BI_MULTILATERAL##1";
+		public static final String BI_MULTILATERAL_2="BI_MULTILATERAL##2";
+		public static final String BI_MULTILATERAL_3="BI_MULTILATERAL##3";
+		public static final String BI_MULTILATERAL_7="BI_MULTILATERAL##7";
 	}
 			
 	

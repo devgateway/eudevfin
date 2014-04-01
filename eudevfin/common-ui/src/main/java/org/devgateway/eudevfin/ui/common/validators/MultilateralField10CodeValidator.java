@@ -12,42 +12,39 @@
 package org.devgateway.eudevfin.ui.common.validators;
 
 import org.apache.wicket.behavior.Behavior;
+import org.apache.wicket.util.string.Strings;
 import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.IValidator;
 import org.apache.wicket.validation.ValidationError;
 import org.devgateway.eudevfin.metadata.common.domain.Category;
 import org.devgateway.eudevfin.metadata.common.util.CategoryConstants;
+import org.devgateway.eudevfin.ui.common.temporary.SB;
 
 /**
  * @author mihai
  * 
- *         Rio Markers validator.
- *         {@link CategoryConstants.Markers#MARKER_3} is valid only for desertification
- *        
+ *         ODAEU-35: Multilateral ODA, Advance Questionnaire and CRS++ forms
+ *         Type of flow allowed = 2
  */
-public class MarkersValidator extends Behavior implements IValidator<Category> {
+public class MultilateralField10CodeValidator extends Behavior implements IValidator<Category> {
 
 	private static final long serialVersionUID = -1197816416536140235L;
-	private boolean desertification;
+	private String transactionType;
 
-	public MarkersValidator(boolean desertification) {
-		this.desertification=desertification;
-	}
-	
-	public MarkersValidator() {
-		this.desertification=false;
+	public MultilateralField10CodeValidator(String transactionType) {
+		this.transactionType = transactionType;
 	}
 
 	@Override
 	public void validate(IValidatable<Category> validatable) {
-		if (desertification)
-			return;
-
-		if (validatable != null && validatable.getValue().getCode().equals(CategoryConstants.Markers.MARKER_3)) {
+		if (!Strings.isEmpty(transactionType)
+				&& (Strings.isEqual(transactionType, SB.MULTILATERAL_ODA_ADVANCE_QUESTIONNAIRE) 
+				|| Strings.isEqual(transactionType, SB.BILATERAL_ODA_ADVANCE_QUESTIONNAIRE))) {
+			if (validatable.getValue().getCode().equals(CategoryConstants.BiMultilateral.BI_MULTILATERAL_2))
+				return;
 			ValidationError error = new ValidationError(this);
 			validatable.error(decorate(error, validatable));
 		}
-
 	}
 
 	/**
