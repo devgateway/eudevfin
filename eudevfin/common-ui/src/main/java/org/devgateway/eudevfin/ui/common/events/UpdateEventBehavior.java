@@ -21,7 +21,9 @@ import org.apache.wicket.event.IEvent;
  * @since 03/12/13
  */
 public class UpdateEventBehavior<T> extends Behavior {
-    protected Class<T> triggerEvent;
+
+	private static final long serialVersionUID = 631185570134878397L;
+	protected Class<T> triggerEvent;
     protected Component parent;
 
     protected UpdateEventBehavior(Class<T> triggerEvent) {
@@ -31,7 +33,7 @@ public class UpdateEventBehavior<T> extends Behavior {
     @Override
     public void onEvent(Component component, IEvent<?> event) {
         if (event.getPayload().getClass().isAssignableFrom(triggerEvent)) {
-            AbstractAjaxUpdateEvent ajaxUpdateEvent = (AbstractAjaxUpdateEvent) event.getPayload();
+            AbstractAjaxUpdateEventPayload ajaxUpdateEvent = (AbstractAjaxUpdateEventPayload) event.getPayload();
             AjaxRequestTarget target = ajaxUpdateEvent.getTarget();
             updateComponents(target);
             onEventExtra(component, event);
@@ -54,6 +56,16 @@ public class UpdateEventBehavior<T> extends Behavior {
      * @param event     caught event
      */
     protected void onEventExtra(Component component, IEvent<?> event) {
+    }
+    
+    /**
+     * Helper method for {@link #onEventExtra(Component, IEvent)} descendants
+     * @param event
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+	protected T getEventPayload(IEvent<?> event) {
+    	return (T) event.getPayload();
     }
 
     @Override

@@ -21,6 +21,7 @@ import org.devgateway.eudevfin.ui.common.components.DateInputField;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.components.TextAreaInputField;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
+import org.devgateway.eudevfin.ui.common.events.MarkersField13UpdateBehavior;
 import org.devgateway.eudevfin.ui.common.models.DateToLocalDateTimeModel;
 import org.devgateway.eudevfin.ui.common.permissions.PermissionAwareComponent;
 import org.devgateway.eudevfin.ui.common.temporary.SB;
@@ -85,6 +86,7 @@ public class SupplementaryDataTab extends Panel implements PermissionAwareCompon
         
         genderEquality.getField().add(new MarkersValidatorWithLocalError());
         
+        genderEquality.getField().add(new MarkersField13UpdateBehavior());
         add(genderEquality);
 
         DropDownField<Category> aidToEnvironment = new DropDownField<>("21aidToEnvironment",
@@ -92,6 +94,7 @@ public class SupplementaryDataTab extends Panel implements PermissionAwareCompon
         
         aidToEnvironment.getField().add(new MarkersValidatorWithLocalError());
         
+        aidToEnvironment.getField().add(new MarkersField13UpdateBehavior());
         add(aidToEnvironment);
 
         DropDownField<Category> pdGg = new DropDownField<>("22pdGg",
@@ -99,6 +102,7 @@ public class SupplementaryDataTab extends Panel implements PermissionAwareCompon
         
         pdGg.getField().add(new MarkersValidatorWithLocalError());
         
+        pdGg.getField().add(new MarkersField13UpdateBehavior()); 
         add(pdGg);
 
         DropDownField<Category> tradeDevelopment = new DropDownField<>("23tradeDevelopment",
@@ -106,29 +110,35 @@ public class SupplementaryDataTab extends Panel implements PermissionAwareCompon
         
         tradeDevelopment.getField().add(new MarkersValidatorWithLocalError());
         
+        tradeDevelopment.getField().add(new MarkersField13UpdateBehavior()); 
         add(tradeDevelopment);
 
         DropDownField<Boolean> freestandingTechnicalCooperation = new DropDownField<>("24freestandingTechnicalCooperation",
                 new RWComponentPropertyModel<Boolean>("freestandingTechnicalCooperation"), SB.boolProvider);
+        freestandingTechnicalCooperation.getField().add(new MarkersField13UpdateBehavior());
         add(freestandingTechnicalCooperation);
 
         DropDownField<Boolean> programmeBasedApproach = new DropDownField<>("25programmeBasedApproach",
                 new RWComponentPropertyModel<Boolean>("programmeBasedApproach"), SB.boolProvider);
+        programmeBasedApproach.getField().add(new MarkersField13UpdateBehavior());
         add(programmeBasedApproach);
 
         DropDownField<Boolean> investmentProject = new DropDownField<>("26investmentProject",
                 new RWComponentPropertyModel<Boolean>("investment"), SB.boolProvider);
+        investmentProject.getField().add(new MarkersField13UpdateBehavior());
         add(investmentProject);
 
 
         DropDownField<Boolean> associatedFinancing = new DropDownField<>("27associatedFinancing",
                 new RWComponentPropertyModel<Boolean>("associatedFinancing"), SB.boolProvider);
+        associatedFinancing.getField().add(new MarkersField13UpdateBehavior());
         add(associatedFinancing);
 
         DropDownField<Category> biodiversity = new DropDownField<>("28biodiversity", new RWComponentPropertyModel<Category>("biodiversity"),
         		categoryFactory.get(CategoryConstants.MARKER_TAG));
         
         biodiversity.getField().add(new MarkersValidatorWithLocalError());
+        biodiversity.getField().add(new MarkersField13UpdateBehavior());
         add(biodiversity);
 
         DropDownField<Category> ccMitigation = new DropDownField<>("29ccMitigation", new RWComponentPropertyModel<Category>("climateChangeMitigation"),
@@ -136,6 +146,7 @@ public class SupplementaryDataTab extends Panel implements PermissionAwareCompon
         
         ccMitigation.getField().add(new MarkersValidatorWithLocalError());
         
+        ccMitigation.getField().add(new MarkersField13UpdateBehavior());
         add(ccMitigation);
 
         DropDownField<Category> ccAdaptation = new DropDownField<>("30ccAdaptation", new RWComponentPropertyModel<Category>("climateChangeAdaptation"),
@@ -143,6 +154,7 @@ public class SupplementaryDataTab extends Panel implements PermissionAwareCompon
         
         ccAdaptation.getField().add(new MarkersValidatorWithLocalError());
         
+        ccAdaptation.getField().add(new MarkersField13UpdateBehavior());
         add(ccAdaptation);
 
         DropDownField<Category> desertification = new DropDownField<>("31desertification", new RWComponentPropertyModel<Category>("desertification"),
@@ -150,6 +162,7 @@ public class SupplementaryDataTab extends Panel implements PermissionAwareCompon
         
         desertification.getField().add(new MarkersValidatorWithLocalError(true));
         
+        desertification.getField().add(new MarkersField13UpdateBehavior());
         add(desertification);
     }
 

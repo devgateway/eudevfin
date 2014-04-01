@@ -18,10 +18,10 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
  * @author aartimon
  * @since 03/12/13
  */
-public abstract class AbstractAjaxUpdateEvent {
+public abstract class AbstractAjaxUpdateEventPayload {
     private AjaxRequestTarget target;
 
-    AbstractAjaxUpdateEvent(AjaxRequestTarget target) {
+    AbstractAjaxUpdateEventPayload(AjaxRequestTarget target) {
         this.target = target;
     }
 
