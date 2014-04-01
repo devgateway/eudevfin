@@ -18,6 +18,7 @@ import org.devgateway.eudevfin.ui.common.components.DateInputField;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.components.TextAreaInputField;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
+import org.devgateway.eudevfin.ui.common.events.MarkersField13UpdateBehavior;
 import org.devgateway.eudevfin.ui.common.models.DateToLocalDateTimeModel;
 import org.devgateway.eudevfin.ui.common.permissions.PermissionAwareComponent;
 import org.devgateway.eudevfin.ui.common.temporary.SB;
@@ -56,51 +57,63 @@ public class SupplementaryDataTab extends Panel implements PermissionAwareCompon
 
         DropDownField<Category> genderEquality = new DropDownField<>("20genderEquality",
                 new RWComponentPropertyModel<Category>("genderEquality"), SB.categoryProvider);
+        genderEquality.getField().add(new MarkersField13UpdateBehavior());
         add(genderEquality);
 
         DropDownField<Category> aidToEnvironment = new DropDownField<>("21aidToEnvironment",
                 new RWComponentPropertyModel<Category>("aidToEnvironment"), SB.categoryProvider);
+        aidToEnvironment.getField().add(new MarkersField13UpdateBehavior());
         add(aidToEnvironment);
 
         DropDownField<Category> pdGg = new DropDownField<>("22pdGg",
                 new RWComponentPropertyModel<Category>("pdgg"), SB.categoryProvider);
+        pdGg.getField().add(new MarkersField13UpdateBehavior()); 
         add(pdGg);
 
         DropDownField<Category> tradeDevelopment = new DropDownField<>("23tradeDevelopment",
                 new RWComponentPropertyModel<Category>("tradeDevelopment"), SB.categoryProvider);
+        tradeDevelopment.getField().add(new MarkersField13UpdateBehavior()); 
         add(tradeDevelopment);
 
         DropDownField<Boolean> freestandingTechnicalCooperation = new DropDownField<>("24freestandingTechnicalCooperation",
                 new RWComponentPropertyModel<Boolean>("freestandingTechnicalCooperation"), SB.boolProvider);
+        freestandingTechnicalCooperation.getField().add(new MarkersField13UpdateBehavior());
         add(freestandingTechnicalCooperation);
 
         DropDownField<Boolean> programmeBasedApproach = new DropDownField<>("25programmeBasedApproach",
                 new RWComponentPropertyModel<Boolean>("programmeBasedApproach"), SB.boolProvider);
+        programmeBasedApproach.getField().add(new MarkersField13UpdateBehavior());
         add(programmeBasedApproach);
 
         DropDownField<Boolean> investmentProject = new DropDownField<>("26investmentProject",
                 new RWComponentPropertyModel<Boolean>("investment"), SB.boolProvider);
+        investmentProject.getField().add(new MarkersField13UpdateBehavior());
         add(investmentProject);
 
 
         DropDownField<Boolean> associatedFinancing = new DropDownField<>("27associatedFinancing",
                 new RWComponentPropertyModel<Boolean>("associatedFinancing"), SB.boolProvider);
+        associatedFinancing.getField().add(new MarkersField13UpdateBehavior());
         add(associatedFinancing);
 
         DropDownField<Category> biodiversity = new DropDownField<>("28biodiversity", new RWComponentPropertyModel<Category>("biodiversity"),
                 SB.categoryProvider);
+        biodiversity.getField().add(new MarkersField13UpdateBehavior());
         add(biodiversity);
 
         DropDownField<Category> ccMitigation = new DropDownField<>("29ccMitigation", new RWComponentPropertyModel<Category>("climateChangeMitigation"),
                 SB.categoryProvider);
+        ccMitigation.getField().add(new MarkersField13UpdateBehavior());
         add(ccMitigation);
 
         DropDownField<Category> ccAdaptation = new DropDownField<>("30ccAdaptation", new RWComponentPropertyModel<Category>("climateChangeAdaptation"),
                 SB.categoryProvider);
+        ccAdaptation.getField().add(new MarkersField13UpdateBehavior());
         add(ccAdaptation);
 
         DropDownField<Category> desertification = new DropDownField<>("31desertification", new RWComponentPropertyModel<Category>("desertification"),
                 SB.categoryProvider);
+        desertification.getField().add(new MarkersField13UpdateBehavior());
         add(desertification);
     }
 

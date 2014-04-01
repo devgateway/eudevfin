@@ -8,6 +8,8 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.event.Broadcast;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -24,6 +26,8 @@ import org.devgateway.eudevfin.ui.common.Constants;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.components.TextAreaInputField;
+import org.devgateway.eudevfin.ui.common.events.Field12ChangedEventPayload;
+import org.devgateway.eudevfin.ui.common.events.Field13ChangedEventPayload;
 import org.devgateway.eudevfin.ui.common.permissions.PermissionAwareComponent;
 import org.devgateway.eudevfin.ui.common.providers.OrganizationChoiceProvider;
 import org.devgateway.eudevfin.ui.common.validators.BilateralField10CodeValidator;
@@ -148,8 +152,16 @@ public class BasicDataTab extends Panel implements PermissionAwareComponent {
         });
         add(typeOfFlow);
 
-        DropDownField<Category> typeOfFinance = new DropDownField<>("12typeOfFinance", new RWComponentPropertyModel<Category>("typeOfFinance"),
-                categoryFactory.get(CategoryConstants.ALL_TYPE_OF_FINANCE_TAG));
+        DropDownField<Category> typeOfFinance = new DropDownField<Category>("12typeOfFinance", new RWComponentPropertyModel<Category>("typeOfFinance"),
+                categoryFactory.get(CategoryConstants.ALL_TYPE_OF_FINANCE_TAG)) {
+        	@Override
+        	protected void onUpdate(AjaxRequestTarget target) {
+        		Category modelObject = this.getField().getModelObject();
+        		 if(modelObject!=null)
+        			 send(getPage(), Broadcast.DEPTH, new Field12ChangedEventPayload(target,modelObject.getDisplayableCode()));
+        	}
+        };
+        
         typeOfFinance.required();
 		typeOfFinance.getField().add(new Field12CodeValidator(transactionType) {
 			@Override
@@ -160,8 +172,14 @@ public class BasicDataTab extends Panel implements PermissionAwareComponent {
 		});
         add(typeOfFinance);
 
-        DropDownField<Category> typeOfAid = new DropDownField<>("13typeOfAid", new RWComponentPropertyModel<Category>("typeOfAid"),
-                categoryFactory.get(CategoryConstants.ALL_TYPE_OF_AID_TAG));
+        DropDownField<Category> typeOfAid = new DropDownField<Category>("13typeOfAid", new RWComponentPropertyModel<Category>("typeOfAid"),categoryFactory.get(CategoryConstants.ALL_TYPE_OF_AID_TAG)) {
+        	@Override
+        	protected void onUpdate(AjaxRequestTarget target) {
+        		Category modelObject = this.getField().getModelObject();
+        		 if(modelObject!=null)
+        			 send(getPage(), Broadcast.DEPTH, new Field13ChangedEventPayload(target,modelObject.getDisplayableCode()));
+        	}
+        };
         add(typeOfAid);
 
         TextAreaInputField activityProjectTitle = new TextAreaInputField("14activityProjectTitle", new RWComponentPropertyModel<String>("shortDescription"));
