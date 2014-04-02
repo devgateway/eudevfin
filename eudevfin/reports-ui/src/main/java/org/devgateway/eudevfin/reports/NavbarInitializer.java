@@ -44,7 +44,7 @@ public final class NavbarInitializer {
 	}
 	
 	
-	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT,order=20)
+	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.LEFT,order=3)
 	public static Component newReportsNavbarMenu(Page page) {
 		NavbarDropDownButton navbarDropDownButton = new RepairedNavbarDropDownButton(
 				new StringResourceModel("navbar.reports", page, null, null)) {
