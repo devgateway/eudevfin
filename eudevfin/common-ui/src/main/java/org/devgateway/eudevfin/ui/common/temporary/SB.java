@@ -154,8 +154,8 @@ public class SB {
 
     public static final String NON_ODA_OOF_NON_EXPORT = "nonOda.nonExport";
     public static final String NON_ODA_OOF_EXPORT = "nonOda.export";
-    public static final String NON_ODA_PRIVATE_GRANTS = "nonOda.publicGrants";
-    public static final String NON_ODA_PRIVATE_MARKET = "nonOda.publicMarket";
+    public static final String NON_ODA_PRIVATE_GRANTS = "nonOda.privateGrants";
+    public static final String NON_ODA_PRIVATE_MARKET = "nonOda.privateMarket";
     public static final String NON_ODA_OTHER_FLOWS = "nonOda.otherFlows";
 
     public static String[] biODA() {
