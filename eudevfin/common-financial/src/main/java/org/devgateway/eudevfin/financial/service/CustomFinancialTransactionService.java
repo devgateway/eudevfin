@@ -29,4 +29,7 @@ public interface CustomFinancialTransactionService extends BaseEntityService<Cus
 	
 	@Payload("new java.util.Date()")
 	public List<Integer> findDistinctReportingYears();
+
+    @Payload("new java.lang.String()")
+    public List<String> findDistinctReportingGeopraphy();
 }

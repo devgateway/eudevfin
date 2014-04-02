@@ -33,4 +33,6 @@ public interface CustomFinancialTransactionRepository extends
 	@Query ("select distinct year(ctx.reportingYear) from CustomFinancialTransaction ctx ")
 	List<Integer> findDistinctReportingYears();
 
+    @Query ("select distinct ct.name from Category c, CategoryTranslation ct where c.code like 'GEOGRAPHY##%' and ct.parent  = c.id ")
+    List<String> findDistinctReportingGeopraphy();
 }

@@ -188,6 +188,7 @@
 	<int:channel id="findCustomTransactionByReportingYearAndDraftFalseAndFormTypeNotInChannel"/>
 	
 	<int:channel id="findDistinctReportingYearsInTransactionChannel"/>
+    <int:channel id="findDistinctReportingGeopraphyInTransactionChannel"/>
 	
 	<int:channel id="findOrganizationByIdChannel" />
 	<int:channel id="saveOrganizationChannel" />

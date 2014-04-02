@@ -89,4 +89,10 @@ public class CustomFinancialTransactionDao
 		return ret;
 	}
 
+    @ServiceActivator(inputChannel="findDistinctReportingGeopraphyInTransactionChannel")
+    public List<String> findDistinctReportingGeopraphy(){
+        final List<String> ret	= this.getRepo().findDistinctReportingGeopraphy();
+        return ret;
+    }
+
 }

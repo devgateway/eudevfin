@@ -70,6 +70,10 @@
 		<int:method name="findDistinctReportingYears" request-channel="getChannel">
 			<int:header name="requestName" value="findDistinctReportingYearsInTransactionChannel"/>
 		</int:method>
+
+        <int:method name="findDistinctReportingGeopraphy" request-channel="getChannel">
+            <int:header name="requestName" value="findDistinctReportingGeopraphyInTransactionChannel"/>
+        </int:method>
 	</int:gateway>
 		
 		
