@@ -15,7 +15,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.Strings;
 import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.ValidationError;
-import org.devgateway.eudevfin.dim.providers.AreaChoiceProvider;
+import org.devgateway.eudevfin.ui.common.providers.AreaChoiceProvider;
 import org.devgateway.eudevfin.dim.providers.CategoryProviderFactory;
 import org.devgateway.eudevfin.metadata.common.domain.Area;
 import org.devgateway.eudevfin.metadata.common.domain.Category;
