@@ -297,6 +297,16 @@
                 </Level>
             </Hierarchy>
         </Dimension>
+        <Dimension name="CPA">
+            <Hierarchy hasAll="true" allMemberName="All CPA">
+                <!-- No table element here. Fact table is assumed. -->
+                <Level name="CPA" column="CPA" type="Boolean" uniqueMembers="false" levelType="Regular">
+                    <KeyExpression>
+                        <SQL dialect="generic">CASE WHEN CPA IS NULL THEN FALSE ELSE CPA END</SQL>
+                    </KeyExpression>
+                </Level>
+            </Hierarchy>
+        </Dimension>
         <Measure name="Export Credit Amount" column="AMOUNTS_EXP_EXPORT_CREDIT_AMOUNT" aggregator="sum" visible="true" caption="%{exportCreditAmount}"></Measure>
         <Measure name="Exchange Rate" aggregator="avg" visible="true" datatype="Integer" formatString="#,###.00" caption="Exchange Rate">
             <MeasureExpression>
