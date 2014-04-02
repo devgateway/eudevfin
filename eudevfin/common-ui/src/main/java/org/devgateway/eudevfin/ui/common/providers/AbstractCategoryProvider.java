@@ -6,7 +6,7 @@
  * http://www.gnu.org/licenses/gpl.html
  */
 
-package org.devgateway.eudevfin.dim.providers;
+package org.devgateway.eudevfin.ui.common.providers;
 
 import com.vaynberg.wicket.select2.Response;
 
@@ -16,7 +16,6 @@ import org.devgateway.eudevfin.common.service.BaseEntityService;
 import org.devgateway.eudevfin.metadata.common.domain.Category;
 import org.devgateway.eudevfin.metadata.common.exception.CategoryOperationException;
 import org.devgateway.eudevfin.metadata.common.service.CategoryService;
-import org.devgateway.eudevfin.ui.common.providers.AbstractTranslatableProvider;
 import org.json.JSONException;
 import org.json.JSONWriter;
 import org.springframework.beans.factory.annotation.Autowired;

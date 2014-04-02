@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 /**
  * @author aartimon
  * @since 14/01/14
- * @deprecated use {@link CategoryProviderFactory} instead
+ * @deprecated use {@link org.devgateway.eudevfin.ui.common.providers.CategoryProviderFactory} instead
  */
 @Deprecated
 @Component

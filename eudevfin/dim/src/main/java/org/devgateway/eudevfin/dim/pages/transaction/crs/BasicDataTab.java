@@ -16,7 +16,7 @@ import org.apache.wicket.util.string.Strings;
 import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.ValidationError;
 import org.devgateway.eudevfin.ui.common.providers.AreaChoiceProvider;
-import org.devgateway.eudevfin.dim.providers.CategoryProviderFactory;
+import org.devgateway.eudevfin.ui.common.providers.CategoryProviderFactory;
 import org.devgateway.eudevfin.metadata.common.domain.Area;
 import org.devgateway.eudevfin.metadata.common.domain.Category;
 import org.devgateway.eudevfin.metadata.common.domain.ChannelCategory;

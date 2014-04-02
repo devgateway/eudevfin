@@ -11,7 +11,7 @@ package org.devgateway.eudevfin.dim.pages.transaction.crs;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.devgateway.eudevfin.dim.providers.CategoryProviderFactory;
+import org.devgateway.eudevfin.ui.common.providers.CategoryProviderFactory;
 import org.devgateway.eudevfin.metadata.common.domain.Category;
 import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.devgateway.eudevfin.metadata.common.util.CategoryConstants;
