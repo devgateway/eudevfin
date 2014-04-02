@@ -24,8 +24,8 @@ public class CategoryConstants {
 	public static final String CHANNEL_TAG					= "CHANNEL_TAG";
 	public static final String RECIPIENT_TAG				= "RECIPIENT_TAG";
 	public static final String NATURE_OF_SUBMISSION_TAG		= "NATURE_OF_SUBMISSION_TAG";
+	public static final String LEVEL_OF_CERTAINTY_TAG		= "LEVEL_OF_CERTAINTY_TAG";
 	public static final String INCOME_GROUP_TAG				= "INCOME_GROUP_TAG";
-	
 	public static final String TYPE_OF_REPAYMENT_TAG				= "TYPE_OF_REPAYMENT_TAG";
 	public static final String NUM_OF_REPAYMENTS_PER_ANNUM_TAG		= "NUM_OF_REPAYMENTS_PER_ANNUM_TAG";
 	public static final String SIGNIFICANCE_TAG						= "SIGNIFICANCE_TAG";

@@ -84,16 +84,16 @@ public class CRSTransactionPermissionProvider extends PermissionProvider {
         //render the tab for only the ODA and OOF
         permissions.put(ForLoansOnlyTab.KEY, new RoleActionMapping().render(SB.allODA()).render(SB.allOOF()));
         //set field permissions for when tab is rendered
-        permissions.put("44typeOfRepayment", new RoleActionMapping().required(SB.allODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
-        permissions.put("45numberOfRepayments", new RoleActionMapping().required(SB.allODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
-        permissions.put("46interestRate", new RoleActionMapping().required(SB.allODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
-        permissions.put("47secondInterestRate", new RoleActionMapping().required(SB.allODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
-        permissions.put("48firstRepaymentDate", new RoleActionMapping().required(SB.allODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
-        permissions.put("49finalRepaymentDate", new RoleActionMapping().required(SB.allODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
-        permissions.put("50interestReceived", new RoleActionMapping().required(SB.allODA()).required(SB.allOOF()));
-        permissions.put("51principalDisbursed", new RoleActionMapping().required(SB.biODA()).required(SB.NON_ODA_OOF_NON_EXPORT));
-        permissions.put("52arrearsOfPrincipals", new RoleActionMapping().required(SB.biODA()).required(SB.NON_ODA_OOF_NON_EXPORT));
-        permissions.put("53arrearsOfInterest", new RoleActionMapping().required(SB.biODA()).required(SB.NON_ODA_OOF_NON_EXPORT));
+        permissions.put("44typeOfRepayment", new RoleActionMapping().render(SB.allODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
+        permissions.put("45numberOfRepayments", new RoleActionMapping().render(SB.allODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
+        permissions.put("46interestRate", new RoleActionMapping().render(SB.allODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
+        permissions.put("47secondInterestRate", new RoleActionMapping().render(SB.allODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
+        permissions.put("48firstRepaymentDate", new RoleActionMapping().render(SB.allODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
+        permissions.put("49finalRepaymentDate", new RoleActionMapping().render(SB.allODA()).render(SB.NON_ODA_OOF_NON_EXPORT));
+        permissions.put("50interestReceived", new RoleActionMapping().render(SB.allODA()).required(SB.allOOF()));
+        permissions.put("51principalDisbursed", new RoleActionMapping().render(SB.biODA()).required(SB.NON_ODA_OOF_NON_EXPORT));
+        permissions.put("52arrearsOfPrincipals", new RoleActionMapping().render(SB.biODA()).required(SB.NON_ODA_OOF_NON_EXPORT));
+        permissions.put("53arrearsOfInterest", new RoleActionMapping().render(SB.biODA()).required(SB.NON_ODA_OOF_NON_EXPORT));
 
         return permissions;
     }
