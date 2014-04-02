@@ -200,8 +200,7 @@ public class CustomBasicDataTab extends BasicDataTab {
             add(recipientCode);
 
             DropDownField<Category> recipientPriority = new DropDownField<>("7cPriorityStatus", new RWComponentPropertyModel<Category>("recipientPriority"),
-                    SB.categoryProvider);
-            recipientPriority.required();
+            		 categoryFactory.get(CategoryConstants.PRIORITY_STATUS_TAG));       
             add(recipientPriority);
 
 
