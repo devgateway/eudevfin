@@ -32,7 +32,8 @@ public class CRSTransactionPermissionProvider extends PermissionProvider {
         permissions.put("3extendingAgency", new RoleActionMapping().required(SB.allODA()).required(SB.allOOF()));
         permissions.put("4crsId", new RoleActionMapping().required(SB.allODA()).required(SB.allOOF()).required(SB.allPriv()));
         permissions.put("5donorProjectNumber", new RoleActionMapping().required(SB.allODA()).required(SB.allOOF()).required(SB.NON_ODA_PRIVATE_GRANTS));
-        permissions.put("6natureSubmission", new RoleActionMapping().required(SB.allODA()).required(SB.allOOF()).required(SB.allPriv()));
+        permissions.put("6natureSubmission", new RoleActionMapping().required(SB.BILATERAL_ODA_ADVANCE_QUESTIONNAIRE).
+        		required(SB.BILATERAL_ODA_CRS).required(SB.mulODA()).required(SB.allOOF()).required(SB.allPriv()));
         /**
          * Basic Data
          */
