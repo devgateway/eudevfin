@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+<wicket:head>
+    <title>Custom Reports Page</title>
+</wicket:head>
+<body>
+    <wicket:extend>
+        <div class="container">
+            <div class="row">
+                <div class="span12" style="text-align: center;">
+                    <h1>Custom Reports Page</h1>
+                </div>
+
+                <div class="span8 offset2 well">
+                    <form wicket:id="form">
+                        <div class="row">
+                            <div wicket:id="geopraphy"/>
+                            <div wicket:id="recipient"/>
+                            <div wicket:id="sector"/>
+                            <div wicket:id="year"/>
+                            <div wicket:id="cofinancingtransactionsonly"/>
+                            <div wicket:id="cpaonly"/>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="span4">
+                                <input wicket:id="submit" type="button"/>
+                                <input wicket:id="reset" type="button"/>
+                            </div>
+                        </div>
+                    </form>
+
+                    <span wicket:id="feedback">feedback</span>
+                </div>
+            </div> <!-- /row -->
+        </div> <!-- /container -->
+    </wicket:extend>
+</body>
+</html>
