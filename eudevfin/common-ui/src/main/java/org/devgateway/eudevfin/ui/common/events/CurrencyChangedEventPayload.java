@@ -17,8 +17,8 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
  * @author aartimon
  * @since 03/12/13
  */
-public class CurrencyChangedEvent extends AbstractAjaxUpdateEvent {
-    public CurrencyChangedEvent(AjaxRequestTarget target) {
+public class CurrencyChangedEventPayload extends AbstractAjaxUpdateEventPayload {
+    public CurrencyChangedEventPayload(AjaxRequestTarget target) {
         super(target);
     }
 }

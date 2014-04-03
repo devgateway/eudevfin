@@ -128,6 +128,10 @@ public class CustomFinancialTransaction extends FinancialTransaction {
     
     @ManyToOne
     private PersistedUserGroup persistedUserGroup;
+    
+    @ManyToOne
+    private Category LevelOfCertainty;
+
 
     private String budgetCode;
     private String budgetLine;
@@ -544,5 +548,19 @@ public class CustomFinancialTransaction extends FinancialTransaction {
 	 */
 	public void setPersistedUserGroup(PersistedUserGroup persistedUserGroup) {
 		this.persistedUserGroup = persistedUserGroup;
+	}
+
+	/**
+	 * @return the LevelOfCertainty
+	 */
+	public Category getLevelOfCertainty() {
+		return LevelOfCertainty;
+	}
+
+	/**
+	 * @param LevelOfCertainty the LevelOfCertainty to set
+	 */
+	public void setLevelOfCertainty(Category LevelOfCertainty) {
+		this.LevelOfCertainty = LevelOfCertainty;
 	}
 }

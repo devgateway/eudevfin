@@ -21,7 +21,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
-import org.devgateway.eudevfin.ui.common.events.CurrencyChangedEvent;
+import org.devgateway.eudevfin.ui.common.events.CurrencyChangedEventPayload;
 import org.devgateway.eudevfin.ui.common.events.CurrencyUpdateBehavior;
 import org.devgateway.eudevfin.ui.common.models.BigMoneyModel;
 import org.devgateway.eudevfin.ui.common.permissions.PermissionAwareComponent;
@@ -75,7 +75,7 @@ public class VolumeDataTab extends Panel implements PermissionAwareComponent {
                 nationalCurrenciesProvider) {
             @Override
             protected void onUpdate(AjaxRequestTarget target) {
-                send(getPage(), Broadcast.DEPTH, new CurrencyChangedEvent(target));
+                send(getPage(), Broadcast.DEPTH, new CurrencyChangedEventPayload(target));
             }
         };
         currency.required();

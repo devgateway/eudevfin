@@ -13,12 +13,16 @@ import java.math.BigDecimal;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.ComponentPropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.devgateway.eudevfin.dim.providers.CategoryProviderFactory;
 import org.devgateway.eudevfin.metadata.common.domain.Category;
+import org.devgateway.eudevfin.metadata.common.util.CategoryConstants;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.DateInputField;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
 import org.devgateway.eudevfin.ui.common.events.CurrencyUpdateBehavior;
+import org.devgateway.eudevfin.ui.common.events.LoansField12UpdateBehavior;
 import org.devgateway.eudevfin.ui.common.models.BigMoneyModel;
 import org.devgateway.eudevfin.ui.common.models.DateToLocalDateTimeModel;
 import org.devgateway.eudevfin.ui.common.permissions.PermissionAwareComponent;
@@ -34,7 +38,11 @@ import org.joda.time.LocalDateTime;
 public class ForLoansOnlyTab extends Panel implements PermissionAwareComponent {
     public static final String KEY = "tabs.loans";
 	private PageParameters parameters;
+	
+	@SpringBean    
+	private CategoryProviderFactory categoryFactory;
 
+	
     public ForLoansOnlyTab(String id,PageParameters parameters) {
         super(id);
         this.parameters=parameters;
@@ -48,49 +56,59 @@ public class ForLoansOnlyTab extends Panel implements PermissionAwareComponent {
         ComponentPropertyModel<CurrencyUnit> readOnlyCurrencyModel = new ComponentPropertyModel<>("currency");
 
         DropDownField<Category> typeOfRepayment = new DropDownField<>("44typeOfRepayment",
-                new RWComponentPropertyModel<Category>("typeOfRepayment"), SB.categoryProvider);
+                new RWComponentPropertyModel<Category>("typeOfRepayment"), categoryFactory.get(CategoryConstants.TYPE_OF_REPAYMENT_TAG));
+        typeOfRepayment.getField().add(new LoansField12UpdateBehavior()); 
         add(typeOfRepayment);
 
         DropDownField<Category> numberOfRepayments = new DropDownField<>("45numberOfRepayments",
-                new RWComponentPropertyModel<Category>("numberOfRepaymentsAnnum"), SB.categoryProvider);
+                new RWComponentPropertyModel<Category>("numberOfRepaymentsAnnum"), categoryFactory.get(CategoryConstants.NUM_OF_REPAYMENTS_PER_ANNUM_TAG));
+        numberOfRepayments.getField().add(new LoansField12UpdateBehavior());        
         add(numberOfRepayments);
 
         TextInputField<BigDecimal> interestRate = new TextInputField<>("46interestRate",
                 new RWComponentPropertyModel<BigDecimal>("interestRate"));
+        interestRate.getField().add(new LoansField12UpdateBehavior());        
         interestRate.typeBigDecimal();
         add(interestRate);
 
         TextInputField<BigDecimal> secondInterestRate = new TextInputField<>("47secondInterestRate",
                 new RWComponentPropertyModel<BigDecimal>("secondInterestRate"));
+        secondInterestRate.getField().add(new LoansField12UpdateBehavior());     
         secondInterestRate.typeBigDecimal();
         add(secondInterestRate);
 
         DateInputField firstRepaymentDate = new DateInputField("48firstRepaymentDate",
                 new DateToLocalDateTimeModel(new RWComponentPropertyModel<LocalDateTime>("firstRepaymentDate")));
+        firstRepaymentDate.getField().add(new LoansField12UpdateBehavior());   
         add(firstRepaymentDate);
 
         DateInputField finalRepaymentDate = new DateInputField("49finalRepaymentDate",
                 new DateToLocalDateTimeModel(new RWComponentPropertyModel<LocalDateTime>("finalRepaymentDate")));
+        finalRepaymentDate.getField().add(new LoansField12UpdateBehavior());   
         add(finalRepaymentDate);
 
         TextInputField<BigDecimal> interestReceived = new TextInputField<>("50interestReceived",
                 new BigMoneyModel(new RWComponentPropertyModel<BigMoney>("interestReceived"), readOnlyCurrencyModel));
+        interestReceived.getField().add(new LoansField12UpdateBehavior());   
         interestReceived.typeBigDecimal().add(new CurrencyUpdateBehavior());
         add(interestReceived);
 
         TextInputField<BigDecimal> principalDisbursed = new TextInputField<>("51principalDisbursed",
                 new BigMoneyModel(new RWComponentPropertyModel<BigMoney>("principalDisbursedOutstanding"), readOnlyCurrencyModel));
         principalDisbursed.typeBigDecimal().add(new CurrencyUpdateBehavior());
+        principalDisbursed.getField().add(new LoansField12UpdateBehavior());   
         add(principalDisbursed);
 
         TextInputField<BigDecimal> arrearsOfPrincipals = new TextInputField<>("52arrearsOfPrincipals",
                 new BigMoneyModel(new RWComponentPropertyModel<BigMoney>("arrearsOfPrincipal"), readOnlyCurrencyModel));
         arrearsOfPrincipals.typeBigDecimal().add(new CurrencyUpdateBehavior());
+        arrearsOfPrincipals.getField().add(new LoansField12UpdateBehavior());   
         add(arrearsOfPrincipals);
 
         TextInputField<BigDecimal> arrearsOfInterest = new TextInputField<>("53arrearsOfInterest",
                 new BigMoneyModel(new RWComponentPropertyModel<BigMoney>("arrearsOfInterest"), readOnlyCurrencyModel));
         arrearsOfInterest.typeBigDecimal().add(new CurrencyUpdateBehavior());
+        arrearsOfInterest.getField().add(new LoansField12UpdateBehavior());   
         add(arrearsOfInterest);
     }
 

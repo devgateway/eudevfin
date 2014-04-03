@@ -166,7 +166,7 @@ public final class NavbarInitializer {
 	    }
 	
 
-	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT,order=98)
+	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT,order=7)
 	public static Component newLanguageNavbarButton(final Page page) {
 	        NavbarDropDownButton languageDropDown = new NavbarDropDownButton(new StringResourceModel("navbar.lang", page, null, null)) {
 	            private static final long serialVersionUID = 2866997914075956070L;
@@ -216,7 +216,7 @@ public final class NavbarInitializer {
     }
 
     
-	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT,order=100)
+	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT,order=10)
 	public static Component logoutPageNavbarButton(final Page page) {
 		 NavbarButton<LogoutPage> logoutPageNavbarButton = new NavbarButton<LogoutPage>(LogoutPage.class, new StringResourceModel("navbar.logout", page, null, null)).setIconType(IconType.off);
 	        MetaDataRoleAuthorizationStrategy.authorize(logoutPageNavbarButton, Component.RENDER, AuthConstants.Roles.ROLE_USER);

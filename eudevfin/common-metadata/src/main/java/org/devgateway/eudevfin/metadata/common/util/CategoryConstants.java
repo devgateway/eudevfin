@@ -1,4 +1,3 @@
-
 package org.devgateway.eudevfin.metadata.common.util;
 
 public class CategoryConstants {
@@ -25,8 +24,8 @@ public class CategoryConstants {
 	public static final String CHANNEL_TAG					= "CHANNEL_TAG";
 	public static final String RECIPIENT_TAG				= "RECIPIENT_TAG";
 	public static final String NATURE_OF_SUBMISSION_TAG		= "NATURE_OF_SUBMISSION_TAG";
+	public static final String LEVEL_OF_CERTAINTY_TAG		= "LEVEL_OF_CERTAINTY_TAG";
 	public static final String INCOME_GROUP_TAG				= "INCOME_GROUP_TAG";
-	
 	public static final String TYPE_OF_REPAYMENT_TAG				= "TYPE_OF_REPAYMENT_TAG";
 	public static final String NUM_OF_REPAYMENTS_PER_ANNUM_TAG		= "NUM_OF_REPAYMENTS_PER_ANNUM_TAG";
 	public static final String SIGNIFICANCE_TAG						= "SIGNIFICANCE_TAG";
@@ -34,6 +33,7 @@ public class CategoryConstants {
 	public static final String CURRENCY_CATEGORY_TAG				= "CURRENCY_CATEGORY_TAG";
 	public static final String OTHER_CURRENCY_TAG					= "OTHER_CURRENCY_TAG";
 	public static final String MAIN_CURRENCY_TAG					= "MAIN_CURRENCY_TAG";
+	public static final String PRIORITY_STATUS_TAG					= "PRIORITY_STATUS_TAG";
 	
 	
 	/**
@@ -57,17 +57,19 @@ public class CategoryConstants {
 			
 	public static final class TypeOfFlow {
 		public static final String NON_FLOW="TYPE_OF_FLOW##40";
+		public static final String ODA="TYPE_OF_FLOW##10";
 	}
-	
-	public static final class BiMultilateral {
-		public static final String BI_MULTILATERAL_1="BI_MULTILATERAL##1";
-		public static final String BI_MULTILATERAL_3="BI_MULTILATERAL##3";
-		public static final String BI_MULTILATERAL_7="BI_MULTILATERAL##7";
-	}
-	
 	
 	public static final class Markers {
 		public static final String MARKER_3="MARKER##3";
+	}
+			
+	
+	public static final class BiMultilateral {
+		public static final String BI_MULTILATERAL_1="BI_MULTILATERAL##1";
+		public static final String BI_MULTILATERAL_2="BI_MULTILATERAL##2";
+		public static final String BI_MULTILATERAL_3="BI_MULTILATERAL##3";
+		public static final String BI_MULTILATERAL_7="BI_MULTILATERAL##7";
 	}
 			
 	

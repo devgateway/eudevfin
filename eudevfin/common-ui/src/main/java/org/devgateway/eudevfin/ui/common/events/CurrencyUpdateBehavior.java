@@ -22,11 +22,11 @@ import org.apache.wicket.model.IModel;
  * @author aartimon
  * @since 03/12/13
  */
-public class CurrencyUpdateBehavior extends UpdateEventBehavior<CurrencyChangedEvent> {
+public class CurrencyUpdateBehavior extends UpdateEventBehavior<CurrencyChangedEventPayload> {
     private static Logger logger = Logger.getLogger(CurrencyUpdateBehavior.class);
 
     public CurrencyUpdateBehavior() {
-        super(CurrencyChangedEvent.class);
+        super(CurrencyChangedEventPayload.class);
     }
 
     @Override

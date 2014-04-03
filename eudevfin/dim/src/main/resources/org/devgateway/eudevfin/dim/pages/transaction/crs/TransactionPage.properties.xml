@@ -24,8 +24,10 @@
     <entry key="multilateralOda.CRS">CRS++ Form for Multilateral ODA</entry>
     <entry key="nonOda.nonExport">Non Export Credit Form for Non-ODA</entry>
     <entry key="nonOda.export">Export Form for Non-ODA</entry>
-    <entry key="nonOda.publicGrants">Public Grants Form for Non-ODA</entry>
-    <entry key="nonOda.export">Public Market Form for Non-ODA</entry>
+    <entry key="nonOda.privateGrants">Private Grants Form for Non-ODA</entry>
+	<entry key="nonOda.privateMarket">Private Market Form for Non-ODA</entry>   
+	<entry key="nonOda.otherFlows">Other Flows Form for Non-ODA</entry>   
+    <entry key="nonOda.export">Private Market Form for Non-ODA</entry>
     <entry key="nonOda.export">Export Credit Form for Non-ODA</entry>
 
     <entry key="button.submit">Save and exit the form</entry>

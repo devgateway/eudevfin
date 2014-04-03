@@ -38,13 +38,15 @@ public class CustomTransactionPermissionProvider extends CRSTransactionPermissio
         permissions.get("5donorProjectNumber").render(SB.BILATERAL_ODA_ADVANCE_QUESTIONNAIRE, true)
                 .render(SB.MULTILATERAL_ODA_ADVANCE_QUESTIONNAIRE, true);
 
+        permissions.put("6aLevelOfCertainty", new RoleActionMapping().required(SB.BILATERAL_ODA_FORWARD_SPENDING));
+        
         /**
          * Basic Data
          */
 
         permissions.put("7aRecipientCode", new RoleActionMapping().required(SB.BILATERAL_ODA_FORWARD_SPENDING));
         permissions.put("7bCPA", new RoleActionMapping().required(SB.BILATERAL_ODA_CRS));
-        permissions.put("7cPriorityStatus", new RoleActionMapping().required(SB.BILATERAL_ODA_FORWARD_SPENDING));
+        permissions.put("7cPriorityStatus", new RoleActionMapping().render(SB.BILATERAL_ODA_FORWARD_SPENDING));
         permissions.put("7dPhasingOutYear", new RoleActionMapping().required(SB.BILATERAL_ODA_FORWARD_SPENDING));
 
         //override permissions for

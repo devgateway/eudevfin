@@ -28,7 +28,7 @@ import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.components.MultiFileUploadField;
 import org.devgateway.eudevfin.ui.common.components.PermissionAwareContainer;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
-import org.devgateway.eudevfin.ui.common.events.CurrencyChangedEvent;
+import org.devgateway.eudevfin.ui.common.events.CurrencyChangedEventPayload;
 import org.devgateway.eudevfin.ui.common.events.CurrencyUpdateBehavior;
 import org.devgateway.eudevfin.ui.common.models.BigMoneyModel;
 import org.devgateway.eudevfin.ui.common.models.YearToLocalDateTimeModel;
@@ -141,7 +141,7 @@ public class CustomBasicDataTab extends BasicDataTab {
                     currencyUnitProvider) {
                 @Override
                 protected void onUpdate(AjaxRequestTarget target) {
-                    send(CustomBasicDataTab.this, Broadcast.DEPTH, new CurrencyChangedEvent(target));
+                    send(CustomBasicDataTab.this, Broadcast.DEPTH, new CurrencyChangedEventPayload(target));
                 }
             };
             firstAgencyCurrency.hideLabel().setSize(InputBehavior.Size.Small).required();
@@ -158,7 +158,7 @@ public class CustomBasicDataTab extends BasicDataTab {
                     currencyUnitProvider) {
                 @Override
                 protected void onUpdate(AjaxRequestTarget target) {
-                    send(CustomBasicDataTab.this, Broadcast.DEPTH, new CurrencyChangedEvent(target));
+                    send(CustomBasicDataTab.this, Broadcast.DEPTH, new CurrencyChangedEventPayload(target));
                 }
             };
             secondAgencyCurrency.hideLabel().setSize(InputBehavior.Size.Small).required();
@@ -175,7 +175,7 @@ public class CustomBasicDataTab extends BasicDataTab {
                     currencyUnitProvider) {
                 @Override
                 protected void onUpdate(AjaxRequestTarget target) {
-                    send(CustomBasicDataTab.this, Broadcast.DEPTH, new CurrencyChangedEvent(target));
+                    send(CustomBasicDataTab.this, Broadcast.DEPTH, new CurrencyChangedEventPayload(target));
                 }
             };
             thirdAgencyCurrency.hideLabel().setSize(InputBehavior.Size.Small).required();
@@ -200,8 +200,7 @@ public class CustomBasicDataTab extends BasicDataTab {
             add(recipientCode);
 
             DropDownField<Category> recipientPriority = new DropDownField<>("7cPriorityStatus", new RWComponentPropertyModel<Category>("recipientPriority"),
-                    SB.categoryProvider);
-            recipientPriority.required();
+            		 categoryFactory.get(CategoryConstants.PRIORITY_STATUS_TAG));       
             add(recipientPriority);
 
 

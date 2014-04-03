@@ -36,7 +36,7 @@ import de.agilecoders.wicket.extensions.markup.html.bootstrap.button.DropDownAut
  */
 public final class NavbarInitializer {
 
-	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.LEFT,order=89)
+	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT,order=6)
 	public static Component newAdminNavbarButton(Page page) {
 		NavbarDropDownButton navbarDropDownButton = new NavbarDropDownButton(new StringResourceModel("navbar.admin",
 				page, null, null)) {
@@ -76,7 +76,7 @@ public final class NavbarInitializer {
 	}
 	
 	
-	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.LEFT, order = 1)
+	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT, order = 5)
 	public static Component accountNavbarButton(final Page page) {
 		NavbarButton<LogoutPage> accountNavbarButton = new NavbarButton<LogoutPage>(EditPersistedUserPage.class,
 				new StringResourceModel("navbar.account", page, null, null)).setIconType(IconType.user);

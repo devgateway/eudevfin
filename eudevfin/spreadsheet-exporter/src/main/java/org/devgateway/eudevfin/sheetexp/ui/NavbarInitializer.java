@@ -29,7 +29,7 @@ import de.agilecoders.wicket.extensions.markup.html.bootstrap.button.DropDownAut
  */
 public final class NavbarInitializer {
 
-	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT,order=60)
+	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.LEFT,order=4)
 	public static Component newExportSpreadSheetButton(final Page page) {
 
 		final NavbarDropDownButton exportMenu = new RepairedNavbarDropDownButton(new StringResourceModel(
