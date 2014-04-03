@@ -34,6 +34,7 @@ public class CategoryConstants {
 	public static final String OTHER_CURRENCY_TAG					= "OTHER_CURRENCY_TAG";
 	public static final String MAIN_CURRENCY_TAG					= "MAIN_CURRENCY_TAG";
 	public static final String PRIORITY_STATUS_TAG					= "PRIORITY_STATUS_TAG";
+	public static final String RMNCH_TAG							= "RMNCH_TAG";	
 	
 	
 	/**
