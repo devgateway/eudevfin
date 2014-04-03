@@ -8,13 +8,10 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
-import java.math.BigDecimal;
-
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.ComponentPropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.devgateway.eudevfin.dim.providers.CategoryProviderFactory;
 import org.devgateway.eudevfin.metadata.common.domain.Category;
 import org.devgateway.eudevfin.metadata.common.util.CategoryConstants;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
@@ -26,10 +23,12 @@ import org.devgateway.eudevfin.ui.common.events.LoansField12UpdateBehavior;
 import org.devgateway.eudevfin.ui.common.models.BigMoneyModel;
 import org.devgateway.eudevfin.ui.common.models.DateToLocalDateTimeModel;
 import org.devgateway.eudevfin.ui.common.permissions.PermissionAwareComponent;
-import org.devgateway.eudevfin.ui.common.temporary.SB;
+import org.devgateway.eudevfin.ui.common.providers.CategoryProviderFactory;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 import org.joda.time.LocalDateTime;
+
+import java.math.BigDecimal;
 
 /**
  * @author aartimon@developmentgateway.org
