@@ -3,6 +3,7 @@
  */
 package org.devgateway.eudevfin.financial.translate;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import org.devgateway.eudevfin.common.dao.translation.AbstractTranslation;
@@ -20,7 +21,7 @@ import org.hibernate.envers.Audited;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class FinancialTransactionTranslation extends AbstractTranslation<FinancialTransaction> implements FinancialTransactionTrnInterface {
 	
-//	@Lob
+	@Column(length=20000)
 	private String description;
 //	@Lob
 	private String shortDescription;

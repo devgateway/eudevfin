@@ -79,6 +79,7 @@ public class SupplementaryDataTab extends Panel implements PermissionAwareCompon
         add(completionDate);
 
         TextAreaInputField description = new TextAreaInputField("19description", new RWComponentPropertyModel<String>("description"));
+        description.maxContentLength(20000);
         add(description);
 
         DropDownField<Category> genderEquality = new DropDownField<>("20genderEquality",

@@ -88,6 +88,12 @@
 			U.USERNAME=F.CREATEDBY) WHERE F.PERSISTEDUSERGROUP_ID IS NULL;
 		</sql>
 	</changeSet>
+	
+	<changeSet id="7" author="mihai" failOnError="true" runAlways="false" runInTransaction="true">
+		<comment>Make the description field larger, 20000 characters</comment>
+		<sql dbms="derby">ALTER TABLE FINANCIALTRANSACTIONTRANSLATION ALTER DESCRIPTION SET DATA TYPE VARCHAR(20000);</sql>
+		<sql dbms="derby">ALTER TABLE FINANCIALTRANSACTIONTRANSLATION_AUD ALTER DESCRIPTION SET DATA TYPE VARCHAR(20000);</sql>
+	</changeSet>
 	    
 
 </databaseChangeLog>

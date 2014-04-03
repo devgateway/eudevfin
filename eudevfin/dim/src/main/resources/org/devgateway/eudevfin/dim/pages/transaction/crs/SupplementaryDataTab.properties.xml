@@ -27,9 +27,9 @@
 	</entry>
 
 	<entry key="19description.label">19. Description</entry>
-	<entry key="19description.placeholder"></entry>
-	<entry key="19description.help">Enter project summary. No limitation of length.</entry>
-	<entry key="19description.help.detail">Field no. 19 - Project description.Many agencies"™ databases contain project summaries or descriptions
+	<entry key="19description.placeholder">(max 20000 characters)</entry>
+	<entry key="19description.help">Enter project summary. 20000 characters max.</entry>
+	<entry key="19description.help.detail">Field no. 19 - Project description.Many agencies' databases contain project summaries or descriptions
 		of the main objectives of the
 		activity. These can be included in the CRS++ database in a text field of unrestricted
 		length. The information permits
@@ -159,10 +159,10 @@
 	<entry key="26investmentProject.label">26. Investment Project</entry>
 	<entry key="26investmentProject.placeholder"></entry>
 	<entry key="26investmentProject.help">1=Yes or Blank ; Activities flagged as investment comprise a) schemes to increase and/or improve the
-		recipient"™s stock of physical capital and b) financing the supply of goods and services in support of such schemes
+		recipient's stock of physical capital and b) financing the supply of goods and services in support of such schemes
 	</entry>
 	<entry key="26investmentProject.help.detail">Field no. 26 - Investment: Activities flagged as investment comprise a) schemes to increase and/or
-		improve the recipient"™s stock of physical capital and b) financing the supply of goods and services in support of such
+		improve the recipient's stock of physical capital and b) financing the supply of goods and services in support of such
 		schemes. Most activities assigned the "investment" flag are classified as type of aid C01 "Project-type
 		interventions".
 	</entry>
