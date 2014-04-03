@@ -96,7 +96,7 @@ public class CustomTransactionPermissionProvider extends CRSTransactionPermissio
          */
         //override permissions
         permissions.get("33commitments").notCollected(SB.BILATERAL_ODA_ADVANCE_QUESTIONNAIRE).notCollected(SB.MULTILATERAL_ODA_ADVANCE_QUESTIONNAIRE);
-        permissions.put("34amountsExtended", new RoleActionMapping().required(SB.all()).notCollected(SB.BILATERAL_ODA_FORWARD_SPENDING));
+        permissions.put("34amountsExtended", new RoleActionMapping().required(SB.all()));
         permissions.get("35amountsReceived").render(SB.BILATERAL_ODA_ADVANCE_QUESTIONNAIRE, true)
                 .render(SB.MULTILATERAL_ODA_ADVANCE_QUESTIONNAIRE, true);
         permissions.get("36amountUntied").notCollected(SB.BILATERAL_ODA_ADVANCE_QUESTIONNAIRE);
