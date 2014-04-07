@@ -300,9 +300,39 @@
         <Dimension name="CPA">
             <Hierarchy hasAll="true" allMemberName="All CPA">
                 <!-- No table element here. Fact table is assumed. -->
-                <Level name="CPA" column="CPA" type="Boolean" uniqueMembers="false" levelType="Regular">
+                <Level name="CPA" column="CPA" type="Numeric" uniqueMembers="false" levelType="Regular">
                     <KeyExpression>
-                        <SQL dialect="generic">CASE WHEN CPA IS NULL THEN FALSE ELSE CPA END</SQL>
+                        <SQL dialect="generic">
+                            CASE WHEN CPA IS NULL THEN
+                                0
+                            ELSE
+                                CASE WHEN CPA = FALSE THEN
+                                    0
+                                ELSE
+                                    1
+                                END
+                            END
+                        </SQL>
+                    </KeyExpression>
+                </Level>
+            </Hierarchy>
+        </Dimension>
+        <Dimension name="CoFinanced">
+            <Hierarchy hasAll="true" allMemberName="All CoFinanced">
+                <!-- No table element here. Fact table is assumed. -->
+                <Level name="CoFinanced" column="projectCoFinanced" type="Numeric" uniqueMembers="false" levelType="Regular">
+                    <KeyExpression>
+                        <SQL dialect="generic">
+                            CASE WHEN projectCoFinanced IS NULL THEN
+                                0
+                            ELSE
+                                CASE WHEN projectCoFinanced = FALSE THEN
+                                    0
+                                ELSE
+                                    1
+                                END
+                            END
+                        </SQL>
                     </KeyExpression>
                 </Level>
             </Hierarchy>
@@ -335,9 +365,9 @@
             <MeasureExpression>
                 <SQL dialect="generic">
                     CASE WHEN DRAFT IS NOT NULL THEN
-                    AMOUNTS_EXTENDED_AMOUNT_WITH_COEFFICIENT
+                        AMOUNTS_EXTENDED_AMOUNT_WITH_COEFFICIENT
                     ELSE
-                    NULL
+                        NULL
                     END
                 </SQL>
             </MeasureExpression>
