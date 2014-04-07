@@ -117,6 +117,13 @@ public class CustomReportsPage extends HeaderFooter {
         completitionYear = new DropDownField<>("completitionYear", new RWComponentPropertyModel<Integer>("completitionYear"),
                 new YearProvider(txService.findDistinctCompletitionYears()));
 
+        // TODO fields
+        // co-financing
+        // humanitarian - which is a sector
+        // type of expenditure - only 2 options (Commitment/Disbursement)
+        // value of activity - predefined values
+        // show related budget codes?
+
         CoFinancingTransactionsOnly = new CheckBoxField("cofinancingtransactionsonly", new RWComponentPropertyModel<Boolean>("coFinancingTransactionsOnly"));
         CPAOnly = new CheckBoxField("cpaonly", new RWComponentPropertyModel<Boolean>("CPAOnly"));
         humanitarianAid = new CheckBoxField("humanitarianAid", new RWComponentPropertyModel<Boolean>("humanitarianAid"));
