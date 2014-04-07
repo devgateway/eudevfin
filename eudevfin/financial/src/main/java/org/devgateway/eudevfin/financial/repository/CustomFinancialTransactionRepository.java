@@ -30,7 +30,15 @@ public interface CustomFinancialTransactionRepository extends
 	List<CustomFinancialTransaction> findByReportingYearBetweenAndDraftFalseAndFormTypeNotIn(LocalDateTime start,
 			LocalDateTime end, Collection<String> notFormType);
 
-	@Query ("select distinct year(ctx.reportingYear) from CustomFinancialTransaction ctx ")
+	@Query ("select distinct year(ctx.reportingYear) from CustomFinancialTransaction ctx where ctx.reportingYear IS NOT NULL and ctx.draft = false ")
 	List<Integer> findDistinctReportingYears();
 
+    @Query ("select distinct year(ctx.expectedStartDate) from CustomFinancialTransaction ctx where ctx.expectedStartDate IS NOT NULL and ctx.draft = false ")
+    List<Integer> findDistinctStartingYears();
+
+    @Query ("select distinct year(ctx.expectedCompletionDate) from CustomFinancialTransaction ctx where ctx.expectedCompletionDate IS NOT NULL and ctx.draft = false ")
+    List<Integer> findDistinctCompletitionYears();
+
+    @Query ("select distinct ct.name from Category c, CategoryTranslation ct where c.code like 'GEOGRAPHY##%' and ct.parent  = c.id ")
+    List<String> findDistinctReportingGeopraphy();
 }

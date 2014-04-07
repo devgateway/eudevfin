@@ -30,12 +30,14 @@
         <int:method name="findOne" request-channel="getChannel">
             <int:header name="requestName" value="findOrganizationByIdChannel"/>
         </int:method>
-        
         <int:method name="findByGeneralSearchPageable" request-channel="getChannel">
 			<int:header name="requestName" value="findOrganizationByGeneralSearchPageableChannel"/>
 		</int:method>
-		
+        <int:method name="findUsedOrganizationPaginated" request-channel="getChannel">
+            <int:header name="requestName" value="findUsedOrganizationPaginatedOrganizationChannel"/>
+        </int:method>
     </int:gateway>
+
     <int:gateway id="categoryService"
 		default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}" 
 		service-interface="org.devgateway.eudevfin.metadata.common.service.CategoryService">
@@ -57,10 +59,25 @@
 		<int:method name="findByGeneralSearchAndTagsCode">
 			<int:header name="requestName" value="findCategoryByGeneralSearchAndTagsCodeChannel"/>		
 		</int:method>
-		
 		<int:method name="findByGeneralSearchAndTagsCodePaginated" request-channel="getChannel">
 			<int:header name="requestName" value="findCategoryByGeneralSearchAndTagsCodePaginatedChannel"/>
 		</int:method>
+        <int:method name="findUsedGeographyPaginated" request-channel="getChannel">
+            <int:header name="requestName" value="findUsedGeographyPaginatedChannel"/>
+        </int:method>
+
+        <int:method name="findUsedSectorPaginated" request-channel="getChannel">
+            <int:header name="requestName" value="findUsedSectorPaginatedChannel"/>
+        </int:method>
+        <int:method name="findUsedTypeOfAidPaginated" request-channel="getChannel">
+            <int:header name="requestName" value="findUsedTypeOfAidPaginatedChannel"/>
+        </int:method>
+        <int:method name="findUsedTypeOfFlowBiMultiPaginated" request-channel="getChannel">
+            <int:header name="requestName" value="findUsedTypeOfFlowBiMultiPaginatedChannel"/>
+        </int:method>
+        <int:method name="findUsedChannelPaginated" request-channel="getChannel">
+            <int:header name="requestName" value="findUsedChannelPaginatedChannel"/>
+        </int:method>
 	</int:gateway>
 	
 	<int:gateway id="channelCategoryService"
@@ -97,12 +114,13 @@
 			<int:header name="requestName" value="findAreaByIdChannel"/>
 		</int:method>
 		<int:method name="findByGeneralSearch" request-channel="getChannel">
-			
 		</int:method>
 		<int:method name="findByGeneralSearchPageable" request-channel="getChannel">
 			<int:header name="requestName" value="findByGeneralSearchPageableAreaChannel" />
 		</int:method>
-	
+        <int:method name="findUsedAreaPaginated" request-channel="getChannel">
+            <int:header name="requestName" value="findUsedAreaPaginatedAreaChannel" />
+        </int:method>
 	</int:gateway>
 	
 </beans>

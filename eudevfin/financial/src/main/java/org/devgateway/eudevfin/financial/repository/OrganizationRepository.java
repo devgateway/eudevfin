@@ -26,4 +26,10 @@ public interface OrganizationRepository extends
 	
 	Organization findByCodeAndDonorCode(String code, String donorCode);
 
+    @Query(" select distinct org from CustomFinancialTransaction ctx join ctx.extendingAgency org")
+    Page<Organization> findUsedOrganization(Pageable page);
+
+    @Query(" select distinct org from OrganizationTranslation trn, CustomFinancialTransaction ctx join ctx.extendingAgency org " +
+            "where trn.parent = org.id AND trn.locale=?1 AND lower(trn.name) like %?2% ")
+    Page<Organization> findUsedOrganizationByTranslationsNameIgnoreCase(String locale, String term, Pageable page);
 }

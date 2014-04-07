@@ -11,15 +11,18 @@
         <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All Countries">
             <View alias="CountryView">
                 <SQL dialect="generic"><![CDATA[
-			select
-				"AREA"."ID", "AREA"."CODE",  "AREATRANSLATION"."GEOGRAPHY", "AREATRANSLATION"."NAME"
-			from
-				"APP"."AREA" as "AREA",
-				"APP"."AREATRANSLATION" as "AREATRANSLATION"
-			WHERE
-				"AREATRANSLATION"."LOCALE" = '@@LOCALE@@' AND
-				"AREATRANSLATION"."PARENT_ID" = "AREA"."ID" AND
-				"AREA"."AREA_TYPE" = 'Country'
+		    select
+              "AREA"."ID", "AREA"."CODE",  "CATEGORYTRANSLATION"."NAME" AS GEOGRAPHY, "AREATRANSLATION"."NAME"
+            from
+              "APP"."AREA" as "AREA",
+              "APP"."AREATRANSLATION" as "AREATRANSLATION",
+              "APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION"
+            WHERE
+              "AREATRANSLATION"."LOCALE" = '@@LOCALE@@' AND
+              "AREATRANSLATION"."PARENT_ID" = "AREA"."ID" AND
+              "CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
+              "CATEGORYTRANSLATION"."PARENT_ID" = "AREA"."GEOGRAPHYCATEGORY_ID" AND
+              "AREA"."AREA_TYPE" = 'Country'
 			]]></SQL>
             </View>
             <Level name="Geography" visible="true" column="GEOGRAPHY" uniqueMembers="false" levelType="Regular" type="String">
@@ -294,6 +297,46 @@
                 </Level>
             </Hierarchy>
         </Dimension>
+        <Dimension name="CPA">
+            <Hierarchy hasAll="true" allMemberName="All CPA">
+                <!-- No table element here. Fact table is assumed. -->
+                <Level name="CPA" column="CPA" type="Numeric" uniqueMembers="false" levelType="Regular">
+                    <KeyExpression>
+                        <SQL dialect="generic">
+                            CASE WHEN CPA IS NULL THEN
+                                0
+                            ELSE
+                                CASE WHEN CPA = FALSE THEN
+                                    0
+                                ELSE
+                                    1
+                                END
+                            END
+                        </SQL>
+                    </KeyExpression>
+                </Level>
+            </Hierarchy>
+        </Dimension>
+        <Dimension name="CoFinanced">
+            <Hierarchy hasAll="true" allMemberName="All CoFinanced">
+                <!-- No table element here. Fact table is assumed. -->
+                <Level name="CoFinanced" column="projectCoFinanced" type="Numeric" uniqueMembers="false" levelType="Regular">
+                    <KeyExpression>
+                        <SQL dialect="generic">
+                            CASE WHEN projectCoFinanced IS NULL THEN
+                                0
+                            ELSE
+                                CASE WHEN projectCoFinanced = FALSE THEN
+                                    0
+                                ELSE
+                                    1
+                                END
+                            END
+                        </SQL>
+                    </KeyExpression>
+                </Level>
+            </Hierarchy>
+        </Dimension>
         <Measure name="Export Credit Amount" column="AMOUNTS_EXP_EXPORT_CREDIT_AMOUNT" aggregator="sum" visible="true" caption="%{exportCreditAmount}"></Measure>
         <Measure name="Exchange Rate" aggregator="avg" visible="true" datatype="Integer" formatString="#,###.00" caption="Exchange Rate">
             <MeasureExpression>
@@ -322,9 +365,9 @@
             <MeasureExpression>
                 <SQL dialect="generic">
                     CASE WHEN DRAFT IS NOT NULL THEN
-                    AMOUNTS_EXTENDED_AMOUNT_WITH_COEFFICIENT
+                        AMOUNTS_EXTENDED_AMOUNT_WITH_COEFFICIENT
                     ELSE
-                    NULL
+                        NULL
                     END
                 </SQL>
             </MeasureExpression>

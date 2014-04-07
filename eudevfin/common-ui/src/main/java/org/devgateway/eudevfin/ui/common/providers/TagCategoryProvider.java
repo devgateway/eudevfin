@@ -6,11 +6,13 @@
  * http://www.gnu.org/licenses/gpl.html
  */
 
-package org.devgateway.eudevfin.dim.providers;
+package org.devgateway.eudevfin.ui.common.providers;
 
 
-
-
+import org.apache.wicket.Session;
+import org.devgateway.eudevfin.metadata.common.domain.Category;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 /**
  * @author aartimon
@@ -27,6 +29,12 @@ public class TagCategoryProvider extends AbstractCategoryProvider {
     }
 
     @Override
+    protected Page<Category> getItemsByTerm(String term, int page) {
+        Page<Category> categories = categoryService.findByGeneralSearchAndTagsCodePaginated(Session.get().getLocale()
+                .getLanguage(), term, getCategoryTag(), new PageRequest(page, pageSize, sort), false);
+        return categories;
+    }
+
     protected String getCategoryTag() {
         return tag;
     }
