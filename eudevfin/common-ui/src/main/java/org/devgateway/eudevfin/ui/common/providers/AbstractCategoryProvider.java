@@ -9,9 +9,7 @@
 package org.devgateway.eudevfin.ui.common.providers;
 
 import com.vaynberg.wicket.select2.Response;
-
 import org.apache.log4j.Logger;
-import org.apache.wicket.Session;
 import org.devgateway.eudevfin.common.service.BaseEntityService;
 import org.devgateway.eudevfin.metadata.common.domain.Category;
 import org.devgateway.eudevfin.metadata.common.exception.CategoryOperationException;
@@ -20,7 +18,6 @@ import org.json.JSONException;
 import org.json.JSONWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +34,7 @@ public abstract class AbstractCategoryProvider extends AbstractTranslatableProvi
     protected transient CategoryService categoryService;
 
     protected AbstractCategoryProvider() {
-        //  this.sort=new Sort(Direction.ASC,"code");
+
     }
 
     @Override
@@ -47,18 +44,7 @@ public abstract class AbstractCategoryProvider extends AbstractTranslatableProvi
 
     @Override
     protected String getDisplayText(Category choice) {
-//    	String indent	= "";
-//		for (int i=1; i<choice.getLevel(); i++) {
-//			indent += "- ";
-//		}
         return choice.getDisplayableCode() + " - " + choice.getName();
-    }
-
-    @Override
-    protected Page<Category> getItemsByTerm(String term, int page) {
-        Page<Category> categories = categoryService.findByGeneralSearchAndTagsCodePaginated(Session.get().getLocale()
-                .getLanguage(), term, getCategoryTag(), new PageRequest(page, pageSize, sort), false);
-        return categories;
     }
 
     @Override
@@ -105,9 +91,6 @@ public abstract class AbstractCategoryProvider extends AbstractTranslatableProvi
 
         }
     }
-
-    protected abstract String getCategoryTag();
-
 
     @Override
     public void detach() {

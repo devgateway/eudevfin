@@ -10,5 +10,5 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
     <entry key="customdashboards.countryTable">Country Table</entry>
-    <entry key="customdashboards.countryChart">Country Table</entry>
+    <entry key="customdashboards.countryChart">Country Chart</entry>
 </properties>

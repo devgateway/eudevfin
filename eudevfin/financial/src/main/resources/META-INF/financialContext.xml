@@ -188,6 +188,8 @@
 	<int:channel id="findCustomTransactionByReportingYearAndDraftFalseAndFormTypeNotInChannel"/>
 	
 	<int:channel id="findDistinctReportingYearsInTransactionChannel"/>
+    <int:channel id="findDistinctStartingYearsInTransactionChannel"/>
+    <int:channel id="findDistinctCompletitionYearsInTransactionChannel"/>
     <int:channel id="findDistinctReportingGeopraphyInTransactionChannel"/>
 	
 	<int:channel id="findOrganizationByIdChannel" />
@@ -195,6 +197,7 @@
     <int:channel id="findAllAsListOrganizationChannel"/>
     <int:channel id="findOrganizationByIdChannel"/>
     <int:channel id="findOrganizationByGeneralSearchPageableChannel"/>
+    <int:channel id="findUsedOrganizationPaginatedOrganizationChannel"/>
 	
 	<int:channel id="saveCategoryChannel" />
 	<int:channel id="findAllAsListCategoryChannel" />
@@ -203,6 +206,11 @@
 	<int:channel id="findCategoryByTagCodeChannel" />
 	<int:channel id="findCategoryByGeneralSearchAndTagsCodePaginatedChannel" />
 	<int:channel id="findCategoryByGeneralSearchAndTagsCodeChannel" />
+    <int:channel id="findUsedGeographyPaginatedChannel" />
+    <int:channel id="findUsedSectorPaginatedChannel" />
+    <int:channel id="findUsedTypeOfAidPaginatedChannel" />
+    <int:channel id="findUsedTypeOfFlowBiMultiPaginatedChannel" />
+    <int:channel id="findUsedChannelPaginatedChannel" />
 	
 
 	<int:channel id="findAllAsListChannelCategoryChannel"/>
@@ -217,6 +225,7 @@
 	<int:channel id="findAreaByIdChannel"/>
 	<int:channel id="findAreaByGeneralSearchChannel"/>
 	<int:channel id="findByGeneralSearchPageableAreaChannel"/>
+    <int:channel id="findUsedAreaPaginatedAreaChannel"/>
 	
 	<int:channel id="findBySearchPageableCurrencyChannel"/>
 	<int:channel id="findByCodeCurrencyChannel"/>

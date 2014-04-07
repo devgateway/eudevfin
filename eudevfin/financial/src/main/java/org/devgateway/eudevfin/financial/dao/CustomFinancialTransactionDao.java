@@ -89,6 +89,18 @@ public class CustomFinancialTransactionDao
 		return ret;
 	}
 
+    @ServiceActivator(inputChannel="findDistinctStartingYearsInTransactionChannel")
+    public List<Integer> findDistinctStartingYears(){
+        final List<Integer> ret	= this.getRepo().findDistinctStartingYears();
+        return ret;
+    }
+
+    @ServiceActivator(inputChannel="findDistinctCompletitionYearsInTransactionChannel")
+    public List<Integer> findDistinctCompletitionYears(){
+        final List<Integer> ret	= this.getRepo().findDistinctCompletitionYears();
+        return ret;
+    }
+
     @ServiceActivator(inputChannel="findDistinctReportingGeopraphyInTransactionChannel")
     public List<String> findDistinctReportingGeopraphy(){
         final List<String> ret	= this.getRepo().findDistinctReportingGeopraphy();

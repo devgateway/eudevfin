@@ -1,7 +1,6 @@
 package org.devgateway.eudevfin.reports.ui.pages;
 
 import com.vaynberg.wicket.select2.ChoiceProvider;
-import com.vaynberg.wicket.select2.Response;
 import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -16,22 +15,19 @@ import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.financial.service.CustomFinancialTransactionService;
 import org.devgateway.eudevfin.metadata.common.domain.Area;
 import org.devgateway.eudevfin.metadata.common.domain.Category;
-import org.devgateway.eudevfin.metadata.common.util.CategoryConstants;
+import org.devgateway.eudevfin.metadata.common.domain.ChannelCategory;
+import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.BootstrapCancelButton;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
 import org.devgateway.eudevfin.ui.common.components.CheckBoxField;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
-import org.devgateway.eudevfin.ui.common.providers.AreaChoiceProvider;
 import org.devgateway.eudevfin.ui.common.providers.CategoryProviderFactory;
-import org.json.JSONException;
-import org.json.JSONWriter;
-import org.wicketstuff.annotation.mount.MountPath;
+import org.devgateway.eudevfin.ui.common.providers.UsedAreaChoiceProvider;
+import org.devgateway.eudevfin.ui.common.providers.UsedOrganizationChoiceProvider;
+import org.devgateway.eudevfin.ui.common.providers.YearProvider;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -41,24 +37,48 @@ import java.util.List;
  */
 
 @AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
-@MountPath(value = "/customreports")
 public class CustomReportsPage extends HeaderFooter {
     private static final Logger logger = Logger.getLogger(CustomReportsPage.class);
 
     @SpringBean
-    private AreaChoiceProvider areaProvider;
+    private UsedAreaChoiceProvider usedAreaProvider;
 
     @SpringBean
     private CategoryProviderFactory categoryFactory;
 
     @SpringBean
+    private UsedOrganizationChoiceProvider usedOrganizationProvider;
+
+    @SpringBean
     private CustomFinancialTransactionService txService;
 
-    private List<Integer> possibleYears;
-
-    private List<String> possibleGeopraphy;
-
     protected final NotificationPanel feedbackPanel;
+
+    protected CheckBoxField humanitarianAid;
+
+    protected DropDownField<Category> geography;
+
+    protected DropDownField<Area> recipient;
+
+    protected DropDownField<Organization> nationalInstitution;
+
+    protected DropDownField<ChannelCategory> multilateralAgency;
+
+    protected DropDownField<Category> typeOfFlowBiMulti;
+
+    protected DropDownField<Category> typeOfAid;
+
+    protected DropDownField<Category> sector;
+
+    protected DropDownField<Integer> year;
+
+    protected DropDownField<Integer> startingYear;
+
+    protected DropDownField<Integer> completitionYear;
+
+    protected CheckBoxField CoFinancingTransactionsOnly;
+
+    protected CheckBoxField CPAOnly;
 
     public CustomReportsPage () {
         final Form form = new Form("form");
@@ -67,110 +87,53 @@ public class CustomReportsPage extends HeaderFooter {
         CompoundPropertyModel<CustomReportsForm> model = new CompoundPropertyModel<>(customReportsForm);
         setModel(model);
 
-        possibleGeopraphy = txService.findDistinctReportingGeopraphy();
-        Collections.sort(possibleGeopraphy);
-        DropDownField<String> geopraphy = new DropDownField<>("geopraphy", new RWComponentPropertyModel<String>("geopraphy"),
-                new ChoiceProvider<String>() {
-            @Override
-            public void query(final String term, final int page, final Response<String> response) {
-                final List<String> ret = new ArrayList<>();
-                List<String> values;
-                if (CustomReportsPage.this.possibleGeopraphy != null && CustomReportsPage.this.possibleGeopraphy.size() > 0) {
-                    values = CustomReportsPage.this.possibleGeopraphy;
-                } else {
-                    values = new ArrayList<>(1);
-                    values.add("");
-                }
-                for (final String el : values) {
-                    if (el.toString().startsWith(term)) {
-                        ret.add(el);
-                    }
-                }
-                response.addAll(ret);
-            }
+        geography = new DropDownField<>("geography",
+                new RWComponentPropertyModel<Category>("geography"), categoryFactory.getUsedGeographyProvider());
 
-            @Override
-            public void toJson(final String choice, final JSONWriter writer) throws JSONException {
-                writer.key("id").value(choice.toString()).key("text").value(choice);
-            }
+        recipient = new DropDownField<>("recipient",
+                new RWComponentPropertyModel<Area>("recipient"), usedAreaProvider);
 
-            @Override
-            public Collection<String> toChoices(final Collection<String> ids) {
-                final List<String> ret = new ArrayList<>();
-                if (ids != null) {
-                    for (final String id : ids) {
-                        try {
-                            ret.add(id);
-                        } catch (final NumberFormatException e) {
-                            logger.error(e.getMessage());
-                        }
-                    }
-                }
-                return ret;
-            }
-        });
+        nationalInstitution = new DropDownField<>("nationalInstitution",
+                new RWComponentPropertyModel<Organization>("nationalInstitution"), usedOrganizationProvider);
 
-        DropDownField<Area> recipient = new DropDownField<>("recipient",
-                new RWComponentPropertyModel<Area>("recipient"), areaProvider);
+        multilateralAgency = new DropDownField<>("multilateralAgency",
+                new RWComponentPropertyModel<ChannelCategory>("multilateralAgency"), (ChoiceProvider) categoryFactory.getUsedChannelProvider());
 
-        DropDownField<Category> sector = new DropDownField<>("sector", new RWComponentPropertyModel<Category>("sector"),
-                categoryFactory.get(CategoryConstants.ALL_SECTOR_TAG));
-        add(sector);
+        typeOfFlowBiMulti = new DropDownField<>("typeOfFlowbiMulti",
+                new RWComponentPropertyModel<Category>("typeOfFlowbiMulti"), categoryFactory.getUsedTypeOfFlowBiMultiProvider());
 
-        possibleYears = txService.findDistinctReportingYears();
-        Collections.sort(possibleYears);
-        DropDownField<Integer> year = new DropDownField<>("year", new RWComponentPropertyModel<Integer>("year"),
-                new ChoiceProvider<Integer>() {
+        typeOfAid = new DropDownField<>("typeOfAid",
+                new RWComponentPropertyModel<Category>("typeOfAid"), categoryFactory.getUsedTypeOfAidProvider());
 
-            @Override
-            public void query(final String term, final int page, final Response<Integer> response) {
-                final List<Integer> ret = new ArrayList<>();
-                List<Integer> values;
-                if (CustomReportsPage.this.possibleYears != null && CustomReportsPage.this.possibleYears.size() > 0) {
-                    values = CustomReportsPage.this.possibleYears;
-                } else {
-                    values = new ArrayList<>(1);
-                    values.add(Calendar.getInstance().get(Calendar.YEAR) - 1);
-                }
-                for (final Integer el : values) {
-                    if (el.toString().startsWith(term)) {
-                        ret.add(el);
-                    }
-                }
-                response.addAll(ret);
-            }
+        sector = new DropDownField<>("sector", new RWComponentPropertyModel<Category>("sector"),
+                categoryFactory.getUsedSectorProvider());
 
-            @Override
-            public void toJson(final Integer choice, final JSONWriter writer) throws JSONException {
-                writer.key("id").value(choice.toString()).key("text").value(choice.toString());
-            }
+        year = new DropDownField<>("year", new RWComponentPropertyModel<Integer>("year"),
+                new YearProvider(txService.findDistinctReportingYears()));
 
-            @Override
-            public Collection<Integer> toChoices(final Collection<String> ids) {
-                final List<Integer> ret = new ArrayList<>();
-                if (ids != null) {
-                    for (final String id : ids) {
-                        try {
-                            final Integer parsedInt = Integer.parseInt(id);
-                            ret.add(parsedInt);
-                        } catch (final NumberFormatException e) {
-                            logger.error(e.getMessage());
-                        }
-                    }
-                }
-                return ret;
-            }
-        });
+        startingYear = new DropDownField<>("startingYear", new RWComponentPropertyModel<Integer>("startingYear"),
+                new YearProvider(txService.findDistinctStartingYears()));
 
-        CheckBoxField CoFinancingTransactionsOnly = new CheckBoxField("cofinancingtransactionsonly", new RWComponentPropertyModel<Boolean>("coFinancingTransactionsOnly"));
-        CheckBoxField CPAOnly = new CheckBoxField("cpaonly", new RWComponentPropertyModel<Boolean>("CPAOnly"));
+        completitionYear = new DropDownField<>("completitionYear", new RWComponentPropertyModel<Integer>("completitionYear"),
+                new YearProvider(txService.findDistinctCompletitionYears()));
 
-        form.add(geopraphy);
+        CoFinancingTransactionsOnly = new CheckBoxField("cofinancingtransactionsonly", new RWComponentPropertyModel<Boolean>("coFinancingTransactionsOnly"));
+        CPAOnly = new CheckBoxField("cpaonly", new RWComponentPropertyModel<Boolean>("CPAOnly"));
+        humanitarianAid = new CheckBoxField("humanitarianAid", new RWComponentPropertyModel<Boolean>("humanitarianAid"));
+
+        form.add(geography);
         form.add(recipient);
+        form.add(nationalInstitution);
+        form.add(multilateralAgency);
+        form.add(typeOfFlowBiMulti);
+        form.add(typeOfAid);
         form.add(sector);
         form.add(year);
+        form.add(startingYear);
+        form.add(completitionYear);
         form.add(CoFinancingTransactionsOnly);
         form.add(CPAOnly);
+        form.add(humanitarianAid);
 
         form.add(new BootstrapSubmitButton("submit", new StringResourceModel("button.submit", this, null, null)) {
             @Override

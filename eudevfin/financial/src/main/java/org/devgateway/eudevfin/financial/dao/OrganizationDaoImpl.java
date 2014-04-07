@@ -11,8 +11,6 @@
  */
 package org.devgateway.eudevfin.financial.dao;
 
-import java.util.List;
-
 import org.devgateway.eudevfin.common.dao.AbstractDaoImpl;
 import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 import org.devgateway.eudevfin.financial.repository.OrganizationRepository;
@@ -25,6 +23,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.integration.annotation.Header;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * 
@@ -83,6 +84,32 @@ public class OrganizationDaoImpl extends AbstractDaoImpl<Organization, Long, Org
 		if(searchString.isEmpty()) return repo.findAll(pageable);
 		return repo.findByTranslationNameContaining(searchString.toLowerCase(), pageable);		 
 	}
+
+    /**
+     * @see org.devgateway.eudevfin.metadata.common.service.OrganizationService#findUsedAreaPaginated(String, String, Pageable)
+     *
+     * @param locale
+     * @param searchString
+     * @param page
+     *
+     * @return Page<Organization>
+     */
+    @ServiceActivator(inputChannel = "findUsedOrganizationPaginatedOrganizationChannel")
+    @Transactional
+    public Page<Organization> findUsedOrganizationPaginated(
+            @Header("locale") String locale, String searchString,
+            @Header("pageable") Pageable page) {
+        Page<Organization> result = null;
+
+        if (searchString.isEmpty()) {
+            result = this.getRepo().findUsedOrganization(page);
+        }
+        else {
+            result = this.getRepo().findUsedOrganizationByTranslationsNameIgnoreCase(locale, searchString.toLowerCase(), page);
+        }
+
+        return result;
+    }
 	
     public Organization findByCodeAndDonorCode(String code, String donorCode) {
         return this.repo.findByCodeAndDonorCode(code, donorCode);

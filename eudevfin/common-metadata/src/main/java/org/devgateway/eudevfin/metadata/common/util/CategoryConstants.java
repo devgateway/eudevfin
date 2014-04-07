@@ -23,6 +23,7 @@ public class CategoryConstants {
 	public static final String BI_MULTILATERAL_TAG			= "BI_MULTILATERAL_TAG";
 	public static final String CHANNEL_TAG					= "CHANNEL_TAG";
 	public static final String RECIPIENT_TAG				= "RECIPIENT_TAG";
+    public static final String GEOGRAPHY_TAG				= "GEOGRAPHY_TAG";
 	public static final String NATURE_OF_SUBMISSION_TAG		= "NATURE_OF_SUBMISSION_TAG";
 	public static final String LEVEL_OF_CERTAINTY_TAG		= "LEVEL_OF_CERTAINTY_TAG";
 	public static final String INCOME_GROUP_TAG				= "INCOME_GROUP_TAG";

@@ -19,6 +19,7 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.StringResourceModel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
@@ -52,8 +53,16 @@ public class CustomDashboardsCountrySector extends HeaderFooter {
     @SpringBean
     QueryService CdaService;
 
-    public CustomDashboardsCountrySector() {
+    public CustomDashboardsCountrySector(final PageParameters parameters) {
         tableYear = Calendar.getInstance().get(Calendar.YEAR) - 1;
+
+        String result = "";
+
+        if(parameters.get("msg") != null){
+            result = parameters.get("msg").toString();
+        }
+
+        logger.info("result: " + result);
 
         addComponents();
     }
