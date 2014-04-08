@@ -6,8 +6,12 @@ import java.io.InputStream;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -19,28 +23,36 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import org.devgateway.eudevfin.reports.core.domain.Column;
-import org.devgateway.eudevfin.reports.core.domain.Formula;
-import org.devgateway.eudevfin.reports.core.domain.Row;
+import org.devgateway.eudevfin.financial.dao.CategoryDaoImpl;
+import org.devgateway.eudevfin.financial.dao.ChannelCategoryDao;
+import org.devgateway.eudevfin.metadata.common.domain.Category;
+import org.devgateway.eudevfin.metadata.common.domain.SectorCategory;
+import org.devgateway.eudevfin.reports.core.dao.RowReportDao;
+import org.devgateway.eudevfin.reports.core.domain.ColumnReport;
+import org.devgateway.eudevfin.reports.core.domain.RowReport;
 import org.jgroups.util.UUID;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.w3c.dom.CDATASection;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public class ReportTemplate {
-	public static InputStream processTemplate(InputStream inputStream, String reportTypeDac1) {
+
+	public InputStream processTemplate(InputStream inputStream,
+			String reportTypeDac1, RowReportDao rowReportDao) {
 		InputStream injectedStream = null;
 		try {
-			DocumentBuilder dBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+			DocumentBuilder dBuilder = DocumentBuilderFactory.newInstance()
+					.newDocumentBuilder();
 			Document doc = dBuilder.parse(inputStream);
-	
-			List<Row> rows = generateRows(); //This is to be replaced for other objects that will behave similarly
-			
+
+			List<RowReport> rows = retrieveRows(rowReportDao);
+
 			generateMDX(rows, doc);
 			generateFields(rows, doc);
-			//TODO: not working yet
-			// generateTextElements(rows, doc); 
+			generateTextElements(rows, doc);
 
 			injectedStream = xmlToStream(doc);
 			prettyPrint(doc);
@@ -52,177 +64,215 @@ public class ReportTemplate {
 
 		return injectedStream;
 	}
-	
-	
-	
-	private static String generateTextElements(List<Row> rows, Document doc) {
-		//Update this to use XML doc
-		StringBuffer str = new StringBuffer();
 
-		for (Iterator<Row> it = rows.iterator(); it.hasNext();) {
-			Row row = it.next();
-			List<Column> columns = row.getColumns();
-			//68
-			int coordX = 300;
-			int increment = 60;
-			for (Iterator<Column> it2 = columns.iterator(); it2.hasNext();) {
-				Column column = it2.next();
-				String fieldName = row.getName() + "_" + column.getName() + "_"
-						+ column.getTypeOfFinance() + "_" + column.getMeasure();
+	private List<RowReport> retrieveRows(RowReportDao rowReportDao) {
+		ArrayList<RowReport> rows = new ArrayList<RowReport>();
+		for (Iterator<RowReport> it = rowReportDao.findAll().iterator(); it
+				.hasNext();) {
+			RowReport row = it.next();
+			rows.add(row);
+		}
+		return rows;
+	}
+
+	private void generateTextElements(List<RowReport> rows, Document doc) {
+
+		HashMap<String, Node> matchingRows = new HashMap<String, Node>();
+		HashMap<String, Node> matchingColumns = new HashMap<String, Node>();
+
+		NodeList nodeList = doc.getElementsByTagName("reportElement");
+		for (int i = 0; i < nodeList.getLength(); i++) {
+			Node node = nodeList.item(i);
+			if (node.getNodeType() == Node.ELEMENT_NODE
+					&& node.getAttributes().getNamedItem("key") != null) {
+
+				if (node.getAttributes().getNamedItem("key").getNodeValue()
+						.indexOf("row_") >= 0) {
+					matchingRows.put(node.getAttributes().getNamedItem("key")
+							.getNodeValue(), node);
+				} else if (node.getAttributes().getNamedItem("key")
+						.getNodeValue().indexOf("column_") >= 0) {
+					matchingColumns.put(node.getAttributes()
+							.getNamedItem("key").getNodeValue(), node);
+				}
+			}
+		}
+
+		for (RowReport row : rows) {
+			Set<ColumnReport> columns = row.getColumns();
+
+			Node rowNode = matchingRows.get("row_" + row.getName());
+			if(rowNode == null) continue;
+			Integer yCoordRow = rowNode.getAttributes().getNamedItem("y") != null
+					? Integer.parseInt(rowNode.getAttributes()
+							.getNamedItem("y").getNodeValue())
+					: 0;
+
+			for (ColumnReport column : columns) {
 				UUID uuid = UUID.randomUUID();
-				str.append("<textField pattern=\"#,##0.00\">");
-				str.append("<reportElement x=\"" + coordX + "\" y=\"247\" width=\"56\" height=\"15\" uuid=\"" + uuid.toString() + "\"/>");
-				str.append("<textElement textAlignment=\"Right\"/>");
-				str.append("<textFieldExpression><![CDATA[$F{" + fieldName + "} == null ? 0 :$F{" + fieldName + "}.intValue()]]></textFieldExpression>");
-				str.append("</textField>");
-				coordX += increment;
+				Element textField = doc.createElement("textField");
+				textField.setAttribute("pattern", "#,##0.00");
+
+				Node columnNode = matchingColumns.get("column_"
+						+ column.getName());
+				Integer xCoordColumn = columnNode.getAttributes().getNamedItem(
+						"x") != null ? Integer.parseInt(columnNode
+						.getAttributes().getNamedItem("x").getNodeValue()) : 0;
+
+				Element reportElement = doc.createElement("reportElement");
+				reportElement.setAttribute("x", xCoordColumn.toString());
+				reportElement.setAttribute("y", yCoordRow.toString());
+				reportElement.setAttribute("width", "55");
+				reportElement.setAttribute("height", "15");
+				reportElement.setAttribute("uuid", uuid.toString());
+
+				Element textElement = doc.createElement("textElement");
+				textElement.setAttribute("textAlignment", "Right");
+
+				Element textFieldExpression = doc
+						.createElement("textFieldExpression");
+
+				if (column.getType() == Constants.CALCULATED) {
+					StringBuffer expression = new StringBuffer();
+					
+					String[] types = column.getTypeOfFinance().split(",");
+					for(int i = 0; i < types.length; i++){
+						if(!types[i].equals("")){
+							String fieldName = row.getName() + "_" + column.getName() + "_" + types[i] + "_" + column.getMeasure();
+							expression.append("($F{" + fieldName + "} == null ? 0 :$F{" + fieldName + "}.intValue())");
+							if(i != types.length-1){
+								expression.append("+");
+							}
+						}
+					}
+					if(expression.length() == 0){
+						//textField.setAttribute("pattern", "#,##0.00");
+						expression.append("\"////////\"");
+					}
+					else
+					{
+					}
+					CDATASection cdata = doc.createCDATASection(expression.toString());
+					textFieldExpression.appendChild(cdata);
+				} else if (column.getType() == Constants.SUM) {
+					/*
+					 * Set<String> subcols = column.getColumns(); StringBuffer
+					 * sb = new StringBuffer();
+					 * 
+					 * for (int i=0;i< subcols.size();i++) { ColumnReport subcol
+					 * = subcols.[i]; if(subcol.getType() !=
+					 * Constants.CALCULATED){ continue; }
+					 * 
+					 * String fieldName = row.getName() + "_" + subcol.getName()
+					 * + "_" + subcol.getTypeOfFinance() + "_" +
+					 * subcol.getMeasure(); sb.append("($F{" + fieldName +
+					 * "} == null ? 0 : $F{" + fieldName + "}.intValue())");
+					 * if(i != subcols.length-1) sb.append("+"); } ;
+					 */
+					CDATASection cdata = doc.createCDATASection("0.00");
+					textFieldExpression.appendChild(cdata);
+				}
+
+				textField.appendChild(reportElement);
+				textField.appendChild(textElement);
+				textField.appendChild(textFieldExpression);
+				rowNode.getParentNode().getParentNode().appendChild(textField);
+
 			}
 		}
-		return str.toString();
 	}
 
-	private static void  generateFields(List<Row> rows, Document doc) {
+	private void generateFields(List<RowReport> rows, Document doc) {
 
-		for (Iterator<Row> it = rows.iterator(); it.hasNext();) {
-			Row row = it.next();
-			List<Column> columns = row.getColumns();
-			for (Iterator<Column> it2 = columns.iterator(); it2.hasNext();) {
-				Column column = it2.next();
-				String fieldName = row.getName() + "_" + column.getName() + "_"
-						+ column.getTypeOfFinance() + "_" + column.getMeasure();
-				Element field = doc.createElement("field");
-				field.setAttribute("name", fieldName);
-				field.setAttribute("class", "java.lang.Number");
+		for (RowReport row : rows) {
+			Set<ColumnReport> columns = row.getColumns();
+			for (ColumnReport column : columns) {
+				if (column.getType() == Constants.CALCULATED) {
+					
+					for(String type : column.getTypeOfFinance().split(",")){
+						if(!type.equals("")){
+							String fieldName = row.getName() + "_" + column.getName()
+									+ "_" + type + "_"
+									+ column.getMeasure();
+							Element field = doc.createElement("field");
+							field.setAttribute("name", fieldName);
+							field.setAttribute("class", "java.lang.Number");
+							//The finances are all together in one field. Eventually will be moved.
+							Element fieldDescription = doc
+									.createElement("fieldDescription");
+							CDATASection cdata = doc.createCDATASection("Data(("
+									+ column.getMeasure() + ", "
+									+ type + "), [Type of Aid].["
+									+ row.getName() + "])\n");
+							fieldDescription.appendChild(cdata);
+							field.appendChild(fieldDescription);
+							Node background = doc.getElementsByTagName("background")
+									.item(0); // TODO: Improve way of locating section
+							doc.getDocumentElement().insertBefore(field, background);
+							
+						}
+					}
 
-				Element fieldDescription = doc.createElement("fieldDescription");
-				CDATASection cdata = doc.createCDATASection("Data((" + column.getMeasure() + ", "
-						+ column.getTypeOfFinance() + "), [Type of Aid].["
-						+ row.getName() + "])\n");
-				fieldDescription.appendChild(cdata);
-				field.appendChild(fieldDescription);
-				Node background = doc.getElementsByTagName("background").item(0); //TODO: Improve way of locating section
-				doc.getDocumentElement().insertBefore(field, background);
+				}
 			}
 		}
 	}
 
-	private static void generateMDX(List<Row> rows, Document doc) {
+	private void generateMDX(List<RowReport> rows, Document doc) {
 		StringBuffer str = new StringBuffer();
 
 		str.append("WITH\n");
-		for (Iterator<Row> it = rows.iterator(); it.hasNext();) {
-			Row row = it.next();
-			str.append("MEMBER ");
-			str.append("[Type of Aid].[" + row.getName() + "]");
-			str.append(" as SUM(");
-			str.append(row.getFormula());
-			str.append(")");
+		for (RowReport row : rows) {
+			if (row.getType() == Constants.CALCULATED) {
+				str.append("MEMBER ");
+				str.append("[Type of Aid].[" + row.getName() + "]");
+				str.append(" as SUM(");
+				str.append(row.getFormula());
+				str.append(")");
+			}
 		}
 		str.append("\n");
 		str.append("MEMBER [Measures].[Extended] AS [Measures].[Extended Amount Currency NATLOECD] \n");
 		str.append("MEMBER [Measures].[Received] AS [Measures].[Received Amount Currency NATLOECD] \n");
 		str.append("MEMBER [Measures].[Committed] AS [Measures].[Commitments Amount Currency NATLOECD] \n");
 		str.append("SELECT {");
-		for (Iterator<Row> it = rows.iterator(); it.hasNext();) {
-			Row row = it.next();
-			str.append("[Type of Aid].[" + row.getName() + "]");
-			if (it.hasNext())
-				str.append(",");
+		for (Iterator<RowReport> it = rows.iterator(); it.hasNext();) {
+			RowReport row = it.next();
+			if (row.getType() == Constants.CALCULATED) {
+				str.append("[Type of Aid].[" + row.getName() + "]");
+				if (it.hasNext())
+					str.append(",");
+			}
 		}
 		str.append("}  ON ROWS, \n");
-		str.append("NON EMPTY {[Measures].[Extended],[Measures].[Received],[Measures].[Committed]}*[Type of Finance].[Code].Members ON COLUMNS \n");
+		str.append(" {[Measures].[Extended],[Measures].[Received],[Measures].[Committed]}*[Type of Finance].[Code].Members ON COLUMNS \n");
 		str.append("FROM [Financial] \n");
-		str.append("WHERE [Reporting Year].[2011] \n"); //TODO: Replace with appropriate JR Parameter
-		Node queryString = doc.getElementsByTagName("queryString").item(0); //TODO: Check if the element exist, if it doesn't, add it.
+		str.append("WHERE [Reporting Year].[2011] \n"); // TODO: Replace with
+														// appropriate JR
+														// Parameter
+		Node queryString = doc.getElementsByTagName("queryString").item(0);
 		CDATASection cdata = doc.createCDATASection(str.toString());
 		queryString.appendChild(cdata);
 	}
 
-	
-	public static final InputStream xmlToStream(Document xml) throws Exception {
+	public final InputStream xmlToStream(Document xml) throws Exception {
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		Source xmlSource = new DOMSource(xml);
 		Result outputTarget = new StreamResult(outputStream);
-		TransformerFactory.newInstance().newTransformer().transform(xmlSource, outputTarget);
+		TransformerFactory.newInstance().newTransformer()
+				.transform(xmlSource, outputTarget);
 		InputStream is = new ByteArrayInputStream(outputStream.toByteArray());
 		return is;
 	}
 
-	//TODO: Remove this before release
-	public static final void prettyPrint(Document xml) throws Exception {
+	// TODO: Remove this before release
+	public final void prettyPrint(Document xml) throws Exception {
 		Transformer tf = TransformerFactory.newInstance().newTransformer();
 		tf.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
 		tf.setOutputProperty(OutputKeys.INDENT, "yes");
 		Writer out = new StringWriter();
 		tf.transform(new DOMSource(xml), new StreamResult(out));
 		System.out.println(out.toString());
-	}
-
-	/*
-	 * Generates row definitions for development purposes
-	 * */ 
-	private static List<Row> generateRows() {
-		List<Row> rows = new ArrayList<Row>();
-		Row row = new Row();
-		row.setName("1110");
-		Formula formula = new Formula();
-
-		List<String> listBiMultilateral = new ArrayList<String>();
-		List<String> listTypeOfFlow = new ArrayList<String>();
-		List<String> listTypeofAid = new ArrayList<String>();
-		List<String> listPurpose = new ArrayList<String>();
-		/*
-		List<String> listSectors = new ArrayList<String>();
-		List<String> listTypeOfFinance = new ArrayList<String>();
-		List<String> listChannel = new ArrayList<String>();
-		*/
-
-		listBiMultilateral.add("[BiMultilateral].[BI_MULTILATERAL##1]");
-		listTypeOfFlow.add("[Type of Flow].[TYPE_OF_FLOW##10]");
-		listTypeofAid.add("[Type of Aid].[A01]");
-		listPurpose.add("[Sector].[51010]");
-
-		formula.setListBiMultilateral(listBiMultilateral);
-		formula.setListTypeOfFlow(listTypeOfFlow);
-		formula.setListTypeofAid(listTypeofAid);
-		formula.setListPurpose(listPurpose);
-
-		List<Column> columns = new ArrayList<Column>();
-
-		Column col1 = new Column();
-		col1.setName("1121");
-		col1.setMeasure("[Measures].[Extended]");
-		col1.setTypeOfFinance("[Type of Finance].[TYPE_OF_FINANCE##110]");
-		columns.add(col1);
-
-		Column col2 = new Column();
-		col2.setName("1122");
-		col2.setMeasure("[Measures].[Extended]");
-		col2.setTypeOfFinance("[Type of Finance].[TYPE_OF_FINANCE##410]");
-		columns.add(col2);
-
-		Column col3 = new Column();
-		col3.setName("1139");
-		col3.setMeasure("[Measures].[Received]");
-		col3.setTypeOfFinance("[Type of Finance].[TYPE_OF_FINANCE##410]");
-		columns.add(col3);
-
-		Column col4 = new Column();
-		col4.setName("1151");
-		col4.setMeasure("[Measures].[Committed]");
-		col4.setTypeOfFinance("[Type of Finance].[TYPE_OF_FINANCE##110]");
-		columns.add(col4);
-
-		Column col5 = new Column();
-		col5.setName("1152");
-		col5.setMeasure("[Measures].[Committed]");
-		col5.setTypeOfFinance("[Type of Finance].[TYPE_OF_FINANCE##410]");
-		columns.add(col5);
-
-		row.setColumns(columns);
-		row.setFormula(formula);
-		rows.add(row);
-		return rows;
 	}
 
 

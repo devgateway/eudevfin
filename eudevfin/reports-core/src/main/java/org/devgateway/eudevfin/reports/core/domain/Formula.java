@@ -13,7 +13,7 @@ public class Formula {
 	private List<String> listChannel;
 	private List<String> listPurpose;
 	private List<String> listTypeOfFinance;
-	private List<Column> listColumns;
+	private List<ColumnReport> listColumns;
 
 	public List<String> getListTypeOfFlow() {
 		return listTypeOfFlow;
@@ -63,11 +63,11 @@ public class Formula {
 		this.listChannel = listChannel;
 	}
 
-	public List<Column> getListColumns() {
+	public List<ColumnReport> getListColumns() {
 		return listColumns;
 	}
 
-	public void setListColumns(List<Column> listColumns) {
+	public void setListColumns(List<ColumnReport> listColumns) {
 		this.listColumns = listColumns;
 	}
 

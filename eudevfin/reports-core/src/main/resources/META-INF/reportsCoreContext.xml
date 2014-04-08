@@ -30,6 +30,11 @@
 		token -->
 
 	<context:component-scan base-package="pt.webdetails" />
+	<tx:annotation-driven />
+	<int:annotation-config />
+	<context:component-scan base-package="org.devgateway.eudevfin" />
+	<context:annotation-config />
+	<jpa:repositories base-package="org.devgateway.eudevfin.reports.core.repository" />
 
 	<int:channel id="getCDAQueryChannel"/>
 	<int:channel id="replyCDAQueryChannel"/>
@@ -60,26 +65,11 @@
 	<bean id="jsonMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
 
 
-<!-- 
-	<bean id="IRepositoryAccess" class="pt.webdetails.cpf.repository.vfs.VfsRepositoryAccess"
-		scope="prototype">
-		<property name="repository" value="res:standalone/repository"></property>
-		<property name="settings" value="res:standalone/settings"></property>
+	<bean id="reportsCoreLiquibase" class="liquibase.integration.spring.SpringLiquibase" lazy-init="false"
+		depends-on="contextHelper">
+		<property name="dataSource" ref="euDevFinDataSource" />
+		<property name="changeLog" value="classpath:reportsCoreDbChangelog.xml" />
 	</bean>
-
-	<bean id="IUserSession" class="pt.webdetails.cpf.impl.SimpleUserSession">
-		<property name="userName" value="username"></property>
-		<property name="attributes">
-			<map>
-				<entry key="test" value="thisIsAGoodValue" />
-			</map>
-		</property>
-	</bean>
-	<bean id="ISessionUtils" class="pt.webdetails.cpf.impl.SimpleSessionUtils">
-		<property name="session" ref="IUserSession" />
-	</bean>
-
- -->
 
 
 </beans>

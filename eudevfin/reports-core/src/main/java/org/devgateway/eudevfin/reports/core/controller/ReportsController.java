@@ -37,8 +37,11 @@ import org.apache.log4j.Logger;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.util.AuthUtils;
 import org.devgateway.eudevfin.common.locale.LocaleHelper;
+import org.devgateway.eudevfin.financial.dao.CategoryDaoImpl;
+import org.devgateway.eudevfin.financial.dao.ChannelCategoryDao;
 import org.devgateway.eudevfin.financial.util.FinancialTransactionUtil;
 import org.devgateway.eudevfin.metadata.common.domain.Organization;
+import org.devgateway.eudevfin.reports.core.dao.RowReportDao;
 import org.devgateway.eudevfin.reports.core.utils.ReportExporter;
 import org.devgateway.eudevfin.reports.core.utils.ReportTemplate;
 import org.joda.money.CurrencyUnit;
@@ -55,6 +58,9 @@ import org.springframework.web.servlet.ModelAndView;
 public class ReportsController {
 	@Autowired
 	private DataSource cdaDataSource;
+
+	@Autowired
+	private RowReportDao rowReportDao;
 
     private static final Logger logger = Logger.getLogger(ReportsController.class);
 
@@ -440,7 +446,8 @@ public class ReportsController {
 			
 			
 			//Process template (injecting MDX; fields and text elements
-			InputStream inputStreamProcessed = ReportTemplate.processTemplate(inputStream,	REPORT_TYPE_DAC1_DYNAMIC);
+			ReportTemplate reportProcessor = new ReportTemplate();
+			InputStream inputStreamProcessed = reportProcessor.processTemplate(inputStream,	REPORT_TYPE_DAC1_DYNAMIC, rowReportDao);
 
 			Map<String, Object> parameters = new HashMap<String, Object>();
 			parameters
