@@ -43,6 +43,7 @@ public class OrganizationStoringEngine extends AbstractStoringEngine<Organizatio
 		org.setLocale("fr");
 		result = HASH_PRIME * result + this.hashcodeFromObject(org.getDonorName());
 		result = HASH_PRIME * result + this.hashcodeFromObject(org.getName());
+		result = HASH_PRIME * result + this.hashcodeFromObject(org.getAcronym());
 		return result;
 	}
 

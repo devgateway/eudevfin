@@ -32,9 +32,19 @@ public abstract class AbstractStoringEngine<T extends AbstractTranslateable>
 	
 	@Override
 	public boolean checkSame(final T entityFromFile, final T entityFromDb) {
-		final int entityFromFileHash	= this.importHashcode(entityFromFile);
-		final int entityFromDbHash	= this.importHashcode(entityFromDb);
+		final int entityFromFileHash	= this.importHashcodeWrapper(entityFromFile);
+		final int entityFromDbHash	= this.importHashcodeWrapper(entityFromDb);
 		return entityFromFileHash == entityFromDbHash ;
+	}
+	
+	
+	private int importHashcodeWrapper(final T entity) {
+		final String originalLocale	= entity.getLocale();
+		final int result	= this.importHashcode(entity);
+		
+		entity.setLocale(originalLocale);
+		return result;
+		
 	}
 	
 	protected int hashcodeFromObject(final Object o) {
