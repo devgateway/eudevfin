@@ -80,7 +80,7 @@ public class PieChart extends RunMdxQuery {
                 .setStyle(new CssStyle()
                         .setProperty("padding", "10"))
                 .setPercentageDecimals(2)
-                .setFormatter(new DefaultFormatter().setFunction("var value = '$ ' + sprintf('%.3f', this.y).replace(/,/g, \" \");\n" +
+                .setFormatter(new DefaultFormatter().setFunction("var value = '$ ' + sprintf('%.2f', this.y).replace(/,/g, \" \");\n" +
                         "return '<b>' + this.point.name + '</b><br />' + value;"))
                 .setShared(Boolean.FALSE)
                 .setUseHTML(Boolean.TRUE));
@@ -92,6 +92,8 @@ public class PieChart extends RunMdxQuery {
                         .setAnimation(Boolean.TRUE)
                         .setDataLabels(new DataLabels()
                                 .setEnabled(Boolean.TRUE)
+                                .setFormatter(new DefaultFormatter().setFunction("var value = sprintf('%.2f', this.y).replace(/,/g, \" \");\n" +
+                                        "return value;"))
                                 .setColor(new HexColor("#000000"))
                                 .setConnectorColor(new HexColor("#000000")))
                         .setShowInLegend(Boolean.TRUE)));

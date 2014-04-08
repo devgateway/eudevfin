@@ -1,5 +1,6 @@
 package org.devgateway.eudevfin.reports.ui.pages;
 
+import com.googlecode.wickedcharts.highcharts.options.Axis;
 import com.googlecode.wickedcharts.highcharts.options.Labels;
 import com.googlecode.wickedcharts.highcharts.options.Options;
 import com.googlecode.wickedcharts.highcharts.options.SeriesType;
@@ -51,6 +52,7 @@ import java.util.Set;
 public class ReportsPage extends HeaderFooter {
     private static final Logger logger = Logger.getLogger(ReportsPage.class);
 
+    private final int MILLION = 1000000;
     private int tableYear;
     private String countryCurrency;
 
@@ -167,8 +169,19 @@ public class ReportsPage extends HeaderFooter {
                         }
                     }
 
+                    // add null values for '2013 / 2012' column on 'ODA/GNI' and 'Bilateral share' rows
                     for (int i = len - 2; i < len; i++) {
                         resultSet.get(i).add(null);
+                    }
+
+                    // display the results in millions
+                    for (int i = 0; i < len - 2; i++) {
+                        for (int j = 1; j <= NUMBER_OF_YEARS; j++) {
+                            String item = resultSet.get(i).get(j);
+                            if (item != null) {
+                                resultSet.get(i).set(j, "" + Float.parseFloat(item) / ReportsPage.this.MILLION);
+                            }
+                        }
                     }
 
                     // format the amounts as #,###.##
@@ -180,6 +193,11 @@ public class ReportsPage extends HeaderFooter {
 
                             if (item != null) {
                                 item = df.format(Float.parseFloat(resultSet.get(i).get(j)));
+
+                                // len - 2 row is the 'ODA/GNI' row and we need to add the percentages
+                                if (i == len - 2) {
+                                    item += "%";
+                                }
                                 resultSet.get(i).set(j, item);
                             }
                         }
@@ -234,13 +252,13 @@ public class ReportsPage extends HeaderFooter {
                 this.result = this.runQuery();
                 List <List<String>> resultSet = this.result.getResultset();
 
-                // format the amounts as #,###
-                DecimalFormat df = new DecimalFormat("#,###");
+                // format the amounts as #,###.###
+                DecimalFormat df = new DecimalFormat("#,###.###");
                 for(int i = 0; i < resultSet.size(); i++) {
                     String item = resultSet.get(i).get(1);
 
                     if (item != null) {
-                        item = df.format(Float.parseFloat(resultSet.get(i).get(1)));
+                        item = df.format(Float.parseFloat(resultSet.get(i).get(1)) / ReportsPage.this.MILLION);
                         resultSet.get(i).set(1, item);
                     }
                 }
@@ -325,36 +343,6 @@ public class ReportsPage extends HeaderFooter {
         table.addTableRows();
     }
 
-    private void addOdaByRegionChart () {
-        Label title = new Label("odaByRegionTitle", new StringResourceModel("dashboards.odaByRegionChart", this, null, null));
-        add(title);
-
-        PieChart pieChart = new PieChart(CdaService, "odaByRegionChart", "odaByRegionChart") {
-            @Override
-            public List<Point> getResultSeries () {
-                this.result = this.runQuery();
-                List<Point> resultSeries = new ArrayList<>();
-
-                for (List<String> item : result.getResultset()) {
-                    resultSeries.add(new Point(item.get(0), Float.parseFloat(item.get(1)) / 1000000));
-                }
-
-                return resultSeries;
-            }
-        };
-
-        Options options = pieChart.getOptions();
-        // check if we have a result and make the chart slightly higher
-        if (pieChart.getResultSeries().size() != 0) {
-            options.getChartOptions().setHeight(350);
-        }
-        options.getPlotOptions().getPie().getDataLabels().setEnabled(Boolean.FALSE);
-        options.addSeries(new PointSeries()
-                .setType(SeriesType.PIE)
-                .setData(pieChart.getResultSeries()));
-        add(pieChart.getChart());
-    }
-
     private void addOdaByIncomeGroupChart () {
         Label title = new Label("odaByIncomeGroupTitle", new StringResourceModel("dashboards.odaByIncomeGroupChart", this, null, null));
         add(title);
@@ -366,7 +354,7 @@ public class ReportsPage extends HeaderFooter {
                 List<Point> resultSeries = new ArrayList<>();
 
                 for (List<String> item : result.getResultset()) {
-                    resultSeries.add(new Point(item.get(0), Float.parseFloat(item.get(1)) / 1000000));
+                    resultSeries.add(new Point(item.get(0), Float.parseFloat(item.get(1)) / ReportsPage.this.MILLION));
                 }
 
                 return resultSeries;
@@ -374,6 +362,36 @@ public class ReportsPage extends HeaderFooter {
         };
 
         Options options = pieChart.getOptions();
+        options.addSeries(new PointSeries()
+                .setType(SeriesType.PIE)
+                .setData(pieChart.getResultSeries()));
+        add(pieChart.getChart());
+    }
+
+    private void addOdaByRegionChart () {
+        Label title = new Label("odaByRegionTitle", new StringResourceModel("dashboards.odaByRegionChart", this, null, null));
+        add(title);
+
+        PieChart pieChart = new PieChart(CdaService, "odaByRegionChart", "odaByRegionChart") {
+            @Override
+            public List<Point> getResultSeries () {
+                this.result = this.runQuery();
+                List<Point> resultSeries = new ArrayList<>();
+
+                for (List<String> item : result.getResultset()) {
+                    resultSeries.add(new Point(item.get(0), Float.parseFloat(item.get(1)) / ReportsPage.this.MILLION));
+                }
+
+                return resultSeries;
+            }
+        };
+
+        Options options = pieChart.getOptions();
+        // check if we have a result and make the chart slightly higher
+        if (pieChart.getResultSeries().size() != 0) {
+            options.getChartOptions().setHeight(350);
+        }
+        // options.getPlotOptions().getPie().getDataLabels().setEnabled(Boolean.FALSE); display data labels for now
         options.addSeries(new PointSeries()
                 .setType(SeriesType.PIE)
                 .setData(pieChart.getResultSeries()));
@@ -397,9 +415,9 @@ public class ReportsPage extends HeaderFooter {
                     // keep unique values
                     resultCategories.add(item.get(1));
 
-                    resultSeries.put(item.get(0), Float.parseFloat(item.get(2)) / 1000000);
+                    resultSeries.put(item.get(0), Float.parseFloat(item.get(2)) / ReportsPage.this.MILLION);
 
-                    odaBySectorTotal += (Float.parseFloat(item.get(2)) / 1000000);
+                    odaBySectorTotal += (Float.parseFloat(item.get(2)) / ReportsPage.this.MILLION);
                 }
 
                 DecimalFormat twoDForm = new DecimalFormat("#.##");
@@ -414,6 +432,9 @@ public class ReportsPage extends HeaderFooter {
                 return resultSeries;
             }
         };
+
+        // remove the y-axis label ('ODA')
+        stackedBarChart.getOptions().getxAxis().get(0).getLabels().setEnabled(Boolean.FALSE);
 
         for (String key : stackedBarChart.getResultSeries().keySet()) {
             stackedBarChart.getOptions().addSeries(new SimpleSeries()

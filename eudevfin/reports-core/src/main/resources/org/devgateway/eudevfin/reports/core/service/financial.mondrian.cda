@@ -98,14 +98,24 @@
 		<Query>
 			<![CDATA[
 			SELECT
-			NON EMPTY {[Measures].[Net Amount Currency NATLOECD]} ON COLUMNS,
-			NON EMPTY TOPCOUNT([Country].[Name].Members, 10, [Measures].[Net Amount Currency NATLOECD]) ON ROWS
-			FROM [Financial]
+            NON EMPTY {[Measures].[Net Amount Currency NATLOECD]} ON COLUMNS,
+            NON EMPTY Subset(Order(({[Country].[Name].Members}), [Measures].[Net Amount Currency NATLOECD], BDESC), 0, 10)  ON ROWS
+            FROM [Financial]
 			WHERE {[Type of Flow].[Name].[ODA (Official Development Assistance)]}
 		    ]]>
 		</Query>
 	</DataAccess>
 
+    <!-- alternative query with Order and break hierarchy instead of TopCount
+    WITH
+    MEMBER Measures.[Top 5 recipients] AS (SUM(CrossJoin({SUBSET(ORDER([Country].[Name].Members, [Measures].[NumberOfTransactions], BDESC), 0, 5)}, {[Measures].[NumberOfTransactions]})) / SUM(CrossJoin({[Type of Finance].[Name].Members}, {[Measures].[NumberOfTransactions]}))) * 100
+    MEMBER Measures.[Top 10 recipients] AS IIF(SUM(CrossJoin({SUBSET(ORDER([Country].[Name].Members, [Measures].[NumberOfTransactions], BDESC), 0, 20)}, {[Measures].[NumberOfTransactions]})) < 5, NULL, (SUM(CrossJoin({SUBSET(ORDER([Country].[Name].Members, [Measures].[NumberOfTransactions], BDESC), 0, 10)}, {[Measures].[NumberOfTransactions]})) / SUM(CrossJoin({[Type of Finance].[Name].Members}, {[Measures].[NumberOfTransactions]}))) * 100)
+    MEMBER Measures.[Top 20 recipients] AS IIF(SUM(CrossJoin({SUBSET(ORDER([Country].[Name].Members, [Measures].[NumberOfTransactions], BDESC), 0, 20)}, {[Measures].[NumberOfTransactions]})) < 10, NULL, (SUM(CrossJoin({SUBSET(ORDER([Country].[Name].Members, [Measures].[NumberOfTransactions], BDESC), 0, 20)}, {[Measures].[NumberOfTransactions]})) / SUM(CrossJoin({[Type of Finance].[Name].Members}, {[Measures].[NumberOfTransactions]}))) * 100)
+    SELECT
+    NON EMPTY {Measures.[Top 5 recipients], Measures.[Top 10 recipients], Measures.[Top 20 recipients]} ON COLUMNS
+    FROM [Financial]
+    WHERE {[Type of Flow].[TYPE_OF_FLOW##10].[ODA (Official Development Assistance)]}
+    -->
 	<DataAccess id="topTenMemoShare"
 	            connection="defaultConnectionLocale"
 	            type="mdx"
@@ -155,8 +165,8 @@
 		<Query>
 			<![CDATA[
 			SELECT
-			NON EMPTY {[Measures].[Net Amount Currency NATLOECD]} ON COLUMNS,
-			NON EMPTY TOPCOUNT([Region].[Name].Members, 10, [Measures].[Net Amount Currency NATLOECD]) ON ROWS
+        	NON EMPTY {[Measures].[Net Amount Currency NATLOECD]} ON COLUMNS,
+			NON EMPTY ORDER([Country].[Geography].Members, [Measures].[Net Amount Currency NATLOECD], BDESC) ON ROWS
 			FROM [Financial]
 			WHERE {[Type of Flow].[Name].[ODA (Official Development Assistance)]}
 		    ]]>
@@ -173,8 +183,8 @@
 		<Query>
 			<![CDATA[
 			SELECT
-			NON EMPTY {[Measures].[Net Amount Currency NATLOECD]} ON COLUMNS,
-			NON EMPTY TOPCOUNT(CrossJoin([Sector].[Name].Members, {[Type of Flow].[Name].[ODA (Official Development Assistance)]}), 10, [Measures].[Net Amount Currency NATLOECD]) ON ROWS
+    		NON EMPTY {[Measures].[Net Amount Currency NATLOECD]} ON COLUMNS,
+			NON EMPTY Subset(Order(CrossJoin([Sector].[Name].Members, {[Type of Flow].[Name].[ODA (Official Development Assistance)]}), [Measures].[Net Amount Currency NATLOECD], BDESC), 0, 10) ON ROWS
 			FROM [Financial]
             ]]>
 		</Query>
