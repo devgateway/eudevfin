@@ -99,6 +99,8 @@ public class CrsRowTransformer extends AbstractRowTransformer<EntityWrapperInter
 		this.addCellTransformer( new CellTransformerImplementations.ARREARS_OF_PRINCIPAL (this.exchangeRateUtil, "Arrears of principal") );
 		this.addCellTransformer( new CellTransformerImplementations.ARREARS_OF_INTEREST (this.exchangeRateUtil, "Arrears of interest") );
 		
+		this.addCellTransformer( new CellTransformerImplementations.RMNCH_CODE("RMNCH") );
+		
 		
 	}
 }

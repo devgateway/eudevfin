@@ -319,6 +319,25 @@ public class CellTransformerImplementations {
 			return cell;
 		}
 	}
+	
+	public static class RMNCH_CODE extends AbstractFssCellTransformer<String> {
+		public RMNCH_CODE(final String headerName) {
+			super(headerName);
+		}
+
+
+		@Override
+		public MetadataCell<String> innerTransform(final FinancialTransaction tx) {
+			final CustomFinancialTransaction ctx	= (CustomFinancialTransaction) tx;
+			String value = null;
+			if (ctx.getRmnch() != null) {
+				value = ctx.getRmnch().getDisplayableCode();
+			}
+			final MetadataCell<String> cell = new MetadataCell<String>(value);
+			this.setDataTypeToString(cell);
+			return cell;
+		}
+	}
 
 	public static class TYPE_OF_FINANCE_CODE extends AbstractFssCellTransformer<String> {
 		public TYPE_OF_FINANCE_CODE(final String headerName) {
