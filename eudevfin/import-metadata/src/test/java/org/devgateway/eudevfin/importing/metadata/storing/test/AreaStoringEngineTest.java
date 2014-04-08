@@ -14,6 +14,7 @@ import org.devgateway.eudevfin.financial.dao.AreaDaoImpl;
 import org.devgateway.eudevfin.financial.dao.CategoryDaoImpl;
 import org.devgateway.eudevfin.importing.metadata.storing.AreaStoringEngine;
 import org.devgateway.eudevfin.importing.metadata.test.helper.DbHelper;
+import org.devgateway.eudevfin.importing.metadata.test.helper.DbHelper.PossibleCategClass;
 import org.devgateway.eudevfin.metadata.common.domain.Area;
 import org.devgateway.eudevfin.metadata.common.domain.Category;
 import org.junit.Test;
@@ -54,12 +55,14 @@ public class AreaStoringEngineTest {
 		area.setName("Test Area " + index);
 		
 		final Category incGroup	= 
-				this.dbHelper.createCategory("incomeGroup" + index, "Income Group " + index, null, null, null);
+				this.dbHelper.createCategory("incomeGroup" + index, "Income Group " + index, null,
+						PossibleCategClass.CATEGORY, (String[])null);
 		area.setIncomeGroup(incGroup);
 		
 		
 		final Category geographyCategory	= 
-				this.dbHelper.createCategory("geographyCategory" + index, "Geography Category " + index, null, null, null);
+				this.dbHelper.createCategory("geographyCategory" + index, "Geography Category " + index, null,
+						PossibleCategClass.CATEGORY, (String[]) null);
 		area.setGeographyCategory(geographyCategory);
 		
 		return this.areaDaoImpl.save(area).getEntity();
