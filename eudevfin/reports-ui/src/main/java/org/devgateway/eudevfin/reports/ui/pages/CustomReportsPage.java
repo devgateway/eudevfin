@@ -24,11 +24,12 @@ import org.devgateway.eudevfin.ui.common.components.CheckBoxField;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.devgateway.eudevfin.ui.common.providers.CategoryProviderFactory;
+import org.devgateway.eudevfin.ui.common.providers.PredefinedStringProvider;
 import org.devgateway.eudevfin.ui.common.providers.UsedAreaChoiceProvider;
 import org.devgateway.eudevfin.ui.common.providers.UsedOrganizationChoiceProvider;
 import org.devgateway.eudevfin.ui.common.providers.YearProvider;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -70,6 +71,10 @@ public class CustomReportsPage extends HeaderFooter {
 
     protected DropDownField<Category> sector;
 
+    protected DropDownField<String> typeOfExpenditure;
+
+    protected DropDownField<String> valueOfActivity;
+
     protected DropDownField<Integer> year;
 
     protected DropDownField<Integer> startingYear;
@@ -80,11 +85,13 @@ public class CustomReportsPage extends HeaderFooter {
 
     protected CheckBoxField CPAOnly;
 
+    protected CheckBoxField showRelatedBudgetCodes;
+
     public CustomReportsPage () {
         final Form form = new Form("form");
 
-        CustomReportsForm customReportsForm = new CustomReportsForm();
-        CompoundPropertyModel<CustomReportsForm> model = new CompoundPropertyModel<>(customReportsForm);
+        CustomReportsModel customReportsModel = new CustomReportsModel();
+        CompoundPropertyModel<CustomReportsModel> model = new CompoundPropertyModel<>(customReportsModel);
         setModel(model);
 
         geography = new DropDownField<>("geography",
@@ -108,6 +115,20 @@ public class CustomReportsPage extends HeaderFooter {
         sector = new DropDownField<>("sector", new RWComponentPropertyModel<Category>("sector"),
                 categoryFactory.getUsedSectorProvider());
 
+        // there are only 2 predefined options for this field
+        // and we take them with StringResourceModel
+        List<String> typeOfExpenditureOptions = new ArrayList<>();
+        typeOfExpenditureOptions.add(new StringResourceModel("commitment", this, null, null).getObject());
+        typeOfExpenditureOptions.add(new StringResourceModel("disbursement", this, null, null).getObject());
+        typeOfExpenditure = new DropDownField<>("typeOfExpenditure", new RWComponentPropertyModel<String>("typeOfExpenditure"),
+                new PredefinedStringProvider(typeOfExpenditureOptions));
+
+        List<String> valueOfActivityOptions = new ArrayList<>();
+        valueOfActivityOptions.add(new StringResourceModel("lowerThanAmount", this, null, null).getObject());
+        valueOfActivityOptions.add(new StringResourceModel("moreThanAmount", this, null, null).getObject());
+        valueOfActivity = new DropDownField<>("valueOfActivity", new RWComponentPropertyModel<String>("valueOfActivity"),
+                new PredefinedStringProvider(valueOfActivityOptions));
+
         year = new DropDownField<>("year", new RWComponentPropertyModel<Integer>("year"),
                 new YearProvider(txService.findDistinctReportingYears()));
 
@@ -118,15 +139,13 @@ public class CustomReportsPage extends HeaderFooter {
                 new YearProvider(txService.findDistinctCompletitionYears()));
 
         // TODO fields
-        // co-financing
         // humanitarian - which is a sector
-        // type of expenditure - only 2 options (Commitment/Disbursement)
-        // value of activity - predefined values
         // show related budget codes?
 
         CoFinancingTransactionsOnly = new CheckBoxField("cofinancingtransactionsonly", new RWComponentPropertyModel<Boolean>("coFinancingTransactionsOnly"));
         CPAOnly = new CheckBoxField("cpaonly", new RWComponentPropertyModel<Boolean>("CPAOnly"));
         humanitarianAid = new CheckBoxField("humanitarianAid", new RWComponentPropertyModel<Boolean>("humanitarianAid"));
+        showRelatedBudgetCodes = new CheckBoxField("showRelatedBudgetCodes", new RWComponentPropertyModel<Boolean>("showRelatedBudgetCodes"));
 
         form.add(geography);
         form.add(recipient);
@@ -136,11 +155,14 @@ public class CustomReportsPage extends HeaderFooter {
         form.add(typeOfAid);
         form.add(sector);
         form.add(year);
+        form.add(typeOfExpenditure);
+        form.add(valueOfActivity);
         form.add(startingYear);
         form.add(completitionYear);
         form.add(CoFinancingTransactionsOnly);
         form.add(CPAOnly);
         form.add(humanitarianAid);
+        form.add(showRelatedBudgetCodes);
 
         form.add(new BootstrapSubmitButton("submit", new StringResourceModel("button.submit", this, null, null)) {
             @Override
@@ -154,7 +176,7 @@ public class CustomReportsPage extends HeaderFooter {
                 logger.info("Submitted ok!");
                 logger.info("====================================");
 
-                CustomReportsForm customReportsForm = (CustomReportsForm)CustomReportsPage.this.getModelObject();
+                CustomReportsModel customReportsModel = (CustomReportsModel)CustomReportsPage.this.getModelObject();
 //                logger.info(customReportsForm.getRecipient().getName());
 //                logger.info(customReportsForm.getSector().getName());
 //                logger.info(customReportsForm.getYear());

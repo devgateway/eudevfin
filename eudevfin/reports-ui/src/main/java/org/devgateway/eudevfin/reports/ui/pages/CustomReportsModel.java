@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @author idobre
  * @since 4/2/14
  */
-public class CustomReportsForm implements Serializable {
+public class CustomReportsModel implements Serializable {
     private Area recipient;
     private Category geography;
     private Organization nationalInstitution;
@@ -20,12 +20,15 @@ public class CustomReportsForm implements Serializable {
     private Category typeOfFlowbiMulti;
     private Category typeOfAid;
     private Category sector;
+    private String typeOfExpenditure;
+    private String valueOfActivity;
     private Integer year;
     private Integer startingYear;
     private Integer completitionYear;
     private Boolean coFinancingTransactionsOnly;
     private Boolean CPAOnly;
     private Boolean humanitarianAid;
+    private Boolean showRelatedBudgetCodes;
 
     public Area getRecipient() {
         return recipient;
@@ -83,6 +86,22 @@ public class CustomReportsForm implements Serializable {
         this.sector = sector;
     }
 
+    public String getTypeOfExpenditure() {
+        return typeOfExpenditure;
+    }
+
+    public void setTypeOfExpenditure(String typeOfExpenditure) {
+        this.typeOfExpenditure = typeOfExpenditure;
+    }
+
+    public String getValueOfActivity() {
+        return valueOfActivity;
+    }
+
+    public void setValueOfActivity(String valueOfActivity) {
+        this.valueOfActivity = valueOfActivity;
+    }
+
     public Integer getYear() {
         return year;
     }
@@ -129,5 +148,13 @@ public class CustomReportsForm implements Serializable {
 
     public void setHumanitarianAid(Boolean humanitarianAid) {
         this.humanitarianAid = humanitarianAid;
+    }
+
+    public Boolean getShowRelatedBudgetCodes() {
+        return showRelatedBudgetCodes;
+    }
+
+    public void setShowRelatedBudgetCodes(Boolean showRelatedBudgetCodes) {
+        this.showRelatedBudgetCodes = showRelatedBudgetCodes;
     }
 }
