@@ -78,11 +78,11 @@ public final class NavbarInitializer {
 
 						PageParameters paramsDAC1 = new PageParameters();
 						paramsDAC1.set("reportType", "dac1");
-						list.add((AbstractLink) new MenuBookmarkablePageLink<ReportsExport>(ReportsExport.class, paramsDAC1, new StringResourceModel("navbar.reports.export.dac1", this, null, null)).setEnabled(false));
+						list.add((AbstractLink) new MenuBookmarkablePageLink<ReportsExport>(ReportsExport.class, paramsDAC1, new StringResourceModel("navbar.reports.export.dac1", this, null, null)));
 
-						PageParameters paramsDAC2 = new PageParameters();
-						paramsDAC2.set("reportType", "dac2");
-						list.add((AbstractLink) new MenuBookmarkablePageLink<ReportsExport>(ReportsExport.class, paramsDAC2, new StringResourceModel("navbar.reports.export.dac2", this, null, null)).setEnabled(false));
+						PageParameters paramsDAC2a = new PageParameters();
+						paramsDAC2a.set("reportType", "dac2a");
+						list.add((AbstractLink) new MenuBookmarkablePageLink<ReportsExport>(ReportsExport.class, paramsDAC2a, new StringResourceModel("navbar.reports.export.dac2a", this, null, null)));
 
 //						PageParameters paramsCRS = new PageParameters();
 //						paramsCRS.set("reportType", "CRS");
