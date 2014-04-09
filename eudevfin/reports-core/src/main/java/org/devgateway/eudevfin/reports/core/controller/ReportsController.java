@@ -136,13 +136,10 @@ public class ReportsController {
             generateAdvanceQuestionnaire(request, response, connection, outputType, currency);
 			break;
 		case REPORT_TYPE_DAC1:
-			generateDAC1Dynamic(request, response, connection, outputType);
+			generateDAC1(request, response, connection, outputType);
 			break;
 		case REPORT_TYPE_DAC2a:
 			generateDAC2a(request, response, connection, outputType);
-			break;
-		case REPORT_TYPE_DAC1_DYNAMIC:
-			generateDAC1Dynamic(request, response, connection, outputType);
 			break;
 		default:
 			break;
@@ -254,89 +251,6 @@ public class ReportsController {
 	}
 
 	/**
-	 * Create the DAC 1 report
-	 * 
-	 * @param request
-	 * @param response
-     * @param connection the Mondrian connection
-     * @param outputType the output for the report: HTML, Excel, PDF, CSV
-	 */
-    private void generateDAC1 (HttpServletRequest request, HttpServletResponse response,
-                               Connection connection, String outputType) {
-		try {
-            InputStream inputStream = ReportsController.class.getClassLoader().getResourceAsStream("org/devgateway/eudevfin/reports/core/dac1/dac1_master.jrxml");
-
-			Map<String, Object> parameters = new HashMap<String, Object>();
-            parameters.put(JRMondrianQueryExecuterFactory.PARAMETER_MONDRIAN_CONNECTION, connection);
-			String subdirPath = "org/devgateway/eudevfin/reports/core/dac1";
-			parameters.put("SUBDIR_PATH", subdirPath);
-
-			// set locale
-			Locale locale = LocaleContextHolder.getLocale();
-			parameters.put(JRParameter.REPORT_LOCALE, locale);
-
-			// set resource bundle
-			try {
-                URL[] urls = {
-                        this.getClass().getResource("/org/devgateway/eudevfin/reports/").toURI().toURL()
-                };
-				ClassLoader loader = new URLClassLoader(urls);
-                ResourceBundle resourceBundle = java.util.ResourceBundle.getBundle("i18n", locale, loader);
-                parameters.put(JRParameter.REPORT_RESOURCE_BUNDLE, resourceBundle);
-			} catch (URISyntaxException e) {
-				e.printStackTrace();
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
-			}
-
-			JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
-            JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters);
-
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			ReportExporter reportExporter = new ReportExporter();
-			String fileName = "";
-
-			switch (outputType) {
-			case OUTPUT_TYPE_PDF:
-				reportExporter.exportPDF(jasperPrint, baos);
-				fileName = "DAC 1.pdf";
-                    response.setHeader("Content-Disposition", "inline; filename=" + fileName);
-				response.setContentType("application/pdf");
-				break;
-			case OUTPUT_TYPE_EXCEL:
-				reportExporter.exportXLS(jasperPrint, baos);
-				fileName = "DAC 1.xls";
-                    response.setHeader("Content-Disposition", "inline; filename=" + fileName);
-				response.setContentType("application/vnd.ms-excel");
-				break;
-			case OUTPUT_TYPE_HTML:
-				reportExporter.exportHTML(jasperPrint, baos);
-				fileName = "DAC 1.html";
-                    response.setHeader("Content-Disposition", "inline; filename=" + fileName);
-				response.setContentType("text/html");
-				break;
-			case OUTPUT_TYPE_CSV:
-				reportExporter.exportCSV(jasperPrint, baos);
-				fileName = "DAC 1.csv";
-                    response.setHeader("Content-Disposition", "inline; filename=" + fileName);
-				response.setContentType("text/csv");
-				break;
-			default:
-				break;
-			}
-
-			response.setContentLength(baos.size());
-
-			// write to response stream
-			this.writeReportToResponseStream(response, baos);
-		} catch (JRException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
 	 * Create the DAC 2 report2
 	 * 
 	 * @param request
@@ -435,7 +349,7 @@ public class ReportsController {
 		}
 	}
 
-	private void generateDAC1Dynamic(HttpServletRequest request,
+	private void generateDAC1(HttpServletRequest request,
 			HttpServletResponse response, Connection connection,
 			String outputType) {
 		try {
@@ -444,6 +358,11 @@ public class ReportsController {
 					.getResourceAsStream(
 							"org/devgateway/eudevfin/reports/core/dac1/dac1_template.jrxml");
 			
+			String yearParam = request.getParameter(REPORT_YEAR);
+			if (yearParam == null || yearParam.equals("")) {
+	            yearParam = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
+			}
+			int reportYear = Integer.parseInt(yearParam);
 			
 			//Process template (injecting MDX; fields and text elements
 			ReportTemplate reportProcessor = new ReportTemplate();
@@ -458,20 +377,18 @@ public class ReportsController {
 			parameters.put(JRParameter.REPORT_LOCALE, locale);
 
 			// set resource bundle
-			try {
-				URL[] urls = { this.getClass()
-						.getResource("/org/devgateway/eudevfin/reports/")
-						.toURI().toURL() };
-				ClassLoader loader = new URLClassLoader(urls);
-				ResourceBundle resourceBundle = java.util.ResourceBundle
-						.getBundle("i18n", locale, loader);
-				parameters.put(JRParameter.REPORT_RESOURCE_BUNDLE,
-						resourceBundle);
-			} catch (URISyntaxException e) {
-				e.printStackTrace();
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
+            ResourceBundle resourceBundle = java.util.ResourceBundle.getBundle("org/devgateway/eudevfin/reports/i18n", locale);
+			parameters.put(JRParameter.REPORT_RESOURCE_BUNDLE, resourceBundle);
+
+			parameters.put("REPORTING_YEAR", reportYear);
+			// put Reporting Country parameter
+			String donorName = "";
+            Organization organizationForCurrentUser = AuthUtils.getOrganizationForCurrentUser();
+
+			if (organizationForCurrentUser != null) {
+				donorName = organizationForCurrentUser.getDonorName();
 			}
+			parameters.put("REPORTING_COUNTRY", donorName);
 
 			JasperDesign jasperDesign = JRXmlLoader.load(inputStreamProcessed);
 			JasperReport jasperReport = JasperCompileManager

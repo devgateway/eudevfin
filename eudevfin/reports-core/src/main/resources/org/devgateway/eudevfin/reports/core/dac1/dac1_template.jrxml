@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dac1_master" pageWidth="900" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" resourceBundle="i18n" uuid="bad8772b-9ff8-49ae-a2c0-34a59258237b">
 	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="3592"/>
+	<property name="ireport.x" value="778"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="REPORTING_COUNTRY" class="java.lang.String"/>
+	<parameter name="REPORTING_YEAR" class="java.lang.Number"/>
 	<queryString language="mdx">
 		<![CDATA[]]>
 	</queryString>
@@ -19,7 +21,7 @@
 				<textFieldExpression><![CDATA[$R{dac1.title}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="613" y="53" width="123" height="43" uuid="0ec0336c-7bad-4791-98a5-750066188036"/>
+				<reportElement x="613" y="53" width="123" height="48" uuid="0ec0336c-7bad-4791-98a5-750066188036"/>
 				<textElement textAlignment="Right">
 					<font size="12" isBold="false" isItalic="false"/>
 				</textElement>
@@ -29,15 +31,15 @@ Date:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="749" y="53" width="100" height="16" uuid="40fea317-1efb-41ef-a2ab-7b7ca5290ce6"/>
-				<textFieldExpression><![CDATA[]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{REPORTING_COUNTRY}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="749" y="69" width="100" height="16" uuid="130e2419-c5b7-429b-9a97-10e45bef654c"/>
-				<textFieldExpression><![CDATA[]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{REPORTING_YEAR}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
 				<reportElement x="749" y="85" width="100" height="16" uuid="e2a1d4f1-07b3-430e-adf1-6ddcd3916374"/>
-				<textFieldExpression><![CDATA[]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

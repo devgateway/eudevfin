@@ -242,9 +242,7 @@ public class ReportTemplate {
 		str.append("}  ON ROWS, \n");
 		str.append(" {[Measures].[Extended],[Measures].[Received],[Measures].[Committed], [Measures].[Amount]}*[Type of Finance].[Code].Members ON COLUMNS \n");
 		str.append("FROM [Financial] \n");
-		str.append("WHERE [Reporting Year].[2011] \n"); // TODO: Replace with
-														// appropriate JR
-														// Parameter
+		str.append("WHERE [Reporting Year].[$P{REPORTING_YEAR}] \n");
 		Node queryString = doc.getElementsByTagName("queryString").item(0);
 		CDATASection cdata = doc.createCDATASection(str.toString());
 		queryString.appendChild(cdata);
