@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,10 +32,11 @@ public class ColumnReport implements Serializable  {
 	private String name;
 	private int type = Constants.CALCULATED;
 
-	@ElementCollection
+	@ElementCollection(fetch = FetchType.EAGER)
 	@Column(length = 1000)
 	private Set<String> columnCodes;
 	private int multiplier = 1;
+	private String pattern = "#,##0.00";
 
 	public ColumnReport() {
 	}
@@ -109,9 +111,22 @@ public class ColumnReport implements Serializable  {
 	}
 
 	public String getColumnCode() {
-		String fieldName = this.getName() + "_" + this.getTypeOfFinance() + "_"	+ this.getMeasure();
-		
-		return fieldName;
+		StringBuffer sb = new StringBuffer();
+		String[] types = this.getTypeOfFinance().split(",");
+		for(int i = 0; i<types.length; i++){
+			sb.append(this.getName() + "_" + types[i] + "_"	+ this.getMeasure());
+			if(i !=types.length-1)
+				sb.append(",");
+		}		
+		return sb.toString();
+	}
+
+	public String getPattern() {
+		return pattern;
+	}
+
+	public void setPattern(String pattern) {
+		this.pattern = pattern;
 	}
 	
 

@@ -6,9 +6,7 @@ import java.io.InputStream;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -23,15 +21,10 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import org.devgateway.eudevfin.financial.dao.CategoryDaoImpl;
-import org.devgateway.eudevfin.financial.dao.ChannelCategoryDao;
-import org.devgateway.eudevfin.metadata.common.domain.Category;
-import org.devgateway.eudevfin.metadata.common.domain.SectorCategory;
 import org.devgateway.eudevfin.reports.core.dao.RowReportDao;
 import org.devgateway.eudevfin.reports.core.domain.ColumnReport;
 import org.devgateway.eudevfin.reports.core.domain.RowReport;
 import org.jgroups.util.UUID;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.w3c.dom.CDATASection;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -55,7 +48,7 @@ public class ReportTemplate {
 			generateTextElements(rows, doc);
 
 			injectedStream = xmlToStream(doc);
-			prettyPrint(doc);
+//			prettyPrint(doc);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -111,7 +104,7 @@ public class ReportTemplate {
 			for (ColumnReport column : columns) {
 				UUID uuid = UUID.randomUUID();
 				Element textField = doc.createElement("textField");
-				textField.setAttribute("pattern", "#,##0.00");
+				textField.setAttribute("pattern", column.getPattern() != null ? column.getPattern(): "#,##0.00");
 
 				Node columnNode = matchingColumns.get("column_"
 						+ column.getName());
@@ -155,21 +148,22 @@ public class ReportTemplate {
 					CDATASection cdata = doc.createCDATASection(expression.toString());
 					textFieldExpression.appendChild(cdata);
 				} else if (column.getType() == Constants.SUM) {
-					/*
-					 * Set<String> subcols = column.getColumns(); StringBuffer
-					 * sb = new StringBuffer();
-					 * 
-					 * for (int i=0;i< subcols.size();i++) { ColumnReport subcol
-					 * = subcols.[i]; if(subcol.getType() !=
-					 * Constants.CALCULATED){ continue; }
-					 * 
-					 * String fieldName = row.getName() + "_" + subcol.getName()
-					 * + "_" + subcol.getTypeOfFinance() + "_" +
-					 * subcol.getMeasure(); sb.append("($F{" + fieldName +
-					 * "} == null ? 0 : $F{" + fieldName + "}.intValue())");
-					 * if(i != subcols.length-1) sb.append("+"); } ;
-					 */
-					CDATASection cdata = doc.createCDATASection("0.00");
+					StringBuffer expression = new StringBuffer();
+					Set<String> subcols = column.getColumnCodes(); 
+					for(Iterator<String> it=subcols.iterator();it.hasNext();){
+						String code = it.next();
+						String[] types = code.split(",");
+						for(int i = 0; i<types.length; i++){
+							String fieldName = row.getName() + "_" + types[i];
+							expression.append("($F{" + fieldName + "} == null ? 0 :$F{" + fieldName + "}.intValue())");
+							if(i != types.length-1)
+								expression.append("+");
+						}
+						if(it.hasNext()){
+							expression.append("+");
+						}
+					}
+					CDATASection cdata = doc.createCDATASection(expression.toString());
 					textFieldExpression.appendChild(cdata);
 				}
 
@@ -235,6 +229,7 @@ public class ReportTemplate {
 		str.append("MEMBER [Measures].[Extended] AS [Measures].[Extended Amount Currency NATLOECD] \n");
 		str.append("MEMBER [Measures].[Received] AS [Measures].[Received Amount Currency NATLOECD] \n");
 		str.append("MEMBER [Measures].[Committed] AS [Measures].[Commitments Amount Currency NATLOECD] \n");
+		str.append("MEMBER [Measures].[Amount] AS [Measures].[Extended Amount No Flow] \n");
 		str.append("SELECT {");
 		for (Iterator<RowReport> it = rows.iterator(); it.hasNext();) {
 			RowReport row = it.next();
@@ -245,7 +240,7 @@ public class ReportTemplate {
 			}
 		}
 		str.append("}  ON ROWS, \n");
-		str.append(" {[Measures].[Extended],[Measures].[Received],[Measures].[Committed]}*[Type of Finance].[Code].Members ON COLUMNS \n");
+		str.append(" {[Measures].[Extended],[Measures].[Received],[Measures].[Committed], [Measures].[Amount]}*[Type of Finance].[Code].Members ON COLUMNS \n");
 		str.append("FROM [Financial] \n");
 		str.append("WHERE [Reporting Year].[2011] \n"); // TODO: Replace with
 														// appropriate JR
