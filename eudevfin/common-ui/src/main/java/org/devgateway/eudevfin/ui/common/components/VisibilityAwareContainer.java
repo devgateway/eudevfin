@@ -15,6 +15,9 @@ import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
 
 /**
+ * Container that will be visible if at least one child that's instance of a class implementing {@link AbstractField}
+ * is visible. This can be used mostly for hiding html that's used to encapsulate groups of fields.
+ *
  * @author Alexandru Artimon
  * @since 09/04/14
  */
@@ -36,8 +39,8 @@ public class VisibilityAwareContainer extends WebMarkupContainer {
         this.visitChildren(AbstractField.class, new IVisitor<Component, Object>() {
             @Override
             public void component(Component object, IVisit<Object> visit) {
-                object.configure();
-                if (object.determineVisibility()) {
+                object.configure(); //force an early configure on the visited object
+                if (object.determineVisibility()) { //use determineVisibility instead of isVisible, handles all cases!
                     oneVisibleChild.setObject(Boolean.TRUE);
                     visit.stop();
                 }
