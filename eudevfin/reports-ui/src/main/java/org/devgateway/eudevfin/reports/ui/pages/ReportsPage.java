@@ -407,12 +407,13 @@ public class ReportsPage extends HeaderFooter {
                 float odaBySectorTotal = 0;
 
                 this.result = this.runQuery();
+                // use LinkedHashMap so we can keep the insert order
                 Map<String, Float> resultSeries = new LinkedHashMap<>();
                 Set<String> resultCategories = new HashSet<>();
 
                 for (int i = result.getResultset().size() - 1; i >= 0; i--) {
                     List<String> item = result.getResultset().get(i);
-                    
+
                     // keep unique values
                     resultCategories.add(item.get(1));
 
@@ -438,7 +439,6 @@ public class ReportsPage extends HeaderFooter {
         stackedBarChart.getOptions().getxAxis().get(0).getLabels().setEnabled(Boolean.FALSE);
 
         for (Map.Entry<String, Float> entry : stackedBarChart.getResultSeries().entrySet()) {
-//        for (String key : stackedBarChart.getResultSeries().keySet()) {
             stackedBarChart.getOptions().addSeries(new SimpleSeries()
                     .setName(entry.getKey())
                     .setData(Arrays.asList(new Number[]{entry.getValue()})));
@@ -469,8 +469,5 @@ public class ReportsPage extends HeaderFooter {
         response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "jspdf.min.js")));
 
         response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "reports.js")));
-
-        // The initial dashboard load function execution
-        // response.render(OnDomReadyHeaderItem.forScript("app.load();"));
     }
 }

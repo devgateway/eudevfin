@@ -12,7 +12,7 @@
 	<entry key="page.title">ODA at a Glance</entry>
 
     <entry key="dashboards.netODA">Net ODA</entry>
-	<entry key="dashboards.topTenRecipients">Top Ten Recipients of Gross ODA (USD)</entry>
+	<entry key="dashboards.topTenRecipients">Top Ten Recipients of Gross ODA (USD m)</entry>
 	<entry key="dashboards.topTenMemoShare">Memo: Share of gross bilateral ODA</entry>
 	<entry key="dashboards.odaByRegionChart">By Region (USD m)</entry>
 	<entry key="dashboards.odaByIncomeGroupChart">By Income Group (USD m)</entry>
