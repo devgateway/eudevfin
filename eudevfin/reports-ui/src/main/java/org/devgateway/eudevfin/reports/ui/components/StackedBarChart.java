@@ -55,7 +55,7 @@ public class StackedBarChart extends RunMdxQuery {
                 .setBorderColor(new HexColor("#DEEDF7"))
                 .setBorderRadius(20)
                 .setBorderWidth(2)
-                .setHeight(350)
+                .setHeight(300)
                 .setMarginLeft(null)
                 .setMarginRight(null)
                 .setMarginTop(null)
@@ -82,7 +82,7 @@ public class StackedBarChart extends RunMdxQuery {
         options.setTooltip(new Tooltip()
                 .setBorderWidth(1)
                 .setPercentageDecimals(2)
-                .setFormatter(new DefaultFormatter().setFunction("var value = '$ ' + sprintf('%.3f', this.y).replace(/,/g, \" \");\n" +
+                .setFormatter(new DefaultFormatter().setFunction("var value = '$ ' + sprintf('%.2f', this.y).replace(/,/g, \" \");\n" +
                         "return this.point.category + '<br />' + '<b>' + this.point.series.name + '</b>: ' + value;"))
                 .setShared(Boolean.FALSE)
                 .setUseHTML(Boolean.TRUE));
