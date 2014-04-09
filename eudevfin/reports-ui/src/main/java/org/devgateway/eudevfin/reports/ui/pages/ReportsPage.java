@@ -1,6 +1,5 @@
 package org.devgateway.eudevfin.reports.ui.pages;
 
-import com.googlecode.wickedcharts.highcharts.options.Axis;
 import com.googlecode.wickedcharts.highcharts.options.Labels;
 import com.googlecode.wickedcharts.highcharts.options.Options;
 import com.googlecode.wickedcharts.highcharts.options.SeriesType;
@@ -36,8 +35,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -408,10 +407,12 @@ public class ReportsPage extends HeaderFooter {
                 float odaBySectorTotal = 0;
 
                 this.result = this.runQuery();
-                Map<String, Float> resultSeries = new HashMap<>();
+                Map<String, Float> resultSeries = new LinkedHashMap<>();
                 Set<String> resultCategories = new HashSet<>();
 
-                for (List<String> item : result.getResultset()) {
+                for (int i = result.getResultset().size() - 1; i >= 0; i--) {
+                    List<String> item = result.getResultset().get(i);
+                    
                     // keep unique values
                     resultCategories.add(item.get(1));
 
@@ -436,10 +437,11 @@ public class ReportsPage extends HeaderFooter {
         // remove the y-axis label ('ODA')
         stackedBarChart.getOptions().getxAxis().get(0).getLabels().setEnabled(Boolean.FALSE);
 
-        for (String key : stackedBarChart.getResultSeries().keySet()) {
+        for (Map.Entry<String, Float> entry : stackedBarChart.getResultSeries().entrySet()) {
+//        for (String key : stackedBarChart.getResultSeries().keySet()) {
             stackedBarChart.getOptions().addSeries(new SimpleSeries()
-                    .setName(key)
-                    .setData(Arrays.asList(new Number[]{stackedBarChart.getResultSeries().get(key)})));
+                    .setName(entry.getKey())
+                    .setData(Arrays.asList(new Number[]{entry.getValue()})));
         }
 
         add(stackedBarChart.getChart());

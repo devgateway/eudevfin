@@ -183,8 +183,8 @@
 		<Query>
 			<![CDATA[
 			SELECT
-    		NON EMPTY {[Measures].[Net Amount Currency NATLOECD]} ON COLUMNS,
-			NON EMPTY Subset(Order(CrossJoin([Sector].[Name].Members, {[Type of Flow].[Name].[ODA (Official Development Assistance)]}), [Measures].[Net Amount Currency NATLOECD], BDESC), 0, 10) ON ROWS
+        	NON EMPTY {[Measures].[Net Amount Currency NATLOECD]} ON COLUMNS,
+			NON EMPTY Order(CrossJoin([SectorHierarchy].[ParentName].Members, {[Type of Flow].[Name].[ODA (Official Development Assistance)]}), [Measures].[Net Amount Currency NATLOECD], BDESC) ON ROWS
 			FROM [Financial]
             ]]>
 		</Query>

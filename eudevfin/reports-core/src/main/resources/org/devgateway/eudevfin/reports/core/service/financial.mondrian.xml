@@ -220,6 +220,32 @@
             </Level>
         </Hierarchy>
     </Dimension>
+    <Dimension type="StandardDimension" visible="true" name="SectorHierarchy">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All Sectors">
+            <View alias="SectorHierarchyView">
+                <SQL dialect="generic"><![CDATA[
+					select id, CASE WHEN lower(parentname) like 'root%' THEN name ELSE parentname END as parentname, name
+					from (select
+					  "CATEGORYY"."ID",
+					  (select cattrn.name from CATEGORYTRANSLATION cattrn WHERE cattrn.locale = '@@LOCALE@@' AND cattrn.parent_id = "CATEGORYY".PARENTCATEGORY_ID) as PARENTNAME,
+					  "CATEGORYTRANSLATION"."NAME"
+					from
+					  "APP"."CATEGORY" as "CATEGORYY",
+					  "APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION",
+					  "APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
+					WHERE
+					  "CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
+					  "CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORYY"."ID" AND
+					  "CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORYY"."ID" AND
+					  "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='ALL_SECTOR_TAG')) as sectors
+			]]></SQL>
+            </View>
+            <Level name="ParentName" visible="true" column="PARENTNAME" uniqueMembers="false">
+            </Level>
+            <Level name="Name" visible="true" column="NAME" uniqueMembers="false">
+            </Level>
+        </Hierarchy>
+    </Dimension>
     <Dimension visible="true" highCardinality="false" name="BiMultilateral">
         <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="BiMultilateral" allMemberCaption="%{allBiMultilateral}" allLevelName="%{allBiMultilateral}" description="%{biMultilateral}" allMemberName="All BiMultilaterals">
             <View alias="BiMultilalteralView">
@@ -260,6 +286,7 @@
         <DimensionUsage source="IncomeGroup" name="IncomeGroup" visible="true" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
         <DimensionUsage source="Extending Agency" name="Extending Agency" visible="true" foreignKey="EXTENDINGAGENCY_ID" highCardinality="false"></DimensionUsage>
         <DimensionUsage source="Sector" name="Sector" visible="true" foreignKey="SECTOR_ID" highCardinality="false"></DimensionUsage>
+        <DimensionUsage source="SectorHierarchy" name="SectorHierarchy" visible="true" foreignKey="SECTOR_ID" highCardinality="false"></DimensionUsage>
         <DimensionUsage source="Channel" name="Channel" visible="true" foreignKey="CHANNEL_ID" highCardinality="false"></DimensionUsage>
         <DimensionUsage source="Type of Aid" name="Type of Aid" visible="true" foreignKey="TYPEOFAID_ID" highCardinality="false"></DimensionUsage>
         <DimensionUsage source="Type of Flow" name="Type of Flow" visible="true" foreignKey="TYPEOFFLOW_ID" highCardinality="false"></DimensionUsage>
