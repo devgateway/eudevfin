@@ -26,6 +26,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/financialContext.xml",
+		"classpath:/META-INF/commonContext.xml", "classpath:/META-INF/commonMetadataContext.xml",
 		"classpath:META-INF/commonFinancialContext.xml","classpath:testFinancialContext.xml" })
 @TransactionConfiguration(defaultRollback=false, transactionManager="transactionManager")
 public class RevisionsTest extends AbstractStorageTest{
@@ -43,30 +44,30 @@ public class RevisionsTest extends AbstractStorageTest{
 	@Before
 	public void setupAuditReader() {
 		//Getting the AuditReader object to be able to read revisions
-		this.auditReader = AuditReaderFactory.get( entityManagerFactory.createEntityManager() );
+		this.auditReader = AuditReaderFactory.get( this.entityManagerFactory.createEntityManager() );
 	}
 	
 	@Test
 	public void testQueryRevByTypeAndId() {
-		Long modifiedTxId	= storageHelper.modifyOrgAndAmountOfTransaction();
+		final Long modifiedTxId	= this.storageHelper.modifyOrgAndAmountOfTransaction();
 		
 		// Querying for the revisions when a FinancialTransaction with id modifiedTxId was modified
-		AuditQuery auditQuery	= auditReader.createQuery().forRevisionsOfEntity(FinancialTransaction.class, false, false)
+		final AuditQuery auditQuery	= this.auditReader.createQuery().forRevisionsOfEntity(FinancialTransaction.class, false, false)
 					.add( AuditEntity.id().eq(modifiedTxId) );
-		List<Object []> auditObjects	= auditQuery.getResultList();
+		final List<Object []> auditObjects	= auditQuery.getResultList();
 		
 		assertTrue(auditObjects.size() > 0);
 		
-		for ( Object [] oArray: auditObjects ) {
-			FinancialTransaction fTransaction								= (FinancialTransaction) oArray[0]; 
+		for ( final Object [] oArray: auditObjects ) {
+			final FinancialTransaction fTransaction								= (FinancialTransaction) oArray[0]; 
 			assertNotNull(fTransaction.getExtendingAgency());
-			DefaultTrackingModifiedEntitiesRevisionEntity trackingObject 	= (DefaultTrackingModifiedEntitiesRevisionEntity) oArray[1];
+			final DefaultTrackingModifiedEntitiesRevisionEntity trackingObject 	= (DefaultTrackingModifiedEntitiesRevisionEntity) oArray[1];
 			logger.info(String.format("For transaction with id %d and amount %f and organization %s.Revision numbers is %d. Modified entities: %s ", 
 					fTransaction.getId(), fTransaction.getAmount().doubleValue(),fTransaction.getExtendingAgency().getName(), 
 					trackingObject.getId(), trackingObject.getModifiedEntityNames()));
 			assertTrue( trackingObject.getModifiedEntityNames().contains(FinancialTransaction.class.getName()) );
 		}
-		DefaultTrackingModifiedEntitiesRevisionEntity trackingObject 	= (DefaultTrackingModifiedEntitiesRevisionEntity) auditObjects.get(auditObjects.size()-1)[1];
+		final DefaultTrackingModifiedEntitiesRevisionEntity trackingObject 	= (DefaultTrackingModifiedEntitiesRevisionEntity) auditObjects.get(auditObjects.size()-1)[1];
 		
 		// Last revision should show that also an Organization entity was modified in the same revision
 		assertTrue( trackingObject.getModifiedEntityNames().contains(Organization.class.getName()) );
@@ -77,22 +78,22 @@ public class RevisionsTest extends AbstractStorageTest{
 	 */
 	@Test
 	public void testRevisionNumbers() {
-		Long modifiedTxId	= storageHelper.modifyOrgAndAmountOfTransaction();
+		final Long modifiedTxId	= this.storageHelper.modifyOrgAndAmountOfTransaction();
 		
 
 		
-		AuditQuery auditQuery	= auditReader.createQuery().forRevisionsOfEntity(FinancialTransaction.class, false, false)
+		AuditQuery auditQuery	= this.auditReader.createQuery().forRevisionsOfEntity(FinancialTransaction.class, false, false)
 					.add( AuditEntity.id().eq(modifiedTxId) )
 					.add( AuditEntity.property("donorProjectNumber").hasNotChanged() )
 					.addProjection( AuditEntity.revisionNumber().max() );
-		Number num1				=  (Number) auditQuery.getSingleResult();
+		final Number num1				=  (Number) auditQuery.getSingleResult();
 		logger.info("Last revision for a financial tx with unchanged description is: " + num1);
 		
-		auditQuery	= auditReader.createQuery().forRevisionsOfEntity(Organization.class, false, false)
+		auditQuery	= this.auditReader.createQuery().forRevisionsOfEntity(Organization.class, false, false)
 					.add( AuditEntity.property("code").hasChanged() )
 					.add( AuditEntity.revisionNumber().maximize());
-			Object [] oArray	= (Object[]) auditQuery.getSingleResult();
-		DefaultTrackingModifiedEntitiesRevisionEntity trackingObject 	= (DefaultTrackingModifiedEntitiesRevisionEntity) oArray[1];
+			final Object [] oArray	= (Object[]) auditQuery.getSingleResult();
+		final DefaultTrackingModifiedEntitiesRevisionEntity trackingObject 	= (DefaultTrackingModifiedEntitiesRevisionEntity) oArray[1];
 		logger.info("Last revision for an org with changed name is: " + trackingObject.getId() );
 		
 		assertEquals(num1, trackingObject.getId());

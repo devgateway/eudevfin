@@ -51,15 +51,70 @@
 		Activity items are to be found under budget programs when the budget is presented as a Program-Based Budget (PBB).
 	</entry>
 
-	<entry key="table.currentYear">Current Year</entry>
-	<entry key="table.currentYearP1">Current Year + 1</entry>
-	<entry key="table.currentYearP2">Current Year + 2</entry>
-	<entry key="table.currentYearP3">Current Year + 3</entry>
-	<entry key="table.currentYearP4">Current Year + 4</entry>
 	<entry key="table.budgetMtef">Budget/MTEF</entry>
 	<entry key="table.disbursement">Disbursement</entry>
 	<entry key="table.code">Code</entry>
 	<entry key="table.line">Line</entry>
 	<entry key="table.activity">Activity</entry>
+
+    <entry key="disbursement.label">Disbursement Current Year</entry>
+    <entry key="disbursement.placeholder"></entry>
+
+    <entry key="disbursementP1.label">Disbursement Current Year + 1</entry>
+    <entry key="disbursementP1.placeholder"></entry>
+
+    <entry key="disbursementP2.label">Disbursement Current Year + 2</entry>
+    <entry key="disbursementP2.placeholder"></entry>
+
+    <entry key="disbursementP3.label">Disbursement Current Year + 3</entry>
+    <entry key="disbursementP3.placeholder"></entry>
+
+    <entry key="disbursementP4.label">Disbursement Current Year + 4</entry>
+    <entry key="disbursementP4.placeholder"></entry>
+
+    <entry key="code.label">Code Current Year</entry>
+    <entry key="code.placeholder"></entry>
+
+    <entry key="codeP1.label">Code Current Year + 1</entry>
+    <entry key="codeP1.placeholder"></entry>
+
+    <entry key="codeP2.label">Code Current Year + 2</entry>
+    <entry key="codeP2.placeholder"></entry>
+
+    <entry key="codeP3.label">Code Current Year + 3</entry>
+    <entry key="codeP3.placeholder"></entry>
+
+    <entry key="codeP4.label">Code Current Year + 4</entry>
+    <entry key="codeP4.placeholder"></entry>
+
+    <entry key="line.label">Line Current Year</entry>
+    <entry key="line.placeholder"></entry>
+
+    <entry key="lineP1.label">Line Current Year + 1</entry>
+    <entry key="lineP1.placeholder"></entry>
+
+    <entry key="lineP2.label">Line Current Year + 2</entry>
+    <entry key="lineP2.placeholder"></entry>
+
+    <entry key="lineP3.label">Line Current Year + 3</entry>
+    <entry key="lineP3.placeholder"></entry>
+
+    <entry key="lineP4.label">Line Current Year + 4</entry>
+    <entry key="lineP4.placeholder"></entry>
+
+    <entry key="activity.label">Activity Current Year</entry>
+    <entry key="activity.placeholder"></entry>
+
+    <entry key="activityP1.label">Activity Current Year + 1</entry>
+    <entry key="activityP1.placeholder"></entry>
+
+    <entry key="activityP2.label">Activity Current Year + 2</entry>
+    <entry key="activityP2.placeholder"></entry>
+
+    <entry key="activityP3.label">Activity Current Year + 3</entry>
+    <entry key="activityP3.placeholder"></entry>
+
+    <entry key="activityP4.label">Activity Current Year + 4</entry>
+    <entry key="activityP4.placeholder"></entry>
 
 </properties>

@@ -1,4 +1,4 @@
-package org.eudevfin.importing.metadata;
+package org.devgateway.eudevfin.importing.metadata.test;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

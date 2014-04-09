@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.eudevfin.importing.metadata.hash;
+package org.devgateway.eudevfin.importing.metadata.hash.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -36,7 +36,7 @@ import org.springframework.transaction.annotation.Transactional;
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:/META-INF/commonContext.xml", "classpath:/META-INF/commonUiContext.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/commonContext.xml",
 		"classpath:/META-INF/financialContext.xml",
 		"classpath:META-INF/commonFinancialContext.xml","classpath:testImportMetadataContext.xml" })
 @Component 

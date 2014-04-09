@@ -34,9 +34,12 @@ public class AreaStoringEngine extends AbstractStoringEngine<Area> {
 	@Override
 	public int importHashcode(final Area area) {
 		int result = 1;
+		
 		area.setLocale("en");
 		result = HASH_PRIME * result + this.hashcodeFromObject(area.getCode());
-		result = HASH_PRIME * result + this.hashcodeFromObject(area.getIncomeGroup());
+		if (area.getIncomeGroup() != null) {
+			result = HASH_PRIME * result + this.hashcodeFromObject(area.getIncomeGroup().getCode());
+		}
 		if ( area.getGeographyCategory() != null ) {
 			result = HASH_PRIME * result + this.hashcodeFromObject(area.getGeographyCategory().getCode());
 		}
@@ -44,6 +47,7 @@ public class AreaStoringEngine extends AbstractStoringEngine<Area> {
 		result = HASH_PRIME * result + this.hashcodeFromObject(area.getClass().getName());
 		area.setLocale("fr");
 		result = HASH_PRIME * result + this.hashcodeFromObject(area.getName());
+		
 		return result;
 	}
 
