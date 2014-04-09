@@ -83,13 +83,13 @@ function addNetODATable (parametersJson) {
                     if (values.resultset[i][NUMBER_OF_YEARS] === 0 || values.resultset[i][NUMBER_OF_YEARS] === null) {
                         values.resultset[i][NUMBER_OF_YEARS + 1] = null;
                     } else {
-                        values.resultset[i][NUMBER_OF_YEARS + 1] = (values.resultset[i][NUMBER_OF_YEARS - 1] / values.resultset[i][NUMBER_OF_YEARS]) * 100;
+                        values.resultset[i][NUMBER_OF_YEARS + 1] = parseFloat(sprintf('%.2f', (values.resultset[i][NUMBER_OF_YEARS - 1] * 100) / values.resultset[i][NUMBER_OF_YEARS]));
                     }
                 }
 	        }
 
             for(i = 0; i < len; i++) {
-                for(j = 1; j < values.resultset[1].length; j++) {
+                for(j = 1; j < values.resultset[1].length - 1; j++) {
                     if(values.resultset[i][j] !== null) {
                         if (i < len -2) {
                             values.resultset[i][j] = parseFloat(sprintf('%.2f', values.resultset[i][j] / 1000000));
@@ -107,7 +107,7 @@ function addNetODATable (parametersJson) {
 		        values.resultset[i][NUMBER_OF_YEARS + 1] = null;
 	        }
 
-	        // add colIndex, colName and colType metadata
+	        // add colIndex, colName and colType metadata for 2013/2012 column
 	        values.metadata.push({
 		        colIndex: 4,
 		        colName: "percent",
