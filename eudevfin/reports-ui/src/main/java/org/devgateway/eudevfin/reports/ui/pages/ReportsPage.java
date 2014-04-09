@@ -197,6 +197,11 @@ public class ReportsPage extends HeaderFooter {
                                 if (i == len - 2) {
                                     item += "%";
                                 }
+
+                                // len - 1 row is the 'Bilateral share' row and we need to add the percentages
+                                if (i == len - 1) {
+                                    item += "%";
+                                }
                                 resultSet.get(i).set(j, item);
                             }
                         }
