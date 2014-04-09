@@ -25,62 +25,72 @@
     </div>
     <!-- used for loading animation instead of blockUI js library -->
 
-    <div class="container">
-	    <div>
-		    <div class="alert alert-info no-data">
-			    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <span>
-                    <h4>Warning</h4>
-	                <p>Some of the dashboards are not displayed due to the lack of data.</p>
-                </span>
-		    </div><!-- /alert -->
-	    </div>
-
-        <div class="row">
-	        <div class="span12">
-		        <h3 wicket:id="reportingCountry"/>
-	        </div>
-
-            <div class="span7">
-                <div class="box">
-                    <div wicket:id="netODADashboard"/>
-                </div>
+    <div id="reports-page">
+        <div class="container">
+            <div>
+                <div class="alert alert-info no-data">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <span>
+                        <h4>Warning</h4>
+                        <p>Some of the dashboards are not displayed due to the lack of data.</p>
+                    </span>
+                </div><!-- /alert -->
             </div>
 
-	        <div class="span5">
-		        <div class="box">
-			        <div wicket:id="odaByIncomeGroupChart"/>
-		        </div>
-	        </div>
+            <div class="row">
+                <div class="span12">
+                    <h3 wicket:id="reportingCountry"/>
+                </div>
 
-	        <div class="span6">
-		        <div class="box">
-			        <div wicket:id="topTenRecipients"/>
-			        <div class='removeHeader' wicket:id="topTenMemoShare"/>
-		        </div>
-	        </div>
+                <div class="span7">
+                    <div class="box">
+                        <div wicket:id="netODADashboard"/>
+                    </div>
+                </div>
 
-	        <div class="span6">
-		        <div class="box">
-			        <div wicket:id="odaByRegionChart"/>
-		        </div>
-	        </div>
+                <div class="span5">
+                    <div class="box">
+                        <div wicket:id="odaByIncomeGroupChart"/>
+                    </div>
+                </div>
+
+                <div class="span6">
+                    <div class="box">
+                        <div wicket:id="topTenRecipients"/>
+                        <div class='removeHeader' wicket:id="topTenMemoShare"/>
+                    </div>
+                </div>
+
+                <div class="span6">
+                    <div class="box">
+                        <div wicket:id="odaByRegionChart"/>
+                    </div>
+                </div>
 
 
-	        <div class="span12">
-		        <div class="box">
-			        <div wicket:id="odaBySectorChart"/>
-		        </div>
-	        </div>
+                <div class="span12">
+                    <div class="box">
+                        <div wicket:id="odaBySectorChart"/>
+                    </div>
+                </div>
 
-        </div> <!-- /row -->
+            </div> <!-- /row -->
+        </div> <!-- /container -->
+    </div> <!-- /reports-page -->
+
+    <div class="container">
         <div class="row">
-    		<div class="span6 offset5">
-    			<button id="export-all" class="btn btn-large btn-success" type="button">Export all charts</button>
-    		</div>
-	        <br/><br/><br/>
-    	</div>
-        
+            <br/><br/>
+            <div class="span6 offset5">
+                <button id="print-page" class="btn btn-success" type="button">
+                    <i class="icon-print icon-white"></i> Print page
+                </button>
+                <button id="download-page" class="btn btn-success" type="button">
+                    <i class="icon-download icon-white"></i> Download page
+                </button>
+            </div>
+            <br/><br/><br/>
+        </div>
     </div> <!-- /container -->
 </wicket:extend>
 </body>

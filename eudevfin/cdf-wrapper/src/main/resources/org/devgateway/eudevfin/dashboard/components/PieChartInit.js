@@ -35,7 +35,7 @@ function addOdaByIncomeGroupChart(parametersJson) {
 				pieChartDefinition.get('chart').height = 100;
 				app.noData();
 			} else {
-				pieChartDefinition.get('chart').height = 200;
+				pieChartDefinition.get('chart').height = 250;
 			}
 
             pieChartDefinition.get('tooltip').formatter = function () {

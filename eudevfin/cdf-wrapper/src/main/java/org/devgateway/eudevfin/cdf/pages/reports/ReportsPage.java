@@ -86,21 +86,19 @@ public class ReportsPage extends HeaderFooter {
 		// for now we use a hardcoded value for year in order to display the last 3 years data for 'Net ODA' table
 		netODAParameters.addParameter("YEAR", Integer.toString(TABLE_YEAR));
 		netODAParameters.addParameter("YEAR1", Integer.toString(TABLE_YEAR - 1));
-		netODAParameters.addParameter("YEAR2", Integer.toString(TABLE_YEAR - 2));
 //        netODAParameters.addParameter("REPORT_CURRENCY_CODE", countryCurrency + " (million)");
 
-		netODAParameters.getChartDefinition().setColHeaders(Arrays.asList("Net ODA", Integer.toString(TABLE_YEAR - 2),
-				Integer.toString(TABLE_YEAR - 1),
-				Integer.toString(TABLE_YEAR ),
+		netODAParameters.getChartDefinition().setColHeaders(Arrays.asList("Net ODA", Integer.toString(TABLE_YEAR - 1),
+				Integer.toString(TABLE_YEAR),
 				Integer.toString(TABLE_YEAR - 1) + " / " + Integer.toString(TABLE_YEAR)));
-		netODAParameters.getChartDefinition().setColTypes(Arrays.asList("string", "numeric", "numeric", "numeric", "percentFormat"));
-		netODAParameters.getChartDefinition().setColFormats(Arrays.asList("%s", "%.0f", "%.0f", "%.0f", "%.2f"));
-		netODAParameters.getChartDefinition().setColWidths(Arrays.asList("20%", "20%", "20%", "20%", "20%"));
+		netODAParameters.getChartDefinition().setColTypes(Arrays.asList("string", "numeric", "numeric", "percentFormat"));
+		netODAParameters.getChartDefinition().setColFormats(Arrays.asList("%s", "%.2f", "%.2f", "%.2f"));
+		netODAParameters.getChartDefinition().setColWidths(Arrays.asList("40%", "20%", "20%", "20%"));
 		netODAParameters.getChartDefinition().setSort(Boolean.FALSE);
 		netODAParameters.getChartDefinition().setPaginate(Boolean.FALSE);
 		netODAParameters.getChartDefinition().setInfo(Boolean.FALSE);
 		netODAParameters.getChartDefinition().setFilter(Boolean.FALSE);
-		netODAParameters.getChartDefinition().setColSortable(Arrays.asList(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE));
+		netODAParameters.getChartDefinition().setColSortable(Arrays.asList(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE));
 
 		add(netODADashboard);
 	}
@@ -113,7 +111,7 @@ public class ReportsPage extends HeaderFooter {
 
 		topTenRecipientsParameters.getChartDefinition().setColHeaders(Arrays.asList("Countries", "Amount"));
 		topTenRecipientsParameters.getChartDefinition().setColTypes(Arrays.asList("string", "numeric"));
-		topTenRecipientsParameters.getChartDefinition().setColFormats(Arrays.asList("%s", "%.0f"));
+		topTenRecipientsParameters.getChartDefinition().setColFormats(Arrays.asList("%s", "%.3f"));
 		topTenRecipientsParameters.getChartDefinition().setColWidths(Arrays.asList("60%", "40%"));
 		topTenRecipientsParameters.getChartDefinition().setSort(Boolean.TRUE);
 		topTenRecipientsParameters.getChartDefinition().setPaginate(Boolean.FALSE);
@@ -167,6 +165,12 @@ public class ReportsPage extends HeaderFooter {
 
 	    // load CDF plugin
         response.render(JavaScriptHeaderItem.forUrl("/js/cdfplugin.min.js"));
+
+        response.render(JavaScriptHeaderItem.forUrl("/js/scripts/canvg-1.3/rgbcolor.js"));
+        response.render(JavaScriptHeaderItem.forUrl("/js/scripts/canvg-1.3/StackBlur.js"));
+        response.render(JavaScriptHeaderItem.forUrl("/js/scripts/canvg-1.3/canvg.js"));
+        response.render(JavaScriptHeaderItem.forUrl("/js/scripts/html2canvas.js"));
+        response.render(JavaScriptHeaderItem.forUrl("/js/scripts/jspdf.min.js"));
 
         // highcharts
         response.render(JavaScriptHeaderItem.forUrl("/js/Highcharts-3.0.7/js/highcharts.js"));

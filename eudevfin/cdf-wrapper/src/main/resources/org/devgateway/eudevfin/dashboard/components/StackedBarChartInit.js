@@ -29,7 +29,7 @@ function addOdaBySectorChart(parametersJson) {
 
 		    len = odaBySectorQueryResult.length;
             app.odaBySectorTotal = 0;
-		    for (i = 0; i < len; i++) {
+		    for (i = len - 1; i >= 0; i--) {
 				resultCategories.push(odaBySectorQueryResult[i][1]);
 				if(resultSeries[odaBySectorQueryResult[i][0]] === undefined) {
 					resultSeries[odaBySectorQueryResult[i][0]] = [];

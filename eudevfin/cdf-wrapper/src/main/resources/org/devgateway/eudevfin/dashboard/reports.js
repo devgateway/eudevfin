@@ -9,6 +9,55 @@
 // aplication variable
 var app = app || {};
 
+app.downloadPDFOdaAtGlance = function () {
+    /*
+     * find all svg elements in $container
+     * $container is the jQuery object of the div that we need to convert to image/pdf.
+     * This div may contain highcharts along with other child divs, etc
+     */
+    var container = $('#reports-page');
+    var svgElements = container.find('svg');
+
+    // replace all svgs with a temp canvas
+    svgElements.each(function () {
+        this.className = 'tempHide';
+        var canvas, xml;
+
+        canvas = document.createElement('canvas');
+        canvas.className = 'screenShotTempCanvas';
+        // convert SVG into a XML string
+        xml = (new XMLSerializer()).serializeToString(this);
+
+        // Removing the name space as IE throws an error
+        xml = xml.replace(/xmlns=\"http:\/\/www\.w3\.org\/2000\/svg\"/, '');
+
+        // draw the SVG onto a canvas
+        canvg(canvas, xml);
+        $(canvas).insertAfter(this);
+
+        // hide the SVG element
+        $(this).hide();
+    });
+
+    html2canvas(container, {
+        onrendered: function(canvas) {
+            // document.body.appendChild(canvas);
+            var doc = new jsPDF();
+
+            var pdfWidth = 220;
+            var pdfHeight = pdfWidth * (container.height() / container.width());
+            doc.addImage(canvas.toDataURL('image/jpeg'), 'JPEG', 0, 20, pdfWidth, pdfHeight);
+            doc.save('Oda at Glance.pdf');
+
+            // After your image is generated revert the temporary changes
+            container.find('.screenShotTempCanvas').remove();
+            container.find('svg').show();
+        },
+        allowTaint: true,
+        useCORS: true
+    });
+}
+
 // function to check if an array has all the elements equal to a value
 app.checkArrayValue = function (array, value){
 	var i;
@@ -60,12 +109,13 @@ $(document).ready(function () {
             ]
         };
     });
-    
-    $('#export-all').click(function() {
-        Highcharts.exportCharts([odaByRegionChart, odaByIncomeGroupChart, odaBySectorChart], {
-        	type: 'application/pdf',	// possible values are image/png, image/jpeg, application/pdf and image/svg+xml. defaults is image/png
-        	filename: 'export-pdf'
-        });
+
+    $('#print-page').click(function() {
+        window.print();
+    });
+
+    $('#download-page').click(function() {
+        app.downloadPDFOdaAtGlance();
     });
 });
 

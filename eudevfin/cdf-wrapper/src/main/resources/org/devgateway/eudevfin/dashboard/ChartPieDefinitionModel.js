@@ -15,7 +15,7 @@ var app = app || {};
                     borderColor: '#DEEDF7',
                     borderRadius: 20,
                     borderWidth: 2,
-                    height: 380,
+                    height: 350,
                     marginBottom: null,
                     marginLeft: null,
                     marginTop: null,
@@ -95,11 +95,11 @@ var app = app || {};
                             duration: 1000
                         },
                         dataLabels: {
-                            enabled: false,
+                            enabled: true,
                             color: '#000000',
                             connectorColor: '#000000',
                             formatter: function () {
-                                return '<b>' + this.point.name + '</b>: ' + sprintf('%.2f', this.percentage) + ' %';
+                                return sprintf('%.2f', this.y).replace(/,/g, " ");
                             }
                         },
                         showInLegend: true
