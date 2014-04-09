@@ -33,6 +33,7 @@ var app = app || {};
                 },
                 xAxis: {
 	                labels: {
+                        enabled: false,
 		                rotation: -15,
 		                align: 'right',
 		                style: {

@@ -11,10 +11,10 @@ function addNetODATable (parametersJson) {
 
     var table = new app.TableModel(_.extend(parametersJson, {
         postFetch: function (values) {
-	        var i, k,
+	        var i, j, k,
                 item,
-                NUMBER_OF_YEARS = 3,
-                FIRST_YEAR = 2011,
+                NUMBER_OF_YEARS = 2,
+                FIRST_YEAR = 2012,
                 noResults = true,
 		        len = values.resultset.length;
 
@@ -74,25 +74,6 @@ function addNetODATable (parametersJson) {
                 }
             }
 
-            if(values.metadata[3].colName != (FIRST_YEAR + 2)) {
-                item = {
-                    colIndex: 3,
-                    colName: "" + (FIRST_YEAR + 2),
-                    colType: "Numeric"
-                }
-
-                // add the new dimension
-                values.metadata.splice(3, 0, item);
-                for(i = 0; i < len; i++) {
-                    values.resultset[i].splice(3, 0, null);
-                }
-
-                // update the 'colIndex' property
-                for(i = 4; i < values.metadata.length; i++) {
-                    values.metadata[i].colIndex = i;
-                }
-            }
-
 	        // add '2012 / 2013' type of column
 	        for(i = 0; i < len - 2; i++) {
 		        // add (last_year - 1 / last_year) column
@@ -106,6 +87,19 @@ function addNetODATable (parametersJson) {
                     }
                 }
 	        }
+
+            for(i = 0; i < len; i++) {
+                for(j = 1; j < values.resultset[1].length; j++) {
+                    if(values.resultset[i][j] !== null) {
+                        if (i < len -2) {
+                            values.resultset[i][j] = parseFloat(sprintf('%.2f', values.resultset[i][j] / 1000000));
+                        } else {
+                            values.resultset[i][j] = parseFloat(sprintf('%.2f', values.resultset[i][j]));
+                        }
+                    }
+                }
+
+            }
 
 	        for(i = len - 2; i < len; i++) {
 		        k = values.resultset[i].length;
@@ -145,6 +139,10 @@ function addTopTenRecipients (parametersJson) {
 
 	var table = new app.TableModel(_.extend(parametersJson, {
 		postFetch: function (values) {
+            for (var i = 0; i < values.resultset.length; i++) {
+                values.resultset[i][1] = parseFloat(sprintf('%.3f', values.resultset[i][1] / 1000000));
+            }
+
 			return values;
 		},
 
