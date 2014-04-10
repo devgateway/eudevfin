@@ -90,7 +90,7 @@ public class ReportsPage extends HeaderFooter {
 
 		netODAParameters.getChartDefinition().setColHeaders(Arrays.asList("Net ODA", Integer.toString(TABLE_YEAR - 1),
 				Integer.toString(TABLE_YEAR),
-				Integer.toString(TABLE_YEAR - 1) + " / " + Integer.toString(TABLE_YEAR)));
+				"Change <br/>" + Integer.toString(TABLE_YEAR - 1) + " / " + Integer.toString(TABLE_YEAR)));
 		netODAParameters.getChartDefinition().setColTypes(Arrays.asList("string", "numeric", "numeric", "percentFormat"));
 		netODAParameters.getChartDefinition().setColFormats(Arrays.asList("%s", "%.2f", "%.2f", "%.2f"));
 		netODAParameters.getChartDefinition().setColWidths(Arrays.asList("40%", "20%", "20%", "20%"));
@@ -164,18 +164,18 @@ public class ReportsPage extends HeaderFooter {
         super.renderHead(response);
 
 	    // load CDF plugin
-        response.render(JavaScriptHeaderItem.forUrl("/js/cdfplugin.min.js"));
+        response.render(JavaScriptHeaderItem.forUrl("js/cdfplugin.min.js"));
 
-        response.render(JavaScriptHeaderItem.forUrl("/js/scripts/canvg-1.3/rgbcolor.js"));
-        response.render(JavaScriptHeaderItem.forUrl("/js/scripts/canvg-1.3/StackBlur.js"));
-        response.render(JavaScriptHeaderItem.forUrl("/js/scripts/canvg-1.3/canvg.js"));
-        response.render(JavaScriptHeaderItem.forUrl("/js/scripts/html2canvas.js"));
-        response.render(JavaScriptHeaderItem.forUrl("/js/scripts/jspdf.min.js"));
+        response.render(JavaScriptHeaderItem.forUrl("js/scripts/canvg-1.3/rgbcolor.js"));
+        response.render(JavaScriptHeaderItem.forUrl("js/scripts/canvg-1.3/StackBlur.js"));
+        response.render(JavaScriptHeaderItem.forUrl("js/scripts/canvg-1.3/canvg.js"));
+        response.render(JavaScriptHeaderItem.forUrl("js/scripts/html2canvas.js"));
+        response.render(JavaScriptHeaderItem.forUrl("js/scripts/jspdf.min.js"));
 
         // highcharts
-        response.render(JavaScriptHeaderItem.forUrl("/js/Highcharts-3.0.7/js/highcharts.js"));
-        response.render(JavaScriptHeaderItem.forUrl("/js/Highcharts-3.0.7/js/modules/exporting.js"));
-	    response.render(JavaScriptHeaderItem.forUrl("/js/Highcharts-3.0.7/js/highcharts-no-data-to-display.js"));
+        response.render(JavaScriptHeaderItem.forUrl("js/Highcharts-3.0.7/js/highcharts.js"));
+        response.render(JavaScriptHeaderItem.forUrl("js/Highcharts-3.0.7/js/modules/exporting.js"));
+	    response.render(JavaScriptHeaderItem.forUrl("js/Highcharts-3.0.7/js/highcharts-no-data-to-display.js"));
         
         // dashboard models
         response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "FilterModel.js")));

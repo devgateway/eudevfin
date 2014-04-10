@@ -46,8 +46,6 @@
 				"AREA"."AREA_TYPE" = 'Country'
 			]]></SQL>
             </View>
-            <Level name="Incomegroup" visible="true" column="INCOMEGROUP_ID" uniqueMembers="false" levelType="Regular" type="String">
-            </Level>
             <Level name="Name" visible="true" column="NAME" uniqueMembers="false" levelType="Regular" type="String">
             </Level>
         </Hierarchy>
