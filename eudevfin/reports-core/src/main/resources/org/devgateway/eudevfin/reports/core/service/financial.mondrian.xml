@@ -279,6 +279,7 @@
                 select cat.coefficient,
                 CASE WHEN cat.coefficient IS NULL THEN AMOUNTS_EXTENDED_AMOUNT ELSE (AMOUNTS_EXTENDED_AMOUNT * cat.COEFFICIENT) / 100 END as AMOUNTS_EXTENDED_AMOUNT_WITH_COEFFICIENT,
                 CASE WHEN cat.coefficient IS NULL THEN AMOUNTS_RECEIVED_AMOUNT ELSE (AMOUNTS_RECEIVED_AMOUNT * cat.COEFFICIENT) / 100 END as AMOUNTS_RECEIVED_AMOUNT_WITH_COEFFICIENT,
+				CASE WHEN cat.coefficient IS NULL THEN COMMITMENT_AMOUNT ELSE (COMMITMENT_AMOUNT * cat.COEFFICIENT) / 100 END as COMMITMENT_AMOUNT_WITH_COEFFICIENT,
                 ft.*
                 from FINANCIALTRANSACTION ft left join CATEGORY cat ON cat.id = ft.channel_id WHERE ft.draft = false OR draft IS NULL
             ]]></SQL>
@@ -301,6 +302,12 @@
                     <KeyExpression>
                         <SQL dialect="generic">CAST(YEAR("REPORTINGYEAR") AS CHAR(4))</SQL>
                     </KeyExpression>
+                </Level>
+            </Hierarchy>
+        </Dimension>
+        <Dimension name="Form Type">
+            <Hierarchy hasAll="true">
+                <Level name="Form Type" column="FORMTYPE" uniqueMembers="true">
                 </Level>
             </Hierarchy>
         </Dimension>
@@ -447,6 +454,34 @@
         <Measure name="Interest Arrears Amount" column="AMOUNTS_AREARS_INTEREST_AMOUNT" aggregator="sum" visible="true" caption="%{interestArrearsAmount}"></Measure>
         <Measure name="Principal Arrears Amount" column="AMOUNTS_AREARS_PRIN_AMOUNT" aggregator="sum" visible="true" caption="%{principalArrearsAmount}"></Measure>
         <Measure name="Commitments Amount" column="COMMITMENT_AMOUNT" aggregator="sum" visible="true" caption="%{commitmentsAmount}"></Measure>
+        <Measure name="Commitments Amount Currency NATLOECD" aggregator="sum" visible="true">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (COMMITMENT_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    (SOURCE = 'OECD' OR SOURCE='National') AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        <Measure name="Commitments Amount Currency INTERNET" aggregator="sum" visible="true">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (COMMITMENT_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    SOURCE = 'INTERNET' AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
         <Measure name="Interest Received Amount" column="AMOUNTS_INTEREST_RECEIVED_AMOUNT" aggregator="sum" visible="true" caption="%{interestReceivedAmount}"></Measure>
         <Measure name="Principal Disbursed Amount" column="AMOUNTS_PRIN_DISB_AMOUNT" aggregator="sum" visible="true" caption="%{principalDisbursedAmount}"></Measure>
         <Measure name="Expert Commitments Amount" column="AMOUNTS_EXP_COMMIT_AMOUNT" aggregator="sum" visible="true" caption="%{expertCommitmentsAmount}"></Measure>

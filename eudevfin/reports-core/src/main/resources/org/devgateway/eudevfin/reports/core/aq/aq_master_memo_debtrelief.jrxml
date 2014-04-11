@@ -18,7 +18,8 @@ SELECT
 } ON ROWS,
 {[Measures].[First Year], [Measures].[Second Year]} ON COLUMNS
 FROM [Financial]
-WHERE [Type of Aid].[Debt Relief]]]>
+WHERE {[Type of Aid].[Debt Relief]}*{[Form Type].[bilateralOda.advanceQuestionnaire], [Form Type].[multilateralOda.advanceQuestionnaire] }
+]]>
 	</queryString>
 	<field name="Debt Relief Grants Y1" class="java.lang.Number">
 		<fieldDescription><![CDATA[Data([Measures].[First Year], [Type of Finance].[Grants])]]></fieldDescription>
