@@ -140,6 +140,7 @@ function addTopTenRecipients (parametersJson) {
 	var table = new app.TableModel(_.extend(parametersJson, {
 		postFetch: function (values) {
             for (var i = 0; i < values.resultset.length; i++) {
+                values.resultset[i][0] = (i + 1) + ' ' + values.resultset[i][0];
                 values.resultset[i][1] = parseFloat(sprintf('%.3f', values.resultset[i][1] / 1000000));
             }
 

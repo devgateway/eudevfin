@@ -113,10 +113,11 @@ public class ReportsPage extends HeaderFooter {
 		topTenRecipientsParameters.getChartDefinition().setColTypes(Arrays.asList("string", "numeric"));
 		topTenRecipientsParameters.getChartDefinition().setColFormats(Arrays.asList("%s", "%.3f"));
 		topTenRecipientsParameters.getChartDefinition().setColWidths(Arrays.asList("60%", "40%"));
-		topTenRecipientsParameters.getChartDefinition().setSort(Boolean.TRUE);
+		topTenRecipientsParameters.getChartDefinition().setSort(Boolean.FALSE);
 		topTenRecipientsParameters.getChartDefinition().setPaginate(Boolean.FALSE);
 		topTenRecipientsParameters.getChartDefinition().setInfo(Boolean.FALSE);
 		topTenRecipientsParameters.getChartDefinition().setFilter(Boolean.FALSE);
+        topTenRecipientsParameters.getChartDefinition().setColSortable(Arrays.asList(Boolean.FALSE, Boolean.FALSE));
 		topTenRecipientsParameters.getChartDefinition().setColSortable(Arrays.asList(Boolean.TRUE, Boolean.TRUE));
 
 		add(topTenRecipients);
