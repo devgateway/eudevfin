@@ -295,7 +295,7 @@
         name: 'cda',
         label: 'CDA Query',
         defaults: {
-            url: '/cda/doQuery',
+            url: 'cda/doQuery',
             file: '',
             id: '',
             outputIdx: '1',

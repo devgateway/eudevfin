@@ -9,10 +9,12 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 
+import java.io.Serializable;
+
 /**
  * Stacked bar chart dashboard implementation
  */
-public class StackedBarChart extends Panel implements IParametersProvider {
+public class StackedBarChart extends Panel implements IParametersProvider, Serializable {
 	private final WebMarkupContainer stackedBarChart;
 	private ChartParameters parameters;
 	private String initFunction;

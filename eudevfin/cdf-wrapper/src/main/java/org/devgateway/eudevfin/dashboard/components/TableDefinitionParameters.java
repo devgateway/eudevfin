@@ -8,6 +8,7 @@
 
 package org.devgateway.eudevfin.dashboard.components;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
  * @author aartimon
  * @since 13/12/13
  */
-public class TableDefinitionParameters {
+public class TableDefinitionParameters implements Serializable {
     private List<String> colHeaders = Arrays.asList("Col 1", "Col 2", "Amount");
     private List<String> colTypes = Arrays.asList("numeric", "string", "numeric");
     private List<String> colFormats = Arrays.asList("%d", "%s", "%d");

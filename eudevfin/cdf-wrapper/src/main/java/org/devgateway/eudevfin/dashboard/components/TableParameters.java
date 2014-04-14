@@ -8,6 +8,8 @@
 
 package org.devgateway.eudevfin.dashboard.components;
 
+import java.io.Serializable;
+
 /**
  * Extends {@link org.devgateway.eudevfin.dashboard.components.BaseParameters} with the custom fields
  * needed by the DataTable
@@ -15,7 +17,7 @@ package org.devgateway.eudevfin.dashboard.components;
  * @author aartimon
  * @since 13/12/13
  */
-public class TableParameters extends BaseParameters {
+public class TableParameters extends BaseParameters implements Serializable {
 	private static final String TYPE = "tableComponent";
     private TableDefinitionParameters chartDefinition = new TableDefinitionParameters();
 

@@ -1,10 +1,12 @@
 package org.devgateway.eudevfin.dashboard.components;
 
+import java.io.Serializable;
+
 /**
  * @author idobre
  * @since 1/23/14
  */
-public class QueryDefinition {
+public class QueryDefinition implements Serializable {
 	private String  dataAccessId = "";
 	private String path = "/some/path";
 

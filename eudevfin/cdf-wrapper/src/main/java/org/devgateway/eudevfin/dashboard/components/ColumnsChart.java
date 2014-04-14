@@ -9,10 +9,12 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 
+import java.io.Serializable;
+
 /**
  * Columns chart dashboard implementation
  */
-public class ColumnsChart extends Panel implements IParametersProvider {
+public class ColumnsChart extends Panel implements IParametersProvider, Serializable {
 	private final WebMarkupContainer columnsChart;
 	private ChartParameters parameters;
 	private String initFunction;

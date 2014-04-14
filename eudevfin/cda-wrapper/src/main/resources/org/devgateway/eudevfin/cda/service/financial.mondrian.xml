@@ -12,16 +12,13 @@
             <View alias="CountryView">
                 <SQL dialect="generic"><![CDATA[
             select
-              "AREA"."ID", "AREA"."CODE",  "CATEGORYTRANSLATION"."NAME" AS GEOGRAPHY, "AREATRANSLATION"."NAME"
+              "AREA"."ID", "AREA"."CODE",  "AREATRANSLATION"."GEOGRAPHY" AS GEOGRAPHY, "AREATRANSLATION"."NAME"
             from
               "APP"."AREA" as "AREA",
-              "APP"."AREATRANSLATION" as "AREATRANSLATION",
-              "APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION"
+              "APP"."AREATRANSLATION" as "AREATRANSLATION"
             WHERE
-              "AREATRANSLATION"."LOCALE" = '@@LOCALE@@' AND
+              "AREATRANSLATION"."LOCALE" = 'en' AND
               "AREATRANSLATION"."PARENT_ID" = "AREA"."ID" AND
-              "CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
-              "CATEGORYTRANSLATION"."PARENT_ID" = "AREA"."GEOGRAPHYCATEGORY_ID" AND
               "AREA"."AREA_TYPE" = 'Country'
             ]]></SQL>
             </View>

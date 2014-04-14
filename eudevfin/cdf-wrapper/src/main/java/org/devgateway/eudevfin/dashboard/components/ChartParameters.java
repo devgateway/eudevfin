@@ -1,10 +1,12 @@
 package org.devgateway.eudevfin.dashboard.components;
 
+import java.io.Serializable;
+
 /**
  * @author idobre
  * @since 1/24/14
  */
-public class ChartParameters extends BaseParameters {
+public class ChartParameters extends BaseParameters implements Serializable {
 	private static final String TYPE = "queryComponent";
 	private String resultvar;
 	private QueryDefinition queryDefinition = new QueryDefinition();

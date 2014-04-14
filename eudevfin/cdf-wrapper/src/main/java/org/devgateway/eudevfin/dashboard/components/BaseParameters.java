@@ -10,6 +10,7 @@ package org.devgateway.eudevfin.dashboard.components;
 
 import com.google.gson.Gson;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +21,7 @@ import java.util.List;
  * @author aartimon
  * @since 13/12/13
  */
-public abstract class BaseParameters {
+public abstract class BaseParameters implements Serializable {
     private String name;
     private String htmlObject;
 

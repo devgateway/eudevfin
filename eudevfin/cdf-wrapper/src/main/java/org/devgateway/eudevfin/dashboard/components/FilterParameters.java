@@ -1,10 +1,12 @@
 package org.devgateway.eudevfin.dashboard.components;
 
+import java.io.Serializable;
+
 /**
  * @author idobre
  * @since 1/23/14
  */
-public class FilterParameters extends BaseParameters {
+public class FilterParameters extends BaseParameters implements Serializable {
 	private static final String TYPE = "select";
 	private String parameter;
 	private QueryDefinition queryDefinition = new QueryDefinition();
