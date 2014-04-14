@@ -11,6 +11,8 @@ package org.devgateway.eudevfin.dim.core.components;
 import org.devgateway.eudevfin.dim.core.BaseWicketTest;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * @author aartimon@developmentgateway.org
  * @since 23 October 2013
@@ -19,6 +21,7 @@ public class TextInputFieldTest extends BaseWicketTest {
 
     @Test
     public void testBlankDoREPLACE() throws Exception {
+        assertEquals(1L, 0L);
     }
 
 }
