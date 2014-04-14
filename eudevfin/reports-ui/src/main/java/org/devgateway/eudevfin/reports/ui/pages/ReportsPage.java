@@ -258,7 +258,7 @@ public class ReportsPage extends HeaderFooter {
                 List <List<String>> resultSet = this.result.getResultset();
 
                 // format the amounts as #,###.###
-                DecimalFormat df = new DecimalFormat("#,###.###");
+                DecimalFormat df = new DecimalFormat("#,###.##");
                 for(int i = 0; i < resultSet.size(); i++) {
                     // add numbers in front of the countries names
                     String item = resultSet.get(i).get(0);
