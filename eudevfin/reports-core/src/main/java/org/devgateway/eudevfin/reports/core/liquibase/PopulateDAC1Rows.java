@@ -31,6 +31,20 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 		insertSectionIV();
 		insertSectionV();
 
+		HashSet<String> sumRow1010 = new HashSet<String>();
+		sumRow1010.add("1015");
+		sumRow1010.add("2000");
+		RowReport row_1010 = createDAC1SumRow("1010", Constants.SUM, sumRow1010);
+		rowReportDao.save(row_1010);
+
+		HashSet<String> sumRow005 = new HashSet<String>();
+		sumRow005.add("1010");
+		sumRow005.add("230");
+		sumRow005.add("330");
+		sumRow005.add("415");
+		RowReport row_005 = createDAC1SumRow("005", Constants.SUM, sumRow005);
+		rowReportDao.save(row_005);
+
 	}
 
 	private void insertKeyIndicators() {
@@ -59,7 +73,7 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 		Set<ColumnReport> columns = new HashSet<ColumnReport>();
 
 		ColumnReport col1 = new ColumnReport("1140", Constants.CALCULATED,
-				"[Measures].[Amount]", typeOfFinance);
+				"[Measures].[A]", typeOfFinance);
 		col1.setPattern("#,##0");
 		columns.add(col1);
 		row.setColumns(columns);
@@ -195,15 +209,18 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 		rowReportDao.save(row_2100);
 
 		HashSet<String> sumRow2000 = new HashSet<String>();
-		sumRow2000.add("2100");
+		sumRow2000.add("2101");
+		sumRow2000.add("2102");
+		sumRow2000.add("2103");
+		sumRow2000.add("2104");
+		sumRow2000.add("2105");
+		sumRow2000.add("2106");
+		sumRow2000.add("2107");
+		sumRow2000.add("2108");
 		RowReport row_2000 = createDAC1SumRow("2000", Constants.SUM, sumRow2000);
 		rowReportDao.save(row_2000);
 
-		HashSet<String> sumRow1010 = new HashSet<String>();
-		sumRow1010.add("1015");
-		sumRow1010.add("2000");
-		RowReport row_1010 = createDAC1SumRow("1010", Constants.SUM, sumRow1010);
-		rowReportDao.save(row_1010);
+
 
 		//TODO: Rows 2901 and 2902 seems to be determined arbitrarily. Find a formula that can match it. 
 		/*
@@ -342,12 +359,16 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 				"[Type of Finance].[TYPE_OF_FINANCE##410]");
 		rowReportDao.save(row_1230);
 
+		HashSet<String> sumRow1210 = new HashSet<String>();
+		sumRow1210.add("1211");
+		sumRow1210.add("1212");
+		sumRow1210.add("1213");
+		sumRow1210.add("1214");
+		RowReport row_1210 = createDAC1SumRow("1210", Constants.SUM, sumRow1210);
+		rowReportDao.save(row_1210);
+
 		HashSet<String> sumRow1200 = new HashSet<String>();
 		sumRow1200.add("1210");
-		sumRow1200.add("1211");
-		sumRow1200.add("1212");
-		sumRow1200.add("1213");
-		sumRow1200.add("1214");
 		sumRow1200.add("1220");
 		sumRow1200.add("1230");
 		RowReport row_1200 = createDAC1SumRow("1200", Constants.SUM, sumRow1200);
@@ -456,8 +477,8 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 		rowReportDao.save(row_1420);		
 
 		HashSet<String> sumRow1400 = new HashSet<String>();
-		sumRow1300.add("1410");
-		sumRow1300.add("1420");
+		sumRow1400.add("1410");
+		sumRow1400.add("1420");
 		RowReport row_1400 = createDAC1SumRow("1400", Constants.SUM, sumRow1400);
 		rowReportDao.save(row_1400);
 
@@ -489,8 +510,8 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 		rowReportDao.save(row_1520);
 		
 		HashSet<String> sumRow1500 = new HashSet<String>();
-		sumRow1300.add("1510");
-		sumRow1300.add("1520");
+		sumRow1500.add("1510");
+		sumRow1500.add("1520");
 		RowReport row_1500 = createDAC1SumRow("1500", Constants.SUM, sumRow1500);
 		rowReportDao.save(row_1500);
 
@@ -626,9 +647,24 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 				);
 		rowReportDao.save(row_1640);		
 
+		HashSet<String> sumRow1610 = new HashSet<String>();
+		sumRow1610.add("1611");
+		sumRow1610.add("1612");
+		sumRow1610.add("1613");
+		RowReport row_1610 = createDAC1SumRow("1610", Constants.SUM, sumRow1610);
+		rowReportDao.save(row_1610);
+
+		HashSet<String> sumRow1620 = new HashSet<String>();
+		sumRow1620.add("1621");
+		sumRow1620.add("1622");
+		sumRow1620.add("1623");
+		sumRow1620.add("1624");
+		RowReport row_1620 = createDAC1SumRow("1620", Constants.SUM, sumRow1620);
+		rowReportDao.save(row_1620);
+		
 		HashSet<String> sumRow1600 = new HashSet<String>();
-		sumRow1300.add("1610");
-		sumRow1300.add("1620");
+		sumRow1600.add("1610");
+		sumRow1600.add("1620");
 		RowReport row_1600 = createDAC1SumRow("1600", Constants.SUM, sumRow1600);
 		rowReportDao.save(row_1600);
 		
@@ -673,8 +709,8 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 		rowReportDao.save(row_1820);
 
 		HashSet<String> sumRow1800 = new HashSet<String>();
-		sumRow1300.add("1810");
-		sumRow1300.add("1820");
+		sumRow1800.add("1810");
+		sumRow1800.add("1820");
 		RowReport row_1800 = createDAC1SumRow("1800", Constants.SUM, sumRow1800);
 		rowReportDao.save(row_1800);
 		
@@ -691,6 +727,19 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 				"[Type of Finance].[TYPE_OF_FINANCE##410]"
 				);
 		rowReportDao.save(row_1900);		
+		RowReport row_1999 = createDAC1Row("1999", Constants.CALCULATED,
+				"[BiMultilateral].[BI_MULTILATERAL##1]",
+				"[Type of Flow].[TYPE_OF_FLOW##10]",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"[Type of Finance].[TYPE_OF_FINANCE##410]",
+				"",
+				""
+				);
+		rowReportDao.save(row_1999);		
 		RowReport row_1901 = createDAC1Row("1901", Constants.CALCULATED,
 				"{[BiMultilateral].[BI_MULTILATERAL##1], [BiMultilateral].[BI_MULTILATERAL##3]}",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
@@ -1246,8 +1295,13 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 				);
 		rowReportDao.save(row_359);	
 		
-
+		HashSet<String> sumRow330 = new HashSet<String>();
+		sumRow330.add("332");
+		sumRow330.add("359");
+		RowReport row_330 = createDAC1SumRow("330", Constants.SUM, sumRow330);
+		rowReportDao.save(row_330);
 	}
+
 	private void insertSectionIV() {
 		RowReport row_425 = createDAC1Row("425", Constants.CALCULATED,
 				"[BiMultilateral].[BI_MULTILATERAL##1]",
@@ -1341,14 +1395,14 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 		HashSet<String> sumCols1120 = new HashSet<String>();
 		if(col_1121_tof != null && !col_1121_tof.equals("")){
 			ColumnReport col1 = new ColumnReport("1121", Constants.CALCULATED,
-					"[Measures].[Extended]", col_1121_tof);
+					"[Measures].[E]", col_1121_tof);
 			columns.add(col1);
 			sumCols1120.add(col1.getColumnCode());
 		}
 
 		if(col_1122_tof != null && !col_1122_tof.equals("")){
 			ColumnReport col2 = new ColumnReport("1122", Constants.CALCULATED,
-					"[Measures].[Extended]", col_1122_tof);
+					"[Measures].[E]", col_1122_tof);
 			columns.add(col2);
 			sumCols1120.add(col2.getColumnCode());
 		}
@@ -1361,7 +1415,7 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 
 		if(col_1130_tof != null && !col_1130_tof.equals("")){
 			ColumnReport col4 = new ColumnReport("1130", Constants.CALCULATED,
-					"[Measures].[Received]", col_1130_tof);
+					"[Measures].[R]", col_1130_tof);
 			col4.setMultiplier(-1);
 			columns.add(col4);
 			sumCols1140.add(col4.getColumnCode());
@@ -1373,14 +1427,14 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 		HashSet<String> sumCols1150 = new HashSet<String>();
 		if(col_1151_tof != null && !col_1151_tof.equals("")){
 			ColumnReport col6 = new ColumnReport("1151", Constants.CALCULATED,
-					"[Measures].[Committed]", col_1151_tof);
+					"[Measures].[C]", col_1151_tof);
 			columns.add(col6);
 			sumCols1150.add(col6.getColumnCode());
 		}
 
 		if(col_1152_tof != null && !col_1152_tof.equals("")){
 			ColumnReport col7 = new ColumnReport("1152", Constants.CALCULATED,
-					"[Measures].[Committed]", col_1152_tof);
+					"[Measures].[C]", col_1152_tof);
 			columns.add(col7);
 			sumCols1150.add(col7.getColumnCode());
 		}

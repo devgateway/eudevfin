@@ -39,7 +39,7 @@ import org.w3c.dom.NodeList;
 public class ReportTemplate {
 
 	public InputStream processTemplate(InputStream inputStream,
-			String reportTypeDac1, RowReportDao rowReportDao) {
+			String slicer, RowReportDao rowReportDao) {
 		InputStream injectedStream = null;
 		try {
 			DocumentBuilder dBuilder = DocumentBuilderFactory.newInstance()
@@ -48,12 +48,12 @@ public class ReportTemplate {
 
 			List<RowReport> rows = retrieveRows(rowReportDao);
 
-			generateMDX(rows, doc);
+			generateMDX(rows, doc, slicer);
 			generateFields(rows, doc);
 			generateTextElements(rows, doc);
 
 			injectedStream = xmlToStream(doc);
-//			prettyPrint(doc);
+			prettyPrint(doc);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -85,11 +85,11 @@ public class ReportTemplate {
 					&& node.getAttributes().getNamedItem("key") != null) {
 
 				if (node.getAttributes().getNamedItem("key").getNodeValue()
-						.indexOf("row_") >= 0) {
+						.indexOf("r_") >= 0) {
 					matchingRows.put(node.getAttributes().getNamedItem("key")
 							.getNodeValue(), node);
 				} else if (node.getAttributes().getNamedItem("key")
-						.getNodeValue().indexOf("column_") >= 0) {
+						.getNodeValue().indexOf("c_") >= 0) {
 					matchingColumns.put(node.getAttributes()
 							.getNamedItem("key").getNodeValue(), node);
 				}
@@ -110,8 +110,7 @@ public class ReportTemplate {
 		}
 	}
 	private void appendReportSumRows(HashMap<String, Node> matchingRows, HashMap<String, Node> matchingColumns, RowReport row, Document doc) {
-		Node rowNode = matchingRows.get("row_" + row.getName());
-		System.out.println( row.getName());
+		Node rowNode = matchingRows.get("r_" + row.getName());
 		HashMap<String, String> columns = new HashMap<String, String>();
 
 		//Accumulate expressions by columns
@@ -120,11 +119,11 @@ public class ReportTemplate {
 		//Search for the nodes that will be summarized
 		for(String rowCode : row.getRowCodes()){
 			try {
-				NodeList nodes = (NodeList)xPath.evaluate("/jasperReport/detail/band/textField/reportElement[starts-with(@key, 'row_" + rowCode + "_column_')]", doc.getDocumentElement(), XPathConstants.NODESET);
+				NodeList nodes = (NodeList)xPath.evaluate("/jasperReport/detail/band/textField/reportElement[starts-with(@key, 'r_" + rowCode + "_c_')]", doc.getDocumentElement(), XPathConstants.NODESET);
 				for (int i = 0; i < nodes.getLength(); ++i) {
 				    Element e = (Element) nodes.item(i);
 				    String columnKey = e.getAttribute("key");
-				    String columnCode = columnKey.replaceFirst("row_" + rowCode + "_column_", "");
+				    String columnCode = columnKey.replaceFirst("r_" + rowCode + "_c_", "");
 				    String expression = columns.get(columnCode) != null? columns.get(columnCode) : "";
 				    if(!e.getParentNode().getTextContent().equals("")){
 					    expression += e.getParentNode().getTextContent();
@@ -138,26 +137,31 @@ public class ReportTemplate {
 			}
 		}
 
-		Integer yCoordRow = rowNode.getAttributes().getNamedItem("y") != null ? Integer.parseInt(rowNode.getAttributes().getNamedItem("y").getNodeValue()) : 0;
+		Integer yCoordRow = rowNode.getAttributes().getNamedItem("y") != null ? Integer.parseInt(rowNode.getAttributes().getNamedItem("y").getNodeValue())+1 : 0;
 		for (Map.Entry<String, String> column : columns.entrySet())
 		{
 			UUID uuid = UUID.randomUUID();
 			Element textField = doc.createElement("textField");
 			textField.setAttribute("pattern", "#,##0.00");
-			Node columnNode = matchingColumns.get("column_" + column.getKey());
+			Node columnNode = matchingColumns.get("c_" + column.getKey());
 			Integer xCoordColumn = columnNode.getAttributes().getNamedItem("x") != null ? Integer.parseInt(columnNode.getAttributes().getNamedItem("x").getNodeValue()) : 0;
 			Element reportElement = doc.createElement("reportElement");
-			//reportElement.setAttribute("key", "row_" + row.getName() + "_column_" + column.getKey());
+			reportElement.setAttribute("key", "r_" + row.getName() + "_c_" +column.getKey());
 			reportElement.setAttribute("x", xCoordColumn.toString());
 			reportElement.setAttribute("y", yCoordRow.toString());
 			reportElement.setAttribute("width", "55");
 			reportElement.setAttribute("height", "15");
-			reportElement.setAttribute("uuid", uuid.toString());
+			//reportElement.setAttribute("uuid", uuid.toString());
 			Element textElement = doc.createElement("textElement");
 			textElement.setAttribute("textAlignment", "Right");
 
 			Element textFieldExpression = doc.createElement("textFieldExpression");
-			CDATASection cdata = doc.createCDATASection(column.getValue() +"0");
+			String columnValue = column.getValue();
+			if(columnValue.endsWith("+")){
+				columnValue = columnValue.substring(0, columnValue.length()-1);
+			}
+			CDATASection cdata = doc.createCDATASection(columnValue);
+			//System.out.println("r_" + row.getName() + "_c_" +column.getKey() + ":" + columnValue.length());
 			textFieldExpression.appendChild(cdata);
 			textField.appendChild(reportElement);
 			textField.appendChild(textElement);
@@ -168,20 +172,20 @@ public class ReportTemplate {
 	}
 
 	private void appendReportRows(HashMap<String, Node> matchingRows, HashMap<String, Node> matchingColumns, RowReport row, Document doc) {
-		Node rowNode = matchingRows.get("row_" + row.getName());
+		Node rowNode = matchingRows.get("r_" + row.getName());
 		if(rowNode == null) return;
-		Integer yCoordRow = rowNode.getAttributes().getNamedItem("y") != null ? Integer.parseInt(rowNode.getAttributes().getNamedItem("y").getNodeValue()) : 0;
+		Integer yCoordRow = rowNode.getAttributes().getNamedItem("y") != null ? Integer.parseInt(rowNode.getAttributes().getNamedItem("y").getNodeValue())+1 : 0;
 		Set<ColumnReport> columns = row.getColumns();
 		for (ColumnReport column : columns) {
 			UUID uuid = UUID.randomUUID();
 			Element textField = doc.createElement("textField");
 			textField.setAttribute("pattern", column.getPattern() != null ? column.getPattern(): "#,##0.00");
 
-			Node columnNode = matchingColumns.get("column_" + column.getName());
+			Node columnNode = matchingColumns.get("c_" + column.getName());
 			Integer xCoordColumn = columnNode.getAttributes().getNamedItem("x") != null ? Integer.parseInt(columnNode.getAttributes().getNamedItem("x").getNodeValue()) : 0;
 
 			Element reportElement = doc.createElement("reportElement");
-			reportElement.setAttribute("key", "row_" + row.getName() + "_column_" + column.getName());
+			reportElement.setAttribute("key", "r_" + row.getName() + "_c_" + column.getName());
 			reportElement.setAttribute("x", xCoordColumn.toString());
 			reportElement.setAttribute("y", yCoordRow.toString());
 			reportElement.setAttribute("width", "55");
@@ -196,12 +200,13 @@ public class ReportTemplate {
 			if (column.getType() == Constants.CALCULATED) {
 				StringBuffer expression = new StringBuffer();
 				
-				String[] types = column.getTypeOfFinance().split(",");
+				String[] types = column.getSlicer().split(",");
 				for(int i = 0; i < types.length; i++){
 					if(!types[i].equals("")){
-						String fieldName = row.getName() + "_" + column.getName() + "_" + types[i] + "_" + column.getMeasure();
+						String fieldName = row.getName() + "_" + column.getName() + "_" + shortenType(types[i]) + "_" + column.getMeasure();
 						//expression.append("(");
-						expression.append("($F{" + fieldName + "} == null ? 0 :$F{" + fieldName + "}.intValue())");
+						expression.append("CHECKNULL($F{" + fieldName + "})");
+//						expression.append("($F{" + fieldName + "}==null?0:$F{" + fieldName + "}.intValue())");
 						//expression.append("* (" + column.getMultiplier() + ")");
 						//expression.append(")");
 						
@@ -225,7 +230,8 @@ public class ReportTemplate {
 					for(int i = 0; i<types.length; i++){
 						String fieldName = row.getName() + "_" + types[i];
 						expression.append("(");
-						expression.append("($F{" + fieldName + "} == null ? 0 :$F{" + fieldName + "}.intValue())");
+						expression.append("CHECKNULL($F{" + fieldName + "})");
+//						expression.append("($F{" + fieldName + "}==null?0:$F{" + fieldName + "}.intValue())");
 						//TODO: Remove this terrible hack for the one column that needs to subtract
 						if(types[i].indexOf("1130") == 0){
 							expression.append("* (-1)");
@@ -258,10 +264,11 @@ public class ReportTemplate {
 			for (ColumnReport column : columns) {
 				if (column.getType() == Constants.CALCULATED) {
 					
-					for(String type : column.getTypeOfFinance().split(",")){
+					for(String type : column.getSlicer().split(",")){
+						String shortType = shortenType(type);
 						if(!type.equals("")){
 							String fieldName = row.getName() + "_" + column.getName()
-									+ "_" + type + "_"
+									+ "_" + shortType + "_"
 									+ column.getMeasure();
 							Element field = doc.createElement("field");
 							field.setAttribute("name", fieldName);
@@ -287,7 +294,15 @@ public class ReportTemplate {
 		}
 	}
 
-	private void generateMDX(List<RowReport> rows, Document doc) {
+	private String shortenType(String type) {
+		String[] str = type.split("##");
+		if(str.length==2)
+			return str[1].replace("]", "");
+		return null;
+	}
+
+	private void generateMDX(List<RowReport> rows, Document doc, String slicer) {
+		if(slicer == null || !slicer.equals("")) slicer = "[Type of Finance].[Code].Members";
 		StringBuffer str = new StringBuffer();
 		List<RowReport> calculatedRows = new ArrayList<RowReport>();
 		for (RowReport row : rows) {
@@ -307,10 +322,10 @@ public class ReportTemplate {
 			}
 		}
 		str.append("\n");
-		str.append("MEMBER [Measures].[Extended] AS [Measures].[Extended Amount Currency NATLOECD] \n");
-		str.append("MEMBER [Measures].[Received] AS [Measures].[Received Amount Currency NATLOECD] \n");
-		str.append("MEMBER [Measures].[Committed] AS [Measures].[Commitments Amount Currency NATLOECD] \n");
-		str.append("MEMBER [Measures].[Amount] AS [Measures].[Extended Amount No Flow] \n");
+		str.append("MEMBER [Measures].[E] AS [Measures].[Extended Amount Currency NATLOECD] \n");
+		str.append("MEMBER [Measures].[R] AS [Measures].[Received Amount Currency NATLOECD] \n");
+		str.append("MEMBER [Measures].[C] AS [Measures].[Commitments Amount Currency NATLOECD] \n");
+		str.append("MEMBER [Measures].[A] AS [Measures].[Extended Amount No Flow] \n");
 		str.append("SELECT {");
 		for (Iterator<RowReport> it = calculatedRows.iterator(); it.hasNext();) {
 			RowReport row = it.next();
@@ -319,7 +334,8 @@ public class ReportTemplate {
 				str.append(",");
 		}
 		str.append("}  ON ROWS, \n");
-		str.append(" {[Measures].[Extended],[Measures].[Received],[Measures].[Committed], [Measures].[Amount]}*[Type of Finance].[Code].Members ON COLUMNS \n");
+		
+		str.append(" {[Measures].[E],[Measures].[R],[Measures].[C], [Measures].[A]}*" + slicer + " ON COLUMNS \n");
 		str.append("FROM [Financial] \n");
 		str.append("WHERE {[Reporting Year].[$P{REPORTING_YEAR}]} * {[Form Type].[bilateralOda.CRS], [Form Type].[multilateralOda.CRS]}\n");
 		Node queryString = doc.getElementsByTagName("queryString").item(0);
@@ -344,7 +360,7 @@ public class ReportTemplate {
 		tf.setOutputProperty(OutputKeys.INDENT, "yes");
 		Writer out = new StringWriter();
 		tf.transform(new DOMSource(xml), new StreamResult(out));
-		System.out.println(out.toString());
+//		System.out.println(out.toString());
 	}
 
 

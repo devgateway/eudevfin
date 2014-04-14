@@ -366,7 +366,7 @@ public class ReportsController {
 			
 			//Process template (injecting MDX; fields and text elements
 			ReportTemplate reportProcessor = new ReportTemplate();
-			InputStream inputStreamProcessed = reportProcessor.processTemplate(inputStream,	REPORT_TYPE_DAC1_DYNAMIC, rowReportDao);
+			InputStream inputStreamProcessed = reportProcessor.processTemplate(inputStream,	"[Type of Finance].[Code].Members", rowReportDao);
 
 			Map<String, Object> parameters = new HashMap<String, Object>();
 			parameters
