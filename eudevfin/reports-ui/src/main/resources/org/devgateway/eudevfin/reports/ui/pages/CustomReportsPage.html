@@ -8,7 +8,8 @@
         <div class="container">
             <div class="row">
                 <div class="span12" style="text-align: center;">
-                    <h1>Custom Reports Page</h1>
+                    <h2 wicket:id="title"/>
+                    <br/>
                 </div>
 
                 <div class="span8 offset2 well">
@@ -23,9 +24,9 @@
                             <div wicket:id="sector"/>
                             <div wicket:id="year"/>
                             <div wicket:id="typeOfExpenditure"/>
-                            <div wicket:id="valueOfActivity"/>
                             <div wicket:id="startingYear"/>
                             <div wicket:id="completitionYear"/>
+                            <div wicket:id="valueOfActivity"/>
                             <div wicket:id="cofinancingtransactionsonly"/>
                             <div wicket:id="cpaonly"/>
                             <div wicket:id="humanitarianAid"/>
@@ -35,7 +36,6 @@
                         <div class="row">
                             <div class="span4">
                                 <input wicket:id="submit" type="button"/>
-                                <input wicket:id="reset" type="button"/>
                             </div>
                         </div>
                     </form>

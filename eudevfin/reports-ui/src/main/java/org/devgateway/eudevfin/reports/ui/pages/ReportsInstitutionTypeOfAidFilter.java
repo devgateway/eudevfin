@@ -1,6 +1,5 @@
 package org.devgateway.eudevfin.reports.ui.pages;
 
-import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
@@ -13,26 +12,27 @@ import org.wicketstuff.annotation.mount.MountPath;
 
 /**
  * @author idobre
- * @since 4/3/14
+ * @since 4/16/14
  */
-
 @AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
-@MountPath(value = "/reportscountrysectorfilter")
-public class ReportsCountrySectorFilter extends CustomReportsPage {
-    private static final Logger logger = Logger.getLogger(ReportsCountrySectorFilter.class);
+@MountPath(value = "/reportsinstitutiontypeofaidfilter")
+public class ReportsInstitutionTypeOfAidFilter extends CustomReportsPage {
 
-    public ReportsCountrySectorFilter () {
-        Label title = new Label("title", new StringResourceModel("reportsCountrySector", this, null, null));
+    public ReportsInstitutionTypeOfAidFilter () {
+        Label title = new Label("title", new StringResourceModel("reportsInstitutionTypeOfAidFilter", this, null, null));
         add(title);
 
-        nationalInstitution.setVisibilityAllowed(Boolean.FALSE);
+        geography.setVisibilityAllowed(Boolean.FALSE);
+        recipient.setVisibilityAllowed(Boolean.FALSE);
+        sector.setVisibilityAllowed(Boolean.FALSE);
         multilateralAgency.setVisibilityAllowed(Boolean.FALSE);
         typeOfFlowBiMulti.setVisibilityAllowed(Boolean.FALSE);
-        typeOfAid.setVisibilityAllowed(Boolean.FALSE);
         typeOfExpenditure.setVisibilityAllowed(Boolean.FALSE);
         valueOfActivity.setVisibilityAllowed(Boolean.FALSE);
         startingYear.setVisibilityAllowed(Boolean.FALSE);
         completitionYear.setVisibilityAllowed(Boolean.FALSE);
+        CoFinancingTransactionsOnly.setVisibilityAllowed(Boolean.FALSE);
+        CPAOnly.setVisibilityAllowed(Boolean.FALSE);
         humanitarianAid.setVisibilityAllowed(Boolean.FALSE);
         showRelatedBudgetCodes.setVisibilityAllowed(Boolean.FALSE);
     }
@@ -49,11 +49,9 @@ public class ReportsCountrySectorFilter extends CustomReportsPage {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 CustomReportsModel customReportsModel = (CustomReportsModel)form.getModelObject();
-//                logger.info(customReportsModel.getRecipient().getName());
 
                 PageParameters pageParameters = new PageParameters();
-                pageParameters.add("msg", "this is parameter value");
-                setResponsePage(ReportsCountrySectorDashboards.class, pageParameters);
+                setResponsePage(ReportsInstitutionTypeOfAidDashboards.class, pageParameters);
             }
         });
     }

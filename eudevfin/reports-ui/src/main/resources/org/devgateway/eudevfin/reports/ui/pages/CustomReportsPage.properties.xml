@@ -9,6 +9,11 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
+    <entry key="reportsCountrySector">Search by country &amp; sector</entry>
+    <entry key="reportsCountryInstitution">Search by country &amp; institution</entry>
+    <entry key="reportsInstitutionTypeOfFlowFilter">Search by institution &amp; type of flow (bi/multi)</entry>
+    <entry key="reportsInstitutionTypeOfAidFilter">Search by institution &amp; type of aid</entry>
+    <entry key="reportsImplementationStatus">Search by implementation status</entry>
     <entry key="commitment">Commitment</entry>
     <entry key="disbursement">Disbursement</entry>
     <entry key="lowerThanAmount">&lt; 0.5 million USD</entry>

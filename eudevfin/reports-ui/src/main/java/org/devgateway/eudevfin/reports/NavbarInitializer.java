@@ -15,8 +15,12 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
-import org.devgateway.eudevfin.reports.ui.pages.CustomDashboardsCountrySector;
+import org.devgateway.eudevfin.reports.ui.pages.ReportsCountryInstitutionFilter;
+import org.devgateway.eudevfin.reports.ui.pages.ReportsCountrySectorFilter;
 import org.devgateway.eudevfin.reports.ui.pages.ReportsExport;
+import org.devgateway.eudevfin.reports.ui.pages.ReportsImplementationStatusFilter;
+import org.devgateway.eudevfin.reports.ui.pages.ReportsInstitutionTypeOfAidFilter;
+import org.devgateway.eudevfin.reports.ui.pages.ReportsInstitutionTypeOfFlowFilter;
 import org.devgateway.eudevfin.reports.ui.pages.ReportsPage;
 import org.devgateway.eudevfin.ui.common.WicketNavbarComponentInitializer;
 import org.devgateway.eudevfin.ui.common.components.RepairedNavbarDropDownButton;
@@ -99,16 +103,51 @@ public final class NavbarInitializer {
 				};
 				exportReports.setIconType(IconType.resizehorizontal);
 				list.add(exportReports);
-				
-				list.add((AbstractLink) new MenuBookmarkablePageLink<CustomDashboardsCountrySector>(
-                        CustomDashboardsCountrySector.class, null, new StringResourceModel(
-								"navbar.customreports", this, null, null))
-						.setIconType(IconType.file).setEnabled(true));
 
-				
+                DropDownSubMenu customReports = new DropDownSubMenu(new StringResourceModel("navbar.customreports", this, null, null)) {
+                    @Override
+                    public boolean isActive(Component item) {
+                        return false;
+                    }
+
+                    @Override
+                    protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
+                        List<AbstractLink> list = new ArrayList<>();
+
+                        list.add(new MenuBookmarkablePageLink<ReportsCountrySectorFilter>(
+                                ReportsCountrySectorFilter.class, null, new StringResourceModel(
+                                "navbar.customreports.countrysector", this, null, null)).
+                                setIconType(IconType.picture));
+
+                        list.add(new MenuBookmarkablePageLink<ReportsCountryInstitutionFilter>(
+                                ReportsCountryInstitutionFilter.class, null, new StringResourceModel(
+                                "navbar.customreports.countryinstitution", this, null, null)).
+                                setIconType(IconType.picture));
+
+                        list.add(new MenuBookmarkablePageLink<ReportsInstitutionTypeOfFlowFilter>(
+                                ReportsInstitutionTypeOfFlowFilter.class, null, new StringResourceModel(
+                                "navbar.customreports.institutiontypeofflow", this, null, null)).
+                                setIconType(IconType.picture));
+
+                        list.add(new MenuBookmarkablePageLink<ReportsInstitutionTypeOfAidFilter>(
+                                ReportsInstitutionTypeOfAidFilter.class, null, new StringResourceModel(
+                                "navbar.customreports.institutiontypeofaid", this, null, null)).
+                                setIconType(IconType.picture));
+
+                        list.add(new MenuBookmarkablePageLink<ReportsImplementationStatusFilter>(
+                                ReportsImplementationStatusFilter.class, null, new StringResourceModel(
+                                "navbar.customreports.implementationstatus", this, null, null)).
+                                setIconType(IconType.picture));
+                        return list;
+                    }
+
+                };
+                customReports.setIconType(IconType.file);
+                list.add(customReports);
+
 				list.add((AbstractLink) new MenuBookmarkablePageLink<ReportsPage>(
 						SaikuRedirectPage.class, null, new StringResourceModel(
-								"navbar.customreports", this, null, null))
+								"navbar.reportsbuilder", this, null, null))
 						.setIconType(IconType.play).setEnabled(true));
 				
 /*				

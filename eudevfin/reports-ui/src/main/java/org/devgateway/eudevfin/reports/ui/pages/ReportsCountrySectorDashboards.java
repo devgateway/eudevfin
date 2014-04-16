@@ -1,14 +1,9 @@
 package org.devgateway.eudevfin.reports.ui.pages;
 
 import com.googlecode.wickedcharts.highcharts.options.DataLabels;
-import com.googlecode.wickedcharts.highcharts.options.HorizontalAlignment;
-import com.googlecode.wickedcharts.highcharts.options.Legend;
-import com.googlecode.wickedcharts.highcharts.options.LegendLayout;
 import com.googlecode.wickedcharts.highcharts.options.PlotOptions;
 import com.googlecode.wickedcharts.highcharts.options.PlotOptionsChoice;
 import com.googlecode.wickedcharts.highcharts.options.Tooltip;
-import com.googlecode.wickedcharts.highcharts.options.VerticalAlignment;
-import com.googlecode.wickedcharts.highcharts.options.color.HexColor;
 import com.googlecode.wickedcharts.highcharts.options.series.SimpleSeries;
 import org.apache.log4j.Logger;
 import org.apache.wicket.AttributeModifier;
@@ -32,7 +27,6 @@ import org.wicketstuff.annotation.mount.MountPath;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -40,10 +34,10 @@ import java.util.List;
  * @author idobre
  * @since 3/27/14
  */
-@MountPath(value = "/dashboardscountrysector")
+@MountPath(value = "/reportscountrysectordashboards")
 @AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
-public class CustomDashboardsCountrySector extends HeaderFooter {
-    private static final Logger logger = Logger.getLogger(CustomDashboardsCountrySector.class);
+public class ReportsCountrySectorDashboards extends HeaderFooter {
+    private static final Logger logger = Logger.getLogger(ReportsCountrySectorDashboards.class);
 
     private int tableYear;
 
@@ -53,7 +47,7 @@ public class CustomDashboardsCountrySector extends HeaderFooter {
     @SpringBean
     QueryService CdaService;
 
-    public CustomDashboardsCountrySector(final PageParameters parameters) {
+    public ReportsCountrySectorDashboards(final PageParameters parameters) {
         tableYear = Calendar.getInstance().get(Calendar.YEAR) - 1;
 
         String result = "";
@@ -68,12 +62,15 @@ public class CustomDashboardsCountrySector extends HeaderFooter {
     }
 
     private void addComponents() {
+        Label title = new Label("title", new StringResourceModel("reportscountrysectordashboards.title", this, null, null));
+        add(title);
+
         addCountryTable();
         addCountryChart();
     }
 
     private void addCountryTable () {
-        Label title = new Label("countryTableTitle", new StringResourceModel("customdashboards.countryTable", this, null, null));
+        Label title = new Label("countryTableTitle", new StringResourceModel("reportscountrysectordashboards.countryTable", this, null, null));
         add(title);
 
         Table table = new Table(CdaService, "countryTable", "countryTableRows", "customDashboardsCountryTable") {
@@ -178,7 +175,7 @@ public class CustomDashboardsCountrySector extends HeaderFooter {
     }
 
     private void addCountryChart () {
-        Label title = new Label("countryChartTitle", new StringResourceModel("customdashboards.countryChart", this, null, null));
+        Label title = new Label("countryChartTitle", new StringResourceModel("reportscountrysectordashboards.countryChart", this, null, null));
         add(title);
 
         StackedBarChart stackedBarChart = new StackedBarChart(CdaService, "countryChart", "customDashboardsCountryChart") {
