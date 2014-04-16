@@ -11,7 +11,7 @@
         <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All Countries">
             <View alias="CountryView">
                 <SQL dialect="generic"><![CDATA[
-		    select
+            select
               "AREA"."ID", "AREA"."CODE",  "CATEGORYTRANSLATION"."NAME" AS GEOGRAPHY, "AREATRANSLATION"."NAME"
             from
               "APP"."AREA" as "AREA",
@@ -23,7 +23,7 @@
               "CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
               "CATEGORYTRANSLATION"."PARENT_ID" = "AREA"."GEOGRAPHYCATEGORY_ID" AND
               "AREA"."AREA_TYPE" = 'Country'
-			]]></SQL>
+            ]]></SQL>
             </View>
             <Level name="Geography" visible="true" column="GEOGRAPHY" uniqueMembers="false" levelType="Regular" type="String">
             </Level>
@@ -35,19 +35,17 @@
         <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All IncomeGroups">
             <View alias="IncomeGroupView">
                 <SQL dialect="generic"><![CDATA[
-			select
-				"AREA"."ID", "AREA"."INCOMEGROUP_ID",  "CATEGORYTRANSLATION"."NAME"
-			from
-				"APP"."AREA" as "AREA",
-				"APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION"
-			WHERE
-				"CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
-				"CATEGORYTRANSLATION"."PARENT_ID" = "AREA"."INCOMEGROUP_ID" AND
-				"AREA"."AREA_TYPE" = 'Country'
-			]]></SQL>
+            select
+                "AREA"."ID", "AREA"."INCOMEGROUP_ID",  "CATEGORYTRANSLATION"."NAME"
+            from
+                "APP"."AREA" as "AREA",
+                "APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION"
+            WHERE
+                "CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
+                "CATEGORYTRANSLATION"."PARENT_ID" = "AREA"."INCOMEGROUP_ID" AND
+                "AREA"."AREA_TYPE" = 'Country'
+            ]]></SQL>
             </View>
-            <Level name="Incomegroup" visible="true" column="INCOMEGROUP_ID" uniqueMembers="false" levelType="Regular" type="String">
-            </Level>
             <Level name="Name" visible="true" column="NAME" uniqueMembers="false" levelType="Regular" type="String">
             </Level>
         </Hierarchy>
@@ -63,18 +61,18 @@
         <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Channel" allMemberName="All Channels">
             <View alias="ChannelView">
                 <SQL dialect="generic"><![CDATA[
-			select
-				DISTINCT "CATEGORY"."ID", "CATEGORY"."CODE"
-			from
-				"APP"."CATEGORY" as "CATEGORY",
-				"APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION",
-				"APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
-			WHERE
-			    "CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
-				"CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
-				"CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
-				"CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='CHANNEL_TAG')
-			]]></SQL>
+            select
+                DISTINCT "CATEGORY"."ID", "CATEGORY"."CODE"
+            from
+                "APP"."CATEGORY" as "CATEGORY",
+                "APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION",
+                "APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
+            WHERE
+                "CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
+                "CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
+                "CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
+                "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='CHANNEL_TAG')
+            ]]></SQL>
             </View>
             <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
             </Level>
@@ -84,18 +82,18 @@
         <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Channel Localized" allMemberName="All Channels Localized">
             <View alias="ChannelLocalizedView">
                 <SQL dialect="generic"><![CDATA[
-			select
-				"CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE"
-			from
-				"APP"."CATEGORY" as "CATEGORY",
-				"APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION",
-				"APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
-			WHERE
-				"CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
-				"CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
-				"CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
-				"CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='CHANNEL_TAG')
-			]]></SQL>
+            select
+                "CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE"
+            from
+                "APP"."CATEGORY" as "CATEGORY",
+                "APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION",
+                "APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
+            WHERE
+                "CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
+                "CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
+                "CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
+                "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='CHANNEL_TAG')
+            ]]></SQL>
             </View>
             <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
             </Level>
@@ -107,18 +105,18 @@
         <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Type of Aid" allMemberCaption="%{allTypesOfAid}" allLevelName="%{allTypesOfAid}" description="%{typesOfAid}" allMemberName="All Types of Aid">
             <View alias="TypeOfAidView">
                 <SQL dialect="generic"><![CDATA[
-			select
-				"CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE"
-			from
-				"APP"."CATEGORY" as "CATEGORY",
-				"APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION",
-				"APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
-			WHERE
-				"CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
-				"CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
-				"CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
-				"CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='ALL_TYPE_OF_AID_TAG')
-			]]></SQL>
+            select
+                "CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE"
+            from
+                "APP"."CATEGORY" as "CATEGORY",
+                "APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION",
+                "APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
+            WHERE
+                "CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
+                "CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
+                "CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
+                "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='ALL_TYPE_OF_AID_TAG')
+            ]]></SQL>
             </View>
             <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
             </Level>
@@ -130,18 +128,18 @@
         <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Type of Flow" allMemberCaption="%{allTypesOfFlow}" allLevelName="%{allTypesOfFlow}" description="%{typesOfFlow}" allMemberName="All Types of Flow">
             <View alias="TypeOfFlowView">
                 <SQL dialect="generic"><![CDATA[
-			select
-				"CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE"
-			from
-				"APP"."CATEGORY" as "CATEGORY",
-				"APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION",
-				"APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
-			WHERE
-				"CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
-				"CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
-				"CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
-				"CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='TYPE_OF_FLOW_TAG')
-			]]></SQL>
+            select
+                "CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE"
+            from
+                "APP"."CATEGORY" as "CATEGORY",
+                "APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION",
+                "APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
+            WHERE
+                "CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
+                "CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
+                "CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
+                "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='TYPE_OF_FLOW_TAG')
+            ]]></SQL>
             </View>
             <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
             </Level>
@@ -153,18 +151,18 @@
         <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Type of Finance" allMemberCaption="%{allTypesOfFinance}" allLevelName="%{allTypesOfFinance}" description="%{typesOfFinance}" allMemberName="All Types of Finance">
             <View alias="TypeOfFinanceView">
                 <SQL dialect="generic"><![CDATA[
-			select
-				"CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE"
-			from
-				"APP"."CATEGORY" as "CATEGORY",
-				"APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION",
-				"APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
-			WHERE
-				"CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
-				"CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
-				"CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
-				"CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='ALL_TYPE_OF_FINANCE_TAG')
-			]]></SQL>
+            select
+                "CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE"
+            from
+                "APP"."CATEGORY" as "CATEGORY",
+                "APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION",
+                "APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
+            WHERE
+                "CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
+                "CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
+                "CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
+                "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='ALL_TYPE_OF_FINANCE_TAG')
+            ]]></SQL>
             </View>
             <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
             </Level>
@@ -176,18 +174,18 @@
         <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Type of Finance Root" allMemberName="All Types of Finance Root">
             <View alias="TypeOfFinanceRootView">
                 <SQL dialect="generic"><![CDATA[
-			select
-				"CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE"
-			from
-				"APP"."CATEGORY" as "CATEGORY",
-				"APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION",
-				"APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
-			WHERE
-				"CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
-				"CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
-				"CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
-				"CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='TYPE_OF_FINANCE_TAG')
-			]]></SQL>
+            select
+                "CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE"
+            from
+                "APP"."CATEGORY" as "CATEGORY",
+                "APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION",
+                "APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
+            WHERE
+                "CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
+                "CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
+                "CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
+                "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='TYPE_OF_FINANCE_TAG')
+            ]]></SQL>
             </View>
             <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
             </Level>
@@ -199,20 +197,20 @@
         <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="%{sectors}" allMemberCaption="%{allSectors}" allLevelName="%{allSectors}" description="%{sectors}" allMemberName="All Sectors">
             <View alias="SectorView">
                 <SQL dialect="generic"><![CDATA[
-					select
-						"CATEGORY"."ID",
-						"CATEGORYTRANSLATION"."NAME",
-						"CATEGORY"."CODE"
-					from
-						"APP"."CATEGORY" as "CATEGORY",
-						"APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION",
-						"APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
-					WHERE
-						"CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
-						"CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
-						"CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
-						"CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='ALL_SECTOR_TAG')
-			]]></SQL>
+                    select
+                        "CATEGORY"."ID",
+                        "CATEGORYTRANSLATION"."NAME",
+                        "CATEGORY"."CODE"
+                    from
+                        "APP"."CATEGORY" as "CATEGORY",
+                        "APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION",
+                        "APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
+                    WHERE
+                        "CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
+                        "CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
+                        "CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
+                        "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='ALL_SECTOR_TAG')
+            ]]></SQL>
             </View>
             <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
             </Level>
@@ -224,23 +222,27 @@
         <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All Sectors">
             <View alias="SectorHierarchyView">
                 <SQL dialect="generic"><![CDATA[
-					select id, CASE WHEN lower(parentname) like 'root%' THEN name ELSE parentname END as parentname, name
-					from (select
-					  "CATEGORYY"."ID",
-					  (select cattrn.name from CATEGORYTRANSLATION cattrn WHERE cattrn.locale = '@@LOCALE@@' AND cattrn.parent_id = "CATEGORYY".PARENTCATEGORY_ID) as PARENTNAME,
-					  "CATEGORYTRANSLATION"."NAME"
-					from
-					  "APP"."CATEGORY" as "CATEGORYY",
-					  "APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION",
-					  "APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
-					WHERE
-					  "CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
-					  "CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORYY"."ID" AND
-					  "CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORYY"."ID" AND
-					  "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='ALL_SECTOR_TAG')) as sectors
+					select id, CASE WHEN lower(ancestorname) like 'root%' or ancestorname IS NULL THEN parentname ELSE ancestorname END as ancestorname, name from
+						(select id, name, ANCESTORID, CASE WHEN lower(parentname) like 'root%' THEN name ELSE parentname END as parentname,
+							(select cattrn.name from CATEGORYTRANSLATION cattrn WHERE cattrn.locale = '@@LOCALE@@' AND cattrn.parent_id = ANCESTORID) as ANCESTORNAME
+							from (select
+							  "CATEGORY"."ID",
+							  "CATEGORY"."PARENTCATEGORY_ID",
+							  (select cat.parentcategory_id from CATEGORY cat where cat.id = "CATEGORY".PARENTCATEGORY_ID) as ANCESTORID,
+							  (select cattrn.name from CATEGORYTRANSLATION cattrn WHERE cattrn.locale = '@@LOCALE@@' AND cattrn.parent_id = "CATEGORY".PARENTCATEGORY_ID) as PARENTNAME,
+							  "CATEGORYTRANSLATION"."NAME"
+							from
+							  "APP"."CATEGORY" as "CATEGORY",
+							  "APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION",
+							  "APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
+							WHERE
+							  "CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
+							  "CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
+							  "CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
+							  "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='ALL_SECTOR_TAG')) as parentsectors) as ancestorsectors
 			]]></SQL>
             </View>
-            <Level name="ParentName" visible="true" column="PARENTNAME" uniqueMembers="false">
+            <Level name="ParentName" visible="true" column="ANCESTORNAME" uniqueMembers="false">
             </Level>
             <Level name="Name" visible="true" column="NAME" uniqueMembers="false">
             </Level>
@@ -250,20 +252,20 @@
         <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="BiMultilateral" allMemberCaption="%{allBiMultilateral}" allLevelName="%{allBiMultilateral}" description="%{biMultilateral}" allMemberName="All BiMultilaterals">
             <View alias="BiMultilalteralView">
                 <SQL dialect="generic"><![CDATA[
-					select
-						"CATEGORY"."ID",
-						"CATEGORYTRANSLATION"."NAME",
-						"CATEGORY"."CODE"
-					from
-						"APP"."CATEGORY" as "CATEGORY",
-						"APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION",
-						"APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
-					WHERE
-						"CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
-						"CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
-						"CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
-						"CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='BI_MULTILATERAL_TAG')
-			]]></SQL>
+                    select
+                        "CATEGORY"."ID",
+                        "CATEGORYTRANSLATION"."NAME",
+                        "CATEGORY"."CODE"
+                    from
+                        "APP"."CATEGORY" as "CATEGORY",
+                        "APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION",
+                        "APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
+                    WHERE
+                        "CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
+                        "CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
+                        "CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
+                        "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='BI_MULTILATERAL_TAG')
+            ]]></SQL>
             </View>
             <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
             </Level>
@@ -275,11 +277,12 @@
         <View name="FINANCIALTRANSACTIONVIEW" alias="FINANCIALTRANSACTIONVIEW">
             <SQL dialect="generic"><![CDATA[
                 select cat.coefficient,
-				CASE WHEN cat.coefficient IS NULL THEN AMOUNTS_EXTENDED_AMOUNT ELSE (AMOUNTS_EXTENDED_AMOUNT * cat.COEFFICIENT) / 100 END as AMOUNTS_EXTENDED_AMOUNT_WITH_COEFFICIENT,
-				CASE WHEN cat.coefficient IS NULL THEN AMOUNTS_RECEIVED_AMOUNT ELSE (AMOUNTS_RECEIVED_AMOUNT * cat.COEFFICIENT) / 100 END as AMOUNTS_RECEIVED_AMOUNT_WITH_COEFFICIENT,
-				ft.*
+                CASE WHEN cat.coefficient IS NULL THEN AMOUNTS_EXTENDED_AMOUNT ELSE (AMOUNTS_EXTENDED_AMOUNT * cat.COEFFICIENT) / 100 END as AMOUNTS_EXTENDED_AMOUNT_WITH_COEFFICIENT,
+                CASE WHEN cat.coefficient IS NULL THEN AMOUNTS_RECEIVED_AMOUNT ELSE (AMOUNTS_RECEIVED_AMOUNT * cat.COEFFICIENT) / 100 END as AMOUNTS_RECEIVED_AMOUNT_WITH_COEFFICIENT,
+				CASE WHEN cat.coefficient IS NULL THEN COMMITMENT_AMOUNT ELSE (COMMITMENT_AMOUNT * cat.COEFFICIENT) / 100 END as COMMITMENT_AMOUNT_WITH_COEFFICIENT,
+                ft.*
                 from FINANCIALTRANSACTION ft left join CATEGORY cat ON cat.id = ft.channel_id WHERE ft.draft = false OR draft IS NULL
-			]]></SQL>
+            ]]></SQL>
         </View>
         <DimensionUsage source="Area" name="Area" visible="true" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
         <DimensionUsage source="Country" name="Country" visible="true" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
@@ -302,6 +305,12 @@
                 </Level>
             </Hierarchy>
         </Dimension>
+        <Dimension name="Form Type">
+            <Hierarchy hasAll="true">
+                <Level name="Form Type" column="FORMTYPE" uniqueMembers="true">
+                </Level>
+            </Hierarchy>
+        </Dimension>
         <Dimension name="CPA">
             <Hierarchy hasAll="true" allMemberName="All CPA">
                 <!-- No table element here. Fact table is assumed. -->
@@ -309,13 +318,13 @@
                     <KeyExpression>
                         <SQL dialect="generic">
                             CASE WHEN CPA IS NULL THEN
-                                0
+                            0
                             ELSE
-                                CASE WHEN CPA = FALSE THEN
-                                    0
-                                ELSE
-                                    1
-                                END
+                            CASE WHEN CPA = FALSE THEN
+                            0
+                            ELSE
+                            1
+                            END
                             END
                         </SQL>
                     </KeyExpression>
@@ -329,13 +338,13 @@
                     <KeyExpression>
                         <SQL dialect="generic">
                             CASE WHEN projectCoFinanced IS NULL THEN
-                                0
+                            0
                             ELSE
-                                CASE WHEN projectCoFinanced = FALSE THEN
-                                    0
-                                ELSE
-                                    1
-                                END
+                            CASE WHEN projectCoFinanced = FALSE THEN
+                            0
+                            ELSE
+                            1
+                            END
                             END
                         </SQL>
                     </KeyExpression>
@@ -370,9 +379,9 @@
             <MeasureExpression>
                 <SQL dialect="generic">
                     CASE WHEN DRAFT IS NOT NULL THEN
-                        AMOUNTS_EXTENDED_AMOUNT_WITH_COEFFICIENT
+                    AMOUNTS_EXTENDED_AMOUNT_WITH_COEFFICIENT
                     ELSE
-                        NULL
+                    NULL
                     END
                 </SQL>
             </MeasureExpression>
@@ -445,6 +454,34 @@
         <Measure name="Interest Arrears Amount" column="AMOUNTS_AREARS_INTEREST_AMOUNT" aggregator="sum" visible="true" caption="%{interestArrearsAmount}"></Measure>
         <Measure name="Principal Arrears Amount" column="AMOUNTS_AREARS_PRIN_AMOUNT" aggregator="sum" visible="true" caption="%{principalArrearsAmount}"></Measure>
         <Measure name="Commitments Amount" column="COMMITMENT_AMOUNT" aggregator="sum" visible="true" caption="%{commitmentsAmount}"></Measure>
+        <Measure name="Commitments Amount Currency NATLOECD" aggregator="sum" visible="true">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (COMMITMENT_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    (SOURCE = 'OECD' OR SOURCE='National') AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        <Measure name="Commitments Amount Currency INTERNET" aggregator="sum" visible="true">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (COMMITMENT_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    SOURCE = 'INTERNET' AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
         <Measure name="Interest Received Amount" column="AMOUNTS_INTEREST_RECEIVED_AMOUNT" aggregator="sum" visible="true" caption="%{interestReceivedAmount}"></Measure>
         <Measure name="Principal Disbursed Amount" column="AMOUNTS_PRIN_DISB_AMOUNT" aggregator="sum" visible="true" caption="%{principalDisbursedAmount}"></Measure>
         <Measure name="Expert Commitments Amount" column="AMOUNTS_EXP_COMMIT_AMOUNT" aggregator="sum" visible="true" caption="%{expertCommitmentsAmount}"></Measure>
@@ -474,7 +511,7 @@
             <Formula>SUM({[Channel].[46000],[Channel].[46002],[Channel].[46003],[Channel].[46004],[Channel].[46005],[Channel].[46006],[Channel].[46007],[Channel].[46008],[Channel].[46009],[Channel].[46012],[Channel].[46013],[Channel].[46015],[Channel].[46016],[Channel].[46017],[Channel].[46018],[Channel].[46019],[Channel].[46020],[Channel].[46021],[Channel].[46022],[Channel].[46023]})</Formula>
         </CalculatedMember>
         <CalculatedMember name="OtherGroup" dimension="Channel">
-			<Formula>SUM({[Channel].[47000], [Channel].[21002],[Channel].[30010],[Channel].[47001],[Channel].[47002],[Channel].[47003],[Channel].[47005],[Channel].[47009],[Channel].[47011],[Channel].[47012],[Channel].[47013],[Channel].[47015],[Channel].[47019],[Channel].[47022],[Channel].[47025],[Channel].[47026],[Channel].[47027],[Channel].[47029],[Channel].[47034],[Channel].[47036],[Channel].[47037],[Channel].[47040],[Channel].[47044],[Channel].[47045],[Channel].[47046],[Channel].[47050],[Channel].[47058],[Channel].[47059],[Channel].[47061],[Channel].[47064],[Channel].[47065],[Channel].[47066],[Channel].[47067],[Channel].[47068],[Channel].[47073],[Channel].[47074],[Channel].[47076],[Channel].[47077],[Channel].[47078],[Channel].[47079],[Channel].[47080],[Channel].[47081],[Channel].[47082],[Channel].[47083],[Channel].[47084],[Channel].[47086],[Channel].[47087],[Channel].[47089],[Channel].[47092],[Channel].[47093],[Channel].[47095],[Channel].[47096],[Channel].[47097],[Channel].[47098],[Channel].[47100],[Channel].[47102],[Channel].[47105],[Channel].[47106],[Channel].[47107],[Channel].[47109],[Channel].[47110],[Channel].[47111],[Channel].[47112],[Channel].[47113],[Channel].[47116],[Channel].[47117],[Channel].[47118],[Channel].[47119],[Channel].[47120],[Channel].[47121],[Channel].[47122],[Channel].[47123],[Channel].[47127],[Channel].[47128],[Channel].[47129],[Channel].[47130],[Channel].[47131],[Channel].[47132],[Channel].[47136],[Channel].[43000], [Channel].[43001], [Channel].[43002], [Channel].[43003], [Channel].[43004], [Channel].[43005], [Channel].[45000], [Channel].[45001], [Channel].[45002], [Channel].[45003]})</Formula>
+            <Formula>SUM({[Channel].[47000], [Channel].[21002],[Channel].[30010],[Channel].[47001],[Channel].[47002],[Channel].[47003],[Channel].[47005],[Channel].[47009],[Channel].[47011],[Channel].[47012],[Channel].[47013],[Channel].[47015],[Channel].[47019],[Channel].[47022],[Channel].[47025],[Channel].[47026],[Channel].[47027],[Channel].[47029],[Channel].[47034],[Channel].[47036],[Channel].[47037],[Channel].[47040],[Channel].[47044],[Channel].[47045],[Channel].[47046],[Channel].[47050],[Channel].[47058],[Channel].[47059],[Channel].[47061],[Channel].[47064],[Channel].[47065],[Channel].[47066],[Channel].[47067],[Channel].[47068],[Channel].[47073],[Channel].[47074],[Channel].[47076],[Channel].[47077],[Channel].[47078],[Channel].[47079],[Channel].[47080],[Channel].[47081],[Channel].[47082],[Channel].[47083],[Channel].[47084],[Channel].[47086],[Channel].[47087],[Channel].[47089],[Channel].[47092],[Channel].[47093],[Channel].[47095],[Channel].[47096],[Channel].[47097],[Channel].[47098],[Channel].[47100],[Channel].[47102],[Channel].[47105],[Channel].[47106],[Channel].[47107],[Channel].[47109],[Channel].[47110],[Channel].[47111],[Channel].[47112],[Channel].[47113],[Channel].[47116],[Channel].[47117],[Channel].[47118],[Channel].[47119],[Channel].[47120],[Channel].[47121],[Channel].[47122],[Channel].[47123],[Channel].[47127],[Channel].[47128],[Channel].[47129],[Channel].[47130],[Channel].[47131],[Channel].[47132],[Channel].[47136],[Channel].[43000], [Channel].[43001], [Channel].[43002], [Channel].[43003], [Channel].[43004], [Channel].[43005], [Channel].[45000], [Channel].[45001], [Channel].[45002], [Channel].[45003]})</Formula>
         </CalculatedMember>
 
         <!--  Groups of Type of Finance -->

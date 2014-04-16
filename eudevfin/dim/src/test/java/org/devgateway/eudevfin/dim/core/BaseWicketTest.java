@@ -9,7 +9,7 @@
 package org.devgateway.eudevfin.dim.core;
 
 import org.apache.wicket.util.tester.WicketTester;
-import org.devgateway.eudevfin.ui.common.spring.TestingWicketSpringApplication;
+import org.devgateway.eudevfin.ui.common.spring.WicketSpringApplication;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -28,8 +28,37 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations = {
         "classpath:META-INF/commonContext.xml",
         "classpath:META-INF/commonAuthContext.xml",
-        "classpath:META-INF/commonFinancialContext.xml"
+        "classpath:META-INF/commonFinancialContext.xml",
+        "classpath:META-INF/commonUiContext.xml",
+
+        "classpath:META-INF/authContext.xml",
+
+        "classpath:META-INF/commonExchangeContext.xml",
+        "classpath:META-INF/commonMetadataContext.xml",
+
+
+        "classpath:META-INF/financialContext.xml",
+        "classpath:META-INF/importMetadataContext.xml",
+
+        "classpath:META-INF/spreadsheetExporterContext.xml",
+        "classpath:META-INF/reportsUIContext.xml",
+        "classpath:META-INF/exchangeContext.xml",
+        "classpath:META-INF/reportsCoreContext.xml",
+        "classpath*:WEB-INF/applicationContext.xml",
+        "classpath*:META-INF/saikuUIContext.xml",
+        "classpath:testDimContext.xml"
+
+
 })
+/*
+
+
+
+
+
+ */
+
+
 @DirtiesContext
 public abstract class BaseWicketTest {
     protected WicketTester tester;
@@ -39,7 +68,7 @@ public abstract class BaseWicketTest {
 
     @Before
     public void setUp() {
-        TestingWicketSpringApplication application = new TestingWicketSpringApplication();
+        WicketSpringApplication application = new WicketSpringApplication();
         // applicationContext is injected by Spring as my test class extends AbstractJUnit4SpringContextTests
         AutowireCapableBeanFactory autowireCapableBeanFactory = ctx.getAutowireCapableBeanFactory();
         //autowireCapableBeanFactory.autowireBeanProperties(application, AutowireCapableBeanFactory.AUTOWIRE_AUTODETECT, false );

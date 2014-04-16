@@ -28,7 +28,7 @@ public class ColumnReport implements Serializable  {
 	private String measure;
 	
 	@Column(length = 1000)
-	private String typeOfFinance;
+	private String slicer;
 	private String name;
 	private int type = Constants.CALCULATED;
 
@@ -41,11 +41,11 @@ public class ColumnReport implements Serializable  {
 	public ColumnReport() {
 	}
 
-	public ColumnReport(String name, int type, String measure, String typeOfFinance) {
+	public ColumnReport(String name, int type, String measure, String slicer) {
 		this.setName(name);
 		this.setType(type);
 		this.setMeasure(measure);
-		this.setTypeOfFinance(typeOfFinance);
+		this.setSlicer(slicer);
 	}
 
 	public ColumnReport(String name, int type, HashSet<String> hashSet) {
@@ -70,12 +70,12 @@ public class ColumnReport implements Serializable  {
 		this.measure = measure;
 	}
 
-	public String getTypeOfFinance() {
-		return typeOfFinance;
+	public String getSlicer() {
+		return slicer;
 	}
 
-	public void setTypeOfFinance(String typeOfFinance) {
-		this.typeOfFinance = typeOfFinance;
+	public void setSlicer(String slicer) {
+		this.slicer = slicer;
 	}
 
 	public String getName() {
@@ -112,9 +112,9 @@ public class ColumnReport implements Serializable  {
 
 	public String getColumnCode() {
 		StringBuffer sb = new StringBuffer();
-		String[] types = this.getTypeOfFinance().split(",");
+		String[] types = this.getSlicer().split(",");
 		for(int i = 0; i<types.length; i++){
-			sb.append(this.getName() + "_" + types[i] + "_"	+ this.getMeasure());
+			sb.append(this.getName() + "_" + shortenType(types[i]) + "_"	+ this.getMeasure());
 			if(i !=types.length-1)
 				sb.append(",");
 		}		
@@ -129,5 +129,10 @@ public class ColumnReport implements Serializable  {
 		this.pattern = pattern;
 	}
 	
-
+	private String shortenType(String type) {
+		String[] str = type.split("##");
+		if(str.length==2)
+			return str[1].replace("]", "");
+		return null;
+	}
 }

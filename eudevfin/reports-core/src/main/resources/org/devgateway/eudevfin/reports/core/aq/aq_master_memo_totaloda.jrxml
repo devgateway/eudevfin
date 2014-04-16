@@ -13,7 +13,10 @@ MEMBER [Reporting Year].[Second Year] AS [Reporting Year].[$P{SECOND_YEAR}]
 SELECT
 {[Reporting Year].[First Year], [Reporting Year].[Second Year]} ON ROWS,
 {[Measures].[Extended Amount Currency NATLOECD]} ON COLUMNS
-FROM [Financial]]]>
+FROM [Financial]
+WHERE {[Form Type].[bilateralOda.advanceQuestionnaire], [Form Type].[multilateralOda.advanceQuestionnaire]}
+
+]]>
 	</queryString>
 	<field name="Total Gross ODA Y1" class="java.lang.Number">
 		<fieldDescription><![CDATA[Data([Measures].[Extended Amount Currency NATLOECD], [Reporting Year].[First Year])]]></fieldDescription>
@@ -31,7 +34,7 @@ FROM [Financial]]]>
 				<textElement verticalAlignment="Top">
 					<font fontName="Arial" size="10" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$R{aq.totalGrossODA}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{aq.totalGrossODA}+ new SimpleDateFormat("HH:mm:ss").format(new Date())]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement key="totalGrossODAYear1" x="352" y="0" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>

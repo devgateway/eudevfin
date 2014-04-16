@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -50,17 +51,28 @@ public class RowReport implements Serializable {
 	private Set<ChannelCategory> channelCategories = new HashSet<ChannelCategory>();*/
 
 	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
-
 	private Set<ColumnReport> columns = new HashSet<ColumnReport>();
 
+	@ElementCollection(fetch = FetchType.EAGER)
+	@Column(length = 1000)
+	private Set<String> rowCodes;
+
+	
 	public RowReport(){
 		
 	}
-	public RowReport(String string, int calculated) {
-		this.setName(string);
-		this.setType(calculated);
+	
+	public RowReport(String name, int type) {
+		this.setName(name);
+		this.setType(type);
 	}
-
+	
+	public RowReport(String name, int type, Set<String> rowCodes) {
+		this.setName(name);
+		this.setType(type);
+		this.setRowCodes(rowCodes);
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -112,5 +124,11 @@ public class RowReport implements Serializable {
 			}
 		}
 		return formula.toString();
+	}
+	public Set<String> getRowCodes() {
+		return rowCodes;
+	}
+	public void setRowCodes(Set<String> rowCodes) {
+		this.rowCodes = rowCodes;
 	}
 }

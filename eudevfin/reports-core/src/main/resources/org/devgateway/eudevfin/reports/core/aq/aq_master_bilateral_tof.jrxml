@@ -19,7 +19,8 @@ SELECT
 {[Type of Finance].[Grants], [Type of Finance].[Non Grants], [Type of Finance].[Non Grants Debt Forgiveness]} ON ROWS,
 {[Measures].[First Year Gross], [Measures].[Second Year Gross],[Measures].[First Year Net], [Measures].[Second Year Net]} ON COLUMNS
 FROM [Financial]
-WHERE {[BiMultilateral].[BI_MULTILATERAL##1], [BiMultilateral].[BI_MULTILATERAL##3], [BiMultilateral].[BI_MULTILATERAL##7]}]]>
+WHERE {[BiMultilateral].[BI_MULTILATERAL##1], [BiMultilateral].[BI_MULTILATERAL##3], [BiMultilateral].[BI_MULTILATERAL##7]}*{[Form Type].[bilateralOda.advanceQuestionnaire], [Form Type].[multilateralOda.advanceQuestionnaire] }
+]]>
 	</queryString>
 	<field name="Grant Y1" class="java.lang.Number">
 		<fieldDescription><![CDATA[Data([Measures].[First Year Net], [Type of Finance].[Grants])]]></fieldDescription>

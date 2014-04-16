@@ -21,7 +21,8 @@ SELECT
 } ON ROWS,
 {[Measures].[First Year], [Measures].[Second Year]} ON COLUMNS
 FROM [Financial]
-WHERE {[BiMultilateral].[BI_MULTILATERAL##1], [BiMultilateral].[BI_MULTILATERAL##3], [BiMultilateral].[BI_MULTILATERAL##7]}]]>
+WHERE {[BiMultilateral].[BI_MULTILATERAL##1], [BiMultilateral].[BI_MULTILATERAL##3], [BiMultilateral].[BI_MULTILATERAL##7]}*{[Form Type].[bilateralOda.advanceQuestionnaire], [Form Type].[multilateralOda.advanceQuestionnaire] }
+]]>
 	</queryString>
 	<field name="Humanitarian Aid Y1" class="java.lang.Number">
 		<fieldDescription><![CDATA[Data([Measures].[First Year], [Sector].[Humanitarian Aid])]]></fieldDescription>

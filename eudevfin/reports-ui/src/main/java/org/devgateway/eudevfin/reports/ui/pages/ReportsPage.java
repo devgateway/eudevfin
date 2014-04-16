@@ -228,15 +228,16 @@ public class ReportsPage extends HeaderFooter {
             }
         };
 
-        table.setParam("YEAR", Integer.toString(tableYear));
-        table.setParam("YEAR1", Integer.toString(tableYear - 1));
-        //table.setParam("REPORT_CURRENCY_CODE", countryCurrency + " (million)");
+        table.setParam("paramYEAR", Integer.toString(tableYear));
+        table.setParam("paramYEAR1", Integer.toString(tableYear - 1));
+        table.setParam("paramREPORT_CURRENCY_CODE", "National Currency (" + countryCurrency + " m)");
 
         Label tableYear1 = new Label("tableYear1", tableYear - 1);
         table.getTable().add(tableYear1);
         Label tableYear2 = new Label("tableYear2", tableYear);
         table.getTable().add(tableYear2);
-        Label tableYear3 = new Label("tableYear3", tableYear + " / " + (tableYear - 1));
+        Label tableYear3 = new Label("tableYear3", "Change <br/> " +  tableYear + " / " + (tableYear - 1));
+        tableYear3.setEscapeModelStrings(Boolean.FALSE);
         table.getTable().add(tableYear3);
 
         add(table.getTable());
@@ -257,9 +258,17 @@ public class ReportsPage extends HeaderFooter {
                 List <List<String>> resultSet = this.result.getResultset();
 
                 // format the amounts as #,###.###
-                DecimalFormat df = new DecimalFormat("#,###.###");
+                DecimalFormat df = new DecimalFormat("#,###.##");
                 for(int i = 0; i < resultSet.size(); i++) {
-                    String item = resultSet.get(i).get(1);
+                    // add numbers in front of the countries names
+                    String item = resultSet.get(i).get(0);
+                    if (item != null) {
+                        item = i + 1 + " " + item;
+                        resultSet.get(i).set(0, item);
+                    }
+
+                    // format the amounts
+                    item = resultSet.get(i).get(1);
 
                     if (item != null) {
                         item = df.format(Float.parseFloat(resultSet.get(i).get(1)) / ReportsPage.this.MILLION);
@@ -285,7 +294,7 @@ public class ReportsPage extends HeaderFooter {
             }
         };
 
-        table.setbSort(true);
+        table.setParam("paramYEAR", Integer.toString(tableYear));
 
         add(table.getTable());
         table.addTableRows();
@@ -343,6 +352,8 @@ public class ReportsPage extends HeaderFooter {
             }
         };
 
+        table.setParam("paramYEAR", Integer.toString(tableYear));
+
         add(table.getTable());
         table.addTableRows();
     }
@@ -364,6 +375,8 @@ public class ReportsPage extends HeaderFooter {
                 return resultSeries;
             }
         };
+
+        pieChart.setParam("paramYEAR", Integer.toString(tableYear));
 
         Options options = pieChart.getOptions();
         options.addSeries(new PointSeries()
@@ -389,6 +402,8 @@ public class ReportsPage extends HeaderFooter {
                 return resultSeries;
             }
         };
+
+        pieChart.setParam("paramYEAR", Integer.toString(tableYear));
 
         Options options = pieChart.getOptions();
         // check if we have a result and make the chart slightly higher
@@ -439,6 +454,8 @@ public class ReportsPage extends HeaderFooter {
                 return resultSeries;
             }
         };
+
+        stackedBarChart.setParam("paramYEAR", Integer.toString(tableYear));
 
         // remove the y-axis label ('ODA')
         stackedBarChart.getOptions().getxAxis().get(0).getLabels().setEnabled(Boolean.FALSE);
