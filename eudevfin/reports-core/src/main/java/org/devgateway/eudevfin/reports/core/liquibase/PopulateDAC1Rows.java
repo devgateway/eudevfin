@@ -1,9 +1,6 @@
 package org.devgateway.eudevfin.reports.core.liquibase;
 
-import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
 import liquibase.database.Database;
@@ -64,7 +61,7 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 
 	private RowReport createDAC1KIRow(String name, int type,
 			String typeOfFinance) {
-		RowReport row = new RowReport(name, type);
+		RowReport row = new RowReport("DAC1", name, type);
 
 		Set<String> categories = new HashSet<String>();
 		categories.add("[Type of Aid].Members");
@@ -1375,7 +1372,7 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 			String typeOfFlow, String typeOfAid, String purposeCode,
 			String channel, String col_1121_tof, String col_1122_tof,
 			String col_1130_tof, String col_1151_tof, String col_1152_tof) {
-		RowReport row = new RowReport(name, type);
+		RowReport row = new RowReport("DAC1", name, type);
 
 		Set<String> categories = new HashSet<String>();
 		if (biMulti != null)
@@ -1449,7 +1446,7 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 
 	public RowReport createDAC1SumRow(String name, int type,
 			HashSet<String> rowCodes) {
-		RowReport row = new RowReport(name, type, rowCodes);
+		RowReport row = new RowReport("DAC1", name, type, rowCodes);
 		return row;
 	}
 }

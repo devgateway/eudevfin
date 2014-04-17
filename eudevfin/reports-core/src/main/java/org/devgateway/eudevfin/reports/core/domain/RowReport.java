@@ -42,13 +42,12 @@ public class RowReport implements Serializable {
 	@Index(name="row_name_idx")
 	private String name;
 
+	private String reportName;
+
 	private int type;
 	
 	@ElementCollection(fetch = FetchType.EAGER)
 	private Set<String> categories = new HashSet<String>();
-
-	/*@ManyToMany(fetch = FetchType.EAGER)
-	private Set<ChannelCategory> channelCategories = new HashSet<ChannelCategory>();*/
 
 	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<ColumnReport> columns = new HashSet<ColumnReport>();
@@ -62,12 +61,14 @@ public class RowReport implements Serializable {
 		
 	}
 	
-	public RowReport(String name, int type) {
+	public RowReport(String reportName, String name, int type) {
+		this.setReportName(reportName);
 		this.setName(name);
 		this.setType(type);
 	}
 	
-	public RowReport(String name, int type, Set<String> rowCodes) {
+	public RowReport(String reportName, String name, int type, Set<String> rowCodes) {
+		this.setReportName(reportName);
 		this.setName(name);
 		this.setType(type);
 		this.setRowCodes(rowCodes);
@@ -130,5 +131,13 @@ public class RowReport implements Serializable {
 	}
 	public void setRowCodes(Set<String> rowCodes) {
 		this.rowCodes = rowCodes;
+	}
+
+	public String getReportName() {
+		return reportName;
+	}
+
+	public void setReportName(String reportName) {
+		this.reportName = reportName;
 	}
 }

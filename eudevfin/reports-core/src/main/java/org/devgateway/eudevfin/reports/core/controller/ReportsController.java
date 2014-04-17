@@ -67,7 +67,6 @@ public class ReportsController {
 	private static final String REPORT_TYPE = "reportType";
 	private static final String REPORT_TYPE_AQ = "aq";
 	private static final String REPORT_TYPE_DAC1 = "dac1";
-	private static final String REPORT_TYPE_DAC1_DYNAMIC = "dac1dynamic";
 	private static final String REPORT_TYPE_DAC2a = "dac2a";
 	private static final String OUTPUT_TYPE = "outputType";
 	private static final String OUTPUT_TYPE_PDF = "pdf";
@@ -261,35 +260,46 @@ public class ReportsController {
     private void generateDAC2a (HttpServletRequest request, HttpServletResponse response,
                                Connection connection, String outputType) {
 		try {
-            InputStream inputStream = ReportsController.class.getClassLoader().getResourceAsStream("org/devgateway/eudevfin/reports/core/dac2a/dac2a_master.jrxml");
+			InputStream inputStream = ReportsController.class.getClassLoader().getResourceAsStream("org/devgateway/eudevfin/reports/core/dac2a/dac2a_template.jrxml");
+			
+			String yearParam = request.getParameter(REPORT_YEAR);
+			if (yearParam == null || yearParam.equals("")) {
+	            yearParam = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
+			}
+			int reportYear = Integer.parseInt(yearParam);
+			
+			//Process template (injecting MDX; fields and text elements
+			ReportTemplate reportProcessor = new ReportTemplate();
+			InputStream inputStreamProcessed = reportProcessor.processTemplate(inputStream,	"[Area].Members", rowReportDao, true, "DAC2a");
 
 			Map<String, Object> parameters = new HashMap<String, Object>();
-            parameters.put(JRMondrianQueryExecuterFactory.PARAMETER_MONDRIAN_CONNECTION, connection);
-			String subdirPath = "org/devgateway/eudevfin/reports/core/dac2a";
-			parameters.put("SUBDIR_PATH", subdirPath);
-
+			parameters
+					.put(JRMondrianQueryExecuterFactory.PARAMETER_MONDRIAN_CONNECTION,
+							connection);
 			// set locale
 			Locale locale = LocaleContextHolder.getLocale();
 			parameters.put(JRParameter.REPORT_LOCALE, locale);
 
 			// set resource bundle
-			try {
-                URL[] urls = {
-                        this.getClass().getResource("/org/devgateway/eudevfin/reports/").toURI().toURL()
-                };
-				ClassLoader loader = new URLClassLoader(urls);
-                ResourceBundle resourceBundle = java.util.ResourceBundle.getBundle("i18n", locale, loader);
-                parameters.put(JRParameter.REPORT_RESOURCE_BUNDLE, resourceBundle);
-			} catch (URISyntaxException e) {
-				e.printStackTrace();
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
+            ResourceBundle resourceBundle = java.util.ResourceBundle.getBundle("org/devgateway/eudevfin/reports/i18n", locale);
+			parameters.put(JRParameter.REPORT_RESOURCE_BUNDLE, resourceBundle);
+
+			parameters.put("REPORTING_YEAR", reportYear);
+			// put Reporting Country parameter
+			String donorName = "";
+            Organization organizationForCurrentUser = AuthUtils.getOrganizationForCurrentUser();
+
+			if (organizationForCurrentUser != null) {
+				donorName = organizationForCurrentUser.getDonorName();
 			}
+			parameters.put("REPORTING_COUNTRY", donorName);
 
-			JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
-            JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+			JasperDesign jasperDesign = JRXmlLoader.load(inputStreamProcessed);
+			JasperReport jasperReport = JasperCompileManager
+					.compileReport(jasperDesign);
 
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters);
+			JasperPrint jasperPrint = JasperFillManager.fillReport(
+					jasperReport, parameters);
 
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			ReportExporter reportExporter = new ReportExporter();
@@ -366,7 +376,7 @@ public class ReportsController {
 			
 			//Process template (injecting MDX; fields and text elements
 			ReportTemplate reportProcessor = new ReportTemplate();
-			InputStream inputStreamProcessed = reportProcessor.processTemplate(inputStream,	"[Type of Finance].[Code].Members", rowReportDao);
+			InputStream inputStreamProcessed = reportProcessor.processTemplate(inputStream,	"[Type of Finance].[Code].Members", rowReportDao, false, "DAC1");
 
 			Map<String, Object> parameters = new HashMap<String, Object>();
 			parameters

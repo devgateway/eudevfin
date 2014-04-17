@@ -39,18 +39,19 @@ import org.w3c.dom.NodeList;
 public class ReportTemplate {
 
 	public InputStream processTemplate(InputStream inputStream,
-			String slicer, RowReportDao rowReportDao) {
+			String slicer, RowReportDao rowReportDao, boolean swapAxis, String reportName) {
+
 		InputStream injectedStream = null;
 		try {
 			DocumentBuilder dBuilder = DocumentBuilderFactory.newInstance()
 					.newDocumentBuilder();
 			Document doc = dBuilder.parse(inputStream);
 
-			List<RowReport> rows = retrieveRows(rowReportDao);
+			List<RowReport> rows = retrieveRows(rowReportDao, reportName);
 
 			generateMDX(rows, doc, slicer);
 			generateFields(rows, doc);
-			generateTextElements(rows, doc);
+			generateTextElements(rows, doc, swapAxis);
 
 			injectedStream = xmlToStream(doc);
 			prettyPrint(doc);
@@ -63,9 +64,9 @@ public class ReportTemplate {
 		return injectedStream;
 	}
 
-	private List<RowReport> retrieveRows(RowReportDao rowReportDao) {
+	private List<RowReport> retrieveRows(RowReportDao rowReportDao, String reportName) {
 		ArrayList<RowReport> rows = new ArrayList<RowReport>();
-		for (Iterator<RowReport> it = rowReportDao.findAll().iterator(); it
+		for (Iterator<RowReport> it = rowReportDao.findByReportName(reportName).iterator(); it
 				.hasNext();) {
 			RowReport row = it.next();
 			rows.add(row);
@@ -73,7 +74,7 @@ public class ReportTemplate {
 		return rows;
 	}
 
-	private void generateTextElements(List<RowReport> rows, Document doc) {
+	private void generateTextElements(List<RowReport> rows, Document doc, boolean swapAxis) {
 
 		HashMap<String, Node> matchingRows = new HashMap<String, Node>();
 		HashMap<String, Node> matchingColumns = new HashMap<String, Node>();
@@ -100,7 +101,7 @@ public class ReportTemplate {
 
 			
 			if(row.getType() == Constants.CALCULATED){
-				appendReportRows(matchingRows, matchingColumns, row, doc);
+				appendReportRows(matchingRows, matchingColumns, row, doc, swapAxis);
 			}
 			else
 			{
@@ -171,10 +172,19 @@ public class ReportTemplate {
 		}
 	}
 
-	private void appendReportRows(HashMap<String, Node> matchingRows, HashMap<String, Node> matchingColumns, RowReport row, Document doc) {
+	private void appendReportRows(HashMap<String, Node> matchingRows, HashMap<String, Node> matchingColumns, RowReport row, Document doc, boolean swapAxis) {
 		Node rowNode = matchingRows.get("r_" + row.getName());
 		if(rowNode == null) return;
-		Integer yCoordRow = rowNode.getAttributes().getNamedItem("y") != null ? Integer.parseInt(rowNode.getAttributes().getNamedItem("y").getNodeValue())+1 : 0;
+		Integer yCoord, xCoord;
+		xCoord = yCoord= 0;
+		if(swapAxis){
+			 xCoord = rowNode.getAttributes().getNamedItem("x") != null ? Integer.parseInt(rowNode.getAttributes().getNamedItem("x").getNodeValue())+1 : 0;
+		}
+		else
+		{
+			 yCoord = rowNode.getAttributes().getNamedItem("y") != null ? Integer.parseInt(rowNode.getAttributes().getNamedItem("y").getNodeValue())+1 : 0;
+		}
+		//Integer yCoord = rowNode.getAttributes().getNamedItem("y") != null ? Integer.parseInt(rowNode.getAttributes().getNamedItem("y").getNodeValue())+1 : 0;
 		Set<ColumnReport> columns = row.getColumns();
 		for (ColumnReport column : columns) {
 			UUID uuid = UUID.randomUUID();
@@ -182,12 +192,22 @@ public class ReportTemplate {
 			textField.setAttribute("pattern", column.getPattern() != null ? column.getPattern(): "#,##0.00");
 
 			Node columnNode = matchingColumns.get("c_" + column.getName());
-			Integer xCoordColumn = columnNode.getAttributes().getNamedItem("x") != null ? Integer.parseInt(columnNode.getAttributes().getNamedItem("x").getNodeValue()) : 0;
+			if (columnNode == null) continue;
+			Node parentNode;
+			if(swapAxis){
+				parentNode = columnNode.getParentNode().getParentNode();
+				yCoord = columnNode.getAttributes().getNamedItem("y") != null ? Integer.parseInt(columnNode.getAttributes().getNamedItem("y").getNodeValue()) : 0;
+			}
+			else
+			{
+				parentNode = rowNode.getParentNode().getParentNode();
+				xCoord = columnNode.getAttributes().getNamedItem("x") != null ? Integer.parseInt(columnNode.getAttributes().getNamedItem("x").getNodeValue()) : 0;
+			}
 
 			Element reportElement = doc.createElement("reportElement");
 			reportElement.setAttribute("key", "r_" + row.getName() + "_c_" + column.getName());
-			reportElement.setAttribute("x", xCoordColumn.toString());
-			reportElement.setAttribute("y", yCoordRow.toString());
+			reportElement.setAttribute("x", xCoord.toString());
+			reportElement.setAttribute("y", yCoord.toString());
 			reportElement.setAttribute("width", "55");
 			reportElement.setAttribute("height", "15");
 			reportElement.setAttribute("uuid", uuid.toString());
@@ -252,7 +272,7 @@ public class ReportTemplate {
 			textField.appendChild(reportElement);
 			textField.appendChild(textElement);
 			textField.appendChild(textFieldExpression);
-			rowNode.getParentNode().getParentNode().appendChild(textField);
+			parentNode.appendChild(textField);
 		}
 		
 	}
@@ -302,7 +322,7 @@ public class ReportTemplate {
 	}
 
 	private void generateMDX(List<RowReport> rows, Document doc, String slicer) {
-		if(slicer == null || !slicer.equals("")) slicer = "[Type of Finance].[Code].Members";
+		if(slicer == null || slicer.equals("")) slicer = "[Type of Finance].[Code].Members";
 		StringBuffer str = new StringBuffer();
 		List<RowReport> calculatedRows = new ArrayList<RowReport>();
 		for (RowReport row : rows) {
@@ -360,7 +380,7 @@ public class ReportTemplate {
 		tf.setOutputProperty(OutputKeys.INDENT, "yes");
 		Writer out = new StringWriter();
 		tf.transform(new DOMSource(xml), new StreamResult(out));
-//		System.out.println(out.toString());
+		System.out.println(out.toString());
 	}
 
 

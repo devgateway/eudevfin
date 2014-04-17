@@ -5,11 +5,16 @@
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-
-	<changeSet id="1" author="fferreyra" failOnError="false"
+	<changeSet id="8" author="fferreyra" failOnError="false"
 		runAlways="false" runInTransaction="false">
 		<customChange
 			class="org.devgateway.eudevfin.reports.core.liquibase.PopulateDAC1Rows">
+		</customChange>
+	</changeSet>
+	<changeSet id="9" author="fferreyra" failOnError="false"
+		runAlways="false" runInTransaction="false">
+		<customChange
+			class="org.devgateway.eudevfin.reports.core.liquibase.PopulateDAC2aRows">
 		</customChange>
 	</changeSet>
 
