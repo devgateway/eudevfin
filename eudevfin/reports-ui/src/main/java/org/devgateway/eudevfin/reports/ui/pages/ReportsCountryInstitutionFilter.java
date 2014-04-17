@@ -1,6 +1,5 @@
 package org.devgateway.eudevfin.reports.ui.pages;
 
-import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
@@ -13,19 +12,17 @@ import org.wicketstuff.annotation.mount.MountPath;
 
 /**
  * @author idobre
- * @since 4/3/14
+ * @since 4/16/14
  */
-
 @AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
-@MountPath(value = "/reportscountrysectorfilter")
-public class ReportsCountrySectorFilter extends CustomReportsPage {
-    private static final Logger logger = Logger.getLogger(ReportsCountrySectorFilter.class);
+@MountPath(value = "/reportscountryinstitutionfilter")
+public class ReportsCountryInstitutionFilter extends CustomReportsPage {
 
-    public ReportsCountrySectorFilter () {
-        Label title = new Label("title", new StringResourceModel("reportsCountrySector", this, null, null));
+    public ReportsCountryInstitutionFilter () {
+        Label title = new Label("title", new StringResourceModel("reportsCountryInstitution", this, null, null));
         add(title);
 
-        nationalInstitution.setVisibilityAllowed(Boolean.FALSE);
+        sector.setVisibilityAllowed(Boolean.FALSE);
         multilateralAgency.setVisibilityAllowed(Boolean.FALSE);
         typeOfFlowBiMulti.setVisibilityAllowed(Boolean.FALSE);
         typeOfAid.setVisibilityAllowed(Boolean.FALSE);
@@ -34,6 +31,7 @@ public class ReportsCountrySectorFilter extends CustomReportsPage {
         startingYear.setVisibilityAllowed(Boolean.FALSE);
         completitionYear.setVisibilityAllowed(Boolean.FALSE);
         humanitarianAid.setVisibilityAllowed(Boolean.FALSE);
+        CPAOnly.setVisibilityAllowed(Boolean.FALSE);
         showRelatedBudgetCodes.setVisibilityAllowed(Boolean.FALSE);
     }
 
@@ -49,28 +47,9 @@ public class ReportsCountrySectorFilter extends CustomReportsPage {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 CustomReportsModel customReportsModel = (CustomReportsModel)form.getModelObject();
+
                 PageParameters pageParameters = new PageParameters();
-
-                if (customReportsModel.getGeography() != null) {
-                    pageParameters.add(ReportsConstants.GEOGRAPHY_PARAM, customReportsModel.getGeography().getName());
-                }
-                if (customReportsModel.getRecipient() != null) {
-                    pageParameters.add(ReportsConstants.RECIPIENT_PARAM, customReportsModel.getRecipient().getName());
-                }
-                if (customReportsModel.getSector() != null) {
-                    pageParameters.add(ReportsConstants.SECTOR_PARAM, customReportsModel.getSector().getName());
-                }
-                if (customReportsModel.getYear() != null) {
-                    pageParameters.add(ReportsConstants.YEAR_PARAM, customReportsModel.getYear());
-                }
-                if (customReportsModel.getCoFinancingTransactionsOnly() != null) {
-                    pageParameters.add(ReportsConstants.COFINANCING_PARAM, customReportsModel.getCoFinancingTransactionsOnly());
-                }
-                if (customReportsModel.getCPAOnly() != null) {
-                    pageParameters.add(ReportsConstants.CPAONLY_PARAM, customReportsModel.getCPAOnly());
-                }
-
-                setResponsePage(ReportsCountrySectorDashboards.class, pageParameters);
+                setResponsePage(ReportsCountryInstitutionDashboards.class, pageParameters);
             }
         });
     }

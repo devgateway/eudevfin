@@ -1,14 +1,9 @@
 package org.devgateway.eudevfin.reports.ui.pages;
 
 import com.googlecode.wickedcharts.highcharts.options.DataLabels;
-import com.googlecode.wickedcharts.highcharts.options.HorizontalAlignment;
-import com.googlecode.wickedcharts.highcharts.options.Legend;
-import com.googlecode.wickedcharts.highcharts.options.LegendLayout;
 import com.googlecode.wickedcharts.highcharts.options.PlotOptions;
 import com.googlecode.wickedcharts.highcharts.options.PlotOptionsChoice;
 import com.googlecode.wickedcharts.highcharts.options.Tooltip;
-import com.googlecode.wickedcharts.highcharts.options.VerticalAlignment;
-import com.googlecode.wickedcharts.highcharts.options.color.HexColor;
 import com.googlecode.wickedcharts.highcharts.options.series.SimpleSeries;
 import org.apache.log4j.Logger;
 import org.apache.wicket.AttributeModifier;
@@ -32,7 +27,6 @@ import org.wicketstuff.annotation.mount.MountPath;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -40,40 +34,68 @@ import java.util.List;
  * @author idobre
  * @since 3/27/14
  */
-@MountPath(value = "/dashboardscountrysector")
+@MountPath(value = "/reportscountrysectordashboards")
 @AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
-public class CustomDashboardsCountrySector extends HeaderFooter {
-    private static final Logger logger = Logger.getLogger(CustomDashboardsCountrySector.class);
+public class ReportsCountrySectorDashboards extends HeaderFooter {
+    private static final Logger logger = Logger.getLogger(ReportsCountrySectorDashboards.class);
 
     private int tableYear;
 
     private static final String isCountry = "Country";
     private static final String isGeography = "Geography";
 
+    private String geographyParam = "";
+    private String recipientParam = "";
+    private String sectorParam = "";
+    private String yearParam = "";
+    private String coFinancingParam = "";
+    private String CPAOnlyParam = "";
+
     @SpringBean
     QueryService CdaService;
 
-    public CustomDashboardsCountrySector(final PageParameters parameters) {
+    public ReportsCountrySectorDashboards(final PageParameters parameters) {
         tableYear = Calendar.getInstance().get(Calendar.YEAR) - 1;
 
-        String result = "";
-
-        if(parameters.get("msg") != null){
-            result = parameters.get("msg").toString();
+        if(parameters.get(ReportsConstants.GEOGRAPHY_PARAM) != null) {
+            geographyParam = parameters.get(ReportsConstants.GEOGRAPHY_PARAM).toString();
+        }
+        if(parameters.get(ReportsConstants.RECIPIENT_PARAM) != null) {
+            recipientParam = parameters.get(ReportsConstants.RECIPIENT_PARAM).toString();
+        }
+        if(parameters.get(ReportsConstants.SECTOR_PARAM) != null) {
+            sectorParam = parameters.get(ReportsConstants.SECTOR_PARAM).toString();
+        }
+        if(parameters.get(ReportsConstants.YEAR_PARAM) != null) {
+            yearParam = parameters.get(ReportsConstants.YEAR_PARAM).toString();
+        }
+        if(parameters.get(ReportsConstants.COFINANCING_PARAM) != null) {
+            coFinancingParam = parameters.get(ReportsConstants.COFINANCING_PARAM).toString();
+        }
+        if(parameters.get(ReportsConstants.CPAONLY_PARAM) != null) {
+            CPAOnlyParam = parameters.get(ReportsConstants.CPAONLY_PARAM).toString();
         }
 
-        logger.info("result: " + result);
+        logger.info("geographyParam: " + geographyParam);
+        logger.info("recipientParam: " + recipientParam);
+        logger.info("sectorParam: " + sectorParam);
+        logger.info("yearParam: " + yearParam);
+        logger.info("coFinancingParam: " + coFinancingParam);
+        logger.info("CPAOnlyParam: " + CPAOnlyParam);
 
         addComponents();
     }
 
     private void addComponents() {
+        Label title = new Label("title", new StringResourceModel("reportscountrysectordashboards.title", this, null, null));
+        add(title);
+
         addCountryTable();
         addCountryChart();
     }
 
     private void addCountryTable () {
-        Label title = new Label("countryTableTitle", new StringResourceModel("customdashboards.countryTable", this, null, null));
+        Label title = new Label("countryTableTitle", new StringResourceModel("reportscountrysectordashboards.countryTable", this, null, null));
         add(title);
 
         Table table = new Table(CdaService, "countryTable", "countryTableRows", "customDashboardsCountryTable") {
@@ -86,12 +108,17 @@ public class CustomDashboardsCountrySector extends HeaderFooter {
                 List <List<String>> resultSet = this.result.getResultset();
 
                 if(resultSet.size() != 0) {
-                    // check if we have data for the 'second year'
+                    // check if we have data for the 'first year' or 'second year'
                     // and add null values
                     if (resultSet.get(0).size() == 4) {
                         for (int i = 0; i < resultSet.size(); i++) {
-                            resultSet.get(i).add(1, null);
-                            resultSet.get(i).add(2, null);
+                            if (this.result.getMetadata().get(1).getColName().equals("First Year")) {
+                                resultSet.get(i).add(3, null);
+                                resultSet.get(i).add(4, null);
+                            } else {
+                                resultSet.get(i).add(1, null);
+                                resultSet.get(i).add(2, null);
+                            }
                         }
                     }
 
@@ -105,7 +132,7 @@ public class CustomDashboardsCountrySector extends HeaderFooter {
                         }
 
                         if (resultSet.get(i).size() > 2 && resultSet.get(i).get(2) != null) {
-                            String item = df.format(Float.parseFloat(resultSet.get(i).get(2)) * 100); // percentages (first year)
+                            String item = df.format(Float.parseFloat(resultSet.get(i).get(2)) * 100) + '%'; // percentages (first year)
                             resultSet.get(i).set(2, item);
                         }
 
@@ -115,7 +142,7 @@ public class CustomDashboardsCountrySector extends HeaderFooter {
                         }
 
                         if (resultSet.get(i).size() > 4 && resultSet.get(i).get(4) != null) {
-                            String item = df.format(Float.parseFloat(resultSet.get(i).get(4)) * 100); // percentages (second year)
+                            String item = df.format(Float.parseFloat(resultSet.get(i).get(4)) * 100) + '%'; // percentages (second year)
                             resultSet.get(i).set(4, item);
                         }
                     }
@@ -178,7 +205,7 @@ public class CustomDashboardsCountrySector extends HeaderFooter {
     }
 
     private void addCountryChart () {
-        Label title = new Label("countryChartTitle", new StringResourceModel("customdashboards.countryChart", this, null, null));
+        Label title = new Label("countryChartTitle", new StringResourceModel("reportscountrysectordashboards.countryChart", this, null, null));
         add(title);
 
         StackedBarChart stackedBarChart = new StackedBarChart(CdaService, "countryChart", "customDashboardsCountryChart") {
@@ -220,7 +247,7 @@ public class CustomDashboardsCountrySector extends HeaderFooter {
                 setBar(new PlotOptions().
                         setDataLabels(new DataLabels().
                                 setEnabled(Boolean.TRUE))));
-        stackedBarChart.getOptions().setTooltip(new Tooltip().setValueSuffix(" millions"));
+        stackedBarChart.getOptions().setTooltip(new Tooltip().setValueSuffix(" millions").setPercentageDecimals(2));
 
         stackedBarChart.getOptions().addSeries(new SimpleSeries()
                 .setName("Year " + (tableYear - 1))

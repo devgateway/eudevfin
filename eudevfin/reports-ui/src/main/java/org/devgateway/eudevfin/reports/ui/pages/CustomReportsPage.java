@@ -3,12 +3,10 @@ package org.devgateway.eudevfin.reports.ui.pages;
 import com.vaynberg.wicket.select2.ChoiceProvider;
 import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
 import org.apache.log4j.Logger;
-import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.StringResourceModel;
-import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.time.Duration;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
@@ -18,17 +16,16 @@ import org.devgateway.eudevfin.metadata.common.domain.Category;
 import org.devgateway.eudevfin.metadata.common.domain.ChannelCategory;
 import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
-import org.devgateway.eudevfin.ui.common.components.BootstrapCancelButton;
-import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
 import org.devgateway.eudevfin.ui.common.components.CheckBoxField;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.devgateway.eudevfin.ui.common.providers.CategoryProviderFactory;
+import org.devgateway.eudevfin.ui.common.providers.PredefinedStringProvider;
 import org.devgateway.eudevfin.ui.common.providers.UsedAreaChoiceProvider;
 import org.devgateway.eudevfin.ui.common.providers.UsedOrganizationChoiceProvider;
 import org.devgateway.eudevfin.ui.common.providers.YearProvider;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,7 +34,7 @@ import java.util.List;
  */
 
 @AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
-public class CustomReportsPage extends HeaderFooter {
+public abstract class CustomReportsPage extends HeaderFooter {
     private static final Logger logger = Logger.getLogger(CustomReportsPage.class);
 
     @SpringBean
@@ -53,6 +50,8 @@ public class CustomReportsPage extends HeaderFooter {
     private CustomFinancialTransactionService txService;
 
     protected final NotificationPanel feedbackPanel;
+
+    protected final Form form;
 
     protected CheckBoxField humanitarianAid;
 
@@ -70,6 +69,10 @@ public class CustomReportsPage extends HeaderFooter {
 
     protected DropDownField<Category> sector;
 
+    protected DropDownField<String> typeOfExpenditure;
+
+    protected DropDownField<String> valueOfActivity;
+
     protected DropDownField<Integer> year;
 
     protected DropDownField<Integer> startingYear;
@@ -80,12 +83,14 @@ public class CustomReportsPage extends HeaderFooter {
 
     protected CheckBoxField CPAOnly;
 
-    public CustomReportsPage () {
-        final Form form = new Form("form");
+    protected CheckBoxField showRelatedBudgetCodes;
 
-        CustomReportsForm customReportsForm = new CustomReportsForm();
-        CompoundPropertyModel<CustomReportsForm> model = new CompoundPropertyModel<>(customReportsForm);
-        setModel(model);
+    public CustomReportsPage () {
+        form = new Form("form");
+
+        CustomReportsModel customReportsModel = new CustomReportsModel();
+        CompoundPropertyModel<CustomReportsModel> model = new CompoundPropertyModel<>(customReportsModel);
+        form.setModel(model);
 
         geography = new DropDownField<>("geography",
                 new RWComponentPropertyModel<Category>("geography"), categoryFactory.getUsedGeographyProvider());
@@ -108,6 +113,14 @@ public class CustomReportsPage extends HeaderFooter {
         sector = new DropDownField<>("sector", new RWComponentPropertyModel<Category>("sector"),
                 categoryFactory.getUsedSectorProvider());
 
+        // there are only 2 predefined options for this field
+        // and we take them with StringResourceModel
+        List<String> typeOfExpenditureOptions = new ArrayList<>();
+        typeOfExpenditureOptions.add(new StringResourceModel("commitment", this, null, null).getObject());
+        typeOfExpenditureOptions.add(new StringResourceModel("disbursement", this, null, null).getObject());
+        typeOfExpenditure = new DropDownField<>("typeOfExpenditure", new RWComponentPropertyModel<String>("typeOfExpenditure"),
+                new PredefinedStringProvider(typeOfExpenditureOptions));
+
         year = new DropDownField<>("year", new RWComponentPropertyModel<Integer>("year"),
                 new YearProvider(txService.findDistinctReportingYears()));
 
@@ -117,16 +130,20 @@ public class CustomReportsPage extends HeaderFooter {
         completitionYear = new DropDownField<>("completitionYear", new RWComponentPropertyModel<Integer>("completitionYear"),
                 new YearProvider(txService.findDistinctCompletitionYears()));
 
+        List<String> valueOfActivityOptions = new ArrayList<>();
+        valueOfActivityOptions.add(new StringResourceModel("lowerThanAmount", this, null, null).getObject());
+        valueOfActivityOptions.add(new StringResourceModel("moreThanAmount", this, null, null).getObject());
+        valueOfActivity = new DropDownField<>("valueOfActivity", new RWComponentPropertyModel<String>("valueOfActivity"),
+                new PredefinedStringProvider(valueOfActivityOptions));
+
         // TODO fields
-        // co-financing
         // humanitarian - which is a sector
-        // type of expenditure - only 2 options (Commitment/Disbursement)
-        // value of activity - predefined values
         // show related budget codes?
 
         CoFinancingTransactionsOnly = new CheckBoxField("cofinancingtransactionsonly", new RWComponentPropertyModel<Boolean>("coFinancingTransactionsOnly"));
         CPAOnly = new CheckBoxField("cpaonly", new RWComponentPropertyModel<Boolean>("CPAOnly"));
         humanitarianAid = new CheckBoxField("humanitarianAid", new RWComponentPropertyModel<Boolean>("humanitarianAid"));
+        showRelatedBudgetCodes = new CheckBoxField("showRelatedBudgetCodes", new RWComponentPropertyModel<Boolean>("showRelatedBudgetCodes"));
 
         form.add(geography);
         form.add(recipient);
@@ -136,44 +153,16 @@ public class CustomReportsPage extends HeaderFooter {
         form.add(typeOfAid);
         form.add(sector);
         form.add(year);
+        form.add(typeOfExpenditure);
         form.add(startingYear);
         form.add(completitionYear);
+        form.add(valueOfActivity);
         form.add(CoFinancingTransactionsOnly);
         form.add(CPAOnly);
         form.add(humanitarianAid);
+        form.add(showRelatedBudgetCodes);
 
-        form.add(new BootstrapSubmitButton("submit", new StringResourceModel("button.submit", this, null, null)) {
-            @Override
-            protected void onError(AjaxRequestTarget target, Form<?> form) {
-                super.onError(target, form);
-                target.add(feedbackPanel);
-            }
-
-            @Override
-            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                logger.info("Submitted ok!");
-                logger.info("====================================");
-
-                CustomReportsForm customReportsForm = (CustomReportsForm)CustomReportsPage.this.getModelObject();
-//                logger.info(customReportsForm.getRecipient().getName());
-//                logger.info(customReportsForm.getSector().getName());
-//                logger.info(customReportsForm.getYear());
-//                logger.info(customReportsForm.getCoFinancingTransactionsOnly());
-//                logger.info(customReportsForm.getCPAOnly());
-
-                PageParameters pageParameters = new PageParameters();
-                pageParameters.add("msg", "this is parameter value");
-                setResponsePage(CustomDashboardsCountrySector.class, pageParameters);
-            }
-        });
-
-        form.add(new BootstrapCancelButton("reset", new StringResourceModel("button.reset", this, null, null)) {
-            @Override
-            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                logger.info("Reset pressed");
-                setResponsePage(CustomReportsPage.class);
-            }
-        });
+        addSubmitButton();
 
         add(form);
 
@@ -183,4 +172,6 @@ public class CustomReportsPage extends HeaderFooter {
         feedbackPanel.hideAfter(Duration.seconds(3));
         add(feedbackPanel);
     }
+
+    protected abstract void addSubmitButton ();
 }

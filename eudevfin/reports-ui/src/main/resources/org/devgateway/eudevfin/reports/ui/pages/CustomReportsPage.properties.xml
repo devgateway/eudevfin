@@ -9,6 +9,15 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
+    <entry key="reportsCountrySector">Search by country &amp; sector</entry>
+    <entry key="reportsCountryInstitution">Search by country &amp; institution</entry>
+    <entry key="reportsInstitutionTypeOfFlowFilter">Search by institution &amp; type of flow (bi/multi)</entry>
+    <entry key="reportsInstitutionTypeOfAidFilter">Search by institution &amp; type of aid</entry>
+    <entry key="reportsImplementationStatus">Search by implementation status</entry>
+    <entry key="commitment">Commitment</entry>
+    <entry key="disbursement">Disbursement</entry>
+    <entry key="lowerThanAmount">&lt; 0.5 million USD</entry>
+    <entry key="moreThanAmount">&gt; 0.5 million USD</entry>
     <entry key="geography.label">Geopraphy</entry>
     <entry key="recipient.label">Recipient Country</entry>
     <entry key="nationalInstitution.label">National Institution</entry>
@@ -17,11 +26,14 @@
     <entry key="typeOfAid.label">Type of Aid</entry>
     <entry key="sector.label">Sector</entry>
     <entry key="year.label">Year</entry>
+    <entry key="typeOfExpenditure.label">Type of expenditure</entry>
+    <entry key="valueOfActivity.label">Value of activity</entry>
     <entry key="startingYear.label">Starting Year</entry>
     <entry key="completitionYear.label">Completion Year</entry>
     <entry key="cofinancingtransactionsonly.label">Co-financing transactions only</entry>
     <entry key="cpaonly.label">Country Programmable Aid (CPA) only</entry>
     <entry key="humanitarianAid.label">Humanitarian Aid</entry>
+    <entry key="showRelatedBudgetCodes.label">Show related budget codes</entry>
     <entry key="button.submit">Search</entry>
     <entry key="button.reset">Reset</entry>
 </properties>
