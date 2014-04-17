@@ -44,19 +44,44 @@ public class ReportsCountrySectorDashboards extends HeaderFooter {
     private static final String isCountry = "Country";
     private static final String isGeography = "Geography";
 
+    private String geographyParam = "";
+    private String recipientParam = "";
+    private String sectorParam = "";
+    private String yearParam = "";
+    private String coFinancingParam = "";
+    private String CPAOnlyParam = "";
+
     @SpringBean
     QueryService CdaService;
 
     public ReportsCountrySectorDashboards(final PageParameters parameters) {
         tableYear = Calendar.getInstance().get(Calendar.YEAR) - 1;
 
-        String result = "";
-
-        if(parameters.get("msg") != null){
-            result = parameters.get("msg").toString();
+        if(parameters.get(ReportsConstants.GEOGRAPHY_PARAM) != null) {
+            geographyParam = parameters.get(ReportsConstants.GEOGRAPHY_PARAM).toString();
+        }
+        if(parameters.get(ReportsConstants.RECIPIENT_PARAM) != null) {
+            recipientParam = parameters.get(ReportsConstants.RECIPIENT_PARAM).toString();
+        }
+        if(parameters.get(ReportsConstants.SECTOR_PARAM) != null) {
+            sectorParam = parameters.get(ReportsConstants.SECTOR_PARAM).toString();
+        }
+        if(parameters.get(ReportsConstants.YEAR_PARAM) != null) {
+            yearParam = parameters.get(ReportsConstants.YEAR_PARAM).toString();
+        }
+        if(parameters.get(ReportsConstants.COFINANCING_PARAM) != null) {
+            coFinancingParam = parameters.get(ReportsConstants.COFINANCING_PARAM).toString();
+        }
+        if(parameters.get(ReportsConstants.CPAONLY_PARAM) != null) {
+            CPAOnlyParam = parameters.get(ReportsConstants.CPAONLY_PARAM).toString();
         }
 
-        logger.info("result: " + result);
+        logger.info("geographyParam: " + geographyParam);
+        logger.info("recipientParam: " + recipientParam);
+        logger.info("sectorParam: " + sectorParam);
+        logger.info("yearParam: " + yearParam);
+        logger.info("coFinancingParam: " + coFinancingParam);
+        logger.info("CPAOnlyParam: " + CPAOnlyParam);
 
         addComponents();
     }
@@ -83,12 +108,17 @@ public class ReportsCountrySectorDashboards extends HeaderFooter {
                 List <List<String>> resultSet = this.result.getResultset();
 
                 if(resultSet.size() != 0) {
-                    // check if we have data for the 'second year'
+                    // check if we have data for the 'first year' or 'second year'
                     // and add null values
                     if (resultSet.get(0).size() == 4) {
                         for (int i = 0; i < resultSet.size(); i++) {
-                            resultSet.get(i).add(1, null);
-                            resultSet.get(i).add(2, null);
+                            if (this.result.getMetadata().get(1).getColName().equals("First Year")) {
+                                resultSet.get(i).add(3, null);
+                                resultSet.get(i).add(4, null);
+                            } else {
+                                resultSet.get(i).add(1, null);
+                                resultSet.get(i).add(2, null);
+                            }
                         }
                     }
 
@@ -102,7 +132,7 @@ public class ReportsCountrySectorDashboards extends HeaderFooter {
                         }
 
                         if (resultSet.get(i).size() > 2 && resultSet.get(i).get(2) != null) {
-                            String item = df.format(Float.parseFloat(resultSet.get(i).get(2)) * 100); // percentages (first year)
+                            String item = df.format(Float.parseFloat(resultSet.get(i).get(2)) * 100) + '%'; // percentages (first year)
                             resultSet.get(i).set(2, item);
                         }
 
@@ -112,7 +142,7 @@ public class ReportsCountrySectorDashboards extends HeaderFooter {
                         }
 
                         if (resultSet.get(i).size() > 4 && resultSet.get(i).get(4) != null) {
-                            String item = df.format(Float.parseFloat(resultSet.get(i).get(4)) * 100); // percentages (second year)
+                            String item = df.format(Float.parseFloat(resultSet.get(i).get(4)) * 100) + '%'; // percentages (second year)
                             resultSet.get(i).set(4, item);
                         }
                     }
@@ -217,7 +247,7 @@ public class ReportsCountrySectorDashboards extends HeaderFooter {
                 setBar(new PlotOptions().
                         setDataLabels(new DataLabels().
                                 setEnabled(Boolean.TRUE))));
-        stackedBarChart.getOptions().setTooltip(new Tooltip().setValueSuffix(" millions"));
+        stackedBarChart.getOptions().setTooltip(new Tooltip().setValueSuffix(" millions").setPercentageDecimals(2));
 
         stackedBarChart.getOptions().addSeries(new SimpleSeries()
                 .setName("Year " + (tableYear - 1))

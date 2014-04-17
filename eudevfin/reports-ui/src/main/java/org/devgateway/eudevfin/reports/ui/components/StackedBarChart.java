@@ -94,6 +94,7 @@ public class StackedBarChart extends RunMdxQuery {
         options.setPlotOptions(new PlotOptionsChoice()
                 .setSeries(new PlotOptions()
                         .setStacking(Stacking.NORMAL)
+                        .setMinPointLength(5)
                         .setCursor(Cursor.POINTER)));
     }
 

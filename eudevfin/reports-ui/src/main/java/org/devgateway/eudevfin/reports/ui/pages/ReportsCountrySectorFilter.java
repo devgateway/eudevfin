@@ -49,10 +49,27 @@ public class ReportsCountrySectorFilter extends CustomReportsPage {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 CustomReportsModel customReportsModel = (CustomReportsModel)form.getModelObject();
-//                logger.info(customReportsModel.getRecipient().getName());
-
                 PageParameters pageParameters = new PageParameters();
-                pageParameters.add("msg", "this is parameter value");
+
+                if (customReportsModel.getGeography() != null) {
+                    pageParameters.add(ReportsConstants.GEOGRAPHY_PARAM, customReportsModel.getGeography().getName());
+                }
+                if (customReportsModel.getRecipient() != null) {
+                    pageParameters.add(ReportsConstants.RECIPIENT_PARAM, customReportsModel.getRecipient().getName());
+                }
+                if (customReportsModel.getSector() != null) {
+                    pageParameters.add(ReportsConstants.SECTOR_PARAM, customReportsModel.getSector().getName());
+                }
+                if (customReportsModel.getYear() != null) {
+                    pageParameters.add(ReportsConstants.YEAR_PARAM, customReportsModel.getYear());
+                }
+                if (customReportsModel.getCoFinancingTransactionsOnly() != null) {
+                    pageParameters.add(ReportsConstants.COFINANCING_PARAM, customReportsModel.getCoFinancingTransactionsOnly());
+                }
+                if (customReportsModel.getCPAOnly() != null) {
+                    pageParameters.add(ReportsConstants.CPAONLY_PARAM, customReportsModel.getCPAOnly());
+                }
+
                 setResponsePage(ReportsCountrySectorDashboards.class, pageParameters);
             }
         });
