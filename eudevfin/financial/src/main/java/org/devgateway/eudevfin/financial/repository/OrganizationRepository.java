@@ -6,15 +6,15 @@ package org.devgateway.eudevfin.financial.repository;
 import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
  * @author Alex
  *
  */
 public interface OrganizationRepository extends
-		PagingAndSortingRepository<Organization, Long> {
+		JpaRepository<Organization, Long> {
 	
 	
 	@Query(" select distinct(trn.parent) from OrganizationTranslation trn where trn.locale=?1 AND lower(trn.name) like %?2% ")

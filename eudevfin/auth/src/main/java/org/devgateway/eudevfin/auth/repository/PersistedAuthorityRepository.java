@@ -4,7 +4,7 @@
 package org.devgateway.eudevfin.auth.repository;
 
 import org.devgateway.eudevfin.auth.common.domain.PersistedAuthority;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,5 +13,5 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public interface PersistedAuthorityRepository extends
-		PagingAndSortingRepository<PersistedAuthority, String> {	
+		JpaRepository<PersistedAuthority, String> {	
 }

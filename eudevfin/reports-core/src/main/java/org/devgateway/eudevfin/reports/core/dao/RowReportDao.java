@@ -2,9 +2,7 @@ package org.devgateway.eudevfin.reports.core.dao;
 
 import java.util.List;
 
-import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.common.dao.AbstractDaoImpl;
-import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 import org.devgateway.eudevfin.reports.core.domain.RowReport;
 import org.devgateway.eudevfin.reports.core.repository.RowReportRepository;
 import org.springframework.beans.factory.annotation.Autowired;

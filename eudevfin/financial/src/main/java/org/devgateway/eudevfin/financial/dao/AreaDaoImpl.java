@@ -3,11 +3,12 @@
  */
 package org.devgateway.eudevfin.financial.dao;
 
+import java.util.List;
+
 import org.devgateway.eudevfin.common.dao.AbstractDaoImpl;
 import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 import org.devgateway.eudevfin.financial.repository.AreaRepository;
 import org.devgateway.eudevfin.metadata.common.domain.Area;
-import org.devgateway.eudevfin.metadata.common.domain.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
@@ -16,8 +17,6 @@ import org.springframework.integration.annotation.Header;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 /**
  * @author Alex

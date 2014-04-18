@@ -85,6 +85,9 @@ public class EditHistoricalExchangeRatePage extends HeaderFooter {
 		if (!parameters.get(PARAM_ID).isNull()) {
 			rateId = parameters.get(PARAM_ID).toLong();
 			historicalExchangeRate = historicalExchangeRateService.findOne(rateId).getEntity();
+			ExchangeRate rate = historicalExchangeRate.getRate();
+			if(rate!=null) 
+				historicalExchangeRate.setRate(ExchangeRate.of(rate.getBase(), rate.getCounter(), rate.getRate()));
 		} else {
 			historicalExchangeRate = new HistoricalExchangeRate().rate(ExchangeRate.of(CurrencyUnit.USD,
 					CurrencyUnit.USD, BigDecimal.ONE.setScale(8, RoundingMode.CEILING)));

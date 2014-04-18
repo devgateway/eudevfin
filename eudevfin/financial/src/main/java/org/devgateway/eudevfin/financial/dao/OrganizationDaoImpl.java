@@ -11,6 +11,8 @@
  */
 package org.devgateway.eudevfin.financial.dao;
 
+import java.util.List;
+
 import org.devgateway.eudevfin.common.dao.AbstractDaoImpl;
 import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 import org.devgateway.eudevfin.financial.repository.OrganizationRepository;
@@ -24,8 +26,6 @@ import org.springframework.integration.annotation.Header;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 /**
  * 

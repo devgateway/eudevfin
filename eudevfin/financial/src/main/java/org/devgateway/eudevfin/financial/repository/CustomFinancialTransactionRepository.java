@@ -11,15 +11,15 @@ import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
 import org.joda.time.LocalDateTime;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
  * @author Alex
  *
  */
 public interface CustomFinancialTransactionRepository extends
-		PagingAndSortingRepository<CustomFinancialTransaction, Long> {
+		JpaRepository<CustomFinancialTransaction, Long> {
 	
 	Page<CustomFinancialTransaction> findByDraft(Boolean draft, Pageable pageable );
 	

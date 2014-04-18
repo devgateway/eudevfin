@@ -12,13 +12,13 @@ import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * @author Alex
  *
  */
-public abstract class AbstractDaoImpl<Entity,IDType extends Serializable,Repo extends PagingAndSortingRepository<Entity,IDType>> {
+public abstract class AbstractDaoImpl<Entity,IDType extends Serializable,Repo extends JpaRepository<Entity,IDType>> {
 	
 	protected abstract Repo getRepo(); 
 	
