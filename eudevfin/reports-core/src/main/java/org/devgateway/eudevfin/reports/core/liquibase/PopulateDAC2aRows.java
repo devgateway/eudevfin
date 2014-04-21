@@ -141,6 +141,13 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 
 	private void insertFirstSection(List<Area> listAreas) {
 
+		
+		RowReport row_210 = createDAC2aRowEmpty("210", "DAC2aArea", listAreas);
+		rowReportDao.save(row_210);
+
+		RowReport row_211 = createDAC2aRowEmpty("211", "DAC2aArea", listAreas);
+		rowReportDao.save(row_211);
+
 		RowReport row_201 = createDAC2aRowArea("201", Constants.CALCULATED,
 				"{[BiMultilateral].[BI_MULTILATERAL##1],[BiMultilateral].[BI_MULTILATERAL##3]}",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
@@ -345,17 +352,297 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 
 		Set<ColumnReport> columns = new HashSet<ColumnReport>();		
 		Iterator<Area> it = listAreas.iterator();
+
+		Map<String, String> columnsByCode = new HashMap<String, String>();
 		
 		while(it.hasNext()){
 			Area currentArea = it.next();
-			ColumnReport col1 = new ColumnReport(currentArea.getCode(), Constants.CALCULATED,
-					measure, "[Area].[" + currentArea.getCode() + "]");
+			ColumnReport col1 = new ColumnReport(currentArea.getCode(), Constants.CALCULATED, measure, "[Area].[" + currentArea.getCode() + "]");
+			columnsByCode.put(currentArea.getCode(), col1.getColumnCode());
 			columns.add(col1);
 		}
+
+		HashSet<String> sumColsEuropa = new HashSet<String>();
+		sumColsEuropa.add(columnsByCode.get("71"));
+		sumColsEuropa.add(columnsByCode.get("86"));
+		sumColsEuropa.add(columnsByCode.get("64"));
+		sumColsEuropa.add(columnsByCode.get("66"));
+		sumColsEuropa.add(columnsByCode.get("57"));
+		sumColsEuropa.add(columnsByCode.get("93"));
+		sumColsEuropa.add(columnsByCode.get("65"));
+		sumColsEuropa.add(columnsByCode.get("63"));
+		sumColsEuropa.add(columnsByCode.get("55"));
+		sumColsEuropa.add(columnsByCode.get("85"));
+		sumColsEuropa.add(columnsByCode.get("88"));
+		sumColsEuropa.add(columnsByCode.get("89"));
+		ColumnReport colEuropa = new ColumnReport("europe_total", Constants.SUM, sumColsEuropa);
+		columns.add(colEuropa);
+
+		HashSet<String> sumColsNorthOfSahara = new HashSet<String>();
+		sumColsNorthOfSahara.add(columnsByCode.get("130"));
+		sumColsNorthOfSahara.add(columnsByCode.get("142"));
+		sumColsNorthOfSahara.add(columnsByCode.get("133"));
+		sumColsNorthOfSahara.add(columnsByCode.get("136"));
+		sumColsNorthOfSahara.add(columnsByCode.get("139"));
+		sumColsNorthOfSahara.add(columnsByCode.get("189"));
+		ColumnReport colNorthOfSahara= new ColumnReport("north_of_sahara", Constants.SUM, sumColsNorthOfSahara);
+		columns.add(colNorthOfSahara);
+
+		HashSet<String> sumColsSouthOfSahara = new HashSet<String>();
+		sumColsSouthOfSahara.add(columnsByCode.get("225"));
+		sumColsSouthOfSahara.add(columnsByCode.get("236"));
+		sumColsSouthOfSahara.add(columnsByCode.get("227"));
+		sumColsSouthOfSahara.add(columnsByCode.get("287"));
+		sumColsSouthOfSahara.add(columnsByCode.get("228"));
+		sumColsSouthOfSahara.add(columnsByCode.get("229"));
+		sumColsSouthOfSahara.add(columnsByCode.get("230"));
+		sumColsSouthOfSahara.add(columnsByCode.get("231"));
+		sumColsSouthOfSahara.add(columnsByCode.get("232"));
+		sumColsSouthOfSahara.add(columnsByCode.get("233"));
+		sumColsSouthOfSahara.add(columnsByCode.get("235"));
+		sumColsSouthOfSahara.add(columnsByCode.get("234"));
+		sumColsSouthOfSahara.add(columnsByCode.get("247"));
+		sumColsSouthOfSahara.add(columnsByCode.get("274"));
+		sumColsSouthOfSahara.add(columnsByCode.get("245"));
+		sumColsSouthOfSahara.add(columnsByCode.get("271"));
+		sumColsSouthOfSahara.add(columnsByCode.get("238"));
+		sumColsSouthOfSahara.add(columnsByCode.get("239"));
+		sumColsSouthOfSahara.add(columnsByCode.get("240"));
+		sumColsSouthOfSahara.add(columnsByCode.get("241"));
+		sumColsSouthOfSahara.add(columnsByCode.get("243"));
+		sumColsSouthOfSahara.add(columnsByCode.get("244"));
+		sumColsSouthOfSahara.add(columnsByCode.get("248"));
+		sumColsSouthOfSahara.add(columnsByCode.get("249"));
+		sumColsSouthOfSahara.add(columnsByCode.get("251"));
+		sumColsSouthOfSahara.add(columnsByCode.get("252"));
+		sumColsSouthOfSahara.add(columnsByCode.get("253"));
+		sumColsSouthOfSahara.add(columnsByCode.get("255"));
+		sumColsSouthOfSahara.add(columnsByCode.get("256"));
+		sumColsSouthOfSahara.add(columnsByCode.get("257"));
+		sumColsSouthOfSahara.add(columnsByCode.get("259"));
+		sumColsSouthOfSahara.add(columnsByCode.get("275"));
+		sumColsSouthOfSahara.add(columnsByCode.get("260"));
+		sumColsSouthOfSahara.add(columnsByCode.get("261"));
+		sumColsSouthOfSahara.add(columnsByCode.get("266"));
+		sumColsSouthOfSahara.add(columnsByCode.get("276"));
+		sumColsSouthOfSahara.add(columnsByCode.get("268"));
+		sumColsSouthOfSahara.add(columnsByCode.get("269"));
+		sumColsSouthOfSahara.add(columnsByCode.get("270"));
+		sumColsSouthOfSahara.add(columnsByCode.get("272"));
+		sumColsSouthOfSahara.add(columnsByCode.get("273"));
+		sumColsSouthOfSahara.add(columnsByCode.get("218"));
+		sumColsSouthOfSahara.add(columnsByCode.get("279"));
+		sumColsSouthOfSahara.add(columnsByCode.get("278"));
+		sumColsSouthOfSahara.add(columnsByCode.get("280"));
+		sumColsSouthOfSahara.add(columnsByCode.get("282"));
+		sumColsSouthOfSahara.add(columnsByCode.get("283"));
+		sumColsSouthOfSahara.add(columnsByCode.get("285"));
+		sumColsSouthOfSahara.add(columnsByCode.get("288"));
+		sumColsSouthOfSahara.add(columnsByCode.get("265"));
+		sumColsSouthOfSahara.add(columnsByCode.get("289"));
+		ColumnReport colSouthOfSahara= new ColumnReport("south_of_sahara", Constants.SUM, sumColsSouthOfSahara);
+		columns.add(colSouthOfSahara);
+
+
+		HashSet<String> sumColsNorthCentralTotal = new HashSet<String>();
+		sumColsNorthCentralTotal.add(columnsByCode.get("376"));
+		sumColsNorthCentralTotal.add(columnsByCode.get("377"));
+		sumColsNorthCentralTotal.add(columnsByCode.get("352"));
+		sumColsNorthCentralTotal.add(columnsByCode.get("336"));
+		sumColsNorthCentralTotal.add(columnsByCode.get("338"));
+		sumColsNorthCentralTotal.add(columnsByCode.get("378"));
+		sumColsNorthCentralTotal.add(columnsByCode.get("340"));
+		sumColsNorthCentralTotal.add(columnsByCode.get("342"));
+		sumColsNorthCentralTotal.add(columnsByCode.get("381"));
+		sumColsNorthCentralTotal.add(columnsByCode.get("347"));
+		sumColsNorthCentralTotal.add(columnsByCode.get("349"));
+		sumColsNorthCentralTotal.add(columnsByCode.get("351"));
+		sumColsNorthCentralTotal.add(columnsByCode.get("354"));
+		sumColsNorthCentralTotal.add(columnsByCode.get("358"));
+		sumColsNorthCentralTotal.add(columnsByCode.get("385"));
+		sumColsNorthCentralTotal.add(columnsByCode.get("364"));
+		sumColsNorthCentralTotal.add(columnsByCode.get("366"));
+		sumColsNorthCentralTotal.add(columnsByCode.get("382"));
+		sumColsNorthCentralTotal.add(columnsByCode.get("383"));
+		sumColsNorthCentralTotal.add(columnsByCode.get("384"));
+		sumColsNorthCentralTotal.add(columnsByCode.get("380"));
+		sumColsNorthCentralTotal.add(columnsByCode.get("389"));
+		ColumnReport colNorthCentralTotal= new ColumnReport("north_central_total", Constants.SUM, sumColsNorthCentralTotal);
+		columns.add(colNorthCentralTotal);
+
+		HashSet<String> sumColsSouthTotal = new HashSet<String>();
+		sumColsSouthTotal.add(columnsByCode.get("425"));
+		sumColsSouthTotal.add(columnsByCode.get("428"));
+		sumColsSouthTotal.add(columnsByCode.get("431"));
+		sumColsSouthTotal.add(columnsByCode.get("434"));
+		sumColsSouthTotal.add(columnsByCode.get("437"));
+		sumColsSouthTotal.add(columnsByCode.get("440"));
+		sumColsSouthTotal.add(columnsByCode.get("446"));
+		sumColsSouthTotal.add(columnsByCode.get("451"));
+		sumColsSouthTotal.add(columnsByCode.get("454"));
+		sumColsSouthTotal.add(columnsByCode.get("457"));
+		sumColsSouthTotal.add(columnsByCode.get("460"));
+		sumColsSouthTotal.add(columnsByCode.get("463"));
+		sumColsSouthTotal.add(columnsByCode.get("489"));
+		ColumnReport colSouthTotal = new ColumnReport("south_total", Constants.SUM, sumColsSouthTotal);
+		columns.add(colSouthTotal);
+
+
+		HashSet<String> sumColsMiddleEast = new HashSet<String>();
+		sumColsMiddleEast.add(columnsByCode.get("540"));
+		sumColsMiddleEast.add(columnsByCode.get("543"));
+		sumColsMiddleEast.add(columnsByCode.get("549"));
+		sumColsMiddleEast.add(columnsByCode.get("555"));
+		sumColsMiddleEast.add(columnsByCode.get("573"));
+		sumColsMiddleEast.add(columnsByCode.get("550"));
+		sumColsMiddleEast.add(columnsByCode.get("580"));
+		sumColsMiddleEast.add(columnsByCode.get("589"));
+		ColumnReport colMiddleEast= new ColumnReport("middle_east_total", Constants.SUM, sumColsMiddleEast);
+		columns.add(colMiddleEast);
+
+		HashSet<String> sumColsSouthCentralAsia = new HashSet<String>();
+		sumColsSouthCentralAsia.add(columnsByCode.get("625"));
+		sumColsSouthCentralAsia.add(columnsByCode.get("610"));
+		sumColsSouthCentralAsia.add(columnsByCode.get("611"));
+		sumColsSouthCentralAsia.add(columnsByCode.get("666"));
+		sumColsSouthCentralAsia.add(columnsByCode.get("630"));
+		sumColsSouthCentralAsia.add(columnsByCode.get("612"));
+		sumColsSouthCentralAsia.add(columnsByCode.get("645"));
+		sumColsSouthCentralAsia.add(columnsByCode.get("613"));
+		sumColsSouthCentralAsia.add(columnsByCode.get("614"));
+		sumColsSouthCentralAsia.add(columnsByCode.get("655"));
+		sumColsSouthCentralAsia.add(columnsByCode.get("635"));
+		sumColsSouthCentralAsia.add(columnsByCode.get("660"));
+		sumColsSouthCentralAsia.add(columnsByCode.get("665"));
+		sumColsSouthCentralAsia.add(columnsByCode.get("640"));
+		sumColsSouthCentralAsia.add(columnsByCode.get("615"));
+		sumColsSouthCentralAsia.add(columnsByCode.get("616"));
+		sumColsSouthCentralAsia.add(columnsByCode.get("617"));
+		sumColsSouthCentralAsia.add(columnsByCode.get("619"));
+		sumColsSouthCentralAsia.add(columnsByCode.get("679"));
+		sumColsSouthCentralAsia.add(columnsByCode.get("689"));
+		ColumnReport colSouthCentralAsia= new ColumnReport("south_central_asia_total", Constants.SUM, sumColsSouthCentralAsia);
+		columns.add(colSouthCentralAsia);
+
+		HashSet<String> sumColsFarEast = new HashSet<String>();
+		sumColsFarEast.add(columnsByCode.get("728"));
+		sumColsFarEast.add(columnsByCode.get("730"));
+		sumColsFarEast.add(columnsByCode.get("738"));
+		sumColsFarEast.add(columnsByCode.get("740"));
+		sumColsFarEast.add(columnsByCode.get("745"));
+		sumColsFarEast.add(columnsByCode.get("751"));
+		sumColsFarEast.add(columnsByCode.get("753"));
+		sumColsFarEast.add(columnsByCode.get("755"));
+		sumColsFarEast.add(columnsByCode.get("764"));
+		sumColsFarEast.add(columnsByCode.get("765"));
+		sumColsFarEast.add(columnsByCode.get("769"));
+		sumColsFarEast.add(columnsByCode.get("789"));
+		ColumnReport colFarEast = new ColumnReport("far_east_total", Constants.SUM, sumColsFarEast);
+		columns.add(colFarEast);
+
+		HashSet<String> sumColsOceaniaTotal = new HashSet<String>();
+		sumColsOceaniaTotal.add(columnsByCode.get("831"));
+		sumColsOceaniaTotal.add(columnsByCode.get("832"));
+		sumColsOceaniaTotal.add(columnsByCode.get("836"));
+		sumColsOceaniaTotal.add(columnsByCode.get("859"));
+		sumColsOceaniaTotal.add(columnsByCode.get("860"));
+		sumColsOceaniaTotal.add(columnsByCode.get("845"));
+		sumColsOceaniaTotal.add(columnsByCode.get("856"));
+		sumColsOceaniaTotal.add(columnsByCode.get("861"));
+		sumColsOceaniaTotal.add(columnsByCode.get("862"));
+		sumColsOceaniaTotal.add(columnsByCode.get("880"));
+		sumColsOceaniaTotal.add(columnsByCode.get("866"));
+		sumColsOceaniaTotal.add(columnsByCode.get("868"));
+		sumColsOceaniaTotal.add(columnsByCode.get("870"));
+		sumColsOceaniaTotal.add(columnsByCode.get("872"));
+		sumColsOceaniaTotal.add(columnsByCode.get("854"));
+		sumColsOceaniaTotal.add(columnsByCode.get("876"));
+		sumColsOceaniaTotal.add(columnsByCode.get("889"));
+		ColumnReport colOceaniaTotal= new ColumnReport("oceania_total", Constants.SUM, sumColsOceaniaTotal);
+		columns.add(colOceaniaTotal);
+
+		HashSet<String> sumColsAfricaTotal = new HashSet<String>();
+		sumColsAfricaTotal.add(columnsByCode.get("north_of_sahara"));
+		sumColsAfricaTotal.add(columnsByCode.get("south_of_sahara"));
+		sumColsAfricaTotal.add(columnsByCode.get("298"));
+		ColumnReport colAfricaTotal= new ColumnReport("africa_total", Constants.SUM, sumColsAfricaTotal);
+		columns.add(colAfricaTotal);
+
+		HashSet<String> sumColsAmericaTotal = new HashSet<String>();
+		sumColsAmericaTotal.add(columnsByCode.get("north_central_total"));
+		sumColsAmericaTotal.add(columnsByCode.get("south_total"));
+		sumColsAmericaTotal.add(columnsByCode.get("498"));
+		ColumnReport colAmericaTotal= new ColumnReport("america_total", Constants.SUM, sumColsAmericaTotal);
+		columns.add(colAmericaTotal);
+
+		HashSet<String> sumColsAsiaTotal = new HashSet<String>();
+		sumColsAsiaTotal.add(columnsByCode.get("middle_east_total"));
+		sumColsAsiaTotal.add(columnsByCode.get("south_central_asia_total"));
+		sumColsAsiaTotal.add(columnsByCode.get("far_east_total"));
+		sumColsAsiaTotal.add(columnsByCode.get("798"));
+		ColumnReport colAsiaTotal= new ColumnReport("asia_total", Constants.SUM, sumColsAsiaTotal);
+		columns.add(colAsiaTotal);
+
 		row.setColumns(columns);
+		
 		return row;
 
 	}
+	
+	public RowReport createDAC2aRowEmpty(String name, String reportName, List<Area> listAreas) {
+		RowReport row = new RowReport(reportName, name, Constants.EMPTY);
+
+		Set<ColumnReport> columns = new HashSet<ColumnReport>();		
+		Iterator<Area> it = listAreas.iterator();
+
+		while(it.hasNext()){
+			Area currentArea = it.next();
+			ColumnReport col1 = new ColumnReport(currentArea.getCode(), Constants.EMPTY, null, null);
+			columns.add(col1);
+		}
+
+		ColumnReport colEuropa = new ColumnReport("europe_total", Constants.EMPTY, null);
+		columns.add(colEuropa);
+
+		ColumnReport colNorthOfSahara= new ColumnReport("north_of_sahara", Constants.EMPTY, null);
+		columns.add(colNorthOfSahara);
+
+		ColumnReport colSouthOfSahara= new ColumnReport("south_of_sahara", Constants.EMPTY, null);
+		columns.add(colSouthOfSahara);
+
+		ColumnReport colNorthCentralTotal= new ColumnReport("north_central_total", Constants.EMPTY, null);
+		columns.add(colNorthCentralTotal);
+
+		ColumnReport colSouthTotal = new ColumnReport("south_total", Constants.EMPTY, null);
+		columns.add(colSouthTotal);
+
+		ColumnReport colMiddleEast= new ColumnReport("middle_east_total", Constants.EMPTY, null);
+		columns.add(colMiddleEast);
+
+		ColumnReport colSouthCentralAsia= new ColumnReport("south_central_asia_total", Constants.EMPTY, null);
+		columns.add(colSouthCentralAsia);
+
+		ColumnReport colFarEast = new ColumnReport("far_east_total", Constants.EMPTY, null);
+		columns.add(colFarEast);
+
+		ColumnReport colOceaniaTotal= new ColumnReport("oceania_total", Constants.EMPTY, null);
+		columns.add(colOceaniaTotal);
+
+		ColumnReport colAfricaTotal= new ColumnReport("africa_total", Constants.EMPTY, null);
+		columns.add(colAfricaTotal);
+
+		ColumnReport colAmericaTotal= new ColumnReport("america_total", Constants.EMPTY, null);
+		columns.add(colAmericaTotal);
+
+		ColumnReport colAsiaTotal= new ColumnReport("asia_total", Constants.EMPTY, null);
+		columns.add(colAsiaTotal);
+
+		row.setColumns(columns);
+		
+		return row;
+
+	}
+
 	public RowReport createDAC2aSumRow(String name, String reportName, int type,
 			HashSet<String> rowCodes) {
 		RowReport row = new RowReport(reportName, name, type, rowCodes);
@@ -400,7 +687,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 		sumCols992.add(columnsByCode.get("975"));
 		ColumnReport col992 = new ColumnReport("992", Constants.SUM, sumCols992);
 		columns.add(col992);
-		
+
 		row.setColumns(columns);
 		return row;
 

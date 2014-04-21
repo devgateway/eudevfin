@@ -2,15 +2,9 @@ package org.devgateway.eudevfin.reports.core.controller;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
@@ -42,8 +36,6 @@ import org.apache.log4j.Logger;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.util.AuthUtils;
 import org.devgateway.eudevfin.common.locale.LocaleHelper;
-import org.devgateway.eudevfin.financial.dao.CategoryDaoImpl;
-import org.devgateway.eudevfin.financial.dao.ChannelCategoryDao;
 import org.devgateway.eudevfin.financial.util.FinancialTransactionUtil;
 import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.devgateway.eudevfin.reports.core.dao.RowReportDao;
@@ -255,7 +247,7 @@ public class ReportsController {
 	}
 
 	/**
-	 * Create the DAC 2 report2
+	 * Create the DAC2a report
 	 * 
 	 * @param request
 	 * @param response
@@ -265,46 +257,48 @@ public class ReportsController {
     private void generateDAC2a (HttpServletRequest request, HttpServletResponse response, Connection connection, String outputType) {
 		try {
 			
-			String inputStreamArea = getReportFilePath("org/devgateway/eudevfin/reports/core/dac2a/dac2a_template_area", "[Area].[Code].Members", "DAC2aArea");
-			String inputStreamChannel = getReportFilePath("org/devgateway/eudevfin/reports/core/dac2a/dac2a_template_channel", "[Channel].Members ", "DAC2aChannel");
-			
-			InputStream inputStream = ReportsController.class.getClassLoader().getResourceAsStream("org/devgateway/eudevfin/reports/core/dac2a/dac2a_template.jrxml");
-			
+			Map<String, Object> parameters = new HashMap<String, Object>();
+
+			// Assign Connection
+			parameters.put(JRMondrianQueryExecuterFactory.PARAMETER_MONDRIAN_CONNECTION, connection);
+
+			// Assign Reporting Year
 			String yearParam = request.getParameter(REPORT_YEAR);
 			if (yearParam == null || yearParam.equals("")) {
 	            yearParam = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
 			}
 			int reportYear = Integer.parseInt(yearParam);
-			
-			Map<String, Object> parameters = new HashMap<String, Object>();
+			parameters.put("REPORTING_YEAR", reportYear);
 
-			parameters.put(JRMondrianQueryExecuterFactory.PARAMETER_MONDRIAN_CONNECTION, connection);
-
-			// set locale
+			// Assign Locale
 			Locale locale = LocaleContextHolder.getLocale();
 			parameters.put(JRParameter.REPORT_LOCALE, locale);
 
-			// set resource bundle
+			// Assign Resource Bundle
             ResourceBundle resourceBundle = java.util.ResourceBundle.getBundle("org/devgateway/eudevfin/reports/i18n", locale);
 			parameters.put(JRParameter.REPORT_RESOURCE_BUNDLE, resourceBundle);
 
-			parameters.put("REPORTING_YEAR", reportYear);
-			// put Reporting Country parameter
+			// Assign Reporting Country
 			String donorName = "";
             Organization organizationForCurrentUser = AuthUtils.getOrganizationForCurrentUser();
-
 			if (organizationForCurrentUser != null) {
 				donorName = organizationForCurrentUser.getDonorName();
 			}
 			parameters.put("REPORTING_COUNTRY", donorName);
+
+			// Generate and Assign Sub Reports
+			String inputStreamArea = generateSubReport("DAC2aArea", "org/devgateway/eudevfin/reports/core/dac2a/dac2a_template_area", "[Area].[Code].Members");
+			String inputStreamChannel = generateSubReport("DAC2aChannel", "org/devgateway/eudevfin/reports/core/dac2a/dac2a_template_channel", "[Channel].Members");
 			parameters.put("AREA_SUBREPORT_PATH", inputStreamArea);
 			parameters.put("CHANNEL_SUBREPORT_PATH", inputStreamChannel);
 
+			//Process the main report with the subreports
+			InputStream inputStream = ReportsController.class.getClassLoader().getResourceAsStream("org/devgateway/eudevfin/reports/core/dac2a/dac2a_template.jrxml");
 			JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
 			JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters);
 
+			//Write it to the output
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			ReportExporter reportExporter = new ReportExporter();
 			String fileName = "";
@@ -344,42 +338,6 @@ public class ReportsController {
 			this.writeReportToResponseStream(response, baos);
 		} catch (JRException e) {
 			e.printStackTrace();
-		}
-	}
-
-	private String getReportFilePath(String path, String slicer, String reportName) {
-		InputStream inputStream = ReportsController.class.getClassLoader().getResourceAsStream(path + ".jrxml");
-		ReportTemplate reportProcessor = new ReportTemplate();
-		InputStream inputStreamProcessed = reportProcessor.processTemplate(inputStream,	slicer, rowReportDao, true, reportName);
-        File tempFile;
-		try {
-			tempFile = File.createTempFile(reportName,"_processed.jrxml");
-	        tempFile.deleteOnExit();
-	        
-	        try (FileOutputStream out = new FileOutputStream(tempFile)) {
-	            IOUtils.copy(inputStreamProcessed, out);
-	        }
-	        return tempFile.getAbsolutePath();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	/**
-	 * Writes the report to the output stream
-	 */
-    private void writeReportToResponseStream(HttpServletResponse response, ByteArrayOutputStream baos) {
-		logger.debug("Writing report to the stream");
-		try {
-			// retrieve the output stream
-			ServletOutputStream outputStream = response.getOutputStream();
-			// write and flush to the output stream
-			baos.writeTo(outputStream);
-			outputStream.flush();
-		} catch (Exception e) {
-			logger.error("Unable to write report to the output stream");
 		}
 	}
 
@@ -474,6 +432,50 @@ public class ReportsController {
 			this.writeReportToResponseStream(response, baos);
 		} catch (JRException e) {
 			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Generates a named Subreport passing it through the template processor to insert elements that make a report
+	 * 
+	 * @param reportName
+	 * @param path
+     * @param slicer
+     * @returns path to the generated jrxml file to be passed on path to the subreport
+	 */
+	private String generateSubReport(String reportName, String path, String slicer) {
+		InputStream inputStream = ReportsController.class.getClassLoader().getResourceAsStream(path + ".jrxml");
+		ReportTemplate reportProcessor = new ReportTemplate();
+		InputStream inputStreamProcessed = reportProcessor.processTemplate(inputStream,	slicer, rowReportDao, true, reportName);
+        File tempFile;
+		try {
+			tempFile = File.createTempFile(reportName,"_processed.jrxml");
+	        tempFile.deleteOnExit();
+	        
+	        try (FileOutputStream out = new FileOutputStream(tempFile)) {
+	            IOUtils.copy(inputStreamProcessed, out);
+	        }
+	        return tempFile.getAbsolutePath();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	/**
+	 * Writes the report to the output stream
+	 */
+    private void writeReportToResponseStream(HttpServletResponse response, ByteArrayOutputStream baos) {
+		logger.debug("Writing report to the stream");
+		try {
+			// retrieve the output stream
+			ServletOutputStream outputStream = response.getOutputStream();
+			// write and flush to the output stream
+			baos.writeTo(outputStream);
+			outputStream.flush();
+		} catch (Exception e) {
+			logger.error("Unable to write report to the output stream");
 		}
 	}
 
