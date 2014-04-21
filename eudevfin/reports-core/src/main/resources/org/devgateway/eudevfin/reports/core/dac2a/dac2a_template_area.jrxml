@@ -1,0 +1,2642 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dac2a_template_area" pageWidth="1350" pageHeight="612" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="1350" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="i18n" uuid="bad8772b-9ff8-49ae-a2c0-34a59258237b">
+	<property name="ireport.zoom" value="0.75"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="REPORTING_COUNTRY" class="java.lang.String"/>
+	<parameter name="REPORTING_YEAR" class="java.lang.Number"/>
+	<queryString language="mdx">
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="211" splitType="Stretch">
+			<staticText>
+				<reportElement x="515" y="0" width="55" height="10" uuid="deed4785-e794-46ee-909c-77456a2d54bc"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[210]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="r_201" x="235" y="0" width="55" height="10" uuid="e3a4569b-8152-4065-9f63-8b8c1b7cd1f7"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[201]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="r_212" x="291" y="0" width="55" height="10" uuid="24965aa1-4c85-4223-921d-d75ac4789054"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[212]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="r_221" x="347" y="0" width="55" height="10" uuid="450ec37c-9ba9-4f92-b194-f115992368be"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[221]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="403" y="0" width="55" height="10" uuid="10eddb73-0261-4ff8-ad29-474ba6fd7a80"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[208]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="r_219" x="459" y="0" width="55" height="10" uuid="851c3e64-a89a-46d6-acea-774e87f7338b"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[219]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="571" y="0" width="55" height="10" uuid="00fb7038-f67c-44d1-8c75-531d99675414"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[211]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="r_215" x="795" y="0" width="55" height="10" uuid="346961cc-b486-4799-9ebc-5e155542efa6"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[215]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="r_205" x="740" y="0" width="55" height="10" uuid="f9df41b1-a597-4f16-ab20-b7c386a8c9e0"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[205]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="r_204" x="630" y="0" width="55" height="10" uuid="9247204f-9a99-49e5-ac7f-cacf6e77cc8b"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[204]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="r_218" x="850" y="0" width="55" height="10" uuid="652a67d4-0295-4f70-84f2-aec34e9cc6c7"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[218]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="r_214" x="685" y="0" width="55" height="10" uuid="85500b07-9173-47e1-9e32-0a66bd5f7f35"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[214]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="r_217" x="905" y="0" width="55" height="10" uuid="73be88dd-6397-48cb-abd2-fbe075cfac52"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[217]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="r_206" x="963" y="0" width="84" height="10" uuid="83fe679a-4564-4e8e-a8a6-b59dbdd24643"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[206]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="r_207" x="1049" y="0" width="59" height="10" uuid="a09dae70-8bf5-4b73-9fc6-553efdc31309"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[207]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="r_209" x="1226" y="0" width="59" height="10" uuid="eec6223f-ec4f-47d9-bfe7-cf1c21f0e059"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[209]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="r_213" x="1108" y="0" width="59" height="10" uuid="4780236b-6f94-42b9-a8b5-2cedafcc1660"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[213]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="r_216" x="1167" y="0" width="59" height="10" uuid="c7fdaf65-74f8-46cc-ad67-998efa072152"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[216]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="203" height="20" uuid="0074b881-1c09-4ec5-902f-2396bb4c8541"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[I. EUROPE, TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_71" x="203" y="0" width="31" height="20" uuid="7d3ee122-4325-4d8f-ab7b-deaf02ccbe65"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="20" width="193" height="15" uuid="ae2cdca7-5caf-4a04-be0c-0be2d16ff398"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[ALBANIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_71" x="203" y="20" width="31" height="15" uuid="59cf0e3b-9070-48e9-a8f6-a9b50fbdd389"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[071]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="35" width="193" height="15" uuid="d4258a8c-4123-4f26-98e7-5979e7b95d47"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[BELARUS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_86" x="203" y="35" width="31" height="15" uuid="bdb959f6-24c9-43f5-b36c-d52cd63138b1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[086]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="50" width="193" height="15" uuid="b7cb74ed-03dd-4d59-a561-b656295e8239"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[BOSNIA-HERZEGOVINA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_64" x="203" y="50" width="31" height="15" uuid="ec84f8a0-ca44-4833-8a47-d1f0e4eeb259"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[064]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="65" width="193" height="15" uuid="3e968b85-ba11-49f5-8c75-bcbbb723f3a3"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[FORMER YUGOSLAV REP. OF MACEDONIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_66" x="203" y="65" width="31" height="15" uuid="e758bda8-5a96-4533-8668-115a663c1226"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[066]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="80" width="193" height="15" uuid="0d6d3b3c-327d-42e2-b197-d0f0c28cf013"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[KOSOVO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_57" x="203" y="80" width="31" height="15" uuid="b3530575-4776-46fa-be12-7f89a8ae497e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[057]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="95" width="193" height="15" uuid="deafa125-ec34-4404-8747-53cd8c519ec8"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[MOLDOVA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_93" x="203" y="95" width="31" height="15" uuid="d2a13769-fc3d-48d4-a1ca-3802d6d7f0e6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[093]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="110" width="193" height="15" uuid="a9fbf33f-f1e2-44ff-80c5-1f0c0aa46f5f"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[MONTENEGRO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_65" x="203" y="110" width="31" height="15" uuid="7f913ef1-75fe-4728-b9f5-3a6ce9b8455f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[065]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="125" width="193" height="15" uuid="7275dc13-24fa-4f72-a5b5-e14344164964"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[SERBIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_63" x="203" y="125" width="31" height="15" uuid="6d0fd5de-a1c9-473c-9ecf-031a3478997f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[063]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="140" width="193" height="15" uuid="122ec97a-04df-4f0c-a590-cc52642a5848"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[TURKEY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_55" x="203" y="140" width="31" height="15" uuid="baaffd18-9f4a-4fc9-97c2-3d653d6d9afc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[055]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="155" width="193" height="15" uuid="fad28252-9520-4ebb-872d-205fc154afeb"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[UKRAINE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_85" x="203" y="155" width="31" height="15" uuid="a91255c6-3d1a-49b1-b5af-f231668922a9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[085]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="170" width="193" height="15" uuid="da005ff2-c8d1-42a8-834e-63f3bade38b9"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[STATES OF EX-YUGOSLAVIA UNSPECIF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_88" x="203" y="170" width="31" height="15" uuid="6adcb9da-d1e5-44ea-a15e-7cb666ebe76f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[088]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="185" width="193" height="15" uuid="5134c4c1-6161-48d0-b6ac-f70065493e29"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[EUROPE, REGIONAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_89" x="203" y="185" width="31" height="15" uuid="901d3777-b679-49fa-b1d2-e4cba9fec408"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[089]]></text>
+			</staticText>
+		</band>
+		<band height="136" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="203" height="20" uuid="0074b881-1c09-4ec5-902f-2396bb4c8541"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[II.AFRICA, TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="africa_total" x="203" y="0" width="31" height="20" uuid="7d3ee122-4325-4d8f-ab7b-deaf02ccbe65"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="21" width="203" height="15" uuid="ae2cdca7-5caf-4a04-be0c-0be2d16ff398"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[II.A. NORTH OF SAHARA, TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="africa_north_of_sahara" x="203" y="21" width="31" height="15" uuid="59cf0e3b-9070-48e9-a8f6-a9b50fbdd389"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="36" width="193" height="15" uuid="d4258a8c-4123-4f26-98e7-5979e7b95d47"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[ALGERIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_130" x="203" y="36" width="31" height="15" uuid="bdb959f6-24c9-43f5-b36c-d52cd63138b1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[130]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="51" width="193" height="15" uuid="b7cb74ed-03dd-4d59-a561-b656295e8239"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[EGYPT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_142" x="203" y="51" width="31" height="15" uuid="ec84f8a0-ca44-4833-8a47-d1f0e4eeb259"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[142]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="66" width="193" height="15" uuid="3e968b85-ba11-49f5-8c75-bcbbb723f3a3"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[LIBYA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_133" x="203" y="66" width="31" height="15" uuid="e758bda8-5a96-4533-8668-115a663c1226"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[133]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="81" width="193" height="15" uuid="0d6d3b3c-327d-42e2-b197-d0f0c28cf013"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[MOROCCO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_136" x="203" y="81" width="31" height="15" uuid="b3530575-4776-46fa-be12-7f89a8ae497e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[136]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="96" width="193" height="15" uuid="deafa125-ec34-4404-8747-53cd8c519ec8"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[TUNISIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_139" x="203" y="96" width="31" height="15" uuid="d2a13769-fc3d-48d4-a1ca-3802d6d7f0e6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[139]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="111" width="193" height="15" uuid="a9fbf33f-f1e2-44ff-80c5-1f0c0aa46f5f"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[NORTH OF SAHARA, REGIONAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_189" x="203" y="111" width="31" height="15" uuid="7f913ef1-75fe-4728-b9f5-3a6ce9b8455f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[189]]></text>
+			</staticText>
+		</band>
+		<band height="458" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="203" height="15" uuid="48e5c6dd-8e95-4956-8247-bbceb62ef5ff"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[II.B. SOUTH OF SAHARA, TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_south_of_sahara" x="203" y="0" width="31" height="15" uuid="67e825ab-bed1-43db-9aff-17eb4462bd5c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="15" width="193" height="15" uuid="ae2cdca7-5caf-4a04-be0c-0be2d16ff398"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[ANGOLA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_225" x="203" y="15" width="31" height="15" uuid="59cf0e3b-9070-48e9-a8f6-a9b50fbdd389"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[225]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="30" width="193" height="15" uuid="d4258a8c-4123-4f26-98e7-5979e7b95d47"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[BENIN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_236" x="203" y="30" width="31" height="15" uuid="bdb959f6-24c9-43f5-b36c-d52cd63138b1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[236]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="45" width="193" height="15" uuid="b7cb74ed-03dd-4d59-a561-b656295e8239"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[BOTSWANA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_227" x="203" y="45" width="31" height="15" uuid="ec84f8a0-ca44-4833-8a47-d1f0e4eeb259"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[227]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="60" width="193" height="15" uuid="3e968b85-ba11-49f5-8c75-bcbbb723f3a3"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[BURKINA FASO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_287" x="203" y="60" width="31" height="15" uuid="e758bda8-5a96-4533-8668-115a663c1226"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[287]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="75" width="193" height="15" uuid="0d6d3b3c-327d-42e2-b197-d0f0c28cf013"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[BURUNDI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_228" x="203" y="75" width="31" height="15" uuid="b3530575-4776-46fa-be12-7f89a8ae497e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[228]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="90" width="193" height="15" uuid="deafa125-ec34-4404-8747-53cd8c519ec8"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[CAMEROON]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_229" x="203" y="90" width="31" height="15" uuid="d2a13769-fc3d-48d4-a1ca-3802d6d7f0e6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[229]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="105" width="193" height="15" uuid="a9fbf33f-f1e2-44ff-80c5-1f0c0aa46f5f"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[CAPE VERDE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_230" x="203" y="105" width="31" height="15" uuid="7f913ef1-75fe-4728-b9f5-3a6ce9b8455f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[230]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="120" width="193" height="15" uuid="7275dc13-24fa-4f72-a5b5-e14344164964"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[CENTRAL AFRICAN REP.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_231" x="203" y="120" width="31" height="15" uuid="6d0fd5de-a1c9-473c-9ecf-031a3478997f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[231]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="135" width="193" height="15" uuid="122ec97a-04df-4f0c-a590-cc52642a5848"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[CHAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_232" x="203" y="135" width="31" height="15" uuid="baaffd18-9f4a-4fc9-97c2-3d653d6d9afc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[232]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="150" width="193" height="15" uuid="fad28252-9520-4ebb-872d-205fc154afeb"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[COMOROS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_233" x="203" y="150" width="31" height="15" uuid="a91255c6-3d1a-49b1-b5af-f231668922a9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[233]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="165" width="193" height="15" uuid="da005ff2-c8d1-42a8-834e-63f3bade38b9"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[CONGO, DEM. REP.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_235" x="203" y="165" width="31" height="15" uuid="6adcb9da-d1e5-44ea-a15e-7cb666ebe76f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[235]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="180" width="193" height="15" uuid="5134c4c1-6161-48d0-b6ac-f70065493e29"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[CONGO, REP.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_234" x="203" y="180" width="31" height="15" uuid="901d3777-b679-49fa-b1d2-e4cba9fec408"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[234]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="195" width="193" height="15" uuid="e75a085c-4788-43a4-b800-00c5a768c909"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[COTE D'IVOIRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_247" x="203" y="195" width="31" height="15" uuid="cebc8ba3-c859-4384-9792-dd60c5debfbc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[247]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="210" width="193" height="15" uuid="c98f784c-17fc-4f55-ba76-6a2f7292b530"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[DJIBOUTI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_274" x="203" y="210" width="31" height="15" uuid="a195f81c-e080-4b59-8e84-f08d738e0fa0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[274]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="225" width="193" height="15" uuid="05f0221d-55b9-46dd-a153-bd1d7fdd8124"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[EQUATORIAL GUINEA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_245" x="203" y="225" width="31" height="15" uuid="5589c2b5-feb4-4b72-a27b-fcab4b9c4ec4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[245]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="240" width="193" height="15" uuid="834782e5-0cd3-49d5-b902-b45468666890"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[ERITREA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_271" x="203" y="240" width="31" height="15" uuid="6a611100-b2e2-4d9f-8045-b9b6ffd8a74d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[271]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="255" width="193" height="15" uuid="e584333d-c2e1-4ebd-8d36-43aaccf1d29e"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[ETHIOPIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_238" x="203" y="255" width="31" height="15" uuid="55c0dd60-9a51-4e65-904f-7f156735f2c7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[238]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="270" width="193" height="15" uuid="ad3a490c-99d2-49a0-9e79-1a9d28185283"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[GABON]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_239" x="203" y="270" width="31" height="15" uuid="95592281-1327-4de2-89c6-1ac1fd04a926"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[239]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="285" width="193" height="15" uuid="c3e66d8d-644a-45f8-8357-75a3db7fd697"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[GAMBIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_240" x="203" y="285" width="31" height="15" uuid="bbab7ebd-161c-4760-b932-e5c0c8ac7a53"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[240]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="300" width="193" height="15" uuid="7096e505-2d62-4b71-a5a2-0e5813671044"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[GHANA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_241" x="203" y="300" width="31" height="15" uuid="2de74c40-5289-464a-bfe0-d3be85e6cb3e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[241]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="315" width="193" height="15" uuid="6bb10474-7416-4e22-b668-f05d31b04bb6"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[GUINEA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_243" x="203" y="315" width="31" height="15" uuid="a7e7b3c6-31d5-4ccb-a9ae-cd9016ab9580"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[243]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="330" width="193" height="15" uuid="3768a171-954e-46c2-9be5-8c81dd458d18"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[GUINEA-BISSAU]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_244" x="203" y="330" width="31" height="15" uuid="b1f5ebe6-ffc6-450f-b915-ba5b709db513"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[244]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="345" width="193" height="15" uuid="59d4e6f6-1abe-43df-9b66-8986f7ecc301"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[KENYA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_248" x="203" y="345" width="31" height="15" uuid="fab7a4a4-43ae-42f2-bb7d-870ac09be5de"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[248]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="360" width="193" height="15" uuid="1ed19792-4bf2-4858-95da-d9272a2fd470"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[LESOTHO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_249" x="203" y="360" width="31" height="15" uuid="ac0fcaa5-c064-4541-bfe4-8a73444ba9bd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[249]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="375" width="193" height="15" uuid="81c3affb-6d5b-479f-a83f-dbca7c284358"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[LIBERIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_251" x="203" y="375" width="31" height="15" uuid="590716ba-3a61-460b-bd7c-aec0440b6b27"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[251]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="390" width="193" height="15" uuid="69293529-78d1-4ec6-bbcb-4522163a3781"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[MADAGASCAR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_252" x="203" y="390" width="31" height="15" uuid="a4cb7506-2f60-4cde-9f08-d696ddd30aff"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[252]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="405" width="193" height="15" uuid="4de7cb0f-4847-475c-9f7e-b339ae993180"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[MALAWI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_253" x="203" y="405" width="31" height="15" uuid="68eba6b3-fa8a-4f40-84c3-614136c15d17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[253]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="420" width="193" height="15" uuid="80802dec-c7c5-4fc4-aba7-a83d996f4d26"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[MALI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_255" x="203" y="420" width="31" height="15" uuid="9938fc68-88d4-469a-8e94-6fa28919e2c1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[255]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="435" width="193" height="15" uuid="c2ebd538-d762-42a6-96b1-5d3d6bdd465f"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[MAURITANIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_256" x="203" y="435" width="31" height="15" uuid="df28a662-b5c1-475f-98eb-9652fef12ac2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[256]]></text>
+			</staticText>
+		</band>
+		<band height="357" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="0" width="193" height="15" uuid="48e5c6dd-8e95-4956-8247-bbceb62ef5ff"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[MAURITIUS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_257" x="203" y="0" width="31" height="15" uuid="67e825ab-bed1-43db-9aff-17eb4462bd5c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[257]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="15" width="193" height="15" uuid="ae2cdca7-5caf-4a04-be0c-0be2d16ff398"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[MOZAMBIQUE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_259" x="203" y="15" width="31" height="15" uuid="59cf0e3b-9070-48e9-a8f6-a9b50fbdd389"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[259]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="30" width="193" height="15" uuid="d4258a8c-4123-4f26-98e7-5979e7b95d47"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[NAMIBIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_275" x="203" y="30" width="31" height="15" uuid="bdb959f6-24c9-43f5-b36c-d52cd63138b1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[275]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="45" width="193" height="15" uuid="b7cb74ed-03dd-4d59-a561-b656295e8239"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[NIGER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_260" x="203" y="45" width="31" height="15" uuid="ec84f8a0-ca44-4833-8a47-d1f0e4eeb259"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[260]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="60" width="193" height="15" uuid="3e968b85-ba11-49f5-8c75-bcbbb723f3a3"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[NIGERIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_260" x="203" y="60" width="31" height="15" uuid="e758bda8-5a96-4533-8668-115a663c1226"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[261]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="75" width="193" height="15" uuid="0d6d3b3c-327d-42e2-b197-d0f0c28cf013"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[RWANDA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_266" x="203" y="75" width="31" height="15" uuid="b3530575-4776-46fa-be12-7f89a8ae497e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[266]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="90" width="193" height="15" uuid="deafa125-ec34-4404-8747-53cd8c519ec8"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[ST.HELENA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_276" x="203" y="90" width="31" height="15" uuid="d2a13769-fc3d-48d4-a1ca-3802d6d7f0e6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[276]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="120" width="193" height="15" uuid="a9fbf33f-f1e2-44ff-80c5-1f0c0aa46f5f"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[SENEGAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_268" x="203" y="105" width="31" height="15" uuid="7f913ef1-75fe-4728-b9f5-3a6ce9b8455f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[268]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="135" width="193" height="15" uuid="7275dc13-24fa-4f72-a5b5-e14344164964"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[SEYCHELLES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_269" x="203" y="120" width="31" height="15" uuid="6d0fd5de-a1c9-473c-9ecf-031a3478997f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[269]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="150" width="193" height="15" uuid="122ec97a-04df-4f0c-a590-cc52642a5848"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[SIERRA LEONE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_270" x="203" y="135" width="31" height="15" uuid="baaffd18-9f4a-4fc9-97c2-3d653d6d9afc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[270]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="165" width="193" height="15" uuid="fad28252-9520-4ebb-872d-205fc154afeb"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[SOMALIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_272" x="203" y="150" width="31" height="15" uuid="a91255c6-3d1a-49b1-b5af-f231668922a9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[272]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="180" width="193" height="15" uuid="da005ff2-c8d1-42a8-834e-63f3bade38b9"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[SOUTH AFRICA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_273" x="203" y="165" width="31" height="15" uuid="6adcb9da-d1e5-44ea-a15e-7cb666ebe76f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[273]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="195" width="193" height="15" uuid="5134c4c1-6161-48d0-b6ac-f70065493e29"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[SOUTH SUDAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_218" x="203" y="180" width="31" height="15" uuid="901d3777-b679-49fa-b1d2-e4cba9fec408"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[218]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="210" width="193" height="15" uuid="e75a085c-4788-43a4-b800-00c5a768c909"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[SUDAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_279" x="203" y="195" width="31" height="15" uuid="cebc8ba3-c859-4384-9792-dd60c5debfbc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[279]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="225" width="193" height="15" uuid="c98f784c-17fc-4f55-ba76-6a2f7292b530"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[SWAZILAND]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_278" x="203" y="210" width="31" height="15" uuid="a195f81c-e080-4b59-8e84-f08d738e0fa0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[278]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="240" width="193" height="15" uuid="05f0221d-55b9-46dd-a153-bd1d7fdd8124"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[TANZANIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_280" x="203" y="225" width="31" height="15" uuid="5589c2b5-feb4-4b72-a27b-fcab4b9c4ec4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[280]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="255" width="193" height="15" uuid="834782e5-0cd3-49d5-b902-b45468666890"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[TOGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_282" x="203" y="240" width="31" height="15" uuid="6a611100-b2e2-4d9f-8045-b9b6ffd8a74d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[282]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="270" width="193" height="15" uuid="e584333d-c2e1-4ebd-8d36-43aaccf1d29e"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[UGANDA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_283" x="203" y="255" width="31" height="15" uuid="55c0dd60-9a51-4e65-904f-7f156735f2c7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[283]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="285" width="193" height="15" uuid="ad3a490c-99d2-49a0-9e79-1a9d28185283"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[ZAMBIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_285" x="203" y="270" width="31" height="15" uuid="95592281-1327-4de2-89c6-1ac1fd04a926"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[285]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="300" width="193" height="15" uuid="c3e66d8d-644a-45f8-8357-75a3db7fd697"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[ZIMBABWE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_288" x="203" y="285" width="31" height="15" uuid="bbab7ebd-161c-4760-b932-e5c0c8ac7a53"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[288]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="332" width="203" height="15" uuid="0c3d73d7-5490-466e-85a8-7fca86787af4"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[II.C. AFRICA, REGIONAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_298" x="203" y="332" width="31" height="15" uuid="709fa62b-9f35-4a7f-8cb8-7f68b83dd420"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[298]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="105" width="193" height="15" uuid="58d26820-f689-41d2-804d-e0ebacba37be"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[SAO TOME & PRINCIPE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_265" x="203" y="300" width="31" height="15" uuid="6d953cf9-7115-4773-8d10-ea5b03149e4a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[265]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="315" width="193" height="15" uuid="e0b9220e-2ad2-487f-b171-92485d93da4f"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[SOUTH OF SAHARA, REGIONAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_289" x="203" y="315" width="31" height="15" uuid="cc4f9841-dc97-4f75-9466-76dff1746fed"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[289]]></text>
+			</staticText>
+		</band>
+		<band height="389" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="203" height="20" uuid="0074b881-1c09-4ec5-902f-2396bb4c8541"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[III. AMERICA, TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_america_total" x="203" y="0" width="31" height="20" uuid="7d3ee122-4325-4d8f-ab7b-deaf02ccbe65"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="26" width="203" height="15" uuid="ae2cdca7-5caf-4a04-be0c-0be2d16ff398"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[III.A. NORTH & CENTRAL, TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_north_central_total" x="203" y="26" width="31" height="15" uuid="59cf0e3b-9070-48e9-a8f6-a9b50fbdd389"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="41" width="193" height="15" uuid="d4258a8c-4123-4f26-98e7-5979e7b95d47"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[ANGUILLA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_376" x="203" y="41" width="31" height="15" uuid="bdb959f6-24c9-43f5-b36c-d52cd63138b1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[376]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="56" width="193" height="15" uuid="b7cb74ed-03dd-4d59-a561-b656295e8239"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[ANTIGUA & BARBUDA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_377" x="203" y="56" width="31" height="15" uuid="ec84f8a0-ca44-4833-8a47-d1f0e4eeb259"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[377]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="71" width="193" height="15" uuid="3e968b85-ba11-49f5-8c75-bcbbb723f3a3"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[BELIZE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_352" x="203" y="71" width="31" height="15" uuid="e758bda8-5a96-4533-8668-115a663c1226"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[352]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="86" width="193" height="15" uuid="0d6d3b3c-327d-42e2-b197-d0f0c28cf013"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[COSTA RICA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_336" x="203" y="86" width="31" height="15" uuid="b3530575-4776-46fa-be12-7f89a8ae497e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[336]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="101" width="193" height="15" uuid="deafa125-ec34-4404-8747-53cd8c519ec8"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[CUBA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_338" x="203" y="101" width="31" height="15" uuid="d2a13769-fc3d-48d4-a1ca-3802d6d7f0e6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[338]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="116" width="193" height="15" uuid="a9fbf33f-f1e2-44ff-80c5-1f0c0aa46f5f"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[DOMINICA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_378" x="203" y="116" width="31" height="15" uuid="7f913ef1-75fe-4728-b9f5-3a6ce9b8455f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[378]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="131" width="193" height="15" uuid="7275dc13-24fa-4f72-a5b5-e14344164964"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[DOMINICAN REPUBLIC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_340" x="203" y="131" width="31" height="15" uuid="6d0fd5de-a1c9-473c-9ecf-031a3478997f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[340]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="146" width="193" height="15" uuid="122ec97a-04df-4f0c-a590-cc52642a5848"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[EL SALVADOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_342" x="203" y="146" width="31" height="15" uuid="baaffd18-9f4a-4fc9-97c2-3d653d6d9afc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[342]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="161" width="193" height="15" uuid="fad28252-9520-4ebb-872d-205fc154afeb"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[GRENADA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_381" x="203" y="161" width="31" height="15" uuid="a91255c6-3d1a-49b1-b5af-f231668922a9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[381]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="176" width="193" height="15" uuid="da005ff2-c8d1-42a8-834e-63f3bade38b9"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[GUATEMALA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_347" x="203" y="176" width="31" height="15" uuid="6adcb9da-d1e5-44ea-a15e-7cb666ebe76f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[347]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="191" width="193" height="15" uuid="5134c4c1-6161-48d0-b6ac-f70065493e29"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[HAITI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_349" x="203" y="191" width="31" height="15" uuid="901d3777-b679-49fa-b1d2-e4cba9fec408"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[349]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="206" width="193" height="15" uuid="b0d6624c-948e-4592-84b7-56ad05a0f3d4"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[HONDURAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_351" x="203" y="206" width="31" height="15" uuid="a08e3481-03c2-41cf-a2c4-2776da3b13fe"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[351]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="221" width="193" height="15" uuid="bec6d2d7-a138-46ff-ab4a-0a9c0ae9710c"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[JAMAICA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_354" x="203" y="221" width="31" height="15" uuid="d0658e30-1d52-41aa-8e13-c80892f7268e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[354]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="236" width="193" height="15" uuid="20611697-eadd-4a8a-9691-1af162971af9"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[MEXICO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_358" x="203" y="236" width="31" height="15" uuid="65a7ce71-4b84-45b3-8b6e-34cd5e8a7f9c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[358]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="251" width="193" height="15" uuid="e6a34c78-1f81-4024-99dd-b898b9c89be7"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[MONTSERRAT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_385" x="203" y="251" width="31" height="15" uuid="b25e3d23-39fa-48f6-8094-8b895e0d1c88"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[385]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="266" width="193" height="15" uuid="9475403b-b06e-43e9-93ee-6fe2454d1874"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[NICARAGUA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_364" x="203" y="266" width="31" height="15" uuid="2c95ae1c-8d2f-4fa3-ac85-ba8e963af7a6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[364]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="281" width="193" height="15" uuid="689d7c59-63fa-4c29-81c9-a3460e803fe7"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[PANAMA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_366" x="203" y="281" width="31" height="15" uuid="a2d7cc21-92f6-433f-b8a7-96b4fb30e6f7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[366]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="296" width="193" height="15" uuid="94269388-e4bb-4f9f-8ceb-79e657533877"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[ST.KITTS-NEVIS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_382" x="203" y="296" width="31" height="15" uuid="1d59e5f0-61d0-461f-9d35-51fb5ad34024"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[382]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="311" width="193" height="15" uuid="a6374733-773e-4ea4-8351-4e5ed01973b7"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[ST.LUCIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_383" x="203" y="311" width="31" height="15" uuid="6f0c2b0f-3f7d-418b-9be7-04f2c68d29cb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[383]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="326" width="193" height="15" uuid="50967c5e-da02-421b-9467-df970dd4a81f"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[ST.VINCENT & GRENADINES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_384" x="203" y="326" width="31" height="15" uuid="fb3ed4c0-6eb5-44ca-b7ef-26db584c5349"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[384]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="341" width="193" height="15" uuid="b978ea4c-8223-4d02-9bed-49e41bf23e5a"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[WEST INDIES, REGIONAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_380" x="203" y="341" width="31" height="15" uuid="9353c6a6-f578-411d-8d77-e777f1c281ff"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[380]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="356" width="193" height="15" uuid="c00316aa-4984-4e43-ae2c-bdeec3cd0642"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[N. & C. AMERICA, REGIONAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_389" x="203" y="356" width="31" height="15" uuid="9b1fd210-4ea4-4760-a519-0d97f44c95e2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[389]]></text>
+			</staticText>
+		</band>
+		<band height="236" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="203" height="15" uuid="0074b881-1c09-4ec5-902f-2396bb4c8541"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[III.B. SOUTH, TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_south_total" x="203" y="0" width="31" height="15" uuid="7d3ee122-4325-4d8f-ab7b-deaf02ccbe65"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="15" width="193" height="15" uuid="ae2cdca7-5caf-4a04-be0c-0be2d16ff398"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[ARGENTINA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_425" x="203" y="15" width="31" height="15" uuid="59cf0e3b-9070-48e9-a8f6-a9b50fbdd389"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[425]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="30" width="193" height="15" uuid="d4258a8c-4123-4f26-98e7-5979e7b95d47"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[BOLIVIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_428" x="203" y="30" width="31" height="15" uuid="bdb959f6-24c9-43f5-b36c-d52cd63138b1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[428]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="45" width="193" height="15" uuid="b7cb74ed-03dd-4d59-a561-b656295e8239"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[BRAZIL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_431" x="203" y="45" width="31" height="15" uuid="ec84f8a0-ca44-4833-8a47-d1f0e4eeb259"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[431]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="60" width="193" height="15" uuid="3e968b85-ba11-49f5-8c75-bcbbb723f3a3"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[CHILE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_434" x="203" y="60" width="31" height="15" uuid="e758bda8-5a96-4533-8668-115a663c1226"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[434]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="75" width="193" height="15" uuid="0d6d3b3c-327d-42e2-b197-d0f0c28cf013"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[COLOMBIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_437" x="203" y="75" width="31" height="15" uuid="b3530575-4776-46fa-be12-7f89a8ae497e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[437]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="90" width="193" height="15" uuid="deafa125-ec34-4404-8747-53cd8c519ec8"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[ECUADOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_440" x="203" y="90" width="31" height="15" uuid="d2a13769-fc3d-48d4-a1ca-3802d6d7f0e6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[440]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="105" width="193" height="15" uuid="a9fbf33f-f1e2-44ff-80c5-1f0c0aa46f5f"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[GUYANA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_446" x="203" y="105" width="31" height="15" uuid="7f913ef1-75fe-4728-b9f5-3a6ce9b8455f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[446]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="120" width="193" height="15" uuid="7275dc13-24fa-4f72-a5b5-e14344164964"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[PARAGUAY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_451" x="203" y="120" width="31" height="15" uuid="6d0fd5de-a1c9-473c-9ecf-031a3478997f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[451]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="135" width="193" height="15" uuid="122ec97a-04df-4f0c-a590-cc52642a5848"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[PERU]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_454" x="203" y="135" width="31" height="15" uuid="baaffd18-9f4a-4fc9-97c2-3d653d6d9afc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[454]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="150" width="193" height="15" uuid="fad28252-9520-4ebb-872d-205fc154afeb"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[SURINAME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_457" x="203" y="150" width="31" height="15" uuid="a91255c6-3d1a-49b1-b5af-f231668922a9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[457]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="165" width="193" height="15" uuid="da005ff2-c8d1-42a8-834e-63f3bade38b9"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[URUGUAY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_460" x="203" y="165" width="31" height="15" uuid="6adcb9da-d1e5-44ea-a15e-7cb666ebe76f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[460]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="180" width="193" height="15" uuid="5134c4c1-6161-48d0-b6ac-f70065493e29"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[VENEZUELA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_463" x="203" y="180" width="31" height="15" uuid="901d3777-b679-49fa-b1d2-e4cba9fec408"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[463]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="195" width="193" height="15" uuid="af92e6b5-edcd-4194-b7d8-cd028c0dd191"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[SOUTH AMERICA, REGIONAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_489" x="203" y="195" width="31" height="15" uuid="0a7235ea-f0c8-400e-9100-b67f73a74f2f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[489]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="210" width="203" height="15" uuid="a068721e-667d-468f-9a6d-7ee484708e50"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[III.C. AMERICA, REGIONAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_498" x="203" y="210" width="31" height="15" uuid="876ea99f-0855-46ac-873b-ef6bf7620395"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[498]]></text>
+			</staticText>
+		</band>
+		<band height="167" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="203" height="20" uuid="0074b881-1c09-4ec5-902f-2396bb4c8541"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IV. ASIA, TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_asia_total" x="203" y="0" width="31" height="20" uuid="7d3ee122-4325-4d8f-ab7b-deaf02ccbe65"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="26" width="203" height="15" uuid="ae2cdca7-5caf-4a04-be0c-0be2d16ff398"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IV.A. MIDDLE EAST, TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_middle_east_total" x="203" y="26" width="31" height="15" uuid="59cf0e3b-9070-48e9-a8f6-a9b50fbdd389"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="41" width="193" height="15" uuid="d4258a8c-4123-4f26-98e7-5979e7b95d47"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[IRAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_540" x="203" y="41" width="31" height="15" uuid="bdb959f6-24c9-43f5-b36c-d52cd63138b1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[540]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="56" width="193" height="15" uuid="b7cb74ed-03dd-4d59-a561-b656295e8239"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[IRAQ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_543" x="203" y="56" width="31" height="15" uuid="ec84f8a0-ca44-4833-8a47-d1f0e4eeb259"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[543]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="71" width="193" height="15" uuid="3e968b85-ba11-49f5-8c75-bcbbb723f3a3"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[JORDAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_549" x="203" y="71" width="31" height="15" uuid="e758bda8-5a96-4533-8668-115a663c1226"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[549]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="86" width="193" height="15" uuid="0d6d3b3c-327d-42e2-b197-d0f0c28cf013"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[LEBANON]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_555" x="203" y="86" width="31" height="15" uuid="b3530575-4776-46fa-be12-7f89a8ae497e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[555]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="101" width="193" height="15" uuid="deafa125-ec34-4404-8747-53cd8c519ec8"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[SYRIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_573" x="203" y="101" width="31" height="15" uuid="d2a13769-fc3d-48d4-a1ca-3802d6d7f0e6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[573]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="116" width="193" height="15" uuid="a9fbf33f-f1e2-44ff-80c5-1f0c0aa46f5f"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[WEST BANK & GAZA STRIP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_550" x="203" y="116" width="31" height="15" uuid="7f913ef1-75fe-4728-b9f5-3a6ce9b8455f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[550]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="131" width="193" height="15" uuid="7275dc13-24fa-4f72-a5b5-e14344164964"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[YEMEN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_580" x="203" y="131" width="31" height="15" uuid="6d0fd5de-a1c9-473c-9ecf-031a3478997f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[580]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="146" width="193" height="15" uuid="122ec97a-04df-4f0c-a590-cc52642a5848"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[MIDDLE EAST, REGIONAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_589" x="203" y="146" width="31" height="15" uuid="baaffd18-9f4a-4fc9-97c2-3d653d6d9afc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[589]]></text>
+			</staticText>
+		</band>
+		<band height="336" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="203" height="15" uuid="0074b881-1c09-4ec5-902f-2396bb4c8541"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IV.B. SOUTH & CENTR. ASIA, TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_south_central_asia_total" x="203" y="0" width="31" height="15" uuid="7d3ee122-4325-4d8f-ab7b-deaf02ccbe65"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="15" width="193" height="15" uuid="ae2cdca7-5caf-4a04-be0c-0be2d16ff398"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[AFGHANISTAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_625" x="203" y="15" width="31" height="15" uuid="59cf0e3b-9070-48e9-a8f6-a9b50fbdd389"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[625]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="30" width="193" height="15" uuid="d4258a8c-4123-4f26-98e7-5979e7b95d47"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[ARMENIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_610" x="203" y="30" width="31" height="15" uuid="bdb959f6-24c9-43f5-b36c-d52cd63138b1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[610]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="45" width="193" height="15" uuid="b7cb74ed-03dd-4d59-a561-b656295e8239"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[AZERBAIJAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_611" x="203" y="45" width="31" height="15" uuid="ec84f8a0-ca44-4833-8a47-d1f0e4eeb259"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[611]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="60" width="193" height="15" uuid="3e968b85-ba11-49f5-8c75-bcbbb723f3a3"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[BANGLADESH]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_666" x="203" y="60" width="31" height="15" uuid="e758bda8-5a96-4533-8668-115a663c1226"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[666]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="75" width="193" height="15" uuid="0d6d3b3c-327d-42e2-b197-d0f0c28cf013"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[BHUTAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_630" x="203" y="75" width="31" height="15" uuid="b3530575-4776-46fa-be12-7f89a8ae497e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[630]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="90" width="193" height="15" uuid="deafa125-ec34-4404-8747-53cd8c519ec8"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[GEORGIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_612" x="203" y="90" width="31" height="15" uuid="d2a13769-fc3d-48d4-a1ca-3802d6d7f0e6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[612]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="105" width="193" height="15" uuid="a9fbf33f-f1e2-44ff-80c5-1f0c0aa46f5f"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[INDIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_645" x="203" y="105" width="31" height="15" uuid="7f913ef1-75fe-4728-b9f5-3a6ce9b8455f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[645]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="120" width="193" height="15" uuid="7275dc13-24fa-4f72-a5b5-e14344164964"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[KAZAKHSTAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_613" x="203" y="120" width="31" height="15" uuid="6d0fd5de-a1c9-473c-9ecf-031a3478997f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[613]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="135" width="193" height="15" uuid="122ec97a-04df-4f0c-a590-cc52642a5848"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[KYRGYZ REP.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_614" x="203" y="135" width="31" height="15" uuid="baaffd18-9f4a-4fc9-97c2-3d653d6d9afc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[614]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="150" width="193" height="15" uuid="fad28252-9520-4ebb-872d-205fc154afeb"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[MALDIVES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_655" x="203" y="150" width="31" height="15" uuid="a91255c6-3d1a-49b1-b5af-f231668922a9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[655]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="165" width="193" height="15" uuid="da005ff2-c8d1-42a8-834e-63f3bade38b9"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[MYANMAR (BURMA)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_635" x="203" y="165" width="31" height="15" uuid="6adcb9da-d1e5-44ea-a15e-7cb666ebe76f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[635]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="180" width="193" height="15" uuid="5134c4c1-6161-48d0-b6ac-f70065493e29"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[NEPAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_660" x="203" y="180" width="31" height="15" uuid="901d3777-b679-49fa-b1d2-e4cba9fec408"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[660]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="195" width="193" height="15" uuid="af92e6b5-edcd-4194-b7d8-cd028c0dd191"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[PAKISTAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_665" x="203" y="195" width="31" height="15" uuid="0a7235ea-f0c8-400e-9100-b67f73a74f2f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[665]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="210" width="193" height="15" uuid="89ff0067-57a1-4c22-9c6e-517d3ba15775"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[SRI LANKA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_640" x="203" y="210" width="31" height="15" uuid="663fa3b0-0500-40dc-893c-fe6bedc12c6b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[640]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="225" width="193" height="15" uuid="b3a8d77d-3f3f-4045-8aa8-016d7bda0103"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[TAJIKISTAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_615" x="203" y="225" width="31" height="15" uuid="07ce7b2e-5d24-466a-b31d-d7a575b9242d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[615]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="240" width="193" height="15" uuid="95343327-d7d6-4c63-b040-d12c979edd86"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[TURKMENISTAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_616" x="203" y="240" width="31" height="15" uuid="4b190b69-f266-4ded-8dcb-7b25583a2dc7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[616]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="255" width="193" height="15" uuid="cd06fec2-b73e-430e-a98f-30f7003bc7e8"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[UZBEKISTAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_617" x="203" y="255" width="31" height="15" uuid="128dce38-95b4-4be4-af27-6a2c235ddcc0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[617]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="270" width="203" height="15" uuid="546b820e-9af3-4f8e-a9d4-b5e02e8ec442"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[   CENTRAL ASIA, REGIONAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_619" x="203" y="270" width="31" height="15" uuid="18395058-f797-4ae8-890d-1752282991de"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[619]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="285" width="203" height="15" uuid="a068721e-667d-468f-9a6d-7ee484708e50"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[   SOUTH ASIA, REGIONAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_679" x="203" y="285" width="31" height="15" uuid="876ea99f-0855-46ac-873b-ef6bf7620395"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[679]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="300" width="203" height="15" uuid="1546d505-b6c3-4fb0-acfb-9766c4bf2809"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[   SOUTH & CENTRAL ASIA, REGIONAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_689" x="203" y="300" width="31" height="15" uuid="a1f950fa-2481-4d9f-a9dd-abfdb7a5a594"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[689]]></text>
+			</staticText>
+		</band>
+		<band height="226" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="203" height="15" uuid="0074b881-1c09-4ec5-902f-2396bb4c8541"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IV.C. FAR EAST, TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_far_east_total" x="203" y="0" width="31" height="15" uuid="7d3ee122-4325-4d8f-ab7b-deaf02ccbe65"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="15" width="193" height="15" uuid="ae2cdca7-5caf-4a04-be0c-0be2d16ff398"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[CAMBODIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_728" x="203" y="15" width="31" height="15" uuid="59cf0e3b-9070-48e9-a8f6-a9b50fbdd389"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[728]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="30" width="193" height="15" uuid="d4258a8c-4123-4f26-98e7-5979e7b95d47"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[CHINA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_730" x="203" y="30" width="31" height="15" uuid="bdb959f6-24c9-43f5-b36c-d52cd63138b1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[730]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="45" width="193" height="15" uuid="b7cb74ed-03dd-4d59-a561-b656295e8239"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[INDONESIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_738" x="203" y="45" width="31" height="15" uuid="ec84f8a0-ca44-4833-8a47-d1f0e4eeb259"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[738]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="60" width="193" height="15" uuid="3e968b85-ba11-49f5-8c75-bcbbb723f3a3"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[KOREA, DEM.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_740" x="203" y="60" width="31" height="15" uuid="e758bda8-5a96-4533-8668-115a663c1226"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[740]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="75" width="193" height="15" uuid="0d6d3b3c-327d-42e2-b197-d0f0c28cf013"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[LAOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_745" x="203" y="75" width="31" height="15" uuid="b3530575-4776-46fa-be12-7f89a8ae497e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[745]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="90" width="193" height="15" uuid="deafa125-ec34-4404-8747-53cd8c519ec8"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[MALAYSIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_751" x="203" y="90" width="31" height="15" uuid="d2a13769-fc3d-48d4-a1ca-3802d6d7f0e6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[751]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="105" width="193" height="15" uuid="a9fbf33f-f1e2-44ff-80c5-1f0c0aa46f5f"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[MONGOLIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_753" x="203" y="105" width="31" height="15" uuid="7f913ef1-75fe-4728-b9f5-3a6ce9b8455f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[753]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="120" width="193" height="15" uuid="7275dc13-24fa-4f72-a5b5-e14344164964"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[PHILIPPINES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_755" x="203" y="120" width="31" height="15" uuid="6d0fd5de-a1c9-473c-9ecf-031a3478997f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[755]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="135" width="193" height="15" uuid="122ec97a-04df-4f0c-a590-cc52642a5848"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[THAILAND]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_764" x="203" y="135" width="31" height="15" uuid="baaffd18-9f4a-4fc9-97c2-3d653d6d9afc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[764]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="150" width="193" height="15" uuid="fad28252-9520-4ebb-872d-205fc154afeb"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[TIMOR-LESTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_765" x="203" y="150" width="31" height="15" uuid="a91255c6-3d1a-49b1-b5af-f231668922a9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[765]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="165" width="193" height="15" uuid="da005ff2-c8d1-42a8-834e-63f3bade38b9"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[VIETNAM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_769" x="203" y="165" width="31" height="15" uuid="6adcb9da-d1e5-44ea-a15e-7cb666ebe76f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[769]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="180" width="193" height="15" uuid="5134c4c1-6161-48d0-b6ac-f70065493e29"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[FAR EAST ASIA, REGIONAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_789" x="203" y="180" width="31" height="15" uuid="901d3777-b679-49fa-b1d2-e4cba9fec408"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[789]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="196" width="203" height="15" uuid="546b820e-9af3-4f8e-a9d4-b5e02e8ec442"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IV.D. ASIA, REGIONAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_798" x="203" y="196" width="31" height="15" uuid="18395058-f797-4ae8-890d-1752282991de"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[798]]></text>
+			</staticText>
+		</band>
+		<band height="295" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="203" height="20" uuid="0074b881-1c09-4ec5-902f-2396bb4c8541"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[V. OCEANIA, TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_oceania_total" x="203" y="0" width="31" height="20" uuid="7d3ee122-4325-4d8f-ab7b-deaf02ccbe65"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="23" width="193" height="15" uuid="ae2cdca7-5caf-4a04-be0c-0be2d16ff398"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[COOK ISLANDS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_831" x="203" y="23" width="31" height="15" uuid="59cf0e3b-9070-48e9-a8f6-a9b50fbdd389"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[831]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="38" width="193" height="15" uuid="d4258a8c-4123-4f26-98e7-5979e7b95d47"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[FIJI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_832" x="203" y="38" width="31" height="15" uuid="bdb959f6-24c9-43f5-b36c-d52cd63138b1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[832]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="53" width="193" height="15" uuid="b7cb74ed-03dd-4d59-a561-b656295e8239"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[KIRIBATI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_836" x="203" y="53" width="31" height="15" uuid="ec84f8a0-ca44-4833-8a47-d1f0e4eeb259"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[836]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="68" width="193" height="15" uuid="3e968b85-ba11-49f5-8c75-bcbbb723f3a3"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[MARSHALL ISLANDS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_859" x="203" y="68" width="31" height="15" uuid="e758bda8-5a96-4533-8668-115a663c1226"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[859]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="83" width="193" height="15" uuid="0d6d3b3c-327d-42e2-b197-d0f0c28cf013"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[MICRONESIA, FED. STS.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_860" x="203" y="83" width="31" height="15" uuid="b3530575-4776-46fa-be12-7f89a8ae497e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[860]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="98" width="193" height="15" uuid="deafa125-ec34-4404-8747-53cd8c519ec8"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[NAURU]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_845" x="203" y="98" width="31" height="15" uuid="d2a13769-fc3d-48d4-a1ca-3802d6d7f0e6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[845]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="113" width="193" height="15" uuid="a9fbf33f-f1e2-44ff-80c5-1f0c0aa46f5f"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[NIUE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_856" x="203" y="113" width="31" height="15" uuid="7f913ef1-75fe-4728-b9f5-3a6ce9b8455f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[856]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="128" width="193" height="15" uuid="7275dc13-24fa-4f72-a5b5-e14344164964"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[PALAU]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_861" x="203" y="128" width="31" height="15" uuid="6d0fd5de-a1c9-473c-9ecf-031a3478997f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[861]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="143" width="193" height="15" uuid="122ec97a-04df-4f0c-a590-cc52642a5848"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[PAPUA NEW GUINEA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_862" x="203" y="143" width="31" height="15" uuid="baaffd18-9f4a-4fc9-97c2-3d653d6d9afc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[862]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="158" width="193" height="15" uuid="fad28252-9520-4ebb-872d-205fc154afeb"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[SAMOA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_880" x="203" y="158" width="31" height="15" uuid="a91255c6-3d1a-49b1-b5af-f231668922a9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[880]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="173" width="193" height="15" uuid="da005ff2-c8d1-42a8-834e-63f3bade38b9"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[SOLOMON ISLANDS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_866" x="203" y="173" width="31" height="15" uuid="6adcb9da-d1e5-44ea-a15e-7cb666ebe76f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[866]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="188" width="193" height="15" uuid="5134c4c1-6161-48d0-b6ac-f70065493e29"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[TOKELAU]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_868" x="203" y="188" width="31" height="15" uuid="901d3777-b679-49fa-b1d2-e4cba9fec408"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[868]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="203" width="193" height="15" uuid="e8377bbc-33d0-4280-8ad0-8bd1e9dab61d"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[TONGA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_870" x="203" y="203" width="31" height="15" uuid="906825b4-4043-40fb-b1f6-ce17ef07a90d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[870]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="218" width="193" height="15" uuid="47c6e7dc-2bab-4b38-96d7-5f70f5fc5889"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[TUVALU]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_872" x="203" y="218" width="31" height="15" uuid="84f8ab93-2204-481a-90f6-ed47e1b6f4ce"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[872]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="233" width="193" height="15" uuid="e4c8d717-2120-48fb-90ec-750188c8c031"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[VANUATU]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_854" x="203" y="233" width="31" height="15" uuid="6b05aa9a-1690-4fc9-9a3a-9a6426e59ea3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[854]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="248" width="193" height="15" uuid="8eecc54f-dd9b-4aa2-b93e-fd0fccd6d9da"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[WALLIS & FUTUNA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_876" x="203" y="248" width="31" height="15" uuid="e5c62891-8875-4c5c-9a63-4272d0541f10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[876]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="263" width="193" height="15" uuid="ace63f86-a9e7-4819-8bb8-5ebeae52d837"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[OCEANIA, REGIONAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_889" x="203" y="263" width="31" height="15" uuid="58a279b2-dbf7-41a9-a6dc-d026c26c7b64"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[889]]></text>
+			</staticText>
+		</band>
+		<band height="30">
+			<staticText>
+				<reportElement x="0" y="0" width="203" height="20" uuid="899334c0-ebbc-41e4-bad6-4b4fe3abb6e9"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VI. DEVELOPING COUNTRIES UNSP.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_998" x="203" y="0" width="31" height="20" uuid="27821f49-543c-403b-850a-9ff80c781bf4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[998]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

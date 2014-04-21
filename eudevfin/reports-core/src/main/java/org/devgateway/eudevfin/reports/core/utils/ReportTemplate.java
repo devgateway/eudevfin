@@ -54,7 +54,7 @@ public class ReportTemplate {
 			generateTextElements(rows, doc, swapAxis);
 
 			injectedStream = xmlToStream(doc);
-			prettyPrint(doc);
+			//prettyPrint(doc);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -105,13 +105,14 @@ public class ReportTemplate {
 			}
 			else
 			{
-				appendReportSumRows(matchingRows, matchingColumns, row, doc);
+				appendReportSumRows(matchingRows, matchingColumns, row, doc, swapAxis);
 			}
 			
 		}
 	}
-	private void appendReportSumRows(HashMap<String, Node> matchingRows, HashMap<String, Node> matchingColumns, RowReport row, Document doc) {
+	private void appendReportSumRows(HashMap<String, Node> matchingRows, HashMap<String, Node> matchingColumns, RowReport row, Document doc, boolean swapAxis) {
 		Node rowNode = matchingRows.get("r_" + row.getName());
+		if(rowNode == null) return;
 		HashMap<String, String> columns = new HashMap<String, String>();
 
 		//Accumulate expressions by columns
@@ -133,23 +134,41 @@ public class ReportTemplate {
 				    columns.put(columnCode, expression);
 				}
 			} catch (XPathExpressionException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 
-		Integer yCoordRow = rowNode.getAttributes().getNamedItem("y") != null ? Integer.parseInt(rowNode.getAttributes().getNamedItem("y").getNodeValue())+1 : 0;
+		Integer yCoord, xCoord;
+		xCoord = yCoord= 0;
+		if(swapAxis){
+			 xCoord = rowNode.getAttributes().getNamedItem("x") != null ? Integer.parseInt(rowNode.getAttributes().getNamedItem("x").getNodeValue())-8 : 0;
+		}
+		else
+		{
+			 yCoord = rowNode.getAttributes().getNamedItem("y") != null ? Integer.parseInt(rowNode.getAttributes().getNamedItem("y").getNodeValue())+1 : 0;
+		}
+		
 		for (Map.Entry<String, String> column : columns.entrySet())
 		{
 			UUID uuid = UUID.randomUUID();
 			Element textField = doc.createElement("textField");
 			textField.setAttribute("pattern", "#,##0.00");
 			Node columnNode = matchingColumns.get("c_" + column.getKey());
-			Integer xCoordColumn = columnNode.getAttributes().getNamedItem("x") != null ? Integer.parseInt(columnNode.getAttributes().getNamedItem("x").getNodeValue()) : 0;
+			if (columnNode == null) continue;
+			Node parentNode;
+			if(swapAxis){
+				parentNode = columnNode.getParentNode().getParentNode();
+				yCoord = columnNode.getAttributes().getNamedItem("y") != null ? Integer.parseInt(columnNode.getAttributes().getNamedItem("y").getNodeValue())+4 : 0;
+			}
+			else
+			{
+				parentNode = rowNode.getParentNode().getParentNode();
+				xCoord = columnNode.getAttributes().getNamedItem("x") != null ? Integer.parseInt(columnNode.getAttributes().getNamedItem("x").getNodeValue()) : 0;
+			}
 			Element reportElement = doc.createElement("reportElement");
 			reportElement.setAttribute("key", "r_" + row.getName() + "_c_" +column.getKey());
-			reportElement.setAttribute("x", xCoordColumn.toString());
-			reportElement.setAttribute("y", yCoordRow.toString());
+			reportElement.setAttribute("x", xCoord.toString());
+			reportElement.setAttribute("y", yCoord.toString());
 			reportElement.setAttribute("width", "55");
 			reportElement.setAttribute("height", "15");
 			//reportElement.setAttribute("uuid", uuid.toString());
@@ -167,7 +186,7 @@ public class ReportTemplate {
 			textField.appendChild(reportElement);
 			textField.appendChild(textElement);
 			textField.appendChild(textFieldExpression);
-			rowNode.getParentNode().getParentNode().appendChild(textField);
+			parentNode.appendChild(textField);
 
 		}
 	}
@@ -178,7 +197,7 @@ public class ReportTemplate {
 		Integer yCoord, xCoord;
 		xCoord = yCoord= 0;
 		if(swapAxis){
-			 xCoord = rowNode.getAttributes().getNamedItem("x") != null ? Integer.parseInt(rowNode.getAttributes().getNamedItem("x").getNodeValue())+1 : 0;
+			 xCoord = rowNode.getAttributes().getNamedItem("x") != null ? Integer.parseInt(rowNode.getAttributes().getNamedItem("x").getNodeValue())-8 : 0;
 		}
 		else
 		{
@@ -196,7 +215,7 @@ public class ReportTemplate {
 			Node parentNode;
 			if(swapAxis){
 				parentNode = columnNode.getParentNode().getParentNode();
-				yCoord = columnNode.getAttributes().getNamedItem("y") != null ? Integer.parseInt(columnNode.getAttributes().getNamedItem("y").getNodeValue()) : 0;
+				yCoord = columnNode.getAttributes().getNamedItem("y") != null ? Integer.parseInt(columnNode.getAttributes().getNamedItem("y").getNodeValue())+4 : 0;
 			}
 			else
 			{
@@ -318,7 +337,7 @@ public class ReportTemplate {
 		String[] str = type.split("##");
 		if(str.length==2)
 			return str[1].replace("]", "");
-		return null;
+		return type;
 	}
 
 	private void generateMDX(List<RowReport> rows, Document doc, String slicer) {
@@ -356,6 +375,7 @@ public class ReportTemplate {
 		str.append("}  ON ROWS, \n");
 		
 		str.append(" {[Measures].[E],[Measures].[R],[Measures].[C], [Measures].[A]}*" + slicer + " ON COLUMNS \n");
+//		str.append(" {[Measures].[E],[Measures].[R],[Measures].[C], [Measures].[A]}*[Channel].[Code].Members ON COLUMNS \n");
 		str.append("FROM [Financial] \n");
 		str.append("WHERE {[Reporting Year].[$P{REPORTING_YEAR}]} * {[Form Type].[bilateralOda.CRS], [Form Type].[multilateralOda.CRS]}\n");
 		Node queryString = doc.getElementsByTagName("queryString").item(0);
@@ -380,7 +400,7 @@ public class ReportTemplate {
 		tf.setOutputProperty(OutputKeys.INDENT, "yes");
 		Writer out = new StringWriter();
 		tf.transform(new DOMSource(xml), new StreamResult(out));
-		System.out.println(out.toString());
+		//System.out.println(out.toString());
 	}
 
 

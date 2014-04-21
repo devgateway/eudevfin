@@ -27,13 +27,13 @@ public class ColumnReport implements Serializable  {
 
 	private String measure;
 	
-	@Column(length = 1000)
+	@Column(length = 2000)
 	private String slicer;
 	private String name;
 	private int type = Constants.CALCULATED;
 
 	@ElementCollection(fetch = FetchType.EAGER)
-	@Column(length = 1000)
+	@Column(length = 2000)
 	private Set<String> columnCodes;
 	private int multiplier = 1;
 	private String pattern = "#,##0.00";
@@ -133,6 +133,6 @@ public class ColumnReport implements Serializable  {
 		String[] str = type.split("##");
 		if(str.length==2)
 			return str[1].replace("]", "");
-		return null;
+		return type;
 	}
 }

@@ -1,8 +1,12 @@
 package org.devgateway.eudevfin.reports.core.controller;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -33,6 +37,7 @@ import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.olap.JRMondrianQueryExecuterFactory;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.util.AuthUtils;
@@ -257,9 +262,12 @@ public class ReportsController {
      * @param connection the Mondrian connection
      * @param outputType the output for the report: HTML, Excel, PDF, CSV
 	 */
-    private void generateDAC2a (HttpServletRequest request, HttpServletResponse response,
-                               Connection connection, String outputType) {
+    private void generateDAC2a (HttpServletRequest request, HttpServletResponse response, Connection connection, String outputType) {
 		try {
+			
+			String inputStreamArea = getReportFilePath("org/devgateway/eudevfin/reports/core/dac2a/dac2a_template_area", "[Area].[Code].Members", "DAC2aArea");
+			String inputStreamChannel = getReportFilePath("org/devgateway/eudevfin/reports/core/dac2a/dac2a_template_channel", "[Channel].Members ", "DAC2aChannel");
+			
 			InputStream inputStream = ReportsController.class.getClassLoader().getResourceAsStream("org/devgateway/eudevfin/reports/core/dac2a/dac2a_template.jrxml");
 			
 			String yearParam = request.getParameter(REPORT_YEAR);
@@ -268,14 +276,10 @@ public class ReportsController {
 			}
 			int reportYear = Integer.parseInt(yearParam);
 			
-			//Process template (injecting MDX; fields and text elements
-			ReportTemplate reportProcessor = new ReportTemplate();
-			InputStream inputStreamProcessed = reportProcessor.processTemplate(inputStream,	"[Area].Members", rowReportDao, true, "DAC2a");
-
 			Map<String, Object> parameters = new HashMap<String, Object>();
-			parameters
-					.put(JRMondrianQueryExecuterFactory.PARAMETER_MONDRIAN_CONNECTION,
-							connection);
+
+			parameters.put(JRMondrianQueryExecuterFactory.PARAMETER_MONDRIAN_CONNECTION, connection);
+
 			// set locale
 			Locale locale = LocaleContextHolder.getLocale();
 			parameters.put(JRParameter.REPORT_LOCALE, locale);
@@ -293,45 +297,45 @@ public class ReportsController {
 				donorName = organizationForCurrentUser.getDonorName();
 			}
 			parameters.put("REPORTING_COUNTRY", donorName);
+			parameters.put("AREA_SUBREPORT_PATH", inputStreamArea);
+			parameters.put("CHANNEL_SUBREPORT_PATH", inputStreamChannel);
 
-			JasperDesign jasperDesign = JRXmlLoader.load(inputStreamProcessed);
-			JasperReport jasperReport = JasperCompileManager
-					.compileReport(jasperDesign);
+			JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
+			JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
 
-			JasperPrint jasperPrint = JasperFillManager.fillReport(
-					jasperReport, parameters);
+			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters);
 
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			ReportExporter reportExporter = new ReportExporter();
 			String fileName = "";
 
 			switch (outputType) {
-			case OUTPUT_TYPE_PDF:
-				reportExporter.exportPDF(jasperPrint, baos);
-				fileName = "DAC 2a.pdf";
-                    response.setHeader("Content-Disposition", "inline; filename=" + fileName);
-				response.setContentType("application/pdf");
-				break;
-			case OUTPUT_TYPE_EXCEL:
-				reportExporter.exportXLS(jasperPrint, baos);
-				fileName = "DAC 2a.xls";
-                    response.setHeader("Content-Disposition", "inline; filename=" + fileName);
-				response.setContentType("application/vnd.ms-excel");
-				break;
-			case OUTPUT_TYPE_HTML:
-				reportExporter.exportHTML(jasperPrint, baos);
-				fileName = "DAC 2a.html";
-                    response.setHeader("Content-Disposition", "inline; filename=" + fileName);
-				response.setContentType("text/html");
-				break;
-			case OUTPUT_TYPE_CSV:
-				reportExporter.exportCSV(jasperPrint, baos);
-				fileName = "DAC 2a.csv";
-                    response.setHeader("Content-Disposition", "inline; filename=" + fileName);
-				response.setContentType("text/csv");
-				break;
-			default:
-				break;
+				case OUTPUT_TYPE_PDF:
+					reportExporter.exportPDF(jasperPrint, baos);
+					fileName = "DAC 2a.pdf";
+	                    response.setHeader("Content-Disposition", "inline; filename=" + fileName);
+					response.setContentType("application/pdf");
+					break;
+				case OUTPUT_TYPE_EXCEL:
+					reportExporter.exportXLS(jasperPrint, baos);
+					fileName = "DAC 2a.xls";
+	                    response.setHeader("Content-Disposition", "inline; filename=" + fileName);
+					response.setContentType("application/vnd.ms-excel");
+					break;
+				case OUTPUT_TYPE_HTML:
+					reportExporter.exportHTML(jasperPrint, baos);
+					fileName = "DAC 2a.html";
+	                    response.setHeader("Content-Disposition", "inline; filename=" + fileName);
+					response.setContentType("text/html");
+					break;
+				case OUTPUT_TYPE_CSV:
+					reportExporter.exportCSV(jasperPrint, baos);
+					fileName = "DAC 2a.csv";
+	                    response.setHeader("Content-Disposition", "inline; filename=" + fileName);
+					response.setContentType("text/csv");
+					break;
+				default:
+					break;
 			}
 
 			response.setContentLength(baos.size());
@@ -343,6 +347,26 @@ public class ReportsController {
 		}
 	}
 
+	private String getReportFilePath(String path, String slicer, String reportName) {
+		InputStream inputStream = ReportsController.class.getClassLoader().getResourceAsStream(path + ".jrxml");
+		ReportTemplate reportProcessor = new ReportTemplate();
+		InputStream inputStreamProcessed = reportProcessor.processTemplate(inputStream,	slicer, rowReportDao, true, reportName);
+        File tempFile;
+		try {
+			tempFile = File.createTempFile(reportName,"_processed.jrxml");
+	        tempFile.deleteOnExit();
+	        
+	        try (FileOutputStream out = new FileOutputStream(tempFile)) {
+	            IOUtils.copy(inputStreamProcessed, out);
+	        }
+	        return tempFile.getAbsolutePath();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	/**
 	 * Writes the report to the output stream
 	 */
