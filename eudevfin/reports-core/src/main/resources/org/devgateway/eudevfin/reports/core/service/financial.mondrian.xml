@@ -280,6 +280,8 @@
                 CASE WHEN cat.coefficient IS NULL THEN AMOUNTS_EXTENDED_AMOUNT ELSE (AMOUNTS_EXTENDED_AMOUNT * cat.COEFFICIENT) / 100 END as AMOUNTS_EXTENDED_AMOUNT_WITH_COEFFICIENT,
                 CASE WHEN cat.coefficient IS NULL THEN AMOUNTS_RECEIVED_AMOUNT ELSE (AMOUNTS_RECEIVED_AMOUNT * cat.COEFFICIENT) / 100 END as AMOUNTS_RECEIVED_AMOUNT_WITH_COEFFICIENT,
 				CASE WHEN cat.coefficient IS NULL THEN COMMITMENT_AMOUNT ELSE (COMMITMENT_AMOUNT * cat.COEFFICIENT) / 100 END as COMMITMENT_AMOUNT_WITH_COEFFICIENT,
+				CASE WHEN cat.coefficient IS NULL THEN AMOUNTS_EXP_COMMIT_AMOUNT ELSE (AMOUNTS_EXP_COMMIT_AMOUNT * cat.COEFFICIENT) / 100 END as AMOUNTS_EXP_COMMIT_AMOUNT_WITH_COEFFICIENT,
+				CASE WHEN cat.coefficient IS NULL THEN AMOUNTS_EXP_EXTENDED_AMOUNT ELSE (AMOUNTS_EXP_EXTENDED_AMOUNT * cat.COEFFICIENT) / 100 END as AMOUNTS_EXP_EXTENDED_AMOUNT_WITH_COEFFICIENT,
                 ft.*
                 from FINANCIALTRANSACTION ft left join CATEGORY cat ON cat.id = ft.channel_id WHERE ft.draft = false OR draft IS NULL
             ]]></SQL>
@@ -311,6 +313,44 @@
                 </Level>
             </Hierarchy>
         </Dimension>
+        <Dimension name="Investment">
+            <Hierarchy hasAll="true">
+                <Level name="Investment" column="INVESTMENT" uniqueMembers="false" type="String">
+                    <KeyExpression>
+                        <SQL dialect="generic">(CASE WHEN INVESTMENT = TRUE THEN 'Yes' ELSE 'No' END)</SQL>
+                    </KeyExpression>
+                </Level>
+            </Hierarchy>
+        </Dimension>
+        <Dimension name="PBA">
+            <Hierarchy hasAll="true">
+                <Level name="PBA" column="PROGRAMMEBASEDAPPROACH" uniqueMembers="false" type="String">
+                    <KeyExpression>
+                        <SQL dialect="generic">(CASE WHEN PROGRAMMEBASEDAPPROACH = TRUE THEN 'Yes' ELSE 'No' END)</SQL>
+                    </KeyExpression>
+                </Level>
+            </Hierarchy>
+        </Dimension>
+        <Dimension name="PBA">
+            <Hierarchy hasAll="true">
+                <Level name="PBA" column="PROGRAMMEBASEDAPPROACH" uniqueMembers="false" type="String">
+                    <KeyExpression>
+                        <SQL dialect="generic">(CASE WHEN PROGRAMMEBASEDAPPROACH = TRUE THEN 'Yes' ELSE 'No' END)</SQL>
+                    </KeyExpression>
+                </Level>
+            </Hierarchy>
+        </Dimension>
+        <Dimension name="FTC">
+            <Hierarchy hasAll="true">
+                <Level name="FTC" column="FREESTANDINGTECHNICALCOOPERATION" uniqueMembers="false" type="String">
+                    <KeyExpression>
+                        <SQL dialect="generic">(CASE WHEN FREESTANDINGTECHNICALCOOPERATION = TRUE THEN 'Yes' ELSE 'No' END)</SQL>
+                    </KeyExpression>
+                </Level>
+            </Hierarchy>
+        </Dimension>
+        
+        
         <Dimension name="CPA">
             <Hierarchy hasAll="true" allMemberName="All CPA">
                 <!-- No table element here. Fact table is assumed. -->
@@ -485,7 +525,35 @@
         <Measure name="Interest Received Amount" column="AMOUNTS_INTEREST_RECEIVED_AMOUNT" aggregator="sum" visible="true" caption="%{interestReceivedAmount}"></Measure>
         <Measure name="Principal Disbursed Amount" column="AMOUNTS_PRIN_DISB_AMOUNT" aggregator="sum" visible="true" caption="%{principalDisbursedAmount}"></Measure>
         <Measure name="Expert Commitments Amount" column="AMOUNTS_EXP_COMMIT_AMOUNT" aggregator="sum" visible="true" caption="%{expertCommitmentsAmount}"></Measure>
+        <Measure name="Expert Commitments Currency NATLOECD" aggregator="sum" visible="true">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (AMOUNTS_EXP_COMMIT_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    (SOURCE = 'OECD' OR SOURCE='National') AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXP_COMMIT_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
         <Measure name="Expert Extended Amount" column="AMOUNTS_EXP_EXTENDED_AMOUNT" aggregator="sum" visible="true" caption="%{expertExtendedAmount}"></Measure>
+        <Measure name="Expert Extended Currency NATLOECD" aggregator="sum" visible="true">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (AMOUNTS_EXP_EXTENDED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    (SOURCE = 'OECD' OR SOURCE='National') AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXP_EXTENDED_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
         <Measure name="NumberOfTransactions" column="ID" datatype="Integer" aggregator="count" formatString="#,###"/>
         <CalculatedMember name="Net Amount" dimension="Measures">
             <Formula>[Measures].[Extended Amount] - [Measures].[Received Amount]</Formula>

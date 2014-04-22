@@ -375,7 +375,7 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 				"[BiMultilateral].[BI_MULTILATERAL##1]",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"[Type of Aid].[C01]",
-				"",
+				"[Investment].[Yes]",
 				"",
 				"[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE##210]",
 				"[Type of Finance].[TYPE_OF_FINANCE##410],[Type of Finance].[TYPE_OF_FINANCE##510],[Type of Finance].[TYPE_OF_FINANCE##511],[Type of Finance].[TYPE_OF_FINANCE##512]",
@@ -388,7 +388,7 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 				"[BiMultilateral].[BI_MULTILATERAL##1]",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"[Type of Aid].[C01]",
-				"",
+				"[Investment].[Yes]",
 				"",
 				"",
 				"[Type of Finance].[TYPE_OF_FINANCE##510],[Type of Finance].[TYPE_OF_FINANCE##511],[Type of Finance].[TYPE_OF_FINANCE##512]",
@@ -401,7 +401,7 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 				"[BiMultilateral].[BI_MULTILATERAL##1]",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"[Type of Aid].[C01]",
-				"",
+				"[Investment].[No]",
 				"",
 				"[Type of Finance].[TYPE_OF_FINANCE##110]",
 				"[Type of Finance].[TYPE_OF_FINANCE##410]",
@@ -411,13 +411,11 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 				);
 		rowReportDao.save(row_1320);
 
-
-		//TODO: Check 1330 PBA=1
 		RowReport row_1330 = createDAC1Row("1330", Constants.CALCULATED,
 				"[BiMultilateral].[BI_MULTILATERAL##1]",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"[Type of Aid].[C01]",
-				"",
+				"[PBA].[Yes]",
 				"",
 				"[Type of Finance].[TYPE_OF_FINANCE##110]",
 				"[Type of Finance].[TYPE_OF_FINANCE##410],[Type of Finance].[TYPE_OF_FINANCE##510],[Type of Finance].[TYPE_OF_FINANCE##511],[Type of Finance].[TYPE_OF_FINANCE##512]",
@@ -427,7 +425,7 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 				);
 		rowReportDao.save(row_1330);
 		//TODO: Check 1301 amount: items 40 & 41
-		RowReport row_1301 = createDAC1Row("1301", Constants.CALCULATED,
+		RowReport row_1301 = createDAC1RowExpert("1301", Constants.CALCULATED,
 				"[BiMultilateral].[BI_MULTILATERAL##1]",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"[Type of Aid].[C01]",
@@ -740,7 +738,7 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 		RowReport row_1901 = createDAC1Row("1901", Constants.CALCULATED,
 				"{[BiMultilateral].[BI_MULTILATERAL##1], [BiMultilateral].[BI_MULTILATERAL##3]}",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
-				"",
+				"[PBA].[Yes]",
 				"",
 				"",
 				"[Type of Finance].[TYPE_OF_FINANCE##110]",
@@ -754,7 +752,7 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 				"{[BiMultilateral].[BI_MULTILATERAL##1], [BiMultilateral].[BI_MULTILATERAL##3]}",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"Except([Type of Aid].[Code].Members, [Type of Aid].[G01])",
-				"",
+				"[FTC].[Yes]",
 				"",
 				"[Type of Finance].[TYPE_OF_FINANCE##110]",
 				"[Type of Finance].[TYPE_OF_FINANCE##410],[Type of Finance].[TYPE_OF_FINANCE##510],[Type of Finance].[TYPE_OF_FINANCE##511],[Type of Finance].[TYPE_OF_FINANCE##512]",
@@ -1432,6 +1430,81 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 		if(col_1152_tof != null && !col_1152_tof.equals("")){
 			ColumnReport col7 = new ColumnReport("1152", Constants.CALCULATED,
 					"[Measures].[C]", col_1152_tof);
+			columns.add(col7);
+			sumCols1150.add(col7.getColumnCode());
+		}
+
+		ColumnReport col8 = new ColumnReport("1150", Constants.SUM, sumCols1150);
+		columns.add(col8);
+
+		row.setColumns(columns);
+		return row;
+
+	}
+	public RowReport createDAC1RowExpert(String name, int type, String biMulti,
+			String typeOfFlow, String typeOfAid, String purposeCode,
+			String channel, String col_1121_tof, String col_1122_tof,
+			String col_1130_tof, String col_1151_tof, String col_1152_tof) {
+		RowReport row = new RowReport("DAC1", name, type);
+
+		Set<String> categories = new HashSet<String>();
+		if (biMulti != null)
+			categories.add(biMulti);
+		if (typeOfFlow != null)
+			categories.add(typeOfFlow);
+		if (typeOfAid != null)
+			categories.add(typeOfAid);
+		if (purposeCode != null)
+			categories.add(purposeCode);
+		if (channel != null)
+			categories.add(channel);
+		row.setCategories(categories);
+
+		Set<ColumnReport> columns = new HashSet<ColumnReport>();
+		
+		HashSet<String> sumCols1120 = new HashSet<String>();
+		if(col_1121_tof != null && !col_1121_tof.equals("")){
+			ColumnReport col1 = new ColumnReport("1121", Constants.CALCULATED,
+					"[Measures].[EE]", col_1121_tof);
+			columns.add(col1);
+			sumCols1120.add(col1.getColumnCode());
+		}
+
+		if(col_1122_tof != null && !col_1122_tof.equals("")){
+			ColumnReport col2 = new ColumnReport("1122", Constants.CALCULATED,
+					"[Measures].[EE]", col_1122_tof);
+			columns.add(col2);
+			sumCols1120.add(col2.getColumnCode());
+		}
+
+		ColumnReport col3 = new ColumnReport("1120", Constants.SUM, sumCols1120);
+		columns.add(col3);
+		
+		HashSet<String> sumCols1140 = new HashSet<String>();
+		sumCols1140.addAll(sumCols1120);
+
+		if(col_1130_tof != null && !col_1130_tof.equals("")){
+			ColumnReport col4 = new ColumnReport("1130", Constants.CALCULATED,
+					"[Measures].[R]", col_1130_tof);
+			col4.setMultiplier(-1);
+			columns.add(col4);
+			sumCols1140.add(col4.getColumnCode());
+		}
+
+		ColumnReport col5 = new ColumnReport("1140", Constants.SUM, sumCols1140);
+		columns.add(col5);
+
+		HashSet<String> sumCols1150 = new HashSet<String>();
+		if(col_1151_tof != null && !col_1151_tof.equals("")){
+			ColumnReport col6 = new ColumnReport("1151", Constants.CALCULATED,
+					"[Measures].[EC]", col_1151_tof);
+			columns.add(col6);
+			sumCols1150.add(col6.getColumnCode());
+		}
+
+		if(col_1152_tof != null && !col_1152_tof.equals("")){
+			ColumnReport col7 = new ColumnReport("1152", Constants.CALCULATED,
+					"[Measures].[EC]", col_1152_tof);
 			columns.add(col7);
 			sumCols1150.add(col7.getColumnCode());
 		}

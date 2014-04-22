@@ -341,7 +341,7 @@ public class ReportTemplate {
 				str.append("[Type of Aid].[" + row.getName() + "]");
 				str.append(" as SUM(");
 				str.append(row.getFormula());
-				str.append(")");
+				str.append(")\n");
 			}
 		}
 		str.append("\n");
@@ -349,6 +349,8 @@ public class ReportTemplate {
 		str.append("MEMBER [Measures].[R] AS [Measures].[Received Amount Currency NATLOECD] \n");
 		str.append("MEMBER [Measures].[C] AS [Measures].[Commitments Amount Currency NATLOECD] \n");
 		str.append("MEMBER [Measures].[A] AS [Measures].[Extended Amount No Flow] \n");
+		str.append("MEMBER [Measures].[EE] AS [Measures].[Expert Extended Currency NATLOECD] \n");
+		str.append("MEMBER [Measures].[EC] AS [Measures].[Expert Commitments Currency NATLOECD] \n");
 		str.append("SELECT {");
 		for (Iterator<RowReport> it = calculatedRows.iterator(); it.hasNext();) {
 			RowReport row = it.next();
@@ -358,10 +360,11 @@ public class ReportTemplate {
 		}
 		str.append("}  ON ROWS, \n");
 		
-		str.append(" {[Measures].[E],[Measures].[R],[Measures].[C], [Measures].[A]}*" + slicer + " ON COLUMNS \n");
+		str.append(" {[Measures].[E],[Measures].[R],[Measures].[C], [Measures].[A], [Measures].[EE], [Measures].[EC]}*" + slicer + " ON COLUMNS \n");
 		str.append("FROM [Financial] \n");
-		str.append("WHERE {[Reporting Year].[$P{REPORTING_YEAR}]} * {[Form Type].[bilateralOda.CRS], [Form Type].[multilateralOda.CRS]}\n");
+		str.append("WHERE {[Reporting Year].[$P{REPORTING_YEAR}]} * {[Form Type].[bilateralOda.CRS], [Form Type].[multilateralOda.CRS], [Form Type].[#null]}\n");
 		Node queryString = doc.getElementsByTagName("queryString").item(0);
+	//	System.out.println(str.toString());
 		CDATASection cdata = doc.createCDATASection(str.toString());
 		queryString.appendChild(cdata);
 	}
