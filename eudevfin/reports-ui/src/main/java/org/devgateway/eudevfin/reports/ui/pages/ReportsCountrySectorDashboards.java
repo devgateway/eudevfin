@@ -50,12 +50,24 @@ public class ReportsCountrySectorDashboards extends HeaderFooter {
     private static final String isParentSector = "ParentSector";
 
     private String countryTableRowSet = "{Hierarchize({[Country].[Geography].Members, [Country].[Name].Members, [Country].[Total]})}";
-    private String countryGeography = "{Hierarchize({{[Country].[__GEOGRAPHY__]}, Filter({{[Country].[Name].Members}}, " +
+    private String countryTableGeography = "{Hierarchize({{[Country].[__GEOGRAPHY__]}, Filter({{[Country].[Name].Members}}, " +
             "(Exists(Ancestor([Country].CurrentMember, [Country].[Geography]), {[Country].[__GEOGRAPHY__]}).Count  > 0))}), [Country].[Total]}";
-    private String countryRecipient = "{Hierarchize({{[Country].[Name].[__RECIPIENT__]}}), [Country].[Total]}";
-    private String countryGeographyRecipient = "{Hierarchize({{[Country].[__GEOGRAPHY__]}, [Country].[Name].[__RECIPIENT__], [Country].[Total]})}";
+    private String countryTableRecipient = "{Hierarchize({{[Country].[Name].[__RECIPIENT__]}}), [Country].[Total]}";
+    private String countryTableGeographyRecipient = "{Hierarchize({{[Country].[__GEOGRAPHY__]}, [Country].[Name].[__RECIPIENT__], [Country].[Total]})}";
     private String countryTableTotal = "MEMBER [Country].[Total] AS SUM([Country].[Name].Members, [Measures].[Extended Amount Currency NATLOECD])";
     private String countryTableTotalGeography = "MEMBER [Country].[Total] AS SUM([Country].__GEOGRAPHY__, [Measures].[Extended Amount Currency NATLOECD])";
+
+    private String countryChartRowSet = "{[Country].[Name].Members}";
+    private String countryChartGeography = "{Filter({{[Country].[Name].Members}}, (Exists(Ancestor([Country].CurrentMember, [Country].[Geography]), {[Country].[__GEOGRAPHY__]}).Count  > 0))}";
+    private String countryChartRecipient = "{[Country].[Name].[__RECIPIENT__]}";
+
+    private String sectorTableRowSet = "{Hierarchize({[SectorHierarchy].[ParentName].Members, [SectorHierarchy].[Name].Members, [SectorHierarchy].[Total]})}";
+    private String sectorTableSector = "{Hierarchize({[SectorHierarchy].[Name].[__SECTOR__], [SectorHierarchy].[Total]})}";
+    private String sectorTableTotal = "MEMBER[SectorHierarchy].[Total] AS SUM([SectorHierarchy].[Name].Members, [Measures].[Extended Amount Currency NATLOECD])";
+    private String sectorTableTotalSector = "MEMBER[SectorHierarchy].[Total] AS SUM([SectorHierarchy].[Name].[__SECTOR__], [Measures].[Extended Amount Currency NATLOECD])";
+
+    private String sectorChartRowSet = "{[SectorHierarchy].[Name].Members}";
+    private String sectorChartSector = "{[SectorHierarchy].[Name].[__SECTOR__]}";
 
     private String geographyParam;
     private String recipientParam;
@@ -80,11 +92,7 @@ public class ReportsCountrySectorDashboards extends HeaderFooter {
             sectorParam = parameters.get(ReportsConstants.SECTOR_PARAM).toString();
         }
         if(!parameters.get(ReportsConstants.YEAR_PARAM).equals(StringValue.valueOf((String) null))) {
-            logger.error(">>> yearParam: " + parameters.get(ReportsConstants.YEAR_PARAM));
-            if (parameters.get(ReportsConstants.YEAR_PARAM).equals(StringValue.valueOf((String) null)))
-                logger.error("dlakjfldka is null!!!!!!");
             yearParam = parameters.get(ReportsConstants.YEAR_PARAM).toString();
-            logger.error(">>>> yearParam: " + yearParam);
             tableYear = Integer.parseInt(yearParam);
         }
         if(!parameters.get(ReportsConstants.COFINANCING_PARAM).equals(StringValue.valueOf((String) null))) {
@@ -94,37 +102,50 @@ public class ReportsCountrySectorDashboards extends HeaderFooter {
             CPAOnlyParam = parameters.get(ReportsConstants.CPAONLY_PARAM).toString();
         }
 
-        logger.info("geographyParam: " + geographyParam);
-        logger.info("recipientParam: " + recipientParam);
-        logger.info("sectorParam: " + sectorParam);
-        logger.info("yearParam: " + yearParam);
-        logger.info("coFinancingParam: " + coFinancingParam);
-        logger.info("CPAOnlyParam: " + CPAOnlyParam);
-
         if (geographyParam != null && recipientParam != null) {
-            countryGeographyRecipient = countryGeographyRecipient.replaceAll("__GEOGRAPHY__", geographyParam);
-            countryGeographyRecipient = countryGeographyRecipient.replaceAll("__RECIPIENT__", recipientParam);
-            countryTableRowSet = countryGeographyRecipient;
+            countryTableGeographyRecipient = countryTableGeographyRecipient.replaceAll("__GEOGRAPHY__", geographyParam);
+            countryTableGeographyRecipient = countryTableGeographyRecipient.replaceAll("__RECIPIENT__", recipientParam);
+            countryTableRowSet = countryTableGeographyRecipient;
 
             // use the region to calculate the total amount
             countryTableTotalGeography = countryTableTotalGeography.replaceAll("__GEOGRAPHY__", "[" + geographyParam + "]");
             countryTableTotal = countryTableTotalGeography;
+
+            countryChartRecipient = countryChartRecipient.replaceAll("__RECIPIENT__", recipientParam);
+            countryChartRowSet = countryChartRecipient;
         } else {
             if (geographyParam != null) {
-                countryGeography = countryGeography.replaceAll("__GEOGRAPHY__", geographyParam);
-                countryTableRowSet = countryGeography;
+                countryTableGeography = countryTableGeography.replaceAll("__GEOGRAPHY__", geographyParam);
+                countryTableRowSet = countryTableGeography;
 
                 countryTableTotalGeography = countryTableTotalGeography.replaceAll("__GEOGRAPHY__", "[" + geographyParam + "]");
                 countryTableTotal = countryTableTotalGeography;
+
+                countryChartGeography = countryChartGeography.replaceAll("__GEOGRAPHY__", geographyParam);
+                countryChartRowSet = countryChartGeography;
             } else {
                 if (recipientParam != null) {
-                    countryRecipient = countryRecipient.replaceAll("__RECIPIENT__", recipientParam);
-                    countryTableRowSet = countryRecipient;
+                    countryTableRecipient = countryTableRecipient.replaceAll("__RECIPIENT__", recipientParam);
+                    countryTableRowSet = countryTableRecipient;
 
                     countryTableTotalGeography = countryTableTotalGeography.replaceAll("__GEOGRAPHY__", "[Name].[" + recipientParam + "]");
                     countryTableTotal = countryTableTotalGeography;
+
+                    countryChartRecipient = countryChartRecipient.replaceAll("__RECIPIENT__", recipientParam);
+                    countryChartRowSet = countryChartRecipient;
                 }
             }
+        }
+
+        if(sectorParam != null) {
+            sectorTableSector = sectorTableSector.replaceAll("__SECTOR__", sectorParam);
+            sectorTableRowSet = sectorTableSector;
+
+            sectorTableTotalSector = sectorTableTotalSector.replaceAll("__SECTOR__", sectorParam);
+            sectorTableTotal = sectorTableTotalSector;
+
+            sectorChartSector = sectorChartSector.replaceAll("__SECTOR__", sectorParam);
+            sectorChartRowSet = sectorChartSector;
         }
 
         addComponents();
@@ -152,7 +173,7 @@ public class ReportsCountrySectorDashboards extends HeaderFooter {
                 this.rows = new ArrayList<>();
                 this.result = this.runQuery();
                 List <List<String>> resultSet = this.result.getResultset();
-                logger.error(resultSet);
+
                 if(resultSet.size() != 0 && resultSet.get(0).size() > 3) {
                     // check if we have data for the 'first year' or 'second year'
                     // and add null values
@@ -178,9 +199,6 @@ public class ReportsCountrySectorDashboards extends HeaderFooter {
                             }
                         }
                     }
-
-                    logger.error(">>>>>>>> " + this.result.getMetadata().get(1).getColName());
-                    logger.error(resultSet);
 
                     // format the amounts as #,###.##
                     // and other values like percentages
@@ -259,15 +277,17 @@ public class ReportsCountrySectorDashboards extends HeaderFooter {
         table.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
 
         if (sectorParam != null) {
-            logger.error("[Name].[" + sectorParam + "]");
             table.setParam("paramSECTOR", "[Name].[" + sectorParam + "]");
+        }
+        if(coFinancingParam != null && coFinancingParam.equals("true")) {
+            table.setParam("paramCOFINANCED", "[1]");
+        }
+        if(CPAOnlyParam != null && CPAOnlyParam.equals("true")) {
+            table.setParam("paramCPA", "[1]");
         }
 
         table.setParam("paramcountryTableRowSet", countryTableRowSet);
         table.setParam("paramcountryTableTotal", countryTableTotal);
-
-        logger.error("countryTableTotal: " + countryTableTotal);
-        logger.error("countryTableRowSet: " + countryTableRowSet);
 
         table.setdisableStripeClasses(Boolean.TRUE);
 
@@ -321,6 +341,18 @@ public class ReportsCountrySectorDashboards extends HeaderFooter {
         stackedBarChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
         stackedBarChart.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
 
+        if (sectorParam != null) {
+            stackedBarChart.setParam("paramSECTOR", "[Name].[" + sectorParam + "]");
+        }
+        if(coFinancingParam != null && coFinancingParam.equals("true")) {
+            stackedBarChart.setParam("paramCOFINANCED", "[1]");
+        }
+        if(CPAOnlyParam != null && CPAOnlyParam.equals("true")) {
+            stackedBarChart.setParam("paramCPA", "[1]");
+        }
+
+        stackedBarChart.setParam("paramcountryChartRowSet", countryChartRowSet);
+
         List<List<Float>> resultSeries = stackedBarChart.getResultSeriesAsList();
         stackedBarChart.getOptions().setPlotOptions(new PlotOptionsChoice().
                 setBar(new PlotOptions().
@@ -353,7 +385,7 @@ public class ReportsCountrySectorDashboards extends HeaderFooter {
                 this.result = this.runQuery();
                 List <List<String>> resultSet = this.result.getResultset();
 
-                if(resultSet.size() != 0) {
+                if(resultSet.size() != 0 && resultSet.get(0).size() > 3) {
                     // check if we have data for the 'first year' or 'second year'
                     // and add null values
                     if (resultSet.get(0).size() == 4) {
@@ -363,6 +395,17 @@ public class ReportsCountrySectorDashboards extends HeaderFooter {
                                 resultSet.get(i).add(4, null);
                             } else {
                                 resultSet.get(i).add(1, null);
+                                resultSet.get(i).add(2, null);
+                            }
+                        }
+                    }
+
+                    // this is usually happening when we filter by both region and geography
+                    if (resultSet.get(0).size() == 5) {
+                        for (int i = 0; i < resultSet.size(); i++) {
+                            if (this.result.getMetadata().get(2).getColName().equals("First Year %")) {
+                                resultSet.get(i).add(4, null);
+                            } else {
                                 resultSet.get(i).add(2, null);
                             }
                         }
@@ -410,13 +453,7 @@ public class ReportsCountrySectorDashboards extends HeaderFooter {
                         }
                     }
 
-                    // add the percentage for the 'Total'
-                    if (resultSet.get(resultSet.size() - 1).get(2) != null) {
-                        resultSet.get(resultSet.size() - 1).set(3, "100%");
-                    }
-                    if (resultSet.get(resultSet.size() - 1).get(4) != null) {
-                        resultSet.get(resultSet.size() - 1).set(5, "100%");
-                    }
+                    // set 'Total' as Geography
                     resultSet.get(resultSet.size() - 1).set(6, isParentSector.toLowerCase());
 
                     for (List<String> item : resultSet) {
@@ -449,6 +486,28 @@ public class ReportsCountrySectorDashboards extends HeaderFooter {
 
         table.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
         table.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
+
+        if (geographyParam != null && recipientParam != null) {
+            table.setParam("paramCOUNTRIES", "[" + geographyParam + "].[" + recipientParam + "]");
+        } else {
+            if (geographyParam != null) {
+                table.setParam("paramCOUNTRIES", "[" + geographyParam + "]");
+            } else {
+                if (recipientParam != null) {
+                    table.setParam("paramCOUNTRIES", "[Name].[" + recipientParam + "]");
+                }
+            }
+        }
+
+        if(coFinancingParam != null && coFinancingParam.equals("true")) {
+            table.setParam("paramCOFINANCED", "[1]");
+        }
+        if(CPAOnlyParam != null && CPAOnlyParam.equals("true")) {
+            table.setParam("paramCPA", "[1]");
+        }
+
+        table.setParam("paramsectorTableRowSet", sectorTableRowSet);
+        table.setParam("paramsectorTableTotal", sectorTableTotal);
 
         table.setdisableStripeClasses(Boolean.TRUE);
 
@@ -501,6 +560,27 @@ public class ReportsCountrySectorDashboards extends HeaderFooter {
 
         stackedBarChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
         stackedBarChart.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
+
+        if (geographyParam != null && recipientParam != null) {
+            stackedBarChart.setParam("paramCOUNTRIES", "[" + geographyParam + "].[" + recipientParam + "]");
+        } else {
+            if (geographyParam != null) {
+                stackedBarChart.setParam("paramCOUNTRIES", "[" + geographyParam + "]");
+            } else {
+                if (recipientParam != null) {
+                    stackedBarChart.setParam("paramCOUNTRIES", "[Name].[" + recipientParam + "]");
+                }
+            }
+        }
+
+        if(coFinancingParam != null && coFinancingParam.equals("true")) {
+            stackedBarChart.setParam("paramCOFINANCED", "[1]");
+        }
+        if(CPAOnlyParam != null && CPAOnlyParam.equals("true")) {
+            stackedBarChart.setParam("paramCPA", "[1]");
+        }
+
+        stackedBarChart.setParam("paramsectorChartRowSet", sectorChartRowSet);
 
         List<List<Float>> resultSeries = stackedBarChart.getResultSeriesAsList();
         stackedBarChart.getOptions().setPlotOptions(new PlotOptionsChoice().
