@@ -53,6 +53,33 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 	}
 
 	private void insertSecondSection() {
+		RowReport row_212 = createDAC2aRowChannelEmpty("212");
+		rowReportDao.save(row_212);
+
+		RowReport row_221 = createDAC2aRowChannelEmpty("221");
+		rowReportDao.save(row_221);
+
+		RowReport row_208 = createDAC2aRowChannelEmpty("208");
+		rowReportDao.save(row_208);
+
+		RowReport row_214 = createDAC2aRowChannelEmpty("214");
+		rowReportDao.save(row_214);
+
+		RowReport row_215 = createDAC2aRowChannelEmpty("215");
+		rowReportDao.save(row_215);
+
+		RowReport row_217 = createDAC2aRowChannelEmpty("217");
+		rowReportDao.save(row_217);
+
+		RowReport row_207 = createDAC2aRowChannelEmpty("207");
+		rowReportDao.save(row_207);
+
+		RowReport row_213 = createDAC2aRowChannelEmpty("213");
+		rowReportDao.save(row_213);
+
+		RowReport row_216 = createDAC2aRowChannelEmpty("216");
+		rowReportDao.save(row_216);
+
 		RowReport row_201 = createDAC2aRowChannel("201", Constants.CALCULATED,
 				"[BiMultilateral].[BI_MULTILATERAL##2]",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
@@ -142,10 +169,10 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 	private void insertFirstSection(List<Area> listAreas) {
 
 		
-		RowReport row_210 = createDAC2aRowEmpty("210", "DAC2aArea", listAreas);
+		RowReport row_210 = createDAC2aRowAreaEmpty("210", listAreas);
 		rowReportDao.save(row_210);
 
-		RowReport row_211 = createDAC2aRowEmpty("211", "DAC2aArea", listAreas);
+		RowReport row_211 = createDAC2aRowAreaEmpty("211", listAreas);
 		rowReportDao.save(row_211);
 
 		RowReport row_201 = createDAC2aRowArea("201", Constants.CALCULATED,
@@ -589,8 +616,8 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 
 	}
 	
-	public RowReport createDAC2aRowEmpty(String name, String reportName, List<Area> listAreas) {
-		RowReport row = new RowReport(reportName, name, Constants.EMPTY);
+	public RowReport createDAC2aRowAreaEmpty(String name, List<Area> listAreas) {
+		RowReport row = new RowReport("DAC2aArea", name, Constants.EMPTY);
 
 		Set<ColumnReport> columns = new HashSet<ColumnReport>();		
 		Iterator<Area> it = listAreas.iterator();
@@ -648,6 +675,37 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 		RowReport row = new RowReport(reportName, name, type, rowCodes);
 		return row;
 	}
+	public RowReport createDAC2aRowChannelEmpty(String name) {
+		RowReport row = new RowReport("DAC2aChannel", name, Constants.EMPTY);
+
+		Set<ColumnReport> columns = new HashSet<ColumnReport>();
+		Map<String, String> channelsByRow = getChannelMapping();
+
+		for (Map.Entry<String, String> currRow : channelsByRow.entrySet())
+		{
+			ColumnReport col1 = new ColumnReport(currRow.getKey(), Constants.EMPTY, null, null);
+			columns.add(col1);
+		}
+		
+		ColumnReport col992 = new ColumnReport("992", Constants.EMPTY, null);
+		columns.add(col992);
+
+		ColumnReport colEUTotal= new ColumnReport("total_european_union", Constants.EMPTY, null);
+		columns.add(colEUTotal);
+
+		ColumnReport colWBTotal= new ColumnReport("total_worldbank", Constants.EMPTY, null);
+		columns.add(colWBTotal);
+
+		ColumnReport colRBTotal= new ColumnReport("total_regional", Constants.EMPTY, null);
+		columns.add(colRBTotal);
+
+		ColumnReport colOtherTotal= new ColumnReport("c_total_other", Constants.EMPTY, null);
+		columns.add(colOtherTotal);
+		
+		row.setColumns(columns);
+		return row;
+
+	}
 	public RowReport createDAC2aRowChannel(String name, int type, String biMulti,
 			String typeOfFlow, String typeOfAid, String purposeCode, String typeOfFinance, String measure) {
 		RowReport row = new RowReport("DAC2aChannel", name, type);
@@ -688,10 +746,55 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 		ColumnReport col992 = new ColumnReport("992", Constants.SUM, sumCols992);
 		columns.add(col992);
 
+		HashSet<String> sumColsEUTotal = new HashSet<String>();
+		sumColsEUTotal.add(columnsByCode.get("918"));
+		sumColsEUTotal.add(columnsByCode.get("917"));
+		sumColsEUTotal.add(columnsByCode.get("919"));
+		sumColsEUTotal.add(columnsByCode.get("927"));
+		ColumnReport colEUTotal= new ColumnReport("total_european_union", Constants.SUM, sumColsEUTotal);
+		columns.add(colEUTotal);
+
+		HashSet<String> sumColsWBTotal = new HashSet<String>();
+		sumColsWBTotal.add(columnsByCode.get("901"));
+		sumColsWBTotal.add(columnsByCode.get("905"));
+		sumColsWBTotal.add(columnsByCode.get("904"));
+		sumColsWBTotal.add(columnsByCode.get("903"));
+		sumColsWBTotal.add(columnsByCode.get("902"));
+		sumColsWBTotal.add(columnsByCode.get("900"));
+		ColumnReport colWBTotal= new ColumnReport("total_worldbank", Constants.SUM, sumColsWBTotal);
+		columns.add(colWBTotal);
+
+		HashSet<String> sumColsRBTotal = new HashSet<String>();
+		sumColsRBTotal.add(columnsByCode.get("915"));
+		sumColsRBTotal.add(columnsByCode.get("916"));
+		sumColsRBTotal.add(columnsByCode.get("909"));
+		sumColsRBTotal.add(columnsByCode.get("912"));
+		sumColsRBTotal.add(columnsByCode.get("913"));
+		sumColsRBTotal.add(columnsByCode.get("914"));
+		sumColsRBTotal.add(columnsByCode.get("906"));
+		sumColsRBTotal.add(columnsByCode.get("910"));
+		sumColsRBTotal.add(columnsByCode.get("816"));
+		ColumnReport colRBTotal= new ColumnReport("total_regional", Constants.SUM, sumColsRBTotal);
+		columns.add(colRBTotal);
+
+		HashSet<String> sumColsOtherTotal = new HashSet<String>();
+		sumColsOtherTotal.add(columnsByCode.get("907"));
+		sumColsOtherTotal.add(columnsByCode.get("958"));
+		sumColsOtherTotal.add(columnsByCode.get("949"));
+		sumColsOtherTotal.add(columnsByCode.get("989"));
+		sumColsOtherTotal.add(columnsByCode.get("811"));
+		sumColsOtherTotal.add(columnsByCode.get("812"));
+		sumColsOtherTotal.add(columnsByCode.get("1311"));
+		sumColsOtherTotal.add(columnsByCode.get("1312"));
+		sumColsOtherTotal.add(columnsByCode.get("104"));
+		ColumnReport colOtherTotal= new ColumnReport("c_total_other", Constants.SUM, sumColsOtherTotal);
+		columns.add(colOtherTotal);
+		
 		row.setColumns(columns);
 		return row;
 
 	}
+
 
 	private Map<String, String> getChannelMapping() {
 		Map<String, String> channelsByRow = new HashMap<String, String>();

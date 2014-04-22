@@ -33,7 +33,7 @@ public class ColumnReport implements Serializable  {
 	private int type = Constants.CALCULATED;
 
 	@ElementCollection(fetch = FetchType.EAGER)
-	@Column(length = 2000)
+	@Column(length = 4000)
 	private Set<String> columnCodes;
 	private int multiplier = 1;
 	private String pattern = "#,##0.00";
