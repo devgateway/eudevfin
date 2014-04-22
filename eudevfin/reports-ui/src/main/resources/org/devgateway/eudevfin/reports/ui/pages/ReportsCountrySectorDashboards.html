@@ -19,7 +19,10 @@
                         <h2 wicket:id="title"/>
                         <br/>
                     </div>
+                </div>
 
+                <!-- country dashboard -->
+                <div class="row">
                     <div class="span6">
                         <div class="box">
                             <div class="box-header">
@@ -63,6 +66,55 @@
                                 </h2>
                             </div>
                             <div wicket:id="countryChart"/>
+                        </div>
+                    </div>
+                </div> <!-- /row -->
+                <br/><br/>
+                <!-- sector dashboard -->
+                <div class="row">
+                    <div class="span6">
+                        <div class="box">
+                            <div class="box-header">
+                                <h2>
+                                    <div wicket:id="sectorTableTitle"/>
+                                </h2>
+                            </div>
+                            <table wicket:id="sectorTable">
+                                <thead>
+                                <tr>
+                                    <th rowspan="2" class="ui-state-default">Main Sector</th>
+                                    <th rowspan="2" class="ui-state-default">Sector</th>
+                                    <th colspan="2" class="ui-state-default" wicket:id="firstYear"></th>
+                                    <th colspan="2" class="ui-state-default" wicket:id="secondYear"></th>
+                                </tr>
+                                <tr>
+                                    <th>$</th>
+                                    <th>%</th>
+                                    <th>$</th>
+                                    <th>%</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr wicket:id="sectorTableRows">
+                                    <td wicket:id="col0" class="string">Row 1 Data 0</td>
+                                    <td wicket:id="col1" class="string">Row 1 Data 1</td>
+                                    <td wicket:id="col2" class="numeric">Row 1 Data 2</td>
+                                    <td wicket:id="col3" class="numeric">Row 1 Data 3</td>
+                                    <td wicket:id="col4" class="numeric">Row 1 Data 4</td>
+                                    <td wicket:id="col5" class="numeric">Row 1 Data 4</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="span6">
+                        <div class="box">
+                            <div class="box-header">
+                                <h2>
+                                    <div wicket:id="sectorChartTitle"/>
+                                </h2>
+                            </div>
+                            <div wicket:id="sectorChart"/>
                         </div>
                     </div>
                 </div> <!-- /row -->

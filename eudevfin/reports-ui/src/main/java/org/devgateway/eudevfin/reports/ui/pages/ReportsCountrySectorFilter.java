@@ -11,6 +11,7 @@ import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
 import org.wicketstuff.annotation.mount.MountPath;
 
+
 /**
  * @author idobre
  * @since 4/3/14
@@ -63,10 +64,10 @@ public class ReportsCountrySectorFilter extends CustomReportsPage {
                 if (customReportsModel.getYear() != null) {
                     pageParameters.add(ReportsConstants.YEAR_PARAM, customReportsModel.getYear());
                 }
-                if (customReportsModel.getCoFinancingTransactionsOnly() != null) {
+                if (customReportsModel.getCoFinancingTransactionsOnly() != null && customReportsModel.getCoFinancingTransactionsOnly() != Boolean.FALSE) {
                     pageParameters.add(ReportsConstants.COFINANCING_PARAM, customReportsModel.getCoFinancingTransactionsOnly());
                 }
-                if (customReportsModel.getCPAOnly() != null) {
+                if (customReportsModel.getCPAOnly() != null && customReportsModel.getCPAOnly() != Boolean.FALSE) {
                     pageParameters.add(ReportsConstants.CPAONLY_PARAM, customReportsModel.getCPAOnly());
                 }
 
