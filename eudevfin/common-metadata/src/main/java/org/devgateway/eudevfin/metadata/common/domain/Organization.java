@@ -15,10 +15,13 @@ import org.hibernate.envers.Audited;
 public class Organization extends AbstractTranslateable<OrganizationTranslation> 
 							implements OrganizationTrnInterface {
 
-	
+	private static final long serialVersionUID = -7886444652559589256L;
+
 	private String code;
 	
 	private String acronym;
+	
+	private Boolean dac;
 	
 	@ManyToOne
 	private Area area;
@@ -103,5 +106,20 @@ public class Organization extends AbstractTranslateable<OrganizationTranslation>
 	public void setAcronym(String acronym) {
 		this.acronym = acronym;
 	}
+
+	/**
+	 * @return the dac
+	 */
+	public Boolean getDac() {
+		return dac;
+	}
+
+	/**
+	 * @param dac the dac to set
+	 */
+	public void setDac(Boolean dac) {
+		this.dac = dac;
+	}
+
 
 }

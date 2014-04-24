@@ -74,6 +74,24 @@ public class OrganizationDaoImpl extends AbstractDaoImpl<Organization, Long, Org
 		return super.findOne(id);
 	}
 	
+	@ServiceActivator(inputChannel="findOrganizationByCodeChannel")
+	public NullableWrapper<Organization> findByCode(String code) {
+		return super.findOne(code);
+	}
+	
+	
+	
+	/**
+	 * @see OrganizationService#findByDacFalse(Pageable)
+	 * @param pageable
+	 * @return
+	 */
+	@ServiceActivator(inputChannel="findOrganizationByDacFalse")
+	public Page<Organization> findByDacFalse(Pageable pageable) {
+		return repo.findByDacFalse(pageable);
+	}
+	
+	
 	/**
 	 * @see OrganizationService#findByGeneralSearchPageable(String, String, Pageable)
 	 */
