@@ -38,8 +38,11 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import java.util.Arrays;
+
 public class ReportTemplate {
     private static final Logger logger = Logger.getLogger(ReportTemplate.class);
+	private List<String> nonFlowItems = Arrays.asList("[Type of Finance].[TYPE_OF_FINANCE##1]","[Type of Finance].[TYPE_OF_FINANCE##2]","[Type of Finance].[TYPE_OF_FINANCE##3]", "[Type of Finance].[TYPE_OF_FINANCE##4]");
 
 	public InputStream processTemplate(InputStream inputStream,
 			String slicer, RowReportDao rowReportDao, boolean swapAxis, String reportName) {
@@ -235,7 +238,12 @@ public class ReportTemplate {
 				for(int i = 0; i < types.length; i++){
 					if(!types[i].equals("")){
 						String fieldName = row.getName() + "_" + column.getName() + "_" + shortenType(types[i]) + "_" + column.getMeasure();
-						expression.append("CHECKNULL($F{" + fieldName + "})");
+						if(nonFlowItems.contains(column.getSlicer())){
+							expression.append("$F{" + fieldName + "}");
+						}
+						else
+							expression.append("CHECKNULL($F{" + fieldName + "}).doubleValue()");
+
 						if(i != types.length-1){
 							expression.append("+");
 						}
@@ -256,7 +264,7 @@ public class ReportTemplate {
 					for(int i = 0; i<types.length; i++){
 						String fieldName = row.getName() + "_" + types[i];
 						expression.append("(");
-						expression.append("CHECKNULL($F{" + fieldName + "})");
+						expression.append("CHECKNULL($F{" + fieldName + "}).doubleValue()");
 						//TODO: Remove this terrible hack for the one column that needs to subtract
 						if(types[i].indexOf("1130") == 0){
 							expression.append("* (-1)");

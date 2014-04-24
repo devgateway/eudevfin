@@ -14,26 +14,27 @@ import org.apache.commons.logging.LogFactory;
 public final class JasperFunctions extends AbstractFunctionSupport
 {
 	private static final Log log = LogFactory.getLog(JasperFunctions.class);
+	private static final int DIVIDER = 1000000;
 	
 	@Function("CHECKNULL")
 	@FunctionParameters({
 			@FunctionParameter("number")})
-	public static int CHECKNULL(Number number){
+	public static Number CHECKNULL(Number number){
 		if(number==null) {
 			return 0;
 		}
 		else{
 			if(number instanceof Integer){
-				return ((Integer)number).intValue();
+				return ((Integer)number).intValue()/DIVIDER;
 			}
 			else if(number instanceof Double){
-				return ((Double)number).intValue();
+				return ((Double)number).doubleValue()/DIVIDER;
 			}
 			else if(number instanceof Float){
-				return ((Float)number).intValue();
+				return ((Float)number).intValue()/DIVIDER;
 			}
 			else if(number instanceof Long){
-				return ((Long)number).intValue();
+				return ((Long)number).intValue()/DIVIDER;
 			}
 			else{
 				return 0;
