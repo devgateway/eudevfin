@@ -28,7 +28,7 @@
         <servlet.api.version>2.5</servlet.api.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <wicket.bootstrap>0.8.5</wicket.bootstrap>
-        <derby.version>10.10.1.1</derby.version>
+        <derby.version>10.10.2.0</derby.version>
         <wicket.select2.version>2.2.2</wicket.select2.version>
         <ehcache.version>2.4.7</ehcache.version>
         <liquibase.version>3.0.8</liquibase.version>
