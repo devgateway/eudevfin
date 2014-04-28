@@ -22,8 +22,8 @@ import org.hibernate.annotations.Table;
 public class ColumnReport implements Serializable  {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	protected Long id=null;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	protected Long id = null;
 
 	private String measure;
 	
@@ -113,9 +113,9 @@ public class ColumnReport implements Serializable  {
 	public String getColumnCode() {
 		StringBuffer sb = new StringBuffer();
 		String[] types = this.getSlicer().split(",");
-		for(int i = 0; i<types.length; i++){
+		for(int i = 0; i < types.length; i++) {
 			sb.append(this.getName() + "_" + shortenType(types[i]) + "_"	+ this.getMeasure());
-			if(i !=types.length-1)
+			if(i != types.length - 1)
 				sb.append(",");
 		}		
 		return sb.toString();
@@ -131,8 +131,9 @@ public class ColumnReport implements Serializable  {
 	
 	private String shortenType(String type) {
 		String[] str = type.split("##");
-		if(str.length==2)
+		if(str.length == 2) {
 			return str[1].replace("]", "");
+		}
 		return type;
 	}
 }

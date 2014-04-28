@@ -331,15 +331,6 @@
                 </Level>
             </Hierarchy>
         </Dimension>
-        <Dimension name="PBA">
-            <Hierarchy hasAll="true">
-                <Level name="PBA" column="PROGRAMMEBASEDAPPROACH" uniqueMembers="false" type="String">
-                    <KeyExpression>
-                        <SQL dialect="generic">(CASE WHEN PROGRAMMEBASEDAPPROACH = TRUE THEN 'Yes' ELSE 'No' END)</SQL>
-                    </KeyExpression>
-                </Level>
-            </Hierarchy>
-        </Dimension>
         <Dimension name="FTC">
             <Hierarchy hasAll="true">
                 <Level name="FTC" column="FREESTANDINGTECHNICALCOOPERATION" uniqueMembers="false" type="String">

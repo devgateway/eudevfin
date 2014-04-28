@@ -59,12 +59,12 @@ public class ReportsController {
 	@Autowired
 	private RowReportDao rowReportDao;
 
-    private static final Logger logger = Logger.getLogger(ReportsController.class);
+    private static Logger logger = Logger.getLogger(ReportsController.class);
 
 	private static final String REPORT_TYPE = "reportType";
 	private static final String REPORT_TYPE_AQ = "aq";
 	private static final String REPORT_TYPE_DAC1 = "dac1";
-	private static final String REPORT_TYPE_DAC2a = "dac2a";
+	private static final String REPORT_TYPE_DAC2A = "dac2a";
 	private static final String OUTPUT_TYPE = "outputType";
 	private static final String OUTPUT_TYPE_PDF = "pdf";
 	private static final String OUTPUT_TYPE_EXCEL = "excel";
@@ -81,7 +81,9 @@ public class ReportsController {
 	 * Generate a report
 	 */
 	@PreAuthorize("hasRole('" + AuthConstants.Roles.ROLE_USER + "')")
-    @RequestMapping(value = "/generate", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/generate", method = {
+    			RequestMethod.GET, RequestMethod.POST
+    		})
     public ModelAndView generateReport(HttpServletRequest request, HttpServletResponse response, ModelAndView modelAndView)  throws IOException {
 		String reportType = request.getParameter(REPORT_TYPE);
 		String outputType = request.getParameter(OUTPUT_TYPE);
@@ -134,7 +136,7 @@ public class ReportsController {
 		case REPORT_TYPE_DAC1:
 			generateDAC1(request, response, connection, outputType);
 			break;
-		case REPORT_TYPE_DAC2a:
+		case REPORT_TYPE_DAC2A:
 			generateDAC2a(request, response, connection, outputType);
 			break;
 		default:
@@ -287,13 +289,14 @@ public class ReportsController {
 			parameters.put("REPORTING_COUNTRY", donorName);
 
 			// Generate and Assign Sub Reports
-			String inputStreamArea = generateSubReport("DAC2aArea", "org/devgateway/eudevfin/reports/core/dac2a/dac2a_template_area", "[Area].[Code].Members");
+			String inputStreamArea = generateSubReport("DAC2aArea", "org/devgateway/eudevfin/reports/core/dac2a/dac2a_template_area", "[Area].Members");
 			String inputStreamChannel = generateSubReport("DAC2aChannel", "org/devgateway/eudevfin/reports/core/dac2a/dac2a_template_channel", "[Channel].Members");
 			parameters.put("AREA_SUBREPORT_PATH", inputStreamArea);
 			parameters.put("CHANNEL_SUBREPORT_PATH", inputStreamChannel);
 
 			//Process the main report with the subreports
-			InputStream inputStream = ReportsController.class.getClassLoader().getResourceAsStream("org/devgateway/eudevfin/reports/core/dac2a/dac2a_template.jrxml");
+			ReportTemplate reportProcessor = new ReportTemplate();
+			InputStream inputStream = reportProcessor.processTemplate(ReportsController.class.getClassLoader().getResourceAsStream("org/devgateway/eudevfin/reports/core/dac2a/dac2a_template.jrxml"), "[BiMultilateral].[Code].Members", rowReportDao, true, "DAC2a");
 			JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
 			JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters);

@@ -1,7 +1,5 @@
 package org.devgateway.eudevfin.reports.core.liquibase;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -40,67 +38,379 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 	private ChannelCategoryDao channelCatDao;
 	
 	List<ChannelCategory> listChannels;
-	
+	List<Area> listAreas ;
 	
 	@Override
 	public void execute(Database database) throws CustomChangeException {
-		List<Area> listAreas = areaDao.findAllAsList();
+		listAreas = areaDao.findAllAsList();
 		insertFirstSection(listAreas);
 
 		listChannels = channelCatDao.findAllAsList();
 		insertSecondSection();
 
+		insertMainSections();
+	}
+
+	private void insertMainSections() {
+		RowReport row201Area = createDAC2aRow("201_Area", Constants.CALCULATED,
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#210],[Type of Finance].[TYPE_OF_FINANCE##610],[Type of Finance].[TYPE_OF_FINANCE#611],[Type of Finance].[TYPE_OF_FINANCE#612],[Type of Finance].[TYPE_OF_FINANCE#613],[Type of Finance].[TYPE_OF_FINANCE#614],[Type of Finance].[TYPE_OF_FINANCE#615],[Type of Finance].[TYPE_OF_FINANCE#616],[Type of Finance].[TYPE_OF_FINANCE#617],[Type of Finance].[TYPE_OF_FINANCE#618]}",
+				"[Type of Flow].[TYPE_OF_FLOW##10]",
+				"Except([Type of Aid].[Code].Members, [Type of Aid].[B02])",
+				"",
+				"[BiMultilateral].[BI_MULTILATERAL##1],[BiMultilateral].[BI_MULTILATERAL##3]",
+				"[Measures].[E]",
+				false
+				);
+		rowReportDao.save(row201Area);
+
+		RowReport row201Channel = createDAC2aRow("201_Channel", Constants.CALCULATED,
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#618]}",
+				"[Type of Flow].[TYPE_OF_FLOW##10]",
+				"[Type of Aid].[B02]",
+				"",
+				"[BiMultilateral].[BI_MULTILATERAL##2]",
+				"[Measures].[E]",
+				false
+				);
+		rowReportDao.save(row201Channel);
+		
+		HashSet<String> sumRow201 = new HashSet<String>();
+		sumRow201.add("201_Area");
+		sumRow201.add("201_Channel");
+		RowReport row201 = createDAC2aSumRow("201","DAC2a", Constants.SUM, sumRow201);
+		rowReportDao.save(row201);
+
+		RowReport row219Area = createDAC2aRow("219_Area", Constants.CALCULATED,
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#210]}",
+				"[Type of Flow].[TYPE_OF_FLOW##10]",
+				"",
+				"",
+				"[BiMultilateral].[BI_MULTILATERAL##1]",
+				"[Measures].[R]",
+				false
+				);
+		rowReportDao.save(row219Area);
+
+		RowReport row219Channel = createDAC2aRow("219_Channel", Constants.CALCULATED,
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#310]}",
+				"[Type of Flow].[TYPE_OF_FLOW##10]",
+				"[Type of Aid].[B02]",
+				"",
+				"[BiMultilateral].[BI_MULTILATERAL##2]",
+				"[Measures].[R]",
+				false
+				);
+		rowReportDao.save(row219Channel);
+		
+		HashSet<String> sumRow219 = new HashSet<String>();
+		sumRow219.add("219_Area");
+		sumRow219.add("219_Channel");
+		RowReport row219 = createDAC2aSumRow("219","DAC2a", Constants.SUM, sumRow219);
+		rowReportDao.save(row219);
+
+		RowReport row204Area = createDAC2aRow("204_Area", Constants.CALCULATED,
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#210]}",
+				"[Type of Flow].[TYPE_OF_FLOW##10]",
+				"",
+				"",
+				"[BiMultilateral].[BI_MULTILATERAL##1]",
+				"[Measures].[R]",
+				false
+				);
+		rowReportDao.save(row204Area);
+
+		RowReport row204Channel = createDAC2aRow("204_Channel", Constants.CALCULATED,
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#310]}",
+				"[Type of Flow].[TYPE_OF_FLOW##10]",
+				"[Type of Aid].[B02]",
+				"",
+				"[BiMultilateral].[BI_MULTILATERAL##2]",
+				"[Measures].[R]",
+				false
+				);
+		rowReportDao.save(row204Channel);
+		
+		HashSet<String> sumRow204 = new HashSet<String>();
+		sumRow204.add("204_Area");
+		sumRow204.add("204_Channel");
+		RowReport row204 = createDAC2aSumRow("204","DAC2a", Constants.SUM, sumRow204);
+		rowReportDao.save(row204);
+
+		RowReport row205Area = createDAC2aRow("205_Area", Constants.CALCULATED,
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#210]}",
+				"[Type of Flow].[TYPE_OF_FLOW##10]",
+				"",
+				"",
+				"[BiMultilateral].[BI_MULTILATERAL##1]",
+				"[Measures].[R]",
+				false
+				);
+		rowReportDao.save(row205Area);
+
+		RowReport row205Channel = createDAC2aRow("205_Channel", Constants.CALCULATED,
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#310]}",
+				"[Type of Flow].[TYPE_OF_FLOW##10]",
+				"[Type of Aid].[B02]",
+				"",
+				"[BiMultilateral].[BI_MULTILATERAL##2]",
+				"[Measures].[R]",
+				false
+				);
+		rowReportDao.save(row205Channel);
+		
+		HashSet<String> sumRow205 = new HashSet<String>();
+		sumRow205.add("205_Area");
+		sumRow205.add("205_Channel");
+		RowReport row205 = createDAC2aSumRow("205","DAC2a", Constants.SUM, sumRow205);
+		rowReportDao.save(row205);
+
+		RowReport row209Area = createDAC2aRow("209_Area", Constants.CALCULATED,
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#210]}",
+				"[Type of Flow].[TYPE_OF_FLOW##10]",
+				"",
+				"",
+				"[BiMultilateral].[BI_MULTILATERAL##1]",
+				"[Measures].[R]",
+				false
+				);
+		rowReportDao.save(row209Area);
+
+		RowReport row209Channel = createDAC2aRow("209_Channel", Constants.CALCULATED,
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#310]}",
+				"[Type of Flow].[TYPE_OF_FLOW##10]",
+				"[Type of Aid].[B02]",
+				"",
+				"[BiMultilateral].[BI_MULTILATERAL##2]",
+				"[Measures].[R]",
+				false
+				);
+		rowReportDao.save(row209Channel);
+		
+		HashSet<String> sumRow209 = new HashSet<String>();
+		sumRow209.add("209_Area");
+		sumRow209.add("209_Channel");
+		RowReport row209 = createDAC2aSumRow("209","DAC2a", Constants.SUM, sumRow209);
+		rowReportDao.save(row209);
+		
+		RowReport row212 = createDAC2aRow("212", Constants.CALCULATED,
+				"{[Type of Finance].[TYPE_OF_FINANCE##610],[Type of Finance].[TYPE_OF_FINANCE#611],[Type of Finance].[TYPE_OF_FINANCE#612],[Type of Finance].[TYPE_OF_FINANCE#613],[Type of Finance].[TYPE_OF_FINANCE#614],[Type of Finance].[TYPE_OF_FINANCE#615],[Type of Finance].[TYPE_OF_FINANCE#616],[Type of Finance].[TYPE_OF_FINANCE#617],[Type of Finance].[TYPE_OF_FINANCE#618]}",
+				"[Type of Flow].[TYPE_OF_FLOW##10]",
+				"[Type of Aid].[F01]",
+				"[Sector].[60020]",
+				"[BiMultilateral].[BI_MULTILATERAL##1]",
+				"[Measures].[E]",
+				true
+				);
+		rowReportDao.save(row212);
+
+		RowReport row221 = createDAC2aRow("221", Constants.CALCULATED,
+				"{[Type of Finance].[TYPE_OF_FINANCE##610],[Type of Finance].[TYPE_OF_FINANCE#611],[Type of Finance].[TYPE_OF_FINANCE#612],[Type of Finance].[TYPE_OF_FINANCE#613],[Type of Finance].[TYPE_OF_FINANCE#614],[Type of Finance].[TYPE_OF_FINANCE#615],[Type of Finance].[TYPE_OF_FINANCE#616],[Type of Finance].[TYPE_OF_FINANCE#617],[Type of Finance].[TYPE_OF_FINANCE#618]}",
+				"[Type of Flow].[TYPE_OF_FLOW##10]",
+				"[Type of Aid].[F01]",
+				"{[Sector].[60010],[Sector].[60030],[Sector].[60061],[Sector].[60062],[Sector].[60063]}",
+				"[BiMultilateral].[BI_MULTILATERAL##1]",
+				"[Measures].[E]",
+				true
+				);
+		rowReportDao.save(row221);
+
+
+		RowReport row208 = createDAC2aRow("208", Constants.CALCULATED,
+				"{[Type of Finance].[TYPE_OF_FINANCE##210]}",
+				"[Type of Flow].[TYPE_OF_FLOW##10]",
+				"",
+				"",
+				"[BiMultilateral].[BI_MULTILATERAL##1]",
+				"[Measures].[E]",
+				true
+				);
+		rowReportDao.save(row208);
+
+
+		RowReport row210 = createDAC2aRow("210", Constants.CALCULATED,
+				"{[Type of Finance].[TYPE_OF_FINANCE#310]}",
+				"[Type of Flow].[TYPE_OF_FLOW##10]",
+				"[Type of Aid].[B02]",
+				"",
+				"[BiMultilateral].[BI_MULTILATERAL##2]",
+				"[Measures].[R]",
+				true
+				);
+		rowReportDao.save(row210);
+
+
+		RowReport row211 = createDAC2aRow("211", Constants.CALCULATED,
+				"{[Type of Finance].[TYPE_OF_FINANCE#311]}",
+				"[Type of Flow].[TYPE_OF_FLOW##10]",
+				"[Type of Aid].[B02]",
+				"",
+				"[BiMultilateral].[BI_MULTILATERAL##2]",
+				"[Measures].[R]",
+				true
+				);
+		rowReportDao.save(row211);
+
+
+		RowReport row214 = createDAC2aRow("214", Constants.CALCULATED,
+				"{[Type of Finance].[TYPE_OF_FINANCE#621],[Type of Finance].[TYPE_OF_FINANCE##622],[Type of Finance].[TYPE_OF_FINANCE#623]}",
+				"[Type of Flow].[TYPE_OF_FLOW##10]",
+				"[Type of Aid].[F01]",
+				"[Sector].[60040]",
+				"[BiMultilateral].[BI_MULTILATERAL##1]",
+				"[Measures].[E]",
+				true
+				);
+		rowReportDao.save(row214);
+
+
+		RowReport row215 = createDAC2aRow("215", Constants.CALCULATED,
+				"{[Type of Finance].[TYPE_OF_FINANCE##610]}",
+				"[Type of Flow].[TYPE_OF_FLOW##10]",
+				"[Type of Aid].[F01]",
+				"[Sector].[60020]",
+				"[BiMultilateral].[BI_MULTILATERAL##1]",
+				"[Measures].[R]",
+				true
+				);
+		rowReportDao.save(row215);
+
+
+		HashSet<String> sumRow218 = new HashSet<String>();
+		sumRow218.add("204");
+		sumRow218.add("205");
+		RowReport row218 = createDAC2aSumRow("218","DAC2a", Constants.SUM, sumRow218);
+		rowReportDao.save(row218);
+
+		RowReport row217 = createDAC2aRow("217", Constants.CALCULATED,
+				"{[Type of Finance].[TYPE_OF_FINANCE##510],[Type of Finance].[TYPE_OF_FINANCE#511],[Type of Finance].[TYPE_OF_FINANCE#512]}",
+				"[Type of Flow].[TYPE_OF_FLOW##10]",
+				"",
+				"",
+				"[BiMultilateral].[BI_MULTILATERAL##1],[BiMultilateral].[BI_MULTILATERAL##3]",
+				"[Measures].[E]",
+				true
+				);
+		rowReportDao.save(row217);
+
+		HashSet<String> sumRow206 = new HashSet<String>();
+		sumRow206.add("201");
+		sumRow206.add("219");
+		sumRow206.add("218");
+		RowReport row206 = createDAC2aSumRow("206", "DAC2a", Constants.SUM,	sumRow206);
+		rowReportDao.save(row206);
+
+
+		RowReport row207 = createDAC2aRow("207", Constants.CALCULATED,
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#410]}",
+				"[Type of Flow].[TYPE_OF_FLOW##10]",
+				"",
+				"",
+				"[BiMultilateral].[BI_MULTILATERAL##1],[BiMultilateral].[BI_MULTILATERAL##3]",
+				"[Measures].[E]",
+				true
+				);
+		rowReportDao.save(row207);
+
+		RowReport row213 = createDAC2aRow("213", Constants.CALCULATED,
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#410]}",
+				"[Type of Flow].[TYPE_OF_FLOW##10]",
+				"",
+				"[Sector].[52010]",
+				"[BiMultilateral].[BI_MULTILATERAL##1],[BiMultilateral].[BI_MULTILATERAL##3]",
+				"[Measures].[E]",
+				true
+				);
+		rowReportDao.save(row213);
+		
+		RowReport row216 = createDAC2aRow("216", Constants.CALCULATED,
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#410]}",
+				"[Type of Flow].[TYPE_OF_FLOW##10]",
+				"",
+				"[Sector].[Humanitarian Aid]",
+				"[BiMultilateral].[BI_MULTILATERAL##1],[BiMultilateral].[BI_MULTILATERAL##3]",
+				"[Measures].[E]",
+				true
+				);
+		rowReportDao.save(row216);
+
+	}
+
+	public RowReport createDAC2aRow(String name, int type, String typeOfFinance,
+			String typeOfFlow, String typeOfAid, String purposeCode, String biMulti, String measure, Boolean visible) {
+		RowReport row = new RowReport("DAC2a", name, type);
+		row.setVisible(visible);
+
+		Set<String> categories = new HashSet<String>();
+		if (typeOfFinance != null)
+			categories.add(typeOfFinance);
+		if (typeOfFlow != null)
+			categories.add(typeOfFlow);
+		if (typeOfAid != null)
+			categories.add(typeOfAid);
+		if (purposeCode != null)
+			categories.add(purposeCode);
+		
+		row.setCategories(categories);
+
+		Set<ColumnReport> columns = new HashSet<ColumnReport>();
+
+		ColumnReport col1 = new ColumnReport("total_bilateral_multilateral", Constants.CALCULATED, measure, biMulti);
+		columns.add(col1);
+		
+		row.setColumns(columns);
+		return row;
+
 	}
 
 	private void insertSecondSection() {
-		RowReport row_212 = createDAC2aRowChannelEmpty("212");
-		rowReportDao.save(row_212);
+		RowReport row212 = createDAC2aRowChannelEmpty("212");
+		rowReportDao.save(row212);
 
-		RowReport row_221 = createDAC2aRowChannelEmpty("221");
-		rowReportDao.save(row_221);
+		RowReport row221 = createDAC2aRowChannelEmpty("221");
+		rowReportDao.save(row221);
 
-		RowReport row_208 = createDAC2aRowChannelEmpty("208");
-		rowReportDao.save(row_208);
+		RowReport row208 = createDAC2aRowChannelEmpty("208");
+		rowReportDao.save(row208);
 
-		RowReport row_214 = createDAC2aRowChannelEmpty("214");
-		rowReportDao.save(row_214);
+		RowReport row214 = createDAC2aRowChannelEmpty("214");
+		rowReportDao.save(row214);
 
-		RowReport row_215 = createDAC2aRowChannelEmpty("215");
-		rowReportDao.save(row_215);
+		RowReport row215 = createDAC2aRowChannelEmpty("215");
+		rowReportDao.save(row215);
 
-		RowReport row_217 = createDAC2aRowChannelEmpty("217");
-		rowReportDao.save(row_217);
+		RowReport row217 = createDAC2aRowChannelEmpty("217");
+		rowReportDao.save(row217);
 
-		RowReport row_207 = createDAC2aRowChannelEmpty("207");
-		rowReportDao.save(row_207);
+		RowReport row207 = createDAC2aRowChannelEmpty("207");
+		rowReportDao.save(row207);
 
-		RowReport row_213 = createDAC2aRowChannelEmpty("213");
-		rowReportDao.save(row_213);
+		RowReport row213 = createDAC2aRowChannelEmpty("213");
+		rowReportDao.save(row213);
 
-		RowReport row_216 = createDAC2aRowChannelEmpty("216");
-		rowReportDao.save(row_216);
+		RowReport row216 = createDAC2aRowChannelEmpty("216");
+		rowReportDao.save(row216);
 
-		RowReport row_201 = createDAC2aRowChannel("201", Constants.CALCULATED,
+		RowReport row201 = createDAC2aRowChannel("201", Constants.CALCULATED,
 				"[BiMultilateral].[BI_MULTILATERAL##2]",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"[Type of Aid].[B02]",
 				"",
-				"[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#618]",
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#618]}",
 				"[Measures].[E]"
 				);
-		rowReportDao.save(row_201);
+		rowReportDao.save(row201);
 		
-		RowReport row_219 = createDAC2aRowChannel("219", Constants.CALCULATED,
+		RowReport row219 = createDAC2aRowChannel("219", Constants.CALCULATED,
 				"[BiMultilateral].[BI_MULTILATERAL##2]",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"[Type of Aid].[B02]",
 				"",
-				"[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#310]",
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#310]}",
 				"[Measures].[R]"
 				);
-		rowReportDao.save(row_219);
+		rowReportDao.save(row219);
 		
-		RowReport row_210 = createDAC2aRowChannel("210", Constants.CALCULATED,
+		RowReport row210 = createDAC2aRowChannel("210", Constants.CALCULATED,
 				"[BiMultilateral].[BI_MULTILATERAL##2]",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"[Type of Aid].[B02]",
@@ -108,9 +418,9 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 				"[Type of Finance].[TYPE_OF_FINANCE#310]",
 				"[Measures].[R]"
 				);
-		rowReportDao.save(row_210);
+		rowReportDao.save(row210);
 		
-		RowReport row_211 = createDAC2aRowChannel("211", Constants.CALCULATED,
+		RowReport row211 = createDAC2aRowChannel("211", Constants.CALCULATED,
 				"[BiMultilateral].[BI_MULTILATERAL##2]",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"[Type of Aid].[B02]",
@@ -118,9 +428,9 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 				"[Type of Finance].[TYPE_OF_FINANCE#311]",
 				"[Measures].[R]"
 				);
-		rowReportDao.save(row_211);
+		rowReportDao.save(row211);
 		
-		RowReport row_204 = createDAC2aRowChannel("204", Constants.CALCULATED,
+		RowReport row204 = createDAC2aRowChannel("204", Constants.CALCULATED,
 				"[BiMultilateral].[BI_MULTILATERAL##2]",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"[Type of Aid].[B02]",
@@ -128,9 +438,9 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 				"[Type of Finance].[TYPE_OF_FINANCE##410]",
 				"[Measures].[E]"
 				);
-		rowReportDao.save(row_204);
+		rowReportDao.save(row204);
 		
-		RowReport row_205 = createDAC2aRowChannel("205", Constants.CALCULATED,
+		RowReport row205 = createDAC2aRowChannel("205", Constants.CALCULATED,
 				"[BiMultilateral].[BI_MULTILATERAL##2]",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"[Type of Aid].[B02]",
@@ -138,23 +448,23 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 				"[Type of Finance].[TYPE_OF_FINANCE#410]",
 				"[Measures].[R]"
 				);
-		rowReportDao.save(row_205);
+		rowReportDao.save(row205);
 		
 		HashSet<String> sumRow218 = new HashSet<String>();
 		sumRow218.add("204");
 		sumRow218.add("205");
-		RowReport row_218 = createDAC2aSumRow("218","DAC2aChannel", Constants.SUM, sumRow218);
-		rowReportDao.save(row_218);
+		RowReport row218 = createDAC2aSumRow("218","DAC2aChannel", Constants.SUM, sumRow218);
+		rowReportDao.save(row218);
 
 		HashSet<String> sumRow206 = new HashSet<String>();
 		sumRow206.add("201");
 		sumRow206.add("219");
 		sumRow206.add("218");
-		RowReport row_206 = createDAC2aSumRow("206", "DAC2aChannel", Constants.SUM,	sumRow206);
-		rowReportDao.save(row_206);
+		RowReport row206 = createDAC2aSumRow("206", "DAC2aChannel", Constants.SUM,	sumRow206);
+		rowReportDao.save(row206);
 
 		//TODO: Make two columns and subtract the interest received measure
-		RowReport row_209a = createDAC2aRowChannel("209", Constants.CALCULATED,
+		RowReport row209a = createDAC2aRowChannel("209", Constants.CALCULATED,
 				"[BiMultilateral].[BI_MULTILATERAL##2]",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"[Type of Aid].[B02]",
@@ -162,52 +472,46 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 				"[Type of Finance].[TYPE_OF_FINANCE##410]",
 				"[Measures].[E]"
 				);
-		rowReportDao.save(row_209a);
+		rowReportDao.save(row209a);
 		
 	}
 
 	private void insertFirstSection(List<Area> listAreas) {
-
-		
-		RowReport row_210 = createDAC2aRowAreaEmpty("210", listAreas);
-		rowReportDao.save(row_210);
-
-		RowReport row_211 = createDAC2aRowAreaEmpty("211", listAreas);
-		rowReportDao.save(row_211);
-
-		RowReport row_201 = createDAC2aRowArea("201", Constants.CALCULATED,
+		RowReport row210 = createDAC2aRowAreaEmpty("210", listAreas);
+		rowReportDao.save(row210);
+		RowReport row211 = createDAC2aRowAreaEmpty("211", listAreas);
+		rowReportDao.save(row211);
+		RowReport row201 = createDAC2aRowArea("201", Constants.CALCULATED,
 				"{[BiMultilateral].[BI_MULTILATERAL##1],[BiMultilateral].[BI_MULTILATERAL##3]}",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"Except([Type of Aid].[Code].Members, [Type of Aid].[B02])",
 				"",
-				"[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#210]",
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#210],[Type of Finance].[TYPE_OF_FINANCE##610],[Type of Finance].[TYPE_OF_FINANCE#611],[Type of Finance].[TYPE_OF_FINANCE#612],[Type of Finance].[TYPE_OF_FINANCE#613],[Type of Finance].[TYPE_OF_FINANCE#614],[Type of Finance].[TYPE_OF_FINANCE#615],[Type of Finance].[TYPE_OF_FINANCE#616],[Type of Finance].[TYPE_OF_FINANCE#617],[Type of Finance].[TYPE_OF_FINANCE#618]}",
 				"[Measures].[E]",
 				listAreas
 				);
-		rowReportDao.save(row_201);
-		RowReport row_212 = createDAC2aRowArea("212", Constants.CALCULATED,
+		rowReportDao.save(row201);
+		RowReport row212 = createDAC2aRowArea("212", Constants.CALCULATED,
 				"[BiMultilateral].[BI_MULTILATERAL##1]",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"[Type of Aid].[F01]",
 				"[Sector].[60020]",
-				"[Type of Finance].[TYPE_OF_FINANCE##610],[Type of Finance].[TYPE_OF_FINANCE#611],[Type of Finance].[TYPE_OF_FINANCE#612],[Type of Finance].[TYPE_OF_FINANCE#613],[Type of Finance].[TYPE_OF_FINANCE#614],[Type of Finance].[TYPE_OF_FINANCE#615],[Type of Finance].[TYPE_OF_FINANCE#616],[Type of Finance].[TYPE_OF_FINANCE#617]",
+				"{[Type of Finance].[TYPE_OF_FINANCE##610],[Type of Finance].[TYPE_OF_FINANCE#611],[Type of Finance].[TYPE_OF_FINANCE#612],[Type of Finance].[TYPE_OF_FINANCE#613],[Type of Finance].[TYPE_OF_FINANCE#614],[Type of Finance].[TYPE_OF_FINANCE#615],[Type of Finance].[TYPE_OF_FINANCE#616],[Type of Finance].[TYPE_OF_FINANCE#617],[Type of Finance].[TYPE_OF_FINANCE#618]}",
 				"[Measures].[E]",
 				listAreas
 				);
-		rowReportDao.save(row_212);
-		
-		RowReport row_221 = createDAC2aRowArea("221", Constants.CALCULATED,
+		rowReportDao.save(row212);
+		RowReport row221 = createDAC2aRowArea("221", Constants.CALCULATED,
 				"[BiMultilateral].[BI_MULTILATERAL##1]",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"[Type of Aid].[F01]",
 				"{[Sector].[60010],[Sector].[60030],[Sector].[60061],[Sector].[60062],[Sector].[60063]}",
-				"[Type of Finance].[TYPE_OF_FINANCE##610],[Type of Finance].[TYPE_OF_FINANCE#611],[Type of Finance].[TYPE_OF_FINANCE#612],[Type of Finance].[TYPE_OF_FINANCE#613],[Type of Finance].[TYPE_OF_FINANCE#614],[Type of Finance].[TYPE_OF_FINANCE#615],[Type of Finance].[TYPE_OF_FINANCE#616],[Type of Finance].[TYPE_OF_FINANCE#617]",
+				"{[Type of Finance].[TYPE_OF_FINANCE##610],[Type of Finance].[TYPE_OF_FINANCE#611],[Type of Finance].[TYPE_OF_FINANCE#612],[Type of Finance].[TYPE_OF_FINANCE#613],[Type of Finance].[TYPE_OF_FINANCE#614],[Type of Finance].[TYPE_OF_FINANCE#615],[Type of Finance].[TYPE_OF_FINANCE#616],[Type of Finance].[TYPE_OF_FINANCE#617],[Type of Finance].[TYPE_OF_FINANCE#618]}",
 				"[Measures].[E]",
 				listAreas
 				);
-		rowReportDao.save(row_221);
-
-		RowReport row_208 = createDAC2aRowArea("208", Constants.CALCULATED,
+		rowReportDao.save(row221);
+		RowReport row208 = createDAC2aRowArea("208", Constants.CALCULATED,
 				"[BiMultilateral].[BI_MULTILATERAL##1]",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"",
@@ -216,42 +520,38 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 				"[Measures].[E]",
 				listAreas
 				);
-		rowReportDao.save(row_208);
-		
-		RowReport row_219 = createDAC2aRowArea("219", Constants.CALCULATED,
+		rowReportDao.save(row208);
+		RowReport row219 = createDAC2aRowArea("219", Constants.CALCULATED,
 				"[BiMultilateral].[BI_MULTILATERAL##1]",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"",
 				"",
-				"[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#210]",
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#210]}",
 				"[Measures].[R]",
 				listAreas
 				);
-		rowReportDao.save(row_219);
-		
-		RowReport row_204 = createDAC2aRowArea("204", Constants.CALCULATED,
+		rowReportDao.save(row219);
+		RowReport row204 = createDAC2aRowArea("204", Constants.CALCULATED,
 				"{[BiMultilateral].[BI_MULTILATERAL##1],[BiMultilateral].[BI_MULTILATERAL##3]}",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"",
 				"",
-				"[Type of Finance].[TYPE_OF_FINANCE##410],[Type of Finance].[TYPE_OF_FINANCE#621],[Type of Finance].[TYPE_OF_FINANCE##622],[Type of Finance].[TYPE_OF_FINANCE#623],[Type of Finance].[TYPE_OF_FINANCE##510],[Type of Finance].[TYPE_OF_FINANCE#511],[Type of Finance].[TYPE_OF_FINANCE##512]",
+				"{[Type of Finance].[TYPE_OF_FINANCE##410],[Type of Finance].[TYPE_OF_FINANCE#621],[Type of Finance].[TYPE_OF_FINANCE##622],[Type of Finance].[TYPE_OF_FINANCE#623],[Type of Finance].[TYPE_OF_FINANCE##510],[Type of Finance].[TYPE_OF_FINANCE#511],[Type of Finance].[TYPE_OF_FINANCE##512]}",
 				"[Measures].[E]",
 				listAreas
 				);
-		rowReportDao.save(row_204);
-		
-		RowReport row_214 = createDAC2aRowArea("214", Constants.CALCULATED,
+		rowReportDao.save(row204);
+		RowReport row214 = createDAC2aRowArea("214", Constants.CALCULATED,
 				"[BiMultilateral].[BI_MULTILATERAL##1]",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"[Type of Aid].[F01]",
 				"[Sector].[60040]",
-				"[Type of Finance].[TYPE_OF_FINANCE#621],[Type of Finance].[TYPE_OF_FINANCE##622],[Type of Finance].[TYPE_OF_FINANCE#623]",
+				"{[Type of Finance].[TYPE_OF_FINANCE#621],[Type of Finance].[TYPE_OF_FINANCE##622],[Type of Finance].[TYPE_OF_FINANCE#623]}",
 				"[Measures].[E]",
 				listAreas
 				);
-		rowReportDao.save(row_214);
-		
-		RowReport row_205 = createDAC2aRowArea("205", Constants.CALCULATED,
+		rowReportDao.save(row214);
+		RowReport row205 = createDAC2aRowArea("205", Constants.CALCULATED,
 				"{[BiMultilateral].[BI_MULTILATERAL##1],[BiMultilateral].[BI_MULTILATERAL##3]}",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"Except([Type of Aid].[Code].Members, [Type of Aid].[F02])",
@@ -260,9 +560,8 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 				"[Measures].[R]",
 				listAreas
 				);
-		rowReportDao.save(row_205);
-		
-		RowReport row_215 = createDAC2aRowArea("215", Constants.CALCULATED,
+		rowReportDao.save(row205);
+		RowReport row215 = createDAC2aRowArea("215", Constants.CALCULATED,
 				"[BiMultilateral].[BI_MULTILATERAL##1]",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"[Type of Aid].[F01]",
@@ -271,76 +570,71 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 				"[Measures].[R]",
 				listAreas
 				);
-		rowReportDao.save(row_215);
-		
-		RowReport row_217 = createDAC2aRowArea("217", Constants.CALCULATED,
+		rowReportDao.save(row215);
+		RowReport row217 = createDAC2aRowArea("217", Constants.CALCULATED,
 				"{[BiMultilateral].[BI_MULTILATERAL##1],[BiMultilateral].[BI_MULTILATERAL##3]}",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"",
 				"",
-				"[Type of Finance].[TYPE_OF_FINANCE##510],[Type of Finance].[TYPE_OF_FINANCE#511],[Type of Finance].[TYPE_OF_FINANCE#512]",
+				"{[Type of Finance].[TYPE_OF_FINANCE##510],[Type of Finance].[TYPE_OF_FINANCE#511],[Type of Finance].[TYPE_OF_FINANCE#512]}",
 				"[Measures].[E]",
 				listAreas
 				);
-		rowReportDao.save(row_217);
-
+		rowReportDao.save(row217);
 		HashSet<String> sumRow218 = new HashSet<String>();
 		sumRow218.add("204");
 		sumRow218.add("205");
 		sumRow218.add("215");
-
-		RowReport row_218 = createDAC2aSumRow("218","DAC2aArea", Constants.SUM,	sumRow218);
-		rowReportDao.save(row_218);
-
+		RowReport row218 = createDAC2aSumRow("218","DAC2aArea", Constants.SUM,	sumRow218);
+		rowReportDao.save(row218);
 		HashSet<String> sumRow206 = new HashSet<String>();
 		sumRow206.add("201");
 		sumRow206.add("219");
 		sumRow206.add("218");
-		RowReport row_206 = createDAC2aSumRow("206", "DAC2aArea", Constants.SUM,	sumRow206);
-		rowReportDao.save(row_206);
+		RowReport row206 = createDAC2aSumRow("206", "DAC2aArea", Constants.SUM,	sumRow206);
+		rowReportDao.save(row206);
 		//TODO: Add FTC=1 value
-		RowReport row_207 = createDAC2aRowArea("207", Constants.CALCULATED,
+		RowReport row207 = createDAC2aRowArea("207", Constants.CALCULATED,
 				"{[BiMultilateral].[BI_MULTILATERAL##1],[BiMultilateral].[BI_MULTILATERAL##3]}",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"",
 				"",
-				"[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#410]",
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#410]}",
 				"[Measures].[E]",
 				listAreas
 				);
-		rowReportDao.save(row_207);
-		RowReport row_213 = createDAC2aRowArea("213", Constants.CALCULATED,
+		rowReportDao.save(row207);
+		RowReport row213 = createDAC2aRowArea("213", Constants.CALCULATED,
 				"{[BiMultilateral].[BI_MULTILATERAL##1],[BiMultilateral].[BI_MULTILATERAL##3]}",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"",
 				"[Sector].[52010]",
-				"[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#410]",
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#410]}",
 				"[Measures].[E]",
 				listAreas
 				);
-		rowReportDao.save(row_213);
-		RowReport row_216 = createDAC2aRowArea("216", Constants.CALCULATED,
+		rowReportDao.save(row213);
+		RowReport row216 = createDAC2aRowArea("216", Constants.CALCULATED,
 				"{[BiMultilateral].[BI_MULTILATERAL##1],[BiMultilateral].[BI_MULTILATERAL##3]}",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"",
 				"[Sector].[Humanitarian Aid]",
-				"[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#410]",
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#410]}",
 				"[Measures].[E]",
 				listAreas
 				);
-		rowReportDao.save(row_216);
+		rowReportDao.save(row216);
 		//TODO: Make two columns and subtract the interest received measure
-		RowReport row_209a = createDAC2aRowArea("209", Constants.CALCULATED,
+		RowReport row209a = createDAC2aRowArea("209", Constants.CALCULATED,
 				"[BiMultilateral].[BI_MULTILATERAL##1]",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"",
 				"[Sector].[Humanitarian Aid]",
-				"[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#410]",
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#410]}",
 				"[Measures].[E]",
 				listAreas
 				);
-		rowReportDao.save(row_209a);
-		
+		rowReportDao.save(row209a);
 }
 
 	@Override
@@ -374,6 +668,9 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 			categories.add(typeOfAid);
 		if (purposeCode != null)
 			categories.add(purposeCode);
+		if(typeOfFinance != null){
+			categories.add(typeOfFinance);
+		}
 		
 		row.setCategories(categories);
 
@@ -382,7 +679,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 
 		Map<String, String> columnsByCode = new HashMap<String, String>();
 		
-		while(it.hasNext()){
+		while(it.hasNext()) {
 			Area currentArea = it.next();
 			ColumnReport col1 = new ColumnReport(currentArea.getCode(), Constants.CALCULATED, measure, "[Area].[" + currentArea.getCode() + "]");
 			columnsByCode.put(currentArea.getCode(), col1.getColumnCode());
@@ -412,7 +709,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 		sumColsNorthOfSahara.add(columnsByCode.get("136"));
 		sumColsNorthOfSahara.add(columnsByCode.get("139"));
 		sumColsNorthOfSahara.add(columnsByCode.get("189"));
-		ColumnReport colNorthOfSahara= new ColumnReport("north_of_sahara", Constants.SUM, sumColsNorthOfSahara);
+		ColumnReport colNorthOfSahara = new ColumnReport("north_of_sahara", Constants.SUM, sumColsNorthOfSahara);
 		columns.add(colNorthOfSahara);
 
 		HashSet<String> sumColsSouthOfSahara = new HashSet<String>();
@@ -467,7 +764,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 		sumColsSouthOfSahara.add(columnsByCode.get("288"));
 		sumColsSouthOfSahara.add(columnsByCode.get("265"));
 		sumColsSouthOfSahara.add(columnsByCode.get("289"));
-		ColumnReport colSouthOfSahara= new ColumnReport("south_of_sahara", Constants.SUM, sumColsSouthOfSahara);
+		ColumnReport colSouthOfSahara = new ColumnReport("south_of_sahara", Constants.SUM, sumColsSouthOfSahara);
 		columns.add(colSouthOfSahara);
 
 
@@ -494,7 +791,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 		sumColsNorthCentralTotal.add(columnsByCode.get("384"));
 		sumColsNorthCentralTotal.add(columnsByCode.get("380"));
 		sumColsNorthCentralTotal.add(columnsByCode.get("389"));
-		ColumnReport colNorthCentralTotal= new ColumnReport("north_central_total", Constants.SUM, sumColsNorthCentralTotal);
+		ColumnReport colNorthCentralTotal = new ColumnReport("north_central_total", Constants.SUM, sumColsNorthCentralTotal);
 		columns.add(colNorthCentralTotal);
 
 		HashSet<String> sumColsSouthTotal = new HashSet<String>();
@@ -524,7 +821,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 		sumColsMiddleEast.add(columnsByCode.get("550"));
 		sumColsMiddleEast.add(columnsByCode.get("580"));
 		sumColsMiddleEast.add(columnsByCode.get("589"));
-		ColumnReport colMiddleEast= new ColumnReport("middle_east_total", Constants.SUM, sumColsMiddleEast);
+		ColumnReport colMiddleEast = new ColumnReport("middle_east_total", Constants.SUM, sumColsMiddleEast);
 		columns.add(colMiddleEast);
 
 		HashSet<String> sumColsSouthCentralAsia = new HashSet<String>();
@@ -548,7 +845,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 		sumColsSouthCentralAsia.add(columnsByCode.get("619"));
 		sumColsSouthCentralAsia.add(columnsByCode.get("679"));
 		sumColsSouthCentralAsia.add(columnsByCode.get("689"));
-		ColumnReport colSouthCentralAsia= new ColumnReport("south_central_asia_total", Constants.SUM, sumColsSouthCentralAsia);
+		ColumnReport colSouthCentralAsia = new ColumnReport("south_central_asia_total", Constants.SUM, sumColsSouthCentralAsia);
 		columns.add(colSouthCentralAsia);
 
 		HashSet<String> sumColsFarEast = new HashSet<String>();
@@ -585,21 +882,21 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 		sumColsOceaniaTotal.add(columnsByCode.get("854"));
 		sumColsOceaniaTotal.add(columnsByCode.get("876"));
 		sumColsOceaniaTotal.add(columnsByCode.get("889"));
-		ColumnReport colOceaniaTotal= new ColumnReport("oceania_total", Constants.SUM, sumColsOceaniaTotal);
+		ColumnReport colOceaniaTotal = new ColumnReport("oceania_total", Constants.SUM, sumColsOceaniaTotal);
 		columns.add(colOceaniaTotal);
 
 		HashSet<String> sumColsAfricaTotal = new HashSet<String>();
 		sumColsAfricaTotal.add(columnsByCode.get("north_of_sahara"));
 		sumColsAfricaTotal.add(columnsByCode.get("south_of_sahara"));
 		sumColsAfricaTotal.add(columnsByCode.get("298"));
-		ColumnReport colAfricaTotal= new ColumnReport("africa_total", Constants.SUM, sumColsAfricaTotal);
+		ColumnReport colAfricaTotal = new ColumnReport("africa_total", Constants.SUM, sumColsAfricaTotal);
 		columns.add(colAfricaTotal);
 
 		HashSet<String> sumColsAmericaTotal = new HashSet<String>();
 		sumColsAmericaTotal.add(columnsByCode.get("north_central_total"));
 		sumColsAmericaTotal.add(columnsByCode.get("south_total"));
 		sumColsAmericaTotal.add(columnsByCode.get("498"));
-		ColumnReport colAmericaTotal= new ColumnReport("america_total", Constants.SUM, sumColsAmericaTotal);
+		ColumnReport colAmericaTotal = new ColumnReport("america_total", Constants.SUM, sumColsAmericaTotal);
 		columns.add(colAmericaTotal);
 
 		HashSet<String> sumColsAsiaTotal = new HashSet<String>();
@@ -607,9 +904,20 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 		sumColsAsiaTotal.add(columnsByCode.get("south_central_asia_total"));
 		sumColsAsiaTotal.add(columnsByCode.get("far_east_total"));
 		sumColsAsiaTotal.add(columnsByCode.get("798"));
-		ColumnReport colAsiaTotal= new ColumnReport("asia_total", Constants.SUM, sumColsAsiaTotal);
+		ColumnReport colAsiaTotal = new ColumnReport("asia_total", Constants.SUM, sumColsAsiaTotal);
 		columns.add(colAsiaTotal);
 
+		HashSet<String> sumColsBilateralTotal = new HashSet<String>();
+		sumColsBilateralTotal.addAll(sumColsEuropa);
+		sumColsBilateralTotal.addAll(sumColsAfricaTotal);
+		sumColsBilateralTotal.addAll(sumColsAmericaTotal);
+		sumColsBilateralTotal.addAll(sumColsAsiaTotal);
+		sumColsBilateralTotal.addAll(sumColsOceaniaTotal);
+		sumColsBilateralTotal.add(columnsByCode.get("998"));
+		ColumnReport colBilateralTotal = new ColumnReport("bilateral_total", Constants.SUM, sumColsBilateralTotal);
+		columns.add(colBilateralTotal);
+
+		
 		row.setColumns(columns);
 		
 		return row;
@@ -622,7 +930,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 		Set<ColumnReport> columns = new HashSet<ColumnReport>();		
 		Iterator<Area> it = listAreas.iterator();
 
-		while(it.hasNext()){
+		while(it.hasNext()) {
 			Area currentArea = it.next();
 			ColumnReport col1 = new ColumnReport(currentArea.getCode(), Constants.EMPTY, null, null);
 			columns.add(col1);
@@ -631,37 +939,37 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 		ColumnReport colEuropa = new ColumnReport("europe_total", Constants.EMPTY, null);
 		columns.add(colEuropa);
 
-		ColumnReport colNorthOfSahara= new ColumnReport("north_of_sahara", Constants.EMPTY, null);
+		ColumnReport colNorthOfSahara = new ColumnReport("north_of_sahara", Constants.EMPTY, null);
 		columns.add(colNorthOfSahara);
 
-		ColumnReport colSouthOfSahara= new ColumnReport("south_of_sahara", Constants.EMPTY, null);
+		ColumnReport colSouthOfSahara = new ColumnReport("south_of_sahara", Constants.EMPTY, null);
 		columns.add(colSouthOfSahara);
 
-		ColumnReport colNorthCentralTotal= new ColumnReport("north_central_total", Constants.EMPTY, null);
+		ColumnReport colNorthCentralTotal = new ColumnReport("north_central_total", Constants.EMPTY, null);
 		columns.add(colNorthCentralTotal);
 
 		ColumnReport colSouthTotal = new ColumnReport("south_total", Constants.EMPTY, null);
 		columns.add(colSouthTotal);
 
-		ColumnReport colMiddleEast= new ColumnReport("middle_east_total", Constants.EMPTY, null);
+		ColumnReport colMiddleEast = new ColumnReport("middle_east_total", Constants.EMPTY, null);
 		columns.add(colMiddleEast);
 
-		ColumnReport colSouthCentralAsia= new ColumnReport("south_central_asia_total", Constants.EMPTY, null);
+		ColumnReport colSouthCentralAsia = new ColumnReport("south_central_asia_total", Constants.EMPTY, null);
 		columns.add(colSouthCentralAsia);
 
 		ColumnReport colFarEast = new ColumnReport("far_east_total", Constants.EMPTY, null);
 		columns.add(colFarEast);
 
-		ColumnReport colOceaniaTotal= new ColumnReport("oceania_total", Constants.EMPTY, null);
+		ColumnReport colOceaniaTotal = new ColumnReport("oceania_total", Constants.EMPTY, null);
 		columns.add(colOceaniaTotal);
 
-		ColumnReport colAfricaTotal= new ColumnReport("africa_total", Constants.EMPTY, null);
+		ColumnReport colAfricaTotal = new ColumnReport("africa_total", Constants.EMPTY, null);
 		columns.add(colAfricaTotal);
 
-		ColumnReport colAmericaTotal= new ColumnReport("america_total", Constants.EMPTY, null);
+		ColumnReport colAmericaTotal = new ColumnReport("america_total", Constants.EMPTY, null);
 		columns.add(colAmericaTotal);
 
-		ColumnReport colAsiaTotal= new ColumnReport("asia_total", Constants.EMPTY, null);
+		ColumnReport colAsiaTotal = new ColumnReport("asia_total", Constants.EMPTY, null);
 		columns.add(colAsiaTotal);
 
 		row.setColumns(columns);
@@ -675,14 +983,14 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 		RowReport row = new RowReport(reportName, name, type, rowCodes);
 		return row;
 	}
+	
 	public RowReport createDAC2aRowChannelEmpty(String name) {
 		RowReport row = new RowReport("DAC2aChannel", name, Constants.EMPTY);
 
 		Set<ColumnReport> columns = new HashSet<ColumnReport>();
 		Map<String, String> channelsByRow = getChannelMapping();
 
-		for (Map.Entry<String, String> currRow : channelsByRow.entrySet())
-		{
+		for (Map.Entry<String, String> currRow : channelsByRow.entrySet()) {
 			ColumnReport col1 = new ColumnReport(currRow.getKey(), Constants.EMPTY, null, null);
 			columns.add(col1);
 		}
@@ -690,22 +998,23 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 		ColumnReport col992 = new ColumnReport("992", Constants.EMPTY, null);
 		columns.add(col992);
 
-		ColumnReport colEUTotal= new ColumnReport("total_european_union", Constants.EMPTY, null);
+		ColumnReport colEUTotal = new ColumnReport("total_european_union", Constants.EMPTY, null);
 		columns.add(colEUTotal);
 
-		ColumnReport colWBTotal= new ColumnReport("total_worldbank", Constants.EMPTY, null);
+		ColumnReport colWBTotal = new ColumnReport("total_worldbank", Constants.EMPTY, null);
 		columns.add(colWBTotal);
 
-		ColumnReport colRBTotal= new ColumnReport("total_regional", Constants.EMPTY, null);
+		ColumnReport colRBTotal = new ColumnReport("total_regional", Constants.EMPTY, null);
 		columns.add(colRBTotal);
 
-		ColumnReport colOtherTotal= new ColumnReport("c_total_other", Constants.EMPTY, null);
+		ColumnReport colOtherTotal = new ColumnReport("c_total_other", Constants.EMPTY, null);
 		columns.add(colOtherTotal);
 		
 		row.setColumns(columns);
 		return row;
 
 	}
+	
 	public RowReport createDAC2aRowChannel(String name, int type, String biMulti,
 			String typeOfFlow, String typeOfAid, String purposeCode, String typeOfFinance, String measure) {
 		RowReport row = new RowReport("DAC2aChannel", name, type);
@@ -719,6 +1028,9 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 			categories.add(typeOfAid);
 		if (purposeCode != null)
 			categories.add(purposeCode);
+		if(typeOfFinance != null){
+			categories.add(typeOfFinance);
+		}
 		
 		row.setCategories(categories);
 
@@ -726,8 +1038,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 		Map<String, String> channelsByRow = getChannelMapping();
 		Map<String, String> columnsByCode = new HashMap<String, String>();
 
-		for (Map.Entry<String, String> currRow : channelsByRow.entrySet())
-		{
+		for (Map.Entry<String, String> currRow : channelsByRow.entrySet()) {
 			ColumnReport col1 = new ColumnReport(currRow.getKey(), Constants.CALCULATED,
 					measure, currRow.getValue());
 			columnsByCode.put(currRow.getKey(), col1.getColumnCode());
@@ -751,7 +1062,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 		sumColsEUTotal.add(columnsByCode.get("917"));
 		sumColsEUTotal.add(columnsByCode.get("919"));
 		sumColsEUTotal.add(columnsByCode.get("927"));
-		ColumnReport colEUTotal= new ColumnReport("total_european_union", Constants.SUM, sumColsEUTotal);
+		ColumnReport colEUTotal = new ColumnReport("total_european_union", Constants.SUM, sumColsEUTotal);
 		columns.add(colEUTotal);
 
 		HashSet<String> sumColsWBTotal = new HashSet<String>();
@@ -761,7 +1072,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 		sumColsWBTotal.add(columnsByCode.get("903"));
 		sumColsWBTotal.add(columnsByCode.get("902"));
 		sumColsWBTotal.add(columnsByCode.get("900"));
-		ColumnReport colWBTotal= new ColumnReport("total_worldbank", Constants.SUM, sumColsWBTotal);
+		ColumnReport colWBTotal = new ColumnReport("total_worldbank", Constants.SUM, sumColsWBTotal);
 		columns.add(colWBTotal);
 
 		HashSet<String> sumColsRBTotal = new HashSet<String>();
@@ -774,22 +1085,24 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 		sumColsRBTotal.add(columnsByCode.get("906"));
 		sumColsRBTotal.add(columnsByCode.get("910"));
 		sumColsRBTotal.add(columnsByCode.get("816"));
-		ColumnReport colRBTotal= new ColumnReport("total_regional", Constants.SUM, sumColsRBTotal);
+		ColumnReport colRBTotal = new ColumnReport("total_regional", Constants.SUM, sumColsRBTotal);
 		columns.add(colRBTotal);
 
 		HashSet<String> sumColsOtherTotal = new HashSet<String>();
 		sumColsOtherTotal.add(columnsByCode.get("907"));
-		sumColsOtherTotal.add(columnsByCode.get("958"));
-		sumColsOtherTotal.add(columnsByCode.get("949"));
 		sumColsOtherTotal.add(columnsByCode.get("989"));
-		sumColsOtherTotal.add(columnsByCode.get("811"));
-		sumColsOtherTotal.add(columnsByCode.get("812"));
-		sumColsOtherTotal.add(columnsByCode.get("1311"));
-		sumColsOtherTotal.add(columnsByCode.get("1312"));
-		sumColsOtherTotal.add(columnsByCode.get("104"));
-		ColumnReport colOtherTotal= new ColumnReport("c_total_other", Constants.SUM, sumColsOtherTotal);
+		ColumnReport colOtherTotal = new ColumnReport("total_other", Constants.SUM, sumColsOtherTotal);
 		columns.add(colOtherTotal);
 		
+		HashSet<String> sumColsMultilateralTotal = new HashSet<String>();
+		sumColsMultilateralTotal.addAll(sumCols992);
+		sumColsMultilateralTotal.addAll(sumColsEUTotal);
+		sumColsMultilateralTotal.addAll(sumColsWBTotal);
+		sumColsMultilateralTotal.addAll(sumColsRBTotal);
+		sumColsMultilateralTotal.addAll(sumColsOtherTotal);
+		ColumnReport colMultilateralTotal = new ColumnReport("multilateral_total", Constants.SUM, sumColsMultilateralTotal);
+		columns.add(colMultilateralTotal);
+
 		row.setColumns(columns);
 		return row;
 
@@ -799,14 +1112,13 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 	private Map<String, String> getChannelMapping() {
 		Map<String, String> channelsByRow = new HashMap<String, String>();
 		List<ChannelCategory> channelCategoryList = listChannels;
-		for (ChannelCategory currCategory : channelCategoryList)
-		{
-			if(currCategory.getDac2a3a() != null){
+		for (ChannelCategory currCategory : channelCategoryList) {
+			if(currCategory.getDac2a3a() != null) {
 				channelsByRow.put(currCategory.getDac2a3a().toString(), "[Channel].[" + currCategory.getCode() + "]");
 			}
 			
 		}
-		channelsByRow.put("975", "[Channel].[41101],[Channel].[41102],[Channel].[41103],[Channel].[41104],[Channel].[41105],[Channel].[41106],[Channel].[41107],[Channel].[41110],[Channel].[41111],[Channel].[41112],[Channel].[41116],[Channel].[41120],[Channel].[41123],[Channel].[41125],[Channel].[41126],[Channel].[41127],[Channel].[41128],[Channel].[41129],[Channel].[41131],[Channel].[41132],[Channel].[41133],[Channel].[41134],[Channel].[41135],[Channel].[41136],[Channel].[41137],[Channel].[41138],[Channel].[41141],[Channel].[41142],[Channel].[41143],[Channel].[41144],[Channel].[41145],[Channel].[41146],[Channel].[41147],[Channel].[41148],[Channel].[41301],[Channel].[41302],[Channel].[41303],[Channel].[41304],[Channel].[41305],[Channel].[41306],[Channel].[41307],[Channel].[41308],[Channel].[41309],[Channel].[41310],[Channel].[41311],[Channel].[41312],[Channel].[41313],[Channel].[41314],[Channel].[41315],[Channel].[41316]");
+		channelsByRow.put("975", "[Channel].[41000],[Channel].[41101],[Channel].[41102],[Channel].[41103],[Channel].[41104],[Channel].[41105],[Channel].[41106],[Channel].[41107],[Channel].[41110],[Channel].[41111],[Channel].[41112],[Channel].[41116],[Channel].[41120],[Channel].[41123],[Channel].[41125],[Channel].[41126],[Channel].[41127],[Channel].[41128],[Channel].[41129],[Channel].[41131],[Channel].[41132],[Channel].[41133],[Channel].[41134],[Channel].[41135],[Channel].[41136],[Channel].[41137],[Channel].[41138],[Channel].[41141],[Channel].[41142],[Channel].[41143],[Channel].[41144],[Channel].[41145],[Channel].[41146],[Channel].[41147],[Channel].[41148],[Channel].[41301],[Channel].[41302],[Channel].[41303],[Channel].[41304],[Channel].[41305],[Channel].[41306],[Channel].[41307],[Channel].[41308],[Channel].[41309],[Channel].[41310],[Channel].[41311],[Channel].[41312],[Channel].[41313],[Channel].[41314],[Channel].[41315],[Channel].[41316]");
 		channelsByRow.put("939", "[Channel].[41101],[Channel].[41102],[Channel].[41103],[Channel].[41104],[Channel].[41105],[Channel].[41106],[Channel].[41107],[Channel].[41108],[Channel].[41110],[Channel].[41111],[Channel].[41112],[Channel].[41114],[Channel].[41116],[Channel].[41119],[Channel].[41120],[Channel].[41121],[Channel].[41122],[Channel].[41123],[Channel].[41125],[Channel].[41126],[Channel].[41127],[Channel].[41128],[Channel].[41129],[Channel].[41130],[Channel].[41131],[Channel].[41132],[Channel].[41133],[Channel].[41134],[Channel].[41135],[Channel].[41136],[Channel].[41137],[Channel].[41138],[Channel].[41140],[Channel].[41141],[Channel].[41142],[Channel].[41143],[Channel].[41144],[Channel].[41145],[Channel].[41146],[Channel].[41147],[Channel].[41148]");
 		channelsByRow.put("927", "[Channel].[42000]");
 		channelsByRow.put("900", "[Channel].[44003],[Channel].[44006]");

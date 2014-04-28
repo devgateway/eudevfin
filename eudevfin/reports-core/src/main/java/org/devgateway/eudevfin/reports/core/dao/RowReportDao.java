@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 @Component
-@Lazy(value=false)
+@Lazy(value = false)
 public class RowReportDao
 		extends
 			AbstractDaoImpl<RowReport, Long, RowReportRepository> {
