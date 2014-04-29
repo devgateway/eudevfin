@@ -8,10 +8,13 @@
 
 package org.devgateway.eudevfin.dim.core;
 
+import mondrian.tui.MockHttpServletRequest;
+import org.apache.wicket.protocol.http.mock.MockHttpSession;
 import org.apache.wicket.util.tester.WicketTester;
 import org.devgateway.eudevfin.ui.common.spring.WicketSpringApplication;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
@@ -19,6 +22,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Alexandru Artimon
@@ -58,9 +64,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
  */
 
-
+@WebAppConfiguration
 @DirtiesContext
 public abstract class BaseWicketTest {
+    protected MockHttpSession session;
+    protected MockHttpServletRequest request;
+
     protected WicketTester tester;
 
     @Autowired
@@ -82,4 +91,31 @@ public abstract class BaseWicketTest {
     public void tearDown() throws Exception {
         tester.destroy();
     }
+
+
+    @Test
+    public void passTest() {
+        assertTrue(true);
+    }
+//    protected void startSession() {
+//        session = new MockHttpSession();
+//    }
+//
+//    protected void endSession() {
+//        session.clearAttributes();
+//        session = null;
+//    }
+//
+//    protected void startRequest() {
+//        request = new MockHttpServletRequest();
+//        request.setSession(session);
+//        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
+//    }
+//
+//    protected void endRequest() {
+//        ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).requestCompleted();
+//        RequestContextHolder.resetRequestAttributes();
+//        request = null;
+//    }
+
 }

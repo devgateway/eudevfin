@@ -62,7 +62,7 @@ public class CustomTransactionPermissionProvider extends CRSTransactionPermissio
 
         permissions.put("14bisUploadDocumentation", new RoleActionMapping().required(SB.BILATERAL_ODA_CRS).required(SB.MULTILATERAL_ODA_CRS));
         permissions.put("14aProjectCoFinanced", new RoleActionMapping().required(SB.BILATERAL_ODA_CRS));
-        permissions.put("14coFinancing", new RoleActionMapping().required(SB.BILATERAL_ODA_CRS));
+        permissions.put("14coFinancing", new RoleActionMapping().render(SB.BILATERAL_ODA_CRS));
 
         /**
          * Supplementary Data
@@ -112,7 +112,7 @@ public class CustomTransactionPermissionProvider extends CRSTransactionPermissio
         permissions.put("34bBudgetCode", new RoleActionMapping().required(SB.BILATERAL_ODA_CRS).required(SB.MULTILATERAL_ODA_CRS));
         permissions.put("34cBudgetLine", new RoleActionMapping().required(SB.BILATERAL_ODA_CRS).required(SB.MULTILATERAL_ODA_CRS));
         permissions.put("34dBudgetActivity", new RoleActionMapping().required(SB.BILATERAL_ODA_CRS).required(SB.MULTILATERAL_ODA_CRS));
-        permissions.put("budgetMTEFTable", new RoleActionMapping().required(SB.BILATERAL_ODA_FORWARD_SPENDING));
+        permissions.put("budgetMTEFTable", new RoleActionMapping().render(SB.BILATERAL_ODA_FORWARD_SPENDING));
 
         /**
          * For Loans only
