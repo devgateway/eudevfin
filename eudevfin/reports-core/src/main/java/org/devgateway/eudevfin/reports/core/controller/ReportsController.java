@@ -469,6 +469,7 @@ public class ReportsController {
 	        return jasperFileName;
 		} catch (IOException | JRException e) {
 			// TODO Auto-generated catch block
+			logger.error("Path:" + realPath);
 			e.printStackTrace();
 		}
 		return null;
