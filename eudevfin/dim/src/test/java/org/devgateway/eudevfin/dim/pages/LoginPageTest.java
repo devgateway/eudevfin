@@ -63,7 +63,7 @@ public class LoginPageTest extends BaseWicketTest {
         tester.executeAjaxEvent("loginform:submit", "onclick");
     }
 
-    private void testMenuItem(boolean exists, String url){
+    protected void testMenuItem(boolean exists, String url) {
         //retrieve response's markup
         String responseTxt = tester.getLastResponse().getDocument();
         TagTester tagTester = TagTester.createTagByAttribute(responseTxt, "href", url);
