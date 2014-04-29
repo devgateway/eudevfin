@@ -8,10 +8,6 @@
 
 package org.devgateway.eudevfin.ui.common.permissions;
 
-import java.util.HashMap;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.authorization.Action;
@@ -20,6 +16,9 @@ import org.apache.wicket.request.component.IRequestableComponent;
 import org.devgateway.eudevfin.ui.common.Constants;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 
 /**
  * Implements an authorization strategy that works with the permission scheme
@@ -53,21 +52,27 @@ public class PermissionAuthorizationStrategy implements IAuthorizationStrategy {
         Page page = component.getPage();
         if (page == null || !(page instanceof PermissionAwarePage))
             return true; //not a permission aware page => other strategies decide
-        HashMap<String, RoleActionMapping> permissions = ((PermissionAwarePage) page).getPermissions();
-        if (permissions == null)
-            return true; //no permissions for page => let other strategies decide
-        RoleActionMapping roleMapping = permissions.get(pwc.getPermissionKey());
-        if (roleMapping == null)
-            return true; //if we haven't got any permissions defined for the current component then we let the other strategies decide
+
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest httpServletRequest = requestAttributes.getRequest();
         String transactionType = httpServletRequest.getParameter(Constants.PARAM_TRANSACTION_TYPE);
         if (transactionType == null || transactionType.isEmpty())
             return true; //not a transaction aware scope => others decide
 
+        HashMap<String, RoleActionMapping> permissions = ((PermissionAwarePage) page).getPermissions();
+        return checkPermissions(pwc, transactionType, permissions);
+    }
+
+    public static boolean checkPermissions(PermissionAwareComponent pwc, String transactionType, HashMap<String, RoleActionMapping> permissions) {
+        if (permissions == null)
+            return true; //no permissions for page => let other strategies decide
+        RoleActionMapping roleMapping = permissions.get(pwc.getPermissionKey());
+        if (roleMapping == null)
+            return true; //if we haven't got any permissions defined for the current component then we let the other strategies decide
+
         String allowedAction = roleMapping.getAction(transactionType); //the transaction type is used like a context role
         /**
-         * We're currently only having 2 actions in the permission scheme {@link Constants.ACTION_RENDER} and {@link Constants.ACTION_REQUIRED}
+         * We're currently only having 2 actions in the permission scheme {@link org.devgateway.eudevfin.ui.common.Constants.ACTION_RENDER} and {@link org.devgateway.eudevfin.ui.common.Constants.ACTION_REQUIRED}
          * both of them imply that rendering is allowed
          */
 

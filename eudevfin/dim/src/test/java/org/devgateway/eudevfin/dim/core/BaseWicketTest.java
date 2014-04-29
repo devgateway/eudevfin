@@ -14,6 +14,7 @@ import org.apache.wicket.util.tester.WicketTester;
 import org.devgateway.eudevfin.ui.common.spring.WicketSpringApplication;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
@@ -22,6 +23,8 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Alexandru Artimon
@@ -89,6 +92,11 @@ public abstract class BaseWicketTest {
         tester.destroy();
     }
 
+
+    @Test
+    public void passTest() {
+        assertTrue(true);
+    }
 //    protected void startSession() {
 //        session = new MockHttpSession();
 //    }

@@ -13,39 +13,35 @@ import org.apache.wicket.util.tester.TagTester;
 import org.devgateway.eudevfin.dim.core.BaseWicketTest;
 import org.devgateway.eudevfin.ui.common.pages.LoginPage;
 import org.junit.Assert;
-import org.junit.Test;
 
 /**
  * @author aartimon@developmentgateway.org
  * @since 23 October 2013
  */
 
-public class LoginPageTest extends BaseWicketTest {
+public class BaseDimTest extends BaseWicketTest {
 
-    @Test
-    public void testLoginAsAdmin(){
+    public void testLoginAsAdmin() {
         //test a successful login
         insertUsernamePassword("admin", "admin");
         tester.assertRenderedPage(HomePage.class);
         testRenderedMenu(true);
     }
 
-    @Test
-    public void testLoginAsUser(){
+    public void testLoginAsUser() {
         //test a successful login
         insertUsernamePassword("user", "user");
         tester.assertRenderedPage(HomePage.class);
         testRenderedMenu(false);
     }
 
-    @Test
-    public void testLoginFailed(){
+    public void testLoginFailed() {
         //test a login that will fail
         insertUsernamePassword("wrong", "wrong");
         tester.assertErrorMessages("Incorrect username or password!");
     }
 
-    private void testRenderLoginPage(){
+    private void testRenderLoginPage() {
         //set home page as start
         tester.startPage(tester.getApplication().getHomePage());
         //test that the login page is rendered
@@ -53,7 +49,7 @@ public class LoginPageTest extends BaseWicketTest {
         testMenuItem(false, "./logout");
     }
 
-    private void insertUsernamePassword(String user, String password){
+    protected void insertUsernamePassword(String user, String password) {
         testRenderLoginPage();
         FormTester form = tester.newFormTester("loginform", false);
         //populate form fields and submit
@@ -67,11 +63,10 @@ public class LoginPageTest extends BaseWicketTest {
         //retrieve response's markup
         String responseTxt = tester.getLastResponse().getDocument();
         TagTester tagTester = TagTester.createTagByAttribute(responseTxt, "href", url);
-        if (exists){
+        if (exists) {
             Assert.assertNotNull(tagTester);
             Assert.assertEquals("a", tagTester.getName());
-        }
-        else
+        } else
             Assert.assertNull(tagTester);
     }
 
