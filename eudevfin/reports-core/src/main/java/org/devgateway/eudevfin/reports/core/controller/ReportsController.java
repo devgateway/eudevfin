@@ -461,7 +461,6 @@ public class ReportsController {
 	        return tempFile.getAbsolutePath();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			logger.error("Path:" + realPath);
 			e.printStackTrace();
 		}
 		return null;
