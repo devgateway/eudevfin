@@ -487,7 +487,7 @@ RECEIVED
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<subreportExpression><![CDATA[net.sf.jasperreports.engine.JasperCompileManager.compileReport($P{AREA_SUBREPORT_PATH})]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{AREA_SUBREPORT_PATH}]]></subreportExpression>
 			</subreport>
 		</band>
 		<band height="500" splitType="Stretch">
@@ -505,7 +505,7 @@ RECEIVED
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<subreportExpression><![CDATA[net.sf.jasperreports.engine.JasperCompileManager.compileReport($P{CHANNEL_SUBREPORT_PATH})]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{CHANNEL_SUBREPORT_PATH}]]></subreportExpression>
 			</subreport>
 		</band>
 		<band height="16">

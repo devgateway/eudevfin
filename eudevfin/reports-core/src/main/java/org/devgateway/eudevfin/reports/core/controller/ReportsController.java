@@ -289,8 +289,8 @@ public class ReportsController {
 			parameters.put("REPORTING_COUNTRY", donorName);
 
 			// Generate and Assign Sub Reports
-			String inputStreamArea = generateSubReport("DAC2aArea", "org/devgateway/eudevfin/reports/core/dac2a/dac2a_template_area", "[Area].Members");
-			String inputStreamChannel = generateSubReport("DAC2aChannel", "org/devgateway/eudevfin/reports/core/dac2a/dac2a_template_channel", "[Channel].Members");
+			String inputStreamArea = generateSubReportCached("DAC2aArea", "org/devgateway/eudevfin/reports/core/dac2a/dac2a_template_area", "[Area].Members", false);
+			String inputStreamChannel = generateSubReportCached("DAC2aChannel", "org/devgateway/eudevfin/reports/core/dac2a/dac2a_template_channel", "[Channel].Members", false);
 			parameters.put("AREA_SUBREPORT_PATH", inputStreamArea);
 			parameters.put("CHANNEL_SUBREPORT_PATH", inputStreamChannel);
 
@@ -465,6 +465,38 @@ public class ReportsController {
 		}
 		return null;
 	}
+	
+    private String generateSubReportCached(String reportName, String path, String slicer, Boolean regenerate) {
+    	//Check if the compiled report file already exists in temporary folder
+    	String tmpDirPath = System.getProperty("java.io.tmpdir");
+    	File f = new File(tmpDirPath + reportName + "_processed.jasper");
+        if(f.exists() && !regenerate){
+            return tmpDirPath + "/" + reportName + "_processed.jasper";
+        }
+        
+        InputStream inputStream = ReportsController.class.getClassLoader().getResourceAsStream(path + ".jrxml");
+       //String realPath = ReportsController.class.getClassLoader().getResource(path + ".jrxml").getPath();
+
+        ReportTemplate reportProcessor = new ReportTemplate();
+        InputStream inputStreamProcessed = reportProcessor.processTemplate(inputStream,    slicer, rowReportDao, true, reportName);
+        File processedFile = new File(tmpDirPath + "/" + reportName + "_processed.jrxml");
+        try {
+            processedFile.createNewFile();
+            processedFile.deleteOnExit();
+            try (FileOutputStream out = new FileOutputStream(processedFile)) {
+                IOUtils.copy(inputStreamProcessed, out);
+            }
+            String jrxmlFileName = processedFile.getAbsolutePath();
+            String jasperFileName = processedFile.getAbsolutePath().replace(".jrxml", ".jasper");
+            JasperCompileManager.compileReportToFile(jrxmlFileName, jasperFileName);
+            
+            return jasperFileName;
+        } catch (IOException | JRException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	
 	/**
 	 * Writes the report to the output stream
