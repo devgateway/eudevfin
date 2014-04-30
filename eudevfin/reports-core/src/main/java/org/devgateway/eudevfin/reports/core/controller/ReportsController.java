@@ -258,6 +258,7 @@ public class ReportsController {
 	 */
     private void generateDAC2a (HttpServletRequest request, HttpServletResponse response, Connection connection, String outputType) {
 		try {
+			
 			Map<String, Object> parameters = new HashMap<String, Object>();
 
 			// Assign Connection
@@ -288,10 +289,10 @@ public class ReportsController {
 			parameters.put("REPORTING_COUNTRY", donorName);
 
 			// Generate and Assign Sub Reports
-			String pathAreaSubreport = generateSubReport("DAC2aArea", "org/devgateway/eudevfin/reports/core/dac2a/dac2a_template_area", "[Area].Members", false);
-			String pathChannelSubreport = generateSubReport("DAC2aChannel", "org/devgateway/eudevfin/reports/core/dac2a/dac2a_template_channel", "[Channel].Members", false);
-			parameters.put("AREA_SUBREPORT_PATH", pathAreaSubreport);
-			parameters.put("CHANNEL_SUBREPORT_PATH", pathChannelSubreport);
+			String inputStreamArea = generateSubReport("DAC2aArea", "org/devgateway/eudevfin/reports/core/dac2a/dac2a_template_area", "[Area].Members");
+			String inputStreamChannel = generateSubReport("DAC2aChannel", "org/devgateway/eudevfin/reports/core/dac2a/dac2a_template_channel", "[Channel].Members");
+			parameters.put("AREA_SUBREPORT_PATH", inputStreamArea);
+			parameters.put("CHANNEL_SUBREPORT_PATH", inputStreamChannel);
 
 			//Process the main report with the subreports
 			ReportTemplate reportProcessor = new ReportTemplate();
@@ -445,29 +446,20 @@ public class ReportsController {
      * @param slicer
      * @returns path to the generated jrxml file to be passed on path to the subreport
 	 */
-	private String generateSubReport(String reportName, String path, String slicer, Boolean regenerate) {
-		java.net.URL url = ReportsController.class.getClassLoader().getResource(path + "_processed.jasper");
-		if(url != null && !regenerate){
-			return path + "_processed.jasper";
-		}
+	private String generateSubReport(String reportName, String path, String slicer) {
 		InputStream inputStream = ReportsController.class.getClassLoader().getResourceAsStream(path + ".jrxml");
-		String realPath = ReportsController.class.getClassLoader().getResource(path + ".jrxml").getPath();
-
 		ReportTemplate reportProcessor = new ReportTemplate();
 		InputStream inputStreamProcessed = reportProcessor.processTemplate(inputStream,	slicer, rowReportDao, true, reportName);
-        File processedFile = new File(realPath.replace(".jrxml", "_processed.jrxml"));
+        File tempFile;
 		try {
-			processedFile.createNewFile();
-			processedFile.deleteOnExit();
-	        try (FileOutputStream out = new FileOutputStream(processedFile)) {
+			tempFile = File.createTempFile(reportName,"_processed.jrxml");
+	        tempFile.deleteOnExit();
+	        
+	        try (FileOutputStream out = new FileOutputStream(tempFile)) {
 	            IOUtils.copy(inputStreamProcessed, out);
 	        }
-	        String jrxmlFileName = processedFile.getAbsolutePath();
-	        String jasperFileName = processedFile.getAbsolutePath().replace(".jrxml", ".jasper");
-			JasperCompileManager.compileReportToFile(jrxmlFileName, jasperFileName);
-	        
-	        return jasperFileName;
-		} catch (IOException | JRException e) {
+	        return tempFile.getAbsolutePath();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			logger.error("Path:" + realPath);
 			e.printStackTrace();
