@@ -107,6 +107,7 @@ public class ReportTemplate {
 
 	private void appendReportSumRows(HashMap<String, Node> matchingRows, HashMap<String, Node> matchingColumns, RowReport row, Document doc, boolean swapAxis) {
 		Node rowNode = matchingRows.get("r_" + row.getName());
+		
 		if(rowNode == null) return;
 		HashMap<String, String> columns = new HashMap<String, String>();
 
@@ -131,16 +132,18 @@ public class ReportTemplate {
 			}
 		}
 
-		Integer yCoord, xCoord;
-		xCoord = yCoord = 0;
+		Integer yCoord, xCoord, width, height;
+		xCoord = yCoord = width = height = 0;
 		if(swapAxis) {
 			 xCoord = rowNode.getAttributes().getNamedItem("x") != null ? Integer.parseInt(rowNode.getAttributes().getNamedItem("x").getNodeValue()) : 0;
 		} else {
 			 yCoord = rowNode.getAttributes().getNamedItem("y") != null ? Integer.parseInt(rowNode.getAttributes().getNamedItem("y").getNodeValue()) : 0;
 		}
 		
+		
 		for (Map.Entry<String, String> column : columns.entrySet()) {
-			UUID uuid = UUID.randomUUID();
+			String cellStyle = (rowNode.getAttributes().getNamedItem("style") != null) ? rowNode.getAttributes().getNamedItem("style").getNodeValue() : "";
+//			UUID uuid = UUID.randomUUID();
 			Element textField = doc.createElement("textField");
 			textField.setAttribute("pattern", "#,##0.00");
 			Node columnNode = matchingColumns.get("c_" + column.getKey());
@@ -152,14 +155,24 @@ public class ReportTemplate {
 			} else {
 				parentNode = rowNode.getParentNode().getParentNode();
 				xCoord = columnNode.getAttributes().getNamedItem("x") != null ? Integer.parseInt(columnNode.getAttributes().getNamedItem("x").getNodeValue()) : 0;
+				width = columnNode.getAttributes().getNamedItem("width") != null ? Integer.parseInt(columnNode.getAttributes().getNamedItem("width").getNodeValue()) : 0;
+				height = rowNode.getAttributes().getNamedItem("height") != null ? Integer.parseInt(rowNode.getAttributes().getNamedItem("height").getNodeValue()) : 0;
+				if(cellStyle.equals("") && (columnNode.getAttributes().getNamedItem("style") != null)){
+					cellStyle = columnNode.getAttributes().getNamedItem("style").getNodeValue();
+				}
+				
 			}
 			Element reportElement = doc.createElement("reportElement");
 			reportElement.setAttribute("key", "r_" + row.getName() + "_c_" +column.getKey());
 			reportElement.setAttribute("x", xCoord.toString());
 			reportElement.setAttribute("y", yCoord.toString());
-			reportElement.setAttribute("width", "55");
-			reportElement.setAttribute("height", "15");
-			reportElement.setAttribute("uuid", uuid.toString());
+			reportElement.setAttribute("width", width.toString());
+			reportElement.setAttribute("height", height.toString());
+			//reportElement.setAttribute("uuid", uuid.toString());
+
+			if(!cellStyle.equals("")) {
+				reportElement.setAttribute("style", cellStyle);
+			}
 
 			Element textElement = doc.createElement("textElement");
 			textElement.setAttribute("textAlignment", "Right");
@@ -188,8 +201,8 @@ public class ReportTemplate {
 		if(row.getName().equals("205") || row.getName().equals("215")){
 			rowMultiplier = "-1";
 		}
-		Integer yCoord, xCoord;
-		xCoord = yCoord = 0;
+		Integer yCoord, xCoord, width, height;
+		xCoord = yCoord = width = height = 0;
 		if(swapAxis) {
 			 xCoord = rowNode.getAttributes().getNamedItem("x") != null ? Integer.parseInt(rowNode.getAttributes().getNamedItem("x").getNodeValue()) : 0;
 		} else {
@@ -198,7 +211,8 @@ public class ReportTemplate {
 
 		Set<ColumnReport> columns = row.getColumns();
 		for (ColumnReport column : columns) {
-			UUID uuid = UUID.randomUUID();
+//			UUID uuid = UUID.randomUUID();
+			String cellStyle = (rowNode.getAttributes().getNamedItem("style") != null) ? rowNode.getAttributes().getNamedItem("style").getNodeValue() : "";
 
 			Node columnNode = matchingColumns.get("c_" + column.getName());
 			if (columnNode == null) continue;
@@ -209,6 +223,11 @@ public class ReportTemplate {
 			} else {
 				parentNode = rowNode.getParentNode().getParentNode();
 				xCoord = columnNode.getAttributes().getNamedItem("x") != null ? Integer.parseInt(columnNode.getAttributes().getNamedItem("x").getNodeValue()) : 0;
+				width = columnNode.getAttributes().getNamedItem("width") != null ? Integer.parseInt(columnNode.getAttributes().getNamedItem("width").getNodeValue()) : 0;
+				height = rowNode.getAttributes().getNamedItem("height") != null ? Integer.parseInt(rowNode.getAttributes().getNamedItem("height").getNodeValue()) : 0;
+				if(cellStyle.equals("") && (columnNode.getAttributes().getNamedItem("style") != null)){
+					cellStyle = columnNode.getAttributes().getNamedItem("style").getNodeValue();
+				}
 			}
 
 			Element textField = doc.createElement("textField");
@@ -218,14 +237,17 @@ public class ReportTemplate {
 			reportElement.setAttribute("key", "r_" + row.getName() + "_c_" + column.getName());
 			reportElement.setAttribute("x", xCoord.toString());
 			reportElement.setAttribute("y", yCoord.toString());
-			reportElement.setAttribute("width", "55");
+			reportElement.setAttribute("width", width.toString());
 			if(row.getVisible() != null && !row.getVisible()){
 				reportElement.setAttribute("height", "0");
 			} else {
-				reportElement.setAttribute("height", "15");
+				reportElement.setAttribute("height", height.toString());
+			}
+			if(!cellStyle.equals("")) {
+				reportElement.setAttribute("style", cellStyle);
 			}
 				
-			reportElement.setAttribute("uuid", uuid.toString());
+//			reportElement.setAttribute("uuid", uuid.toString());
 
 			Element textElement = doc.createElement("textElement");
 			textElement.setAttribute("textAlignment", "Right");
