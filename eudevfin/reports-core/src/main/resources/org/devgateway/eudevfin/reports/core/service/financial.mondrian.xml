@@ -52,9 +52,24 @@
     </Dimension>
     <Dimension visible="true" highCardinality="false" name="Extending Agency">
         <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Extending Agency" allMemberCaption="%{allExtendingAgencies}" allLevelName="%{allExtendingAgencies}" description="%{extendingAgencies}" allMemberName="All Extending Agencies">
-            <Table name="ORGANIZATION" schema="APP"></Table>
-            <Level name="code" visible="true" table="ORGANIZATION" column="CODE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never"></Level>
-            <Level name="Acronym" visible="true" table="ORGANIZATION" column="ACRONYM" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never"></Level>
+            <View alias="Extending AgencyView">
+                <SQL dialect="generic"><![CDATA[
+            select
+			  "ORGANIZATION"."ID", "ORGANIZATION"."CODE", "ORGANIZATION"."ACRONYM", "ORGANIZATIONTRANSLATION"."NAME"
+			from
+			  "APP"."ORGANIZATION" as "ORGANIZATION",
+			  "APP"."ORGANIZATIONTRANSLATION" as "ORGANIZATIONTRANSLATION"
+			WHERE
+			  "ORGANIZATIONTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
+			  "ORGANIZATIONTRANSLATION"."PARENT_ID" = "ORGANIZATION"."ID"
+			]]></SQL>
+            </View>
+            <Level name="code" visible="true" column="CODE" type="String" uniqueMembers="false" levelType="Regular">
+            </Level>
+            <Level name="Acronym" visible="true" column="ACRONYM" type="String" uniqueMembers="false" levelType="Regular">
+            </Level>
+            <Level name="Name" visible="true" column="NAME" type="String" uniqueMembers="false" levelType="Regular">
+            </Level>
         </Hierarchy>
     </Dimension>
     <Dimension visible="true" highCardinality="false" name="Channel">

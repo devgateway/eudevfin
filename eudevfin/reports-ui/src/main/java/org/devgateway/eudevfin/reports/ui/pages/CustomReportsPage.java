@@ -1,14 +1,19 @@
 package org.devgateway.eudevfin.reports.ui.pages;
 
 import com.vaynberg.wicket.select2.ChoiceProvider;
+import com.vaynberg.wicket.select2.Select2Choice;
 import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
 import org.apache.log4j.Logger;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.FormComponent;
+import org.apache.wicket.markup.html.form.validation.IFormValidator;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.time.Duration;
+import org.apache.wicket.validation.ValidationError;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.financial.service.CustomFinancialTransactionService;
 import org.devgateway.eudevfin.metadata.common.domain.Area;
@@ -51,6 +56,8 @@ public abstract class CustomReportsPage extends HeaderFooter {
 
     protected final NotificationPanel feedbackPanel;
 
+    protected IFormValidator geographyValidator;
+
     protected final Form form;
 
     protected CheckBoxField humanitarianAid;
@@ -84,6 +91,10 @@ public abstract class CustomReportsPage extends HeaderFooter {
     protected CheckBoxField CPAOnly;
 
     protected CheckBoxField showRelatedBudgetCodes;
+
+    protected CheckBoxField pricesNationalCurrency;
+
+    protected CheckBoxField pricesEURCurrency;
 
     public CustomReportsPage () {
         form = new Form("form");
@@ -145,6 +156,39 @@ public abstract class CustomReportsPage extends HeaderFooter {
         humanitarianAid = new CheckBoxField("humanitarianAid", new RWComponentPropertyModel<Boolean>("humanitarianAid"));
         showRelatedBudgetCodes = new CheckBoxField("showRelatedBudgetCodes", new RWComponentPropertyModel<Boolean>("showRelatedBudgetCodes"));
 
+        Label choiceOfCurrency = new Label("choiceOfCurrency", new StringResourceModel("choiceOfCurrency", this, null, null));
+        choiceOfCurrency.setVisibilityAllowed(Boolean.FALSE);
+
+        pricesNationalCurrency = new CheckBoxField("pricesNationalCurrency", new RWComponentPropertyModel<Boolean>("pricesNationalCurrency"));
+        pricesEURCurrency = new CheckBoxField("pricesEURCurrency", new RWComponentPropertyModel<Boolean>("pricesEURCurrency"));
+
+        // add geography&recipient validator
+        // (ODAEU-238) a country could not be selected if I want to have only regional aggregates
+        geographyValidator = new IFormValidator() {
+            @Override
+            public FormComponent<Category>[] getDependentFormComponents() {
+                List<FormComponent<Category>> list = new ArrayList<FormComponent<Category>>();
+                list.add(CustomReportsPage.this.geography.getField());
+
+                return list.toArray(new FormComponent[0]);
+            }
+
+            @Override
+            public void validate(Form<?> form) {
+                FormComponent<Category>[] components = this.getDependentFormComponents();
+                Select2Choice<Category> geographyComp = (Select2Choice<Category>) components[0];
+
+                Area recipient = ((CustomReportsModel) form.getInnermostModel().getObject()).getRecipient();
+
+                if (geographyComp.getModelObject() != null && recipient != null) {
+                    ValidationError error = new ValidationError();
+                    error.addKey("geography.error");
+                    geographyComp.error(error);
+                }
+            }
+        };
+
+        form.add(geographyValidator);
         form.add(geography);
         form.add(recipient);
         form.add(nationalInstitution);
@@ -161,6 +205,9 @@ public abstract class CustomReportsPage extends HeaderFooter {
         form.add(CPAOnly);
         form.add(humanitarianAid);
         form.add(showRelatedBudgetCodes);
+        form.add(choiceOfCurrency);
+        form.add(pricesNationalCurrency);
+        form.add(pricesEURCurrency);
 
         addSubmitButton();
 
