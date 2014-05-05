@@ -47,8 +47,24 @@ public class ReportsCountryInstitutionFilter extends CustomReportsPage {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 CustomReportsModel customReportsModel = (CustomReportsModel)form.getModelObject();
-
                 PageParameters pageParameters = new PageParameters();
+
+                if (customReportsModel.getGeography() != null) {
+                    pageParameters.add(ReportsConstants.GEOGRAPHY_PARAM, customReportsModel.getGeography().getName());
+                }
+                if (customReportsModel.getRecipient() != null) {
+                    pageParameters.add(ReportsConstants.RECIPIENT_PARAM, customReportsModel.getRecipient().getName());
+                }
+                if (customReportsModel.getNationalInstitution() != null) {
+                    pageParameters.add(ReportsConstants.INSTITUTION_PARAM, customReportsModel.getNationalInstitution());
+                }
+                if (customReportsModel.getYear() != null) {
+                    pageParameters.add(ReportsConstants.YEAR_PARAM, customReportsModel.getYear());
+                }
+                if (customReportsModel.getCoFinancingTransactionsOnly() != null && customReportsModel.getCoFinancingTransactionsOnly() != Boolean.FALSE) {
+                    pageParameters.add(ReportsConstants.COFINANCING_PARAM, customReportsModel.getCoFinancingTransactionsOnly());
+                }
+
                 setResponsePage(ReportsCountryInstitutionDashboards.class, pageParameters);
             }
         });

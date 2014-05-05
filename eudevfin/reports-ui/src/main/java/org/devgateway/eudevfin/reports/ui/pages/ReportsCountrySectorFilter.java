@@ -36,6 +36,8 @@ public class ReportsCountrySectorFilter extends CustomReportsPage {
         completitionYear.setVisibilityAllowed(Boolean.FALSE);
         humanitarianAid.setVisibilityAllowed(Boolean.FALSE);
         showRelatedBudgetCodes.setVisibilityAllowed(Boolean.FALSE);
+        pricesNationalCurrency.setVisibilityAllowed(Boolean.FALSE);
+        pricesEURCurrency.setVisibilityAllowed(Boolean.FALSE);
     }
 
     @Override

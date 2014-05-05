@@ -8,8 +8,11 @@ public class ReportsConstants {
     public static final String GEOGRAPHY_PARAM = "geographyParam";
     public static final String RECIPIENT_PARAM = "recipientParam";
     public static final String SECTOR_PARAM = "sectorParam";
+    public static final String INSTITUTION_PARAM = "institutionParam";
     public static final String YEAR_PARAM = "yearParam";
     public static final String COFINANCING_PARAM = "coFinancingParam";
     public static final String CPAONLY_PARAM = "CPAOnlyParam";
 
+    public static final String NATIONALCURRENCY_PARAM = "nationalCurrencyParam";
+    public static final String EURCURRENCY_PARAM = "EURCurrencyParam";
 }

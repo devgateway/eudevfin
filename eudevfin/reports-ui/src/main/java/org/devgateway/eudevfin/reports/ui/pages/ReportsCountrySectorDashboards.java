@@ -227,6 +227,11 @@ public class ReportsCountrySectorDashboards extends HeaderFooter {
 
         add(table.getTable());
         table.addTableRows();
+
+        Label nationalCurrencyFirst = new Label("nationalCurrencyFirst", new StringResourceModel("reportscountrysectordashboards.nationalCurrency", this, null, null));
+        table.getTable().add(nationalCurrencyFirst);
+        Label nationalCurrencySecond = new Label("nationalCurrencySecond", new StringResourceModel("reportscountrysectordashboards.nationalCurrency", this, null, null));
+        table.getTable().add(nationalCurrencySecond);
     }
 
     private void addCountryChart () {
@@ -326,6 +331,11 @@ public class ReportsCountrySectorDashboards extends HeaderFooter {
 
         add(table.getTable());
         table.addTableRows();
+
+        Label nationalCurrencyFirst = new Label("nationalCurrencyFirst", new StringResourceModel("reportscountrysectordashboards.nationalCurrency", this, null, null));
+        table.getTable().add(nationalCurrencyFirst);
+        Label nationalCurrencySecond = new Label("nationalCurrencySecond", new StringResourceModel("reportscountrysectordashboards.nationalCurrency", this, null, null));
+        table.getTable().add(nationalCurrencySecond);
     }
 
     private void addSectorChart () {
@@ -393,25 +403,27 @@ public class ReportsCountrySectorDashboards extends HeaderFooter {
         if(resultSet.size() != 0 && resultSet.get(0).size() > 3) {
             // check if we have data for the 'first year' or 'second year'
             // and add null values
-            if (resultSet.get(0).size() == 4) {
+            if (resultSet.get(0).size() == 5) {
                 for (int i = 0; i < resultSet.size(); i++) {
-                    if (result.getMetadata().get(1).getColName().equals("First Year")) {
-                        resultSet.get(i).add(3, null);
+                    if (result.getMetadata().get(1).getColName().equals("First Year National")) {
                         resultSet.get(i).add(4, null);
+                        resultSet.get(i).add(5, null);
+                        resultSet.get(i).add(6, null);
                     } else {
                         resultSet.get(i).add(1, null);
                         resultSet.get(i).add(2, null);
+                        resultSet.get(i).add(3, null);
                     }
                 }
             }
 
             // this is usually happening when we filter by both region and geography
-            if (resultSet.get(0).size() == 5) {
+            if (resultSet.get(0).size() == 6) {
                 for (int i = 0; i < resultSet.size(); i++) {
-                    if (result.getMetadata().get(2).getColName().equals("First Year %")) {
-                        resultSet.get(i).add(4, null);
+                    if (result.getMetadata().get(3).getColName().equals("First Year %")) {
+                        resultSet.get(i).add(5, null);
                     } else {
-                        resultSet.get(i).add(2, null);
+                        resultSet.get(i).add(3, null);
                     }
                 }
             }
@@ -421,23 +433,33 @@ public class ReportsCountrySectorDashboards extends HeaderFooter {
             DecimalFormat df = new DecimalFormat("#,###.##");
             for (int i = 0; i < resultSet.size(); i++) {
                 if (resultSet.get(i).size() > 1 && resultSet.get(i).get(1) != null) {
-                    String item = df.format(Float.parseFloat(resultSet.get(i).get(1)) / MILLION); // amounts (first year)
+                    String item = df.format(Float.parseFloat(resultSet.get(i).get(1))); // amounts - national currency (first year)
                     resultSet.get(i).set(1, item);
                 }
 
                 if (resultSet.get(i).size() > 2 && resultSet.get(i).get(2) != null) {
-                    String item = df.format(Float.parseFloat(resultSet.get(i).get(2)) * 100) + '%'; // percentages (first year)
+                    String item = df.format(Float.parseFloat(resultSet.get(i).get(2))); // amounts (first year)
                     resultSet.get(i).set(2, item);
                 }
 
                 if (resultSet.get(i).size() > 3 && resultSet.get(i).get(3) != null) {
-                    String item = df.format(Float.parseFloat(resultSet.get(i).get(3)) / MILLION); // amounts (second year)
+                    String item = df.format(Float.parseFloat(resultSet.get(i).get(3)) * 100) + '%'; // percentages (first year)
                     resultSet.get(i).set(3, item);
                 }
 
                 if (resultSet.get(i).size() > 4 && resultSet.get(i).get(4) != null) {
-                    String item = df.format(Float.parseFloat(resultSet.get(i).get(4)) * 100) + '%'; // percentages (second year)
+                    String item = df.format(Float.parseFloat(resultSet.get(i).get(4))); // amounts - national currency (second year)
                     resultSet.get(i).set(4, item);
+                }
+
+                if (resultSet.get(i).size() > 5 && resultSet.get(i).get(5) != null) {
+                    String item = df.format(Float.parseFloat(resultSet.get(i).get(5))); // amounts (second year)
+                    resultSet.get(i).set(5, item);
+                }
+
+                if (resultSet.get(i).size() > 6 && resultSet.get(i).get(6) != null) {
+                    String item = df.format(Float.parseFloat(resultSet.get(i).get(6)) * 100) + '%'; // percentages (second year)
+                    resultSet.get(i).set(6, item);
                 }
             }
 
@@ -461,7 +483,7 @@ public class ReportsCountrySectorDashboards extends HeaderFooter {
                 }
 
                 // set 'Total' as Geography
-                resultSet.get(resultSet.size() - 1).set(6, isGeography.toLowerCase());
+                resultSet.get(resultSet.size() - 1).set(8, isGeography.toLowerCase());
             }
             if(typeOfTable.equals(isSector)) {
                 // find which row is a sector or a parent-sector
@@ -480,7 +502,7 @@ public class ReportsCountrySectorDashboards extends HeaderFooter {
                 }
 
                 // set 'Total' as Geography
-                resultSet.get(resultSet.size() - 1).set(6, isParentSector.toLowerCase());
+                resultSet.get(resultSet.size() - 1).set(8, isParentSector.toLowerCase());
             }
 
             for (List<String> item : resultSet) {
@@ -494,8 +516,8 @@ public class ReportsCountrySectorDashboards extends HeaderFooter {
                 String[] row = item.getModelObject();
 
                 // use different color for geography items
-                if (row[6].toLowerCase().equals(isGeography.toLowerCase()) ||
-                        row[6].toLowerCase().equals(isParentSector.toLowerCase())) {
+                if (row[row.length - 1].toLowerCase().equals(isGeography.toLowerCase()) ||
+                        row[row.length - 1].toLowerCase().equals(isParentSector.toLowerCase())) {
                     item.add(new AttributeModifier("class", "geography"));
                 }
 
@@ -505,6 +527,8 @@ public class ReportsCountrySectorDashboards extends HeaderFooter {
                 item.add(new Label("col3", row[3]));
                 item.add(new Label("col4", row[4]));
                 item.add(new Label("col5", row[5]));
+                item.add(new Label("col6", row[6]));
+                item.add(new Label("col7", row[7]));
             }
         };
 

@@ -221,6 +221,8 @@
         <Query>
             <![CDATA[
             WITH
+            MEMBER [Measures].[First Year National] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Extended Amount]}))
+            MEMBER [Measures].[Second Year National] AS SUM(CrossJoin([Reporting Year].[${SECOND_YEAR}], {[Measures].[Extended Amount]}))
             MEMBER [Measures].[First Year] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Extended Amount Currency NATLOECD]}))
             MEMBER [Measures].[Second Year] AS SUM(CrossJoin([Reporting Year].[${SECOND_YEAR}], {[Measures].[Extended Amount Currency NATLOECD]}))
             ${countryTableTotal}
@@ -229,7 +231,7 @@
             MEMBER [Measures].[Second Year %] AS SUM(CrossJoin([Reporting Year].[${SECOND_YEAR}], {[Measures].[% of Total]}))
             MEMBER [Measures].[Level] AS IIF([Measures].[Extended Amount Currency NATLOECD] > 0, IIF([Country].CurrentMember.Level.Name = "Geography", "Geography", "Country"), null)
             SELECT
-            NON EMPTY {[Measures].[First Year], [Measures].[First Year %], [Measures].[Second Year], [Measures].[Second Year %], [Measures].[Level]} ON COLUMNS,
+            NON EMPTY {[Measures].[First Year National], [Measures].[First Year], [Measures].[First Year %], [Measures].[Second Year National], [Measures].[Second Year], [Measures].[Second Year %], [Measures].[Level]} ON COLUMNS,
             NON EMPTY ${countryTableRowSet} ON ROWS
             FROM [Financial]
             WHERE ([Sector].${SECTOR}, [CoFinanced].${COFINANCED}, [CPA].${CPA})
@@ -256,6 +258,8 @@
         <Query>
             <![CDATA[
             WITH
+            MEMBER [Measures].[First Year National] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Extended Amount]}))
+            MEMBER [Measures].[Second Year National] AS SUM(CrossJoin([Reporting Year].[${SECOND_YEAR}], {[Measures].[Extended Amount]}))
             MEMBER [Measures].[FIRST YEAR] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Extended Amount Currency NATLOECD]}))
             MEMBER [Measures].[SECOND YEAR] AS SUM(CrossJoin([Reporting Year].[${SECOND_YEAR}], {[Measures].[Extended Amount Currency NATLOECD]}))
             ${sectorTableTotal}
@@ -264,7 +268,7 @@
             MEMBER [Measures].[Second Year %] AS SUM(CrossJoin([Reporting Year].[${SECOND_YEAR}], {[Measures].[% of Total]}))
             MEMBER [Measures].[Level] AS IIF([Measures].[Extended Amount Currency NATLOECD] > 0, IIF([SectorHierarchy].CurrentMember.Level.Name = "ParentName", "ParentSector", "Sector"), null)
             SELECT
-            NON EMPTY {[Measures].[FIRST YEAR], [Measures].[First Year %], [Measures].[SECOND YEAR], [Measures].[Second Year %], [Measures].[Level]} ON COLUMNS,
+            NON EMPTY {[Measures].[First Year National], [Measures].[FIRST YEAR], [Measures].[First Year %], [Measures].[Second Year National], [Measures].[SECOND YEAR], [Measures].[Second Year %], [Measures].[Level]} ON COLUMNS,
             NON EMPTY ${sectorTableRowSet} ON ROWS
             FROM [Financial]
             WHERE ([Country].${COUNTRIES}, [CoFinanced].${COFINANCED}, [CPA].${CPA})

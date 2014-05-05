@@ -29,6 +29,8 @@ public class CustomReportsModel implements Serializable {
     private Boolean CPAOnly;
     private Boolean humanitarianAid;
     private Boolean showRelatedBudgetCodes;
+    private Boolean pricesNationalCurrency;
+    private Boolean pricesEURCurrency;
 
     public Area getRecipient() {
         return recipient;
@@ -156,5 +158,21 @@ public class CustomReportsModel implements Serializable {
 
     public void setShowRelatedBudgetCodes(Boolean showRelatedBudgetCodes) {
         this.showRelatedBudgetCodes = showRelatedBudgetCodes;
+    }
+
+    public Boolean getPricesNationalCurrency() {
+        return pricesNationalCurrency;
+    }
+
+    public void setPricesNationalCurrency(Boolean pricesNationalCurrency) {
+        this.pricesNationalCurrency = pricesNationalCurrency;
+    }
+
+    public Boolean getPricesEURCurrency() {
+        return pricesEURCurrency;
+    }
+
+    public void setPricesEURCurrency(Boolean pricesEURCurrency) {
+        this.pricesEURCurrency = pricesEURCurrency;
     }
 }
