@@ -334,4 +334,56 @@
         </Query>
     </DataAccess>
 
+    <DataAccess id="customDashboardsInstitutionTable"
+                connection="defaultConnectionLocale"
+                type="mdx"
+                access="public">
+        <BandedMode>compact</BandedMode>
+        <Columns/>
+        <Parameters>
+            <Parameter default="2013" name="FIRST_YEAR" type="Integer"/>
+            <Parameter default="CrossJoin([Extending Agency].[Name].Members, [Country].[Name].Members)" name="institutionTableRowSet" type="String"/>
+            <Parameter default="[All CoFinanced]" name="COFINANCED" type="String"/>
+        </Parameters>
+        <Name>Custom Dashboards - Institution Table</Name>
+        <Query>
+            <![CDATA[
+            WITH
+            MEMBER [Measures].[First Year National] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Extended Amount]}))
+            MEMBER [Measures].[First Year] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Extended Amount Currency NATLOECD]}))
+            SELECT
+            NON EMPTY {[Measures].[First Year National], [Measures].[First Year]} ON COLUMNS,
+            NON EMPTY ${institutionTableRowSet} ON ROWS
+            FROM [Financial]
+            WHERE ([CoFinanced].${COFINANCED})
+            ]]>
+        </Query>
+    </DataAccess>
+
+    <DataAccess id="customDashboardsInstitutionChart"
+                connection="defaultConnectionLocale"
+                type="mdx"
+                access="public">
+        <BandedMode>compact</BandedMode>
+        <Columns/>
+        <Parameters>
+            <Parameter default="2013" name="FIRST_YEAR" type="Integer"/>
+            <Parameter default="{Hierarchize({[Extending Agency].[Name].Members})}" name="institutionChartRowSet" type="String"/>
+            <Parameter default="[All Countries]" name="COUNTRIES" type="String"/>
+            <Parameter default="[All CoFinanced]" name="COFINANCED" type="String"/>
+        </Parameters>
+        <Name>Custom Dashboards - Institution Chart</Name>
+        <Query>
+            <![CDATA[
+            WITH
+            MEMBER [Measures].[First Year] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Extended Amount Currency NATLOECD]}))
+            SELECT
+            NON EMPTY {[Measures].[First Year]} ON COLUMNS,
+            NON EMPTY ${institutionChartRowSet} ON ROWS
+            FROM [Financial]
+            WHERE ([Country].${COUNTRIES}, [CoFinanced].${COFINANCED})
+            ]]>
+        </Query>
+    </DataAccess>
+
 </CDADescriptor>

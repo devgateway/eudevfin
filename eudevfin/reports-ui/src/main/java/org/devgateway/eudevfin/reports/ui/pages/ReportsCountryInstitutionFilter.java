@@ -33,6 +33,8 @@ public class ReportsCountryInstitutionFilter extends CustomReportsPage {
         humanitarianAid.setVisibilityAllowed(Boolean.FALSE);
         CPAOnly.setVisibilityAllowed(Boolean.FALSE);
         showRelatedBudgetCodes.setVisibilityAllowed(Boolean.FALSE);
+        pricesNationalCurrency.setVisibilityAllowed(Boolean.FALSE);
+        pricesEURCurrency.setVisibilityAllowed(Boolean.FALSE);
     }
 
     @Override
@@ -56,7 +58,7 @@ public class ReportsCountryInstitutionFilter extends CustomReportsPage {
                     pageParameters.add(ReportsConstants.RECIPIENT_PARAM, customReportsModel.getRecipient().getName());
                 }
                 if (customReportsModel.getNationalInstitution() != null) {
-                    pageParameters.add(ReportsConstants.INSTITUTION_PARAM, customReportsModel.getNationalInstitution());
+                    pageParameters.add(ReportsConstants.INSTITUTION_PARAM, customReportsModel.getNationalInstitution().getName());
                 }
                 if (customReportsModel.getYear() != null) {
                     pageParameters.add(ReportsConstants.YEAR_PARAM, customReportsModel.getYear());

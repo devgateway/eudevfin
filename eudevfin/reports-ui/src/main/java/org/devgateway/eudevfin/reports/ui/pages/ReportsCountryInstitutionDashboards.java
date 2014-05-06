@@ -1,18 +1,30 @@
 package org.devgateway.eudevfin.reports.ui.pages;
 
+import com.googlecode.wickedcharts.highcharts.options.DataLabels;
+import com.googlecode.wickedcharts.highcharts.options.PlotOptions;
+import com.googlecode.wickedcharts.highcharts.options.PlotOptionsChoice;
+import com.googlecode.wickedcharts.highcharts.options.Tooltip;
+import com.googlecode.wickedcharts.highcharts.options.series.SimpleSeries;
 import org.apache.log4j.Logger;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.list.ListItem;
+import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.StringValue;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.reports.core.service.QueryService;
+import org.devgateway.eudevfin.reports.ui.components.StackedBarChart;
+import org.devgateway.eudevfin.reports.ui.components.Table;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.wicketstuff.annotation.mount.MountPath;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * @author idobre
@@ -22,6 +34,24 @@ import java.util.Calendar;
 @AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
 public class ReportsCountryInstitutionDashboards extends HeaderFooter {
     private static final Logger logger = Logger.getLogger(ReportsCountryInstitutionDashboards.class);
+
+    private final int MILLION = 1000000;
+
+    /*
+     * variables used to dynamically create the MDX queries
+     */
+    // variables used for 'country table'
+    private String institutionTableRowSet = "CrossJoin([Extending Agency].[Name].Members, [Country].[Name].Members)";
+    private String institutionTableInstitution = "CrossJoin([Extending Agency].[Name].[__INSTITUTION__], [Country].[Name].Members)";
+    private String institutionTableRecipient = "CrossJoin([Extending Agency].[Name].Members, [Country].[Name].[__RECIPIENT__])";
+    private String institutionTableInstitutionRecipient = "CrossJoin([Extending Agency].[Name].[__INSTITUTION__], [Country].[Name].__RECIPIENT__)";
+    private String institutionTableGeography = "CrossJoin([Extending Agency].[Name].Members, Filter({{[Country].[Name].Members}}, " +
+            "(Exists(Ancestor([Country].CurrentMember, [Country].[Geography]), {[Country].[__GEOGRAPHY__]}).Count  > 0)))";
+    private String institutionTableInstitutionGeography = "CrossJoin([Extending Agency].[Name].[__INSTITUTION__], Filter({{[Country].[Name].Members}}, " +
+            "(Exists(Ancestor([Country].CurrentMember, [Country].[Geography]), {[Country].[__GEOGRAPHY__]}).Count  > 0)))";
+
+    private String institutionChartRowSet = "{Hierarchize({[Extending Agency].[Name].Members})}";
+    private String institutionChartInstitution = "{Hierarchize({[Extending Agency].[Name].[__INSTITUTION__]})}";
 
     private int tableYear;
     // variables that holds the parameters received from filter
@@ -56,11 +86,45 @@ public class ReportsCountryInstitutionDashboards extends HeaderFooter {
             coFinancingParam = parameters.get(ReportsConstants.COFINANCING_PARAM).toString();
         }
 
-        logger.error("> geographyParam: " + geographyParam);
-        logger.error("> recipientParam: " + recipientParam);
-        logger.error("> institutionParam: " + institutionParam);
-        logger.error("> yearParam: " + yearParam);
-        logger.error("> coFinancingParam: " + coFinancingParam);
+        /*
+         * create the MDX queries based on the filters
+         */
+        if (recipientParam != null) {
+            institutionTableRecipient = institutionTableRecipient.replaceAll("__RECIPIENT__", recipientParam);
+
+            if (institutionParam != null) {
+                institutionTableInstitutionRecipient = institutionTableInstitutionRecipient.replaceAll("__INSTITUTION__", institutionParam);
+                institutionTableInstitutionRecipient = institutionTableInstitutionRecipient.replaceAll("__RECIPIENT__", "[" + recipientParam + "]");
+
+                institutionTableRowSet = institutionTableInstitutionRecipient;
+            } else {
+                institutionTableRowSet = institutionTableRecipient;
+            }
+        } else {
+            if (geographyParam != null) {
+                institutionTableGeography = institutionTableGeography.replaceAll("__GEOGRAPHY__", geographyParam);
+
+                if (institutionParam != null) {
+                    institutionTableInstitutionGeography = institutionTableInstitutionGeography.replaceAll("__INSTITUTION__", institutionParam);
+                    institutionTableInstitutionGeography = institutionTableInstitutionGeography.replaceAll("__GEOGRAPHY__", geographyParam);
+
+                    institutionTableRowSet = institutionTableInstitutionGeography;
+                } else {
+                    institutionTableRowSet = institutionTableGeography;
+                }
+            } else {
+                if (institutionParam != null) {
+                    institutionTableInstitutionRecipient = institutionTableInstitutionRecipient.replaceAll("__INSTITUTION__", institutionParam);
+                    institutionTableInstitutionRecipient = institutionTableInstitutionRecipient.replaceAll("__RECIPIENT__", "Members");
+
+                    institutionTableRowSet = institutionTableInstitutionRecipient;
+
+                    institutionChartInstitution = institutionChartInstitution.replaceAll("__INSTITUTION__", institutionParam);
+                    institutionChartRowSet = institutionChartInstitution;
+
+                }
+            }
+        }
 
         addComponents();
     }
@@ -68,5 +132,149 @@ public class ReportsCountryInstitutionDashboards extends HeaderFooter {
     private void addComponents() {
         Label title = new Label("title", new StringResourceModel("reportscountryinstitutiondashboards.title", this, null, null));
         add(title);
+
+        addInstitutionTable();
+        addInstitutionChart();
+    }
+
+    private void addInstitutionTable () {
+        Label title = new Label("institutionTableTitle", new StringResourceModel("reportscountryinstitutiondashboards.institutionTable", this, null, null));
+        add(title);
+
+        Table table = new Table(CdaService, "institutionTable", "institutionTableRows", "customDashboardsInstitutionTable") {
+            @Override
+            public ListView<String[]> getTableRows () {
+                super.getTableRows();
+
+                this.rows = new ArrayList<>();
+                this.result = this.runQuery();
+
+                List <List<String>> resultSet = result.getResultset();
+
+                if(resultSet.size() != 0) {
+                    // format the amounts as #,###.##
+                    // and other values like percentages
+                    DecimalFormat df = new DecimalFormat("#,###.##");
+                    for (int i = 0; i < resultSet.size(); i++) {
+                        if (resultSet.get(i).size() > 2 && resultSet.get(i).get(2) != null) {
+                            String item = df.format(Float.parseFloat(resultSet.get(i).get(2))); // amounts - national currency (first year)
+                            resultSet.get(i).set(2, item);
+                        }
+
+                        if (resultSet.get(i).size() > 3 && resultSet.get(i).get(3) != null) {
+                            String item = df.format(Float.parseFloat(resultSet.get(i).get(3))); // amounts (first year)
+                            resultSet.get(i).set(3, item);
+                        }
+                    }
+
+                    // 'group by' institutions for countries
+                    for (int i = resultSet.size() - 1; i > 0; i--) {
+                        if(resultSet.get(i).get(0).equals(resultSet.get(i - 1).get(0))) {
+                            resultSet.get(i).set(0, null);
+                        }
+                    }
+
+                    for (List<String> item : resultSet) {
+                        rows.add(item.toArray(new String[item.size()]));
+                    }
+                }
+
+                ListView<String[]> tableRows = new ListView<String[]>(rowId, rows) {
+                    @Override
+                    protected void populateItem(ListItem<String[]> item) {
+                        String[] row = item.getModelObject();
+
+                        item.add(new Label("col0", row[0]));
+                        item.add(new Label("col1", row[1]));
+                        item.add(new Label("col2", row[2]));
+                        item.add(new Label("col3", row[3]));
+                    }
+                };
+
+                return tableRows;
+            }
+        };
+
+        // add MDX queries parameters
+        table.setParam("paramFIRST_YEAR", Integer.toString(tableYear ));
+        if(coFinancingParam != null && coFinancingParam.equals("true")) {
+            table.setParam("paramCOFINANCED", "[1]");
+        }
+        table.setParam("paraminstitutionTableRowSet", institutionTableRowSet);
+
+        table.setdisableStripeClasses(Boolean.TRUE);
+
+        Label firstYear = new Label("firstYear", tableYear);
+        table.getTable().add(firstYear);
+
+        add(table.getTable());
+        table.addTableRows();
+
+        Label nationalCurrencyFirst = new Label("nationalCurrencyFirst", new StringResourceModel("reportscountryinstitutiondashboards.nationalCurrency", this, null, null));
+        table.getTable().add(nationalCurrencyFirst);
+    }
+
+    private void addInstitutionChart () {
+        Label title = new Label("institutionChartTitle", new StringResourceModel("reportscountryinstitutiondashboards.institutionChart", this, null, null));
+        add(title);
+
+        StackedBarChart stackedBarChart = new StackedBarChart(CdaService, "institutionChart", "customDashboardsInstitutionChart") {
+            @Override
+            public List<List<Float>> getResultSeriesAsList () {
+                this.result = this.runQuery();
+
+                List<List<Float>> resultSeries = new ArrayList<>();
+                List<String> resultCategories = new ArrayList<>();
+
+                List<Float> firstYearList = new ArrayList<>();
+                resultSeries.add(firstYearList);
+
+                for (List<String> item : result.getResultset()) {
+                    resultCategories.add(item.get(0));
+
+                    if (item.size() > 1 && item.get(1) != null) {
+                        resultSeries.get(0).add(Float.parseFloat(item.get(1)) / MILLION);
+                    } else {
+                        resultSeries.get(0).add((float) 0);
+                    }
+                }
+
+                getOptions().getxAxis().get(0).setCategories(new ArrayList<>(resultCategories));
+
+                return resultSeries;
+            }
+        };
+
+        // add MDX queries parameters
+        stackedBarChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
+        if (geographyParam != null) {
+            stackedBarChart.setParam("paramCOUNTRIES", "[" + geographyParam + "]");
+        } else {
+            if (recipientParam != null) {
+                stackedBarChart.setParam("paramCOUNTRIES", "[Name].[" + recipientParam + "]");
+            }
+        }
+        if(coFinancingParam != null && coFinancingParam.equals("true")) {
+            stackedBarChart.setParam("paramCOFINANCED", "[1]");
+        }
+
+        stackedBarChart.setParam("paraminstitutionChartRowSet", institutionChartRowSet);
+
+        List<List<Float>> resultSeries = stackedBarChart.getResultSeriesAsList();
+        stackedBarChart.getOptions().setPlotOptions(new PlotOptionsChoice().
+                setBar(new PlotOptions().
+                        setMinPointLength(5).
+                        setDataLabels(new DataLabels().
+                                setEnabled(Boolean.TRUE))));
+        stackedBarChart.getOptions().setTooltip(new Tooltip().setValueSuffix(" millions").setPercentageDecimals(2));
+        // add 50px height for each row
+        int numberOfRows = resultSeries.get(0).size();
+        stackedBarChart.getOptions().getChartOptions().setHeight(300 + 50 * numberOfRows);
+
+        stackedBarChart.getOptions().addSeries(new SimpleSeries()
+                .setName("Year " + tableYear)
+                .setData(resultSeries.get(0).toArray(new Float[resultSeries.get(0).size()])));
+
+        add(stackedBarChart.getChart());
     }
 }

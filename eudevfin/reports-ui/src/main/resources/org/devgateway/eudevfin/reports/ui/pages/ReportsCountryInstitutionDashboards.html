@@ -21,11 +21,45 @@
                 </div>
 
                 <div class="span6">
-
+                    <div class="box">
+                        <div class="box-header">
+                            <h2>
+                                <div wicket:id="institutionTableTitle"/>
+                            </h2>
+                        </div>
+                        <table wicket:id="institutionTable">
+                            <thead>
+                            <tr>
+                                <th rowspan="2" class="ui-state-default">Institution</th>
+                                <th rowspan="2" class="ui-state-default">Country</th>
+                                <th colspan="2" class="ui-state-default" wicket:id="firstYear"></th>
+                            </tr>
+                            <tr>
+                                <th wicket:id="nationalCurrencyFirst"/>
+                                <th>$</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr wicket:id="institutionTableRows">
+                                <td wicket:id="col0" class="string geography">Institution</td>
+                                <td wicket:id="col1" class="string">Country</td>
+                                <td wicket:id="col2" class="numeric">National Currency 1</td>
+                                <td wicket:id="col3" class="numeric">$</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
                 <div class="span6">
-
+                    <div class="box">
+                        <div class="box-header">
+                            <h2>
+                                <div wicket:id="institutionChartTitle"/>
+                            </h2>
+                        </div>
+                        <div wicket:id="institutionChart"/>
+                    </div>
                 </div>
             </div> <!-- /row -->
         </div> <!-- /container -->
