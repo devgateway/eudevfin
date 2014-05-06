@@ -30,7 +30,6 @@ public interface OrganizationRepository extends
 	
 	Organization findByCode(String code);
 	
-	
     @Query(" select distinct org from CustomFinancialTransaction ctx join ctx.extendingAgency org")
     Page<Organization> findUsedOrganization(Pageable page);
 

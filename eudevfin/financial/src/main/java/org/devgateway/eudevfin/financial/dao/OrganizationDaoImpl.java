@@ -76,7 +76,7 @@ public class OrganizationDaoImpl extends AbstractDaoImpl<Organization, Long, Org
 	
 	@ServiceActivator(inputChannel="findOrganizationByCodeChannel")
 	public NullableWrapper<Organization> findByCode(String code) {
-		return super.findOne(code);
+		return new NullableWrapper<Organization>(repo.findByCode(code));
 	}
 	
 	
@@ -128,8 +128,13 @@ public class OrganizationDaoImpl extends AbstractDaoImpl<Organization, Long, Org
 
         return result;
     }
-	
-    public Organization findByCodeAndDonorCode(String code, String donorCode) {
-        return this.repo.findByCodeAndDonorCode(code, donorCode);
+    
+    
+    /**
+     * @see OrganizationService#findByCodeAndDonorCode(String, String)
+     */
+	@ServiceActivator(inputChannel="findOrganizationByCodeAndDonorCodeChannel")
+    public NullableWrapper<Organization> findByCodeAndDonorCode(String code, @Header("donorCode") String donorCode) {
+        return new NullableWrapper<Organization>(this.repo.findByCodeAndDonorCode(code, donorCode));
     }
 }

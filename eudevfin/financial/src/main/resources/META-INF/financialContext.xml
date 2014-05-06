@@ -199,7 +199,10 @@
     <int:channel id="findOrganizationByIdChannel"/>
     <int:channel id="findOrganizationByGeneralSearchPageableChannel"/>
     <int:channel id="findUsedOrganizationPaginatedOrganizationChannel"/>
-	
+
+    <int:channel id="findOrganizationByCodeChannel"/>
+    <int:channel id="findOrganizationByCodeAndDonorCodeChannel"/>
+    
 	<int:channel id="saveCategoryChannel" />
 	<int:channel id="findAllAsListCategoryChannel" />
 	<int:channel id="findCategoryByIdChannel" />

@@ -14,16 +14,17 @@ package org.devgateway.eudevfin.mcm.pages;
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
-import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.FormComponent;
+import org.apache.wicket.markup.html.form.validation.AbstractFormValidator;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.util.lang.Args;
 import org.apache.wicket.util.string.Strings;
 import org.apache.wicket.util.time.Duration;
 import org.apache.wicket.validation.IValidatable;
-import org.apache.wicket.validation.IValidator;
 import org.apache.wicket.validation.ValidationError;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.util.AuthUtils;
@@ -54,25 +55,42 @@ public class EditOrganizationPage extends HeaderFooter<Organization> {
 	private static final Logger logger = Logger.getLogger(EditOrganizationPage.class);
 	public static final String PARAM_ORG_ID = "orgId";
 	public static final String PARAM_ORG_ID_VALUE_NEW = "new";
-	
-	
-	public class UniqueOrganizationCode extends Behavior implements IValidator<String> {
-		private static final long serialVersionUID = -4967964480783526901L;
-		private Long id;
 
-		public UniqueOrganizationCode(Long id) {
+	public class UniqueOrganizationCodeAndDonorCodeValidator extends AbstractFormValidator {
+
+		private static final long serialVersionUID = 4021513760568758277L;
+		private Long id;
+		private final FormComponent<?>[] components;
+
+		public UniqueOrganizationCodeAndDonorCodeValidator(FormComponent<?> code, FormComponent<?> donorCode, Long id) {
+			Args.notNull(code, "Code");
+			Args.notNull(donorCode, "Donor Code");
+			components = new FormComponent[] { code, donorCode };
 			this.id = id;
 		}
 
 		@Override
-		public void validate(IValidatable<String> validatable) {
-			String code = validatable.getValue();
-			Organization org2 = organizationService.findByCode(code).getEntity();
+		public FormComponent<?>[] getDependentFormComponents() {
+			return components;
+		}
+
+		@Override
+		public void validate(Form<?> form) {
+			final FormComponent<?> codeComponent = components[0];
+			final FormComponent<?> donorCodeComponent = components[1];
+
+			Organization organizationForCurrentUser = AuthUtils.getOrganizationForCurrentUser();
+			
+			String code = codeComponent.getInput();
+			String donorCode = donorCodeComponent.getInput();
+
+			Organization org2 = organizationService.findByCodeAndDonorCode(code, organizationForCurrentUser.getCode()).getEntity();
 			if (org2 != null && !org2.getId().equals(id)) {
 				ValidationError error = new ValidationError();
 				error.addKey("uniqueOrgCodeError");
-				validatable.error(error);
+				form.error(error);
 			}
+
 		}
 	}
 
@@ -84,13 +102,12 @@ public class EditOrganizationPage extends HeaderFooter<Organization> {
 		if (Strings.isEqual(parameters.get(PARAM_ORG_ID).toString(), PARAM_ORG_ID_VALUE_NEW)) {
 			org = new Organization();
 			org.setDac(false);
-			Organization organizationForCurrentUser = AuthUtils
-					.getOrganizationForCurrentUser();
-			org.setDonorCode(organizationForCurrentUser.getDonorName());
-			
+			Organization organizationForCurrentUser = AuthUtils.getOrganizationForCurrentUser();
+			org.setDonorName(organizationForCurrentUser.getDonorName());
+
 		} else {
 			long orgId = parameters.get(PARAM_ORG_ID).toLong();
-			org = organizationService.findOne(orgId).getEntity();			
+			org = organizationService.findOne(orgId).getEntity();
 		}
 
 		Form<Organization> form = new Form<Organization>("form");
@@ -98,25 +115,25 @@ public class EditOrganizationPage extends HeaderFooter<Organization> {
 		CompoundPropertyModel<Organization> model = new CompoundPropertyModel<>(org);
 		setModel(model);
 
-		TextInputField<String> name = new TextInputField<>("name", new RWComponentPropertyModel<String>(
-				"name")).required().typeString();
+		TextInputField<String> name = new TextInputField<>("name", new RWComponentPropertyModel<String>("name"))
+				.required().typeString();
 		form.add(name);
-		
-		TextInputField<String> acronym = new TextInputField<>("acronym", new RWComponentPropertyModel<String>(
-				"acronym")).required().typeString();
+
+		TextInputField<String> acronym = new TextInputField<>("acronym",
+				new RWComponentPropertyModel<String>("acronym")).required().typeString();
 		form.add(acronym);
-		
-		TextInputField<String> code = new TextInputField<>("code", new RWComponentPropertyModel<String>(
-				"code")).required().typeString();
-		code.getField().add(new UniqueOrganizationCode(org.getId()));
+
+		TextInputField<String> code = new TextInputField<>("code", new RWComponentPropertyModel<String>("code"))
+				.required().typeString();
 		form.add(code);
-		
+
 		TextInputField<String> donorCode = new TextInputField<>("donorCode", new RWComponentPropertyModel<String>(
 				"donorCode")).required().typeString();
 		donorCode.getField().setEnabled(false);
 		form.add(donorCode);
 
-		form.add(new BootstrapSubmitButton("submit", new StringResourceModel("button.submit", this, null,(Object) null)) {
+		form.add(new BootstrapSubmitButton("submit",
+				new StringResourceModel("button.submit", this, null, (Object) null)) {
 			private static final long serialVersionUID = 1748161296530970075L;
 
 			@Override
@@ -137,7 +154,8 @@ public class EditOrganizationPage extends HeaderFooter<Organization> {
 
 		});
 
-		form.add(new BootstrapCancelButton("cancel", new StringResourceModel("button.cancel", this, null,(Object) null)) {
+		form.add(new BootstrapCancelButton("cancel",
+				new StringResourceModel("button.cancel", this, null, (Object) null)) {
 
 			private static final long serialVersionUID = 6700688063444818086L;
 
@@ -148,6 +166,8 @@ public class EditOrganizationPage extends HeaderFooter<Organization> {
 			}
 
 		});
+
+		form.add(new UniqueOrganizationCodeAndDonorCodeValidator(code.getField(), donorCode.getField(), org.getId()));
 
 		add(form);
 

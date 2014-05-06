@@ -18,6 +18,8 @@ public interface OrganizationService extends BaseEntityService<Organization> {
 	
 	public NullableWrapper<Organization> findByCode(String code);
 	
+	public NullableWrapper<Organization> findByCodeAndDonorCode(String code,  @Header("donorCode") String donorCode);
+	
 	public NullableWrapper<Organization> findByName(String name);
 	
 }
