@@ -229,7 +229,7 @@
             MEMBER [Measures].[% of Total] as [Measures].[Extended Amount Currency NATLOECD] / [Country].[Total], format_string='0.00%'
             MEMBER [Measures].[First Year %] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[% of Total]}))
             MEMBER [Measures].[Second Year %] AS SUM(CrossJoin([Reporting Year].[${SECOND_YEAR}], {[Measures].[% of Total]}))
-            MEMBER [Measures].[Level] AS IIF([Measures].[Extended Amount Currency NATLOECD] > 0, IIF([Country].CurrentMember.Level.Name = "Geography", "Geography", "Country"), null)
+            MEMBER [Measures].[Level] AS IIF([Measures].[Extended Amount] >= 0, IIF([Country].CurrentMember.Level.Name = "Geography", "Geography", "Country"), null)
             SELECT
             NON EMPTY {[Measures].[First Year National], [Measures].[First Year], [Measures].[First Year %], [Measures].[Second Year National], [Measures].[Second Year], [Measures].[Second Year %], [Measures].[Level]} ON COLUMNS,
             NON EMPTY ${countryTableRowSet} ON ROWS
@@ -266,7 +266,7 @@
             MEMBER [Measures].[% of Total] as [Measures].[Extended Amount Currency NATLOECD] / [SectorHierarchy].[Total], format_string='0.00%'
             MEMBER [Measures].[First Year %] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[% of Total]}))
             MEMBER [Measures].[Second Year %] AS SUM(CrossJoin([Reporting Year].[${SECOND_YEAR}], {[Measures].[% of Total]}))
-            MEMBER [Measures].[Level] AS IIF([Measures].[Extended Amount Currency NATLOECD] > 0, IIF([SectorHierarchy].CurrentMember.Level.Name = "ParentName", "ParentSector", "Sector"), null)
+            MEMBER [Measures].[Level] AS IIF([Measures].[Extended Amount] >= 0, IIF([SectorHierarchy].CurrentMember.Level.Name = "ParentName", "ParentSector", "Sector"), null)
             SELECT
             NON EMPTY {[Measures].[First Year National], [Measures].[FIRST YEAR], [Measures].[First Year %], [Measures].[Second Year National], [Measures].[SECOND YEAR], [Measures].[Second Year %], [Measures].[Level]} ON COLUMNS,
             NON EMPTY ${sectorTableRowSet} ON ROWS

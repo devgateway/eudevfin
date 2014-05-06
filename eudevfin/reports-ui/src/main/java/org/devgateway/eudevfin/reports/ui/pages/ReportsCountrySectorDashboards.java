@@ -488,10 +488,10 @@ public class ReportsCountrySectorDashboards extends HeaderFooter {
             if(typeOfTable.equals(isSector)) {
                 // find which row is a sector or a parent-sector
                 for (int i = 0; i < resultSet.size(); i++) {
-                    String region = resultSet.get(i).get(0);
+                    String sector = resultSet.get(i).get(0);
                     if (resultSet.get(i).get(resultSet.get(i).size() - 1).toLowerCase().
                             equals(isSector.toLowerCase())) {
-                        resultSet.get(i).add(1, region);
+                        resultSet.get(i).add(1, sector);
                         resultSet.get(i).set(0, null);
                     } else {
                         if (resultSet.get(i).get(resultSet.get(i).size() - 1).toLowerCase().
