@@ -295,6 +295,8 @@
                 CASE WHEN cat.coefficient IS NULL THEN AMOUNTS_EXTENDED_AMOUNT ELSE (AMOUNTS_EXTENDED_AMOUNT * cat.COEFFICIENT) / 100 END as AMOUNTS_EXTENDED_AMOUNT_WITH_COEFFICIENT,
                 CASE WHEN cat.coefficient IS NULL THEN AMOUNTS_RECEIVED_AMOUNT ELSE (AMOUNTS_RECEIVED_AMOUNT * cat.COEFFICIENT) / 100 END as AMOUNTS_RECEIVED_AMOUNT_WITH_COEFFICIENT,
 				CASE WHEN cat.coefficient IS NULL THEN COMMITMENT_AMOUNT ELSE (COMMITMENT_AMOUNT * cat.COEFFICIENT) / 100 END as COMMITMENT_AMOUNT_WITH_COEFFICIENT,
+				CASE WHEN (cat.coefficient IS NULL AND FT.COMMITMENT_AMOUNT < 0) THEN COMMITMENT_AMOUNT ELSE (COMMITMENT_AMOUNT * cat.COEFFICIENT) / 100 END as NEGATIVE_COMMITMENT_AMOUNT_WITH_COEFFICIENT,
+                CASE WHEN (cat.coefficient IS NULL AND FT.COMMITMENT_AMOUNT < 0) THEN AMOUNTS_RECEIVED_AMOUNT ELSE (AMOUNTS_RECEIVED_AMOUNT * cat.COEFFICIENT) / 100 END as NEGATIVE_AMOUNTS_RECEIVED_AMOUNT_WITH_COEFFICIENT,
 				CASE WHEN cat.coefficient IS NULL THEN AMOUNTS_EXP_COMMIT_AMOUNT ELSE (AMOUNTS_EXP_COMMIT_AMOUNT * cat.COEFFICIENT) / 100 END as AMOUNTS_EXP_COMMIT_AMOUNT_WITH_COEFFICIENT,
 				CASE WHEN cat.coefficient IS NULL THEN AMOUNTS_EXP_EXTENDED_AMOUNT ELSE (AMOUNTS_EXP_EXTENDED_AMOUNT * cat.COEFFICIENT) / 100 END as AMOUNTS_EXP_EXTENDED_AMOUNT_WITH_COEFFICIENT,
                 ft.*
@@ -561,6 +563,34 @@
             </MeasureExpression>
         </Measure>
         <Measure name="NumberOfTransactions" column="ID" datatype="Integer" aggregator="count" formatString="#,###"/>
+        <Measure name="Negative Commitments Amount NATLOECD" aggregator="sum" visible="true">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (NEGATIVE_COMMITMENT_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    (SOURCE = 'OECD' OR SOURCE='National') AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        <Measure name="Negative Received Amount NATLOECD" aggregator="sum" visible="true">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (NEGATIVE_AMOUNTS_RECEIVED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    (SOURCE = 'OECD' OR SOURCE='National') AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
         <CalculatedMember name="Net Amount" dimension="Measures">
             <Formula>[Measures].[Extended Amount] - [Measures].[Received Amount]</Formula>
         </CalculatedMember>

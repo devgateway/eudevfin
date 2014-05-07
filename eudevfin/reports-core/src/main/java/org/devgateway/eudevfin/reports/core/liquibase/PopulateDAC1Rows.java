@@ -706,7 +706,7 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 		RowReport row1800 = createDAC1SumRow("1800", Constants.SUM, sumRow1800);
 		rowReportDao.save(row1800);
 		
-		RowReport row1900 = createDAC1Row("1900", Constants.CALCULATED,
+		RowReport row1900 = createDAC1RowNegative("1900", Constants.CALCULATED,
 				"[BiMultilateral].[BI_MULTILATERAL##1]",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"",
@@ -1447,6 +1447,98 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 		if(col1152tof != null && !col1152tof.equals("")) {
 			ColumnReport col7 = new ColumnReport("1152", Constants.CALCULATED,
 					"[Measures].[C]", col1152tof);
+			columns.add(col7);
+			sumCols1150.add(col7.getColumnCode());
+		} else {
+			ColumnReport col7 = new ColumnReport("1152", Constants.EMPTY, null);
+			columns.add(col7);
+		}
+
+		ColumnReport col8 = new ColumnReport("1150", Constants.SUM, sumCols1150);
+		columns.add(col8);
+
+		row.setColumns(columns);
+		return row;
+
+	}
+
+	public RowReport createDAC1RowNegative(String name, int type, String biMulti,
+			String typeOfFlow, String typeOfAid, String purposeCode,
+			String channel, String col1121tof, String col1122tof,
+			String col1130tof, String col1151tof, String col1152tof) {
+		RowReport row = new RowReport("DAC1", name, type);
+
+		Set<String> categories = new HashSet<String>();
+		if (biMulti != null)
+			categories.add(biMulti);
+		if (typeOfFlow != null)
+			categories.add(typeOfFlow);
+		if (typeOfAid != null)
+			categories.add(typeOfAid);
+		if (purposeCode != null)
+			categories.add(purposeCode);
+		if (channel != null)
+			categories.add(channel);
+		row.setCategories(categories);
+
+		Set<ColumnReport> columns = new HashSet<ColumnReport>();
+		
+		HashSet<String> sumCols1120 = new HashSet<String>();
+		if(col1121tof != null && !col1121tof.equals("")) {
+			ColumnReport col1 = new ColumnReport("1121", Constants.CALCULATED,
+					"[Measures].[E]", col1121tof);
+			columns.add(col1);
+			sumCols1120.add(col1.getColumnCode());
+		} else {
+			ColumnReport col1 = new ColumnReport("1121", Constants.EMPTY, null);
+			columns.add(col1);
+		}
+
+		if(col1122tof != null && !col1122tof.equals("")) {
+			ColumnReport col2 = new ColumnReport("1122", Constants.CALCULATED,
+					"[Measures].[E]", col1122tof);
+			columns.add(col2);
+			sumCols1120.add(col2.getColumnCode());
+		} else {
+			ColumnReport col2 = new ColumnReport("1122", Constants.EMPTY, null);
+			columns.add(col2);
+		}
+		
+
+		ColumnReport col3 = new ColumnReport("1120", Constants.SUM, sumCols1120);
+		columns.add(col3);
+		
+		HashSet<String> sumCols1140 = new HashSet<String>();
+		sumCols1140.addAll(sumCols1120);
+
+		if(col1130tof != null && !col1130tof.equals("")) {
+			ColumnReport col4 = new ColumnReport("1130", Constants.CALCULATED,
+					"[Measures].[RN]", col1130tof);
+			col4.setMultiplier(-1);
+			columns.add(col4);
+			sumCols1140.add(col4.getColumnCode());
+		} else {
+			ColumnReport col4 = new ColumnReport("1130", Constants.EMPTY, null);
+			columns.add(col4);
+		}
+
+		ColumnReport col5 = new ColumnReport("1140", Constants.SUM, sumCols1140);
+		columns.add(col5);
+
+		HashSet<String> sumCols1150 = new HashSet<String>();
+		if(col1151tof != null && !col1151tof.equals("")) {
+			ColumnReport col6 = new ColumnReport("1151", Constants.CALCULATED,
+					"[Measures].[CN]", col1151tof);
+			columns.add(col6);
+			sumCols1150.add(col6.getColumnCode());
+		} else {
+			ColumnReport col6 = new ColumnReport("1151", Constants.EMPTY, null);
+			columns.add(col6);
+		}
+
+		if(col1152tof != null && !col1152tof.equals("")) {
+			ColumnReport col7 = new ColumnReport("1152", Constants.CALCULATED,
+					"[Measures].[CN]", col1152tof);
 			columns.add(col7);
 			sumCols1150.add(col7.getColumnCode());
 		} else {

@@ -200,10 +200,10 @@ public class ReportTemplate {
 	private void appendReportRows(HashMap<String, Node> matchingRows, HashMap<String, Node> matchingColumns, RowReport row, Document doc, boolean swapAxis) {
 		Node rowNode = matchingRows.get("r_" + row.getName());
 		if(rowNode == null) return;
-		String rowMultiplier = "1";
+		Integer rowMultiplier = 1;
 		//TODO: Remove this terrible hack for the two columns of DAC2a that needs to subtract
 		if(row.getName().equals("205") || row.getName().equals("215")){
-			rowMultiplier = "-1";
+			rowMultiplier = -1;
 		}
 		Integer yCoord, xCoord, width, height;
 		xCoord = yCoord = 0;
@@ -218,6 +218,11 @@ public class ReportTemplate {
 		}
 
 		Set<ColumnReport> columns = row.getColumns();
+		//Store multipliers for later use
+		HashMap<String, Integer> multipliersByColumn = new HashMap<String, Integer>(); 
+		for (ColumnReport column : columns) {
+			multipliersByColumn.put(column.getName(), column.getMultiplier());
+		}		
 		for (ColumnReport column : columns) {
 //			UUID uuid = UUID.randomUUID();
 			String cellStyle = (rowNode.getAttributes().getNamedItem("style") != null) ? rowNode.getAttributes().getNamedItem("style").getNodeValue() : "";
@@ -264,7 +269,6 @@ public class ReportTemplate {
 
 			if (column.getType() == Constants.CALCULATED) {
 				StringBuffer expression = new StringBuffer();
-				
 				String[] types = column.getSlicer().split(",");
 				for(int i = 0; i < types.length; i++) {
 					if(!types[i].equals("")) {
@@ -280,8 +284,11 @@ public class ReportTemplate {
 					}
 				}
 				String finalExpression = "";
-				if(expression.length() > 0)
-					finalExpression = "checkZero((" + expression.toString() + "), " + rowMultiplier + ").doubleValue()";
+				
+				Integer multiplier = rowMultiplier * column.getMultiplier();
+				if(expression.length() > 0){
+					finalExpression = "checkZero((" + expression.toString() + "), " + multiplier + ").doubleValue()";
+				}
 
 				CDATASection cdata = doc.createCDATASection(finalExpression);
 				textFieldExpression.appendChild(cdata);
@@ -295,13 +302,16 @@ public class ReportTemplate {
 						String fieldName = row.getName() + "_" + types[i];
 						expression.append("(");
 						expression.append("checkNull($F{" + fieldName + "}).doubleValue()");
-						//TODO: Remove this terrible hack for the one column that needs to subtract
-						if(types[i].indexOf("1130") == 0) {
-							expression.append("* (-1)");
+						String extractedColumnName = types[i].split("_")[0];
+						Integer multiplier = multipliersByColumn.get(extractedColumnName);
+						if(multiplier == null) {
+							multiplier = 1;
+						}
+						if(multiplier != null && multiplier < 0) {
+							expression.append("* (" + multiplier + ")");
 						}
 						expression.append(")");
-						
-						if(i != types.length - 1){
+						if(i != types.length - 1) {
 							expression.append("+");
 						}
 					}
@@ -309,13 +319,11 @@ public class ReportTemplate {
 						expression.append("+");
 					}
 				}
-				
 				String finalExpression = "";
 				if(expression.length() > 0)
 					finalExpression = "checkZero((" + expression.toString() + "), " + rowMultiplier + ").doubleValue()";
 
 				CDATASection cdata = doc.createCDATASection(finalExpression);
-//				CDATASection cdata = doc.createCDATASection("checkZero((" + expression.toString() + "), " + rowMultiplier + ").doubleValue()");
 				textFieldExpression.appendChild(cdata);
 			} else {
 				textField = doc.createElement("staticText");
@@ -392,6 +400,8 @@ public class ReportTemplate {
 		str.append("MEMBER [Measures].[E] AS [Measures].[Extended Amount Currency NATLOECD] \n");
 		str.append("MEMBER [Measures].[R] AS [Measures].[Received Amount Currency NATLOECD] \n");
 		str.append("MEMBER [Measures].[C] AS [Measures].[Commitments Amount Currency NATLOECD] \n");
+		str.append("MEMBER [Measures].[CN] AS [Measures].[Negative Commitments Amount NATLOECD] \n");
+		str.append("MEMBER [Measures].[RN] AS [Measures].[Negative Received Amount NATLOECD] \n");
 		str.append("MEMBER [Measures].[A] AS [Measures].[Extended Amount No Flow] \n");
 		str.append("MEMBER [Measures].[EE] AS [Measures].[Expert Extended Currency NATLOECD] \n");
 		str.append("MEMBER [Measures].[EC] AS [Measures].[Expert Commitments Currency NATLOECD] \n");
@@ -404,11 +414,11 @@ public class ReportTemplate {
 		}
 		str.append("}  ON ROWS, \n");
 		
-		str.append(" {[Measures].[E],[Measures].[R],[Measures].[C], [Measures].[A], [Measures].[EE], [Measures].[EC]}*" + slicer + " ON COLUMNS \n");
+		str.append(" {[Measures].[E],[Measures].[R], [Measures].[RN], [Measures].[C], [Measures].[CN], [Measures].[A], [Measures].[EE], [Measures].[EC]}*" + slicer + " ON COLUMNS \n");
 		str.append("FROM [Financial] \n");
 		str.append("WHERE {[Reporting Year].[$P{REPORTING_YEAR}]} * {[Form Type].[bilateralOda.CRS], [Form Type].[multilateralOda.CRS], [Form Type].[nonOda.nonExport], [Form Type].[nonOda.export], [Form Type].[nonOda.privateGrants], [Form Type].[nonOda.privateMarket], [Form Type].[nonOda.otherFlows], [Form Type].[#null]}\n");
 		Node queryString = doc.getElementsByTagName("queryString").item(0);
-	//	System.out.println(str.toString());
+//		System.out.println(str.toString());
 		CDATASection cdata = doc.createCDATASection(str.toString());
 		queryString.appendChild(cdata);
 	}
