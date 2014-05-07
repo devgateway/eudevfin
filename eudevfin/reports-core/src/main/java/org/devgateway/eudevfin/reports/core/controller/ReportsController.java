@@ -469,9 +469,9 @@ public class ReportsController {
     private String generateSubReportCached(String reportName, String path, String slicer, Boolean regenerate) {
     	//Check if the compiled report file already exists in temporary folder
     	String tmpDirPath = System.getProperty("java.io.tmpdir");
-    	File f = new File(tmpDirPath + reportName + "_processed.jasper");
+    	File f = new File(tmpDirPath + File.separator + reportName + "_processed.jasper");
         if(f.exists() && !regenerate){
-        	String cachedFilePath = tmpDirPath + reportName + "_processed.jasper";
+        	String cachedFilePath = tmpDirPath + File.separator + reportName + "_processed.jasper";
         	logger.info("The report " + reportName + " is being cached from " + cachedFilePath);
             return cachedFilePath;
         }
@@ -481,7 +481,7 @@ public class ReportsController {
 
         ReportTemplate reportProcessor = new ReportTemplate();
         InputStream inputStreamProcessed = reportProcessor.processTemplate(inputStream,    slicer, rowReportDao, true, reportName);
-        String newJrxmlFilename = tmpDirPath  + reportName + "_processed.jrxml";
+        String newJrxmlFilename = tmpDirPath  + File.separator +  reportName + "_processed.jrxml";
         File processedFile = new File(newJrxmlFilename);
         logger.info("Creating file " + newJrxmlFilename);
         try {
