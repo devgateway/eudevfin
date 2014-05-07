@@ -471,18 +471,19 @@ public class ReportsController {
     	String tmpDirPath = System.getProperty("java.io.tmpdir");
     	File f = new File(tmpDirPath + reportName + "_processed.jasper");
         if(f.exists() && !regenerate){
-        	String cachedFilePath = tmpDirPath + "/" + reportName + "_processed.jasper";
+        	String cachedFilePath = tmpDirPath + reportName + "_processed.jasper";
         	logger.info("The report " + reportName + " is being cached from " + cachedFilePath);
             return cachedFilePath;
         }
         
     	logger.info("The report " + reportName + " hasn't been parsed and cached");
         InputStream inputStream = ReportsController.class.getClassLoader().getResourceAsStream(path + ".jrxml");
-       //String realPath = ReportsController.class.getClassLoader().getResource(path + ".jrxml").getPath();
 
         ReportTemplate reportProcessor = new ReportTemplate();
         InputStream inputStreamProcessed = reportProcessor.processTemplate(inputStream,    slicer, rowReportDao, true, reportName);
-        File processedFile = new File(tmpDirPath + "/" + reportName + "_processed.jrxml");
+        String newJrxmlFilename = tmpDirPath  + reportName + "_processed.jrxml";
+        File processedFile = new File(newJrxmlFilename);
+        logger.info("Creating file " + newJrxmlFilename);
         try {
             processedFile.createNewFile();
             processedFile.deleteOnExit();
@@ -492,10 +493,10 @@ public class ReportsController {
             String jrxmlFileName = processedFile.getAbsolutePath();
             String jasperFileName = processedFile.getAbsolutePath().replace(".jrxml", ".jasper");
             JasperCompileManager.compileReportToFile(jrxmlFileName, jasperFileName);
-            
+            logger.info("Compiling " + jrxmlFileName + " into " + jasperFileName);
             return jasperFileName;
         } catch (IOException | JRException e) {
-			e.printStackTrace();
+        	logger.error("Subreport Generation Failed:" + e.getMessage());
 		}
 		return null;
 	}

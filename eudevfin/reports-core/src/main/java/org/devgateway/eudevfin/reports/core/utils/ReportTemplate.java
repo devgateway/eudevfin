@@ -133,7 +133,11 @@ public class ReportTemplate {
 		}
 
 		Integer yCoord, xCoord, width, height;
-		xCoord = yCoord = width = height = 0;
+		xCoord = yCoord = 0;
+		//Set default height
+		height = 15;
+		//Set default width
+		width = 55;
 		if(swapAxis) {
 			 xCoord = rowNode.getAttributes().getNamedItem("x") != null ? Integer.parseInt(rowNode.getAttributes().getNamedItem("x").getNodeValue()) : 0;
 		} else {
@@ -202,7 +206,11 @@ public class ReportTemplate {
 			rowMultiplier = "-1";
 		}
 		Integer yCoord, xCoord, width, height;
-		xCoord = yCoord = width = height = 0;
+		xCoord = yCoord = 0;
+		//Set default height
+		height = 15;
+		//Set default width
+		width = 55;
 		if(swapAxis) {
 			 xCoord = rowNode.getAttributes().getNamedItem("x") != null ? Integer.parseInt(rowNode.getAttributes().getNamedItem("x").getNodeValue()) : 0;
 		} else {
