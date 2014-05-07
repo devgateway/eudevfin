@@ -47,7 +47,7 @@ app.downloadPDFOdaAtGlance = function () {
             var pdfWidth = 220;
             var pdfHeight = pdfWidth * (container.height() / container.width());
             doc.addImage(canvas.toDataURL('image/jpeg'), 'JPEG', 0, 20, pdfWidth, pdfHeight);
-            doc.save('Oda at Glance.pdf');
+            doc.save('Download file.pdf');
 
             // After your image is generated revert the temporary changes
             container.find('.screenShotTempCanvas').remove();

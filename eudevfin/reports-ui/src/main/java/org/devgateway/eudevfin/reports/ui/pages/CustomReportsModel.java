@@ -16,7 +16,7 @@ public class CustomReportsModel implements Serializable {
     private Area recipient;
     private Category geography;
     private Organization nationalInstitution;
-    private DropDownField<ChannelCategory> multilateralAgency;
+    private ChannelCategory multilateralAgency;
     private Category typeOfFlowbiMulti;
     private Category typeOfAid;
     private Category sector;
@@ -56,11 +56,11 @@ public class CustomReportsModel implements Serializable {
         this.nationalInstitution = nationalInstitution;
     }
 
-    public DropDownField<ChannelCategory> getMultilateralAgency() {
+    public ChannelCategory getMultilateralAgency() {
         return multilateralAgency;
     }
 
-    public void setMultilateralAgency(DropDownField<ChannelCategory> multilateralAgency) {
+    public void setMultilateralAgency(ChannelCategory multilateralAgency) {
         this.multilateralAgency = multilateralAgency;
     }
 

@@ -386,4 +386,28 @@
         </Query>
     </DataAccess>
 
+    <DataAccess id="customDashboardsTypeOfAidTable"
+                connection="defaultConnectionLocale"
+                type="mdx"
+                access="public">
+        <BandedMode>compact</BandedMode>
+        <Columns/>
+        <Parameters>
+            <Parameter default="2013" name="FIRST_YEAR" type="Integer"/>
+            <Parameter default="CrossJoin([Extending Agency].[Name].Members, [Type of Aid].[Name].Members)" name="typeOfAidTableRowSet" type="String"/>
+        </Parameters>
+        <Name>Custom Dashboards - Type Of Aid Table</Name>
+        <Query>
+            <![CDATA[
+            WITH
+            MEMBER [Measures].[First Year National] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Extended Amount]}))
+            MEMBER [Measures].[First Year] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Extended Amount Currency NATLOECD]}))
+            SELECT
+            NON EMPTY {[Measures].[First Year National], [Measures].[First Year]} ON COLUMNS,
+            NON EMPTY ${typeOfAidTableRowSet} ON ROWS
+            FROM [Financial]
+            ]]>
+        </Query>
+    </DataAccess>
+
 </CDADescriptor>

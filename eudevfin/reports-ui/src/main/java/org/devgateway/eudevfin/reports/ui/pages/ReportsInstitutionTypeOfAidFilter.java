@@ -35,6 +35,8 @@ public class ReportsInstitutionTypeOfAidFilter extends CustomReportsPage {
         CPAOnly.setVisibilityAllowed(Boolean.FALSE);
         humanitarianAid.setVisibilityAllowed(Boolean.FALSE);
         showRelatedBudgetCodes.setVisibilityAllowed(Boolean.FALSE);
+        pricesNationalCurrency.setVisibilityAllowed(Boolean.FALSE);
+        pricesEURCurrency.setVisibilityAllowed(Boolean.FALSE);
     }
 
     @Override

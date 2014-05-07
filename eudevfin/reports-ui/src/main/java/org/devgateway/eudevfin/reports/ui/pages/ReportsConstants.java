@@ -10,6 +10,9 @@ public class ReportsConstants {
     public static final String SECTOR_PARAM = "sectorParam";
     public static final String INSTITUTION_PARAM = "institutionParam";
     public static final String YEAR_PARAM = "yearParam";
+    public static final String AGENCY_PARAM = "agencyParam";
+    public static final String TYPEOFFLOW_PARAM = "typeOfFlowParam";
+    public static final String HUMANITARIANAID_PARAM = "humanitarianAidParam";
     public static final String COFINANCING_PARAM = "coFinancingParam";
     public static final String CPAONLY_PARAM = "CPAOnlyParam";
 

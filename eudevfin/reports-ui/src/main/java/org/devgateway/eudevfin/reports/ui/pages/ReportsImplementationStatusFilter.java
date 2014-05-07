@@ -32,6 +32,8 @@ public class ReportsImplementationStatusFilter extends CustomReportsPage {
         typeOfAid.setVisibilityAllowed(Boolean.FALSE);
         CPAOnly.setVisibilityAllowed(Boolean.FALSE);
         humanitarianAid.setVisibilityAllowed(Boolean.FALSE);
+        pricesNationalCurrency.setVisibilityAllowed(Boolean.FALSE);
+        pricesEURCurrency.setVisibilityAllowed(Boolean.FALSE);
     }
 
     @Override

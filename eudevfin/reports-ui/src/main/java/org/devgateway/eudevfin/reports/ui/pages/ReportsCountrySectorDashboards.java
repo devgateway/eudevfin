@@ -268,9 +268,9 @@ public class ReportsCountrySectorDashboards extends HeaderFooter {
                         setDataLabels(new DataLabels().
                                 setEnabled(Boolean.TRUE))));
         stackedBarChart.getOptions().setTooltip(new Tooltip().setValueSuffix(" millions").setPercentageDecimals(2));
-        // add 25px height for each row
+        // add 35px height for each row
         int numberOfRows = Math.max(resultSeries.get(0).size(), resultSeries.get(1).size());
-        stackedBarChart.getOptions().getChartOptions().setHeight(300 + 25 * numberOfRows);
+        stackedBarChart.getOptions().getChartOptions().setHeight(300 + 35 * numberOfRows);
 
         stackedBarChart.getOptions().addSeries(new SimpleSeries()
                 .setName("Year " + (tableYear - 1))
@@ -379,9 +379,9 @@ public class ReportsCountrySectorDashboards extends HeaderFooter {
                         setDataLabels(new DataLabels().
                                 setEnabled(Boolean.TRUE))));
         stackedBarChart.getOptions().setTooltip(new Tooltip().setValueSuffix(" millions").setPercentageDecimals(2));
-        // add 25px height for each row
+        // add 35px height for each row
         int numberOfRows = Math.max(resultSeries.get(0).size(), resultSeries.get(1).size());
-        stackedBarChart.getOptions().getChartOptions().setHeight(300 + 25 * numberOfRows);
+        stackedBarChart.getOptions().getChartOptions().setHeight(300 + 35 * numberOfRows);
 
         stackedBarChart.getOptions().addSeries(new SimpleSeries()
                 .setName("Year " + (tableYear - 1))

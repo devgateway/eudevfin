@@ -33,6 +33,8 @@ public class ReportsInstitutionTypeOfFlowFilter extends CustomReportsPage {
         CoFinancingTransactionsOnly.setVisibilityAllowed(Boolean.FALSE);
         CPAOnly.setVisibilityAllowed(Boolean.FALSE);
         showRelatedBudgetCodes.setVisibilityAllowed(Boolean.FALSE);
+        pricesNationalCurrency.setVisibilityAllowed(Boolean.FALSE);
+        pricesEURCurrency.setVisibilityAllowed(Boolean.FALSE);
     }
 
     @Override
@@ -47,8 +49,24 @@ public class ReportsInstitutionTypeOfFlowFilter extends CustomReportsPage {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 CustomReportsModel customReportsModel = (CustomReportsModel)form.getModelObject();
-
                 PageParameters pageParameters = new PageParameters();
+
+                if (customReportsModel.getNationalInstitution() != null) {
+                    pageParameters.add(ReportsConstants.INSTITUTION_PARAM, customReportsModel.getNationalInstitution().getName());
+                }
+                if (customReportsModel.getMultilateralAgency() != null) {
+                    pageParameters.add(ReportsConstants.AGENCY_PARAM, customReportsModel.getMultilateralAgency().getName());
+                }
+                if (customReportsModel.getTypeOfFlowbiMulti() != null) {
+                    pageParameters.add(ReportsConstants.TYPEOFFLOW_PARAM, customReportsModel.getTypeOfFlowbiMulti().getName());
+                }
+                if (customReportsModel.getYear() != null) {
+                    pageParameters.add(ReportsConstants.YEAR_PARAM, customReportsModel.getYear());
+                }
+                if (customReportsModel.getHumanitarianAid() != null  && customReportsModel.getHumanitarianAid() != Boolean.FALSE) {
+                    pageParameters.add(ReportsConstants.HUMANITARIANAID_PARAM, customReportsModel.getHumanitarianAid());
+                }
+
                 setResponsePage(ReportsInstitutionTypeOfFlowDashboards.class, pageParameters);
             }
         });
