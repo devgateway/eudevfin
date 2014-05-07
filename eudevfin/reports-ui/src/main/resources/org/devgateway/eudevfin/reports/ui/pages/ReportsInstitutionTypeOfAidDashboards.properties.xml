@@ -9,5 +9,7 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
+    <entry key="reportsinstitutiontypeofaiddashboards.nationalCurrency">National Currency</entry>
     <entry key="reportsinstitutiontypeofaiddashboards.title">Reports Institution &amp; Type Of Aid Results</entry>
+    <entry key="reportsinstitutiontypeofaiddashboards.typeOfAidTable">Type of Aid Table</entry>
 </properties>

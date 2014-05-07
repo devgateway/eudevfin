@@ -25,15 +25,12 @@ public class ReportsInstitutionTypeOfAidFilter extends CustomReportsPage {
         geography.setVisibilityAllowed(Boolean.FALSE);
         recipient.setVisibilityAllowed(Boolean.FALSE);
         sector.setVisibilityAllowed(Boolean.FALSE);
-        multilateralAgency.setVisibilityAllowed(Boolean.FALSE);
-        typeOfFlowBiMulti.setVisibilityAllowed(Boolean.FALSE);
         typeOfExpenditure.setVisibilityAllowed(Boolean.FALSE);
         valueOfActivity.setVisibilityAllowed(Boolean.FALSE);
         startingYear.setVisibilityAllowed(Boolean.FALSE);
         completitionYear.setVisibilityAllowed(Boolean.FALSE);
         CoFinancingTransactionsOnly.setVisibilityAllowed(Boolean.FALSE);
         CPAOnly.setVisibilityAllowed(Boolean.FALSE);
-        humanitarianAid.setVisibilityAllowed(Boolean.FALSE);
         showRelatedBudgetCodes.setVisibilityAllowed(Boolean.FALSE);
         pricesNationalCurrency.setVisibilityAllowed(Boolean.FALSE);
         pricesEURCurrency.setVisibilityAllowed(Boolean.FALSE);
@@ -51,8 +48,27 @@ public class ReportsInstitutionTypeOfAidFilter extends CustomReportsPage {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 CustomReportsModel customReportsModel = (CustomReportsModel)form.getModelObject();
-
                 PageParameters pageParameters = new PageParameters();
+
+                if (customReportsModel.getNationalInstitution() != null) {
+                    pageParameters.add(ReportsConstants.INSTITUTION_PARAM, customReportsModel.getNationalInstitution().getName());
+                }
+                if (customReportsModel.getMultilateralAgency() != null) {
+                    pageParameters.add(ReportsConstants.AGENCY_PARAM, customReportsModel.getMultilateralAgency().getName());
+                }
+                if (customReportsModel.getTypeOfFlowbiMulti() != null) {
+                    pageParameters.add(ReportsConstants.TYPEOFFLOW_PARAM, customReportsModel.getTypeOfFlowbiMulti().getName());
+                }
+                if (customReportsModel.getTypeOfAid() != null) {
+                    pageParameters.add(ReportsConstants.TYPEOFAID_PARAM, customReportsModel.getTypeOfAid().getName());
+                }
+                if (customReportsModel.getYear() != null) {
+                    pageParameters.add(ReportsConstants.YEAR_PARAM, customReportsModel.getYear());
+                }
+                if (customReportsModel.getHumanitarianAid() != null  && customReportsModel.getHumanitarianAid() != Boolean.FALSE) {
+                    pageParameters.add(ReportsConstants.HUMANITARIANAID_PARAM, customReportsModel.getHumanitarianAid());
+                }
+
                 setResponsePage(ReportsInstitutionTypeOfAidDashboards.class, pageParameters);
             }
         });
