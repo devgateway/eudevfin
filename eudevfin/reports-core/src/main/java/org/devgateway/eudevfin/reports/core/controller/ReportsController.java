@@ -471,9 +471,12 @@ public class ReportsController {
     	String tmpDirPath = System.getProperty("java.io.tmpdir");
     	File f = new File(tmpDirPath + reportName + "_processed.jasper");
         if(f.exists() && !regenerate){
-            return tmpDirPath + "/" + reportName + "_processed.jasper";
+        	String cachedFilePath = tmpDirPath + "/" + reportName + "_processed.jasper";
+        	logger.info("The report " + reportName + " is being cached from " + cachedFilePath);
+            return cachedFilePath;
         }
         
+    	logger.info("The report " + reportName + " hasn't been parsed and cached");
         InputStream inputStream = ReportsController.class.getClassLoader().getResourceAsStream(path + ".jrxml");
        //String realPath = ReportsController.class.getClassLoader().getResource(path + ".jrxml").getPath();
 
