@@ -1042,6 +1042,12 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 				"[Type of Finance].[TYPE_OF_FINANCE##624],[Type of Finance].[TYPE_OF_FINANCE##625]"
 				);
 		rowReportDao.save(row310);	
+		HashSet<String> sumRow301 = new HashSet<String>();
+		sumRow301.add("302");
+		sumRow301.add("310");
+		RowReport row301 = createDAC1SumRow("301", Constants.SUM, sumRow301);
+		rowReportDao.save(row301);
+		
 		RowReport row303 = createDAC1Row("303", Constants.CALCULATED,
 				"[BiMultilateral].[BI_MULTILATERAL##1]",
 				"[Type of Flow].[TYPE_OF_FLOW##20]",
@@ -1089,7 +1095,7 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 				);
 		rowReportDao.save(row298);	
 		//TODO: Empty?
-/*		RowReport row102 = createDAC1Row("102", Constants.CALCULATED,
+		RowReport row102 = createDAC1Row("102", Constants.CALCULATED,
 				"",
 				"",
 				"",
@@ -1101,7 +1107,7 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 				"",
 				""
 				);
-		rowReportDao.save(row102);	*/
+		rowReportDao.save(row102);
 		HashSet<String> sumRow295 = new HashSet<String>();
 		sumRow295.add("299");
 		sumRow295.add("298");
@@ -1412,9 +1418,15 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 			columns.add(col2);
 		}
 		
-
-		ColumnReport col3 = new ColumnReport("1120", Constants.SUM, sumCols1120);
-		columns.add(col3);
+		if(sumCols1120.size() > 0) {
+			ColumnReport col3 = new ColumnReport("1120", Constants.SUM, sumCols1120);
+			columns.add(col3);
+		}
+		else
+		{
+			ColumnReport col3 = new ColumnReport("1120", Constants.EMPTY, null);
+			columns.add(col3);
+		}
 		
 		HashSet<String> sumCols1140 = new HashSet<String>();
 		sumCols1140.addAll(sumCols1120);
@@ -1454,8 +1466,15 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 			columns.add(col7);
 		}
 
-		ColumnReport col8 = new ColumnReport("1150", Constants.SUM, sumCols1150);
-		columns.add(col8);
+		if(sumCols1150.size() > 0) {
+			ColumnReport col8 = new ColumnReport("1150", Constants.SUM, sumCols1150);
+			columns.add(col8);
+		}
+		else
+		{
+			ColumnReport col8 = new ColumnReport("1150", Constants.EMPTY, null);
+			columns.add(col8);
+		}
 
 		row.setColumns(columns);
 		return row;

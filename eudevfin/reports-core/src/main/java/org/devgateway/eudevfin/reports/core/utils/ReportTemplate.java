@@ -392,7 +392,11 @@ public class ReportTemplate {
 				str.append("MEMBER ");
 				str.append("[Type of Aid].[" + row.getName() + "]");
 				str.append(" as SUM(");
-				str.append(row.getFormula());
+				String formula = row.getFormula();
+				if(formula.equals("")){
+					formula = "[BiMultilateral].Members";
+				}
+				str.append(formula);
 				str.append(")\n");
 			}
 		}

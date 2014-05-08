@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dac1_master" pageWidth="900" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" resourceBundle="i18n" uuid="bad8772b-9ff8-49ae-a2c0-34a59258237b">
-	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="9"/>
-	<style name="BlueBackground" mode="Opaque" backcolor="#99CCFF"/>
+	<property name="ireport.y" value="717"/>
+	<style name="defaultStyle" isDefault="true" mode="Transparent" fontName="Arial" fontSize="8"/>
+	<style name="BlueBackground" style="defaultStyle" mode="Opaque" backcolor="#99CCFF" isBold="true"/>
 	<parameter name="REPORTING_COUNTRY" class="java.lang.String"/>
 	<parameter name="REPORTING_YEAR" class="java.lang.Number"/>
 	<queryString language="mdx">
@@ -17,63 +18,63 @@
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="0" y="0" width="641" height="16" uuid="9d08b850-c5b4-4a5b-8600-900de3d6d321"/>
 				<textElement verticalAlignment="Top" markup="styled">
-					<font fontName="Arial" size="12" isBold="true"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$R{dac1.title}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="0" y="16" width="641" height="16" uuid="9d08b850-c5b4-4a5b-8600-900de3d6d321"/>
 				<textElement verticalAlignment="Top" markup="styled">
-					<font fontName="Arial" size="12" isBold="true"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$R{dac1.subtitle}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="0" y="32" width="641" height="16" uuid="9d08b850-c5b4-4a5b-8600-900de3d6d321"/>
 				<textElement verticalAlignment="Top" markup="styled">
-					<font fontName="Arial" size="12" isBold="true"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["2014 Edition"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="641" y="0" width="120" height="16" uuid="0ec0336c-7bad-4791-98a5-750066188036"/>
 				<textElement textAlignment="Right">
-					<font fontName="Arial" size="12" isBold="false" isItalic="false"/>
+					<font size="8" isBold="false" isItalic="false"/>
 				</textElement>
 				<text><![CDATA[Reporting country:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="641" y="16" width="120" height="16" uuid="0ec0336c-7bad-4791-98a5-750066188036"/>
 				<textElement textAlignment="Right">
-					<font fontName="Arial" size="12" isBold="false" isItalic="false"/>
+					<font size="8" isBold="false" isItalic="false"/>
 				</textElement>
 				<text><![CDATA[Period:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="641" y="32" width="120" height="16" uuid="0ec0336c-7bad-4791-98a5-750066188036"/>
 				<textElement textAlignment="Right">
-					<font fontName="Arial" size="12" isBold="false" isItalic="false"/>
+					<font size="8" isBold="false" isItalic="false"/>
 				</textElement>
 				<text><![CDATA[Date:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="761" y="0" width="100" height="16" uuid="40fea317-1efb-41ef-a2ab-7b7ca5290ce6"/>
 				<textElement>
-					<font fontName="Arial" size="12"/>
+					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{REPORTING_COUNTRY}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="761" y="16" width="100" height="16" uuid="130e2419-c5b7-429b-9a97-10e45bef654c"/>
 				<textElement>
-					<font fontName="Arial" size="12"/>
+					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{REPORTING_YEAR}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
 				<reportElement x="761" y="32" width="100" height="16" uuid="e2a1d4f1-07b3-430e-adf1-6ddcd3916374"/>
 				<textElement>
-					<font fontName="Arial" size="12"/>
+					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
 			</textField>
@@ -82,23 +83,23 @@
 	<pageHeader>
 		<band height="99">
 			<staticText>
-				<reportElement x="701" y="0" width="117" height="20" uuid="c900fedd-e119-4a70-ba6f-80d3de1df5f0"/>
+				<reportElement x="701" y="1" width="117" height="19" uuid="c900fedd-e119-4a70-ba6f-80d3de1df5f0"/>
 				<textElement>
-					<font size="12" isBold="true" isUnderline="true"/>
+					<font size="10" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[COMMITMENTS]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="411" y="0" width="133" height="20" uuid="c6674348-2d53-4ae0-ae86-89173391a566"/>
+				<reportElement x="411" y="1" width="155" height="19" uuid="c6674348-2d53-4ae0-ae86-89173391a566"/>
 				<textElement>
-					<font size="12" isBold="true" isUnderline="true"/>
+					<font size="10" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[DISBURSEMENTS]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="49" y="40" width="113" height="20" uuid="f04c1578-6467-4505-81df-8240c1671002"/>
 				<textElement>
-					<font size="12" isBold="true"/>
+					<font size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Million US dollars]]></text>
 			</staticText>
@@ -109,61 +110,57 @@
 				<reportElement x="707" y="41" width="1" height="58" uuid="8e40e60a-4e8a-459a-9a62-a7038528bd2c"/>
 			</line>
 			<line>
-				<reportElement x="362" y="62" width="1" height="37" uuid="67095353-8b00-48f1-9d96-b7f1fae730b0"/>
+				<reportElement x="362" y="60" width="1" height="39" uuid="67095353-8b00-48f1-9d96-b7f1fae730b0"/>
 			</line>
 			<staticText>
 				<reportElement x="298" y="42" width="203" height="16" uuid="118b86e9-d104-4775-9eab-36683622d3e2"/>
-				<textElement textAlignment="Center">
-					<font size="10" isBold="true" isUnderline="false"/>
-				</textElement>
+				<textElement textAlignment="Center"/>
 				<text><![CDATA[----- Amounts extended -----]]></text>
 			</staticText>
 			<staticText>
 				<reportElement key="c_1121" x="297" y="24" width="65" height="16" uuid="e3a4569b-8152-4065-9f63-8b8c1b7cd1f7"/>
-				<textElement textAlignment="Center">
-					<font size="10" isBold="true" isUnderline="false"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[1121]]></text>
 			</staticText>
 			<staticText>
 				<reportElement key="c_1122" x="362" y="24" width="65" height="16" uuid="24965aa1-4c85-4223-921d-d75ac4789054"/>
-				<textElement textAlignment="Center">
-					<font size="10" isBold="true" isUnderline="false"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[1122]]></text>
 			</staticText>
 			<staticText>
 				<reportElement key="c_1120" style="BlueBackground" x="427" y="24" width="75" height="16" uuid="450ec37c-9ba9-4f92-b194-f115992368be"/>
-				<textElement textAlignment="Center">
-					<font size="10" isBold="true" isUnderline="false"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[1120]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="c_1130" x="502" y="24" width="65" height="16" uuid="10eddb73-0261-4ff8-ad29-474ba6fd7a80"/>
-				<textElement textAlignment="Center">
-					<font size="10" isBold="true" isUnderline="false"/>
+				<reportElement key="c_1130" x="502" y="24" width="64" height="16" uuid="10eddb73-0261-4ff8-ad29-474ba6fd7a80"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[1130]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="c_1140" style="BlueBackground" x="567" y="24" width="75" height="16" uuid="851c3e64-a89a-46d6-acea-774e87f7338b"/>
-				<textElement textAlignment="Center">
-					<font size="10" isBold="true" isUnderline="false"/>
+				<reportElement key="c_1140" style="BlueBackground" x="566" y="24" width="75" height="16" uuid="851c3e64-a89a-46d6-acea-774e87f7338b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[1140]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="297" y="70" width="65" height="16" uuid="e6aab14e-bd34-4219-ac2f-1f7d1dfca942"/>
-				<textElement textAlignment="Center">
-					<font size="10" isBold="true" isUnderline="false"/>
-				</textElement>
+				<textElement textAlignment="Center"/>
 				<text><![CDATA[Grants ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="BlueBackground" x="427" y="60" width="75" height="39" uuid="d98167a4-4bc1-416f-ab43-b47c4cb98d9a"/>
+				<reportElement style="BlueBackground" x="428" y="60" width="73" height="39" uuid="d98167a4-4bc1-416f-ab43-b47c4cb98d9a"/>
 				<textElement textAlignment="Center">
-					<font size="10" isBold="true" isUnderline="false"/>
+					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total
 amounts
@@ -171,16 +168,12 @@ extended]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="362" y="70" width="65" height="16" uuid="f1b5e343-e8a5-4bb0-84fe-1ff6922cf5c6"/>
-				<textElement textAlignment="Center">
-					<font size="10" isBold="true" isUnderline="false"/>
-				</textElement>
+				<textElement textAlignment="Center"/>
 				<text><![CDATA[Non grants]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="502" y="60" width="65" height="39" uuid="f07a9463-f40b-49e8-bf4b-ae780b415348"/>
-				<textElement textAlignment="Center">
-					<font size="10" isBold="true" isUnderline="false"/>
-				</textElement>
+				<reportElement x="502" y="42" width="64" height="57" uuid="f07a9463-f40b-49e8-bf4b-ae780b415348"/>
+				<textElement textAlignment="Center"/>
 				<text><![CDATA[Amount
 received
 (-)
@@ -189,56 +182,52 @@ Non grants]]></text>
 			<staticText>
 				<reportElement style="BlueBackground" x="567" y="40" width="75" height="59" uuid="7fd5b727-c68c-406a-b050-3cf1c11f5a1a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="10" isBold="true" isUnderline="false"/>
+					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[NET
 AMOUNTS]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="c_1151" x="642" y="24" width="65" height="16" uuid="deed4785-e794-46ee-909c-77456a2d54bc"/>
-				<textElement textAlignment="Center">
-					<font size="10" isBold="true" isUnderline="false"/>
+				<reportElement key="c_1151" x="643" y="24" width="64" height="16" uuid="deed4785-e794-46ee-909c-77456a2d54bc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[1151]]></text>
 			</staticText>
 			<staticText>
 				<reportElement key="c_1152" x="707" y="24" width="65" height="16" uuid="00fb7038-f67c-44d1-8c75-531d99675414"/>
-				<textElement textAlignment="Center">
-					<font size="10" isBold="true" isUnderline="false"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[1152]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="c_1150" style="BlueBackground" x="772" y="24" width="80" height="16" uuid="03a185ac-5ff9-4b1b-a906-05fb676084e0"/>
-				<textElement textAlignment="Center">
-					<font size="10" isBold="true" isUnderline="false"/>
+				<reportElement key="c_1150" style="BlueBackground" x="773" y="24" width="79" height="16" uuid="03a185ac-5ff9-4b1b-a906-05fb676084e0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[1150]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="642" y="66" width="65" height="16" uuid="6899d318-d8a8-4170-9571-4925096f8bae"/>
-				<textElement textAlignment="Center">
-					<font size="10" isBold="true" isUnderline="false"/>
-				</textElement>
+				<reportElement x="643" y="66" width="64" height="16" uuid="6899d318-d8a8-4170-9571-4925096f8bae"/>
+				<textElement textAlignment="Center"/>
 				<text><![CDATA[Grants ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="707" y="66" width="65" height="16" uuid="3226e97f-8801-4109-9506-52e10ca2942a"/>
-				<textElement textAlignment="Center">
-					<font size="10" isBold="true" isUnderline="false"/>
-				</textElement>
+				<textElement textAlignment="Center"/>
 				<text><![CDATA[Non grants]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="BlueBackground" x="772" y="40" width="80" height="59" uuid="34ceb82a-d2b2-44d5-b2af-47d853b90713"/>
+				<reportElement style="BlueBackground" x="773" y="40" width="79" height="59" uuid="34ceb82a-d2b2-44d5-b2af-47d853b90713"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="10" isBold="true" isUnderline="false"/>
+					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total
 commitments]]></text>
 			</staticText>
 			<line>
-				<reportElement x="427" y="62" width="1" height="37" uuid="da817db0-d345-49b4-850d-dfecc6795788"/>
+				<reportElement x="427" y="60" width="1" height="39" uuid="da817db0-d345-49b4-850d-dfecc6795788"/>
 			</line>
 			<line>
 				<reportElement x="501" y="41" width="1" height="58" uuid="c0fac196-108b-452f-b7ab-1bf59718b599"/>
@@ -255,93 +244,75 @@ commitments]]></text>
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="82">
+		<band height="66">
 			<staticText>
-				<reportElement x="1" y="17" width="137" height="16" uuid="004214a1-6a1f-429c-84b1-abb8b50f46db"/>
+				<reportElement x="1" y="18" width="137" height="12" uuid="004214a1-6a1f-429c-84b1-abb8b50f46db"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="10"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[GNI]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="33" width="137" height="16" uuid="16464797-3fef-4e13-a0ef-8dedce51c7e9"/>
+				<reportElement x="1" y="30" width="137" height="12" uuid="16464797-3fef-4e13-a0ef-8dedce51c7e9"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="10"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ODA % GNI]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="49" width="137" height="16" uuid="a4ef330c-039e-4ba8-a523-014bc2c58927"/>
+				<reportElement x="1" y="42" width="137" height="12" uuid="a4ef330c-039e-4ba8-a523-014bc2c58927"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="10"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[TOTAL FLOWS % GNI]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="65" width="137" height="16" uuid="7ea2624d-4a6d-4548-aea5-70c97cf18019"/>
+				<reportElement x="1" y="54" width="137" height="12" uuid="7ea2624d-4a6d-4548-aea5-70c97cf18019"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="10"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[POPULATION (millions)]]></text>
 			</staticText>
 			<line>
-				<reportElement x="299" y="18" width="1" height="64" uuid="36c043e8-e286-4bce-8e62-57b552ddbb90"/>
-			</line>
-			<line>
-				<reportElement x="1" y="0" width="851" height="1" forecolor="#000000" uuid="56d29a20-c31f-49b3-a6d3-3db4c4e0c9b2"/>
-			</line>
-			<line>
-				<reportElement x="1" y="81" width="851" height="1" forecolor="#000000" uuid="711e5842-7398-43a7-82fb-94f2dc35c3a1"/>
-			</line>
-			<line>
-				<reportElement x="1" y="33" width="851" height="1" forecolor="#000000" uuid="b3c3e860-7859-48c1-afb3-4b8536160138"/>
-			</line>
-			<line>
-				<reportElement x="1" y="49" width="851" height="1" forecolor="#000000" uuid="d1b106ce-df25-40c9-bef1-563d7c96a73d"/>
-			</line>
-			<line>
-				<reportElement x="1" y="65" width="851" height="1" forecolor="#000000" uuid="c72a1074-9d62-493a-9a0b-17e94ed3c7d8"/>
-			</line>
-			<line>
-				<reportElement x="263" y="17" width="1" height="64" uuid="8932f562-7b14-427e-b0fa-0618ab64014b"/>
+				<reportElement x="0" y="0" width="852" height="1" forecolor="#000000" uuid="56d29a20-c31f-49b3-a6d3-3db4c4e0c9b2"/>
 			</line>
 			<staticText>
-				<reportElement key="r_001" x="264" y="18" width="35" height="16" uuid="e7d1edd6-c309-4d47-975f-6a8d9dd5dd87"/>
+				<reportElement key="r_001" x="263" y="18" width="34" height="12" uuid="e7d1edd6-c309-4d47-975f-6a8d9dd5dd87"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="10"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[001]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_002" x="264" y="34" width="35" height="16" uuid="f26cfdcb-be8d-4354-b859-530c3b911301"/>
+				<reportElement key="r_002" x="263" y="30" width="34" height="12" uuid="f26cfdcb-be8d-4354-b859-530c3b911301"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="10"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[002]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_003" x="264" y="50" width="35" height="16" uuid="4c128394-294f-49cd-a960-887e3d0d10d8"/>
+				<reportElement key="r_003" x="263" y="42" width="34" height="12" uuid="4c128394-294f-49cd-a960-887e3d0d10d8"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="10"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[003]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_004" x="264" y="66" width="35" height="16" uuid="26e95a2e-95fa-4582-938c-f87c0a8311c4"/>
+				<reportElement key="r_004" x="263" y="54" width="34" height="12" uuid="26e95a2e-95fa-4582-938c-f87c0a8311c4"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="10"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[004]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="BlueBackground" x="1" y="1" width="261" height="16" uuid="8f2a1f2a-8768-402c-8f72-85b17467ea1e"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="10"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[KEY INDICATORS]]></text>
 			</staticText>
 			<line>
-				<reportElement x="1" y="17" width="851" height="1" forecolor="#000000" uuid="f2069c3c-8ce2-44d7-a3e6-718cd13c6a47"/>
+				<reportElement x="0" y="17" width="852" height="1" forecolor="#000000" uuid="f2069c3c-8ce2-44d7-a3e6-718cd13c6a47"/>
 			</line>
 			<staticText>
 				<reportElement key="" style="BlueBackground" x="262" y="1" width="35" height="16" uuid="6ae2803b-6019-4c54-a969-115b18331557"/>
@@ -352,1647 +323,1781 @@ commitments]]></text>
 			</staticText>
 			<staticText>
 				<reportElement key="" style="BlueBackground" x="707" y="1" width="65" height="16" uuid="ded59131-a4c9-401d-a745-92c41ef54de5"/>
-				<textElement textAlignment="Center">
-					<font size="10" isBold="true" isUnderline="false"/>
-				</textElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[///////////]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="" style="BlueBackground" x="642" y="1" width="65" height="16" uuid="d4d8b9c2-c7d3-42e9-a0a0-e39a2f8b6b13"/>
-				<textElement textAlignment="Center">
-					<font size="10" isBold="true" isUnderline="false"/>
-				</textElement>
+				<reportElement key="" style="BlueBackground" x="643" y="1" width="64" height="16" uuid="d4d8b9c2-c7d3-42e9-a0a0-e39a2f8b6b13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[///////////]]></text>
 			</staticText>
 			<staticText>
 				<reportElement key="" style="BlueBackground" x="772" y="1" width="80" height="16" uuid="726e6a91-4096-428f-b302-6ea55b300368"/>
-				<textElement textAlignment="Center">
-					<font size="10" isBold="true" isUnderline="false"/>
-				</textElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[///////////]]></text>
 			</staticText>
 			<staticText>
 				<reportElement key="" style="BlueBackground" x="362" y="1" width="65" height="16" uuid="3d7d6edc-a1d5-469c-aea5-c91832b96b43"/>
-				<textElement textAlignment="Center">
-					<font size="10" isBold="true" isUnderline="false"/>
-				</textElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[///////////]]></text>
 			</staticText>
 			<staticText>
 				<reportElement key="" style="BlueBackground" x="297" y="1" width="65" height="16" uuid="4bfac10f-197e-4b59-96db-f6801db232bf"/>
-				<textElement textAlignment="Center">
-					<font size="10" isBold="true" isUnderline="false"/>
-				</textElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[///////////]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="" style="BlueBackground" x="502" y="1" width="65" height="16" uuid="2ac633d1-888a-4d8b-92ac-f8c5bfc3c2db"/>
-				<textElement textAlignment="Center">
-					<font size="10" isBold="true" isUnderline="false"/>
-				</textElement>
+				<reportElement key="" style="BlueBackground" x="502" y="1" width="64" height="16" uuid="2ac633d1-888a-4d8b-92ac-f8c5bfc3c2db"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[///////////]]></text>
 			</staticText>
 			<staticText>
 				<reportElement key="" style="BlueBackground" x="427" y="1" width="75" height="16" uuid="1898f420-684b-4d54-9683-5aab7e8df8f9"/>
-				<textElement textAlignment="Center">
-					<font size="10" isBold="true" isUnderline="false"/>
-				</textElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[///////////]]></text>
 			</staticText>
 			<staticText>
 				<reportElement key="" style="BlueBackground" x="566" y="1" width="77" height="16" uuid="174dd7f0-7d0c-4988-935d-c84ce4e0f676"/>
-				<textElement textAlignment="Center">
-					<font size="10" isBold="true" isUnderline="false"/>
-				</textElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[///////////]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" style="BlueBackground" x="362" y="18" width="65" height="12" uuid="7bcdcadb-9053-4bd5-894e-154f7b4207e5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[///////////]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" style="BlueBackground" x="427" y="18" width="75" height="12" uuid="9c568592-c6d7-446b-9cfd-90a2bb54f08a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[///////////]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" style="BlueBackground" x="502" y="18" width="64" height="12" uuid="704652fb-bc32-4670-8494-772595715155"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[///////////]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" style="BlueBackground" x="297" y="18" width="65" height="12" uuid="b04c6139-8408-4567-b996-32f508590492"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[///////////]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" style="BlueBackground" x="427" y="30" width="75" height="12" uuid="d0a9a1b8-0643-4093-93a2-3fa85ea43293"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[///////////]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" style="BlueBackground" x="362" y="30" width="65" height="12" uuid="dee9b700-cb5a-430e-8aa0-93a5b7515f2a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[///////////]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" style="BlueBackground" x="297" y="30" width="65" height="12" uuid="7cf433e0-225f-47f4-a67f-9d5f3a96da6e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[///////////]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" style="BlueBackground" x="502" y="30" width="64" height="12" uuid="6955b076-76c7-4633-a0cd-3eb1589211ba"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[///////////]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" style="BlueBackground" x="427" y="42" width="75" height="12" uuid="4aa4cf99-0f0f-46cd-875e-da678e6b6e95"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[///////////]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" style="BlueBackground" x="362" y="42" width="65" height="12" uuid="1daf842b-f4c2-4022-ae13-1f3ebef90087"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[///////////]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" style="BlueBackground" x="297" y="42" width="65" height="12" uuid="2d9e756e-97b0-43fc-9693-3919fab7212d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[///////////]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" style="BlueBackground" x="502" y="42" width="64" height="12" uuid="f81ac319-5f5c-4ff1-baf5-e4367ab62ef1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[///////////]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" style="BlueBackground" x="427" y="54" width="75" height="12" uuid="de6fd664-00fc-43f7-8a71-2ec19483607e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[///////////]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" style="BlueBackground" x="362" y="54" width="65" height="12" uuid="8e0867c1-ae16-47ab-a76f-881043ea5995"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[///////////]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" style="BlueBackground" x="297" y="54" width="65" height="12" uuid="e92d6f29-c07e-4b34-b320-790166c9eb38"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[///////////]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" style="BlueBackground" x="502" y="54" width="64" height="12" uuid="830e0d9a-26a6-4799-acfb-3a0b1800758a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[///////////]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" style="BlueBackground" x="772" y="18" width="80" height="12" uuid="ec49f6b1-5c0d-42ee-85a4-4cf0bda3d2f5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[///////////]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" style="BlueBackground" x="707" y="18" width="65" height="12" uuid="9a4e5cba-a2c6-4656-bd52-05bab968db54"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[///////////]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" style="BlueBackground" x="643" y="18" width="64" height="12" uuid="a15bc33d-e53d-4090-a7a5-4d6e627617d8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[///////////]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" style="BlueBackground" x="643" y="30" width="64" height="12" uuid="06500e7c-ea76-4535-adc9-449dffde401d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[///////////]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" style="BlueBackground" x="772" y="30" width="80" height="12" uuid="822cc83b-7529-4730-91bb-9aa80457c545"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[///////////]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" style="BlueBackground" x="707" y="30" width="65" height="12" uuid="6d0d9d7d-9073-4fa8-b0b7-0d143557902a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[///////////]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" style="BlueBackground" x="643" y="42" width="64" height="12" uuid="e2c0f9dc-1568-4506-9e7f-2fc5fc39cb80"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[///////////]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" style="BlueBackground" x="772" y="42" width="80" height="12" uuid="671262da-3ed2-4f0c-b56e-bad5e6d043f0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[///////////]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" style="BlueBackground" x="707" y="42" width="65" height="12" uuid="aa3600a4-955f-443b-a8db-aa8f9726e159"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[///////////]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" style="BlueBackground" x="643" y="54" width="64" height="12" uuid="8476439c-fd7f-40a1-a793-edbd1a685a84"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[///////////]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" style="BlueBackground" x="772" y="54" width="80" height="12" uuid="3067458b-4c1c-4a77-8c52-75470c460360"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[///////////]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" style="BlueBackground" x="707" y="54" width="65" height="12" uuid="57386d78-ad11-4e4b-9437-057b6d83d010"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[///////////]]></text>
 			</staticText>
 		</band>
-		<band height="664" splitType="Stretch">
+		<band height="552" splitType="Stretch">
 			<staticText>
-				<reportElement style="BlueBackground" x="1" y="16" width="263" height="16" uuid="bc9ddea8-3203-47fd-9f34-13943954565e"/>
+				<reportElement style="BlueBackground" x="0" y="12" width="263" height="12" uuid="bc9ddea8-3203-47fd-9f34-13943954565e"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[I. OFFICIAL DEVELOPMENT ASSISTANCE (I.A + I.B)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="BlueBackground" mode="Opaque" x="1" y="0" width="263" height="16" uuid="f24a2f33-106b-4a79-92a8-92e7bda1f5e0"/>
+				<reportElement style="BlueBackground" mode="Opaque" x="0" y="0" width="263" height="12" uuid="f24a2f33-106b-4a79-92a8-92e7bda1f5e0"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[TOTAL OFFICIAL AND PRIVATE FLOWS (I+II+III+IV)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="32" width="262" height="32" uuid="0ac5a162-2fc4-4223-a316-08393312020b"/>
+				<reportElement x="0" y="24" width="263" height="24" uuid="0ac5a162-2fc4-4223-a316-08393312020b"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[I.A. Bilateral Official Development Assistance by types of aid (1+2+3+4+5+6+7+8+9+10)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_005" style="BlueBackground" mode="Opaque" x="264" y="0" width="35" height="16" uuid="88d3140e-2add-474c-9049-306af3ef824d"/>
+				<reportElement key="r_005" style="BlueBackground" mode="Opaque" x="263" y="0" width="34" height="12" uuid="88d3140e-2add-474c-9049-306af3ef824d"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[005]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1010" style="BlueBackground" x="264" y="16" width="35" height="16" uuid="7f5da652-f7c6-4d01-bb6b-2cdf06636779"/>
+				<reportElement key="r_1010" style="BlueBackground" x="263" y="12" width="34" height="12" uuid="7f5da652-f7c6-4d01-bb6b-2cdf06636779"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[1010]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1015" x="264" y="32" width="35" height="32" uuid="a5b13412-583d-44ae-914f-1f66cea405da"/>
+				<reportElement key="r_1015" x="263" y="24" width="34" height="24" uuid="a5b13412-583d-44ae-914f-1f66cea405da"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[1015]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="64" width="262" height="15" uuid="901af21c-9759-4c51-be7a-a754ee9bf5d5"/>
+				<reportElement x="0" y="48" width="263" height="12" uuid="901af21c-9759-4c51-be7a-a754ee9bf5d5"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[1.  Budget support]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1100" x="264" y="64" width="35" height="15" uuid="86395132-0d9f-4487-ba85-9ddd2bca800b"/>
+				<reportElement key="r_1100" x="263" y="48" width="34" height="12" uuid="86395132-0d9f-4487-ba85-9ddd2bca800b"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1100]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="79" width="262" height="15" uuid="d89b9f1f-5957-4592-9064-806b532b33fd"/>
+				<reportElement x="0" y="60" width="263" height="12" uuid="d89b9f1f-5957-4592-9064-806b532b33fd"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[  1.1 General budget support]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1110" x="264" y="79" width="35" height="15" uuid="59cf0e3b-9070-48e9-a8f6-a9b50fbdd389"/>
+				<reportElement key="r_1110" x="263" y="60" width="34" height="12" uuid="59cf0e3b-9070-48e9-a8f6-a9b50fbdd389"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1110]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="94" width="262" height="15" uuid="0074b881-1c09-4ec5-902f-2396bb4c8541"/>
+				<reportElement x="0" y="72" width="263" height="12" uuid="0074b881-1c09-4ec5-902f-2396bb4c8541"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[  1.2 Sector budget support]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1120" x="264" y="94" width="35" height="15" uuid="14545777-b3f5-42fd-ba94-497388379f72"/>
+				<reportElement key="r_1120" x="263" y="72" width="34" height="12" uuid="14545777-b3f5-42fd-ba94-497388379f72"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1120]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1230" x="264" y="214" width="35" height="15" uuid="ef7df620-b767-4d68-bb1a-d3bfe1bf0b22"/>
+				<reportElement key="r_1230" x="263" y="192" width="34" height="12" uuid="ef7df620-b767-4d68-bb1a-d3bfe1bf0b22"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1230]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1410" x="264" y="334" width="35" height="15" uuid="942bb7da-5e35-4bde-9c84-697287b104a1"/>
+				<reportElement key="r_1410" x="263" y="288" width="34" height="12" uuid="942bb7da-5e35-4bde-9c84-697287b104a1"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1410]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1310" x="264" y="244" width="35" height="15" uuid="2083ddcd-32ec-42a0-b041-654a11b54b45"/>
+				<reportElement key="r_1310" x="263" y="216" width="34" height="12" uuid="2083ddcd-32ec-42a0-b041-654a11b54b45"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1310]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1213" x="264" y="169" width="35" height="15" uuid="07c0b576-8372-40ed-9930-63816726d1f3"/>
+				<reportElement key="r_1213" x="263" y="156" width="34" height="12" uuid="07c0b576-8372-40ed-9930-63816726d1f3"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1213]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1214" x="264" y="184" width="35" height="15" uuid="6aeafed9-ab20-4920-a918-f144df48119f"/>
+				<reportElement key="r_1214" x="263" y="168" width="34" height="12" uuid="6aeafed9-ab20-4920-a918-f144df48119f"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1214]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1330" x="264" y="289" width="35" height="15" uuid="c06c79b4-ea48-4b25-b35a-79174e056301"/>
+				<reportElement key="r_1330" x="263" y="252" width="34" height="12" uuid="c06c79b4-ea48-4b25-b35a-79174e056301"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1330]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1220" x="264" y="199" width="35" height="15" uuid="2685a5aa-2854-44d6-97d0-483cc9bf899e"/>
+				<reportElement key="r_1220" x="263" y="180" width="34" height="12" uuid="2685a5aa-2854-44d6-97d0-483cc9bf899e"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1220]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1210" x="264" y="124" width="35" height="15" uuid="3f7fb87a-f5f5-47de-bf04-ea6888fd216c"/>
+				<reportElement key="r_1210" x="263" y="108" width="34" height="24" uuid="3f7fb87a-f5f5-47de-bf04-ea6888fd216c"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1210]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1420" x="264" y="349" width="35" height="15" uuid="0bfce02c-2352-4914-b188-e552e8990d19"/>
+				<reportElement key="r_1420" x="263" y="300" width="34" height="12" uuid="0bfce02c-2352-4914-b188-e552e8990d19"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1420]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1300" x="264" y="229" width="35" height="15" uuid="74e3262e-349b-4b8a-8c14-b22d9fe97d86"/>
+				<reportElement key="r_1300" x="263" y="204" width="34" height="12" uuid="74e3262e-349b-4b8a-8c14-b22d9fe97d86"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1300]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1311" x="264" y="259" width="35" height="15" uuid="283797e7-298f-4cc9-8e5a-5234cf356d99"/>
+				<reportElement key="r_1311" x="263" y="228" width="34" height="12" uuid="283797e7-298f-4cc9-8e5a-5234cf356d99"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1311]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1200" x="264" y="109" width="35" height="15" uuid="53277763-57a8-4ddc-8489-72aa05cafb51"/>
+				<reportElement key="r_1200" x="263" y="84" width="34" height="24" uuid="53277763-57a8-4ddc-8489-72aa05cafb51"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1200]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1320" x="264" y="274" width="35" height="15" uuid="79350b0d-20a7-47b9-8fd1-f0d016c3f985"/>
+				<reportElement key="r_1320" x="263" y="240" width="34" height="12" uuid="79350b0d-20a7-47b9-8fd1-f0d016c3f985"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1320]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1400" x="264" y="319" width="35" height="15" uuid="641c06dc-3db7-4503-be11-4bb692a46d51"/>
+				<reportElement key="r_1400" x="263" y="276" width="34" height="12" uuid="641c06dc-3db7-4503-be11-4bb692a46d51"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1400]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1211" x="264" y="139" width="35" height="15" uuid="8e0345aa-d9ce-4908-9d40-7f86b607c35b"/>
+				<reportElement key="r_1211" x="263" y="132" width="34" height="12" uuid="8e0345aa-d9ce-4908-9d40-7f86b607c35b"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1211]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1212" x="264" y="154" width="35" height="15" uuid="8fa4d088-d990-4a52-9c9a-b1e47cf9cf5c"/>
+				<reportElement key="r_1212" x="263" y="144" width="34" height="12" uuid="8fa4d088-d990-4a52-9c9a-b1e47cf9cf5c"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1212]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1301" x="264" y="304" width="35" height="15" uuid="503abd27-2d9f-4889-8a1f-3bfafd403403"/>
+				<reportElement key="r_1301" x="263" y="264" width="34" height="12" uuid="503abd27-2d9f-4889-8a1f-3bfafd403403"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1301]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1510" x="264" y="379" width="35" height="15" uuid="3faafaa4-0a9e-404f-be6c-0a58c5f8b8e7"/>
+				<reportElement key="r_1510" x="263" y="324" width="34" height="12" uuid="3faafaa4-0a9e-404f-be6c-0a58c5f8b8e7"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1510]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1500" x="264" y="364" width="35" height="15" uuid="dfbbec74-54fa-440b-9b26-22beddb58a4f"/>
+				<reportElement key="r_1500" x="263" y="312" width="34" height="12" uuid="dfbbec74-54fa-440b-9b26-22beddb58a4f"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1500]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1612" x="264" y="454" width="35" height="15" uuid="91611f1e-0bb2-4c78-bd9c-27ce1c98d316"/>
+				<reportElement key="r_1612" x="263" y="384" width="34" height="12" uuid="91611f1e-0bb2-4c78-bd9c-27ce1c98d316"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1612]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1610" x="264" y="424" width="35" height="15" uuid="d4702dc5-f11b-4cfa-b3a9-61ba44bfa448"/>
+				<reportElement key="r_1610" x="263" y="360" width="34" height="12" uuid="d4702dc5-f11b-4cfa-b3a9-61ba44bfa448"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1610]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1520" x="264" y="394" width="35" height="15" uuid="d614d22f-2a08-4dee-9ab3-c91f9d5b0779"/>
+				<reportElement key="r_1520" x="263" y="336" width="34" height="12" uuid="d614d22f-2a08-4dee-9ab3-c91f9d5b0779"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1520]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1623" x="264" y="544" width="35" height="15" uuid="67f7bde1-eb06-441d-bef7-39cfac1e3e6c"/>
+				<reportElement key="r_1623" x="263" y="456" width="34" height="12" uuid="67f7bde1-eb06-441d-bef7-39cfac1e3e6c"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1623]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1611" x="264" y="439" width="35" height="15" uuid="f9af6c03-4d02-46f0-8da9-55c74a969785"/>
+				<reportElement key="r_1611" x="263" y="372" width="34" height="12" uuid="f9af6c03-4d02-46f0-8da9-55c74a969785"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1611]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1622" x="264" y="529" width="35" height="15" uuid="78e417fa-27b8-4194-a7a8-df2d492de0b4"/>
+				<reportElement key="r_1622" x="263" y="444" width="34" height="12" uuid="78e417fa-27b8-4194-a7a8-df2d492de0b4"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1622]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1620" x="264" y="499" width="35" height="15" uuid="56087dfd-6330-4488-a1f5-76234bb0e050"/>
+				<reportElement key="r_1620" x="263" y="420" width="34" height="12" uuid="56087dfd-6330-4488-a1f5-76234bb0e050"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1620]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1600" x="264" y="409" width="35" height="15" uuid="4a27492c-0a59-45b3-9f0e-4fc2157779c9"/>
+				<reportElement key="r_1600" x="263" y="348" width="34" height="12" uuid="4a27492c-0a59-45b3-9f0e-4fc2157779c9"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1600]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1613" x="264" y="469" width="35" height="15" uuid="1157fea4-ddbd-4db9-b796-35f446fa3e18"/>
+				<reportElement key="r_1613" x="263" y="396" width="34" height="12" uuid="1157fea4-ddbd-4db9-b796-35f446fa3e18"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1613]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1614" x="264" y="484" width="35" height="15" uuid="2ddb2b8a-4ad8-4353-9b39-309a2c403148"/>
+				<reportElement key="r_1614" x="263" y="408" width="34" height="12" uuid="2ddb2b8a-4ad8-4353-9b39-309a2c403148"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1614]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1621" x="264" y="514" width="35" height="15" uuid="4bd9fb44-eb41-4d3e-94c3-76dbaed273e5"/>
+				<reportElement key="r_1621" x="263" y="432" width="34" height="12" uuid="4bd9fb44-eb41-4d3e-94c3-76dbaed273e5"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1621]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1630" x="264" y="574" width="35" height="15" uuid="8a83ef0b-78e2-4db2-b82e-82266969fc38"/>
+				<reportElement key="r_1630" x="263" y="480" width="34" height="12" uuid="8a83ef0b-78e2-4db2-b82e-82266969fc38"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1630]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1624" x="264" y="559" width="35" height="15" uuid="9114c7b5-3967-410c-95d7-f69456edb005"/>
+				<reportElement key="r_1624" x="263" y="468" width="34" height="12" uuid="9114c7b5-3967-410c-95d7-f69456edb005"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1624]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1640" x="264" y="589" width="35" height="15" uuid="ca8f5d3d-b615-46ec-8469-3aff35a03c61"/>
+				<reportElement key="r_1640" x="263" y="492" width="34" height="12" uuid="ca8f5d3d-b615-46ec-8469-3aff35a03c61"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1640]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1810" x="264" y="634" width="35" height="15" uuid="2b79ef0b-b27c-4e5b-84e6-2e8b560ef64a"/>
+				<reportElement key="r_1810" x="263" y="528" width="34" height="12" uuid="2b79ef0b-b27c-4e5b-84e6-2e8b560ef64a"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1810]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1700" x="264" y="604" width="35" height="15" uuid="3ff39140-fb8e-48e5-8b77-87f2bb6347a4"/>
+				<reportElement key="r_1700" x="263" y="504" width="34" height="12" uuid="3ff39140-fb8e-48e5-8b77-87f2bb6347a4"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1700]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1800" x="264" y="619" width="35" height="15" uuid="f01bdf9e-2d51-46bd-807d-efc83e74a484"/>
+				<reportElement key="r_1800" x="263" y="516" width="34" height="12" uuid="f01bdf9e-2d51-46bd-807d-efc83e74a484"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1800]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1820" x="264" y="649" width="35" height="15" uuid="66e1b6de-6c87-4717-9a0d-7b161e02e7f5"/>
+				<reportElement key="r_1820" x="263" y="540" width="34" height="12" uuid="66e1b6de-6c87-4717-9a0d-7b161e02e7f5"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1820]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="109" width="262" height="15" uuid="65cfab22-f878-47d7-ba75-288e847259d4"/>
+				<reportElement x="0" y="84" width="263" height="24" uuid="65cfab22-f878-47d7-ba75-288e847259d4"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[2.  Bilateral core support & pooled programmes & funds]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="124" width="262" height="15" uuid="623adac0-4949-4abc-a1f2-3dbfa0e80a39"/>
+				<reportElement x="0" y="108" width="263" height="24" uuid="623adac0-4949-4abc-a1f2-3dbfa0e80a39"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[  2.1 Core support to NGOs &civil society, PPPs & research institutes]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="139" width="262" height="15" uuid="4895294e-cc59-43c1-b961-fd6c20607920"/>
+				<reportElement x="0" y="132" width="263" height="12" uuid="4895294e-cc59-43c1-b961-fd6c20607920"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[    a) Core support to donor country-based NGOs & civil society]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="154" width="262" height="15" uuid="fb8fb9f3-e693-4614-96a1-d3a7c6d55cd6"/>
+				<reportElement x="0" y="144" width="263" height="12" uuid="fb8fb9f3-e693-4614-96a1-d3a7c6d55cd6"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[    b) Core support to international NGOs (including developing country-
         based NGOs)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="169" width="262" height="15" uuid="8bb36903-eab7-450c-b42c-3961a257446f"/>
+				<reportElement x="0" y="156" width="263" height="12" uuid="8bb36903-eab7-450c-b42c-3961a257446f"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[    c) Core support to Public-Private Partnerships (includingnetworks)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="184" width="262" height="15" uuid="b9da0e1f-8999-47a4-867e-4b427e4f6102"/>
+				<reportElement x="0" y="168" width="263" height="12" uuid="b9da0e1f-8999-47a4-867e-4b427e4f6102"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[    d) Other]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="199" width="262" height="15" uuid="4f699d62-8724-4e5c-9901-0f817991b382"/>
+				<reportElement x="0" y="180" width="263" height="12" uuid="4f699d62-8724-4e5c-9901-0f817991b382"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[  2.2 Specific-purpose programmes & funds managed by int'l org.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="214" width="262" height="15" uuid="e3fa6aa7-e36c-4a2f-9540-50cf9a413522"/>
+				<reportElement x="0" y="192" width="263" height="12" uuid="e3fa6aa7-e36c-4a2f-9540-50cf9a413522"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[  2.3 Basket funds/pooled funding]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="229" width="262" height="15" uuid="a11e8b76-f16c-4d8b-bd1d-57d321fdc9b7"/>
+				<reportElement x="0" y="204" width="263" height="12" uuid="a11e8b76-f16c-4d8b-bd1d-57d321fdc9b7"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[3.  Project-type interventions]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="244" width="262" height="15" uuid="92d3d4df-cfe9-4c0a-b101-2e72c677adea"/>
+				<reportElement x="0" y="216" width="263" height="12" uuid="92d3d4df-cfe9-4c0a-b101-2e72c677adea"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[  3.1 Investment projects]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="259" width="262" height="15" uuid="b381c6a7-8bfd-4e55-acf0-9b483dd77425"/>
+				<reportElement x="0" y="228" width="263" height="12" uuid="b381c6a7-8bfd-4e55-acf0-9b483dd77425"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[      of which:  equities]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="274" width="262" height="15" uuid="e6c5a090-5ba2-4057-8f73-6cac94cc3c1d"/>
+				<reportElement x="0" y="240" width="263" height="12" uuid="e6c5a090-5ba2-4057-8f73-6cac94cc3c1d"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[  3.2 Other projects]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="289" width="262" height="15" uuid="68a74e8e-5d1b-4310-a002-de98d21fb8ab"/>
+				<reportElement x="0" y="252" width="263" height="12" uuid="68a74e8e-5d1b-4310-a002-de98d21fb8ab"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[    Memo:  Projects qualifying as programme-based approaches]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="304" width="262" height="15" uuid="8ac41940-4bdb-4481-b404-fd78c56b031e"/>
+				<reportElement x="0" y="264" width="263" height="12" uuid="8ac41940-4bdb-4481-b404-fd78c56b031e"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[    Memo:  Cost of donor experts incl. in project-type interventions (optional)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="319" width="262" height="15" uuid="296a4a9a-89a3-4054-8a8e-da0c2dfe94e9"/>
+				<reportElement x="0" y="276" width="263" height="12" uuid="296a4a9a-89a3-4054-8a8e-da0c2dfe94e9"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[4.  Experts and other technical assistance]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="334" width="262" height="15" uuid="3a1ba1a6-5edd-4fb6-a044-d57ed162c690"/>
+				<reportElement x="0" y="288" width="263" height="12" uuid="3a1ba1a6-5edd-4fb6-a044-d57ed162c690"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[  4.1 Donor country personnel]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="349" width="262" height="15" uuid="575d8610-c1c6-450a-95da-01bc1f2dc703"/>
+				<reportElement x="0" y="300" width="263" height="12" uuid="575d8610-c1c6-450a-95da-01bc1f2dc703"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[  4.2 Other technical assistance]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="364" width="262" height="15" uuid="2261e5a2-4362-42e8-862d-bf3b934a1260"/>
+				<reportElement x="0" y="312" width="263" height="12" uuid="2261e5a2-4362-42e8-862d-bf3b934a1260"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[5.  Scholarships and student costs in donor countries ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="379" width="262" height="15" uuid="25661643-b46c-49a3-ad9a-8de95a198976"/>
+				<reportElement x="0" y="324" width="263" height="12" uuid="25661643-b46c-49a3-ad9a-8de95a198976"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[   5.1 Scholarships/training in donor country ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="394" width="262" height="15" uuid="4f156942-d061-4c52-8a2a-415c383d8dad"/>
+				<reportElement x="0" y="336" width="263" height="12" uuid="4f156942-d061-4c52-8a2a-415c383d8dad"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[   5.2 Imputed student costs
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="409" width="262" height="15" uuid="78e7fcb3-5740-44f5-bd71-7861c7d75cda"/>
+				<reportElement x="0" y="348" width="263" height="12" uuid="78e7fcb3-5740-44f5-bd71-7861c7d75cda"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[6.  Debt relief
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="424" width="262" height="15" uuid="c96b31ac-2e87-47d3-8885-ff14391db9ee"/>
+				<reportElement x="0" y="360" width="263" height="12" uuid="c96b31ac-2e87-47d3-8885-ff14391db9ee"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[  6.1 Debt forgiveness and debt rescheduling ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="439" width="262" height="15" uuid="3f4aaa07-10d2-428c-a951-ae41d25fe1c4"/>
+				<reportElement x="0" y="372" width="263" height="12" uuid="3f4aaa07-10d2-428c-a951-ae41d25fe1c4"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[    a) ODA claims (for rescheduling, only capitalised interest)
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="454" width="262" height="15" uuid="7fce3995-801b-400b-8421-f4b61b448ef2"/>
+				<reportElement x="0" y="384" width="263" height="12" uuid="7fce3995-801b-400b-8421-f4b61b448ef2"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[    b) OOF claims ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="469" width="262" height="15" uuid="4e490cf1-1ace-4bf0-819a-c3a6937e6732"/>
+				<reportElement x="0" y="396" width="263" height="12" uuid="4e490cf1-1ace-4bf0-819a-c3a6937e6732"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[    c) Private claims]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="484" width="262" height="15" uuid="c78ad4a8-5776-4fd5-82a2-8e846be1c520"/>
+				<reportElement x="0" y="408" width="263" height="12" uuid="c78ad4a8-5776-4fd5-82a2-8e846be1c520"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[      Memo:   Grants for debt service reduction
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="499" width="262" height="15" uuid="6813eb7f-dc2e-44ba-b24c-c6a49056b358"/>
+				<reportElement x="0" y="420" width="263" height="12" uuid="6813eb7f-dc2e-44ba-b24c-c6a49056b358"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[  6.2 Other action on debt
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="514" width="262" height="15" uuid="6574afbc-7cf8-4a3d-a34a-3b9e4a5870bb"/>
+				<reportElement x="0" y="432" width="263" height="12" uuid="6574afbc-7cf8-4a3d-a34a-3b9e4a5870bb"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[    a) Service payments to third parties
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="529" width="262" height="15" uuid="20f7a7b0-ce6c-4185-bc5a-d3e142a6f546"/>
+				<reportElement x="0" y="444" width="263" height="12" uuid="20f7a7b0-ce6c-4185-bc5a-d3e142a6f546"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[    b) Debt conversion ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="544" width="262" height="15" uuid="1bcec1cd-bab6-4f50-b41a-fc1f20663496"/>
+				<reportElement x="0" y="456" width="263" height="12" uuid="1bcec1cd-bab6-4f50-b41a-fc1f20663496"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[    c) Debt buybacks ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="559" width="262" height="15" uuid="416064b2-375a-4608-afd0-2e94e014abe1"/>
+				<reportElement x="0" y="468" width="263" height="12" uuid="416064b2-375a-4608-afd0-2e94e014abe1"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[    d) Other ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="574" width="262" height="15" uuid="0d2bf758-71fb-4512-9fe6-32391cf4a99a"/>
+				<reportElement x="0" y="480" width="263" height="12" uuid="0d2bf758-71fb-4512-9fe6-32391cf4a99a"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[  6.3 Offsetting entry for debt forgiveness (ODA claims, principal)
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="589" width="262" height="15" uuid="926ef39b-6756-4a6f-8b6a-2e354b80f1fd"/>
+				<reportElement x="0" y="492" width="263" height="12" uuid="926ef39b-6756-4a6f-8b6a-2e354b80f1fd"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[    Memo:  Offsetting entry for forgiven interest (ODA claims, interest) ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="604" width="262" height="15" uuid="bee6dac2-4d92-49d7-af03-fd06256ba460"/>
+				<reportElement x="0" y="504" width="263" height="12" uuid="bee6dac2-4d92-49d7-af03-fd06256ba460"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[7.  Administrative costs not included elsewhere ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="619" width="262" height="15" uuid="b7fe403a-1ec1-480c-85b1-39185c6fb044"/>
+				<reportElement x="0" y="516" width="263" height="12" uuid="b7fe403a-1ec1-480c-85b1-39185c6fb044"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[8.  Other in-donor expenditures ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="634" width="262" height="15" uuid="11417618-effa-4b27-b8af-0789788bc968"/>
+				<reportElement x="0" y="528" width="263" height="12" uuid="11417618-effa-4b27-b8af-0789788bc968"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[  8.1 Development awareness ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="649" width="262" height="15" uuid="4848f903-ddc5-4f7c-8a1c-fa7e2db9f7e9"/>
+				<reportElement x="0" y="540" width="263" height="12" uuid="4848f903-ddc5-4f7c-8a1c-fa7e2db9f7e9"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[  8.2 Refugees in donor countries
 ]]></text>
 			</staticText>
 		</band>
-		<band height="703">
+		<band height="540">
 			<staticText>
-				<reportElement key="r_1900" x="264" y="0" width="35" height="15" uuid="24fe5eaf-8421-410b-ad84-ef0554e3592d"/>
+				<reportElement key="r_1900" x="263" y="0" width="34" height="12" uuid="24fe5eaf-8421-410b-ad84-ef0554e3592d"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1900]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1903" x="263" y="71" width="35" height="15" uuid="1c2d214a-2bd4-46f6-9a59-f0e416447578"/>
+				<reportElement key="r_1903" x="263" y="48" width="34" height="24" uuid="1c2d214a-2bd4-46f6-9a59-f0e416447578"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1903]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1902" x="263" y="56" width="35" height="15" uuid="e8f538b9-e289-4dae-9df5-966393dc3add"/>
+				<reportElement key="r_1902" x="263" y="36" width="34" height="12" uuid="e8f538b9-e289-4dae-9df5-966393dc3add"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1902]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1901" x="263" y="41" width="35" height="15" uuid="7311f068-0cfe-49c8-ae5f-a5dd8d3b94ac"/>
+				<reportElement key="r_1901" x="263" y="24" width="34" height="12" uuid="7311f068-0cfe-49c8-ae5f-a5dd8d3b94ac"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1901]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1905" x="263" y="101" width="35" height="15" uuid="994cd51c-1d64-4ecc-b5d1-07c03bc765c7"/>
+				<reportElement key="r_1905" x="263" y="84" width="34" height="12" uuid="994cd51c-1d64-4ecc-b5d1-07c03bc765c7"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1905]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1906" x="263" y="116" width="35" height="15" uuid="c8634490-acc4-4f30-b573-11bc8e55f454"/>
+				<reportElement key="r_1906" x="263" y="96" width="34" height="12" uuid="c8634490-acc4-4f30-b573-11bc8e55f454"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1906]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1904" x="263" y="86" width="35" height="15" uuid="9f58d79f-b7e8-406b-837f-be536cc50dae"/>
+				<reportElement key="r_1904" x="263" y="72" width="34" height="12" uuid="9f58d79f-b7e8-406b-837f-be536cc50dae"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1904]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="0" width="262" height="15" uuid="9323a56d-b4ba-4c0f-a8b1-2df904f689b5"/>
+				<reportElement x="0" y="0" width="263" height="12" uuid="9323a56d-b4ba-4c0f-a8b1-2df904f689b5"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[9. Recoveries on bilateral ODA grants / negative commitments ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="15" width="262" height="15" uuid="f49ee80d-df99-4d6b-864c-07242828cfbb"/>
+				<reportElement x="0" y="12" width="263" height="12" uuid="f49ee80d-df99-4d6b-864c-07242828cfbb"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[10. Other loans repayments]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="30" width="262" height="26" uuid="fb35e2cf-b854-450d-8f64-b88495d68860"/>
+				<reportElement x="0" y="24" width="263" height="12" uuid="fb35e2cf-b854-450d-8f64-b88495d68860"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[Memo items:
    Programme-based approaches (PBAs)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="56" width="262" height="15" uuid="dc97c710-893c-487a-b072-093bebfebef5"/>
+				<reportElement x="0" y="36" width="263" height="12" uuid="dc97c710-893c-487a-b072-093bebfebef5"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[   Free-standing technical co-operation (FTC)
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="71" width="262" height="15" uuid="0912a985-c1b9-481a-8dd0-d39831881764"/>
+				<reportElement x="0" y="48" width="263" height="24" uuid="0912a985-c1b9-481a-8dd0-d39831881764"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[   ODA channelled through private entities (as distinct from support to private sources) ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="86" width="262" height="15" uuid="48c94341-282c-49c7-b673-ed7056dde4c5"/>
+				<reportElement x="0" y="72" width="263" height="12" uuid="48c94341-282c-49c7-b673-ed7056dde4c5"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[   ODA channelled through multilateral organisations]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="101" width="262" height="15" uuid="c7e8fe3f-048e-4831-80da-02e78b26a2f2"/>
+				<reportElement x="0" y="84" width="263" height="12" uuid="c7e8fe3f-048e-4831-80da-02e78b26a2f2"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[   Participation in international peacekeeping operations]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1999" x="264" y="15" width="35" height="26" uuid="98afe76f-653a-4222-9048-247a3899ee3e"/>
+				<reportElement key="r_1999" x="263" y="12" width="34" height="12" uuid="98afe76f-653a-4222-9048-247a3899ee3e"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1999]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="116" width="262" height="15" uuid="e02d6c98-9dc7-492e-b41e-7527c85d59bf"/>
+				<reportElement x="0" y="96" width="263" height="12" uuid="e02d6c98-9dc7-492e-b41e-7527c85d59bf"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[   Relief food aid]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="163" width="262" height="15" uuid="7f0c8e8e-d08c-4ac6-902f-d8464d55ae04"/>
+				<reportElement x="0" y="132" width="263" height="12" uuid="7f0c8e8e-d08c-4ac6-902f-d8464d55ae04"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[1. Multilateral contributions to:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_2000" x="263" y="131" width="35" height="32" uuid="814138b6-4c84-4064-a2a1-8bbc7c1b106c"/>
+				<reportElement key="r_2000" x="263" y="108" width="34" height="24" uuid="814138b6-4c84-4064-a2a1-8bbc7c1b106c"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[2000]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="131" width="262" height="32" uuid="8f989a68-ebde-4509-8831-97a98d8b7ed0"/>
+				<reportElement x="0" y="108" width="263" height="24" uuid="8f989a68-ebde-4509-8831-97a98d8b7ed0"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[I.B. Multilateral Official Development Assistance (capital subscriptions are included with grants)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_2100" x="263" y="163" width="35" height="15" uuid="5613a1d4-f17a-4f8a-9a5f-184ea3926f3b"/>
+				<reportElement key="r_2100" x="263" y="132" width="34" height="12" uuid="5613a1d4-f17a-4f8a-9a5f-184ea3926f3b"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[2100]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_2101" x="263" y="178" width="35" height="15" uuid="e397d699-cc5d-47a4-a6b7-80e095589b11"/>
+				<reportElement key="r_2101" x="263" y="144" width="34" height="12" uuid="e397d699-cc5d-47a4-a6b7-80e095589b11"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[2101]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="178" width="262" height="15" uuid="d739c4be-d0b8-4e52-a1e9-28c430683636"/>
+				<reportElement x="0" y="144" width="263" height="12" uuid="d739c4be-d0b8-4e52-a1e9-28c430683636"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[   1.1 UN agencies]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="193" width="262" height="15" uuid="cf1d88af-2ec2-4071-a3ad-687dc07cd9ec"/>
+				<reportElement x="0" y="156" width="263" height="12" uuid="cf1d88af-2ec2-4071-a3ad-687dc07cd9ec"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[   1.2 European Union]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="208" width="262" height="15" uuid="ecdf6637-b33d-49f8-a8d6-862d55e6a4b9"/>
+				<reportElement x="0" y="168" width="263" height="12" uuid="ecdf6637-b33d-49f8-a8d6-862d55e6a4b9"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[   1.3 IDA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="223" width="262" height="15" uuid="504e69a9-2047-418c-9808-480f1218e507"/>
+				<reportElement x="0" y="180" width="263" height="12" uuid="504e69a9-2047-418c-9808-480f1218e507"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[   1.4 Other World Bank (AMCs, IBRD,IFC,MIGA)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="238" width="262" height="15" uuid="b8a3efd8-f29f-4ea4-a739-914a995ae9a8"/>
+				<reportElement x="0" y="192" width="263" height="12" uuid="b8a3efd8-f29f-4ea4-a739-914a995ae9a8"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[   1.5 Regional development banks]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="253" width="262" height="15" uuid="5ad26408-824e-42bb-b668-52ab4ede7270"/>
+				<reportElement x="0" y="204" width="263" height="12" uuid="5ad26408-824e-42bb-b668-52ab4ede7270"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[   1.6 Global Environment Facility]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_2102" x="263" y="193" width="35" height="15" uuid="85d0b855-693d-4927-a9a7-3afaccc371e8"/>
+				<reportElement key="r_2102" x="263" y="156" width="34" height="12" uuid="85d0b855-693d-4927-a9a7-3afaccc371e8"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[2102]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_2103" x="263" y="208" width="35" height="15" uuid="089c0277-3930-49ee-922e-7c6f55a2413b"/>
+				<reportElement key="r_2103" x="263" y="168" width="34" height="12" uuid="089c0277-3930-49ee-922e-7c6f55a2413b"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[2103]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_2104" x="263" y="223" width="35" height="15" uuid="63dd2b4e-3c46-4723-951c-9753f8df759d"/>
+				<reportElement key="r_2104" x="263" y="180" width="34" height="12" uuid="63dd2b4e-3c46-4723-951c-9753f8df759d"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[2104]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_2105" x="263" y="238" width="35" height="15" uuid="89647c22-c4af-4de9-b698-2b9f02d4bb93"/>
+				<reportElement key="r_2105" x="263" y="192" width="34" height="12" uuid="89647c22-c4af-4de9-b698-2b9f02d4bb93"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[2105]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_2106" x="263" y="253" width="35" height="15" uuid="5656c863-d0a1-4a82-9a32-cbfa65e4df25"/>
+				<reportElement key="r_2106" x="263" y="204" width="34" height="12" uuid="5656c863-d0a1-4a82-9a32-cbfa65e4df25"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[2106]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="268" width="262" height="15" uuid="a92eab1b-8583-453b-bc04-40627f2b4b77"/>
+				<reportElement x="0" y="216" width="263" height="12" uuid="a92eab1b-8583-453b-bc04-40627f2b4b77"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[   1.7 Montreal Protocol]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_2107" x="263" y="268" width="35" height="15" uuid="a7b239b9-0676-495a-a18e-714e47a6dda3"/>
+				<reportElement key="r_2107" x="263" y="216" width="34" height="12" uuid="a7b239b9-0676-495a-a18e-714e47a6dda3"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[2107]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="283" width="262" height="15" uuid="4f0ead8e-2b3c-427f-ad23-ade0ec56b11f"/>
+				<reportElement x="0" y="228" width="263" height="12" uuid="4f0ead8e-2b3c-427f-ad23-ade0ec56b11f"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[   1.8 Other agencies]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_2108" x="263" y="283" width="35" height="15" uuid="ac3ac226-d72b-4008-902b-6b18d76b9b6e"/>
+				<reportElement key="r_2108" x="263" y="228" width="34" height="12" uuid="ac3ac226-d72b-4008-902b-6b18d76b9b6e"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[2108]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="298" width="262" height="32" uuid="7e7666d5-6fef-4542-b74b-233bbb6cc0bc"/>
+				<reportElement x="0" y="240" width="263" height="24" uuid="7e7666d5-6fef-4542-b74b-233bbb6cc0bc"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[2. Recoveries on multilateral ODA grants and capital subscriptions / negative commitments ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_2110" x="263" y="298" width="35" height="49" uuid="80dbe23b-5bb9-4297-b373-3edce9766ff9"/>
+				<reportElement key="r_2110" x="263" y="240" width="34" height="24" uuid="80dbe23b-5bb9-4297-b373-3edce9766ff9"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[2110]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="330" width="262" height="32" uuid="e54368e8-022a-4a3c-86d8-0c24c330108d"/>
+				<reportElement x="0" y="264" width="263" height="24" uuid="e54368e8-022a-4a3c-86d8-0c24c330108d"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[   Memo (bilat. + multilat.):
       - HIPC Initiative ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_2901" x="263" y="347" width="35" height="15" uuid="94870cb1-ed52-4cd1-985c-640f57c86a46"/>
-				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+				<reportElement key="r_2901" x="263" y="264" width="34" height="24" uuid="94870cb1-ed52-4cd1-985c-640f57c86a46"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[2901]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_2902" x="263" y="362" width="35" height="15" uuid="0f930f3c-0b1a-4f68-8311-8555fa55db44"/>
+				<reportElement key="r_2902" x="263" y="288" width="34" height="12" uuid="0f930f3c-0b1a-4f68-8311-8555fa55db44"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[2902]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="362" width="262" height="15" uuid="5402466e-0460-4d47-b520-2929492634d8"/>
+				<reportElement x="0" y="288" width="263" height="12" uuid="5402466e-0460-4d47-b520-2929492634d8"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[      - IDA Debt Reduction Facility]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_235" x="263" y="393" width="35" height="16" uuid="4f56d2c1-8357-46c1-aa29-2d6a34add86e"/>
+				<reportElement key="r_235" x="263" y="312" width="34" height="12" uuid="4f56d2c1-8357-46c1-aa29-2d6a34add86e"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[235]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="BlueBackground" x="1" y="377" width="262" height="16" uuid="1083b3f4-53e8-4724-97e3-13170b264c9f"/>
+				<reportElement style="BlueBackground" x="0" y="300" width="263" height="12" uuid="1083b3f4-53e8-4724-97e3-13170b264c9f"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[II. OTHER OFFICIAL FLOWS]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_230" style="BlueBackground" x="263" y="377" width="35" height="16" uuid="61d6d297-c69f-4ac8-86db-525203e387b9"/>
+				<reportElement key="r_230" style="BlueBackground" x="263" y="300" width="34" height="12" uuid="61d6d297-c69f-4ac8-86db-525203e387b9"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[230]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="393" width="262" height="16" uuid="1680a062-a7fd-47bf-96e2-14741c1f72fb"/>
+				<reportElement x="0" y="312" width="263" height="12" uuid="1680a062-a7fd-47bf-96e2-14741c1f72fb"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[II.A. Other Official Bilateral Flows]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_240" x="263" y="409" width="35" height="16" uuid="47842e98-854d-4ced-ada2-ef8a55975486"/>
+				<reportElement key="r_240" x="263" y="324" width="34" height="12" uuid="47842e98-854d-4ced-ada2-ef8a55975486"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[240]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="409" width="262" height="16" uuid="b81e9f4e-06fd-4441-9664-6c2ef7c6dcc5"/>
+				<reportElement x="0" y="324" width="263" height="12" uuid="b81e9f4e-06fd-4441-9664-6c2ef7c6dcc5"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[1.  Export-related transactions]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_265" x="263" y="425" width="35" height="16" uuid="feadc8cc-a070-4eed-8f03-4273466bd4b7"/>
+				<reportElement key="r_265" x="263" y="336" width="34" height="12" uuid="feadc8cc-a070-4eed-8f03-4273466bd4b7"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[265]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="425" width="262" height="16" uuid="c750e138-ea64-4fc6-9ce1-999ce4e31e5e"/>
+				<reportElement x="0" y="336" width="263" height="12" uuid="c750e138-ea64-4fc6-9ce1-999ce4e31e5e"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[   1.1 Official export credits to developing countries]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_266" x="263" y="441" width="35" height="16" uuid="43ad0dcb-b604-4456-b730-bd69abf4d8b6"/>
+				<reportElement key="r_266" x="263" y="348" width="34" height="12" uuid="43ad0dcb-b604-4456-b730-bd69abf4d8b6"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[266]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="441" width="262" height="16" uuid="0568235f-fc96-4faf-baa9-11a5968334c9"/>
+				<reportElement x="0" y="348" width="263" height="12" uuid="0568235f-fc96-4faf-baa9-11a5968334c9"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[   1.2 Support to national private exporters]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_294" x="263" y="457" width="35" height="16" uuid="d7195fbc-a0c4-4c2b-b088-dc14977bae36"/>
+				<reportElement key="r_294" x="263" y="360" width="34" height="12" uuid="d7195fbc-a0c4-4c2b-b088-dc14977bae36"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[294]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="457" width="262" height="16" uuid="2a67f4bc-02fd-43bb-ab2b-38d5bfc710d6"/>
+				<reportElement x="0" y="360" width="263" height="12" uuid="2a67f4bc-02fd-43bb-ab2b-38d5bfc710d6"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[2.  Investment-related transactions]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_291" x="263" y="473" width="35" height="16" uuid="e2cdae42-e8f8-4668-9c8c-2c557ca29ac3"/>
+				<reportElement key="r_291" x="263" y="372" width="34" height="12" uuid="e2cdae42-e8f8-4668-9c8c-2c557ca29ac3"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[291]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="473" width="262" height="16" uuid="f255951d-7f11-4726-8753-824ef6c2f241"/>
+				<reportElement x="0" y="372" width="263" height="12" uuid="f255951d-7f11-4726-8753-824ef6c2f241"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[   2.1 With developing countries]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_292" x="263" y="489" width="35" height="16" uuid="9b4c5b94-929b-4214-ab5d-3d2aa86471c4"/>
+				<reportElement key="r_292" x="263" y="384" width="34" height="12" uuid="9b4c5b94-929b-4214-ab5d-3d2aa86471c4"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[292]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="489" width="262" height="16" uuid="f15433dc-4886-41ed-a505-657831d4063c"/>
+				<reportElement x="0" y="384" width="263" height="12" uuid="f15433dc-4886-41ed-a505-657831d4063c"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[           of which:   Joint ventures
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_293" x="263" y="505" width="35" height="16" uuid="492e6a14-df9f-4fbb-9496-b0dffc1e2e00"/>
+				<reportElement key="r_293" x="263" y="396" width="34" height="12" uuid="492e6a14-df9f-4fbb-9496-b0dffc1e2e00"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[293]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="505" width="262" height="16" uuid="3608c632-4bee-4185-9004-660793e4669b"/>
+				<reportElement x="0" y="396" width="263" height="12" uuid="3608c632-4bee-4185-9004-660793e4669b"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[                   of which:   -   Loans]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_280" x="263" y="521" width="35" height="16" uuid="b7a3dede-2a8f-4532-9d2c-595015f1a123"/>
+				<reportElement key="r_280" x="263" y="408" width="34" height="12" uuid="b7a3dede-2a8f-4532-9d2c-595015f1a123"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[280]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="521" width="262" height="16" uuid="bba0693f-af80-4808-9eb8-923496ed3463"/>
+				<reportElement x="0" y="408" width="263" height="12" uuid="bba0693f-af80-4808-9eb8-923496ed3463"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[                                     -  Acquisition of equity]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="537" width="262" height="16" uuid="7ca3c010-f479-4d3c-9ad8-d999de2fb2fc"/>
+				<reportElement x="0" y="420" width="263" height="12" uuid="7ca3c010-f479-4d3c-9ad8-d999de2fb2fc"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[   2.2 With residents (Support to national private investors)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_287" x="263" y="537" width="35" height="16" uuid="cdde3896-2f62-40da-b4e7-4d8db23d4cc3"/>
+				<reportElement key="r_287" x="263" y="420" width="34" height="12" uuid="cdde3896-2f62-40da-b4e7-4d8db23d4cc3"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[287]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="553" width="262" height="16" uuid="a671db28-05d0-4a95-98a7-fb404c5d223e"/>
+				<reportElement x="0" y="432" width="263" height="12" uuid="a671db28-05d0-4a95-98a7-fb404c5d223e"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[3.  Debt rescheduling]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_300" x="263" y="553" width="35" height="16" uuid="e5c56236-262c-43f2-8fc1-20958390c654"/>
+				<reportElement key="r_300" x="263" y="432" width="34" height="12" uuid="e5c56236-262c-43f2-8fc1-20958390c654"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[300]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_301" x="263" y="569" width="35" height="16" uuid="2f522d40-d117-4b1a-93d8-96d1d6b0baa9"/>
+				<reportElement key="r_301" x="263" y="444" width="34" height="12" uuid="2f522d40-d117-4b1a-93d8-96d1d6b0baa9"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[301]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="569" width="262" height="16" uuid="38f11ddb-47ad-4ac9-9820-1b2dad46f09a"/>
+				<reportElement x="0" y="444" width="263" height="12" uuid="38f11ddb-47ad-4ac9-9820-1b2dad46f09a"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[   3.1 Non-concessional rescheduling]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_302" x="263" y="585" width="35" height="16" uuid="c58f64a8-ab40-4a16-8f37-5dd7aebbe950"/>
+				<reportElement key="r_302" x="263" y="456" width="34" height="12" uuid="c58f64a8-ab40-4a16-8f37-5dd7aebbe950"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[302]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="585" width="262" height="16" uuid="374b7f84-fe23-4af2-b2bf-708d1cc4f5ce"/>
+				<reportElement x="0" y="456" width="263" height="12" uuid="374b7f84-fe23-4af2-b2bf-708d1cc4f5ce"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[         a) OOF claims (capitalised interest)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_310" x="263" y="601" width="35" height="16" uuid="32108f74-ba44-4a51-9244-9054c21c1cfb"/>
+				<reportElement key="r_310" x="263" y="468" width="34" height="12" uuid="32108f74-ba44-4a51-9244-9054c21c1cfb"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[310]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="601" width="262" height="16" uuid="05d2d1de-0dc6-4faf-8c5a-6c51a3aa4e9b"/>
+				<reportElement x="0" y="468" width="263" height="12" uuid="05d2d1de-0dc6-4faf-8c5a-6c51a3aa4e9b"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[         b) Private sector claims]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_303" x="263" y="617" width="35" height="16" uuid="f3322ec3-5a6d-484f-898f-8328cc217209"/>
+				<reportElement key="r_303" x="263" y="480" width="34" height="12" uuid="f3322ec3-5a6d-484f-898f-8328cc217209"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[303]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="617" width="262" height="16" uuid="2be933b5-3863-49df-b55e-68afe7be00e0"/>
+				<reportElement x="0" y="480" width="263" height="12" uuid="2be933b5-3863-49df-b55e-68afe7be00e0"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[   3.2 OOF component of debt service reduction]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_295" x="263" y="633" width="35" height="16" uuid="f9c7a441-8864-48d0-b84b-e5de5bfb1dfa"/>
+				<reportElement key="r_295" x="263" y="492" width="34" height="12" uuid="f9c7a441-8864-48d0-b84b-e5de5bfb1dfa"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[295]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="633" width="262" height="16" uuid="86a0a700-0298-43af-8664-3b16cc1ebe64"/>
+				<reportElement x="0" y="492" width="263" height="12" uuid="86a0a700-0298-43af-8664-3b16cc1ebe64"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[4.  Other bilateral securities and claims]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_299" x="263" y="649" width="35" height="16" uuid="5f09bf67-8238-42af-bf7d-5fcba5872e24"/>
+				<reportElement key="r_299" x="263" y="504" width="34" height="12" uuid="5f09bf67-8238-42af-bf7d-5fcba5872e24"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[299]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="649" width="262" height="16" uuid="8485ab68-48c1-4a29-b669-5592e8a0c30f"/>
+				<reportElement x="0" y="504" width="263" height="12" uuid="8485ab68-48c1-4a29-b669-5592e8a0c30f"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[   4.1 Other acquisition of equity]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="665" width="262" height="16" uuid="0847ec32-fbf0-42df-911e-7536169526af"/>
+				<reportElement x="0" y="516" width="263" height="12" uuid="0847ec32-fbf0-42df-911e-7536169526af"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[   4.2 Other claims and grants]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_298" x="263" y="665" width="35" height="16" uuid="79801312-1b2d-4622-8fb9-ba942333650a"/>
+				<reportElement key="r_298" x="263" y="516" width="34" height="12" uuid="79801312-1b2d-4622-8fb9-ba942333650a"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[298]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="681" width="262" height="16" uuid="b34538ab-370e-4a65-bce7-9a7df49b6a12"/>
+				<reportElement x="0" y="528" width="263" height="12" uuid="b34538ab-370e-4a65-bce7-9a7df49b6a12"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[5.  Offsetting entry for debt relief (OOF claims, principal) ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_102" x="263" y="681" width="35" height="16" uuid="dd100c52-5dee-4398-bc17-8b42baede232"/>
+				<reportElement key="r_102" x="263" y="528" width="34" height="12" uuid="dd100c52-5dee-4398-bc17-8b42baede232"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[102]]></text>
 			</staticText>
 		</band>
-		<band height="500">
+		<band height="389">
 			<staticText>
-				<reportElement x="1" y="0" width="262" height="16" uuid="78ed5698-7dcc-4d03-8ad8-cb7e7e4ece7d"/>
+				<reportElement x="0" y="0" width="263" height="12" uuid="78ed5698-7dcc-4d03-8ad8-cb7e7e4ece7d"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[II.B. Transactions with Multilateral Agencies at Market Terms]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_325" x="263" y="0" width="35" height="16" uuid="634b6d7b-eedf-4d28-8a50-927cd3845607"/>
+				<reportElement key="r_325" x="263" y="0" width="34" height="12" uuid="634b6d7b-eedf-4d28-8a50-927cd3845607"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[325]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="16" width="262" height="16" uuid="041406e5-00fe-4fc1-830b-471356638457"/>
+				<reportElement x="0" y="12" width="263" height="12" uuid="041406e5-00fe-4fc1-830b-471356638457"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[1.  Purchase of securities from issuing agencies]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_326" x="263" y="16" width="35" height="16" uuid="096a9380-eb6e-439e-b4d1-b0af18580cdf"/>
+				<reportElement key="r_326" x="263" y="12" width="34" height="12" uuid="096a9380-eb6e-439e-b4d1-b0af18580cdf"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[326]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="32" width="262" height="16" uuid="b49f4d2d-745f-4e15-8b53-d75b69631120"/>
+				<reportElement x="0" y="24" width="263" height="12" uuid="b49f4d2d-745f-4e15-8b53-d75b69631120"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[2.  Other transactions]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_327" x="263" y="32" width="35" height="16" uuid="28e3e525-e843-44ff-9132-2a1f3314e033"/>
+				<reportElement key="r_327" x="263" y="24" width="34" height="12" uuid="28e3e525-e843-44ff-9132-2a1f3314e033"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[327]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="48" width="262" height="16" uuid="57651940-1eb8-4c0b-82eb-746f32599c91"/>
+				<reportElement x="0" y="36" width="263" height="12" uuid="57651940-1eb8-4c0b-82eb-746f32599c91"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[   Memo:  - Interest received on OOF, total (bilat.+multilat.) ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_795" x="263" y="48" width="35" height="16" uuid="0b0e47aa-1af4-4c4e-8dc1-0bae7814b9b4"/>
+				<reportElement key="r_795" x="263" y="36" width="34" height="12" uuid="0b0e47aa-1af4-4c4e-8dc1-0bae7814b9b4"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[795]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="64" width="262" height="16" uuid="5bb743fd-c1f2-4bb0-a9fd-6e6ba20ccc31"/>
+				<reportElement x="0" y="48" width="263" height="12" uuid="5bb743fd-c1f2-4bb0-a9fd-6e6ba20ccc31"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[                       - Bilateral]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_800" x="263" y="64" width="35" height="16" uuid="93a4781a-caf3-41c7-b745-57b3c91f04de"/>
+				<reportElement key="r_800" x="263" y="48" width="34" height="12" uuid="93a4781a-caf3-41c7-b745-57b3c91f04de"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[800]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="80" width="262" height="16" uuid="28f6f44c-dd27-4370-8376-463ca050e2cb"/>
+				<reportElement x="0" y="60" width="263" height="12" uuid="28f6f44c-dd27-4370-8376-463ca050e2cb"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[                       - Multilateral]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_805" x="263" y="80" width="35" height="16" uuid="9fe5436a-60bf-4011-85ab-c8a5754afeed"/>
+				<reportElement key="r_805" x="263" y="60" width="34" height="12" uuid="9fe5436a-60bf-4011-85ab-c8a5754afeed"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[805]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="96" width="262" height="16" uuid="aea845db-48ba-4b17-8230-cb50cb8b9d9a"/>
+				<reportElement x="0" y="72" width="263" height="12" uuid="aea845db-48ba-4b17-8230-cb50cb8b9d9a"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font size="8" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[               - Offsetting entry for forgiven interest (OOF claims, interest)  ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_786" x="263" y="96" width="35" height="16" uuid="cbf2a539-b2b6-4835-b187-b65a9a5317dc"/>
+				<reportElement key="r_786" x="263" y="72" width="34" height="12" uuid="cbf2a539-b2b6-4835-b187-b65a9a5317dc"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[786]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_330" style="BlueBackground" x="263" y="112" width="35" height="16" uuid="1b161bac-20fc-4138-a368-ecdfc78c6275"/>
+				<reportElement key="r_330" style="BlueBackground" x="263" y="84" width="34" height="12" uuid="1b161bac-20fc-4138-a368-ecdfc78c6275"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[330]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="BlueBackground" x="1" y="112" width="262" height="16" uuid="bb0a8fe2-4bc4-4f0b-9b58-f3c1c9dd1d95"/>
+				<reportElement style="BlueBackground" x="297" y="84" width="64" height="12" uuid="079ab691-eae7-435a-bb49-5a308f59c295"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[////////]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="BlueBackground" x="0" y="84" width="263" height="12" uuid="bb0a8fe2-4bc4-4f0b-9b58-f3c1c9dd1d95"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[III. PRIVATE FLOWS AT MARKET TERMS]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_332" x="263" y="128" width="35" height="16" uuid="9ea82e13-084a-40f9-93f8-b969cc7d5bb1"/>
+				<reportElement key="r_332" x="263" y="96" width="34" height="12" uuid="9ea82e13-084a-40f9-93f8-b969cc7d5bb1"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[332]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="128" width="262" height="16" uuid="71a16cc7-5777-4306-b9be-8fee6d70d0fa"/>
+				<reportElement x="0" y="96" width="263" height="12" uuid="71a16cc7-5777-4306-b9be-8fee6d70d0fa"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[III.A. Bilateral Private Flows]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_340" x="263" y="144" width="35" height="16" uuid="6ac2db99-a060-493e-b919-eb4a6a07e8f0"/>
+				<reportElement key="r_340" x="263" y="108" width="34" height="12" uuid="6ac2db99-a060-493e-b919-eb4a6a07e8f0"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[340]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="144" width="262" height="16" uuid="3fed6216-6bac-4779-952c-473574c84ce2"/>
+				<reportElement x="0" y="108" width="263" height="12" uuid="3fed6216-6bac-4779-952c-473574c84ce2"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[1.  Direct investment]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="160" width="262" height="16" uuid="5c10a2ef-bd07-4c4e-ad35-d0273d0045a5"/>
+				<reportElement x="0" y="120" width="263" height="12" uuid="5c10a2ef-bd07-4c4e-ad35-d0273d0045a5"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[   of which:   New capital outflows]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_345" x="263" y="160" width="35" height="16" uuid="e12d95cb-162c-408e-b25a-78c18faba568"/>
+				<reportElement key="r_345" x="263" y="120" width="34" height="12" uuid="e12d95cb-162c-408e-b25a-78c18faba568"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[345]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_353" x="263" y="176" width="35" height="16" uuid="7d809eb2-8817-4fc9-a206-d95a1b753727"/>
+				<reportElement key="r_353" x="263" y="132" width="34" height="12" uuid="7d809eb2-8817-4fc9-a206-d95a1b753727"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[353]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="176" width="262" height="16" uuid="d9c58f87-12fa-4987-a802-a09447113563"/>
+				<reportElement x="0" y="132" width="263" height="12" uuid="d9c58f87-12fa-4987-a802-a09447113563"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[2.  Other securities and claims]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_384" x="263" y="192" width="35" height="16" uuid="00622f76-68cc-4c83-aba9-73f5d08b735a"/>
+				<reportElement key="r_384" x="263" y="144" width="34" height="12" uuid="00622f76-68cc-4c83-aba9-73f5d08b735a"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[384]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="192" width="262" height="16" uuid="aecf80fc-f9c1-4669-a804-6380fa250b5e"/>
+				<reportElement x="0" y="144" width="263" height="12" uuid="aecf80fc-f9c1-4669-a804-6380fa250b5e"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[   2.1 Total banks (long-term)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="208" width="262" height="16" uuid="d6277120-807d-4260-8e40-9b7fe114db25"/>
+				<reportElement x="0" y="156" width="263" height="12" uuid="d6277120-807d-4260-8e40-9b7fe114db25"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[         a) Bonds]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_751" x="263" y="208" width="35" height="16" uuid="8cd43078-c962-49cf-a049-e5809cc05b74"/>
+				<reportElement key="r_751" x="263" y="156" width="34" height="12" uuid="8cd43078-c962-49cf-a049-e5809cc05b74"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[751]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_752" x="263" y="224" width="35" height="16" uuid="155c1633-5bad-4cb6-9dc1-18daaead51e3"/>
+				<reportElement key="r_752" x="263" y="168" width="34" height="12" uuid="155c1633-5bad-4cb6-9dc1-18daaead51e3"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[752]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="224" width="262" height="16" uuid="1a6fd50b-6a58-4825-95b9-282c1ef7f662"/>
+				<reportElement x="0" y="168" width="263" height="12" uuid="1a6fd50b-6a58-4825-95b9-282c1ef7f662"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[         b) Export credits]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_753" x="263" y="240" width="35" height="16" uuid="575364e3-57da-46b8-b1e2-e3ae6f13d2e6"/>
+				<reportElement key="r_753" x="263" y="180" width="34" height="12" uuid="575364e3-57da-46b8-b1e2-e3ae6f13d2e6"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[753]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="240" width="262" height="16" uuid="95c32169-95da-472e-9da5-a7e28a7c06b8"/>
+				<reportElement x="0" y="180" width="263" height="12" uuid="95c32169-95da-472e-9da5-a7e28a7c06b8"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[         c) Other bank]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_386" x="263" y="256" width="35" height="16" uuid="76a44cca-4471-4f8e-87a6-310e4aeb1cb7"/>
+				<reportElement key="r_386" x="263" y="192" width="34" height="12" uuid="76a44cca-4471-4f8e-87a6-310e4aeb1cb7"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[386]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="256" width="262" height="16" uuid="41a283e2-0b49-4b33-9f18-2395b1c095d9"/>
+				<reportElement x="0" y="192" width="263" height="12" uuid="41a283e2-0b49-4b33-9f18-2395b1c095d9"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[   2.2 Non-banks]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_756" x="263" y="272" width="35" height="16" uuid="123b5a60-cdc0-401f-8045-fc030b83deec"/>
+				<reportElement key="r_756" x="263" y="204" width="34" height="12" uuid="123b5a60-cdc0-401f-8045-fc030b83deec"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[756]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="272" width="262" height="16" uuid="4dac43f6-1104-47e6-aaaf-5b7377d63428"/>
+				<reportElement x="0" y="204" width="263" height="12" uuid="4dac43f6-1104-47e6-aaaf-5b7377d63428"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[         a) Guaranteed export credits]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="288" width="262" height="16" uuid="4231425c-51d0-4b0c-a1b5-cf920f738b63"/>
+				<reportElement x="0" y="216" width="263" height="12" uuid="4231425c-51d0-4b0c-a1b5-cf920f738b63"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[         b) Non-guaranteed portions of guaranteed export cred. ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_761" x="263" y="288" width="35" height="16" uuid="535ea5fc-dfb7-4a5a-afc8-c57bc9fed1bc"/>
+				<reportElement key="r_761" x="263" y="216" width="34" height="12" uuid="535ea5fc-dfb7-4a5a-afc8-c57bc9fed1bc"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[761]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="304" width="262" height="16" uuid="bd4f60fc-f85a-491c-a1b0-7e16d03153ad"/>
+				<reportElement x="0" y="228" width="263" height="12" uuid="bd4f60fc-f85a-491c-a1b0-7e16d03153ad"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[         c) Bonds]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_388" x="263" y="304" width="35" height="16" uuid="bcc24f69-cf55-4eee-bf90-06f4ef23c7e3"/>
+				<reportElement key="r_388" x="263" y="228" width="34" height="12" uuid="bcc24f69-cf55-4eee-bf90-06f4ef23c7e3"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[388]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_389" x="263" y="320" width="35" height="16" uuid="2eb02e7c-0be5-4982-8cca-d9d3aa4691e8"/>
+				<reportElement key="r_389" x="263" y="240" width="34" height="12" uuid="2eb02e7c-0be5-4982-8cca-d9d3aa4691e8"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[389]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="320" width="262" height="16" uuid="ccdd6ac1-d96f-4367-979e-49117fc05e27"/>
+				<reportElement x="0" y="240" width="263" height="12" uuid="ccdd6ac1-d96f-4367-979e-49117fc05e27"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[         d) Other securities (incl. equities)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="336" width="262" height="16" uuid="87576e39-8fe7-4117-b2ee-f9fa2ad20238"/>
+				<reportElement x="0" y="252" width="263" height="12" uuid="87576e39-8fe7-4117-b2ee-f9fa2ad20238"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[ 3.  Offsetting entry for debt relief (private claims, principal) ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_103" x="263" y="336" width="35" height="16" uuid="f16b02ca-9985-445d-95aa-38a7f72efd2c"/>
+				<reportElement key="r_103" x="263" y="252" width="34" height="12" uuid="f16b02ca-9985-445d-95aa-38a7f72efd2c"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[103]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_359" x="263" y="352" width="35" height="16" uuid="e1fda6c0-0f26-48c9-89a6-053303cbc18f"/>
+				<reportElement key="r_359" x="263" y="264" width="34" height="12" uuid="e1fda6c0-0f26-48c9-89a6-053303cbc18f"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[359]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="352" width="262" height="16" uuid="d2235361-d617-4f04-904e-1b86527710f5"/>
+				<reportElement x="0" y="264" width="263" height="12" uuid="d2235361-d617-4f04-904e-1b86527710f5"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[III.B. Multilateral Private Flows]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="BlueBackground" x="1" y="368" width="262" height="16" uuid="709317b1-7ba0-4508-965e-745b1b3a338c"/>
+				<reportElement style="BlueBackground" x="0" y="276" width="263" height="12" uuid="709317b1-7ba0-4508-965e-745b1b3a338c"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[IV. NET PRIVATE GRANTS ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_415" style="BlueBackground" x="263" y="368" width="35" height="16" uuid="e7d01374-de0b-43b7-a276-4d5015ff5b79"/>
+				<reportElement key="r_415" style="BlueBackground" x="263" y="276" width="34" height="12" uuid="e7d01374-de0b-43b7-a276-4d5015ff5b79"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[415]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="400" width="263" height="16" uuid="c9573ffb-e8ce-4385-886c-a81646a25b75"/>
+				<reportElement x="0" y="300" width="263" height="12" uuid="c9573ffb-e8ce-4385-886c-a81646a25b75"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[                  2.  Support received from official sector]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_420" x="263" y="400" width="35" height="16" uuid="e23580e1-4f12-4b24-940f-c6870290cc56"/>
+				<reportElement key="r_420" x="263" y="300" width="34" height="12" uuid="e23580e1-4f12-4b24-940f-c6870290cc56"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[420]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_425" x="263" y="384" width="35" height="16" uuid="b1beff44-8e89-445f-a08d-cdaff0a8737d"/>
+				<reportElement key="r_425" x="263" y="288" width="34" height="12" uuid="b1beff44-8e89-445f-a08d-cdaff0a8737d"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[425]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="384" width="263" height="16" uuid="f21fc330-4a0b-4ff1-98dc-f80488df261c"/>
+				<reportElement x="0" y="288" width="263" height="12" uuid="f21fc330-4a0b-4ff1-98dc-f80488df261c"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[derived as:  1.  Gross outflow from private sources, less]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="10" y="448" width="253" height="16" uuid="609633b8-9767-43bc-aab6-aea78e075580"/>
+				<reportElement x="0" y="336" width="263" height="12" uuid="609633b8-9767-43bc-aab6-aea78e075580"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[1.Total participation in peacebuilding operations (incl. non-ODA)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="BlueBackground" x="263" y="416" width="589" height="32" uuid="999b5114-6a8a-495b-88bc-1ef64f1b9f02"/>
+				<reportElement style="BlueBackground" x="263" y="312" width="589" height="24" uuid="999b5114-6a8a-495b-88bc-1ef64f1b9f02"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_207" x="263" y="448" width="35" height="16" uuid="99afd7ac-6a4a-46de-b132-fee7ca1080e5"/>
+				<reportElement key="r_207" x="263" y="336" width="34" height="12" uuid="99afd7ac-6a4a-46de-b132-fee7ca1080e5"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[207]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="BlueBackground" x="0" y="416" width="263" height="32" uuid="9667e6c3-759b-4621-8c6d-d45a38b32709"/>
+				<reportElement style="BlueBackground" x="0" y="312" width="263" height="24" uuid="9667e6c3-759b-4621-8c6d-d45a38b32709"/>
 				<textElement>
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ V. ITEM ONLY PARTLY COVERED IN DAC RESOURCE FLOW STATISTICS
 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="BlueBackground" x="643" y="84" width="64" height="12" uuid="b59182d0-1843-44be-b74a-40dbd4cb3da3"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[////////]]></text>
 			</staticText>
 		</band>
 	</detail>
