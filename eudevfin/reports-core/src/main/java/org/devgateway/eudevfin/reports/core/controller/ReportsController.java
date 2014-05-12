@@ -296,7 +296,7 @@ public class ReportsController {
 			parameters.put("AREA_SUBREPORT_PATH", inputStreamArea);
 			parameters.put("CHANNEL_SUBREPORT_PATH", inputStreamChannel);
 			long endTime = System.nanoTime();
-			logger.info("Time to retrieve reports:" + (endTime-startTime)/1000000000);
+			logger.info("Time to retrieve reports:" + (endTime-startTime));
 
 			// Generate and Assign Sub Reports
 			startTime = System.nanoTime();
