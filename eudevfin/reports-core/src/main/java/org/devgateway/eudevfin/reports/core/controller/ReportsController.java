@@ -289,17 +289,28 @@ public class ReportsController {
 			parameters.put("REPORTING_COUNTRY", donorName);
 
 			// Generate and Assign Sub Reports
+			long startTime = System.nanoTime();
+			
 			String inputStreamArea = generateSubReportCached("DAC2aArea", "org/devgateway/eudevfin/reports/core/dac2a/dac2a_template_area", "[Area].Members", false);
 			String inputStreamChannel = generateSubReportCached("DAC2aChannel", "org/devgateway/eudevfin/reports/core/dac2a/dac2a_template_channel", "[Channel].Members", false);
 			parameters.put("AREA_SUBREPORT_PATH", inputStreamArea);
 			parameters.put("CHANNEL_SUBREPORT_PATH", inputStreamChannel);
+			long endTime = System.nanoTime();
+			logger.info("Time to retrieve reports:" + (endTime-startTime)/1000000000);
 
+			// Generate and Assign Sub Reports
+			startTime = System.nanoTime();
 			//Process the main report with the subreports
 			ReportTemplate reportProcessor = new ReportTemplate();
 			InputStream inputStream = reportProcessor.processTemplate(ReportsController.class.getClassLoader().getResourceAsStream("org/devgateway/eudevfin/reports/core/dac2a/dac2a_template.jrxml"), "[BiMultilateral].[Code].Members", rowReportDao, true, "DAC2a");
 			JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
 			JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+			endTime = System.nanoTime();
+			logger.info("Time to compile reports:" + (endTime-startTime));
+			startTime = System.nanoTime();
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters);
+			endTime = System.nanoTime();
+			logger.info("Time to fill reports:" + (endTime-startTime));
 
 			//Write it to the output
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();

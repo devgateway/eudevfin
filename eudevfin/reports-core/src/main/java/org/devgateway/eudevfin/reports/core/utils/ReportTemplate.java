@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -26,6 +27,7 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.devgateway.eudevfin.reports.core.dao.RowReportDao;
 import org.devgateway.eudevfin.reports.core.domain.ColumnReport;
@@ -43,7 +45,20 @@ public class ReportTemplate {
     private static Logger logger = Logger.getLogger(ReportTemplate.class);
     
 	private List<String> nonFlowItems = Arrays.asList("[Type of Finance].[TYPE_OF_FINANCE##1]","[Type of Finance].[TYPE_OF_FINANCE##2]","[Type of Finance].[TYPE_OF_FINANCE##3]", "[Type of Finance].[TYPE_OF_FINANCE##4]");
-
+	private static final Map<String, String> measureMap;
+    static {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("[Measures].[E]","[Measures].[Extended Amount Currency NATLOECD]");
+        map.put("[Measures].[R]","[Measures].[Received Amount Currency NATLOECD]");
+        map.put("[Measures].[C]","[Measures].[Commitments Amount Currency NATLOECD]");
+        map.put("[Measures].[CN]","[Measures].[Negative Commitments Amount NATLOECD]");
+        map.put("[Measures].[RN]","[Measures].[Negative Received Amount NATLOECD]");
+        map.put("[Measures].[A]","[Measures].[Extended Amount No Flow]");
+        map.put("[Measures].[EE]","[Measures].[Expert Extended Currency NATLOECD]");
+        map.put("[Measures].[EC]","[Measures].[Expert Commitments Currency NATLOECD]");
+        map.put("[Measures].[IR]","[Measures].[Interest Received Amount Currency NATLOECD]");
+        measureMap = Collections.unmodifiableMap(map);
+    }
 	public InputStream processTemplate(InputStream inputStream,
 			String slicer, RowReportDao rowReportDao, boolean swapAxis, String reportName) {
 
@@ -138,10 +153,6 @@ public class ReportTemplate {
 					    expression += e.getParentNode().getTextContent();
 					    expression += "+";
 				    }
-					if(rowCode.equals("340")){
-						System.out.println("Salida:" + columnCode);
-						System.out.println("Salida:" + columnCode);
-					}
 					emptyColumns.put(columnCode, expression);
 				}
 			} catch (XPathExpressionException e) {
@@ -472,8 +483,15 @@ public class ReportTemplate {
 		}
 
 		str.append("WITH\n");
+		ArrayList<String> measures = new ArrayList<String>();
+		
 		for (RowReport row : calculatedRows) {
 			if (row.getType() == Constants.CALCULATED) {
+				for(ColumnReport column : row.getColumns()){
+					String measure = column.getMeasure();
+					if(measure != null && !measure.equals("") && !measures.contains(measure))
+						measures.add(measure);
+				}
 				str.append("MEMBER ");
 				str.append("[Type of Aid].[" + row.getName() + "]");
 				str.append(" as SUM(");
@@ -482,19 +500,15 @@ public class ReportTemplate {
 					formula = "[BiMultilateral].Members";
 				}
 				str.append(formula);
+				
 				str.append(")\n");
 			}
 		}
+		//System.out.println(measures);
 		str.append("\n");
-		str.append("MEMBER [Measures].[E] AS [Measures].[Extended Amount Currency NATLOECD] \n");
-		str.append("MEMBER [Measures].[R] AS [Measures].[Received Amount Currency NATLOECD] \n");
-		str.append("MEMBER [Measures].[C] AS [Measures].[Commitments Amount Currency NATLOECD] \n");
-		str.append("MEMBER [Measures].[CN] AS [Measures].[Negative Commitments Amount NATLOECD] \n");
-		str.append("MEMBER [Measures].[RN] AS [Measures].[Negative Received Amount NATLOECD] \n");
-		str.append("MEMBER [Measures].[A] AS [Measures].[Extended Amount No Flow] \n");
-		str.append("MEMBER [Measures].[EE] AS [Measures].[Expert Extended Currency NATLOECD] \n");
-		str.append("MEMBER [Measures].[EC] AS [Measures].[Expert Commitments Currency NATLOECD] \n");
-		str.append("MEMBER [Measures].[IR] AS [Measures].[Interest Received Amount Currency NATLOECD] \n");
+		for(String measure : measures) {
+			str.append("MEMBER " + measure + " AS " + measureMap.get(measure) +" \n");
+		}
 		str.append("SELECT {");
 		for (Iterator<RowReport> it = calculatedRows.iterator(); it.hasNext();) {
 			RowReport row = it.next();
@@ -503,12 +517,12 @@ public class ReportTemplate {
 				str.append(",");
 		}
 		str.append("}  ON ROWS, \n");
-		
-		str.append(" {[Measures].[E],[Measures].[R], [Measures].[RN], [Measures].[C], [Measures].[CN], [Measures].[A], [Measures].[EE], [Measures].[EC],[Measures].[IR] }*" + slicer + " ON COLUMNS \n");
+		str.append(" {");
+		str.append(StringUtils.join(measures.toArray(), ","));
+		str.append("}*" + slicer + " ON COLUMNS \n");
 		str.append("FROM [Financial] \n");
 		str.append("WHERE {[Reporting Year].[$P{REPORTING_YEAR}]} * {[Form Type].[bilateralOda.CRS], [Form Type].[multilateralOda.CRS], [Form Type].[nonOda.nonExport], [Form Type].[nonOda.export], [Form Type].[nonOda.privateGrants], [Form Type].[nonOda.privateMarket], [Form Type].[nonOda.otherFlows], [Form Type].[#null]}\n");
 		Node queryString = doc.getElementsByTagName("queryString").item(0);
-		//System.out.println(str.toString());
 		CDATASection cdata = doc.createCDATASection(str.toString());
 		queryString.appendChild(cdata);
 	}
