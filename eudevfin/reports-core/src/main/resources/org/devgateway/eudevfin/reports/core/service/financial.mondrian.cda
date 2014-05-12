@@ -410,4 +410,48 @@
         </Query>
     </DataAccess>
 
+    <DataAccess id="customDashboardsTypeOfAidChart"
+                connection="defaultConnectionLocale"
+                type="mdx"
+                access="public">
+        <BandedMode>compact</BandedMode>
+        <Columns/>
+        <Parameters>
+            <Parameter default="2013" name="FIRST_YEAR" type="Integer"/>
+        </Parameters>
+        <Name>Custom Dashboards - Type Of Aid Chart</Name>
+        <Query>
+            <![CDATA[
+            WITH
+            MEMBER [Measures].[First Year] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Extended Amount Currency NATLOECD]}))
+            SELECT
+            NON EMPTY {[Measures].[First Year]} ON COLUMNS,
+            NON EMPTY {Hierarchize({[Type of Aid].[Name].Members})} ON ROWS
+            FROM [Financial]
+            ]]>
+        </Query>
+    </DataAccess>
+
+    <DataAccess id="customDashboardsBiMultilateralChart"
+                connection="defaultConnectionLocale"
+                type="mdx"
+                access="public">
+        <BandedMode>compact</BandedMode>
+        <Columns/>
+        <Parameters>
+            <Parameter default="2013" name="FIRST_YEAR" type="Integer"/>
+        </Parameters>
+        <Name>Custom Dashboards - BiMultilateral Chart</Name>
+        <Query>
+            <![CDATA[
+            WITH
+            MEMBER [Measures].[First Year] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Extended Amount Currency NATLOECD]}))
+            SELECT
+            NON EMPTY {[Measures].[First Year]} ON COLUMNS,
+            NON EMPTY {Hierarchize({[BiMultilateral].[Name].Members})} ON ROWS
+            FROM [Financial]
+            ]]>
+        </Query>
+    </DataAccess>
+
 </CDADescriptor>

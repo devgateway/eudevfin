@@ -39,4 +39,5 @@
     <entry key="choiceOfCurrency">Tick the choice of currency</entry>
     <entry key="button.submit">Search</entry>
     <entry key="geography.error">a country could not be selected if you want to have geographical aggregates</entry>
+    <entry key="geography.help">if you want to display data for the entire region, leave the ODA country field blank</entry>
 </properties>

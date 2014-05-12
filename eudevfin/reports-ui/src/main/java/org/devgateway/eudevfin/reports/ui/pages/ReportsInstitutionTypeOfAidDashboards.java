@@ -1,5 +1,9 @@
 package org.devgateway.eudevfin.reports.ui.pages;
 
+import com.googlecode.wickedcharts.highcharts.options.Options;
+import com.googlecode.wickedcharts.highcharts.options.SeriesType;
+import com.googlecode.wickedcharts.highcharts.options.series.Point;
+import com.googlecode.wickedcharts.highcharts.options.series.PointSeries;
 import org.apache.log4j.Logger;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.head.IHeaderResponse;
@@ -14,6 +18,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.StringValue;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.reports.core.service.QueryService;
+import org.devgateway.eudevfin.reports.ui.components.PieChart;
 import org.devgateway.eudevfin.reports.ui.components.Table;
 import org.devgateway.eudevfin.reports.ui.scripts.Dashboards;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
@@ -87,6 +92,7 @@ public class ReportsInstitutionTypeOfAidDashboards extends HeaderFooter {
 
         addTypeOfAidTable();
         addTypeOfAidChart();
+        addTypeBiMultilateralChart();
     }
 
     private void addTypeOfAidTable () {
@@ -148,7 +154,7 @@ public class ReportsInstitutionTypeOfAidDashboards extends HeaderFooter {
         };
 
         // add MDX queries parameters
-        table.setParam("paramFIRST_YEAR", Integer.toString(tableYear ));
+        table.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
 
         table.setParam("paramtypeOfAidTableRowSet", typeOfAidTableRowSet);
 
@@ -163,7 +169,67 @@ public class ReportsInstitutionTypeOfAidDashboards extends HeaderFooter {
     }
 
     private void addTypeOfAidChart () {
+        Label title = new Label("typeOfAidChartTitle", new StringResourceModel("reportsinstitutiontypeofaiddashboards.typeOfAidChart", this, null, null));
+        add(title);
 
+        PieChart pieChart = new PieChart(CdaService, "typeOfAidChart", "customDashboardsTypeOfAidChart") {
+            @Override
+            public List<Point> getResultSeries () {
+                this.result = this.runQuery();
+                List<Point> resultSeries = new ArrayList<>();
+
+                for (List<String> item : result.getResultset()) {
+                    resultSeries.add(new Point(item.get(0), Float.parseFloat(item.get(1)) / ReportsInstitutionTypeOfAidDashboards.this.MILLION));
+                }
+
+                return resultSeries;
+            }
+        };
+
+        pieChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
+
+        Options options = pieChart.getOptions();
+        // check if we have a result and make the chart slightly higher
+        if (pieChart.getResultSeries().size() != 0) {
+            options.getChartOptions().setHeight(350);
+        }
+
+        options.addSeries(new PointSeries()
+                .setType(SeriesType.PIE)
+                .setData(pieChart.getResultSeries()));
+        add(pieChart.getChart());
+    }
+
+    protected void addTypeBiMultilateralChart () {
+        Label title = new Label("biMultilateralTitle", new StringResourceModel("reportsinstitutiontypeofaiddashboards.biMultilateralChart", this, null, null));
+        add(title);
+
+        PieChart pieChart = new PieChart(CdaService, "biMultilateralChart", "customDashboardsBiMultilateralChart") {
+            @Override
+            public List<Point> getResultSeries () {
+                this.result = this.runQuery();
+                List<Point> resultSeries = new ArrayList<>();
+
+                for (List<String> item : result.getResultset()) {
+                    resultSeries.add(new Point(item.get(0), Float.parseFloat(item.get(1)) / ReportsInstitutionTypeOfAidDashboards.this.MILLION));
+                }
+
+                return resultSeries;
+            }
+        };
+
+        pieChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
+
+        Options options = pieChart.getOptions();
+        // check if we have a result and make the chart slightly higher
+        if (pieChart.getResultSeries().size() != 0) {
+            options.getChartOptions().setHeight(350);
+        }
+
+        options.addSeries(new PointSeries()
+                .setType(SeriesType.PIE)
+                .setData(pieChart.getResultSeries()));
+        add(pieChart.getChart());
     }
 
     @Override

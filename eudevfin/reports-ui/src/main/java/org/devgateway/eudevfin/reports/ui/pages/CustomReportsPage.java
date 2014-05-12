@@ -4,6 +4,8 @@ import com.vaynberg.wicket.select2.ChoiceProvider;
 import com.vaynberg.wicket.select2.Select2Choice;
 import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
 import org.apache.log4j.Logger;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
@@ -31,6 +33,7 @@ import org.devgateway.eudevfin.ui.common.providers.UsedOrganizationChoiceProvide
 import org.devgateway.eudevfin.ui.common.providers.YearProvider;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -96,10 +99,12 @@ public abstract class CustomReportsPage extends HeaderFooter {
 
     protected CheckBoxField pricesEURCurrency;
 
+    protected CustomReportsModel customReportsModel;
+
     public CustomReportsPage () {
         form = new Form("form");
 
-        CustomReportsModel customReportsModel = new CustomReportsModel();
+        customReportsModel = new CustomReportsModel();
         CompoundPropertyModel<CustomReportsModel> model = new CompoundPropertyModel<>(customReportsModel);
         form.setModel(model);
 
@@ -188,7 +193,29 @@ public abstract class CustomReportsPage extends HeaderFooter {
             }
         };
 
-        form.add(geographyValidator);
+        geography.getField().add(new AjaxFormComponentUpdatingBehavior("onchange") {
+            @Override
+            protected void onUpdate(AjaxRequestTarget target) {
+                Category targetValue = geography.getField().getModel().getObject();
+
+                // set recipient model as null in order to reset the dropdown values
+                customReportsModel.setRecipient(null);
+
+                if (targetValue != null) {
+                    usedAreaProvider.setGeography(geography.getField().getModel().getObject().getName());
+                } else {
+                    usedAreaProvider.setGeography(null);
+                }
+
+                target.add(recipient);
+            }
+        });
+
+        // Needed for Ajax to update it
+        recipient.setOutputMarkupId(true);
+        recipient.setRenderBodyOnly(false);
+
+        // form.add(geographyValidator);
         form.add(geography);
         form.add(recipient);
         form.add(nationalInstitution);
