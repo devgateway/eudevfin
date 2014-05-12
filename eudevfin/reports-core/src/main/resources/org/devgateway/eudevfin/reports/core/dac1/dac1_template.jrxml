@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dac1_master" pageWidth="900" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" resourceBundle="i18n" uuid="bad8772b-9ff8-49ae-a2c0-34a59258237b">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="717"/>
+	<property name="ireport.y" value="2056"/>
 	<style name="defaultStyle" isDefault="true" mode="Transparent" fontName="Arial" fontSize="8"/>
 	<style name="BlueBackground" style="defaultStyle" mode="Opaque" backcolor="#99CCFF" isBold="true"/>
 	<parameter name="REPORTING_COUNTRY" class="java.lang.String"/>
@@ -1393,7 +1393,7 @@ commitments]]></text>
       - HIPC Initiative ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_2901" x="263" y="264" width="34" height="24" uuid="94870cb1-ed52-4cd1-985c-640f57c86a46"/>
+				<reportElement key="r_2901" x="263" y="276" width="34" height="12" uuid="94870cb1-ed52-4cd1-985c-640f57c86a46"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font size="8"/>
 				</textElement>
@@ -1802,11 +1802,6 @@ commitments]]></text>
 				<text><![CDATA[330]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="BlueBackground" x="297" y="84" width="64" height="12" uuid="079ab691-eae7-435a-bb49-5a308f59c295"/>
-				<textElement textAlignment="Right"/>
-				<text><![CDATA[////////]]></text>
-			</staticText>
-			<staticText>
 				<reportElement style="BlueBackground" x="0" y="84" width="263" height="12" uuid="bb0a8fe2-4bc4-4f0b-9b58-f3c1c9dd1d95"/>
 				<textElement>
 					<font size="8" isBold="true"/>
@@ -2093,11 +2088,6 @@ commitments]]></text>
 				</textElement>
 				<text><![CDATA[ V. ITEM ONLY PARTLY COVERED IN DAC RESOURCE FLOW STATISTICS
 ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="BlueBackground" x="643" y="84" width="64" height="12" uuid="b59182d0-1843-44be-b74a-40dbd4cb3da3"/>
-				<textElement textAlignment="Right"/>
-				<text><![CDATA[////////]]></text>
 			</staticText>
 		</band>
 	</detail>

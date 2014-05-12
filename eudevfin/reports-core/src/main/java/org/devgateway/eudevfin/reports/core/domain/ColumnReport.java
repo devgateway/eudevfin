@@ -27,7 +27,7 @@ public class ColumnReport implements Serializable  {
 
 	private String measure;
 	
-	@Column(length = 2000)
+	@Column(length = 4000)
 	private String slicer;
 	private String name;
 	private int type = Constants.CALCULATED;
@@ -112,6 +112,9 @@ public class ColumnReport implements Serializable  {
 
 	public String getColumnCode() {
 		StringBuffer sb = new StringBuffer();
+		if(this.getSlicer().equals("All")){
+			return this.getName() + "_All_"	+ this.getMeasure();
+		}
 		String[] types = this.getSlicer().split(",");
 		for(int i = 0; i < types.length; i++) {
 			sb.append(this.getName() + "_" + shortenType(types[i]) + "_"	+ this.getMeasure());

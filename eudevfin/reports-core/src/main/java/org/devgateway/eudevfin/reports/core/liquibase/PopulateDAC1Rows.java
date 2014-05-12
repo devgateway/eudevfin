@@ -178,7 +178,7 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 				"[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE##310],[Type of Finance].[TYPE_OF_FINANCE##618]",
 				"[Type of Finance].[TYPE_OF_FINANCE##410]");
 		rowReportDao.save(row2108);
-		RowReport row2110 = createDAC1Row("2110", Constants.CALCULATED,
+		RowReport row2110 = createDAC1RowNegative("2110", Constants.CALCULATED,
 				"[BiMultilateral].[BI_MULTILATERAL##2]",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"[Type of Aid].[B02]",
@@ -230,18 +230,18 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 				"[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE##310],[Type of Finance].[TYPE_OF_FINANCE##610],[Type of Finance].[TYPE_OF_FINANCE##611],[Type of Finance].[TYPE_OF_FINANCE##618]",
 				"");
 		rowReportDao.save(row2901);
-		/*RowReport row2902 = createDAC1Row("2902", Constants.CALCULATED,
+		RowReport row2902 = createDAC1Row("2902", Constants.CALCULATED,
 				"{[BiMultilateral].[BI_MULTILATERAL##1],[BiMultilateral].[BI_MULTILATERAL##2]}",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"",
 				"",
 				"{[Channel].[44001],[Channel].[44002]}",
-				"[Type of Finance].Members",
+				"[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE##310],[Type of Finance].[TYPE_OF_FINANCE##610],[Type of Finance].[TYPE_OF_FINANCE##611],[Type of Finance].[TYPE_OF_FINANCE##618]",
 				"",
 				"",
-				"[Type of Finance].Members",
+				"[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE##310],[Type of Finance].[TYPE_OF_FINANCE##610],[Type of Finance].[TYPE_OF_FINANCE##611],[Type of Finance].[TYPE_OF_FINANCE##618]",
 				"");
-		rowReportDao.save(row2902);*/
+		rowReportDao.save(row2902);
 		
 	}
 
@@ -863,32 +863,33 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 				"[Type of Finance].[TYPE_OF_FINANCE##412]"
 				);
 		rowReportDao.save(row327);	
-/*		RowReport row800 = createDAC1Row("800", Constants.CALCULATED,
+		RowReport row800 = createDAC1InterestRow("800", Constants.CALCULATED,
 				"[BiMultilateral].[BI_MULTILATERAL##1]",
 				"[Type of Flow].[TYPE_OF_FLOW##20]",
 				"",
 				"",
 				"",
-				"",
-				"",
-				"[Type of Finance].Members",
-				"",
-				""
+				"[Type of Finance].[TYPE_OF_FINANCE##100],[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE##111],[Type of Finance].[TYPE_OF_FINANCE##200],[Type of Finance].[TYPE_OF_FINANCE##210],[Type of Finance].[TYPE_OF_FINANCE##211],[Type of Finance].[TYPE_OF_FINANCE##300],[Type of Finance].[TYPE_OF_FINANCE##310],[Type of Finance].[TYPE_OF_FINANCE##311],[Type of Finance].[TYPE_OF_FINANCE##400],[Type of Finance].[TYPE_OF_FINANCE##410],[Type of Finance].[TYPE_OF_FINANCE##411],[Type of Finance].[TYPE_OF_FINANCE##412],[Type of Finance].[TYPE_OF_FINANCE##413],[Type of Finance].[TYPE_OF_FINANCE##414],[Type of Finance].[TYPE_OF_FINANCE##450],[Type of Finance].[TYPE_OF_FINANCE##451],[Type of Finance].[TYPE_OF_FINANCE##452],[Type of Finance].[TYPE_OF_FINANCE##453],[Type of Finance].[TYPE_OF_FINANCE##500],[Type of Finance].[TYPE_OF_FINANCE##510],[Type of Finance].[TYPE_OF_FINANCE##511],[Type of Finance].[TYPE_OF_FINANCE##512],[Type of Finance].[TYPE_OF_FINANCE##600],[Type of Finance].[TYPE_OF_FINANCE##610],[Type of Finance].[TYPE_OF_FINANCE##611],[Type of Finance].[TYPE_OF_FINANCE##612],[Type of Finance].[TYPE_OF_FINANCE##613],[Type of Finance].[TYPE_OF_FINANCE##614],[Type of Finance].[TYPE_OF_FINANCE##615],[Type of Finance].[TYPE_OF_FINANCE##616],[Type of Finance].[TYPE_OF_FINANCE##617],[Type of Finance].[TYPE_OF_FINANCE##618],[Type of Finance].[TYPE_OF_FINANCE##620],[Type of Finance].[TYPE_OF_FINANCE##621],[Type of Finance].[TYPE_OF_FINANCE##622],[Type of Finance].[TYPE_OF_FINANCE##623],[Type of Finance].[TYPE_OF_FINANCE##624],[Type of Finance].[TYPE_OF_FINANCE##625],[Type of Finance].[TYPE_OF_FINANCE##626],[Type of Finance].[TYPE_OF_FINANCE##627],[Type of Finance].[TYPE_OF_FINANCE##630],[Type of Finance].[TYPE_OF_FINANCE##631],[Type of Finance].[TYPE_OF_FINANCE##632],[Type of Finance].[TYPE_OF_FINANCE##700],[Type of Finance].[TYPE_OF_FINANCE##710],[Type of Finance].[TYPE_OF_FINANCE##711],[Type of Finance].[TYPE_OF_FINANCE##800],[Type of Finance].[TYPE_OF_FINANCE##810],[Type of Finance].[TYPE_OF_FINANCE##811],[Type of Finance].[TYPE_OF_FINANCE##900],[Type of Finance].[TYPE_OF_FINANCE##910],[Type of Finance].[TYPE_OF_FINANCE##911],[Type of Finance].[TYPE_OF_FINANCE##912]"
 				);
-		rowReportDao.save(row800);	*/
-/*		RowReport row805 = createDAC1Row("805", Constants.CALCULATED,
+		rowReportDao.save(row800);
+		RowReport row805 = createDAC1InterestRow("805", Constants.CALCULATED,
 				"[BiMultilateral].[BI_MULTILATERAL##2]",
 				"[Type of Flow].[TYPE_OF_FLOW##20]",
 				"",
 				"",
 				"",
-				"",
-				"",
-				"[Type of Finance].Members",
-				"",
-				""
+				"[Type of Finance].[TYPE_OF_FINANCE##100],[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE##111],[Type of Finance].[TYPE_OF_FINANCE##200],[Type of Finance].[TYPE_OF_FINANCE##210],[Type of Finance].[TYPE_OF_FINANCE##211],[Type of Finance].[TYPE_OF_FINANCE##300],[Type of Finance].[TYPE_OF_FINANCE##310],[Type of Finance].[TYPE_OF_FINANCE##311],[Type of Finance].[TYPE_OF_FINANCE##400],[Type of Finance].[TYPE_OF_FINANCE##410],[Type of Finance].[TYPE_OF_FINANCE##411],[Type of Finance].[TYPE_OF_FINANCE##412],[Type of Finance].[TYPE_OF_FINANCE##413],[Type of Finance].[TYPE_OF_FINANCE##414],[Type of Finance].[TYPE_OF_FINANCE##450],[Type of Finance].[TYPE_OF_FINANCE##451],[Type of Finance].[TYPE_OF_FINANCE##452],[Type of Finance].[TYPE_OF_FINANCE##453],[Type of Finance].[TYPE_OF_FINANCE##500],[Type of Finance].[TYPE_OF_FINANCE##510],[Type of Finance].[TYPE_OF_FINANCE##511],[Type of Finance].[TYPE_OF_FINANCE##512],[Type of Finance].[TYPE_OF_FINANCE##600],[Type of Finance].[TYPE_OF_FINANCE##610],[Type of Finance].[TYPE_OF_FINANCE##611],[Type of Finance].[TYPE_OF_FINANCE##612],[Type of Finance].[TYPE_OF_FINANCE##613],[Type of Finance].[TYPE_OF_FINANCE##614],[Type of Finance].[TYPE_OF_FINANCE##615],[Type of Finance].[TYPE_OF_FINANCE##616],[Type of Finance].[TYPE_OF_FINANCE##617],[Type of Finance].[TYPE_OF_FINANCE##618],[Type of Finance].[TYPE_OF_FINANCE##620],[Type of Finance].[TYPE_OF_FINANCE##621],[Type of Finance].[TYPE_OF_FINANCE##622],[Type of Finance].[TYPE_OF_FINANCE##623],[Type of Finance].[TYPE_OF_FINANCE##624],[Type of Finance].[TYPE_OF_FINANCE##625],[Type of Finance].[TYPE_OF_FINANCE##626],[Type of Finance].[TYPE_OF_FINANCE##627],[Type of Finance].[TYPE_OF_FINANCE##630],[Type of Finance].[TYPE_OF_FINANCE##631],[Type of Finance].[TYPE_OF_FINANCE##632],[Type of Finance].[TYPE_OF_FINANCE##700],[Type of Finance].[TYPE_OF_FINANCE##710],[Type of Finance].[TYPE_OF_FINANCE##711],[Type of Finance].[TYPE_OF_FINANCE##800],[Type of Finance].[TYPE_OF_FINANCE##810],[Type of Finance].[TYPE_OF_FINANCE##811],[Type of Finance].[TYPE_OF_FINANCE##900],[Type of Finance].[TYPE_OF_FINANCE##910],[Type of Finance].[TYPE_OF_FINANCE##911],[Type of Finance].[TYPE_OF_FINANCE##912]"
 				);
-		rowReportDao.save(row805);	*/
+		rowReportDao.save(row805);
+		RowReport row795 = createDAC1InterestRow("795", Constants.CALCULATED,
+				"{[BiMultilateral].[BI_MULTILATERAL##1],[BiMultilateral].[BI_MULTILATERAL##2]}",
+				"[Type of Flow].[TYPE_OF_FLOW##20]",
+				"",
+				"",
+				"",
+				"[Type of Finance].[TYPE_OF_FINANCE##100],[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE##111],[Type of Finance].[TYPE_OF_FINANCE##200],[Type of Finance].[TYPE_OF_FINANCE##210],[Type of Finance].[TYPE_OF_FINANCE##211],[Type of Finance].[TYPE_OF_FINANCE##300],[Type of Finance].[TYPE_OF_FINANCE##310],[Type of Finance].[TYPE_OF_FINANCE##311],[Type of Finance].[TYPE_OF_FINANCE##400],[Type of Finance].[TYPE_OF_FINANCE##410],[Type of Finance].[TYPE_OF_FINANCE##411],[Type of Finance].[TYPE_OF_FINANCE##412],[Type of Finance].[TYPE_OF_FINANCE##413],[Type of Finance].[TYPE_OF_FINANCE##414],[Type of Finance].[TYPE_OF_FINANCE##450],[Type of Finance].[TYPE_OF_FINANCE##451],[Type of Finance].[TYPE_OF_FINANCE##452],[Type of Finance].[TYPE_OF_FINANCE##453],[Type of Finance].[TYPE_OF_FINANCE##500],[Type of Finance].[TYPE_OF_FINANCE##510],[Type of Finance].[TYPE_OF_FINANCE##511],[Type of Finance].[TYPE_OF_FINANCE##512],[Type of Finance].[TYPE_OF_FINANCE##600],[Type of Finance].[TYPE_OF_FINANCE##610],[Type of Finance].[TYPE_OF_FINANCE##611],[Type of Finance].[TYPE_OF_FINANCE##612],[Type of Finance].[TYPE_OF_FINANCE##613],[Type of Finance].[TYPE_OF_FINANCE##614],[Type of Finance].[TYPE_OF_FINANCE##615],[Type of Finance].[TYPE_OF_FINANCE##616],[Type of Finance].[TYPE_OF_FINANCE##617],[Type of Finance].[TYPE_OF_FINANCE##618],[Type of Finance].[TYPE_OF_FINANCE##620],[Type of Finance].[TYPE_OF_FINANCE##621],[Type of Finance].[TYPE_OF_FINANCE##622],[Type of Finance].[TYPE_OF_FINANCE##623],[Type of Finance].[TYPE_OF_FINANCE##624],[Type of Finance].[TYPE_OF_FINANCE##625],[Type of Finance].[TYPE_OF_FINANCE##626],[Type of Finance].[TYPE_OF_FINANCE##627],[Type of Finance].[TYPE_OF_FINANCE##630],[Type of Finance].[TYPE_OF_FINANCE##631],[Type of Finance].[TYPE_OF_FINANCE##632],[Type of Finance].[TYPE_OF_FINANCE##700],[Type of Finance].[TYPE_OF_FINANCE##710],[Type of Finance].[TYPE_OF_FINANCE##711],[Type of Finance].[TYPE_OF_FINANCE##800],[Type of Finance].[TYPE_OF_FINANCE##810],[Type of Finance].[TYPE_OF_FINANCE##811],[Type of Finance].[TYPE_OF_FINANCE##900],[Type of Finance].[TYPE_OF_FINANCE##910],[Type of Finance].[TYPE_OF_FINANCE##911],[Type of Finance].[TYPE_OF_FINANCE##912]"
+				);
+		rowReportDao.save(row795);
 		RowReport row786 = createDAC1Row("786", Constants.CALCULATED,
 				"[BiMultilateral].[BI_MULTILATERAL##1]",
 				"[Type of Flow].[TYPE_OF_FLOW##20]",
@@ -1015,13 +1016,13 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 		sumRow294.add("287");
 		RowReport row294 = createDAC1SumRow("294", Constants.SUM, sumRow294);
 		rowReportDao.save(row294);
-		
+		//TODO: Check channels 60040. Doesn't exist in our channels.
 		RowReport row302 = createDAC1Row("302", Constants.CALCULATED,
 				"[BiMultilateral].[BI_MULTILATERAL##1]",
 				"[Type of Flow].[TYPE_OF_FLOW##20]",
 				"",
 				"",
-				"[Channel].[60040]",
+				"[Sector].[60040]",
 				"",
 				"[Type of Finance].[TYPE_OF_FINANCE##623]",
 				"",
@@ -1034,7 +1035,7 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 				"[Type of Flow].[TYPE_OF_FLOW##20]",
 				"",
 				"",
-				"[Channel].[60040]",
+				"[Sector].[60040]",
 				"",
 				"[Type of Finance].[TYPE_OF_FINANCE##624],[Type of Finance].[TYPE_OF_FINANCE##625]",
 				"",
@@ -1053,7 +1054,7 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 				"[Type of Flow].[TYPE_OF_FLOW##20]",
 				"",
 				"",
-				"[Channel].[60040]",
+				"[Sector].[60040]",
 				"",
 				"[Type of Finance].[TYPE_OF_FINANCE##626],[Type of Finance].[TYPE_OF_FINANCE##627]",
 				"",
@@ -1094,7 +1095,6 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 				"[Type of Finance].[TYPE_OF_FINANCE##910],[Type of Finance].[TYPE_OF_FINANCE##911]"
 				);
 		rowReportDao.save(row298);	
-		//TODO: Empty?
 		RowReport row102 = createDAC1Row("102", Constants.CALCULATED,
 				"",
 				"",
@@ -1476,6 +1476,64 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 			columns.add(col8);
 		}
 
+		row.setColumns(columns);
+		return row;
+
+	}
+
+	public RowReport createDAC1InterestRow(String name, int type, String biMulti,
+			String typeOfFlow, String typeOfAid, String purposeCode,
+			String channel, String col1130tof) {
+		RowReport row = new RowReport("DAC1", name, type);
+
+		Set<String> categories = new HashSet<String>();
+		if (biMulti != null)
+			categories.add(biMulti);
+		if (typeOfFlow != null)
+			categories.add(typeOfFlow);
+		if (typeOfAid != null)
+			categories.add(typeOfAid);
+		if (purposeCode != null)
+			categories.add(purposeCode);
+		if (channel != null)
+			categories.add(channel);
+		row.setCategories(categories);
+
+		Set<ColumnReport> columns = new HashSet<ColumnReport>();
+		
+		ColumnReport col1 = new ColumnReport("1121", Constants.EMPTY, null);
+		columns.add(col1);
+
+		ColumnReport col2 = new ColumnReport("1122", Constants.EMPTY, null);
+		columns.add(col2);
+		
+		ColumnReport col3 = new ColumnReport("1120", Constants.EMPTY, null);
+		columns.add(col3);
+		
+		HashSet<String> sumCols1140 = new HashSet<String>();
+
+		if(col1130tof != null && !col1130tof.equals("")) {
+			ColumnReport col4 = new ColumnReport("1130", Constants.CALCULATED,
+					"[Measures].[IR]", col1130tof);
+			col4.setMultiplier(-1);
+			columns.add(col4);
+			sumCols1140.add(col4.getColumnCode());
+		} else {
+			ColumnReport col4 = new ColumnReport("1130", Constants.EMPTY, null);
+			columns.add(col4);
+		}
+
+		ColumnReport col5 = new ColumnReport("1140", Constants.SUM, sumCols1140);
+		columns.add(col5);
+
+		ColumnReport col6 = new ColumnReport("1151", Constants.EMPTY, null);
+		columns.add(col6);
+
+		ColumnReport col7 = new ColumnReport("1152", Constants.EMPTY, null);
+		columns.add(col7);
+
+		ColumnReport col8 = new ColumnReport("1150", Constants.EMPTY, null);
+		columns.add(col8);
 		row.setColumns(columns);
 		return row;
 

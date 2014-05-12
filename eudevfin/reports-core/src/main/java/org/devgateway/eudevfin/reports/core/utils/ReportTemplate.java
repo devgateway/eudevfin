@@ -59,7 +59,7 @@ public class ReportTemplate {
 			generateTextElements(rows, doc, swapAxis);
 
 			injectedStream = xmlToStream(doc);
-			//logger.info(prettyPrint(doc));
+//			logger.info(prettyPrint(doc));
 
 		} catch (Exception e) {
 			logger.error("Error processing template: " + e.getStackTrace());
@@ -110,6 +110,7 @@ public class ReportTemplate {
 		
 		if(rowNode == null) return;
 		HashMap<String, String> columns = new HashMap<String, String>();
+		HashMap<String, String> emptyColumns = new HashMap<String, String>();
 
 		XPath xPath = XPathFactory.newInstance().newXPath();
 
@@ -126,6 +127,22 @@ public class ReportTemplate {
 					    expression += "+";
 				    }
 				    columns.put(columnCode, expression);
+				}
+				NodeList nodesEmpty = (NodeList)xPath.evaluate("/jasperReport/detail/band/staticText/reportElement[starts-with(@key, 'r_" + rowCode + "_c_')]", doc.getDocumentElement(), XPathConstants.NODESET);
+				for (int i = 0; i < nodesEmpty.getLength(); ++i) {
+				    Element e = (Element) nodesEmpty.item(i);
+				    String columnKey = e.getAttribute("key");
+				    String columnCode = columnKey.replaceFirst("r_" + rowCode + "_c_", "");
+				    String expression = columns.get(columnCode) != null ? columns.get(columnCode) : "";
+				    if(!e.getParentNode().getTextContent().equals("")) {
+					    expression += e.getParentNode().getTextContent();
+					    expression += "+";
+				    }
+					if(rowCode.equals("340")){
+						System.out.println("Salida:" + columnCode);
+						System.out.println("Salida:" + columnCode);
+					}
+					emptyColumns.put(columnCode, expression);
 				}
 			} catch (XPathExpressionException e) {
 				e.printStackTrace();
@@ -147,7 +164,6 @@ public class ReportTemplate {
 		
 		for (Map.Entry<String, String> column : columns.entrySet()) {
 			String cellStyle = (rowNode.getAttributes().getNamedItem("style") != null) ? rowNode.getAttributes().getNamedItem("style").getNodeValue() : "";
-//			UUID uuid = UUID.randomUUID();
 			Element textField = doc.createElement("textField");
 			textField.setAttribute("pattern", "#,##0.00");
 			Node columnNode = matchingColumns.get("c_" + column.getKey());
@@ -172,7 +188,6 @@ public class ReportTemplate {
 			reportElement.setAttribute("y", yCoord.toString());
 			reportElement.setAttribute("width", width.toString());
 			reportElement.setAttribute("height", height.toString());
-			//reportElement.setAttribute("uuid", uuid.toString());
 
 			if(!cellStyle.equals("")) {
 				reportElement.setAttribute("style", cellStyle);
@@ -195,7 +210,54 @@ public class ReportTemplate {
 			parentNode.appendChild(textField);
 
 		}
-	}
+
+		for (Map.Entry<String, String> column : emptyColumns.entrySet()) {
+			if(columns.containsKey(column.getKey())){
+				continue;
+			}
+			String cellStyle = (rowNode.getAttributes().getNamedItem("style") != null) ? rowNode.getAttributes().getNamedItem("style").getNodeValue() : "";
+			Element staticText = doc.createElement("staticText");
+			Node columnNode = matchingColumns.get("c_" + column.getKey());
+			if (columnNode == null) continue;
+			Node parentNode;
+			if(swapAxis) {
+				parentNode = columnNode.getParentNode().getParentNode();
+				yCoord = columnNode.getAttributes().getNamedItem("y") != null ? Integer.parseInt(columnNode.getAttributes().getNamedItem("y").getNodeValue()) : 0;
+			} else {
+				parentNode = rowNode.getParentNode().getParentNode();
+				xCoord = columnNode.getAttributes().getNamedItem("x") != null ? Integer.parseInt(columnNode.getAttributes().getNamedItem("x").getNodeValue()) : 0;
+				width = columnNode.getAttributes().getNamedItem("width") != null ? Integer.parseInt(columnNode.getAttributes().getNamedItem("width").getNodeValue()) : 0;
+				height = rowNode.getAttributes().getNamedItem("height") != null ? Integer.parseInt(rowNode.getAttributes().getNamedItem("height").getNodeValue()) : 0;
+				if(cellStyle.equals("") && (columnNode.getAttributes().getNamedItem("style") != null)){
+					cellStyle = columnNode.getAttributes().getNamedItem("style").getNodeValue();
+				}
+				
+			}
+			Element reportElement = doc.createElement("reportElement");
+			reportElement.setAttribute("key", "r_" + row.getName() + "_c_" +column.getKey());
+			reportElement.setAttribute("x", xCoord.toString());
+			reportElement.setAttribute("y", yCoord.toString());
+			reportElement.setAttribute("width", width.toString());
+			reportElement.setAttribute("height", height.toString());
+
+			if(!cellStyle.equals("")) {
+				reportElement.setAttribute("style", cellStyle);
+			}
+
+			Element textElement = doc.createElement("textElement");
+			textElement.setAttribute("textAlignment", "Right");
+
+			Element textFieldExpression = doc.createElement("text");
+			CDATASection cdata = doc.createCDATASection("////////");
+
+			textFieldExpression.appendChild(cdata);
+			staticText.appendChild(reportElement);
+			staticText.appendChild(textElement);
+			staticText.appendChild(textFieldExpression);
+			parentNode.appendChild(staticText);
+
+		}
+}
 
 	private void appendReportRows(HashMap<String, Node> matchingRows, HashMap<String, Node> matchingColumns, RowReport row, Document doc, boolean swapAxis) {
 		Node rowNode = matchingRows.get("r_" + row.getName());
@@ -260,8 +322,6 @@ public class ReportTemplate {
 				reportElement.setAttribute("style", cellStyle);
 			}
 				
-//			reportElement.setAttribute("uuid", uuid.toString());
-
 			Element textElement = doc.createElement("textElement");
 			textElement.setAttribute("textAlignment", "Right");
 
@@ -269,17 +329,23 @@ public class ReportTemplate {
 
 			if (column.getType() == Constants.CALCULATED) {
 				StringBuffer expression = new StringBuffer();
-				String[] types = column.getSlicer().split(",");
-				for(int i = 0; i < types.length; i++) {
-					if(!types[i].equals("")) {
-						String fieldName = row.getName() + "_" + column.getName() + "_" + shortenType(types[i]) + "_" + column.getMeasure();
-						if(nonFlowItems.contains(column.getSlicer())) {
-							expression.append("$F{" + fieldName + "}");
-						} else {
-							expression.append("checkNull($F{" + fieldName + "}).doubleValue()");
-						}
-						if(i != types.length - 1) {
-							expression.append("+");
+				if(column.getSlicer().equals("All")){
+					String fieldName = row.getName() + "_" + column.getName() + "_All_" + column.getMeasure();
+					expression.append("checkNull($F{" + fieldName + "}).doubleValue()");
+				}
+				else {
+					String[] types = column.getSlicer().split(",");
+					for(int i = 0; i < types.length; i++) {
+						if(!types[i].equals("")) {
+							String fieldName = row.getName() + "_" + column.getName() + "_" + shortenType(types[i]) + "_" + column.getMeasure();
+							if(nonFlowItems.contains(column.getSlicer())) {
+								expression.append("$F{" + fieldName + "}");
+							} else {
+								expression.append("checkNull($F{" + fieldName + "}).doubleValue()");
+							}
+							if(i != types.length - 1) {
+								expression.append("+");
+							}
 						}
 					}
 				}
@@ -346,31 +412,50 @@ public class ReportTemplate {
 			Set<ColumnReport> columns = row.getColumns();
 			for (ColumnReport column : columns) {
 				if (column.getType() == Constants.CALCULATED) {
-					
-					for(String type : column.getSlicer().split(",")) {
-						String shortType = shortenType(type);
-						if(!type.equals("")) {
-							String fieldName = row.getName() + "_" + column.getName()
-									+ "_" + shortType + "_"
-									+ column.getMeasure();
-							Element field = doc.createElement("field");
-							field.setAttribute("name", fieldName);
-							field.setAttribute("class", "java.lang.Number");
+					if(column.getSlicer().equals("All")){
+						String fieldName = row.getName() + "_" + column.getName()
+								+ "_All_"
+								+ column.getMeasure();
+						Element field = doc.createElement("field");
+						field.setAttribute("name", fieldName);
+						field.setAttribute("class", "java.lang.Number");
 
-							Element fieldDescription = doc
-									.createElement("fieldDescription");
-							CDATASection cdata = doc.createCDATASection("Data(("
-									+ column.getMeasure() + ", "
-									+ type + "), [Type of Aid].["
-									+ row.getName() + "])\n");
-							fieldDescription.appendChild(cdata);
-							field.appendChild(fieldDescription);
-							Node background = doc.getElementsByTagName("background").item(0);
-							doc.getDocumentElement().insertBefore(field, background);
-							
+						Element fieldDescription = doc
+								.createElement("fieldDescription");
+						CDATASection cdata = doc.createCDATASection("Data(("
+								+ column.getMeasure() + ",[Type of Finance].[TYPE_OF_FINANCE##100]), [Type of Aid].["
+								+ row.getName() + "])\n");
+						fieldDescription.appendChild(cdata);
+						field.appendChild(fieldDescription);
+						Node background = doc.getElementsByTagName("background").item(0);
+						doc.getDocumentElement().insertBefore(field, background);
+					}
+					else
+					{
+						for(String type : column.getSlicer().split(",")) {
+							String shortType = shortenType(type);
+							if(!type.equals("")) {
+								String fieldName = row.getName() + "_" + column.getName()
+										+ "_" + shortType + "_"
+										+ column.getMeasure();
+								Element field = doc.createElement("field");
+								field.setAttribute("name", fieldName);
+								field.setAttribute("class", "java.lang.Number");
+
+								Element fieldDescription = doc
+										.createElement("fieldDescription");
+								CDATASection cdata = doc.createCDATASection("Data(("
+										+ column.getMeasure() + ", "
+										+ type + "), [Type of Aid].["
+										+ row.getName() + "])\n");
+								fieldDescription.appendChild(cdata);
+								field.appendChild(fieldDescription);
+								Node background = doc.getElementsByTagName("background").item(0);
+								doc.getDocumentElement().insertBefore(field, background);
+								
+							}
 						}
 					}
-
 				}
 			}
 		}
@@ -409,6 +494,7 @@ public class ReportTemplate {
 		str.append("MEMBER [Measures].[A] AS [Measures].[Extended Amount No Flow] \n");
 		str.append("MEMBER [Measures].[EE] AS [Measures].[Expert Extended Currency NATLOECD] \n");
 		str.append("MEMBER [Measures].[EC] AS [Measures].[Expert Commitments Currency NATLOECD] \n");
+		str.append("MEMBER [Measures].[IR] AS [Measures].[Interest Received Amount Currency NATLOECD] \n");
 		str.append("SELECT {");
 		for (Iterator<RowReport> it = calculatedRows.iterator(); it.hasNext();) {
 			RowReport row = it.next();
@@ -418,11 +504,11 @@ public class ReportTemplate {
 		}
 		str.append("}  ON ROWS, \n");
 		
-		str.append(" {[Measures].[E],[Measures].[R], [Measures].[RN], [Measures].[C], [Measures].[CN], [Measures].[A], [Measures].[EE], [Measures].[EC]}*" + slicer + " ON COLUMNS \n");
+		str.append(" {[Measures].[E],[Measures].[R], [Measures].[RN], [Measures].[C], [Measures].[CN], [Measures].[A], [Measures].[EE], [Measures].[EC],[Measures].[IR] }*" + slicer + " ON COLUMNS \n");
 		str.append("FROM [Financial] \n");
 		str.append("WHERE {[Reporting Year].[$P{REPORTING_YEAR}]} * {[Form Type].[bilateralOda.CRS], [Form Type].[multilateralOda.CRS], [Form Type].[nonOda.nonExport], [Form Type].[nonOda.export], [Form Type].[nonOda.privateGrants], [Form Type].[nonOda.privateMarket], [Form Type].[nonOda.otherFlows], [Form Type].[#null]}\n");
 		Node queryString = doc.getElementsByTagName("queryString").item(0);
-//		System.out.println(str.toString());
+		//System.out.println(str.toString());
 		CDATASection cdata = doc.createCDATASection(str.toString());
 		queryString.appendChild(cdata);
 	}
