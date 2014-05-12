@@ -53,7 +53,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 
 	private void insertMainSections() {
 		RowReport row201Area = createDAC2aRow("201_Area", Constants.CALCULATED,
-				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#210],[Type of Finance].[TYPE_OF_FINANCE##610],[Type of Finance].[TYPE_OF_FINANCE#611],[Type of Finance].[TYPE_OF_FINANCE#612],[Type of Finance].[TYPE_OF_FINANCE#613],[Type of Finance].[TYPE_OF_FINANCE#614],[Type of Finance].[TYPE_OF_FINANCE#615],[Type of Finance].[TYPE_OF_FINANCE#616],[Type of Finance].[TYPE_OF_FINANCE#617],[Type of Finance].[TYPE_OF_FINANCE#618]}",
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE##210],[Type of Finance].[TYPE_OF_FINANCE##610],[Type of Finance].[TYPE_OF_FINANCE##611],[Type of Finance].[TYPE_OF_FINANCE##612],[Type of Finance].[TYPE_OF_FINANCE##613],[Type of Finance].[TYPE_OF_FINANCE##614],[Type of Finance].[TYPE_OF_FINANCE##615],[Type of Finance].[TYPE_OF_FINANCE##616],[Type of Finance].[TYPE_OF_FINANCE##617],[Type of Finance].[TYPE_OF_FINANCE##618]}",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"Except([Type of Aid].[Code].Members, [Type of Aid].[B02])",
 				"",
@@ -64,7 +64,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 		rowReportDao.save(row201Area);
 
 		RowReport row201Channel = createDAC2aRow("201_Channel", Constants.CALCULATED,
-				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#618]}",
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE##618]}",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"[Type of Aid].[B02]",
 				"",
@@ -81,7 +81,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 		rowReportDao.save(row201);
 
 		RowReport row219Area = createDAC2aRow("219_Area", Constants.CALCULATED,
-				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#210]}",
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE##210]}",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"",
 				"",
@@ -92,7 +92,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 		rowReportDao.save(row219Area);
 
 		RowReport row219Channel = createDAC2aRow("219_Channel", Constants.CALCULATED,
-				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#310]}",
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE##310]}",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"[Type of Aid].[B02]",
 				"",
@@ -109,7 +109,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 		rowReportDao.save(row219);
 
 		RowReport row204Area = createDAC2aRow("204_Area", Constants.CALCULATED,
-				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#210]}",
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE##210]}",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"",
 				"",
@@ -120,7 +120,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 		rowReportDao.save(row204Area);
 
 		RowReport row204Channel = createDAC2aRow("204_Channel", Constants.CALCULATED,
-				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#310]}",
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE##310]}",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"[Type of Aid].[B02]",
 				"",
@@ -137,7 +137,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 		rowReportDao.save(row204);
 
 		RowReport row205Area = createDAC2aRow("205_Area", Constants.CALCULATED,
-				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#210]}",
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE##210]}",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"",
 				"",
@@ -148,7 +148,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 		rowReportDao.save(row205Area);
 
 		RowReport row205Channel = createDAC2aRow("205_Channel", Constants.CALCULATED,
-				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#310]}",
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE##310]}",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"[Type of Aid].[B02]",
 				"",
@@ -165,23 +165,23 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 		rowReportDao.save(row205);
 
 		RowReport row209Area = createDAC2aRow("209_Area", Constants.CALCULATED,
-				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#210]}",
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE##210]}",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"",
 				"",
 				"[BiMultilateral].[BI_MULTILATERAL##1]",
-				"[Measures].[R]",
+				"[Measures].[IR]",
 				false
 				);
 		rowReportDao.save(row209Area);
 
 		RowReport row209Channel = createDAC2aRow("209_Channel", Constants.CALCULATED,
-				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#310]}",
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE##310]}",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"[Type of Aid].[B02]",
 				"",
 				"[BiMultilateral].[BI_MULTILATERAL##2]",
-				"[Measures].[R]",
+				"[Measures].[IR]",
 				false
 				);
 		rowReportDao.save(row209Channel);
@@ -193,7 +193,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 		rowReportDao.save(row209);
 		
 		RowReport row212 = createDAC2aRow("212", Constants.CALCULATED,
-				"{[Type of Finance].[TYPE_OF_FINANCE##610],[Type of Finance].[TYPE_OF_FINANCE#611],[Type of Finance].[TYPE_OF_FINANCE#612],[Type of Finance].[TYPE_OF_FINANCE#613],[Type of Finance].[TYPE_OF_FINANCE#614],[Type of Finance].[TYPE_OF_FINANCE#615],[Type of Finance].[TYPE_OF_FINANCE#616],[Type of Finance].[TYPE_OF_FINANCE#617],[Type of Finance].[TYPE_OF_FINANCE#618]}",
+				"{[Type of Finance].[TYPE_OF_FINANCE##610],[Type of Finance].[TYPE_OF_FINANCE##611],[Type of Finance].[TYPE_OF_FINANCE##612],[Type of Finance].[TYPE_OF_FINANCE##613],[Type of Finance].[TYPE_OF_FINANCE##614],[Type of Finance].[TYPE_OF_FINANCE##615],[Type of Finance].[TYPE_OF_FINANCE##616],[Type of Finance].[TYPE_OF_FINANCE##617],[Type of Finance].[TYPE_OF_FINANCE##618]}",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"[Type of Aid].[F01]",
 				"[Sector].[60020]",
@@ -204,7 +204,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 		rowReportDao.save(row212);
 
 		RowReport row221 = createDAC2aRow("221", Constants.CALCULATED,
-				"{[Type of Finance].[TYPE_OF_FINANCE##610],[Type of Finance].[TYPE_OF_FINANCE#611],[Type of Finance].[TYPE_OF_FINANCE#612],[Type of Finance].[TYPE_OF_FINANCE#613],[Type of Finance].[TYPE_OF_FINANCE#614],[Type of Finance].[TYPE_OF_FINANCE#615],[Type of Finance].[TYPE_OF_FINANCE#616],[Type of Finance].[TYPE_OF_FINANCE#617],[Type of Finance].[TYPE_OF_FINANCE#618]}",
+				"{[Type of Finance].[TYPE_OF_FINANCE##610],[Type of Finance].[TYPE_OF_FINANCE##611],[Type of Finance].[TYPE_OF_FINANCE##612],[Type of Finance].[TYPE_OF_FINANCE##613],[Type of Finance].[TYPE_OF_FINANCE##614],[Type of Finance].[TYPE_OF_FINANCE##615],[Type of Finance].[TYPE_OF_FINANCE##616],[Type of Finance].[TYPE_OF_FINANCE##617],[Type of Finance].[TYPE_OF_FINANCE##618]}",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"[Type of Aid].[F01]",
 				"{[Sector].[60010],[Sector].[60030],[Sector].[60061],[Sector].[60062],[Sector].[60063]}",
@@ -228,7 +228,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 
 
 		RowReport row210 = createDAC2aRow("210", Constants.CALCULATED,
-				"{[Type of Finance].[TYPE_OF_FINANCE#310]}",
+				"{[Type of Finance].[TYPE_OF_FINANCE##310]}",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"[Type of Aid].[B02]",
 				"",
@@ -240,7 +240,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 
 
 		RowReport row211 = createDAC2aRow("211", Constants.CALCULATED,
-				"{[Type of Finance].[TYPE_OF_FINANCE#311]}",
+				"{[Type of Finance].[TYPE_OF_FINANCE##311]}",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"[Type of Aid].[B02]",
 				"",
@@ -252,7 +252,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 
 
 		RowReport row214 = createDAC2aRow("214", Constants.CALCULATED,
-				"{[Type of Finance].[TYPE_OF_FINANCE#621],[Type of Finance].[TYPE_OF_FINANCE##622],[Type of Finance].[TYPE_OF_FINANCE#623]}",
+				"{[Type of Finance].[TYPE_OF_FINANCE##621],[Type of Finance].[TYPE_OF_FINANCE##622],[Type of Finance].[TYPE_OF_FINANCE##623]}",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"[Type of Aid].[F01]",
 				"[Sector].[60040]",
@@ -282,7 +282,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 		rowReportDao.save(row218);
 
 		RowReport row217 = createDAC2aRow("217", Constants.CALCULATED,
-				"{[Type of Finance].[TYPE_OF_FINANCE##510],[Type of Finance].[TYPE_OF_FINANCE#511],[Type of Finance].[TYPE_OF_FINANCE#512]}",
+				"{[Type of Finance].[TYPE_OF_FINANCE##510],[Type of Finance].[TYPE_OF_FINANCE##511],[Type of Finance].[TYPE_OF_FINANCE##512]}",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"",
 				"",
@@ -301,7 +301,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 
 
 		RowReport row207 = createDAC2aRow("207", Constants.CALCULATED,
-				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#410]}",
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE##410]}",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"",
 				"",
@@ -312,7 +312,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 		rowReportDao.save(row207);
 
 		RowReport row213 = createDAC2aRow("213", Constants.CALCULATED,
-				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#410]}",
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE##410]}",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"",
 				"[Sector].[52010]",
@@ -323,7 +323,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 		rowReportDao.save(row213);
 		
 		RowReport row216 = createDAC2aRow("216", Constants.CALCULATED,
-				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#410]}",
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE##410]}",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"",
 				"[Sector].[Humanitarian Aid]",
@@ -395,7 +395,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"[Type of Aid].[B02]",
 				"",
-				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#618]}",
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE##618]}",
 				"[Measures].[E]"
 				);
 		rowReportDao.save(row201);
@@ -405,7 +405,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"[Type of Aid].[B02]",
 				"",
-				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#310]}",
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE##310]}",
 				"[Measures].[R]"
 				);
 		rowReportDao.save(row219);
@@ -415,7 +415,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"[Type of Aid].[B02]",
 				"",
-				"[Type of Finance].[TYPE_OF_FINANCE#310]",
+				"[Type of Finance].[TYPE_OF_FINANCE##310]",
 				"[Measures].[R]"
 				);
 		rowReportDao.save(row210);
@@ -425,7 +425,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"[Type of Aid].[B02]",
 				"",
-				"[Type of Finance].[TYPE_OF_FINANCE#311]",
+				"[Type of Finance].[TYPE_OF_FINANCE##311]",
 				"[Measures].[R]"
 				);
 		rowReportDao.save(row211);
@@ -445,7 +445,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"[Type of Aid].[B02]",
 				"",
-				"[Type of Finance].[TYPE_OF_FINANCE#410]",
+				"[Type of Finance].[TYPE_OF_FINANCE##410]",
 				"[Measures].[R]"
 				);
 		rowReportDao.save(row205);
@@ -463,14 +463,13 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 		RowReport row206 = createDAC2aSumRow("206", "DAC2aChannel", Constants.SUM,	sumRow206);
 		rowReportDao.save(row206);
 
-		//TODO: Make two columns and subtract the interest received measure
 		RowReport row209a = createDAC2aRowChannel("209", Constants.CALCULATED,
 				"[BiMultilateral].[BI_MULTILATERAL##2]",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"[Type of Aid].[B02]",
 				"",
 				"[Type of Finance].[TYPE_OF_FINANCE##410]",
-				"[Measures].[E]"
+				"[Measures].[IR]"
 				);
 		rowReportDao.save(row209a);
 		
@@ -486,7 +485,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"Except([Type of Aid].[Code].Members, [Type of Aid].[B02])",
 				"",
-				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#210],[Type of Finance].[TYPE_OF_FINANCE##610],[Type of Finance].[TYPE_OF_FINANCE#611],[Type of Finance].[TYPE_OF_FINANCE#612],[Type of Finance].[TYPE_OF_FINANCE#613],[Type of Finance].[TYPE_OF_FINANCE#614],[Type of Finance].[TYPE_OF_FINANCE#615],[Type of Finance].[TYPE_OF_FINANCE#616],[Type of Finance].[TYPE_OF_FINANCE#617],[Type of Finance].[TYPE_OF_FINANCE#618]}",
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE##210],[Type of Finance].[TYPE_OF_FINANCE##610],[Type of Finance].[TYPE_OF_FINANCE##611],[Type of Finance].[TYPE_OF_FINANCE##612],[Type of Finance].[TYPE_OF_FINANCE##613],[Type of Finance].[TYPE_OF_FINANCE##614],[Type of Finance].[TYPE_OF_FINANCE##615],[Type of Finance].[TYPE_OF_FINANCE##616],[Type of Finance].[TYPE_OF_FINANCE##617],[Type of Finance].[TYPE_OF_FINANCE##618]}",
 				"[Measures].[E]",
 				listAreas
 				);
@@ -496,7 +495,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"[Type of Aid].[F01]",
 				"[Sector].[60020]",
-				"{[Type of Finance].[TYPE_OF_FINANCE##610],[Type of Finance].[TYPE_OF_FINANCE#611],[Type of Finance].[TYPE_OF_FINANCE#612],[Type of Finance].[TYPE_OF_FINANCE#613],[Type of Finance].[TYPE_OF_FINANCE#614],[Type of Finance].[TYPE_OF_FINANCE#615],[Type of Finance].[TYPE_OF_FINANCE#616],[Type of Finance].[TYPE_OF_FINANCE#617],[Type of Finance].[TYPE_OF_FINANCE#618]}",
+				"{[Type of Finance].[TYPE_OF_FINANCE##610],[Type of Finance].[TYPE_OF_FINANCE##611],[Type of Finance].[TYPE_OF_FINANCE##612],[Type of Finance].[TYPE_OF_FINANCE##613],[Type of Finance].[TYPE_OF_FINANCE##614],[Type of Finance].[TYPE_OF_FINANCE##615],[Type of Finance].[TYPE_OF_FINANCE##616],[Type of Finance].[TYPE_OF_FINANCE##617],[Type of Finance].[TYPE_OF_FINANCE##618]}",
 				"[Measures].[E]",
 				listAreas
 				);
@@ -506,7 +505,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"[Type of Aid].[F01]",
 				"{[Sector].[60010],[Sector].[60030],[Sector].[60061],[Sector].[60062],[Sector].[60063]}",
-				"{[Type of Finance].[TYPE_OF_FINANCE##610],[Type of Finance].[TYPE_OF_FINANCE#611],[Type of Finance].[TYPE_OF_FINANCE#612],[Type of Finance].[TYPE_OF_FINANCE#613],[Type of Finance].[TYPE_OF_FINANCE#614],[Type of Finance].[TYPE_OF_FINANCE#615],[Type of Finance].[TYPE_OF_FINANCE#616],[Type of Finance].[TYPE_OF_FINANCE#617],[Type of Finance].[TYPE_OF_FINANCE#618]}",
+				"{[Type of Finance].[TYPE_OF_FINANCE##610],[Type of Finance].[TYPE_OF_FINANCE##611],[Type of Finance].[TYPE_OF_FINANCE##612],[Type of Finance].[TYPE_OF_FINANCE##613],[Type of Finance].[TYPE_OF_FINANCE##614],[Type of Finance].[TYPE_OF_FINANCE##615],[Type of Finance].[TYPE_OF_FINANCE##616],[Type of Finance].[TYPE_OF_FINANCE##617],[Type of Finance].[TYPE_OF_FINANCE##618]}",
 				"[Measures].[E]",
 				listAreas
 				);
@@ -526,7 +525,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"",
 				"",
-				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#210]}",
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE##210]}",
 				"[Measures].[R]",
 				listAreas
 				);
@@ -536,7 +535,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"",
 				"",
-				"{[Type of Finance].[TYPE_OF_FINANCE##410],[Type of Finance].[TYPE_OF_FINANCE#621],[Type of Finance].[TYPE_OF_FINANCE##622],[Type of Finance].[TYPE_OF_FINANCE#623],[Type of Finance].[TYPE_OF_FINANCE##510],[Type of Finance].[TYPE_OF_FINANCE#511],[Type of Finance].[TYPE_OF_FINANCE##512]}",
+				"{[Type of Finance].[TYPE_OF_FINANCE##410],[Type of Finance].[TYPE_OF_FINANCE##621],[Type of Finance].[TYPE_OF_FINANCE##622],[Type of Finance].[TYPE_OF_FINANCE##623],[Type of Finance].[TYPE_OF_FINANCE##510],[Type of Finance].[TYPE_OF_FINANCE##511],[Type of Finance].[TYPE_OF_FINANCE##512]}",
 				"[Measures].[E]",
 				listAreas
 				);
@@ -546,7 +545,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"[Type of Aid].[F01]",
 				"[Sector].[60040]",
-				"{[Type of Finance].[TYPE_OF_FINANCE#621],[Type of Finance].[TYPE_OF_FINANCE##622],[Type of Finance].[TYPE_OF_FINANCE#623]}",
+				"{[Type of Finance].[TYPE_OF_FINANCE##621],[Type of Finance].[TYPE_OF_FINANCE##622],[Type of Finance].[TYPE_OF_FINANCE##623]}",
 				"[Measures].[E]",
 				listAreas
 				);
@@ -576,7 +575,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"",
 				"",
-				"{[Type of Finance].[TYPE_OF_FINANCE##510],[Type of Finance].[TYPE_OF_FINANCE#511],[Type of Finance].[TYPE_OF_FINANCE#512]}",
+				"{[Type of Finance].[TYPE_OF_FINANCE##510],[Type of Finance].[TYPE_OF_FINANCE##511],[Type of Finance].[TYPE_OF_FINANCE##512]}",
 				"[Measures].[E]",
 				listAreas
 				);
@@ -599,7 +598,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"",
 				"",
-				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#410]}",
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE##410]}",
 				"[Measures].[E]",
 				listAreas
 				);
@@ -609,7 +608,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"",
 				"[Sector].[52010]",
-				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#410]}",
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE##410]}",
 				"[Measures].[E]",
 				listAreas
 				);
@@ -619,23 +618,42 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"",
 				"[Sector].[Humanitarian Aid]",
-				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#410]}",
+				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE##410]}",
 				"[Measures].[E]",
 				listAreas
 				);
 		rowReportDao.save(row216);
 		//TODO: Make two columns and subtract the interest received measure
-		RowReport row209a = createDAC2aRowArea("209", Constants.CALCULATED,
+		RowReport row209a = createDAC2aRowArea("209a", Constants.CALCULATED,
 				"[BiMultilateral].[BI_MULTILATERAL##1]",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"",
-				"[Sector].[Humanitarian Aid]",
-				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE#410]}",
+				"",
+				"{[Type of Finance].[TYPE_OF_FINANCE##610]}",
 				"[Measures].[E]",
 				listAreas
 				);
+		row209a.setVisible(false);
 		rowReportDao.save(row209a);
-}
+		RowReport row209b = createDAC2aRowArea("209b", Constants.CALCULATED,
+				"[BiMultilateral].[BI_MULTILATERAL##1]",
+				"[Type of Flow].[TYPE_OF_FLOW##10]",
+				"",
+				"",
+				"{[Type of Finance].[TYPE_OF_FINANCE##410],[Type of Finance].[TYPE_OF_FINANCE##411],[Type of Finance].[TYPE_OF_FINANCE##412],[Type of Finance].[TYPE_OF_FINANCE##413],[Type of Finance].[TYPE_OF_FINANCE##414],[Type of Finance].[TYPE_OF_FINANCE##620],[Type of Finance].[TYPE_OF_FINANCE##621],[Type of Finance].[TYPE_OF_FINANCE##622],[Type of Finance].[TYPE_OF_FINANCE##623],[Type of Finance].[TYPE_OF_FINANCE##624],[Type of Finance].[TYPE_OF_FINANCE##625],[Type of Finance].[TYPE_OF_FINANCE##626],[Type of Finance].[TYPE_OF_FINANCE##627]}",
+				"[Measures].[IR]",
+				listAreas
+				);
+		row209b.setVisible(false);
+		rowReportDao.save(row209b);
+		HashSet<String> sumRow209 = new HashSet<String>();
+		sumRow209.add("209a");
+		sumRow209.add("209b");
+		RowReport row209 = createDAC2aSumRow("209", "DAC2aArea", Constants.SUM,	sumRow209);
+		rowReportDao.save(row209);
+
+
+	}
 
 	@Override
 	public String getConfirmationMessage() {
