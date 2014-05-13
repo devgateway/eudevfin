@@ -154,7 +154,7 @@
 				<prop key="hibernate.cache.use_query_cache">true</prop>
 				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory</prop>
 				<prop key="hibernate.generate_statistics">false</prop>
-                <!-- <prop key="hibernate.show_sql">true</prop> -->
+                <prop key="hibernate.show_sql">false</prop>
             </props>
 		</property>		
 	</bean> 
@@ -194,11 +194,15 @@
 	
 	<int:channel id="findOrganizationByIdChannel" />
 	<int:channel id="saveOrganizationChannel" />
+	<int:channel id="findOrganizationByDacFalse"/>
     <int:channel id="findAllAsListOrganizationChannel"/>
     <int:channel id="findOrganizationByIdChannel"/>
     <int:channel id="findOrganizationByGeneralSearchPageableChannel"/>
     <int:channel id="findUsedOrganizationPaginatedOrganizationChannel"/>
-	
+
+    <int:channel id="findOrganizationByCodeChannel"/>
+    <int:channel id="findOrganizationByCodeAndDonorCodeChannel"/>
+    
 	<int:channel id="saveCategoryChannel" />
 	<int:channel id="findAllAsListCategoryChannel" />
 	<int:channel id="findCategoryByIdChannel" />

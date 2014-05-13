@@ -22,7 +22,7 @@ public class OrganizationStoringEngine extends AbstractStoringEngine<Organizatio
 
 	@Override
 	public Organization findEquivalentEntity(final Organization entityFromFile) {
-		return this.orgDaoImpl.findByCodeAndDonorCode(entityFromFile.getCode(), entityFromFile.getDonorCode());
+		return this.orgDaoImpl.findByCodeAndDonorCode(entityFromFile.getCode(), entityFromFile.getDonorCode()).getEntity();
 	}
 
 	@Override

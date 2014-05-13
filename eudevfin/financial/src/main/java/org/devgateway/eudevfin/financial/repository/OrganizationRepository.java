@@ -25,7 +25,11 @@ public interface OrganizationRepository extends
 	Page<Organization> findByTranslationNameContaining(String searchString,Pageable pageable);
 	
 	Organization findByCodeAndDonorCode(String code, String donorCode);
-
+	
+	Page<Organization> findByDacFalse(Pageable pageable);
+	
+	Organization findByCode(String code);
+	
     @Query(" select distinct org from CustomFinancialTransaction ctx join ctx.extendingAgency org")
     Page<Organization> findUsedOrganization(Pageable page);
 

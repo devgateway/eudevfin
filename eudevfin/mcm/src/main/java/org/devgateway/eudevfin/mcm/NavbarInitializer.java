@@ -12,6 +12,7 @@ import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.mcm.pages.EditNonFlowItemsPage;
 import org.devgateway.eudevfin.mcm.pages.EditPersistedUserPage;
 import org.devgateway.eudevfin.mcm.pages.ListHistoricalExchangeRatePage;
+import org.devgateway.eudevfin.mcm.pages.ListOrganizationsPage;
 import org.devgateway.eudevfin.mcm.pages.ListPersistedUserGroupsPage;
 import org.devgateway.eudevfin.mcm.pages.ListPersistedUsersPage;
 import org.devgateway.eudevfin.mcm.pages.SystemMaintenance;
@@ -53,6 +54,9 @@ public final class NavbarInitializer {
 				
 				list.add(new MenuBookmarkablePageLink<ListPersistedUserGroupsPage>(ListPersistedUserGroupsPage.class,
 						null, new StringResourceModel("navbar.admin.groups", this, null, null)).setIconType(IconType.list));
+			
+				list.add(new MenuBookmarkablePageLink<ListOrganizationsPage>(ListOrganizationsPage.class, null,
+						new StringResourceModel("navbar.admin.orgs", this, null, null)).setIconType(IconType.leaf));
 				
 				list.add(new MenuBookmarkablePageLink<ListPersistedUserGroupsPage>(EditNonFlowItemsPage.class, null,
 						new StringResourceModel("navbar.admin.nonflow", this, null, null)).setIconType(IconType.globe));

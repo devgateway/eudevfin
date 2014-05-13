@@ -74,6 +74,24 @@ public class OrganizationDaoImpl extends AbstractDaoImpl<Organization, Long, Org
 		return super.findOne(id);
 	}
 	
+	@ServiceActivator(inputChannel="findOrganizationByCodeChannel")
+	public NullableWrapper<Organization> findByCode(String code) {
+		return new NullableWrapper<Organization>(repo.findByCode(code));
+	}
+	
+	
+	
+	/**
+	 * @see OrganizationService#findByDacFalse(Pageable)
+	 * @param pageable
+	 * @return
+	 */
+	@ServiceActivator(inputChannel="findOrganizationByDacFalse")
+	public Page<Organization> findByDacFalse(Pageable pageable) {
+		return repo.findByDacFalse(pageable);
+	}
+	
+	
 	/**
 	 * @see OrganizationService#findByGeneralSearchPageable(String, String, Pageable)
 	 */
@@ -110,8 +128,13 @@ public class OrganizationDaoImpl extends AbstractDaoImpl<Organization, Long, Org
 
         return result;
     }
-	
-    public Organization findByCodeAndDonorCode(String code, String donorCode) {
-        return this.repo.findByCodeAndDonorCode(code, donorCode);
+    
+    
+    /**
+     * @see OrganizationService#findByCodeAndDonorCode(String, String)
+     */
+	@ServiceActivator(inputChannel="findOrganizationByCodeAndDonorCodeChannel")
+    public NullableWrapper<Organization> findByCodeAndDonorCode(String code, @Header("donorCode") String donorCode) {
+        return new NullableWrapper<Organization>(this.repo.findByCodeAndDonorCode(code, donorCode));
     }
 }

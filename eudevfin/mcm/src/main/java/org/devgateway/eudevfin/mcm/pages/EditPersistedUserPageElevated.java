@@ -11,7 +11,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 public class EditPersistedUserPageElevated extends EditPersistedUserPage {
 
 	private static final long serialVersionUID = 1926551934261179357L;
-	public static final String PARAM_USER_ID="userId";
+	public static final String PARAM_USER_ID="id";
 	public static final String PARAM_USER_ID_VALUE_NEW="new";
 
 	public EditPersistedUserPageElevated(PageParameters parameters) {

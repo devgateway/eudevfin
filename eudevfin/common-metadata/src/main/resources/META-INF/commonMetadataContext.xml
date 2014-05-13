@@ -30,6 +30,15 @@
         <int:method name="findOne" request-channel="getChannel">
             <int:header name="requestName" value="findOrganizationByIdChannel"/>
         </int:method>
+          <int:method name="findByCode" request-channel="getChannel">
+            <int:header name="requestName" value="findOrganizationByCodeChannel"/>
+        </int:method>
+		<int:method name="findByCodeAndDonorCode" request-channel="getChannel">
+            <int:header name="requestName" value="findOrganizationByCodeAndDonorCodeChannel"/>
+        </int:method>
+		<int:method name="findByDacFalse" request-channel="getChannel">
+            <int:header name="requestName" value="findOrganizationByDacFalse"/>
+        </int:method>
         <int:method name="findByGeneralSearchPageable" request-channel="getChannel">
 			<int:header name="requestName" value="findOrganizationByGeneralSearchPageableChannel"/>
 		</int:method>
