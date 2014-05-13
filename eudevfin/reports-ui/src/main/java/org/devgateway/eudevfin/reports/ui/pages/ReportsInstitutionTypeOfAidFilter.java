@@ -32,8 +32,6 @@ public class ReportsInstitutionTypeOfAidFilter extends CustomReportsPage {
         CoFinancingTransactionsOnly.setVisibilityAllowed(Boolean.FALSE);
         CPAOnly.setVisibilityAllowed(Boolean.FALSE);
         showRelatedBudgetCodes.setVisibilityAllowed(Boolean.FALSE);
-        pricesNationalCurrency.setVisibilityAllowed(Boolean.FALSE);
-        pricesEURCurrency.setVisibilityAllowed(Boolean.FALSE);
     }
 
     @Override

@@ -9,7 +9,6 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <entry key="reportscountrysectordashboards.nationalCurrency">National Currency</entry>
     <entry key="reportscountrysectordashboards.title">Reports Country &amp; Sector Results</entry>
     <entry key="reportscountrysectordashboards.countryTable">Country Table</entry>
     <entry key="reportscountrysectordashboards.countryChart">Country Chart</entry>

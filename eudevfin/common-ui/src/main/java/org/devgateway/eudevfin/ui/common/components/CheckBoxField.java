@@ -9,7 +9,6 @@
 package org.devgateway.eudevfin.ui.common.components;
 
 import org.apache.wicket.markup.html.form.CheckBox;
-import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.model.IModel;
 
 /**

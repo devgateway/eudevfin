@@ -23,7 +23,7 @@
 
                 <!-- country dashboard -->
                 <div class="row">
-                    <div class="span10 offset1">
+                    <div class="span6">
                         <div class="box">
                             <div class="box-header">
                                 <h2>
@@ -35,15 +35,13 @@
                                     <tr>
                                         <th rowspan="2" class="ui-state-default">Geographical area</th>
                                         <th rowspan="2" class="ui-state-default">Country</th>
-                                        <th colspan="3" class="ui-state-default" wicket:id="firstYear"></th>
-                                        <th colspan="3" class="ui-state-default" wicket:id="secondYear"></th>
+                                        <th colspan="2" class="ui-state-default" wicket:id="firstYear"></th>
+                                        <th colspan="2" class="ui-state-default" wicket:id="secondYear"></th>
                                     </tr>
                                     <tr>
-                                        <th wicket:id="nationalCurrencyFirst"/>
-                                        <th>$</th>
+                                        <th wicket:id="currencyFirstYear">$</th>
                                         <th>%</th>
-                                        <th wicket:id="nationalCurrencySecond"/>
-                                        <th>$</th>
+                                        <th wicket:id="currencySecondYear">$</th>
                                         <th>%</th>
                                     </tr>
                                 </thead>
@@ -51,19 +49,16 @@
                                     <tr wicket:id="countryTableRows">
                                         <td wicket:id="col0" class="string">Region</td>
                                         <td wicket:id="col1" class="string">Country</td>
-                                        <td wicket:id="col2" class="numeric">National Currency 1</td>
-                                        <td wicket:id="col3" class="numeric">$</td>
-                                        <td wicket:id="col4" class="numeric">%</td>
-                                        <td wicket:id="col5" class="numeric">National Currency 2</td>
-                                        <td wicket:id="col6" class="numeric">$</td>
-                                        <td wicket:id="col7" class="numeric">%</td>
+                                        <td wicket:id="col2" class="numeric">Currency</td>
+                                        <td wicket:id="col3" class="numeric">%</td>
+                                        <td wicket:id="col4" class="numeric">Currency</td>
+                                        <td wicket:id="col5" class="numeric">%</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    <br/><br/>
-                    <div class="span10 offset1">
+                    <div class="span6">
                         <div class="box">
                             <div class="box-header">
                                 <h2>
@@ -78,7 +73,7 @@
                 <br/><br/>
                 <!-- sector dashboard -->
                 <div class="row">
-                    <div class="span10 offset1">
+                    <div class="span6">
                         <div class="box">
                             <div class="box-header">
                                 <h2>
@@ -90,15 +85,13 @@
                                 <tr>
                                     <th rowspan="2" class="ui-state-default">Main Sector</th>
                                     <th rowspan="2" class="ui-state-default">Sector</th>
-                                    <th colspan="3" class="ui-state-default" wicket:id="firstYear"></th>
-                                    <th colspan="3" class="ui-state-default" wicket:id="secondYear"></th>
+                                    <th colspan="2" class="ui-state-default" wicket:id="firstYear"></th>
+                                    <th colspan="2" class="ui-state-default" wicket:id="secondYear"></th>
                                 </tr>
                                 <tr>
-                                    <th wicket:id="nationalCurrencyFirst"/>
-                                    <th>$</th>
+                                    <th wicket:id="currencyFirstYear">$</th>
                                     <th>%</th>
-                                    <th wicket:id="nationalCurrencySecond"/>
-                                    <th>$</th>
+                                    <th wicket:id="currencySecondYear">$</th>
                                     <th>%</th>
                                 </tr>
                                 </thead>
@@ -106,18 +99,16 @@
                                 <tr wicket:id="sectorTableRows">
                                     <td wicket:id="col0" class="string">Main Sector</td>
                                     <td wicket:id="col1" class="string">Sector</td>
-                                    <td wicket:id="col2" class="numeric">National Currency 1</td>
-                                    <td wicket:id="col3" class="numeric">$</td>
-                                    <td wicket:id="col4" class="numeric">%</td>
-                                    <td wicket:id="col5" class="numeric">National Currency 2</td>
-                                    <td wicket:id="col6" class="numeric">$</td>
-                                    <td wicket:id="col7" class="numeric">%</td>
+                                    <td wicket:id="col2" class="numeric">Currency</td>
+                                    <td wicket:id="col3" class="numeric">%</td>
+                                    <td wicket:id="col4" class="numeric">Currency</td>
+                                    <td wicket:id="col5" class="numeric">%</td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    <div class="span10 offset1">
+                    <div class="span6">
                         <div class="box">
                             <div class="box-header">
                                 <h2>

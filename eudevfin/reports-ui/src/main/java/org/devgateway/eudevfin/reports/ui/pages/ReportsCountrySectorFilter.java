@@ -1,6 +1,5 @@
 package org.devgateway.eudevfin.reports.ui.pages;
 
-import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
@@ -20,7 +19,6 @@ import org.wicketstuff.annotation.mount.MountPath;
 @AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
 @MountPath(value = "/reportscountrysectorfilter")
 public class ReportsCountrySectorFilter extends CustomReportsPage {
-    private static final Logger logger = Logger.getLogger(ReportsCountrySectorFilter.class);
 
     public ReportsCountrySectorFilter () {
         Label title = new Label("title", new StringResourceModel("reportsCountrySector", this, null, null));
@@ -36,8 +34,6 @@ public class ReportsCountrySectorFilter extends CustomReportsPage {
         completitionYear.setVisibilityAllowed(Boolean.FALSE);
         humanitarianAid.setVisibilityAllowed(Boolean.FALSE);
         showRelatedBudgetCodes.setVisibilityAllowed(Boolean.FALSE);
-        pricesNationalCurrency.setVisibilityAllowed(Boolean.FALSE);
-        pricesEURCurrency.setVisibilityAllowed(Boolean.FALSE);
     }
 
     @Override
@@ -53,6 +49,15 @@ public class ReportsCountrySectorFilter extends CustomReportsPage {
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 CustomReportsModel customReportsModel = (CustomReportsModel)form.getModelObject();
                 PageParameters pageParameters = new PageParameters();
+
+                // Add the currency parameter. (ODAEU-257)
+                // The tables should show only one currency (either national or USD based on the selection made by the user)
+                String nationalCurrency = new StringResourceModel("pricesNationalCurrency", this, null, null).getObject();
+                if (customReportsModel.getPricesCurrency().equals(nationalCurrency)) {
+                    pageParameters.add(ReportsConstants.ISNATIONALCURRENCY_PARAM, Boolean.TRUE);
+                } else {
+                    pageParameters.add(ReportsConstants.ISNATIONALCURRENCY_PARAM, Boolean.FALSE);
+                }
 
                 if (customReportsModel.getGeography() != null) {
                     pageParameters.add(ReportsConstants.GEOGRAPHY_PARAM, customReportsModel.getGeography().getName());

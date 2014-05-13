@@ -10,6 +10,7 @@ import org.apache.wicket.authroles.authorization.strategies.role.annotations.Aut
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.FormComponent;
+import org.apache.wicket.markup.html.form.RadioChoice;
 import org.apache.wicket.markup.html.form.validation.IFormValidator;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.StringResourceModel;
@@ -25,6 +26,7 @@ import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.CheckBoxField;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
+import org.devgateway.eudevfin.ui.common.components.RadioChoiceField;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.devgateway.eudevfin.ui.common.providers.CategoryProviderFactory;
 import org.devgateway.eudevfin.ui.common.providers.PredefinedStringProvider;
@@ -33,7 +35,7 @@ import org.devgateway.eudevfin.ui.common.providers.UsedOrganizationChoiceProvide
 import org.devgateway.eudevfin.ui.common.providers.YearProvider;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -95,9 +97,7 @@ public abstract class CustomReportsPage extends HeaderFooter {
 
     protected CheckBoxField showRelatedBudgetCodes;
 
-    protected CheckBoxField pricesNationalCurrency;
-
-    protected CheckBoxField pricesEURCurrency;
+    protected RadioChoiceField<String> pricesCurrency;
 
     protected CustomReportsModel customReportsModel;
 
@@ -161,11 +161,15 @@ public abstract class CustomReportsPage extends HeaderFooter {
         humanitarianAid = new CheckBoxField("humanitarianAid", new RWComponentPropertyModel<Boolean>("humanitarianAid"));
         showRelatedBudgetCodes = new CheckBoxField("showRelatedBudgetCodes", new RWComponentPropertyModel<Boolean>("showRelatedBudgetCodes"));
 
-        Label choiceOfCurrency = new Label("choiceOfCurrency", new StringResourceModel("choiceOfCurrency", this, null, null));
-        choiceOfCurrency.setVisibilityAllowed(Boolean.FALSE);
-
-        pricesNationalCurrency = new CheckBoxField("pricesNationalCurrency", new RWComponentPropertyModel<Boolean>("pricesNationalCurrency"));
-        pricesEURCurrency = new CheckBoxField("pricesEURCurrency", new RWComponentPropertyModel<Boolean>("pricesEURCurrency"));
+        List<String> currencyTypes = Arrays
+                .asList(new String[]{
+                        new StringResourceModel("pricesUSDCurrency", this, null, null).getObject(),
+                        new StringResourceModel("pricesNationalCurrency", this, null, null).getObject()
+                });
+        pricesCurrency = new RadioChoiceField("pricesCurrency", new RWComponentPropertyModel<String>("pricesCurrency"), currencyTypes);
+        pricesCurrency.getField().setChoices(currencyTypes);
+        // select first currency (USD)
+        customReportsModel.setPricesCurrency(new StringResourceModel("pricesUSDCurrency", this, null, null).getObject());
 
         // add geography&recipient validator
         // (ODAEU-238) a country could not be selected if I want to have only regional aggregates
@@ -232,9 +236,7 @@ public abstract class CustomReportsPage extends HeaderFooter {
         form.add(CPAOnly);
         form.add(humanitarianAid);
         form.add(showRelatedBudgetCodes);
-        form.add(choiceOfCurrency);
-        form.add(pricesNationalCurrency);
-        form.add(pricesEURCurrency);
+        form.add(pricesCurrency);
 
         addSubmitButton();
 
