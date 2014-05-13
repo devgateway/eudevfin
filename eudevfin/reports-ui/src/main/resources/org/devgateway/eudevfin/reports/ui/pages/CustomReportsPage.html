@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
 <wicket:head>
+    <!-- load general styles -->
+    <link href="css/style.css" rel="stylesheet" type="text/css"/>
+
     <title>Custom Reports Page</title>
 </wicket:head>
 <body>
@@ -35,9 +38,7 @@
                         <br/>
                         <div class="row">
                             <div class="span4">
-                                <h4 wicket:id="choiceOfCurrency"/>
-                                <div wicket:id="pricesNationalCurrency"/>
-                                <div wicket:id="pricesEURCurrency"/>
+                                <div wicket:id="pricesCurrency"/>
                             </div>
                         </div>
                         <br/>

@@ -20,7 +20,6 @@ import org.devgateway.eudevfin.reports.ui.pages.ReportsCountrySectorFilter;
 import org.devgateway.eudevfin.reports.ui.pages.ReportsExport;
 import org.devgateway.eudevfin.reports.ui.pages.ReportsImplementationStatusFilter;
 import org.devgateway.eudevfin.reports.ui.pages.ReportsInstitutionTypeOfAidFilter;
-import org.devgateway.eudevfin.reports.ui.pages.ReportsInstitutionTypeOfFlowFilter;
 import org.devgateway.eudevfin.reports.ui.pages.ReportsPage;
 import org.devgateway.eudevfin.ui.common.WicketNavbarComponentInitializer;
 import org.devgateway.eudevfin.ui.common.components.RepairedNavbarDropDownButton;
@@ -122,11 +121,6 @@ public final class NavbarInitializer {
                         list.add(new MenuBookmarkablePageLink<ReportsCountryInstitutionFilter>(
                                 ReportsCountryInstitutionFilter.class, null, new StringResourceModel(
                                 "navbar.customreports.countryinstitution", this, null, null)).
-                                setIconType(IconType.picture));
-
-                        list.add(new MenuBookmarkablePageLink<ReportsInstitutionTypeOfFlowFilter>(
-                                ReportsInstitutionTypeOfFlowFilter.class, null, new StringResourceModel(
-                                "navbar.customreports.institutiontypeofflow", this, null, null)).
                                 setIconType(IconType.picture));
 
                         list.add(new MenuBookmarkablePageLink<ReportsInstitutionTypeOfAidFilter>(

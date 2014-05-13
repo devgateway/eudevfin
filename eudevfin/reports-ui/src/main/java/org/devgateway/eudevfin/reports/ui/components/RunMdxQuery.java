@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.devgateway.eudevfin.reports.core.domain.QueryResult;
 import org.devgateway.eudevfin.reports.core.service.QueryService;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,7 +12,7 @@ import java.util.Map;
  * @author idobre
  * @since 3/11/14
  */
-public class RunMdxQuery {
+public class RunMdxQuery implements Serializable {
     private static final Logger logger = Logger.getLogger(RunMdxQuery.class);
 
     QueryService CdaService;

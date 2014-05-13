@@ -34,9 +34,10 @@
     <entry key="cpaonly.label">Country Programmable Aid (CPA) only</entry>
     <entry key="humanitarianAid.label">Humanitarian Aid</entry>
     <entry key="showRelatedBudgetCodes.label">Show related budget codes</entry>
-    <entry key="pricesNationalCurrency.label">Current prices (national currency)</entry>
-    <entry key="pricesEURCurrency.label">Current prices (EUR currency)</entry>
-    <entry key="choiceOfCurrency">Tick the choice of currency</entry>
+    <entry key="pricesCurrency.label">Tick the choice of currency</entry>
+    <entry key="pricesUSDCurrency">Current prices (USD currency)</entry>
+    <entry key="pricesNationalCurrency">Current prices (national currency)</entry>
     <entry key="button.submit">Search</entry>
     <entry key="geography.error">a country could not be selected if you want to have geographical aggregates</entry>
+    <entry key="geography.help">If you want to display data for the entire region, leave the ODA country field blank.</entry>
 </properties>
