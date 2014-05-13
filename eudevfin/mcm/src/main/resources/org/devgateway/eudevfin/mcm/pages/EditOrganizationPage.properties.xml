@@ -7,6 +7,6 @@
 	<entry key="name.label">Name</entry>
 	<entry key="acronym.label">Acronym</entry>
 	<entry key="code.label">Code</entry>
-	<entry key="donorCode.label">Donor Code</entry>
+	<entry key="donorName.label">Donor Name</entry>
 	<entry key="uniqueOrgCodeError">The database holds another organization with the same code. Please choose a different code!</entry>
 </properties>

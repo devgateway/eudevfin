@@ -24,8 +24,6 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.lang.Args;
 import org.apache.wicket.util.string.Strings;
 import org.apache.wicket.util.time.Duration;
-import org.apache.wicket.validation.IValidatable;
-import org.apache.wicket.validation.ValidationError;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.util.AuthUtils;
 import org.devgateway.eudevfin.metadata.common.domain.Organization;
@@ -84,11 +82,9 @@ public class EditOrganizationPage extends HeaderFooter<Organization> {
 			String code = codeComponent.getInput();
 			String donorCode = donorCodeComponent.getInput();
 
-			Organization org2 = organizationService.findByCodeAndDonorCode(code, organizationForCurrentUser.getCode()).getEntity();
+			Organization org2 = organizationService.findByCodeAndDonorCode(code, organizationForCurrentUser.getDonorCode()).getEntity();
 			if (org2 != null && !org2.getId().equals(id)) {
-				ValidationError error = new ValidationError();
-				error.addKey("uniqueOrgCodeError");
-				form.error(error);
+				form.error(new StringResourceModel("uniqueOrgCodeError", EditOrganizationPage.this, null, null).getString());
 			}
 
 		}
@@ -103,6 +99,7 @@ public class EditOrganizationPage extends HeaderFooter<Organization> {
 			org = new Organization();
 			org.setDac(false);
 			Organization organizationForCurrentUser = AuthUtils.getOrganizationForCurrentUser();
+			org.setDonorCode(organizationForCurrentUser.getDonorCode());
 			org.setDonorName(organizationForCurrentUser.getDonorName());
 
 		} else {
@@ -127,10 +124,10 @@ public class EditOrganizationPage extends HeaderFooter<Organization> {
 				.required().typeString();
 		form.add(code);
 
-		TextInputField<String> donorCode = new TextInputField<>("donorCode", new RWComponentPropertyModel<String>(
-				"donorCode")).required().typeString();
-		donorCode.getField().setEnabled(false);
-		form.add(donorCode);
+		TextInputField<String> donorName = new TextInputField<>("donorName", new RWComponentPropertyModel<String>(
+				"donorName")).required().typeString();
+		donorName.getField().setEnabled(false);
+		form.add(donorName);
 
 		form.add(new BootstrapSubmitButton("submit",
 				new StringResourceModel("button.submit", this, null, (Object) null)) {
@@ -167,13 +164,13 @@ public class EditOrganizationPage extends HeaderFooter<Organization> {
 
 		});
 
-		form.add(new UniqueOrganizationCodeAndDonorCodeValidator(code.getField(), donorCode.getField(), org.getId()));
+		form.add(new UniqueOrganizationCodeAndDonorCodeValidator(code.getField(), donorName.getField(), org.getId()));
 
 		add(form);
 
 		feedbackPanel = new NotificationPanel("feedback");
 		feedbackPanel.setOutputMarkupId(true);
-		feedbackPanel.hideAfter(Duration.seconds(3));
+		feedbackPanel.hideAfter(Duration.seconds(4));
 		add(feedbackPanel);
 	}
 
