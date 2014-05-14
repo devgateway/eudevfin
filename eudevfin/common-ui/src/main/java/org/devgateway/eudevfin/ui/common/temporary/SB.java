@@ -115,20 +115,20 @@ public class SB {
         protected String getDisplayText(Boolean choice) {
             if (choice)
                 return "Yes";
-            return "";
+            return "No";
         }
 
         @Override
         protected Object getId(Boolean choice) {
             if (choice)
                 return 1L;
-            return null;
+            return 0L;
         }
 
         @Override
         public void query(String term, int page, Response<Boolean> response) {
             response.add(Boolean.TRUE);
-         //   response.add(Boolean.FALSE);
+            response.add(Boolean.FALSE);
         }
 
         @Override
@@ -137,8 +137,8 @@ public class SB {
             for (String id : ids) {
                 if (id.equals("1"))
                     ret.add(Boolean.TRUE);
-//                else if (id.equals("0"))
-//                    ret.add(Boolean.FALSE);
+                else
+                    ret.add(Boolean.FALSE);
             }
             return ret;
         }

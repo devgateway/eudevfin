@@ -139,7 +139,7 @@ public class CustomBasicDataTab extends BasicDataTab {
                     send(CustomBasicDataTab.this, Broadcast.DEPTH, new CurrencyChangedEventPayload(target));
                 }
             };
-            firstAgencyCurrency.required();
+            //firstAgencyCurrency.required();
             firstAgencyGroup.add(firstAgencyCurrency);
 
             TextInputField<BigDecimal> firstAgencyAmount = new TextInputField<>("14c1stAgencyAmount",
@@ -156,7 +156,7 @@ public class CustomBasicDataTab extends BasicDataTab {
                     send(CustomBasicDataTab.this, Broadcast.DEPTH, new CurrencyChangedEventPayload(target));
                 }
             };
-            secondAgencyCurrency.required();
+            //secondAgencyCurrency.required();
             pac.add(secondAgencyCurrency);
 
             TextInputField<BigDecimal> secondAgencyAmount = new TextInputField<>("14f2ndAgencyAmount",
@@ -173,7 +173,7 @@ public class CustomBasicDataTab extends BasicDataTab {
                     send(CustomBasicDataTab.this, Broadcast.DEPTH, new CurrencyChangedEventPayload(target));
                 }
             };
-            thirdAgencyCurrency.required();
+            //thirdAgencyCurrency.required();
             pac.add(thirdAgencyCurrency);
 
             TextInputField<BigDecimal> thirdAgencyAmount = new TextInputField<>("14i3rdAgencyAmount",
