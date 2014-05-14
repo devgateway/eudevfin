@@ -291,8 +291,10 @@ public class ReportsController {
 			// Generate and Assign Sub Reports
 			long startTime = System.nanoTime();
 			
-			String inputStreamArea = generateSubReportCached("DAC2aArea", "org/devgateway/eudevfin/reports/core/dac2a/dac2a_template_area", "[Area].Members", false);
-			String inputStreamChannel = generateSubReportCached("DAC2aChannel", "org/devgateway/eudevfin/reports/core/dac2a/dac2a_template_channel", "[Channel].Members", false);
+			String serverInstance = donorName;
+			
+			String inputStreamArea = generateSubReportCached("DAC2aArea", "org/devgateway/eudevfin/reports/core/dac2a/dac2a_template_area", "[Area].Members", false, true, serverInstance);
+			String inputStreamChannel = generateSubReportCached("DAC2aChannel", "org/devgateway/eudevfin/reports/core/dac2a/dac2a_template_channel", "[Channel].Members", false, true, serverInstance);
 			parameters.put("AREA_SUBREPORT_PATH", inputStreamArea);
 			parameters.put("CHANNEL_SUBREPORT_PATH", inputStreamChannel);
 			long endTime = System.nanoTime();
@@ -396,12 +398,17 @@ public class ReportsController {
 			}
 			parameters.put("REPORTING_COUNTRY", donorName);
 
-			JasperDesign jasperDesign = JRXmlLoader.load(inputStreamProcessed);
-			JasperReport jasperReport = JasperCompileManager
-					.compileReport(jasperDesign);
+			String serverInstance = donorName;
+			String inputStreamMemoInterest = generateSubReportCached("DAC1MemoInterest", "org/devgateway/eudevfin/reports/core/dac1/dac1_template_interest", "[Type of Finance].[Code].Members", false, false, serverInstance);
+			String inputStreamMemoExpert = generateSubReportCached("DAC1MemoExpert", "org/devgateway/eudevfin/reports/core/dac1/dac1_template_expert", "[Type of Finance].[Code].Members", false, false, serverInstance);
 
-			JasperPrint jasperPrint = JasperFillManager.fillReport(
-					jasperReport, parameters);
+			parameters.put("INTEREST_SUBREPORT_PATH", inputStreamMemoInterest);
+			parameters.put("EXPERT_SUBREPORT_PATH", inputStreamMemoExpert);
+			
+			JasperDesign jasperDesign = JRXmlLoader.load(inputStreamProcessed);
+			JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+
+			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters);
 
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			ReportExporter reportExporter = new ReportExporter();
@@ -455,34 +462,17 @@ public class ReportsController {
 	 * @param reportName
 	 * @param path
      * @param slicer
+     * @param regenerate
+     * @param serverInstance
      * @returns path to the generated jrxml file to be passed on path to the subreport
 	 */
-	private String generateSubReport(String reportName, String path, String slicer) {
-		InputStream inputStream = ReportsController.class.getClassLoader().getResourceAsStream(path + ".jrxml");
-		ReportTemplate reportProcessor = new ReportTemplate();
-		InputStream inputStreamProcessed = reportProcessor.processTemplate(inputStream,	slicer, rowReportDao, true, reportName);
-        File tempFile;
-		try {
-			tempFile = File.createTempFile(reportName,"_processed.jrxml");
-	        tempFile.deleteOnExit();
-	        
-	        try (FileOutputStream out = new FileOutputStream(tempFile)) {
-	            IOUtils.copy(inputStreamProcessed, out);
-	        }
-	        return tempFile.getAbsolutePath();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
 	
-    private String generateSubReportCached(String reportName, String path, String slicer, Boolean regenerate) {
+    private String generateSubReportCached(String reportName, String path, String slicer, Boolean regenerate, boolean swapAxis, String serverInstance) {
     	//Check if the compiled report file already exists in temporary folder
     	String tmpDirPath = System.getProperty("java.io.tmpdir");
-    	File f = new File(tmpDirPath + File.separator + reportName + "_processed.jasper");
-        if(f.exists() && !regenerate){
-        	String cachedFilePath = tmpDirPath + File.separator + reportName + "_processed.jasper";
+    	File f = new File(tmpDirPath + File.separator + reportName + "_" + serverInstance + "_processed.jasper");
+        if(f.exists() && !regenerate) {
+        	String cachedFilePath = tmpDirPath + File.separator + reportName + "_" + serverInstance + "_processed.jasper";
         	logger.info("The report " + reportName + " is being cached from " + cachedFilePath);
             return cachedFilePath;
         }
@@ -491,8 +481,8 @@ public class ReportsController {
         InputStream inputStream = ReportsController.class.getClassLoader().getResourceAsStream(path + ".jrxml");
 
         ReportTemplate reportProcessor = new ReportTemplate();
-        InputStream inputStreamProcessed = reportProcessor.processTemplate(inputStream,    slicer, rowReportDao, true, reportName);
-        String newJrxmlFilename = tmpDirPath  + File.separator +  reportName + "_processed.jrxml";
+        InputStream inputStreamProcessed = reportProcessor.processTemplate(inputStream, slicer, rowReportDao, swapAxis, reportName);
+        String newJrxmlFilename = tmpDirPath  + File.separator +  reportName + "_" + serverInstance + "_processed.jrxml";
         File processedFile = new File(newJrxmlFilename);
         logger.info("Creating file " + newJrxmlFilename);
         try {

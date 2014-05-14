@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dac1_template_interest" pageWidth="860" pageHeight="48" whenNoDataType="AllSectionsNoDetail" columnWidth="860" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="i18n" uuid="bad8772b-9ff8-49ae-a2c0-34a59258237b">
+	<property name="ireport.zoom" value="4.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="defaultStyle" isDefault="true" mode="Transparent" fontName="Arial" fontSize="8"/>
+	<style name="BlueBackground" style="defaultStyle" mode="Opaque" backcolor="#99CCFF" isBold="true"/>
+	<parameter name="REPORTING_COUNTRY" class="java.lang.String"/>
+	<parameter name="REPORTING_YEAR" class="java.lang.Number"/>
+	<queryString language="mdx">
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="48" splitType="Stretch">
+			<staticText>
+				<reportElement key="c_1121" x="297" y="0" width="65" height="0" uuid="4538bc57-301f-4072-afce-e32df5863af7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[1121]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_1122" x="362" y="0" width="65" height="0" uuid="a4e644ed-3365-4180-9723-eaa76edd7ceb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[1122]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_1120" style="BlueBackground" x="427" y="0" width="75" height="0" uuid="079d4c88-0782-4267-8646-26d5834de497"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[1120]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_1140" style="BlueBackground" x="566" y="0" width="75" height="0" uuid="aa4a9970-61e2-4ffb-b626-aabc319d429b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[1140]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_1130" x="502" y="0" width="64" height="0" uuid="88d44359-7371-477c-b7bb-068dd47e0fad"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[1130]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_1151" x="643" y="0" width="64" height="0" uuid="2eb3651c-78cb-48b6-9b8e-1ba247f92902"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[1151]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_1152" x="707" y="0" width="65" height="0" uuid="c5294c1c-529d-4c5f-ac5f-44360357e9fe"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[1152]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_1150" style="BlueBackground" x="773" y="0" width="79" height="0" uuid="d1aa52c2-0245-4821-8150-53bb7f309286"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[1150]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="r_805" x="263" y="24" width="34" height="12" uuid="f16affab-f41f-4b71-90a6-905c6942c206"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[805]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="263" height="12" uuid="529c3a46-425b-4d46-9c83-ef28ccb8a6e5"/>
+				<textElement>
+					<font size="8" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[   Memo:  - Interest received on OOF, total (bilat.+multilat.) ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="r_786" x="263" y="36" width="34" height="12" uuid="498ba3b2-bfae-48df-8739-729ee18745ba"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[786]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="12" width="263" height="12" uuid="4cbdeb8c-9fbd-45c4-98bc-b4f7a78701a6"/>
+				<textElement>
+					<font size="8" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[                       - Bilateral]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="36" width="263" height="12" uuid="05ba2c3b-3da3-4d75-b09f-b64e1d2e12d3"/>
+				<textElement>
+					<font size="8" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[               - Offsetting entry for forgiven interest (OOF claims, interest)  ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="r_795" x="263" y="0" width="34" height="12" uuid="f94bba6a-16d4-4b5d-853c-0f2d817dc95e"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[795]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="24" width="263" height="12" uuid="3821b887-c498-4849-9497-d7b1fc982d71"/>
+				<textElement>
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[                       - Multilateral]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="r_800" x="263" y="12" width="34" height="12" uuid="61a2fda8-5f21-440f-a650-d1b1dec943b8"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[800]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

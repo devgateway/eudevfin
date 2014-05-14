@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dac1_master" pageWidth="900" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" resourceBundle="i18n" uuid="bad8772b-9ff8-49ae-a2c0-34a59258237b">
-	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.zoom" value="3.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="2056"/>
+	<property name="ireport.y" value="3821"/>
 	<style name="defaultStyle" isDefault="true" mode="Transparent" fontName="Arial" fontSize="8"/>
 	<style name="BlueBackground" style="defaultStyle" mode="Opaque" backcolor="#99CCFF" isBold="true"/>
 	<parameter name="REPORTING_COUNTRY" class="java.lang.String"/>
 	<parameter name="REPORTING_YEAR" class="java.lang.Number"/>
+	<parameter name="EXPERT_SUBREPORT_PATH" class="java.lang.String"/>
+	<parameter name="INTEREST_SUBREPORT_PATH" class="java.lang.String"/>
 	<queryString language="mdx">
 		<![CDATA[]]>
 	</queryString>
@@ -623,13 +625,6 @@ commitments]]></text>
 				<text><![CDATA[1214]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1330" x="263" y="252" width="34" height="12" uuid="c06c79b4-ea48-4b25-b35a-79174e056301"/>
-				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font size="8"/>
-				</textElement>
-				<text><![CDATA[1330]]></text>
-			</staticText>
-			<staticText>
 				<reportElement key="r_1220" x="263" y="180" width="34" height="12" uuid="2685a5aa-2854-44d6-97d0-483cc9bf899e"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8"/>
@@ -698,13 +693,6 @@ commitments]]></text>
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1212]]></text>
-			</staticText>
-			<staticText>
-				<reportElement key="r_1301" x="263" y="264" width="34" height="12" uuid="503abd27-2d9f-4889-8a1f-3bfafd403403"/>
-				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font size="8"/>
-				</textElement>
-				<text><![CDATA[1301]]></text>
 			</staticText>
 			<staticText>
 				<reportElement key="r_1510" x="263" y="324" width="34" height="12" uuid="3faafaa4-0a9e-404f-be6c-0a58c5f8b8e7"/>
@@ -932,20 +920,6 @@ commitments]]></text>
 				<text><![CDATA[  3.2 Other projects]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="252" width="263" height="12" uuid="68a74e8e-5d1b-4310-a002-de98d21fb8ab"/>
-				<textElement>
-					<font size="8" isItalic="true"/>
-				</textElement>
-				<text><![CDATA[    Memo:  Projects qualifying as programme-based approaches]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="264" width="263" height="12" uuid="8ac41940-4bdb-4481-b404-fd78c56b031e"/>
-				<textElement>
-					<font size="8" isItalic="true"/>
-				</textElement>
-				<text><![CDATA[    Memo:  Cost of donor experts incl. in project-type interventions (optional)]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="0" y="276" width="263" height="12" uuid="296a4a9a-89a3-4054-8a8e-da0c2dfe94e9"/>
 				<textElement>
 					<font size="8" isBold="true"/>
@@ -1114,8 +1088,21 @@ commitments]]></text>
 				<text><![CDATA[  8.2 Refugees in donor countries
 ]]></text>
 			</staticText>
+			<subreport>
+				<reportElement x="0" y="252" width="860" height="24" uuid="6ecdb57d-8501-4e02-b641-af3378fb3363"/>
+				<subreportParameter name="REPORTING_YEAR">
+					<subreportParameterExpression><![CDATA[$P{REPORTING_YEAR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="MONDRIAN_CONNECTION">
+					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
+					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression><![CDATA[$P{EXPERT_SUBREPORT_PATH}]]></subreportExpression>
+			</subreport>
 		</band>
-		<band height="540">
+		<band height="552">
 			<staticText>
 				<reportElement key="r_1900" x="263" y="0" width="34" height="12" uuid="24fe5eaf-8421-410b-ad84-ef0554e3592d"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
@@ -1124,42 +1111,42 @@ commitments]]></text>
 				<text><![CDATA[1900]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1903" x="263" y="48" width="34" height="24" uuid="1c2d214a-2bd4-46f6-9a59-f0e416447578"/>
+				<reportElement key="r_1903" x="263" y="60" width="34" height="24" uuid="1c2d214a-2bd4-46f6-9a59-f0e416447578"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1903]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1902" x="263" y="36" width="34" height="12" uuid="e8f538b9-e289-4dae-9df5-966393dc3add"/>
+				<reportElement key="r_1902" x="263" y="48" width="34" height="12" uuid="e8f538b9-e289-4dae-9df5-966393dc3add"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1902]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1901" x="263" y="24" width="34" height="12" uuid="7311f068-0cfe-49c8-ae5f-a5dd8d3b94ac"/>
+				<reportElement key="r_1901" x="263" y="36" width="34" height="12" uuid="7311f068-0cfe-49c8-ae5f-a5dd8d3b94ac"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1901]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1905" x="263" y="84" width="34" height="12" uuid="994cd51c-1d64-4ecc-b5d1-07c03bc765c7"/>
+				<reportElement key="r_1905" x="263" y="96" width="34" height="12" uuid="994cd51c-1d64-4ecc-b5d1-07c03bc765c7"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1905]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1906" x="263" y="96" width="34" height="12" uuid="c8634490-acc4-4f30-b573-11bc8e55f454"/>
+				<reportElement key="r_1906" x="263" y="108" width="34" height="12" uuid="c8634490-acc4-4f30-b573-11bc8e55f454"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[1906]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_1904" x="263" y="72" width="34" height="12" uuid="9f58d79f-b7e8-406b-837f-be536cc50dae"/>
+				<reportElement key="r_1904" x="263" y="84" width="34" height="12" uuid="9f58d79f-b7e8-406b-837f-be536cc50dae"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8"/>
 				</textElement>
@@ -1180,7 +1167,7 @@ commitments]]></text>
 				<text><![CDATA[10. Other loans repayments]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="24" width="263" height="12" uuid="fb35e2cf-b854-450d-8f64-b88495d68860"/>
+				<reportElement x="0" y="24" width="263" height="24" uuid="fb35e2cf-b854-450d-8f64-b88495d68860"/>
 				<textElement>
 					<font size="8" isBold="false" isItalic="true"/>
 				</textElement>
@@ -1188,7 +1175,7 @@ commitments]]></text>
    Programme-based approaches (PBAs)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="36" width="263" height="12" uuid="dc97c710-893c-487a-b072-093bebfebef5"/>
+				<reportElement x="0" y="48" width="263" height="12" uuid="dc97c710-893c-487a-b072-093bebfebef5"/>
 				<textElement>
 					<font size="8" isBold="false" isItalic="true"/>
 				</textElement>
@@ -1196,21 +1183,21 @@ commitments]]></text>
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="48" width="263" height="24" uuid="0912a985-c1b9-481a-8dd0-d39831881764"/>
+				<reportElement x="0" y="60" width="263" height="24" uuid="0912a985-c1b9-481a-8dd0-d39831881764"/>
 				<textElement>
 					<font size="8" isBold="false" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[   ODA channelled through private entities (as distinct from support to private sources) ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="72" width="263" height="12" uuid="48c94341-282c-49c7-b673-ed7056dde4c5"/>
+				<reportElement x="0" y="84" width="263" height="12" uuid="48c94341-282c-49c7-b673-ed7056dde4c5"/>
 				<textElement>
 					<font size="8" isBold="false" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[   ODA channelled through multilateral organisations]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="84" width="263" height="12" uuid="c7e8fe3f-048e-4831-80da-02e78b26a2f2"/>
+				<reportElement x="0" y="96" width="263" height="12" uuid="c7e8fe3f-048e-4831-80da-02e78b26a2f2"/>
 				<textElement>
 					<font size="8" isBold="false" isItalic="true"/>
 				</textElement>
@@ -1224,168 +1211,168 @@ commitments]]></text>
 				<text><![CDATA[1999]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="96" width="263" height="12" uuid="e02d6c98-9dc7-492e-b41e-7527c85d59bf"/>
+				<reportElement x="0" y="108" width="263" height="12" uuid="e02d6c98-9dc7-492e-b41e-7527c85d59bf"/>
 				<textElement>
 					<font size="8" isBold="false" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[   Relief food aid]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="132" width="263" height="12" uuid="7f0c8e8e-d08c-4ac6-902f-d8464d55ae04"/>
+				<reportElement x="0" y="144" width="263" height="12" uuid="7f0c8e8e-d08c-4ac6-902f-d8464d55ae04"/>
 				<textElement>
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[1. Multilateral contributions to:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_2000" x="263" y="108" width="34" height="24" uuid="814138b6-4c84-4064-a2a1-8bbc7c1b106c"/>
+				<reportElement key="r_2000" x="263" y="120" width="34" height="24" uuid="814138b6-4c84-4064-a2a1-8bbc7c1b106c"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[2000]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="108" width="263" height="24" uuid="8f989a68-ebde-4509-8831-97a98d8b7ed0"/>
+				<reportElement x="0" y="120" width="263" height="24" uuid="8f989a68-ebde-4509-8831-97a98d8b7ed0"/>
 				<textElement>
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[I.B. Multilateral Official Development Assistance (capital subscriptions are included with grants)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_2100" x="263" y="132" width="34" height="12" uuid="5613a1d4-f17a-4f8a-9a5f-184ea3926f3b"/>
+				<reportElement key="r_2100" x="263" y="144" width="34" height="12" uuid="5613a1d4-f17a-4f8a-9a5f-184ea3926f3b"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[2100]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_2101" x="263" y="144" width="34" height="12" uuid="e397d699-cc5d-47a4-a6b7-80e095589b11"/>
+				<reportElement key="r_2101" x="263" y="156" width="34" height="12" uuid="e397d699-cc5d-47a4-a6b7-80e095589b11"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[2101]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="144" width="263" height="12" uuid="d739c4be-d0b8-4e52-a1e9-28c430683636"/>
+				<reportElement x="0" y="156" width="263" height="12" uuid="d739c4be-d0b8-4e52-a1e9-28c430683636"/>
 				<textElement>
 					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[   1.1 UN agencies]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="156" width="263" height="12" uuid="cf1d88af-2ec2-4071-a3ad-687dc07cd9ec"/>
+				<reportElement x="0" y="168" width="263" height="12" uuid="cf1d88af-2ec2-4071-a3ad-687dc07cd9ec"/>
 				<textElement>
 					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[   1.2 European Union]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="168" width="263" height="12" uuid="ecdf6637-b33d-49f8-a8d6-862d55e6a4b9"/>
+				<reportElement x="0" y="180" width="263" height="12" uuid="ecdf6637-b33d-49f8-a8d6-862d55e6a4b9"/>
 				<textElement>
 					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[   1.3 IDA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="180" width="263" height="12" uuid="504e69a9-2047-418c-9808-480f1218e507"/>
+				<reportElement x="0" y="192" width="263" height="12" uuid="504e69a9-2047-418c-9808-480f1218e507"/>
 				<textElement>
 					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[   1.4 Other World Bank (AMCs, IBRD,IFC,MIGA)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="192" width="263" height="12" uuid="b8a3efd8-f29f-4ea4-a739-914a995ae9a8"/>
+				<reportElement x="0" y="204" width="263" height="12" uuid="b8a3efd8-f29f-4ea4-a739-914a995ae9a8"/>
 				<textElement>
 					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[   1.5 Regional development banks]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="204" width="263" height="12" uuid="5ad26408-824e-42bb-b668-52ab4ede7270"/>
+				<reportElement x="0" y="216" width="263" height="12" uuid="5ad26408-824e-42bb-b668-52ab4ede7270"/>
 				<textElement>
 					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[   1.6 Global Environment Facility]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_2102" x="263" y="156" width="34" height="12" uuid="85d0b855-693d-4927-a9a7-3afaccc371e8"/>
+				<reportElement key="r_2102" x="263" y="168" width="34" height="12" uuid="85d0b855-693d-4927-a9a7-3afaccc371e8"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[2102]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_2103" x="263" y="168" width="34" height="12" uuid="089c0277-3930-49ee-922e-7c6f55a2413b"/>
+				<reportElement key="r_2103" x="263" y="180" width="34" height="12" uuid="089c0277-3930-49ee-922e-7c6f55a2413b"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[2103]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_2104" x="263" y="180" width="34" height="12" uuid="63dd2b4e-3c46-4723-951c-9753f8df759d"/>
+				<reportElement key="r_2104" x="263" y="192" width="34" height="12" uuid="63dd2b4e-3c46-4723-951c-9753f8df759d"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[2104]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_2105" x="263" y="192" width="34" height="12" uuid="89647c22-c4af-4de9-b698-2b9f02d4bb93"/>
+				<reportElement key="r_2105" x="263" y="204" width="34" height="12" uuid="89647c22-c4af-4de9-b698-2b9f02d4bb93"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[2105]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_2106" x="263" y="204" width="34" height="12" uuid="5656c863-d0a1-4a82-9a32-cbfa65e4df25"/>
+				<reportElement key="r_2106" x="263" y="216" width="34" height="12" uuid="5656c863-d0a1-4a82-9a32-cbfa65e4df25"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[2106]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="216" width="263" height="12" uuid="a92eab1b-8583-453b-bc04-40627f2b4b77"/>
+				<reportElement x="0" y="228" width="263" height="12" uuid="a92eab1b-8583-453b-bc04-40627f2b4b77"/>
 				<textElement>
 					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[   1.7 Montreal Protocol]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_2107" x="263" y="216" width="34" height="12" uuid="a7b239b9-0676-495a-a18e-714e47a6dda3"/>
+				<reportElement key="r_2107" x="263" y="228" width="34" height="12" uuid="a7b239b9-0676-495a-a18e-714e47a6dda3"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[2107]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="228" width="263" height="12" uuid="4f0ead8e-2b3c-427f-ad23-ade0ec56b11f"/>
+				<reportElement x="0" y="240" width="263" height="12" uuid="4f0ead8e-2b3c-427f-ad23-ade0ec56b11f"/>
 				<textElement>
 					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[   1.8 Other agencies]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_2108" x="263" y="228" width="34" height="12" uuid="ac3ac226-d72b-4008-902b-6b18d76b9b6e"/>
+				<reportElement key="r_2108" x="263" y="240" width="34" height="12" uuid="ac3ac226-d72b-4008-902b-6b18d76b9b6e"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[2108]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="240" width="263" height="24" uuid="7e7666d5-6fef-4542-b74b-233bbb6cc0bc"/>
+				<reportElement x="0" y="252" width="263" height="24" uuid="7e7666d5-6fef-4542-b74b-233bbb6cc0bc"/>
 				<textElement>
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[2. Recoveries on multilateral ODA grants and capital subscriptions / negative commitments ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_2110" x="263" y="240" width="34" height="24" uuid="80dbe23b-5bb9-4297-b373-3edce9766ff9"/>
+				<reportElement key="r_2110" x="263" y="252" width="34" height="24" uuid="80dbe23b-5bb9-4297-b373-3edce9766ff9"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[2110]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="264" width="263" height="24" uuid="e54368e8-022a-4a3c-86d8-0c24c330108d"/>
+				<reportElement x="0" y="276" width="263" height="24" uuid="e54368e8-022a-4a3c-86d8-0c24c330108d"/>
 				<textElement>
 					<font size="8" isItalic="true"/>
 				</textElement>
@@ -1393,133 +1380,133 @@ commitments]]></text>
       - HIPC Initiative ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_2901" x="263" y="276" width="34" height="12" uuid="94870cb1-ed52-4cd1-985c-640f57c86a46"/>
-				<textElement textAlignment="Center" verticalAlignment="Bottom">
+				<reportElement key="r_2901" x="263" y="288" width="34" height="12" uuid="94870cb1-ed52-4cd1-985c-640f57c86a46"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[2901]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_2902" x="263" y="288" width="34" height="12" uuid="0f930f3c-0b1a-4f68-8311-8555fa55db44"/>
+				<reportElement key="r_2902" x="263" y="300" width="34" height="12" uuid="0f930f3c-0b1a-4f68-8311-8555fa55db44"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[2902]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="288" width="263" height="12" uuid="5402466e-0460-4d47-b520-2929492634d8"/>
+				<reportElement x="0" y="300" width="263" height="12" uuid="5402466e-0460-4d47-b520-2929492634d8"/>
 				<textElement>
 					<font size="8" isBold="false" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[      - IDA Debt Reduction Facility]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_235" x="263" y="312" width="34" height="12" uuid="4f56d2c1-8357-46c1-aa29-2d6a34add86e"/>
+				<reportElement key="r_235" x="263" y="324" width="34" height="12" uuid="4f56d2c1-8357-46c1-aa29-2d6a34add86e"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[235]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="BlueBackground" x="0" y="300" width="263" height="12" uuid="1083b3f4-53e8-4724-97e3-13170b264c9f"/>
+				<reportElement style="BlueBackground" x="0" y="312" width="263" height="12" uuid="1083b3f4-53e8-4724-97e3-13170b264c9f"/>
 				<textElement>
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[II. OTHER OFFICIAL FLOWS]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_230" style="BlueBackground" x="263" y="300" width="34" height="12" uuid="61d6d297-c69f-4ac8-86db-525203e387b9"/>
+				<reportElement key="r_230" style="BlueBackground" x="263" y="312" width="34" height="12" uuid="61d6d297-c69f-4ac8-86db-525203e387b9"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[230]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="312" width="263" height="12" uuid="1680a062-a7fd-47bf-96e2-14741c1f72fb"/>
+				<reportElement x="0" y="324" width="263" height="12" uuid="1680a062-a7fd-47bf-96e2-14741c1f72fb"/>
 				<textElement>
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[II.A. Other Official Bilateral Flows]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_240" x="263" y="324" width="34" height="12" uuid="47842e98-854d-4ced-ada2-ef8a55975486"/>
+				<reportElement key="r_240" x="263" y="336" width="34" height="12" uuid="47842e98-854d-4ced-ada2-ef8a55975486"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[240]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="324" width="263" height="12" uuid="b81e9f4e-06fd-4441-9664-6c2ef7c6dcc5"/>
+				<reportElement x="0" y="336" width="263" height="12" uuid="b81e9f4e-06fd-4441-9664-6c2ef7c6dcc5"/>
 				<textElement>
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[1.  Export-related transactions]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_265" x="263" y="336" width="34" height="12" uuid="feadc8cc-a070-4eed-8f03-4273466bd4b7"/>
+				<reportElement key="r_265" x="263" y="348" width="34" height="12" uuid="feadc8cc-a070-4eed-8f03-4273466bd4b7"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[265]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="336" width="263" height="12" uuid="c750e138-ea64-4fc6-9ce1-999ce4e31e5e"/>
+				<reportElement x="0" y="348" width="263" height="12" uuid="c750e138-ea64-4fc6-9ce1-999ce4e31e5e"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[   1.1 Official export credits to developing countries]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_266" x="263" y="348" width="34" height="12" uuid="43ad0dcb-b604-4456-b730-bd69abf4d8b6"/>
+				<reportElement key="r_266" x="263" y="360" width="34" height="12" uuid="43ad0dcb-b604-4456-b730-bd69abf4d8b6"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[266]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="348" width="263" height="12" uuid="0568235f-fc96-4faf-baa9-11a5968334c9"/>
+				<reportElement x="0" y="360" width="263" height="12" uuid="0568235f-fc96-4faf-baa9-11a5968334c9"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[   1.2 Support to national private exporters]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_294" x="263" y="360" width="34" height="12" uuid="d7195fbc-a0c4-4c2b-b088-dc14977bae36"/>
+				<reportElement key="r_294" x="263" y="372" width="34" height="12" uuid="d7195fbc-a0c4-4c2b-b088-dc14977bae36"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[294]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="360" width="263" height="12" uuid="2a67f4bc-02fd-43bb-ab2b-38d5bfc710d6"/>
+				<reportElement x="0" y="372" width="263" height="12" uuid="2a67f4bc-02fd-43bb-ab2b-38d5bfc710d6"/>
 				<textElement>
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[2.  Investment-related transactions]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_291" x="263" y="372" width="34" height="12" uuid="e2cdae42-e8f8-4668-9c8c-2c557ca29ac3"/>
+				<reportElement key="r_291" x="263" y="384" width="34" height="12" uuid="e2cdae42-e8f8-4668-9c8c-2c557ca29ac3"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[291]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="372" width="263" height="12" uuid="f255951d-7f11-4726-8753-824ef6c2f241"/>
+				<reportElement x="0" y="384" width="263" height="12" uuid="f255951d-7f11-4726-8753-824ef6c2f241"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[   2.1 With developing countries]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_292" x="263" y="384" width="34" height="12" uuid="9b4c5b94-929b-4214-ab5d-3d2aa86471c4"/>
+				<reportElement key="r_292" x="263" y="396" width="34" height="12" uuid="9b4c5b94-929b-4214-ab5d-3d2aa86471c4"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[292]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="384" width="263" height="12" uuid="f15433dc-4886-41ed-a505-657831d4063c"/>
+				<reportElement x="0" y="396" width="263" height="12" uuid="f15433dc-4886-41ed-a505-657831d4063c"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
@@ -1527,175 +1514,175 @@ commitments]]></text>
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_293" x="263" y="396" width="34" height="12" uuid="492e6a14-df9f-4fbb-9496-b0dffc1e2e00"/>
+				<reportElement key="r_293" x="263" y="408" width="34" height="12" uuid="492e6a14-df9f-4fbb-9496-b0dffc1e2e00"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[293]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="396" width="263" height="12" uuid="3608c632-4bee-4185-9004-660793e4669b"/>
+				<reportElement x="0" y="408" width="263" height="12" uuid="3608c632-4bee-4185-9004-660793e4669b"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[                   of which:   -   Loans]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_280" x="263" y="408" width="34" height="12" uuid="b7a3dede-2a8f-4532-9d2c-595015f1a123"/>
+				<reportElement key="r_280" x="263" y="420" width="34" height="12" uuid="b7a3dede-2a8f-4532-9d2c-595015f1a123"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[280]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="408" width="263" height="12" uuid="bba0693f-af80-4808-9eb8-923496ed3463"/>
+				<reportElement x="0" y="420" width="263" height="12" uuid="bba0693f-af80-4808-9eb8-923496ed3463"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[                                     -  Acquisition of equity]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="420" width="263" height="12" uuid="7ca3c010-f479-4d3c-9ad8-d999de2fb2fc"/>
+				<reportElement x="0" y="432" width="263" height="12" uuid="7ca3c010-f479-4d3c-9ad8-d999de2fb2fc"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[   2.2 With residents (Support to national private investors)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_287" x="263" y="420" width="34" height="12" uuid="cdde3896-2f62-40da-b4e7-4d8db23d4cc3"/>
+				<reportElement key="r_287" x="263" y="432" width="34" height="12" uuid="cdde3896-2f62-40da-b4e7-4d8db23d4cc3"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[287]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="432" width="263" height="12" uuid="a671db28-05d0-4a95-98a7-fb404c5d223e"/>
+				<reportElement x="0" y="444" width="263" height="12" uuid="a671db28-05d0-4a95-98a7-fb404c5d223e"/>
 				<textElement>
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[3.  Debt rescheduling]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_300" x="263" y="432" width="34" height="12" uuid="e5c56236-262c-43f2-8fc1-20958390c654"/>
+				<reportElement key="r_300" x="263" y="444" width="34" height="12" uuid="e5c56236-262c-43f2-8fc1-20958390c654"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[300]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_301" x="263" y="444" width="34" height="12" uuid="2f522d40-d117-4b1a-93d8-96d1d6b0baa9"/>
+				<reportElement key="r_301" x="263" y="456" width="34" height="12" uuid="2f522d40-d117-4b1a-93d8-96d1d6b0baa9"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[301]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="444" width="263" height="12" uuid="38f11ddb-47ad-4ac9-9820-1b2dad46f09a"/>
+				<reportElement x="0" y="456" width="263" height="12" uuid="38f11ddb-47ad-4ac9-9820-1b2dad46f09a"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[   3.1 Non-concessional rescheduling]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_302" x="263" y="456" width="34" height="12" uuid="c58f64a8-ab40-4a16-8f37-5dd7aebbe950"/>
+				<reportElement key="r_302" x="263" y="468" width="34" height="12" uuid="c58f64a8-ab40-4a16-8f37-5dd7aebbe950"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[302]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="456" width="263" height="12" uuid="374b7f84-fe23-4af2-b2bf-708d1cc4f5ce"/>
+				<reportElement x="0" y="468" width="263" height="12" uuid="374b7f84-fe23-4af2-b2bf-708d1cc4f5ce"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[         a) OOF claims (capitalised interest)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_310" x="263" y="468" width="34" height="12" uuid="32108f74-ba44-4a51-9244-9054c21c1cfb"/>
+				<reportElement key="r_310" x="263" y="480" width="34" height="12" uuid="32108f74-ba44-4a51-9244-9054c21c1cfb"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[310]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="468" width="263" height="12" uuid="05d2d1de-0dc6-4faf-8c5a-6c51a3aa4e9b"/>
+				<reportElement x="0" y="480" width="263" height="12" uuid="05d2d1de-0dc6-4faf-8c5a-6c51a3aa4e9b"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[         b) Private sector claims]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_303" x="263" y="480" width="34" height="12" uuid="f3322ec3-5a6d-484f-898f-8328cc217209"/>
+				<reportElement key="r_303" x="263" y="492" width="34" height="12" uuid="f3322ec3-5a6d-484f-898f-8328cc217209"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[303]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="480" width="263" height="12" uuid="2be933b5-3863-49df-b55e-68afe7be00e0"/>
+				<reportElement x="0" y="492" width="263" height="12" uuid="2be933b5-3863-49df-b55e-68afe7be00e0"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[   3.2 OOF component of debt service reduction]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_295" x="263" y="492" width="34" height="12" uuid="f9c7a441-8864-48d0-b84b-e5de5bfb1dfa"/>
+				<reportElement key="r_295" x="263" y="504" width="34" height="12" uuid="f9c7a441-8864-48d0-b84b-e5de5bfb1dfa"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[295]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="492" width="263" height="12" uuid="86a0a700-0298-43af-8664-3b16cc1ebe64"/>
+				<reportElement x="0" y="504" width="263" height="12" uuid="86a0a700-0298-43af-8664-3b16cc1ebe64"/>
 				<textElement>
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[4.  Other bilateral securities and claims]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_299" x="263" y="504" width="34" height="12" uuid="5f09bf67-8238-42af-bf7d-5fcba5872e24"/>
+				<reportElement key="r_299" x="263" y="516" width="34" height="12" uuid="5f09bf67-8238-42af-bf7d-5fcba5872e24"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[299]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="504" width="263" height="12" uuid="8485ab68-48c1-4a29-b669-5592e8a0c30f"/>
+				<reportElement x="0" y="516" width="263" height="12" uuid="8485ab68-48c1-4a29-b669-5592e8a0c30f"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[   4.1 Other acquisition of equity]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="516" width="263" height="12" uuid="0847ec32-fbf0-42df-911e-7536169526af"/>
+				<reportElement x="0" y="528" width="263" height="12" uuid="0847ec32-fbf0-42df-911e-7536169526af"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[   4.2 Other claims and grants]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_298" x="263" y="516" width="34" height="12" uuid="79801312-1b2d-4622-8fb9-ba942333650a"/>
+				<reportElement key="r_298" x="263" y="528" width="34" height="12" uuid="79801312-1b2d-4622-8fb9-ba942333650a"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[298]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="528" width="263" height="12" uuid="b34538ab-370e-4a65-bce7-9a7df49b6a12"/>
+				<reportElement x="0" y="540" width="263" height="12" uuid="b34538ab-370e-4a65-bce7-9a7df49b6a12"/>
 				<textElement>
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[5.  Offsetting entry for debt relief (OOF claims, principal) ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_102" x="263" y="528" width="34" height="12" uuid="dd100c52-5dee-4398-bc17-8b42baede232"/>
+				<reportElement key="r_102" x="263" y="540" width="34" height="12" uuid="dd100c52-5dee-4398-bc17-8b42baede232"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[102]]></text>
 			</staticText>
 		</band>
-		<band height="389">
+		<band height="348">
 			<staticText>
 				<reportElement x="0" y="0" width="263" height="12" uuid="78ed5698-7dcc-4d03-8ad8-cb7e7e4ece7d"/>
 				<textElement>
@@ -1737,62 +1724,6 @@ commitments]]></text>
 					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[327]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="36" width="263" height="12" uuid="57651940-1eb8-4c0b-82eb-746f32599c91"/>
-				<textElement>
-					<font size="8" isItalic="true"/>
-				</textElement>
-				<text><![CDATA[   Memo:  - Interest received on OOF, total (bilat.+multilat.) ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement key="r_795" x="263" y="36" width="34" height="12" uuid="0b0e47aa-1af4-4c4e-8dc1-0bae7814b9b4"/>
-				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font size="8"/>
-				</textElement>
-				<text><![CDATA[795]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="48" width="263" height="12" uuid="5bb743fd-c1f2-4bb0-a9fd-6e6ba20ccc31"/>
-				<textElement>
-					<font size="8" isItalic="true"/>
-				</textElement>
-				<text><![CDATA[                       - Bilateral]]></text>
-			</staticText>
-			<staticText>
-				<reportElement key="r_800" x="263" y="48" width="34" height="12" uuid="93a4781a-caf3-41c7-b745-57b3c91f04de"/>
-				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font size="8"/>
-				</textElement>
-				<text><![CDATA[800]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="60" width="263" height="12" uuid="28f6f44c-dd27-4370-8376-463ca050e2cb"/>
-				<textElement>
-					<font size="8" isBold="false" isItalic="true"/>
-				</textElement>
-				<text><![CDATA[                       - Multilateral]]></text>
-			</staticText>
-			<staticText>
-				<reportElement key="r_805" x="263" y="60" width="34" height="12" uuid="9fe5436a-60bf-4011-85ab-c8a5754afeed"/>
-				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font size="8" isBold="false"/>
-				</textElement>
-				<text><![CDATA[805]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="72" width="263" height="12" uuid="aea845db-48ba-4b17-8230-cb50cb8b9d9a"/>
-				<textElement>
-					<font size="8" isItalic="true"/>
-				</textElement>
-				<text><![CDATA[               - Offsetting entry for forgiven interest (OOF claims, interest)  ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement key="r_786" x="263" y="72" width="34" height="12" uuid="cbf2a539-b2b6-4835-b187-b65a9a5317dc"/>
-				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font size="8"/>
-				</textElement>
-				<text><![CDATA[786]]></text>
 			</staticText>
 			<staticText>
 				<reportElement key="r_330" style="BlueBackground" x="263" y="84" width="34" height="12" uuid="1b161bac-20fc-4138-a368-ecdfc78c6275"/>
@@ -2089,6 +2020,19 @@ commitments]]></text>
 				<text><![CDATA[ V. ITEM ONLY PARTLY COVERED IN DAC RESOURCE FLOW STATISTICS
 ]]></text>
 			</staticText>
+			<subreport>
+				<reportElement x="0" y="36" width="860" height="48" uuid="9905c55d-0c91-49c3-bd45-70e2eac741c5"/>
+				<subreportParameter name="REPORTING_YEAR">
+					<subreportParameterExpression><![CDATA[$P{REPORTING_YEAR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="MONDRIAN_CONNECTION">
+					<subreportParameterExpression><![CDATA[$P{MONDRIAN_CONNECTION}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
+					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression><![CDATA[$P{INTEREST_SUBREPORT_PATH}]]></subreportExpression>
+			</subreport>
 		</band>
 	</detail>
 </jasperReport>

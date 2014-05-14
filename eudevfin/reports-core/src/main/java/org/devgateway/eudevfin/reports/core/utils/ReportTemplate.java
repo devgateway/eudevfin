@@ -504,7 +504,7 @@ public class ReportTemplate {
 				str.append(")\n");
 			}
 		}
-		//System.out.println(measures);
+
 		str.append("\n");
 		for(String measure : measures) {
 			str.append("MEMBER " + measure + " AS " + measureMap.get(measure) +" \n");
