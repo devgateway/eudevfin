@@ -73,10 +73,10 @@ public class VolumeDataTab extends Panel implements PermissionAwareComponent {
                 this.currencyUnitProviderFactory.getCurrencyUnitProviderInstance(CurrencyUnitProviderFactory.NATIONAL_UNSORTED_CURRENCIES_PROVIDER);
         currency = new DropDownField<CurrencyUnit>("32currency", new RWComponentPropertyModel<CurrencyUnit>("currency"),
                 nationalCurrenciesProvider) {
-            @Override
-            protected void onUpdate(AjaxRequestTarget target) {
-                send(getPage(), Broadcast.DEPTH, new CurrencyChangedEventPayload(target));
-            }
+//            @Override
+//            protected void onUpdate(AjaxRequestTarget target) {
+//                send(getPage(), Broadcast.DEPTH, new CurrencyChangedEventPayload(target));
+//            }
         };
         currency.required();
         add(currency);

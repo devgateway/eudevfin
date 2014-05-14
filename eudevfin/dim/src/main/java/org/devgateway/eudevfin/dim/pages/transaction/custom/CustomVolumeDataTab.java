@@ -8,10 +8,11 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.custom;
 
-import com.vaynberg.wicket.select2.ChoiceProvider;
-import com.vaynberg.wicket.select2.Select2Choice;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.wicket.MarkupContainer;
-import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.form.validation.IFormValidator;
@@ -30,12 +31,12 @@ import org.devgateway.eudevfin.ui.common.components.VisibilityAwareContainer;
 import org.devgateway.eudevfin.ui.common.events.CurrencyUpdateBehavior;
 import org.devgateway.eudevfin.ui.common.models.BigMoneyModel;
 import org.devgateway.eudevfin.ui.common.providers.CurrencyUnitProviderFactory;
+import org.devgateway.eudevfin.ui.common.validators.DuplicateCurrencyValidator;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import com.vaynberg.wicket.select2.ChoiceProvider;
+import com.vaynberg.wicket.select2.Select2Choice;
 
 /**
  * @author aartimon
@@ -212,11 +213,11 @@ public class CustomVolumeDataTab extends VolumeDataTab {
         public Extension3(String id, String markupId, MarkupContainer markupProvider) {
             super(id, markupId, markupProvider);
 
-            final TextInputField<BigDecimal> exchangeRate = new TextInputField<>("32cExchangeRate",
-                    new RWComponentPropertyModel<BigDecimal>("fixedRate"));
-            exchangeRate.typeBigDecimal().add(new CurrencyUpdateBehavior());
-            exchangeRate.getField().setEnabled(false);
-            add(exchangeRate);
+//            final TextInputField<BigDecimal> exchangeRate = new TextInputField<>("32cExchangeRate",
+//                    new RWComponentPropertyModel<BigDecimal>("fixedRate"));
+//            exchangeRate.typeBigDecimal().add(new CurrencyUpdateBehavior());
+//            exchangeRate.getField().setEnabled(false);
+//            add(exchangeRate);
 
             ChoiceProvider<CurrencyUnit> currencyUnitProvider =
                     this.currencyUnitProviderFactory.
@@ -225,22 +226,22 @@ public class CustomVolumeDataTab extends VolumeDataTab {
 
             final DropDownField<CurrencyUnit> otherCurrency = new DropDownField<CurrencyUnit>("32bOtherCurrency",
                     new RWComponentPropertyModel<CurrencyUnit>("otherCurrency"), currencyUnitProvider) {
-                @Override
-                protected void onUpdate(AjaxRequestTarget target) {
-                    //send(getPage(), Broadcast.DEPTH, new CurrencyChangedEvent(target));
-                    if (getDefaultModelObject() != null)
-                        exchangeRate.getField().setEnabled(true);
-                    else
-                        exchangeRate.getField().setEnabled(false);
-                    target.add(exchangeRate.getField());
-                }
+//                @Override
+//                protected void onUpdate(AjaxRequestTarget target) {
+//                    //send(getPage(), Broadcast.DEPTH, new CurrencyChangedEvent(target));
+//                    if (getDefaultModelObject() != null)
+//                        exchangeRate.getField().setEnabled(true);
+//                    else
+//                        exchangeRate.getField().setEnabled(false);
+//                    target.add(exchangeRate.getField());
+//                }
             };
             
             //this is disabled until further notice ODAEU-113
             //otherCurrency.getField().setEnabled(false);
             
-//            otherCurrency.getField().add(new DuplicateCurrencyValidator(otherCurrency.getField()));
-            otherCurrency.add(new CurrencyUpdateBehavior());
+            otherCurrency.getField().add(new DuplicateCurrencyValidator(otherCurrency.getField()));
+   //         otherCurrency.add(new CurrencyUpdateBehavior());
             add(otherCurrency);
 
             this.otherCurrencyValidator = new IFormValidator() {
