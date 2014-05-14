@@ -109,9 +109,9 @@ public class CustomTransactionPermissionProvider extends CRSTransactionPermissio
         permissions.get("42amountOfExportCredit").notCollected(SB.BILATERAL_ODA_ADVANCE_QUESTIONNAIRE);
         //end override
 
-        permissions.put("34bBudgetCode", new RoleActionMapping().required(SB.BILATERAL_ODA_CRS).required(SB.MULTILATERAL_ODA_CRS));
-        permissions.put("34cBudgetLine", new RoleActionMapping().required(SB.BILATERAL_ODA_CRS).required(SB.MULTILATERAL_ODA_CRS));
-        permissions.put("34dBudgetActivity", new RoleActionMapping().required(SB.BILATERAL_ODA_CRS).required(SB.MULTILATERAL_ODA_CRS));
+        permissions.put("34bBudgetCode", new RoleActionMapping().render(SB.BILATERAL_ODA_CRS).render(SB.MULTILATERAL_ODA_CRS));
+        permissions.put("34cBudgetLine", new RoleActionMapping().render(SB.BILATERAL_ODA_CRS).render(SB.MULTILATERAL_ODA_CRS));
+        permissions.put("34dBudgetActivity", new RoleActionMapping().render(SB.BILATERAL_ODA_CRS).render(SB.MULTILATERAL_ODA_CRS));
         permissions.put("budgetMTEFTable", new RoleActionMapping().render(SB.BILATERAL_ODA_FORWARD_SPENDING));
 
         /**
