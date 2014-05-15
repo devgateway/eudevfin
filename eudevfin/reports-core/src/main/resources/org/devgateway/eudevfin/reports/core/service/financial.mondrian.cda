@@ -210,12 +210,13 @@
         <Parameters>
             <Parameter default="2012" name="FIRST_YEAR" type="Integer"/>
             <Parameter default="2013" name="SECOND_YEAR" type="Integer"/>
-            <Parameter default="Extended Amount Currency NATLOECD" name="currency" type="String"/>
+            <Parameter default="Net Amount Currency NATLOECD" name="currency" type="String"/>
             <Parameter default="[All Sectors]" name="SECTOR" type="String"/>
             <Parameter default="[All CoFinanced]" name="COFINANCED" type="String"/>
             <Parameter default="[All CPA]" name="CPA" type="String"/>
-            <Parameter default="{Hierarchize({[Country].[Geography].Members, [Country].[Name].Members, [Country].[Total]})}" name="countryTableRowSet" type="String"/>
-            <Parameter default="MEMBER [Country].[Total] AS SUM([Country].[Name].Members, [Measures].[Extended Amount Currency NATLOECD])" name="countryTableTotal" type="String"/>
+            <Parameter default="{Hierarchize({[Country].[Geography].Members, [Country].[Name].Members, [Country].[TOTAL]})}" name="countryTableRowSet" type="String"/>
+            <Parameter default="MEMBER [Country].[Total] AS SUM([Country].[Name].Members, [Measures].[Net Amount Currency NATLOECD])" name="countryTableTotal" type="String"/>
+            <Parameter default="MEMBER [Country].[TOTAL] AS SUM([Country].[Name].Members)" name="countryTableTotalLine" type="String"/>
         </Parameters>
         <Name>Custom Dashboards - Country Table</Name>
         <Query>
@@ -224,7 +225,8 @@
             MEMBER [Measures].[First Year] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[${currency}]}))
             MEMBER [Measures].[Second Year] AS SUM(CrossJoin([Reporting Year].[${SECOND_YEAR}], {[Measures].[${currency}]}))
             ${countryTableTotal}
-            MEMBER [Measures].[% of Total] as [Measures].[Extended Amount Currency NATLOECD] / [Country].[Total], format_string='0.00%'
+            ${countryTableTotalLine}
+            MEMBER [Measures].[% of Total] as [Measures].[${currency}] / [Country].[Total], format_string='0.00%'
             MEMBER [Measures].[First Year %] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[% of Total]}))
             MEMBER [Measures].[Second Year %] AS SUM(CrossJoin([Reporting Year].[${SECOND_YEAR}], {[Measures].[% of Total]}))
             MEMBER [Measures].[Level] AS IIF([Measures].[Extended Amount] >= 0, IIF([Country].CurrentMember.Level.Name = "Geography", "Geography", "Country"), null)
@@ -246,12 +248,13 @@
         <Parameters>
             <Parameter default="2012" name="FIRST_YEAR" type="Integer"/>
             <Parameter default="2013" name="SECOND_YEAR" type="Integer"/>
-            <Parameter default="Extended Amount Currency NATLOECD" name="currency" type="String"/>
+            <Parameter default="Net Amount Currency NATLOECD" name="currency" type="String"/>
             <Parameter default="[All Countries]" name="COUNTRIES" type="String"/>
             <Parameter default="[All CoFinanced]" name="COFINANCED" type="String"/>
             <Parameter default="[All CPA]" name="CPA" type="String"/>
             <Parameter default="{Hierarchize({[SectorHierarchy].[ParentName].Members, [SectorHierarchy].[Name].Members, [SectorHierarchy].[Total]})}" name="sectorTableRowSet" type="String"/>
-            <Parameter default="MEMBER[SectorHierarchy].[Total] AS SUM([SectorHierarchy].[Name].Members, [Measures].[Extended Amount Currency NATLOECD])" name="sectorTableTotal" type="String"/>
+            <Parameter default="MEMBER[SectorHierarchy].[Total] AS SUM([SectorHierarchy].[Name].Members, [Measures].[Net Amount Currency NATLOECD])" name="sectorTableTotal" type="String"/>
+            <Parameter default="MEMBER[SectorHierarchy].[TOTAL] AS SUM([SectorHierarchy].[Name].Members)" name="sectorTableTotalLine" type="String"/>
         </Parameters>
         <Name>Custom Dashboards - Sector Table</Name>
         <Query>
@@ -260,7 +263,8 @@
             MEMBER [Measures].[FIRST YEAR] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[${currency}]}))
             MEMBER [Measures].[SECOND YEAR] AS SUM(CrossJoin([Reporting Year].[${SECOND_YEAR}], {[Measures].[${currency}]}))
             ${sectorTableTotal}
-            MEMBER [Measures].[% of Total] as [Measures].[Extended Amount Currency NATLOECD] / [SectorHierarchy].[Total], format_string='0.00%'
+            ${sectorTableTotalLine}
+            MEMBER [Measures].[% of Total] as [Measures].[${currency}] / [SectorHierarchy].[Total], format_string='0.00%'
             MEMBER [Measures].[First Year %] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[% of Total]}))
             MEMBER [Measures].[Second Year %] AS SUM(CrossJoin([Reporting Year].[${SECOND_YEAR}], {[Measures].[% of Total]}))
             MEMBER [Measures].[Level] AS IIF([Measures].[Extended Amount] >= 0, IIF([SectorHierarchy].CurrentMember.Level.Name = "ParentName", "ParentSector", "Sector"), null)
@@ -282,7 +286,7 @@
         <Parameters>
             <Parameter default="2012" name="FIRST_YEAR" type="Integer"/>
             <Parameter default="2013" name="SECOND_YEAR" type="Integer"/>
-            <Parameter default="Extended Amount Currency NATLOECD" name="currency" type="String"/>
+            <Parameter default="Net Amount Currency NATLOECD" name="currency" type="String"/>
             <Parameter default="[All Sectors]" name="SECTOR" type="String"/>
             <Parameter default="[All CoFinanced]" name="COFINANCED" type="String"/>
             <Parameter default="[All CPA]" name="CPA" type="String"/>
@@ -312,7 +316,7 @@
         <Parameters>
             <Parameter default="2012" name="FIRST_YEAR" type="Integer"/>
             <Parameter default="2013" name="SECOND_YEAR" type="Integer"/>
-            <Parameter default="Extended Amount Currency NATLOECD" name="currency" type="String"/>
+            <Parameter default="Net Amount Currency NATLOECD" name="currency" type="String"/>
             <Parameter default="[All Countries]" name="COUNTRIES" type="String"/>
             <Parameter default="[All CoFinanced]" name="COFINANCED" type="String"/>
             <Parameter default="[All CPA]" name="CPA" type="String"/>
@@ -350,7 +354,7 @@
             <![CDATA[
             WITH
             MEMBER [Measures].[First Year National] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Extended Amount]}))
-            MEMBER [Measures].[First Year] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Extended Amount Currency NATLOECD]}))
+            MEMBER [Measures].[First Year] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Net Amount Currency NATLOECD]}))
             SELECT
             NON EMPTY {[Measures].[First Year National], [Measures].[First Year]} ON COLUMNS,
             NON EMPTY ${institutionTableRowSet} ON ROWS
@@ -376,7 +380,7 @@
         <Query>
             <![CDATA[
             WITH
-            MEMBER [Measures].[First Year] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Extended Amount Currency NATLOECD]}))
+            MEMBER [Measures].[First Year] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Net Amount Currency NATLOECD]}))
             SELECT
             NON EMPTY {[Measures].[First Year]} ON COLUMNS,
             NON EMPTY ${institutionChartRowSet} ON ROWS
@@ -401,7 +405,7 @@
             <![CDATA[
             WITH
             MEMBER [Measures].[First Year National] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Extended Amount]}))
-            MEMBER [Measures].[First Year] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Extended Amount Currency NATLOECD]}))
+            MEMBER [Measures].[First Year] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Net Amount Currency NATLOECD]}))
             SELECT
             NON EMPTY {[Measures].[First Year National], [Measures].[First Year]} ON COLUMNS,
             NON EMPTY ${typeOfAidTableRowSet} ON ROWS
@@ -423,7 +427,7 @@
         <Query>
             <![CDATA[
             WITH
-            MEMBER [Measures].[First Year] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Extended Amount Currency NATLOECD]}))
+            MEMBER [Measures].[First Year] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Net Amount Currency NATLOECD]}))
             SELECT
             NON EMPTY {[Measures].[First Year]} ON COLUMNS,
             NON EMPTY {Hierarchize({[Type of Aid].[Name].Members})} ON ROWS
@@ -445,7 +449,7 @@
         <Query>
             <![CDATA[
             WITH
-            MEMBER [Measures].[First Year] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Extended Amount Currency NATLOECD]}))
+            MEMBER [Measures].[First Year] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Net Amount Currency NATLOECD]}))
             SELECT
             NON EMPTY {[Measures].[First Year]} ON COLUMNS,
             NON EMPTY {Hierarchize({[BiMultilateral].[Name].Members})} ON ROWS

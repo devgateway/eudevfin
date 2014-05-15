@@ -1,5 +1,6 @@
 package org.devgateway.eudevfin.reports.ui.pages;
 
+import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
@@ -19,6 +20,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 @AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
 @MountPath(value = "/reportscountrysectorfilter")
 public class ReportsCountrySectorFilter extends CustomReportsPage {
+    private static final Logger logger = Logger.getLogger(ReportsCountrySectorFilter.class);
 
     public ReportsCountrySectorFilter () {
         Label title = new Label("title", new StringResourceModel("reportsCountrySector", this, null, null));
@@ -67,6 +69,10 @@ public class ReportsCountrySectorFilter extends CustomReportsPage {
                 }
                 if (customReportsModel.getSector() != null) {
                     pageParameters.add(ReportsConstants.SECTOR_PARAM, customReportsModel.getSector().getName());
+                    if (customReportsModel.getSector().getParentCategory().getName().toLowerCase().
+                            equals(ReportsConstants.ROOT_SECTOR.toLowerCase())) {
+                        pageParameters.add(ReportsConstants.ISROOTSECTOR_PARAM, Boolean.TRUE);
+                    }
                 }
                 if (customReportsModel.getYear() != null) {
                     pageParameters.add(ReportsConstants.YEAR_PARAM, customReportsModel.getYear());

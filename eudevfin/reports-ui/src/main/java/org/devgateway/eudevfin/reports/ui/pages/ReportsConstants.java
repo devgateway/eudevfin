@@ -9,6 +9,7 @@ public class ReportsConstants {
     public static final String GEOGRAPHY_PARAM = "geographyParam";
     public static final String RECIPIENT_PARAM = "recipientParam";
     public static final String SECTOR_PARAM = "sectorParam";
+    public static final String ISROOTSECTOR_PARAM = "isRootsectorParam";
     public static final String INSTITUTION_PARAM = "institutionParam";
     public static final String YEAR_PARAM = "yearParam";
     public static final String AGENCY_PARAM = "agencyParam";
@@ -18,6 +19,14 @@ public class ReportsConstants {
     public static final String COFINANCING_PARAM = "coFinancingParam";
     public static final String CPAONLY_PARAM = "CPAOnlyParam";
 
-    public static final String MDX_USD_CURRENCY = "Extended Amount Currency NATLOECD";
-    public static final String MDX_NAT_CURRENCY = "Extended Amount";
+    public static final String ROOT_SECTOR = "Root Sector Category";
+
+    public static final String MDX_USD_CURRENCY = "Net Amount Currency NATLOECD";
+    public static final String MDX_NAT_CURRENCY = "Net Amount";
+
+
+    public static final String isCountry = "Country";
+    public static final String isGeography = "Geography";
+    public static final String isSector = "Sector";
+    public static final String isParentSector = "ParentSector";
 }
