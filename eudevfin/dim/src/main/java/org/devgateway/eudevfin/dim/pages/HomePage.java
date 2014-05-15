@@ -16,6 +16,7 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
+import org.devgateway.eudevfin.auth.common.util.AuthUtils;
 import org.devgateway.eudevfin.dim.desktop.components.SearchBoxPanel;
 import org.devgateway.eudevfin.dim.desktop.components.TransactionTableListPanel;
 import org.devgateway.eudevfin.dim.desktop.components.util.DraftListGenerator;
@@ -136,10 +137,12 @@ public class HomePage extends HeaderFooter {
   
     	List<ITabWithKey> tabList = new ArrayList<>();
 
-    	PersistedUser user=(PersistedUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    	boolean superUser=AuthUtils.currentUserHasRole(AuthConstants.Roles.ROLE_SUPERVISOR);
+    	PersistedUser currentUser = AuthUtils.getCurrentUser();
     	
-    	tabList.add( TransactionTableListPanel.<CustomFinancialTransaction>newTab( this,DESKTOP_LAST_TX_BY_DRAFT, new DraftListGenerator(true, user.getGroup(), this.customTxService) ) );
-    	tabList.add( TransactionTableListPanel.<CustomFinancialTransaction>newTab( this,DESKTOP_LAST_TX_BY_FINAL, new DraftListGenerator(false, user.getGroup(), this.customTxService) ) );
+    	
+    	tabList.add( TransactionTableListPanel.<CustomFinancialTransaction>newTab( this,DESKTOP_LAST_TX_BY_DRAFT, new DraftListGenerator(true, currentUser.getGroup(), this.customTxService,superUser) ) );
+    	tabList.add( TransactionTableListPanel.<CustomFinancialTransaction>newTab( this,DESKTOP_LAST_TX_BY_FINAL, new DraftListGenerator(false, currentUser.getGroup(), this.customTxService,superUser) ) );
     	
     	BootstrapJSTabbedPanel<ITabWithKey> bc = new BootstrapJSTabbedPanel<>("tops-panel", tabList).
                 positionTabs(BootstrapJSTabbedPanel.Orientation.RIGHT);

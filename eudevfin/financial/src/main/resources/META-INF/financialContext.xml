@@ -184,6 +184,7 @@
 	
 	
 	<int:channel id="findCustomTransactionByDraftAndPersistedUserGroupPageableChannel"/>
+	<int:channel id="findCustomTransactionByDraftPageableChannel"/>
 	<int:channel id="findCustomTransactionByReportingYearAndDraftFalseChannel"/>
 	<int:channel id="findCustomTransactionByReportingYearAndDraftFalseAndFormTypeNotInChannel"/>
 	

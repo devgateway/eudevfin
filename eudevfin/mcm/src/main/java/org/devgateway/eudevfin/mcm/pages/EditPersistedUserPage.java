@@ -39,6 +39,7 @@ import org.devgateway.eudevfin.auth.common.domain.PersistedAuthority;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUserGroup;
 import org.devgateway.eudevfin.auth.common.service.PersistedUserService;
+import org.devgateway.eudevfin.auth.common.util.AuthUtils;
 import org.devgateway.eudevfin.auth.common.util.DigestUtils;
 import org.devgateway.eudevfin.mcm.providers.PersistedAuthorityChoiceProvider;
 import org.devgateway.eudevfin.mcm.providers.PersistedUserGroupChoiceProvider;
@@ -52,7 +53,6 @@ import org.devgateway.eudevfin.ui.common.components.MultiSelectField;
 import org.devgateway.eudevfin.ui.common.components.PasswordInputField;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
@@ -119,7 +119,7 @@ public class EditPersistedUserPage extends HeaderFooter {
 	 * @return
 	 */
 	public PersistedUser getEditablePersistedUser(final PageParameters parameters) {
-		return (PersistedUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return AuthUtils.getCurrentUser();
 	}
 
 	@SuppressWarnings("unchecked")

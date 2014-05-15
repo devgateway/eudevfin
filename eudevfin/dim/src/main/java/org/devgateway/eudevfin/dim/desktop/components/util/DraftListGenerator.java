@@ -14,23 +14,27 @@ public class DraftListGenerator implements ListGeneratorInterface<CustomFinancia
 	private Boolean draft;
 	private PersistedUserGroup persistedUserGroup;
 	private CustomFinancialTransactionService customTxService;
+	private boolean superUser;
 	
 	public DraftListGenerator(Boolean draft,PersistedUserGroup persistedUserGroup,
-			CustomFinancialTransactionService customTxService) {
+			CustomFinancialTransactionService customTxService,boolean superUser) {
 		super();
 		this.draft = draft;
 		this.persistedUserGroup=persistedUserGroup;
 		this.customTxService = customTxService;
+		this.superUser=superUser;
 	}
 
 
-
-
-
 	@Override
-	public PagingHelper<CustomFinancialTransaction> getResultsList(int pageNumber,
-			int pageSize) {
-		return PagingHelper.createPagingHelperFromPage(this.customTxService.findByDraftAndPersistedUserGroupPageable(this.draft, this.persistedUserGroup, new PageRequest(pageNumber-1,pageSize)));
+	public PagingHelper<CustomFinancialTransaction> getResultsList(int pageNumber, int pageSize) {
+		if (superUser)
+			return PagingHelper.createPagingHelperFromPage(this.customTxService.findByDraftPageable(this.draft,
+					new PageRequest(pageNumber - 1, pageSize)));
+		else
+			return PagingHelper.createPagingHelperFromPage(this.customTxService
+					.findByDraftAndPersistedUserGroupPageable(this.draft, this.persistedUserGroup, new PageRequest(
+							pageNumber - 1, pageSize)));
 	}
 
 }

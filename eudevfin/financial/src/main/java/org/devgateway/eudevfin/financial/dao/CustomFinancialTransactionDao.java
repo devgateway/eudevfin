@@ -56,6 +56,13 @@ public class CustomFinancialTransactionDao
 		return this.getRepo().findByDraftAndPersistedUserGroup(draft, persistedUserGroup, pageable);
 	}
 	
+	@ServiceActivator(inputChannel="findCustomTransactionByDraftPageableChannel")
+	public Page<CustomFinancialTransaction> findByDraftPageable(final Boolean draft,
+			@Header("pageable") final Pageable pageable) {
+		return this.getRepo().findByDraft(draft, pageable);
+	}
+	
+	
 	/**
 	 * @see CustomFinancialTransactionService#findByReportingYearAndDraftFalse(Integer)
 	 * @param year

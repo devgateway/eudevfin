@@ -182,7 +182,7 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 	 * @param parameters the {@link PageParameters}
 	 */
 	public void initializeFinancialTransaction(FinancialTransaction transaction,PageParameters parameters) {
-		PersistedUser user=(PersistedUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();					
+		PersistedUser user=AuthUtils.getCurrentUser();					
 		FinancialTransactionUtil.initializeFinancialTransaction(transaction, this.currencyMetadaService, AuthUtils.getOrganizationForCurrentUser(), AuthUtils.getIsoCountryForCurrentUser());
 	}
 	
