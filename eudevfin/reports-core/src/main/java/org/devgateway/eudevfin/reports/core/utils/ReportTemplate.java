@@ -32,6 +32,7 @@ import org.apache.log4j.Logger;
 import org.devgateway.eudevfin.reports.core.dao.RowReportDao;
 import org.devgateway.eudevfin.reports.core.domain.ColumnReport;
 import org.devgateway.eudevfin.reports.core.domain.RowReport;
+import org.jgroups.util.UUID;
 import org.w3c.dom.CDATASection;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -454,20 +455,10 @@ public class ReportTemplate {
 
 								Element fieldDescription = doc
 										.createElement("fieldDescription");
-								
-								//TODO: Exception for handling Commitments and Expert Commitments using Commitment Date. Update to something better.
-								String suffix = "";
-								if(column.getMeasure().equals("[Measures].[C]")){
-									suffix = "_C";
-								}
-								else if(column.getMeasure().equals("[Measures].[EC]")){
-									suffix = "_EC";
-								}
-									
 								CDATASection cdata = doc.createCDATASection("Data(("
 										+ column.getMeasure() + ", "
 										+ type + "), [Type of Aid].["
-										+ row.getName() + suffix + "])\n");
+										+ row.getName() + "])\n");
 								fieldDescription.appendChild(cdata);
 								field.appendChild(fieldDescription);
 								Node background = doc.getElementsByTagName("background").item(0);
@@ -496,22 +487,11 @@ public class ReportTemplate {
 		
 		for (RowReport row : calculatedRows) {
 			if (row.getType() == Constants.CALCULATED) {
-				Boolean commRow = false;
-				Boolean expCommRow = false;
 				for(ColumnReport column : row.getColumns()){
 					String measure = column.getMeasure();
-					if(measure != null && !measure.equals("")) {
-						if(!measures.contains(measure)) 
-							measures.add(measure);
-						if(measure.equals("[Measures].[C]")){
-							commRow = true;
-						}
-						if(measure.equals("[Measures].[EC]")){
-							expCommRow = true;
-						}
-					}
+					if(measure != null && !measure.equals("") && !measures.contains(measure))
+						measures.add(measure);
 				}
-				
 				str.append("MEMBER ");
 				str.append("[Type of Aid].[" + row.getName() + "]");
 				str.append(" as SUM(");
@@ -520,29 +500,8 @@ public class ReportTemplate {
 					formula = "[BiMultilateral].Members";
 				}
 				str.append(formula);
-				str.append("*[Reporting Year].[$P{REPORTING_YEAR}])\n");
-
-				if(commRow) {
-					str.append("MEMBER ");
-					str.append("[Type of Aid].[" + row.getName() + "_C]");
-					str.append(" as SUM(");
-					if(formula.equals("")){
-						formula = "[BiMultilateral].Members";
-					}
-					str.append(formula);
-					str.append("*[Commitment Year].[$P{REPORTING_YEAR}])\n");
-				}
-				if(expCommRow) {
-					str.append("MEMBER ");
-					str.append("[Type of Aid].[" + row.getName() + "_EC]");
-					str.append(" as SUM(");
-					if(formula.equals("")){
-						formula = "[BiMultilateral].Members";
-					}
-					str.append(formula);
-					str.append("*[Commitment Year].[$P{REPORTING_YEAR}])\n");
-				}
-					
+				
+				str.append(")\n");
 			}
 		}
 
@@ -553,27 +512,7 @@ public class ReportTemplate {
 		str.append("SELECT {");
 		for (Iterator<RowReport> it = calculatedRows.iterator(); it.hasNext();) {
 			RowReport row = it.next();
-			Boolean commRow = false;
-			Boolean expCommRow = false;
-			for(ColumnReport column : row.getColumns()){
-				String measure = column.getMeasure();
-				if(measure != null && !measure.equals("")) {
-					if(measure.equals("[Measures].[C]")){
-						commRow = true;
-					}
-					if(measure.equals("[Measures].[EC]")){
-						expCommRow = true;
-					}
-				}
-			}
 			str.append("[Type of Aid].[" + row.getName() + "]");
-			if(commRow) {
-				str.append(",[Type of Aid].[" + row.getName() + "_C]");
-			}
-			if(expCommRow) {
-				str.append(",[Type of Aid].[" + row.getName() + "_EC]");
-			}
-
 			if (it.hasNext())
 				str.append(",");
 		}
@@ -582,9 +521,8 @@ public class ReportTemplate {
 		str.append(StringUtils.join(measures.toArray(), ","));
 		str.append("}*" + slicer + " ON COLUMNS \n");
 		str.append("FROM [Financial] \n");
-		str.append("WHERE {[Form Type].[bilateralOda.CRS], [Form Type].[multilateralOda.CRS], [Form Type].[nonOda.nonExport], [Form Type].[nonOda.export], [Form Type].[nonOda.privateGrants], [Form Type].[nonOda.privateMarket], [Form Type].[nonOda.otherFlows], [Form Type].[#null]}\n");
+		str.append("WHERE {[Reporting Year].[$P{REPORTING_YEAR}]} * {[Form Type].[bilateralOda.CRS], [Form Type].[multilateralOda.CRS], [Form Type].[nonOda.nonExport], [Form Type].[nonOda.export], [Form Type].[nonOda.privateGrants], [Form Type].[nonOda.privateMarket], [Form Type].[nonOda.otherFlows], [Form Type].[#null]}\n");
 		Node queryString = doc.getElementsByTagName("queryString").item(0);
-		//logger.info(str.toString());
 		CDATASection cdata = doc.createCDATASection(str.toString());
 		queryString.appendChild(cdata);
 	}

@@ -326,15 +326,6 @@
                 </Level>
             </Hierarchy>
         </Dimension>
-        <Dimension name="Commitment Year">
-            <Hierarchy hasAll="true">
-                <Level name="Commitment Year" column="COMMITMENTDATE" uniqueMembers="true">
-                    <KeyExpression>
-                        <SQL dialect="generic">CAST(YEAR("COMMITMENTDATE") AS CHAR(4))</SQL>
-                    </KeyExpression>
-                </Level>
-            </Hierarchy>
-        </Dimension>
         <Dimension name="Form Type">
             <Hierarchy hasAll="true">
                 <Level name="Form Type" column="FORMTYPE" uniqueMembers="true">
@@ -523,7 +514,7 @@
                     (SOURCE = 'OECD' OR SOURCE='National') AND
                     BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" AND
                     COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."COMMITMENTDATE")) as decimal(16, 8)))
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
                 </SQL>
             </MeasureExpression>
         </Measure>
@@ -537,7 +528,7 @@
                     SOURCE = 'INTERNET' AND
                     BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" AND
                     COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."COMMITMENTDATE")) as decimal(16, 8)))
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
                 </SQL>
             </MeasureExpression>
         </Measure>
@@ -568,7 +559,7 @@
                     (SOURCE = 'OECD' OR SOURCE='National') AND
                     BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXP_COMMIT_CURR" AND
                     COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."COMMITMENTDATE")) as decimal(16, 8)))
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
                 </SQL>
             </MeasureExpression>
         </Measure>
