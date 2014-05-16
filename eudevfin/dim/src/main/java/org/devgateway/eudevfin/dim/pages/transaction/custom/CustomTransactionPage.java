@@ -104,7 +104,7 @@ public class CustomTransactionPage extends TransactionPage {
 					if(this.getModel().getObject()) {
   						info(new NotificationMessage(new StringResourceModel("notification.draftState", CustomTransactionPage.this, null, null)));
   						approved.getField().setModelObject(false);
-  						target.add(approved);
+  						target.add(approved.getField());
 					}
   					else
   						info(new NotificationMessage(new StringResourceModel("notification.nonDraftState", CustomTransactionPage.this, null, null)));
@@ -125,6 +125,7 @@ public class CustomTransactionPage extends TransactionPage {
 					if(this.getModel().getObject()) {
   						info(new NotificationMessage(new StringResourceModel("notification.approvedState", CustomTransactionPage.this, null, null)));
   						draft.getField().setModelObject(false);
+  						target.add(draft.getField());
 					}
   					else
   						info(new NotificationMessage(new StringResourceModel("notification.unapprovedState", CustomTransactionPage.this, null, null)));
