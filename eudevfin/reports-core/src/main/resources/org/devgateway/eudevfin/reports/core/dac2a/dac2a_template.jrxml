@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dac2a_template" pageWidth="1350" pageHeight="750" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="1310" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" resourceBundle="i18n" uuid="bad8772b-9ff8-49ae-a2c0-34a59258237b">
-	<property name="ireport.zoom" value="3.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="176"/>
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="1290"/>
+	<property name="ireport.y" value="80"/>
+	<style name="defaultStyle" isDefault="true" mode="Transparent" fontName="Arial" fontSize="10"/>
 	<parameter name="REPORTING_COUNTRY" class="java.lang.String"/>
 	<parameter name="SUBDIR_PATH" class="java.lang.String"/>
 	<parameter name="REPORTING_YEAR" class="java.lang.Number"/>
@@ -49,25 +50,28 @@ Date:]]></text>
 	<pageHeader>
 		<band height="107" splitType="Stretch">
 			<line>
-				<reportElement x="0" y="0" width="1287" height="1" forecolor="#3333FF" uuid="c3cbabaa-12de-4cb4-a373-78b8fb3858c8"/>
+				<reportElement x="0" y="0" width="1303" height="1" forecolor="#000000" uuid="c3cbabaa-12de-4cb4-a373-78b8fb3858c8"/>
 			</line>
 			<line>
-				<reportElement x="250" y="1" width="1" height="104" forecolor="#3333FF" uuid="c3cbabaa-12de-4cb4-a373-78b8fb3858c8"/>
+				<reportElement x="0" y="106" width="1303" height="1" forecolor="#000000" uuid="486d87c0-9dca-42c2-b2dc-c2592c3f0ec4"/>
 			</line>
 			<line>
-				<reportElement x="305" y="1" width="1" height="104" forecolor="#3333FF" uuid="c3cbabaa-12de-4cb4-a373-78b8fb3858c8"/>
+				<reportElement x="250" y="1" width="1" height="104" forecolor="#000000" uuid="c3cbabaa-12de-4cb4-a373-78b8fb3858c8"/>
 			</line>
 			<line>
-				<reportElement x="473" y="1" width="1" height="104" forecolor="#3333FF" uuid="c3cbabaa-12de-4cb4-a373-78b8fb3858c8"/>
+				<reportElement x="473" y="1" width="1" height="104" forecolor="#000000" uuid="c3cbabaa-12de-4cb4-a373-78b8fb3858c8"/>
 			</line>
 			<line>
-				<reportElement x="529" y="1" width="1" height="104" forecolor="#3333FF" uuid="c3cbabaa-12de-4cb4-a373-78b8fb3858c8"/>
+				<reportElement x="529" y="1" width="1" height="104" forecolor="#000000" uuid="c3cbabaa-12de-4cb4-a373-78b8fb3858c8"/>
 			</line>
 			<line>
-				<reportElement x="585" y="1" width="1" height="104" forecolor="#3333FF" uuid="c3cbabaa-12de-4cb4-a373-78b8fb3858c8"/>
+				<reportElement x="585" y="1" width="1" height="104" forecolor="#000000" uuid="c3cbabaa-12de-4cb4-a373-78b8fb3858c8"/>
 			</line>
 			<line>
-				<reportElement x="977" y="1" width="1" height="104" forecolor="#3333FF" uuid="c3cbabaa-12de-4cb4-a373-78b8fb3858c8"/>
+				<reportElement x="642" y="1" width="1" height="104" forecolor="#000000" uuid="314961f9-0b11-44a8-9cdb-a1c394ca50b7"/>
+			</line>
+			<line>
+				<reportElement x="977" y="1" width="1" height="104" forecolor="#000000" uuid="c3cbabaa-12de-4cb4-a373-78b8fb3858c8"/>
 			</line>
 			<staticText>
 				<reportElement x="0" y="5" width="203" height="20" uuid="f04c1578-6467-4505-81df-8240c1671002"/>
@@ -124,7 +128,10 @@ SUBSIDIES]]></text>
 				<textElement textAlignment="Center">
 					<font size="10" isBold="false" isUnderline="false"/>
 				</textElement>
-				<text><![CDATA[RECOV-ERIES]]></text>
+				<text><![CDATA[RECOV-
+ERIES
+
+(-)]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="530" y="33" width="55" height="72" uuid="aff2930c-4d77-46f6-8f0b-e3bd6134471f"/>
@@ -304,14 +311,14 @@ basis]]></text>
 				<text><![CDATA[216]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="r_209" x="1241" y="11" width="59" height="16" uuid="eec6223f-ec4f-47d9-bfe7-cf1c21f0e059"/>
+				<reportElement key="r_209" x="1244" y="11" width="59" height="16" uuid="eec6223f-ec4f-47d9-bfe7-cf1c21f0e059"/>
 				<textElement textAlignment="Center">
 					<font size="10" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[209]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="645" y="28" width="330" height="16" uuid="54d63515-8c8f-40f6-ba54-7a937087db61"/>
+				<reportElement x="645" y="27" width="330" height="16" uuid="54d63515-8c8f-40f6-ba54-7a937087db61"/>
 				<textElement textAlignment="Center">
 					<font size="10" isBold="true" isUnderline="false"/>
 				</textElement>
@@ -336,7 +343,7 @@ investment]]></text>
 			<staticText>
 				<reportElement x="755" y="46" width="55" height="59" uuid="346dd82c-cac4-4174-9dc6-32a3e8ec893b"/>
 				<textElement textAlignment="Center">
-					<font size="10" isBold="false" isUnderline="false"/>
+					<font size="9" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[RECEIVED
 (excl.offsetting
@@ -413,7 +420,7 @@ AID
 (gross)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1241" y="28" width="59" height="77" uuid="315f3a45-9beb-4ab9-bdea-264410adf18b"/>
+				<reportElement x="1244" y="28" width="59" height="77" uuid="315f3a45-9beb-4ab9-bdea-264410adf18b"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font size="10" isBold="false" isUnderline="false"/>
 				</textElement>
@@ -421,9 +428,6 @@ AID
 RECEIVED
 ( - )]]></text>
 			</staticText>
-			<line>
-				<reportElement x="0" y="106" width="1287" height="1" forecolor="#3333FF" uuid="486d87c0-9dca-42c2-b2dc-c2592c3f0ec4"/>
-			</line>
 			<staticText>
 				<reportElement key="r_204_Area" x="645" y="6" width="25" height="1" uuid="ea1155c9-4a62-4481-84fe-058cde8afcb6"/>
 				<textElement textAlignment="Center">
@@ -466,6 +470,12 @@ RECEIVED
 				</textElement>
 				<text><![CDATA[219_Area]]></text>
 			</staticText>
+			<line>
+				<reportElement x="1062" y="1" width="1" height="104" forecolor="#000000" uuid="5a6ebef5-1237-4c5d-8bc1-f8fd6c8d1ec8"/>
+			</line>
+			<line>
+				<reportElement x="1242" y="1" width="1" height="104" forecolor="#000000" uuid="cec8ba8f-b780-4bec-8d70-dd14f188f7c0"/>
+			</line>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -490,7 +500,23 @@ RECEIVED
 				<subreportExpression><![CDATA[$P{AREA_SUBREPORT_PATH}]]></subreportExpression>
 			</subreport>
 		</band>
-		<band height="500" splitType="Stretch">
+		<band height="18" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="220" height="16" uuid="fda7e1ab-2ed9-43ec-959f-0047094a4a47"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BILATERAL, TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="c_total_bilateral" x="220" y="0" width="31" height="16" uuid="544de131-492c-4c28-a394-e557ae722dbe"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[1000]]></text>
+			</staticText>
+		</band>
+		<band height="500">
 			<subreport>
 				<reportElement x="0" y="0" width="1310" height="500" uuid="f7648a23-fa38-4a5a-82ce-1eda4a67c1b3"/>
 				<subreportParameter name="REPORTING_YEAR">
@@ -508,7 +534,7 @@ RECEIVED
 				<subreportExpression><![CDATA[$P{CHANNEL_SUBREPORT_PATH}]]></subreportExpression>
 			</subreport>
 		</band>
-		<band height="16">
+		<band height="20">
 			<staticText>
 				<reportElement x="0" y="0" width="220" height="16" uuid="4365a9fe-af5f-4d86-add2-3eeef3142506"/>
 				<textElement verticalAlignment="Middle">

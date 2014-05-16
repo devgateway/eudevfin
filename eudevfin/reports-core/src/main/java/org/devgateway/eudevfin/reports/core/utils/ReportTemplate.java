@@ -275,7 +275,7 @@ public class ReportTemplate {
 		if(rowNode == null) return;
 		Integer rowMultiplier = 1;
 		//TODO: Remove this terrible hack for the two columns of DAC2a that needs to subtract
-		if(row.getName().equals("205") || row.getName().equals("215")){
+		if(row.getName().equals("205") || row.getName().startsWith("205_") || row.getName().equals("215") || row.getName().startsWith("215_") || row.getName().equals("219") || row.getName().startsWith("219_")){
 			rowMultiplier = -1;
 		}
 		Integer yCoord, xCoord, width, height;

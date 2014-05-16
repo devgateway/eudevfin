@@ -547,7 +547,6 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 		RowReport row1500 = createDAC1SumRow("1500", Constants.SUM, sumRow1500);
 		rowReportDao.save(row1500);
 
-		//TODO: Check (not for	commit.),
 		RowReport row1611 = createDAC1Row("1611", "DAC1",
 				Constants.CALCULATED,
 				"[BiMultilateral].[BI_MULTILATERAL##1]",
@@ -558,7 +557,8 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 				"[Type of Finance].[TYPE_OF_FINANCE##610],[Type of Finance].[TYPE_OF_FINANCE##611]",
 				"[Type of Finance].[TYPE_OF_FINANCE##621]",
 				"",
-				"[Type of Finance].[TYPE_OF_FINANCE##610],[Type of Finance].[TYPE_OF_FINANCE##611]", "[Type of Finance].[TYPE_OF_FINANCE##621]"
+				"[Type of Finance].[TYPE_OF_FINANCE##611]",
+				"[Type of Finance].[TYPE_OF_FINANCE##621]"
 				);
 		rowReportDao.save(row1611);
 		RowReport row1612 = createDAC1Row("1612", "DAC1",

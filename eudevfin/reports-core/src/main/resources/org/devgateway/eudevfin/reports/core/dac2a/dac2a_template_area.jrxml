@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dac2a_template_area" pageWidth="1350" pageHeight="612" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="1350" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="i18n" uuid="bad8772b-9ff8-49ae-a2c0-34a59258237b">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="5095"/>
+	<property name="ireport.y" value="5047"/>
 	<parameter name="REPORTING_COUNTRY" class="java.lang.String"/>
 	<parameter name="REPORTING_YEAR" class="java.lang.Number"/>
 	<queryString language="mdx">
@@ -2636,7 +2636,7 @@
 				<text><![CDATA[889]]></text>
 			</staticText>
 		</band>
-		<band height="38">
+		<band height="16">
 			<staticText>
 				<reportElement x="0" y="0" width="220" height="16" uuid="899334c0-ebbc-41e4-bad6-4b4fe3abb6e9"/>
 				<textElement verticalAlignment="Middle">
@@ -2650,20 +2650,6 @@
 					<font size="10"/>
 				</textElement>
 				<text><![CDATA[998]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="15" width="220" height="16" uuid="acf29d8b-a00f-4cfe-91eb-c3985fff6ce4"/>
-				<textElement verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[VII. BILATERAL, TOTAL]]></text>
-			</staticText>
-			<staticText>
-				<reportElement key="c_bilateral_total" x="220" y="16" width="31" height="15" uuid="9c08eafa-399a-4af3-9d3f-fd9e72048f75"/>
-				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font size="10"/>
-				</textElement>
-				<text><![CDATA[1000]]></text>
 			</staticText>
 		</band>
 	</detail>

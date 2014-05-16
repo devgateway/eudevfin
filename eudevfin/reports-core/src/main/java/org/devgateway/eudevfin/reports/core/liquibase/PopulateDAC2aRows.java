@@ -278,6 +278,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 		HashSet<String> sumRow218 = new HashSet<String>();
 		sumRow218.add("204");
 		sumRow218.add("205");
+		sumRow218.add("215");
 		RowReport row218 = createDAC2aSumRow("218","DAC2a", Constants.SUM, sumRow218);
 		rowReportDao.save(row218);
 
@@ -304,7 +305,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE##410]}",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"",
-				"",
+				"[FTC].[Yes]",
 				"[BiMultilateral].[BI_MULTILATERAL##1],[BiMultilateral].[BI_MULTILATERAL##3]",
 				"[Measures].[E]",
 				true
@@ -356,7 +357,15 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 
 		ColumnReport col1 = new ColumnReport("total_bilateral_multilateral", Constants.CALCULATED, measure, biMulti);
 		columns.add(col1);
-		
+		if(biMulti.indexOf("[BiMultilateral].[BI_MULTILATERAL##2]") == -1){
+			ColumnReport col2 = new ColumnReport("total_bilateral", Constants.CALCULATED, measure, biMulti);
+			columns.add(col2);
+		}
+		else
+		{
+			ColumnReport col2 = new ColumnReport("total_bilateral", Constants.EMPTY, null);
+			columns.add(col2);
+		}
 		row.setColumns(columns);
 		return row;
 
@@ -596,7 +605,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 		RowReport row207 = createDAC2aRowArea("207", Constants.CALCULATED,
 				"{[BiMultilateral].[BI_MULTILATERAL##1],[BiMultilateral].[BI_MULTILATERAL##3]}",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
-				"",
+				"[FTC].[Yes]",
 				"",
 				"{[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE##410]}",
 				"[Measures].[E]",
@@ -904,37 +913,26 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 		columns.add(colOceaniaTotal);
 
 		HashSet<String> sumColsAfricaTotal = new HashSet<String>();
-		sumColsAfricaTotal.add(columnsByCode.get("north_of_sahara"));
-		sumColsAfricaTotal.add(columnsByCode.get("south_of_sahara"));
+		sumColsAfricaTotal.addAll(sumColsNorthOfSahara);
+		sumColsAfricaTotal.addAll(sumColsSouthOfSahara);
 		sumColsAfricaTotal.add(columnsByCode.get("298"));
 		ColumnReport colAfricaTotal = new ColumnReport("africa_total", Constants.SUM, sumColsAfricaTotal);
 		columns.add(colAfricaTotal);
 
 		HashSet<String> sumColsAmericaTotal = new HashSet<String>();
-		sumColsAmericaTotal.add(columnsByCode.get("north_central_total"));
-		sumColsAmericaTotal.add(columnsByCode.get("south_total"));
+		sumColsAmericaTotal.addAll(sumColsNorthCentralTotal);
+		sumColsAmericaTotal.addAll(sumColsSouthTotal);
 		sumColsAmericaTotal.add(columnsByCode.get("498"));
 		ColumnReport colAmericaTotal = new ColumnReport("america_total", Constants.SUM, sumColsAmericaTotal);
 		columns.add(colAmericaTotal);
 
 		HashSet<String> sumColsAsiaTotal = new HashSet<String>();
-		sumColsAsiaTotal.add(columnsByCode.get("middle_east_total"));
-		sumColsAsiaTotal.add(columnsByCode.get("south_central_asia_total"));
-		sumColsAsiaTotal.add(columnsByCode.get("far_east_total"));
+		sumColsAsiaTotal.addAll(sumColsMiddleEast);
+		sumColsAsiaTotal.addAll(sumColsSouthCentralAsia);
+		sumColsAsiaTotal.addAll(sumColsFarEast);
 		sumColsAsiaTotal.add(columnsByCode.get("798"));
 		ColumnReport colAsiaTotal = new ColumnReport("asia_total", Constants.SUM, sumColsAsiaTotal);
 		columns.add(colAsiaTotal);
-
-		HashSet<String> sumColsBilateralTotal = new HashSet<String>();
-		sumColsBilateralTotal.addAll(sumColsEuropa);
-		sumColsBilateralTotal.addAll(sumColsAfricaTotal);
-		sumColsBilateralTotal.addAll(sumColsAmericaTotal);
-		sumColsBilateralTotal.addAll(sumColsAsiaTotal);
-		sumColsBilateralTotal.addAll(sumColsOceaniaTotal);
-		sumColsBilateralTotal.add(columnsByCode.get("998"));
-		ColumnReport colBilateralTotal = new ColumnReport("bilateral_total", Constants.SUM, sumColsBilateralTotal);
-		columns.add(colBilateralTotal);
-
 		
 		row.setColumns(columns);
 		
@@ -1142,7 +1140,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 		channelsByRow.put("900", "[Channel].[44003],[Channel].[44006]");
 		channelsByRow.put("816", "[Channel].[46006],[Channel].[46008],[Channel].[46015],[Channel].[46016],[Channel].[46017],[Channel].[46018],[Channel].[46019],[Channel].[46020],[Channel].[46021],[Channel].[46022],[Channel].[46023]");
 		channelsByRow.put("907", "[Channel].[43001],[Channel].[43002],[Channel].[43003],[Channel].[43004],[Channel].[43005]");
-		channelsByRow.put("989", "[Channel].[21002],[Channel].[30010],[Channel].[47001],[Channel].[47002],[Channel].[47003],[Channel].[47005],[Channel].[47009],[Channel].[47011],[Channel].[47012],[Channel].[47013],[Channel].[47015],[Channel].[47019],[Channel].[47022],[Channel].[47025],[Channel].[47026],[Channel].[47027],[Channel].[47029],[Channel].[47034],[Channel].[47036],[Channel].[47037],[Channel].[47040],[Channel].[47044],[Channel].[47045],[Channel].[47046],[Channel].[47050],[Channel].[47058],[Channel].[47059],[Channel].[47061],[Channel].[47064],[Channel].[47065],[Channel].[47066],[Channel].[47067],[Channel].[47068],[Channel].[47073],[Channel].[47074],[Channel].[47076],[Channel].[47077],[Channel].[47078],[Channel].[47079],[Channel].[47080],[Channel].[47081],[Channel].[47082],[Channel].[47083],[Channel].[47084],[Channel].[47086],[Channel].[47087],[Channel].[47089],[Channel].[47092],[Channel].[47093],[Channel].[47095],[Channel].[47096],[Channel].[47097],[Channel].[47098],[Channel].[47100],[Channel].[47102],[Channel].[47105],[Channel].[47106],[Channel].[47107],[Channel].[47109],[Channel].[47110],[Channel].[47111],[Channel].[47112],[Channel].[47113],[Channel].[47116],[Channel].[47117],[Channel].[47118],[Channel].[47119],[Channel].[47120],[Channel].[47121],[Channel].[47122],[Channel].[47123],[Channel].[47127],[Channel].[47128],[Channel].[47129],[Channel].[47130],[Channel].[47131],[Channel].[47132],[Channel].[47136]");
+		channelsByRow.put("989", "[Channel].[40000],[Channel].[21002],[Channel].[30010],[Channel].[47001],[Channel].[47002],[Channel].[47003],[Channel].[47005],[Channel].[47009],[Channel].[47011],[Channel].[47012],[Channel].[47013],[Channel].[47015],[Channel].[47019],[Channel].[47022],[Channel].[47025],[Channel].[47026],[Channel].[47027],[Channel].[47029],[Channel].[47034],[Channel].[47036],[Channel].[47037],[Channel].[47040],[Channel].[47044],[Channel].[47045],[Channel].[47046],[Channel].[47050],[Channel].[47058],[Channel].[47059],[Channel].[47061],[Channel].[47064],[Channel].[47065],[Channel].[47066],[Channel].[47067],[Channel].[47068],[Channel].[47073],[Channel].[47074],[Channel].[47076],[Channel].[47077],[Channel].[47078],[Channel].[47079],[Channel].[47080],[Channel].[47081],[Channel].[47082],[Channel].[47083],[Channel].[47084],[Channel].[47086],[Channel].[47087],[Channel].[47089],[Channel].[47092],[Channel].[47093],[Channel].[47095],[Channel].[47096],[Channel].[47097],[Channel].[47098],[Channel].[47100],[Channel].[47102],[Channel].[47105],[Channel].[47106],[Channel].[47107],[Channel].[47109],[Channel].[47110],[Channel].[47111],[Channel].[47112],[Channel].[47113],[Channel].[47116],[Channel].[47117],[Channel].[47118],[Channel].[47119],[Channel].[47120],[Channel].[47121],[Channel].[47122],[Channel].[47123],[Channel].[47127],[Channel].[47128],[Channel].[47129],[Channel].[47130],[Channel].[47131],[Channel].[47132],[Channel].[47136]");
 
 
 		return channelsByRow;
