@@ -71,6 +71,7 @@ public class TransactionTableListPanel<T extends FinancialTransaction> extends T
 	@Override
 	protected void populateHeader() {
 		this.add( ComponentsUtil.generateLabel("txtable.tx.label", "transaction-name-label", this) );
+		this.add( ComponentsUtil.generateLabel("txtable.tx.form-type", "transaction-form-type-label", this) );
 		this.add( ComponentsUtil.generateLabel("txtable.tx.reporting-year", "transaction-reporting-year-label", this) );
 		this.add( ComponentsUtil.generateLabel("txtable.tx.sector-name", "transaction-sector-name-label", this) );
 		this.add( ComponentsUtil.generateLabel("txtable.tx.reporting-org-name", "transaction-organization-name-label", this) );
@@ -89,6 +90,15 @@ public class TransactionTableListPanel<T extends FinancialTransaction> extends T
 				final FinancialTransaction tempTx			= ftListItem.getModelObject();
 				Label idLabel						= new Label("transaction-name", tempTx.getShortDescription());
 				ftListItem.add(idLabel);
+				
+				String tempFt=null;
+				if (tempTx instanceof CustomFinancialTransaction) {
+					tempFt = new StringResourceModel(((CustomFinancialTransaction) tempTx).getFormType(),
+							TransactionTableListPanel.this, null, null).getString();
+				}
+				Label formType						= new Label("transaction-form-type", tempFt);
+				ftListItem.add(formType);	
+				
                 Label reportingYear = new Label("transaction-reporting-year", tempTx.getReportingYear() == null ? "" : tempTx.getReportingYear().getYear());
                 ftListItem.add(reportingYear);
 				Label descriptionLabel	= null;
