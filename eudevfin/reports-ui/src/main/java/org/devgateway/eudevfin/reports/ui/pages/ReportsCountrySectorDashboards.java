@@ -225,6 +225,7 @@ public class ReportsCountrySectorDashboards extends HeaderFooter {
         table.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
         table.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
 
+        // we use to methods to calculate the total, one for total line, and one for calculating the percentages
         table.setParam("paramcountryTableTotalLine", countryTableTotal.replaceAll("__CURRENCY__", "").replaceAll("Total", "TOTAL"));
 
         if (currencyParam != null) {

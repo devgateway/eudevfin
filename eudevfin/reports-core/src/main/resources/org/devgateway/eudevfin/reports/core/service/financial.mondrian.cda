@@ -201,6 +201,7 @@
     </DataAccess>
 
     <!-- used for Custom Dashboards - Country/Sector -->
+    <!--we use to methods to calculate the total, one for total line, and one for calculating the percentages-->
     <DataAccess id="customDashboardsCountryTable"
                 connection="defaultConnectionLocale"
                 type="mdx"
@@ -345,7 +346,9 @@
         <BandedMode>compact</BandedMode>
         <Columns/>
         <Parameters>
-            <Parameter default="2013" name="FIRST_YEAR" type="Integer"/>
+            <Parameter default="2012" name="FIRST_YEAR" type="Integer"/>
+            <Parameter default="2013" name="SECOND_YEAR" type="Integer"/>
+            <Parameter default="Net Amount Currency NATLOECD" name="currency" type="String"/>
             <Parameter default="CrossJoin([Extending Agency].[Name].Members, [Country].[Name].Members)" name="institutionTableRowSet" type="String"/>
             <Parameter default="[All CoFinanced]" name="COFINANCED" type="String"/>
         </Parameters>
@@ -353,10 +356,10 @@
         <Query>
             <![CDATA[
             WITH
-            MEMBER [Measures].[First Year National] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Extended Amount]}))
-            MEMBER [Measures].[First Year] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Net Amount Currency NATLOECD]}))
+            MEMBER [Measures].[First Year] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[${currency}]}))
+            MEMBER [Measures].[Second Year] AS SUM(CrossJoin([Reporting Year].[${SECOND_YEAR}], {[Measures].[${currency}]}))
             SELECT
-            NON EMPTY {[Measures].[First Year National], [Measures].[First Year]} ON COLUMNS,
+            NON EMPTY {[Measures].[First Year], [Measures].[Second Year]} ON COLUMNS,
             NON EMPTY ${institutionTableRowSet} ON ROWS
             FROM [Financial]
             WHERE ([CoFinanced].${COFINANCED})
@@ -371,7 +374,9 @@
         <BandedMode>compact</BandedMode>
         <Columns/>
         <Parameters>
-            <Parameter default="2013" name="FIRST_YEAR" type="Integer"/>
+            <Parameter default="2012" name="FIRST_YEAR" type="Integer"/>
+            <Parameter default="2013" name="SECOND_YEAR" type="Integer"/>
+            <Parameter default="Net Amount Currency NATLOECD" name="currency" type="String"/>
             <Parameter default="{Hierarchize({[Extending Agency].[Name].Members})}" name="institutionChartRowSet" type="String"/>
             <Parameter default="[All Countries]" name="COUNTRIES" type="String"/>
             <Parameter default="[All CoFinanced]" name="COFINANCED" type="String"/>
@@ -380,9 +385,10 @@
         <Query>
             <![CDATA[
             WITH
-            MEMBER [Measures].[First Year] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Net Amount Currency NATLOECD]}))
+            MEMBER [Measures].[First Year] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[${currency}]}))
+            MEMBER [Measures].[Second Year] AS SUM(CrossJoin([Reporting Year].[${SECOND_YEAR}], {[Measures].[${currency}]}))
             SELECT
-            NON EMPTY {[Measures].[First Year]} ON COLUMNS,
+            NON EMPTY {[Measures].[First Year], [Measures].[Second Year]} ON COLUMNS,
             NON EMPTY ${institutionChartRowSet} ON ROWS
             FROM [Financial]
             WHERE ([Country].${COUNTRIES}, [CoFinanced].${COFINANCED})

@@ -60,7 +60,6 @@ public class ReportsCountrySectorFilter extends CustomReportsPage {
                 } else {
                     pageParameters.add(ReportsConstants.ISNATIONALCURRENCY_PARAM, Boolean.FALSE);
                 }
-
                 if (customReportsModel.getGeography() != null) {
                     pageParameters.add(ReportsConstants.GEOGRAPHY_PARAM, customReportsModel.getGeography().getName());
                 }

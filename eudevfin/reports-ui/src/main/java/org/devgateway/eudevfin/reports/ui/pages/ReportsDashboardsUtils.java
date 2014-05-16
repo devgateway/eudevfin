@@ -33,7 +33,6 @@ public class ReportsDashboardsUtils {
         if(resultSet.size() != 0 && resultSet.get(0).size() > 3) {
             // check if we have data for the 'first year' or 'second year'
             // and add null values
-
             if (resultSet.get(0).size() == 4) {
                 for (int i = 0; i < resultSet.size(); i++) {
                     if (result.getMetadata().get(1).getColName().equals("First Year")) {
