@@ -46,6 +46,9 @@ public class CustomFinancialTransaction extends FinancialTransaction {
 	@Index(name="customfinancialtransaction_draft_idx")
     private Boolean draft = false;
 
+	@Index(name="customfinancialtransaction_approved_idx")
+    private Boolean approved = false;
+	
     private Boolean projectCoFinanced;
 
     @Columns(columns = {@Column(name = "future_debt_principal_curr"),
@@ -562,5 +565,19 @@ public class CustomFinancialTransaction extends FinancialTransaction {
 	 */
 	public void setLevelOfCertainty(Category LevelOfCertainty) {
 		this.LevelOfCertainty = LevelOfCertainty;
+	}
+
+	/**
+	 * @return the approved
+	 */
+	public Boolean getApproved() {
+		return approved;
+	}
+
+	/**
+	 * @param approved the approved to set
+	 */
+	public void setApproved(Boolean approved) {
+		this.approved = approved;
 	}
 }

@@ -38,6 +38,11 @@ select, input[type="text"], input[type="password"], input[type="datetime"], inpu
     font-style: italic;
 }
 
+.form-controls {
+    padding:3px; 
+    border:1px dotted gray;
+}
+
 .transaction-title {
     font-weight: bold;
     font-size: x-large;

@@ -56,12 +56,43 @@ public class CustomFinancialTransactionDao
 		return this.getRepo().findByDraftAndPersistedUserGroup(draft, persistedUserGroup, pageable);
 	}
 	
+	/**
+	 * @see CustomFinancialTransactionService#findByDraftPageable(Boolean, Pageable)
+	 * @param draft
+	 * @param pageable
+	 * @return
+	 */
 	@ServiceActivator(inputChannel="findCustomTransactionByDraftPageableChannel")
 	public Page<CustomFinancialTransaction> findByDraftPageable(final Boolean draft,
 			@Header("pageable") final Pageable pageable) {
 		return this.getRepo().findByDraft(draft, pageable);
 	}
 	
+	/**
+	 * @see CustomFinancialTransactionService#findByApprovedPageable(Boolean, Pageable)
+	 * @param draft
+	 * @param pageable
+	 * @return
+	 */
+	@ServiceActivator(inputChannel="findCustomTransactionByApprovedPageableChannel")
+	public Page<CustomFinancialTransaction> findByApprovedPageable(final Boolean draft,
+			@Header("pageable") final Pageable pageable) {
+		return this.getRepo().findByApproved(draft, pageable);
+	}
+	
+	/**
+	 * @see CustomFinancialTransactionService#findByApprovedAndPersistedUserGroupPageable(Boolean, PersistedUserGroup, Pageable)
+	 * @param approved
+	 * @param persistedUserGroup
+	 * @param pageable
+	 * @return
+	 */
+	@ServiceActivator(inputChannel="findCustomTransactionByApprovedAndPersistedUserGroupPageableChannel")
+	public Page<CustomFinancialTransaction> findByApprovedAndPersistedUserGroupPageable(final Boolean approved,
+			@Header("persistedUserGroup") PersistedUserGroup persistedUserGroup,
+			@Header("pageable") final Pageable pageable) {
+		return this.getRepo().findByApprovedAndPersistedUserGroup(approved, persistedUserGroup, pageable);
+	}
 	
 	/**
 	 * @see CustomFinancialTransactionService#findByReportingYearAndDraftFalse(Integer)

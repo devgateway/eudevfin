@@ -184,7 +184,10 @@
 	
 	
 	<int:channel id="findCustomTransactionByDraftAndPersistedUserGroupPageableChannel"/>
+	<int:channel id="findCustomTransactionByApprovedAndPersistedUserGroupPageableChannel"/>	
 	<int:channel id="findCustomTransactionByDraftPageableChannel"/>
+	<int:channel id="findCustomTransactionByApprovedPageableChannel"/>
+	
 	<int:channel id="findCustomTransactionByReportingYearAndDraftFalseChannel"/>
 	<int:channel id="findCustomTransactionByReportingYearAndDraftFalseAndFormTypeNotInChannel"/>
 	

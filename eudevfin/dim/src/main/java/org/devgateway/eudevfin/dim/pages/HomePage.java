@@ -19,6 +19,7 @@ import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.auth.common.util.AuthUtils;
 import org.devgateway.eudevfin.dim.desktop.components.SearchBoxPanel;
 import org.devgateway.eudevfin.dim.desktop.components.TransactionTableListPanel;
+import org.devgateway.eudevfin.dim.desktop.components.util.ApprovedListGenerator;
 import org.devgateway.eudevfin.dim.desktop.components.util.DraftListGenerator;
 import org.devgateway.eudevfin.dim.desktop.components.util.GeneralSearchListGenerator;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
@@ -45,6 +46,7 @@ public class HomePage extends HeaderFooter {
 	
 	private static final String DESKTOP_LAST_TX_BY_DRAFT		= "desktop.lastTxByDraft";
 	private static final String DESKTOP_LAST_TX_BY_FINAL		= "desktop.lastTxByFinal";
+	private static final String DESKTOP_LAST_TX_BY_APPROVED		= "desktop.lastTxByApproved";
 
     private static final String SECTOR_CODE_AGRIC = "130";
 
@@ -143,6 +145,7 @@ public class HomePage extends HeaderFooter {
     	
     	tabList.add( TransactionTableListPanel.<CustomFinancialTransaction>newTab( this,DESKTOP_LAST_TX_BY_DRAFT, new DraftListGenerator(true, currentUser.getGroup(), this.customTxService,superUser) ) );
     	tabList.add( TransactionTableListPanel.<CustomFinancialTransaction>newTab( this,DESKTOP_LAST_TX_BY_FINAL, new DraftListGenerator(false, currentUser.getGroup(), this.customTxService,superUser) ) );
+    	tabList.add( TransactionTableListPanel.<CustomFinancialTransaction>newTab( this,DESKTOP_LAST_TX_BY_APPROVED, new ApprovedListGenerator(true, currentUser.getGroup(), this.customTxService,superUser) ) );
     	
     	BootstrapJSTabbedPanel<ITabWithKey> bc = new BootstrapJSTabbedPanel<>("tops-panel", tabList).
                 positionTabs(BootstrapJSTabbedPanel.Orientation.RIGHT);

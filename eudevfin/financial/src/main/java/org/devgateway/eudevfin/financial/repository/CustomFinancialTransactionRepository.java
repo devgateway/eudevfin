@@ -23,7 +23,11 @@ public interface CustomFinancialTransactionRepository extends
 	
 	Page<CustomFinancialTransaction> findByDraft(Boolean draft, Pageable pageable );
 	
+	Page<CustomFinancialTransaction> findByApproved(Boolean approved, Pageable pageable );
+	
 	Page<CustomFinancialTransaction> findByDraftAndPersistedUserGroup(Boolean draft,PersistedUserGroup persistedUserGroup, Pageable pageable );
+	
+	Page<CustomFinancialTransaction> findByApprovedAndPersistedUserGroup(Boolean approved,PersistedUserGroup persistedUserGroup, Pageable pageable );
 	
 	List<CustomFinancialTransaction> findByReportingYearBetweenAndDraftFalse(LocalDateTime start, LocalDateTime end);
 	

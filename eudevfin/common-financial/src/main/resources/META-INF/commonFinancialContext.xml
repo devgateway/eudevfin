@@ -60,9 +60,15 @@
 		<int:method name="findByDraftAndPersistedUserGroupPageable" request-channel="getChannel">
 			<int:header name="requestName" value="findCustomTransactionByDraftAndPersistedUserGroupPageableChannel"/>
 		</int:method>
+			<int:method name="findByApprovedAndPersistedUserGroupPageable" request-channel="getChannel">
+			<int:header name="requestName" value="findCustomTransactionByApprovedAndPersistedUserGroupPageableChannel"/>
+		</int:method>
 		<int:method name="findByDraftPageable" request-channel="getChannel">
 			<int:header name="requestName" value="findCustomTransactionByDraftPageableChannel"/>
 		</int:method>
+		<int:method name="findByApprovedPageable" request-channel="getChannel">
+			<int:header name="requestName" value="findCustomTransactionByApprovedPageableChannel"/>
+		</int:method>	
 		<int:method name="findByReportingYearAndDraftFalse" request-channel="getChannel">
 			<int:header name="requestName" value="findCustomTransactionByReportingYearAndDraftFalseChannel"/>
 		</int:method>

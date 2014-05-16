@@ -22,7 +22,13 @@ public interface CustomFinancialTransactionService extends BaseEntityService<Cus
 	public Page<CustomFinancialTransaction> findByDraftAndPersistedUserGroupPageable(Boolean draft,
 			@Header("persistedUserGroup") PersistedUserGroup persistedUserGroup, @Header("pageable") Pageable pageable);
 	
+	public Page<CustomFinancialTransaction> findByApprovedAndPersistedUserGroupPageable(Boolean approved,
+			@Header("persistedUserGroup") PersistedUserGroup persistedUserGroup, @Header("pageable") Pageable pageable);
+	
 	public Page<CustomFinancialTransaction> findByDraftPageable(final Boolean draft,
+			@Header("pageable") final Pageable pageable);
+	
+	public Page<CustomFinancialTransaction> findByApprovedPageable(final Boolean draft,
 			@Header("pageable") final Pageable pageable);
 	
 	public List<CustomFinancialTransaction> findByReportingYearAndDraftFalse(final Integer year);

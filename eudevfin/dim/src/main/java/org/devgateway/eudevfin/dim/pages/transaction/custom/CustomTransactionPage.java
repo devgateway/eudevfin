@@ -50,6 +50,9 @@ public class CustomTransactionPage extends TransactionPage {
 	
 	private static final long serialVersionUID = -7808024425119532771L;
 	private static final CustomTransactionPermissionProvider permissions = new CustomTransactionPermissionProvider();
+	
+	CheckBoxField approved;
+	CheckBoxField draft;
 
     @Override
     protected List<Class<? extends Panel>> getTabs() {
@@ -85,20 +88,26 @@ public class CustomTransactionPage extends TransactionPage {
 		}
 		
 	}
-    
+	
+	
     public CustomTransactionPage(PageParameters parameters) {
   		super(parameters);
-  		CheckBoxField draft = new CheckBoxField("draft",
+
+  		
+  		draft = new CheckBoxField("draft",
 				new RWComponentPropertyModel<Boolean>("draft")) {  	
   		@Override
   		protected CheckBox newField(String id, IModel<Boolean> model) {
   			 return new AjaxCheckBox(id, model) {
 				@Override
 				protected void onUpdate(AjaxRequestTarget target) {
-					if(this.getModel().getObject())
+					if(this.getModel().getObject()) {
   						info(new NotificationMessage(new StringResourceModel("notification.draftState", CustomTransactionPage.this, null, null)));
+  						approved.getField().setModelObject(false);
+  						target.add(approved);
+					}
   					else
-  						info(new NotificationMessage(new StringResourceModel("notification.finalState", CustomTransactionPage.this, null, null)));
+  						info(new NotificationMessage(new StringResourceModel("notification.nonDraftState", CustomTransactionPage.this, null, null)));
 					target.add(feedbackPanel);
 				}
   			 };
@@ -106,13 +115,36 @@ public class CustomTransactionPage extends TransactionPage {
   		};
   		
   		
-  		MetaDataRoleAuthorizationStrategy.authorize(draft, Component.ENABLE, AuthConstants.Roles.ROLE_TEAMLEAD);
+  		approved = new CheckBoxField("approved",
+				new RWComponentPropertyModel<Boolean>("approved")) {  	
+  		@Override
+  		protected CheckBox newField(String id, IModel<Boolean> model) {
+  			 return new AjaxCheckBox(id, model) {
+				@Override
+				protected void onUpdate(AjaxRequestTarget target) {
+					if(this.getModel().getObject()) {
+  						info(new NotificationMessage(new StringResourceModel("notification.approvedState", CustomTransactionPage.this, null, null)));
+  						draft.getField().setModelObject(false);
+					}
+  					else
+  						info(new NotificationMessage(new StringResourceModel("notification.unapprovedState", CustomTransactionPage.this, null, null)));
+					target.add(feedbackPanel);
+				}
+  			 };
+  		}	
+  		};
+  		
+  		
+  		MetaDataRoleAuthorizationStrategy.authorize(approved, Component.ENABLE, AuthConstants.Roles.ROLE_TEAMLEAD);
   		form.add(draft);
+  		form.add(approved);
   	  
   		
 		//always set this field to true when form is opened
   		draft.getField().getModel().setObject(true);
+  		
 		draft.removeSpanFromControlGroup();
+		approved.removeSpanFromControlGroup();
   	}
 
 }
