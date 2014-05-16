@@ -247,7 +247,9 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
         submitButton.add(new AttributePrepender("onclick", new Model<String>("window.onbeforeunload = null;"), " "));
         form.add(submitButton);
 
-        form.add(new TransactionPageSubmitButton("save", new StringResourceModel("button.save", this, null, null)));
+        TransactionPageSubmitButton saveButton = new TransactionPageSubmitButton("save", new StringResourceModel("button.save", this, null, null));
+        saveButton.setDefaultFormProcessing(false);
+        form.add(saveButton);
         
         TransactionPageDeleteButton transactionPageDeleteButton = new TransactionPageDeleteButton("delete", new StringResourceModel("button.delete", this, null, null));        
         MetaDataRoleAuthorizationStrategy.authorize(transactionPageDeleteButton, Component.ENABLE, AuthConstants.Roles.ROLE_TEAMLEAD);
