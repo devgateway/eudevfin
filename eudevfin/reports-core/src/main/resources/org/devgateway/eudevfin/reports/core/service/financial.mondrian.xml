@@ -302,7 +302,7 @@
 				CASE WHEN cat.coefficient IS NULL THEN AMOUNTS_INTEREST_RECEIVED_AMOUNT ELSE (AMOUNTS_INTEREST_RECEIVED_AMOUNT * cat.COEFFICIENT) / 100 END as AMOUNTS_INTEREST_RECEIVED_AMOUNT_WITH_COEFFICIENT,
 				
                 ft.*
-                from FINANCIALTRANSACTION ft left join CATEGORY cat ON cat.id = ft.channel_id WHERE ft.draft = false OR draft IS NULL
+                from FINANCIALTRANSACTION ft left join CATEGORY cat ON cat.id = ft.channel_id WHERE (ft.draft = false and ft.approved = true) OR draft IS NULL
             ]]></SQL>
         </View>
         <DimensionUsage source="Area" name="Area" visible="true" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
