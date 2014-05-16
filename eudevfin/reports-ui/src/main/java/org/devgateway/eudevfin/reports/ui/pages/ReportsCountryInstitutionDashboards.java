@@ -27,6 +27,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -38,8 +39,6 @@ import java.util.List;
 @AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
 public class ReportsCountryInstitutionDashboards extends HeaderFooter {
     private static final Logger logger = Logger.getLogger(ReportsCountryInstitutionDashboards.class);
-
-    private final int MILLION = 1000000;
 
     /*
      * variables used to dynamically create the MDX queries
@@ -57,8 +56,11 @@ public class ReportsCountryInstitutionDashboards extends HeaderFooter {
     private String institutionChartRowSet = "{Hierarchize({[Extending Agency].[Name].Members})}";
     private String institutionChartInstitution = "{Hierarchize({[Extending Agency].[Name].[__INSTITUTION__]})}";
 
+    private String countryCurrency = "$";
+
     private int tableYear;
     // variables that holds the parameters received from filter
+    private String currencyParam;
     private String geographyParam;
     private String recipientParam;
     private String institutionParam;
@@ -72,6 +74,13 @@ public class ReportsCountryInstitutionDashboards extends HeaderFooter {
         // get a default year if it's not specified
         tableYear = Calendar.getInstance().get(Calendar.YEAR) - 1;
 
+        // process the parameters received from the filters
+        if(!parameters.get(ReportsConstants.ISNATIONALCURRENCY_PARAM).equals(StringValue.valueOf((String) null))) {
+            currencyParam = parameters.get(ReportsConstants.ISNATIONALCURRENCY_PARAM).toString();
+            if (currencyParam.equals("true")) {
+                countryCurrency = ReportsDashboardsUtils.getCurrency();
+            }
+        }
         // process the parameters received from the filters
         if(!parameters.get(ReportsConstants.GEOGRAPHY_PARAM).equals(StringValue.valueOf((String) null))) {
             geographyParam = parameters.get(ReportsConstants.GEOGRAPHY_PARAM).toString();
@@ -142,7 +151,8 @@ public class ReportsCountryInstitutionDashboards extends HeaderFooter {
     }
 
     private void addInstitutionTable () {
-        Label title = new Label("institutionTableTitle", new StringResourceModel("reportscountryinstitutiondashboards.institutionTable", this, null, null));
+        Label title = new Label("institutionTableTitle", "Net Disbursement by institution - " + (tableYear - 1) + "-" + tableYear +
+                " - " + countryCurrency + " - full amount");
         add(title);
 
         Table table = new Table(CdaService, "institutionTable", "institutionTableRows", "customDashboardsInstitutionTable") {
@@ -156,25 +166,80 @@ public class ReportsCountryInstitutionDashboards extends HeaderFooter {
                 List <List<String>> resultSet = result.getResultset();
 
                 if(resultSet.size() != 0) {
+                    logger.error(resultSet);
+                    // check if we have data for the 'first year' or 'second year'
+                    // and add null values
+                    if (resultSet.get(0).size() == 3) {
+                        for (int i = 0; i < resultSet.size(); i++) {
+                            if (result.getMetadata().get(2).getColName().equals("First Year")) {
+                                resultSet.get(i).add(3, null);
+                            } else {
+                                resultSet.get(i).add(2, null);
+                            }
+                        }
+                    }
+
+                    // 'group by' institutions for countries
+                    float firstYear = 0;
+                    float secondYear = 0;
+                    for (int i = resultSet.size() - 1; i > 0; i--) {
+                        // calculate the total for each main category (for example institution)
+                        if (resultSet.get(i).size() > 2 && resultSet.get(i).get(2) != null) {
+                            firstYear += Float.parseFloat(resultSet.get(i).get(2));
+                        }
+                        if (resultSet.get(i).size() > 3 && resultSet.get(i).get(3) != null) {
+                            secondYear += Float.parseFloat(resultSet.get(i).get(3));
+                        }
+
+                        if(resultSet.get(i).get(0).equals(resultSet.get(i - 1).get(0))) {
+                            resultSet.get(i).set(0, null);
+                        } else {
+                            List<String> newElement = Arrays
+                                    .asList(new String[]{
+                                            resultSet.get(i).get(0),
+                                            "TOTAL",
+                                            "" + firstYear,
+                                            "" + secondYear
+                                    });
+
+                            resultSet.get(i).set(0, null);
+                            resultSet.add(i, newElement);
+
+                            firstYear = 0;
+                            secondYear = 0;
+                        }
+                    }
+
+                    // calculate total for the first element
+                    if (resultSet.get(0).size() > 2 && resultSet.get(0).get(2) != null) {
+                        firstYear += Float.parseFloat(resultSet.get(0).get(2));
+                    }
+                    if (resultSet.get(0).size() > 3 && resultSet.get(0).get(3) != null) {
+                        secondYear += Float.parseFloat(resultSet.get(0).get(3));
+                    }
+
+                    List<String> newElement = Arrays
+                            .asList(new String[]{
+                                    resultSet.get(0).get(0),
+                                    "TOTAL",
+                                    "" + firstYear,
+                                    "" + secondYear
+                            });
+                    resultSet.get(0).set(0, null);
+                    resultSet.add(0, newElement);
+
                     // format the amounts as #,###.##
                     // and other values like percentages
                     DecimalFormat df = new DecimalFormat("#,###.##");
                     for (int i = 0; i < resultSet.size(); i++) {
                         if (resultSet.get(i).size() > 2 && resultSet.get(i).get(2) != null) {
-                            String item = df.format(Float.parseFloat(resultSet.get(i).get(2))); // amounts - national currency (first year)
+                            String item = df.format(Float.parseFloat(resultSet.get(i).get(2))); // amounts (first year)
                             resultSet.get(i).set(2, item);
                         }
 
                         if (resultSet.get(i).size() > 3 && resultSet.get(i).get(3) != null) {
-                            String item = df.format(Float.parseFloat(resultSet.get(i).get(3))); // amounts (first year)
+                            String item = df.format(Float.parseFloat(resultSet.get(i).get(3))); // amounts (second year)
                             resultSet.get(i).set(3, item);
-                        }
-                    }
-
-                    // 'group by' institutions for countries
-                    for (int i = resultSet.size() - 1; i > 0; i--) {
-                        if(resultSet.get(i).get(0).equals(resultSet.get(i - 1).get(0))) {
-                            resultSet.get(i).set(0, null);
                         }
                     }
 
@@ -200,24 +265,37 @@ public class ReportsCountryInstitutionDashboards extends HeaderFooter {
         };
 
         // add MDX queries parameters
-        table.setParam("paramFIRST_YEAR", Integer.toString(tableYear ));
+        table.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
+        table.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
         if(coFinancingParam != null && coFinancingParam.equals("true")) {
             table.setParam("paramCOFINANCED", "[1]");
         }
+
+        if (currencyParam != null) {
+            if (currencyParam.equals("true")) {
+                table.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+            }
+        }
+
         table.setParam("paraminstitutionTableRowSet", institutionTableRowSet);
 
-        Label firstYear = new Label("firstYear", tableYear);
+        Label firstYear = new Label("firstYear", tableYear - 1);
         table.getTable().add(firstYear);
+        Label secondYear = new Label("secondYear", tableYear);
+        table.getTable().add(secondYear);
 
         add(table.getTable());
         table.addTableRows();
 
-        Label nationalCurrencyFirst = new Label("nationalCurrencyFirst", new StringResourceModel("reportscountryinstitutiondashboards.nationalCurrency", this, null, null));
-        table.getTable().add(nationalCurrencyFirst);
+        Label currencyFirstYear = new Label("currencyFirstYear", countryCurrency);
+        table.getTable().add(currencyFirstYear);
+        Label currencySecondYear = new Label("currencySecondYear", countryCurrency);
+        table.getTable().add(currencySecondYear);
     }
 
     private void addInstitutionChart () {
-        Label title = new Label("institutionChartTitle", new StringResourceModel("reportscountryinstitutiondashboards.institutionChart", this, null, null));
+        Label title = new Label("institutionChartTitle", "Net Disbursement by institution - " + (tableYear - 1) + "-" + tableYear +
+                " - " + countryCurrency + " - full amount");
         add(title);
 
         StackedBarChart stackedBarChart = new StackedBarChart(CdaService, "institutionChart", "customDashboardsInstitutionChart") {
@@ -225,30 +303,18 @@ public class ReportsCountryInstitutionDashboards extends HeaderFooter {
             public List<List<Float>> getResultSeriesAsList () {
                 this.result = this.runQuery();
 
-                List<List<Float>> resultSeries = new ArrayList<>();
-                List<String> resultCategories = new ArrayList<>();
-
-                List<Float> firstYearList = new ArrayList<>();
-                resultSeries.add(firstYearList);
-
-                for (List<String> item : result.getResultset()) {
-                    resultCategories.add(item.get(0));
-
-                    if (item.size() > 1 && item.get(1) != null) {
-                        resultSeries.get(0).add(Float.parseFloat(item.get(1)) / MILLION);
-                    } else {
-                        resultSeries.get(0).add((float) 0);
-                    }
-                }
-
-                getOptions().getxAxis().get(0).setCategories(new ArrayList<>(resultCategories));
-
-                return resultSeries;
+                return ReportsDashboardsUtils.processChartRows(this.runQuery(), getOptions());
             }
         };
 
         // add MDX queries parameters
-        stackedBarChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
+        stackedBarChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
+        stackedBarChart.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
+        if (currencyParam != null) {
+            if (currencyParam.equals("true")) {
+                stackedBarChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+            }
+        }
         if (geographyParam != null) {
             stackedBarChart.setParam("paramCOUNTRIES", "[" + geographyParam + "]");
         } else {
@@ -274,8 +340,12 @@ public class ReportsCountryInstitutionDashboards extends HeaderFooter {
         stackedBarChart.getOptions().getChartOptions().setHeight(300 + 50 * numberOfRows);
 
         stackedBarChart.getOptions().addSeries(new SimpleSeries()
-                .setName("Year " + tableYear)
+                .setName("Year " + (tableYear - 1))
                 .setData(resultSeries.get(0).toArray(new Float[resultSeries.get(0).size()])));
+
+        stackedBarChart.getOptions().addSeries(new SimpleSeries()
+                .setName("Year " + tableYear)
+                .setData(resultSeries.get(1).toArray(new Float[resultSeries.get(1).size()])));
 
         add(stackedBarChart.getChart());
     }

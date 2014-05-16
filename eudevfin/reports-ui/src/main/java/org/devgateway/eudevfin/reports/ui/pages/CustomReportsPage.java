@@ -163,13 +163,13 @@ public abstract class CustomReportsPage extends HeaderFooter {
 
         List<String> currencyTypes = Arrays
                 .asList(new String[]{
-                        new StringResourceModel("pricesUSDCurrency", this, null, null).getObject(),
-                        new StringResourceModel("pricesNationalCurrency", this, null, null).getObject()
+                        new StringResourceModel("pricesNationalCurrency", this, null, null).getObject(),
+                        new StringResourceModel("pricesUSDCurrency", this, null, null).getObject()
                 });
         pricesCurrency = new RadioChoiceField("pricesCurrency", new RWComponentPropertyModel<String>("pricesCurrency"), currencyTypes);
         pricesCurrency.getField().setChoices(currencyTypes);
-        // select first currency (USD)
-        customReportsModel.setPricesCurrency(new StringResourceModel("pricesUSDCurrency", this, null, null).getObject());
+        // select first National Currency
+        customReportsModel.setPricesCurrency(new StringResourceModel("pricesNationalCurrency", this, null, null).getObject());
 
         // add geography&recipient validator
         // (ODAEU-238) a country could not be selected if I want to have only regional aggregates

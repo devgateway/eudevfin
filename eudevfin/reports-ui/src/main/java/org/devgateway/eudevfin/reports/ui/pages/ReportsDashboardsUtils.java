@@ -1,6 +1,7 @@
 package org.devgateway.eudevfin.reports.ui.pages;
 
 import com.googlecode.wickedcharts.highcharts.options.Options;
+import org.apache.log4j.Logger;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
@@ -21,12 +22,7 @@ import java.util.List;
  * @since 5/13/14
  */
 public class ReportsDashboardsUtils {
-    private static final int MILLION = 1000000;
-
-    private static final String isCountry = "Country";
-    private static final String isGeography = "Geography";
-    private static final String isSector = "Sector";
-    private static final String isParentSector = "ParentSector";
+    private static final Logger logger = Logger.getLogger(ReportsDashboardsUtils.class);
 
     /*
      * since the custom reports tables are similar we use only one function to process the rows
@@ -37,7 +33,6 @@ public class ReportsDashboardsUtils {
         if(resultSet.size() != 0 && resultSet.get(0).size() > 3) {
             // check if we have data for the 'first year' or 'second year'
             // and add null values
-
             if (resultSet.get(0).size() == 4) {
                 for (int i = 0; i < resultSet.size(); i++) {
                     if (result.getMetadata().get(1).getColName().equals("First Year")) {
@@ -90,43 +85,43 @@ public class ReportsDashboardsUtils {
             /*
              * country/sector table are processes differently
              */
-            if(typeOfTable.equals(isCountry)) {
+            if(typeOfTable.equals(ReportsConstants.isCountry)) {
                 // find which row is a country or a geography
                 for (int i = 0; i < resultSet.size(); i++) {
                     String region = resultSet.get(i).get(0);
                     if (resultSet.get(i).get(resultSet.get(i).size() - 1).toLowerCase().
-                            equals(isCountry.toLowerCase())) {
+                            equals(ReportsConstants.isCountry.toLowerCase())) {
                         resultSet.get(i).add(1, region);
                         resultSet.get(i).set(0, null);
                     } else {
                         if (resultSet.get(i).get(resultSet.get(i).size() - 1).toLowerCase().
-                                equals(isGeography.toLowerCase())) {
+                                equals(ReportsConstants.isGeography.toLowerCase())) {
                             resultSet.get(i).add(1, null);
                         }
                     }
                 }
 
                 // set 'Total' as Geography
-                resultSet.get(resultSet.size() - 1).set(6, isGeography.toLowerCase());
+                resultSet.get(resultSet.size() - 1).set(6, ReportsConstants.isGeography.toLowerCase());
             }
-            if(typeOfTable.equals(isSector)) {
+            if(typeOfTable.equals(ReportsConstants.isSector)) {
                 // find which row is a sector or a parent-sector
                 for (int i = 0; i < resultSet.size(); i++) {
                     String sector = resultSet.get(i).get(0);
                     if (resultSet.get(i).get(resultSet.get(i).size() - 1).toLowerCase().
-                            equals(isSector.toLowerCase())) {
+                            equals(ReportsConstants.isSector.toLowerCase())) {
                         resultSet.get(i).add(1, sector);
                         resultSet.get(i).set(0, null);
                     } else {
                         if (resultSet.get(i).get(resultSet.get(i).size() - 1).toLowerCase().
-                                equals(isParentSector.toLowerCase())) {
+                                equals(ReportsConstants.isParentSector.toLowerCase())) {
                             resultSet.get(i).add(1, null);
                         }
                     }
                 }
 
                 // set 'Total' as Geography
-                resultSet.get(resultSet.size() - 1).set(6, isParentSector.toLowerCase());
+                resultSet.get(resultSet.size() - 1).set(6, ReportsConstants.isParentSector.toLowerCase());
             }
 
             for (List<String> item : resultSet) {
@@ -140,8 +135,8 @@ public class ReportsDashboardsUtils {
                 String[] row = item.getModelObject();
 
                 // use different color for geography items
-                if (row[row.length - 1].toLowerCase().equals(isGeography.toLowerCase()) ||
-                        row[row.length - 1].toLowerCase().equals(isParentSector.toLowerCase())) {
+                if (row[row.length - 1].toLowerCase().equals(ReportsConstants.isGeography.toLowerCase()) ||
+                        row[row.length - 1].toLowerCase().equals(ReportsConstants.isParentSector.toLowerCase())) {
                     item.add(new AttributeModifier("class", "geography"));
                 }
 
@@ -172,16 +167,23 @@ public class ReportsDashboardsUtils {
         for (List<String> item : result.getResultset()) {
             resultCategories.add(item.get(0));
 
-            if (item.size() > 1 && item.get(1) != null) {
-                resultSeries.get(0).add(Float.parseFloat(item.get(1)) / MILLION);
-            } else {
-                resultSeries.get(0).add((float) 0);
-            }
+            // check if we have data for both years
+            if (result.getMetadata().get(1).getColName().equals("First Year")) {
+                if (item.size() > 1 && item.get(1) != null) {
+                    resultSeries.get(0).add(Float.parseFloat(item.get(1)));
+                } else {
+                    resultSeries.get(0).add((float) 0);
+                }
 
-            if (item.size() > 2 && item.get(2) != null) {
-                resultSeries.get(1).add(Float.parseFloat(item.get(2)) / MILLION);
+                if (item.size() > 2 && item.get(2) != null) {
+                    resultSeries.get(1).add(Float.parseFloat(item.get(2)));
+                } else {
+                    resultSeries.get(1).add((float) 0);
+                }
             } else {
-                resultSeries.get(1).add((float) 0);
+                // we don't have the first year data
+                resultSeries.get(0).add((float) 0);
+                resultSeries.get(1).add(Float.parseFloat(item.get(1)));
             }
         }
 
