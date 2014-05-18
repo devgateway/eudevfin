@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dac1_master" pageWidth="900" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" resourceBundle="i18n" uuid="bad8772b-9ff8-49ae-a2c0-34a59258237b">
 	<property name="ireport.zoom" value="3.0"/>
-	<property name="ireport.x" value="856"/>
-	<property name="ireport.y" value="396"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<style name="defaultStyle" isDefault="true" mode="Transparent" fontName="Arial" fontSize="8"/>
 	<style name="BlueBackground" style="defaultStyle" mode="Opaque" backcolor="#99CCFF" isBold="true"/>
 	<parameter name="REPORTING_COUNTRY" class="java.lang.String"/>
 	<parameter name="REPORTING_YEAR" class="java.lang.Number"/>
+	<parameter name="EDITION_YEAR" class="java.lang.Number"/>
 	<parameter name="EXPERT_SUBREPORT_PATH" class="java.lang.String"/>
 	<parameter name="INTEREST_SUBREPORT_PATH" class="java.lang.String"/>
 	<queryString language="mdx">
@@ -30,13 +31,6 @@
 					<font size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$R{dac1.subtitle}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="0" y="32" width="641" height="16" uuid="9d08b850-c5b4-4a5b-8600-900de3d6d321"/>
-				<textElement verticalAlignment="Top" markup="styled">
-					<font size="10" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA["2014 Edition"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="641" y="0" width="120" height="16" uuid="0ec0336c-7bad-4791-98a5-750066188036"/>
@@ -79,6 +73,13 @@
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="32" width="138" height="16" uuid="fa35197d-5d34-4ff7-8c4b-9f60c4668080"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{EDITION_YEAR} + " Edition"]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
