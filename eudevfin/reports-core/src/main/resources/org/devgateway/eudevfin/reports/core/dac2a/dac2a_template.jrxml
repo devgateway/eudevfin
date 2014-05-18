@@ -2,11 +2,12 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dac2a_template" pageWidth="1350" pageHeight="750" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="1310" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" resourceBundle="i18n" uuid="bad8772b-9ff8-49ae-a2c0-34a59258237b">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="1290"/>
-	<property name="ireport.y" value="80"/>
+	<property name="ireport.y" value="0"/>
 	<style name="defaultStyle" isDefault="true" mode="Transparent" fontName="Arial" fontSize="10"/>
 	<parameter name="REPORTING_COUNTRY" class="java.lang.String"/>
 	<parameter name="SUBDIR_PATH" class="java.lang.String"/>
 	<parameter name="REPORTING_YEAR" class="java.lang.Number"/>
+	<parameter name="EDITION_YEAR" class="java.lang.Number"/>
 	<parameter name="AREA_SUBREPORT_PATH" class="java.lang.String"/>
 	<parameter name="CHANNEL_SUBREPORT_PATH" class="java.lang.String"/>
 	<queryString language="mdx">
@@ -16,35 +17,63 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="64" splitType="Stretch">
+		<band height="66" splitType="Stretch">
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="0" y="0" width="418" height="48" uuid="9d08b850-c5b4-4a5b-8600-900de3d6d321"/>
+				<reportElement x="0" y="0" width="642" height="32" uuid="9d08b850-c5b4-4a5b-8600-900de3d6d321"/>
 				<textElement verticalAlignment="Top" markup="styled">
-					<font fontName="Arial" size="12" isBold="true"/>
+					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$R{dac2a.title}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="1046" y="0" width="123" height="48" uuid="0ec0336c-7bad-4791-98a5-750066188036"/>
-				<textElement textAlignment="Right">
-					<font size="12" isBold="false" isItalic="false"/>
+			<textField>
+				<reportElement x="0" y="32" width="138" height="16" uuid="b798ccde-9e4b-42da-93fd-651d3d1f1af2"/>
+				<textElement>
+					<font size="8"/>
 				</textElement>
-				<text><![CDATA[Reporting country:
-Period:
-Date:]]></text>
+				<textFieldExpression><![CDATA[$P{EDITION_YEAR} + " Edition"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1090" y="16" width="120" height="16" uuid="2b1239ae-0084-4679-b4e4-7f2790df6b92"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Period:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="1182" y="0" width="100" height="16" uuid="40fea317-1efb-41ef-a2ab-7b7ca5290ce6"/>
+				<reportElement x="1210" y="0" width="100" height="16" uuid="af6c8d1d-e8fa-4459-9809-a1a3c0618a31"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{REPORTING_COUNTRY}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="1182" y="16" width="100" height="16" uuid="130e2419-c5b7-429b-9a97-10e45bef654c"/>
-				<textFieldExpression><![CDATA[$P{REPORTING_YEAR}]]></textFieldExpression>
-			</textField>
-			<textField pattern="dd/MM/yyyy">
-				<reportElement x="1182" y="32" width="100" height="16" uuid="e2a1d4f1-07b3-430e-adf1-6ddcd3916374"/>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
+				<reportElement x="1210" y="32" width="100" height="16" uuid="24c22e99-f75f-48ec-a233-79931e587c66"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="1090" y="0" width="120" height="16" uuid="a94a3a91-ebc3-42d7-b43e-6a49f98c4757"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Reporting country:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="1210" y="16" width="100" height="16" uuid="15bd936c-517a-4c4e-8b97-2c90b282244b"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{REPORTING_YEAR}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1090" y="32" width="120" height="16" uuid="42156266-9525-4850-94a9-aa7f755853f9"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
 		</band>
 	</title>
 	<pageHeader>
@@ -83,14 +112,14 @@ Date:]]></text>
 			<staticText>
 				<reportElement x="250" y="33" width="55" height="53" uuid="e6aab14e-bd34-4219-ac2f-1f7d1dfca942"/>
 				<textElement textAlignment="Center">
-					<font size="10" isBold="true" isUnderline="false"/>
+					<font size="8" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[GRANTS]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="306" y="52" width="55" height="53" uuid="f1b5e343-e8a5-4bb0-84fe-1ff6922cf5c6"/>
 				<textElement textAlignment="Center">
-					<font size="10" isBold="false" isUnderline="false"/>
+					<font size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[DEBT FOR-
 GIVENESS
@@ -101,7 +130,7 @@ interest)
 			<staticText>
 				<reportElement x="362" y="52" width="55" height="53" uuid="d98167a4-4bc1-416f-ab43-b47c4cb98d9a"/>
 				<textElement textAlignment="Center">
-					<font size="10" isBold="false" isUnderline="false"/>
+					<font size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[OTHER
 DEBT
@@ -110,7 +139,7 @@ GRANTS]]></text>
 			<staticText>
 				<reportElement x="418" y="52" width="55" height="53" uuid="f07a9463-f40b-49e8-bf4b-ae780b415348"/>
 				<textElement textAlignment="Center">
-					<font size="10" isBold="false" isUnderline="false"/>
+					<font size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[ASS. FIN.
 INTEREST
@@ -126,7 +155,7 @@ SUBSIDIES]]></text>
 			<staticText>
 				<reportElement x="474" y="33" width="55" height="72" uuid="35225abc-5cb5-4ce2-9e96-2f72ae5868ce"/>
 				<textElement textAlignment="Center">
-					<font size="10" isBold="false" isUnderline="false"/>
+					<font size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[RECOV-
 ERIES
@@ -327,14 +356,14 @@ basis]]></text>
 			<staticText>
 				<reportElement x="645" y="46" width="55" height="59" uuid="53586030-803a-44d4-9681-9763ffea3b13"/>
 				<textElement textAlignment="Center">
-					<font size="10" isBold="false" isUnderline="false"/>
+					<font size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[EXTENDED]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="920" y="46" width="55" height="59" uuid="3f58576a-b39f-4598-b4f4-4109a5aae37f"/>
 				<textElement textAlignment="Center">
-					<font size="10" isBold="false" isUnderline="false"/>
+					<font size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[of which:
 Equity
@@ -343,7 +372,7 @@ investment]]></text>
 			<staticText>
 				<reportElement x="755" y="46" width="55" height="59" uuid="346dd82c-cac4-4174-9dc6-32a3e8ec893b"/>
 				<textElement textAlignment="Center">
-					<font size="9" isBold="false" isUnderline="false"/>
+					<font size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[RECEIVED
 (excl.offsetting
@@ -354,7 +383,7 @@ debt relief)
 			<staticText>
 				<reportElement x="810" y="46" width="55" height="59" uuid="5bb78a56-bc36-4715-b603-0c9190edbaf5"/>
 				<textElement textAlignment="Center">
-					<font size="10" isBold="false" isUnderline="false"/>
+					<font size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[Offsetting
 entries for
@@ -364,7 +393,7 @@ debt relief
 			<staticText>
 				<reportElement x="865" y="46" width="55" height="59" uuid="b3261165-0b30-4735-a7b5-fd850a66ffb9"/>
 				<textElement textAlignment="Center">
-					<font size="10" isBold="false" isUnderline="false"/>
+					<font size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[TOTAL
 
@@ -373,7 +402,7 @@ NET]]></text>
 			<staticText>
 				<reportElement x="700" y="46" width="55" height="59" uuid="69f564ad-fc2f-4515-9114-7ba1225659b3"/>
 				<textElement textAlignment="Center">
-					<font size="10" isBold="false" isItalic="true" isUnderline="false"/>
+					<font size="8" isBold="false" isItalic="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[of which:
 Rescheduled
@@ -382,7 +411,7 @@ debt]]></text>
 			<staticText>
 				<reportElement x="978" y="28" width="84" height="77" uuid="58e6fcdc-9d85-4ac5-a7f0-2babdfa5449b"/>
 				<textElement textAlignment="Center">
-					<font size="10" isBold="false" isUnderline="false"/>
+					<font size="8" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[T O T A L
 
@@ -393,7 +422,7 @@ DISBURSEMENTS]]></text>
 			<staticText>
 				<reportElement x="1123" y="28" width="59" height="77" uuid="547b880a-b2a1-495d-979d-8e3c37f71fad"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
-					<font size="10" isBold="false" isUnderline="false"/>
+					<font size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[DEVELOP-
 MENTAL
@@ -403,7 +432,7 @@ FOOD AID
 			<staticText>
 				<reportElement x="1064" y="28" width="59" height="77" uuid="1a5995d4-0983-4206-b181-9fff3c9269a1"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
-					<font size="10" isBold="false" isUnderline="false"/>
+					<font size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[TECHNICAL
 COOPERAT.
@@ -412,7 +441,7 @@ COOPERAT.
 			<staticText>
 				<reportElement x="1182" y="28" width="59" height="77" uuid="2d321c9f-4247-4712-be71-b2c08ac50d12"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
-					<font size="10" isBold="false" isUnderline="false"/>
+					<font size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[HUMANI-
 TARIAN
@@ -422,7 +451,7 @@ AID
 			<staticText>
 				<reportElement x="1244" y="28" width="59" height="77" uuid="315f3a45-9beb-4ab9-bdea-264410adf18b"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
-					<font size="10" isBold="false" isUnderline="false"/>
+					<font size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[INTEREST
 RECEIVED
@@ -475,6 +504,9 @@ RECEIVED
 			</line>
 			<line>
 				<reportElement x="1242" y="1" width="1" height="104" forecolor="#000000" uuid="cec8ba8f-b780-4bec-8d70-dd14f188f7c0"/>
+			</line>
+			<line>
+				<reportElement x="645" y="44" width="330" height="1" forecolor="#000000" uuid="a79a42df-0871-4d69-b2aa-73f5833e5223"/>
 			</line>
 		</band>
 	</pageHeader>

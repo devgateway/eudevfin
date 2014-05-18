@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dac2a_template_channel" pageWidth="1350" pageHeight="612" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="1350" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="i18n" uuid="bad8772b-9ff8-49ae-a2c0-34a59258237b">
-	<property name="ireport.zoom" value="6.0"/>
+	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="52"/>
-	<property name="ireport.y" value="5819"/>
+	<property name="ireport.y" value="0"/>
+	<style name="defaultStyle" isDefault="true" mode="Transparent" fontName="Arial" fontSize="10"/>
 	<parameter name="REPORTING_COUNTRY" class="java.lang.String"/>
 	<parameter name="REPORTING_YEAR" class="java.lang.Number"/>
 	<queryString language="mdx">
@@ -513,7 +514,7 @@ TOTAL (1 to 8)]]></text>
 				<text><![CDATA[939]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="c_930" x="220" y="442" width="31" height="15" uuid="ba8bfc5b-3cc8-4c4e-9fb5-e390830d4058"/>
+				<reportElement key="c_930" x="220" y="455" width="31" height="15" uuid="ba8bfc5b-3cc8-4c4e-9fb5-e390830d4058"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10"/>
 				</textElement>

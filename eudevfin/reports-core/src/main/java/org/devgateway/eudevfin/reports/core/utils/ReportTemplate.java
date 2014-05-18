@@ -32,7 +32,6 @@ import org.apache.log4j.Logger;
 import org.devgateway.eudevfin.reports.core.dao.RowReportDao;
 import org.devgateway.eudevfin.reports.core.domain.ColumnReport;
 import org.devgateway.eudevfin.reports.core.domain.RowReport;
-import org.jgroups.util.UUID;
 import org.w3c.dom.CDATASection;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

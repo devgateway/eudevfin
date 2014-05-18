@@ -564,7 +564,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
 				"Except([Type of Aid].[Code].Members, [Type of Aid].[F02])",
 				"",
-				"[Type of Finance].[TYPE_OF_FINANCE##610]", //TODO: Correct this. This is wrong, it has no filter by Type of Finance
+				"Except([Type of Finance].[Code].Members, [Type of Finance].[TYPE_OF_FINANCE##110])",
 				"[Measures].[R]",
 				listAreas
 				);
@@ -601,7 +601,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 		sumRow206.add("218");
 		RowReport row206 = createDAC2aSumRow("206", "DAC2aArea", Constants.SUM,	sumRow206);
 		rowReportDao.save(row206);
-		//TODO: Add FTC=1 value
+
 		RowReport row207 = createDAC2aRowArea("207", Constants.CALCULATED,
 				"{[BiMultilateral].[BI_MULTILATERAL##1],[BiMultilateral].[BI_MULTILATERAL##3]}",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
@@ -632,7 +632,7 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 				listAreas
 				);
 		rowReportDao.save(row216);
-		//TODO: Make two columns and subtract the interest received measure
+
 		RowReport row209a = createDAC2aRowArea("209a", Constants.CALCULATED,
 				"[BiMultilateral].[BI_MULTILATERAL##1]",
 				"[Type of Flow].[TYPE_OF_FLOW##10]",
@@ -666,19 +666,15 @@ public class PopulateDAC2aRows extends AbstractSpringCustomTaskChange {
 
 	@Override
 	public String getConfirmationMessage() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void setFileOpener(ResourceAccessor resourceAccessor) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public ValidationErrors validate(Database database) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

@@ -271,6 +271,7 @@ public class ReportsController {
 			}
 			int reportYear = Integer.parseInt(yearParam);
 			parameters.put("REPORTING_YEAR", reportYear);
+			parameters.put("EDITION_YEAR", Calendar.getInstance().get(Calendar.YEAR));
 
 			// Assign Locale
 			Locale locale = LocaleContextHolder.getLocale();
@@ -389,6 +390,8 @@ public class ReportsController {
 			parameters.put(JRParameter.REPORT_RESOURCE_BUNDLE, resourceBundle);
 
 			parameters.put("REPORTING_YEAR", reportYear);
+			parameters.put("EDITION_YEAR", Calendar.getInstance().get(Calendar.YEAR));
+
 			// put Reporting Country parameter
 			String donorName = "";
             Organization organizationForCurrentUser = AuthUtils.getOrganizationForCurrentUser();

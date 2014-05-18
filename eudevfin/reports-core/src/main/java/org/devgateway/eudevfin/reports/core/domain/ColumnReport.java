@@ -13,14 +13,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.devgateway.eudevfin.reports.core.utils.Constants;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Index;
-import org.hibernate.annotations.Table;
 
 @Entity
 public class ColumnReport implements Serializable  {
-	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4272073514589735775L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	protected Long id = null;

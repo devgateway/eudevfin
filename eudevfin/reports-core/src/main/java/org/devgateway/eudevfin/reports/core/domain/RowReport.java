@@ -37,14 +37,14 @@ public class RowReport implements Serializable {
 	private int type;
 	
 	@ElementCollection(fetch = FetchType.EAGER)
-	@Column(length = 1000)
+	@Column(length = 4000)
 	private Set<String> categories = new HashSet<String>();
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<ColumnReport> columns = new HashSet<ColumnReport>();
 
 	@ElementCollection(fetch = FetchType.EAGER)
-	@Column(length = 1000)
+	@Column(length = 4000)
 	private Set<String> rowCodes;
 
 	private Boolean visible = true;
