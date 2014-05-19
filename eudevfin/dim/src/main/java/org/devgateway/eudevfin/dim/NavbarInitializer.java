@@ -15,9 +15,13 @@ import java.util.Locale;
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy;
+import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.link.AbstractLink;
+import org.apache.wicket.markup.html.pages.RedirectPage;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
+import org.apache.wicket.request.cycle.RequestCycle;
+import org.apache.wicket.request.http.WebRequest;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.dim.pages.HomePage;
@@ -52,6 +56,18 @@ import de.agilecoders.wicket.extensions.markup.html.bootstrap.button.DropDownAut
  */
 public final class NavbarInitializer {
 
+	public static class FeedbackUrl extends RedirectPage {
+		private static final long serialVersionUID = -750983217518258464L;
+		
+		public FeedbackUrl() {
+			super("mailto:support-eudevfin@developmentgateway.org?subject=EU-DEVFIN%20Support%20Request&body="
+					+ RequestCycle.get().getUrlRenderer()
+							.renderFullUrl(((WebRequest) RequestCycle.get().getRequest()).getUrl()));
+		}
+		
+
+	}
+	
 	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.LEFT,order=0)
 	public static Component newHomePageNavbarButton(Page page) {
 		NavbarButton<HomePage> homePageNavbarButton = new NavbarButton<HomePage>(page.getApplication().getHomePage(), new StringResourceModel("navbar.home", page, null, null)).setIconType(IconType.home);
@@ -224,6 +240,19 @@ public final class NavbarInitializer {
 	}
 	
 
+	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT, order = 8)
+	public static Component feedbackNavbarButton(final Page page) {
+		NavbarButton<LogoutPage> accountNavbarButton = new NavbarButton<LogoutPage>(FeedbackUrl.class,
+				new StringResourceModel("navbar.feedback", page, null, null)) {
+			@Override
+			protected void onComponentTag(ComponentTag tag) {
+				super.onComponentTag(tag);
+		        tag.put("target", "_blank");
+			}
+			
+		}.setIconType(IconType.share);	
+		return accountNavbarButton;
+	}
 	
 
 }

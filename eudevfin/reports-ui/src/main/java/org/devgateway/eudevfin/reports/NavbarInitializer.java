@@ -45,7 +45,7 @@ public final class NavbarInitializer {
 		}
 
 	}
-	
+
 	
 	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.LEFT,order=3)
 	public static Component newReportsNavbarMenu(Page page) {
