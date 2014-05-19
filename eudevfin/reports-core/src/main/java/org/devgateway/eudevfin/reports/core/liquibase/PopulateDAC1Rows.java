@@ -870,7 +870,7 @@ public class PopulateDAC1Rows extends AbstractSpringCustomTaskChange {
 		insertSectionIIB();
 		
 		HashSet<String> sumRow230 = new HashSet<String>();
-		sumRow230.add("240");
+		sumRow230.add("235");
 		sumRow230.add("325");
 		RowReport row230 = createDAC1SumRow("230", Constants.SUM, sumRow230);
 		rowReportDao.save(row230);
