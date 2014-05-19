@@ -25,10 +25,11 @@ public interface AreaRepository extends JpaRepository<Area, Long> {
 	
 	Area findByCode(String code);
 
-    @Query(" select distinct rep from CustomFinancialTransaction ctx join ctx.recipient rep")
+    @Query(" select distinct rep from CustomFinancialTransaction ctx join ctx.recipient rep " +
+            "where ctx.approved = true")
     Page<Area> findUsedArea(Pageable page);
 
     @Query(" select distinct rep from AreaTranslation trn, CustomFinancialTransaction ctx join ctx.recipient rep " +
-            "where trn.parent = rep.id AND trn.locale=?1 AND lower(trn.name) like %?2% ")
+            "where ctx.approved = true and trn.parent = rep.id AND trn.locale=?1 AND lower(trn.name) like %?2% ")
     Page<Area> findUsedAreaByTranslationsNameIgnoreCase(String locale, String term, Pageable page);
 }
