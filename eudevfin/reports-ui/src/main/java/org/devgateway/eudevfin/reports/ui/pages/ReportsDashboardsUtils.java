@@ -323,14 +323,18 @@ public class ReportsDashboardsUtils {
     }
 
     public static String twoDecimalFormat (String amount) {
-        DecimalFormat twoDForm = new DecimalFormat("#.##");
+        Locale locale = LocaleContextHolder.getLocale();
+        DecimalFormat twoDForm = (DecimalFormat) NumberFormat.getNumberInstance(locale);
+        twoDForm.applyPattern("#.##");
 
         return twoDForm.format(Float.parseFloat(amount));
     }
 
     public static float twoDecimalFormat (float amount) {
-        DecimalFormat twoDForm = new DecimalFormat("#.##");
-
+        Locale locale = LocaleContextHolder.getLocale();
+        DecimalFormat twoDForm = (DecimalFormat) NumberFormat.getNumberInstance(locale);
+        twoDForm.applyPattern("#.##");
+        
         return Float.valueOf(twoDForm.format(amount));
     }
 }
