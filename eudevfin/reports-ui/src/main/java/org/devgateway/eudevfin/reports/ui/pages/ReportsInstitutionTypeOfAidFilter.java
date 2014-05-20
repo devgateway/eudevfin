@@ -65,9 +65,6 @@ public class ReportsInstitutionTypeOfAidFilter extends CustomReportsPage {
                 if (customReportsModel.getTypeOfFlowbiMulti() != null) {
                     pageParameters.add(ReportsConstants.TYPEOFFLOW_PARAM, customReportsModel.getTypeOfFlowbiMulti().getName());
                 }
-                if (customReportsModel.getTypeOfAid() != null) {
-                    pageParameters.add(ReportsConstants.TYPEOFAID_PARAM, customReportsModel.getTypeOfAid().getName());
-                }
                 if (customReportsModel.getYear() != null) {
                     pageParameters.add(ReportsConstants.YEAR_PARAM, customReportsModel.getYear());
                 }

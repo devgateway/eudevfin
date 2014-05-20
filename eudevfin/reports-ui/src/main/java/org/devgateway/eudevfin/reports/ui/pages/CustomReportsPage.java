@@ -81,8 +81,6 @@ public abstract class CustomReportsPage extends HeaderFooter {
 
     protected DropDownField<Category> typeOfFlowBiMulti;
 
-    protected DropDownField<Category> typeOfAid;
-
     protected DropDownField<Category> sector;
 
     protected DropDownField<String> typeOfExpenditure;
@@ -129,9 +127,6 @@ public abstract class CustomReportsPage extends HeaderFooter {
 
         typeOfFlowBiMulti = new DropDownField<>("typeOfFlowbiMulti",
                 new RWComponentPropertyModel<Category>("typeOfFlowbiMulti"), categoryFactory.getUsedTypeOfFlowBiMultiProvider());
-
-        typeOfAid = new DropDownField<>("typeOfAid",
-                new RWComponentPropertyModel<Category>("typeOfAid"), categoryFactory.getUsedTypeOfAidProvider());
 
         sector = new DropDownField<>("sector", new RWComponentPropertyModel<Category>("sector"),
                 categoryFactory.getUsedSectorProvider());
@@ -277,7 +272,6 @@ public abstract class CustomReportsPage extends HeaderFooter {
         form.add(nationalInstitution);
         form.add(multilateralAgency);
         form.add(typeOfFlowBiMulti);
-        form.add(typeOfAid);
         form.add(sector);
         form.add(year);
         form.add(typeOfExpenditure);

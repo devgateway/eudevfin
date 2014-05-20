@@ -25,7 +25,6 @@ public class ReportsCountryInstitutionFilter extends CustomReportsPage {
         sector.setVisibilityAllowed(Boolean.FALSE);
         multilateralAgency.setVisibilityAllowed(Boolean.FALSE);
         typeOfFlowBiMulti.setVisibilityAllowed(Boolean.FALSE);
-        typeOfAid.setVisibilityAllowed(Boolean.FALSE);
         typeOfExpenditure.setVisibilityAllowed(Boolean.FALSE);
         valueOfActivity.setVisibilityAllowed(Boolean.FALSE);
         startingYear.setVisibilityAllowed(Boolean.FALSE);

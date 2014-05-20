@@ -18,7 +18,6 @@ public class CustomReportsModel implements Serializable {
     private Organization nationalInstitution;
     private ChannelCategory multilateralAgency;
     private Category typeOfFlowbiMulti;
-    private Category typeOfAid;
     private Category sector;
     private String typeOfExpenditure;
     private String valueOfActivity;
@@ -69,14 +68,6 @@ public class CustomReportsModel implements Serializable {
 
     public void setTypeOfFlowbiMulti(Category typeOfFlowbiMulti) {
         this.typeOfFlowbiMulti = typeOfFlowbiMulti;
-    }
-
-    public Category getTypeOfAid() {
-        return typeOfAid;
-    }
-
-    public void setTypeOfAid(Category typeOfAid) {
-        this.typeOfAid = typeOfAid;
     }
 
     public Category getSector() {
