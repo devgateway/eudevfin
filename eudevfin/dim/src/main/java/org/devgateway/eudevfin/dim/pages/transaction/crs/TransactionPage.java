@@ -34,6 +34,7 @@ import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.auth.common.util.AuthUtils;
 import org.devgateway.eudevfin.dim.pages.HomePage;
+import org.devgateway.eudevfin.dim.pages.transaction.custom.CustomTransactionPage;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.service.CurrencyMetadataService;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
@@ -43,6 +44,7 @@ import org.devgateway.eudevfin.ui.common.Constants;
 import org.devgateway.eudevfin.ui.common.components.BootstrapCancelButton;
 import org.devgateway.eudevfin.ui.common.components.BootstrapDeleteButton;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
+import org.devgateway.eudevfin.ui.common.components.CheckBoxField;
 import org.devgateway.eudevfin.ui.common.components.tabs.BootstrapJSTabbedPanel;
 import org.devgateway.eudevfin.ui.common.components.tabs.DefaultTabWithKey;
 import org.devgateway.eudevfin.ui.common.components.tabs.ITabWithKey;
@@ -68,7 +70,7 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 
     public final String onUnloadScript;
 
-
+	
     @SpringBean
     private FinancialTransactionService financialTransactionService;
 	
@@ -247,7 +249,21 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
         submitButton.add(new AttributePrepender("onclick", new Model<String>("window.onbeforeunload = null;"), " "));
         form.add(submitButton);
 
-        TransactionPageSubmitButton saveButton = new TransactionPageSubmitButton("save", new StringResourceModel("button.save", this, null, null));
+        TransactionPageSubmitButton saveButton = new TransactionPageSubmitButton("save", new StringResourceModel("button.save", this, null, null)) {
+        	@Override
+        	protected void onSubmit(AjaxRequestTarget target, Form<?> form) {        		
+        		if(TransactionPage.this instanceof CustomTransactionPage) {
+        			CustomTransactionPage ctp=(CustomTransactionPage) TransactionPage.this;
+        			ctp.getApproved().getField().setModelObject(false);	
+        			ctp.getDraft().getField().setModelObject(true);
+        			target.add(ctp.getDraft().getField());
+        			target.add(ctp.getApproved().getField());
+        		}
+        		
+        		super.onSubmit(target, form);
+        		
+        	}
+        };
         saveButton.setDefaultFormProcessing(false);
         form.add(saveButton);
         

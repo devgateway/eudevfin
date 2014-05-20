@@ -51,8 +51,8 @@ public class CustomTransactionPage extends TransactionPage {
 	private static final long serialVersionUID = -7808024425119532771L;
 	private static final CustomTransactionPermissionProvider permissions = new CustomTransactionPermissionProvider();
 	
-	CheckBoxField approved;
-	CheckBoxField draft;
+	private CheckBoxField approved;
+	private CheckBoxField draft;
 
     @Override
     protected List<Class<? extends Panel>> getTabs() {
@@ -147,5 +147,19 @@ public class CustomTransactionPage extends TransactionPage {
 		draft.removeSpanFromControlGroup();
 		approved.removeSpanFromControlGroup();
   	}
+
+	/**
+	 * @return the approved
+	 */
+	public CheckBoxField getApproved() {
+		return approved;
+	}
+
+	/**
+	 * @return the draft
+	 */
+	public CheckBoxField getDraft() {
+		return draft;
+	}
 
 }
