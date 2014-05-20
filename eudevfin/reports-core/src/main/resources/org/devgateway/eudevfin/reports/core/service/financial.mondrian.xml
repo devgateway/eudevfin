@@ -77,7 +77,7 @@
             <View alias="ChannelView">
                 <SQL dialect="generic"><![CDATA[
             select
-                DISTINCT "CATEGORY"."ID", "CATEGORY"."CODE"
+                DISTINCT "CATEGORY"."ID", "CATEGORY"."CODE", "CATEGORYTRANSLATION"."NAME"
             from
                 "APP"."CATEGORY" as "CATEGORY",
                 "APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION",
@@ -90,6 +90,8 @@
             ]]></SQL>
             </View>
             <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
+            </Level>
+            <Level name="Name" visible="true" column="NAME" uniqueMembers="false">
             </Level>
         </Hierarchy>
     </Dimension>

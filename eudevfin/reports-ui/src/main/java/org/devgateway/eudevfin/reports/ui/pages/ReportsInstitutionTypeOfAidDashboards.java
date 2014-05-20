@@ -9,7 +9,6 @@ import org.apache.wicket.authroles.authorization.strategies.role.annotations.Aut
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -17,6 +16,8 @@ import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.StringValue;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
+import org.devgateway.eudevfin.financial.dao.CategoryDaoImpl;
+import org.devgateway.eudevfin.metadata.common.domain.Category;
 import org.devgateway.eudevfin.reports.core.service.QueryService;
 import org.devgateway.eudevfin.reports.ui.components.PieChart;
 import org.devgateway.eudevfin.reports.ui.components.Table;
@@ -24,7 +25,6 @@ import org.devgateway.eudevfin.reports.ui.scripts.Dashboards;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.wicketstuff.annotation.mount.MountPath;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -38,16 +38,20 @@ import java.util.List;
 public class ReportsInstitutionTypeOfAidDashboards extends HeaderFooter {
     private static final Logger logger = Logger.getLogger(ReportsInstitutionTypeOfAidDashboards.class);
 
-    private final int MILLION = 1000000;
-
     /*
      * variables used to dynamically create the MDX queries
      */
     // variables used for 'type of aid table'
-    private String typeOfAidTableRowSet = "CrossJoin([Extending Agency].[Name].Members, [Type of Aid].[Name].Members)";
+    private String typeOfAidTableRowSetBilateral = "CrossJoin([Extending Agency].[Name].Members, [Type of Aid].[Name].Members)";
+    private String typeOfAidTableRowSetMultilateral = "CrossJoin([Extending Agency].[Name].Members, [Channel].[Name].Members)";
+    private String typeOfAidChartRowSetBilateral = "{Hierarchize({[Type of Aid].[Name].Members})}";
+    private String typeOfAidChartRowSetMultilateral = "{Hierarchize({[Channel].[Name].Members})}";
+
+    private String countryCurrency = "$";
 
     private int tableYear;
     // variables that holds the parameters received from filter
+    private String currencyParam;
     private String agencyParam;
     private String typeOfFlowParam;
     private String typeOfAidParam;
@@ -55,12 +59,26 @@ public class ReportsInstitutionTypeOfAidDashboards extends HeaderFooter {
     private String yearParam;
     private String humanitarianAidgParam;
 
+    private Category bilateralCategory;
+    private Category multilateralCategory;
+
+    @SpringBean
+    private CategoryDaoImpl catDao;
+
     @SpringBean
     QueryService CdaService;
 
     public ReportsInstitutionTypeOfAidDashboards(final PageParameters parameters) {
         // get a default year if it's not specified
         tableYear = Calendar.getInstance().get(Calendar.YEAR) - 1;
+
+        // process the parameters received from the filters
+        if(!parameters.get(ReportsConstants.ISNATIONALCURRENCY_PARAM).equals(StringValue.valueOf((String) null))) {
+            currencyParam = parameters.get(ReportsConstants.ISNATIONALCURRENCY_PARAM).toString();
+            if (currencyParam.equals("true")) {
+                countryCurrency = ReportsDashboardsUtils.getCurrency();
+            }
+        }
 
         // process the parameters received from the filters
         if(!parameters.get(ReportsConstants.AGENCY_PARAM).equals(StringValue.valueOf((String) null))) {
@@ -83,6 +101,9 @@ public class ReportsInstitutionTypeOfAidDashboards extends HeaderFooter {
             humanitarianAidgParam = parameters.get(ReportsConstants.HUMANITARIANAID_PARAM).toString();
         }
 
+        bilateralCategory = catDao.findByCode("BI_MULTILATERAL##1").get(0);
+        multilateralCategory = catDao.findByCode("BI_MULTILATERAL##2").get(0);
+
         addComponents();
     }
 
@@ -96,7 +117,14 @@ public class ReportsInstitutionTypeOfAidDashboards extends HeaderFooter {
     }
 
     private void addTypeOfAidTable () {
-        Label title = new Label("typeOfAidTableTitle", new StringResourceModel("reportsinstitutiontypeofaiddashboards.typeOfAidTable", this, null, null));
+        Label title;
+        if (typeOfFlowParam != null && typeOfFlowParam.equals(multilateralCategory.getName())) {
+            title = new Label("typeOfAidTableTitle", "Multilateral ODA by institution - Net Disbursements " + (tableYear - 1) + "-" + tableYear +
+                    " - " + countryCurrency + " - full amount");
+        } else {
+            title = new Label("typeOfAidTableTitle", "Bilateral ODA by institution - Net Disbursements " + (tableYear - 1) + "-" + tableYear +
+                    " - " + countryCurrency + " - full amount");
+        }
         add(title);
 
         Table table = new Table(CdaService, "typeOfAidTable", "typeOfAidTableRows", "customDashboardsTypeOfAidTable") {
@@ -107,69 +135,52 @@ public class ReportsInstitutionTypeOfAidDashboards extends HeaderFooter {
                 this.rows = new ArrayList<>();
                 this.result = this.runQuery();
 
-                List <List<String>> resultSet = result.getResultset();
-
-                if(resultSet.size() != 0) {
-                    // format the amounts as #,###.##
-                    // and other values like percentages
-                    DecimalFormat df = new DecimalFormat("#,###.##");
-                    for (int i = 0; i < resultSet.size(); i++) {
-                        if (resultSet.get(i).size() > 2 && resultSet.get(i).get(2) != null) {
-                            String item = df.format(Float.parseFloat(resultSet.get(i).get(2))); // amounts - national currency (first year)
-                            resultSet.get(i).set(2, item);
-                        }
-
-                        if (resultSet.get(i).size() > 3 && resultSet.get(i).get(3) != null) {
-                            String item = df.format(Float.parseFloat(resultSet.get(i).get(3))); // amounts (first year)
-                            resultSet.get(i).set(3, item);
-                        }
-                    }
-
-                    // 'group by' institutions for countries
-                    for (int i = resultSet.size() - 1; i > 0; i--) {
-                        if(resultSet.get(i).get(0).equals(resultSet.get(i - 1).get(0))) {
-                            resultSet.get(i).set(0, null);
-                        }
-                    }
-
-                    for (List<String> item : resultSet) {
-                        rows.add(item.toArray(new String[item.size()]));
-                    }
-                }
-
-                ListView<String[]> tableRows = new ListView<String[]>(rowId, rows) {
-                    @Override
-                    protected void populateItem(ListItem<String[]> item) {
-                        String[] row = item.getModelObject();
-
-                        item.add(new Label("col0", row[0]));
-                        item.add(new Label("col1", row[1]));
-                        item.add(new Label("col2", row[2]));
-                        item.add(new Label("col3", row[3]));
-                    }
-                };
-
-                return tableRows;
+                return ReportsDashboardsUtils.processTableRowsWithTotal(this.rows, this.result, this.rowId);
             }
         };
 
         // add MDX queries parameters
-        table.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
+        table.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
+        table.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
+        if (currencyParam != null) {
+            if (currencyParam.equals("true")) {
+                table.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+            }
+        }
 
-        table.setParam("paramtypeOfAidTableRowSet", typeOfAidTableRowSet);
+        Label headerTitle;
+        if (typeOfFlowParam != null && typeOfFlowParam.equals(multilateralCategory.getName())) {
+            table.setParam("paramtypeOfAidTableRowSet", typeOfAidTableRowSetMultilateral);
+            headerTitle = new Label("typeOfFlow", new StringResourceModel("reportsinstitutiontypeofaiddashboards.multilateralAgency", this, null, null));
+        } else {
+            table.setParam("paramtypeOfAidTableRowSet", typeOfAidTableRowSetBilateral);
+            headerTitle = new Label("typeOfFlow", new StringResourceModel("reportsinstitutiontypeofaiddashboards.typeOfAid", this, null, null));
+        }
+        table.getTable().add(headerTitle);
 
-        Label firstYear = new Label("firstYear", tableYear);
+        Label firstYear = new Label("firstYear", tableYear - 1);
         table.getTable().add(firstYear);
+        Label secondYear = new Label("secondYear", tableYear);
+        table.getTable().add(secondYear);
 
         add(table.getTable());
         table.addTableRows();
 
-        Label nationalCurrencyFirst = new Label("nationalCurrencyFirst", new StringResourceModel("reportsinstitutiontypeofaiddashboards.nationalCurrency", this, null, null));
-        table.getTable().add(nationalCurrencyFirst);
+        Label currencyFirstYear = new Label("currencyFirstYear", countryCurrency);
+        table.getTable().add(currencyFirstYear);
+        Label currencySecondYear = new Label("currencySecondYear", countryCurrency);
+        table.getTable().add(currencySecondYear);
     }
 
     private void addTypeOfAidChart () {
-        Label title = new Label("typeOfAidChartTitle", new StringResourceModel("reportsinstitutiontypeofaiddashboards.typeOfAidChart", this, null, null));
+        Label title;
+        if (typeOfFlowParam != null && typeOfFlowParam.equals(multilateralCategory.getName())) {
+            title = new Label("typeOfAidChartTitle", "Multilateral ODA by institution - Net Disbursements " + (tableYear - 1) + "-" + tableYear +
+                    " - " + countryCurrency + " - full amount");
+        } else {
+            title = new Label("typeOfAidChartTitle", "Bilateral ODA by institution - Net Disbursements " + (tableYear - 1) + "-" + tableYear +
+                    " - " + countryCurrency + " - full amount");
+        }
         add(title);
 
         PieChart pieChart = new PieChart(CdaService, "typeOfAidChart", "customDashboardsTypeOfAidChart") {
@@ -179,7 +190,7 @@ public class ReportsInstitutionTypeOfAidDashboards extends HeaderFooter {
                 List<Point> resultSeries = new ArrayList<>();
 
                 for (List<String> item : result.getResultset()) {
-                    resultSeries.add(new Point(item.get(0), Float.parseFloat(item.get(1)) / ReportsInstitutionTypeOfAidDashboards.this.MILLION));
+                    resultSeries.add(new Point(item.get(0), Float.parseFloat(item.get(1))));
                 }
 
                 return resultSeries;
@@ -187,6 +198,18 @@ public class ReportsInstitutionTypeOfAidDashboards extends HeaderFooter {
         };
 
         pieChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
+
+        if (currencyParam != null) {
+            if (currencyParam.equals("true")) {
+                pieChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+            }
+        }
+
+        if (typeOfFlowParam != null && typeOfFlowParam.equals(multilateralCategory.getName())) {
+            pieChart.setParam("paramtypeOfAidChartRowSet", typeOfAidChartRowSetMultilateral);
+        } else {
+            pieChart.setParam("paramtypeOfAidChartRowSet", typeOfAidChartRowSetBilateral);
+        }
 
         Options options = pieChart.getOptions();
         // check if we have a result and make the chart slightly higher
@@ -211,7 +234,7 @@ public class ReportsInstitutionTypeOfAidDashboards extends HeaderFooter {
                 List<Point> resultSeries = new ArrayList<>();
 
                 for (List<String> item : result.getResultset()) {
-                    resultSeries.add(new Point(item.get(0), Float.parseFloat(item.get(1)) / ReportsInstitutionTypeOfAidDashboards.this.MILLION));
+                    resultSeries.add(new Point(item.get(0), Float.parseFloat(item.get(1))));
                 }
 
                 return resultSeries;
@@ -219,6 +242,12 @@ public class ReportsInstitutionTypeOfAidDashboards extends HeaderFooter {
         };
 
         pieChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
+
+        if (currencyParam != null) {
+            if (currencyParam.equals("true")) {
+                pieChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+            }
+        }
 
         Options options = pieChart.getOptions();
         // check if we have a result and make the chart slightly higher

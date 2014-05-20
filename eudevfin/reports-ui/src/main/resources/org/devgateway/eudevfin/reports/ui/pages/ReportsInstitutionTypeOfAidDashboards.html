@@ -31,19 +31,20 @@
                             <thead>
                             <tr>
                                 <th rowspan="2" class="ui-state-default">Institution</th>
-                                <th rowspan="2" class="ui-state-default">Type of Aid</th>
-                                <th colspan="2" class="ui-state-default" wicket:id="firstYear"></th>
+                                <th rowspan="2" class="ui-state-default" wicket:id="typeOfFlow">Type of Aid</th>
+                                <th class="ui-state-default" wicket:id="firstYear"></th>
+                                <th class="ui-state-default" wicket:id="secondYear"></th>
                             </tr>
                             <tr>
-                                <th wicket:id="nationalCurrencyFirst"/>
-                                <th>$</th>
+                                <th wicket:id="currencyFirstYear">$</th>
+                                <th wicket:id="currencySecondYear">$</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr wicket:id="typeOfAidTableRows">
-                                <td wicket:id="col0" class="string geography">Institution</td>
-                                <td wicket:id="col1" class="string">Country</td>
-                                <td wicket:id="col2" class="numeric">National Currency 1</td>
+                                <td wicket:id="col0" class="string">Institution</td>
+                                <td wicket:id="col1" class="string">Type of Aid</td>
+                                <td wicket:id="col2" class="numeric">$</td>
                                 <td wicket:id="col3" class="numeric">$</td>
                             </tr>
                             </tbody>

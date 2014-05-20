@@ -163,104 +163,7 @@ public class ReportsCountryInstitutionDashboards extends HeaderFooter {
                 this.rows = new ArrayList<>();
                 this.result = this.runQuery();
 
-                List <List<String>> resultSet = result.getResultset();
-
-                if(resultSet.size() != 0) {
-                    logger.error(resultSet);
-                    // check if we have data for the 'first year' or 'second year'
-                    // and add null values
-                    if (resultSet.get(0).size() == 3) {
-                        for (int i = 0; i < resultSet.size(); i++) {
-                            if (result.getMetadata().get(2).getColName().equals("First Year")) {
-                                resultSet.get(i).add(3, null);
-                            } else {
-                                resultSet.get(i).add(2, null);
-                            }
-                        }
-                    }
-
-                    // 'group by' institutions for countries
-                    float firstYear = 0;
-                    float secondYear = 0;
-                    for (int i = resultSet.size() - 1; i > 0; i--) {
-                        // calculate the total for each main category (for example institution)
-                        if (resultSet.get(i).size() > 2 && resultSet.get(i).get(2) != null) {
-                            firstYear += Float.parseFloat(resultSet.get(i).get(2));
-                        }
-                        if (resultSet.get(i).size() > 3 && resultSet.get(i).get(3) != null) {
-                            secondYear += Float.parseFloat(resultSet.get(i).get(3));
-                        }
-
-                        if(resultSet.get(i).get(0).equals(resultSet.get(i - 1).get(0))) {
-                            resultSet.get(i).set(0, null);
-                        } else {
-                            List<String> newElement = Arrays
-                                    .asList(new String[]{
-                                            resultSet.get(i).get(0),
-                                            "TOTAL",
-                                            "" + firstYear,
-                                            "" + secondYear
-                                    });
-
-                            resultSet.get(i).set(0, null);
-                            resultSet.add(i, newElement);
-
-                            firstYear = 0;
-                            secondYear = 0;
-                        }
-                    }
-
-                    // calculate total for the first element
-                    if (resultSet.get(0).size() > 2 && resultSet.get(0).get(2) != null) {
-                        firstYear += Float.parseFloat(resultSet.get(0).get(2));
-                    }
-                    if (resultSet.get(0).size() > 3 && resultSet.get(0).get(3) != null) {
-                        secondYear += Float.parseFloat(resultSet.get(0).get(3));
-                    }
-
-                    List<String> newElement = Arrays
-                            .asList(new String[]{
-                                    resultSet.get(0).get(0),
-                                    "TOTAL",
-                                    "" + firstYear,
-                                    "" + secondYear
-                            });
-                    resultSet.get(0).set(0, null);
-                    resultSet.add(0, newElement);
-
-                    // format the amounts as #,###.##
-                    // and other values like percentages
-                    DecimalFormat df = new DecimalFormat("#,###.##");
-                    for (int i = 0; i < resultSet.size(); i++) {
-                        if (resultSet.get(i).size() > 2 && resultSet.get(i).get(2) != null) {
-                            String item = df.format(Float.parseFloat(resultSet.get(i).get(2))); // amounts (first year)
-                            resultSet.get(i).set(2, item);
-                        }
-
-                        if (resultSet.get(i).size() > 3 && resultSet.get(i).get(3) != null) {
-                            String item = df.format(Float.parseFloat(resultSet.get(i).get(3))); // amounts (second year)
-                            resultSet.get(i).set(3, item);
-                        }
-                    }
-
-                    for (List<String> item : resultSet) {
-                        rows.add(item.toArray(new String[item.size()]));
-                    }
-                }
-
-                ListView<String[]> tableRows = new ListView<String[]>(rowId, rows) {
-                    @Override
-                    protected void populateItem(ListItem<String[]> item) {
-                        String[] row = item.getModelObject();
-
-                        item.add(new Label("col0", row[0]));
-                        item.add(new Label("col1", row[1]));
-                        item.add(new Label("col2", row[2]));
-                        item.add(new Label("col3", row[3]));
-                    }
-                };
-
-                return tableRows;
+                return ReportsDashboardsUtils.processTableRowsWithTotal(this.rows, this.result, this.rowId);
             }
         };
 
@@ -270,7 +173,6 @@ public class ReportsCountryInstitutionDashboards extends HeaderFooter {
         if(coFinancingParam != null && coFinancingParam.equals("true")) {
             table.setParam("paramCOFINANCED", "[1]");
         }
-
         if (currencyParam != null) {
             if (currencyParam.equals("true")) {
                 table.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);

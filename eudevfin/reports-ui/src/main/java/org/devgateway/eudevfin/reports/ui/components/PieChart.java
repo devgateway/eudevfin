@@ -70,7 +70,7 @@ public class PieChart extends RunMdxQuery {
                 .setFloating(Boolean.FALSE)
                 .setItemStyle(new CssStyle()
                         .setProperty("lineHeight", "14px")
-                        .setProperty("width", "250"))
+                        .setProperty("width", "200"))
                 .setLayout(LegendLayout.VERTICAL)
                 .setX(0)
                 .setY(50));
@@ -80,7 +80,7 @@ public class PieChart extends RunMdxQuery {
                 .setStyle(new CssStyle()
                         .setProperty("padding", "10"))
                 .setPercentageDecimals(2)
-                .setFormatter(new DefaultFormatter().setFunction("var value = '$ ' + sprintf('%.2f', this.y).replace(/,/g, \" \");\n" +
+                .setFormatter(new DefaultFormatter().setFunction("var value = sprintf('%.2f', this.y).replace(/,/g, \" \");\n" +
                         "return '<b>' + this.point.name + '</b><br />' + value;"))
                 .setShared(Boolean.FALSE)
                 .setUseHTML(Boolean.TRUE));

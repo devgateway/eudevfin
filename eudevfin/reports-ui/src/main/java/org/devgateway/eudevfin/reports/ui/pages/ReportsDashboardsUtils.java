@@ -13,6 +13,7 @@ import org.joda.money.CurrencyUnit;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -146,6 +147,111 @@ public class ReportsDashboardsUtils {
                 item.add(new Label("col3", row[3]));
                 item.add(new Label("col4", row[4]));
                 item.add(new Label("col5", row[5]));
+            }
+        };
+
+        return tableRows;
+    }
+
+    /*
+     * since the custom reports tale are similar we use only one function to process the rows
+     * and calculate the Total line for each category
+     */
+    public static ListView<String[]> processTableRowsWithTotal (List<String[]> rows, QueryResult result, String rowId) {
+        List <List<String>> resultSet = result.getResultset();
+
+        if(resultSet.size() != 0) {
+            // check if we have data for the 'first year' or 'second year'
+            // and add null values
+            if (resultSet.get(0).size() == 3) {
+                for (int i = 0; i < resultSet.size(); i++) {
+                    if (result.getMetadata().get(2).getColName().equals("First Year")) {
+                        resultSet.get(i).add(3, null);
+                    } else {
+                        resultSet.get(i).add(2, null);
+                    }
+                }
+            }
+
+            // 'group by' operation
+            // and calculate the 'Total' line for each entry
+            float firstYear = 0;
+            float secondYear = 0;
+            for (int i = resultSet.size() - 1; i > 0; i--) {
+                // calculate the total for each main category (for example institution)
+                if (resultSet.get(i).size() > 2 && resultSet.get(i).get(2) != null) {
+                    firstYear += Float.parseFloat(resultSet.get(i).get(2));
+                }
+                if (resultSet.get(i).size() > 3 && resultSet.get(i).get(3) != null) {
+                    secondYear += Float.parseFloat(resultSet.get(i).get(3));
+                }
+
+                if(resultSet.get(i).get(0).equals(resultSet.get(i - 1).get(0))) {
+                    resultSet.get(i).set(0, null);
+                } else {
+                    List<String> newElement = Arrays
+                            .asList(new String[]{
+                                    resultSet.get(i).get(0),
+                                    "TOTAL",
+                                    "" + firstYear,
+                                    "" + secondYear
+                            });
+
+                    resultSet.get(i).set(0, null);
+                    resultSet.add(i, newElement);
+
+                    firstYear = 0;
+                    secondYear = 0;
+                }
+            }
+
+            // calculate total for the first element
+            if (resultSet.get(0).size() > 2 && resultSet.get(0).get(2) != null) {
+                firstYear += Float.parseFloat(resultSet.get(0).get(2));
+            }
+            if (resultSet.get(0).size() > 3 && resultSet.get(0).get(3) != null) {
+                secondYear += Float.parseFloat(resultSet.get(0).get(3));
+            }
+
+            List<String> newElement = Arrays
+                    .asList(new String[]{
+                            resultSet.get(0).get(0),
+                            "TOTAL",
+                            "" + firstYear,
+                            "" + secondYear
+                    });
+            resultSet.get(0).set(0, null);
+            resultSet.add(0, newElement);
+
+            // format the amounts as #,###.##
+            // and other values like percentages
+            DecimalFormat df = new DecimalFormat("#,###.##");
+            for (int i = 0; i < resultSet.size(); i++) {
+                if (resultSet.get(i).size() > 2 && resultSet.get(i).get(2) != null) {
+                    String item = df.format(Float.parseFloat(resultSet.get(i).get(2))); // amounts (first year)
+                    resultSet.get(i).set(2, item);
+                }
+
+                if (resultSet.get(i).size() > 3 && resultSet.get(i).get(3) != null) {
+                    String item = df.format(Float.parseFloat(resultSet.get(i).get(3))); // amounts (second year)
+                    resultSet.get(i).set(3, item);
+                }
+            }
+
+            for (List<String> item : resultSet) {
+                rows.add(item.toArray(new String[item.size()]));
+            }
+        }
+
+        ListView<String[]> tableRows = new ListView<String[]>(rowId, rows) {
+            @Override
+            protected void populateItem(ListItem<String[]> item) {
+                String[] row = item.getModelObject();
+
+                item.add(new Label("col0", row[0]));
+                item.add(new Label("col1", row[1]));
+                item.add(new Label("col2", row[2]));
+                item.add(new Label("col3", row[3]));
             }
         };
 
