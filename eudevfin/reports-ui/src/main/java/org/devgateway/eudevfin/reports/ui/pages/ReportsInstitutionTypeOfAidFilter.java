@@ -48,6 +48,14 @@ public class ReportsInstitutionTypeOfAidFilter extends CustomReportsPage {
                 CustomReportsModel customReportsModel = (CustomReportsModel)form.getModelObject();
                 PageParameters pageParameters = new PageParameters();
 
+                // Add the currency parameter. (ODAEU-257)
+                // The tables should show only one currency (either national or USD based on the selection made by the user)
+                String nationalCurrency = new StringResourceModel("pricesNationalCurrency", this, null, null).getObject();
+                if (customReportsModel.getPricesCurrency().equals(nationalCurrency)) {
+                    pageParameters.add(ReportsConstants.ISNATIONALCURRENCY_PARAM, Boolean.TRUE);
+                } else {
+                    pageParameters.add(ReportsConstants.ISNATIONALCURRENCY_PARAM, Boolean.FALSE);
+                }
                 if (customReportsModel.getNationalInstitution() != null) {
                     pageParameters.add(ReportsConstants.INSTITUTION_PARAM, customReportsModel.getNationalInstitution().getName());
                 }

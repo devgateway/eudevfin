@@ -10,7 +10,6 @@ import org.apache.wicket.authroles.authorization.strategies.role.annotations.Aut
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.FormComponent;
-import org.apache.wicket.markup.html.form.RadioChoice;
 import org.apache.wicket.markup.html.form.validation.IFormValidator;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.StringResourceModel;
@@ -18,11 +17,13 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.time.Duration;
 import org.apache.wicket.validation.ValidationError;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
+import org.devgateway.eudevfin.financial.dao.CategoryDaoImpl;
 import org.devgateway.eudevfin.financial.service.CustomFinancialTransactionService;
 import org.devgateway.eudevfin.metadata.common.domain.Area;
 import org.devgateway.eudevfin.metadata.common.domain.Category;
 import org.devgateway.eudevfin.metadata.common.domain.ChannelCategory;
 import org.devgateway.eudevfin.metadata.common.domain.Organization;
+import org.devgateway.eudevfin.metadata.common.util.CategoryConstants;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.CheckBoxField;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
@@ -58,6 +59,9 @@ public abstract class CustomReportsPage extends HeaderFooter {
 
     @SpringBean
     private CustomFinancialTransactionService txService;
+
+    @SpringBean
+    private CategoryDaoImpl catDao;
 
     protected final NotificationPanel feedbackPanel;
 
@@ -107,6 +111,9 @@ public abstract class CustomReportsPage extends HeaderFooter {
         customReportsModel = new CustomReportsModel();
         CompoundPropertyModel<CustomReportsModel> model = new CompoundPropertyModel<>(customReportsModel);
         form.setModel(model);
+
+        Label info = new Label("info", new StringResourceModel("reports.info", this, null, null));
+        add(info);
 
         geography = new DropDownField<>("geography",
                 new RWComponentPropertyModel<Category>("geography"), categoryFactory.getUsedGeographyProvider());
@@ -206,7 +213,7 @@ public abstract class CustomReportsPage extends HeaderFooter {
                 customReportsModel.setRecipient(null);
 
                 if (targetValue != null) {
-                    usedAreaProvider.setGeography(geography.getField().getModel().getObject().getName());
+                    usedAreaProvider.setGeography(targetValue.getName());
                 } else {
                     usedAreaProvider.setGeography(null);
                 }
@@ -215,9 +222,54 @@ public abstract class CustomReportsPage extends HeaderFooter {
             }
         });
 
+        typeOfFlowBiMulti.getField().add(new AjaxFormComponentUpdatingBehavior("onchange") {
+            @Override
+            protected void onUpdate(AjaxRequestTarget target) {
+                Category typeOfFlow = typeOfFlowBiMulti.getField().getModel().getObject();
+
+                if (typeOfFlow != null) {
+                    // the flow is bilateral
+                    if (typeOfFlow.getCode().equals(CategoryConstants.BiMultilateral.BI_MULTILATERAL_1)) {
+                        customReportsModel.setMultilateralAgency(null);
+                        multilateralAgency.setEnabled(Boolean.FALSE);
+                    } else {
+                        // the flow is multilateral
+                        if (typeOfFlow.getCode().equals(CategoryConstants.BiMultilateral.BI_MULTILATERAL_2)) {
+                            multilateralAgency.setEnabled(Boolean.TRUE);
+                        }
+                    }
+                } else {
+                    multilateralAgency.setEnabled(Boolean.TRUE);
+                }
+
+                target.add(multilateralAgency);
+            }
+        });
+
+        multilateralAgency.getField().add(new AjaxFormComponentUpdatingBehavior("onchange") {
+            @Override
+            protected void onUpdate(AjaxRequestTarget target) {
+                Category channel = multilateralAgency.getField().getModel().getObject();
+
+                if (channel != null) {
+                    customReportsModel.setTypeOfFlowbiMulti(catDao.findByCode("BI_MULTILATERAL##2").get(0));
+                } else {
+                    // do nothing;
+                }
+
+                target.add(typeOfFlowBiMulti);
+            }
+        });
+
         // Needed for Ajax to update it
         recipient.setOutputMarkupId(true);
         recipient.setRenderBodyOnly(false);
+
+        multilateralAgency.setOutputMarkupId(true);
+        multilateralAgency.setRenderBodyOnly(false);
+
+        typeOfFlowBiMulti.setOutputMarkupId(true);
+        typeOfFlowBiMulti.setRenderBodyOnly(false);
 
         // form.add(geographyValidator);
         form.add(geography);

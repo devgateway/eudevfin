@@ -396,6 +396,7 @@
         </Query>
     </DataAccess>
 
+    <!-- used for Custom Dashboards - Institution/Type of Aid -->
     <DataAccess id="customDashboardsTypeOfAidTable"
                 connection="defaultConnectionLocale"
                 type="mdx"
@@ -403,17 +404,19 @@
         <BandedMode>compact</BandedMode>
         <Columns/>
         <Parameters>
-            <Parameter default="2013" name="FIRST_YEAR" type="Integer"/>
+            <Parameter default="2012" name="FIRST_YEAR" type="Integer"/>
+            <Parameter default="2013" name="SECOND_YEAR" type="Integer"/>
+            <Parameter default="Net Amount Currency NATLOECD" name="currency" type="String"/>
             <Parameter default="CrossJoin([Extending Agency].[Name].Members, [Type of Aid].[Name].Members)" name="typeOfAidTableRowSet" type="String"/>
         </Parameters>
         <Name>Custom Dashboards - Type Of Aid Table</Name>
         <Query>
             <![CDATA[
             WITH
-            MEMBER [Measures].[First Year National] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Extended Amount]}))
-            MEMBER [Measures].[First Year] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Net Amount Currency NATLOECD]}))
+            MEMBER [Measures].[First Year] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[${currency}]}))
+            MEMBER [Measures].[Second Year] AS SUM(CrossJoin([Reporting Year].[${SECOND_YEAR}], {[Measures].[${currency}]}))
             SELECT
-            NON EMPTY {[Measures].[First Year National], [Measures].[First Year]} ON COLUMNS,
+            NON EMPTY {[Measures].[First Year], [Measures].[Second Year]} ON COLUMNS,
             NON EMPTY ${typeOfAidTableRowSet} ON ROWS
             FROM [Financial]
             ]]>
@@ -428,15 +431,17 @@
         <Columns/>
         <Parameters>
             <Parameter default="2013" name="FIRST_YEAR" type="Integer"/>
+            <Parameter default="Net Amount Currency NATLOECD" name="currency" type="String"/>
+            <Parameter default="{Hierarchize({[Type of Aid].[Name].Members})}" name="typeOfAidChartRowSet" type="String"/>
         </Parameters>
         <Name>Custom Dashboards - Type Of Aid Chart</Name>
         <Query>
             <![CDATA[
             WITH
-            MEMBER [Measures].[First Year] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Net Amount Currency NATLOECD]}))
+            MEMBER [Measures].[First Year] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[${currency}]}))
             SELECT
             NON EMPTY {[Measures].[First Year]} ON COLUMNS,
-            NON EMPTY {Hierarchize({[Type of Aid].[Name].Members})} ON ROWS
+            NON EMPTY ${typeOfAidChartRowSet} ON ROWS
             FROM [Financial]
             ]]>
         </Query>
@@ -450,12 +455,13 @@
         <Columns/>
         <Parameters>
             <Parameter default="2013" name="FIRST_YEAR" type="Integer"/>
+            <Parameter default="Net Amount Currency NATLOECD" name="currency" type="String"/>
         </Parameters>
         <Name>Custom Dashboards - BiMultilateral Chart</Name>
         <Query>
             <![CDATA[
             WITH
-            MEMBER [Measures].[First Year] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Net Amount Currency NATLOECD]}))
+            MEMBER [Measures].[First Year] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[${currency}]}))
             SELECT
             NON EMPTY {[Measures].[First Year]} ON COLUMNS,
             NON EMPTY {Hierarchize({[BiMultilateral].[Name].Members})} ON ROWS

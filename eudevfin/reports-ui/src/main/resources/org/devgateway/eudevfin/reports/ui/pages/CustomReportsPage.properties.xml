@@ -40,4 +40,5 @@
     <entry key="button.submit">Search</entry>
     <entry key="geography.error">a country could not be selected if you want to have geographical aggregates</entry>
     <entry key="geography.help">If you want to display data for the entire region, leave the ODA recipient country and Sector fields blank</entry>
+    <entry key="reports.info">Please note than selection in the fields of this page is based on projects which have been approved  by the Government.</entry>
 </properties>
