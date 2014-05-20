@@ -70,7 +70,7 @@ public class PieChart extends RunMdxQuery {
                 .setFloating(Boolean.FALSE)
                 .setItemStyle(new CssStyle()
                         .setProperty("lineHeight", "14px")
-                        .setProperty("width", "200"))
+                        .setProperty("width", "150"))
                 .setLayout(LegendLayout.VERTICAL)
                 .setX(0)
                 .setY(50));

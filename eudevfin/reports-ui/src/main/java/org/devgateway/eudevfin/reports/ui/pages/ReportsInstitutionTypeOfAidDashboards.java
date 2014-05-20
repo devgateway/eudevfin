@@ -43,7 +43,10 @@ public class ReportsInstitutionTypeOfAidDashboards extends HeaderFooter {
      */
     // variables used for 'type of aid table'
     private String typeOfAidTableRowSetBilateral = "CrossJoin([Extending Agency].[Name].Members, [Type of Aid].[Name].Members)";
+    private String typeOfAidTableRowSetInstitutionBilateral = "CrossJoin([Extending Agency].[Name].[__INSTITUTION__], [Type of Aid].[Name].Members)";
     private String typeOfAidTableRowSetMultilateral = "CrossJoin([Extending Agency].[Name].Members, [Channel].[Name].Members)";
+    private String typeOfAidTableRowSetInstitutionMultilateral = "CrossJoin([Extending Agency].[Name].[__INSTITUTION__], [Channel].[Name].__CHANNEL__)";
+
     private String typeOfAidChartRowSetBilateral = "{Hierarchize({[Type of Aid].[Name].Members})}";
     private String typeOfAidChartRowSetMultilateral = "{Hierarchize({[Channel].[Name].Members})}";
 
@@ -100,6 +103,24 @@ public class ReportsInstitutionTypeOfAidDashboards extends HeaderFooter {
         bilateralCategory = catDao.findByCode("BI_MULTILATERAL##1").get(0);
         multilateralCategory = catDao.findByCode("BI_MULTILATERAL##2").get(0);
 
+        /*
+         * create the MDX queries based on the filters
+         */
+        if (institutionParam != null) {
+            typeOfAidTableRowSetInstitutionBilateral = typeOfAidTableRowSetInstitutionBilateral.replaceAll("__INSTITUTION__", institutionParam);
+            typeOfAidTableRowSetBilateral = typeOfAidTableRowSetInstitutionBilateral;
+
+            typeOfAidTableRowSetInstitutionMultilateral = typeOfAidTableRowSetInstitutionMultilateral.replaceAll("__INSTITUTION__", institutionParam);
+
+            if (agencyParam != null) {
+                typeOfAidTableRowSetInstitutionMultilateral = typeOfAidTableRowSetInstitutionMultilateral.replaceAll("__CHANNEL__", "[" + agencyParam + "]");
+            } else {
+                typeOfAidTableRowSetInstitutionMultilateral = typeOfAidTableRowSetInstitutionMultilateral.replaceAll("__CHANNEL__", "Members");
+            }
+
+            typeOfAidTableRowSetMultilateral = typeOfAidTableRowSetInstitutionMultilateral;
+        }
+
         addComponents();
     }
 
@@ -147,10 +168,12 @@ public class ReportsInstitutionTypeOfAidDashboards extends HeaderFooter {
         Label headerTitle;
         if (typeOfFlowParam != null && typeOfFlowParam.equals(multilateralCategory.getName())) {
             table.setParam("paramtypeOfAidTableRowSet", typeOfAidTableRowSetMultilateral);
+            table.setParam("parambilateral", "Multilateral");
             headerTitle = new Label("typeOfFlow", new StringResourceModel("reportsinstitutiontypeofaiddashboards.multilateralAgency", this, null, null));
         } else {
             table.setParam("paramtypeOfAidTableRowSet", typeOfAidTableRowSetBilateral);
             headerTitle = new Label("typeOfFlow", new StringResourceModel("reportsinstitutiontypeofaiddashboards.typeOfAid", this, null, null));
+            table.setParam("parambilateral", "Bilateral");
         }
         table.getTable().add(headerTitle);
 
@@ -200,11 +223,15 @@ public class ReportsInstitutionTypeOfAidDashboards extends HeaderFooter {
                 pieChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
             }
         }
-
+        if (institutionParam != null) {
+            pieChart.setParam("paramextendingAgencies", "[Name].[" + institutionParam + "]");
+        }
         if (typeOfFlowParam != null && typeOfFlowParam.equals(multilateralCategory.getName())) {
             pieChart.setParam("paramtypeOfAidChartRowSet", typeOfAidChartRowSetMultilateral);
+            pieChart.setParam("parambilateral", "Multilateral");
         } else {
             pieChart.setParam("paramtypeOfAidChartRowSet", typeOfAidChartRowSetBilateral);
+            pieChart.setParam("parambilateral", "Bilateral");
         }
 
         Options options = pieChart.getOptions();
