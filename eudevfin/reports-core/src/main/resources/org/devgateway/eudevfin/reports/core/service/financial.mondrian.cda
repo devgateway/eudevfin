@@ -407,6 +407,7 @@
             <Parameter default="2012" name="FIRST_YEAR" type="Integer"/>
             <Parameter default="2013" name="SECOND_YEAR" type="Integer"/>
             <Parameter default="Net Amount Currency NATLOECD" name="currency" type="String"/>
+            <Parameter default="Bilateral" name="bilateral" type="String"/>
             <Parameter default="CrossJoin([Extending Agency].[Name].Members, [Type of Aid].[Name].Members)" name="typeOfAidTableRowSet" type="String"/>
         </Parameters>
         <Name>Custom Dashboards - Type Of Aid Table</Name>
@@ -419,6 +420,7 @@
             NON EMPTY {[Measures].[First Year], [Measures].[Second Year]} ON COLUMNS,
             NON EMPTY ${typeOfAidTableRowSet} ON ROWS
             FROM [Financial]
+            WHERE ([BiMultilateral].[Name].[${bilateral}])
             ]]>
         </Query>
     </DataAccess>
@@ -432,6 +434,8 @@
         <Parameters>
             <Parameter default="2013" name="FIRST_YEAR" type="Integer"/>
             <Parameter default="Net Amount Currency NATLOECD" name="currency" type="String"/>
+            <Parameter default="Bilateral" name="bilateral" type="String"/>
+            <Parameter default="[All Extending Agencies]" name="extendingAgencies" type="String"/>
             <Parameter default="{Hierarchize({[Type of Aid].[Name].Members})}" name="typeOfAidChartRowSet" type="String"/>
         </Parameters>
         <Name>Custom Dashboards - Type Of Aid Chart</Name>
@@ -443,6 +447,7 @@
             NON EMPTY {[Measures].[First Year]} ON COLUMNS,
             NON EMPTY ${typeOfAidChartRowSet} ON ROWS
             FROM [Financial]
+            WHERE ([BiMultilateral].[Name].[${bilateral}], [Extending Agency].${extendingAgencies})
             ]]>
         </Query>
     </DataAccess>

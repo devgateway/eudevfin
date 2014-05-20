@@ -42,7 +42,6 @@ public class ReportsCountryInstitutionDashboards extends HeaderFooter {
      */
     // variables used for 'institution table'
     private String institutionTableRowSet = "CrossJoin([Extending Agency].[Name].Members, [Country].[Name].Members)";
-    private String institutionTableInstitution = "CrossJoin([Extending Agency].[Name].[__INSTITUTION__], [Country].[Name].Members)";
     private String institutionTableRecipient = "CrossJoin([Extending Agency].[Name].Members, [Country].[Name].[__RECIPIENT__])";
     private String institutionTableInstitutionRecipient = "CrossJoin([Extending Agency].[Name].[__INSTITUTION__], [Country].[Name].__RECIPIENT__)";
     private String institutionTableGeography = "CrossJoin([Extending Agency].[Name].Members, Filter({{[Country].[Name].Members}}, " +

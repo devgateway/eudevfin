@@ -29,7 +29,6 @@ public class ReportsCountrySectorFilter extends CustomReportsPage {
         nationalInstitution.setVisibilityAllowed(Boolean.FALSE);
         multilateralAgency.setVisibilityAllowed(Boolean.FALSE);
         typeOfFlowBiMulti.setVisibilityAllowed(Boolean.FALSE);
-        typeOfAid.setVisibilityAllowed(Boolean.FALSE);
         typeOfExpenditure.setVisibilityAllowed(Boolean.FALSE);
         valueOfActivity.setVisibilityAllowed(Boolean.FALSE);
         startingYear.setVisibilityAllowed(Boolean.FALSE);
