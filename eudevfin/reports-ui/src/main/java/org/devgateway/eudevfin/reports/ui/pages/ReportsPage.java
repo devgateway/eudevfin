@@ -29,15 +29,18 @@ import org.devgateway.eudevfin.reports.ui.components.Table;
 import org.devgateway.eudevfin.reports.ui.scripts.Dashboards;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.joda.money.CurrencyUnit;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -162,7 +165,9 @@ public class ReportsPage extends HeaderFooter {
                             } else {
                                 Double result = Double.parseDouble(resultSet.get(i).get(NUMBER_OF_YEARS - 1)) /
                                         Double.parseDouble(resultSet.get(i).get(NUMBER_OF_YEARS)) * 100;
-                                DecimalFormat twoDForm = new DecimalFormat("#.##");
+                                Locale locale = LocaleContextHolder.getLocale();
+                                DecimalFormat twoDForm = (DecimalFormat) NumberFormat.getNumberInstance(locale);
+                                twoDForm.applyPattern("#.##");
                                 resultSet.get(i).add(Float.valueOf(twoDForm.format(result)) + "%");
                             }
                         }
@@ -185,13 +190,12 @@ public class ReportsPage extends HeaderFooter {
 
                     // format the amounts as #,###.##
                     // and other values like 'Bilateral share'
-                    DecimalFormat df = new DecimalFormat("#,###.##");
                     for (int i = 0; i < len; i++) {
                         for (int j = 1; j <= NUMBER_OF_YEARS; j++) {
                             String item = resultSet.get(i).get(j);
 
                             if (item != null) {
-                                item = df.format(Float.parseFloat(resultSet.get(i).get(j)));
+                                item = ReportsDashboardsUtils.AmountFormat(Float.parseFloat(resultSet.get(i).get(j)));
 
                                 // len - 2 row is the 'ODA/GNI' row and we need to add the percentages
                                 if (i == len - 2) {
@@ -258,7 +262,6 @@ public class ReportsPage extends HeaderFooter {
                 List <List<String>> resultSet = this.result.getResultset();
 
                 // format the amounts as #,###.###
-                DecimalFormat df = new DecimalFormat("#,###.##");
                 for(int i = 0; i < resultSet.size(); i++) {
                     // add numbers in front of the countries names
                     String item = resultSet.get(i).get(0);
@@ -271,7 +274,7 @@ public class ReportsPage extends HeaderFooter {
                     item = resultSet.get(i).get(1);
 
                     if (item != null) {
-                        item = df.format(Float.parseFloat(resultSet.get(i).get(1)) / ReportsPage.this.MILLION);
+                        item = ReportsDashboardsUtils.AmountFormat(Float.parseFloat(resultSet.get(i).get(1)) / ReportsPage.this.MILLION);
                         resultSet.get(i).set(1, item);
                     }
                 }
@@ -316,7 +319,7 @@ public class ReportsPage extends HeaderFooter {
                     if (item.size() > 0) {
                         String[] newItem = new String[2];
                         newItem[0] = "Top 5 recipients";
-                        newItem[1] = twoDecimalFormat(item.get(0)) + "%";
+                        newItem[1] = ReportsDashboardsUtils.twoDecimalFormat(item.get(0)) + "%";
 
                         rows.add(newItem);
                     }
@@ -324,7 +327,7 @@ public class ReportsPage extends HeaderFooter {
                     if (item.size() > 1) {
                         String[] newItem = new String[2];
                         newItem[0] = "Top 10 recipients";
-                        newItem[1] = twoDecimalFormat(item.get(1)) + "%";
+                        newItem[1] = ReportsDashboardsUtils.twoDecimalFormat(item.get(1)) + "%";
 
                         rows.add(newItem);
                     }
@@ -332,7 +335,7 @@ public class ReportsPage extends HeaderFooter {
                     if (item.size() > 2) {
                         String[] newItem = new String[2];
                         newItem[0] = "Top 20 recipients";
-                        newItem[1] = twoDecimalFormat(item.get(2)) + "%";
+                        newItem[1] = ReportsDashboardsUtils.twoDecimalFormat(item.get(2)) + "%";
 
                         rows.add(newItem);
                     }
@@ -442,8 +445,7 @@ public class ReportsPage extends HeaderFooter {
                     odaBySectorTotal += (Float.parseFloat(item.get(2)) / ReportsPage.this.MILLION);
                 }
 
-                DecimalFormat twoDForm = new DecimalFormat("#.##");
-                odaBySectorTotal = Float.valueOf(twoDForm.format(odaBySectorTotal));
+                odaBySectorTotal = ReportsDashboardsUtils.twoDecimalFormat(odaBySectorTotal);
 
                 getOptions().getxAxis().get(0).setCategories(new ArrayList<>(resultCategories));
                 getOptions().getyAxis().get(0).setMax(odaBySectorTotal)
@@ -467,12 +469,6 @@ public class ReportsPage extends HeaderFooter {
         }
 
         add(stackedBarChart.getChart());
-    }
-
-    private String twoDecimalFormat (String number) {
-        DecimalFormat twoDForm = new DecimalFormat("#.##");
-
-        return twoDForm.format(Float.parseFloat(number));
     }
 
     @Override
