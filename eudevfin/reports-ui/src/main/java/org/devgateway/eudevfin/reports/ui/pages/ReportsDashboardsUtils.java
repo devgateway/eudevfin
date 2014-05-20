@@ -10,11 +10,14 @@ import org.devgateway.eudevfin.auth.common.util.AuthUtils;
 import org.devgateway.eudevfin.financial.util.FinancialTransactionUtil;
 import org.devgateway.eudevfin.reports.core.domain.QueryResult;
 import org.joda.money.CurrencyUnit;
+import org.springframework.context.i18n.LocaleContextHolder;
 
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Utils functions for custom dashboards
@@ -59,26 +62,25 @@ public class ReportsDashboardsUtils {
 
             // format the amounts as #,###.##
             // and other values like percentages
-            DecimalFormat df = new DecimalFormat("#,###.##");
             for (int i = 0; i < resultSet.size(); i++) {
                 if (resultSet.get(i).size() > 1 && resultSet.get(i).get(1) != null) {
-                    String item = df.format(Float.parseFloat(resultSet.get(i).get(1))); // amounts (first year)
+                    String item = AmountFormat(Float.parseFloat(resultSet.get(i).get(1))); // amounts (first year)
                     resultSet.get(i).set(1, item);
                 }
 
                 if (resultSet.get(i).size() > 2 && resultSet.get(i).get(2) != null) {
-                    String item = df.format(Float.parseFloat(resultSet.get(i).get(2)) * 100) + '%'; // percentages (first year)
+                    String item = AmountFormat(Float.parseFloat(resultSet.get(i).get(2)) * 100) + '%'; // percentages (first year)
                     resultSet.get(i).set(2, item);
                 }
 
 
                 if (resultSet.get(i).size() > 3 && resultSet.get(i).get(3) != null) {
-                    String item = df.format(Float.parseFloat(resultSet.get(i).get(3))); // amounts (second year)
+                    String item = AmountFormat(Float.parseFloat(resultSet.get(i).get(3))); // amounts (second year)
                     resultSet.get(i).set(3, item);
                 }
 
                 if (resultSet.get(i).size() > 4 && resultSet.get(i).get(4) != null) {
-                    String item = df.format(Float.parseFloat(resultSet.get(i).get(4)) * 100) + '%'; // percentages (second year)
+                    String item = AmountFormat(Float.parseFloat(resultSet.get(i).get(4)) * 100) + '%'; // percentages (second year)
                     resultSet.get(i).set(4, item);
                 }
             }
@@ -225,15 +227,14 @@ public class ReportsDashboardsUtils {
 
             // format the amounts as #,###.##
             // and other values like percentages
-            DecimalFormat df = new DecimalFormat("#,###.##");
             for (int i = 0; i < resultSet.size(); i++) {
                 if (resultSet.get(i).size() > 2 && resultSet.get(i).get(2) != null) {
-                    String item = df.format(Float.parseFloat(resultSet.get(i).get(2))); // amounts (first year)
+                    String item = AmountFormat(Float.parseFloat(resultSet.get(i).get(2))); // amounts (first year)
                     resultSet.get(i).set(2, item);
                 }
 
                 if (resultSet.get(i).size() > 3 && resultSet.get(i).get(3) != null) {
-                    String item = df.format(Float.parseFloat(resultSet.get(i).get(3))); // amounts (second year)
+                    String item = AmountFormat(Float.parseFloat(resultSet.get(i).get(3))); // amounts (second year)
                     resultSet.get(i).set(3, item);
                 }
             }
@@ -311,5 +312,25 @@ public class ReportsDashboardsUtils {
         }
 
         return countryCurrency;
+    }
+
+    public static String AmountFormat (double amount) {
+        Locale locale = LocaleContextHolder.getLocale();
+        DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance(locale);
+        df.applyPattern("#,###.##");
+
+        return df.format(amount);
+    }
+
+    public static String twoDecimalFormat (String amount) {
+        DecimalFormat twoDForm = new DecimalFormat("#.##");
+
+        return twoDForm.format(Float.parseFloat(amount));
+    }
+
+    public static float twoDecimalFormat (float amount) {
+        DecimalFormat twoDForm = new DecimalFormat("#.##");
+
+        return Float.valueOf(twoDForm.format(amount));
     }
 }
