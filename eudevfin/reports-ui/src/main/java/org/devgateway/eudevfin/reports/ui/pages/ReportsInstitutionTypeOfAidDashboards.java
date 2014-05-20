@@ -54,7 +54,6 @@ public class ReportsInstitutionTypeOfAidDashboards extends HeaderFooter {
     private String currencyParam;
     private String agencyParam;
     private String typeOfFlowParam;
-    private String typeOfAidParam;
     private String institutionParam;
     private String yearParam;
     private String humanitarianAidgParam;
@@ -86,9 +85,6 @@ public class ReportsInstitutionTypeOfAidDashboards extends HeaderFooter {
         }
         if(!parameters.get(ReportsConstants.TYPEOFFLOW_PARAM).equals(StringValue.valueOf((String) null))) {
             typeOfFlowParam = parameters.get(ReportsConstants.TYPEOFFLOW_PARAM).toString();
-        }
-        if(!parameters.get(ReportsConstants.TYPEOFAID_PARAM).equals(StringValue.valueOf((String) null))) {
-            typeOfAidParam = parameters.get(ReportsConstants.TYPEOFAID_PARAM).toString();
         }
         if(!parameters.get(ReportsConstants.INSTITUTION_PARAM).equals(StringValue.valueOf((String) null))) {
             institutionParam = parameters.get(ReportsConstants.INSTITUTION_PARAM).toString();

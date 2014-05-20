@@ -29,7 +29,6 @@ public class ReportsImplementationStatusFilter extends CustomReportsPage {
         nationalInstitution.setVisibilityAllowed(Boolean.FALSE);
         multilateralAgency.setVisibilityAllowed(Boolean.FALSE);
         typeOfFlowBiMulti.setVisibilityAllowed(Boolean.FALSE);
-        typeOfAid.setVisibilityAllowed(Boolean.FALSE);
         CPAOnly.setVisibilityAllowed(Boolean.FALSE);
         humanitarianAid.setVisibilityAllowed(Boolean.FALSE);
     }
