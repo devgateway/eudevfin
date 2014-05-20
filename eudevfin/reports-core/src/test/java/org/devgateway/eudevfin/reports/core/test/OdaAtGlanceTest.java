@@ -112,7 +112,7 @@ public class OdaAtGlanceTest {
         /* **************************** add 3rd transaction **************************** */
         // add a chanel with a coefficient (it should be 51% in this case)
         CustomFinancialTransaction tx3 = createMockup(false, "2013", "bilateralOda.advanceQuestionnaire", "TYPE_OF_FLOW##10", "TYPE_OF_FINANCE##110",
-                "A", "112", "41301", "BI_MULTILATERAL##2", "Turkey", "en", "Auditing test description 3", "EUR 1000000", "EUR 0", organization);
+                "A", "112", "41301", "BI_MULTILATERAL##1", "Turkey", "en", "Auditing test description 3", "EUR 1000000", "EUR 0", organization);
         txDao.save(tx3);
         transactions.add(tx3);          // save the transaction so we can delete it later
 
@@ -179,16 +179,18 @@ public class OdaAtGlanceTest {
 
         QueryResult result = CdaService.doQuery(params);
 
+        String queryResult = "[[Curent (USD m), 128534.705, 2004779.6162], [National Currency, 100000, 1510000], [ODA/GNI, null, 30], [Bilateral share, 100, 100]]";
+
         /*
         * From PopulateExchangeDbChange.java file we have the following exchange rates:
         * 2012 - 1.28
         * 2013 - 1.32
         */
         logger.info("Check Net ODA Table query number of rows: "  + result.getQueryInfo().getTotalRows() + ", should be: 4");
-        logger.info("Check Net ODA Table query response: "  + result.getResultset().toString() + ", should be: [[Curent (USD), 128000, 1993200], [National Currency, 100000, 1510000], [ODA/GNI, null, 30], [Bilateral share, 100, 50]]");
+        logger.info("Check Net ODA Table query response: "  + result.getResultset().toString() + ", should be: " + queryResult);
         Assert.assertEquals("Check Net ODA Table query number of rows", "4", result.getQueryInfo().getTotalRows());
         Assert.assertEquals("Check Net ODA Table query response",
-                "[[Curent (USD), 128000, 1993200], [National Currency, 100000, 1510000], [ODA/GNI, null, 30], [Bilateral share, 100, 50]]",
+                queryResult,
                 result.getResultset().toString());
     }
 
@@ -199,12 +201,14 @@ public class OdaAtGlanceTest {
 
         QueryResult result = CdaService.doQuery(params);
 
-        logger.info("Check Top Ten Recipients query number of rows: "  + result.getQueryInfo().getTotalRows() + ", should be: 3");
-        logger.info("Check Top Ten Recipients query response: "  + result.getResultset().toString() + ", should be: [[Tunisia, 1320000], [Turkey, 673200], [Moldova, 128000]]");
+        String queryResult = "[[Tunisia, 1327668.62], [Turkey, 677110.9962]]";
+
+        logger.info("Check Top Ten Recipients query number of rows: "  + result.getQueryInfo().getTotalRows() + ", should be: 2");
+        logger.info("Check Top Ten Recipients query response: "  + result.getResultset().toString() + ", should be: " + queryResult);
         // there are 3 transactions with 3 different recipient countries: Tunisia, Turkey, Moldova
-        Assert.assertEquals("Check Top Ten Recipients query number of rows", "3", result.getQueryInfo().getTotalRows());
+        Assert.assertEquals("Check Top Ten Recipients query number of rows", "2", result.getQueryInfo().getTotalRows());
         Assert.assertEquals("Check Top Ten Recipients query response",
-                "[[Tunisia, 1320000], [Turkey, 673200], [Moldova, 128000]]",
+                queryResult,
                 result.getResultset().toString());
     }
 
@@ -215,15 +219,16 @@ public class OdaAtGlanceTest {
 
         QueryResult result = CdaService.doQuery(params);
 
+        String queryResult = "[[100, 100, 100]]";
+
         logger.info("Check Top Ten Memo Share query number of rows: "  + result.getQueryInfo().getTotalRows() + ", should be: 1");
-        logger.info("Check Top Ten Memo Share query response: "  + result.getResultset().toString() + ", should be: [[100]]");
+        logger.info("Check Top Ten Memo Share query response: "  + result.getResultset().toString() + ", should be: " + queryResult);
         Assert.assertEquals("Check Top Ten Memo Share query number of rows", "1", result.getQueryInfo().getTotalRows());
         Assert.assertEquals("Check Top Ten Memo Share query response",
-                "[[100]]",
+                queryResult,
                 result.getResultset().toString());
     }
 
-    @Ignore("Not ready yet. We need to find a relation between country and regions")
     @Test
     public void testOdaByRegionChart () {
         Map<String, String> params = new HashMap<>();
@@ -231,11 +236,13 @@ public class OdaAtGlanceTest {
 
         QueryResult result = CdaService.doQuery(params);
 
-        logger.info("Check Oda By Region query number of rows: "  + result.getQueryInfo().getTotalRows() + ", should be: 1");
-        logger.info("Check Oda By Region query response: "  + result.getResultset().toString() + ", should be: [[something]]");
-        Assert.assertEquals("Check Oda By Region query number of rows", "1", result.getQueryInfo().getTotalRows());
+        String queryResult = "[[Africa (North of Sahara), 1327668.62], [Europe, 677110.9962], [Unspecified, 0]]";
+
+        logger.info("Check Oda By Region query number of rows: "  + result.getQueryInfo().getTotalRows() + ", should be: 3");
+        logger.info("Check Oda By Region query response: "  + result.getResultset().toString() + ", should be: " + queryResult);
+        Assert.assertEquals("Check Oda By Region query number of rows", "3", result.getQueryInfo().getTotalRows());
         Assert.assertEquals("Check Oda By Region query response",
-                "[[something]]",
+                queryResult,
                 result.getResultset().toString());
     }
 
@@ -246,12 +253,14 @@ public class OdaAtGlanceTest {
 
         QueryResult result = CdaService.doQuery(params);
 
+        String queryResult = "[[Upper Middle-Income, 2004779.6162], [Unallocated, 0]]";
+
         logger.info("Check Oda By Income Group query number of rows: "  + result.getQueryInfo().getTotalRows() + ", should be: 2");
-        logger.info("Check Oda By Income Group query response: "  + result.getResultset().toString() + ", should be: [[UMICs, 1993200], [LMICs, 128000]]");
+        logger.info("Check Oda By Income Group query response: "  + result.getResultset().toString() + ", should be: " + queryResult);
         Assert.assertEquals("Check Oda By Income Group query number of rows", "2", result.getQueryInfo().getTotalRows());
         // Tunisia and Turkey are in UMICs and Moldova in LMICs
         Assert.assertEquals("Check Oda By Income Group query response",
-                "[[UMICs, 1993200], [LMICs, 128000]]",
+                queryResult,
                 result.getResultset().toString());
     }
 
@@ -262,12 +271,14 @@ public class OdaAtGlanceTest {
 
         QueryResult result = CdaService.doQuery(params);
 
-        logger.info("Check Oda By Sector query number of rows: "  + result.getQueryInfo().getTotalRows() + ", should be: 3");
-        logger.info("Check Oda By Sector query response: "  + result.getResultset().toString() + ", should be: [[Basic education, ODA (Official Development Assistance), 673200], [INDUSTRY, ODA (Official Development Assistance), 128000], [MINERAL RESOURCES AND MINING, ODA (Official Development Assistance), 1320000]]");
+        String queryResult = "[[MINERAL RESOURCES AND MINING, ODA (Official Development Assistance), 1327668.62], [EDUCATION, ODA (Official Development Assistance), 677110.9962]]";
+
+        logger.info("Check Oda By Sector query number of rows: "  + result.getQueryInfo().getTotalRows() + ", should be: 2");
+        logger.info("Check Oda By Sector query response: "  + result.getResultset().toString() + ", should be: " + queryResult);
         // we used 3 different sectors
-        Assert.assertEquals("Check Oda By Sector query number of rows", "3", result.getQueryInfo().getTotalRows());
+        Assert.assertEquals("Check Oda By Sector query number of rows", "2", result.getQueryInfo().getTotalRows());
         Assert.assertEquals("Check Oda By Sector query response",
-                "[[MINERAL RESOURCES AND MINING, ODA (Official Development Assistance), 1320000], [Basic education, ODA (Official Development Assistance), 673200], [INDUSTRY, ODA (Official Development Assistance), 128000]]",
+                queryResult,
                 result.getResultset().toString());
     }
 
@@ -278,11 +289,13 @@ public class OdaAtGlanceTest {
 
         QueryResult result = CdaService.doQuery(params);
 
+        String queryResult = "[[GNI: Gross National Income, 60], [ODA % GNI, 30], [Total flows % GNI, 46], [Population, 10000]]";
+
         logger.info("Check Non Flow Data query number of rows: "  + result.getQueryInfo().getTotalRows() + ", should be: 4");
-        logger.info("Check Non Flow Data query response: "  + result.getResultset().toString() + ", should be: [[GNI: Gross National Income, 60], [ODA % GNI, 30], [Total flows % GNI, 46], [Population, 10000]]");
+        logger.info("Check Non Flow Data query response: "  + result.getResultset().toString() + ", should be: " + queryResult);
         Assert.assertEquals("Check Non Flow Data query number of rows", "4", result.getQueryInfo().getTotalRows());
         Assert.assertEquals("Check Non Flow Data query response",
-                "[[GNI: Gross National Income, 60], [ODA % GNI, 30], [Total flows % GNI, 46], [Population, 10000]]",
+                queryResult,
                 result.getResultset().toString());
     }
 
@@ -292,7 +305,8 @@ public class OdaAtGlanceTest {
                                                     Organization extendingOrg) {
         CustomFinancialTransaction ft = new CustomFinancialTransaction();
 
-        ft.setDraft(draft); // true | false | null
+        ft.setDraft(draft);     // true | false | null
+        ft.setApproved(true);   // make the transactions approved
         ft.setCreatedBy("admin");
         ft.setModifiedBy("admin");
         ft.setReportingYear(LocalDateTime.parse((year) + "-07-01"));                                    // 2013
