@@ -7,8 +7,8 @@ import java.util.List;
 
 import org.devgateway.eudevfin.common.dao.AbstractDaoImpl;
 import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
-import org.devgateway.eudevfin.financial.ChannelCategory;
 import org.devgateway.eudevfin.financial.repository.ChannelCategoryRepository;
+import org.devgateway.eudevfin.metadata.common.domain.ChannelCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;

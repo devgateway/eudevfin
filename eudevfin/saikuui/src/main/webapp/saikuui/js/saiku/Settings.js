@@ -22,15 +22,15 @@ var parser = document.createElement('a');
 parser.href = document.location;
 debugger;
 var Settings = {
-    VERSION: "Saiku 2.5-SNAPSHOT",
-    BIPLUGIN: false,
-    BASE_URL: "",
-    TOMCAT_WEBAPP: "http://" + parser.hostname + ":8082",
-    REST_MOUNT_POINT: "/rest/saiku/",
-    DIMENSION_PREFETCH: true,
-    ERROR_LOGGING: false,
-    // number of erroneous ajax calls in a row before UI cant recover
-    ERROR_TOLERANCE: 3,
+	    VERSION: "Saiku 2.5",
+	    BIPLUGIN: false,
+	    BASE_URL: "",
+	    TOMCAT_WEBAPP: "../saiku",
+	    REST_MOUNT_POINT: "/rest/saiku/",
+	    DIMENSION_PREFETCH: true,
+	    ERROR_LOGGING: false,
+	    // number of erroneous ajax calls in a row before UI cant recover
+	    ERROR_TOLERANCE: 3,
     QUERY_PROPERTIES: {
         'saiku.olap.query.automatic_execution': 'true',
         'saiku.olap.query.nonempty': 'true',
@@ -39,8 +39,7 @@ var Settings = {
         'saiku.ui.render.mode' : 'table'
     },
     /* Valid values for CELLSET_FORMATTER:
-     * 1) flattened
-     * 2) flat
+  
      */
     CELLSET_FORMATTER: "flattened",
     // limits the number of rows in the result

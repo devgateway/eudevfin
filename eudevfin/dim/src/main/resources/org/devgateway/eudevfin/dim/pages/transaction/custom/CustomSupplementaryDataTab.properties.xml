@@ -11,7 +11,15 @@
 <properties>
     <entry key="otherMarkers.label">Other Markers</entry>
 
-    <entry key="96rmnch.label">RMNCH</entry>
+    <entry key="96rmnch.label">96. RMNCH</entry>
     <entry key="96rmnch.placeholder"></entry>
-    <entry key="96rmnch.help">TODO: edit help text</entry>
+    <entry key="96rmnch.help">Funding interpretation of RMNCH marker scores. Expand to view full definition.</entry>
+	<entry key="96rmnch.help.detail">The RMNCH marker is designed to facilitate "approximate" estimation of quantitative
+amounts based on the funding interpretation shares shown in the table below where the marker
+scores of "4", "3", "2", "1" and "0" correspond to 100%, 75%, 50%, 25% and 0% respectively of a
+project’s funding targeted to RMNCH activities. Care should be taken not to interpret or present
+these resulting data as precise and comprehensive amounts of RMNCH-related contributions. 
+	</entry>
+    
+
 </properties>

@@ -15,4 +15,14 @@
     <entry key="1aDataAsPerDate.help.detail">Field no. 1 - Data as per date: Enter the year for which data are reported 
     (e.g. if we are in year 2013, you enter 2012 because you report data for 2012). This field is included to keep track of 
     the exact date when the information was collected or extracted from donors' aid management systems</entry>
+    
+    <entry key="6aLevelOfCertainty.label">6a. Level of Certainty</entry>
+    <entry key="6aLevelOfCertainty.placeholder"></entry>
+    <entry key="6aLevelOfCertainty.help">Expand to view full definition</entry>
+    <entry key="6aLevelOfCertainty.help.detail">6a. Level of Certainty
+F1	Provisional actual spending data 	Actual data for the previous year (in this example 2011), but prior to final data validation.
+F2	Future spending data for existing commitments	High certainty of planning data, changes would be due to an activity development that deviates from original planning.
+F3	Future spending data for concrete measures in preparatory phase	Reduced degree of certainty; planned spending is allocated to specific projects but project design and financing commitments are prior to their finalisation and approval.
+F4	Indicative future spending plans (data for measures in proposal phase)	Lowest degree of certainty; planned spending is based on a "spending envelopes" for a country/region and/or sector/purpose, little detail available.    
+    </entry>
 </properties>

@@ -10,18 +10,16 @@
      mpostelnicu
 -->
 <beans default-lazy-init="true" xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:int="http://www.springframework.org/schema/integration"
-	xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-	xmlns:util="http://www.springframework.org/schema/util" xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:int-jmx="http://www.springframework.org/schema/integration/jmx"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
-		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-2.2.xsd
-		http://www.springframework.org/schema/integration/jmx http://www.springframework.org/schema/integration/jmx/spring-integration-jmx-2.2.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
-		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
-		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:util="http://www.springframework.org/schema/util" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd">
 
     <!-- Defines the packages where the jpa entity repositories are. These provide access to the entities
         (orgs, transactions,etc) stored in the db
@@ -62,15 +60,15 @@
 	</bean>
 	
 
-	<!-- start derby network server,the SpEL provides the start() method only for network mode. This is due to a bug in 
-	spring https://jira.springsource.org/browse/SPR-11196 which makes any MethodInvokingFactoryBean to always be lazy-init=false, 
-	otherwise would would not need the SpEL here at all since this been would not be required by anyone hence not initialized -->
+
+	<!--  https://jira.springsource.org/browse/SPR-11196 MethodInvokingBean this was added for us :). -->	
 	<bean id="startDerby" 
-		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean" lazy-init="true" autowire-candidate="false">
+		class="org.springframework.beans.factory.config.MethodInvokingBean" lazy-init="true" autowire-candidate="false">
 		<property name="targetObject" ref="derbyServer" />
-		<property name="targetMethod" value="#{'network'.equals(systemProperties['eudevfin.derby.mode'])?'start':'equals'}" />
-		<property name="arguments" ref="#{'network'.equals(systemProperties['eudevfin.derby.mode'])?'pw':'pw'}" />
+		<property name="targetMethod" value="start" />
+		<property name="arguments" ref="pw" />
 	</bean>
+	
 
 	<!-- Datasource for network mode, this will be instantiated only if network mode derby will be used -->
 	<!-- tomcat-jdbc settings taken from here http://www.tomcatexpert.com/blog/2010/04/01/configuring-jdbc-pool-high-concurrency -->
@@ -117,7 +115,7 @@
 		<property name="arguments">
 			<list>
 				<value type="java.lang.String">java:comp/env/euDevFinDS</value>
-				<ref local="euDevFinDataSource" />
+				<ref bean="euDevFinDataSource" />
 			</list>
 		</property>
 	</bean>
@@ -130,12 +128,20 @@
 		<property name="changeLog" value="classpath:financialDbChangelog.xml" />
 	</bean>
 
-	
-	
+    <bean id="hibernateStatisticsBean" class="org.devgateway.eudevfin.common.hibernate.HibernateStatisticsFactoryBean"/>
 
-		  
-	<!-- Hibernate / JPA related beans -->
-	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" depends-on="ehcache">
+    <bean id="exporter" class="org.springframework.jmx.export.MBeanExporter" lazy-init="false">
+        <property name="beans">
+            <map>
+                <entry key="org.hibernate:name=hibernateStatisticsBean" value-ref="hibernateStatisticsBean"/>
+            </map>
+        </property>
+        <property name="server" ref="mbeanServer"/>
+    </bean>
+
+
+    <!-- Hibernate / JPA related beans -->
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" depends-on="ehcache">
 		<property name="dataSource" ref="euDevFinDataSource" />
 		<property name="packagesToScan" value="org.devgateway.eudevfin" />
 		<property name="mappingResources" value="META-INF/orm.xml"/>
@@ -148,7 +154,8 @@
 				<prop key="hibernate.cache.use_query_cache">true</prop>
 				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory</prop>
 				<prop key="hibernate.generate_statistics">false</prop>
-			</props>
+                <prop key="hibernate.show_sql">false</prop>
+            </props>
 		</property>		
 	</bean> 
 	
@@ -163,12 +170,6 @@
 		<constructor-arg index="0" ref="entityManagerFactory"></constructor-arg>
 	</bean>
 	
-	<!-- configures ehcache through spring, as singleton -->	
-	<!-- 
-	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager" p:cacheManager-ref="ehcache"/>
-	 -->	
-	<bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" p:configLocation="classpath:ehcache.xml" p:shared="true" lazy-init="false"/>
-
 
 	
 	<!-- The list of channels that are used throughout the financial module -->
@@ -181,16 +182,31 @@
 	<int:channel id="findTransactionByGeneralSearchPageableChannel"/>
 	<int:channel id="findTransactionByReportingYearAndTypeOfFlowNonFlow"/>
 	
+	
+	<int:channel id="findCustomTransactionByDraftAndPersistedUserGroupPageableChannel"/>
+	<int:channel id="findCustomTransactionByApprovedAndPersistedUserGroupPageableChannel"/>	
 	<int:channel id="findCustomTransactionByDraftPageableChannel"/>
+	<int:channel id="findCustomTransactionByApprovedPageableChannel"/>
+	
 	<int:channel id="findCustomTransactionByReportingYearAndDraftFalseChannel"/>
+	<int:channel id="findCustomTransactionByReportingYearAndDraftFalseAndFormTypeNotInChannel"/>
+	
 	<int:channel id="findDistinctReportingYearsInTransactionChannel"/>
+    <int:channel id="findDistinctStartingYearsInTransactionChannel"/>
+    <int:channel id="findDistinctCompletitionYearsInTransactionChannel"/>
+    <int:channel id="findDistinctReportingGeopraphyInTransactionChannel"/>
 	
 	<int:channel id="findOrganizationByIdChannel" />
 	<int:channel id="saveOrganizationChannel" />
+	<int:channel id="findOrganizationByDacFalse"/>
     <int:channel id="findAllAsListOrganizationChannel"/>
     <int:channel id="findOrganizationByIdChannel"/>
     <int:channel id="findOrganizationByGeneralSearchPageableChannel"/>
-	
+    <int:channel id="findUsedOrganizationPaginatedOrganizationChannel"/>
+
+    <int:channel id="findOrganizationByCodeChannel"/>
+    <int:channel id="findOrganizationByCodeAndDonorCodeChannel"/>
+    
 	<int:channel id="saveCategoryChannel" />
 	<int:channel id="findAllAsListCategoryChannel" />
 	<int:channel id="findCategoryByIdChannel" />
@@ -198,6 +214,11 @@
 	<int:channel id="findCategoryByTagCodeChannel" />
 	<int:channel id="findCategoryByGeneralSearchAndTagsCodePaginatedChannel" />
 	<int:channel id="findCategoryByGeneralSearchAndTagsCodeChannel" />
+    <int:channel id="findUsedGeographyPaginatedChannel" />
+    <int:channel id="findUsedSectorPaginatedChannel" />
+    <int:channel id="findUsedTypeOfAidPaginatedChannel" />
+    <int:channel id="findUsedTypeOfFlowBiMultiPaginatedChannel" />
+    <int:channel id="findUsedChannelPaginatedChannel" />
 	
 
 	<int:channel id="findAllAsListChannelCategoryChannel"/>
@@ -212,6 +233,7 @@
 	<int:channel id="findAreaByIdChannel"/>
 	<int:channel id="findAreaByGeneralSearchChannel"/>
 	<int:channel id="findByGeneralSearchPageableAreaChannel"/>
+    <int:channel id="findUsedAreaPaginatedAreaChannel"/>
 	
 	<int:channel id="findBySearchPageableCurrencyChannel"/>
 	<int:channel id="findByCodeCurrencyChannel"/>

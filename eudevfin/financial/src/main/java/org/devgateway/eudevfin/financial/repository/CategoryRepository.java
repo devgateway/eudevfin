@@ -5,18 +5,18 @@ package org.devgateway.eudevfin.financial.repository;
 
 import java.util.List;
 
-import org.devgateway.eudevfin.financial.Category;
+import org.devgateway.eudevfin.metadata.common.domain.Category;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
  * @author Alex
  *
  */
 public interface CategoryRepository extends
-		PagingAndSortingRepository<Category, Long> {
+		JpaRepository<Category, Long> {
 	
 	List<Category> findByTagsCode(String tagsCode);
 	
@@ -35,4 +35,43 @@ public interface CategoryRepository extends
 	
 	List<Category> findByCode(String code);
 
+    @Query(" select distinct geography from CustomFinancialTransaction ctx join ctx.recipient rep join rep.geographyCategory geography " +
+            "where ctx.approved = true")
+    Page<Category> findUsedGeography(Pageable page);
+
+    @Query(" select distinct geography from CategoryTranslation trn, CustomFinancialTransaction ctx join ctx.recipient rep join rep.geographyCategory geography " +
+            "where ctx.approved = true and trn.parent = geography.id and trn.locale=?1 and (lower(geography.code) like %?2% or lower(trn.name) like %?2% )")
+    Page<Category> findUsedGeographyByTranslationsNameIgnoreCase(String locale, String term, Pageable page);
+
+    @Query(" select distinct sector from CustomFinancialTransaction ctx join ctx.sector sector " +
+            "where ctx.approved = true")
+    Page<Category> findUsedSector(Pageable page);
+
+    @Query(" select distinct sector from CategoryTranslation trn, CustomFinancialTransaction ctx join ctx.sector sector " +
+            "where ctx.approved = true and trn.parent = sector.id and trn.locale=?1 and (lower(sector.code) like %?2% or lower(trn.name) like %?2% )")
+    Page<Category> findUsedSectorByTranslationsNameIgnoreCase(String locale, String term, Pageable page);
+
+    @Query(" select distinct typeOfAid from CustomFinancialTransaction ctx join ctx.typeOfAid typeOfAid " +
+            "where ctx.approved = true")
+    Page<Category> findUsedTypeOfAid(Pageable page);
+
+    @Query(" select distinct typeOfAid from CategoryTranslation trn, CustomFinancialTransaction ctx join ctx.typeOfAid typeOfAid " +
+            "where ctx.approved = true and trn.parent = typeOfAid.id and trn.locale=?1 and (lower(typeOfAid.code) like %?2% or lower(trn.name) like %?2% )")
+    Page<Category> findUsedTypeOfAidByTranslationsNameIgnoreCase(String locale, String term, Pageable page);
+
+    @Query(" select distinct biMultilateral from CustomFinancialTransaction ctx join ctx.biMultilateral biMultilateral " +
+            "where ctx.approved = true")
+    Page<Category> findUsedTypeOfFlowBiMulti(Pageable page);
+
+    @Query(" select distinct biMultilateral from CategoryTranslation trn, CustomFinancialTransaction ctx join ctx.biMultilateral biMultilateral " +
+            "where ctx.approved = true and trn.parent = biMultilateral.id and trn.locale=?1 and (lower(biMultilateral.code) like %?2% or lower(trn.name) like %?2% )")
+    Page<Category> findUsedTypeOfFlowBiMultiByTranslationsNameIgnoreCase(String locale, String term, Pageable page);
+
+    @Query(" select distinct channel from CustomFinancialTransaction ctx join ctx.channel channel " +
+            "where ctx.approved = true")
+    Page<Category> findUsedChannel(Pageable page);
+
+    @Query(" select distinct channel from CategoryTranslation trn, CustomFinancialTransaction ctx join ctx.channel channel " +
+            "where ctx.approved = true and trn.parent = channel.id and trn.locale=?1 and (lower(channel.code) like %?2% or lower(trn.name) like %?2% )")
+    Page<Category> findUsedChannelByTranslationsNameIgnoreCase(String locale, String term, Pageable page);
 }

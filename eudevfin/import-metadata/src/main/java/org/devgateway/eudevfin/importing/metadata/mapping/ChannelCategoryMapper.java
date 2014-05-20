@@ -6,8 +6,8 @@ package org.devgateway.eudevfin.importing.metadata.mapping;
 import java.math.BigDecimal;
 
 import org.apache.log4j.Logger;
-import org.devgateway.eudevfin.financial.Category;
-import org.devgateway.eudevfin.financial.ChannelCategory;
+import org.devgateway.eudevfin.metadata.common.domain.Category;
+import org.devgateway.eudevfin.metadata.common.domain.ChannelCategory;
 
 /**
  * @author Alex
@@ -70,6 +70,5 @@ public class ChannelCategoryMapper extends CategoryMapper {
 			}
 		}
 	}
-	
 
 }

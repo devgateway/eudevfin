@@ -5,18 +5,18 @@ package org.devgateway.eudevfin.financial.repository;
 
 import java.util.List;
 
-import org.devgateway.eudevfin.financial.ChannelCategory;
+import org.devgateway.eudevfin.metadata.common.domain.ChannelCategory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
  * @author Alex
  *
  */
 public interface ChannelCategoryRepository extends
-		PagingAndSortingRepository<ChannelCategory, Long> {
+		JpaRepository<ChannelCategory, Long> {
 	
 	List<ChannelCategory> findByTagsCode(String code);
 	

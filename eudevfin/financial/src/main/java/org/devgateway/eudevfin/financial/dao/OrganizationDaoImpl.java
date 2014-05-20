@@ -15,9 +15,9 @@ import java.util.List;
 
 import org.devgateway.eudevfin.common.dao.AbstractDaoImpl;
 import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
-import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.repository.OrganizationRepository;
-import org.devgateway.eudevfin.financial.service.OrganizationService;
+import org.devgateway.eudevfin.metadata.common.domain.Organization;
+import org.devgateway.eudevfin.metadata.common.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
@@ -25,6 +25,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.integration.annotation.Header;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 
@@ -73,6 +74,24 @@ public class OrganizationDaoImpl extends AbstractDaoImpl<Organization, Long, Org
 		return super.findOne(id);
 	}
 	
+	@ServiceActivator(inputChannel="findOrganizationByCodeChannel")
+	public NullableWrapper<Organization> findByCode(String code) {
+		return new NullableWrapper<Organization>(repo.findByCode(code));
+	}
+	
+	
+	
+	/**
+	 * @see OrganizationService#findByDacFalse(Pageable)
+	 * @param pageable
+	 * @return
+	 */
+	@ServiceActivator(inputChannel="findOrganizationByDacFalse")
+	public Page<Organization> findByDacFalse(Pageable pageable) {
+		return repo.findByDacFalse(pageable);
+	}
+	
+	
 	/**
 	 * @see OrganizationService#findByGeneralSearchPageable(String, String, Pageable)
 	 */
@@ -83,4 +102,39 @@ public class OrganizationDaoImpl extends AbstractDaoImpl<Organization, Long, Org
 		if(searchString.isEmpty()) return repo.findAll(pageable);
 		return repo.findByTranslationNameContaining(searchString.toLowerCase(), pageable);		 
 	}
+
+    /**
+     * @see org.devgateway.eudevfin.metadata.common.service.OrganizationService#findUsedAreaPaginated(String, String, Pageable)
+     *
+     * @param locale
+     * @param searchString
+     * @param page
+     *
+     * @return Page<Organization>
+     */
+    @ServiceActivator(inputChannel = "findUsedOrganizationPaginatedOrganizationChannel")
+    @Transactional
+    public Page<Organization> findUsedOrganizationPaginated(
+            @Header("locale") String locale, String searchString,
+            @Header("pageable") Pageable page) {
+        Page<Organization> result = null;
+
+        if (searchString.isEmpty()) {
+            result = this.getRepo().findUsedOrganization(page);
+        }
+        else {
+            result = this.getRepo().findUsedOrganizationByTranslationsNameIgnoreCase(locale, searchString.toLowerCase(), page);
+        }
+
+        return result;
+    }
+    
+    
+    /**
+     * @see OrganizationService#findByCodeAndDonorCode(String, String)
+     */
+	@ServiceActivator(inputChannel="findOrganizationByCodeAndDonorCodeChannel")
+    public NullableWrapper<Organization> findByCodeAndDonorCode(String code, @Header("donorCode") String donorCode) {
+        return new NullableWrapper<Organization>(this.repo.findByCodeAndDonorCode(code, donorCode));
+    }
 }

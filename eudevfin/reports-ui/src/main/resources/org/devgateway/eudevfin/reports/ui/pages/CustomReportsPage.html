@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+<wicket:head>
+    <!-- load general styles -->
+    <link href="css/style.css" rel="stylesheet" type="text/css"/>
+
+    <title>Custom Reports Page</title>
+</wicket:head>
+<body>
+    <wicket:extend>
+        <div class="container">
+            <div class="row">
+                <div class="span12" style="text-align: center;">
+                    <h2 wicket:id="title"/>
+                    <br/>
+                </div>
+
+                <div class="span8 offset2 well">
+                    <div>
+                        <i class="icon-info-sign"></i>
+                        <span wicket:id="info"/>
+                        <br/><br/>
+                    </div>
+                    <form wicket:id="form">
+                        <div class="row">
+                            <div wicket:id="geography"/>
+                            <div wicket:id="recipient"/>
+                            <div wicket:id="nationalInstitution"/>
+                            <div wicket:id="typeOfFlowbiMulti"/>
+                            <div wicket:id="typeOfAid"/>
+                            <div wicket:id="multilateralAgency"/>
+                            <div wicket:id="sector"/>
+                            <div wicket:id="year"/>
+                            <div wicket:id="typeOfExpenditure"/>
+                            <div wicket:id="startingYear"/>
+                            <div wicket:id="completitionYear"/>
+                            <div wicket:id="valueOfActivity"/>
+                            <div wicket:id="cofinancingtransactionsonly"/>
+                            <div wicket:id="cpaonly"/>
+                            <div wicket:id="humanitarianAid"/>
+                            <div wicket:id="showRelatedBudgetCodes"/>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="span4">
+                                <div wicket:id="pricesCurrency"/>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="span4">
+                                <input wicket:id="submit" type="button"/>
+                            </div>
+                        </div>
+                    </form>
+
+                    <span wicket:id="feedback">feedback</span>
+                </div>
+            </div> <!-- /row -->
+        </div> <!-- /container -->
+    </wicket:extend>
+</body>
+</html>

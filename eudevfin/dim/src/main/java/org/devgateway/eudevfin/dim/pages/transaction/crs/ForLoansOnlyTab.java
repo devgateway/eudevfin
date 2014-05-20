@@ -8,26 +8,27 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
-import java.math.BigDecimal;
-
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.ComponentPropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.devgateway.eudevfin.financial.Category;
+import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.devgateway.eudevfin.metadata.common.domain.Category;
+import org.devgateway.eudevfin.metadata.common.util.CategoryConstants;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.DateInputField;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
 import org.devgateway.eudevfin.ui.common.events.CurrencyUpdateBehavior;
 import org.devgateway.eudevfin.ui.common.events.LoansField12UpdateBehavior;
-import org.devgateway.eudevfin.ui.common.events.MarkersField13UpdateBehavior;
 import org.devgateway.eudevfin.ui.common.models.BigMoneyModel;
 import org.devgateway.eudevfin.ui.common.models.DateToLocalDateTimeModel;
 import org.devgateway.eudevfin.ui.common.permissions.PermissionAwareComponent;
-import org.devgateway.eudevfin.ui.common.temporary.SB;
+import org.devgateway.eudevfin.ui.common.providers.CategoryProviderFactory;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 import org.joda.time.LocalDateTime;
+
+import java.math.BigDecimal;
 
 /**
  * @author aartimon@developmentgateway.org
@@ -36,7 +37,11 @@ import org.joda.time.LocalDateTime;
 public class ForLoansOnlyTab extends Panel implements PermissionAwareComponent {
     public static final String KEY = "tabs.loans";
 	private PageParameters parameters;
+	
+	@SpringBean    
+	private CategoryProviderFactory categoryFactory;
 
+	
     public ForLoansOnlyTab(String id,PageParameters parameters) {
         super(id);
         this.parameters=parameters;
@@ -50,12 +55,12 @@ public class ForLoansOnlyTab extends Panel implements PermissionAwareComponent {
         ComponentPropertyModel<CurrencyUnit> readOnlyCurrencyModel = new ComponentPropertyModel<>("currency");
 
         DropDownField<Category> typeOfRepayment = new DropDownField<>("44typeOfRepayment",
-                new RWComponentPropertyModel<Category>("typeOfRepayment"), SB.categoryProvider);
+                new RWComponentPropertyModel<Category>("typeOfRepayment"), categoryFactory.get(CategoryConstants.TYPE_OF_REPAYMENT_TAG));
         typeOfRepayment.getField().add(new LoansField12UpdateBehavior()); 
         add(typeOfRepayment);
 
         DropDownField<Category> numberOfRepayments = new DropDownField<>("45numberOfRepayments",
-                new RWComponentPropertyModel<Category>("numberOfRepaymentsAnnum"), SB.categoryProvider);
+                new RWComponentPropertyModel<Category>("numberOfRepaymentsAnnum"), categoryFactory.get(CategoryConstants.NUM_OF_REPAYMENTS_PER_ANNUM_TAG));
         numberOfRepayments.getField().add(new LoansField12UpdateBehavior());        
         add(numberOfRepayments);
 

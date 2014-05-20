@@ -11,10 +11,11 @@ package org.devgateway.eudevfin.ui.common.temporary;
 import com.vaynberg.wicket.select2.ChoiceProvider;
 import com.vaynberg.wicket.select2.Response;
 import com.vaynberg.wicket.select2.TextChoiceProvider;
+
 import org.apache.commons.lang3.ArrayUtils;
-import org.devgateway.eudevfin.financial.Area;
-import org.devgateway.eudevfin.financial.Category;
-import org.devgateway.eudevfin.financial.RecipientCategory;
+import org.devgateway.eudevfin.metadata.common.domain.Area;
+import org.devgateway.eudevfin.metadata.common.domain.Category;
+import org.devgateway.eudevfin.metadata.common.domain.RecipientCategory;
 import org.joda.money.CurrencyUnit;
 
 import java.util.ArrayList;
@@ -136,7 +137,7 @@ public class SB {
             for (String id : ids) {
                 if (id.equals("1"))
                     ret.add(Boolean.TRUE);
-                else if (id.equals("0"))
+                else
                     ret.add(Boolean.FALSE);
             }
             return ret;
@@ -153,8 +154,8 @@ public class SB {
 
     public static final String NON_ODA_OOF_NON_EXPORT = "nonOda.nonExport";
     public static final String NON_ODA_OOF_EXPORT = "nonOda.export";
-    public static final String NON_ODA_PRIVATE_GRANTS = "nonOda.publicGrants";
-    public static final String NON_ODA_PRIVATE_MARKET = "nonOda.publicMarket";
+    public static final String NON_ODA_PRIVATE_GRANTS = "nonOda.privateGrants";
+    public static final String NON_ODA_PRIVATE_MARKET = "nonOda.privateMarket";
     public static final String NON_ODA_OTHER_FLOWS = "nonOda.otherFlows";
 
     public static String[] biODA() {

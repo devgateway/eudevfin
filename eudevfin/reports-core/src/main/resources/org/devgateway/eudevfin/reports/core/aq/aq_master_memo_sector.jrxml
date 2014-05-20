@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="555" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4d81083f-52a3-45df-97af-b93a485e497a">
+	<property name="ireport.callouts" value="##Mon Dec 30 08:46:00 ART 2013"/>
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="FIRST_YEAR" class="java.lang.Number"/>
+	<parameter name="SECOND_YEAR" class="java.lang.Number"/>
+	<queryString language="mdx">
+		<![CDATA[WITH
+MEMBER [Sector].[Humanitarian Aid] AS SUM({[Sector].[700],[Sector].[720],[Sector].[72010],[Sector].[72040],[Sector].[72050],[Sector].[730],[Sector].[73010],[Sector].[740],[Sector].[74010]})
+MEMBER [Sector].[Short Term Reconstruction] AS SUM({[Sector].[73010]})
+MEMBER [Sector].[Development Food Aid] AS SUM({[Sector].[520],[Sector].[52010]})
+MEMBER [Measures].[First Year] AS SUM(CrossJoin({[Reporting Year].[$P{FIRST_YEAR}]}, {[Measures].[Net Amount Currency NATLOECD]}))
+MEMBER [Measures].[Second Year] AS SUM(CrossJoin({[Reporting Year].[$P{SECOND_YEAR}]}, {[Measures].[Net Amount Currency NATLOECD]}))
+SELECT
+{
+[Sector].[Humanitarian Aid],
+[Sector].[Short Term Reconstruction],
+[Sector].[Development Food Aid]
+} ON ROWS,
+{[Measures].[First Year], [Measures].[Second Year]} ON COLUMNS
+FROM [Financial]
+WHERE {[BiMultilateral].[BI_MULTILATERAL##1], [BiMultilateral].[BI_MULTILATERAL##3], [BiMultilateral].[BI_MULTILATERAL##7]}*{[Form Type].[bilateralOda.advanceQuestionnaire], [Form Type].[multilateralOda.advanceQuestionnaire] }
+]]>
+	</queryString>
+	<field name="Humanitarian Aid Y1" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[First Year], [Sector].[Humanitarian Aid])]]></fieldDescription>
+	</field>
+	<field name="Humanitarian Aid Y2" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Sector].[Humanitarian Aid])]]></fieldDescription>
+	</field>
+	<field name="Short-term Reconstruction Y1" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[First Year], [Sector].[Short Term Reconstruction])]]></fieldDescription>
+	</field>
+	<field name="Short-term Reconstruction Y2" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Sector].[Short Term Reconstruction])]]></fieldDescription>
+	</field>
+	<field name="Development food aid Y1" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[First Year], [Sector].[Development Food Aid])]]></fieldDescription>
+	</field>
+	<field name="Development food aid Y2" class="java.lang.Number">
+		<fieldDescription><![CDATA[Data([Measures].[Second Year], [Sector].[Development Food Aid])]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="56" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="295" height="14" uuid="75a9d431-f9ec-4d1d-8f7a-bb967d39b954"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{aq.memo.sectoralBreakdown}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="32" y="14" width="263" height="14" uuid="b0eebc25-9b0e-44ca-91b3-fde67f3274f1"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{aq.memo.humanitarianAid}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="47" y="28" width="248" height="14" uuid="c03c6a7a-d273-4ff0-a6b8-f056be956483"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{aq.memo.shortTermReconstruction}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="32" y="42" width="263" height="14" uuid="bd582ef9-6aa6-4e39-8522-d8dc98be7c7b"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{aq.memo.developmentFoodAid}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="297" y="14" width="50" height="14" uuid="fc907d23-3983-433c-880b-17a19161b374"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[070]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="297" y="28" width="50" height="14" uuid="55f83c96-cafd-40f4-83e7-ff8799158eae"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[088]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="297" y="42" width="50" height="14" uuid="2b559879-8982-41ef-a05c-3cc16128388f"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[060]]></text>
+			</staticText>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement key="humanitarianAidYear1" x="352" y="14" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Humanitarian Aid Y1}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement key="shortTermReconstructionYear1" x="352" y="28" width="100" height="14" uuid="4150ac15-ec14-4e02-86b2-98311846b6bd"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Short-term Reconstruction Y1}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement key="developmentFoodAidYear1" x="352" y="42" width="100" height="14" uuid="48bb8c41-75a4-40bb-a3db-8fe3429d2a15"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Development food aid Y1}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement key="humanitarianAidYear2" x="455" y="14" width="100" height="14" uuid="7b74ff40-d5d1-43b8-85f7-50352b4ae445"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Humanitarian Aid Y2}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement key="shortTermReconstructionYear2" x="455" y="28" width="100" height="14" uuid="7675c178-b9f1-4120-9c2d-7133c17cc352"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Short-term Reconstruction Y2}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement key="developmentFoodAidYear2" x="455" y="42" width="100" height="14" uuid="288aeaf1-b7f6-4b07-bf55-4b4706cb31cd"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Development food aid Y2}.doubleValue()/1000000]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -7,11 +7,11 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.devgateway.eudevfin.common.Constants;
+import org.devgateway.eudevfin.common.locale.LocaleHelperInterface;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
-import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
-import org.devgateway.eudevfin.financial.service.OrganizationService;
-import org.devgateway.eudevfin.financial.util.LocaleHelperInterface;
+import org.devgateway.eudevfin.metadata.common.domain.Organization;
+import org.devgateway.eudevfin.metadata.common.service.OrganizationService;
 import org.joda.money.BigMoney;
 import org.junit.Assert;
 import org.junit.Before;
@@ -22,15 +22,18 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Alex
  * 
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:/META-INF/financialContext.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/commonContext.xml", 
+		"classpath:/META-INF/financialContext.xml", "classpath:/META-INF/commonMetadataContext.xml", 
 		"classpath:META-INF/commonFinancialContext.xml","classpath:testFinancialContext.xml" })
 @Component 
+@Transactional
 public class LocaleTest {
 	
 	private static Logger logger = Logger
@@ -50,7 +53,7 @@ public class LocaleTest {
 	
 	@Before
 	public void setupTest() {
-		localeHelper.setLocale(TEST_LOCALE);
+		this.localeHelper.setLocale(TEST_LOCALE);
 	}
 	
 	@Test
@@ -58,39 +61,41 @@ public class LocaleTest {
 		for (int i = 1; i <= 10; i++) {
 			Organization org = new Organization();
 			org.setName("Org name " + i);
-			org 	= orgService.save(org).getEntity();
+			org 	= this.orgService.save(org).getEntity();
 			
-			FinancialTransaction tx = new FinancialTransaction();
-			int amount	= i * 100;
+			final FinancialTransaction tx = new FinancialTransaction();
+			final int amount	= i * 100;
 			tx.setAmountsReceived(BigMoney.parse("EUR " + amount));
 			tx.setCommitments(BigMoney.parse("EUR " + amount));
-			String testLocaleString			= "This is transaction (test locale) " + i;
-			String defaultLocaleString		= "This is transaction (default locale) " + i;
+			final String testLocaleString			= "This is transaction (test locale) " + i;
+			final String defaultLocaleString		= "This is transaction (default locale) " + i;
 			tx.setDescription(testLocaleString);
 			tx.setLocale(Constants.DEFAULT_LOCALE);
 			tx.setDescription(defaultLocaleString);
 			tx.setExtendingAgency(org);
 
+			tx.setLocale(null);
+			
 			logger.info(tx);
-			service.save(tx);
-			FinancialTransaction result =  service.findOne(tx.getId()).getEntity();
+			this.service.save(tx);
+			final FinancialTransaction result =  this.service.findOne(tx.getId()).getEntity();
 
 			Assert.assertNotNull(result.getId());
 			logger.info(result);
 			
 			Assert.assertNotNull( result.getTranslations().get(TEST_LOCALE) );
-			Assert.assertEquals( result.getDescription(), testLocaleString );
+			Assert.assertEquals( testLocaleString, result.getDescription() );
 			
 			Assert.assertNotNull( result.getTranslations().get( Constants.DEFAULT_LOCALE ) );
 			result.setLocale(Constants.DEFAULT_LOCALE);
-			Assert.assertEquals( result.getDescription(), defaultLocaleString );
+			Assert.assertEquals( defaultLocaleString, result.getDescription() );
 			
 			result.setLocale("Inexistent locale");
-			Assert.assertEquals( result.getDescription(), defaultLocaleString );
+			Assert.assertEquals( defaultLocaleString, result.getDescription() );
 
 		}
-		List<FinancialTransaction> list = service.findAll();
-		for (FinancialTransaction financialTransaction : list) {
+		final List<FinancialTransaction> list = this.service.findAll();
+		for (final FinancialTransaction financialTransaction : list) {
 			Assert.assertNotNull( financialTransaction.getExtendingAgency() );
 		}
 

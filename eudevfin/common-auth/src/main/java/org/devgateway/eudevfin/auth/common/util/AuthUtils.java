@@ -6,8 +6,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.common.Constants;
-import org.devgateway.eudevfin.financial.Organization;
+import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
@@ -53,6 +54,15 @@ public final class AuthUtils {
 	}
 	
 	/**
+	 * Gets the current logged in user, if any
+	 * 
+	 * @return the current logged in user
+	 */
+	public static PersistedUser getCurrentUser() {
+		return (PersistedUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	}
+
+	/**
 	 * Gets the ISO-3166 for the current user
 	 * @return
 	 */
@@ -60,17 +70,45 @@ public final class AuthUtils {
         if (SecurityContextHolder.getContext().getAuthentication() == null) {
             return null;
         }
-		PersistedUser user=(PersistedUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();				
+		PersistedUser user=getCurrentUser();			
 		if(user==null) return null;
 		return getIsoCountryLocaleForUser(user);
 	}
 
+	
+	/**
+	 * Checks if the given user has the specified role
+	 * 
+	 * @param user
+	 * @param role
+	 * @return true if it has the role
+	 */
+	public static boolean userHasRole(PersistedUser user, String role) {
+		for (GrantedAuthority authority : user.getAuthorities())
+			if (authority.getAuthority().equals(role))
+				return true;
+		return false;
+	}
+
+	/**
+	 * Checks if the current logged in user (if any) has the specified role
+	 * 
+	 * @param role
+	 * @return true if it has the role
+	 */
+	public static boolean currentUserHasRole(String role) {
+		PersistedUser user = getCurrentUser();	
+		if (user == null)
+			return false;
+		return userHasRole(user, role);
+	}
+	
 	/**
 	 * @return the {@link Organization} assigned to the current
 	 *         {@link PersistedUser} found in {@link Authentication}
 	 */
 	public static Organization getOrganizationForCurrentUser() {
-		PersistedUser user = (PersistedUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		PersistedUser user = getCurrentUser();	
 		if (user != null && user.getGroup() != null)
 			return user.getGroup().getOrganization();
 		return null;

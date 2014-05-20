@@ -5,11 +5,11 @@ package org.devgateway.eudevfin.importing.metadata.streamprocessors;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFDataFormatter;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -43,18 +43,18 @@ public class ExcelStreamProcessor implements StreamProcessorInterface {
 
 	private int endRowNum;
 	
-	private InputStream inputStream;
+	private final InputStream inputStream;
 
-	public ExcelStreamProcessor(InputStream is) {
+	public ExcelStreamProcessor(final InputStream is) {
 		this.inputStream	= is;
 		try {
-			workbook 	= new HSSFWorkbook(is);
-			sheet		= workbook.getSheetAt(0);
-			endRowNum	= this.sheet.getLastRowNum();
+			this.workbook 	= new HSSFWorkbook(is);
+			this.sheet		= this.workbook.getSheetAt(0);
+			this.endRowNum	= this.sheet.getLastRowNum();
 			
 			this.generateMetadataInfoList();
 			this.findMapperClassName();
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			e.printStackTrace();
 		}
 		
@@ -62,11 +62,11 @@ public class ExcelStreamProcessor implements StreamProcessorInterface {
 
 	@Override
 	public Object generateNextObject() {
-		if ( currentRowNum <= endRowNum ) {
-			HSSFRow row 	= sheet.getRow(currentRowNum);
+		if ( this.currentRowNum <= this.endRowNum ) {
+			final HSSFRow row 	= this.sheet.getRow(this.currentRowNum);
 			try {
-				MapperInterface mapper			= this.instantiateMapper();
-				Object entity	= this.generateObject(mapper, row);
+				final MapperInterface mapper			= this.instantiateMapper();
+				final Object entity	= this.generateObject(mapper, row);
 				return entity;
 			} catch (ClassNotFoundException | InstantiationException
 					| IllegalAccessException e) {
@@ -76,7 +76,7 @@ public class ExcelStreamProcessor implements StreamProcessorInterface {
 				throw new EntityMapperGenerationException("Problems generating object",e);
 			}
 			finally{
-				currentRowNum++;
+				this.currentRowNum++;
 			}
 		}
 		return null;
@@ -85,7 +85,7 @@ public class ExcelStreamProcessor implements StreamProcessorInterface {
 	
 	@Override
 	public boolean hasNextObject() {
-		if ( currentRowNum <= endRowNum ) {
+		if ( this.currentRowNum <= this.endRowNum ) {
 			return true;
 		}
 		return false;
@@ -94,13 +94,13 @@ public class ExcelStreamProcessor implements StreamProcessorInterface {
 	
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private Object generateObject(MapperInterface<?> mapper, HSSFRow row) 
+	private Object generateObject(final MapperInterface<?> mapper, final HSSFRow row) 
 			throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		
 		boolean allCellsAreNull	= true; 
-		List<String> values	= new ArrayList<String>();
+		final List<String> values	= new ArrayList<String>();
 		for ( int j=OFFSET; j<this.metadataInfoList.size()+OFFSET; j++) {
-			HSSFCell cell	= row.getCell(j);
+			final HSSFCell cell	= row.getCell(j);
 			if (cell != null) {
 				allCellsAreNull = false;
 				String val		= null;
@@ -108,23 +108,25 @@ public class ExcelStreamProcessor implements StreamProcessorInterface {
 					val	= cell.getStringCellValue() ;
 				}
 				else if ( HSSFCell.CELL_TYPE_NUMERIC == cell.getCellType() ) {
-					HSSFDataFormatter dataFormatter	= new HSSFDataFormatter();
-					val	= dataFormatter.formatCellValue(cell);
-					//values.add( new Double(cell.getNumericCellValue()).toString() );
+//					HSSFDataFormatter dataFormatter	= new HSSFDataFormatter();
+//					val	= dataFormatter.formatCellValue(cell);
+					val	=  new BigDecimal(cell.getNumericCellValue()).toString() ;
 				}
-				if ( val != null && val.trim().length() > 0 )
+				if ( val != null && val.trim().length() > 0 ) {
 					values.add(val.trim());
-				else
+				} else {
 					values.add(null);
+				}
 				
-			}
-			else
+			} else {
 				values.add( null );
+			}
 			
 		}
-		if ( allCellsAreNull ) 
-						return null;
-		Object result	=  mapper.createEntity(values);
+		if ( allCellsAreNull ) {
+			return null;
+		}
+		final Object result	=  mapper.createEntity(values);
 		return result;
 	}
 	
@@ -139,10 +141,10 @@ public class ExcelStreamProcessor implements StreamProcessorInterface {
 	@SuppressWarnings("rawtypes")
 	private MapperInterface<?> instantiateMapper() {
 		try {
-			Class clazz = Class.forName(mapperClassName);
-			MapperInterface<?> mapper = 
+			final Class clazz = Class.forName(this.mapperClassName);
+			final MapperInterface<?> mapper = 
 					(MapperInterface<?>) clazz.newInstance();
-			mapper.setMetainfos(metadataInfoList);
+			mapper.setMetainfos(this.metadataInfoList);
 
 			return mapper;
 		} catch (ClassNotFoundException | InstantiationException
@@ -154,31 +156,31 @@ public class ExcelStreamProcessor implements StreamProcessorInterface {
 	}
 
 	private void findMapperClassName() {
-		HSSFRow row 	= sheet.getRow(MAPPER_CLASS_ROW_NUM);
-		HSSFCell cell	= row.getCell(MAPPER_CLASS_COL_NUM);
+		final HSSFRow row 	= this.sheet.getRow(MAPPER_CLASS_ROW_NUM);
+		final HSSFCell cell	= row.getCell(MAPPER_CLASS_COL_NUM);
 		if ( HSSFCell.CELL_TYPE_STRING == cell.getCellType() ) {
 			this.mapperClassName = cell.getStringCellValue();
-		}
-		else
+		} else {
 			throw new InvalidDataException("Expecting mapper name in cell B1");
+		}
 	}
 	
 	private void generateMetadataInfoList () {
 		this.metadataInfoList	= new ArrayList<String>();
-		HSSFRow row 			= sheet.getRow(METADATA_INFO_ROW_NUM);
-		short end				= row.getLastCellNum();
+		final HSSFRow row 			= this.sheet.getRow(METADATA_INFO_ROW_NUM);
+		final short end				= row.getLastCellNum();
 		for (short i=1; i<end; i++ ) {
-			HSSFCell cell	= row.getCell((int)i);
+			final HSSFCell cell	= row.getCell((int)i);
 			if ( cell != null ) {
 				if ( HSSFCell.CELL_TYPE_STRING == cell.getCellType() ) {
-					String value	=  cell.getStringCellValue();
+					final String value	=  cell.getStringCellValue();
 					this.metadataInfoList.add(value);
-				}
-				else
+				} else {
 					throw new InvalidDataException("Expecting mapper name in cell B1");
-			}
-			else 
+				}
+			} else {
 				break;
+			}
 		}
 		
 	}
@@ -187,7 +189,7 @@ public class ExcelStreamProcessor implements StreamProcessorInterface {
 	public void close() {
 		try {
 			this.inputStream.close();
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			e.printStackTrace();
 		}
 		
@@ -195,19 +197,19 @@ public class ExcelStreamProcessor implements StreamProcessorInterface {
 
 	@Override
 	public List<String> getMetadataInfoList() {
-		return metadataInfoList;
+		return this.metadataInfoList;
 	}
 
-	public void setMetadataInfoList(List<String> metadataInfoList) {
+	public void setMetadataInfoList(final List<String> metadataInfoList) {
 		this.metadataInfoList = metadataInfoList;
 	}
 
 	@Override
 	public String getMapperClassName() {
-		return mapperClassName;
+		return this.mapperClassName;
 	}
 
-	public void setMapperClassName(String mapperClassName) {
+	public void setMapperClassName(final String mapperClassName) {
 		this.mapperClassName = mapperClassName;
 	}
 

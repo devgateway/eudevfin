@@ -49,6 +49,20 @@
 	<logger name="org.pentaho.reporting.libraries.fonts.registry.AbstractFontFileRegistry">
 		<level value="warn"/>
 	</logger>
+	
+	
+	<logger name="org.springframework">
+		<level value="warn"/>
+	</logger>
+
+	
+	<logger name="org.hibernate.tool.hbm2ddl">
+		<level value="warn"/>
+	</logger>
+	
+	<logger name="org.hibernate.cache.ehcache">
+		<level value="warn"/>
+	</logger>
 
 	<!-- Root Logger -->
 	<root>

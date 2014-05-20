@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+
+<wicket:head>
+    <title>Custom Dashboards - Country Institution</title>
+
+    <!-- load jquery UI css files -->
+    <link href="css/theme/cupertino/jquery-ui-1.8.custom.css" rel="stylesheet" type="text/css"/>
+
+    <!-- load general styles -->
+    <link href="css/style.css" rel="stylesheet" type="text/css"/>
+</wicket:head>
+<body>
+<wicket:extend>
+    <div id="reports-page">
+        <div class="container">
+            <div class="row">
+                <div class="span12">
+                    <h2 wicket:id="title"/>
+                    <br/>
+                </div>
+
+                <div class="span6">
+                    <div class="box">
+                        <div class="box-header">
+                            <h2>
+                                <div wicket:id="institutionTableTitle"/>
+                            </h2>
+                        </div>
+                        <table wicket:id="institutionTable">
+                            <thead>
+                            <tr>
+                                <th rowspan="2" class="ui-state-default">Institution</th>
+                                <th rowspan="2" class="ui-state-default">Country</th>
+                                <th class="ui-state-default" wicket:id="firstYear"></th>
+                                <th class="ui-state-default" wicket:id="secondYear"></th>
+                            </tr>
+                            <tr>
+                                <th wicket:id="currencyFirstYear">$</th>
+                                <th wicket:id="currencySecondYear">$</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr wicket:id="institutionTableRows">
+                                <td wicket:id="col0" class="string">Institution</td>
+                                <td wicket:id="col1" class="string">Country</td>
+                                <td wicket:id="col2" class="numeric">$</td>
+                                <td wicket:id="col3" class="numeric">$</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="span6">
+                    <div class="box">
+                        <div class="box-header">
+                            <h2>
+                                <div wicket:id="institutionChartTitle"/>
+                            </h2>
+                        </div>
+                        <div wicket:id="institutionChart"/>
+                    </div>
+                </div>
+            </div> <!-- /row -->
+        </div> <!-- /container -->
+    </div> <!-- /reports-page -->
+
+    <div class="container">
+        <div class="row">
+            <br/><br/>
+            <div class="span6 offset5">
+                <button id="print-page" class="btn btn-success" type="button">
+                    <i class="icon-print icon-white"></i> Print page
+                </button>
+                <button id="download-page" class="btn btn-success" type="button">
+                    <i class="icon-download icon-white"></i> Download page
+                </button>
+            </div>
+            <br/><br/><br/>
+        </div>
+    </div> <!-- /container -->
+</wicket:extend>
+</body>
+</html>

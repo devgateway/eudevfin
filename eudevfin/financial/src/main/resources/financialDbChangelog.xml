@@ -1,47 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!--
+  ~ Copyright (c) 2014 Development Gateway.
+  ~ All rights reserved. This program and the accompanying materials
+  ~ are made available under the terms of the GNU Public License v3.0
+  ~ which accompanies this distribution, and is available at
+  ~ http://www.gnu.org/licenses/gpl.html
+  -->
+
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
-	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
-        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
 
 
-<!-- 
-	<changeSet id="1" author="agartner" failOnError="false" runAlways="false" runInTransaction="false" >
+    <!--
+        <changeSet id="1" author="agartner" failOnError="false" runAlways="false" runInTransaction="false" >
 
 
-		<delete tableName="FINANCIALTRANSACTIONTRANSLATION">
-	    </delete>
-		<delete tableName="FINANCIALTRANSACTION">
-	    </delete>
+            <delete tableName="FINANCIALTRANSACTIONTRANSLATION">
+            </delete>
+            <delete tableName="FINANCIALTRANSACTION">
+            </delete>
 
-		<customChange
-			class="org.devgateway.eudevfin.financial.liquibase.PopulateFinancialDbChange">
-		</customChange>
- 
+            <customChange
+                class="org.devgateway.eudevfin.financial.liquibase.PopulateFinancialDbChange">
+            </customChange>
 
+
+        </changeSet>
+     -->
+    <changeSet id="2" author="agartner" failOnError="true" runAlways="false" runInTransaction="true">
+        <preConditions onFail="MARK_RAN" onError="CONTINUE">
+            <sqlCheck expectedResult="1">select count(*) from category WHERE code='600' AND category_type='Sector' AND
+                parentcategory_id is null
+            </sqlCheck>
+        </preConditions>
+        <sql>UPDATE category
+            SET parentcategory_id= (SELECT id FROM category WHERE code='ROOT_SECTOR_CATEGORY' AND category_type='Sector'
+            )
+            WHERE code='600' AND category_type='Sector';
+        </sql>
+
+    </changeSet>
+
+    <changeSet id="3" author="agartner" failOnError="true" runAlways="false" runInTransaction="true">
+        <preConditions onFail="MARK_RAN" onError="CONTINUE">
+            <sqlCheck expectedResult="1">select count(*) from category WHERE code='22000' AND category_type='Channel'
+                AND parentcategory_id is null
+            </sqlCheck>
+        </preConditions>
+        <sql>UPDATE category
+            SET parentcategory_id= (SELECT id FROM category WHERE code='ROOT_CHANNEL_CATEGORY' AND
+            category_type='Channel' )
+            WHERE code='22000' AND category_type='Channel';
+        </sql>
+
+    </changeSet>
+
+    <changeSet id="5" author="arti" failOnError="false" runAlways="false" runInTransaction="true">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="FINANCIALTRANSACTION" columnName="RMNCH"/>
+        </preConditions>
+        <sql>
+            ALTER TABLE FINANCIALTRANSACTION DROP COLUMN RMNCH;
+            ALTER TABLE FINANCIALTRANSACTION DROP COLUMN FIRSTCOFINANCINGAGENCY;
+            ALTER TABLE FINANCIALTRANSACTION DROP COLUMN OTHERCURRENCY;
+            ALTER TABLE FINANCIALTRANSACTION DROP COLUMN RECIPIENTCODE;
+            ALTER TABLE FINANCIALTRANSACTION DROP COLUMN RECIPIENTPRIORITY;
+            ALTER TABLE FINANCIALTRANSACTION DROP COLUMN SECONDCOFINANCINGAGENCY;
+            ALTER TABLE FINANCIALTRANSACTION DROP COLUMN THIRDCOFINANCINGAGENCY;
+
+            ALTER TABLE FINANCIALTRANSACTION_AUD DROP COLUMN RMNCH;
+            ALTER TABLE FINANCIALTRANSACTION_AUD DROP COLUMN FIRSTCOFINANCINGAGENCY;
+            ALTER TABLE FINANCIALTRANSACTION_AUD DROP COLUMN OTHERCURRENCY;
+            ALTER TABLE FINANCIALTRANSACTION_AUD DROP COLUMN RECIPIENTCODE;
+            ALTER TABLE FINANCIALTRANSACTION_AUD DROP COLUMN RECIPIENTPRIORITY;
+            ALTER TABLE FINANCIALTRANSACTION_AUD DROP COLUMN SECONDCOFINANCINGAGENCY;
+            ALTER TABLE FINANCIALTRANSACTION_AUD DROP COLUMN THIRDCOFINANCINGAGENCY;
+        </sql>
+
+    </changeSet>
+
+	<changeSet id="6" author="mihai" failOnError="true" runAlways="false" runInTransaction="true">
+		<comment>Update the group id for transactions saved before this was tracked. Do this only for transactions with null group id</comment>
+		<sql>
+			UPDATE FINANCIALTRANSACTION F SET F.PERSISTEDUSERGROUP_ID=(SELECT U.GROUP_ID FROM PERSISTEDUSER U WHERE
+			U.USERNAME=F.CREATEDBY) WHERE F.PERSISTEDUSERGROUP_ID IS NULL;
+		</sql>
 	</changeSet>
- -->
- 	<changeSet id="2" author="agartner" failOnError="true" runAlways="false" runInTransaction="true" >
- 		<preConditions onFail="MARK_RAN" onError="CONTINUE">
- 			<sqlCheck expectedResult="1">select count(*) from category WHERE code='600' AND category_type='Sector' AND parentcategory_id is null</sqlCheck>
- 		</preConditions>
- 		<sql>UPDATE category 
- 			SET parentcategory_id= (SELECT id FROM category WHERE code='ROOT_SECTOR_CATEGORY' AND category_type='Sector' ) 
- 			WHERE code='600' AND category_type='Sector';
- 		</sql>
- 		
- 	</changeSet>
- 	
- 	<changeSet id="3" author="agartner" failOnError="true" runAlways="false" runInTransaction="true" >
- 		<preConditions onFail="MARK_RAN" onError="CONTINUE">
- 			<sqlCheck expectedResult="1">select count(*) from category WHERE code='22000' AND category_type='Channel' AND parentcategory_id is null</sqlCheck>
- 		</preConditions>
- 		<sql>UPDATE category 
- 			SET parentcategory_id= (SELECT id FROM category WHERE code='ROOT_CHANNEL_CATEGORY' AND category_type='Channel' ) 
- 			WHERE code='22000' AND category_type='Channel';
- 		</sql>
- 		
- 	</changeSet>
- 
+	
+	<changeSet id="7" author="mihai" failOnError="true" runAlways="false" runInTransaction="true">
+		<comment>Make the description field larger, 20000 characters</comment>
+		<sql dbms="derby">ALTER TABLE FINANCIALTRANSACTIONTRANSLATION ALTER DESCRIPTION SET DATA TYPE VARCHAR(20000);</sql>
+		<sql dbms="derby">ALTER TABLE FINANCIALTRANSACTIONTRANSLATION_AUD ALTER DESCRIPTION SET DATA TYPE VARCHAR(20000);</sql>
+	</changeSet>
+	    
+
 </databaseChangeLog>

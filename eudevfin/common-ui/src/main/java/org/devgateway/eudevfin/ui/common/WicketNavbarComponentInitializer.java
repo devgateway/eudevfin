@@ -36,6 +36,12 @@ public @interface WicketNavbarComponentInitializer {
 	ComponentPosition position();
 	
 	/**
+	 * Use this to provide ordered view of the menu components
+	 * @return
+	 */
+	int order();
+	
+	/**
 	 * Should the annotated method be considered disabled, thus never invoked by the infrastructure
 	 * @return
 	 */

@@ -12,8 +12,8 @@
 package org.devgateway.eudevfin.ui.common.providers;
 
 import org.devgateway.eudevfin.common.service.BaseEntityService;
-import org.devgateway.eudevfin.financial.Organization;
-import org.devgateway.eudevfin.financial.service.OrganizationService;
+import org.devgateway.eudevfin.metadata.common.domain.Organization;
+import org.devgateway.eudevfin.metadata.common.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

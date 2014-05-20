@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import org.devgateway.eudevfin.exchange.common.service.ExchangeRateUtil;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
-import org.devgateway.eudevfin.financial.SectorCategory;
+import org.devgateway.eudevfin.metadata.common.domain.SectorCategory;
 import org.devgateway.eudevfin.sheetexp.dto.EntityWrapperInterface;
 import org.devgateway.eudevfin.sheetexp.dto.MetadataCell;
 import org.joda.money.BigMoney;
@@ -319,6 +319,25 @@ public class CellTransformerImplementations {
 			return cell;
 		}
 	}
+	
+	public static class RMNCH_CODE extends AbstractFssCellTransformer<String> {
+		public RMNCH_CODE(final String headerName) {
+			super(headerName);
+		}
+
+
+		@Override
+		public MetadataCell<String> innerTransform(final FinancialTransaction tx) {
+			final CustomFinancialTransaction ctx	= (CustomFinancialTransaction) tx;
+			String value = null;
+			if (ctx.getRmnch() != null) {
+				value = ctx.getRmnch().getDisplayableCode();
+			}
+			final MetadataCell<String> cell = new MetadataCell<String>(value);
+			this.setDataTypeToString(cell);
+			return cell;
+		}
+	}
 
 	public static class TYPE_OF_FINANCE_CODE extends AbstractFssCellTransformer<String> {
 		public TYPE_OF_FINANCE_CODE(final String headerName) {
@@ -436,7 +455,7 @@ public class CellTransformerImplementations {
 		public MetadataCell<String> innerTransform(final FinancialTransaction tx) {
 			String value = null;
 			if (tx.getRecipient() != null) {
-				value = tx.getRecipient().getGeography();
+				value = tx.getRecipient().getGeographyCategory().getName();
 			}
 			final MetadataCell<String> cell = new MetadataCell<String>(value);
 			this.setDataTypeToString(cell);

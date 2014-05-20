@@ -16,9 +16,10 @@ package org.devgateway.eudevfin.exchange.repository;
 
 import org.devgateway.eudevfin.exchange.common.domain.HistoricalExchangeRate;
 import org.joda.time.LocalDateTime;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
 /**
@@ -27,7 +28,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public interface HistoricalExchangeRateRepository extends
-		PagingAndSortingRepository<HistoricalExchangeRate, Long> {
+		JpaRepository<HistoricalExchangeRate, Long> {
 	
 	/**
 	 * Finds all {@link HistoricalExchangeRate}S with the given date parameter

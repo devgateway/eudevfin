@@ -10,10 +10,11 @@ package org.devgateway.eudevfin.dim.pages.transaction.custom;
 
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.SupplementaryDataTab;
-import org.devgateway.eudevfin.financial.Category;
+import org.devgateway.eudevfin.metadata.common.domain.Category;
+import org.devgateway.eudevfin.metadata.common.util.CategoryConstants;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
-import org.devgateway.eudevfin.ui.common.temporary.SB;
+import org.devgateway.eudevfin.ui.common.components.VisibilityAwareContainer;
 
 /**
  * Supplementary Data Tab extension for the EU-DEVFIN Form
@@ -22,15 +23,22 @@ import org.devgateway.eudevfin.ui.common.temporary.SB;
  * @since 11/12/13
  */
 public class CustomSupplementaryDataTab extends SupplementaryDataTab {
-    public CustomSupplementaryDataTab(String id,PageParameters parameters) {
-        super(id,parameters);
+
+    private static final long serialVersionUID = 9016463137955199053L;
+
+    public CustomSupplementaryDataTab(String id, PageParameters parameters) {
+        super(id, parameters);
         addComponents();
     }
 
     private void addComponents() {
+
+        VisibilityAwareContainer otherMarkersContainer = new VisibilityAwareContainer("otherMarkersContainer");
+        add(otherMarkersContainer);
+
         DropDownField<Category> genderEquality = new DropDownField<>("96rmnch",
-                new RWComponentPropertyModel<Category>("rmnch"), SB.categoryProvider);
-        add(genderEquality);
+                new RWComponentPropertyModel<Category>("rmnch"), categoryFactory.get(CategoryConstants.RMNCH_TAG));
+        otherMarkersContainer.add(genderEquality);
 
     }
 

@@ -28,6 +28,8 @@ public class DropDownField<T> extends AbstractInputField<T,Select2Choice<T>> {
         super(id, model);
         //the field will already be populated by the AbstractInputField constructor
         getField().setProvider(choiceProvider);
+        getField().getSettings().setAllowClear(true);
+        getField().getSettings().setPlaceholder("");        
     }
 
     @Override

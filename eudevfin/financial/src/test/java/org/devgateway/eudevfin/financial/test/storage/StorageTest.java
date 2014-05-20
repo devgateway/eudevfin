@@ -8,7 +8,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 import java.util.logging.Logger;
 
-import org.devgateway.eudevfin.financial.Organization;
+import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -29,6 +29,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/financialContext.xml",
+		"classpath:/META-INF/commonContext.xml", "classpath:/META-INF/commonMetadataContext.xml",
 		"classpath:META-INF/commonFinancialContext.xml","classpath:testFinancialContext.xml" })
 @TransactionConfiguration(defaultRollback=false, transactionManager="transactionManager")
 public class StorageTest extends AbstractStorageTest{
@@ -40,23 +41,23 @@ public class StorageTest extends AbstractStorageTest{
 
 	@Test
 	public void testSave() {
-		assertEquals( NUM_OF_TXS, txDao.findAllAsList().size() );
-		assertEquals( NUM_OF_ORGS, orgDao.findAllAsList().size() );
+		assertEquals( NUM_OF_TXS, this.txDao.findAllAsList().size() );
+		assertEquals( NUM_OF_ORGS, this.orgDao.findAllAsList().size() );
 		
 	}
 	
 	@Test  (expected = DataIntegrityViolationException.class)
 	public void testDeleteOrganization() {
-		List<Organization> allOrgs	= orgDao.findAllAsList();
-		Organization org1	= allOrgs.get(0);
+		final List<Organization> allOrgs	= this.orgDao.findAllAsList();
+		final Organization org1	= allOrgs.get(0);
 		
-		orgDao.delete(org1);
+		this.orgDao.delete(org1);
 	}
 	
 	@Test
 	public void testDeleteTransaction() {
-		txDao.delete( txDao.findAll() );
-		assertEquals(NUM_OF_ORGS, orgDao.findAllAsList().size() );
+		this.txDao.delete( this.txDao.findAll() );
+		assertEquals(NUM_OF_ORGS, this.orgDao.findAllAsList().size() );
 	}
 	
 

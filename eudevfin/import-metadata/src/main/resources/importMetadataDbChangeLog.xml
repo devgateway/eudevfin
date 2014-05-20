@@ -5,9 +5,30 @@
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
+	<changeSet id="4" author="agartner" failOnError="true" runAlways="false" runInTransaction="true" >
+		<sql>
+			CREATE PROCEDURE UPDATEAUTOINCREMENT(TABLENAME VARCHAR(255), COLNAME VARCHAR(255)) 
+			PARAMETER STYLE JAVA 
+			MODIFIES SQL DATA 
+			LANGUAGE JAVA 
+			EXTERNAL NAME 'org.devgateway.eudevfin.importing.metadata.liquibase.UpdateAutoincrementProcedure.updateAutoincrement'
+		</sql>
+	</changeSet>
+	
+	<changeSet id="5" author="agartner" failOnError="true" runAlways="false" runInTransaction="true">
+		<preConditions onFail="HALT" onError="HALT">
+			<changeSetExecuted changeLogFile="classpath:importMetadataDbChangeLog.xml" author="agartner" id="4"/>
+		</preConditions>
+		<sql>
+			CALL UPDATEAUTOINCREMENT('organization','id');
+			CALL UPDATEAUTOINCREMENT('organizationtranslation','id');
+		</sql>
+	</changeSet>
 
-	<changeSet id="3" author="agartner">
-
+	<changeSet id="6" author="agartner" runAlways="true">
+		<preConditions onFail="HALT" onError="HALT">
+			<changeSetExecuted changeLogFile="classpath:importMetadataDbChangeLog.xml" author="agartner" id="5"/>
+		</preConditions>
 		<customChange
 			class="org.devgateway.eudevfin.importing.metadata.liquibase.MetadataTaskChange">
 		</customChange>

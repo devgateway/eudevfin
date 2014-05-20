@@ -15,7 +15,21 @@
     <entry key="txtable.tx.label">Name</entry>
     <entry key="txtable.tx.reporting-year">Reporting Year</entry>
     <entry key="txtable.tx.sector-name">Sector Name</entry>
+    <entry key="txtable.tx.form-type">Form Type</entry>
     <entry key="txtable.tx.reporting-org-name">Reporting Organization</entry>
     <entry key="txtable.tx.actions">Actions</entry>
     <entry key="txtable.tx.edit-action">Edit</entry>
+    
+    <entry key="bilateralOda.advanceQuestionnaire">AQ Bilateral ODA</entry>
+    <entry key="bilateralOda.CRS">CRS++ Bilateral ODA</entry>
+    <entry key="bilateralOda.forwardSpending">FSS Bilateral ODA</entry>
+    <entry key="multilateralOda.advanceQuestionnaire">AQ Multilateral ODA</entry>
+    <entry key="multilateralOda.CRS">CRS++ Multilateral ODA</entry>
+    <entry key="nonOda.nonExport">Non Export Non-ODA</entry>
+    <entry key="nonOda.export">Export Non-ODA</entry>
+    <entry key="nonOda.privateGrants">Private Grants Non-ODA</entry>
+	<entry key="nonOda.privateMarket">Private Market Non-ODA</entry>   
+	<entry key="nonOda.otherFlows">Other Flows Non-ODA</entry>   
+    <entry key="nonOda.export">Private Market Non-ODA</entry>
+    <entry key="nonOda.export">Export Credit Non-ODA</entry>
 </properties>

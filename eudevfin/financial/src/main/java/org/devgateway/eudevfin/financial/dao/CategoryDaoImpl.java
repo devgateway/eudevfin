@@ -3,15 +3,13 @@
  */
 package org.devgateway.eudevfin.financial.dao;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.devgateway.eudevfin.common.dao.AbstractDaoImpl;
 import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
-import org.devgateway.eudevfin.financial.Category;
-import org.devgateway.eudevfin.financial.exception.NoDataFoundException;
 import org.devgateway.eudevfin.financial.repository.CategoryRepository;
-import org.devgateway.eudevfin.financial.service.CategoryService;
+import org.devgateway.eudevfin.metadata.common.domain.Category;
+import org.devgateway.eudevfin.metadata.common.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
@@ -33,24 +31,24 @@ public class CategoryDaoImpl extends AbstractDaoImpl<Category, Long, CategoryRep
 
 	@Autowired
 	private CategoryRepository repo;
-	
+
 	@Override
 	protected
 	CategoryRepository getRepo() {
-		return repo;
+		return this.repo;
 	}
 
 	@Override
 	@ServiceActivator(inputChannel="saveCategoryChannel")
-	public NullableWrapper<Category> save(Category o) {
+	public NullableWrapper<Category> save(final Category o) {
 		return super.save(o);
 	}
-	
+
 	@ServiceActivator(inputChannel="findCategoryByTagCodeChannel")
-	public List<Category> findByTagsCode(String code) {
-		return getRepo().findByTagsCode(code);
+	public List<Category> findByTagsCode(final String code) {
+		return this.getRepo().findByTagsCode(code);
 	}
-	
+
 //	@ServiceActivator(inputChannel="findCategoryByCodeChannel")
 //	@Transactional
 //	public Category findByCode(String code, @Header("initializeChildren") Boolean initializeChildren) {
@@ -64,119 +62,259 @@ public class CategoryDaoImpl extends AbstractDaoImpl<Category, Long, CategoryRep
 //		
 //		return category;
 //	}
-	
+
 //	public Category findByCodeTransactional (String code) {
 //		Category category	= getRepo().findByCode(code);
 //		if ( category != null )
 //			initializeChildren(category);
 //		return category;
 //	}
-	
-	public List<Category> findByCode(String code) {
-		return getRepo().findByCode(code);
+
+	public List<Category> findByCode(final String code) {
+		return this.getRepo().findByCode(code);
 	}
-	
+
 	@ServiceActivator(inputChannel="findCategoryByCodeAndClassChannel")
 	@Transactional
-	public  NullableWrapper<Category> findByCodeAndClass(String code, @Header("clazz")Class<? extends Category> clazz, 
-			@Header("initializeChildren") Boolean initializeChildren) {
-		List<Category> categories	= this.findByCode(code);
-		for ( Category category:categories ) {
+	public  NullableWrapper<Category> findByCodeAndClass(final String code, @Header("clazz") final Class<? extends Category> clazz,
+			@Header("initializeChildren") final Boolean initializeChildren) {
+		final List<Category> categories	= this.findByCode(code);
+		for ( final Category category:categories ) {
 			if ( category.getClass().equals(clazz) ) {
 				this.initializeChildren(category);
-				return newWrapper(category);
+				return this.newWrapper(category);
 			}
 		}
-		throw new NoDataFoundException(
-				String.format("No category found for code %s and class %s ", code,clazz.getName())
-			);
+		return this.newWrapper(null);
+//		throw new NoDataFoundException(
+//				String.format("No category found for code %s and class %s ", code,clazz.getName())
+//			);
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @see CategoryService#findByGeneralSearchAndTagsCodePaginated(String, String, String, Pageable)
 	 * @param locale
 	 * @param searchString
 	 * @param tagsCode
-	 * @param page 
+	 * @param page
 	 * @return
 	 */
 	@ServiceActivator(inputChannel = "findCategoryByGeneralSearchAndTagsCodePaginatedChannel")
 	@Transactional
 	public Page<Category> findByGeneralSearchAndTagsCodePaginated(
-			@Header("locale") String locale, String searchString,
-			@Header("tagsCode") String tagsCode,
-			@Header("pageable") Pageable page,
-			@Header("initializeChildren") Boolean initializeChildren) {
-		
+			@Header("locale") final String locale, final String searchString,
+			@Header("tagsCode") final String tagsCode,
+			@Header("pageable") final Pageable page,
+			@Header("initializeChildren") final Boolean initializeChildren) {
+
 		Page<Category> result	= null;
-		if (searchString.isEmpty())
+		if (searchString.isEmpty()) {
 			result 	= this.getRepo().findByTagsCode(tagsCode, page);
-		else
+		} else {
 			result	= this.getRepo().findByTranslationsNameIgnoreCaseContainsAndTagsCode(
 						searchString.toLowerCase(), tagsCode, page);
-		
+		}
+
 		this.initializeChildrenIfNeeded(result, initializeChildren);
-		
+
 		return result;
-		
+
 	}
-	
-	
+
+
 	@ServiceActivator(inputChannel="findCategoryByGeneralSearchAndTagsCodeChannel")
 	@Transactional
 	public List<Category> findByGeneralSearchAndTagsCode(
-			@Header("locale") String locale, String searchString,
-			@Header("tagsCode") String tagsCode,
-			@Header("initializeChildren") Boolean initializeChildren) {
-		
+			@Header("locale") final String locale, final String searchString,
+			@Header("tagsCode") final String tagsCode,
+			@Header("initializeChildren") final Boolean initializeChildren) {
+
 		List<Category> result = null;
-		if ( searchString == null || searchString.isEmpty() )
+		if ( searchString == null || searchString.isEmpty() ) {
 			result	= this.getRepo().findByTagsCode(tagsCode);
-		else
+		} else {
 			result 	= this.getRepo().
 					findByTranslationsLocaleAndTranslationsNameIgnoreCaseContainsAndTagsCode(
 						locale, searchString.toLowerCase(), tagsCode);
-		
+		}
+
 		this.initializeChildrenIfNeeded(result, initializeChildren);
-		
+
 		return result;
 	}
-	
+
 	/**
 	 * @see CategoryService#findOne(Long)
 	 */
-	@ServiceActivator(inputChannel="findCategoryByIdChannel")	
+	@ServiceActivator(inputChannel="findCategoryByIdChannel")
 	@Override
 	@Transactional
-	public NullableWrapper<Category> findOne(Long id) {
-		Boolean initializeChildren			= true;
-		NullableWrapper<Category> result	= super.findOne(id);
+	public NullableWrapper<Category> findOne(final Long id) {
+		final Boolean initializeChildren			= true;
+		final NullableWrapper<Category> result	= super.findOne(id);
 		if ( initializeChildren && !result.isNull() ) {
 			this.initializeChildren(result.getEntity());
 		}
 		return result;
 	}
-	
-	
-	public void initializeChildrenIfNeeded(Iterable<Category> categories, Boolean initializeChildren) {
+
+    /**
+     *
+     * @see CategoryService#findUsedGeographyPaginated (String, String, Pageable)
+     * @param locale
+     * @param searchString
+     * @param page
+     * @return
+     */
+    @ServiceActivator(inputChannel = "findUsedGeographyPaginatedChannel")
+    @Transactional
+    public Page<Category> findUsedGeographyPaginated(
+            @Header("locale") final String locale, final String searchString,
+            @Header("pageable") final Pageable page,
+            @Header("initializeChildren") final Boolean initializeChildren) {
+
+        Page<Category> result;
+        if (searchString.isEmpty()) {
+            result = this.getRepo().findUsedGeography(page);
+        }
+        else {
+            result = this.getRepo().findUsedGeographyByTranslationsNameIgnoreCase(locale, searchString.toLowerCase(), page);
+        }
+
+        this.initializeChildrenIfNeeded(result, initializeChildren);
+
+        return result;
+    }
+
+    /**
+     *
+     * @see CategoryService#findUsedSectorPaginated (String, String, Pageable)
+     * @param locale
+     * @param searchString
+     * @param page
+     * @return
+     */
+    @ServiceActivator(inputChannel = "findUsedSectorPaginatedChannel")
+    @Transactional
+    public Page<Category> findUsedSectorPaginated(
+            @Header("locale") final String locale, final String searchString,
+            @Header("pageable") final Pageable page,
+            @Header("initializeChildren") final Boolean initializeChildren) {
+
+        Page<Category> result;
+        if (searchString.isEmpty()) {
+            result = this.getRepo().findUsedSector(page);
+        }
+        else {
+            result = this.getRepo().findUsedSectorByTranslationsNameIgnoreCase(locale, searchString.toLowerCase(), page);
+        }
+
+        this.initializeChildrenIfNeeded(result, initializeChildren);
+
+        return result;
+    }
+
+    /**
+     *
+     * @see CategoryService#findUsedTypeOfAidPaginated (String, String, Pageable)
+     * @param locale
+     * @param searchString
+     * @param page
+     * @return
+     */
+    @ServiceActivator(inputChannel = "findUsedTypeOfAidPaginatedChannel")
+    @Transactional
+    public Page<Category> findUsedTypeOfAidPaginated(
+            @Header("locale") final String locale, final String searchString,
+            @Header("pageable") final Pageable page,
+            @Header("initializeChildren") final Boolean initializeChildren) {
+
+        Page<Category> result;
+        if (searchString.isEmpty()) {
+            result = this.getRepo().findUsedTypeOfAid(page);
+        }
+        else {
+            result = this.getRepo().findUsedTypeOfAidByTranslationsNameIgnoreCase(locale, searchString.toLowerCase(), page);
+        }
+
+        this.initializeChildrenIfNeeded(result, initializeChildren);
+
+        return result;
+    }
+
+    /**
+     *
+     * @see CategoryService#findUsedTypeOfFlowBiMultiPaginated (String, String, Pageable)
+     * @param locale
+     * @param searchString
+     * @param page
+     * @return
+     */
+    @ServiceActivator(inputChannel = "findUsedTypeOfFlowBiMultiPaginatedChannel")
+    @Transactional
+    public Page<Category> findUsedTypeOfFlowBiMultiPaginated(
+            @Header("locale") final String locale, final String searchString,
+            @Header("pageable") final Pageable page,
+            @Header("initializeChildren") final Boolean initializeChildren) {
+
+        Page<Category> result;
+        if (searchString.isEmpty()) {
+            result = this.getRepo().findUsedTypeOfFlowBiMulti(page);
+        }
+        else {
+            result = this.getRepo().findUsedTypeOfFlowBiMultiByTranslationsNameIgnoreCase(locale, searchString.toLowerCase(), page);
+        }
+
+        this.initializeChildrenIfNeeded(result, initializeChildren);
+
+        return result;
+    }
+
+    /**
+     *
+     * @see CategoryService#findUsedChannelPaginated (String, String, Pageable)
+     * @param locale
+     * @param searchString
+     * @param page
+     * @return
+     */
+    @ServiceActivator(inputChannel = "findUsedChannelPaginatedChannel")
+    @Transactional
+    public Page<Category> findUsedChannelPaginated(
+            @Header("locale") final String locale, final String searchString,
+            @Header("pageable") final Pageable page) {
+
+        Page<Category> result;
+        if (searchString.isEmpty()) {
+            result = this.getRepo().findUsedChannel(page);
+        }
+        else {
+            result = this.getRepo().findUsedChannelByTranslationsNameIgnoreCase(locale, searchString.toLowerCase(), page);
+        }
+
+        return result;
+    }
+
+    public void initializeChildrenIfNeeded(final Iterable<Category> categories, Boolean initializeChildren) {
 		initializeChildren	= initializeChildren == null ? false : initializeChildren;
 		if ( initializeChildren && categories != null ) {
-			for (Category category : categories) {
+			for (final Category category : categories) {
 				this.initializeChildren(category);
 			}
 		}
 	}
 	
-	public void initializeChildren(Category category) {
+	public void initializeChildren(final Category category) {
 		if ( category.getChildren() != null ) {
-			for (Category childCateg : category.getChildren()) {
-				if (childCateg != null)
-					initializeChildren(childCateg);
+			for (final Category childCateg : category.getChildren()) {
+				if (childCateg != null) {
+					this.initializeChildren(childCateg);
+				}
 			}
 		}
 		if ( category.getTags() != null ) {
-			for (Category childCateg : category.getTags() ) {
+			for (final Category childCateg : category.getTags() ) {
 				childCateg.getCode();
 			}
 		}

@@ -28,6 +28,8 @@ import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.exchange.common.domain.HistoricalExchangeRate;
 import org.devgateway.eudevfin.exchange.common.service.HistoricalExchangeRateService;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
+import org.devgateway.eudevfin.ui.common.components.BootstrapCancelButton;
+import org.devgateway.eudevfin.ui.common.components.BootstrapDeleteButton;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
 import org.devgateway.eudevfin.ui.common.components.DateInputField;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
@@ -83,6 +85,9 @@ public class EditHistoricalExchangeRatePage extends HeaderFooter {
 		if (!parameters.get(PARAM_ID).isNull()) {
 			rateId = parameters.get(PARAM_ID).toLong();
 			historicalExchangeRate = historicalExchangeRateService.findOne(rateId).getEntity();
+			ExchangeRate rate = historicalExchangeRate.getRate();
+			if(rate!=null) 
+				historicalExchangeRate.setRate(ExchangeRate.of(rate.getBase(), rate.getCounter(), rate.getRate()));
 		} else {
 			historicalExchangeRate = new HistoricalExchangeRate().rate(ExchangeRate.of(CurrencyUnit.USD,
 					CurrencyUnit.USD, BigDecimal.ONE.setScale(8, RoundingMode.CEILING)));
@@ -170,10 +175,8 @@ public class EditHistoricalExchangeRatePage extends HeaderFooter {
 
 		});
 
-		form.add(new BootstrapSubmitButton("cancel", new StringResourceModel("button.cancel", this, null, null)) {
-			@Override
-			protected void onError(AjaxRequestTarget target, Form<?> form) {
-			}
+		form.add(new BootstrapCancelButton("cancel", new StringResourceModel("button.cancel", this, null, null)) {
+			private static final long serialVersionUID = -4820749323490316998L;
 
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
@@ -186,7 +189,7 @@ public class EditHistoricalExchangeRatePage extends HeaderFooter {
 		
 
 		
-		BootstrapSubmitButton deleteButton=new BootstrapSubmitButton("delete", new StringResourceModel("button.delete", this, null, null)) {
+		BootstrapDeleteButton deleteButton=new BootstrapDeleteButton("delete", new StringResourceModel("button.delete", this, null, null)) {
 			@Override
 			protected void onError(AjaxRequestTarget target, Form<?> form) {
 			}
@@ -200,7 +203,6 @@ public class EditHistoricalExchangeRatePage extends HeaderFooter {
 			}
 
 		};
-		deleteButton.setDefaultFormProcessing(false);
 		form.add(deleteButton);
 	
 		

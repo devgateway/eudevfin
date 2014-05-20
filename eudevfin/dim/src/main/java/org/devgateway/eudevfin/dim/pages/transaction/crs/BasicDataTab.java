@@ -16,12 +16,12 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.ValidationError;
-import org.devgateway.eudevfin.dim.providers.AreaChoiceProvider;
-import org.devgateway.eudevfin.dim.providers.CategoryProviderFactory;
-import org.devgateway.eudevfin.financial.Area;
-import org.devgateway.eudevfin.financial.Category;
-import org.devgateway.eudevfin.financial.ChannelCategory;
-import org.devgateway.eudevfin.financial.util.CategoryConstants;
+import org.devgateway.eudevfin.ui.common.providers.AreaChoiceProvider;
+import org.devgateway.eudevfin.ui.common.providers.CategoryProviderFactory;
+import org.devgateway.eudevfin.metadata.common.domain.Area;
+import org.devgateway.eudevfin.metadata.common.domain.Category;
+import org.devgateway.eudevfin.metadata.common.domain.ChannelCategory;
+import org.devgateway.eudevfin.metadata.common.util.CategoryConstants;
 import org.devgateway.eudevfin.ui.common.Constants;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
@@ -35,6 +35,8 @@ import org.devgateway.eudevfin.ui.common.validators.Field11CodeValidator;
 import org.devgateway.eudevfin.ui.common.validators.Field12CodeValidator;
 import org.devgateway.eudevfin.ui.common.validators.Field8CodeValidator;
 import org.devgateway.eudevfin.ui.common.validators.MultilateralField10CodeValidator;
+
+import com.vaynberg.wicket.select2.ChoiceProvider;
 
 import com.vaynberg.wicket.select2.ChoiceProvider;
 

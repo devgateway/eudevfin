@@ -11,7 +11,7 @@
     <parent>
         <groupId>org.devgateway.eudevfin</groupId>
         <artifactId>eudevfin</artifactId>
-        <version>0.9.18-SNAPSHOT</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
     <artifactId>dim</artifactId>
     <packaging>war</packaging>
@@ -81,7 +81,7 @@
 
         <dependency>
             <groupId>org.devgateway.eudevfin</groupId>
-            <artifactId>cdf-wrapper</artifactId>
+            <artifactId>reports-ui</artifactId>
             <version>${project.version}</version>
             <type>war</type>
         </dependency>
@@ -95,19 +95,17 @@
     
         <dependency>
             <groupId>org.devgateway.eudevfin</groupId>
-            <artifactId>cda-wrapper</artifactId>
+            <artifactId>reports-core</artifactId>
             <version>${project.version}</version>
-            <type>war</type>
+            <type>jar</type>
         </dependency>
         
-        <!-- 
-        <dependency>
-            <groupId>org.devgateway.eudevfin</groupId>
-            <artifactId>saikuui</artifactId>
-            <version>${project.version}</version>
-            <type>war</type>
-        </dependency>
- 		-->
+		<dependency>
+			<groupId>org.saiku</groupId>
+			<artifactId>saiku-webapp</artifactId>
+			<version>${project.version}</version>
+			<type>war</type>
+		</dependency>
     </dependencies>
 
     <build>

@@ -16,6 +16,7 @@ package org.devgateway.eudevfin.exchange.common.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,6 +33,10 @@ import org.hibernate.annotations.Type;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.ExchangeRate;
 import org.joda.time.LocalDateTime;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 
 /**
  * @author mihai
@@ -61,11 +66,22 @@ public class HistoricalExchangeRate implements Serializable {
 	private String source;	
 	
 	@Columns(columns={@Column(name=BASE_CURRENCY_COLUMN_NAME),@Column(name=COUNTER_CURRENCY_COLUMN_NAME),@Column(name=RATE_COLUMN_NAME,precision=16,scale=8)})
+	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@Type(type="org.jadira.usertype.exchangerate.joda.PersistentExchangeRate")
 	private ExchangeRate rate;
 	
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
 	private LocalDateTime date;
+	
+    @CreatedBy
+    private String createdBy;
+    @CreatedDate
+    private Date createdDate;
+    @LastModifiedBy
+    private String modifiedBy;
+    @LastModifiedDate
+    private Date modfiedDate;
+    
 
 	/**
 	 * @return the id
@@ -136,6 +152,62 @@ public class HistoricalExchangeRate implements Serializable {
 	 */
 	public void setSource(String source) {
 		this.source = source;
+	}
+
+	/**
+	 * @return the createdBy
+	 */
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	/**
+	 * @param createdBy the createdBy to set
+	 */
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	/**
+	 * @return the createdDate
+	 */
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	/**
+	 * @param createdDate the createdDate to set
+	 */
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	/**
+	 * @return the modifiedBy
+	 */
+	public String getModifiedBy() {
+		return modifiedBy;
+	}
+
+	/**
+	 * @param modifiedBy the modifiedBy to set
+	 */
+	public void setModifiedBy(String modifiedBy) {
+		this.modifiedBy = modifiedBy;
+	}
+
+	/**
+	 * @return the modfiedDate
+	 */
+	public Date getModfiedDate() {
+		return modfiedDate;
+	}
+
+	/**
+	 * @param modfiedDate the modfiedDate to set
+	 */
+	public void setModfiedDate(Date modfiedDate) {
+		this.modfiedDate = modfiedDate;
 	}
 	
 

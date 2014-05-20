@@ -8,19 +8,23 @@
 
 package org.devgateway.eudevfin.financial;
 
+import org.devgateway.eudevfin.auth.common.domain.PersistedUserGroup;
+import org.devgateway.eudevfin.metadata.common.domain.Category;
+import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Columns;
+import org.hibernate.annotations.Index;
 import org.hibernate.annotations.Type;
 import org.hibernate.envers.Audited;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 import org.joda.time.LocalDateTime;
 
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
+import javax.persistence.*;
+
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Entity
 @Audited
@@ -36,10 +40,15 @@ public class CustomFinancialTransaction extends FinancialTransaction {
     /**
      * @see SB##BILATERAL_ODA_ADVANCE_QUESTIONNAIRE
      */
+	@Index(name="customfinancialtransaction_formtype_idx")
     private String formType;
-
+	
+	@Index(name="customfinancialtransaction_draft_idx")
     private Boolean draft = false;
 
+	@Index(name="customfinancialtransaction_approved_idx")
+    private Boolean approved = false;
+	
     private Boolean projectCoFinanced;
 
     @Columns(columns = {@Column(name = "future_debt_principal_curr"),
@@ -99,8 +108,11 @@ public class CustomFinancialTransaction extends FinancialTransaction {
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
     private LocalDateTime phasingOutYear;
 
+    @ManyToOne
     private Organization firstCoFinancingAgency;
+    @ManyToOne
     private Organization secondCoFinancingAgency;
+    @ManyToOne
     private Organization thirdCoFinancingAgency;
 
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentCurrencyUnit")
@@ -110,9 +122,19 @@ public class CustomFinancialTransaction extends FinancialTransaction {
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentCurrencyUnit")
     private CurrencyUnit thirdAgencyCurrency;
 
+    @ManyToOne
     private Category rmnch;
+    @ManyToOne
     private Category recipientCode;
+    @ManyToOne
     private Category recipientPriority;
+    
+    @ManyToOne
+    private PersistedUserGroup persistedUserGroup;
+    
+    @ManyToOne
+    private Category LevelOfCertainty;
+
 
     private String budgetCode;
     private String budgetLine;
@@ -142,8 +164,20 @@ public class CustomFinancialTransaction extends FinancialTransaction {
 
     private BigDecimal fixedRate;
 
+    @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentCurrencyUnit")
     private CurrencyUnit otherCurrency;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private Set<FileWrapper> uploadDocumentation;
+
+
+    public Set<FileWrapper> getUploadDocumentation() {
+        return uploadDocumentation;
+    }
+
+    public void setUploadDocumentation(Set<FileWrapper> uploadDocumentation) {
+        this.uploadDocumentation = uploadDocumentation;
+    }
 
     public Boolean getDraft() {
         return draft;
@@ -504,4 +538,46 @@ public class CustomFinancialTransaction extends FinancialTransaction {
     public void setOtherComments(String otherComments) {
         this.otherComments = otherComments;
     }
+
+	/**
+	 * @return the persistedUserGroup
+	 */
+	public PersistedUserGroup getPersistedUserGroup() {
+		return persistedUserGroup;
+	}
+
+	/**
+	 * @param persistedUserGroup the persistedUserGroup to set
+	 */
+	public void setPersistedUserGroup(PersistedUserGroup persistedUserGroup) {
+		this.persistedUserGroup = persistedUserGroup;
+	}
+
+	/**
+	 * @return the LevelOfCertainty
+	 */
+	public Category getLevelOfCertainty() {
+		return LevelOfCertainty;
+	}
+
+	/**
+	 * @param LevelOfCertainty the LevelOfCertainty to set
+	 */
+	public void setLevelOfCertainty(Category LevelOfCertainty) {
+		this.LevelOfCertainty = LevelOfCertainty;
+	}
+
+	/**
+	 * @return the approved
+	 */
+	public Boolean getApproved() {
+		return approved;
+	}
+
+	/**
+	 * @param approved the approved to set
+	 */
+	public void setApproved(Boolean approved) {
+		this.approved = approved;
+	}
 }

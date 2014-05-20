@@ -23,6 +23,8 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
+import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
+import org.devgateway.eudevfin.auth.common.util.AuthUtils;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.TransactionPage;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
@@ -48,6 +50,9 @@ public class CustomTransactionPage extends TransactionPage {
 	
 	private static final long serialVersionUID = -7808024425119532771L;
 	private static final CustomTransactionPermissionProvider permissions = new CustomTransactionPermissionProvider();
+	
+	private CheckBoxField approved;
+	private CheckBoxField draft;
 
     @Override
     protected List<Class<? extends Panel>> getTabs() {
@@ -78,22 +83,31 @@ public class CustomTransactionPage extends TransactionPage {
 			String transactionType = parameters.get(Constants.PARAM_TRANSACTION_TYPE).toString();
 			CustomFinancialTransaction customFinancialTransaction = (CustomFinancialTransaction) transaction;
 			customFinancialTransaction.setFormType(transactionType);
+			PersistedUser user=AuthUtils.getCurrentUser();			
+			customFinancialTransaction.setPersistedUserGroup(user.getGroup());
 		}
+		
 	}
-    
+	
+	
     public CustomTransactionPage(PageParameters parameters) {
   		super(parameters);
-  		CheckBoxField draft = new CheckBoxField("draft",
+
+  		
+  		draft = new CheckBoxField("draft",
 				new RWComponentPropertyModel<Boolean>("draft")) {  	
   		@Override
   		protected CheckBox newField(String id, IModel<Boolean> model) {
   			 return new AjaxCheckBox(id, model) {
 				@Override
 				protected void onUpdate(AjaxRequestTarget target) {
-					if(this.getModel().getObject())
+					if(this.getModel().getObject()) {
   						info(new NotificationMessage(new StringResourceModel("notification.draftState", CustomTransactionPage.this, null, null)));
+  						approved.getField().setModelObject(false);
+  						target.add(approved.getField());
+					}
   					else
-  						info(new NotificationMessage(new StringResourceModel("notification.finalState", CustomTransactionPage.this, null, null)));
+  						info(new NotificationMessage(new StringResourceModel("notification.nonDraftState", CustomTransactionPage.this, null, null)));
 					target.add(feedbackPanel);
 				}
   			 };
@@ -101,13 +115,51 @@ public class CustomTransactionPage extends TransactionPage {
   		};
   		
   		
-  		MetaDataRoleAuthorizationStrategy.authorize(draft, Component.ENABLE, AuthConstants.Roles.ROLE_TEAMLEAD);
+  		approved = new CheckBoxField("approved",
+				new RWComponentPropertyModel<Boolean>("approved")) {  	
+  		@Override
+  		protected CheckBox newField(String id, IModel<Boolean> model) {
+  			 return new AjaxCheckBox(id, model) {
+				@Override
+				protected void onUpdate(AjaxRequestTarget target) {
+					if(this.getModel().getObject()) {
+  						info(new NotificationMessage(new StringResourceModel("notification.approvedState", CustomTransactionPage.this, null, null)));
+  						draft.getField().setModelObject(false);
+  						target.add(draft.getField());
+					}
+  					else
+  						info(new NotificationMessage(new StringResourceModel("notification.unapprovedState", CustomTransactionPage.this, null, null)));
+					target.add(feedbackPanel);
+				}
+  			 };
+  		}	
+  		};
+  		
+  		
+  		MetaDataRoleAuthorizationStrategy.authorize(approved, Component.ENABLE, AuthConstants.Roles.ROLE_TEAMLEAD);
   		form.add(draft);
+  		form.add(approved);
   	  
   		
 		//always set this field to true when form is opened
   		draft.getField().getModel().setObject(true);
+  		
 		draft.removeSpanFromControlGroup();
+		approved.removeSpanFromControlGroup();
   	}
+
+	/**
+	 * @return the approved
+	 */
+	public CheckBoxField getApproved() {
+		return approved;
+	}
+
+	/**
+	 * @return the draft
+	 */
+	public CheckBoxField getDraft() {
+		return draft;
+	}
 
 }

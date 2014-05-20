@@ -19,18 +19,26 @@
     <entry key="navbar.reports.export">Standard Reports</entry>
     <entry key="navbar.reports.export.aq">Advance Questionnaire</entry>
     <entry key="navbar.reports.export.dac1">DAC 1</entry>
-    <entry key="navbar.reports.export.dac2">DAC 2a</entry>
+    <entry key="navbar.reports.export.dac2a">DAC 2a</entry>
 	<entry key="navbar.reports.export.crs">CRS++</entry>
 	<entry key="navbar.reports.export.fss">FSS</entry>
 	<entry key="navbar.reports.export.iati">IATI</entry>
     <entry key="navbar.logout">Log Out</entry>
     <entry key="navbar.admin">Admin</entry>
+	<entry key="navbar.feedback">Feedback</entry>    
     <entry key="navbar.dashboard">ODA at a Glance</entry>
+    <entry key="navbar.account">Account</entry>    
     <entry key="navbar.customreports">Custom Reports</entry>
+    <entry key="navbar.customreports.countrysector">Country &amp; Sector</entry>
+    <entry key="navbar.customreports.countryinstitution">Country &amp; Institution</entry>
+    <entry key="navbar.customreports.institutiontypeofflow">Institution &amp; Type of flow</entry>
+    <entry key="navbar.customreports.institutiontypeofaid">Institution &amp; Type of aid</entry>
+    <entry key="navbar.customreports.implementationstatus">Implementation Status</entry>
     <entry key="navbar.reportsbuilder">Reports Builder</entry>
     
     <entry key="navbar.admin.users">Users</entry>
     <entry key="navbar.admin.groups">Groups</entry>
+   	<entry key="navbar.admin.orgs">Organizations</entry> 
     <entry key="navbar.admin.nonflow">CRS++ Non-Flow Data</entry>
 	<entry key="navbar.admin.maintenance">Maintenance of the system</entry>
 	<entry key="navbar.admin.rates">Exchange Rates</entry>
@@ -48,8 +56,8 @@
     <entry key="navbar.newTransaction.nonOda">OOF</entry>
     <entry key="navbar.newTransaction.nonOda.nonExport">Non Export Credit</entry>
     <entry key="navbar.newTransaction.nonOda.export">Export Credit</entry>
-    <entry key="navbar.newTransaction.nonOda.publicGrants">Public Grants</entry>
-    <entry key="navbar.newTransaction.nonOda.publicMarket">Public Market</entry>
+    <entry key="navbar.newTransaction.nonOda.privateGrants">Private Grants</entry>
+    <entry key="navbar.newTransaction.nonOda.privateMarket">Private Market</entry>
     <entry key="navbar.newTransaction.nonOda.otherFlows">Other Flow</entry>
     
     <entry key="navbar.spreadsheets.export">Export</entry>

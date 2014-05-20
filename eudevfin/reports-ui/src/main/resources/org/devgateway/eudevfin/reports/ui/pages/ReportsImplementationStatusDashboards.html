@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+
+<wicket:head>
+    <title>Custom Dashboards - Implementation Status</title>
+
+    <!-- load jquery UI css files -->
+    <link href="css/theme/cupertino/jquery-ui-1.8.custom.css" rel="stylesheet" type="text/css"/>
+
+    <!-- load general styles -->
+    <link href="css/style.css" rel="stylesheet" type="text/css"/>
+</wicket:head>
+<body>
+<wicket:extend>
+    <div id="reports-page">
+        <div class="container">
+            <div class="row">
+                <div class="span12">
+                    <h2 wicket:id="title"/>
+                    <br/>
+                </div>
+
+                <div class="span6">
+
+                </div>
+
+                <div class="span6">
+
+                </div>
+            </div> <!-- /row -->
+        </div> <!-- /container -->
+    </div> <!-- /reports-page -->
+
+    <div class="container">
+        <div class="row">
+            <br/><br/>
+            <div class="span6 offset5">
+                <button id="print-page" class="btn btn-success" type="button">
+                    <i class="icon-print icon-white"></i> Print page
+                </button>
+                <button id="download-page" class="btn btn-success" type="button">
+                    <i class="icon-download icon-white"></i> Download page
+                </button>
+            </div>
+            <br/><br/><br/>
+        </div>
+    </div> <!-- /container -->
+</wicket:extend>
+</body>
+</html>

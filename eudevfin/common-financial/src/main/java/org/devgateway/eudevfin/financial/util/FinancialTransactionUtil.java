@@ -4,8 +4,8 @@ import java.util.Locale;
 
 import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
-import org.devgateway.eudevfin.financial.Organization;
 import org.devgateway.eudevfin.financial.service.CurrencyMetadataService;
+import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.joda.money.CurrencyUnit;
 
 public final class FinancialTransactionUtil {

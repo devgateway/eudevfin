@@ -11,7 +11,7 @@ package org.devgateway.eudevfin.ui.common.temporary;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.devgateway.eudevfin.financial.AbstractTranslateable;
+import org.devgateway.eudevfin.common.dao.translation.AbstractTranslateable;
 
 import com.vaynberg.wicket.select2.Response;
 import com.vaynberg.wicket.select2.TextChoiceProvider;

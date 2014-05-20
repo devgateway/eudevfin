@@ -38,13 +38,15 @@ public class CustomTransactionPermissionProvider extends CRSTransactionPermissio
         permissions.get("5donorProjectNumber").render(SB.BILATERAL_ODA_ADVANCE_QUESTIONNAIRE, true)
                 .render(SB.MULTILATERAL_ODA_ADVANCE_QUESTIONNAIRE, true);
 
+        permissions.put("6aLevelOfCertainty", new RoleActionMapping().required(SB.BILATERAL_ODA_FORWARD_SPENDING));
+        
         /**
          * Basic Data
          */
 
         permissions.put("7aRecipientCode", new RoleActionMapping().required(SB.BILATERAL_ODA_FORWARD_SPENDING));
         permissions.put("7bCPA", new RoleActionMapping().required(SB.BILATERAL_ODA_CRS));
-        permissions.put("7cPriorityStatus", new RoleActionMapping().required(SB.BILATERAL_ODA_FORWARD_SPENDING));
+        permissions.put("7cPriorityStatus", new RoleActionMapping().render(SB.BILATERAL_ODA_FORWARD_SPENDING));
         permissions.put("7dPhasingOutYear", new RoleActionMapping().required(SB.BILATERAL_ODA_FORWARD_SPENDING));
 
         //override permissions for
@@ -60,7 +62,7 @@ public class CustomTransactionPermissionProvider extends CRSTransactionPermissio
 
         permissions.put("14bisUploadDocumentation", new RoleActionMapping().required(SB.BILATERAL_ODA_CRS).required(SB.MULTILATERAL_ODA_CRS));
         permissions.put("14aProjectCoFinanced", new RoleActionMapping().required(SB.BILATERAL_ODA_CRS));
-        permissions.put("14coFinancing", new RoleActionMapping().required(SB.BILATERAL_ODA_CRS));
+        permissions.put("14coFinancing", new RoleActionMapping().render(SB.BILATERAL_ODA_CRS));
 
         /**
          * Supplementary Data
@@ -94,7 +96,7 @@ public class CustomTransactionPermissionProvider extends CRSTransactionPermissio
          */
         //override permissions
         permissions.get("33commitments").notCollected(SB.BILATERAL_ODA_ADVANCE_QUESTIONNAIRE).notCollected(SB.MULTILATERAL_ODA_ADVANCE_QUESTIONNAIRE);
-        permissions.put("34amountsExtended", new RoleActionMapping().required(SB.all()).notCollected(SB.BILATERAL_ODA_FORWARD_SPENDING));
+        permissions.put("34amountsExtended", new RoleActionMapping().required(SB.all()));
         permissions.get("35amountsReceived").render(SB.BILATERAL_ODA_ADVANCE_QUESTIONNAIRE, true)
                 .render(SB.MULTILATERAL_ODA_ADVANCE_QUESTIONNAIRE, true);
         permissions.get("36amountUntied").notCollected(SB.BILATERAL_ODA_ADVANCE_QUESTIONNAIRE);
@@ -107,10 +109,10 @@ public class CustomTransactionPermissionProvider extends CRSTransactionPermissio
         permissions.get("42amountOfExportCredit").notCollected(SB.BILATERAL_ODA_ADVANCE_QUESTIONNAIRE);
         //end override
 
-        permissions.put("34bBudgetCode", new RoleActionMapping().required(SB.BILATERAL_ODA_CRS).required(SB.MULTILATERAL_ODA_CRS));
-        permissions.put("34cBudgetLine", new RoleActionMapping().required(SB.BILATERAL_ODA_CRS).required(SB.MULTILATERAL_ODA_CRS));
-        permissions.put("34dBudgetActivity", new RoleActionMapping().required(SB.BILATERAL_ODA_CRS).required(SB.MULTILATERAL_ODA_CRS));
-        permissions.put("budgetMTEFTable", new RoleActionMapping().required(SB.BILATERAL_ODA_FORWARD_SPENDING));
+        permissions.put("34bBudgetCode", new RoleActionMapping().render(SB.BILATERAL_ODA_CRS).render(SB.MULTILATERAL_ODA_CRS));
+        permissions.put("34cBudgetLine", new RoleActionMapping().render(SB.BILATERAL_ODA_CRS).render(SB.MULTILATERAL_ODA_CRS));
+        permissions.put("34dBudgetActivity", new RoleActionMapping().render(SB.BILATERAL_ODA_CRS).render(SB.MULTILATERAL_ODA_CRS));
+        permissions.put("budgetMTEFTable", new RoleActionMapping().render(SB.BILATERAL_ODA_FORWARD_SPENDING));
 
         /**
          * For Loans only

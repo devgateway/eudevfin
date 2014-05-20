@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.devgateway.eudevfin</groupId>
 		<artifactId>eudevfin</artifactId>
-		<version>0.9.18-SNAPSHOT</version>
+		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>import-metadata</artifactId>
 	<name>EU-DEVFIN Importing Of Metadata</name>
@@ -17,7 +17,11 @@
 			<artifactId>common-financial</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-
+	<dependency>
+			<groupId>org.devgateway.eudevfin</groupId>
+			<artifactId>common-metadata</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.devgateway.eudevfin</groupId>
 			<artifactId>financial</artifactId>

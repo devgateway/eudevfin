@@ -1,0 +1,704 @@
+<Schema name="EUDevfin">
+    <Dimension visible="true" highCardinality="false" name="Area">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All Areas">
+            <Table name="AREA" schema="APP">
+            </Table>
+            <Level name="Code" visible="true" table="AREA" column="CODE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+            </Level>
+        </Hierarchy>
+    </Dimension>
+    <Dimension visible="true" highCardinality="false" name="Country">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All Countries">
+            <View alias="CountryView">
+                <SQL dialect="generic"><![CDATA[
+            select
+              "AREA"."ID", "AREA"."CODE",  "CATEGORYTRANSLATION"."NAME" AS GEOGRAPHY, "AREATRANSLATION"."NAME"
+            from
+              "APP"."AREA" as "AREA",
+              "APP"."AREATRANSLATION" as "AREATRANSLATION",
+              "APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION"
+            WHERE
+              "AREATRANSLATION"."LOCALE" = '@@LOCALE@@' AND
+              "AREATRANSLATION"."PARENT_ID" = "AREA"."ID" AND
+              "CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
+              "CATEGORYTRANSLATION"."PARENT_ID" = "AREA"."GEOGRAPHYCATEGORY_ID" AND
+              "AREA"."AREA_TYPE" = 'Country'
+            ]]></SQL>
+            </View>
+            <Level name="Geography" visible="true" column="GEOGRAPHY" uniqueMembers="false" levelType="Regular" type="String">
+            </Level>
+            <Level name="Name" visible="true" column="NAME" uniqueMembers="false" levelType="Regular" type="String">
+            </Level>
+        </Hierarchy>
+    </Dimension>
+    <Dimension visible="true" highCardinality="false" name="IncomeGroup">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All IncomeGroups">
+            <View alias="IncomeGroupView">
+                <SQL dialect="generic"><![CDATA[
+            select
+                "AREA"."ID", "AREA"."INCOMEGROUP_ID",  "CATEGORYTRANSLATION"."NAME"
+            from
+                "APP"."AREA" as "AREA",
+                "APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION"
+            WHERE
+                "CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
+                "CATEGORYTRANSLATION"."PARENT_ID" = "AREA"."INCOMEGROUP_ID" AND
+                "AREA"."AREA_TYPE" = 'Country'
+            ]]></SQL>
+            </View>
+            <Level name="Name" visible="true" column="NAME" uniqueMembers="false" levelType="Regular" type="String">
+            </Level>
+        </Hierarchy>
+    </Dimension>
+    <Dimension visible="true" highCardinality="false" name="Extending Agency">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Extending Agency" allMemberCaption="%{allExtendingAgencies}" allLevelName="%{allExtendingAgencies}" description="%{extendingAgencies}" allMemberName="All Extending Agencies">
+            <View alias="Extending AgencyView">
+                <SQL dialect="generic"><![CDATA[
+            select
+			  "ORGANIZATION"."ID", "ORGANIZATION"."CODE", "ORGANIZATION"."ACRONYM", "ORGANIZATIONTRANSLATION"."NAME"
+			from
+			  "APP"."ORGANIZATION" as "ORGANIZATION",
+			  "APP"."ORGANIZATIONTRANSLATION" as "ORGANIZATIONTRANSLATION"
+			WHERE
+			  "ORGANIZATIONTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
+			  "ORGANIZATIONTRANSLATION"."PARENT_ID" = "ORGANIZATION"."ID"
+			]]></SQL>
+            </View>
+            <Level name="code" visible="true" column="CODE" type="String" uniqueMembers="false" levelType="Regular">
+            </Level>
+            <Level name="Acronym" visible="true" column="ACRONYM" type="String" uniqueMembers="false" levelType="Regular">
+            </Level>
+            <Level name="Name" visible="true" column="NAME" type="String" uniqueMembers="false" levelType="Regular">
+            </Level>
+        </Hierarchy>
+    </Dimension>
+    <Dimension visible="true" highCardinality="false" name="Channel">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Channel" allMemberName="All Channels">
+            <View alias="ChannelView">
+                <SQL dialect="generic"><![CDATA[
+            select
+                DISTINCT "CATEGORY"."ID", "CATEGORY"."CODE", "CATEGORYTRANSLATION"."NAME"
+            from
+                "APP"."CATEGORY" as "CATEGORY",
+                "APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION",
+                "APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
+            WHERE
+                "CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
+                "CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
+                "CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
+                "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='CHANNEL_TAG')
+            ]]></SQL>
+            </View>
+            <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
+            </Level>
+            <Level name="Name" visible="true" column="NAME" uniqueMembers="false">
+            </Level>
+        </Hierarchy>
+    </Dimension>
+    <Dimension visible="true" highCardinality="false" name="Channel Localized">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Channel Localized" allMemberName="All Channels Localized">
+            <View alias="ChannelLocalizedView">
+                <SQL dialect="generic"><![CDATA[
+            select
+                "CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE"
+            from
+                "APP"."CATEGORY" as "CATEGORY",
+                "APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION",
+                "APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
+            WHERE
+                "CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
+                "CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
+                "CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
+                "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='CHANNEL_TAG')
+            ]]></SQL>
+            </View>
+            <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
+            </Level>
+            <Level name="Name" visible="true" column="NAME" uniqueMembers="false">
+            </Level>
+        </Hierarchy>
+    </Dimension>
+    <Dimension visible="true" highCardinality="false" name="Type of Aid">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Type of Aid" allMemberCaption="%{allTypesOfAid}" allLevelName="%{allTypesOfAid}" description="%{typesOfAid}" allMemberName="All Types of Aid">
+            <View alias="TypeOfAidView">
+                <SQL dialect="generic"><![CDATA[
+            select
+                "CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE"
+            from
+                "APP"."CATEGORY" as "CATEGORY",
+                "APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION",
+                "APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
+            WHERE
+                "CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
+                "CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
+                "CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
+                "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='ALL_TYPE_OF_AID_TAG')
+            ]]></SQL>
+            </View>
+            <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
+            </Level>
+            <Level name="Name" visible="true" column="NAME" uniqueMembers="false">
+            </Level>
+        </Hierarchy>
+    </Dimension>
+    <Dimension visible="true" highCardinality="false" name="Type of Flow">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Type of Flow" allMemberCaption="%{allTypesOfFlow}" allLevelName="%{allTypesOfFlow}" description="%{typesOfFlow}" allMemberName="All Types of Flow">
+            <View alias="TypeOfFlowView">
+                <SQL dialect="generic"><![CDATA[
+            select
+                "CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE"
+            from
+                "APP"."CATEGORY" as "CATEGORY",
+                "APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION",
+                "APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
+            WHERE
+                "CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
+                "CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
+                "CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
+                "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='TYPE_OF_FLOW_TAG')
+            ]]></SQL>
+            </View>
+            <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
+            </Level>
+            <Level name="Name" visible="true" column="NAME" uniqueMembers="false">
+            </Level>
+        </Hierarchy>
+    </Dimension>
+    <Dimension visible="true" highCardinality="false" name="Type of Finance">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Type of Finance" allMemberCaption="%{allTypesOfFinance}" allLevelName="%{allTypesOfFinance}" description="%{typesOfFinance}" allMemberName="All Types of Finance">
+            <View alias="TypeOfFinanceView">
+                <SQL dialect="generic"><![CDATA[
+            select
+                "CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE"
+            from
+                "APP"."CATEGORY" as "CATEGORY",
+                "APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION",
+                "APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
+            WHERE
+                "CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
+                "CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
+                "CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
+                "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='ALL_TYPE_OF_FINANCE_TAG')
+            ]]></SQL>
+            </View>
+            <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
+            </Level>
+            <Level name="Name" visible="true" column="NAME" uniqueMembers="false">
+            </Level>
+        </Hierarchy>
+    </Dimension>
+    <Dimension visible="true" highCardinality="false" name="Type of Finance Root">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Type of Finance Root" allMemberName="All Types of Finance Root">
+            <View alias="TypeOfFinanceRootView">
+                <SQL dialect="generic"><![CDATA[
+            select
+                "CATEGORY"."ID",  "CATEGORYTRANSLATION"."NAME", "CATEGORY"."CODE"
+            from
+                "APP"."CATEGORY" as "CATEGORY",
+                "APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION",
+                "APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
+            WHERE
+                "CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
+                "CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
+                "CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
+                "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='TYPE_OF_FINANCE_TAG')
+            ]]></SQL>
+            </View>
+            <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
+            </Level>
+            <Level name="Name" visible="true" column="NAME" uniqueMembers="false">
+            </Level>
+        </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" name="Sector">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="%{sectors}" allMemberCaption="%{allSectors}" allLevelName="%{allSectors}" description="%{sectors}" allMemberName="All Sectors">
+            <View alias="SectorView">
+                <SQL dialect="generic"><![CDATA[
+                    select
+                        "CATEGORY"."ID",
+                        "CATEGORYTRANSLATION"."NAME",
+                        "CATEGORY"."CODE"
+                    from
+                        "APP"."CATEGORY" as "CATEGORY",
+                        "APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION",
+                        "APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
+                    WHERE
+                        "CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
+                        "CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
+                        "CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
+                        "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='ALL_SECTOR_TAG')
+            ]]></SQL>
+            </View>
+            <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
+            </Level>
+            <Level name="Name" visible="true" column="NAME" uniqueMembers="false">
+            </Level>
+        </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" name="SectorHierarchy">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All Sectors">
+            <View alias="SectorHierarchyView">
+                <SQL dialect="generic"><![CDATA[
+					select id, CASE WHEN lower(ancestorname) like 'root%' or ancestorname IS NULL THEN parentname ELSE ancestorname END as ancestorname, name from
+						(select id, name, ANCESTORID, CASE WHEN lower(parentname) like 'root%' THEN name ELSE parentname END as parentname,
+							(select cattrn.name from CATEGORYTRANSLATION cattrn WHERE cattrn.locale = '@@LOCALE@@' AND cattrn.parent_id = ANCESTORID) as ANCESTORNAME
+							from (select
+							  "CATEGORY"."ID",
+							  "CATEGORY"."PARENTCATEGORY_ID",
+							  (select cat.parentcategory_id from CATEGORY cat where cat.id = "CATEGORY".PARENTCATEGORY_ID) as ANCESTORID,
+							  (select cattrn.name from CATEGORYTRANSLATION cattrn WHERE cattrn.locale = '@@LOCALE@@' AND cattrn.parent_id = "CATEGORY".PARENTCATEGORY_ID) as PARENTNAME,
+							  "CATEGORYTRANSLATION"."NAME"
+							from
+							  "APP"."CATEGORY" as "CATEGORY",
+							  "APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION",
+							  "APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
+							WHERE
+							  "CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
+							  "CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
+							  "CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
+							  "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='ALL_SECTOR_TAG')) as parentsectors) as ancestorsectors
+			]]></SQL>
+            </View>
+            <Level name="ParentName" visible="true" column="ANCESTORNAME" uniqueMembers="false">
+            </Level>
+            <Level name="Name" visible="true" column="NAME" uniqueMembers="false">
+            </Level>
+        </Hierarchy>
+    </Dimension>
+    <Dimension visible="true" highCardinality="false" name="BiMultilateral">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="BiMultilateral" allMemberCaption="%{allBiMultilateral}" allLevelName="%{allBiMultilateral}" description="%{biMultilateral}" allMemberName="All BiMultilaterals">
+            <View alias="BiMultilalteralView">
+                <SQL dialect="generic"><![CDATA[
+                    select
+                        "CATEGORY"."ID",
+                        "CATEGORYTRANSLATION"."NAME",
+                        "CATEGORY"."CODE"
+                    from
+                        "APP"."CATEGORY" as "CATEGORY",
+                        "APP"."CATEGORYTRANSLATION" as "CATEGORYTRANSLATION",
+                        "APP"."CATEGORY_TAGS" as "CATEGORY_TAGS"
+                    WHERE
+                        "CATEGORYTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
+                        "CATEGORYTRANSLATION"."PARENT_ID" = "CATEGORY"."ID" AND
+                        "CATEGORY_TAGS"."CATEGORY_ID" = "CATEGORY"."ID" AND
+                        "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='BI_MULTILATERAL_TAG')
+            ]]></SQL>
+            </View>
+            <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
+            </Level>
+            <Level name="Name" visible="true" column="NAME" uniqueMembers="false">
+            </Level>
+        </Hierarchy>
+    </Dimension>
+    <Cube name="Financial" visible="true" cache="false" enabled="true">
+        <View name="FINANCIALTRANSACTIONVIEW" alias="FINANCIALTRANSACTIONVIEW">
+            <SQL dialect="generic"><![CDATA[
+                select cat.coefficient,
+                CASE WHEN cat.coefficient IS NULL THEN AMOUNTS_EXTENDED_AMOUNT ELSE (AMOUNTS_EXTENDED_AMOUNT * cat.COEFFICIENT) / 100 END as AMOUNTS_EXTENDED_AMOUNT_WITH_COEFFICIENT,
+                CASE WHEN cat.coefficient IS NULL THEN AMOUNTS_RECEIVED_AMOUNT ELSE (AMOUNTS_RECEIVED_AMOUNT * cat.COEFFICIENT) / 100 END as AMOUNTS_RECEIVED_AMOUNT_WITH_COEFFICIENT,
+				CASE WHEN cat.coefficient IS NULL THEN COMMITMENT_AMOUNT ELSE (COMMITMENT_AMOUNT * cat.COEFFICIENT) / 100 END as COMMITMENT_AMOUNT_WITH_COEFFICIENT,
+				CASE WHEN (cat.coefficient IS NULL AND FT.COMMITMENT_AMOUNT < 0) THEN COMMITMENT_AMOUNT ELSE (COMMITMENT_AMOUNT * cat.COEFFICIENT) / 100 END as NEGATIVE_COMMITMENT_AMOUNT_WITH_COEFFICIENT,
+                CASE WHEN (cat.coefficient IS NULL AND FT.COMMITMENT_AMOUNT < 0) THEN AMOUNTS_RECEIVED_AMOUNT ELSE (AMOUNTS_RECEIVED_AMOUNT * cat.COEFFICIENT) / 100 END as NEGATIVE_AMOUNTS_RECEIVED_AMOUNT_WITH_COEFFICIENT,
+				CASE WHEN cat.coefficient IS NULL THEN AMOUNTS_EXP_COMMIT_AMOUNT ELSE (AMOUNTS_EXP_COMMIT_AMOUNT * cat.COEFFICIENT) / 100 END as AMOUNTS_EXP_COMMIT_AMOUNT_WITH_COEFFICIENT,
+				CASE WHEN cat.coefficient IS NULL THEN AMOUNTS_EXP_EXTENDED_AMOUNT ELSE (AMOUNTS_EXP_EXTENDED_AMOUNT * cat.COEFFICIENT) / 100 END as AMOUNTS_EXP_EXTENDED_AMOUNT_WITH_COEFFICIENT,
+				CASE WHEN cat.coefficient IS NULL THEN AMOUNTS_INTEREST_RECEIVED_AMOUNT ELSE (AMOUNTS_INTEREST_RECEIVED_AMOUNT * cat.COEFFICIENT) / 100 END as AMOUNTS_INTEREST_RECEIVED_AMOUNT_WITH_COEFFICIENT,
+				
+                ft.*
+                from FINANCIALTRANSACTION ft left join CATEGORY cat ON cat.id = ft.channel_id WHERE (ft.draft = false and ft.approved = true) OR draft IS NULL
+            ]]></SQL>
+        </View>
+        <DimensionUsage source="Area" name="Area" visible="true" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
+        <DimensionUsage source="Country" name="Country" visible="true" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
+        <DimensionUsage source="IncomeGroup" name="IncomeGroup" visible="true" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
+        <DimensionUsage source="Extending Agency" name="Extending Agency" visible="true" foreignKey="EXTENDINGAGENCY_ID" highCardinality="false"></DimensionUsage>
+        <DimensionUsage source="Sector" name="Sector" visible="true" foreignKey="SECTOR_ID" highCardinality="false"></DimensionUsage>
+        <DimensionUsage source="SectorHierarchy" name="SectorHierarchy" visible="true" foreignKey="SECTOR_ID" highCardinality="false"></DimensionUsage>
+        <DimensionUsage source="Channel" name="Channel" visible="true" foreignKey="CHANNEL_ID" highCardinality="false"></DimensionUsage>
+        <DimensionUsage source="Type of Aid" name="Type of Aid" visible="true" foreignKey="TYPEOFAID_ID" highCardinality="false"></DimensionUsage>
+        <DimensionUsage source="Type of Flow" name="Type of Flow" visible="true" foreignKey="TYPEOFFLOW_ID" highCardinality="false"></DimensionUsage>
+        <DimensionUsage source="Type of Finance" name="Type of Finance" visible="true" foreignKey="TYPEOFFINANCE_ID" highCardinality="false"></DimensionUsage>
+        <DimensionUsage source="Type of Finance Root" name="Type of Finance Root" visible="true" foreignKey="TYPEOFFINANCE_ID" highCardinality="false"></DimensionUsage>
+        <DimensionUsage source="BiMultilateral" name="BiMultilateral" visible="true" foreignKey="BIMULTILATERAL_ID" highCardinality="false"></DimensionUsage>
+        <Dimension name="Reporting Year">
+            <Hierarchy hasAll="true">
+                <Level name="Reporting Year" column="REPORTINGYEAR" uniqueMembers="true">
+                    <KeyExpression>
+                        <SQL dialect="generic">CAST(YEAR("REPORTINGYEAR") AS CHAR(4))</SQL>
+                    </KeyExpression>
+                </Level>
+            </Hierarchy>
+        </Dimension>
+        <Dimension name="Form Type">
+            <Hierarchy hasAll="true">
+                <Level name="Form Type" column="FORMTYPE" uniqueMembers="true">
+                </Level>
+            </Hierarchy>
+        </Dimension>
+        <Dimension name="Investment">
+            <Hierarchy hasAll="true">
+                <Level name="Investment" column="INVESTMENT" uniqueMembers="false" type="String">
+                    <KeyExpression>
+                        <SQL dialect="generic">(CASE WHEN INVESTMENT = TRUE THEN 'Yes' ELSE 'No' END)</SQL>
+                    </KeyExpression>
+                </Level>
+            </Hierarchy>
+        </Dimension>
+        <Dimension name="PBA">
+            <Hierarchy hasAll="true">
+                <Level name="PBA" column="PROGRAMMEBASEDAPPROACH" uniqueMembers="false" type="String">
+                    <KeyExpression>
+                        <SQL dialect="generic">(CASE WHEN PROGRAMMEBASEDAPPROACH = TRUE THEN 'Yes' ELSE 'No' END)</SQL>
+                    </KeyExpression>
+                </Level>
+            </Hierarchy>
+        </Dimension>
+        <Dimension name="FTC">
+            <Hierarchy hasAll="true">
+                <Level name="FTC" column="FREESTANDINGTECHNICALCOOPERATION" uniqueMembers="false" type="String">
+                    <KeyExpression>
+                        <SQL dialect="generic">(CASE WHEN FREESTANDINGTECHNICALCOOPERATION = TRUE THEN 'Yes' ELSE 'No' END)</SQL>
+                    </KeyExpression>
+                </Level>
+            </Hierarchy>
+        </Dimension>
+        
+        
+        <Dimension name="CPA">
+            <Hierarchy hasAll="true" allMemberName="All CPA">
+                <!-- No table element here. Fact table is assumed. -->
+                <Level name="CPA" column="CPA" type="Numeric" uniqueMembers="false" levelType="Regular">
+                    <KeyExpression>
+                        <SQL dialect="generic">
+                            CASE WHEN CPA IS NULL THEN
+                            0
+                            ELSE
+                            CASE WHEN CPA = FALSE THEN
+                            0
+                            ELSE
+                            1
+                            END
+                            END
+                        </SQL>
+                    </KeyExpression>
+                </Level>
+            </Hierarchy>
+        </Dimension>
+        <Dimension name="CoFinanced">
+            <Hierarchy hasAll="true" allMemberName="All CoFinanced">
+                <!-- No table element here. Fact table is assumed. -->
+                <Level name="CoFinanced" column="projectCoFinanced" type="Numeric" uniqueMembers="false" levelType="Regular">
+                    <KeyExpression>
+                        <SQL dialect="generic">
+                            CASE WHEN projectCoFinanced IS NULL THEN
+                            0
+                            ELSE
+                            CASE WHEN projectCoFinanced = FALSE THEN
+                            0
+                            ELSE
+                            1
+                            END
+                            END
+                        </SQL>
+                    </KeyExpression>
+                </Level>
+            </Hierarchy>
+        </Dimension>
+        <Measure name="Export Credit Amount" column="AMOUNTS_EXP_EXPORT_CREDIT_AMOUNT" aggregator="sum" visible="true" caption="%{exportCreditAmount}"></Measure>
+        <Measure name="Exchange Rate" aggregator="avg" visible="true" datatype="Integer" formatString="#,###.00" caption="Exchange Rate">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (1 / (SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    (SOURCE = 'OECD' OR SOURCE='National') AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXTENDED_CURR" AND
+                    BASE_CURRENCY = '@@COUNTRY_CURRENCY@@' AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    "FINANCIALTRANSACTIONVIEW"."DRAFT" IS NOT NULL AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        <Measure name="Extended Amount No Flow" aggregator="sum" visible="true">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    CASE WHEN DRAFT IS NULL THEN AMOUNTS_EXTENDED_AMOUNT ELSE NULL END
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        <Measure name="Extended Amount" aggregator="sum" visible="true" caption="%{extendedAmount}">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    CASE WHEN DRAFT IS NOT NULL THEN
+                    AMOUNTS_EXTENDED_AMOUNT_WITH_COEFFICIENT
+                    ELSE
+                    NULL
+                    END
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        <Measure name="Extended Amount Currency NATLOECD" aggregator="sum" visible="true">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (AMOUNTS_EXTENDED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    (SOURCE = 'OECD' OR SOURCE='National') AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXTENDED_CURR" AND
+                    "FINANCIALTRANSACTIONVIEW"."DRAFT" IS NOT NULL AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        <Measure name="Extended Amount Currency INTERNET" aggregator="sum" visible="true">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (AMOUNTS_EXTENDED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    SOURCE = 'INTERNET' AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXTENDED_CURR" AND
+                    "FINANCIALTRANSACTIONVIEW"."DRAFT" IS NOT NULL AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        <Measure name="Current Extended Amount" column="AMOUNTS_EXTENDED_CURRENT_AMOUNT" aggregator="sum" visible="true" caption="%{currentExtendedAmount}"></Measure>
+        <Measure name="Year 1 Extended Amount" column="AMOUNTS_EXTENDED_YEAR1_AMOUNT" aggregator="sum" visible="true" caption="%{year1ExtendedAmount}"></Measure>
+        <Measure name="Year 2 Extended Amount" column="AMOUNTS_EXTENDED_YEAR2_AMOUNT" aggregator="sum" visible="true" caption="%{year2ExtendedAmount}"></Measure>
+        <Measure name="Partially Untied Amount" column="AMOUNTS_PARTIALLY_UNTIED_AMOUNT" aggregator="sum" visible="true" caption="%{partiallyUntiedAmount}"></Measure>
+        <Measure name="Received Amount" column="AMOUNTS_RECEIVED_AMOUNT" aggregator="sum" visible="true" caption="%{receivedAmount}"></Measure>
+        <Measure name="Received Amount Currency NATLOECD" aggregator="sum" visible="true">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (AMOUNTS_RECEIVED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    (SOURCE = 'OECD' OR SOURCE='National') AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_RECEIVED_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        <Measure name="Received Amount Currency INTERNET" aggregator="sum" visible="true">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (AMOUNTS_RECEIVED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    SOURCE = 'INTERNET' AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_RECEIVED_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        <Measure name="Tied Amount" column="AMOUNTS_TIED_AMOUNT" aggregator="sum" visible="true" caption="%{tiedAmount}"></Measure>
+        <Measure name="Untied Amount" column="AMOUNTS_UNTIED_AMOUNT" aggregator="sum" visible="true" caption="%{untiedAmount}"></Measure>
+        <Measure name="Interest Arrears Amount" column="AMOUNTS_AREARS_INTEREST_AMOUNT" aggregator="sum" visible="true" caption="%{interestArrearsAmount}"></Measure>
+        <Measure name="Principal Arrears Amount" column="AMOUNTS_AREARS_PRIN_AMOUNT" aggregator="sum" visible="true" caption="%{principalArrearsAmount}"></Measure>
+        <Measure name="Commitments Amount" column="COMMITMENT_AMOUNT" aggregator="sum" visible="true" caption="%{commitmentsAmount}"></Measure>
+        <Measure name="Commitments Amount Currency NATLOECD" aggregator="sum" visible="true">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (COMMITMENT_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    (SOURCE = 'OECD' OR SOURCE='National') AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        <Measure name="Commitments Amount Currency INTERNET" aggregator="sum" visible="true">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (COMMITMENT_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    SOURCE = 'INTERNET' AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        <Measure name="Interest Received Amount" column="AMOUNTS_INTEREST_RECEIVED_AMOUNT" aggregator="sum" visible="true" caption="%{interestReceivedAmount}"></Measure>
+        <Measure name="Interest Received Amount Currency NATLOECD" aggregator="sum" visible="true">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (AMOUNTS_INTEREST_RECEIVED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    (SOURCE = 'OECD' OR SOURCE='National') AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_INTEREST_RECEIVED_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        <Measure name="Principal Disbursed Amount" column="AMOUNTS_PRIN_DISB_AMOUNT" aggregator="sum" visible="true" caption="%{principalDisbursedAmount}"></Measure>
+        <Measure name="Expert Commitments Amount" column="AMOUNTS_EXP_COMMIT_AMOUNT" aggregator="sum" visible="true" caption="%{expertCommitmentsAmount}"></Measure>
+        <Measure name="Expert Commitments Currency NATLOECD" aggregator="sum" visible="true">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (AMOUNTS_EXP_COMMIT_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    (SOURCE = 'OECD' OR SOURCE='National') AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXP_COMMIT_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        <Measure name="Expert Extended Amount" column="AMOUNTS_EXP_EXTENDED_AMOUNT" aggregator="sum" visible="true" caption="%{expertExtendedAmount}"></Measure>
+        <Measure name="Expert Extended Currency NATLOECD" aggregator="sum" visible="true">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (AMOUNTS_EXP_EXTENDED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    (SOURCE = 'OECD' OR SOURCE='National') AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXP_EXTENDED_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        <Measure name="NumberOfTransactions" column="ID" datatype="Integer" aggregator="count" formatString="#,###"/>
+        <Measure name="Negative Commitments Amount NATLOECD" aggregator="sum" visible="true">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (NEGATIVE_COMMITMENT_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    (SOURCE = 'OECD' OR SOURCE='National') AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        <Measure name="Negative Received Amount NATLOECD" aggregator="sum" visible="true">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (NEGATIVE_AMOUNTS_RECEIVED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    (SOURCE = 'OECD' OR SOURCE='National') AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        <CalculatedMember name="Net Amount" dimension="Measures">
+            <Formula>[Measures].[Extended Amount] - [Measures].[Received Amount]</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="Net Amount Currency NATLOECD" dimension="Measures">
+            <Formula>[Measures].[Extended Amount Currency NATLOECD] - [Measures].[Received Amount Currency NATLOECD]</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="Net Amount Currency INTERNET" dimension="Measures">
+            <Formula>[Measures].[Extended Amount Currency INTERNET] - [Measures].[Received Amount Currency INTERNET]</Formula>
+        </CalculatedMember>
+
+        <!--  Groups of Channels -->
+        <CalculatedMember name="UNGroup" dimension="Channel">
+            <Formula>SUM({[Channel].[41000],[Channel].[41101],[Channel].[41102],[Channel].[41103],[Channel].[41104],[Channel].[41105],[Channel].[41106],[Channel].[41107],[Channel].[41108],[Channel].[41110],[Channel].[41111],[Channel].[41112],[Channel].[41114],[Channel].[41116],[Channel].[41119],[Channel].[41120],[Channel].[41121],[Channel].[41122],[Channel].[41123],[Channel].[41125],[Channel].[41126],[Channel].[41127],[Channel].[41128],[Channel].[41129],[Channel].[41130],[Channel].[41131],[Channel].[41132],[Channel].[41133],[Channel].[41134],[Channel].[41135],[Channel].[41136],[Channel].[41137],[Channel].[41138],[Channel].[41140],[Channel].[41141],[Channel].[41142],[Channel].[41143],[Channel].[41144],[Channel].[41145],[Channel].[41146],[Channel].[41147],[Channel].[41148],[Channel].[41301],[Channel].[41302],[Channel].[41303],[Channel].[41304],[Channel].[41305],[Channel].[41306],[Channel].[41307],[Channel].[41308],[Channel].[41309],[Channel].[41310],[Channel].[41311],[Channel].[41312],[Channel].[41313],[Channel].[41314],[Channel].[41315],[Channel].[41316]})</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="EUGroup" dimension="Channel">
+            <Formula>SUM({[Channel].[42000],[Channel].[42001],[Channel].[42003],[Channel].[42004]})</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="WBGroup" dimension="Channel">
+            <Formula>SUM({[Channel].[44000],[Channel].[44001],[Channel].[44002],[Channel].[44003],[Channel].[44004],[Channel].[44005],[Channel].[44006],[Channel].[44007]})</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="RBGroup" dimension="Channel">
+            <Formula>SUM({[Channel].[46000],[Channel].[46002],[Channel].[46003],[Channel].[46004],[Channel].[46005],[Channel].[46006],[Channel].[46007],[Channel].[46008],[Channel].[46009],[Channel].[46012],[Channel].[46013],[Channel].[46015],[Channel].[46016],[Channel].[46017],[Channel].[46018],[Channel].[46019],[Channel].[46020],[Channel].[46021],[Channel].[46022],[Channel].[46023]})</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="WTOGroup" dimension="Channel">
+            <Formula>SUM({[Channel].[45000],[Channel].[45001],[Channel].[45002],[Channel].[45003]})</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="OtherGroup" dimension="Channel">
+            <Formula>SUM({[Channel].[40000],[Channel].[47000], [Channel].[21002],[Channel].[30010],[Channel].[47001],[Channel].[47002],[Channel].[47003],[Channel].[47005],[Channel].[47009],[Channel].[47011],[Channel].[47012],[Channel].[47013],[Channel].[47015],[Channel].[47019],[Channel].[47022],[Channel].[47025],[Channel].[47026],[Channel].[47027],[Channel].[47029],[Channel].[47034],[Channel].[47036],[Channel].[47037],[Channel].[47040],[Channel].[47044],[Channel].[47045],[Channel].[47046],[Channel].[47050],[Channel].[47058],[Channel].[47059],[Channel].[47061],[Channel].[47064],[Channel].[47065],[Channel].[47066],[Channel].[47067],[Channel].[47068],[Channel].[47073],[Channel].[47074],[Channel].[47076],[Channel].[47077],[Channel].[47078],[Channel].[47079],[Channel].[47080],[Channel].[47081],[Channel].[47082],[Channel].[47083],[Channel].[47084],[Channel].[47086],[Channel].[47087],[Channel].[47089],[Channel].[47092],[Channel].[47093],[Channel].[47095],[Channel].[47096],[Channel].[47097],[Channel].[47098],[Channel].[47100],[Channel].[47102],[Channel].[47105],[Channel].[47106],[Channel].[47107],[Channel].[47109],[Channel].[47110],[Channel].[47111],[Channel].[47112],[Channel].[47113],[Channel].[47116],[Channel].[47117],[Channel].[47118],[Channel].[47119],[Channel].[47120],[Channel].[47121],[Channel].[47122],[Channel].[47123],[Channel].[47127],[Channel].[47128],[Channel].[47129],[Channel].[47130],[Channel].[47131],[Channel].[47132],[Channel].[47136],[Channel].[43000], [Channel].[43001], [Channel].[43002], [Channel].[43003], [Channel].[43004], [Channel].[43005], [Channel].[45000], [Channel].[45001], [Channel].[45002], [Channel].[45003]})</Formula>
+        </CalculatedMember>
+        
+        <NamedSet name="InternationalNGO">
+        	<Formula>{[Channel].[21000],[Channel].[21001],[Channel].[21005],[Channel].[21007],[Channel].[21011],[Channel].[21013],[Channel].[21016],[Channel].[21018],[Channel].[21020],[Channel].[21022],[Channel].[21023],[Channel].[21024],[Channel].[21029],[Channel].[21031],[Channel].[21032],[Channel].[21034],[Channel].[21036],[Channel].[21038],[Channel].[21041],[Channel].[21042],[Channel].[21044],[Channel].[21045],[Channel].[21046],[Channel].[21053],[Channel].[21054],[Channel].[21057],[Channel].[21061],[Channel].[47035]}</Formula>
+        </NamedSet>
+
+        <CalculatedMember name="InternationalNGO" dimension="Channel">
+            <Formula>SUM({[Channel].[21000],[Channel].[21001],[Channel].[21005],[Channel].[21007],[Channel].[21011],[Channel].[21013],[Channel].[21016],[Channel].[21018],[Channel].[21020],[Channel].[21022],[Channel].[21023],[Channel].[21024],[Channel].[21029],[Channel].[21031],[Channel].[21032],[Channel].[21034],[Channel].[21036],[Channel].[21038],[Channel].[21041],[Channel].[21042],[Channel].[21044],[Channel].[21045],[Channel].[21046],[Channel].[21053],[Channel].[21054],[Channel].[21057],[Channel].[21061],[Channel].[47035]})</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="DonorCountryBasedNGO" dimension="Channel">
+            <Formula>SUM({[Channel].[22000],[Channel].[21006],[Channel].[21008],[Channel].[21014],[Channel].[21015],[Channel].[21019],[Channel].[21025],[Channel].[21026],[Channel].[21027],[Channel].[21033],[Channel].[21035],[Channel].[21037],[Channel].[21040],[Channel].[21047],[Channel].[21049],[Channel].[21050],[Channel].[21058],[Channel].[21060],[Channel].[47042]})</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="DevelopingCountryBasedNGO" dimension="Channel">
+            <Formula>SUM({[Channel].[23000],[Channel].[21003],[Channel].[21010],[Channel].[21028],[Channel].[21030],[Channel].[21048],[Channel].[21051],[Channel].[21055],[Channel].[21059]})</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="PublicPrivatePartnership" dimension="Channel">
+            <Formula>SUM({[Channel].[31000],[Channel].[21056],[Channel].[30001],[Channel].[30003],[Channel].[30004],[Channel].[30005],[Channel].[30006],[Channel].[30007],[Channel].[30008],[Channel].[30009],[Channel].[30011],[Channel].[30012],[Channel].[30013],[Channel].[30014],[Channel].[30015],[Channel].[30016],[Channel].[30017],[Channel].[47043]})</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="Network" dimension="Channel">
+            <Formula>SUM({[Channel].[32000],[Channel].[21017],[Channel].[21043],[Channel].[31001],[Channel].[31002],[Channel].[31003],[Channel].[31004],[Channel].[31005],[Channel].[47010],[Channel].[47028]})</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="UniversityCollegeOtherTeaching" dimension="Channel">
+            <Formula>SUM({[Channel].[51000],[Channel].[21004],[Channel].[21009],[Channel].[21021],[Channel].[21039],[Channel].[47008],[Channel].[47017],[Channel].[47018],[Channel].[47020],[Channel].[47021],[Channel].[47041],[Channel].[47047],[Channel].[47051],[Channel].[47053],[Channel].[47054],[Channel].[47055],[Channel].[47056],[Channel].[47057],[Channel].[47062],[Channel].[47063],[Channel].[47069],[Channel].[47070],[Channel].[47071],[Channel].[47075],[Channel].[47099],[Channel].[47101],[Channel].[47103],[Channel].[47104]})</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="AllMultilateral" dimension="Channel">
+            <Formula>SUM({[Channel].[UNGroup],[Channel].[EUGroup],[Channel].[OtherGroup],[Channel].[RBGroup],[Channel].[WBGroup],[Channel].[WTOGroup]})</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="AllNGO" dimension="Channel">
+            <Formula>SUM({[Channel].[InternationalNGO],[Channel].[DonorCountryBasedNGO],[Channel].[DevelopingCountryBasedNGO]})</Formula>
+        </CalculatedMember>
+
+        <!--  Groups of Type of Finance -->
+        <CalculatedMember name="Grants" dimension="Type of Finance">
+            <Formula>SUM({[Type of Finance].[TYPE_OF_FINANCE##100],[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE##111]})</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="Non Grants" dimension="Type of Finance">
+            <Formula>SUM({[Type of Finance].[TYPE_OF_FINANCE##400], [Type of Finance].[TYPE_OF_FINANCE##410], [Type of Finance].[TYPE_OF_FINANCE##411],[Type of Finance].[TYPE_OF_FINANCE##412],[Type of Finance].[TYPE_OF_FINANCE##413],[Type of Finance].[TYPE_OF_FINANCE##414],[Type of Finance].[TYPE_OF_FINANCE##450],[Type of Finance].[TYPE_OF_FINANCE##451],[Type of Finance].[TYPE_OF_FINANCE##452],[Type of Finance].[TYPE_OF_FINANCE##453],[Type of Finance].[TYPE_OF_FINANCE##500],[Type of Finance].[TYPE_OF_FINANCE##510],[Type of Finance].[TYPE_OF_FINANCE##511],[Type of Finance].[TYPE_OF_FINANCE##512],[Type of Finance].[TYPE_OF_FINANCE##600],[Type of Finance].[TYPE_OF_FINANCE##610],[Type of Finance].[TYPE_OF_FINANCE##611],[Type of Finance].[TYPE_OF_FINANCE##612],[Type of Finance].[TYPE_OF_FINANCE##613],[Type of Finance].[TYPE_OF_FINANCE##614],[Type of Finance].[TYPE_OF_FINANCE##615],[Type of Finance].[TYPE_OF_FINANCE##616],[Type of Finance].[TYPE_OF_FINANCE##617],[Type of Finance].[TYPE_OF_FINANCE##618],[Type of Finance].[TYPE_OF_FINANCE##620],[Type of Finance].[TYPE_OF_FINANCE##621],[Type of Finance].[TYPE_OF_FINANCE##622],[Type of Finance].[TYPE_OF_FINANCE##623],[Type of Finance].[TYPE_OF_FINANCE##624],[Type of Finance].[TYPE_OF_FINANCE##625],[Type of Finance].[TYPE_OF_FINANCE##626],[Type of Finance].[TYPE_OF_FINANCE##627],[Type of Finance].[TYPE_OF_FINANCE##630],[Type of Finance].[TYPE_OF_FINANCE##631],[Type of Finance].[TYPE_OF_FINANCE##632],[Type of Finance].[TYPE_OF_FINANCE##700],[Type of Finance].[TYPE_OF_FINANCE##710],[Type of Finance].[TYPE_OF_FINANCE##711],[Type of Finance].[TYPE_OF_FINANCE##800],[Type of Finance].[TYPE_OF_FINANCE##810],[Type of Finance].[TYPE_OF_FINANCE##811],[Type of Finance].[TYPE_OF_FINANCE##900],[Type of Finance].[TYPE_OF_FINANCE##910],[Type of Finance].[TYPE_OF_FINANCE##911],[Type of Finance].[TYPE_OF_FINANCE##912]})</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="Non Grants Debt Forgiveness" dimension="Type of Finance">
+            <Formula>SUM([Type of Finance].[TYPE_OF_FINANCE##610])</Formula>
+        </CalculatedMember>
+
+        <!--  Groups of Areas -->
+        <CalculatedMember name="LDC" dimension="Area">
+            <Formula>SUM({[Area].[225],[Area].[228],[Area].[231],[Area].[232],[Area].[233],[Area].[235],[Area].[236],[Area].[238],[Area].[240],[Area].[243],[Area].[244],[Area].[245],[Area].[249],[Area].[251],[Area].[252],[Area].[253],[Area].[255],[Area].[256],[Area].[259],[Area].[260],[Area].[266],[Area].[268],[Area].[269],[Area].[271],[Area].[272],[Area].[273],[Area].[274],[Area].[278],[Area].[279],[Area].[282],[Area].[283],[Area].[285],[Area].[287],[Area].[288],[Area].[349],[Area].[580],[Area].[625],[Area].[630],[Area].[635],[Area].[660],[Area].[666],[Area].[728],[Area].[745],[Area].[765],[Area].[836],[Area].[854],[Area].[866],[Area].[872],[Area].[880]})</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="Africa" dimension="Area">
+            <Formula>SUM({[Area].[130],[Area].[133],[Area].[136],[Area].[139],[Area].[142],[Area].[189],[Area].[218],[Area].[225],[Area].[227],[Area].[228],[Area].[229],[Area].[230],[Area].[231],[Area].[232],[Area].[233],[Area].[234],[Area].[235],[Area].[236],[Area].[238],[Area].[239],[Area].[240],[Area].[241],[Area].[243],[Area].[244],[Area].[245],[Area].[247],[Area].[248],[Area].[249],[Area].[251],[Area].[252],[Area].[253],[Area].[255],[Area].[256],[Area].[257],[Area].[259],[Area].[260],[Area].[261],[Area].[265],[Area].[266],[Area].[268],[Area].[269],[Area].[270],[Area].[271],[Area].[272],[Area].[273],[Area].[274],[Area].[275],[Area].[276],[Area].[278],[Area].[279],[Area].[280],[Area].[282],[Area].[283],[Area].[285],[Area].[287],[Area].[288],[Area].[289]})</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="SouthOfSahara" dimension="Area">
+            <Formula>SUM({[Area].[218],[Area].[225],[Area].[227],[Area].[228],[Area].[229],[Area].[230],[Area].[231],[Area].[232],[Area].[233],[Area].[234],[Area].[235],[Area].[236],[Area].[238],[Area].[239],[Area].[240],[Area].[241],[Area].[243],[Area].[244],[Area].[245],[Area].[247],[Area].[248],[Area].[249],[Area].[251],[Area].[252],[Area].[253],[Area].[255],[Area].[256],[Area].[257],[Area].[259],[Area].[260],[Area].[261],[Area].[265],[Area].[266],[Area].[268],[Area].[269],[Area].[270],[Area].[271],[Area].[272],[Area].[273],[Area].[274],[Area].[275],[Area].[276],[Area].[278],[Area].[279],[Area].[280],[Area].[282],[Area].[283],[Area].[285],[Area].[287],[Area].[288],[Area].[289]})</Formula>
+        </CalculatedMember>
+
+        <!--  Groups of Sectors (add more as needed) -->
+        <CalculatedMember name="Humanitarian Aid" dimension="Sector">
+            <Formula>SUM({[Sector].[700],[Sector].[720],[Sector].[72010],[Sector].[72040],[Sector].[72050],[Sector].[730],[Sector].[73010],[Sector].[740],[Sector].[74010]})</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="Short Term Reconstruction" dimension="Sector">
+            <Formula>SUM({[Sector].[73010]})</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="Development Food Aid" dimension="Sector">
+            <Formula>SUM({[Sector].[520],[Sector].[52010]})</Formula>
+        </CalculatedMember>
+    </Cube>
+</Schema>

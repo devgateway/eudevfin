@@ -4,7 +4,7 @@
 package org.devgateway.eudevfin.auth.repository;
 
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public interface PersistedUserRepository extends
-		PagingAndSortingRepository<PersistedUser, Long> {
+		JpaRepository<PersistedUser, Long> {
 
 	PersistedUser findByUsername(String username);
 	

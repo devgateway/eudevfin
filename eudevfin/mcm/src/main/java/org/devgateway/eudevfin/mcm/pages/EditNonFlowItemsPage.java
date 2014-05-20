@@ -11,30 +11,36 @@ a * Copyright (c) 2013 Development Gateway.
 
 package org.devgateway.eudevfin.mcm.pages;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
-import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.log4j.Logger;
-import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.model.*;
+import org.apache.wicket.model.ComponentPropertyModel;
+import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.time.Duration;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.auth.common.util.AuthUtils;
-import org.devgateway.eudevfin.financial.Category;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
-import org.devgateway.eudevfin.financial.Organization;
-import org.devgateway.eudevfin.financial.service.CategoryService;
 import org.devgateway.eudevfin.financial.service.CurrencyMetadataService;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
-import org.devgateway.eudevfin.financial.util.CategoryConstants;
 import org.devgateway.eudevfin.financial.util.FinancialTransactionUtil;
+import org.devgateway.eudevfin.metadata.common.domain.Category;
+import org.devgateway.eudevfin.metadata.common.domain.Organization;
+import org.devgateway.eudevfin.metadata.common.service.CategoryService;
+import org.devgateway.eudevfin.metadata.common.util.CategoryConstants;
+import org.devgateway.eudevfin.ui.common.LocalComponentDetachableModel;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
+import org.devgateway.eudevfin.ui.common.components.BootstrapCancelButton;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
 import org.devgateway.eudevfin.ui.common.components.FinancialAmountTextInputField;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
@@ -48,10 +54,8 @@ import org.joda.time.LocalDateTime;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.wicketstuff.annotation.mount.MountPath;
 
-import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
+import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
 
 /**
  * @author mihai
@@ -92,40 +96,7 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 
 	private TextInputField<String> reportingCurrencyField;
 
-	/**
-	 * Simple model compliant with {@link IComponentAssignedModel} even if we
-	 * dont need to know the {@link Component}
-	 * 
-	 * @author mihai
-	 * 
-	 * @param <T>
-	 */
-	public class LocalComponentDetachableModel<T> extends
-			ComponentDetachableModel<T> {
 
-		transient T t;
-
-		@Override
-		protected T getObject(Component component) {
-			return t;
-		}
-
-		/**
-		 * no state between refreshes
-		 */
-		@Override
-		protected void attach() {
-			t = null;
-		}
-
-		/**
-		 * we receive the component and we really don't care much...
-		 */
-		@Override
-		protected void setObject(Component component, T object) {
-			t = object;
-		}
-	};
 
 	public WebMarkupContainer initializeFakeFinancialContainer(String id,
 			String fieldId, PageParameters parameters,
@@ -300,10 +271,8 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 		});
 		
 		
-		form.add(new BootstrapSubmitButton("cancel", new StringResourceModel("button.cancel", this, null, null)) {
-			@Override
-			protected void onError(AjaxRequestTarget target, Form<?> form) {
-			}
+		form.add(new BootstrapCancelButton("cancel", new StringResourceModel("button.cancel", this, null, null)) {
+			private static final long serialVersionUID = -8507390274067369368L;
 
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {

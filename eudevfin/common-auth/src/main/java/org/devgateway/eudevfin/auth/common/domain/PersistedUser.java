@@ -54,7 +54,13 @@ public class PersistedUser implements Serializable, UserDetails {
 
 	@Column(length = 256)
 	private String password;
-
+	
+	@Transient
+	private String plainPassword;
+	
+	@Transient
+	private String plainPasswordCheck;
+	
 	private boolean enabled = true;
 
 	@ManyToMany(fetch = FetchType.EAGER)
@@ -241,6 +247,34 @@ public class PersistedUser implements Serializable, UserDetails {
 	 */
 	public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
 		this.authorities = authorities;
+	}
+
+	/**
+	 * @return the passwordCheck
+	 */
+	public String getPlainPasswordCheck() {
+		return plainPasswordCheck;
+	}
+
+	/**
+	 * @param passwordCheck the passwordCheck to set
+	 */
+	public void setPlainPasswordCheck(String passwordCheck) {
+		this.plainPasswordCheck = passwordCheck;
+	}
+
+	/**
+	 * @return the plainPassword
+	 */
+	public String getPlainPassword() {
+		return plainPassword;
+	}
+
+	/**
+	 * @param plainPassword the plainPassword to set
+	 */
+	public void setPlainPassword(String plainPassword) {
+		this.plainPassword = plainPassword;
 	}
 
 	

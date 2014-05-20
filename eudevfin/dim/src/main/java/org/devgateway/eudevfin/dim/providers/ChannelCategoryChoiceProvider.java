@@ -9,8 +9,8 @@
 package org.devgateway.eudevfin.dim.providers;
 
 import org.devgateway.eudevfin.common.service.BaseEntityService;
-import org.devgateway.eudevfin.financial.ChannelCategory;
-import org.devgateway.eudevfin.financial.service.ChannelCategoryService;
+import org.devgateway.eudevfin.metadata.common.domain.ChannelCategory;
+import org.devgateway.eudevfin.metadata.common.service.ChannelCategoryService;
 import org.devgateway.eudevfin.ui.common.providers.AbstractTranslatableProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 /**
  * @author aartimon
  * @since 14/01/14
- * @deprecated use {@link CategoryProviderFactory} instead
+ * @deprecated use {@link org.devgateway.eudevfin.ui.common.providers.CategoryProviderFactory} instead
  */
 @Deprecated
 @Component
