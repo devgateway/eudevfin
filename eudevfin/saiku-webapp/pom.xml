@@ -1,9 +1,8 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<parent>
 		<groupId>org.devgateway.eudevfin</groupId>
 		<artifactId>eudevfin</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.saiku</groupId>
@@ -52,30 +51,25 @@
 								<copy todir="target/${project.artifactId}-foodmart-${project.version}">
 									<fileset dir="target/${project.artifactId}-${project.version}/" />
 								</copy>
-								<unzip
-									dest="target/${project.artifactId}-foodmart-${project.version}/WEB-INF/classes/">
+								<unzip dest="target/${project.artifactId}-foodmart-${project.version}/WEB-INF/classes/">
 									<fileset dir="${basedir}/../util/">
 										<include name="foodmart.zip" />
 									</fileset>
 								</unzip>
-								<copy
-									todir="target/${project.artifactId}-foodmart-${project.version}/WEB-INF/classes/foodmart/"
+								<copy todir="target/${project.artifactId}-foodmart-${project.version}/WEB-INF/classes/foodmart/"
 									overwrite="true">
 									<fileset dir="${basedir}/../util/">
 										<include name="FoodMart.xml" />
 									</fileset>
 								</copy>
-								<copy
-									todir="target/${project.artifactId}-foodmart-${project.version}/WEB-INF/classes/saiku-datasources/"
+								<copy todir="target/${project.artifactId}-foodmart-${project.version}/WEB-INF/classes/saiku-datasources/"
 									overwrite="true">
 									<fileset dir="${basedir}/../util/">
 										<include name="foodmart" />
 									</fileset>
 								</copy>
-								<zip
-									destfile="target/${project.artifactId}-foodmart-${project.version}.war">
-									<zipfileset
-										dir="target/${project.artifactId}-foodmart-${project.version}/" />
+								<zip destfile="target/${project.artifactId}-foodmart-${project.version}.war">
+									<zipfileset dir="target/${project.artifactId}-foodmart-${project.version}/" />
 								</zip>
 								 -->
 							</tasks>
