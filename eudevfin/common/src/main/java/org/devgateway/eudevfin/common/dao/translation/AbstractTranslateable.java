@@ -61,7 +61,7 @@ public abstract class AbstractTranslateable<T extends AbstractTranslation<? exte
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval=true)
     @MapKey(name = "locale")
-	protected Map<String, T> translations;
+	protected Map<String, T> translations=new HashMap<>();
 
 
     protected void set(final String property, final Object value) {
