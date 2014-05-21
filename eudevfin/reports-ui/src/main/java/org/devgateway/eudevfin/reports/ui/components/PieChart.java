@@ -100,7 +100,7 @@ public class PieChart extends RunMdxQuery {
     }
 
     public Chart getChart() {
-        return new Chart(chartId, options);
+        return new LocalChart(chartId, options);
     }
 
     public Options getOptions() {
