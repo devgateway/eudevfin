@@ -75,15 +75,15 @@
         <Query>
             <![CDATA[
             WITH
-            MEMBER Measures.[Curent (USD m)] AS [Measures].[Net Amount Currency NATLOECD]
-            MEMBER Measures.[${REPORT_CURRENCY_CODE}] AS [Measures].[Net Amount]
+            MEMBER Measures.[Curent (USD m)] AS IIF([Measures].[Net Amount Currency NATLOECD] > 0, [Measures].[Net Amount Currency NATLOECD], Null)
+            MEMBER Measures.[${REPORT_CURRENCY_CODE}] AS IIF([Measures].[Net Amount] > 0, [Measures].[Net Amount], Null)
             MEMBER Measures.[ODA/GNI] AS SUM(CrossJoin({[Type of Finance].[TYPE_OF_FINANCE##2].[ODA % GNI]}, {[Measures].[Extended Amount No Flow]}))
-            MEMBER Measures.[Bilateral share] AS (SUM(CrossJoin({[BiMultilateral].[Name].[Bilateral]}, {[Measures].[Net Amount Currency NATLOECD]})) * 100) / SUM(CrossJoin({[BiMultilateral].[Name].Members}, {[Measures].[Net Amount Currency NATLOECD]})), FORMAT_STRING='0.00'
+            MEMBER Measures.[Bilateral share] AS (SUM(CrossJoin({[BiMultilateral].[Name].[Bilateral]}, {[Measures].[Curent (USD m)]})) * 100) / SUM(CrossJoin({[BiMultilateral].[Name].Members}, {[Measures].[Curent (USD m)]})), FORMAT_STRING='0.00'
             SELECT
             {{[Reporting Year].[${YEAR1}], [Reporting Year].[${YEAR}]}} ON COLUMNS,
             {[Measures].[Curent (USD m)], [Measures].[${REPORT_CURRENCY_CODE}], Measures.[ODA/GNI], Measures.[Bilateral share]} ON ROWS
             FROM [Financial]
-            WHERE ({[Type of Flow].[Name].[ODA (Official Development Assistance)], [Type of Flow].[Name].[Non flow (e.g. GNI)]})
+            WHERE (Union(CrossJoin({[Type of Flow].[Name].[ODA (Official Development Assistance)]}, {[Form Type].[bilateralOda.CRS]}), Union(CrossJoin({[Type of Flow].[Name].[ODA (Official Development Assistance)]}, {[Form Type].[multilateralOda.CRS]}), Union(CrossJoin({[Type of Flow].[Name].[Non flow (e.g. GNI)]}, {[Form Type].[bilateralOda.CRS]}), CrossJoin({[Type of Flow].[Name].[Non flow (e.g. GNI)]}, {[Form Type].[multilateralOda.CRS]})))))
             ]]>
         </Query>
     </DataAccess>
@@ -100,11 +100,13 @@
         </Parameters>
         <Query>
             <![CDATA[
+            WITH
+            MEMBER [Measures].[First Year] AS IIF(SUM(CrossJoin([Reporting Year].[${YEAR}], {[Measures].[Extended Amount Currency NATLOECD]})) > 0, SUM(CrossJoin([Reporting Year].[${YEAR}], {[Measures].[Extended Amount Currency NATLOECD]})), Null)
             SELECT
-            NON EMPTY {[Measures].[Extended Amount Currency NATLOECD]} ON COLUMNS,
-            NON EMPTY Subset(Order(({[Country].[Name].Members}), [Measures].[Extended Amount Currency NATLOECD], BDESC), 0, 10)  ON ROWS
+            NON EMPTY [Measures].[First Year] ON COLUMNS,
+            NON EMPTY Subset(Order(({[Country].[Name].Members}), [Measures].[First Year], BDESC), 0, 10)  ON ROWS
             FROM [Financial]
-            WHERE ([Type of Flow].[Name].[ODA (Official Development Assistance)], [Reporting Year].[${YEAR}], [BiMultilateral].[Name].[Bilateral])
+            WHERE (Union(CrossJoin({[Type of Flow].[Name].[ODA (Official Development Assistance)]}, CrossJoin({[BiMultilateral].[Name].[Bilateral]}, {[Form Type].[bilateralOda.CRS]})), CrossJoin({[Type of Flow].[Name].[ODA (Official Development Assistance)]}, CrossJoin({[BiMultilateral].[Name].[Bilateral]}, {[Form Type].[multilateralOda.CRS]}))))
             ]]>
         </Query>
     </DataAccess>
@@ -122,13 +124,14 @@
         <Query>
             <![CDATA[
             WITH
-            MEMBER Measures.[Top 5 recipients] AS (SUM(CrossJoin({SUBSET(ORDER([Country].[Name].Members, [Measures].[Extended Amount Currency NATLOECD], BDESC), 0, 5)}, {[Measures].[Extended Amount Currency NATLOECD]})) / SUM(CrossJoin({[Type of Finance].[Name].Members}, {[Measures].[Extended Amount Currency NATLOECD]}))) * 100
-            MEMBER Measures.[Top 10 recipients] AS IIF(SUM(CrossJoin({SUBSET(ORDER([Country].[Name].Members, [Measures].[Extended Amount Currency NATLOECD], BDESC), 0, 20)}, {[Measures].[Extended Amount Currency NATLOECD]})) < 5, NULL, (SUM(CrossJoin({SUBSET(ORDER([Country].[Name].Members, [Measures].[Extended Amount Currency NATLOECD], BDESC), 0, 10)}, {[Measures].[Extended Amount Currency NATLOECD]})) / SUM(CrossJoin({[Type of Finance].[Name].Members}, {[Measures].[Extended Amount Currency NATLOECD]}))) * 100)
-            MEMBER Measures.[Top 20 recipients] AS IIF(SUM(CrossJoin({SUBSET(ORDER([Country].[Name].Members, [Measures].[Extended Amount Currency NATLOECD], BDESC), 0, 20)}, {[Measures].[Extended Amount Currency NATLOECD]})) < 10, NULL, (SUM(CrossJoin({SUBSET(ORDER([Country].[Name].Members, [Measures].[Extended Amount Currency NATLOECD], BDESC), 0, 20)}, {[Measures].[Extended Amount Currency NATLOECD]})) / SUM(CrossJoin({[Type of Finance].[Name].Members}, {[Measures].[Extended Amount Currency NATLOECD]}))) * 100)
+            MEMBER Measures.[First Year] AS IIF(SUM(CrossJoin([Reporting Year].[${YEAR}], {[Measures].[Extended Amount Currency NATLOECD]})) > 0, SUM(CrossJoin([Reporting Year].[${YEAR}], {[Measures].[Extended Amount Currency NATLOECD]})), Null)
+            MEMBER Measures.[Top 5 recipients] AS (SUM(CrossJoin({SUBSET(ORDER([Country].[Name].Members, [Measures].[First Year], BDESC), 0, 5)}, {[Measures].[First Year]})) / SUM(CrossJoin({[Type of Finance].[Name].Members}, {[Measures].[First Year]}))) * 100
+            MEMBER Measures.[Top 10 recipients] AS IIF(SUM(CrossJoin({SUBSET(ORDER([Country].[Name].Members, [Measures].[First Year], BDESC), 0, 20)}, {[Measures].[First Year]})) < 5, NULL, (SUM(CrossJoin({SUBSET(ORDER([Country].[Name].Members, [Measures].[First Year], BDESC), 0, 10)}, {[Measures].[First Year]})) / SUM(CrossJoin({[Type of Finance].[Name].Members}, {[Measures].[First Year]}))) * 100)
+            MEMBER Measures.[Top 20 recipients] AS IIF(SUM(CrossJoin({SUBSET(ORDER([Country].[Name].Members, [Measures].[First Year], BDESC), 0, 20)}, {[Measures].[First Year]})) < 10, NULL, (SUM(CrossJoin({SUBSET(ORDER([Country].[Name].Members, [Measures].[First Year], BDESC), 0, 20)}, {[Measures].[First Year]})) / SUM(CrossJoin({[Type of Finance].[Name].Members}, {[Measures].[First Year]}))) * 100)
             SELECT
             NON EMPTY {Measures.[Top 5 recipients], Measures.[Top 10 recipients], Measures.[Top 20 recipients]} ON COLUMNS
             FROM [Financial]
-            WHERE ([Type of Flow].[Name].[ODA (Official Development Assistance)], [Reporting Year].[${YEAR}], [BiMultilateral].[Name].[Bilateral])
+            WHERE (Union(CrossJoin({[Type of Flow].[Name].[ODA (Official Development Assistance)]}, CrossJoin({[BiMultilateral].[Name].[Bilateral]}, {[Form Type].[bilateralOda.CRS]})), CrossJoin({[Type of Flow].[Name].[ODA (Official Development Assistance)]}, CrossJoin({[BiMultilateral].[Name].[Bilateral]}, {[Form Type].[multilateralOda.CRS]}))))
             ]]>
         </Query>
     </DataAccess>
@@ -146,12 +149,13 @@
         <Query>
             <![CDATA[
             WITH
+            MEMBER [Measures].[First Year] AS IIF(SUM(CrossJoin([Reporting Year].[${YEAR}], {[Measures].[Extended Amount Currency NATLOECD]})) > 0, SUM(CrossJoin([Reporting Year].[${YEAR}], {[Measures].[Extended Amount Currency NATLOECD]})), Null)
             MEMBER [IncomeGroup].[Unallocated] AS SUM([Type of Finance].[Name].Members) - SUM([IncomeGroup].[Name].Members)
             SELECT
-            NON EMPTY {[Measures].[Extended Amount Currency NATLOECD]} ON COLUMNS,
-            NON EMPTY Order({[IncomeGroup].[Name].Members, [IncomeGroup].[Unallocated]}, [Measures].[Extended Amount Currency NATLOECD], BDESC)  ON ROWS
+            NON EMPTY {[Measures].[First Year]} ON COLUMNS,
+            NON EMPTY Order({[IncomeGroup].[Name].Members, [IncomeGroup].[Unallocated]}, [Measures].[First Year], BDESC)  ON ROWS
             FROM [Financial]
-            WHERE ([Type of Flow].[Name].[ODA (Official Development Assistance)], [Reporting Year].[${YEAR}], [BiMultilateral].[Name].[Bilateral])
+            WHERE (Union(CrossJoin({[Type of Flow].[Name].[ODA (Official Development Assistance)]}, CrossJoin({[BiMultilateral].[Name].[Bilateral]}, {[Form Type].[bilateralOda.CRS]})), CrossJoin({[Type of Flow].[Name].[ODA (Official Development Assistance)]}, CrossJoin({[BiMultilateral].[Name].[Bilateral]}, {[Form Type].[multilateralOda.CRS]}))))
             ]]>
         </Query>
     </DataAccess>
@@ -169,12 +173,13 @@
         <Query>
             <![CDATA[
             WITH
+            MEMBER [Measures].[First Year] AS IIF(SUM(CrossJoin([Reporting Year].[${YEAR}], {[Measures].[Extended Amount Currency NATLOECD]})) > 0, SUM(CrossJoin([Reporting Year].[${YEAR}], {[Measures].[Extended Amount Currency NATLOECD]})), Null)
             MEMBER [Country].[Unspecified] AS SUM([Type of Finance].[Name].Members) - SUM([IncomeGroup].[Name].Members)
             SELECT
-            NON EMPTY {[Measures].[Extended Amount Currency NATLOECD]} ON COLUMNS,
-            NON EMPTY ORDER({[Country].[Geography].Members, [Country].[Unspecified]}, [Measures].[Extended Amount Currency NATLOECD], BDESC) ON ROWS
+            NON EMPTY {[Measures].[First Year]} ON COLUMNS,
+            NON EMPTY ORDER({[Country].[Geography].Members, [Country].[Unspecified]}, [Measures].[First Year], BDESC) ON ROWS
             FROM [Financial]
-            WHERE ([Type of Flow].[Name].[ODA (Official Development Assistance)], [Reporting Year].[${YEAR}], [BiMultilateral].[Name].[Bilateral])
+            WHERE (Union(CrossJoin({[Type of Flow].[Name].[ODA (Official Development Assistance)]}, CrossJoin({[BiMultilateral].[Name].[Bilateral]}, {[Form Type].[bilateralOda.CRS]})), CrossJoin({[Type of Flow].[Name].[ODA (Official Development Assistance)]}, CrossJoin({[BiMultilateral].[Name].[Bilateral]}, {[Form Type].[multilateralOda.CRS]}))))
             ]]>
         </Query>
     </DataAccess>
@@ -191,11 +196,13 @@
         </Parameters>
         <Query>
             <![CDATA[
+            WITH
+            MEMBER [Measures].[First Year] AS IIF(SUM(CrossJoin([Reporting Year].[${YEAR}], {[Measures].[Extended Amount Currency NATLOECD]})) > 0, SUM(CrossJoin([Reporting Year].[${YEAR}], {[Measures].[Extended Amount Currency NATLOECD]})), Null)
             SELECT
-            NON EMPTY {[Measures].[Extended Amount Currency NATLOECD]} ON COLUMNS,
+            NON EMPTY {[Measures].[First Year]} ON COLUMNS,
             NON EMPTY Order(CrossJoin([SectorHierarchy].[ParentName].Members, {[Type of Flow].[Name].[ODA (Official Development Assistance)]}), [Measures].[Extended Amount Currency NATLOECD], BDESC) ON ROWS
             FROM [Financial]
-            WHERE ([Reporting Year].[${YEAR}], [BiMultilateral].[Name].[Bilateral])
+            WHERE (Union(CrossJoin({[BiMultilateral].[Name].[Bilateral]}, {[Form Type].[bilateralOda.CRS]}), CrossJoin({[BiMultilateral].[Name].[Bilateral]}, {[Form Type].[multilateralOda.CRS]})))
             ]]>
         </Query>
     </DataAccess>
