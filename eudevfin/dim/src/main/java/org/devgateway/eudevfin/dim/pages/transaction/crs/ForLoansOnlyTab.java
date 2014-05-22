@@ -22,6 +22,8 @@ import org.devgateway.eudevfin.ui.common.events.CurrencyUpdateBehavior;
 import org.devgateway.eudevfin.ui.common.events.LoansField12UpdateBehavior;
 import org.devgateway.eudevfin.ui.common.models.BigMoneyModel;
 import org.devgateway.eudevfin.ui.common.models.DateToLocalDateTimeModel;
+import org.devgateway.eudevfin.ui.common.models.InterestRateToBigDecimalModel;
+import org.devgateway.eudevfin.ui.common.models.YearToLocalDateTimeModel;
 import org.devgateway.eudevfin.ui.common.permissions.PermissionAwareComponent;
 import org.devgateway.eudevfin.ui.common.providers.CategoryProviderFactory;
 import org.joda.money.BigMoney;
@@ -64,10 +66,11 @@ public class ForLoansOnlyTab extends Panel implements PermissionAwareComponent {
         numberOfRepayments.getField().add(new LoansField12UpdateBehavior());        
         add(numberOfRepayments);
 
-        TextInputField<BigDecimal> interestRate = new TextInputField<>("46interestRate",
-                new RWComponentPropertyModel<BigDecimal>("interestRate"));
-        interestRate.getField().add(new LoansField12UpdateBehavior());        
-        interestRate.typeBigDecimal();
+		TextInputField<String> interestRate = new TextInputField<>("46interestRate", new InterestRateToBigDecimalModel(
+				new RWComponentPropertyModel<BigDecimal>("interestRate")));
+		interestRate.getField().add(new LoansField12UpdateBehavior());
+		interestRate.typeString().required().decorateMask("99999");
+        
         add(interestRate);
 
         TextInputField<BigDecimal> secondInterestRate = new TextInputField<>("47secondInterestRate",
