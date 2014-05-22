@@ -177,7 +177,8 @@ public abstract class AbstractFormStructureTest extends BaseDimTest {
         components.put("activityP3", new DimComponentInfo(CustomVolumeDataTab.KEY, VOLUME_DATA_TAB_PATH + ACTIVITY_GROUP + ":activityP3", TextInputField.class));
         components.put("activityP4", new DimComponentInfo(CustomVolumeDataTab.KEY, VOLUME_DATA_TAB_PATH + ACTIVITY_GROUP + ":activityP4", TextInputField.class));
         components.put("32bOtherCurrency", new DimComponentInfo(CustomVolumeDataTab.KEY, VOLUME_DATA_TAB_PATH + EXTENSION_PANEL3 + ":32bOtherCurrency", DropDownField.class));
-        components.put("32cExchangeRate", new DimComponentInfo(CustomVolumeDataTab.KEY, VOLUME_DATA_TAB_PATH + EXTENSION_PANEL3 + ":32cExchangeRate", TextInputField.class));
+        //Exchange rate removed -- commenting out structure in form
+        //components.put("32cExchangeRate", new DimComponentInfo(CustomVolumeDataTab.KEY, VOLUME_DATA_TAB_PATH + EXTENSION_PANEL3 + ":32cExchangeRate", TextInputField.class));
     }
 
     private void initForLoansOnlyTab() {
