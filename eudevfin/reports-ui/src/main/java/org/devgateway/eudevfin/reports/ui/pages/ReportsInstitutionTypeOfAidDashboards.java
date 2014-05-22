@@ -59,7 +59,7 @@ public class ReportsInstitutionTypeOfAidDashboards extends HeaderFooter {
     private String typeOfFlowParam;
     private String institutionParam;
     private String yearParam;
-    private String humanitarianAidgParam;
+    private String humanitarianAidParam;
 
     private Category bilateralCategory;
     private Category multilateralCategory;
@@ -97,7 +97,7 @@ public class ReportsInstitutionTypeOfAidDashboards extends HeaderFooter {
             tableYear = Integer.parseInt(yearParam);
         }
         if(!parameters.get(ReportsConstants.HUMANITARIANAID_PARAM).equals(StringValue.valueOf((String) null))) {
-            humanitarianAidgParam = parameters.get(ReportsConstants.HUMANITARIANAID_PARAM).toString();
+            humanitarianAidParam = parameters.get(ReportsConstants.HUMANITARIANAID_PARAM).toString();
         }
 
         bilateralCategory = catDao.findByCode("BI_MULTILATERAL##1").get(0);
@@ -129,6 +129,7 @@ public class ReportsInstitutionTypeOfAidDashboards extends HeaderFooter {
         add(title);
 
         addTypeOfAidTable();
+        addTypeOfAidHumanitarianAidTable();
         addTypeOfAidChart();
         addTypeBiMultilateralChart();
     }
@@ -152,7 +153,7 @@ public class ReportsInstitutionTypeOfAidDashboards extends HeaderFooter {
                 this.rows = new ArrayList<>();
                 this.result = this.runQuery();
 
-                return ReportsDashboardsUtils.processTableRowsWithTotal(this.rows, this.result, this.rowId);
+                return ReportsDashboardsUtils.processTableRowsWithTotal(this.rows, this.result, this.rowId, true);
             }
         };
 
@@ -189,6 +190,58 @@ public class ReportsInstitutionTypeOfAidDashboards extends HeaderFooter {
         table.getTable().add(currencyFirstYear);
         Label currencySecondYear = new Label("currencySecondYear", countryCurrency);
         table.getTable().add(currencySecondYear);
+    }
+
+    private void addTypeOfAidHumanitarianAidTable () {
+        Label title = new Label("typeOfAidHumanitarianAidTableTitle", new StringResourceModel("reportsinstitutiontypeofaiddashboards.humanitarianAidTableTitle", this, null, null));
+        add(title);
+
+        Table table = new Table(CdaService, "typeOfAidHumanitarianAidTable", "typeOfAidHumanitarianAidTableRows", "customDashboardsTypeOfAidHumanitarianAidTable") {
+            @Override
+            public ListView<String[]> getTableRows () {
+                super.getTableRows();
+
+                this.rows = new ArrayList<>();
+                this.result = this.runQuery();
+
+                List <List<String>> resultSet = result.getResultset();
+
+                // add a new null row to build the same format as the first table
+                for (int i = 0; i < resultSet.size(); i++) {
+                    resultSet.get(i).add(1, null);
+                }
+                result.getMetadata().add(1, null);
+
+                return ReportsDashboardsUtils.processTableRowsWithTotal(this.rows, this.result, this.rowId, false);
+            }
+        };
+
+        // add MDX queries parameters
+        table.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
+        table.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
+        if (currencyParam != null) {
+            if (currencyParam.equals("true")) {
+                table.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+            }
+        }
+
+        Label firstYear = new Label("firstYear", tableYear - 1);
+        table.getTable().add(firstYear);
+        Label secondYear = new Label("secondYear", tableYear);
+        table.getTable().add(secondYear);
+
+        add(table.getTable());
+        table.addTableRows();
+
+        Label currencyFirstYear = new Label("currencyFirstYear", countryCurrency);
+        table.getTable().add(currencyFirstYear);
+        Label currencySecondYear = new Label("currencySecondYear", countryCurrency);
+        table.getTable().add(currencySecondYear);
+
+        if (humanitarianAidParam == null || humanitarianAidParam.equals("false")) {
+            table.getTable().setVisibilityAllowed(Boolean.FALSE);
+            title.setVisibilityAllowed(Boolean.FALSE);
+        }
     }
 
     private void addTypeOfAidChart () {
@@ -237,7 +290,11 @@ public class ReportsInstitutionTypeOfAidDashboards extends HeaderFooter {
         Options options = pieChart.getOptions();
         // check if we have a result and make the chart slightly higher
         if (pieChart.getResultSeries().size() != 0) {
-            options.getChartOptions().setHeight(350);
+            if (humanitarianAidParam != null && humanitarianAidParam.equals("true")) {
+                options.getChartOptions().setHeight(500);
+            } else {
+                options.getChartOptions().setHeight(400);
+            }
         }
 
         options.addSeries(new PointSeries()

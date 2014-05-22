@@ -432,6 +432,32 @@
         </Query>
     </DataAccess>
 
+    <DataAccess id="customDashboardsTypeOfAidHumanitarianAidTable"
+                connection="defaultConnectionLocale"
+                type="mdx"
+                access="public">
+        <BandedMode>compact</BandedMode>
+        <Columns/>
+        <Parameters>
+            <Parameter default="2012" name="FIRST_YEAR" type="Integer"/>
+            <Parameter default="2013" name="SECOND_YEAR" type="Integer"/>
+            <Parameter default="Net Amount Currency NATLOECD" name="currency" type="String"/>
+        </Parameters>
+        <Name>Custom Dashboards - Type Of Aid Humanitarian Aid Table</Name>
+        <Query>
+            <![CDATA[
+            WITH
+            MEMBER [Measures].[First Year] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[${currency}]}))
+            MEMBER [Measures].[Second Year] AS SUM(CrossJoin([Reporting Year].[${SECOND_YEAR}], {[Measures].[${currency}]}))
+            SELECT
+            NON EMPTY {[Measures].[First Year], [Measures].[Second Year]} ON COLUMNS,
+            NON EMPTY {[Extending Agency].[Name].Members} ON ROWS
+            FROM [Financial]
+            WHERE ({[Sector].[700], [Sector].[720], [Sector].[72010], [Sector].[72040], [Sector].[72050], [Sector].[730], [Sector].[73010], [Sector].[740], [Sector].[74010]})
+            ]]>
+        </Query>
+    </DataAccess>
+
     <DataAccess id="customDashboardsTypeOfAidChart"
                 connection="defaultConnectionLocale"
                 type="mdx"
