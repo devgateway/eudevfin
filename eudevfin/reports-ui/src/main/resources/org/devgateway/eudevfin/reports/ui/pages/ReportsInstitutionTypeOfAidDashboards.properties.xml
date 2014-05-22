@@ -11,6 +11,7 @@
 <properties>
     <entry key="reportsinstitutiontypeofaiddashboards.nationalCurrency">National Currency</entry>
     <entry key="reportsinstitutiontypeofaiddashboards.title">Reports Institution &amp; Type Of Aid Results</entry>
+    <entry key="reportsinstitutiontypeofaiddashboards.humanitarianAidTableTitle">Memo item: Humanitarian Assistance</entry>
     <entry key="reportsinstitutiontypeofaiddashboards.typeOfAid">Type of Aid</entry>
     <entry key="reportsinstitutiontypeofaiddashboards.multilateralAgency">Multilateral Agency</entry>
     <entry key="reportsinstitutiontypeofaiddashboards.biMultilateralChart">Memorandum Item - Bi/Multilateral Chart (Total ODA)</entry>

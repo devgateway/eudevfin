@@ -159,7 +159,7 @@ public class ReportsDashboardsUtils {
      * since the custom reports tale are similar we use only one function to process the rows
      * and calculate the Total line for each category
      */
-    public static ListView<String[]> processTableRowsWithTotal (List<String[]> rows, QueryResult result, String rowId) {
+    public static ListView<String[]> processTableRowsWithTotal (List<String[]> rows, QueryResult result, String rowId, Boolean calculateTotal) {
         List <List<String>> resultSet = result.getResultset();
 
         if(resultSet.size() != 0) {
@@ -199,8 +199,10 @@ public class ReportsDashboardsUtils {
                                     "" + secondYear
                             });
 
-                    resultSet.get(i).set(0, null);
-                    resultSet.add(i, newElement);
+                    if (calculateTotal) {
+                        resultSet.get(i).set(0, null);
+                        resultSet.add(i, newElement);
+                    }
 
                     firstYear = 0;
                     secondYear = 0;
@@ -222,8 +224,11 @@ public class ReportsDashboardsUtils {
                             "" + firstYear,
                             "" + secondYear
                     });
-            resultSet.get(0).set(0, null);
-            resultSet.add(0, newElement);
+
+            if (calculateTotal) {
+                resultSet.get(0).set(0, null);
+                resultSet.add(0, newElement);
+            }
 
             // format the amounts as #,###.##
             // and other values like percentages
