@@ -32,13 +32,13 @@ public class LoansField12UpdateBehavior extends UpdateEventBehavior<Field12Chang
 
 	@Override
 	protected void updateComponents(AjaxRequestTarget target) {
-		if (parent.getParent().getParent().getParent().getParent().isRenderAllowed())
-			target.add(parent);
+		if (parent.getParent().getParent().getParent().getParent().isVisibleInHierarchy())
+			if(target!=null) target.add(parent);
 	}
 
 	@Override
 	protected void onEventExtra(Component component, IEvent<?> event) {
-		if (!component.getParent().getParent().getParent().getParent().isRenderAllowed())
+		if (!component.getParent().getParent().getParent().getParent().isVisibleInHierarchy())
 			return;
 		Field12ChangedEventPayload eventPayload = getEventPayload(event);
 		if (pattern.matcher(eventPayload.getField12Code()).matches()) {
