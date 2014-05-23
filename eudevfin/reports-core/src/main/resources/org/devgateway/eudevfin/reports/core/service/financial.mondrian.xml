@@ -344,12 +344,36 @@
         <DimensionUsage source="Type of Finance" name="Type of Finance" visible="true" foreignKey="TYPEOFFINANCE_ID" highCardinality="false"></DimensionUsage>
         <DimensionUsage source="Type of Finance Root" name="Type of Finance Root" visible="true" foreignKey="TYPEOFFINANCE_ID" highCardinality="false"></DimensionUsage>
         <DimensionUsage source="BiMultilateral" name="BiMultilateral" visible="true" foreignKey="BIMULTILATERAL_ID" highCardinality="false"></DimensionUsage>
-        <DimensionUsage source="TxTitle" name="TxTitle" visible="true" foreignKey="ID" highCardinality="false"></DimensionUsage>
+        <DimensionUsage source="TxTitle" name="TxTitle" visible="true" foreignKey="ID" highCardinality="true"></DimensionUsage>
+        <Dimension name="BudgetCode">
+            <Hierarchy hasAll="true" allMemberName="All BudgetCode">
+                <!-- No table element here. Fact table is assumed. -->
+                <Level name="BudgetCode" column="BUDGETCODE" type="String" uniqueMembers="false" levelType="Regular"></Level>
+            </Hierarchy>
+        </Dimension>
         <Dimension name="Reporting Year">
             <Hierarchy hasAll="true">
                 <Level name="Reporting Year" column="REPORTINGYEAR" uniqueMembers="true">
                     <KeyExpression>
                         <SQL dialect="generic">CAST(YEAR("REPORTINGYEAR") AS CHAR(4))</SQL>
+                    </KeyExpression>
+                </Level>
+            </Hierarchy>
+        </Dimension>
+        <Dimension name="Starting Year">
+            <Hierarchy hasAll="true">
+                <Level name="Starting Year" column="STARTINGYEAR" uniqueMembers="true">
+                    <KeyExpression>
+                        <SQL dialect="generic">CAST(YEAR("EXPECTEDSTARTDATE") AS CHAR(4))</SQL>
+                    </KeyExpression>
+                </Level>
+            </Hierarchy>
+        </Dimension>
+        <Dimension name="Completion Year">
+            <Hierarchy hasAll="true">
+                <Level name="Completion Year" column="COMPLETITIONYEAR" uniqueMembers="true">
+                    <KeyExpression>
+                        <SQL dialect="generic">CAST(YEAR("EXPECTEDCOMPLETIONDATE") AS CHAR(4))</SQL>
                     </KeyExpression>
                 </Level>
             </Hierarchy>
