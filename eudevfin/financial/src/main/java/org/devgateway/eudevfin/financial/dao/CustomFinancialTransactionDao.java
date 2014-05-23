@@ -53,7 +53,7 @@ public class CustomFinancialTransactionDao
 	public Page<CustomFinancialTransaction> findByDraftAndPersistedUserGroupPageable(final Boolean draft,
 			@Header("persistedUserGroup") final PersistedUserGroup persistedUserGroup,
 			@Header("pageable") final Pageable pageable) {
-		return this.getRepo().findByDraftAndPersistedUserGroup(draft, persistedUserGroup, pageable);
+		return this.getRepo().findByDraftAndPersistedUserGroupAndApprovedFalse(draft, persistedUserGroup, pageable);
 	}
 	
 	/**
@@ -65,7 +65,7 @@ public class CustomFinancialTransactionDao
 	@ServiceActivator(inputChannel="findCustomTransactionByDraftPageableChannel")
 	public Page<CustomFinancialTransaction> findByDraftPageable(final Boolean draft,
 			@Header("pageable") final Pageable pageable) {
-		return this.getRepo().findByDraft(draft, pageable);
+		return this.getRepo().findByDraftAndApprovedFalse(draft, pageable);
 	}
 	
 	/**

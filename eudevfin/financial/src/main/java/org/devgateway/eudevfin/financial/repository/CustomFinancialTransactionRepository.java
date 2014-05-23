@@ -21,11 +21,11 @@ import org.springframework.data.jpa.repository.Query;
 public interface CustomFinancialTransactionRepository extends
 		JpaRepository<CustomFinancialTransaction, Long> {
 	
-	Page<CustomFinancialTransaction> findByDraft(Boolean draft, Pageable pageable );
+	Page<CustomFinancialTransaction> findByDraftAndApprovedFalse(Boolean draft, Pageable pageable );
 	
 	Page<CustomFinancialTransaction> findByApproved(Boolean approved, Pageable pageable );
 	
-	Page<CustomFinancialTransaction> findByDraftAndPersistedUserGroup(Boolean draft,PersistedUserGroup persistedUserGroup, Pageable pageable );
+	Page<CustomFinancialTransaction> findByDraftAndPersistedUserGroupAndApprovedFalse(Boolean draft,PersistedUserGroup persistedUserGroup, Pageable pageable );
 	
 	Page<CustomFinancialTransaction> findByApprovedAndPersistedUserGroup(Boolean approved,PersistedUserGroup persistedUserGroup, Pageable pageable );
 	
