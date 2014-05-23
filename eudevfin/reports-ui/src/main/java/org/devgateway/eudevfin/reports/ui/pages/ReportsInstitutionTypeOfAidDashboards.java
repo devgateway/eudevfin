@@ -206,11 +206,13 @@ public class ReportsInstitutionTypeOfAidDashboards extends HeaderFooter {
 
                 List <List<String>> resultSet = result.getResultset();
 
-                // add a new null row to build the same format as the first table
-                for (int i = 0; i < resultSet.size(); i++) {
-                    resultSet.get(i).add(1, null);
+                if(resultSet.size() != 0) {
+                    // add a new null row to build the same format as the first table
+                    for (int i = 0; i < resultSet.size(); i++) {
+                        resultSet.get(i).add(1, null);
+                    }
+                    result.getMetadata().add(1, null);
                 }
-                result.getMetadata().add(1, null);
 
                 return ReportsDashboardsUtils.processTableRowsWithTotal(this.rows, this.result, this.rowId, false);
             }
