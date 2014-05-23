@@ -19,6 +19,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 /**
  * @author Alexandru Artimon
@@ -31,6 +32,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         "classpath:META-INF/commonFinancialContext.xml"
 })
 @DirtiesContext
+@WebAppConfiguration
 public abstract class BaseWicketTest {
     protected WicketTester tester;
 
