@@ -32,13 +32,13 @@ public class MarkersField13UpdateBehavior extends UpdateEventBehavior<Field13Cha
 
 	@Override
 	protected void updateComponents(AjaxRequestTarget target) {
-		if(parent.getParent().getParent().getParent().getParent().isRenderAllowed()) 
-			target.add(parent);
+		if(parent.getParent().getParent().getParent().getParent().isVisibleInHierarchy()) 
+			if(target!=null) target.add(parent);
 	}
 
 	@Override
 	protected void onEventExtra(Component component, IEvent<?> event) {
-		if(!component.getParent().getParent().getParent().getParent().isRenderAllowed()) return;
+		if(!component.getParent().getParent().getParent().getParent().isVisibleInHierarchy()) return;
 		Field13ChangedEventPayload eventPayload = getEventPayload(event);		
 		if (pattern.matcher(eventPayload.getField13Code()).matches()) {
 			component.setEnabled(false);

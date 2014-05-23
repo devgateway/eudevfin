@@ -13,10 +13,12 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.wicket.Component;
+import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxCheckBox;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy;
+import org.apache.wicket.event.Broadcast;
 import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
@@ -31,6 +33,8 @@ import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.ui.common.Constants;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.CheckBoxField;
+import org.devgateway.eudevfin.ui.common.events.Field12ChangedEventPayload;
+import org.devgateway.eudevfin.ui.common.events.Field13ChangedEventPayload;
 import org.devgateway.eudevfin.ui.common.permissions.RoleActionMapping;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -145,7 +149,7 @@ public class CustomTransactionPage extends TransactionPage {
   		//draft.getField().getModel().setObject(true);
   		
 		draft.removeSpanFromControlGroup();
-		approved.removeSpanFromControlGroup();
+		approved.removeSpanFromControlGroup();	
   	}
 
 	/**
@@ -160,6 +164,20 @@ public class CustomTransactionPage extends TransactionPage {
 	 */
 	public CheckBoxField getDraft() {
 		return draft;
+	}
+	
+	@Override
+	protected void onBeforeRender() {
+		super.onBeforeRender();
+		// send events on page load
+		CustomFinancialTransaction transaction = (CustomFinancialTransaction) form.getInnermostModel().getObject();
+		if (transaction.getTypeOfFinance() != null)
+			send(getPage(), Broadcast.DEPTH, new Field12ChangedEventPayload(null, transaction.getTypeOfFinance()
+					.getDisplayableCode()));
+
+		if (transaction.getTypeOfAid() != null)
+			send(getPage(), Broadcast.DEPTH, new Field13ChangedEventPayload(null, transaction.getTypeOfAid()
+					.getDisplayableCode()));
 	}
 
 }
