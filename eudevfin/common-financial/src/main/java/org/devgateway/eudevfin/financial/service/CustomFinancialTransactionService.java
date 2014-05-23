@@ -36,6 +36,9 @@ public interface CustomFinancialTransactionService extends BaseEntityService<Cus
 	public List<CustomFinancialTransaction> findByReportingYearAndDraftFalseAndFormTypeNotIn(final Integer year,
 			@Header("notFormType") Collection<String> notFormType);
 	
+	public List<CustomFinancialTransaction> findByReportingYearAndApprovedTrueAndFormTypeIn(final Integer year,
+			@Header("notFormType") Collection<String> notFormType);
+	
 	@Payload("new java.util.Date()")
 	public List<Integer> findDistinctReportingYears();
 

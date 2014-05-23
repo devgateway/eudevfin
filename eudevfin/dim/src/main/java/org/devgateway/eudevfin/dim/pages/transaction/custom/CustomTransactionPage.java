@@ -142,7 +142,7 @@ public class CustomTransactionPage extends TransactionPage {
   	  
   		
 		//always set this field to true when form is opened
-  		draft.getField().getModel().setObject(true);
+  		//draft.getField().getModel().setObject(true);
   		
 		draft.removeSpanFromControlGroup();
 		approved.removeSpanFromControlGroup();

@@ -51,9 +51,9 @@ public class CustomFinancialTransactionDao
 	 */
 	@ServiceActivator(inputChannel="findCustomTransactionByDraftAndPersistedUserGroupPageableChannel")
 	public Page<CustomFinancialTransaction> findByDraftAndPersistedUserGroupPageable(final Boolean draft,
-			@Header("persistedUserGroup") PersistedUserGroup persistedUserGroup,
+			@Header("persistedUserGroup") final PersistedUserGroup persistedUserGroup,
 			@Header("pageable") final Pageable pageable) {
-		return this.getRepo().findByDraftAndPersistedUserGroup(draft, persistedUserGroup, pageable);
+		return this.getRepo().findByDraftAndPersistedUserGroupAndApprovedFalse(draft, persistedUserGroup, pageable);
 	}
 	
 	/**
@@ -65,7 +65,7 @@ public class CustomFinancialTransactionDao
 	@ServiceActivator(inputChannel="findCustomTransactionByDraftPageableChannel")
 	public Page<CustomFinancialTransaction> findByDraftPageable(final Boolean draft,
 			@Header("pageable") final Pageable pageable) {
-		return this.getRepo().findByDraft(draft, pageable);
+		return this.getRepo().findByDraftAndApprovedFalse(draft, pageable);
 	}
 	
 	/**
@@ -89,7 +89,7 @@ public class CustomFinancialTransactionDao
 	 */
 	@ServiceActivator(inputChannel="findCustomTransactionByApprovedAndPersistedUserGroupPageableChannel")
 	public Page<CustomFinancialTransaction> findByApprovedAndPersistedUserGroupPageable(final Boolean approved,
-			@Header("persistedUserGroup") PersistedUserGroup persistedUserGroup,
+			@Header("persistedUserGroup") final PersistedUserGroup persistedUserGroup,
 			@Header("pageable") final Pageable pageable) {
 		return this.getRepo().findByApprovedAndPersistedUserGroup(approved, persistedUserGroup, pageable);
 	}
@@ -114,11 +114,25 @@ public class CustomFinancialTransactionDao
 	 */
 	@ServiceActivator(inputChannel = "findCustomTransactionByReportingYearAndDraftFalseAndFormTypeNotInChannel")
 	public List<CustomFinancialTransaction> findByReportingYearAndDraftFalseAndFormTypeNotIn(final Integer year,
-			@Header("notFormType") Collection<String> notFormType) {
+			@Header("notFormType") final Collection<String> notFormType) {
 		final LocalDateTime start = new LocalDateTime(year, 1, 1, 0, 0);
 		final LocalDateTime end = new LocalDateTime(year + 1, 1, 1, 0, 0);
 
 		return this.getRepo().findByReportingYearBetweenAndDraftFalseAndFormTypeNotIn(start, end, notFormType);
+	}
+	
+	/**
+	 * @see CustomFinancialTransactionService#findByReportingYearAndDraftFalseAndFormTypeIn(Integer)
+	 * @param year
+	 * @return
+	 */
+	@ServiceActivator(inputChannel = "findCustomTransactionByReportingYearAndApprovedTrueAndFormTypeInChannel")
+	public List<CustomFinancialTransaction> findByReportingYearAndDraftFalseAndFormTypeIn(final Integer year,
+			@Header("notFormType") final Collection<String> notFormType) {
+		final LocalDateTime start = new LocalDateTime(year, 1, 1, 0, 0);
+		final LocalDateTime end = new LocalDateTime(year + 1, 1, 1, 0, 0);
+
+		return this.getRepo().findByReportingYearBetweenAndApprovedTrueAndFormTypeIn(start, end, notFormType);
 	}
 	
 	@ServiceActivator(inputChannel="findDistinctReportingYearsInTransactionChannel")

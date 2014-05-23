@@ -76,9 +76,9 @@ public class CrsRowTransformer extends AbstractRowTransformer<EntityWrapperInter
 		this.addCellTransformer( new CellTransformerImplementations.COMMITMENT_LC (this.exchangeRateUtil, "Commitment_LC") );
 		this.addCellTransformer( new CellTransformerImplementations.AMOUNTS_EXTENDED (this.exchangeRateUtil, "Amounts Extended") );
 		this.addCellTransformer( new CellTransformerImplementations.RECEIVED(this.exchangeRateUtil, "Received") );
-		this.addCellTransformer( new CellTransformerImplementations.AMOUNT_TIED(this.exchangeRateUtil, "Amount Untied") );
+		this.addCellTransformer( new CellTransformerImplementations.AMOUNT_TIED(this.exchangeRateUtil, "Amount Tied") );
 		this.addCellTransformer( new CellTransformerImplementations.AMOUNT_PARTIALLY_UNTIED(this.exchangeRateUtil, "Amount Partially Untied") );
-		this.addCellTransformer( new CellTransformerImplementations.AMOUNT_UNTIED (this.exchangeRateUtil, "Amount Tied") );
+		this.addCellTransformer( new CellTransformerImplementations.AMOUNT_UNTIED (this.exchangeRateUtil, "Amount Untied") );
 		this.addCellTransformer( new CellTransformerImplementations.IRTC (this.exchangeRateUtil, "IRTC") );
 		this.addCellTransformer( new CellTransformerImplementations.EXPERT_COMMITMENT(this.exchangeRateUtil, "Amount of experts-commitment") );
 		this.addCellTransformer( new CellTransformerImplementations.EXPERT_EXTENDED(this.exchangeRateUtil, "Amount of experts-extended") );

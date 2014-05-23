@@ -92,9 +92,9 @@ public class FssRowTransformer extends AbstractRowTransformer<EntityWrapperInter
 		this.addCellTransformer( new CellTransformerImplementations.COMMITMENT_LC (this.exchangeRateUtil, "Commitment_LC") );
 		this.addCellTransformer( new CellTransformerImplementations.AMOUNTS_EXTENDED (this.exchangeRateUtil, "Disbursement_LC") );
 		this.addCellTransformer( new CellTransformerImplementations.RECEIVED(this.exchangeRateUtil, "Received") );
-		this.addCellTransformer( new CellTransformerImplementations.AMOUNT_TIED(this.exchangeRateUtil, "AmountUntied") );
+		this.addCellTransformer( new CellTransformerImplementations.AMOUNT_TIED(this.exchangeRateUtil, "AmountTied") );
 		this.addCellTransformer( new CellTransformerImplementations.AMOUNT_PARTIALLY_UNTIED(this.exchangeRateUtil, "AmountPartiallyUntied") );
-		this.addCellTransformer( new CellTransformerImplementations.AMOUNT_UNTIED (this.exchangeRateUtil, "AmountTied") );
+		this.addCellTransformer( new CellTransformerImplementations.AMOUNT_UNTIED (this.exchangeRateUtil, "AmountUntied") );
 		this.addCellTransformer( new CellTransformerImplementations.IRTC (this.exchangeRateUtil, "IRTC") );
 		this.addCellTransformer( new CellTransformerImplementations.EXPERT_COMMITMENT(this.exchangeRateUtil, "Expert_commitment") );
 		this.addCellTransformer( new CellTransformerImplementations.EXPERT_EXTENDED(this.exchangeRateUtil, "Expert_extended") );
