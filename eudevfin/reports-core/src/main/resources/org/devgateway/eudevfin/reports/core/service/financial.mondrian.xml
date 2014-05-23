@@ -290,6 +290,31 @@
             </Level>
         </Hierarchy>
     </Dimension>
+    <Dimension visible="true" highCardinality="true" name="TxTitle">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All TxTitles">
+            <View alias="TxTitleView">
+                <SQL dialect="generic"><![CDATA[
+					select
+					  "TX"."ID",
+					  CASE
+						WHEN "TXTRANSLATION"."SHORTDESCRIPTION" IS NOT NULL
+					  THEN
+						"TXTRANSLATION"."SHORTDESCRIPTION"
+					  ELSE
+						"TXTRANSLATION_EN"."SHORTDESCRIPTION" END AS TITLE
+					FROM
+					  "APP"."FINANCIALTRANSACTION" AS "TX"
+					LEFT JOIN "APP"."FINANCIALTRANSACTIONTRANSLATION" "TXTRANSLATION" ON "TXTRANSLATION"."LOCALE" ='@@LOCALE@@' AND "TXTRANSLATION"."PARENT_ID" = "TX"."ID"
+					LEFT JOIN "APP"."FINANCIALTRANSACTIONTRANSLATION" "TXTRANSLATION_EN" ON "TXTRANSLATION_EN"."LOCALE" ='en' AND "TXTRANSLATION_EN"."PARENT_ID" = "TX"."ID"
+					WHERE "TXTRANSLATION"."SHORTDESCRIPTION" IS NOT NULL OR "TXTRANSLATION_EN"."SHORTDESCRIPTION" IS NOT NULL
+			]]></SQL>
+            </View>
+            <Level name="ID" visible="true" column="ID" uniqueMembers="false">
+            </Level>
+            <Level name="Title" visible="true" column="TITLE" uniqueMembers="false">
+            </Level>
+        </Hierarchy>
+    </Dimension>
     <Cube name="Financial" visible="true" cache="false" enabled="true">
         <View name="FINANCIALTRANSACTIONVIEW" alias="FINANCIALTRANSACTIONVIEW">
             <SQL dialect="generic"><![CDATA[
@@ -319,6 +344,7 @@
         <DimensionUsage source="Type of Finance" name="Type of Finance" visible="true" foreignKey="TYPEOFFINANCE_ID" highCardinality="false"></DimensionUsage>
         <DimensionUsage source="Type of Finance Root" name="Type of Finance Root" visible="true" foreignKey="TYPEOFFINANCE_ID" highCardinality="false"></DimensionUsage>
         <DimensionUsage source="BiMultilateral" name="BiMultilateral" visible="true" foreignKey="BIMULTILATERAL_ID" highCardinality="false"></DimensionUsage>
+        <DimensionUsage source="TxTitle" name="TxTitle" visible="true" foreignKey="ID" highCardinality="false"></DimensionUsage>
         <Dimension name="Reporting Year">
             <Hierarchy hasAll="true">
                 <Level name="Reporting Year" column="REPORTINGYEAR" uniqueMembers="true">

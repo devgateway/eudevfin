@@ -12,11 +12,16 @@ public class ReportsConstants {
     public static final String ISROOTSECTOR_PARAM = "isRootsectorParam";
     public static final String INSTITUTION_PARAM = "institutionParam";
     public static final String YEAR_PARAM = "yearParam";
+    public static final String STARTINGYEAR_PARAM = "startingYearParam";
+    public static final String COMPLETITIONYEAR_PARAM = "completionYearParam";
+    public static final String VALUE_PARAM = "valueParam";
     public static final String AGENCY_PARAM = "agencyParam";
     public static final String TYPEOFFLOW_PARAM = "typeOfFlowParam";
     public static final String HUMANITARIANAID_PARAM = "humanitarianAidParam";
     public static final String COFINANCING_PARAM = "coFinancingParam";
     public static final String CPAONLY_PARAM = "CPAOnlyParam";
+    public static final String EXPENDITURE_PARAM = "ExpenditureParam";
+    public static final String BUDGETCODES_PARAM = "budgetCodesParam";
 
     public static final String ROOT_SECTOR = "Root Sector Category";
 

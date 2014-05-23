@@ -21,11 +21,48 @@
                 </div>
 
                 <div class="span6">
-
+                    <div class="box">
+                        <div class="box-header">
+                            <h2>
+                                <div wicket:id="implementationTableTitle"/>
+                            </h2>
+                        </div>
+                        <table wicket:id="implementationTable">
+                            <thead>
+                            <tr>
+                                <th rowspan="2" class="ui-state-default">Transaction Title</th>
+                                <th colspan="2" class="ui-state-default" wicket:id="firstYear"></th>
+                                <th colspan="2" class="ui-state-default" wicket:id="secondYear"></th>
+                            </tr>
+                            <tr>
+                                <th wicket:id="currencyFirstYear">$</th>
+                                <th>%</th>
+                                <th wicket:id="currencySecondYear">$</th>
+                                <th>%</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr wicket:id="implementationTableRows">
+                                <td wicket:id="col0" class="string">Country</td>
+                                <td wicket:id="col1" class="numeric">Currency</td>
+                                <td wicket:id="col2" class="numeric">%</td>
+                                <td wicket:id="col3" class="numeric">Currency</td>
+                                <td wicket:id="col4" class="numeric">%</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-
+                <br/><br/>
                 <div class="span6">
-
+                    <div class="box">
+                        <!--<div class="box-header">-->
+                            <!--<h2>-->
+                                <!--<div wicket:id="typeOfAidChartTitle"/>-->
+                            <!--</h2>-->
+                        <!--</div>-->
+                        <!--<div wicket:id="typeOfAidChart"/>-->
+                    </div>
                 </div>
             </div> <!-- /row -->
         </div> <!-- /container -->

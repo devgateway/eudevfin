@@ -508,4 +508,34 @@
         </Query>
     </DataAccess>
 
+    <!-- used for Custom Dashboards - Implementation Status -->
+    <DataAccess id="customDashboardsImplementationStatusTable"
+                connection="defaultConnectionLocale"
+                type="mdx"
+                access="public">
+        <BandedMode>compact</BandedMode>
+        <Columns/>
+        <Parameters>
+            <Parameter default="2012" name="FIRST_YEAR" type="Integer"/>
+            <Parameter default="2013" name="SECOND_YEAR" type="Integer"/>
+            <Parameter default="Net Amount Currency NATLOECD" name="currency" type="String"/>
+        </Parameters>
+        <Name>Custom Dashboards - Implementation Status Table</Name>
+        <Query>
+            <![CDATA[
+                WITH
+                MEMBER [Measures].[First Year] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[${currency}]}))
+                MEMBER [Measures].[Second Year] AS SUM(CrossJoin([Reporting Year].[${SECOND_YEAR}], {[Measures].[${currency}]}))
+                MEMBER [TxTitle].[Total] AS SUM([TxTitle].[Title].Members, [Measures].[${currency}])
+                MEMBER [TxTitle].[TOTAL] AS SUM([TxTitle].[Title].Members)
+                MEMBER [Measures].[% of Total] as [Measures].[${currency}] / [TxTitle].[Total], format_string='0.00%'
+                MEMBER [Measures].[First Year %] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[% of Total]}))
+                MEMBER [Measures].[Second Year %] AS SUM(CrossJoin([Reporting Year].[${SECOND_YEAR}], {[Measures].[% of Total]}))
+                SELECT
+                NON EMPTY {[Measures].[First Year], [Measures].[First Year %], [Measures].[Second Year], [Measures].[Second Year %]} ON COLUMNS,
+                NON EMPTY {Hierarchize({[TxTitle].[TOTAL], [TxTitle].[Title].Members})} ON ROWS
+                FROM [Financial]
+                ]]>
+        </Query>
+    </DataAccess>
 </CDADescriptor>
