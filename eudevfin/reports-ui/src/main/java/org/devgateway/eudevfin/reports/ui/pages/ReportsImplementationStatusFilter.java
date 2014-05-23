@@ -45,8 +45,35 @@ public class ReportsImplementationStatusFilter extends CustomReportsPage {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 CustomReportsModel customReportsModel = (CustomReportsModel)form.getModelObject();
-
                 PageParameters pageParameters = new PageParameters();
+
+                // Add the currency parameter. (ODAEU-257)
+                // The tables should show only one currency (either national or USD based on the selection made by the user)
+                String nationalCurrency = new StringResourceModel("pricesNationalCurrency", this, null, null).getObject();
+                if (customReportsModel.getPricesCurrency().equals(nationalCurrency)) {
+                    pageParameters.add(ReportsConstants.ISNATIONALCURRENCY_PARAM, Boolean.TRUE);
+                } else {
+                    pageParameters.add(ReportsConstants.ISNATIONALCURRENCY_PARAM, Boolean.FALSE);
+                }
+                if (customReportsModel.getTypeOfExpenditure() != null) {
+                    pageParameters.add(ReportsConstants.EXPENDITURE_PARAM, customReportsModel.getTypeOfExpenditure());
+                }
+                if (customReportsModel.getStartingYear() != null) {
+                    pageParameters.add(ReportsConstants.STARTINGYEAR_PARAM, customReportsModel.getStartingYear());
+                }
+                if (customReportsModel.getCompletitionYear() != null) {
+                    pageParameters.add(ReportsConstants.COMPLETITIONYEAR_PARAM, customReportsModel.getCompletitionYear());
+                }
+                if (customReportsModel.getValueOfActivity() != null) {
+                    pageParameters.add(ReportsConstants.VALUE_PARAM, customReportsModel.getValueOfActivity());
+                }
+                if (customReportsModel.getCoFinancingTransactionsOnly() != null && customReportsModel.getCoFinancingTransactionsOnly() != Boolean.FALSE) {
+                    pageParameters.add(ReportsConstants.COFINANCING_PARAM, customReportsModel.getCoFinancingTransactionsOnly());
+                }
+                if (customReportsModel.getShowRelatedBudgetCodes() != null && customReportsModel.getShowRelatedBudgetCodes() != Boolean.FALSE) {
+                    pageParameters.add(ReportsConstants.BUDGETCODES_PARAM, customReportsModel.getShowRelatedBudgetCodes());
+                }
+
                 setResponsePage(ReportsImplementationStatusDashboards.class, pageParameters);
             }
         });
