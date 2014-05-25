@@ -46,8 +46,8 @@ public class ReportsCountrySectorDashboards extends HeaderFooter {
             "(Exists(Ancestor([Country].CurrentMember, [Country].[Geography]), {[Country].[__GEOGRAPHY__]}).Count  > 0))}), [Country].[TOTAL]}";
     private String countryTableRecipient = "{Hierarchize({{[Country].[Name].[__RECIPIENT__]}}), [Country].[Total]}";
     private String countryTableGeographyRecipient = "{Hierarchize({{[Country].[__GEOGRAPHY__]}, [Country].[Name].[__RECIPIENT__], [Country].[TOTAL]})}";
-    private String countryTableTotal = "MEMBER [Country].[Total] AS SUM([Country].[Name].Members __CURRENCY__)";
-    private String countryTableTotalGeography = "MEMBER [Country].[Total] AS SUM([Country].__GEOGRAPHY__ __CURRENCY__)";
+    private String countryTableTotal = "MEMBER [Country].[Total] AS IIF(SUM([Country].[Name].Members __CURRENCY__) > 0, SUM([Country].[Name].Members __CURRENCY__), Null)";
+    private String countryTableTotalGeography = "MEMBER [Country].[Total] AS IIF(SUM([Country].__GEOGRAPHY__ __CURRENCY__) > 0, SUM([Country].__GEOGRAPHY__ __CURRENCY__), Null)";
 
     // variables used for 'country chart'
     private String countryChartRowSet = "{[Country].[Name].Members}";
@@ -60,9 +60,9 @@ public class ReportsCountrySectorDashboards extends HeaderFooter {
     private String sectorTableParentSector = "{Hierarchize({{[SectorHierarchy].[__PARENT_SECTOR__]}, Filter({{[SectorHierarchy].[Name].Members}}, " +
             "(Exists(Ancestor([SectorHierarchy].CurrentMember, [SectorHierarchy].[ParentName]), {[SectorHierarchy].[__PARENT_SECTOR__]}).Count  > 0))}), [SectorHierarchy].[TOTAL]}";
 
-    private String sectorTableTotal = "MEMBER[SectorHierarchy].[Total] AS SUM([SectorHierarchy].[Name].Members __CURRENCY__)";
-    private String sectorTableTotalSector = "MEMBER[SectorHierarchy].[Total] AS SUM([SectorHierarchy].[Name].[__SECTOR__] __CURRENCY__)";
-    private String sectorTableTotalParentSector = "MEMBER [SectorHierarchy].[Total] AS SUM([SectorHierarchy].[__PARENT_SECTOR__] __CURRENCY__)";
+    private String sectorTableTotal = "MEMBER[SectorHierarchy].[Total] AS IIF(SUM([SectorHierarchy].[Name].Members __CURRENCY__) > 0, SUM([SectorHierarchy].[Name].Members __CURRENCY__), Null)";
+    private String sectorTableTotalSector = "MEMBER[SectorHierarchy].[Total] AS IIF(SUM([SectorHierarchy].[Name].[__SECTOR__] __CURRENCY__) > 0, SUM([SectorHierarchy].[Name].[__SECTOR__] __CURRENCY__), Null)";
+    private String sectorTableTotalParentSector = "MEMBER [SectorHierarchy].[Total] AS IIF(SUM([SectorHierarchy].[__PARENT_SECTOR__] __CURRENCY__) > 0, SUM([SectorHierarchy].[__PARENT_SECTOR__] __CURRENCY__), Null)";
 
     // variables used for 'sector chart'
     private String sectorChartRowSet = "{[SectorHierarchy].[Name].Members}";

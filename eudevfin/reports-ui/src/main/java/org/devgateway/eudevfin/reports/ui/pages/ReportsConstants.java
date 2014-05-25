@@ -13,7 +13,7 @@ public class ReportsConstants {
     public static final String INSTITUTION_PARAM = "institutionParam";
     public static final String YEAR_PARAM = "yearParam";
     public static final String STARTINGYEAR_PARAM = "startingYearParam";
-    public static final String COMPLETITIONYEAR_PARAM = "completionYearParam";
+    public static final String COMPLETIONYEAR_PARAM = "completionYearParam";
     public static final String VALUE_PARAM = "valueParam";
     public static final String AGENCY_PARAM = "agencyParam";
     public static final String TYPEOFFLOW_PARAM = "typeOfFlowParam";
@@ -27,6 +27,9 @@ public class ReportsConstants {
 
     public static final String MDX_USD_CURRENCY = "Net Amount Currency NATLOECD";
     public static final String MDX_NAT_CURRENCY = "Net Amount";
+
+    public static final String MDX_USD_COMMITMENT_CURRENCY = "Commitments Amount Currency NATLOECD";
+    public static final String MDX_NAT_COMMITMENT_CURRENCY = "Commitments Amount";
 
 
     public static final String isCountry = "Country";

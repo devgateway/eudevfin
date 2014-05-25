@@ -16,8 +16,8 @@
     <entry key="reportsImplementationStatus">Search by implementation status</entry>
     <entry key="commitment">Commitment</entry>
     <entry key="disbursement">Disbursement</entry>
-    <entry key="lowerThanAmount">&lt; 0.5 million USD</entry>
-    <entry key="moreThanAmount">&gt; 0.5 million USD</entry>
+    <entry key="lowerThanAmount">&lt; 0.5 million</entry>
+    <entry key="moreThanAmount">&gt; 0.5 million</entry>
     <entry key="geography.label">ODA Region</entry>
     <entry key="recipient.label">ODA Recipient Country</entry>
     <entry key="nationalInstitution.label">National Institution</entry>
