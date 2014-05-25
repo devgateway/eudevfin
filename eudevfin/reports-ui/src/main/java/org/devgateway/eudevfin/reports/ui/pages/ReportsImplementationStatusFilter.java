@@ -55,17 +55,22 @@ public class ReportsImplementationStatusFilter extends CustomReportsPage {
                 } else {
                     pageParameters.add(ReportsConstants.ISNATIONALCURRENCY_PARAM, Boolean.FALSE);
                 }
-                if (customReportsModel.getTypeOfExpenditure() != null) {
-                    pageParameters.add(ReportsConstants.EXPENDITURE_PARAM, customReportsModel.getTypeOfExpenditure());
+                if (customReportsModel.getTypeOfExpenditure() != null &&
+                        customReportsModel.getTypeOfExpenditure().equals(new StringResourceModel("commitment", this, null, null).getObject())) {
+                    pageParameters.add(ReportsConstants.EXPENDITURE_PARAM, Boolean.TRUE);
                 }
                 if (customReportsModel.getStartingYear() != null) {
                     pageParameters.add(ReportsConstants.STARTINGYEAR_PARAM, customReportsModel.getStartingYear());
                 }
                 if (customReportsModel.getCompletitionYear() != null) {
-                    pageParameters.add(ReportsConstants.COMPLETITIONYEAR_PARAM, customReportsModel.getCompletitionYear());
+                    pageParameters.add(ReportsConstants.COMPLETIONYEAR_PARAM, customReportsModel.getCompletitionYear());
                 }
                 if (customReportsModel.getValueOfActivity() != null) {
-                    pageParameters.add(ReportsConstants.VALUE_PARAM, customReportsModel.getValueOfActivity());
+                    if (customReportsModel.getValueOfActivity().equals(new StringResourceModel("moreThanAmount", this, null, null).getObject())) {
+                        pageParameters.add(ReportsConstants.VALUE_PARAM, Boolean.TRUE);
+                    } else {
+                        pageParameters.add(ReportsConstants.VALUE_PARAM, Boolean.FALSE);
+                    }
                 }
                 if (customReportsModel.getCoFinancingTransactionsOnly() != null && customReportsModel.getCoFinancingTransactionsOnly() != Boolean.FALSE) {
                     pageParameters.add(ReportsConstants.COFINANCING_PARAM, customReportsModel.getCoFinancingTransactionsOnly());

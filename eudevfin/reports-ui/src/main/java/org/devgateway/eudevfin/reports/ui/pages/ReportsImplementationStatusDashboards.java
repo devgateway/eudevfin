@@ -1,5 +1,10 @@
 package org.devgateway.eudevfin.reports.ui.pages;
 
+import com.googlecode.wickedcharts.highcharts.options.DataLabels;
+import com.googlecode.wickedcharts.highcharts.options.PlotOptions;
+import com.googlecode.wickedcharts.highcharts.options.PlotOptionsChoice;
+import com.googlecode.wickedcharts.highcharts.options.Tooltip;
+import com.googlecode.wickedcharts.highcharts.options.series.SimpleSeries;
 import org.apache.log4j.Logger;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.head.IHeaderResponse;
@@ -13,6 +18,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.StringValue;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.reports.core.service.QueryService;
+import org.devgateway.eudevfin.reports.ui.components.StackedBarChart;
 import org.devgateway.eudevfin.reports.ui.components.Table;
 import org.devgateway.eudevfin.reports.ui.scripts.Dashboards;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
@@ -20,6 +26,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * @author idobre
@@ -37,7 +44,7 @@ public class ReportsImplementationStatusDashboards extends HeaderFooter {
     private String currencyParam;
     private String expenditureParam;
     private String startingYearParam;
-    private String completitionYearParam;
+    private String completionYearParam;
     private String valueParam;
     private String budgetCodesParam;
     private String coFinancingParam;
@@ -64,8 +71,8 @@ public class ReportsImplementationStatusDashboards extends HeaderFooter {
         if(!parameters.get(ReportsConstants.STARTINGYEAR_PARAM).equals(StringValue.valueOf((String) null))) {
             startingYearParam = parameters.get(ReportsConstants.STARTINGYEAR_PARAM).toString();
         }
-        if(!parameters.get(ReportsConstants.COMPLETITIONYEAR_PARAM).equals(StringValue.valueOf((String) null))) {
-            completitionYearParam = parameters.get(ReportsConstants.COMPLETITIONYEAR_PARAM).toString();
+        if(!parameters.get(ReportsConstants.COMPLETIONYEAR_PARAM).equals(StringValue.valueOf((String) null))) {
+            completionYearParam = parameters.get(ReportsConstants.COMPLETIONYEAR_PARAM).toString();
         }
         if(!parameters.get(ReportsConstants.VALUE_PARAM).equals(StringValue.valueOf((String) null))) {
             valueParam = parameters.get(ReportsConstants.VALUE_PARAM).toString();
@@ -76,13 +83,6 @@ public class ReportsImplementationStatusDashboards extends HeaderFooter {
         if(!parameters.get(ReportsConstants.COFINANCING_PARAM).equals(StringValue.valueOf((String) null))) {
             coFinancingParam = parameters.get(ReportsConstants.COFINANCING_PARAM).toString();
         }
-
-        logger.error(">>>>> expenditureParam: " + expenditureParam);
-        logger.error(">>>>> startingYearParam: " + startingYearParam);
-        logger.error(">>>>> completitionYearParam: " + completitionYearParam);
-        logger.error(">>>>> valueParam: " + valueParam);
-        logger.error(">>>>> budgetCodesParam: " + budgetCodesParam);
-        logger.error(">>>>> coFinancingParam: " + coFinancingParam);
 
         addComponents();
     }
@@ -96,7 +96,7 @@ public class ReportsImplementationStatusDashboards extends HeaderFooter {
     }
 
     private void addImplementationStatusTable () {
-        Label title = new Label("implementationTableTitle", "Net Disbursement by country - " + (tableYear - 1) + "-" + tableYear +
+        Label title = new Label("implementationTableTitle", "Implementation Status - " + (tableYear - 1) + "-" + tableYear +
                 " - " + countryCurrency + " - full amount");
         add(title);
 
@@ -118,10 +118,40 @@ public class ReportsImplementationStatusDashboards extends HeaderFooter {
 
         if (currencyParam != null) {
             if (currencyParam.equals("true")) {
-                table.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+                if (expenditureParam != null && expenditureParam.equals("true")) {
+                    table.setParam("paramcurrency", ReportsConstants.MDX_NAT_COMMITMENT_CURRENCY);
+                } else {
+                    table.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+                }
+            } else {
+                if (expenditureParam != null && expenditureParam.equals("true")) {
+                    table.setParam("paramcurrency", ReportsConstants.MDX_USD_COMMITMENT_CURRENCY);
+                }
             }
         } else {
-            table.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+            if (expenditureParam != null && expenditureParam.equals("true")) {
+                table.setParam("paramcurrency", ReportsConstants.MDX_NAT_COMMITMENT_CURRENCY);
+            } else {
+                table.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+            }
+        }
+        if (valueParam != null) {
+            if (valueParam.equals("true")) {
+                table.setParam("paramvalueParam", "> 500000");
+            } else {
+                if (valueParam.equals("false")) {
+                    table.setParam("paramvalueParam", "< 500000");
+                }
+            }
+        }
+        if(coFinancingParam != null && coFinancingParam.equals("true")) {
+            table.setParam("paramCOFINANCED", "[1]");
+        }
+        if(startingYearParam != null) {
+            table.setParam("paramstartingYear", startingYearParam);
+        }
+        if(completionYearParam != null) {
+            table.setParam("paramcompletionYear", completionYearParam);
         }
 
         Label firstYear = new Label("firstYear", tableYear - 1);
@@ -139,7 +169,80 @@ public class ReportsImplementationStatusDashboards extends HeaderFooter {
     }
 
     private void addImplementationStatusChart () {
+        Label title = new Label("implementationChartTitle", "Implementation Status - " + (tableYear - 1) + "-" + tableYear +
+                " - " + countryCurrency + " - full amount");
+        add(title);
 
+        StackedBarChart stackedBarChart = new StackedBarChart(CdaService, "implementationChart", "customDashboardsImplementationStatusChart") {
+            @Override
+            public List<List<Float>> getResultSeriesAsList () {
+                this.result = this.runQuery();
+
+                return ReportsDashboardsUtils.processChartRows(this.runQuery(), getOptions());
+            }
+        };
+
+        // add MDX queries parameters
+        stackedBarChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
+        stackedBarChart.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
+        if (currencyParam != null) {
+            if (currencyParam.equals("true")) {
+                if (expenditureParam != null && expenditureParam.equals("true")) {
+                    stackedBarChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_COMMITMENT_CURRENCY);
+                } else {
+                    stackedBarChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+                }
+            } else {
+                if (expenditureParam != null && expenditureParam.equals("true")) {
+                    stackedBarChart.setParam("paramcurrency", ReportsConstants.MDX_USD_COMMITMENT_CURRENCY);
+                }
+            }
+        } else {
+            if (expenditureParam != null && expenditureParam.equals("true")) {
+                stackedBarChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_COMMITMENT_CURRENCY);
+            } else {
+                stackedBarChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+            }
+        }
+        if (valueParam != null) {
+            if (valueParam.equals("true")) {
+                stackedBarChart.setParam("paramvalueParam", "> 500000");
+            } else {
+                if (valueParam.equals("false")) {
+                    stackedBarChart.setParam("paramvalueParam", "< 500000");
+                }
+            }
+        }
+        if(coFinancingParam != null && coFinancingParam.equals("true")) {
+            stackedBarChart.setParam("paramCOFINANCED", "[1]");
+        }
+        if(startingYearParam != null) {
+            stackedBarChart.setParam("paramstartingYear", startingYearParam);
+        }
+        if(completionYearParam != null) {
+            stackedBarChart.setParam("paramcompletionYear", completionYearParam);
+        }
+
+        List<List<Float>> resultSeries = stackedBarChart.getResultSeriesAsList();
+        stackedBarChart.getOptions().setPlotOptions(new PlotOptionsChoice().
+                setBar(new PlotOptions().
+                        setMinPointLength(5).
+                        setDataLabels(new DataLabels().
+                                setEnabled(Boolean.TRUE))));
+        stackedBarChart.getOptions().setTooltip(new Tooltip().setValueSuffix(" millions").setPercentageDecimals(2));
+        // add 35px height for each row
+        int numberOfRows = Math.max(resultSeries.get(0).size(), resultSeries.get(1).size());
+        stackedBarChart.getOptions().getChartOptions().setHeight(300 + 35 * numberOfRows);
+
+        stackedBarChart.getOptions().addSeries(new SimpleSeries()
+                .setName("Year " + (tableYear - 1))
+                .setData(resultSeries.get(0).toArray(new Float[resultSeries.get(0).size()])));
+
+        stackedBarChart.getOptions().addSeries(new SimpleSeries()
+                .setName("Year " + tableYear)
+                .setData(resultSeries.get(1).toArray(new Float[resultSeries.get(1).size()])));
+
+        add(stackedBarChart.getChart());
     }
 
     @Override

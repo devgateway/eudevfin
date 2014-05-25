@@ -158,7 +158,7 @@ public class ReportsDashboardsUtils {
     public static ListView<String[]> processTableRowsWithoutMainCategory (List<String[]> rows, QueryResult result, String rowId) {
         List <List<String>> resultSet = result.getResultset();
 
-        if(resultSet.size() != 0 && resultSet.get(0).size() > 3) {
+        if(resultSet.size() != 0 && resultSet.get(0).size() > 2) {
             // check if we have data for the 'first year' or 'second year'
             // and add null values
             if (resultSet.get(0).size() == 3) {
@@ -172,6 +172,16 @@ public class ReportsDashboardsUtils {
                     }
                 }
             }
+
+            // delete empty rows
+            List <List<String>> newResultSet = new ArrayList<>();
+            for (int i = 0; i < resultSet.size(); i++) {
+                if ((resultSet.get(i).size() > 1 && resultSet.get(i).get(1) != null) ||
+                        (resultSet.get(i).size() > 3 && resultSet.get(i).get(3) != null)) {
+                    newResultSet.add(resultSet.get(i));
+                }
+            }
+            resultSet = newResultSet;
 
             // format the amounts as #,###.##
             // and other values like percentages

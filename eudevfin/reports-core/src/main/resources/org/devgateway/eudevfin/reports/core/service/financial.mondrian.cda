@@ -223,15 +223,15 @@
             <Parameter default="[All CoFinanced]" name="COFINANCED" type="String"/>
             <Parameter default="[All CPA]" name="CPA" type="String"/>
             <Parameter default="{Hierarchize({[Country].[Geography].Members, [Country].[Name].Members, [Country].[TOTAL]})}" name="countryTableRowSet" type="String"/>
-            <Parameter default="MEMBER [Country].[Total] AS SUM([Country].[Name].Members, [Measures].[Net Amount Currency NATLOECD])" name="countryTableTotal" type="String"/>
-            <Parameter default="MEMBER [Country].[TOTAL] AS SUM([Country].[Name].Members)" name="countryTableTotalLine" type="String"/>
+            <Parameter default="MEMBER [Country].[Total] AS IIF(SUM([Country].[Name].Members, [Measures].[Net Amount Currency NATLOECD]) > 0, SUM([Country].[Name].Members, [Measures].[Net Amount Currency NATLOECD]), Null)" name="countryTableTotal" type="String"/>
+            <Parameter default="MEMBER [Country].[TOTAL] AS IIF(SUM([Country].[Name].Members) > 0, SUM([Country].[Name].Members), Null)" name="countryTableTotalLine" type="String"/>
         </Parameters>
         <Name>Custom Dashboards - Country Table</Name>
         <Query>
             <![CDATA[
             WITH
-            MEMBER [Measures].[First Year] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[${currency}]}))
-            MEMBER [Measures].[Second Year] AS SUM(CrossJoin([Reporting Year].[${SECOND_YEAR}], {[Measures].[${currency}]}))
+            MEMBER [Measures].[First Year] AS IIF(SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[${currency}]})) > 0, SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[${currency}]})), Null)
+            MEMBER [Measures].[Second Year] AS IIF(SUM(CrossJoin([Reporting Year].[${SECOND_YEAR}], {[Measures].[${currency}]})) > 0, SUM(CrossJoin([Reporting Year].[${SECOND_YEAR}], {[Measures].[${currency}]})), Null)
             ${countryTableTotal}
             ${countryTableTotalLine}
             MEMBER [Measures].[% of Total] as [Measures].[${currency}] / [Country].[Total], format_string='0.00%'
@@ -261,15 +261,15 @@
             <Parameter default="[All CoFinanced]" name="COFINANCED" type="String"/>
             <Parameter default="[All CPA]" name="CPA" type="String"/>
             <Parameter default="{Hierarchize({[SectorHierarchy].[ParentName].Members, [SectorHierarchy].[Name].Members, [SectorHierarchy].[Total]})}" name="sectorTableRowSet" type="String"/>
-            <Parameter default="MEMBER[SectorHierarchy].[Total] AS SUM([SectorHierarchy].[Name].Members, [Measures].[Net Amount Currency NATLOECD])" name="sectorTableTotal" type="String"/>
-            <Parameter default="MEMBER[SectorHierarchy].[TOTAL] AS SUM([SectorHierarchy].[Name].Members)" name="sectorTableTotalLine" type="String"/>
+            <Parameter default="MEMBER[SectorHierarchy].[Total] AS IIF(SUM([SectorHierarchy].[Name].Members, [Measures].[Net Amount Currency NATLOECD]) > 0, SUM([SectorHierarchy].[Name].Members, [Measures].[Net Amount Currency NATLOECD]), Null)" name="sectorTableTotal" type="String"/>
+            <Parameter default="MEMBER[SectorHierarchy].[TOTAL] AS IIF(SUM([SectorHierarchy].[Name].Members) > 0, SUM([SectorHierarchy].[Name].Members), Null)" name="sectorTableTotalLine" type="String"/>
         </Parameters>
         <Name>Custom Dashboards - Sector Table</Name>
         <Query>
             <![CDATA[
             WITH
-            MEMBER [Measures].[FIRST YEAR] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[${currency}]}))
-            MEMBER [Measures].[SECOND YEAR] AS SUM(CrossJoin([Reporting Year].[${SECOND_YEAR}], {[Measures].[${currency}]}))
+            MEMBER [Measures].[FIRST YEAR] AS IIF(SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[${currency}]})) > 0, SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[${currency}]})), Null)
+            MEMBER [Measures].[SECOND YEAR] AS IIF(SUM(CrossJoin([Reporting Year].[${SECOND_YEAR}], {[Measures].[${currency}]})) > 0, SUM(CrossJoin([Reporting Year].[${SECOND_YEAR}], {[Measures].[${currency}]})), Null)
             ${sectorTableTotal}
             ${sectorTableTotalLine}
             MEMBER [Measures].[% of Total] as [Measures].[${currency}] / [SectorHierarchy].[Total], format_string='0.00%'
@@ -519,15 +519,19 @@
             <Parameter default="2012" name="FIRST_YEAR" type="Integer"/>
             <Parameter default="2013" name="SECOND_YEAR" type="Integer"/>
             <Parameter default="Net Amount Currency NATLOECD" name="currency" type="String"/>
+            <Parameter default="> 0" name="valueParam" type="String"/>
+            <Parameter default="[All CoFinanced]" name="COFINANCED" type="String"/>
+            <Parameter default="All StartingYears" name="startingYear" type="String"/>
+            <Parameter default="All CompletionYears" name="completionYear" type="String"/>
         </Parameters>
         <Name>Custom Dashboards - Implementation Status Table</Name>
         <Query>
             <![CDATA[
                 WITH
-                MEMBER [Measures].[First Year] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[${currency}]}))
-                MEMBER [Measures].[Second Year] AS SUM(CrossJoin([Reporting Year].[${SECOND_YEAR}], {[Measures].[${currency}]}))
-                MEMBER [TxTitle].[Total] AS SUM([TxTitle].[Title].Members, [Measures].[${currency}])
-                MEMBER [TxTitle].[TOTAL] AS SUM([TxTitle].[Title].Members)
+                MEMBER [Measures].[First Year] AS IIF(SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[${currency}]})) > 0, IIF(SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[${currency}]})) ${valueParam}, SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[${currency}]})), Null), Null)
+                MEMBER [Measures].[Second Year] AS IIF(SUM(CrossJoin([Reporting Year].[${SECOND_YEAR}], {[Measures].[${currency}]})) > 0, IIF(SUM(CrossJoin([Reporting Year].[${SECOND_YEAR}], {[Measures].[${currency}]})) ${valueParam}, SUM(CrossJoin([Reporting Year].[${SECOND_YEAR}], {[Measures].[${currency}]})), Null), Null)
+                MEMBER [TxTitle].[Total] AS IIF(SUM([TxTitle].[Title].Members, [Measures].[${currency}]) > 0, SUM([TxTitle].[Title].Members, [Measures].[${currency}]), Null)
+                MEMBER [TxTitle].[TOTAL] AS IIF(SUM([TxTitle].[Title].Members) > 0, SUM([TxTitle].[Title].Members), Null)
                 MEMBER [Measures].[% of Total] as [Measures].[${currency}] / [TxTitle].[Total], format_string='0.00%'
                 MEMBER [Measures].[First Year %] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[% of Total]}))
                 MEMBER [Measures].[Second Year %] AS SUM(CrossJoin([Reporting Year].[${SECOND_YEAR}], {[Measures].[% of Total]}))
@@ -535,6 +539,37 @@
                 NON EMPTY {[Measures].[First Year], [Measures].[First Year %], [Measures].[Second Year], [Measures].[Second Year %]} ON COLUMNS,
                 NON EMPTY {Hierarchize({[TxTitle].[TOTAL], [TxTitle].[Title].Members})} ON ROWS
                 FROM [Financial]
+                WHERE ([CoFinanced].${COFINANCED}, [Starting Year].[${startingYear}], [Completion Year].[${completionYear}])
+                ]]>
+        </Query>
+    </DataAccess>
+
+    <DataAccess id="customDashboardsImplementationStatusChart"
+                connection="defaultConnectionLocale"
+                type="mdx"
+                access="public">
+        <BandedMode>compact</BandedMode>
+        <Columns/>
+        <Parameters>
+            <Parameter default="2012" name="FIRST_YEAR" type="Integer"/>
+            <Parameter default="2013" name="SECOND_YEAR" type="Integer"/>
+            <Parameter default="Net Amount Currency NATLOECD" name="currency" type="String"/>
+            <Parameter default="> 0" name="valueParam" type="String"/>
+            <Parameter default="[All CoFinanced]" name="COFINANCED" type="String"/>
+            <Parameter default="All StartingYears" name="startingYear" type="String"/>
+            <Parameter default="All CompletionYears" name="completionYear" type="String"/>
+        </Parameters>
+        <Name>Custom Dashboards - Implementation Status Chart</Name>
+        <Query>
+            <![CDATA[
+                WITH
+                MEMBER [Measures].[First Year] AS IIF(SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[${currency}]})) ${valueParam}, SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[${currency}]})), Null)
+                MEMBER [Measures].[Second Year] AS IIF(SUM(CrossJoin([Reporting Year].[${SECOND_YEAR}], {[Measures].[${currency}]})) ${valueParam}, SUM(CrossJoin([Reporting Year].[${SECOND_YEAR}], {[Measures].[${currency}]})), Null)
+                SELECT
+                NON EMPTY {[Measures].[First Year], [Measures].[Second Year]} ON COLUMNS,
+                NON EMPTY {Hierarchize({[TxTitle].[Title].Members})} ON ROWS
+                FROM [Financial]
+                WHERE ([CoFinanced].${COFINANCED}, [Starting Year].[${startingYear}], [Completion Year].[${completionYear}])
                 ]]>
         </Query>
     </DataAccess>
