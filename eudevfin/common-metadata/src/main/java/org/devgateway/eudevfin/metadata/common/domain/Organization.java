@@ -8,6 +8,7 @@ import org.devgateway.eudevfin.metadata.common.domain.translation.OrganizationTr
 import org.devgateway.eudevfin.metadata.common.domain.translation.OrganizationTrnInterface;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Index;
 import org.hibernate.envers.Audited;
 
 @Entity @Audited
@@ -19,6 +20,7 @@ public class Organization extends AbstractTranslateable<OrganizationTranslation>
 
 	private String code;
 	
+	@Index(name="organization_acronym_idx")
 	private String acronym;
 	
 	private Boolean dac;
