@@ -44,15 +44,13 @@ import org.devgateway.eudevfin.ui.common.Constants;
 import org.devgateway.eudevfin.ui.common.components.BootstrapCancelButton;
 import org.devgateway.eudevfin.ui.common.components.BootstrapDeleteButton;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
-import org.devgateway.eudevfin.ui.common.components.CheckBoxField;
 import org.devgateway.eudevfin.ui.common.components.tabs.BootstrapJSTabbedPanel;
 import org.devgateway.eudevfin.ui.common.components.tabs.DefaultTabWithKey;
 import org.devgateway.eudevfin.ui.common.components.tabs.ITabWithKey;
-import org.devgateway.eudevfin.ui.common.components.util.MondrianCacheUtil;
+import org.devgateway.eudevfin.ui.common.components.util.MondrianCDACacheUtil;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.devgateway.eudevfin.ui.common.permissions.PermissionAwarePage;
 import org.devgateway.eudevfin.ui.common.permissions.RoleActionMapping;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
@@ -78,7 +76,7 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 	private CurrencyMetadataService currencyMetadaService;
 
     @SpringBean
-    MondrianCacheUtil mondrianCacheUtil;
+    MondrianCDACacheUtil mondrianCacheUtil;
 
 	private static final CRSTransactionPermissionProvider componentPermissions = new CRSTransactionPermissionProvider();
 
@@ -107,7 +105,7 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 				target.add(feedbackPanel);
 
                 // clear the mondrian cache
-                mondrianCacheUtil.flushMondrianCache();
+                mondrianCacheUtil.flushMondrianCDACache();
 			} catch (Exception e) {
 				logger.error("Exception while trying to save:", e);
 				return;
@@ -168,7 +166,7 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 				info(new NotificationMessage(new StringResourceModel("notification.deleted", TransactionPage.this, null, null)));				
 				target.add(feedbackPanel);
                 // clear the mondrian cache
-                mondrianCacheUtil.flushMondrianCache();               
+                mondrianCacheUtil.flushMondrianCDACache();
 			} catch (Exception e) {
 				logger.error("Exception while trying to delete:", e);
 				return;

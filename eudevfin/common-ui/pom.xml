@@ -28,5 +28,11 @@
             <version>3.6.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>pt.webdetails</groupId>
+            <artifactId>cda-core</artifactId>
+            <version>13.09.10</version>
+        </dependency>
+
     </dependencies>
 </project>
