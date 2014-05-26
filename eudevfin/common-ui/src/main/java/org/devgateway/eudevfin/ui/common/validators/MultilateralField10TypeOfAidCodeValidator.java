@@ -28,28 +28,36 @@ import org.devgateway.eudevfin.ui.common.temporary.SB;
  *         ODAEU-35: Multilateral ODA, Advance Questionnaire and CRS++ forms
  *         Type of flow allowed = 2
  */
-public class MultilateralField10CodeValidator extends Behavior implements IValidator<Category> {
+public class MultilateralField10TypeOfAidCodeValidator extends Behavior implements IValidator<Category> {
 
 	private static final long serialVersionUID = -1197816416536140235L;
 	private String transactionType;
+	private DropDownField<Category> typeOfAid;
 
-	public MultilateralField10CodeValidator(String transactionType) {
+	public MultilateralField10TypeOfAidCodeValidator(String transactionType, DropDownField<Category> typeOfAid) {
 		this.transactionType = transactionType;
+		this.typeOfAid = typeOfAid;
 	}
 
 	@Override
 	public void validate(IValidatable<Category> validatable) {
 
 		if (!Strings.isEmpty(transactionType)
-				&& (Strings.isEqual(transactionType, SB.MULTILATERAL_ODA_ADVANCE_QUESTIONNAIRE) || Strings.isEqual(
-						transactionType, SB.MULTILATERAL_ODA_CRS))) {
-			if (validatable.getValue() != null
-					&& validatable.getValue().getCode().equals(CategoryConstants.BiMultilateral.BI_MULTILATERAL_2))
-				return;
-			ValidationError error = new ValidationError(this);
-			validatable.error(decorate(error, validatable));
+				&& (Strings.isEqual(transactionType, SB.MULTILATERAL_ODA_CRS) || Strings.isEqual(transactionType,
+						SB.MULTILATERAL_ODA_ADVANCE_QUESTIONNAIRE))
+				|| Strings.isEqual(transactionType, SB.MULTILATERAL_ODA_CRS)) {
+			validateB02ForBiMulti2(validatable);
 		}
 
+	}
+
+	private void validateB02ForBiMulti2(IValidatable<Category> validatable) {
+		if (typeOfAid.getField().getModelObject() != null && validatable.getValue() != null)
+			if (CategoryConstants.TypeOfAid.B02.equals(typeOfAid.getField().getModelObject().getDisplayableCode())
+					^ CategoryConstants.BiMultilateral.BI_MULTILATERAL_2.equals(validatable.getValue().getCode())) {
+				ValidationError error = new ValidationError(this);
+				validatable.error(decorate(error, validatable));
+			}
 	}
 
 	/**

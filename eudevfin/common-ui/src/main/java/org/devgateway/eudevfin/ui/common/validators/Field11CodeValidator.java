@@ -43,7 +43,7 @@ public class Field11CodeValidator extends Behavior implements IValidator<Categor
 						|| Strings.isEqual(transactionType, SB.BILATERAL_ODA_FORWARD_SPENDING)
 						|| Strings.isEqual(transactionType, SB.MULTILATERAL_ODA_ADVANCE_QUESTIONNAIRE) || Strings
 							.isEqual(transactionType, SB.MULTILATERAL_ODA_CRS))) {
-			if (validatable.getValue().getCode().equals(CategoryConstants.TypeOfFlow.ODA))
+			if (validatable.getValue()!=null && validatable.getValue().getCode().equals(CategoryConstants.TypeOfFlow.ODA))
 				return;
 			ValidationError error = new ValidationError(this);
 			validatable.error(decorate(error, validatable));

@@ -62,6 +62,12 @@ public class CategoryConstants {
 		public static final String ODA="TYPE_OF_FLOW##10";
 	}
 	
+	public static final class TypeOfAid {
+		public static final String B01="B01";
+		public static final String B02="B02";
+		public static final String F01="F01";
+	}
+	
 	public static final class Markers {
 		public static final String MARKER_3="MARKER##3";
 	}

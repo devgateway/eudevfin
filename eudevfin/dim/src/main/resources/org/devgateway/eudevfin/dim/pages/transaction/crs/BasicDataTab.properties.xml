@@ -182,8 +182,14 @@
 	
 	<entry key="validation.multilateralChannelCode">The selected code is invalid! Select only 4xxxx format codes when in multilateral forms!</entry>
 	<entry key="validation.bilateralField10Code">The selected code is invalid! Only the codes 1,3 and 7 are allowed here when filling the bilateral form!</entry>
-	<entry key="validation.multilateralField10Code">The selected code is invalid! Only the code 2 is allowed here when filling in the multilateral form!</entry>	
-	<entry key="validation.field11Code">The selected code is invalid! Only the code 10 is allowed here when filling in ODA forms!</entry>	
+	<entry key="validation.multilateralField10Code">The selected code is invalid! Only the code 2 (Multilateral) is allowed here when filling in the multilateral form!</entry>	
+	<entry key="validation.field11Code">The selected code is invalid! Only the code 10 (ODA) is allowed here when filling in ODA forms!</entry>	
 	<entry key="validation.field12Code">The selected code is invalid! Only the following codes and their subcodes are allowed: 100, 300, 400, 500, 600</entry>	
+	<entry key="validation.field13Code">The selected code is invalid! ONLY B01 code is allowed if 2xxxx channel codes are selected. B01 is NOT allowed if 1xxxx channel codes are selected.</entry>	
 	
+	<entry key="validation.decorateB01For1xxxx">The selected code is invalid! B01 is NOT allowed if 1xxxx channel codes are selected.</entry>
+	<entry key="validation.decorateB01For2xxxx">The selected code is invalid! ONLY B01 code is allowed if 2xxxx channel codes are selected.</entry>
+	<entry key="validation.decorateB01ForBiMulti3">The selected code is invalid! Bilateral forms with Type of Aid B01 must have Bilateral/Multilateral=3.</entry>
+	<entry key="validation.decorateB02ForBiMulti2">The selected code is invalid! Multilateral forms with Type of Aid B02 must have Bilateral/Multilateral=2.</entry>
+	<entry key="validation.field12TypeOfAidCode">The selected code is invalid! Type of Finance 600 must be associated with type of aid F01 (Debt relief)</entry>
 </properties>
