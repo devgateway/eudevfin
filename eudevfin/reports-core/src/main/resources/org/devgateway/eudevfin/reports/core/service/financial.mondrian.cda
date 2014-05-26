@@ -63,6 +63,8 @@
     <DataAccess id="netODATable"
                 connection="defaultConnectionLocale"
                 type="mdx"
+                cache="true"
+                cacheDuration="172800"
                 access="public">
         <BandedMode>compact</BandedMode>
         <Columns/>
@@ -91,6 +93,8 @@
     <DataAccess id="topTenRecipients"
                 connection="defaultConnectionLocale"
                 type="mdx"
+                cache="true"
+                cacheDuration="172800"
                 access="public">
         <BandedMode>compact</BandedMode>
         <Columns/>
@@ -114,6 +118,8 @@
     <DataAccess id="topTenMemoShare"
                 connection="defaultConnectionLocale"
                 type="mdx"
+                cache="true"
+                cacheDuration="172800"
                 access="public">
         <BandedMode>compact</BandedMode>
         <Columns/>
@@ -139,6 +145,8 @@
     <DataAccess id="odaByIncomeGroupChart"
                 connection="defaultConnectionLocale"
                 type="mdx"
+                cache="true"
+                cacheDuration="172800"
                 access="public">
         <BandedMode>compact</BandedMode>
         <Columns/>
@@ -163,6 +171,8 @@
     <DataAccess id="odaByRegionChart"
                 connection="defaultConnectionLocale"
                 type="mdx"
+                cache="true"
+                cacheDuration="172800"
                 access="public">
         <BandedMode>compact</BandedMode>
         <Columns/>
@@ -187,6 +197,8 @@
     <DataAccess id="odaBySectorChart"
                 connection="defaultConnectionLocale"
                 type="mdx"
+                cache="true"
+                cacheDuration="172800"
                 access="public">
         <BandedMode>compact</BandedMode>
         <Columns/>
@@ -212,6 +224,8 @@
     <DataAccess id="customDashboardsCountryTable"
                 connection="defaultConnectionLocale"
                 type="mdx"
+                cache="true"
+                cacheDuration="172800"
                 access="public">
         <BandedMode>compact</BandedMode>
         <Columns/>
@@ -250,6 +264,8 @@
     <DataAccess id="customDashboardsSectorTable"
                 connection="defaultConnectionLocale"
                 type="mdx"
+                cache="true"
+                cacheDuration="172800"
                 access="public">
         <BandedMode>compact</BandedMode>
         <Columns/>
@@ -288,6 +304,8 @@
     <DataAccess id="customDashboardsCountryChart"
                 connection="defaultConnectionLocale"
                 type="mdx"
+                cache="true"
+                cacheDuration="172800"
                 access="public">
         <BandedMode>compact</BandedMode>
         <Columns/>
@@ -318,6 +336,8 @@
     <DataAccess id="customDashboardsSectorChart"
                 connection="defaultConnectionLocale"
                 type="mdx"
+                cache="true"
+                cacheDuration="172800"
                 access="public">
         <BandedMode>compact</BandedMode>
         <Columns/>
@@ -349,6 +369,8 @@
     <DataAccess id="customDashboardsInstitutionTable"
                 connection="defaultConnectionLocale"
                 type="mdx"
+                cache="true"
+                cacheDuration="172800"
                 access="public">
         <BandedMode>compact</BandedMode>
         <Columns/>
@@ -377,6 +399,8 @@
     <DataAccess id="customDashboardsInstitutionChart"
                 connection="defaultConnectionLocale"
                 type="mdx"
+                cache="true"
+                cacheDuration="172800"
                 access="public">
         <BandedMode>compact</BandedMode>
         <Columns/>
@@ -407,6 +431,8 @@
     <DataAccess id="customDashboardsTypeOfAidTable"
                 connection="defaultConnectionLocale"
                 type="mdx"
+                cache="true"
+                cacheDuration="172800"
                 access="public">
         <BandedMode>compact</BandedMode>
         <Columns/>
@@ -435,6 +461,8 @@
     <DataAccess id="customDashboardsTypeOfAidHumanitarianAidTable"
                 connection="defaultConnectionLocale"
                 type="mdx"
+                cache="true"
+                cacheDuration="172800"
                 access="public">
         <BandedMode>compact</BandedMode>
         <Columns/>
@@ -461,6 +489,8 @@
     <DataAccess id="customDashboardsTypeOfAidChart"
                 connection="defaultConnectionLocale"
                 type="mdx"
+                cache="true"
+                cacheDuration="172800"
                 access="public">
         <BandedMode>compact</BandedMode>
         <Columns/>
@@ -488,6 +518,8 @@
     <DataAccess id="customDashboardsBiMultilateralChart"
                 connection="defaultConnectionLocale"
                 type="mdx"
+                cache="true"
+                cacheDuration="172800"
                 access="public">
         <BandedMode>compact</BandedMode>
         <Columns/>
@@ -512,6 +544,8 @@
     <DataAccess id="customDashboardsImplementationStatusTable"
                 connection="defaultConnectionLocale"
                 type="mdx"
+                cache="true"
+                cacheDuration="172800"
                 access="public">
         <BandedMode>compact</BandedMode>
         <Columns/>
@@ -547,6 +581,8 @@
     <DataAccess id="customDashboardsImplementationStatusChart"
                 connection="defaultConnectionLocale"
                 type="mdx"
+                cache="true"
+                cacheDuration="172800"
                 access="public">
         <BandedMode>compact</BandedMode>
         <Columns/>

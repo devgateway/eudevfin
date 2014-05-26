@@ -34,7 +34,7 @@ import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
 import org.devgateway.eudevfin.ui.common.components.DateInputField;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.components.FinancialAmountTextInputField;
-import org.devgateway.eudevfin.ui.common.components.util.MondrianCacheUtil;
+import org.devgateway.eudevfin.ui.common.components.util.MondrianCDACacheUtil;
 import org.devgateway.eudevfin.ui.common.models.DateToLocalDateTimeModel;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.devgateway.eudevfin.ui.common.providers.CurrencyUnitProviderFactory;
@@ -63,7 +63,7 @@ public class EditHistoricalExchangeRatePage extends HeaderFooter {
 	private HistoricalExchangeRateService historicalExchangeRateService;
 
     @SpringBean
-    MondrianCacheUtil mondrianCacheUtil;
+    MondrianCDACacheUtil mondrianCacheUtil;
 	
 	@SpringBean
 	private CurrencyUnitProviderFactory currencyUnitProviderFactory;
@@ -169,7 +169,7 @@ public class EditHistoricalExchangeRatePage extends HeaderFooter {
 				logger.info("Submitted ok!");
 				logger.info("Object:" + getModel().getObject());
 				historicalExchangeRateService.save(historicalExchangeRate);
-				mondrianCacheUtil.flushMondrianCache();
+				mondrianCacheUtil.flushMondrianCDACache();
 				setResponsePage(ListHistoricalExchangeRatePage.class);
 			}
 
@@ -198,7 +198,7 @@ public class EditHistoricalExchangeRatePage extends HeaderFooter {
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				logger.info("Rate Deleted!");
 				historicalExchangeRateService.delete(historicalExchangeRate);
-				mondrianCacheUtil.flushMondrianCache();
+				mondrianCacheUtil.flushMondrianCDACache();
 				setResponsePage(ListHistoricalExchangeRatePage.class);
 			}
 

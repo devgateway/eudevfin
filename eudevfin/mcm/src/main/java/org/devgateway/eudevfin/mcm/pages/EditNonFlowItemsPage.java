@@ -44,7 +44,7 @@ import org.devgateway.eudevfin.ui.common.components.BootstrapCancelButton;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
 import org.devgateway.eudevfin.ui.common.components.FinancialAmountTextInputField;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
-import org.devgateway.eudevfin.ui.common.components.util.MondrianCacheUtil;
+import org.devgateway.eudevfin.ui.common.components.util.MondrianCDACacheUtil;
 import org.devgateway.eudevfin.ui.common.models.BigMoneyModel;
 import org.devgateway.eudevfin.ui.common.models.YearToLocalDateTimeModel;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
@@ -75,7 +75,7 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 	private CurrencyMetadataService currencyMetadataService;
 
     @SpringBean
-    MondrianCacheUtil mondrianCacheUtil;
+    MondrianCDACacheUtil mondrianCacheUtil;
 
 	private static final Logger logger = Logger
 			.getLogger(EditNonFlowItemsPage.class);
@@ -265,7 +265,7 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 				target.add(feedbackPanel);
 
                 // clear the mondrian cache
-                mondrianCacheUtil.flushMondrianCache();
+                mondrianCacheUtil.flushMondrianCDACache();
 			}
 
 		});
