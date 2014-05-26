@@ -8,7 +8,7 @@
         </Hierarchy>
     </Dimension>
     <Dimension visible="true" highCardinality="false" name="Country" caption="%{countryDimension}">
-        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allMember}">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All Countries" allMemberCaption="%{allMember}">
             <View alias="CountryView">
                 <SQL dialect="generic"><![CDATA[
             select
@@ -32,7 +32,7 @@
         </Hierarchy>
     </Dimension>
     <Dimension visible="true" highCardinality="false" name="IncomeGroup" caption="%{incomeGroupDimension}">
-        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allMember}">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All IncomeGroups" allMemberCaption="%{allMember}">
             <View alias="IncomeGroupView">
                 <SQL dialect="generic"><![CDATA[
             select
@@ -51,7 +51,7 @@
         </Hierarchy>
     </Dimension>
     <Dimension visible="true" highCardinality="false" name="Extending Agency" caption="%{extendingAgencyDimension}">
-        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allMember}" allLevelName="All Extending Agencies" allMemberName="All Extending Agencies">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allMember}" allMemberName="All Extending Agencies">
             <View alias="Extending AgencyView">
                 <SQL dialect="generic"><![CDATA[
             select
@@ -119,7 +119,7 @@
         </Hierarchy>
     </Dimension>
     <Dimension visible="true" highCardinality="false" name="Type of Aid" caption="%{typeOfAidDimension}">
-        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allMember}" allLevelName="All Types of Aid" allMemberName="All Types of Aid">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allMember}" allMemberName="All Types of Aid">
             <View alias="TypeOfAidView">
                 <SQL dialect="generic"><![CDATA[
             select
@@ -142,7 +142,7 @@
         </Hierarchy>
     </Dimension>
     <Dimension visible="true" highCardinality="false" name="Type of Flow" caption="%{typeOfFlowDimension}">
-        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allMember}" allLevelName="All Types of Flow" allMemberName="All Types of Flow">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allMember}" allMemberName="All Types of Flow">
             <View alias="TypeOfFlowView">
                 <SQL dialect="generic"><![CDATA[
             select
@@ -165,7 +165,7 @@
         </Hierarchy>
     </Dimension>
     <Dimension visible="false" highCardinality="false" name="Type of Finance" caption="%{typeOfFinanceDimension}">
-        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allMember}" allLevelName="All Types of Finance" allMemberName="All Types of Finance">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allMember}" allMemberName="All Types of Finance">
             <View alias="TypeOfFinanceView">
                 <SQL dialect="generic"><![CDATA[
             select
@@ -211,7 +211,7 @@
         </Hierarchy>
     </Dimension>
     <Dimension type="StandardDimension" visible="true" name="Sector" caption="%{sectorDimension}">
-        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allMember}" allLevelName="All Sectors" allMemberName="All Sectors">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allMember}" allMemberName="All Sectors">
             <View alias="SectorView">
                 <SQL dialect="generic"><![CDATA[
                     select
@@ -266,7 +266,7 @@
         </Hierarchy>
     </Dimension>
     <Dimension visible="true" highCardinality="false" name="BiMultilateral" caption="%{biMultilateralDimension}">
-        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allMember}" allLevelName="All BiMultilaterals" allMemberName="All BiMultilaterals">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allMember}" allMemberName="All BiMultilaterals">
             <View alias="BiMultilalteralView">
                 <SQL dialect="generic"><![CDATA[
                     select
@@ -450,7 +450,7 @@
                 </Level>
             </Hierarchy>
         </Dimension>
-        <Measure name="Export Credit Amount" column="AMOUNTS_EXP_EXPORT_CREDIT_AMOUNT" aggregator="sum" visible="false" caption="%{exportCreditAmount}"></Measure>
+        <Measure name="Export Credit Amount" column="AMOUNTS_EXP_EXPORT_CREDIT_AMOUNT" aggregator="sum" visible="false" caption="Export Credit Amount"></Measure>
         <Measure name="Exchange Rate" aggregator="avg" visible="false" datatype="Integer" formatString="#,###.00" caption="Exchange Rate">
             <MeasureExpression>
                 <SQL dialect="generic">
@@ -515,10 +515,10 @@
                 </SQL>
             </MeasureExpression>
         </Measure>
-        <Measure name="Current Extended Amount" column="AMOUNTS_EXTENDED_CURRENT_AMOUNT" aggregator="sum" visible="false" caption="%{currentExtendedAmount}"></Measure>
-        <Measure name="Year 1 Extended Amount" column="AMOUNTS_EXTENDED_YEAR1_AMOUNT" aggregator="sum" visible="false" caption="%{year1ExtendedAmount}"></Measure>
-        <Measure name="Year 2 Extended Amount" column="AMOUNTS_EXTENDED_YEAR2_AMOUNT" aggregator="sum" visible="false" caption="%{year2ExtendedAmount}"></Measure>
-        <Measure name="Partially Untied Amount" column="AMOUNTS_PARTIALLY_UNTIED_AMOUNT" aggregator="sum" visible="false" caption="%{partiallyUntiedAmount}"></Measure>
+        <Measure name="Current Extended Amount" column="AMOUNTS_EXTENDED_CURRENT_AMOUNT" aggregator="sum" visible="false" caption="Current Extended Amount"></Measure>
+        <Measure name="Year 1 Extended Amount" column="AMOUNTS_EXTENDED_YEAR1_AMOUNT" aggregator="sum" visible="false" caption="year1ExtendedAmount"></Measure>
+        <Measure name="Year 2 Extended Amount" column="AMOUNTS_EXTENDED_YEAR2_AMOUNT" aggregator="sum" visible="false" caption="Year 2 Extended Amount"></Measure>
+        <Measure name="Partially Untied Amount" column="AMOUNTS_PARTIALLY_UNTIED_AMOUNT" aggregator="sum" visible="false" caption="Partially Untied Amount"></Measure>
         <Measure name="Received Amount" column="AMOUNTS_RECEIVED_AMOUNT" aggregator="sum" visible="false" caption="%{receivedAmount}"></Measure>
         <Measure name="Received Amount Currency NATLOECD" aggregator="sum" visible="true" caption="%{receivedAmountCurrencyNatlOecd}">
             <MeasureExpression>
@@ -548,10 +548,10 @@
                 </SQL>
             </MeasureExpression>
         </Measure>
-        <Measure name="Tied Amount" column="AMOUNTS_TIED_AMOUNT" aggregator="sum" visible="false" caption="%{tiedAmount}"></Measure>
-        <Measure name="Untied Amount" column="AMOUNTS_UNTIED_AMOUNT" aggregator="sum" visible="false" caption="%{untiedAmount}"></Measure>
-        <Measure name="Interest Arrears Amount" column="AMOUNTS_AREARS_INTEREST_AMOUNT" aggregator="sum" visible="false" caption="%{interestArrearsAmount}"></Measure>
-        <Measure name="Principal Arrears Amount" column="AMOUNTS_AREARS_PRIN_AMOUNT" aggregator="sum" visible="false" caption="%{principalArrearsAmount}"></Measure>
+        <Measure name="Tied Amount" column="AMOUNTS_TIED_AMOUNT" aggregator="sum" visible="false" caption="Tied Amount"></Measure>
+        <Measure name="Untied Amount" column="AMOUNTS_UNTIED_AMOUNT" aggregator="sum" visible="false" caption="Untied Amount"></Measure>
+        <Measure name="Interest Arrears Amount" column="AMOUNTS_AREARS_INTEREST_AMOUNT" aggregator="sum" visible="false" caption="Interest Arrears Amount"></Measure>
+        <Measure name="Principal Arrears Amount" column="AMOUNTS_AREARS_PRIN_AMOUNT" aggregator="sum" visible="false" caption="Principal Arrears Amount"></Measure>
         <Measure name="Commitments Amount" column="COMMITMENT_AMOUNT" aggregator="sum" visible="false" caption="%{commitmentsAmount}"></Measure>
         <Measure name="Commitments Amount Currency NATLOECD" aggregator="sum" visible="true" caption="%{commitmentsAmountCurrencyNatlOecd}">
             <MeasureExpression>
@@ -596,7 +596,7 @@
                 </SQL>
             </MeasureExpression>
         </Measure>
-        <Measure name="Principal Disbursed Amount" column="AMOUNTS_PRIN_DISB_AMOUNT" aggregator="sum" visible="false" caption="%{principalDisbursedAmount}"></Measure>
+        <Measure name="Principal Disbursed Amount" column="AMOUNTS_PRIN_DISB_AMOUNT" aggregator="sum" visible="false" caption="Principal Disbursed Amount"></Measure>
         <Measure name="Expert Commitments Amount" column="AMOUNTS_EXP_COMMIT_AMOUNT" aggregator="sum" visible="false" caption="%{expertCommitmentsAmount}"></Measure>
         <Measure name="Expert Commitments Currency NATLOECD" aggregator="sum" visible="true" caption="%{expertCommitmentsAmountCurrencyNatlOecd}">
             <MeasureExpression>
