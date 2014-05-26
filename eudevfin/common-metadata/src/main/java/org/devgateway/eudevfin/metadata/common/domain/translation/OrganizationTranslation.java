@@ -9,6 +9,7 @@ import org.devgateway.eudevfin.common.dao.translation.AbstractTranslation;
 import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Index;
 import org.hibernate.envers.Audited;
 
 /**
@@ -20,8 +21,10 @@ import org.hibernate.envers.Audited;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class OrganizationTranslation extends AbstractTranslation<Organization> implements OrganizationTrnInterface {
 	
+	@Index(name="organization_name_idx")
 	private String name;
 	
+	@Index(name="organization_donor_name_idx")
 	private String donorName;
 
 	/* (non-Javadoc)

@@ -38,7 +38,7 @@ public class ChannelCategoryChoiceProvider extends AbstractTranslatableProvider<
 
     @Override
     public String getDisplayText(ChannelCategory choice) {
-        return choice.getDisplayableCode() + " - " + choice.getName();
+        return choice.getDisplayableCode() + " - " + choice.getAcronym()+ " - " + choice.getName();
     }
 
     @Override
