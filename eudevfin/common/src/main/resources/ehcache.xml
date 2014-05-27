@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
 	<defaultCache eternal="false" timeToIdleSeconds="300" timeToLiveSeconds="600" maxElementsInMemory="5000"
-		overflowToDisk="false" statistics="true"/>		
-	
+		overflowToDisk="false" statistics="true"/>
+
+    <cache name="pentaho-cda-dataaccess"
+           maxElementsInMemory="2000"
+           eternal="false"
+           overflowToDisk="false"
+           timeToIdleSeconds="0"
+           timeToLiveSeconds="0"
+           diskPersistent="false"
+           diskExpiryThreadIntervalSeconds="360"
+           memoryStoreEvictionPolicy="LFU"
+           diskSpoolBufferSizeMB="50">
+    </cache>
 </ehcache>

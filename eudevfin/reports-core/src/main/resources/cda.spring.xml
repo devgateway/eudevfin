@@ -9,5 +9,5 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 
     <context:annotation-config />
 
-    <bean id="IQueryCache" class="pt.webdetails.cda.cache.EHCacheQueryCache" scope="prototype"/>
+    <bean id="IQueryCache" class="org.devgateway.eudevfin.reports.core.utils.EHCacheQuery" scope="prototype"/>
 </beans>
