@@ -11,6 +11,7 @@ package org.devgateway.eudevfin.ui.common.providers;
 
 import org.apache.wicket.Session;
 import org.devgateway.eudevfin.metadata.common.domain.Category;
+import org.devgateway.eudevfin.metadata.common.domain.ChannelCategory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
@@ -26,6 +27,17 @@ public class TagCategoryProvider extends AbstractCategoryProvider {
     protected TagCategoryProvider(String tag) {
         super();
         this.tag = tag;
+    }
+
+    @Override
+    protected String getDisplayText(Category choice) {
+        if (choice instanceof ChannelCategory) {
+            String extra = "";
+            if (((ChannelCategory) choice).getAcronym() != null)
+                extra = " - " + ((ChannelCategory) choice).getAcronym();
+            return choice.getDisplayableCode() + extra + " - " + choice.getName();
+        }
+        return super.getDisplayText(choice);
     }
 
     @Override
