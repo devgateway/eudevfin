@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dac1_master" pageWidth="900" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" resourceBundle="i18n" uuid="bad8772b-9ff8-49ae-a2c0-34a59258237b">
-	<property name="ireport.zoom" value="3.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.zoom" value="4.0"/>
+	<property name="ireport.x" value="2425"/>
+	<property name="ireport.y" value="464"/>
 	<style name="defaultStyle" isDefault="true" mode="Transparent" fontName="Arial" fontSize="8"/>
 	<style name="BlueBackground" style="defaultStyle" mode="Opaque" backcolor="#99CCFF" isBold="true"/>
 	<parameter name="REPORTING_COUNTRY" class="java.lang.String"/>
@@ -86,7 +86,7 @@
 	<pageHeader>
 		<band height="99">
 			<staticText>
-				<reportElement x="502" y="42" width="64" height="57" uuid="f07a9463-f40b-49e8-bf4b-ae780b415348"/>
+				<reportElement x="502" y="42" width="50" height="57" uuid="f07a9463-f40b-49e8-bf4b-ae780b415348"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[Amount
 received
@@ -245,21 +245,21 @@ commitments]]></text>
 				<reportElement x="772" y="24" width="1" height="75" uuid="94501086-0e92-470b-95c4-e12fae3e5dc3"/>
 			</line>
 			<staticText>
-				<reportElement x="688" y="59" width="10" height="7" uuid="f4a8b317-9a94-433d-acd1-e2e344aa3ea9"/>
+				<reportElement x="687" y="56" width="14" height="10" uuid="f4a8b317-9a94-433d-acd1-e2e344aa3ea9"/>
 				<textElement>
 					<font size="5"/>
 				</textElement>
 				<text><![CDATA[(1)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="345" y="63" width="17" height="7" uuid="739c23e9-c7a9-484c-a59b-d41073067c4c"/>
+				<reportElement x="345" y="60" width="14" height="10" uuid="739c23e9-c7a9-484c-a59b-d41073067c4c"/>
 				<textElement>
 					<font size="5"/>
 				</textElement>
 				<text><![CDATA[(1)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="555" y="63" width="10" height="7" uuid="9778bdf8-d42b-490f-9f29-8f62b3dbe7d6"/>
+				<reportElement x="552" y="70" width="14" height="14" uuid="840e1201-f404-400a-af2f-0d92fad9b201"/>
 				<textElement>
 					<font size="5"/>
 				</textElement>
