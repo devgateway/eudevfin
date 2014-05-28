@@ -14,7 +14,6 @@ package org.devgateway.eudevfin.ui.common.validators;
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.util.string.Strings;
 import org.apache.wicket.validation.IValidatable;
-import org.apache.wicket.validation.IValidationError;
 import org.apache.wicket.validation.IValidator;
 import org.apache.wicket.validation.ValidationError;
 import org.devgateway.eudevfin.metadata.common.domain.Category;

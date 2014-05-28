@@ -46,7 +46,7 @@ public class TypeOfFinanceField12TypeOfAidCodeValidator extends Behavior impleme
 	
 	@Override
 	public void validate(IValidatable<Category> validatable) {
-		if (typeOfAid.getField().getModelObject() != null && validatable.getValue() == null)
+		if (typeOfAid.getField().getModelObject() != null && validatable.getValue() != null)
 			if (CategoryConstants.TypeOfAid.F01.equals(typeOfAid.getField().getModelObject().getDisplayableCode())
 					^ pattern.matcher(validatable.getValue().getDisplayableCode()).matches()) {
 				ValidationError error = new ValidationError(this);

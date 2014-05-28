@@ -71,6 +71,10 @@ public class BasicDataTab extends Panel implements PermissionAwareComponent {
 	private CategoryProviderFactory categoryFactory;
 	@SpringBean
 	private AreaChoiceProvider areaProvider;
+	
+	DropDownField<Category> typeOfAid;
+	DropDownField<Category> bilateralMultilateral;
+	DropDownField<Category> typeOfFinance;
 
 	public BasicDataTab(String id, PageParameters parameters) {
 		super(id);
@@ -104,9 +108,16 @@ public class BasicDataTab extends Panel implements PermissionAwareComponent {
 				"recipient"), areaProvider);
 		add(recipient);
 
-		DropDownField<ChannelCategory> channelOfDelivery = new DropDownField<>("8channelDelivery",
+		DropDownField<ChannelCategory> channelOfDelivery = new DropDownField<ChannelCategory>("8channelDelivery",
 				new RWComponentPropertyModel<ChannelCategory>("channel"),
-				(ChoiceProvider) categoryFactory.get(CategoryConstants.CHANNEL_TAG));
+				(ChoiceProvider) categoryFactory.get(CategoryConstants.CHANNEL_TAG)) {
+			@Override
+			protected void onUpdate(AjaxRequestTarget target) {				
+				super.onUpdate(target);
+				typeOfAid.getField().clearInput();
+				target.add(typeOfAid);
+			}
+		};
 
 		String transactionType = parameters.get(Constants.PARAM_TRANSACTION_TYPE).toString("");
 
@@ -121,12 +132,16 @@ public class BasicDataTab extends Panel implements PermissionAwareComponent {
 		});
 		add(channelOfDelivery);
 
-		DropDownField<Category> typeOfAid = new DropDownField<Category>("13typeOfAid",
+		typeOfAid = new DropDownField<Category>("13typeOfAid",
 				new RWComponentPropertyModel<Category>("typeOfAid"),
 				categoryFactory.get(CategoryConstants.ALL_TYPE_OF_AID_TAG)) {
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
-				Category modelObject = this.getField().getModelObject();
+				bilateralMultilateral.getField().clearInput();
+				typeOfFinance.getField().clearInput();
+				target.add(bilateralMultilateral);
+				target.add(typeOfFinance);
+				Category modelObject = this.getField().getModelObject();				
 				if (modelObject != null)
 					send(getPage(), Broadcast.DEPTH,
 							new Field13ChangedEventPayload(target, modelObject.getDisplayableCode()));
@@ -151,9 +166,15 @@ public class BasicDataTab extends Panel implements PermissionAwareComponent {
 
 		add(typeOfAid);
 
-		DropDownField<Category> bilateralMultilateral = new DropDownField<>("10bilateralMultilateral",
+		bilateralMultilateral = new DropDownField<Category>("10bilateralMultilateral",
 				new RWComponentPropertyModel<Category>("biMultilateral"),
-				categoryFactory.get(CategoryConstants.BI_MULTILATERAL_TAG));
+				categoryFactory.get(CategoryConstants.BI_MULTILATERAL_TAG)) {
+			@Override
+			protected void onUpdate(AjaxRequestTarget target) {
+				typeOfAid.getField().clearInput();
+				target.add(typeOfAid);
+			}
+		};		
 
 		bilateralMultilateral.getField().add(new BilateralField10CodeValidator(transactionType) {
 
@@ -169,6 +190,7 @@ public class BasicDataTab extends Panel implements PermissionAwareComponent {
 
 		bilateralMultilateral.getField().add(new BilateralField10TypeOfAidCodeValidator(transactionType, typeOfAid) {
 			private static final long serialVersionUID = 4247327751054728566L;
+
 			@Override
 			protected ValidationError decorate(ValidationError error, IValidatable<Category> validatable) {
 				error.addKey(VALIDATIONKEY_B01_BIMULTI3_CODE);
@@ -187,7 +209,7 @@ public class BasicDataTab extends Panel implements PermissionAwareComponent {
 			}
 
 		});
-		
+
 		bilateralMultilateral.getField().add(new MultilateralField10TypeOfAidCodeValidator(transactionType, typeOfAid) {
 
 			private static final long serialVersionUID = -2388019323524154047L;
@@ -214,19 +236,19 @@ public class BasicDataTab extends Panel implements PermissionAwareComponent {
 		});
 		add(typeOfFlow);
 
-		DropDownField<Category> typeOfFinance = new DropDownField<Category>("12typeOfFinance",
+		typeOfFinance= new DropDownField<Category>("12typeOfFinance",
 				new RWComponentPropertyModel<Category>("typeOfFinance"),
 				categoryFactory.get(CategoryConstants.ALL_TYPE_OF_FINANCE_TAG)) {
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
-				Category modelObject = this.getField().getModelObject();
+				typeOfAid.getField().clearInput();
+				target.add(typeOfAid);
+				Category modelObject = this.getField().getModelObject();				
 				if (modelObject != null)
 					send(getPage(), Broadcast.DEPTH,
 							new Field12ChangedEventPayload(target, modelObject.getDisplayableCode()));
 			}
 		};
-		
-		
 
 		typeOfFinance.required();
 		typeOfFinance.getField().add(new Field12CodeValidator(transactionType) {
@@ -236,7 +258,7 @@ public class BasicDataTab extends Panel implements PermissionAwareComponent {
 				return super.decorate(error, validatable);
 			}
 		});
-		
+
 		typeOfFinance.getField().add(new TypeOfFinanceField12TypeOfAidCodeValidator(typeOfAid) {
 			@Override
 			protected ValidationError decorate(ValidationError error, IValidatable<Category> validatable) {
