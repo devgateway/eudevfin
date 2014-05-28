@@ -48,7 +48,7 @@ public class Field8CodeValidator extends Behavior implements IValidator<Category
                 && (Strings.isEqual(transactionType, SB.MULTILATERAL_ODA_ADVANCE_QUESTIONNAIRE) ||
                 Strings.isEqual(transactionType, SB.MULTILATERAL_ODA_CRS))) {			
 			// Check value against pattern
-			if (pattern.matcher(validatable.getValue().getCode()).matches() == reverse) {
+			if (validatable.getValue()!=null && pattern.matcher(validatable.getValue().getCode()).matches() == reverse) {
 				ValidationError error = new ValidationError(this);
 				error.setVariable("pattern", pattern.pattern());
 				validatable.error(decorate(error, validatable));

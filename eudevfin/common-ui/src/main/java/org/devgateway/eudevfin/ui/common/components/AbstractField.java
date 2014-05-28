@@ -51,7 +51,7 @@ public abstract class AbstractField<T, FIELD extends FormComponent<T>> extends P
      */
     AbstractField(String id, IModel<T> model, String messageKeyGroup) {
         super(id, model);
-        this.setRenderBodyOnly(true);
+        //this.setRenderBodyOnly(true);
 
         xPenderController = new WebMarkupContainer("xPenderController");
         prepender = new Label("prepender").setVisible(false);
