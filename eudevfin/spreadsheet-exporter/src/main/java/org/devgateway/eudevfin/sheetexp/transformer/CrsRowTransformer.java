@@ -45,6 +45,7 @@ public class CrsRowTransformer extends AbstractRowTransformer<EntityWrapperInter
 		this.addCellTransformer( new CellTransformerImplementations.CRSID("CRS Identification Num") );
 		this.addCellTransformer( new CellTransformerImplementations.PROJECT_NUMBER("Donor project Num") );
 		this.addCellTransformer( new CellTransformerImplementations.NATURE_OF_SUBMISSION("Nature of submission") );
+		this.addCellTransformer( new CellTransformerImplementations.RECIPIENT("Recipient") );
 		this.addCellTransformer( new CellTransformerImplementations.CHANNEL("Channel") );
 		this.addCellTransformer( new CellTransformerImplementations.CHANNEL_CODE("ChannelCode") );
 		this.addCellTransformer( new CellTransformerImplementations.BI_MULTI_CODE("Bi_multi") );

@@ -8,7 +8,9 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.custom;
 
-import com.vaynberg.wicket.select2.ChoiceProvider;
+import java.math.BigDecimal;
+import java.util.Collection;
+
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.event.Broadcast;
@@ -21,7 +23,11 @@ import org.devgateway.eudevfin.metadata.common.domain.Category;
 import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.devgateway.eudevfin.metadata.common.util.CategoryConstants;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
-import org.devgateway.eudevfin.ui.common.components.*;
+import org.devgateway.eudevfin.ui.common.components.DropDownField;
+import org.devgateway.eudevfin.ui.common.components.MultiFileUploadField;
+import org.devgateway.eudevfin.ui.common.components.PermissionAwareContainer;
+import org.devgateway.eudevfin.ui.common.components.TextInputField;
+import org.devgateway.eudevfin.ui.common.components.VisibilityAwareContainer;
 import org.devgateway.eudevfin.ui.common.events.CurrencyChangedEventPayload;
 import org.devgateway.eudevfin.ui.common.events.CurrencyUpdateBehavior;
 import org.devgateway.eudevfin.ui.common.models.BigMoneyModel;
@@ -34,8 +40,7 @@ import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 import org.joda.time.LocalDateTime;
 
-import java.math.BigDecimal;
-import java.util.Collection;
+import com.vaynberg.wicket.select2.ChoiceProvider;
 
 /**
  * Basic Data Tab extension for the EU-DEVFIN Form
@@ -48,9 +53,9 @@ public class CustomBasicDataTab extends BasicDataTab {
     @SpringBean
     private CategoryProviderFactory categoryFactory;
 
-    public CustomBasicDataTab(String id, PageParameters parameters) {
+    public CustomBasicDataTab(final String id, final PageParameters parameters) {
         super(id, parameters);
-        addComponents();
+        this.addComponents();
     }
 
     private void addComponents() {
@@ -59,30 +64,25 @@ public class CustomBasicDataTab extends BasicDataTab {
 
     @Override
     protected void addExtensionPanel1() {
-        add(new Extension1("extensionPanel1", "extension1", this));
+        this.add(new Extension1("extensionPanel1", "extension1", this));
     }
 
     @Override
     protected void addExtensionPanel2() {
-        add(new Extension2("extensionPanel2", "extension2", this));
+        this.add(new Extension2("extensionPanel2", "extension2", this));
     }
 
     @Override
     protected void addExtensionPanel3() {
-        add(new Extension3("extensionPanel3", "extension3", this));
+        this.add(new Extension3("extensionPanel3", "extension3", this));
     }
 
     public class Extension1 extends Fragment {
-        public Extension1(String id, String markupId, MarkupContainer markupProvider) {
+        public Extension1(final String id, final String markupId, final MarkupContainer markupProvider) {
             super(id, markupId, markupProvider);
-            DropDownField<Boolean> cpa = new DropDownField<>("7bCPA", new RWComponentPropertyModel<Boolean>("cpa"),
+            final DropDownField<Boolean> cpa = new DropDownField<>("7bCPA", new RWComponentPropertyModel<Boolean>("cpa"),
                     SB.boolProvider);
-            add(cpa);
-
-            TextInputField<Integer> reportingYear = new TextInputField<>("7dPhasingOutYear", new YearToLocalDateTimeModel(new RWComponentPropertyModel<LocalDateTime>("phasingOutYear")));
-            reportingYear.typeInteger().required().range(1900, 2099).decorateMask("9999");
-            add(reportingYear);
-
+            this.add(cpa);
 
         }
     }
@@ -96,87 +96,87 @@ public class CustomBasicDataTab extends BasicDataTab {
         @SpringBean
         private CurrencyUnitProviderFactory currencyUnitProviderFactory;
 
-        public Extension2(String id, String markupId, MarkupContainer markupProvider) {
+        public Extension2(final String id, final String markupId, final MarkupContainer markupProvider) {
             super(id, markupId, markupProvider);
 
-            MultiFileUploadField bisUploadDocumentation = new MultiFileUploadField("14bisUploadDocumentation", new RWComponentPropertyModel<Collection<FileWrapper>>("uploadDocumentation"));
+            final MultiFileUploadField bisUploadDocumentation = new MultiFileUploadField("14bisUploadDocumentation", new RWComponentPropertyModel<Collection<FileWrapper>>("uploadDocumentation"));
             bisUploadDocumentation.maxFiles(2);
-            add(bisUploadDocumentation);
+            this.add(bisUploadDocumentation);
 
-            PermissionAwareContainer pac = new PermissionAwareContainer("14coFinancing");
-            add(pac);
+            final PermissionAwareContainer pac = new PermissionAwareContainer("14coFinancing");
+            this.add(pac);
 
-            DropDownField<Boolean> projectCoFinanced = new DropDownField<>("14aProjectCoFinanced", new RWComponentPropertyModel<Boolean>("projectCoFinanced"),
+            final DropDownField<Boolean> projectCoFinanced = new DropDownField<>("14aProjectCoFinanced", new RWComponentPropertyModel<Boolean>("projectCoFinanced"),
                     SB.boolProvider);
-            add(projectCoFinanced);
+            this.add(projectCoFinanced);
 
 
-            VisibilityAwareContainer firstAgencyGroup = new VisibilityAwareContainer("14group1stAgency");
+            final VisibilityAwareContainer firstAgencyGroup = new VisibilityAwareContainer("14group1stAgency");
             pac.add(firstAgencyGroup);
 
-            DropDownField<Organization> firstCoFinancingAgency = new DropDownField<>("14b1stAgency",
-                    new RWComponentPropertyModel<Organization>("firstCoFinancingAgency"), organizationProvider);
+            final DropDownField<Organization> firstCoFinancingAgency = new DropDownField<>("14b1stAgency",
+                    new RWComponentPropertyModel<Organization>("firstCoFinancingAgency"), this.organizationProvider);
             firstAgencyGroup.add(firstCoFinancingAgency);
 
-            DropDownField<Organization> secondCoFinancingAgency = new DropDownField<>("14e2ndAgency",
-                    new RWComponentPropertyModel<Organization>("secondCoFinancingAgency"), organizationProvider);
+            final DropDownField<Organization> secondCoFinancingAgency = new DropDownField<>("14e2ndAgency",
+                    new RWComponentPropertyModel<Organization>("secondCoFinancingAgency"), this.organizationProvider);
             pac.add(secondCoFinancingAgency);
 
-            DropDownField<Organization> thirdCoFinancingAgency = new DropDownField<>("14h3rdAgency",
-                    new RWComponentPropertyModel<Organization>("thirdCoFinancingAgency"), organizationProvider);
+            final DropDownField<Organization> thirdCoFinancingAgency = new DropDownField<>("14h3rdAgency",
+                    new RWComponentPropertyModel<Organization>("thirdCoFinancingAgency"), this.organizationProvider);
             pac.add(thirdCoFinancingAgency);
 
 
-            ChoiceProvider<CurrencyUnit> currencyUnitProvider =
+            final ChoiceProvider<CurrencyUnit> currencyUnitProvider =
                     this.currencyUnitProviderFactory.
                             getCurrencyUnitProviderInstance(CurrencyUnitProviderFactory.ALL_SORTED_CURRENCIES_PROVIDER);
 
-            RWComponentPropertyModel<CurrencyUnit> firstAgencyCurrencyModel = new RWComponentPropertyModel<>("firstAgencyCurrency");
-            DropDownField<CurrencyUnit> firstAgencyCurrency = new DropDownField<CurrencyUnit>("14d1stAgencyCurrency", firstAgencyCurrencyModel,
+            final RWComponentPropertyModel<CurrencyUnit> firstAgencyCurrencyModel = new RWComponentPropertyModel<>("firstAgencyCurrency");
+            final DropDownField<CurrencyUnit> firstAgencyCurrency = new DropDownField<CurrencyUnit>("14d1stAgencyCurrency", firstAgencyCurrencyModel,
                     currencyUnitProvider) {
                 @Override
-                protected void onUpdate(AjaxRequestTarget target) {
-                    send(CustomBasicDataTab.this, Broadcast.DEPTH, new CurrencyChangedEventPayload(target));
+                protected void onUpdate(final AjaxRequestTarget target) {
+                    this.send(CustomBasicDataTab.this, Broadcast.DEPTH, new CurrencyChangedEventPayload(target));
                 }
             };
             //firstAgencyCurrency.required();
             firstAgencyGroup.add(firstAgencyCurrency);
 
-            TextInputField<BigDecimal> firstAgencyAmount = new TextInputField<>("14c1stAgencyAmount",
+            final TextInputField<BigDecimal> firstAgencyAmount = new TextInputField<>("14c1stAgencyAmount",
                     new BigMoneyModel(new RWComponentPropertyModel<BigMoney>("firstAgencyAmount"), firstAgencyCurrencyModel));
             firstAgencyAmount.typeBigDecimal().add(new CurrencyUpdateBehavior());
             firstAgencyGroup.add(firstAgencyAmount);
 
 
-            RWComponentPropertyModel<CurrencyUnit> secondAgencyCurrencyModel = new RWComponentPropertyModel<>("secondAgencyCurrency");
-            DropDownField<CurrencyUnit> secondAgencyCurrency = new DropDownField<CurrencyUnit>("14g2ndAgencyCurrency", secondAgencyCurrencyModel,
+            final RWComponentPropertyModel<CurrencyUnit> secondAgencyCurrencyModel = new RWComponentPropertyModel<>("secondAgencyCurrency");
+            final DropDownField<CurrencyUnit> secondAgencyCurrency = new DropDownField<CurrencyUnit>("14g2ndAgencyCurrency", secondAgencyCurrencyModel,
                     currencyUnitProvider) {
                 @Override
-                protected void onUpdate(AjaxRequestTarget target) {
-                    send(CustomBasicDataTab.this, Broadcast.DEPTH, new CurrencyChangedEventPayload(target));
+                protected void onUpdate(final AjaxRequestTarget target) {
+                    this.send(CustomBasicDataTab.this, Broadcast.DEPTH, new CurrencyChangedEventPayload(target));
                 }
             };
             //secondAgencyCurrency.required();
             pac.add(secondAgencyCurrency);
 
-            TextInputField<BigDecimal> secondAgencyAmount = new TextInputField<>("14f2ndAgencyAmount",
+            final TextInputField<BigDecimal> secondAgencyAmount = new TextInputField<>("14f2ndAgencyAmount",
                     new BigMoneyModel(new RWComponentPropertyModel<BigMoney>("secondAgencyAmount"), secondAgencyCurrencyModel));
             secondAgencyAmount.typeBigDecimal().add(new CurrencyUpdateBehavior());
             pac.add(secondAgencyAmount);
 
 
-            RWComponentPropertyModel<CurrencyUnit> thirdAgencyCurrencyModel = new RWComponentPropertyModel<>("thirdAgencyCurrency");
-            DropDownField<CurrencyUnit> thirdAgencyCurrency = new DropDownField<CurrencyUnit>("14j3rdAgencyCurrency", thirdAgencyCurrencyModel,
+            final RWComponentPropertyModel<CurrencyUnit> thirdAgencyCurrencyModel = new RWComponentPropertyModel<>("thirdAgencyCurrency");
+            final DropDownField<CurrencyUnit> thirdAgencyCurrency = new DropDownField<CurrencyUnit>("14j3rdAgencyCurrency", thirdAgencyCurrencyModel,
                     currencyUnitProvider) {
                 @Override
-                protected void onUpdate(AjaxRequestTarget target) {
-                    send(CustomBasicDataTab.this, Broadcast.DEPTH, new CurrencyChangedEventPayload(target));
+                protected void onUpdate(final AjaxRequestTarget target) {
+                    this.send(CustomBasicDataTab.this, Broadcast.DEPTH, new CurrencyChangedEventPayload(target));
                 }
             };
             //thirdAgencyCurrency.required();
             pac.add(thirdAgencyCurrency);
 
-            TextInputField<BigDecimal> thirdAgencyAmount = new TextInputField<>("14i3rdAgencyAmount",
+            final TextInputField<BigDecimal> thirdAgencyAmount = new TextInputField<>("14i3rdAgencyAmount",
                     new BigMoneyModel(new RWComponentPropertyModel<BigMoney>("thirdAgencyAmount"), thirdAgencyCurrencyModel));
             thirdAgencyAmount.typeBigDecimal().add(new CurrencyUpdateBehavior());
             pac.add(thirdAgencyAmount);
@@ -184,18 +184,16 @@ public class CustomBasicDataTab extends BasicDataTab {
     }
 
     public class Extension3 extends Fragment {
-        public Extension3(String id, String markupId, MarkupContainer markupProvider) {
+        public Extension3(final String id, final String markupId, final MarkupContainer markupProvider) {
             super(id, markupId, markupProvider);
 
-            DropDownField<Category> recipientCode = new DropDownField<>("7aRecipientCode", new RWComponentPropertyModel<Category>("recipientCode"),
-                    categoryFactory.get(CategoryConstants.RECIPIENT_TAG));
-            recipientCode.required();
-            add(recipientCode);
+            final DropDownField<Category> recipientPriority = new DropDownField<>("7cPriorityStatus", new RWComponentPropertyModel<Category>("recipientPriority"),
+                    CustomBasicDataTab.this.categoryFactory.get(CategoryConstants.PRIORITY_STATUS_TAG));
+            this.add(recipientPriority);
 
-            DropDownField<Category> recipientPriority = new DropDownField<>("7cPriorityStatus", new RWComponentPropertyModel<Category>("recipientPriority"),
-                    categoryFactory.get(CategoryConstants.PRIORITY_STATUS_TAG));
-            add(recipientPriority);
-
+            final TextInputField<Integer> reportingYear = new TextInputField<>("7dPhasingOutYear", new YearToLocalDateTimeModel(new RWComponentPropertyModel<LocalDateTime>("phasingOutYear")));
+            reportingYear.typeInteger().required().range(1900, 2099).decorateMask("9999");
+            this.add(reportingYear);
 
         }
     }

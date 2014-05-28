@@ -159,10 +159,9 @@ public class CellTransformerImplementations {
 
 		@Override
 		public MetadataCell<String> innerTransform(final FinancialTransaction tx) {
-			final CustomFinancialTransaction ctx = (CustomFinancialTransaction) tx;
 			String value = null;
-			if (ctx.getRecipientCode() != null) {
-				value = ctx.getRecipientCode().getDisplayableCode();
+			if (tx.getRecipient() != null) {
+				value = tx.getRecipient().getCode();
 			}
 			final MetadataCell<String> cell = new MetadataCell<String>(value);
 			this.setDataTypeToString(cell);
@@ -195,8 +194,8 @@ public class CellTransformerImplementations {
 		@Override
 		public MetadataCell<String> innerTransform(final FinancialTransaction tx) {
 			String value = null;
-			if (tx.getRecipient() != null) {
-				value = tx.getRecipient().getName();
+			if (tx.getRecipient() != null && tx.getRecipient().getGeographyCategory() != null ) {
+				value = tx.getRecipient().getGeographyCategory().getName();
 			}
 			final MetadataCell<String> cell = new MetadataCell<String>(value);
 			this.setDataTypeToString(cell);

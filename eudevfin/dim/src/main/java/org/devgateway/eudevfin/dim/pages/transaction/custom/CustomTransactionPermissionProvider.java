@@ -8,13 +8,13 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.custom;
 
+import java.util.HashMap;
+
 import org.devgateway.eudevfin.dim.pages.transaction.crs.CRSTransactionPermissionProvider;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.ForLoansOnlyTab;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.SupplementaryDataTab;
 import org.devgateway.eudevfin.ui.common.permissions.RoleActionMapping;
 import org.devgateway.eudevfin.ui.common.temporary.SB;
-
-import java.util.HashMap;
 
 /**
  * Different permission provider for the {@link CustomTransactionPage}
@@ -25,7 +25,7 @@ import java.util.HashMap;
 public class CustomTransactionPermissionProvider extends CRSTransactionPermissionProvider {
     @Override
     protected HashMap<String, RoleActionMapping> initPermissions() {
-        HashMap<String, RoleActionMapping> permissions = super.initPermissions();
+        final HashMap<String, RoleActionMapping> permissions = super.initPermissions();
 
         /**
          * Identification Data
@@ -44,7 +44,6 @@ public class CustomTransactionPermissionProvider extends CRSTransactionPermissio
          * Basic Data
          */
 
-        permissions.put("7aRecipientCode", new RoleActionMapping().required(SB.BILATERAL_ODA_FORWARD_SPENDING));
         permissions.put("7bCPA", new RoleActionMapping().required(SB.BILATERAL_ODA_CRS));
         permissions.put("7cPriorityStatus", new RoleActionMapping().render(SB.BILATERAL_ODA_FORWARD_SPENDING));
         permissions.put("7dPhasingOutYear", new RoleActionMapping().required(SB.BILATERAL_ODA_FORWARD_SPENDING));

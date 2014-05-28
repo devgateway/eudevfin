@@ -8,6 +8,17 @@
 
 package org.devgateway.eudevfin.financial;
 
+import java.math.BigDecimal;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
 import org.devgateway.eudevfin.auth.common.domain.PersistedUserGroup;
 import org.devgateway.eudevfin.metadata.common.domain.Category;
 import org.devgateway.eudevfin.metadata.common.domain.Organization;
@@ -20,11 +31,6 @@ import org.hibernate.envers.Audited;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 import org.joda.time.LocalDateTime;
-
-import javax.persistence.*;
-
-import java.math.BigDecimal;
-import java.util.Set;
 
 @Entity
 @Audited
@@ -125,8 +131,6 @@ public class CustomFinancialTransaction extends FinancialTransaction {
     @ManyToOne
     private Category rmnch;
     @ManyToOne
-    private Category recipientCode;
-    @ManyToOne
     private Category recipientPriority;
     
     @ManyToOne
@@ -172,370 +176,362 @@ public class CustomFinancialTransaction extends FinancialTransaction {
 
 
     public Set<FileWrapper> getUploadDocumentation() {
-        return uploadDocumentation;
+        return this.uploadDocumentation;
     }
 
-    public void setUploadDocumentation(Set<FileWrapper> uploadDocumentation) {
+    public void setUploadDocumentation(final Set<FileWrapper> uploadDocumentation) {
         this.uploadDocumentation = uploadDocumentation;
     }
 
     public Boolean getDraft() {
-        return draft;
+        return this.draft;
     }
 
-    public void setDraft(Boolean draft) {
+    public void setDraft(final Boolean draft) {
         this.draft = draft;
     }
 
     public String getFormType() {
-        return formType;
+        return this.formType;
     }
 
-    public void setFormType(String formType) {
+    public void setFormType(final String formType) {
         this.formType = formType;
     }
 
     public BigDecimal getFixedRate() {
-        return fixedRate;
+        return this.fixedRate;
     }
 
-    public void setFixedRate(BigDecimal fixedRate) {
+    public void setFixedRate(final BigDecimal fixedRate) {
         this.fixedRate = fixedRate;
     }
 
     public CurrencyUnit getOtherCurrency() {
-        return otherCurrency;
+        return this.otherCurrency;
     }
 
-    public void setOtherCurrency(CurrencyUnit otherCurrency) {
+    public void setOtherCurrency(final CurrencyUnit otherCurrency) {
         this.otherCurrency = otherCurrency;
     }
 
     public LocalDateTime getDataAsPerDate() {
-        return dataAsPerDate;
+        return this.dataAsPerDate;
     }
 
-    public void setDataAsPerDate(LocalDateTime dataAsPerDate) {
+    public void setDataAsPerDate(final LocalDateTime dataAsPerDate) {
         this.dataAsPerDate = dataAsPerDate;
     }
 
     public BigMoney getFutureDebtPrincipal() {
-        return futureDebtPrincipal;
+        return this.futureDebtPrincipal;
     }
 
-    public void setFutureDebtPrincipal(BigMoney futureDebtPrincipal) {
+    public void setFutureDebtPrincipal(final BigMoney futureDebtPrincipal) {
         this.futureDebtPrincipal = futureDebtPrincipal;
     }
 
     public BigMoney getFutureDebtInterest() {
-        return futureDebtInterest;
+        return this.futureDebtInterest;
     }
 
-    public void setFutureDebtInterest(BigMoney futureDebtInterest) {
+    public void setFutureDebtInterest(final BigMoney futureDebtInterest) {
         this.futureDebtInterest = futureDebtInterest;
     }
 
     public Boolean getProjectCoFinanced() {
-        return projectCoFinanced;
+        return this.projectCoFinanced;
     }
 
-    public void setProjectCoFinanced(Boolean projectCoFinanced) {
+    public void setProjectCoFinanced(final Boolean projectCoFinanced) {
         this.projectCoFinanced = projectCoFinanced;
     }
 
     public Organization getFirstCoFinancingAgency() {
-        return firstCoFinancingAgency;
+        return this.firstCoFinancingAgency;
     }
 
-    public void setFirstCoFinancingAgency(Organization firstCoFinancingAgency) {
+    public void setFirstCoFinancingAgency(final Organization firstCoFinancingAgency) {
         this.firstCoFinancingAgency = firstCoFinancingAgency;
     }
 
     public Organization getSecondCoFinancingAgency() {
-        return secondCoFinancingAgency;
+        return this.secondCoFinancingAgency;
     }
 
-    public void setSecondCoFinancingAgency(Organization secondCoFinancingAgency) {
+    public void setSecondCoFinancingAgency(final Organization secondCoFinancingAgency) {
         this.secondCoFinancingAgency = secondCoFinancingAgency;
     }
 
     public Organization getThirdCoFinancingAgency() {
-        return thirdCoFinancingAgency;
+        return this.thirdCoFinancingAgency;
     }
 
-    public void setThirdCoFinancingAgency(Organization thirdCoFinancingAgency) {
+    public void setThirdCoFinancingAgency(final Organization thirdCoFinancingAgency) {
         this.thirdCoFinancingAgency = thirdCoFinancingAgency;
     }
 
     public CurrencyUnit getFirstAgencyCurrency() {
-        return firstAgencyCurrency;
+        return this.firstAgencyCurrency;
     }
 
-    public void setFirstAgencyCurrency(CurrencyUnit firstAgencyCurrency) {
+    public void setFirstAgencyCurrency(final CurrencyUnit firstAgencyCurrency) {
         this.firstAgencyCurrency = firstAgencyCurrency;
     }
 
     public CurrencyUnit getSecondAgencyCurrency() {
-        return secondAgencyCurrency;
+        return this.secondAgencyCurrency;
     }
 
-    public void setSecondAgencyCurrency(CurrencyUnit secondAgencyCurrency) {
+    public void setSecondAgencyCurrency(final CurrencyUnit secondAgencyCurrency) {
         this.secondAgencyCurrency = secondAgencyCurrency;
     }
 
     public CurrencyUnit getThirdAgencyCurrency() {
-        return thirdAgencyCurrency;
+        return this.thirdAgencyCurrency;
     }
 
-    public void setThirdAgencyCurrency(CurrencyUnit thirdAgencyCurrency) {
+    public void setThirdAgencyCurrency(final CurrencyUnit thirdAgencyCurrency) {
         this.thirdAgencyCurrency = thirdAgencyCurrency;
     }
 
     public BigMoney getFirstAgencyAmount() {
-        return firstAgencyAmount;
+        return this.firstAgencyAmount;
     }
 
-    public void setFirstAgencyAmount(BigMoney firstAgencyAmount) {
+    public void setFirstAgencyAmount(final BigMoney firstAgencyAmount) {
         this.firstAgencyAmount = firstAgencyAmount;
     }
 
     public BigMoney getSecondAgencyAmount() {
-        return secondAgencyAmount;
+        return this.secondAgencyAmount;
     }
 
-    public void setSecondAgencyAmount(BigMoney secondAgencyAmount) {
+    public void setSecondAgencyAmount(final BigMoney secondAgencyAmount) {
         this.secondAgencyAmount = secondAgencyAmount;
     }
 
     public BigMoney getThirdAgencyAmount() {
-        return thirdAgencyAmount;
+        return this.thirdAgencyAmount;
     }
 
-    public void setThirdAgencyAmount(BigMoney thirdAgencyAmount) {
+    public void setThirdAgencyAmount(final BigMoney thirdAgencyAmount) {
         this.thirdAgencyAmount = thirdAgencyAmount;
     }
 
     public Category getRmnch() {
-        return rmnch;
+        return this.rmnch;
     }
 
-    public void setRmnch(Category rmnch) {
+    public void setRmnch(final Category rmnch) {
         this.rmnch = rmnch;
     }
 
     public String getBudgetCode() {
-        return budgetCode;
+        return this.budgetCode;
     }
 
-    public void setBudgetCode(String budgetCode) {
+    public void setBudgetCode(final String budgetCode) {
         this.budgetCode = budgetCode;
     }
 
     public String getBudgetLine() {
-        return budgetLine;
+        return this.budgetLine;
     }
 
-    public void setBudgetLine(String budgetLine) {
+    public void setBudgetLine(final String budgetLine) {
         this.budgetLine = budgetLine;
     }
 
     public String getBudgetActivity() {
-        return budgetActivity;
+        return this.budgetActivity;
     }
 
-    public void setBudgetActivity(String budgetActivity) {
+    public void setBudgetActivity(final String budgetActivity) {
         this.budgetActivity = budgetActivity;
     }
 
-    public Category getRecipientCode() {
-        return recipientCode;
-    }
-
-    public void setRecipientCode(Category recipientCode) {
-        this.recipientCode = recipientCode;
-    }
-
     public Category getRecipientPriority() {
-        return recipientPriority;
+        return this.recipientPriority;
     }
 
-    public void setRecipientPriority(Category recipientPriority) {
+    public void setRecipientPriority(final Category recipientPriority) {
         this.recipientPriority = recipientPriority;
     }
 
     public LocalDateTime getPhasingOutYear() {
-        return phasingOutYear;
+        return this.phasingOutYear;
     }
 
-    public void setPhasingOutYear(LocalDateTime phasingOutYear) {
+    public void setPhasingOutYear(final LocalDateTime phasingOutYear) {
         this.phasingOutYear = phasingOutYear;
     }
 
     public BigMoney getBudgetMTEFDisbursement() {
-        return budgetMTEFDisbursement;
+        return this.budgetMTEFDisbursement;
     }
 
-    public void setBudgetMTEFDisbursement(BigMoney budgetMTEFDisbursement) {
+    public void setBudgetMTEFDisbursement(final BigMoney budgetMTEFDisbursement) {
         this.budgetMTEFDisbursement = budgetMTEFDisbursement;
     }
 
     public BigMoney getBudgetMTEFDisbursementP1() {
-        return budgetMTEFDisbursementP1;
+        return this.budgetMTEFDisbursementP1;
     }
 
-    public void setBudgetMTEFDisbursementP1(BigMoney budgetMTEFDisbursementP1) {
+    public void setBudgetMTEFDisbursementP1(final BigMoney budgetMTEFDisbursementP1) {
         this.budgetMTEFDisbursementP1 = budgetMTEFDisbursementP1;
     }
 
     public BigMoney getBudgetMTEFDisbursementP2() {
-        return budgetMTEFDisbursementP2;
+        return this.budgetMTEFDisbursementP2;
     }
 
-    public void setBudgetMTEFDisbursementP2(BigMoney budgetMTEFDisbursementP2) {
+    public void setBudgetMTEFDisbursementP2(final BigMoney budgetMTEFDisbursementP2) {
         this.budgetMTEFDisbursementP2 = budgetMTEFDisbursementP2;
     }
 
     public BigMoney getBudgetMTEFDisbursementP3() {
-        return budgetMTEFDisbursementP3;
+        return this.budgetMTEFDisbursementP3;
     }
 
-    public void setBudgetMTEFDisbursementP3(BigMoney budgetMTEFDisbursementP3) {
+    public void setBudgetMTEFDisbursementP3(final BigMoney budgetMTEFDisbursementP3) {
         this.budgetMTEFDisbursementP3 = budgetMTEFDisbursementP3;
     }
 
     public BigMoney getBudgetMTEFDisbursementP4() {
-        return budgetMTEFDisbursementP4;
+        return this.budgetMTEFDisbursementP4;
     }
 
-    public void setBudgetMTEFDisbursementP4(BigMoney budgetMTEFDisbursementP4) {
+    public void setBudgetMTEFDisbursementP4(final BigMoney budgetMTEFDisbursementP4) {
         this.budgetMTEFDisbursementP4 = budgetMTEFDisbursementP4;
     }
 
     public String getBudgetMTEFCode() {
-        return budgetMTEFCode;
+        return this.budgetMTEFCode;
     }
 
-    public void setBudgetMTEFCode(String budgetMTEFCode) {
+    public void setBudgetMTEFCode(final String budgetMTEFCode) {
         this.budgetMTEFCode = budgetMTEFCode;
     }
 
     public String getBudgetMTEFLine() {
-        return budgetMTEFLine;
+        return this.budgetMTEFLine;
     }
 
-    public void setBudgetMTEFLine(String budgetMTEFLine) {
+    public void setBudgetMTEFLine(final String budgetMTEFLine) {
         this.budgetMTEFLine = budgetMTEFLine;
     }
 
     public String getBudgetMTEFActivity() {
-        return budgetMTEFActivity;
+        return this.budgetMTEFActivity;
     }
 
-    public void setBudgetMTEFActivity(String budgetMTEFActivity) {
+    public void setBudgetMTEFActivity(final String budgetMTEFActivity) {
         this.budgetMTEFActivity = budgetMTEFActivity;
     }
 
     public String getBudgetMTEFCodeP1() {
-        return budgetMTEFCodeP1;
+        return this.budgetMTEFCodeP1;
     }
 
-    public void setBudgetMTEFCodeP1(String budgetMTEFCodeP1) {
+    public void setBudgetMTEFCodeP1(final String budgetMTEFCodeP1) {
         this.budgetMTEFCodeP1 = budgetMTEFCodeP1;
     }
 
     public String getBudgetMTEFLineP1() {
-        return budgetMTEFLineP1;
+        return this.budgetMTEFLineP1;
     }
 
-    public void setBudgetMTEFLineP1(String budgetMTEFLineP1) {
+    public void setBudgetMTEFLineP1(final String budgetMTEFLineP1) {
         this.budgetMTEFLineP1 = budgetMTEFLineP1;
     }
 
     public String getBudgetMTEFActivityP1() {
-        return budgetMTEFActivityP1;
+        return this.budgetMTEFActivityP1;
     }
 
-    public void setBudgetMTEFActivityP1(String budgetMTEFActivityP1) {
+    public void setBudgetMTEFActivityP1(final String budgetMTEFActivityP1) {
         this.budgetMTEFActivityP1 = budgetMTEFActivityP1;
     }
 
     public String getBudgetMTEFCodeP2() {
-        return budgetMTEFCodeP2;
+        return this.budgetMTEFCodeP2;
     }
 
-    public void setBudgetMTEFCodeP2(String budgetMTEFCodeP2) {
+    public void setBudgetMTEFCodeP2(final String budgetMTEFCodeP2) {
         this.budgetMTEFCodeP2 = budgetMTEFCodeP2;
     }
 
     public String getBudgetMTEFLineP2() {
-        return budgetMTEFLineP2;
+        return this.budgetMTEFLineP2;
     }
 
-    public void setBudgetMTEFLineP2(String budgetMTEFLineP2) {
+    public void setBudgetMTEFLineP2(final String budgetMTEFLineP2) {
         this.budgetMTEFLineP2 = budgetMTEFLineP2;
     }
 
     public String getBudgetMTEFActivityP2() {
-        return budgetMTEFActivityP2;
+        return this.budgetMTEFActivityP2;
     }
 
-    public void setBudgetMTEFActivityP2(String budgetMTEFActivityP2) {
+    public void setBudgetMTEFActivityP2(final String budgetMTEFActivityP2) {
         this.budgetMTEFActivityP2 = budgetMTEFActivityP2;
     }
 
     public String getBudgetMTEFCodeP3() {
-        return budgetMTEFCodeP3;
+        return this.budgetMTEFCodeP3;
     }
 
-    public void setBudgetMTEFCodeP3(String budgetMTEFCodeP3) {
+    public void setBudgetMTEFCodeP3(final String budgetMTEFCodeP3) {
         this.budgetMTEFCodeP3 = budgetMTEFCodeP3;
     }
 
     public String getBudgetMTEFLineP3() {
-        return budgetMTEFLineP3;
+        return this.budgetMTEFLineP3;
     }
 
-    public void setBudgetMTEFLineP3(String budgetMTEFLineP3) {
+    public void setBudgetMTEFLineP3(final String budgetMTEFLineP3) {
         this.budgetMTEFLineP3 = budgetMTEFLineP3;
     }
 
     public String getBudgetMTEFActivityP3() {
-        return budgetMTEFActivityP3;
+        return this.budgetMTEFActivityP3;
     }
 
-    public void setBudgetMTEFActivityP3(String budgetMTEFActivityP3) {
+    public void setBudgetMTEFActivityP3(final String budgetMTEFActivityP3) {
         this.budgetMTEFActivityP3 = budgetMTEFActivityP3;
     }
 
     public String getBudgetMTEFCodeP4() {
-        return budgetMTEFCodeP4;
+        return this.budgetMTEFCodeP4;
     }
 
-    public void setBudgetMTEFCodeP4(String budgetMTEFCodeP4) {
+    public void setBudgetMTEFCodeP4(final String budgetMTEFCodeP4) {
         this.budgetMTEFCodeP4 = budgetMTEFCodeP4;
     }
 
     public String getBudgetMTEFLineP4() {
-        return budgetMTEFLineP4;
+        return this.budgetMTEFLineP4;
     }
 
-    public void setBudgetMTEFLineP4(String budgetMTEFLineP4) {
+    public void setBudgetMTEFLineP4(final String budgetMTEFLineP4) {
         this.budgetMTEFLineP4 = budgetMTEFLineP4;
     }
 
     public String getBudgetMTEFActivityP4() {
-        return budgetMTEFActivityP4;
+        return this.budgetMTEFActivityP4;
     }
 
-    public void setBudgetMTEFActivityP4(String budgetMTEFActivityP4) {
+    public void setBudgetMTEFActivityP4(final String budgetMTEFActivityP4) {
         this.budgetMTEFActivityP4 = budgetMTEFActivityP4;
     }
 
     public String getOtherComments() {
-        return otherComments;
+        return this.otherComments;
     }
 
-    public void setOtherComments(String otherComments) {
+    public void setOtherComments(final String otherComments) {
         this.otherComments = otherComments;
     }
 
@@ -543,13 +539,13 @@ public class CustomFinancialTransaction extends FinancialTransaction {
 	 * @return the persistedUserGroup
 	 */
 	public PersistedUserGroup getPersistedUserGroup() {
-		return persistedUserGroup;
+		return this.persistedUserGroup;
 	}
 
 	/**
 	 * @param persistedUserGroup the persistedUserGroup to set
 	 */
-	public void setPersistedUserGroup(PersistedUserGroup persistedUserGroup) {
+	public void setPersistedUserGroup(final PersistedUserGroup persistedUserGroup) {
 		this.persistedUserGroup = persistedUserGroup;
 	}
 
@@ -557,13 +553,13 @@ public class CustomFinancialTransaction extends FinancialTransaction {
 	 * @return the LevelOfCertainty
 	 */
 	public Category getLevelOfCertainty() {
-		return LevelOfCertainty;
+		return this.LevelOfCertainty;
 	}
 
 	/**
 	 * @param LevelOfCertainty the LevelOfCertainty to set
 	 */
-	public void setLevelOfCertainty(Category LevelOfCertainty) {
+	public void setLevelOfCertainty(final Category LevelOfCertainty) {
 		this.LevelOfCertainty = LevelOfCertainty;
 	}
 
@@ -571,13 +567,13 @@ public class CustomFinancialTransaction extends FinancialTransaction {
 	 * @return the approved
 	 */
 	public Boolean getApproved() {
-		return approved;
+		return this.approved;
 	}
 
 	/**
 	 * @param approved the approved to set
 	 */
-	public void setApproved(Boolean approved) {
+	public void setApproved(final Boolean approved) {
 		this.approved = approved;
 	}
 }

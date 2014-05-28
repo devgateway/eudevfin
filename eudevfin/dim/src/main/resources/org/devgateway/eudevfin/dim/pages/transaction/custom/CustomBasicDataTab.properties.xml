@@ -30,24 +30,6 @@
         http://www.oecd.org/development/effectiveness/countryprogrammableaidcpafrequentlyaskedquestions.htm
     </entry>
 
-    <entry key="7aRecipientCode.label">7.a Recipient Code</entry>
-    <entry key="7aRecipientCode.placeholder"></entry>
-    <entry key="7aRecipientCode.help">Choose a code associated to the related country from the drop down menu based on
-        the DAC List of ODA (see glossary)
-    </entry>
-    <entry key="7aRecipientCode.help.detail">Field no. 7a - Recipent code: The term 'recipient' and its related code is
-        limited to the countries and regions in the DAC List of ODA available at
-        http://www.oecd.org/dac/stats/Codelist09082013.xls . Regional projects and programmes are reportable under the
-        most specific available “regional/multi-country” category (e.g. use South of Sahara for a regional project in
-        West Africa). The category “bilateral, unallocated” is used if an activity benefits several regions. It is also
-        used for a number of activities undertaken in donor countries such as administrative costs not included
-        elsewhere. Development-related research, studies or seminars undertaken in the donor country but relating to a
-        particular recipient country/region should be coded under the recipient country/region. Training courses in the
-        donor country for developing country participants should be coded under the country/countries of origin of the
-        participants.
-    </entry>
-
-
     <entry key="7cPriorityStatus.label">7.c Priority status of the Recipient</entry>
     <entry key="7cPriorityStatus.placeholder"></entry>
     <entry key="7cPriorityStatus.help">Type 'Priority' if the partner country is a priority partner country. If not,
