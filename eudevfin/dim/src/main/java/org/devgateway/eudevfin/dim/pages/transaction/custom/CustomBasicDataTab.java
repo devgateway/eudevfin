@@ -186,12 +186,6 @@ public class CustomBasicDataTab extends BasicDataTab {
     public class Extension3 extends Fragment {
         public Extension3(String id, String markupId, MarkupContainer markupProvider) {
             super(id, markupId, markupProvider);
-
-            DropDownField<Category> recipientCode = new DropDownField<>("7aRecipientCode", new RWComponentPropertyModel<Category>("recipientCode"),
-                    categoryFactory.get(CategoryConstants.RECIPIENT_TAG));
-            recipientCode.required();
-            add(recipientCode);
-
             DropDownField<Category> recipientPriority = new DropDownField<>("7cPriorityStatus", new RWComponentPropertyModel<Category>("recipientPriority"),
                     categoryFactory.get(CategoryConstants.PRIORITY_STATUS_TAG));
             add(recipientPriority);
