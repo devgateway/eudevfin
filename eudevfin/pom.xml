@@ -11,7 +11,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.devgateway.eudevfin</groupId>
     <artifactId>eudevfin</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>EU-DEVFIN Parent Package</name>
     <url>http://www.springframework.org</url>
@@ -533,7 +533,7 @@
         </developerConnection>
         <connection>scm:git:ssh://mpostelnicu@git.developmentgateway.org:20006/home/mpostelnicu/projects/eudevfin.git
         </connection>
-        <tag>eudevfin-1.0.3</tag>
+        <tag>HEAD</tag>
     </scm>
 
 </project>
