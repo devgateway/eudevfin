@@ -11,6 +11,8 @@
  */
 package org.devgateway.eudevfin.ui.common.validators;
 
+import java.util.regex.Pattern;
+
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.util.string.Strings;
 import org.apache.wicket.validation.IValidatable;
@@ -25,31 +27,31 @@ import org.devgateway.eudevfin.ui.common.temporary.SB;
 /**
  * @author mihai
  * 
- *         ODAEU-35: Multilateral ODA, Advance Questionnaire and CRS++ forms
- *         Type of flow allowed = 2
+ *         12. Type of Finance correlated with Type of Aid both forms Types of
+ *         finance 600 must be associated with type of aid F01 (Debt relief)'
  */
-public class MultilateralField10CodeValidator extends Behavior implements IValidator<Category> {
+public class TypeOfFinanceField12TypeOfAidCodeValidator extends Behavior implements IValidator<Category> {
+
+	public static final String REGEX = "(6)[0-9]{2}";
+	private Pattern pattern = Pattern.compile(REGEX);
 
 	private static final long serialVersionUID = -1197816416536140235L;
-	private String transactionType;
 
-	public MultilateralField10CodeValidator(String transactionType) {
-		this.transactionType = transactionType;
+	private DropDownField<Category> typeOfAid;
+
+	public TypeOfFinanceField12TypeOfAidCodeValidator(DropDownField<Category> typeOfAid) {
+		this.typeOfAid = typeOfAid;
 	}
 
+	
 	@Override
 	public void validate(IValidatable<Category> validatable) {
-
-		if (!Strings.isEmpty(transactionType)
-				&& (Strings.isEqual(transactionType, SB.MULTILATERAL_ODA_ADVANCE_QUESTIONNAIRE) || Strings.isEqual(
-						transactionType, SB.MULTILATERAL_ODA_CRS))) {
-			if (validatable.getValue() != null
-					&& validatable.getValue().getCode().equals(CategoryConstants.BiMultilateral.BI_MULTILATERAL_2))
-				return;
-			ValidationError error = new ValidationError(this);
-			validatable.error(decorate(error, validatable));
-		}
-
+		if (typeOfAid.getField().getModelObject() != null && validatable.getValue() != null)
+			if (CategoryConstants.TypeOfAid.F01.equals(typeOfAid.getField().getModelObject().getDisplayableCode())
+					^ pattern.matcher(validatable.getValue().getDisplayableCode()).matches()) {
+				ValidationError error = new ValidationError(this);
+				validatable.error(decorate(error, validatable));
+			}
 	}
 
 	/**
