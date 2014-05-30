@@ -88,6 +88,9 @@ public class ReportsPage extends HeaderFooter {
 
         Label reportingCountry = new Label("reportingCountry", donorName);
         add(reportingCountry);
+
+        Label legend = new Label("legend", "Gross Bilateral ODA, " + (tableYear - 1) + "-" + tableYear + " average");
+        add(legend);
     }
 
     private void getCurrency () {
@@ -297,7 +300,8 @@ public class ReportsPage extends HeaderFooter {
             }
         };
 
-        table.setParam("paramYEAR", Integer.toString(tableYear));
+        table.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
+        table.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
 
         add(table.getTable());
         table.addTableRows();
@@ -379,7 +383,8 @@ public class ReportsPage extends HeaderFooter {
             }
         };
 
-        pieChart.setParam("paramYEAR", Integer.toString(tableYear));
+        pieChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
+        pieChart.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
 
         Options options = pieChart.getOptions();
         options.addSeries(new PointSeries()
@@ -406,7 +411,8 @@ public class ReportsPage extends HeaderFooter {
             }
         };
 
-        pieChart.setParam("paramYEAR", Integer.toString(tableYear));
+        pieChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
+        pieChart.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
 
         Options options = pieChart.getOptions();
         // check if we have a result and make the chart slightly higher
@@ -457,7 +463,8 @@ public class ReportsPage extends HeaderFooter {
             }
         };
 
-        stackedBarChart.setParam("paramYEAR", Integer.toString(tableYear));
+        stackedBarChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
+        stackedBarChart.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
 
         // remove the y-axis label ('ODA')
         stackedBarChart.getOptions().getxAxis().get(0).getLabels().setEnabled(Boolean.FALSE);
