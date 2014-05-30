@@ -88,6 +88,9 @@ public class ReportsPage extends HeaderFooter {
 
         Label reportingCountry = new Label("reportingCountry", donorName);
         add(reportingCountry);
+
+        Label legend = new Label("legend", "Gross Bilateral ODA, " + (tableYear - 1) + "-" + tableYear + " average");
+        add(legend);
     }
 
     private void getCurrency () {

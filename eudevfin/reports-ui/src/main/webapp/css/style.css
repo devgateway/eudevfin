@@ -12,6 +12,10 @@ img {
     background-color: #ffffff;
 }
 
+.oda-legend {
+    float: right;
+}
+
 /************************* Tables *************************/
 
 .dataTables_wrapper {
