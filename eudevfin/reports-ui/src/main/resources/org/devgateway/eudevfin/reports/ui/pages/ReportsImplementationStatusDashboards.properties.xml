@@ -10,4 +10,6 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
     <entry key="reportsimplementationstatusdashboards.title">Reports Implementation Status Results</entry>
+    <entry key="commitment">Commitment</entry>
+    <entry key="disbursement">Disbursement</entry>
 </properties>

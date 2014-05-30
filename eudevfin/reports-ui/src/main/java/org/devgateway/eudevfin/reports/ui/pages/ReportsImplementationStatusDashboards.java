@@ -96,8 +96,14 @@ public class ReportsImplementationStatusDashboards extends HeaderFooter {
     }
 
     private void addImplementationStatusTable () {
-        Label title = new Label("implementationTableTitle", "Implementation Status - " + (tableYear - 1) + "-" + tableYear +
-                " - " + countryCurrency + " - full amount");
+        String expenditure = "";
+        if (expenditureParam != null && expenditureParam.equals("true")) {
+            expenditure = new StringResourceModel("commitment", this, null, null).getObject();
+        } else {
+            expenditure = new StringResourceModel("disbursement", this, null, null).getObject();
+        }
+        Label title = new Label("implementationTableTitle", "Implementation Status - " + expenditure+ " - " +
+                (tableYear - 1) + "-" + tableYear + " - " + countryCurrency + " - full amount");
         add(title);
 
         Table table = new Table(CdaService, "implementationTable", "implementationTableRows", "customDashboardsImplementationStatusTable") {
@@ -169,8 +175,14 @@ public class ReportsImplementationStatusDashboards extends HeaderFooter {
     }
 
     private void addImplementationStatusChart () {
-        Label title = new Label("implementationChartTitle", "Implementation Status - " + (tableYear - 1) + "-" + tableYear +
-                " - " + countryCurrency + " - full amount");
+        String expenditure = "";
+        if (expenditureParam != null && expenditureParam.equals("true")) {
+            expenditure = new StringResourceModel("commitment", this, null, null).getObject();
+        } else {
+            expenditure = new StringResourceModel("disbursement", this, null, null).getObject();
+        }
+        Label title = new Label("implementationChartTitle", "Implementation Status - " + expenditure+ " - " +
+                (tableYear - 1) + "-" + tableYear + " - " + countryCurrency + " - full amount");
         add(title);
 
         StackedBarChart stackedBarChart = new StackedBarChart(CdaService, "implementationChart", "customDashboardsImplementationStatusChart") {
