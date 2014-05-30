@@ -138,6 +138,7 @@ public abstract class CustomReportsPage extends HeaderFooter {
         typeOfExpenditureOptions.add(new StringResourceModel("disbursement", this, null, null).getObject());
         typeOfExpenditure = new DropDownField<>("typeOfExpenditure", new RWComponentPropertyModel<String>("typeOfExpenditure"),
                 new PredefinedStringProvider(typeOfExpenditureOptions));
+        customReportsModel.setTypeOfExpenditure(new StringResourceModel("disbursement", this, null, null).getObject());
 
         year = new DropDownField<>("year", new RWComponentPropertyModel<Integer>("year"),
                 new YearProvider(txService.findDistinctReportingYears()));
@@ -149,14 +150,12 @@ public abstract class CustomReportsPage extends HeaderFooter {
                 new YearProvider(txService.findDistinctCompletitionYears()));
 
         List<String> valueOfActivityOptions = new ArrayList<>();
+        valueOfActivityOptions.add(new StringResourceModel("allAmount", this, null, null).getObject());
         valueOfActivityOptions.add(new StringResourceModel("lowerThanAmount", this, null, null).getObject());
         valueOfActivityOptions.add(new StringResourceModel("moreThanAmount", this, null, null).getObject());
         valueOfActivity = new DropDownField<>("valueOfActivity", new RWComponentPropertyModel<String>("valueOfActivity"),
                 new PredefinedStringProvider(valueOfActivityOptions));
-
-        // TODO fields
-        // humanitarian - which is a sector
-        // show related budget codes?
+        customReportsModel.setValueOfActivity(new StringResourceModel("allAmount", this, null, null).getObject());
 
         CoFinancingTransactionsOnly = new CheckBoxField("cofinancingtransactionsonly", new RWComponentPropertyModel<Boolean>("coFinancingTransactionsOnly"));
         CPAOnly = new CheckBoxField("cpaonly", new RWComponentPropertyModel<Boolean>("CPAOnly"));

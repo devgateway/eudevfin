@@ -69,7 +69,9 @@ public class ReportsImplementationStatusFilter extends CustomReportsPage {
                     if (customReportsModel.getValueOfActivity().equals(new StringResourceModel("moreThanAmount", this, null, null).getObject())) {
                         pageParameters.add(ReportsConstants.VALUE_PARAM, Boolean.TRUE);
                     } else {
-                        pageParameters.add(ReportsConstants.VALUE_PARAM, Boolean.FALSE);
+                        if (customReportsModel.getValueOfActivity().equals(new StringResourceModel("lowerThanAmount", this, null, null).getObject())) {
+                            pageParameters.add(ReportsConstants.VALUE_PARAM, Boolean.FALSE);
+                        }
                     }
                 }
                 if (customReportsModel.getCoFinancingTransactionsOnly() != null && customReportsModel.getCoFinancingTransactionsOnly() != Boolean.FALSE) {

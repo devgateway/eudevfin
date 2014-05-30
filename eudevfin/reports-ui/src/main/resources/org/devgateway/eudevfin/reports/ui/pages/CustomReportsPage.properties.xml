@@ -18,6 +18,7 @@
     <entry key="disbursement">Disbursement</entry>
     <entry key="lowerThanAmount">&lt; 0.5 million</entry>
     <entry key="moreThanAmount">&gt; 0.5 million</entry>
+    <entry key="allAmount">All transactions</entry>
     <entry key="geography.label">ODA Region</entry>
     <entry key="recipient.label">ODA Recipient Country</entry>
     <entry key="nationalInstitution.label">National Institution</entry>
@@ -27,7 +28,7 @@
     <entry key="sector.label">Sector</entry>
     <entry key="year.label">Year</entry>
     <entry key="typeOfExpenditure.label">Type of expenditure</entry>
-    <entry key="valueOfActivity.label">Value of activity</entry>
+    <entry key="valueOfActivity.label">Volume of transaction</entry>
     <entry key="startingYear.label">Starting Year</entry>
     <entry key="completitionYear.label">Completion Year</entry>
     <entry key="cofinancingtransactionsonly.label">Co-financing transactions only</entry>
