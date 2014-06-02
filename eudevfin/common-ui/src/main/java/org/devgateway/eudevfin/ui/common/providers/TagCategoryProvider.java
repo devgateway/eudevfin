@@ -20,8 +20,8 @@ import org.springframework.data.domain.PageRequest;
  */
 public class TagCategoryProvider extends AbstractCategoryProvider {
 
-	private static final long serialVersionUID = 5293225229898330470L;
-	private final String tag;
+    private static final long serialVersionUID = 5293225229898330470L;
+    private final String tag;
 
     protected TagCategoryProvider(String tag) {
         super();

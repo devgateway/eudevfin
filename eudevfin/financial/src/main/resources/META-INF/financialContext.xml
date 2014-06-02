@@ -224,7 +224,7 @@
 
 	<int:channel id="findAllAsListChannelCategoryChannel"/>
 	<int:channel id="findChannelCategoryByCodeChannel"/>
-	<int:channel id="findChannelCategoryByGeneralSearchPageable"/>
+	<int:channel id="findChannelCategoryByGeneralSearchAndTagsCodePaginatedChannel"/>
 	<int:channel id="findOneChannelCategory"/>
 	
 	

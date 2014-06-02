@@ -11,6 +11,7 @@ package org.devgateway.eudevfin.ui.common.providers;
 import org.apache.wicket.model.IDetachable;
 import org.devgateway.eudevfin.metadata.common.domain.Category;
 import org.devgateway.eudevfin.metadata.common.service.CategoryService;
+import org.devgateway.eudevfin.metadata.common.util.CategoryConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -40,7 +41,11 @@ public class CategoryProviderFactory implements IDetachable {
         if (provider != null) {
             return provider;
         }
-        provider = new SpringCategoryProviderProxy<>(new TagCategoryProvider(tag));
+
+        if (tag.equals(CategoryConstants.CHANNEL_TAG))
+            provider = new SpringCategoryProviderProxy<>(new ChannelCategoryProvider(tag));
+        else
+            provider = new SpringCategoryProviderProxy<>(new TagCategoryProvider(tag));
         map.put(tag, provider);
         return provider;
     }
