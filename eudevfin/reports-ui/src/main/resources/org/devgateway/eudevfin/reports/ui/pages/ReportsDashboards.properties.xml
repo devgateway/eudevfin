@@ -42,4 +42,35 @@
     <entry key="geography.error">a country could not be selected if you want to have geographical aggregates</entry>
     <entry key="geography.help">If you want to display data for the entire region, leave the ODA recipient country and Sector fields blank</entry>
     <entry key="reports.info">Please note than selection in the fields of this page is based on projects which have been approved  by the Government.</entry>
+
+    <entry key="page.title">ODA at a Glance</entry>
+
+    <entry key="dashboards.netODA">Net ODA</entry>
+    <entry key="dashboards.topTenRecipients">Top Ten Recipients of Gross ODA (USD m)</entry>
+    <entry key="dashboards.topTenMemoShare">Memo: Share of gross bilateral ODA</entry>
+    <entry key="dashboards.odaByRegionChart">By Region (USD m)</entry>
+    <entry key="dashboards.odaByIncomeGroupChart">By Income Group (USD m)</entry>
+    <entry key="dashboards.odaBySectorChart">By Sector</entry>
+
+    <entry key="reportscountrysectordashboards.title">Reports Country &amp; Sector Results</entry>
+
+    <entry key="reportscountryinstitutiondashboards.nationalCurrency">National Currency</entry>
+    <entry key="reportscountryinstitutiondashboards.title">Reports Country &amp; Institution Results</entry>
+
+    <entry key="reportsinstitutiontypeofaiddashboards.nationalCurrency">National Currency</entry>
+    <entry key="reportsinstitutiontypeofaiddashboards.title">Reports Institution &amp; Type Of Aid Results</entry>
+    <entry key="reportsinstitutiontypeofaiddashboards.humanitarianAidTableTitle">Memo item: Humanitarian Assistance</entry>
+    <entry key="reportsinstitutiontypeofaiddashboards.typeOfAid">Type of Aid</entry>
+    <entry key="reportsinstitutiontypeofaiddashboards.multilateralAgency">Multilateral Agency</entry>
+    <entry key="reportsinstitutiontypeofaiddashboards.biMultilateralChart">Memorandum Item - Bi/Multilateral Chart (Total ODA)</entry>
+
+    <entry key="reportsimplementationstatusdashboards.title">Reports Implementation Status Results</entry>
+    <entry key="commitment">Commitment</entry>
+    <entry key="disbursement">Disbursement</entry>
+
+    <entry key="countrydashboards.title">Reports Country</entry>
+
+    <entry key="sectordashboards.title">Reports Sector</entry>
+
+    <entry key="institutiondashboards.title">Reports Institution</entry>
 </properties>
