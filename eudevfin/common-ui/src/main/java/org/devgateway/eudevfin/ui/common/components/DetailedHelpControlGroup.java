@@ -19,11 +19,12 @@ import de.agilecoders.wicket.core.util.Components;
  *         and a plus {@link Icon} When clicked, the plus icon shows the
  *         detailed help
  */
-public class DetailedHelpControlGroup extends ControlGroup {
+public class DetailedHelpControlGroup extends ControlGroup implements PreviewableFormPanelAware  {
 
 	private static final long serialVersionUID = 8319422629214281685L;
 	protected final Component detailedHelp;
 	protected final Icon detailedHelpIcon;
+	protected boolean preview;
 
 	/**
 	 * @param id
@@ -31,10 +32,11 @@ public class DetailedHelpControlGroup extends ControlGroup {
 	 * @param help
 	 * @param detailedHelp
 	 */
-	public DetailedHelpControlGroup(String id, IModel<String> label, IModel<String> help, IModel<String> detailedHelp) {
+	public DetailedHelpControlGroup(String id, boolean preview, IModel<String> label, IModel<String> help, IModel<String> detailedHelp) {
 		super(id, label, help);
 		this.detailedHelp = newHelpLabel("detailedHelp", detailedHelp).setOutputMarkupId(true).setVisible(false);
 		this.detailedHelpIcon = (Icon) new Icon("detailedHelpIcon", IconType.plussign);
+		this.preview=preview;
 		this.detailedHelpIcon.add(new AjaxEventBehavior("onclick") {
 			private static final long serialVersionUID = 8263043282265678656L;
 
@@ -55,7 +57,16 @@ public class DetailedHelpControlGroup extends ControlGroup {
 	protected void onConfigure() {
 		super.onConfigure();
 		Components.hideIfModelIsEmpty(detailedHelp);
-		detailedHelpIcon.setVisible(Strings.isEmpty((String) detailedHelp.getDefaultModelObject()) ? false : true);
+		if(isFormInPreview()) {
+			detailedHelp.setVisible(false);
+			
+		}
+		detailedHelpIcon.setVisible((isFormInPreview() || Strings.isEmpty((String) detailedHelp.getDefaultModelObject())) ? false : true);
+	}
+
+	@Override
+	public boolean isFormInPreview() {
+		return preview;
 	}
 
 }

@@ -109,7 +109,7 @@ public class Category extends AbstractTranslateable<CategoryTranslation>
 
 	@Override
 	public String toString() {
-		return "Category [code=" + code + ", getName()=" + getName() + "]";
+		return getDisplayableCode()+" - "+getName();
 	}
 
 	

@@ -31,7 +31,7 @@ import org.devgateway.eudevfin.ui.common.permissions.PermissionAwareComponent;
  * @author aartimon@developmentgateway.org
  * @since 30 October 2013
  */
-public abstract class AbstractField<T, FIELD extends FormComponent<T>> extends Panel implements PermissionAwareComponent {
+public abstract class AbstractField<T, FIELD extends FormComponent<T>> extends Panel implements PermissionAwareComponent, PreviewableFormPanelAware {
     private static final long serialVersionUID = -5883044564199075156L;
     private ProxyModel<String> labelText;
 
@@ -40,6 +40,7 @@ public abstract class AbstractField<T, FIELD extends FormComponent<T>> extends P
     private final DetailedHelpControlGroup controlGroup;
     FIELD field;
     protected final MarkupContainer xPenderController;
+    protected Component readOnlyComponent;
 
     private final AttributeModifier span4AttrModifier = new AttributeAppender("class", Model.of("span4"), " ");
 
@@ -66,19 +67,38 @@ public abstract class AbstractField<T, FIELD extends FormComponent<T>> extends P
         //if the detailed help text is not found an empty String is going to be used
         StringResourceModel detailedHelpText = new StringResourceModel(messageKeyGroup + ".help.detail", this, null, "");
 
-
-        controlGroup = new DetailedHelpControlGroup("control-group", labelText, helpText,detailedHelpText);
+        controlGroup = new DetailedHelpControlGroup("control-group", isFormInPreview(), labelText, helpText,detailedHelpText);
         controlGroup.setOutputMarkupId(true);
-        xPenderController.add(prepender);
+        xPenderController.add(prepender);              
         xPenderController.add(appender);
         controlGroup.add(xPenderController);
-        controlGroup.add(span4AttrModifier);
+        controlGroup.add(span4AttrModifier);        
+        readOnlyComponent=new Label("readOnlyComponent",model).setVisible(false);
+        controlGroup.add(readOnlyComponent);
         add(controlGroup);
 
     }
 
+	@Override
+	public boolean isFormInPreview() {
+		MarkupContainer parent = this.getParent();
+		if (parent == null)
+			throw new RuntimeException("Not attached to a parent!");
+		else if (parent instanceof PreviewableFormPanelAware)
+			return ((PreviewableFormPanelAware) parent).isFormInPreview();
+		else
+			return false;
+	}
+    
     @Override
     protected void onConfigure() {
+    	
+    	if(isFormInPreview()) {
+    		readOnlyComponent.setVisible(true);
+    		
+    	}
+    	
+    	
         if (prepender.isVisible())
             xPenderController.add(new AttributeAppender("class", Model.of("input-prepend"), " "));
 

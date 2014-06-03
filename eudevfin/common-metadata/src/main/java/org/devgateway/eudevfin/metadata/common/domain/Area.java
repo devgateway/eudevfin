@@ -87,4 +87,11 @@ public class Area extends AbstractTranslateable<AreaTranslation>
 		this.geographyCategory = geographyCategory;
 	}
 
+	
+
+	@Override
+	public String toString() {
+		return getCode()+" - "+getName();
+	}
+
 }
