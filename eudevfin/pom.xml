@@ -527,11 +527,11 @@
     </ciManagement>
 
     <scm>
-        <url>ssh://git@github.com:devgateway/eudevfin.git</url>
+        <url>git@github.com:devgateway/eudevfin.git</url>
         <developerConnection>
-            scm:git:ssh://git@github.com:devgateway/eudevfin.git
+            scm:git:git@github.com:devgateway/eudevfin.git
         </developerConnection>
-        <connection>ssh://git@github.com:devgateway/eudevfin.git
+        <connection>git@github.com:devgateway/eudevfin.git
         </connection>
         <tag>HEAD</tag>
     </scm>
