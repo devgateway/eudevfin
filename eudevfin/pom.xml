@@ -527,11 +527,11 @@
     </ciManagement>
 
     <scm>
-        <url>ssh://mpostelnicu@git.developmentgateway.org:20006/home/mpostelnicu/projects/eudevfin.git</url>
+        <url>ssh://git@github.com:devgateway/eudevfin.git</url>
         <developerConnection>
-            scm:git:ssh://mpostelnicu@git.developmentgateway.org:20006/home/mpostelnicu/projects/eudevfin.git
+            scm:git:ssh://git@github.com:devgateway/eudevfin.git
         </developerConnection>
-        <connection>scm:git:ssh://mpostelnicu@git.developmentgateway.org:20006/home/mpostelnicu/projects/eudevfin.git
+        <connection>ssh://git@github.com:devgateway/eudevfin.git
         </connection>
         <tag>HEAD</tag>
     </scm>
