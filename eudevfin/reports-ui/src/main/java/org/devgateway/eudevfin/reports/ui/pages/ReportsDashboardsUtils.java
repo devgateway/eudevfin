@@ -147,7 +147,7 @@ public class ReportsDashboardsUtils {
 
                 item.add(new Label("col0", row[0]));
 
-
+                // add links to second level dashboards
                 PageParameters pageParameters = new PageParameters();
                 BookmarkablePageLink link = null;
                 if(typeOfTable.equals(ReportsConstants.isCountry)) {
@@ -163,8 +163,18 @@ public class ReportsDashboardsUtils {
                         link = new BookmarkablePageLink("link", SectorDashboards.class, pageParameters);
                     }
                 }
+
                 item.add(link);
-                link.add(new Label("col1", row[1]));
+                link.add(new Label("linkName", row[1]));
+
+                // don't make the TOTAL row a link
+                Label totalRow = new Label("total", row[1]);
+                item.add(totalRow);
+                if (row[1] != null && row[1].equals("TOTAL")) {
+                    link.setVisibilityAllowed(Boolean.FALSE);
+                } else {
+                    totalRow.setVisibilityAllowed(Boolean.FALSE);
+                }
 
                 item.add(new Label("col2", row[2]));
                 item.add(new Label("col3", row[3]));
@@ -254,7 +264,8 @@ public class ReportsDashboardsUtils {
      * since the custom reports tale are similar we use only one function to process the rows
      * and calculate the Total line for each category
      */
-    public static ListView<String[]> processTableRowsWithTotal (List<String[]> rows, QueryResult result, String rowId, Boolean calculateTotal) {
+    public static ListView<String[]> processTableRowsWithTotal (List<String[]> rows, QueryResult result, String rowId,
+                                                                Boolean calculateTotal, final Boolean addSecondLink) {
         List <List<String>> resultSet = result.getResultset();
 
         if(resultSet.size() != 0) {
@@ -344,13 +355,43 @@ public class ReportsDashboardsUtils {
             }
         }
 
-        ListView<String[]> tableRows = new ListView<String[]>(rowId, rows) {
+        final ListView<String[]> tableRows = new ListView<String[]>(rowId, rows) {
             @Override
             protected void populateItem(ListItem<String[]> item) {
                 String[] row = item.getModelObject();
 
-                item.add(new Label("col0", row[0]));
-                item.add(new Label("col1", row[1]));
+                // add links to second level dashboards
+                PageParameters pageParameters = new PageParameters();
+                if (row[0] != null) {
+                    pageParameters.add(ReportsConstants.INSTITUTION_PARAM, row[0]);
+                }
+                BookmarkablePageLink link = new BookmarkablePageLink("link", InstitutionDashboards.class, pageParameters);
+
+                item.add(link);
+                link.add(new Label("linkName", row[0]));
+
+                if (addSecondLink) {
+                    PageParameters pageParameters2 = new PageParameters();
+                    if (row[1] != null) {
+                        pageParameters2.add(ReportsConstants.RECIPIENT_PARAM, row[1]);
+                    }
+                    BookmarkablePageLink link2 = new BookmarkablePageLink("link2", CountryDashboards.class, pageParameters);
+
+                    item.add(link2);
+                    link2.add(new Label("linkName", row[1]));
+
+                    // don't make the TOTAL row a link
+                    Label totalRow = new Label("total", row[1]);
+                    item.add(totalRow);
+                    if (row[1] != null && row[1].equals("TOTAL")) {
+                        link2.setVisibilityAllowed(Boolean.FALSE);
+                    } else {
+                        totalRow.setVisibilityAllowed(Boolean.FALSE);
+                    }
+                } else {
+                    item.add(new Label("col1", row[1]));
+                }
+
                 item.add(new Label("col2", row[2]));
                 item.add(new Label("col3", row[3]));
             }

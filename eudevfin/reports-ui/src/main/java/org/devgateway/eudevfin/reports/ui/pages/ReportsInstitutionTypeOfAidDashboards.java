@@ -148,7 +148,7 @@ public class ReportsInstitutionTypeOfAidDashboards extends ReportsDashboards {
                 this.rows = new ArrayList<>();
                 this.result = this.runQuery();
 
-                return ReportsDashboardsUtils.processTableRowsWithTotal(this.rows, this.result, this.rowId, true);
+                return ReportsDashboardsUtils.processTableRowsWithTotal(this.rows, this.result, this.rowId, true, false);
             }
         };
 
@@ -209,7 +209,7 @@ public class ReportsInstitutionTypeOfAidDashboards extends ReportsDashboards {
                     result.getMetadata().add(1, null);
                 }
 
-                return ReportsDashboardsUtils.processTableRowsWithTotal(this.rows, this.result, this.rowId, false);
+                return ReportsDashboardsUtils.processTableRowsWithTotal(this.rows, this.result, this.rowId, false, false);
             }
         };
 
