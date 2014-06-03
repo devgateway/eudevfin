@@ -22,6 +22,11 @@
 	        <name>eudevfin-releases</name>
 	        <url>http://artifactory.ampdev.net/artifactory/eudevfin-releases</url>
 	    </repository>
+	    <snapshotRepository>
+			<id>eudevfin-snapshots</id>
+			<name>eudevfin-snapshots</name>
+			<url>http://artifactory.ampdev.net/artifactory/eudevfin-snapshots</url>
+		</snapshotRepository>
 	</distributionManagement>
     
     <properties>
