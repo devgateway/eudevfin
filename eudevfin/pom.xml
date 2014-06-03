@@ -15,6 +15,15 @@
     <packaging>pom</packaging>
     <name>EU-DEVFIN Parent Package</name>
     <url>http://www.springframework.org</url>
+    
+	<distributionManagement>
+	    <repository>
+	        <id>eudevfin-releases</id>
+	        <name>eudevfin-releases</name>
+	        <url>http://artifactory.ampdev.net/artifactory/eudevfin-releases</url>
+	    </repository>
+	</distributionManagement>
+    
     <properties>
         <maven.test.failure.ignore>true</maven.test.failure.ignore>
         <spring.framework.version>4.0.3.RELEASE</spring.framework.version>
@@ -536,12 +545,5 @@
         <tag>HEAD</tag>
     </scm>
 
-	<distributionManagement>
-	    <repository>
-	        <id>eudevfin-releases</id>
-	        <name>eudevfin-releases</name>
-	        <url>http://artifactory.ampdev.net/artifactory/eudevfin-releases</url>
-	    </repository>
-	</distributionManagement>
 
 </project>
