@@ -5,6 +5,7 @@ import org.apache.wicket.authroles.authorization.strategies.role.annotations.Aut
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.util.string.StringValue;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -17,7 +18,15 @@ import org.wicketstuff.annotation.mount.MountPath;
 public class CountryDashboards extends ReportsDashboards {
     private static final Logger logger = Logger.getLogger(CountryDashboards.class);
 
+    private String recipientParam;
+
     public CountryDashboards(final PageParameters parameters) {
+        if(!parameters.get(ReportsConstants.RECIPIENT_PARAM).equals(StringValue.valueOf((String) null))) {
+            recipientParam = parameters.get(ReportsConstants.RECIPIENT_PARAM).toString();
+        }
+
+        logger.error(">>>> recipientParam: " + recipientParam);
+
         addComponents();
     }
 

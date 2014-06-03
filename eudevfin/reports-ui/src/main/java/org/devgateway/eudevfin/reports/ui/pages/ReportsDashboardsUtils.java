@@ -4,8 +4,10 @@ import com.googlecode.wickedcharts.highcharts.options.Options;
 import org.apache.log4j.Logger;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.auth.common.util.AuthUtils;
 import org.devgateway.eudevfin.financial.util.FinancialTransactionUtil;
 import org.devgateway.eudevfin.reports.core.domain.QueryResult;
@@ -31,7 +33,7 @@ public class ReportsDashboardsUtils {
     /*
      * since the custom reports tables are similar we use only one function to process the rows
      */
-    public static ListView<String[]> processTableRows (List<String[]> rows, QueryResult result, String rowId, String typeOfTable) {
+    public static ListView<String[]> processTableRows (List<String[]> rows, QueryResult result, String rowId, final String typeOfTable) {
         List <List<String>> resultSet = result.getResultset();
 
         if(resultSet.size() != 0 && resultSet.get(0).size() > 3) {
@@ -144,7 +146,26 @@ public class ReportsDashboardsUtils {
                 }
 
                 item.add(new Label("col0", row[0]));
-                item.add(new Label("col1", row[1]));
+
+
+                PageParameters pageParameters = new PageParameters();
+                BookmarkablePageLink link = null;
+                if(typeOfTable.equals(ReportsConstants.isCountry)) {
+                    if (row[1] != null) {
+                        pageParameters.add(ReportsConstants.RECIPIENT_PARAM, row[1]);
+                    }
+                    link = new BookmarkablePageLink("link", CountryDashboards.class, pageParameters);
+                } else {
+                    if (row[1] != null) {
+                        pageParameters.add(ReportsConstants.SECTOR_PARAM, row[1]);
+                    }
+                    if(typeOfTable.equals(ReportsConstants.isSector)) {
+                        link = new BookmarkablePageLink("link", SectorDashboards.class, pageParameters);
+                    }
+                }
+                item.add(link);
+                link.add(new Label("col1", row[1]));
+
                 item.add(new Label("col2", row[2]));
                 item.add(new Label("col3", row[3]));
                 item.add(new Label("col4", row[4]));
