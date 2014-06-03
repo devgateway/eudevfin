@@ -536,4 +536,12 @@
         <tag>HEAD</tag>
     </scm>
 
+	<distributionManagement>
+	    <repository>
+	        <id>eudevfin-releases</id>
+	        <name>eudevfin-releases</name>
+	        <url>http://artifactory.ampdev.net/artifactory/eudevfin-releases</url>
+	    </repository>
+	</distributionManagement>
+
 </project>
