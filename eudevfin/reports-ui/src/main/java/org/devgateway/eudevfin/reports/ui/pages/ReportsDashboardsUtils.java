@@ -33,6 +33,7 @@ public class ReportsDashboardsUtils {
     /*
      * since the custom reports tables are similar we use only one function to process the rows
      */
+    // it's used in  country sector dashboards
     public static ListView<String[]> processTableRows (List<String[]> rows, QueryResult result, String rowId, final String typeOfTable) {
         List <List<String>> resultSet = result.getResultset();
 
@@ -186,6 +187,7 @@ public class ReportsDashboardsUtils {
         return tableRows;
     }
 
+    // is used in Implementation status dashboards
     public static ListView<String[]> processTableRowsWithoutMainCategory (List<String[]> rows, QueryResult result, String rowId) {
         List <List<String>> resultSet = result.getResultset();
 
@@ -264,6 +266,8 @@ public class ReportsDashboardsUtils {
      * since the custom reports tale are similar we use only one function to process the rows
      * and calculate the Total line for each category
      */
+    // it used in country and institution
+    // institution and type of aid dashboards
     public static ListView<String[]> processTableRowsWithTotal (List<String[]> rows, QueryResult result, String rowId,
                                                                 Boolean calculateTotal, final Boolean addSecondLink) {
         List <List<String>> resultSet = result.getResultset();
@@ -403,6 +407,7 @@ public class ReportsDashboardsUtils {
     /*
      * since the custom reports charts are similar we use only one function to process the rows
      */
+    // it's used by all dashboards that has pie/bar charts
     public static List<List<Float>> processChartRows (QueryResult result, Options options) {
         List<List<Float>> resultSeries = new ArrayList<>();
         List<String> resultCategories = new ArrayList<>();

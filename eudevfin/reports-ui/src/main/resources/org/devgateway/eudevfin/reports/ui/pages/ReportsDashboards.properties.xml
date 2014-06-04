@@ -73,4 +73,9 @@
     <entry key="sectordashboards.title">Reports Sector</entry>
 
     <entry key="institutiondashboards.title">Reports Institution</entry>
+
+    <entry key="typeofaiddashboards.title">Reports Type of Aid</entry>
+
+    <entry key="transactiondashboards.title">Reports Transaction</entry>
+
 </properties>

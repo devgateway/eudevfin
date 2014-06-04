@@ -17,6 +17,8 @@ public class ReportsConstants {
     public static final String VALUE_PARAM = "valueParam";
     public static final String AGENCY_PARAM = "agencyParam";
     public static final String TYPEOFFLOW_PARAM = "typeOfFlowParam";
+    public static final String TYPEOFAID_PARAM = "typeOfAidParam";
+    public static final String TRANSACTIONID_PARAM = "transactionIdParam";
     public static final String HUMANITARIANAID_PARAM = "humanitarianAidParam";
     public static final String COFINANCING_PARAM = "coFinancingParam";
     public static final String CPAONLY_PARAM = "CPAOnlyParam";
