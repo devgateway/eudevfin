@@ -4,6 +4,7 @@
 package org.devgateway.eudevfin.ui.common.components;
 
 import org.apache.wicket.Component;
+import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.model.IModel;
@@ -24,7 +25,7 @@ public class DetailedHelpControlGroup extends ControlGroup implements Previewabl
 	private static final long serialVersionUID = 8319422629214281685L;
 	protected final Component detailedHelp;
 	protected final Icon detailedHelpIcon;
-	protected boolean preview;
+
 
 	/**
 	 * @param id
@@ -32,11 +33,10 @@ public class DetailedHelpControlGroup extends ControlGroup implements Previewabl
 	 * @param help
 	 * @param detailedHelp
 	 */
-	public DetailedHelpControlGroup(String id, boolean preview, IModel<String> label, IModel<String> help, IModel<String> detailedHelp) {
+	public DetailedHelpControlGroup(String id,  IModel<String> label, IModel<String> help, IModel<String> detailedHelp) {
 		super(id, label, help);
 		this.detailedHelp = newHelpLabel("detailedHelp", detailedHelp).setOutputMarkupId(true).setVisible(false);
 		this.detailedHelpIcon = (Icon) new Icon("detailedHelpIcon", IconType.plussign);
-		this.preview=preview;
 		this.detailedHelpIcon.add(new AjaxEventBehavior("onclick") {
 			private static final long serialVersionUID = 8263043282265678656L;
 
@@ -59,14 +59,14 @@ public class DetailedHelpControlGroup extends ControlGroup implements Previewabl
 		Components.hideIfModelIsEmpty(detailedHelp);
 		if(isFormInPreview()) {
 			detailedHelp.setVisible(false);
-			
+			get("help").setVisible(false); //why make field private, why why :(
 		}
 		detailedHelpIcon.setVisible((isFormInPreview() || Strings.isEmpty((String) detailedHelp.getDefaultModelObject())) ? false : true);
 	}
 
 	@Override
 	public boolean isFormInPreview() {
-		return preview;
+			return ((PreviewableFormPanelAware) this.getParent()).isFormInPreview();
 	}
 
 }

@@ -8,7 +8,6 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
-import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.metadata.common.domain.Category;
@@ -17,6 +16,7 @@ import org.devgateway.eudevfin.metadata.common.util.CategoryConstants;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.DateInputField;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
+import org.devgateway.eudevfin.ui.common.components.PreviewableFormPanel;
 import org.devgateway.eudevfin.ui.common.components.PreviewableFormPanelAware;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
 import org.devgateway.eudevfin.ui.common.models.DateToLocalDateTimeModel;
@@ -30,14 +30,13 @@ import org.joda.time.LocalDateTime;
  * @author aartimon@developmentgateway.org
  * @since 01 November 2013
  */
-public class IdentificationDataTab extends Panel implements PermissionAwareComponent, PreviewableFormPanelAware {
+public class IdentificationDataTab extends PreviewableFormPanel implements PermissionAwareComponent {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -368263194801751715L;
 	protected PageParameters parameters;
     public static final String KEY = "tabs.identification";
-    private boolean preview;
     
 
     @SpringBean
@@ -93,8 +92,5 @@ public class IdentificationDataTab extends Panel implements PermissionAwareCompo
     public void enableRequired() {
     }
 
-	@Override
-	public boolean isFormInPreview() {
-		return preview;
-	}
+
 }

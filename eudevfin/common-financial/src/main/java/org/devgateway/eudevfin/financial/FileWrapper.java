@@ -13,6 +13,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
+
 import java.io.Serializable;
 
 /**
@@ -64,5 +65,10 @@ public class FileWrapper implements Serializable {
 
     public void setContent(FileWrapperContent content) {
         this.content = content;
+    }
+    
+    @Override
+    public String toString() {
+    	return name;
     }
 }

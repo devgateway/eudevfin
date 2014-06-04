@@ -8,7 +8,8 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
-import org.apache.wicket.markup.html.panel.Panel;
+import java.math.BigDecimal;
+
 import org.apache.wicket.model.ComponentPropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -17,26 +18,24 @@ import org.devgateway.eudevfin.metadata.common.util.CategoryConstants;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.DateInputField;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
+import org.devgateway.eudevfin.ui.common.components.PreviewableFormPanel;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
 import org.devgateway.eudevfin.ui.common.events.CurrencyUpdateBehavior;
 import org.devgateway.eudevfin.ui.common.events.LoansField12UpdateBehavior;
 import org.devgateway.eudevfin.ui.common.models.BigMoneyModel;
 import org.devgateway.eudevfin.ui.common.models.DateToLocalDateTimeModel;
 import org.devgateway.eudevfin.ui.common.models.InterestRateToBigDecimalModel;
-import org.devgateway.eudevfin.ui.common.models.YearToLocalDateTimeModel;
 import org.devgateway.eudevfin.ui.common.permissions.PermissionAwareComponent;
 import org.devgateway.eudevfin.ui.common.providers.CategoryProviderFactory;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 import org.joda.time.LocalDateTime;
 
-import java.math.BigDecimal;
-
 /**
  * @author aartimon@developmentgateway.org
  * @since 01 November 2013
  */
-public class ForLoansOnlyTab extends Panel implements PermissionAwareComponent {
+public class ForLoansOnlyTab extends PreviewableFormPanel implements PermissionAwareComponent {
     public static final String KEY = "tabs.loans";
 	private PageParameters parameters;
 	

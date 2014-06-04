@@ -45,7 +45,7 @@ select, input[type="text"], input[type="password"], input[type="datetime"], inpu
 
 .transaction-title {
     font-weight: bold;
-    font-size: x-large;
+    font-size: xx-large;
 }
 
 .eubanner {
