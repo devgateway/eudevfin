@@ -67,7 +67,7 @@ public class TransformationStarter {
 			response.setHeader("Content-Disposition", "inline; filename=" + filename);
 			final OutputStream out				= response.getOutputStream();
 			transformerService.createSpreadsheetOnStream(this.finalList, this.finalList.size(),
-					new BufferedOutputStream(out) );
+					new BufferedOutputStream(out), this.filter.getExportType().toUpperCase() );
 		} catch (final IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

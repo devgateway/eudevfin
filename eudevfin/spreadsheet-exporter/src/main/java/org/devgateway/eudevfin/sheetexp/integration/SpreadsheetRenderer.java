@@ -23,7 +23,8 @@ import org.springframework.stereotype.Component;
 public class SpreadsheetRenderer {
 
 	@ServiceActivator(inputChannel = "spreadsheetCreatorChannel")
-	public Boolean renderSpreadsheet(final List<MetadataRow> list, @Header("outputStream") final OutputStream out) {
+	public Boolean renderSpreadsheet(final List<MetadataRow> list, @Header("outputStream") final OutputStream out, 
+			@Header("exportName")final String exportName) {
 //		for (final MetadataRow metadataRow : list) {
 //			System.out.println("Row: " + metadataRow.toString());
 //		}
@@ -41,7 +42,7 @@ public class SpreadsheetRenderer {
 		}
 
 		
-		final PoiExporter exporter = new PoiExporter(usedOutStream, list, "FSS");
+		final PoiExporter exporter = new PoiExporter(usedOutStream, list, exportName);
 		exporter.export();
 
 		return true;
