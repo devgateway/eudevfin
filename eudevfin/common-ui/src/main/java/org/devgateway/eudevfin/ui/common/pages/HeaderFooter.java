@@ -8,14 +8,14 @@
 
 package org.devgateway.eudevfin.ui.common.pages;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.Comparator;
-import java.util.Locale;
-import java.util.Properties;
-import java.util.Set;
-import java.util.TreeSet;
-
+import de.agilecoders.wicket.core.Bootstrap;
+import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.BootstrapBaseBehavior;
+import de.agilecoders.wicket.core.markup.html.bootstrap.html.ChromeFrameMetaTag;
+import de.agilecoders.wicket.core.markup.html.bootstrap.html.HtmlTag;
+import de.agilecoders.wicket.core.markup.html.bootstrap.html.OptimizedMobileViewportMetaTag;
+import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
+import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarComponents;
+import de.agilecoders.wicket.core.settings.IBootstrapSettings;
 import org.apache.wicket.Component;
 import org.apache.wicket.RuntimeConfigurationType;
 import org.apache.wicket.Session;
@@ -34,6 +34,7 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.ContextRelativeResource;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.util.lang.Classes;
 import org.apache.wicket.util.string.StringValue;
 import org.devgateway.eudevfin.common.locale.LocaleHelper;
 import org.devgateway.eudevfin.ui.common.ApplicationJavaScript;
@@ -46,14 +47,14 @@ import org.reflections.Reflections;
 import org.reflections.scanners.MethodAnnotationsScanner;
 import org.reflections.util.ClasspathHelper;
 
-import de.agilecoders.wicket.core.Bootstrap;
-import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.BootstrapBaseBehavior;
-import de.agilecoders.wicket.core.markup.html.bootstrap.html.ChromeFrameMetaTag;
-import de.agilecoders.wicket.core.markup.html.bootstrap.html.HtmlTag;
-import de.agilecoders.wicket.core.markup.html.bootstrap.html.OptimizedMobileViewportMetaTag;
-import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
-import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarComponents;
-import de.agilecoders.wicket.core.settings.IBootstrapSettings;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Comparator;
+import java.util.Locale;
+import java.util.MissingResourceException;
+import java.util.Properties;
+import java.util.Set;
+import java.util.TreeSet;
 
 @SuppressWarnings("WicketForgeJavaIdInspection")
 public abstract class HeaderFooter<T> extends GenericWebPage<T> {
@@ -85,8 +86,13 @@ public abstract class HeaderFooter<T> extends GenericWebPage<T> {
 
 		add(new Label("eudevfin-version", Model.of(commonProperties.getProperty("eudevfin.version"))));
 
-		pageTitle = new Label("pageTitle", new StringResourceModel("page.title", this, null, null));
-
+        try {
+            // check if the key is missing in the resource file
+            getString(getClassName() + ".page.title");
+            pageTitle = new Label("pageTitle", new StringResourceModel(getClassName() + ".page.title", this, null, null));
+        } catch (MissingResourceException mre) {
+            pageTitle = new Label("pageTitle", new StringResourceModel("page.title", this, null, null));
+        }
 		add(pageTitle);
 
 		if (RuntimeConfigurationType.DEVELOPMENT.equals(this.getApplication().getConfigurationType())) {
@@ -196,4 +202,8 @@ public abstract class HeaderFooter<T> extends GenericWebPage<T> {
 			settings.getActiveThemeProvider().setActiveTheme(theme.toString(""));
 		}
 	}
+
+    protected String getClassName() {
+        return Classes.simpleName(getClass());
+    }
 }

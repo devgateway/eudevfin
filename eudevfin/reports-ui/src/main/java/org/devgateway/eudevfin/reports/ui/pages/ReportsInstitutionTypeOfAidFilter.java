@@ -19,9 +19,6 @@ import org.wicketstuff.annotation.mount.MountPath;
 public class ReportsInstitutionTypeOfAidFilter extends CustomReportsPage {
 
     public ReportsInstitutionTypeOfAidFilter () {
-        Label title = new Label("title", new StringResourceModel("reportsInstitutionTypeOfAidFilter", this, null, null));
-        add(title);
-
         geography.setVisibilityAllowed(Boolean.FALSE);
         recipient.setVisibilityAllowed(Boolean.FALSE);
         sector.setVisibilityAllowed(Boolean.FALSE);

@@ -134,9 +134,6 @@ public class ReportsCountryInstitutionDashboards extends ReportsDashboards {
     }
 
     private void addComponents() {
-        Label title = new Label("title", new StringResourceModel("reportscountryinstitutiondashboards.title", this, null, null));
-        add(title);
-
         addInstitutionTable();
         addInstitutionChart();
     }

@@ -83,9 +83,6 @@ public class ReportsImplementationStatusDashboards extends ReportsDashboards {
     }
 
     private void addComponents() {
-        Label title = new Label("title", new StringResourceModel("reportsimplementationstatusdashboards.title", this, null, null));
-        add(title);
-
         addImplementationStatusTable();
         addImplementationStatusChart();
     }

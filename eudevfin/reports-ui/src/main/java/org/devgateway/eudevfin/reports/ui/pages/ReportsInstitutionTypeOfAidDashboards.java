@@ -120,9 +120,6 @@ public class ReportsInstitutionTypeOfAidDashboards extends ReportsDashboards {
     }
 
     private void addComponents() {
-        Label title = new Label("title", new StringResourceModel("reportsinstitutiontypeofaiddashboards.title", this, null, null));
-        add(title);
-
         addTypeOfAidTable();
         addTypeOfAidHumanitarianAidTable();
         addTypeOfAidChart();

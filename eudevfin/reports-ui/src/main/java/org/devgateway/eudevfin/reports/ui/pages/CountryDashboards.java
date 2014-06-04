@@ -31,7 +31,6 @@ public class CountryDashboards extends ReportsDashboards {
     }
 
     private void addComponents() {
-        Label title = new Label("title", new StringResourceModel("countrydashboards.title", this, null, null));
-        add(title);
+
     }
 }

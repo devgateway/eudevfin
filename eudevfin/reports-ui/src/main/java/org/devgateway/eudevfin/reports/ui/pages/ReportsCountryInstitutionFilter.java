@@ -19,9 +19,6 @@ import org.wicketstuff.annotation.mount.MountPath;
 public class ReportsCountryInstitutionFilter extends CustomReportsPage {
 
     public ReportsCountryInstitutionFilter () {
-        Label title = new Label("title", new StringResourceModel("reportsCountryInstitution", this, null, null));
-        add(title);
-
         sector.setVisibilityAllowed(Boolean.FALSE);
         multilateralAgency.setVisibilityAllowed(Boolean.FALSE);
         typeOfFlowBiMulti.setVisibilityAllowed(Boolean.FALSE);

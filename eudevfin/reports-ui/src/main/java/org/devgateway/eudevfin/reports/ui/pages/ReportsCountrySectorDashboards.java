@@ -190,9 +190,6 @@ public class ReportsCountrySectorDashboards extends ReportsDashboards {
     }
 
     private void addComponents() {
-        Label title = new Label("title", new StringResourceModel("reportscountrysectordashboards.title", this, null, null));
-        add(title);
-
         addCountryTable();
         addCountryChart();
         addSectorTable();

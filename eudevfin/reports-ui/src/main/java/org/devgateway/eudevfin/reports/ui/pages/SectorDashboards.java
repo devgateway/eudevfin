@@ -32,7 +32,6 @@ public class SectorDashboards extends ReportsDashboards {
     }
 
     private void addComponents() {
-        Label title = new Label("title", new StringResourceModel("sectordashboards.title", this, null, null));
-        add(title);
+
     }
 }

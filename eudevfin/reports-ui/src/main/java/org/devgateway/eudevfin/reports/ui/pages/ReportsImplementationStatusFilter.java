@@ -19,9 +19,6 @@ import org.wicketstuff.annotation.mount.MountPath;
 public class ReportsImplementationStatusFilter extends CustomReportsPage {
 
     public ReportsImplementationStatusFilter () {
-        Label title = new Label("title", new StringResourceModel("reportsImplementationStatus", this, null, null));
-        add(title);
-
         geography.setVisibilityAllowed(Boolean.FALSE);
         recipient.setVisibilityAllowed(Boolean.FALSE);
         year.setVisibilityAllowed(Boolean.FALSE);

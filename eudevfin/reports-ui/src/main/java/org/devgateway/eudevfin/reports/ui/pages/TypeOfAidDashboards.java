@@ -31,7 +31,6 @@ public class TypeOfAidDashboards extends ReportsDashboards {
     }
 
     private void addComponents() {
-        Label title = new Label("title", new StringResourceModel("typeofaiddashboards.title", this, null, null));
-        add(title);
+
     }
 }

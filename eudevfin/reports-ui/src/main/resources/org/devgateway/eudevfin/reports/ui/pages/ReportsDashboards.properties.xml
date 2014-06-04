@@ -9,11 +9,10 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <entry key="reportsCountrySector">Search by country &amp; sector</entry>
-    <entry key="reportsCountryInstitution">Search by country &amp; institution</entry>
-    <entry key="reportsInstitutionTypeOfFlowFilter">Search by institution &amp; type of flow (bi/multi)</entry>
-    <entry key="reportsInstitutionTypeOfAidFilter">Search by institution &amp; type of aid</entry>
-    <entry key="reportsImplementationStatus">Search by implementation status</entry>
+    <entry key="ReportsCountrySectorFilter.page.title">Search by country &amp; sector</entry>
+    <entry key="ReportsCountryInstitutionFilter.page.title">Search by country &amp; institution</entry>
+    <entry key="ReportsInstitutionTypeOfAidFilter.page.title">Search by institution &amp; type of aid</entry>
+    <entry key="ReportsImplementationStatusFilter.page.title">Search by implementation status</entry>
     <entry key="commitment">Commitment</entry>
     <entry key="disbursement">Disbursement</entry>
     <entry key="lowerThanAmount">&lt; 0.5 million</entry>
@@ -43,7 +42,8 @@
     <entry key="geography.help">If you want to display data for the entire region, leave the ODA recipient country and Sector fields blank</entry>
     <entry key="reports.info">Please note than selection in the fields of this page is based on projects which have been approved  by the Government.</entry>
 
-    <entry key="page.title">ODA at a Glance</entry>
+    <entry key="page.title">Custom Reports</entry>
+    <entry key="ReportsPage.page.title">ODA at a Glance</entry>
 
     <entry key="dashboards.netODA">Net ODA</entry>
     <entry key="dashboards.topTenRecipients">Top Ten Recipients of Gross ODA (USD m)</entry>
@@ -52,30 +52,29 @@
     <entry key="dashboards.odaByIncomeGroupChart">By Income Group (USD m)</entry>
     <entry key="dashboards.odaBySectorChart">By Sector</entry>
 
-    <entry key="reportscountrysectordashboards.title">Reports Country &amp; Sector Results</entry>
+    <entry key="ReportsCountrySectorDashboards.page.title">Reports Country &amp; Sector Results</entry>
 
+    <entry key="ReportsCountryInstitutionDashboards.page.title">Reports Country &amp; Institution Results</entry>
     <entry key="reportscountryinstitutiondashboards.nationalCurrency">National Currency</entry>
-    <entry key="reportscountryinstitutiondashboards.title">Reports Country &amp; Institution Results</entry>
 
+    <entry key="ReportsInstitutionTypeOfAidDashboards.page.title">Reports Institution &amp; Type Of Aid Results</entry>
     <entry key="reportsinstitutiontypeofaiddashboards.nationalCurrency">National Currency</entry>
-    <entry key="reportsinstitutiontypeofaiddashboards.title">Reports Institution &amp; Type Of Aid Results</entry>
     <entry key="reportsinstitutiontypeofaiddashboards.humanitarianAidTableTitle">Memo item: Humanitarian Assistance</entry>
     <entry key="reportsinstitutiontypeofaiddashboards.typeOfAid">Type of Aid</entry>
     <entry key="reportsinstitutiontypeofaiddashboards.multilateralAgency">Multilateral Agency</entry>
     <entry key="reportsinstitutiontypeofaiddashboards.biMultilateralChart">Memorandum Item - Bi/Multilateral Chart (Total ODA)</entry>
 
-    <entry key="reportsimplementationstatusdashboards.title">Reports Implementation Status Results</entry>
+    <entry key="ReportsImplementationStatusDashboards.page.title">Reports Implementation Status Results</entry>
     <entry key="commitment">Commitment</entry>
     <entry key="disbursement">Disbursement</entry>
 
-    <entry key="countrydashboards.title">Reports Country</entry>
+    <entry key="CountryDashboards.page.title">Reports Country</entry>
 
-    <entry key="sectordashboards.title">Reports Sector</entry>
+    <entry key="SectorDashboards.page.title">Reports Sector</entry>
 
-    <entry key="institutiondashboards.title">Reports Institution</entry>
+    <entry key="InstitutionDashboards.page.title">Reports Institution</entry>
 
-    <entry key="typeofaiddashboards.title">Reports Type of Aid</entry>
+    <entry key="TypeOfAidDashboards.page.title">Reports Type of Aid</entry>
 
-    <entry key="transactiondashboards.title">Reports Transaction</entry>
-
+    <entry key="TransactionDashboards.page.title">Reports Transaction</entry>
 </properties>
