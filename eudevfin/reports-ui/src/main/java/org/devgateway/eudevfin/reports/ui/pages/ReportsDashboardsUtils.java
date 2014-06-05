@@ -33,6 +33,7 @@ public class ReportsDashboardsUtils {
     /*
      * since the custom reports tables are similar we use only one function to process the rows
      */
+    // it's used in  country sector dashboards
     public static ListView<String[]> processTableRows (List<String[]> rows, QueryResult result, String rowId, final String typeOfTable) {
         List <List<String>> resultSet = result.getResultset();
 
@@ -145,35 +146,42 @@ public class ReportsDashboardsUtils {
                     item.add(new AttributeModifier("class", "geography"));
                 }
 
-                item.add(new Label("col0", row[0]));
-
                 // add links to second level dashboards
                 PageParameters pageParameters = new PageParameters();
                 BookmarkablePageLink link = null;
                 if(typeOfTable.equals(ReportsConstants.isCountry)) {
+                    // for country table create links only for Countries and not for Geography
+                    item.add(new Label("col0", row[0]));
+
                     if (row[1] != null) {
                         pageParameters.add(ReportsConstants.RECIPIENT_PARAM, row[1]);
                     }
                     link = new BookmarkablePageLink("link", CountryDashboards.class, pageParameters);
+
+                    item.add(link);
+                    link.add(new Label("linkName", row[1]));
+
+                    // don't make the TOTAL row a link
+                    Label totalRow = new Label("total", row[1]);
+                    item.add(totalRow);
+                    if (row[1] != null && row[1].equals("TOTAL")) {
+                        link.setVisibilityAllowed(Boolean.FALSE);
+                    } else {
+                        totalRow.setVisibilityAllowed(Boolean.FALSE);
+                    }
                 } else {
-                    if (row[1] != null) {
-                        pageParameters.add(ReportsConstants.SECTOR_PARAM, row[1]);
+                    // for sector table create links only for ParentSector
+                    if (row[0] != null) {
+                        pageParameters.add(ReportsConstants.SECTOR_PARAM, row[0]);
                     }
                     if(typeOfTable.equals(ReportsConstants.isSector)) {
                         link = new BookmarkablePageLink("link", SectorDashboards.class, pageParameters);
                     }
-                }
 
-                item.add(link);
-                link.add(new Label("linkName", row[1]));
+                    item.add(link);
+                    link.add(new Label("linkName", row[0]));
 
-                // don't make the TOTAL row a link
-                Label totalRow = new Label("total", row[1]);
-                item.add(totalRow);
-                if (row[1] != null && row[1].equals("TOTAL")) {
-                    link.setVisibilityAllowed(Boolean.FALSE);
-                } else {
-                    totalRow.setVisibilityAllowed(Boolean.FALSE);
+                    item.add(new Label("col1", row[1]));
                 }
 
                 item.add(new Label("col2", row[2]));
@@ -186,6 +194,7 @@ public class ReportsDashboardsUtils {
         return tableRows;
     }
 
+    // is used in Implementation status dashboards
     public static ListView<String[]> processTableRowsWithoutMainCategory (List<String[]> rows, QueryResult result, String rowId) {
         List <List<String>> resultSet = result.getResultset();
 
@@ -239,8 +248,24 @@ public class ReportsDashboardsUtils {
                 }
             }
 
+            int index = 0;
             for (List<String> item : resultSet) {
-                rows.add(item.toArray(new String[item.size()]));
+                if (index % 2 == 0 && !item.get(0).equals("TOTAL")) {
+                    index++;
+                    continue;
+                }
+
+                // add the transaction ID as first element
+                // we need the ID to navigate to the second level dashboard
+                if (item.get(0).equals("TOTAL")) {
+                    item.add(0, null);
+                    rows.add(item.toArray(new String[item.size()]));
+                } else {
+                    item.add(0, resultSet.get(index - 1).get(0));
+                    rows.add(item.toArray(new String[item.size()]));
+                }
+
+                index++;
             }
         }
 
@@ -249,11 +274,29 @@ public class ReportsDashboardsUtils {
             protected void populateItem(ListItem<String[]> item) {
                 String[] row = item.getModelObject();
 
-                item.add(new Label("col0", row[0]));
-                item.add(new Label("col1", row[1]));
-                item.add(new Label("col2", row[2]));
-                item.add(new Label("col3", row[3]));
-                item.add(new Label("col4", row[4]));
+                // add links to second level dashboards
+                PageParameters pageParameters = new PageParameters();
+                if (row[0] != null) {
+                    pageParameters.add(ReportsConstants.TRANSACTIONID_PARAM, row[0]);
+                }
+                BookmarkablePageLink link = new BookmarkablePageLink("link", TransactionDashboards.class, pageParameters);
+
+                item.add(link);
+                link.add(new Label("linkName", row[1]));
+
+                // don't make the TOTAL row a link
+                Label totalRow = new Label("total", row[1]);
+                item.add(totalRow);
+                if (row[1] != null && row[1].equals("TOTAL")) {
+                    link.setVisibilityAllowed(Boolean.FALSE);
+                } else {
+                    totalRow.setVisibilityAllowed(Boolean.FALSE);
+                }
+
+                item.add(new Label("col1", row[2]));
+                item.add(new Label("col2", row[3]));
+                item.add(new Label("col3", row[4]));
+                item.add(new Label("col4", row[5]));
             }
         };
 
@@ -264,8 +307,10 @@ public class ReportsDashboardsUtils {
      * since the custom reports tale are similar we use only one function to process the rows
      * and calculate the Total line for each category
      */
+    // it used in country and institution
+    // institution and type of aid dashboards
     public static ListView<String[]> processTableRowsWithTotal (List<String[]> rows, QueryResult result, String rowId,
-                                                                Boolean calculateTotal, final Boolean addSecondLink) {
+                                                                Boolean calculateTotal, final String typeOfTable, final Boolean addSecondLink) {
         List <List<String>> resultSet = result.getResultset();
 
         if(resultSet.size() != 0) {
@@ -372,10 +417,28 @@ public class ReportsDashboardsUtils {
 
                 if (addSecondLink) {
                     PageParameters pageParameters2 = new PageParameters();
-                    if (row[1] != null) {
-                        pageParameters2.add(ReportsConstants.RECIPIENT_PARAM, row[1]);
+                    BookmarkablePageLink link2 = null;
+
+                    if(typeOfTable.equals(ReportsConstants.isCountry)) {
+                        if (row[1] != null) {
+                            pageParameters2.add(ReportsConstants.RECIPIENT_PARAM, row[1]);
+                        }
+                        link2 = new BookmarkablePageLink("link2", CountryDashboards.class, pageParameters2);
+                    } else {
+                        if (typeOfTable.equals(ReportsConstants.isTypeOfAid)) {
+                            if (row[1] != null) {
+                                pageParameters2.add(ReportsConstants.TYPEOFAID_PARAM, row[1]);
+                            }
+
+                            link2 = new BookmarkablePageLink("link2", TypeOfAidDashboards.class, pageParameters2);
+                        } else {
+                            if (row[1] != null) {
+                                pageParameters2.add(ReportsConstants.AGENCY_PARAM, row[1]);
+                            }
+
+                            link2 = new BookmarkablePageLink("link2", ChannelDashboards.class, pageParameters2);
+                        }
                     }
-                    BookmarkablePageLink link2 = new BookmarkablePageLink("link2", CountryDashboards.class, pageParameters);
 
                     item.add(link2);
                     link2.add(new Label("linkName", row[1]));
@@ -403,6 +466,7 @@ public class ReportsDashboardsUtils {
     /*
      * since the custom reports charts are similar we use only one function to process the rows
      */
+    // it's used by all dashboards that has pie/bar charts
     public static List<List<Float>> processChartRows (QueryResult result, Options options) {
         List<List<Float>> resultSeries = new ArrayList<>();
         List<String> resultCategories = new ArrayList<>();

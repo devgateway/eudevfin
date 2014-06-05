@@ -583,7 +583,7 @@
                 MEMBER [Measures].[Second Year %] AS SUM(CrossJoin([Reporting Year].[${SECOND_YEAR}], {[Measures].[% of Total]}))
                 SELECT
                 NON EMPTY {[Measures].[First Year], [Measures].[First Year %], [Measures].[Second Year], [Measures].[Second Year %]} ON COLUMNS,
-                NON EMPTY {Hierarchize({[TxTitle].[TOTAL], [TxTitle].[Title].Members})} ON ROWS
+                NON EMPTY {Hierarchize({[TxTitle].[ID].Members, [TxTitle].[Title].Members, [TxTitle].[TOTAL]})} ON ROWS
                 FROM [Financial]
                 WHERE ([CoFinanced].${COFINANCED}, [Starting Year].[${startingYear}], [Completion Year].[${completionYear}])
                 ]]>
@@ -621,4 +621,253 @@
                 ]]>
         </Query>
     </DataAccess>
+
+    <!-- used for Country Dashboards -->
+    <DataAccess id="countryDashboardsChart"
+                connection="defaultConnectionLocale"
+                type="mdx"
+                cache="true"
+                cacheDuration="172800"
+                access="public">
+        <BandedMode>compact</BandedMode>
+        <Columns/>
+        <Parameters>
+            <Parameter default="2013" name="FIRST_YEAR" type="Integer"/>
+            <Parameter default="Turkey" name="Country" type="String"/>
+        </Parameters>
+        <Name>Country Dashboards - Chart</Name>
+        <Query>
+            <![CDATA[
+                WITH
+                MEMBER [Measures].[FIRST YEAR] AS IIF(SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Net Amount Currency NATLOECD]})) > 0, SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Net Amount Currency NATLOECD]})), Null)
+                SELECT
+                NON EMPTY {[Measures].[FIRST YEAR]} ON COLUMNS,
+                NON EMPTY {[SectorHierarchy].[ParentName].Members} ON ROWS
+                FROM [Financial]
+                WHERE {[Country].[Name].[${Country}]}
+                ]]>
+        </Query>
+    </DataAccess>
+
+
+
+
+
+    <!-- used for Sector Dashboards -->
+    <DataAccess id="sectorDashboardsPieChart"
+                connection="defaultConnectionLocale"
+                type="mdx"
+                cache="true"
+                cacheDuration="172800"
+                access="public">
+        <BandedMode>compact</BandedMode>
+        <Columns/>
+        <Parameters>
+            <Parameter default="2013" name="FIRST_YEAR" type="Integer"/>
+            <Parameter default="EDUCATION" name="MainSector" type="String"/>
+        </Parameters>
+        <Name>Sector Dashboards - Pie Chart</Name>
+        <Query>
+            <![CDATA[
+                WITH
+                MEMBER [Measures].[FIRST YEAR] AS IIF(SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Net Amount Currency NATLOECD]})) > 0, SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Net Amount Currency NATLOECD]})), Null)
+                SELECT
+                NON EMPTY {[Measures].[FIRST YEAR]} ON COLUMNS,
+                NON EMPTY {Filter({{[SectorHierarchy].[Name].Members}}, (Exists(Ancestor([SectorHierarchy].CurrentMember, [SectorHierarchy].[ParentName]), {[SectorHierarchy].[${MainSector}]}).Count  > 0))} ON ROWS
+                FROM [Financial]
+                ]]>
+        </Query>
+    </DataAccess>
+
+    <DataAccess id="sectorDashboardsBarChart"
+                connection="defaultConnectionLocale"
+                type="mdx"
+                cache="true"
+                cacheDuration="172800"
+                access="public">
+        <BandedMode>compact</BandedMode>
+        <Columns/>
+        <Parameters>
+            <Parameter default="2013" name="FIRST_YEAR" type="Integer"/>
+            <Parameter default="EDUCATION" name="MainSector" type="String"/>
+        </Parameters>
+        <Name>Sector Dashboards - Bar Chart</Name>
+        <Query>
+            <![CDATA[
+                WITH
+                MEMBER [Measures].[FIRST YEAR] AS IIF(SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Net Amount Currency NATLOECD]})) > 0, SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Net Amount Currency NATLOECD]})), Null)
+                SELECT
+                NON EMPTY {[Measures].[FIRST YEAR]} ON COLUMNS,
+                NON EMPTY {[Country].[Name].Members} ON ROWS
+                FROM [Financial]
+                WHERE {[SectorHierarchy].[${MainSector}]}
+                ]]>
+        </Query>
+    </DataAccess>
+
+
+
+
+    <!-- used for Institution Dashboards -->
+    <DataAccess id="institutionDashboardsPieChart"
+                connection="defaultConnectionLocale"
+                type="mdx"
+                cache="true"
+                cacheDuration="172800"
+                access="public">
+        <BandedMode>compact</BandedMode>
+        <Columns/>
+        <Parameters>
+            <Parameter default="2013" name="FIRST_YEAR" type="Integer"/>
+            <Parameter default="Federal Ministry of Finance" name="Institution" type="String"/>
+        </Parameters>
+        <Name>Institution Dashboards - Pie Chart</Name>
+        <Query>
+            <![CDATA[
+                WITH
+                MEMBER [Measures].[FIRST YEAR] AS IIF(SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Net Amount Currency NATLOECD]})) > 0, SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Net Amount Currency NATLOECD]})), Null)
+                SELECT
+                NON EMPTY {[Measures].[FIRST YEAR]} ON COLUMNS,
+                NON EMPTY {[SectorHierarchy].[ParentName].Members} ON ROWS
+                FROM [Financial]
+                WHERE {[Extending Agency].[Name].[${Institution}]}
+                ]]>
+        </Query>
+    </DataAccess>
+
+    <DataAccess id="institutionDashboardsBarChart"
+                connection="defaultConnectionLocale"
+                type="mdx"
+                cache="true"
+                cacheDuration="172800"
+                access="public">
+        <BandedMode>compact</BandedMode>
+        <Columns/>
+        <Parameters>
+            <Parameter default="2013" name="FIRST_YEAR" type="Integer"/>
+            <Parameter default="Federal Ministry of Finance" name="Institution" type="String"/>
+        </Parameters>
+        <Name>Institution Dashboards - Bar Chart</Name>
+        <Query>
+            <![CDATA[
+                WITH
+                MEMBER [Measures].[FIRST YEAR] AS IIF(SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Net Amount Currency NATLOECD]})) > 0, SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Net Amount Currency NATLOECD]})), Null)
+                SELECT
+                NON EMPTY {[Measures].[FIRST YEAR]} ON COLUMNS,
+                NON EMPTY {[Country].[Name].Members} ON ROWS
+                FROM [Financial]
+                WHERE {[Extending Agency].[Name].[${Institution}]}
+                ]]>
+        </Query>
+    </DataAccess>
+
+
+    <!-- used for Type of Aid Dashboards -->
+    <DataAccess id="typeOfAidDashboardsPieChart"
+                connection="defaultConnectionLocale"
+                type="mdx"
+                cache="true"
+                cacheDuration="172800"
+                access="public">
+        <BandedMode>compact</BandedMode>
+        <Columns/>
+        <Parameters>
+            <Parameter default="2013" name="FIRST_YEAR" type="Integer"/>
+            <Parameter default="Sector budget support" name="TypeOfAid" type="String"/>
+        </Parameters>
+        <Name>Type of Aid Dashboards - Pie Chart</Name>
+        <Query>
+            <![CDATA[
+                WITH
+                MEMBER [Measures].[FIRST YEAR] AS IIF(SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Net Amount Currency NATLOECD]})) > 0, SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Net Amount Currency NATLOECD]})), Null)
+                SELECT
+                NON EMPTY {[Measures].[FIRST YEAR]} ON COLUMNS,
+                NON EMPTY {[SectorHierarchy].[ParentName].Members} ON ROWS
+                FROM [Financial]
+                WHERE {[Type of Aid].[Name].[${TypeOfAid}]}
+                ]]>
+        </Query>
+    </DataAccess>
+
+    <DataAccess id="typeOfAidDashboardsBarChart"
+                connection="defaultConnectionLocale"
+                type="mdx"
+                cache="true"
+                cacheDuration="172800"
+                access="public">
+        <BandedMode>compact</BandedMode>
+        <Columns/>
+        <Parameters>
+            <Parameter default="2013" name="FIRST_YEAR" type="Integer"/>
+            <Parameter default="Sector budget support" name="TypeOfAid" type="String"/>
+        </Parameters>
+        <Name>Type of Aid Dashboards - Bar Chart</Name>
+        <Query>
+            <![CDATA[
+                WITH
+                MEMBER [Measures].[FIRST YEAR] AS IIF(SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Net Amount Currency NATLOECD]})) > 0, SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Net Amount Currency NATLOECD]})), Null)
+                SELECT
+                NON EMPTY {[Measures].[FIRST YEAR]} ON COLUMNS,
+                NON EMPTY {[Country].[Name].Members} ON ROWS
+                FROM [Financial]
+                WHERE {[Type of Aid].[Name].[${TypeOfAid}]}
+                ]]>
+        </Query>
+    </DataAccess>
+
+
+
+    <!-- used for Channel Dashboards -->
+    <DataAccess id="channelDashboardsPieChart"
+                connection="defaultConnectionLocale"
+                type="mdx"
+                cache="true"
+                cacheDuration="172800"
+                access="public">
+        <BandedMode>compact</BandedMode>
+        <Columns/>
+        <Parameters>
+            <Parameter default="2013" name="FIRST_YEAR" type="Integer"/>
+            <Parameter default="United Nations agency, fund or commission (UN)" name="Channel" type="String"/>
+        </Parameters>
+        <Name>Channel Dashboards - Pie Chart</Name>
+        <Query>
+            <![CDATA[
+                WITH
+                MEMBER [Measures].[FIRST YEAR] AS IIF(SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Net Amount Currency NATLOECD]})) > 0, SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Net Amount Currency NATLOECD]})), Null)
+                SELECT
+                NON EMPTY {[Measures].[FIRST YEAR]} ON COLUMNS,
+                NON EMPTY {[SectorHierarchy].[ParentName].Members} ON ROWS
+                FROM [Financial]
+                WHERE {[Channel].[Name].[${Channel}]}
+                ]]>
+        </Query>
+    </DataAccess>
+
+    <DataAccess id="channelDashboardsBarChart"
+                connection="defaultConnectionLocale"
+                type="mdx"
+                cache="true"
+                cacheDuration="172800"
+                access="public">
+        <BandedMode>compact</BandedMode>
+        <Columns/>
+        <Parameters>
+            <Parameter default="2013" name="FIRST_YEAR" type="Integer"/>
+            <Parameter default="United Nations agency, fund or commission (UN)" name="Channel" type="String"/>
+        </Parameters>
+        <Name>Channel - Bar Chart</Name>
+        <Query>
+            <![CDATA[
+                WITH
+                MEMBER [Measures].[FIRST YEAR] AS IIF(SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Net Amount Currency NATLOECD]})) > 0, SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[Net Amount Currency NATLOECD]})), Null)
+                SELECT
+                NON EMPTY {[Measures].[FIRST YEAR]} ON COLUMNS,
+                NON EMPTY {[Country].[Name].Members} ON ROWS
+                FROM [Financial]
+                WHERE {[Channel].[Name].[${Channel}]}
+                ]]>
+        </Query>
+    </DataAccess>
+
 </CDADescriptor>

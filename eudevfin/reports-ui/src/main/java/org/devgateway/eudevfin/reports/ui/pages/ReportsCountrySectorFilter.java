@@ -23,9 +23,6 @@ public class ReportsCountrySectorFilter extends CustomReportsPage {
     private static final Logger logger = Logger.getLogger(ReportsCountrySectorFilter.class);
 
     public ReportsCountrySectorFilter () {
-        Label title = new Label("title", new StringResourceModel("reportsCountrySector", this, null, null));
-        add(title);
-
         nationalInstitution.setVisibilityAllowed(Boolean.FALSE);
         multilateralAgency.setVisibilityAllowed(Boolean.FALSE);
         typeOfFlowBiMulti.setVisibilityAllowed(Boolean.FALSE);

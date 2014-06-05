@@ -15,10 +15,7 @@
     <div id="reports-page">
         <div class="container">
             <div class="row">
-                <div class="span12">
-                    <h2 wicket:id="title"/>
-                    <br/>
-                </div>
+                <br/>
 
                 <div class="span8 offset2">
                     <div class="box">
@@ -43,7 +40,12 @@
                             </thead>
                             <tbody>
                             <tr wicket:id="implementationTableRows">
-                                <td wicket:id="col0" class="string">Country</td>
+                                <td>
+                                    <a href="#" wicket:id="link">
+                                        <span wicket:id="linkName">Transaction title</span>
+                                    </a>
+                                    <span wicket:id="total">TOTAL</span>
+                                </td>
                                 <td wicket:id="col1" class="numeric">Currency</td>
                                 <td wicket:id="col2" class="numeric">%</td>
                                 <td wicket:id="col3" class="numeric">Currency</td>

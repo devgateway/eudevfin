@@ -29,29 +29,28 @@ import java.util.List;
 
 /**
  * @author idobre
- * @since 6/2/14
+ * @since 6/4/14
  */
-
-@MountPath(value = "/institutiondashboards")
+@MountPath(value = "/channeldashboards")
 @AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
-public class InstitutionDashboards extends ReportsDashboards {
-    private static final Logger logger = Logger.getLogger(InstitutionDashboards.class);
+public class ChannelDashboards extends ReportsDashboards {
+    private static final Logger logger = Logger.getLogger(ChannelDashboards.class);
 
     private int tableYear;
-    private String institutionParam;
+    private String agencyParam;
 
     @SpringBean
     protected QueryService CdaService;
 
-    public InstitutionDashboards(final PageParameters parameters) {
+    public ChannelDashboards(final PageParameters parameters) {
         // get the reporting year
         tableYear = Calendar.getInstance().get(Calendar.YEAR) - 1;
 
-        if(!parameters.get(ReportsConstants.INSTITUTION_PARAM).equals(StringValue.valueOf((String) null))) {
-            institutionParam = parameters.get(ReportsConstants.INSTITUTION_PARAM).toString();
+        if(!parameters.get(ReportsConstants.AGENCY_PARAM).equals(StringValue.valueOf((String) null))) {
+            agencyParam = parameters.get(ReportsConstants.AGENCY_PARAM).toString();
         }
 
-        Label country = new Label("institution", (institutionParam != null ? institutionParam : ""));
+        Label country = new Label("channel", (agencyParam != null ? agencyParam : ""));
         add(country);
 
         addComponents();
@@ -64,10 +63,10 @@ public class InstitutionDashboards extends ReportsDashboards {
     }
 
     private void addPieChart() {
-        Label title = new Label("institutionPieChartTitle", new StringResourceModel("InstitutionDashboards.institutionChart", this, null, null));
+        Label title = new Label("channelPieChartTitle", new StringResourceModel("ChannelDashboards.channelChart", this, null, null));
         add(title);
 
-        PieChart pieChart = new PieChart(CdaService, "institutionPieChart", "institutionDashboardsPieChart") {
+        PieChart pieChart = new PieChart(CdaService, "channelPieChart", "channelDashboardsPieChart") {
             @Override
             public List<Point> getResultSeries () {
                 this.result = this.runQuery();
@@ -82,7 +81,7 @@ public class InstitutionDashboards extends ReportsDashboards {
         };
 
         pieChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
-        pieChart.setParam("paramInstitution", (institutionParam != null ? institutionParam : ""));
+        pieChart.setParam("paramChannel", (agencyParam != null ? agencyParam : ""));
 
         Options options = pieChart.getOptions();
         // check if we have a result and make the chart slightly higher
@@ -97,10 +96,10 @@ public class InstitutionDashboards extends ReportsDashboards {
     }
 
     private void addBarChart() {
-        Label title = new Label("institutionBarChartTitle", new StringResourceModel("InstitutionDashboards.institutionChart", this, null, null));
+        Label title = new Label("channelBarChartTitle", new StringResourceModel("ChannelDashboards.channelChart", this, null, null));
         add(title);
 
-        StackedBarChart stackedBarChart = new StackedBarChart(CdaService, "institutionBarChart", "institutionDashboardsBarChart") {
+        StackedBarChart stackedBarChart = new StackedBarChart(CdaService, "channelBarChart", "channelDashboardsBarChart") {
             @Override
             public List<List<Float>> getResultSeriesAsList () {
                 this.result = this.runQuery();
@@ -130,7 +129,7 @@ public class InstitutionDashboards extends ReportsDashboards {
         };
 
         stackedBarChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
-        stackedBarChart.setParam("paramInstitution", (institutionParam != null ? institutionParam : ""));
+        stackedBarChart.setParam("paramChannel", (agencyParam != null ? agencyParam : ""));
 
         List<List<Float>> resultSeries = stackedBarChart.getResultSeriesAsList();
         stackedBarChart.getOptions().setPlotOptions(new PlotOptionsChoice().

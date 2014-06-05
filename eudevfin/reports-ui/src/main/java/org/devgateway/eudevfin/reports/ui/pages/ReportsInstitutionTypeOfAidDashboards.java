@@ -120,9 +120,6 @@ public class ReportsInstitutionTypeOfAidDashboards extends ReportsDashboards {
     }
 
     private void addComponents() {
-        Label title = new Label("title", new StringResourceModel("reportsinstitutiontypeofaiddashboards.title", this, null, null));
-        add(title);
-
         addTypeOfAidTable();
         addTypeOfAidHumanitarianAidTable();
         addTypeOfAidChart();
@@ -148,7 +145,13 @@ public class ReportsInstitutionTypeOfAidDashboards extends ReportsDashboards {
                 this.rows = new ArrayList<>();
                 this.result = this.runQuery();
 
-                return ReportsDashboardsUtils.processTableRowsWithTotal(this.rows, this.result, this.rowId, true, false);
+                if (typeOfFlowParam != null && typeOfFlowParam.equals(multilateralCategory.getName())) {
+                    return ReportsDashboardsUtils.processTableRowsWithTotal(this.rows, this.result, this.rowId, true,
+                            ReportsConstants.isChannel, true);
+                } else {
+                    return ReportsDashboardsUtils.processTableRowsWithTotal(this.rows, this.result, this.rowId, true,
+                            ReportsConstants.isTypeOfAid, true);
+                }
             }
         };
 
@@ -165,10 +168,10 @@ public class ReportsInstitutionTypeOfAidDashboards extends ReportsDashboards {
         if (typeOfFlowParam != null && typeOfFlowParam.equals(multilateralCategory.getName())) {
             table.setParam("paramtypeOfAidTableRowSet", typeOfAidTableRowSetMultilateral);
             table.setParam("parambilateral", "Multilateral");
-            headerTitle = new Label("typeOfFlow", new StringResourceModel("reportsinstitutiontypeofaiddashboards.multilateralAgency", this, null, null));
+            headerTitle = new Label("typeOfFlow", new StringResourceModel("ReportsInstitutionTypeOfAidDashboards.multilateralAgency", this, null, null));
         } else {
             table.setParam("paramtypeOfAidTableRowSet", typeOfAidTableRowSetBilateral);
-            headerTitle = new Label("typeOfFlow", new StringResourceModel("reportsinstitutiontypeofaiddashboards.typeOfAid", this, null, null));
+            headerTitle = new Label("typeOfFlow", new StringResourceModel("ReportsInstitutionTypeOfAidDashboards.typeOfAid", this, null, null));
             table.setParam("parambilateral", "Bilateral");
         }
         table.getTable().add(headerTitle);
@@ -188,7 +191,7 @@ public class ReportsInstitutionTypeOfAidDashboards extends ReportsDashboards {
     }
 
     private void addTypeOfAidHumanitarianAidTable () {
-        Label title = new Label("typeOfAidHumanitarianAidTableTitle", new StringResourceModel("reportsinstitutiontypeofaiddashboards.humanitarianAidTableTitle", this, null, null));
+        Label title = new Label("typeOfAidHumanitarianAidTableTitle", new StringResourceModel("ReportsInstitutionTypeOfAidDashboards.humanitarianAidTableTitle", this, null, null));
         add(title);
 
         Table table = new Table(CdaService, "typeOfAidHumanitarianAidTable", "typeOfAidHumanitarianAidTableRows", "customDashboardsTypeOfAidHumanitarianAidTable") {
@@ -209,7 +212,8 @@ public class ReportsInstitutionTypeOfAidDashboards extends ReportsDashboards {
                     result.getMetadata().add(1, null);
                 }
 
-                return ReportsDashboardsUtils.processTableRowsWithTotal(this.rows, this.result, this.rowId, false, false);
+                return ReportsDashboardsUtils.processTableRowsWithTotal(this.rows, this.result, this.rowId, false,
+                        ReportsConstants.isTypeOfAid, false);
             }
         };
 
@@ -301,7 +305,7 @@ public class ReportsInstitutionTypeOfAidDashboards extends ReportsDashboards {
     }
 
     protected void addTypeBiMultilateralChart () {
-        Label title = new Label("biMultilateralTitle", new StringResourceModel("reportsinstitutiontypeofaiddashboards.biMultilateralChart", this, null, null));
+        Label title = new Label("biMultilateralTitle", new StringResourceModel("ReportsInstitutionTypeOfAidDashboards.biMultilateralChart", this, null, null));
         add(title);
 
         PieChart pieChart = new PieChart(CdaService, "biMultilateralChart", "customDashboardsBiMultilateralChart") {

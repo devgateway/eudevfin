@@ -99,7 +99,7 @@ public class ReportsPage extends ReportsDashboards {
     }
 
     private void addNetODATable () {
-        Label title = new Label("netODADashboardTitle", new StringResourceModel("dashboards.netODA", this, null, null));
+        Label title = new Label("netODADashboardTitle", new StringResourceModel("ReportsPage.netODA", this, null, null));
         add(title);
 
         Table table = new Table(CdaService, "netODADashboard", "netODARows", "netODATable") {
@@ -247,7 +247,7 @@ public class ReportsPage extends ReportsDashboards {
     }
 
     private void addTopTenRecipientsTable () {
-        Label title = new Label("topTenRecipientsTitle", new StringResourceModel("dashboards.topTenRecipients", this, null, null));
+        Label title = new Label("topTenRecipientsTitle", new StringResourceModel("ReportsPage.topTenRecipients", this, null, null));
         add(title);
 
         Table table = new Table(CdaService, "topTenRecipients", "topTenRows", "topTenRecipients") {
@@ -303,7 +303,7 @@ public class ReportsPage extends ReportsDashboards {
     }
 
     private void addTopTenMemoShareTAble () {
-        Label title = new Label("topTenMemoShareTitle", new StringResourceModel("dashboards.topTenMemoShare", this, null, null));
+        Label title = new Label("topTenMemoShareTitle", new StringResourceModel("ReportsPage.topTenMemoShare", this, null, null));
         add(title);
 
         Table table = new Table(CdaService, "topTenMemoShare", "topTenMemoRows", "topTenMemoShare") {
@@ -361,7 +361,7 @@ public class ReportsPage extends ReportsDashboards {
     }
 
     private void addOdaByIncomeGroupChart () {
-        Label title = new Label("odaByIncomeGroupTitle", new StringResourceModel("dashboards.odaByIncomeGroupChart", this, null, null));
+        Label title = new Label("odaByIncomeGroupTitle", new StringResourceModel("ReportsPage.odaByIncomeGroupChart", this, null, null));
         add(title);
 
         PieChart pieChart = new PieChart(CdaService, "odaByIncomeGroupChart", "odaByIncomeGroupChart") {
@@ -389,7 +389,7 @@ public class ReportsPage extends ReportsDashboards {
     }
 
     private void addOdaByRegionChart () {
-        Label title = new Label("odaByRegionTitle", new StringResourceModel("dashboards.odaByRegionChart", this, null, null));
+        Label title = new Label("odaByRegionTitle", new StringResourceModel("ReportsPage.odaByRegionChart", this, null, null));
         add(title);
 
         PieChart pieChart = new PieChart(CdaService, "odaByRegionChart", "odaByRegionChart") {
@@ -422,7 +422,7 @@ public class ReportsPage extends ReportsDashboards {
     }
 
     private void addOdaBySectorChart () {
-        Label title = new Label("odaBySectorTitle", new StringResourceModel("dashboards.odaBySectorChart", this, null, null));
+        Label title = new Label("odaBySectorTitle", new StringResourceModel("ReportsPage.odaBySectorChart", this, null, null));
         add(title);
 
         StackedBarChart stackedBarChart = new StackedBarChart(CdaService, "odaBySectorChart", "odaBySectorChart") {

@@ -15,20 +15,34 @@
     <div id="reports-page">
         <div class="container">
             <div class="row">
-                <div class="span12">
-                    <h2 wicket:id="title"/>
-                    <br/>
+                <br/>
+                <div class="span7">
+                    <h3 wicket:id="institution"/>
                 </div>
 
-                <div class="span6">
+                <div class="span8 offset 2">
                     <div class="box">
-
+                        [table]
                     </div>
                 </div>
-
                 <div class="span6">
                     <div class="box">
-
+                        <div class="box-header">
+                            <h2>
+                                <div wicket:id="institutionPieChartTitle"/>
+                            </h2>
+                        </div>
+                        <div wicket:id="institutionPieChart"/>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="box">
+                        <div class="box-header">
+                            <h2>
+                                <div wicket:id="institutionBarChartTitle"/>
+                            </h2>
+                        </div>
+                        <div wicket:id="institutionBarChart"/>
                     </div>
                 </div>
             </div> <!-- /row -->
