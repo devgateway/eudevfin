@@ -516,7 +516,7 @@ public class ReportTemplate {
 				str.append(",");
 		}
 		str.append("}  ON ROWS, \n");
-		str.append(" {");
+		str.append(" NON EMPTY {");
 		str.append(StringUtils.join(measures.toArray(), ","));
 		str.append("}*" + slicer + " ON COLUMNS \n");
 		str.append("FROM [Financial] \n");

@@ -269,6 +269,7 @@ commitments]]></text>
 	</pageHeader>
 	<detail>
 		<band height="66">
+			<printWhenExpression><![CDATA[$V{REPORT_COUNT} == 1]]></printWhenExpression>
 			<staticText>
 				<reportElement x="1" y="18" width="137" height="12" uuid="004214a1-6a1f-429c-84b1-abb8b50f46db"/>
 				<textElement verticalAlignment="Middle">
@@ -527,6 +528,7 @@ commitments]]></text>
 			</staticText>
 		</band>
 		<band height="552" splitType="Stretch">
+			<printWhenExpression><![CDATA[$V{REPORT_COUNT} == 1]]></printWhenExpression>
 			<staticText>
 				<reportElement style="BlueBackground" x="0" y="12" width="263" height="12" uuid="bc9ddea8-3203-47fd-9f34-13943954565e"/>
 				<textElement>
@@ -1125,6 +1127,7 @@ commitments]]></text>
 			</subreport>
 		</band>
 		<band height="552">
+			<printWhenExpression><![CDATA[$V{REPORT_COUNT} == 1]]></printWhenExpression>
 			<staticText>
 				<reportElement key="r_1900" x="263" y="0" width="34" height="12" uuid="24fe5eaf-8421-410b-ad84-ef0554e3592d"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
@@ -1705,6 +1708,7 @@ commitments]]></text>
 			</staticText>
 		</band>
 		<band height="387">
+			<printWhenExpression><![CDATA[$V{REPORT_COUNT} == 1]]></printWhenExpression>
 			<staticText>
 				<reportElement x="0" y="0" width="263" height="12" uuid="78ed5698-7dcc-4d03-8ad8-cb7e7e4ece7d"/>
 				<textElement>

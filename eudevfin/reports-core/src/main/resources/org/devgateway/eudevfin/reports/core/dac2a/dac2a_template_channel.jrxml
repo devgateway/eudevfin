@@ -14,6 +14,7 @@
 	</background>
 	<detail>
 		<band height="473">
+			<printWhenExpression><![CDATA[$V{REPORT_COUNT} == 1]]></printWhenExpression>
 			<staticText>
 				<reportElement key="r_201" x="251" y="0" width="55" height="0" uuid="e3a4569b-8152-4065-9f63-8b8c1b7cd1f7"/>
 				<textElement textAlignment="Center">
@@ -530,6 +531,7 @@ TOTAL (1 to 8)]]></text>
 			</staticText>
 		</band>
 		<band height="91">
+			<printWhenExpression><![CDATA[$V{REPORT_COUNT} == 1]]></printWhenExpression>
 			<staticText>
 				<reportElement x="0" y="0" width="203" height="20" uuid="a3d93b03-6785-41a0-8ed6-c2a81b16235d"/>
 				<textElement>
@@ -602,6 +604,7 @@ TOTAL (1 to 8)]]></text>
 			</staticText>
 		</band>
 		<band height="111">
+			<printWhenExpression><![CDATA[$V{REPORT_COUNT} == 1]]></printWhenExpression>
 			<staticText>
 				<reportElement x="0" y="0" width="203" height="18" uuid="a3d93b03-6785-41a0-8ed6-c2a81b16235d"/>
 				<textElement>
@@ -702,6 +705,7 @@ TOTAL (1 to 8)]]></text>
 			</staticText>
 		</band>
 		<band height="172">
+			<printWhenExpression><![CDATA[$V{REPORT_COUNT} == 1]]></printWhenExpression>
 			<staticText>
 				<reportElement x="0" y="0" width="203" height="18" uuid="a3d93b03-6785-41a0-8ed6-c2a81b16235d"/>
 				<textElement>
@@ -844,6 +848,7 @@ TOTAL (1 to 8)]]></text>
 			</staticText>
 		</band>
 		<band height="197">
+			<printWhenExpression><![CDATA[$V{REPORT_COUNT} == 1]]></printWhenExpression>
 			<staticText>
 				<reportElement x="0" y="0" width="203" height="18" uuid="040b826f-65a4-4ed4-8ab4-5268a2096969"/>
 				<textElement>
