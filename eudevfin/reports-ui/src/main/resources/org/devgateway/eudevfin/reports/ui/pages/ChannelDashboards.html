@@ -16,16 +16,32 @@
         <div class="container">
             <div class="row">
                 <br/>
-
-                <div class="span6">
+                <div class="span7">
+                    <h3 wicket:id="channel"/>
+                </div>
+                <div class="span8 offset 2">
                     <div class="box">
-
+                        [table]
                     </div>
                 </div>
-
                 <div class="span6">
                     <div class="box">
-
+                        <div class="box-header">
+                            <h2>
+                                <div wicket:id="channelPieChartTitle"/>
+                            </h2>
+                        </div>
+                        <div wicket:id="channelPieChart"/>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="box">
+                        <div class="box-header">
+                            <h2>
+                                <div wicket:id="channelBarChartTitle"/>
+                            </h2>
+                        </div>
+                        <div wicket:id="channelBarChart"/>
                     </div>
                 </div>
             </div> <!-- /row -->
