@@ -583,7 +583,7 @@
                 MEMBER [Measures].[Second Year %] AS SUM(CrossJoin([Reporting Year].[${SECOND_YEAR}], {[Measures].[% of Total]}))
                 SELECT
                 NON EMPTY {[Measures].[First Year], [Measures].[First Year %], [Measures].[Second Year], [Measures].[Second Year %]} ON COLUMNS,
-                NON EMPTY {Hierarchize({[TxTitle].[TOTAL], [TxTitle].[Title].Members})} ON ROWS
+                NON EMPTY {Hierarchize({[TxTitle].[ID].Members, [TxTitle].[Title].Members, [TxTitle].[TOTAL]})} ON ROWS
                 FROM [Financial]
                 WHERE ([CoFinanced].${COFINANCED}, [Starting Year].[${startingYear}], [Completion Year].[${completionYear}])
                 ]]>

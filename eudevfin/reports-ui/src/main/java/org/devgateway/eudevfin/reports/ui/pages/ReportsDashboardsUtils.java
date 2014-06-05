@@ -241,8 +241,24 @@ public class ReportsDashboardsUtils {
                 }
             }
 
+            int index = 0;
             for (List<String> item : resultSet) {
-                rows.add(item.toArray(new String[item.size()]));
+                if (index % 2 == 0 && !item.get(0).equals("TOTAL")) {
+                    index++;
+                    continue;
+                }
+
+                // add the transaction ID as first element
+                // we need the ID to navigate to the second level dashboard
+                if (item.get(0).equals("TOTAL")) {
+                    item.add(0, null);
+                    rows.add(item.toArray(new String[item.size()]));
+                } else {
+                    item.add(0, resultSet.get(index - 1).get(0));
+                    rows.add(item.toArray(new String[item.size()]));
+                }
+
+                index++;
             }
         }
 
@@ -251,11 +267,29 @@ public class ReportsDashboardsUtils {
             protected void populateItem(ListItem<String[]> item) {
                 String[] row = item.getModelObject();
 
-                item.add(new Label("col0", row[0]));
-                item.add(new Label("col1", row[1]));
-                item.add(new Label("col2", row[2]));
-                item.add(new Label("col3", row[3]));
-                item.add(new Label("col4", row[4]));
+                // add links to second level dashboards
+                PageParameters pageParameters = new PageParameters();
+                if (row[0] != null) {
+                    pageParameters.add(ReportsConstants.TRANSACTIONID_PARAM, row[0]);
+                }
+                BookmarkablePageLink link = new BookmarkablePageLink("link", TransactionDashboards.class, pageParameters);
+
+                item.add(link);
+                link.add(new Label("linkName", row[1]));
+
+                // don't make the TOTAL row a link
+                Label totalRow = new Label("total", row[1]);
+                item.add(totalRow);
+                if (row[1] != null && row[1].equals("TOTAL")) {
+                    link.setVisibilityAllowed(Boolean.FALSE);
+                } else {
+                    totalRow.setVisibilityAllowed(Boolean.FALSE);
+                }
+
+                item.add(new Label("col1", row[2]));
+                item.add(new Label("col2", row[3]));
+                item.add(new Label("col3", row[4]));
+                item.add(new Label("col4", row[5]));
             }
         };
 
