@@ -269,7 +269,7 @@ public class ReportsDashboardsUtils {
     // it used in country and institution
     // institution and type of aid dashboards
     public static ListView<String[]> processTableRowsWithTotal (List<String[]> rows, QueryResult result, String rowId,
-                                                                Boolean calculateTotal, final Boolean addSecondLink) {
+                                                                Boolean calculateTotal, final String typeOfTable, final Boolean addSecondLink) {
         List <List<String>> resultSet = result.getResultset();
 
         if(resultSet.size() != 0) {
@@ -376,10 +376,28 @@ public class ReportsDashboardsUtils {
 
                 if (addSecondLink) {
                     PageParameters pageParameters2 = new PageParameters();
-                    if (row[1] != null) {
-                        pageParameters2.add(ReportsConstants.RECIPIENT_PARAM, row[1]);
+                    BookmarkablePageLink link2 = null;
+
+                    if(typeOfTable.equals(ReportsConstants.isCountry)) {
+                        if (row[1] != null) {
+                            pageParameters2.add(ReportsConstants.RECIPIENT_PARAM, row[1]);
+                        }
+                        link2 = new BookmarkablePageLink("link2", CountryDashboards.class, pageParameters2);
+                    } else {
+                        if (typeOfTable.equals(ReportsConstants.isTypeOfAid)) {
+                            if (row[1] != null) {
+                                pageParameters2.add(ReportsConstants.TYPEOFAID_PARAM, row[1]);
+                            }
+
+                            link2 = new BookmarkablePageLink("link2", TypeOfAidDashboards.class, pageParameters2);
+                        } else {
+                            if (row[1] != null) {
+                                pageParameters2.add(ReportsConstants.AGENCY_PARAM, row[1]);
+                            }
+
+                            link2 = new BookmarkablePageLink("link2", ChannelDashboards.class, pageParameters2);
+                        }
                     }
-                    BookmarkablePageLink link2 = new BookmarkablePageLink("link2", CountryDashboards.class, pageParameters);
 
                     item.add(link2);
                     link2.add(new Label("linkName", row[1]));

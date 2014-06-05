@@ -77,4 +77,6 @@
     <entry key="TypeOfAidDashboards.page.title">Reports Type of Aid</entry>
 
     <entry key="TransactionDashboards.page.title">Reports Transaction</entry>
+
+    <entry key="ChannelDashboards.page.title">Reports Multilateral Agency</entry>
 </properties>

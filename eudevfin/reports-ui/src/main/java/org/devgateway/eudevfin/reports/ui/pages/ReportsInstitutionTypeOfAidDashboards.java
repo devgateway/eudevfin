@@ -145,7 +145,13 @@ public class ReportsInstitutionTypeOfAidDashboards extends ReportsDashboards {
                 this.rows = new ArrayList<>();
                 this.result = this.runQuery();
 
-                return ReportsDashboardsUtils.processTableRowsWithTotal(this.rows, this.result, this.rowId, true, false);
+                if (typeOfFlowParam != null && typeOfFlowParam.equals(multilateralCategory.getName())) {
+                    return ReportsDashboardsUtils.processTableRowsWithTotal(this.rows, this.result, this.rowId, true,
+                            ReportsConstants.isChannel, true);
+                } else {
+                    return ReportsDashboardsUtils.processTableRowsWithTotal(this.rows, this.result, this.rowId, true,
+                            ReportsConstants.isTypeOfAid, true);
+                }
             }
         };
 
@@ -206,7 +212,8 @@ public class ReportsInstitutionTypeOfAidDashboards extends ReportsDashboards {
                     result.getMetadata().add(1, null);
                 }
 
-                return ReportsDashboardsUtils.processTableRowsWithTotal(this.rows, this.result, this.rowId, false, false);
+                return ReportsDashboardsUtils.processTableRowsWithTotal(this.rows, this.result, this.rowId, false,
+                        ReportsConstants.isTypeOfAid, false);
             }
         };
 

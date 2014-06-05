@@ -28,6 +28,7 @@ public class ReportsImplementationStatusFilter extends CustomReportsPage {
         typeOfFlowBiMulti.setVisibilityAllowed(Boolean.FALSE);
         CPAOnly.setVisibilityAllowed(Boolean.FALSE);
         humanitarianAid.setVisibilityAllowed(Boolean.FALSE);
+        showRelatedBudgetCodes.setVisibilityAllowed(Boolean.FALSE);
     }
 
     @Override
