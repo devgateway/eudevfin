@@ -146,35 +146,42 @@ public class ReportsDashboardsUtils {
                     item.add(new AttributeModifier("class", "geography"));
                 }
 
-                item.add(new Label("col0", row[0]));
-
                 // add links to second level dashboards
                 PageParameters pageParameters = new PageParameters();
                 BookmarkablePageLink link = null;
                 if(typeOfTable.equals(ReportsConstants.isCountry)) {
+                    // for country table create links only for Countries and not for Geography
+                    item.add(new Label("col0", row[0]));
+
                     if (row[1] != null) {
                         pageParameters.add(ReportsConstants.RECIPIENT_PARAM, row[1]);
                     }
                     link = new BookmarkablePageLink("link", CountryDashboards.class, pageParameters);
+
+                    item.add(link);
+                    link.add(new Label("linkName", row[1]));
+
+                    // don't make the TOTAL row a link
+                    Label totalRow = new Label("total", row[1]);
+                    item.add(totalRow);
+                    if (row[1] != null && row[1].equals("TOTAL")) {
+                        link.setVisibilityAllowed(Boolean.FALSE);
+                    } else {
+                        totalRow.setVisibilityAllowed(Boolean.FALSE);
+                    }
                 } else {
-                    if (row[1] != null) {
-                        pageParameters.add(ReportsConstants.SECTOR_PARAM, row[1]);
+                    // for sector table create links only for ParentSector
+                    if (row[0] != null) {
+                        pageParameters.add(ReportsConstants.SECTOR_PARAM, row[0]);
                     }
                     if(typeOfTable.equals(ReportsConstants.isSector)) {
                         link = new BookmarkablePageLink("link", SectorDashboards.class, pageParameters);
                     }
-                }
 
-                item.add(link);
-                link.add(new Label("linkName", row[1]));
+                    item.add(link);
+                    link.add(new Label("linkName", row[0]));
 
-                // don't make the TOTAL row a link
-                Label totalRow = new Label("total", row[1]);
-                item.add(totalRow);
-                if (row[1] != null && row[1].equals("TOTAL")) {
-                    link.setVisibilityAllowed(Boolean.FALSE);
-                } else {
-                    totalRow.setVisibilityAllowed(Boolean.FALSE);
+                    item.add(new Label("col1", row[1]));
                 }
 
                 item.add(new Label("col2", row[2]));
