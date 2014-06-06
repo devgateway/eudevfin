@@ -90,3 +90,7 @@ html, body {
     padding: 5px 0;
     text-align: center;
 }
+
+#printable-container {
+    background-color: #ffffff;
+}
