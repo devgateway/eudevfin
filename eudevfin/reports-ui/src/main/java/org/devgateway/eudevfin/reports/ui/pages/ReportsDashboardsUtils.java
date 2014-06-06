@@ -33,7 +33,7 @@ public class ReportsDashboardsUtils {
     /*
      * since the custom reports tables are similar we use only one function to process the rows
      */
-    // it's used in  country sector dashboards
+    // it's used in country sector dashboards
     public static ListView<String[]> processTableRows (List<String[]> rows, QueryResult result, String rowId, final String typeOfTable) {
         List <List<String>> resultSet = result.getResultset();
 
@@ -457,6 +457,191 @@ public class ReportsDashboardsUtils {
 
                 item.add(new Label("col2", row[2]));
                 item.add(new Label("col3", row[3]));
+            }
+        };
+
+        return tableRows;
+    }
+
+    // it's used in country dashboards
+    public static ListView<String[]> processTableRowsOneYear (List<String[]> rows, QueryResult result, String rowId, final String typeOfTable) {
+        List <List<String>> resultSet = result.getResultset();
+
+        if(resultSet.size() != 0 && resultSet.get(0).size() > 2) {
+            // format the amounts as #,###.##
+            // and other values like percentages
+            for (int i = 0; i < resultSet.size(); i++) {
+                if (resultSet.get(i).size() > 1 && resultSet.get(i).get(1) != null) {
+                    String item = AmountFormat(Float.parseFloat(resultSet.get(i).get(1))); // amounts (first year)
+                    resultSet.get(i).set(1, item);
+                }
+            }
+
+            if(typeOfTable.equals(ReportsConstants.isSector)) {
+                // find which row is a sector or a parent-sector
+                for (int i = 0; i < resultSet.size(); i++) {
+                    String sector = resultSet.get(i).get(0);
+                    if (resultSet.get(i).get(resultSet.get(i).size() - 1).toLowerCase().
+                            equals(ReportsConstants.isSector.toLowerCase())) {
+                        resultSet.get(i).add(1, sector);
+                        resultSet.get(i).set(0, null);
+                    } else {
+                        if (resultSet.get(i).get(resultSet.get(i).size() - 1).toLowerCase().
+                                equals(ReportsConstants.isParentSector.toLowerCase())) {
+                            resultSet.get(i).add(1, null);
+                        }
+                    }
+                }
+            }
+
+            for (List<String> item : resultSet) {
+                rows.add(item.toArray(new String[item.size()]));
+            }
+        }
+
+        ListView<String[]> tableRows = new ListView<String[]>(rowId, rows) {
+            @Override
+            protected void populateItem(ListItem<String[]> item) {
+                String[] row = item.getModelObject();
+
+                // use different color for geography items
+                if (row[row.length - 1].toLowerCase().equals(ReportsConstants.isGeography.toLowerCase()) ||
+                        row[row.length - 1].toLowerCase().equals(ReportsConstants.isParentSector.toLowerCase())) {
+                    item.add(new AttributeModifier("class", "geography"));
+                }
+
+                // add links to second level dashboards
+                PageParameters pageParameters = new PageParameters();
+                BookmarkablePageLink link = null;
+                if(typeOfTable.equals(ReportsConstants.isSector)) {
+                    // for sector table create links only for ParentSector
+                    if (row[0] != null) {
+                        pageParameters.add(ReportsConstants.SECTOR_PARAM, row[0]);
+                    }
+                    link = new BookmarkablePageLink("link", SectorDashboards.class, pageParameters);
+
+                    item.add(link);
+                    link.add(new Label("linkName", row[0]));
+
+                    item.add(new Label("col1", row[1]));
+                }
+
+                item.add(new Label("col2", row[2]));
+            }
+        };
+
+        return tableRows;
+    }
+
+    // it's used in sector dashboards
+    // and institution dashboards
+    public static ListView<String[]> processTableRowsWithTotalOneYear (List<String[]> rows, QueryResult result, String rowId,
+                                                                Boolean calculateTotal, final String typeOfTable, final Boolean addSecondLink) {
+        List <List<String>> resultSet = result.getResultset();
+
+        if(resultSet.size() != 0) {
+            // 'group by' operation
+            // and calculate the 'Total' line for each entry
+            float firstYear = 0;
+            for (int i = resultSet.size() - 1; i > 0; i--) {
+                // calculate the total for each main category (for example institution)
+                if (resultSet.get(i).size() > 2 && resultSet.get(i).get(2) != null) {
+                    firstYear += Float.parseFloat(resultSet.get(i).get(2));
+                }
+
+                if(resultSet.get(i).get(0).equals(resultSet.get(i - 1).get(0))) {
+                    resultSet.get(i).set(0, null);
+                } else {
+                    List<String> newElement = Arrays
+                            .asList(new String[]{
+                                    resultSet.get(i).get(0),
+                                    "TOTAL",
+                                    "" + firstYear
+                            });
+
+                    if (calculateTotal) {
+                        resultSet.get(i).set(0, null);
+                        resultSet.add(i, newElement);
+                    }
+
+                    firstYear = 0;
+                }
+            }
+
+            // calculate total for the first element
+            if (resultSet.get(0).size() > 2 && resultSet.get(0).get(2) != null) {
+                firstYear += Float.parseFloat(resultSet.get(0).get(2));
+            }
+
+            List<String> newElement = Arrays
+                    .asList(new String[]{
+                            resultSet.get(0).get(0),
+                            "TOTAL",
+                            "" + firstYear
+                    });
+
+            if (calculateTotal) {
+                resultSet.get(0).set(0, null);
+                resultSet.add(0, newElement);
+            }
+
+            // format the amounts as #,###.##
+            // and other values like percentages
+            for (int i = 0; i < resultSet.size(); i++) {
+                if (resultSet.get(i).size() > 2 && resultSet.get(i).get(2) != null) {
+                    String item = AmountFormat(Float.parseFloat(resultSet.get(i).get(2))); // amounts (first year)
+                    resultSet.get(i).set(2, item);
+                }
+            }
+
+            for (List<String> item : resultSet) {
+                rows.add(item.toArray(new String[item.size()]));
+            }
+        }
+
+        final ListView<String[]> tableRows = new ListView<String[]>(rowId, rows) {
+            @Override
+            protected void populateItem(ListItem<String[]> item) {
+                String[] row = item.getModelObject();
+
+                // add links to second level dashboards
+                PageParameters pageParameters = new PageParameters();
+                BookmarkablePageLink link = null;
+                if(typeOfTable.equals(ReportsConstants.isCountry)) {
+                    if (row[0] != null) {
+                        pageParameters.add(ReportsConstants.RECIPIENT_PARAM, row[0]);
+                    }
+
+                    link = new BookmarkablePageLink("link", CountryDashboards.class, pageParameters);
+                }
+
+                item.add(link);
+                link.add(new Label("linkName", row[0]));
+
+                if (addSecondLink) {
+                    PageParameters pageParameters2 = new PageParameters();
+
+                    if (row[1] != null) {
+                        pageParameters2.add(ReportsConstants.SECTOR_PARAM, row[1]);
+                    }
+                    BookmarkablePageLink link2 = new BookmarkablePageLink("link2", SectorDashboards.class, pageParameters2);
+
+                    item.add(link2);
+                    link2.add(new Label("linkName", row[1]));
+
+                    // don't make the TOTAL row a link
+                    Label totalRow = new Label("total", row[1]);
+                    item.add(totalRow);
+                    if (row[1] != null && row[1].equals("TOTAL")) {
+                        link2.setVisibilityAllowed(Boolean.FALSE);
+                    } else {
+                        totalRow.setVisibilityAllowed(Boolean.FALSE);
+                    }
+                } else {
+                    item.add(new Label("col1", row[1]));
+                }
+
+                item.add(new Label("col2", row[2]));
             }
         };
 

@@ -20,9 +20,38 @@
                     <h3 wicket:id="institution"/>
                 </div>
 
-                <div class="span8 offset 2">
+                <div class="span8 offset2">
                     <div class="box">
-                        [table]
+                        <div class="box-header">
+                            <h2>
+                                <div wicket:id="institutionTableTitle"/>
+                            </h2>
+                        </div>
+                        <table wicket:id="institutionTable">
+                            <thead>
+                            <tr>
+                                <th class="ui-state-default">Country</th>
+                                <th class="ui-state-default">Sector</th>
+                                <th class="ui-state-default" wicket:id="firstYear"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr wicket:id="institutionTableRows">
+                                <td>
+                                    <a href="#" wicket:id="link">
+                                        <span wicket:id="linkName">Country</span>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="#" wicket:id="link2">
+                                        <span wicket:id="linkName">Sector</span>
+                                    </a>
+                                    <span wicket:id="total">TOTAL</span>
+                                </td>
+                                <td wicket:id="col2" class="numeric">Currency</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 <div class="span6">
