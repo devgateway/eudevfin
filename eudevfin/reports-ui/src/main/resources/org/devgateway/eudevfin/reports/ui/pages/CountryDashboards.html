@@ -21,7 +21,31 @@
                 </div>
                 <div class="span6">
                     <div class="box">
-                        [table]
+                        <div class="box-header">
+                            <h2>
+                                <div wicket:id="countryTableTitle"/>
+                            </h2>
+                        </div>
+                        <table wicket:id="countryTable">
+                            <thead>
+                            <tr>
+                                <th class="ui-state-default">Main Sector</th>
+                                <th class="ui-state-default">Sector</th>
+                                <th class="ui-state-default" wicket:id="firstYear"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr wicket:id="countryTableRows">
+                                <td>
+                                    <a href="#" wicket:id="link">
+                                        <span wicket:id="linkName">Main Sector</span>
+                                    </a>
+                                </td>
+                                <td wicket:id="col1" class="string">Sector</td>
+                                <td wicket:id="col2" class="numeric">Currency</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 

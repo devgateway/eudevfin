@@ -13,6 +13,7 @@ import com.googlecode.wickedcharts.highcharts.options.series.SimpleSeries;
 import org.apache.log4j.Logger;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -21,6 +22,7 @@ import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.reports.core.service.QueryService;
 import org.devgateway.eudevfin.reports.ui.components.PieChart;
 import org.devgateway.eudevfin.reports.ui.components.StackedBarChart;
+import org.devgateway.eudevfin.reports.ui.components.Table;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.ArrayList;
@@ -58,9 +60,37 @@ public class SectorDashboards extends ReportsDashboards {
     }
 
     private void addComponents() {
-
+        addTable();
         addPieChart();
         addBarChart();
+    }
+
+    protected void addTable () {
+        Label title = new Label("sectorTableTitle", new StringResourceModel("SectorDashboards.sectorChart", this, null, null));
+        add(title);
+
+        Table table = new Table(CdaService, "sectorTable", "sectorTableRows", "sectorDashboardsTable") {
+            @Override
+            public ListView<String[]> getTableRows () {
+                super.getTableRows();
+
+                this.rows = new ArrayList<>();
+                this.result = this.runQuery();
+
+                return ReportsDashboardsUtils.processTableRowsWithTotalOneYear(this.rows, this.result, this.rowId, true,
+                        ReportsConstants.isCountry, false);
+            }
+        };
+
+        // add MDX queries parameters
+        table.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
+        table.setParam("paramMainSector", (sectorParam != null ? sectorParam : ""));
+
+        Label firstYear = new Label("firstYear", tableYear);
+        table.getTable().add(firstYear);
+
+        add(table.getTable());
+        table.addTableRows();
     }
 
     private void addPieChart() {
@@ -81,6 +111,7 @@ public class SectorDashboards extends ReportsDashboards {
             }
         };
 
+        // add MDX queries parameters
         pieChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
         pieChart.setParam("paramMainSector", (sectorParam != null ? sectorParam : ""));
 
@@ -129,6 +160,7 @@ public class SectorDashboards extends ReportsDashboards {
             }
         };
 
+        // add MDX queries parameters
         stackedBarChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
         stackedBarChart.setParam("paramMainSector", (sectorParam != null ? sectorParam : ""));
 

@@ -19,9 +19,33 @@
                 <div class="span7">
                     <h3 wicket:id="sector"/>
                 </div>
-                <div class="span8 offset 2">
+                <div class="span8 offset2">
                     <div class="box">
-                        [table]
+                        <div class="box-header">
+                            <h2>
+                                <div wicket:id="sectorTableTitle"/>
+                            </h2>
+                        </div>
+                        <table wicket:id="sectorTable">
+                            <thead>
+                            <tr>
+                                <th class="ui-state-default">Country</th>
+                                <th class="ui-state-default">Sector</th>
+                                <th class="ui-state-default" wicket:id="firstYear"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr wicket:id="sectorTableRows">
+                                <td>
+                                    <a href="#" wicket:id="link">
+                                        <span wicket:id="linkName">Country</span>
+                                    </a>
+                                </td>
+                                <td wicket:id="col1" class="string">Sector</td>
+                                <td wicket:id="col2" class="numeric">Currency</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 <div class="span6">
