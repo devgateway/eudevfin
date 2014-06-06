@@ -23,6 +23,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.dim.desktop.components.util.ComponentsUtil;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.TransactionPage;
 import org.devgateway.eudevfin.dim.pages.transaction.custom.CustomTransactionPage;
+import org.devgateway.eudevfin.dim.pages.transaction.custom.ViewCustomTransactionPage;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.ui.common.Constants;
@@ -134,6 +135,23 @@ public class TransactionTableListPanel<T extends FinancialTransaction> extends T
 				};
 				editLink.add( ComponentsUtil.generateLabel( "txtable.tx.edit-action", "transaction-edit-link-label", this) );
 				ftListItem.add(editLink);
+				
+				Link viewLink	= new Link("transaction-view-link") {
+					private static final long serialVersionUID = 9084184844700618410L;
+
+					@Override
+					public void onClick() {
+						PageParameters pageParameters = new PageParameters(); 		
+						pageParameters.add(Constants.PARAM_TRANSACTION_TYPE, ((CustomFinancialTransaction)tempTx).getFormType());
+						pageParameters.add(TransactionPage.PARAM_TRANSACTION_ID, tempTx.getId());									
+						setResponsePage(ViewCustomTransactionPage.class, pageParameters);
+					}
+					
+				};
+				
+				viewLink.add( ComponentsUtil.generateLabel( "txtable.tx.view-action", "transaction-view-link-label", this) );
+				ftListItem.add(viewLink);
+				
 			}
 
 		};

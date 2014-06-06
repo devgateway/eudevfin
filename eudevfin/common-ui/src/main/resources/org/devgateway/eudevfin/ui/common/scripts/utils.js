@@ -9,13 +9,13 @@
 // aplication variable
 var app = app || {};
 
-app.downloadPDFOdaAtGlance = function () {
+app.downloadPDF = function () {
     /*
     * find all svg elements in $container
     * $container is the jQuery object of the div that we need to convert to image/pdf.
     * This div may contain highcharts along with other child divs, etc
     */
-    var container = $('#reports-page');
+    var container = $('#printable-container');
     var svgElements = container.find('svg');
 
     // replace all svgs with a temp canvas
@@ -58,32 +58,15 @@ app.downloadPDFOdaAtGlance = function () {
     });
 }
 
+
+
 $(document).ready(function () {
-    // add more colors for Highcharts
-    Highcharts.setOptions({
-        colors: ["#4572A7", "#AA4643", "#89A54E", "#80699B", "#3D96AE", "#DB843D", "#92A8CD", "#A47D7C", "#B5CA92", "#DDDF00", "#ED561B", "#6AF9C4"]
-    });
-
-    Highcharts.getOptions().colors = $.map(Highcharts.getOptions().colors, function (color) {
-        return {
-            radialGradient: {
-                cx: 0.5,
-                cy: 0.3,
-                r: 0.7
-            },
-            stops: [
-                [0, color],
-                [1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
-            ]
-        };
-    });
-
     $('#print-page').click(function() {
         window.print();
     });
 
     $('#download-page').click(function() {
-        app.downloadPDFOdaAtGlance();
+        app.downloadPDF();
     });
 });
 

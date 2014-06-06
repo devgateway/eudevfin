@@ -60,7 +60,7 @@ public class Organization extends AbstractTranslateable<OrganizationTranslation>
 
 	@Override
 	public String toString() {
-		return String.format("Org name is %s, id %d",  this.getName(), this.id);
+		return String.format("%d - %s",  this.id, this.getName());
 	}
 
 	@Override
