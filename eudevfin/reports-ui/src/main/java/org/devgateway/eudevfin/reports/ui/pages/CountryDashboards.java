@@ -16,7 +16,6 @@ import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.reports.core.service.QueryService;
 import org.devgateway.eudevfin.reports.ui.components.PieChart;
 import org.devgateway.eudevfin.reports.ui.components.Table;
-import org.springframework.stereotype.Component;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.ArrayList;

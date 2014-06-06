@@ -7,7 +7,6 @@ import com.googlecode.wickedcharts.highcharts.options.functions.DefaultFormatter
 import com.googlecode.wickedcharts.highcharts.options.series.Point;
 import com.googlecode.wickedcharts.highcharts.options.series.PointSeries;
 import com.googlecode.wickedcharts.highcharts.options.series.SimpleSeries;
-
 import org.apache.log4j.Logger;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
@@ -24,7 +23,6 @@ import org.devgateway.eudevfin.reports.core.service.QueryService;
 import org.devgateway.eudevfin.reports.ui.components.PieChart;
 import org.devgateway.eudevfin.reports.ui.components.StackedBarChart;
 import org.devgateway.eudevfin.reports.ui.components.Table;
-import org.devgateway.eudevfin.ui.common.scripts.CommonScriptsReference;
 import org.joda.money.CurrencyUnit;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.wicketstuff.annotation.mount.MountPath;
