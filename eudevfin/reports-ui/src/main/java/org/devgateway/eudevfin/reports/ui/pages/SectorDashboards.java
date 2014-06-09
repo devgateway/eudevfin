@@ -19,6 +19,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.StringValue;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
+import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
 import org.devgateway.eudevfin.reports.core.service.QueryService;
 import org.devgateway.eudevfin.reports.ui.components.PieChart;
 import org.devgateway.eudevfin.reports.ui.components.StackedBarChart;
@@ -45,6 +46,9 @@ public class SectorDashboards extends ReportsDashboards {
     @SpringBean
     protected QueryService CdaService;
 
+    @SpringBean
+    private FinancialTransactionService financialTransactionService;
+
     public SectorDashboards(final PageParameters parameters) {
         // get the reporting year
         tableYear = Calendar.getInstance().get(Calendar.YEAR) - 1;
@@ -63,6 +67,7 @@ public class SectorDashboards extends ReportsDashboards {
         addTable();
         addPieChart();
         addBarChart();
+        addTableList();
     }
 
     protected void addTable () {
@@ -181,5 +186,33 @@ public class SectorDashboards extends ReportsDashboards {
                 .setColor(new HexColor("#3D96AE").brighten(new Float(-0.1))));
 
         add(stackedBarChart.getChart());
+    }
+
+    protected void addTableList () {
+        Label title = new Label("sectorTableListTitle", new StringResourceModel("SectorDashboards.sectorChart", this, null, null));
+        add(title);
+
+        Table table = new Table(CdaService, "sectorTableList", "sectorTableListRows", "sectorDashboardsTableList") {
+            @Override
+            public ListView<String[]> getTableRows () {
+                super.getTableRows();
+
+                this.rows = new ArrayList<>();
+                this.result = this.runQuery();
+
+                return ReportsDashboardsUtils.processTableRowsTransactions(financialTransactionService,
+                        this.rows, this.result, this.rowId, ReportsConstants.isSector);
+            }
+        };
+
+        // add MDX queries parameters
+        table.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
+        table.setParam("paramMainSector", (sectorParam != null ? sectorParam : ""));
+
+        Label firstYear = new Label("firstYear", tableYear + " Disbursement");
+        table.getTable().add(firstYear);
+
+        add(table.getTable());
+        table.addTableRows();
     }
 }

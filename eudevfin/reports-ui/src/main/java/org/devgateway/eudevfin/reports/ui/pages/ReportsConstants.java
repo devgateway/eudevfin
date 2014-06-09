@@ -40,5 +40,6 @@ public class ReportsConstants {
     public static final String isSector = "Sector";
     public static final String isParentSector = "ParentSector";
     public static final String isTypeOfAid = "TypeOfAid";
+    public static final String isInstitution = "Institution";
     public static final String isChannel = "Channel";
 }
