@@ -277,9 +277,15 @@ public class ReportsDashboardsUtils {
                 // add links to second level dashboards
                 PageParameters pageParameters = new PageParameters();
                 if (row[0] != null) {
-                    pageParameters.add(ReportsConstants.TRANSACTIONID_PARAM, row[0]);
+                    pageParameters.add(ReportsConstants.PARAM_TRANSACTION_ID, row[0]);
+                    pageParameters.add("transactionType", "bilateralOda.CRS");
                 }
-                BookmarkablePageLink link = new BookmarkablePageLink("link", TransactionDashboards.class, pageParameters);
+                BookmarkablePageLink link = null;
+                try {
+                    link = new BookmarkablePageLink("link", Class.forName("org.devgateway.eudevfin.dim.pages.transaction.custom.ViewCustomTransactionPage"), pageParameters);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
 
                 item.add(link);
                 link.add(new Label("linkName", row[1]));

@@ -81,6 +81,4 @@
 
     <entry key="ChannelDashboards.page.title">Reports Multilateral Agency</entry>
     <entry key="ChannelDashboards.channelChart">Net Disbursments in $</entry>
-
-    <entry key="TransactionDashboards.page.title">Reports Transaction</entry>
 </properties>
