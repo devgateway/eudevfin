@@ -4,7 +4,6 @@ import org.devgateway.eudevfin.metadata.common.domain.Area;
 import org.devgateway.eudevfin.metadata.common.domain.Category;
 import org.devgateway.eudevfin.metadata.common.domain.ChannelCategory;
 import org.devgateway.eudevfin.metadata.common.domain.Organization;
-import org.devgateway.eudevfin.ui.common.components.DropDownField;
 
 import java.io.Serializable;
 

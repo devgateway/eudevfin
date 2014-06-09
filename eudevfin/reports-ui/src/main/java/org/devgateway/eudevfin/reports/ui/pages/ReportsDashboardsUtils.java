@@ -9,6 +9,8 @@ import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.auth.common.util.AuthUtils;
+import org.devgateway.eudevfin.financial.FinancialTransaction;
+import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
 import org.devgateway.eudevfin.financial.util.FinancialTransactionUtil;
 import org.devgateway.eudevfin.reports.core.domain.QueryResult;
 import org.joda.money.CurrencyUnit;
@@ -27,6 +29,7 @@ import java.util.Locale;
  * @author idobre
  * @since 5/13/14
  */
+
 public class ReportsDashboardsUtils {
     private static final Logger logger = Logger.getLogger(ReportsDashboardsUtils.class);
 
@@ -277,9 +280,14 @@ public class ReportsDashboardsUtils {
                 // add links to second level dashboards
                 PageParameters pageParameters = new PageParameters();
                 if (row[0] != null) {
-                    pageParameters.add(ReportsConstants.TRANSACTIONID_PARAM, row[0]);
+                    pageParameters.add(ReportsConstants.PARAM_TRANSACTION_ID, row[0]);
                 }
-                BookmarkablePageLink link = new BookmarkablePageLink("link", TransactionDashboards.class, pageParameters);
+                BookmarkablePageLink link = null;
+                try {
+                    link = new BookmarkablePageLink("link", Class.forName("org.devgateway.eudevfin.dim.pages.transaction.custom.ViewCustomTransactionPage"), pageParameters);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
 
                 item.add(link);
                 link.add(new Label("linkName", row[1]));
@@ -687,6 +695,115 @@ public class ReportsDashboardsUtils {
         options.getxAxis().get(0).setCategories(new ArrayList<>(resultCategories));
 
         return resultSeries;
+    }
+
+    // is used transaction list tables
+    public static ListView<String[]> processTableRowsTransactions (FinancialTransactionService financialTransactionService,
+                                                                   List<String[]> rows, QueryResult result, String rowId, final String typeOfTable) {
+        List <List<String>> resultSet = result.getResultset();
+
+        if(resultSet.size() != 0 && resultSet.get(0).size() > 0) {
+            getMoreInfo(resultSet, financialTransactionService);
+
+            // format the amounts as #,###.##
+            // and other values like percentages
+            for (int i = 0; i < resultSet.size(); i++) {
+                if (resultSet.get(i).size() > 1 && resultSet.get(i).get(1) != null) {
+                    String item = AmountFormat(Float.parseFloat(resultSet.get(i).get(1))); // amounts (total budget)
+                    resultSet.get(i).set(1, item);
+                }
+
+                if (resultSet.get(i).size() > 2 && resultSet.get(i).get(2) != null) {
+                    String item = AmountFormat(Float.parseFloat(resultSet.get(i).get(2))); // amounts (disbursement)
+                    resultSet.get(i).set(2, item);
+                }
+            }
+
+            int index = 0;
+            for (List<String> item : resultSet) {
+                if (index % 2 == 0) {
+                    index++;
+                    continue;
+                }
+
+                // add the transaction ID as first element
+                // we need the ID to navigate to the second level dashboard
+                item.add(0, resultSet.get(index - 1).get(0));
+                rows.add(item.toArray(new String[item.size()]));
+
+                index++;
+            }
+        }
+
+        ListView<String[]> tableRows = new ListView<String[]>(rowId, rows) {
+            @Override
+            protected void populateItem(ListItem<String[]> item) {
+                String[] row = item.getModelObject();
+
+                // add links to second level dashboards
+                PageParameters pageParameters = new PageParameters();
+                if (row[0] != null) {
+                    pageParameters.add(ReportsConstants.PARAM_TRANSACTION_ID, row[0]);
+                }
+                BookmarkablePageLink link = null;
+                try {
+                    link = new BookmarkablePageLink("link",
+                            Class.forName("org.devgateway.eudevfin.dim.pages.transaction.custom.ViewCustomTransactionPage"), pageParameters);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+                item.add(link);
+                link.add(new Label("linkName", row[1]));
+
+                if(typeOfTable.equals(ReportsConstants.isCountry)) {
+                    item.add(new Label("col1", row[2]));
+                    item.add(new Label("col2", row[3]));
+                    item.add(new Label("col3", row[4]));
+                    item.add(new Label("col4", row[6]));
+                    item.add(new Label("col5", row[7]));
+                }
+            }
+        };
+
+        return tableRows;
+    }
+
+    // take more info from the database: sector, country, institution, channel
+    private static void getMoreInfo(List<List<String>> resultSet, FinancialTransactionService financialTransactionService) {
+        int index = 0;
+        for (List<String> item : resultSet) {
+            if (index % 2 != 0) {
+                index++;
+                continue;
+            }
+
+            long transactionId = Long.parseLong(item.get(0));
+            FinancialTransaction financialTransaction = financialTransactionService.findOne(transactionId).getEntity();
+            if (financialTransaction.getSector() != null) {
+                resultSet.get(index + 1).add(financialTransaction.getSector().getName());
+            } else {
+                resultSet.get(index + 1).add(null);
+            }
+            if (financialTransaction.getRecipient() != null) {
+                resultSet.get(index + 1).add(financialTransaction.getRecipient().getName());
+            }
+            else {
+                resultSet.get(index + 1).add(null);
+            }
+            if (financialTransaction.getExtendingAgency() != null) {
+                resultSet.get(index + 1).add(financialTransaction.getExtendingAgency().getName());
+            } else {
+                resultSet.get(index + 1).add(null);
+            }
+            if (financialTransaction.getChannel() != null) {
+                resultSet.get(index + 1).add(financialTransaction.getChannel().getName());
+            } else {
+                resultSet.get(index + 1).add(null);
+            }
+
+            index++;
+        }
     }
 
     /*

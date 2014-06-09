@@ -18,12 +18,13 @@ public class ReportsConstants {
     public static final String AGENCY_PARAM = "agencyParam";
     public static final String TYPEOFFLOW_PARAM = "typeOfFlowParam";
     public static final String TYPEOFAID_PARAM = "typeOfAidParam";
-    public static final String TRANSACTIONID_PARAM = "transactionIdParam";
     public static final String HUMANITARIANAID_PARAM = "humanitarianAidParam";
     public static final String COFINANCING_PARAM = "coFinancingParam";
     public static final String CPAONLY_PARAM = "CPAOnlyParam";
     public static final String EXPENDITURE_PARAM = "ExpenditureParam";
     public static final String BUDGETCODES_PARAM = "budgetCodesParam";
+
+    public static final String PARAM_TRANSACTION_ID = "transactionId";
 
     public static final String ROOT_SECTOR = "Root Sector Category";
 
