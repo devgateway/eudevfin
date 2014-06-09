@@ -422,7 +422,7 @@ public class ReportsController {
 
 			parameters.put("INTEREST_SUBREPORT_PATH", inputStreamMemoInterest);
 			parameters.put("EXPERT_SUBREPORT_PATH", inputStreamMemoExpert);
-			
+			parameters.put("KEYINDICATORS_SUBREPORT_PATH", "org/devgateway/eudevfin/reports/core/dac1/dac1_template_keyindicators.jasper");
 			JasperDesign jasperDesign = JRXmlLoader.load(inputStreamProcessed);
 			JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
 
