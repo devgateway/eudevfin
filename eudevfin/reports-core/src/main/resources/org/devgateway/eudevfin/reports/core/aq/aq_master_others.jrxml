@@ -7,31 +7,47 @@
 	<parameter name="FIRST_YEAR" class="java.lang.Number"/>
 	<parameter name="SECOND_YEAR" class="java.lang.Number"/>
     <queryString language="mdx">
-        <![CDATA[WITH
-MEMBER [Measures].[First Year] AS SUM(CrossJoin({[Reporting Year].[$P{FIRST_YEAR}]}, {[Measures].[Extended Amount No Flow]}))
-MEMBER [Measures].[Second Year] AS SUM(CrossJoin({[Reporting Year].[$P{SECOND_YEAR}]}, {[Measures].[Extended Amount No Flow]}))
+        <![CDATA[
+WITH
+MEMBER [Type of Finance].[First Year TOF1] AS SUM([Reporting Year].[$P{FIRST_YEAR}]*[Form Type].[#null]*[Type of Finance].[Code].[TYPE_OF_FINANCE##1])
+MEMBER [Type of Finance].[Second Year TOF1] AS SUM([Reporting Year].[$P{SECOND_YEAR}]*[Form Type].[#null]*[Type of Finance].[Code].[TYPE_OF_FINANCE##1])
+MEMBER [Type of Finance].[First Year TOF4] AS SUM([Reporting Year].[$P{FIRST_YEAR}]*[Form Type].[#null]*[Type of Finance].[Code].[TYPE_OF_FINANCE##4])
+MEMBER [Type of Finance].[Second Year TOF4] AS SUM([Reporting Year].[$P{SECOND_YEAR}]*[Form Type].[#null]*[Type of Finance].[Code].[TYPE_OF_FINANCE##4])
+MEMBER [Type of Finance].[First Year ODA GNI] AS SUM([Reporting Year].[$P{FIRST_YEAR}]*{[Form Type].[bilateralOda.advanceQuestionnaire], [Form Type].[multilateralOda.advanceQuestionnaire]}*[Type of Finance].[Code].Members)
+MEMBER [Type of Finance].[Second Year ODA GNI] AS SUM([Reporting Year].[$P{SECOND_YEAR}]*{[Form Type].[bilateralOda.advanceQuestionnaire], [Form Type].[multilateralOda.advanceQuestionnaire]}*[Type of Finance].[Code].Members)
 SELECT
-{[Measures].[First Year], [Measures].[Second Year]} ON COLUMNS,
-{Hierarchize({{[Type of Finance].[TYPE_OF_FINANCE##1].[GNI: Gross National Income], [Type of Finance].[TYPE_OF_FINANCE##2].[ODA % GNI], [Type of Finance].[TYPE_OF_FINANCE##3].[Total flows % GNI], [Type of Finance].[TYPE_OF_FINANCE##4].[Population]}})} ON ROWS
-FROM [Financial]]]>
+{[Measures].[Extended Amount No Flow], [Measures].[Extended Amount Currency NATLOECD]} ON COLUMNS,
+{
+[Type of Finance].[First Year TOF1],
+[Type of Finance].[Second Year TOF1],
+[Type of Finance].[First Year TOF4],
+[Type of Finance].[Second Year TOF4],
+[Type of Finance].[First Year ODA GNI],
+[Type of Finance].[Second Year ODA GNI]
+}
+ON ROWS
+FROM [Financial]
+
+
+]]>
     </queryString>
     <field name="GNI Y1" class="java.lang.Number">
-        <fieldDescription><![CDATA[Data([Measures].[First Year], [Type of Finance].[TYPE_OF_FINANCE##1].[GNI: Gross National Income])]]></fieldDescription>
+        <fieldDescription><![CDATA[Data([Measures].[Extended Amount No Flow], [Type of Finance].[First Year TOF1])]]></fieldDescription>
     </field>
     <field name="GNI Y2" class="java.lang.Number">
-        <fieldDescription><![CDATA[Data([Measures].[Second Year], [Type of Finance].[TYPE_OF_FINANCE##1].[GNI: Gross National Income])]]></fieldDescription>
+        <fieldDescription><![CDATA[Data([Measures].[Extended Amount No Flow], [Type of Finance].[Second Year TOF1])]]></fieldDescription>
     </field>
     <field name="ODA GNI Y1" class="java.lang.Number">
-        <fieldDescription><![CDATA[Data([Measures].[First Year], [Type of Finance].[TYPE_OF_FINANCE##2].[ODA % GNI])]]></fieldDescription>
+        <fieldDescription><![CDATA[Data([Measures].[Extended Amount Currency NATLOECD], [Type of Finance].[First Year ODA GNI])]]></fieldDescription>
     </field>
     <field name="ODA GNI Y2" class="java.lang.Number">
-        <fieldDescription><![CDATA[Data([Measures].[Second Year], [Type of Finance].[TYPE_OF_FINANCE##2].[ODA % GNI])]]></fieldDescription>
+        <fieldDescription><![CDATA[Data([Measures].[Extended Amount Currency NATLOECD], [Type of Finance].[Second Year ODA GNI])]]></fieldDescription>
     </field>
     <field name="Population Y1" class="java.lang.Number">
-        <fieldDescription><![CDATA[Data([Measures].[First Year], [Type of Finance].[TYPE_OF_FINANCE##4].[Population])]]></fieldDescription>
+        <fieldDescription><![CDATA[Data([Measures].[Extended Amount No Flow], [Type of Finance].[First Year TOF4])]]></fieldDescription>
     </field>
     <field name="Population Y2" class="java.lang.Number">
-        <fieldDescription><![CDATA[Data([Measures].[Second Year], [Type of Finance].[TYPE_OF_FINANCE##4].[Population])]]></fieldDescription>
+        <fieldDescription><![CDATA[Data([Measures].[Extended Amount No Flow], [Type of Finance].[Second Year TOF4])]]></fieldDescription>
     </field>
 	<background>
 		<band splitType="Stretch"/>
@@ -85,28 +101,28 @@ FROM [Financial]]]>
 				<textElement textAlignment="Right">
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{GNI Y1}.doubleValue()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{GNI Y1}.doubleValue()/1000000]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="455" y="0" width="100" height="14" uuid="dea22b10-8a98-4f42-886a-f7b0abe59353"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{GNI Y2}.doubleValue()]]></textFieldExpression>
-			</textField>
+				<textFieldExpression><![CDATA[$F{GNI Y2}.doubleValue()/1000000]]></textFieldExpression>
+			</textField> 
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="352" y="14" width="100" height="14" uuid="13d83d60-98b8-477c-8041-379fbd8dab05"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{ODA GNI Y1}.doubleValue()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{ODA GNI Y1}.doubleValue())*100/($F{GNI Y1}.doubleValue())]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="455" y="14" width="100" height="14" uuid="dd2d7c4d-beb8-4ba9-9c86-c9aaaf825f56"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{ODA GNI Y2}.doubleValue()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{ODA GNI Y2}.doubleValue())*100/($F{GNI Y2}.doubleValue())]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="352" y="28" width="100" height="14" uuid="d2bd1b10-04e0-489a-bdee-f16bedb20b05"/>
