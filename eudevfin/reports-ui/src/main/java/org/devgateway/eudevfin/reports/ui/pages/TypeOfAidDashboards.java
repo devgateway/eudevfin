@@ -13,14 +13,17 @@ import com.googlecode.wickedcharts.highcharts.options.series.SimpleSeries;
 import org.apache.log4j.Logger;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.StringValue;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
+import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
 import org.devgateway.eudevfin.reports.core.service.QueryService;
 import org.devgateway.eudevfin.reports.ui.components.PieChart;
 import org.devgateway.eudevfin.reports.ui.components.StackedBarChart;
+import org.devgateway.eudevfin.reports.ui.components.Table;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.ArrayList;
@@ -42,6 +45,9 @@ public class TypeOfAidDashboards extends ReportsDashboards {
     @SpringBean
     protected QueryService CdaService;
 
+    @SpringBean
+    private FinancialTransactionService financialTransactionService;
+
     public TypeOfAidDashboards(final PageParameters parameters) {
         // get the reporting year
         tableYear = Calendar.getInstance().get(Calendar.YEAR) - 1;
@@ -57,9 +63,9 @@ public class TypeOfAidDashboards extends ReportsDashboards {
     }
 
     private void addComponents() {
-
         addPieChart();
         addBarChart();
+        addTableList();
     }
 
     private void addPieChart() {
@@ -148,5 +154,33 @@ public class TypeOfAidDashboards extends ReportsDashboards {
                 .setColor(new HexColor("#3D96AE").brighten(new Float(-0.1))));
 
         add(stackedBarChart.getChart());
+    }
+
+    protected void addTableList () {
+        Label title = new Label("typeOfAidTableListTitle", new StringResourceModel("TypeOfAidDashboards.typeOfAidChart", this, null, null));
+        add(title);
+
+        Table table = new Table(CdaService, "typeOfAidTableList", "typeOfAidTableListRows", "typeOfAidDashboardsTableList") {
+            @Override
+            public ListView<String[]> getTableRows () {
+                super.getTableRows();
+
+                this.rows = new ArrayList<>();
+                this.result = this.runQuery();
+
+                return ReportsDashboardsUtils.processTableRowsTransactions(financialTransactionService,
+                        this.rows, this.result, this.rowId, ReportsConstants.isTypeOfAid);
+            }
+        };
+
+        // add MDX queries parameters
+        table.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
+        table.setParam("paramTypeOfAid", (typeOfAidParam != null ? typeOfAidParam : ""));
+
+        Label firstYear = new Label("firstYear", tableYear + " Disbursement");
+        table.getTable().add(firstYear);
+
+        add(table.getTable());
+        table.addTableRows();
     }
 }

@@ -68,6 +68,42 @@
                         <div wicket:id="sectorBarChart"/>
                     </div>
                 </div>
+                <br/>
+                <div class="span10 offset1">
+                    <div class="box">
+                        <div class="box-header">
+                            <h2>
+                                <div wicket:id="sectorTableListTitle"/>
+                            </h2>
+                        </div>
+                        <table wicket:id="sectorTableList">
+                            <thead>
+                            <tr>
+                                <th class="ui-state-default">Transaction title</th>
+                                <th class="ui-state-default">Total budget</th>
+                                <th class="ui-state-default" wicket:id="firstYear"></th>
+                                <th class="ui-state-default">Country</th>
+                                <th class="ui-state-default">Institution</th>
+                                <th class="ui-state-default">Implementing Channel</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr wicket:id="sectorTableListRows">
+                                <td>
+                                    <a href="#" wicket:id="link">
+                                        <span wicket:id="linkName">Transaction title</span>
+                                    </a>
+                                </td>
+                                <td wicket:id="col1" class="numeric">total budget</td>
+                                <td wicket:id="col2" class="numeric">disbursement</td>
+                                <td wicket:id="col3" class="string">country</td>
+                                <td wicket:id="col4" class="string">institution</td>
+                                <td wicket:id="col5" class="string">channel</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div> <!-- /row -->
         </div> <!-- /container -->
     </div> <!-- /reports-page -->

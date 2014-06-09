@@ -19,11 +19,6 @@
                 <div class="span7">
                     <h3 wicket:id="channel"/>
                 </div>
-                <div class="span8 offset 2">
-                    <div class="box">
-                        [table]
-                    </div>
-                </div>
                 <div class="span6">
                     <div class="box">
                         <div class="box-header">
@@ -42,6 +37,42 @@
                             </h2>
                         </div>
                         <div wicket:id="channelBarChart"/>
+                    </div>
+                </div>
+                <br/>
+                <div class="span10 offset1">
+                    <div class="box">
+                        <div class="box-header">
+                            <h2>
+                                <div wicket:id="channelTableListTitle"/>
+                            </h2>
+                        </div>
+                        <table wicket:id="channelTableList">
+                            <thead>
+                            <tr>
+                                <th class="ui-state-default">Transaction title</th>
+                                <th class="ui-state-default">Total budget</th>
+                                <th class="ui-state-default" wicket:id="firstYear"></th>
+                                <th class="ui-state-default">Sector</th>
+                                <th class="ui-state-default">Country</th>
+                                <th class="ui-state-default">Institution</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr wicket:id="channelTableListRows">
+                                <td>
+                                    <a href="#" wicket:id="link">
+                                        <span wicket:id="linkName">Transaction title</span>
+                                    </a>
+                                </td>
+                                <td wicket:id="col1" class="numeric">total budget</td>
+                                <td wicket:id="col2" class="numeric">disbursement</td>
+                                <td wicket:id="col3" class="string">sector</td>
+                                <td wicket:id="col4" class="string">country</td>
+                                <td wicket:id="col5" class="string">institution</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div> <!-- /row -->

@@ -756,12 +756,46 @@ public class ReportsDashboardsUtils {
                 item.add(link);
                 link.add(new Label("linkName", row[1]));
 
+                // for each dashboard we display something else
                 if(typeOfTable.equals(ReportsConstants.isCountry)) {
                     item.add(new Label("col1", row[2]));
                     item.add(new Label("col2", row[3]));
                     item.add(new Label("col3", row[4]));
                     item.add(new Label("col4", row[6]));
                     item.add(new Label("col5", row[7]));
+                } else {
+                    if(typeOfTable.equals(ReportsConstants.isSector)) {
+                        item.add(new Label("col1", row[2]));
+                        item.add(new Label("col2", row[3]));
+                        item.add(new Label("col3", row[5]));
+                        item.add(new Label("col4", row[6]));
+                        item.add(new Label("col5", row[7]));
+                    } else {
+                        if(typeOfTable.equals(ReportsConstants.isInstitution)) {
+                            item.add(new Label("col1", row[2]));
+                            item.add(new Label("col2", row[3]));
+                            item.add(new Label("col3", row[4]));
+                            item.add(new Label("col4", row[5]));
+                            item.add(new Label("col5", row[7]));
+                        } else {
+                            if(typeOfTable.equals(ReportsConstants.isTypeOfAid)) {
+                                item.add(new Label("col1", row[2]));
+                                item.add(new Label("col2", row[3]));
+                                item.add(new Label("col3", row[4]));
+                                item.add(new Label("col4", row[5]));
+                                item.add(new Label("col5", row[6]));
+                                item.add(new Label("col6", row[7]));
+                            } else {
+                                if(typeOfTable.equals(ReportsConstants.isChannel)) {
+                                    item.add(new Label("col1", row[2]));
+                                    item.add(new Label("col2", row[3]));
+                                    item.add(new Label("col3", row[4]));
+                                    item.add(new Label("col4", row[5]));
+                                    item.add(new Label("col5", row[6]));
+                                }
+                            }
+                        }
+                    }
                 }
             }
         };
