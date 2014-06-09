@@ -13,9 +13,11 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.StringValue;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
+import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
 import org.devgateway.eudevfin.reports.core.service.QueryService;
 import org.devgateway.eudevfin.reports.ui.components.PieChart;
 import org.devgateway.eudevfin.reports.ui.components.Table;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.ArrayList;
@@ -37,6 +39,9 @@ public class CountryDashboards extends ReportsDashboards {
     @SpringBean
     protected QueryService CdaService;
 
+    @SpringBean
+    private FinancialTransactionService financialTransactionService;
+
     public CountryDashboards(final PageParameters parameters) {
         // get the reporting year
         tableYear = Calendar.getInstance().get(Calendar.YEAR) - 1;
@@ -54,6 +59,7 @@ public class CountryDashboards extends ReportsDashboards {
     private void addComponents() {
         addTable();
         addChart();
+        addTableList();
     }
 
     protected void addTable () {
@@ -117,5 +123,33 @@ public class CountryDashboards extends ReportsDashboards {
                 .setType(SeriesType.PIE)
                 .setData(pieChart.getResultSeries()));
         add(pieChart.getChart());
+    }
+
+    protected void addTableList () {
+        Label title = new Label("countryTableListTitle", new StringResourceModel("CountryDashboards.countryChart", this, null, null));
+        add(title);
+
+        Table table = new Table(CdaService, "countryTableList", "countryTableListRows", "countryDashboardsTableList") {
+            @Override
+            public ListView<String[]> getTableRows () {
+                super.getTableRows();
+
+                this.rows = new ArrayList<>();
+                this.result = this.runQuery();
+
+                return ReportsDashboardsUtils.processTableRowsTransactions(financialTransactionService,
+                        this.rows, this.result, this.rowId, ReportsConstants.isCountry);
+            }
+        };
+
+        // add MDX queries parameters
+        table.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
+        table.setParam("paramCountry", (recipientParam != null ? recipientParam : ""));
+
+        Label firstYear = new Label("firstYear", tableYear + " Disbursement");
+        table.getTable().add(firstYear);
+
+        add(table.getTable());
+        table.addTableRows();
     }
 }
