@@ -142,7 +142,6 @@ public class TransactionTableListPanel<T extends FinancialTransaction> extends T
 					@Override
 					public void onClick() {
 						PageParameters pageParameters = new PageParameters(); 		
-						pageParameters.add(Constants.PARAM_TRANSACTION_TYPE, ((CustomFinancialTransaction)tempTx).getFormType());
 						pageParameters.add(TransactionPage.PARAM_TRANSACTION_ID, tempTx.getId());									
 						setResponsePage(ViewCustomTransactionPage.class, pageParameters);
 					}

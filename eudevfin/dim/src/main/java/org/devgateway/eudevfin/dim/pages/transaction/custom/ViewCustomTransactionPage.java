@@ -15,7 +15,10 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.util.string.Strings;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
+import org.devgateway.eudevfin.dim.pages.transaction.crs.TransactionPage;
+import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
 import org.devgateway.eudevfin.ui.common.Constants;
@@ -78,9 +81,23 @@ public class ViewCustomTransactionPage extends PrintableHeaderFooter<FinancialTr
 		
 		List<ITabWithKey> tabList = populateTabList(parameters);
 
-		long transactionId = parameters.get(PARAM_TRANSACTION_ID).toLong();
-		FinancialTransaction financialTransaction = financialTransactionService.findOne(transactionId).getEntity();
-
+		long transactionId = parameters.get(PARAM_TRANSACTION_ID).toLong();		
+		
+		CustomFinancialTransaction financialTransaction = (CustomFinancialTransaction) financialTransactionService.findOne(transactionId).getEntity();
+				
+		// redirect to self if the transactionType parameter is empty, throw an
+		// exception to prevent any infinite cycle
+		if (parameters.get(Constants.PARAM_TRANSACTION_TYPE).isEmpty()) {
+			if (Strings.isEmpty(financialTransaction.getFormType()))
+				throw new RuntimeException("Cannot guess the form type because the persisted property is empty");
+			PageParameters newPageParameters = new PageParameters();
+			newPageParameters.add(Constants.PARAM_TRANSACTION_TYPE, financialTransaction.getFormType());
+			newPageParameters.add(TransactionPage.PARAM_TRANSACTION_ID, financialTransaction.getId());
+			getRequestCycle().setResponsePage(ViewCustomTransactionPage.class, newPageParameters);
+			return;
+		}
+			
+		
 		CompoundPropertyModel<FinancialTransaction> model = new CompoundPropertyModel<FinancialTransaction>(
 				financialTransaction);
 		setModel(model);
