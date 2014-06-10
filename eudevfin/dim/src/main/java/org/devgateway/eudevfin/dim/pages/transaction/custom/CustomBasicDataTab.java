@@ -20,12 +20,12 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.BasicDataTab;
 import org.devgateway.eudevfin.financial.FileWrapper;
 import org.devgateway.eudevfin.metadata.common.domain.Category;
-import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.devgateway.eudevfin.metadata.common.util.CategoryConstants;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.components.MultiFileUploadField;
 import org.devgateway.eudevfin.ui.common.components.PermissionAwareContainer;
+import org.devgateway.eudevfin.ui.common.components.TextAreaInputField;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
 import org.devgateway.eudevfin.ui.common.components.VisibilityAwareContainer;
 import org.devgateway.eudevfin.ui.common.events.CurrencyChangedEventPayload;
@@ -50,7 +50,9 @@ import com.vaynberg.wicket.select2.ChoiceProvider;
  */
 public class CustomBasicDataTab extends BasicDataTab {
 
-    @SpringBean
+	private static final long serialVersionUID = 958677952375077385L;
+
+	@SpringBean
     private CategoryProviderFactory categoryFactory;
 
     public CustomBasicDataTab(final String id, final PageParameters parameters) {
@@ -113,19 +115,24 @@ public class CustomBasicDataTab extends BasicDataTab {
 
             final VisibilityAwareContainer firstAgencyGroup = new VisibilityAwareContainer("14group1stAgency");
             pac.add(firstAgencyGroup);
-
-            final DropDownField<Organization> firstCoFinancingAgency = new DropDownField<>("14b1stAgency",
-                    new RWComponentPropertyModel<Organization>("firstCoFinancingAgency"), this.organizationProvider);
+            
+            
+    		TextAreaInputField firstCoFinancingAgency = new TextAreaInputField("14b1stAgency",
+    				new RWComponentPropertyModel<String>("firstCoFinancingAgency"));
+    		firstCoFinancingAgency.maxContentLength(1024);
             firstAgencyGroup.add(firstCoFinancingAgency);
 
-            final DropDownField<Organization> secondCoFinancingAgency = new DropDownField<>("14e2ndAgency",
-                    new RWComponentPropertyModel<Organization>("secondCoFinancingAgency"), this.organizationProvider);
-            pac.add(secondCoFinancingAgency);
+            
+            TextAreaInputField secondCoFinancingAgency = new TextAreaInputField("14e2ndAgency",
+    				new RWComponentPropertyModel<String>("secondCoFinancingAgency"));
+            secondCoFinancingAgency.maxContentLength(1024);
+        	 pac.add(secondCoFinancingAgency);
 
-            final DropDownField<Organization> thirdCoFinancingAgency = new DropDownField<>("14h3rdAgency",
-                    new RWComponentPropertyModel<Organization>("thirdCoFinancingAgency"), this.organizationProvider);
-            pac.add(thirdCoFinancingAgency);
-
+            
+        	 TextAreaInputField thirdCoFinancingAgency = new TextAreaInputField("14h3rdAgency",
+    				new RWComponentPropertyModel<String>("thirdCoFinancingAgency"));
+        	 thirdCoFinancingAgency.maxContentLength(1024);
+        	 pac.add(thirdCoFinancingAgency);
 
             final ChoiceProvider<CurrencyUnit> currencyUnitProvider =
                     this.currencyUnitProviderFactory.

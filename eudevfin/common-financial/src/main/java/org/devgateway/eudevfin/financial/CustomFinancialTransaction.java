@@ -114,13 +114,6 @@ public class CustomFinancialTransaction extends FinancialTransaction {
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
     private LocalDateTime phasingOutYear;
 
-    @ManyToOne
-    private Organization firstCoFinancingAgency;
-    @ManyToOne
-    private Organization secondCoFinancingAgency;
-    @ManyToOne
-    private Organization thirdCoFinancingAgency;
-
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentCurrencyUnit")
     private CurrencyUnit firstAgencyCurrency;
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentCurrencyUnit")
@@ -247,28 +240,28 @@ public class CustomFinancialTransaction extends FinancialTransaction {
         this.projectCoFinanced = projectCoFinanced;
     }
 
-    public Organization getFirstCoFinancingAgency() {
-        return this.firstCoFinancingAgency;
+    public String getFirstCoFinancingAgency() {
+        return (String) this.get("firstCoFinancingAgency");
     }
 
-    public void setFirstCoFinancingAgency(final Organization firstCoFinancingAgency) {
-        this.firstCoFinancingAgency = firstCoFinancingAgency;
+    public void setFirstCoFinancingAgency(final String firstCoFinancingAgency) {
+    	   this.set("firstCoFinancingAgency", firstCoFinancingAgency);
     }
 
-    public Organization getSecondCoFinancingAgency() {
-        return this.secondCoFinancingAgency;
+    public String getSecondCoFinancingAgency() {
+        return (String) this.get("secondCoFinancingAgency");
     }
 
-    public void setSecondCoFinancingAgency(final Organization secondCoFinancingAgency) {
-        this.secondCoFinancingAgency = secondCoFinancingAgency;
+    public void setSecondCoFinancingAgency(final String secondCoFinancingAgency) {
+    	 this.set("secondCoFinancingAgency", secondCoFinancingAgency);
     }
 
-    public Organization getThirdCoFinancingAgency() {
-        return this.thirdCoFinancingAgency;
+    public String getThirdCoFinancingAgency() {
+    	return (String) this.get("thirdCoFinancingAgency");
     }
 
-    public void setThirdCoFinancingAgency(final Organization thirdCoFinancingAgency) {
-        this.thirdCoFinancingAgency = thirdCoFinancingAgency;
+    public void setThirdCoFinancingAgency(final String thirdCoFinancingAgency) {
+    	 this.set("thirdCoFinancingAgency", thirdCoFinancingAgency);
     }
 
     public CurrencyUnit getFirstAgencyCurrency() {
