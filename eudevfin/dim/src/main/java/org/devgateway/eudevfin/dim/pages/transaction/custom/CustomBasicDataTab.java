@@ -217,7 +217,7 @@ public class CustomBasicDataTab extends BasicDataTab {
             this.add(recipientPriority);
 
             final TextInputField<Integer> reportingYear = new TextInputField<>("7dPhasingOutYear", new YearToLocalDateTimeModel(new RWComponentPropertyModel<LocalDateTime>("phasingOutYear")));
-            reportingYear.typeInteger().required().range(1900, 2099).decorateMask("9999");
+            reportingYear.typeInteger().range(1900, 2099).decorateMask("9999");
             this.add(reportingYear);
 
         }
