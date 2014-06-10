@@ -185,6 +185,11 @@ public class CustomTransactionPage extends TransactionPage {
 		if (transaction.getTypeOfAid() != null)
 			send(getPage(), Broadcast.DEPTH, new Field13ChangedEventPayload(null, transaction.getTypeOfAid()
 					.getDisplayableCode()));
+
+		if (transaction.getDraft())
+			submitButton.setDefaultFormProcessing(false);
+		else
+			submitButton.setDefaultFormProcessing(true);
 	}
 
 }
