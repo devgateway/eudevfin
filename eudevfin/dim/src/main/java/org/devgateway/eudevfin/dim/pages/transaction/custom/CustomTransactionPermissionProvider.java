@@ -59,7 +59,7 @@ public class CustomTransactionPermissionProvider extends CRSTransactionPermissio
         permissions.get("15sectorPurposeCode").notCollected(SB.NON_ODA_PRIVATE_GRANTS);
 
 
-        permissions.put("14bisUploadDocumentation", new RoleActionMapping().required(SB.BILATERAL_ODA_CRS).required(SB.MULTILATERAL_ODA_CRS));
+        permissions.put("14bisUploadDocumentation", new RoleActionMapping().render(SB.BILATERAL_ODA_CRS).render(SB.MULTILATERAL_ODA_CRS));
         permissions.put("14aProjectCoFinanced", new RoleActionMapping().required(SB.BILATERAL_ODA_CRS));
         permissions.put("14coFinancing", new RoleActionMapping().render(SB.BILATERAL_ODA_CRS));
 
