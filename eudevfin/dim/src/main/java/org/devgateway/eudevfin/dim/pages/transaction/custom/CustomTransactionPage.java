@@ -109,9 +109,12 @@ public class CustomTransactionPage extends TransactionPage {
   						info(new NotificationMessage(new StringResourceModel("notification.draftState", CustomTransactionPage.this, null, null)));
   						approved.getField().setModelObject(false);
   						target.add(approved.getField());
+  						submitButton.setDefaultFormProcessing(false); //unvalidated form save is allowed as draft
 					}
-  					else
+  					else {
   						info(new NotificationMessage(new StringResourceModel("notification.nonDraftState", CustomTransactionPage.this, null, null)));
+  						submitButton.setDefaultFormProcessing(true); //unvalidated form save is NOT allowed as non-draft
+  					}
 					target.add(feedbackPanel);
 				}
   			 };
