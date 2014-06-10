@@ -581,7 +581,7 @@ public class CellTransformerImplementations {
 		public MetadataCell<String> innerTransform(final FinancialTransaction tx) {
 			String value = null;
 			if (tx.getFreestandingTechnicalCooperation() != null) {
-				value = tx.getFreestandingTechnicalCooperation() ? "1" : "0";
+				value = tx.getFreestandingTechnicalCooperation() ? "1" : " ";
 			}
 			final MetadataCell<String> cell = new MetadataCell<String>(value);
 			this.setDataTypeToString(cell);
@@ -597,7 +597,7 @@ public class CellTransformerImplementations {
 		public MetadataCell<String> innerTransform(final FinancialTransaction tx) {
 			String value = null;
 			if (tx.getProgrammeBasedApproach() != null) {
-				value = tx.getProgrammeBasedApproach() ? "1" : "0";
+				value = tx.getProgrammeBasedApproach() ? "1" : " ";
 			}
 			final MetadataCell<String> cell = new MetadataCell<String>(value);
 			this.setDataTypeToString(cell);
@@ -614,7 +614,7 @@ public class CellTransformerImplementations {
 		public MetadataCell<String> innerTransform(final FinancialTransaction tx) {
 			String value = null;
 			if (tx.getInvestment() != null) {
-				value = tx.getInvestment() ? "1" : "0";
+				value = tx.getInvestment() ? "1" : " ";
 			}
 			final MetadataCell<String> cell = new MetadataCell<String>(value);
 			this.setDataTypeToString(cell);
@@ -631,7 +631,7 @@ public class CellTransformerImplementations {
 		public MetadataCell<String> innerTransform(final FinancialTransaction tx) {
 			String value = null;
 			if (tx.getAssociatedFinancing() != null) {
-				value = tx.getAssociatedFinancing() ? "1" : "0";
+				value = tx.getAssociatedFinancing() ? "1" : " ";
 			}
 			final MetadataCell<String> cell = new MetadataCell<String>(value);
 			this.setDataTypeToString(cell);
