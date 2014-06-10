@@ -16,7 +16,7 @@ MEMBER [Type of Finance].[Second Year TOF4] AS SUM([Reporting Year].[$P{SECOND_Y
 MEMBER [Type of Finance].[First Year ODA GNI] AS SUM([Reporting Year].[$P{FIRST_YEAR}]*{[Form Type].[bilateralOda.advanceQuestionnaire], [Form Type].[multilateralOda.advanceQuestionnaire]}*[Type of Finance].[Code].Members)
 MEMBER [Type of Finance].[Second Year ODA GNI] AS SUM([Reporting Year].[$P{SECOND_YEAR}]*{[Form Type].[bilateralOda.advanceQuestionnaire], [Form Type].[multilateralOda.advanceQuestionnaire]}*[Type of Finance].[Code].Members)
 SELECT
-{[Measures].[Extended Amount No Flow], [Measures].[Extended Amount Currency NATLOECD]} ON COLUMNS,
+{[Measures].[Extended Amount No Flow], [Measures].[Net Amount Currency NATLOECD]} ON COLUMNS,
 {
 [Type of Finance].[First Year TOF1],
 [Type of Finance].[Second Year TOF1],
@@ -38,10 +38,10 @@ FROM [Financial]
         <fieldDescription><![CDATA[Data([Measures].[Extended Amount No Flow], [Type of Finance].[Second Year TOF1])]]></fieldDescription>
     </field>
     <field name="ODA GNI Y1" class="java.lang.Number">
-        <fieldDescription><![CDATA[Data([Measures].[Extended Amount Currency NATLOECD], [Type of Finance].[First Year ODA GNI])]]></fieldDescription>
+        <fieldDescription><![CDATA[Data([Measures].[Net Amount Currency NATLOECD], [Type of Finance].[First Year ODA GNI])]]></fieldDescription>
     </field>
     <field name="ODA GNI Y2" class="java.lang.Number">
-        <fieldDescription><![CDATA[Data([Measures].[Extended Amount Currency NATLOECD], [Type of Finance].[Second Year ODA GNI])]]></fieldDescription>
+        <fieldDescription><![CDATA[Data([Measures].[Net Amount Currency NATLOECD], [Type of Finance].[Second Year ODA GNI])]]></fieldDescription>
     </field>
     <field name="Population Y1" class="java.lang.Number">
         <fieldDescription><![CDATA[Data([Measures].[Extended Amount No Flow], [Type of Finance].[First Year TOF4])]]></fieldDescription>

@@ -14,7 +14,7 @@ MEMBER [Type of Finance].[Year TOF4] AS SUM([Reporting Year].[$P{REPORTING_YEAR}
 MEMBER [Type of Finance].[Year ODA] AS SUM([Reporting Year].[$P{REPORTING_YEAR}]*{[Form Type].[bilateralOda.CRS], [Form Type].[multilateralOda.CRS]}*[Type of Finance].[Code].Members)
 MEMBER [Type of Finance].[Year ODA OOF] AS SUM([Reporting Year].[$P{REPORTING_YEAR}]*{[Form Type].[bilateralOda.CRS], [Form Type].[multilateralOda.CRS], [Form Type].[nonOda.nonExport], [Form Type].[nonOda.export], [Form Type].[nonOda.privateGrants], [Form Type].[nonOda.privateMarket], [Form Type].[nonOda.otherFlows]}*[Type of Finance].[Code].Members)
 SELECT
-{[Measures].[Extended Amount No Flow], [Measures].[Extended Amount Currency NATLOECD]} ON COLUMNS,
+{[Measures].[Extended Amount No Flow], [Measures].[Net Amount Currency NATLOECD]} ON COLUMNS,
 {
 [Type of Finance].[Year TOF1],
 [Type of Finance].[Year TOF4],
@@ -31,10 +31,10 @@ FROM [Financial]]]>
 		<fieldDescription><![CDATA[Data([Measures].[Extended Amount No Flow], [Type of Finance].[Year TOF4])]]></fieldDescription>
 	</field>
 	<field name="ODA" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Extended Amount Currency NATLOECD], [Type of Finance].[Year ODA])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Net Amount Currency NATLOECD], [Type of Finance].[Year ODA])]]></fieldDescription>
 	</field>
 	<field name="ODA OOF" class="java.lang.Number">
-		<fieldDescription><![CDATA[Data([Measures].[Extended Amount Currency NATLOECD], [Type of Finance].[Year ODA OOF])]]></fieldDescription>
+		<fieldDescription><![CDATA[Data([Measures].[Net Amount Currency NATLOECD], [Type of Finance].[Year ODA OOF])]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
