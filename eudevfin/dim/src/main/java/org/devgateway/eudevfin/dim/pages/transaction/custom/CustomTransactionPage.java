@@ -13,7 +13,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxCheckBox;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
@@ -35,6 +34,7 @@ import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.CheckBoxField;
 import org.devgateway.eudevfin.ui.common.events.Field12ChangedEventPayload;
 import org.devgateway.eudevfin.ui.common.events.Field13ChangedEventPayload;
+import org.devgateway.eudevfin.ui.common.events.Field14aChangedEventPayload;
 import org.devgateway.eudevfin.ui.common.permissions.RoleActionMapping;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -109,9 +109,12 @@ public class CustomTransactionPage extends TransactionPage {
   						info(new NotificationMessage(new StringResourceModel("notification.draftState", CustomTransactionPage.this, null, null)));
   						approved.getField().setModelObject(false);
   						target.add(approved.getField());
+  						submitButton.setDefaultFormProcessing(false); //unvalidated form save is allowed as draft
 					}
-  					else
+  					else {
   						info(new NotificationMessage(new StringResourceModel("notification.nonDraftState", CustomTransactionPage.this, null, null)));
+  						submitButton.setDefaultFormProcessing(true); //unvalidated form save is NOT allowed as non-draft
+  					}
 					target.add(feedbackPanel);
 				}
   			 };
@@ -175,6 +178,10 @@ public class CustomTransactionPage extends TransactionPage {
 			send(getPage(), Broadcast.DEPTH, new Field12ChangedEventPayload(null, transaction.getTypeOfFinance()
 					.getDisplayableCode()));
 
+		if (transaction.getProjectCoFinanced()!=null)
+			send(getPage(), Broadcast.DEPTH, new Field14aChangedEventPayload(null, (transaction.getProjectCoFinanced())));
+
+		
 		if (transaction.getTypeOfAid() != null)
 			send(getPage(), Broadcast.DEPTH, new Field13ChangedEventPayload(null, transaction.getTypeOfAid()
 					.getDisplayableCode()));

@@ -82,7 +82,7 @@ public class VolumeDataTab extends PreviewableFormPanel implements PermissionAwa
         add(commitments);
 
         TextInputField<BigDecimal> amountsExtended = new TextInputField<>("34amountsExtended", new BigMoneyModel(new RWComponentPropertyModel<BigMoney>("amountsExtended"), readOnlyCurrencyModel));
-        amountsExtended.typeBigDecimal().required().add(new CurrencyUpdateBehavior());
+        amountsExtended.typeBigDecimal().add(new CurrencyUpdateBehavior());
         add(amountsExtended);
 
         TextInputField<BigDecimal> amountsReceived = new TextInputField<>("35amountsReceived", new BigMoneyModel(new RWComponentPropertyModel<BigMoney>("amountsReceived"), readOnlyCurrencyModel));

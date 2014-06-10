@@ -83,6 +83,8 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 	protected final NotificationPanel feedbackPanel;
 
 	protected Form form;
+	
+	protected TransactionPageSubmitButton submitButton;
 
 	public class TransactionPageSubmitButton extends BootstrapSubmitButton {
 		private static final long serialVersionUID = -8310280845870280505L;
@@ -228,7 +230,7 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 				.positionTabs(BootstrapJSTabbedPanel.Orientation.RIGHT);
 		form.add(bc);
 
-        TransactionPageSubmitButton submitButton = new TransactionPageSubmitButton("submit", new StringResourceModel("button.submit", this, null, null)) {
+		submitButton = new TransactionPageSubmitButton("submit", new StringResourceModel("button.submit", this, null, null)) {
             private static final long serialVersionUID = -1909494416938537482L;
 
             @Override
@@ -281,7 +283,7 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 
 		feedbackPanel = new NotificationPanel("feedback");
 		feedbackPanel.setOutputMarkupId(true);
-		feedbackPanel.hideAfter(Duration.seconds(3));
+		feedbackPanel.hideAfter(Duration.seconds(5));
 		add(feedbackPanel);
 	}
 

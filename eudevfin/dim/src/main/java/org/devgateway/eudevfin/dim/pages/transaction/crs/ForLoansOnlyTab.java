@@ -68,7 +68,7 @@ public class ForLoansOnlyTab extends PreviewableFormPanel implements PermissionA
 		TextInputField<String> interestRate = new TextInputField<>("46interestRate", new InterestRateToBigDecimalModel(
 				new RWComponentPropertyModel<BigDecimal>("interestRate")));
 		interestRate.getField().add(new LoansField12UpdateBehavior());
-		interestRate.typeString().required().decorateMask("99999");
+		interestRate.typeString().decorateMask("99999");
         
         add(interestRate);
 
