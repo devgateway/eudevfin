@@ -863,6 +863,14 @@ public class ReportsDashboardsUtils {
         return df.format(amount);
     }
 
+    public static String AmountFormatMorePrecision (double amount) {
+        Locale locale = LocaleContextHolder.getLocale();
+        DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance(locale);
+        df.applyPattern("#,###.####");
+
+        return df.format(amount);
+    }
+
     public static String twoDecimalFormat (String amount) {
         Locale locale = LocaleContextHolder.getLocale();
         DecimalFormat twoDForm = (DecimalFormat) NumberFormat.getNumberInstance(locale);

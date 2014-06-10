@@ -79,13 +79,13 @@
             WITH
             MEMBER Measures.[Curent (USD m)] AS IIF([Measures].[Net Amount Currency NATLOECD] > 0, [Measures].[Net Amount Currency NATLOECD], Null)
             MEMBER Measures.[${REPORT_CURRENCY_CODE}] AS IIF([Measures].[Net Amount] > 0, [Measures].[Net Amount], Null)
-            MEMBER Measures.[ODA/GNI] AS SUM(CrossJoin({[Type of Finance].[TYPE_OF_FINANCE##2].[ODA % GNI]}, {[Measures].[Extended Amount No Flow]}))
+            MEMBER Measures.[ODA/GNI] AS Measures.[${REPORT_CURRENCY_CODE}] / SUM(CrossJoin({[Type of Finance].[Name].[GNI: Gross National Income]}, {[Measures].[Extended Amount No Flow]})) * 100, FORMAT_STRING='0.0000'
             MEMBER Measures.[Bilateral share] AS (SUM(CrossJoin({[BiMultilateral].[Name].[Bilateral]}, {[Measures].[Curent (USD m)]})) * 100) / SUM(CrossJoin({[BiMultilateral].[Name].Members}, {[Measures].[Curent (USD m)]})), FORMAT_STRING='0.00'
             SELECT
             {{[Reporting Year].[${YEAR1}], [Reporting Year].[${YEAR}]}} ON COLUMNS,
             {[Measures].[Curent (USD m)], [Measures].[${REPORT_CURRENCY_CODE}], Measures.[ODA/GNI], Measures.[Bilateral share]} ON ROWS
             FROM [Financial]
-            WHERE (Union(CrossJoin({[Type of Flow].[Name].[ODA (Official Development Assistance)]}, {[Form Type].[bilateralOda.CRS]}), Union(CrossJoin({[Type of Flow].[Name].[ODA (Official Development Assistance)]}, {[Form Type].[multilateralOda.CRS]}), Union(CrossJoin({[Type of Flow].[Name].[Non flow (e.g. GNI)]}, {[Form Type].[bilateralOda.CRS]}), CrossJoin({[Type of Flow].[Name].[Non flow (e.g. GNI)]}, {[Form Type].[multilateralOda.CRS]})))))
+            WHERE Hierarchize(Union(CrossJoin({[Type of Flow].[Name].[Non flow (e.g. GNI)]}, {[Form Type].[bilateralOda.CRS]}), Union(CrossJoin({[Type of Flow].[Name].[Non flow (e.g. GNI)]}, {[Form Type].[multilateralOda.CRS]}), Union(CrossJoin({[Type of Flow].[Name].[Non flow (e.g. GNI)]}, {[Form Type].[#null]}), Union(CrossJoin({[Type of Flow].[Name].[ODA (Official Development Assistance)]}, {[Form Type].[bilateralOda.CRS]}), Union(CrossJoin({[Type of Flow].[Name].[ODA (Official Development Assistance)]}, {[Form Type].[multilateralOda.CRS]}), CrossJoin({[Type of Flow].[Name].[ODA (Official Development Assistance)]}, {[Form Type].[#null]})))))))
             ]]>
         </Query>
     </DataAccess>
