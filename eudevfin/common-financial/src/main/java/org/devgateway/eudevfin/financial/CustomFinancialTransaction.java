@@ -9,6 +9,7 @@
 package org.devgateway.eudevfin.financial;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -21,7 +22,6 @@ import javax.persistence.OneToMany;
 
 import org.devgateway.eudevfin.auth.common.domain.PersistedUserGroup;
 import org.devgateway.eudevfin.metadata.common.domain.Category;
-import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Columns;
@@ -165,7 +165,7 @@ public class CustomFinancialTransaction extends FinancialTransaction {
     private CurrencyUnit otherCurrency;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private Set<FileWrapper> uploadDocumentation;
+    private Set<FileWrapper> uploadDocumentation=new HashSet<>();
 
 
     public Set<FileWrapper> getUploadDocumentation() {
