@@ -28,8 +28,10 @@ import org.devgateway.eudevfin.ui.common.components.PermissionAwareContainer;
 import org.devgateway.eudevfin.ui.common.components.TextAreaInputField;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
 import org.devgateway.eudevfin.ui.common.components.VisibilityAwareContainer;
+import org.devgateway.eudevfin.ui.common.events.CofinancingField14UpdateBehavior;
 import org.devgateway.eudevfin.ui.common.events.CurrencyChangedEventPayload;
 import org.devgateway.eudevfin.ui.common.events.CurrencyUpdateBehavior;
+import org.devgateway.eudevfin.ui.common.events.Field14aChangedEventPayload;
 import org.devgateway.eudevfin.ui.common.models.BigMoneyModel;
 import org.devgateway.eudevfin.ui.common.models.YearToLocalDateTimeModel;
 import org.devgateway.eudevfin.ui.common.providers.CategoryProviderFactory;
@@ -108,8 +110,16 @@ public class CustomBasicDataTab extends BasicDataTab {
             final PermissionAwareContainer pac = new PermissionAwareContainer("14coFinancing");
             this.add(pac);
 
-            final DropDownField<Boolean> projectCoFinanced = new DropDownField<>("14aProjectCoFinanced", new RWComponentPropertyModel<Boolean>("projectCoFinanced"),
-                    SB.boolProvider);
+            final DropDownField<Boolean> projectCoFinanced = new DropDownField<Boolean>("14aProjectCoFinanced", new RWComponentPropertyModel<Boolean>("projectCoFinanced"),
+                    SB.boolProvider) { 
+    			@Override
+    			protected void onUpdate(AjaxRequestTarget target) {
+    				Boolean modelObject = this.getField().getModelObject();				
+    				if (modelObject != null)
+    					send(getPage(), Broadcast.DEPTH,
+    							new Field14aChangedEventPayload(target,modelObject));
+    			}
+            };
             this.add(projectCoFinanced);
 
 
@@ -120,18 +130,21 @@ public class CustomBasicDataTab extends BasicDataTab {
     		TextAreaInputField firstCoFinancingAgency = new TextAreaInputField("14b1stAgency",
     				new RWComponentPropertyModel<String>("firstCoFinancingAgency"));
     		firstCoFinancingAgency.maxContentLength(1024);
+    		firstCoFinancingAgency.getField().add(new CofinancingField14UpdateBehavior());      
             firstAgencyGroup.add(firstCoFinancingAgency);
 
             
             TextAreaInputField secondCoFinancingAgency = new TextAreaInputField("14e2ndAgency",
     				new RWComponentPropertyModel<String>("secondCoFinancingAgency"));
             secondCoFinancingAgency.maxContentLength(1024);
+            secondCoFinancingAgency.getField().add(new CofinancingField14UpdateBehavior());      
         	 pac.add(secondCoFinancingAgency);
 
             
         	 TextAreaInputField thirdCoFinancingAgency = new TextAreaInputField("14h3rdAgency",
     				new RWComponentPropertyModel<String>("thirdCoFinancingAgency"));
         	 thirdCoFinancingAgency.maxContentLength(1024);
+        	 thirdCoFinancingAgency.getField().add(new CofinancingField14UpdateBehavior());  
         	 pac.add(thirdCoFinancingAgency);
 
             final ChoiceProvider<CurrencyUnit> currencyUnitProvider =
@@ -139,6 +152,7 @@ public class CustomBasicDataTab extends BasicDataTab {
                             getCurrencyUnitProviderInstance(CurrencyUnitProviderFactory.ALL_SORTED_CURRENCIES_PROVIDER);
 
             final RWComponentPropertyModel<CurrencyUnit> firstAgencyCurrencyModel = new RWComponentPropertyModel<>("firstAgencyCurrency");
+        
             final DropDownField<CurrencyUnit> firstAgencyCurrency = new DropDownField<CurrencyUnit>("14d1stAgencyCurrency", firstAgencyCurrencyModel,
                     currencyUnitProvider) {
                 @Override
@@ -146,12 +160,14 @@ public class CustomBasicDataTab extends BasicDataTab {
                     this.send(CustomBasicDataTab.this, Broadcast.DEPTH, new CurrencyChangedEventPayload(target));
                 }
             };
-            //firstAgencyCurrency.required();
+
+            firstAgencyCurrency.getField().add(new CofinancingField14UpdateBehavior());  
             firstAgencyGroup.add(firstAgencyCurrency);
 
             final TextInputField<BigDecimal> firstAgencyAmount = new TextInputField<>("14c1stAgencyAmount",
                     new BigMoneyModel(new RWComponentPropertyModel<BigMoney>("firstAgencyAmount"), firstAgencyCurrencyModel));
             firstAgencyAmount.typeBigDecimal().add(new CurrencyUpdateBehavior());
+            firstAgencyAmount.getField().add(new CofinancingField14UpdateBehavior());  
             firstAgencyGroup.add(firstAgencyAmount);
 
 
@@ -163,12 +179,13 @@ public class CustomBasicDataTab extends BasicDataTab {
                     this.send(CustomBasicDataTab.this, Broadcast.DEPTH, new CurrencyChangedEventPayload(target));
                 }
             };
-            //secondAgencyCurrency.required();
+            secondAgencyCurrency.getField().add(new CofinancingField14UpdateBehavior());  
             pac.add(secondAgencyCurrency);
 
             final TextInputField<BigDecimal> secondAgencyAmount = new TextInputField<>("14f2ndAgencyAmount",
                     new BigMoneyModel(new RWComponentPropertyModel<BigMoney>("secondAgencyAmount"), secondAgencyCurrencyModel));
             secondAgencyAmount.typeBigDecimal().add(new CurrencyUpdateBehavior());
+            secondAgencyAmount.getField().add(new CofinancingField14UpdateBehavior());  
             pac.add(secondAgencyAmount);
 
 
@@ -180,12 +197,13 @@ public class CustomBasicDataTab extends BasicDataTab {
                     this.send(CustomBasicDataTab.this, Broadcast.DEPTH, new CurrencyChangedEventPayload(target));
                 }
             };
-            //thirdAgencyCurrency.required();
+            thirdAgencyCurrency.getField().add(new CofinancingField14UpdateBehavior());  
             pac.add(thirdAgencyCurrency);
 
             final TextInputField<BigDecimal> thirdAgencyAmount = new TextInputField<>("14i3rdAgencyAmount",
                     new BigMoneyModel(new RWComponentPropertyModel<BigMoney>("thirdAgencyAmount"), thirdAgencyCurrencyModel));
             thirdAgencyAmount.typeBigDecimal().add(new CurrencyUpdateBehavior());
+            thirdAgencyAmount.getField().add(new CofinancingField14UpdateBehavior());  
             pac.add(thirdAgencyAmount);
         }
     }
