@@ -23,6 +23,7 @@
     <entry key="nationalInstitution.label">National Institution</entry>
     <entry key="multilateralAgency.label">Multilateral Agency</entry>
     <entry key="typeOfFlowbiMulti.label">Type of Flow (Bilateral or Multilateral)</entry>
+    <entry key="typeOfFlowbiMulti.error">The Type of Flow field should not be empty.</entry>
     <entry key="typeOfAid.label">Type of Aid</entry>
     <entry key="sector.label">Sector</entry>
     <entry key="year.label">Year</entry>
@@ -38,7 +39,6 @@
     <entry key="pricesUSDCurrency">US Dollar</entry>
     <entry key="pricesNationalCurrency">National Currency</entry>
     <entry key="button.submit">Search</entry>
-    <entry key="geography.error">a country could not be selected if you want to have geographical aggregates</entry>
     <entry key="geography.help">If you want to display data for the entire region, leave the ODA recipient country and Sector fields blank</entry>
     <entry key="reports.info">Please note than selection in the fields of this page is based on projects which have been approved  by the Government.</entry>
 

@@ -70,7 +70,7 @@ public abstract class CustomReportsPage extends ReportsDashboards {
 
     protected final NotificationPanel feedbackPanel;
 
-    protected IFormValidator geographyValidator;
+    protected IFormValidator typeOfFlowValidator;
 
     protected final Form form;
 
@@ -177,13 +177,11 @@ public abstract class CustomReportsPage extends ReportsDashboards {
         // select first National Currency
         customReportsModel.setPricesCurrency(new StringResourceModel("pricesNationalCurrency", this, null, null).getObject());
 
-        // add geography&recipient validator
-        // (ODAEU-238) a country could not be selected if I want to have only regional aggregates
-        geographyValidator = new IFormValidator() {
+        typeOfFlowValidator = new IFormValidator() {
             @Override
             public FormComponent<Category>[] getDependentFormComponents() {
                 List<FormComponent<Category>> list = new ArrayList<FormComponent<Category>>();
-                list.add(CustomReportsPage.this.geography.getField());
+                list.add(CustomReportsPage.this.typeOfFlowBiMulti.getField());
 
                 return list.toArray(new FormComponent[0]);
             }
@@ -191,14 +189,12 @@ public abstract class CustomReportsPage extends ReportsDashboards {
             @Override
             public void validate(Form<?> form) {
                 FormComponent<Category>[] components = this.getDependentFormComponents();
-                Select2Choice<Category> geographyComp = (Select2Choice<Category>) components[0];
+                Select2Choice<Category> typeOfFlowComp = (Select2Choice<Category>) components[0];
 
-                Area recipient = ((CustomReportsModel) form.getInnermostModel().getObject()).getRecipient();
-
-                if (geographyComp.getModelObject() != null && recipient != null) {
+                if (typeOfFlowComp.getModelObject() == null) {
                     ValidationError error = new ValidationError();
-                    error.addKey("geography.error");
-                    geographyComp.error(error);
+                    error.addKey("typeOfFlowbiMulti.error");
+                    typeOfFlowComp.error(error);
                 }
             }
         };
@@ -270,7 +266,7 @@ public abstract class CustomReportsPage extends ReportsDashboards {
         typeOfFlowBiMulti.setOutputMarkupId(true);
         typeOfFlowBiMulti.setRenderBodyOnly(false);
 
-        // form.add(geographyValidator);
+        form.add(typeOfFlowValidator);
         form.add(geography);
         form.add(recipient);
         form.add(nationalInstitution);
