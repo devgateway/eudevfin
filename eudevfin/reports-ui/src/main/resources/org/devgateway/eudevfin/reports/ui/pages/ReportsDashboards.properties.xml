@@ -52,18 +52,18 @@
     <entry key="ReportsPage.odaByIncomeGroupChart">By Income Group (USD m)</entry>
     <entry key="ReportsPage.odaBySectorChart">By Sector</entry>
 
-    <entry key="ReportsCountrySectorDashboards.page.title">Reports Country &amp; Sector Results</entry>
+    <entry key="ReportsCountrySectorDashboards.page.title">Reports Country &amp; Sector</entry>
 
-    <entry key="ReportsCountryInstitutionDashboards.page.title">Reports Country &amp; Institution Results</entry>
+    <entry key="ReportsCountryInstitutionDashboards.page.title">Reports Country &amp; Institution</entry>
 
-    <entry key="ReportsInstitutionTypeOfAidDashboards.page.title">Reports Institution &amp; Type Of Aid Results</entry>
+    <entry key="ReportsInstitutionTypeOfAidDashboards.page.title">Reports Institution &amp; Type Of Aid</entry>
     <entry key="ReportsInstitutionTypeOfAidDashboards.nationalCurrency">National Currency</entry>
     <entry key="ReportsInstitutionTypeOfAidDashboards.humanitarianAidTableTitle">Memo item: Humanitarian Assistance</entry>
     <entry key="ReportsInstitutionTypeOfAidDashboards.typeOfAid">Type of Aid</entry>
     <entry key="ReportsInstitutionTypeOfAidDashboards.multilateralAgency">Multilateral Agency</entry>
     <entry key="ReportsInstitutionTypeOfAidDashboards.biMultilateralChart">Memorandum Item - Bi/Multilateral Chart (Total ODA)</entry>
 
-    <entry key="ReportsImplementationStatusDashboards.page.title">Reports Implementation Status Results</entry>
+    <entry key="ReportsImplementationStatusDashboards.page.title">Reports Implementation Status</entry>
     <entry key="commitment">Commitment</entry>
     <entry key="disbursement">Disbursement</entry>
 
