@@ -208,7 +208,8 @@ public class ReportsCountrySectorDashboards extends ReportsDashboards {
                 this.rows = new ArrayList<>();
                 this.result = this.runQuery();
 
-                return ReportsDashboardsUtils.processTableRows(this.rows, this.result, this.rowId, ReportsConstants.isCountry);
+                return ReportsDashboardsUtils.processTableRows(this.rows, this.result, this.rowId,
+                        currencyParam, ReportsConstants.isCountry);
             }
         };
 
@@ -330,7 +331,8 @@ public class ReportsCountrySectorDashboards extends ReportsDashboards {
                 this.rows = new ArrayList<>();
                 this.result = this.runQuery();
 
-                return ReportsDashboardsUtils.processTableRows(this.rows, this.result, this.rowId, ReportsConstants.isSector);
+                return ReportsDashboardsUtils.processTableRows(this.rows, this.result, this.rowId,
+                        currencyParam, ReportsConstants.isSector);
             }
         };
 

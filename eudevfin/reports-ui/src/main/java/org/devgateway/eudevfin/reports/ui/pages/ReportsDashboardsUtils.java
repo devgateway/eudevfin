@@ -37,7 +37,8 @@ public class ReportsDashboardsUtils {
      * since the custom reports tables are similar we use only one function to process the rows
      */
     // it's used in country sector dashboards
-    public static ListView<String[]> processTableRows (List<String[]> rows, QueryResult result, String rowId, final String typeOfTable) {
+    public static ListView<String[]> processTableRows (List<String[]> rows, QueryResult result, String rowId,
+                                                       final String currencyParam, final String typeOfTable) {
         List <List<String>> resultSet = result.getResultset();
 
         if(resultSet.size() != 0 && resultSet.get(0).size() > 3) {
@@ -151,6 +152,10 @@ public class ReportsDashboardsUtils {
 
                 // add links to second level dashboards
                 PageParameters pageParameters = new PageParameters();
+                if (currencyParam != null) {
+                    pageParameters.add(ReportsConstants.ISNATIONALCURRENCY_PARAM, currencyParam);
+                }
+
                 BookmarkablePageLink link = null;
                 if(typeOfTable.equals(ReportsConstants.isCountry)) {
                     // for country table create links only for Countries and not for Geography
@@ -318,7 +323,8 @@ public class ReportsDashboardsUtils {
     // it used in country and institution
     // institution and type of aid dashboards
     public static ListView<String[]> processTableRowsWithTotal (List<String[]> rows, QueryResult result, String rowId,
-                                                                Boolean calculateTotal, final String typeOfTable, final Boolean addSecondLink) {
+                                                                Boolean calculateTotal, final String currencyParam,
+                                                                final String typeOfTable, final Boolean addSecondLink) {
         List <List<String>> resultSet = result.getResultset();
 
         if(resultSet.size() != 0) {
@@ -415,6 +421,9 @@ public class ReportsDashboardsUtils {
 
                 // add links to second level dashboards
                 PageParameters pageParameters = new PageParameters();
+                if (currencyParam != null) {
+                    pageParameters.add(ReportsConstants.ISNATIONALCURRENCY_PARAM, currencyParam);
+                }
                 if (row[0] != null) {
                     pageParameters.add(ReportsConstants.INSTITUTION_PARAM, row[0]);
                 }
@@ -425,6 +434,9 @@ public class ReportsDashboardsUtils {
 
                 if (addSecondLink) {
                     PageParameters pageParameters2 = new PageParameters();
+                    if (currencyParam != null) {
+                        pageParameters2.add(ReportsConstants.ISNATIONALCURRENCY_PARAM, currencyParam);
+                    }
                     BookmarkablePageLink link2 = null;
 
                     if(typeOfTable.equals(ReportsConstants.isCountry)) {

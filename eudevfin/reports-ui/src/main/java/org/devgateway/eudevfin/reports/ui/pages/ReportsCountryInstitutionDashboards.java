@@ -151,7 +151,7 @@ public class ReportsCountryInstitutionDashboards extends ReportsDashboards {
                 this.result = this.runQuery();
 
                 return ReportsDashboardsUtils.processTableRowsWithTotal(this.rows, this.result, this.rowId, true,
-                        ReportsConstants.isCountry, true);
+                        currencyParam, ReportsConstants.isCountry, true);
             }
         };
 

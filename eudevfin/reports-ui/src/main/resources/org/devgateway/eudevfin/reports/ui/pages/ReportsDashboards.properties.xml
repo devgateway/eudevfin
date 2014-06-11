@@ -68,16 +68,12 @@
     <entry key="disbursement">Disbursement</entry>
 
     <entry key="CountryDashboards.page.title">Reports Country</entry>
-    <entry key="CountryDashboards.countryChart">Net Disbursments in $</entry>
 
     <entry key="SectorDashboards.page.title">Reports Sector</entry>
-    <entry key="SectorDashboards.sectorChart">Net Disbursments in $</entry>
 
     <entry key="InstitutionDashboards.page.title">Reports Institution</entry>
-    <entry key="InstitutionDashboards.institutionChart">Net Disbursments in $</entry>
 
     <entry key="TypeOfAidDashboards.page.title">Reports Type of Aid</entry>
-    <entry key="TypeOfAidDashboards.typeOfAidChart">Net Disbursments in $</entry>
 
     <entry key="ChannelDashboards.page.title">Reports Multilateral Agency</entry>
     <entry key="ChannelDashboards.channelChart">Net Disbursments in $</entry>
