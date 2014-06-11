@@ -39,7 +39,11 @@ import java.util.List;
 public class ChannelDashboards extends ReportsDashboards {
     private static final Logger logger = Logger.getLogger(ChannelDashboards.class);
 
+    private String countryCurrency = "$";
+
     private int tableYear;
+    // variables that holds the parameters received from filter
+    private String currencyParam;
     private String agencyParam;
 
     @SpringBean
@@ -52,6 +56,15 @@ public class ChannelDashboards extends ReportsDashboards {
         // get the reporting year
         tableYear = Calendar.getInstance().get(Calendar.YEAR) - 1;
 
+        // process the parameters received from the filters
+        if(!parameters.get(ReportsConstants.ISNATIONALCURRENCY_PARAM).equals(StringValue.valueOf((String) null))) {
+            currencyParam = parameters.get(ReportsConstants.ISNATIONALCURRENCY_PARAM).toString();
+            if (currencyParam.equals("true")) {
+                countryCurrency = ReportsDashboardsUtils.getCurrency();
+            }
+        } else {
+            countryCurrency = ReportsDashboardsUtils.getCurrency();
+        }
         if(!parameters.get(ReportsConstants.AGENCY_PARAM).equals(StringValue.valueOf((String) null))) {
             agencyParam = parameters.get(ReportsConstants.AGENCY_PARAM).toString();
         }
@@ -63,46 +76,49 @@ public class ChannelDashboards extends ReportsDashboards {
     }
 
     private void addComponents() {
-        addPieChart();
-        addBarChart();
         addTableList();
+        addBarChart();
     }
 
-    private void addPieChart() {
-        Label title = new Label("channelPieChartTitle", new StringResourceModel("ChannelDashboards.channelChart", this, null, null));
+    protected void addTableList () {
+        Label title = new Label("channelTableListTitle", "Net Disbursement - " + tableYear + " - " + countryCurrency + " - full amount");
         add(title);
 
-        PieChart pieChart = new PieChart(CdaService, "channelPieChart", "channelDashboardsPieChart") {
+        Table table = new Table(CdaService, "channelTableList", "channelTableListRows", "channelDashboardsTableList") {
             @Override
-            public List<Point> getResultSeries () {
+            public ListView<String[]> getTableRows () {
+                super.getTableRows();
+
+                this.rows = new ArrayList<>();
                 this.result = this.runQuery();
-                List<Point> resultSeries = new ArrayList<>();
 
-                for (List<String> item : result.getResultset()) {
-                    resultSeries.add(new Point(item.get(0), Float.parseFloat(item.get(1))));
-                }
-
-                return resultSeries;
+                return ReportsDashboardsUtils.processTableRowsTransactions(financialTransactionService,
+                        this.rows, this.result, this.rowId, ReportsConstants.isChannel);
             }
         };
 
-        pieChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
-        pieChart.setParam("paramChannel", (agencyParam != null ? agencyParam : ""));
-
-        Options options = pieChart.getOptions();
-        // check if we have a result and make the chart slightly higher
-        if (pieChart.getResultSeries().size() != 0) {
-            options.getChartOptions().setHeight(350);
+        // add MDX queries parameters
+        table.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
+        table.setParam("paramChannel", (agencyParam != null ? agencyParam : ""));
+        if (currencyParam != null) {
+            if (currencyParam.equals("true")) {
+                table.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+                table.setParam("paramcurrencyDisbursement", ReportsConstants.MDX_NAT_EXTENDED_CURRENCY);
+            }
+        } else {
+            table.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+            table.setParam("paramcurrencyDisbursement", ReportsConstants.MDX_NAT_EXTENDED_CURRENCY);
         }
 
-        options.addSeries(new PointSeries()
-                .setType(SeriesType.PIE)
-                .setData(pieChart.getResultSeries()));
-        add(pieChart.getChart());
+        Label firstYear = new Label("firstYear", tableYear + " Disbursement");
+        table.getTable().add(firstYear);
+
+        add(table.getTable());
+        table.addTableRows();
     }
 
     private void addBarChart() {
-        Label title = new Label("channelBarChartTitle", new StringResourceModel("ChannelDashboards.channelChart", this, null, null));
+        Label title = new Label("channelBarChartTitle", "Net Disbursement - " + tableYear + " - " + countryCurrency + " - full amount");
         add(title);
 
         StackedBarChart stackedBarChart = new StackedBarChart(CdaService, "channelBarChart", "channelDashboardsBarChart") {
@@ -136,6 +152,13 @@ public class ChannelDashboards extends ReportsDashboards {
 
         stackedBarChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
         stackedBarChart.setParam("paramChannel", (agencyParam != null ? agencyParam : ""));
+        if (currencyParam != null) {
+            if (currencyParam.equals("true")) {
+                stackedBarChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+            }
+        } else {
+            stackedBarChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+        }
 
         List<List<Float>> resultSeries = stackedBarChart.getResultSeriesAsList();
         stackedBarChart.getOptions().setPlotOptions(new PlotOptionsChoice().
@@ -154,33 +177,5 @@ public class ChannelDashboards extends ReportsDashboards {
                 .setColor(new HexColor("#3D96AE").brighten(new Float(-0.1))));
 
         add(stackedBarChart.getChart());
-    }
-
-    protected void addTableList () {
-        Label title = new Label("channelTableListTitle", new StringResourceModel("ChannelDashboards.channelChart", this, null, null));
-        add(title);
-
-        Table table = new Table(CdaService, "channelTableList", "channelTableListRows", "channelDashboardsTableList") {
-            @Override
-            public ListView<String[]> getTableRows () {
-                super.getTableRows();
-
-                this.rows = new ArrayList<>();
-                this.result = this.runQuery();
-
-                return ReportsDashboardsUtils.processTableRowsTransactions(financialTransactionService,
-                        this.rows, this.result, this.rowId, ReportsConstants.isChannel);
-            }
-        };
-
-        // add MDX queries parameters
-        table.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
-        table.setParam("paramChannel", (agencyParam != null ? agencyParam : ""));
-
-        Label firstYear = new Label("firstYear", tableYear + " Disbursement");
-        table.getTable().add(firstYear);
-
-        add(table.getTable());
-        table.addTableRows();
     }
 }
