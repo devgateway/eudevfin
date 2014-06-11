@@ -96,7 +96,7 @@ public class InstitutionDashboards extends ReportsDashboards {
                 this.result = this.runQuery();
 
                 return ReportsDashboardsUtils.processTableRowsWithTotalOneYear(this.rows, this.result, this.rowId, true,
-                        ReportsConstants.isCountry, true);
+                        currencyParam, ReportsConstants.isCountry, true);
             }
         };
 
@@ -235,7 +235,7 @@ public class InstitutionDashboards extends ReportsDashboards {
                 this.result = this.runQuery();
 
                 return ReportsDashboardsUtils.processTableRowsTransactions(financialTransactionService,
-                        this.rows, this.result, this.rowId, ReportsConstants.isInstitution);
+                        this.rows, this.result, this.rowId, currencyParam, ReportsConstants.isInstitution);
             }
         };
 

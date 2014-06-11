@@ -196,7 +196,7 @@ public class TypeOfAidDashboards extends ReportsDashboards {
                 this.result = this.runQuery();
 
                 return ReportsDashboardsUtils.processTableRowsTransactions(financialTransactionService,
-                        this.rows, this.result, this.rowId, ReportsConstants.isTypeOfAid);
+                        this.rows, this.result, this.rowId, currencyParam, ReportsConstants.isTypeOfAid);
             }
         };
 

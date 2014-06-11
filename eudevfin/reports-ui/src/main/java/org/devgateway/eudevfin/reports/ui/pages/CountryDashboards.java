@@ -86,7 +86,8 @@ public class CountryDashboards extends ReportsDashboards {
                 this.rows = new ArrayList<>();
                 this.result = this.runQuery();
 
-                return ReportsDashboardsUtils.processTableRowsOneYear(this.rows, this.result, this.rowId, ReportsConstants.isSector);
+                return ReportsDashboardsUtils.processTableRowsOneYear(this.rows, this.result, this.rowId,
+                        currencyParam, ReportsConstants.isSector);
             }
         };
 
@@ -164,7 +165,7 @@ public class CountryDashboards extends ReportsDashboards {
                 this.result = this.runQuery();
 
                 return ReportsDashboardsUtils.processTableRowsTransactions(financialTransactionService,
-                        this.rows, this.result, this.rowId, ReportsConstants.isCountry);
+                        this.rows, this.result, this.rowId, currencyParam, ReportsConstants.isCountry);
             }
         };
 

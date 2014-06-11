@@ -93,7 +93,7 @@ public class ChannelDashboards extends ReportsDashboards {
                 this.result = this.runQuery();
 
                 return ReportsDashboardsUtils.processTableRowsTransactions(financialTransactionService,
-                        this.rows, this.result, this.rowId, ReportsConstants.isChannel);
+                        this.rows, this.result, this.rowId, currencyParam, ReportsConstants.isChannel);
             }
         };
 

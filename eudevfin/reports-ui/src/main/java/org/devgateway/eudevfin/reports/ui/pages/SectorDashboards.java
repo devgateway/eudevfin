@@ -96,7 +96,7 @@ public class SectorDashboards extends ReportsDashboards {
                 this.result = this.runQuery();
 
                 return ReportsDashboardsUtils.processTableRowsWithTotalOneYear(this.rows, this.result, this.rowId, true,
-                        ReportsConstants.isCountry, false);
+                        currencyParam, ReportsConstants.isCountry, false);
             }
         };
 
@@ -235,7 +235,7 @@ public class SectorDashboards extends ReportsDashboards {
                 this.result = this.runQuery();
 
                 return ReportsDashboardsUtils.processTableRowsTransactions(financialTransactionService,
-                        this.rows, this.result, this.rowId, ReportsConstants.isSector);
+                        this.rows, this.result, this.rowId, currencyParam, ReportsConstants.isSector);
             }
         };
 

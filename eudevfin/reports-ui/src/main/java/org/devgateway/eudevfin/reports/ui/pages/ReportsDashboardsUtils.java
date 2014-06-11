@@ -484,7 +484,8 @@ public class ReportsDashboardsUtils {
     }
 
     // it's used in country dashboards
-    public static ListView<String[]> processTableRowsOneYear (List<String[]> rows, QueryResult result, String rowId, final String typeOfTable) {
+    public static ListView<String[]> processTableRowsOneYear (List<String[]> rows, QueryResult result, String rowId,
+                                                              final String currencyParam, final String typeOfTable) {
         List <List<String>> resultSet = result.getResultset();
 
         if(resultSet.size() != 0 && resultSet.get(0).size() > 2) {
@@ -532,6 +533,9 @@ public class ReportsDashboardsUtils {
 
                 // add links to second level dashboards
                 PageParameters pageParameters = new PageParameters();
+                if (currencyParam != null) {
+                    pageParameters.add(ReportsConstants.ISNATIONALCURRENCY_PARAM, currencyParam);
+                }
                 BookmarkablePageLink link = null;
                 if(typeOfTable.equals(ReportsConstants.isSector)) {
                     // for sector table create links only for ParentSector
@@ -556,7 +560,8 @@ public class ReportsDashboardsUtils {
     // it's used in sector dashboards
     // and institution dashboards
     public static ListView<String[]> processTableRowsWithTotalOneYear (List<String[]> rows, QueryResult result, String rowId,
-                                                                Boolean calculateTotal, final String typeOfTable, final Boolean addSecondLink) {
+                                                                Boolean calculateTotal, final String currencyParam,
+                                                                final String typeOfTable, final Boolean addSecondLink) {
         List <List<String>> resultSet = result.getResultset();
 
         if(resultSet.size() != 0) {
@@ -626,6 +631,9 @@ public class ReportsDashboardsUtils {
 
                 // add links to second level dashboards
                 PageParameters pageParameters = new PageParameters();
+                if (currencyParam != null) {
+                    pageParameters.add(ReportsConstants.ISNATIONALCURRENCY_PARAM, currencyParam);
+                }
                 BookmarkablePageLink link = null;
                 if(typeOfTable.equals(ReportsConstants.isCountry)) {
                     if (row[0] != null) {
@@ -640,6 +648,9 @@ public class ReportsDashboardsUtils {
 
                 if (addSecondLink) {
                     PageParameters pageParameters2 = new PageParameters();
+                    if (currencyParam != null) {
+                        pageParameters2.add(ReportsConstants.ISNATIONALCURRENCY_PARAM, currencyParam);
+                    }
 
                     if (row[1] != null) {
                         pageParameters2.add(ReportsConstants.SECTOR_PARAM, row[1]);
@@ -668,50 +679,10 @@ public class ReportsDashboardsUtils {
         return tableRows;
     }
 
-    /*
-     * since the custom reports charts are similar we use only one function to process the rows
-     */
-    // it's used by all dashboards that has pie/bar charts
-    public static List<List<Float>> processChartRows (QueryResult result, Options options) {
-        List<List<Float>> resultSeries = new ArrayList<>();
-        List<String> resultCategories = new ArrayList<>();
-
-        List<Float> firstYearList = new ArrayList<>();
-        resultSeries.add(firstYearList);
-        List<Float> secondYearList = new ArrayList<>();
-        resultSeries.add(secondYearList);
-
-        for (List<String> item : result.getResultset()) {
-            resultCategories.add(item.get(0));
-
-            // check if we have data for both years
-            if (result.getMetadata().get(1).getColName().equals("First Year")) {
-                if (item.size() > 1 && item.get(1) != null) {
-                    resultSeries.get(0).add(Float.parseFloat(item.get(1)));
-                } else {
-                    resultSeries.get(0).add((float) 0);
-                }
-
-                if (item.size() > 2 && item.get(2) != null) {
-                    resultSeries.get(1).add(Float.parseFloat(item.get(2)));
-                } else {
-                    resultSeries.get(1).add((float) 0);
-                }
-            } else {
-                // we don't have the first year data
-                resultSeries.get(0).add((float) 0);
-                resultSeries.get(1).add(Float.parseFloat(item.get(1)));
-            }
-        }
-
-        options.getxAxis().get(0).setCategories(new ArrayList<>(resultCategories));
-
-        return resultSeries;
-    }
-
     // is used transaction list tables
     public static ListView<String[]> processTableRowsTransactions (FinancialTransactionService financialTransactionService,
-                                                                   List<String[]> rows, QueryResult result, String rowId, final String typeOfTable) {
+                                                                   List<String[]> rows, QueryResult result, String rowId,
+                                                                   final String currencyParam, final String typeOfTable) {
         List <List<String>> resultSet = result.getResultset();
 
         if(resultSet.size() != 0 && resultSet.get(0).size() > 0) {
@@ -768,6 +739,11 @@ public class ReportsDashboardsUtils {
                 item.add(link);
                 link.add(new Label("linkName", row[1]));
 
+                PageParameters pageParametersSubReports = new PageParameters();
+                if (currencyParam != null) {
+                    pageParametersSubReports.add(ReportsConstants.ISNATIONALCURRENCY_PARAM, currencyParam);
+                }
+
                 // for each dashboard we display something else
                 if(typeOfTable.equals(ReportsConstants.isCountry)) {
                     item.add(new Label("col1", row[2]));
@@ -813,6 +789,47 @@ public class ReportsDashboardsUtils {
         };
 
         return tableRows;
+    }
+
+    /*
+     * since the custom reports charts are similar we use only one function to process the rows
+     */
+    // it's used by all dashboards that has pie/bar charts
+    public static List<List<Float>> processChartRows (QueryResult result, Options options) {
+        List<List<Float>> resultSeries = new ArrayList<>();
+        List<String> resultCategories = new ArrayList<>();
+
+        List<Float> firstYearList = new ArrayList<>();
+        resultSeries.add(firstYearList);
+        List<Float> secondYearList = new ArrayList<>();
+        resultSeries.add(secondYearList);
+
+        for (List<String> item : result.getResultset()) {
+            resultCategories.add(item.get(0));
+
+            // check if we have data for both years
+            if (result.getMetadata().get(1).getColName().equals("First Year")) {
+                if (item.size() > 1 && item.get(1) != null) {
+                    resultSeries.get(0).add(Float.parseFloat(item.get(1)));
+                } else {
+                    resultSeries.get(0).add((float) 0);
+                }
+
+                if (item.size() > 2 && item.get(2) != null) {
+                    resultSeries.get(1).add(Float.parseFloat(item.get(2)));
+                } else {
+                    resultSeries.get(1).add((float) 0);
+                }
+            } else {
+                // we don't have the first year data
+                resultSeries.get(0).add((float) 0);
+                resultSeries.get(1).add(Float.parseFloat(item.get(1)));
+            }
+        }
+
+        options.getxAxis().get(0).setCategories(new ArrayList<>(resultCategories));
+
+        return resultSeries;
     }
 
     // take more info from the database: sector, country, institution, channel
