@@ -15,7 +15,7 @@
 		<spring.version>4.0.2.RELEASE</spring.version>
 		<spring.security.version>3.2.2.RELEASE</spring.security.version>
 		<enunciate.version>1.28</enunciate.version>
-		<jersey.version>1.11</jersey.version>
+		<jersey.version>1.18</jersey.version>
 		<saiku.version>2.6-SNAPSHOT</saiku.version>
 	</properties>
 
