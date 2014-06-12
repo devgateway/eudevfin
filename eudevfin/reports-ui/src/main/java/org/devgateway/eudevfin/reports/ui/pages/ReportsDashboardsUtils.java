@@ -489,6 +489,15 @@ public class ReportsDashboardsUtils {
         List <List<String>> resultSet = result.getResultset();
 
         if(resultSet.size() != 0 && resultSet.get(0).size() > 2) {
+            // delete empty rows
+            List <List<String>> newResultSet = new ArrayList<>();
+            for (int i = 0; i < resultSet.size(); i++) {
+                if ((resultSet.get(i).size() > 1 && resultSet.get(i).get(1) != null)) {
+                    newResultSet.add(resultSet.get(i));
+                }
+            }
+            resultSet = newResultSet;
+
             // format the amounts as #,###.##
             // and other values like percentages
             for (int i = 0; i < resultSet.size(); i++) {
