@@ -568,6 +568,7 @@ public class ReportsDashboardsUtils {
             // 'group by' operation
             // and calculate the 'Total' line for each entry
             float firstYear = 0;
+            float grandTotal = 0;
             for (int i = resultSet.size() - 1; i > 0; i--) {
                 // calculate the total for each main category (for example institution)
                 if (resultSet.get(i).size() > 2 && resultSet.get(i).get(2) != null) {
@@ -583,7 +584,7 @@ public class ReportsDashboardsUtils {
                                     "TOTAL",
                                     "" + firstYear
                             });
-
+                    grandTotal += firstYear;
                     if (calculateTotal) {
                         resultSet.get(i).set(0, null);
                         resultSet.add(i, newElement);
@@ -605,8 +606,17 @@ public class ReportsDashboardsUtils {
                             "" + firstYear
                     });
 
+            grandTotal += firstYear;
             if (calculateTotal) {
                 resultSet.get(0).set(0, null);
+                resultSet.add(0, newElement);
+
+                newElement = Arrays
+                        .asList(new String[]{
+                                null,
+                                "GRAND TOTAL",
+                                "" + grandTotal
+                        });
                 resultSet.add(0, newElement);
             }
 
@@ -663,7 +673,7 @@ public class ReportsDashboardsUtils {
                     // don't make the TOTAL row a link
                     Label totalRow = new Label("total", row[1]);
                     item.add(totalRow);
-                    if (row[1] != null && row[1].equals("TOTAL")) {
+                    if (row[1] != null && (row[1].equals("TOTAL") || row[1].equals("GRAND TOTAL"))) {
                         link2.setVisibilityAllowed(Boolean.FALSE);
                     } else {
                         totalRow.setVisibilityAllowed(Boolean.FALSE);
