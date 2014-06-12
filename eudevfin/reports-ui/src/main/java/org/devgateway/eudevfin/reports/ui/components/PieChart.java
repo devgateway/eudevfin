@@ -92,8 +92,8 @@ public class PieChart extends RunMdxQuery {
                         .setAnimation(Boolean.TRUE)
                         .setDataLabels(new DataLabels()
                                 .setEnabled(Boolean.TRUE)
-                                .setFormatter(new DefaultFormatter().setFunction("var value = sprintf('%.2f', this.y).replace(/,/g, \" \");\n" +
-                                        "return value;"))
+                                .setFormatter(new DefaultFormatter().setFunction("var value = sprintf('%.2f', this.percentage);\n" +
+                                        "return value + '%';"))
                                 .setColor(new HexColor("#000000"))
                                 .setConnectorColor(new HexColor("#000000")))
                         .setShowInLegend(Boolean.TRUE)));
