@@ -16,6 +16,13 @@ app.downloadPDF = function () {
     * This div may contain highcharts along with other child divs, etc
     */
     var container = $('#printable-container');
+
+    // add the page title in case it exists
+    if ($('.transaction-title').length > 0) {
+        var pageTitle = $('.transaction-title').parent();
+        container.prepend(pageTitle);
+    }
+
     var svgElements = container.find('svg');
 
     // replace all svgs with a temp canvas
