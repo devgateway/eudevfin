@@ -977,7 +977,7 @@
                 NON EMPTY {[Measures].[FIRST YEAR]} ON COLUMNS,
                 NON EMPTY {[SectorHierarchy].[ParentName].Members} ON ROWS
                 FROM [Financial]
-                WHERE {[Type of Aid].[Name].[${TypeOfAid}]}
+                WHERE (FILTER([Type of Aid].[Name].Members, [Type of Aid].[Name].CurrentMember.Name = "${TypeOfAid}"))
                 ]]>
         </Query>
     </DataAccess>
@@ -1004,7 +1004,7 @@
                 NON EMPTY {[Measures].[FIRST YEAR]} ON COLUMNS,
                 NON EMPTY {[Country].[Name].Members} ON ROWS
                 FROM [Financial]
-                WHERE {[Type of Aid].[Name].[${TypeOfAid}]}
+                WHERE (FILTER([Type of Aid].[Name].Members, [Type of Aid].[Name].CurrentMember.Name = "${TypeOfAid}"))
                 ]]>
         </Query>
     </DataAccess>
@@ -1033,7 +1033,7 @@
                 NON EMPTY {[Measures].[TOTAL BUDGET], [Measures].[DISBURSMENT]} ON COLUMNS,
                 NON EMPTY {Hierarchize({[TxTitle].[ID].Members, [TxTitle].[Title].Members})} ON ROWS
                 FROM [Financial]
-                WHERE {[Type of Aid].[Name].[${TypeOfAid}]}
+                WHERE (FILTER([Type of Aid].[Name].Members, [Type of Aid].[Name].CurrentMember.Name = "${TypeOfAid}"))
                 ]]>
         </Query>
     </DataAccess>
