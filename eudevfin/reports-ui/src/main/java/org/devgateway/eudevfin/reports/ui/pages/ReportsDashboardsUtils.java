@@ -37,7 +37,8 @@ public class ReportsDashboardsUtils {
      * since the custom reports tables are similar we use only one function to process the rows
      */
     // it's used in country sector dashboards
-    public static ListView<String[]> processTableRows (List<String[]> rows, QueryResult result, String rowId, final String typeOfTable) {
+    public static ListView<String[]> processTableRows (List<String[]> rows, QueryResult result, String rowId,
+                                                       final String currencyParam, final String typeOfTable) {
         List <List<String>> resultSet = result.getResultset();
 
         if(resultSet.size() != 0 && resultSet.get(0).size() > 3) {
@@ -151,6 +152,10 @@ public class ReportsDashboardsUtils {
 
                 // add links to second level dashboards
                 PageParameters pageParameters = new PageParameters();
+                if (currencyParam != null) {
+                    pageParameters.add(ReportsConstants.ISNATIONALCURRENCY_PARAM, currencyParam);
+                }
+
                 BookmarkablePageLink link = null;
                 if(typeOfTable.equals(ReportsConstants.isCountry)) {
                     // for country table create links only for Countries and not for Geography
@@ -318,7 +323,8 @@ public class ReportsDashboardsUtils {
     // it used in country and institution
     // institution and type of aid dashboards
     public static ListView<String[]> processTableRowsWithTotal (List<String[]> rows, QueryResult result, String rowId,
-                                                                Boolean calculateTotal, final String typeOfTable, final Boolean addSecondLink) {
+                                                                Boolean calculateTotal, final String currencyParam,
+                                                                final String typeOfTable, final Boolean addSecondLink) {
         List <List<String>> resultSet = result.getResultset();
 
         if(resultSet.size() != 0) {
@@ -415,6 +421,9 @@ public class ReportsDashboardsUtils {
 
                 // add links to second level dashboards
                 PageParameters pageParameters = new PageParameters();
+                if (currencyParam != null) {
+                    pageParameters.add(ReportsConstants.ISNATIONALCURRENCY_PARAM, currencyParam);
+                }
                 if (row[0] != null) {
                     pageParameters.add(ReportsConstants.INSTITUTION_PARAM, row[0]);
                 }
@@ -425,6 +434,9 @@ public class ReportsDashboardsUtils {
 
                 if (addSecondLink) {
                     PageParameters pageParameters2 = new PageParameters();
+                    if (currencyParam != null) {
+                        pageParameters2.add(ReportsConstants.ISNATIONALCURRENCY_PARAM, currencyParam);
+                    }
                     BookmarkablePageLink link2 = null;
 
                     if(typeOfTable.equals(ReportsConstants.isCountry)) {
@@ -472,7 +484,8 @@ public class ReportsDashboardsUtils {
     }
 
     // it's used in country dashboards
-    public static ListView<String[]> processTableRowsOneYear (List<String[]> rows, QueryResult result, String rowId, final String typeOfTable) {
+    public static ListView<String[]> processTableRowsOneYear (List<String[]> rows, QueryResult result, String rowId,
+                                                              final String currencyParam, final String typeOfTable) {
         List <List<String>> resultSet = result.getResultset();
 
         if(resultSet.size() != 0 && resultSet.get(0).size() > 2) {
@@ -520,6 +533,9 @@ public class ReportsDashboardsUtils {
 
                 // add links to second level dashboards
                 PageParameters pageParameters = new PageParameters();
+                if (currencyParam != null) {
+                    pageParameters.add(ReportsConstants.ISNATIONALCURRENCY_PARAM, currencyParam);
+                }
                 BookmarkablePageLink link = null;
                 if(typeOfTable.equals(ReportsConstants.isSector)) {
                     // for sector table create links only for ParentSector
@@ -544,7 +560,8 @@ public class ReportsDashboardsUtils {
     // it's used in sector dashboards
     // and institution dashboards
     public static ListView<String[]> processTableRowsWithTotalOneYear (List<String[]> rows, QueryResult result, String rowId,
-                                                                Boolean calculateTotal, final String typeOfTable, final Boolean addSecondLink) {
+                                                                Boolean calculateTotal, final String currencyParam,
+                                                                final String typeOfTable, final Boolean addSecondLink) {
         List <List<String>> resultSet = result.getResultset();
 
         if(resultSet.size() != 0) {
@@ -614,6 +631,9 @@ public class ReportsDashboardsUtils {
 
                 // add links to second level dashboards
                 PageParameters pageParameters = new PageParameters();
+                if (currencyParam != null) {
+                    pageParameters.add(ReportsConstants.ISNATIONALCURRENCY_PARAM, currencyParam);
+                }
                 BookmarkablePageLink link = null;
                 if(typeOfTable.equals(ReportsConstants.isCountry)) {
                     if (row[0] != null) {
@@ -628,6 +648,9 @@ public class ReportsDashboardsUtils {
 
                 if (addSecondLink) {
                     PageParameters pageParameters2 = new PageParameters();
+                    if (currencyParam != null) {
+                        pageParameters2.add(ReportsConstants.ISNATIONALCURRENCY_PARAM, currencyParam);
+                    }
 
                     if (row[1] != null) {
                         pageParameters2.add(ReportsConstants.SECTOR_PARAM, row[1]);
@@ -656,50 +679,10 @@ public class ReportsDashboardsUtils {
         return tableRows;
     }
 
-    /*
-     * since the custom reports charts are similar we use only one function to process the rows
-     */
-    // it's used by all dashboards that has pie/bar charts
-    public static List<List<Float>> processChartRows (QueryResult result, Options options) {
-        List<List<Float>> resultSeries = new ArrayList<>();
-        List<String> resultCategories = new ArrayList<>();
-
-        List<Float> firstYearList = new ArrayList<>();
-        resultSeries.add(firstYearList);
-        List<Float> secondYearList = new ArrayList<>();
-        resultSeries.add(secondYearList);
-
-        for (List<String> item : result.getResultset()) {
-            resultCategories.add(item.get(0));
-
-            // check if we have data for both years
-            if (result.getMetadata().get(1).getColName().equals("First Year")) {
-                if (item.size() > 1 && item.get(1) != null) {
-                    resultSeries.get(0).add(Float.parseFloat(item.get(1)));
-                } else {
-                    resultSeries.get(0).add((float) 0);
-                }
-
-                if (item.size() > 2 && item.get(2) != null) {
-                    resultSeries.get(1).add(Float.parseFloat(item.get(2)));
-                } else {
-                    resultSeries.get(1).add((float) 0);
-                }
-            } else {
-                // we don't have the first year data
-                resultSeries.get(0).add((float) 0);
-                resultSeries.get(1).add(Float.parseFloat(item.get(1)));
-            }
-        }
-
-        options.getxAxis().get(0).setCategories(new ArrayList<>(resultCategories));
-
-        return resultSeries;
-    }
-
     // is used transaction list tables
     public static ListView<String[]> processTableRowsTransactions (FinancialTransactionService financialTransactionService,
-                                                                   List<String[]> rows, QueryResult result, String rowId, final String typeOfTable) {
+                                                                   List<String[]> rows, QueryResult result, String rowId,
+                                                                   final String currencyParam, final String typeOfTable) {
         List <List<String>> resultSet = result.getResultset();
 
         if(resultSet.size() != 0 && resultSet.get(0).size() > 0) {
@@ -756,42 +739,97 @@ public class ReportsDashboardsUtils {
                 item.add(link);
                 link.add(new Label("linkName", row[1]));
 
+                // add links to other sub-reports
+                PageParameters pageParametersCountry = new PageParameters();
+                PageParameters pageParametersInstitution = new PageParameters();
+                PageParameters pageParametersChannel = new PageParameters();
+                if (currencyParam != null) {
+                    pageParametersCountry.add(ReportsConstants.ISNATIONALCURRENCY_PARAM, currencyParam);
+                    pageParametersInstitution.add(ReportsConstants.ISNATIONALCURRENCY_PARAM, currencyParam);
+                    pageParametersChannel.add(ReportsConstants.ISNATIONALCURRENCY_PARAM, currencyParam);
+                }
+                if (row[5] != null) {
+                    pageParametersCountry.add(ReportsConstants.RECIPIENT_PARAM, row[5]);
+                }
+                if (row[6] != null) {
+                    pageParametersInstitution.add(ReportsConstants.INSTITUTION_PARAM, row[6]);
+                }
+                if (row[7] != null) {
+                    pageParametersChannel.add(ReportsConstants.AGENCY_PARAM, row[7]);
+                }
+
                 // for each dashboard we display something else
                 if(typeOfTable.equals(ReportsConstants.isCountry)) {
                     item.add(new Label("col1", row[2]));
                     item.add(new Label("col2", row[3]));
                     item.add(new Label("col3", row[4]));
-                    item.add(new Label("col4", row[6]));
-                    item.add(new Label("col5", row[7]));
+
+                    BookmarkablePageLink col4 = new BookmarkablePageLink("col4", InstitutionDashboards.class, pageParametersInstitution);
+                    item.add(col4);
+                    col4.add(new Label("linkName", row[6]));
+
+                    BookmarkablePageLink col5 = new BookmarkablePageLink("col5", ChannelDashboards.class, pageParametersChannel);
+                    item.add(col5);
+                    col5.add(new Label("linkName", row[7]));
                 } else {
                     if(typeOfTable.equals(ReportsConstants.isSector)) {
                         item.add(new Label("col1", row[2]));
                         item.add(new Label("col2", row[3]));
-                        item.add(new Label("col3", row[5]));
-                        item.add(new Label("col4", row[6]));
-                        item.add(new Label("col5", row[7]));
+
+                        BookmarkablePageLink col3 = new BookmarkablePageLink("col3", CountryDashboards.class, pageParametersCountry);
+                        item.add(col3);
+                        col3.add(new Label("linkName", row[5]));
+
+                        BookmarkablePageLink col4 = new BookmarkablePageLink("col4", InstitutionDashboards.class, pageParametersInstitution);
+                        item.add(col4);
+                        col4.add(new Label("linkName", row[6]));
+
+                        BookmarkablePageLink col5 = new BookmarkablePageLink("col5", ChannelDashboards.class, pageParametersChannel);
+                        item.add(col5);
+                        col5.add(new Label("linkName", row[7]));
                     } else {
                         if(typeOfTable.equals(ReportsConstants.isInstitution)) {
                             item.add(new Label("col1", row[2]));
                             item.add(new Label("col2", row[3]));
                             item.add(new Label("col3", row[4]));
-                            item.add(new Label("col4", row[5]));
-                            item.add(new Label("col5", row[7]));
+
+                            BookmarkablePageLink col4 = new BookmarkablePageLink("col4", CountryDashboards.class, pageParametersCountry);
+                            item.add(col4);
+                            col4.add(new Label("linkName", row[5]));
+
+                            BookmarkablePageLink col5 = new BookmarkablePageLink("col5", ChannelDashboards.class, pageParametersChannel);
+                            item.add(col5);
+                            col5.add(new Label("linkName", row[7]));
                         } else {
                             if(typeOfTable.equals(ReportsConstants.isTypeOfAid)) {
                                 item.add(new Label("col1", row[2]));
                                 item.add(new Label("col2", row[3]));
                                 item.add(new Label("col3", row[4]));
-                                item.add(new Label("col4", row[5]));
-                                item.add(new Label("col5", row[6]));
-                                item.add(new Label("col6", row[7]));
+
+                                BookmarkablePageLink col4 = new BookmarkablePageLink("col4", CountryDashboards.class, pageParametersCountry);
+                                item.add(col4);
+                                col4.add(new Label("linkName", row[5]));
+
+                                BookmarkablePageLink col5 = new BookmarkablePageLink("col5", InstitutionDashboards.class, pageParametersInstitution);
+                                item.add(col5);
+                                col5.add(new Label("linkName", row[6]));
+
+                                BookmarkablePageLink col6 = new BookmarkablePageLink("col6", ChannelDashboards.class, pageParametersChannel);
+                                item.add(col6);
+                                col6.add(new Label("linkName", row[7]));
                             } else {
                                 if(typeOfTable.equals(ReportsConstants.isChannel)) {
                                     item.add(new Label("col1", row[2]));
                                     item.add(new Label("col2", row[3]));
                                     item.add(new Label("col3", row[4]));
-                                    item.add(new Label("col4", row[5]));
-                                    item.add(new Label("col5", row[6]));
+
+                                    BookmarkablePageLink col4 = new BookmarkablePageLink("col4", CountryDashboards.class, pageParametersCountry);
+                                    item.add(col4);
+                                    col4.add(new Label("linkName", row[5]));
+
+                                    BookmarkablePageLink col5 = new BookmarkablePageLink("col5", InstitutionDashboards.class, pageParametersInstitution);
+                                    item.add(col5);
+                                    col5.add(new Label("linkName", row[6]));
                                 }
                             }
                         }
@@ -801,6 +839,47 @@ public class ReportsDashboardsUtils {
         };
 
         return tableRows;
+    }
+
+    /*
+     * since the custom reports charts are similar we use only one function to process the rows
+     */
+    // it's used by all dashboards that has pie/bar charts
+    public static List<List<Float>> processChartRows (QueryResult result, Options options) {
+        List<List<Float>> resultSeries = new ArrayList<>();
+        List<String> resultCategories = new ArrayList<>();
+
+        List<Float> firstYearList = new ArrayList<>();
+        resultSeries.add(firstYearList);
+        List<Float> secondYearList = new ArrayList<>();
+        resultSeries.add(secondYearList);
+
+        for (List<String> item : result.getResultset()) {
+            resultCategories.add(item.get(0));
+
+            // check if we have data for both years
+            if (result.getMetadata().get(1).getColName().equals("First Year")) {
+                if (item.size() > 1 && item.get(1) != null) {
+                    resultSeries.get(0).add(Float.parseFloat(item.get(1)));
+                } else {
+                    resultSeries.get(0).add((float) 0);
+                }
+
+                if (item.size() > 2 && item.get(2) != null) {
+                    resultSeries.get(1).add(Float.parseFloat(item.get(2)));
+                } else {
+                    resultSeries.get(1).add((float) 0);
+                }
+            } else {
+                // we don't have the first year data
+                resultSeries.get(0).add((float) 0);
+                resultSeries.get(1).add(Float.parseFloat(item.get(1)));
+            }
+        }
+
+        options.getxAxis().get(0).setCategories(new ArrayList<>(resultCategories));
+
+        return resultSeries;
     }
 
     // take more info from the database: sector, country, institution, channel

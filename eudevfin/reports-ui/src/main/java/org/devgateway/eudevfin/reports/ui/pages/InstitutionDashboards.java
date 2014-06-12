@@ -40,7 +40,11 @@ import java.util.List;
 public class InstitutionDashboards extends ReportsDashboards {
     private static final Logger logger = Logger.getLogger(InstitutionDashboards.class);
 
+    private String countryCurrency = "$";
+
     private int tableYear;
+    // variables that holds the parameters received from filter
+    private String currencyParam;
     private String institutionParam;
 
     @SpringBean
@@ -53,6 +57,15 @@ public class InstitutionDashboards extends ReportsDashboards {
         // get the reporting year
         tableYear = Calendar.getInstance().get(Calendar.YEAR) - 1;
 
+        // process the parameters received from the filters
+        if(!parameters.get(ReportsConstants.ISNATIONALCURRENCY_PARAM).equals(StringValue.valueOf((String) null))) {
+            currencyParam = parameters.get(ReportsConstants.ISNATIONALCURRENCY_PARAM).toString();
+            if (currencyParam.equals("true")) {
+                countryCurrency = ReportsDashboardsUtils.getCurrency();
+            }
+        } else {
+            countryCurrency = ReportsDashboardsUtils.getCurrency();
+        }
         if(!parameters.get(ReportsConstants.INSTITUTION_PARAM).equals(StringValue.valueOf((String) null))) {
             institutionParam = parameters.get(ReportsConstants.INSTITUTION_PARAM).toString();
         }
@@ -68,10 +81,11 @@ public class InstitutionDashboards extends ReportsDashboards {
         addPieChart();
         addBarChart();
         addTableList();
+        addTypeBiMultilateralChart();
     }
 
     protected void addTable () {
-        Label title = new Label("institutionTableTitle", new StringResourceModel("InstitutionDashboards.institutionChart", this, null, null));
+        Label title = new Label("institutionTableTitle", "Net Disbursement by Country & Sector - " + tableYear + " - " + countryCurrency + " - full amount");
         add(title);
 
         Table table = new Table(CdaService, "institutionTable", "institutionTableRows", "institutionDashboardsTable") {
@@ -83,13 +97,20 @@ public class InstitutionDashboards extends ReportsDashboards {
                 this.result = this.runQuery();
 
                 return ReportsDashboardsUtils.processTableRowsWithTotalOneYear(this.rows, this.result, this.rowId, true,
-                        ReportsConstants.isCountry, true);
+                        currencyParam, ReportsConstants.isCountry, true);
             }
         };
 
         // add MDX queries parameters
         table.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
         table.setParam("paramInstitution", (institutionParam != null ? institutionParam : ""));
+        if (currencyParam != null) {
+            if (currencyParam.equals("true")) {
+                table.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+            }
+        } else {
+            table.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+        }
 
         Label firstYear = new Label("firstYear", tableYear);
         table.getTable().add(firstYear);
@@ -99,7 +120,7 @@ public class InstitutionDashboards extends ReportsDashboards {
     }
 
     private void addPieChart() {
-        Label title = new Label("institutionPieChartTitle", new StringResourceModel("InstitutionDashboards.institutionChart", this, null, null));
+        Label title = new Label("institutionPieChartTitle", "Net Disbursement by Sector - " + tableYear + " - " + countryCurrency + " - full amount");
         add(title);
 
         PieChart pieChart = new PieChart(CdaService, "institutionPieChart", "institutionDashboardsPieChart") {
@@ -119,6 +140,13 @@ public class InstitutionDashboards extends ReportsDashboards {
         // add MDX queries parameters
         pieChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
         pieChart.setParam("paramInstitution", (institutionParam != null ? institutionParam : ""));
+        if (currencyParam != null) {
+            if (currencyParam.equals("true")) {
+                pieChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+            }
+        } else {
+            pieChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+        }
 
         Options options = pieChart.getOptions();
         // check if we have a result and make the chart slightly higher
@@ -133,7 +161,7 @@ public class InstitutionDashboards extends ReportsDashboards {
     }
 
     private void addBarChart() {
-        Label title = new Label("institutionBarChartTitle", new StringResourceModel("InstitutionDashboards.institutionChart", this, null, null));
+        Label title = new Label("institutionBarChartTitle", "Net Disbursement by Country - " + tableYear + " - " + countryCurrency + " - full amount");
         add(title);
 
         StackedBarChart stackedBarChart = new StackedBarChart(CdaService, "institutionBarChart", "institutionDashboardsBarChart") {
@@ -168,6 +196,13 @@ public class InstitutionDashboards extends ReportsDashboards {
         // add MDX queries parameters
         stackedBarChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
         stackedBarChart.setParam("paramInstitution", (institutionParam != null ? institutionParam : ""));
+        if (currencyParam != null) {
+            if (currencyParam.equals("true")) {
+                stackedBarChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+            }
+        } else {
+            stackedBarChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+        }
 
         List<List<Float>> resultSeries = stackedBarChart.getResultSeriesAsList();
         stackedBarChart.getOptions().setPlotOptions(new PlotOptionsChoice().
@@ -189,7 +224,7 @@ public class InstitutionDashboards extends ReportsDashboards {
     }
 
     protected void addTableList () {
-        Label title = new Label("institutionTableListTitle", new StringResourceModel("InstitutionDashboards.institutionChart", this, null, null));
+        Label title = new Label("institutionTableListTitle", "Net Disbursement including multilateral transactions - " + tableYear + " - " + countryCurrency + " - full amount");
         add(title);
 
         Table table = new Table(CdaService, "institutionTableList", "institutionTableListRows", "institutionDashboardsTableList") {
@@ -201,18 +236,67 @@ public class InstitutionDashboards extends ReportsDashboards {
                 this.result = this.runQuery();
 
                 return ReportsDashboardsUtils.processTableRowsTransactions(financialTransactionService,
-                        this.rows, this.result, this.rowId, ReportsConstants.isInstitution);
+                        this.rows, this.result, this.rowId, currencyParam, ReportsConstants.isInstitution);
             }
         };
 
         // add MDX queries parameters
         table.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
         table.setParam("paramInstitution", (institutionParam != null ? institutionParam : ""));
+        if (currencyParam != null) {
+            if (currencyParam.equals("true")) {
+                table.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+                table.setParam("paramcurrencyDisbursement", ReportsConstants.MDX_NAT_EXTENDED_CURRENCY);
+            }
+        } else {
+            table.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+            table.setParam("paramcurrencyDisbursement", ReportsConstants.MDX_NAT_EXTENDED_CURRENCY);
+        }
 
         Label firstYear = new Label("firstYear", tableYear + " Disbursement");
         table.getTable().add(firstYear);
 
         add(table.getTable());
         table.addTableRows();
+    }
+
+    protected void addTypeBiMultilateralChart () {
+        Label title = new Label("biMultilateralTitle", new StringResourceModel("ReportsInstitutionTypeOfAidDashboards.biMultilateralChart", this, null, null));
+        add(title);
+
+        PieChart pieChart = new PieChart(CdaService, "biMultilateralChart", "institutionDashboardsBiMultilateralChart") {
+            @Override
+            public List<Point> getResultSeries () {
+                this.result = this.runQuery();
+                List<Point> resultSeries = new ArrayList<>();
+
+                for (List<String> item : result.getResultset()) {
+                    resultSeries.add(new Point(item.get(0), Float.parseFloat(item.get(1))));
+                }
+
+                return resultSeries;
+            }
+        };
+
+        pieChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
+        pieChart.setParam("paramInstitution", (institutionParam != null ? institutionParam : ""));
+        if (currencyParam != null) {
+            if (currencyParam.equals("true")) {
+                pieChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+            }
+        } else {
+            pieChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+        }
+
+        Options options = pieChart.getOptions();
+        // check if we have a result and make the chart slightly higher
+        if (pieChart.getResultSeries().size() != 0) {
+            options.getChartOptions().setHeight(350);
+        }
+
+        options.addSeries(new PointSeries()
+                .setType(SeriesType.PIE)
+                .setData(pieChart.getResultSeries()));
+        add(pieChart.getChart());
     }
 }

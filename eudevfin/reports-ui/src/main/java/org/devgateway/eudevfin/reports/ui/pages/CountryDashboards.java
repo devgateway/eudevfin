@@ -32,7 +32,11 @@ import java.util.List;
 public class CountryDashboards extends ReportsDashboards {
     private static final Logger logger = Logger.getLogger(CountryDashboards.class);
 
+    private String countryCurrency = "$";
+
     private int tableYear;
+    // variables that holds the parameters received from filter
+    private String currencyParam;
     private String recipientParam;
 
     @SpringBean
@@ -45,6 +49,15 @@ public class CountryDashboards extends ReportsDashboards {
         // get the reporting year
         tableYear = Calendar.getInstance().get(Calendar.YEAR) - 1;
 
+        // process the parameters received from the filters
+        if(!parameters.get(ReportsConstants.ISNATIONALCURRENCY_PARAM).equals(StringValue.valueOf((String) null))) {
+            currencyParam = parameters.get(ReportsConstants.ISNATIONALCURRENCY_PARAM).toString();
+            if (currencyParam.equals("true")) {
+                countryCurrency = ReportsDashboardsUtils.getCurrency();
+            }
+        } else {
+            countryCurrency = ReportsDashboardsUtils.getCurrency();
+        }
         if(!parameters.get(ReportsConstants.RECIPIENT_PARAM).equals(StringValue.valueOf((String) null))) {
             recipientParam = parameters.get(ReportsConstants.RECIPIENT_PARAM).toString();
         }
@@ -62,7 +75,7 @@ public class CountryDashboards extends ReportsDashboards {
     }
 
     protected void addTable () {
-        Label title = new Label("countryTableTitle", new StringResourceModel("CountryDashboards.countryChart", this, null, null));
+        Label title = new Label("countryTableTitle", "Net Disbursement by Sector - " + tableYear + " - " + countryCurrency + " - full amount");
         add(title);
 
         Table table = new Table(CdaService, "countryTable", "countryTableRows", "countryDashboardsTable") {
@@ -73,13 +86,21 @@ public class CountryDashboards extends ReportsDashboards {
                 this.rows = new ArrayList<>();
                 this.result = this.runQuery();
 
-                return ReportsDashboardsUtils.processTableRowsOneYear(this.rows, this.result, this.rowId, ReportsConstants.isSector);
+                return ReportsDashboardsUtils.processTableRowsOneYear(this.rows, this.result, this.rowId,
+                        currencyParam, ReportsConstants.isSector);
             }
         };
 
         // add MDX queries parameters
         table.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
         table.setParam("paramCountry", (recipientParam != null ? recipientParam : ""));
+        if (currencyParam != null) {
+            if (currencyParam.equals("true")) {
+                table.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+            }
+        } else {
+            table.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+        }
 
         table.setdisableStripeClasses(Boolean.TRUE);
 
@@ -91,7 +112,7 @@ public class CountryDashboards extends ReportsDashboards {
     }
 
     protected void addChart () {
-        Label title = new Label("countryChartTitle", new StringResourceModel("CountryDashboards.countryChart", this, null, null));
+        Label title = new Label("countryChartTitle", "Net Disbursement by Sector - " + tableYear + " - " + countryCurrency + " - full amount");
         add(title);
 
         PieChart pieChart = new PieChart(CdaService, "countryChart", "countryDashboardsChart") {
@@ -111,6 +132,13 @@ public class CountryDashboards extends ReportsDashboards {
         // add MDX queries parameters
         pieChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
         pieChart.setParam("paramCountry", (recipientParam != null ? recipientParam : ""));
+        if (currencyParam != null) {
+            if (currencyParam.equals("true")) {
+                pieChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+            }
+        } else {
+            pieChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+        }
 
         Options options = pieChart.getOptions();
         // check if we have a result and make the chart slightly higher
@@ -125,7 +153,7 @@ public class CountryDashboards extends ReportsDashboards {
     }
 
     protected void addTableList () {
-        Label title = new Label("countryTableListTitle", new StringResourceModel("CountryDashboards.countryChart", this, null, null));
+        Label title = new Label("countryTableListTitle", "Net Disbursement - " + tableYear + " - " + countryCurrency + " - full amount");
         add(title);
 
         Table table = new Table(CdaService, "countryTableList", "countryTableListRows", "countryDashboardsTableList") {
@@ -137,13 +165,22 @@ public class CountryDashboards extends ReportsDashboards {
                 this.result = this.runQuery();
 
                 return ReportsDashboardsUtils.processTableRowsTransactions(financialTransactionService,
-                        this.rows, this.result, this.rowId, ReportsConstants.isCountry);
+                        this.rows, this.result, this.rowId, currencyParam, ReportsConstants.isCountry);
             }
         };
 
         // add MDX queries parameters
         table.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
         table.setParam("paramCountry", (recipientParam != null ? recipientParam : ""));
+        if (currencyParam != null) {
+            if (currencyParam.equals("true")) {
+                table.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+                table.setParam("paramcurrencyDisbursement", ReportsConstants.MDX_NAT_EXTENDED_CURRENCY);
+            }
+        } else {
+            table.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+            table.setParam("paramcurrencyDisbursement", ReportsConstants.MDX_NAT_EXTENDED_CURRENCY);
+        }
 
         Label firstYear = new Label("firstYear", tableYear + " Disbursement");
         table.getTable().add(firstYear);

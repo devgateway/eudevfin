@@ -19,27 +19,6 @@
                 <div class="span7">
                     <h3 wicket:id="channel"/>
                 </div>
-                <div class="span6">
-                    <div class="box">
-                        <div class="box-header">
-                            <h2>
-                                <div wicket:id="channelPieChartTitle"/>
-                            </h2>
-                        </div>
-                        <div wicket:id="channelPieChart"/>
-                    </div>
-                </div>
-                <div class="span6">
-                    <div class="box">
-                        <div class="box-header">
-                            <h2>
-                                <div wicket:id="channelBarChartTitle"/>
-                            </h2>
-                        </div>
-                        <div wicket:id="channelBarChart"/>
-                    </div>
-                </div>
-                <br/>
                 <div class="span10 offset1">
                     <div class="box">
                         <div class="box-header">
@@ -68,11 +47,30 @@
                                 <td wicket:id="col1" class="numeric">total budget</td>
                                 <td wicket:id="col2" class="numeric">disbursement</td>
                                 <td wicket:id="col3" class="string">sector</td>
-                                <td wicket:id="col4" class="string">country</td>
-                                <td wicket:id="col5" class="string">institution</td>
+                                <td>
+                                    <a href="#" wicket:id="col4">
+                                        <span wicket:id="linkName">country</span>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="#" wicket:id="col5">
+                                        <span wicket:id="linkName">institution</span>
+                                    </a>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
+                    </div>
+                </div>
+                <br/>
+                <div class="span10 offset1">
+                    <div class="box">
+                        <div class="box-header">
+                            <h2>
+                                <div wicket:id="channelBarChartTitle"/>
+                            </h2>
+                        </div>
+                        <div wicket:id="channelBarChart"/>
                     </div>
                 </div>
             </div> <!-- /row -->

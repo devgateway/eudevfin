@@ -147,10 +147,10 @@ public class ReportsInstitutionTypeOfAidDashboards extends ReportsDashboards {
 
                 if (typeOfFlowParam != null && typeOfFlowParam.equals(multilateralCategory.getName())) {
                     return ReportsDashboardsUtils.processTableRowsWithTotal(this.rows, this.result, this.rowId, true,
-                            ReportsConstants.isChannel, true);
+                            currencyParam, ReportsConstants.isChannel, true);
                 } else {
                     return ReportsDashboardsUtils.processTableRowsWithTotal(this.rows, this.result, this.rowId, true,
-                            ReportsConstants.isTypeOfAid, true);
+                            currencyParam, ReportsConstants.isTypeOfAid, true);
                 }
             }
         };
@@ -213,7 +213,7 @@ public class ReportsInstitutionTypeOfAidDashboards extends ReportsDashboards {
                 }
 
                 return ReportsDashboardsUtils.processTableRowsWithTotal(this.rows, this.result, this.rowId, false,
-                        ReportsConstants.isTypeOfAid, false);
+                        currencyParam, ReportsConstants.isTypeOfAid, false);
             }
         };
 
