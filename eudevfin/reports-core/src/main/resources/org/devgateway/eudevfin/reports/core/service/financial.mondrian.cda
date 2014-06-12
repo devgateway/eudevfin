@@ -927,6 +927,33 @@
         </Query>
     </DataAccess>
 
+    <DataAccess id="institutionDashboardsBiMultilateralChart"
+                connection="defaultConnectionLocale"
+                type="mdx"
+                cache="true"
+                cacheDuration="172800"
+                access="public">
+        <BandedMode>compact</BandedMode>
+        <Columns/>
+        <Parameters>
+            <Parameter default="2013" name="FIRST_YEAR" type="Integer"/>
+            <Parameter default="Federal Ministry of Finance" name="Institution" type="String"/>
+            <Parameter default="Net Amount Currency NATLOECD" name="currency" type="String"/>
+        </Parameters>
+        <Name>Institution Dashboards - BiMultilateral Chart</Name>
+        <Query>
+            <![CDATA[
+                WITH
+                MEMBER [Measures].[First Year] AS SUM(CrossJoin([Reporting Year].[${FIRST_YEAR}], {[Measures].[${currency}]}))
+                SELECT
+                NON EMPTY {[Measures].[First Year]} ON COLUMNS,
+                NON EMPTY {Hierarchize({[BiMultilateral].[Name].Members})} ON ROWS
+                FROM [Financial]
+                WHERE {[Extending Agency].[Name].[${Institution}]}
+                ]]>
+        </Query>
+    </DataAccess>
+
     <!-- used for Type of Aid Dashboards -->
     <DataAccess id="typeOfAidDashboardsPieChart"
                 connection="defaultConnectionLocale"

@@ -81,6 +81,7 @@ public class InstitutionDashboards extends ReportsDashboards {
         addPieChart();
         addBarChart();
         addTableList();
+        addTypeBiMultilateralChart();
     }
 
     protected void addTable () {
@@ -223,7 +224,7 @@ public class InstitutionDashboards extends ReportsDashboards {
     }
 
     protected void addTableList () {
-        Label title = new Label("institutionTableListTitle", "Net Disbursement - " + tableYear + " - " + countryCurrency + " - full amount");
+        Label title = new Label("institutionTableListTitle", "Net Disbursement including multilateral transactions - " + tableYear + " - " + countryCurrency + " - full amount");
         add(title);
 
         Table table = new Table(CdaService, "institutionTableList", "institutionTableListRows", "institutionDashboardsTableList") {
@@ -257,5 +258,45 @@ public class InstitutionDashboards extends ReportsDashboards {
 
         add(table.getTable());
         table.addTableRows();
+    }
+
+    protected void addTypeBiMultilateralChart () {
+        Label title = new Label("biMultilateralTitle", new StringResourceModel("ReportsInstitutionTypeOfAidDashboards.biMultilateralChart", this, null, null));
+        add(title);
+
+        PieChart pieChart = new PieChart(CdaService, "biMultilateralChart", "institutionDashboardsBiMultilateralChart") {
+            @Override
+            public List<Point> getResultSeries () {
+                this.result = this.runQuery();
+                List<Point> resultSeries = new ArrayList<>();
+
+                for (List<String> item : result.getResultset()) {
+                    resultSeries.add(new Point(item.get(0), Float.parseFloat(item.get(1))));
+                }
+
+                return resultSeries;
+            }
+        };
+
+        pieChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
+        pieChart.setParam("paramInstitution", (institutionParam != null ? institutionParam : ""));
+        if (currencyParam != null) {
+            if (currencyParam.equals("true")) {
+                pieChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+            }
+        } else {
+            pieChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+        }
+
+        Options options = pieChart.getOptions();
+        // check if we have a result and make the chart slightly higher
+        if (pieChart.getResultSeries().size() != 0) {
+            options.getChartOptions().setHeight(350);
+        }
+
+        options.addSeries(new PointSeries()
+                .setType(SeriesType.PIE)
+                .setData(pieChart.getResultSeries()));
+        add(pieChart.getChart());
     }
 }
