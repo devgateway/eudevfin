@@ -739,9 +739,23 @@ public class ReportsDashboardsUtils {
                 item.add(link);
                 link.add(new Label("linkName", row[1]));
 
-                PageParameters pageParametersSubReports = new PageParameters();
+                // add links to other sub-reports
+                PageParameters pageParametersCountry = new PageParameters();
+                PageParameters pageParametersInstitution = new PageParameters();
+                PageParameters pageParametersChannel = new PageParameters();
                 if (currencyParam != null) {
-                    pageParametersSubReports.add(ReportsConstants.ISNATIONALCURRENCY_PARAM, currencyParam);
+                    pageParametersCountry.add(ReportsConstants.ISNATIONALCURRENCY_PARAM, currencyParam);
+                    pageParametersInstitution.add(ReportsConstants.ISNATIONALCURRENCY_PARAM, currencyParam);
+                    pageParametersChannel.add(ReportsConstants.ISNATIONALCURRENCY_PARAM, currencyParam);
+                }
+                if (row[5] != null) {
+                    pageParametersCountry.add(ReportsConstants.RECIPIENT_PARAM, row[5]);
+                }
+                if (row[6] != null) {
+                    pageParametersInstitution.add(ReportsConstants.INSTITUTION_PARAM, row[6]);
+                }
+                if (row[7] != null) {
+                    pageParametersChannel.add(ReportsConstants.AGENCY_PARAM, row[7]);
                 }
 
                 // for each dashboard we display something else
@@ -749,37 +763,73 @@ public class ReportsDashboardsUtils {
                     item.add(new Label("col1", row[2]));
                     item.add(new Label("col2", row[3]));
                     item.add(new Label("col3", row[4]));
-                    item.add(new Label("col4", row[6]));
-                    item.add(new Label("col5", row[7]));
+
+                    BookmarkablePageLink col4 = new BookmarkablePageLink("col4", InstitutionDashboards.class, pageParametersInstitution);
+                    item.add(col4);
+                    col4.add(new Label("linkName", row[6]));
+
+                    BookmarkablePageLink col5 = new BookmarkablePageLink("col5", ChannelDashboards.class, pageParametersChannel);
+                    item.add(col5);
+                    col5.add(new Label("linkName", row[7]));
                 } else {
                     if(typeOfTable.equals(ReportsConstants.isSector)) {
                         item.add(new Label("col1", row[2]));
                         item.add(new Label("col2", row[3]));
-                        item.add(new Label("col3", row[5]));
-                        item.add(new Label("col4", row[6]));
-                        item.add(new Label("col5", row[7]));
+
+                        BookmarkablePageLink col3 = new BookmarkablePageLink("col3", CountryDashboards.class, pageParametersCountry);
+                        item.add(col3);
+                        col3.add(new Label("linkName", row[5]));
+
+                        BookmarkablePageLink col4 = new BookmarkablePageLink("col4", InstitutionDashboards.class, pageParametersInstitution);
+                        item.add(col4);
+                        col4.add(new Label("linkName", row[6]));
+
+                        BookmarkablePageLink col5 = new BookmarkablePageLink("col5", ChannelDashboards.class, pageParametersChannel);
+                        item.add(col5);
+                        col5.add(new Label("linkName", row[7]));
                     } else {
                         if(typeOfTable.equals(ReportsConstants.isInstitution)) {
                             item.add(new Label("col1", row[2]));
                             item.add(new Label("col2", row[3]));
                             item.add(new Label("col3", row[4]));
-                            item.add(new Label("col4", row[5]));
-                            item.add(new Label("col5", row[7]));
+
+                            BookmarkablePageLink col4 = new BookmarkablePageLink("col4", CountryDashboards.class, pageParametersCountry);
+                            item.add(col4);
+                            col4.add(new Label("linkName", row[5]));
+
+                            BookmarkablePageLink col5 = new BookmarkablePageLink("col5", ChannelDashboards.class, pageParametersChannel);
+                            item.add(col5);
+                            col5.add(new Label("linkName", row[7]));
                         } else {
                             if(typeOfTable.equals(ReportsConstants.isTypeOfAid)) {
                                 item.add(new Label("col1", row[2]));
                                 item.add(new Label("col2", row[3]));
                                 item.add(new Label("col3", row[4]));
-                                item.add(new Label("col4", row[5]));
-                                item.add(new Label("col5", row[6]));
-                                item.add(new Label("col6", row[7]));
+
+                                BookmarkablePageLink col4 = new BookmarkablePageLink("col4", CountryDashboards.class, pageParametersCountry);
+                                item.add(col4);
+                                col4.add(new Label("linkName", row[5]));
+
+                                BookmarkablePageLink col5 = new BookmarkablePageLink("col5", InstitutionDashboards.class, pageParametersInstitution);
+                                item.add(col5);
+                                col5.add(new Label("linkName", row[6]));
+
+                                BookmarkablePageLink col6 = new BookmarkablePageLink("col6", ChannelDashboards.class, pageParametersChannel);
+                                item.add(col6);
+                                col6.add(new Label("linkName", row[7]));
                             } else {
                                 if(typeOfTable.equals(ReportsConstants.isChannel)) {
                                     item.add(new Label("col1", row[2]));
                                     item.add(new Label("col2", row[3]));
                                     item.add(new Label("col3", row[4]));
-                                    item.add(new Label("col4", row[5]));
-                                    item.add(new Label("col5", row[6]));
+
+                                    BookmarkablePageLink col4 = new BookmarkablePageLink("col4", CountryDashboards.class, pageParametersCountry);
+                                    item.add(col4);
+                                    col4.add(new Label("linkName", row[5]));
+
+                                    BookmarkablePageLink col5 = new BookmarkablePageLink("col5", InstitutionDashboards.class, pageParametersInstitution);
+                                    item.add(col5);
+                                    col5.add(new Label("linkName", row[6]));
                                 }
                             }
                         }
