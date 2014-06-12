@@ -31,7 +31,7 @@
 
     <entry key="gni.label">GNI</entry>
     <entry key="gni.placeholder">(full amount in national currency)</entry>
-    <entry key="gni.help">Enter the GNI of the country above for the selected reporting year (full amount)</entry>
+    <entry key="gni.help">Enter the GNI of the country above for the selected reporting year (full amount, no digit separators)</entry>
        
     <entry key="totalFlows.label">Total Flows</entry>
     <entry key="totalFlows.placeholder">percentage</entry>

@@ -100,7 +100,7 @@
 
 	<entry key="50interestReceived.label">50. Interest Received</entry>
 	<entry key="50interestReceived.placeholder"></entry>
-	<entry key="50interestReceived.help">During the reporting year (full amount). DO NOT enter a negative amount.</entry>
+	<entry key="50interestReceived.help">During the reporting year (full amount, no digit separators). DO NOT enter a negative amount.</entry>
 	<entry key="50interestReceived.help.detail">Field no. 50 - Interest received: Interest received corresponds to the amount of interest and/or other
 		charges received from the borrowing country, including payments to expunge or reduce interest due or in arrears.</entry>
 

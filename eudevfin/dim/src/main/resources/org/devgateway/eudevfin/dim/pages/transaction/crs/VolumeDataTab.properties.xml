@@ -11,7 +11,7 @@
 
 	<entry key="33commitments.label">33. Commitments</entry>
 	<entry key="33commitments.placeholder"></entry>
-	<entry key="33commitments.help">New amounts committed during the reporting year (full amount)</entry>
+	<entry key="33commitments.help">New amounts committed during the reporting year (full amount, no digit separators)</entry>
 	<entry key="33commitments.help.detail">Field no. 33 - Commitments: New amounts committed during the reporting year. The amount for the
 		initial commitment taking account of any revisions of the commitment that occurred
 		during the year. After the original
@@ -41,8 +41,8 @@
 		recipient country or a multilateral agency.</entry>
 
 	<entry key="34amountsExtended.label">34 Amounts Extended</entry>
-	<entry key="34amountsExtended.placeholder"></entry>
-	<entry key="34amountsExtended.help">Amount disbursed during the reporting year (full amount)</entry>
+	<entry key="34amountsExtended.placeholder">(full amount, no digit separators)</entry>
+	<entry key="34amountsExtended.help">Amount disbursed during the reporting year (full amount, no digit separators)</entry>
 	<entry key="34amountsExtended.help.detail">Field no. 34 Amounts extended: Report the amount disbursed during the year. When reporting a
 		disbursement on a former commitment, all CRS++ fields (except fields 36-40 and 42-49)
 		should be completed, with field
@@ -51,7 +51,7 @@
 
 
 	<entry key="35amountsReceived.label">35. Amounts Received</entry>
-	<entry key="35amountsReceived.placeholder"></entry>
+	<entry key="35amountsReceived.placeholder">(full amount, no digit separators)</entry>
 	<entry key="35amountsReceived.help">Field no. 35 - Amounts received: Payments received from the aid recipient during the reporting year (for loans, only principal
 		payments, including any payments of arrears of principal). NB: DO NOT enter a negative amount except for capital
 		losses.
@@ -67,10 +67,10 @@
 
 
 	<entry key="36amountUntied.label">36. Amount Untied</entry>
-	<entry key="36amountUntied.placeholder"></entry>
-	<entry key="36amountUntied.help">On a commitment basis, for new commitments only (full amount). Procurement authorised in all OECD
+	<entry key="36amountUntied.placeholder">(full amount, no digit separators)</entry>
+	<entry key="36amountUntied.help">On a commitment basis, for new commitments only (full amount, no digit separators). Procurement authorised in all OECD
 		countries and substantially all developing countries.</entry>
-	<entry key="36amountUntied.help.detail">"Field no. 36 - Amount untied: On a commitment basis, for new commitments only (full amount).
+	<entry key="36amountUntied.help.detail">"Field no. 36 - Amount untied: On a commitment basis, for new commitments only (full amount, no digit separators).
 		Procurement authorized in all OECD countries and substantially all
 		developing countries. Detailed guidance on tying
 		status reporting is given by type of aid in Annex 11 of the CRS++ Gudilines
@@ -81,8 +81,8 @@
 		http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-ADD2-FINAL-ENG.pdf (page 14)."</entry>
 
 	<entry key="37amountPartiallyUntied.label">37. Amount Partially Untied</entry>
-	<entry key="37amountPartiallyUntied.placeholder"></entry>
-	<entry key="37amountPartiallyUntied.help">On a commitment basis, for new commitments only (full amount). Procurement limited to donor and
+	<entry key="37amountPartiallyUntied.placeholder">(full amount, no digit separators)</entry>
+	<entry key="37amountPartiallyUntied.help">On a commitment basis, for new commitments only (full amount, no digit separators). Procurement limited to donor and
 		substantially all developing countries.</entry>
 	<entry key="37amountPartiallyUntied.help.detail">Field no. 37 - Amount partially untied: Partially untied aid is defined as loans and grants which are
 		tied, contractually or in effect, to procurement of goods and services from a restricted number of countries which
@@ -91,8 +91,8 @@
 		http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-ADD2-FINAL-ENG.pdf (page 14).</entry>
 
 	<entry key="38amountTied.label">38. Amount Tied</entry>
-	<entry key="38amountTied.placeholder"></entry>
-	<entry key="38amountTied.help">On a commitment basis, for new commitments only (full amount). Procurement that does not fall under
+	<entry key="38amountTied.placeholder">(full amount, no digit separators)</entry>
+	<entry key="38amountTied.help">On a commitment basis, for new commitments only (full amount, no digit separators). Procurement that does not fall under
 		the definitions of untied or partially untied aid.
 	</entry>
 	<entry key="38amountTied.help.detail">Field no. 38 - Amount tied: Transactions are considered tied unless the donor has, at the time of the
@@ -104,7 +104,7 @@
 	</entry>
 
 	<entry key="39amountOfIRTC.label">39. Amount of IRTC</entry>
-	<entry key="39amountOfIRTC.placeholder"></entry>
+	<entry key="39amountOfIRTC.placeholder">(full amount, no digit separators)</entry>
 	<entry key="39amountOfIRTC.help">For new commitments only, if investment (field 26)=1. Report in full amount</entry>
 	<entry key="39amountOfIRTC.help.detail">Field no. 39 - Investment-Related Technical Assistance (IRTC): For new commitments only, if investment
 		(field 26)=1. Report in full amount. Investment-related technical co-operation is defined as the financing of services
@@ -115,24 +115,24 @@
 		labour etc.).</entry>
 
 	<entry key="40amountOfExpertsCommitments.label">40. If project-type, amount of experts commitments</entry>
-	<entry key="40amountOfExpertsCommitments.placeholder"></entry>
+	<entry key="40amountOfExpertsCommitments.placeholder">(full amount, no digit separators)</entry>
 	<entry key="40amountOfExpertsCommitments.help">Optional reporting, if project-type (field 13 =C01)</entry>
-	<entry key="40amountOfExpertsCommitments.help.detail">Field no. 40 - If project-type, amount of experts commitments: Optional reporting (full amount), if
+	<entry key="40amountOfExpertsCommitments.help.detail">Field no. 40 - If project-type, amount of experts commitments: Optional reporting (full amount, no digit separators), if
 		project-type (field 13 =C01). If you are able to do so, report the amount committed for financing donor
 		experts/consultants.</entry>
 
 	<entry key="41amountOfExpertsExtended.label">41. If project-type, amount of experts extended</entry>
-	<entry key="41amountOfExpertsExtended.placeholder"></entry>
+	<entry key="41amountOfExpertsExtended.placeholder">(full amount, no digit separators)</entry>
 	<entry key="41amountOfExpertsExtended.help">Optional reporting, if project-type (field 13=C01).</entry>
-	<entry key="41amountOfExpertsExtended.help.detail">Field no. 41 - If project-type, amount of experts extended: Optional reporting (full amount), if
+	<entry key="41amountOfExpertsExtended.help.detail">Field no. 41 - If project-type, amount of experts extended: Optional reporting (full amount, no digit separators), if
 		project-type (field 13 =C01). If you are able to do so, report the amount disbursed for financing donor
 		experts/consultants.
 	</entry>
 
 	<entry key="42amountOfExportCredit.label">42. Amount of export credit in AF package</entry>
-	<entry key="42amountOfExportCredit.placeholder"></entry>
-	<entry key="42amountOfExportCredit.help">For commitments only (full amount), if AF (field 27=1). Use your national currency. </entry>
-	<entry key="42amountOfExportCredit.help.detail">Field no. 42 - Amount of export credit in AF package: For commitments only (full amount), if AF (field 27=1). Use your national currency. 
+	<entry key="42amountOfExportCredit.placeholder">(full amount, no digit separators)</entry>
+	<entry key="42amountOfExportCredit.help">For commitments only (full amount, no digit separators), if AF (field 27=1). Use your national currency. </entry>
+	<entry key="42amountOfExportCredit.help.detail">Field no. 42 - Amount of export credit in AF package: For commitments only (full amount, no digit separators), if AF (field 27=1). Use your national currency. 
         The sum of the amount committed (field 33) and the amount of export credit (field 42) equals the actual financial flow to the 
         recipient country i.e. the amount of the associated financing package. Use the description field (field 19) to give information 
         on any other funds injected in the package (e.g. private bank loans, contributions from private investors) and explain how the 
