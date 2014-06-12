@@ -20,7 +20,7 @@ import org.hibernate.envers.Audited;
 @Entity
 @Audited
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class PersistedAuthority implements Serializable {
+public class PersistedAuthority implements Serializable, Comparable<PersistedAuthority> {
 
 	private static final long serialVersionUID = 1277503635558596280L;
 
@@ -50,6 +50,11 @@ public class PersistedAuthority implements Serializable {
 	@Override
 	public String toString() {
 		return authority;
+	}
+
+	@Override
+	public int compareTo(PersistedAuthority o) {
+		return this.getAuthority().compareTo(o.getAuthority());
 	}
 
 }

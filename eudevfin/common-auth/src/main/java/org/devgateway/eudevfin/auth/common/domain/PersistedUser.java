@@ -5,8 +5,8 @@ package org.devgateway.eudevfin.auth.common.domain;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -64,7 +64,7 @@ public class PersistedUser implements Serializable, UserDetails {
 	private boolean enabled = true;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	private Set<PersistedAuthority> persistedAuthorities = new HashSet<PersistedAuthority>();
+	private Set<PersistedAuthority> persistedAuthorities = new TreeSet<PersistedAuthority>();
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	private PersistedUserGroup group;

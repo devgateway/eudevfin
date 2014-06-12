@@ -16,6 +16,7 @@ import java.util.Collection;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.markup.html.form.AjaxCheckBox;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy;
@@ -38,6 +39,7 @@ import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.domain.PersistedAuthority;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUserGroup;
+import org.devgateway.eudevfin.auth.common.service.PersistedAuthorityService;
 import org.devgateway.eudevfin.auth.common.service.PersistedUserService;
 import org.devgateway.eudevfin.auth.common.util.AuthUtils;
 import org.devgateway.eudevfin.auth.common.util.DigestUtils;
@@ -73,6 +75,9 @@ public class EditPersistedUserPage extends HeaderFooter {
 
 	@SpringBean
 	private PersistedUserGroupChoiceProvider userGroupChoiceProvider;
+	
+	@SpringBean
+	private PersistedAuthorityService persistedAuthorityService;
 
 	protected final NotificationPanel feedbackPanel;
 
@@ -181,9 +186,31 @@ public class EditPersistedUserPage extends HeaderFooter {
 
 		CheckBoxField enabled = new CheckBoxField("enabled", new RWComponentPropertyModel<Boolean>("enabled"));
 		
-		MultiSelectField<PersistedAuthority> authorities = new MultiSelectField<>("persistedAuthorities",
+		final MultiSelectField<PersistedAuthority> authorities = new MultiSelectField<>("persistedAuthorities",
 				new RWComponentPropertyModel<Collection<PersistedAuthority>>("persistedAuthorities"),
 				authorityChoiceProvider);
+		
+		authorities.getField().add(new AjaxFormComponentUpdatingBehavior("onchange") {
+			private static final long serialVersionUID = -8044183148051422831L;
+			@Override
+			protected void onUpdate(AjaxRequestTarget target) {
+				if (persistedUser.getPersistedAuthorities() != null
+						&& persistedUser.getPersistedAuthorities().size() > 0)
+					persistedUser.getPersistedAuthorities().add(
+							persistedAuthorityService.findOne(AuthConstants.Roles.ROLE_USER).getEntity());
+
+				if (persistedUser.getPersistedAuthorities() != null
+						&& persistedUser.getPersistedAuthorities().contains(persistedAuthorityService.findOne(AuthConstants.Roles.ROLE_SUPERVISOR).getEntity())) {
+					persistedUser.getPersistedAuthorities().add(
+							persistedAuthorityService.findOne(AuthConstants.Roles.ROLE_USER).getEntity());
+					persistedUser.getPersistedAuthorities().add(
+							persistedAuthorityService.findOne(AuthConstants.Roles.ROLE_TEAMLEAD).getEntity());
+				}
+				
+				target.add(authorities);
+			}
+
+		});
 
 		authorities.required();
 
