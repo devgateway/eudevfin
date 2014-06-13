@@ -38,7 +38,7 @@ public class ReportsCountrySectorDashboards extends ReportsDashboards {
     private String countryTableRowSet = "{Hierarchize({[Country].[Geography].Members, [Country].[Name].Members, [Country].[TOTAL]})}";
     private String countryTableGeography = "{Hierarchize({{[Country].[__GEOGRAPHY__]}, Filter({{[Country].[Name].Members}}, " +
             "(Exists(Ancestor([Country].CurrentMember, [Country].[Geography]), {[Country].[__GEOGRAPHY__]}).Count  > 0))}), [Country].[TOTAL]}";
-    private String countryTableRecipient = "{Hierarchize({{[Country].[Name].[__RECIPIENT__]}}), [Country].[Total]}";
+    private String countryTableRecipient = "{Hierarchize({{[Country].[Name].[__RECIPIENT__]}}), [Country].[TOTAL]}";
     private String countryTableGeographyRecipient = "{Hierarchize({{[Country].[__GEOGRAPHY__]}, [Country].[Name].[__RECIPIENT__], [Country].[TOTAL]})}";
     private String countryTableTotal = "MEMBER [Country].[Total] AS IIF(SUM([Country].[Name].Members __CURRENCY__) > 0, SUM([Country].[Name].Members __CURRENCY__), Null)";
     private String countryTableTotalGeography = "MEMBER [Country].[Total] AS IIF(SUM([Country].__GEOGRAPHY__ __CURRENCY__) > 0, SUM([Country].__GEOGRAPHY__ __CURRENCY__), Null)";

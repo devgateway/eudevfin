@@ -67,6 +67,16 @@ public class ReportsDashboardsUtils {
                 }
             }
 
+            // delete empty rows
+            List <List<String>> newResultSet = new ArrayList<>();
+            for (int i = 0; i < resultSet.size(); i++) {
+                if ((resultSet.get(i).size() > 1 && resultSet.get(i).get(1) != null) ||
+                        (resultSet.get(i).size() > 3 && resultSet.get(i).get(3) != null)) {
+                    newResultSet.add(resultSet.get(i));
+                }
+            }
+            resultSet = newResultSet;
+
             // format the amounts as #,###.##
             // and other values like percentages
             for (int i = 0; i < resultSet.size(); i++) {
