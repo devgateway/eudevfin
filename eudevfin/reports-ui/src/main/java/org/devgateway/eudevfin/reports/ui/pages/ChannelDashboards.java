@@ -69,7 +69,8 @@ public class ChannelDashboards extends ReportsDashboards {
             agencyParam = parameters.get(ReportsConstants.AGENCY_PARAM).toString();
         }
 
-        Label country = new Label("channel", (agencyParam != null ? agencyParam : ""));
+        String subTitle = new StringResourceModel("page.subtitle", this, null, null).getObject();
+        Label country = new Label("channel", (agencyParam != null ? subTitle + " - " + agencyParam : ""));
         add(country);
 
         addComponents();

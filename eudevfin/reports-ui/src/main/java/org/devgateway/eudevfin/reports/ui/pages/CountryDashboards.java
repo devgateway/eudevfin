@@ -62,7 +62,8 @@ public class CountryDashboards extends ReportsDashboards {
             recipientParam = parameters.get(ReportsConstants.RECIPIENT_PARAM).toString();
         }
 
-        Label country = new Label("country", (recipientParam != null ? recipientParam : ""));
+        String subTitle = new StringResourceModel("page.subtitle", this, null, null).getObject();
+        Label country = new Label("country", (recipientParam != null ? subTitle + " - " + recipientParam : ""));
         add(country);
 
         addComponents();

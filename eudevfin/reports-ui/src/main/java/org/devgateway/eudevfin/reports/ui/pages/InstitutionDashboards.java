@@ -70,7 +70,8 @@ public class InstitutionDashboards extends ReportsDashboards {
             institutionParam = parameters.get(ReportsConstants.INSTITUTION_PARAM).toString();
         }
 
-        Label country = new Label("institution", (institutionParam != null ? institutionParam : ""));
+        String subTitle = new StringResourceModel("page.subtitle", this, null, null).getObject();
+        Label country = new Label("institution", (institutionParam != null ? subTitle + " - " + institutionParam : ""));
         add(country);
 
         addComponents();

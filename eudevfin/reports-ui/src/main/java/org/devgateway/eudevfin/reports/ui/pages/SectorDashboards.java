@@ -70,7 +70,8 @@ public class SectorDashboards extends ReportsDashboards {
             sectorParam = parameters.get(ReportsConstants.SECTOR_PARAM).toString();
         }
 
-        Label country = new Label("sector", (sectorParam != null ? sectorParam : ""));
+        String subTitle = new StringResourceModel("page.subtitle", this, null, null).getObject();
+        Label country = new Label("sector", (sectorParam != null ? subTitle + " - " + sectorParam : ""));
         add(country);
 
         addComponents();

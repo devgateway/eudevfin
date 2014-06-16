@@ -69,7 +69,8 @@ public class TypeOfAidDashboards extends ReportsDashboards {
             typeOfAidParam = parameters.get(ReportsConstants.TYPEOFAID_PARAM).toString();
         }
 
-        Label country = new Label("typeOfAid", (typeOfAidParam != null ? typeOfAidParam : ""));
+        String subTitle = new StringResourceModel("page.subtitle", this, null, null).getObject();
+        Label country = new Label("typeOfAid", (typeOfAidParam != null ? subTitle + " - " + typeOfAidParam : ""));
         add(country);
 
         addComponents();
