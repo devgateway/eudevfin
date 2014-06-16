@@ -14,7 +14,7 @@ var Currency = Backbone.View.extend({
         this.workspace.bind('workspace:adjust', this.render);
         var self = this;
         $.ajax({
-        	  url: "/jasperreports/currencylist"
+        	  url: "../jasperreports/currencylist"
         	}).done(function(data) {
         		self.selectedCurrency = data.selectedCurrency;
         		self.currencyList = data.list;
@@ -66,7 +66,7 @@ var Currency = Backbone.View.extend({
         	if(key != ""){
             	this.selectedCurrency = key;
                 $.ajax({
-              	  url: "/jasperreports/currency?reportCurrency=" + key
+              	  url: "../jasperreports/currency?reportCurrency=" + key
               	}).done(function() {
               		self.workspace.refresh();
               	});
