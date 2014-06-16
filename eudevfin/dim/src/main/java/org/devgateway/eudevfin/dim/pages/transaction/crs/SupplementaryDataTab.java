@@ -15,6 +15,7 @@ import org.apache.wicket.validation.ValidationError;
 import org.devgateway.eudevfin.metadata.common.domain.Category;
 import org.devgateway.eudevfin.metadata.common.util.CategoryConstants;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
+import org.devgateway.eudevfin.ui.common.components.BooleanDropDownField;
 import org.devgateway.eudevfin.ui.common.components.DateInputField;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.components.PreviewableFormPanel;
@@ -121,23 +122,23 @@ public class SupplementaryDataTab extends PreviewableFormPanel implements Permis
         tradeDevelopment.getField().add(new MarkersField13UpdateBehavior());
         policyObjectivesGroup.add(tradeDevelopment);
 
-        DropDownField<Boolean> freestandingTechnicalCooperation = new DropDownField<>("24freestandingTechnicalCooperation",
+        BooleanDropDownField freestandingTechnicalCooperation = new BooleanDropDownField("24freestandingTechnicalCooperation",
                 new RWComponentPropertyModel<Boolean>("freestandingTechnicalCooperation"), SB.boolProvider);
         freestandingTechnicalCooperation.getField().add(new MarkersField13UpdateBehavior());
         typeOfAidGroup.add(freestandingTechnicalCooperation);
 
-        DropDownField<Boolean> programmeBasedApproach = new DropDownField<>("25programmeBasedApproach",
+        BooleanDropDownField programmeBasedApproach = new BooleanDropDownField("25programmeBasedApproach",
                 new RWComponentPropertyModel<Boolean>("programmeBasedApproach"), SB.boolProvider);
         programmeBasedApproach.getField().add(new MarkersField13UpdateBehavior());
         typeOfAidGroup.add(programmeBasedApproach);
 
-        DropDownField<Boolean> investmentProject = new DropDownField<>("26investmentProject",
+        BooleanDropDownField investmentProject = new BooleanDropDownField("26investmentProject",
                 new RWComponentPropertyModel<Boolean>("investment"), SB.boolProvider);
         investmentProject.getField().add(new MarkersField13UpdateBehavior());
         typeOfAidGroup.add(investmentProject);
 
 
-        DropDownField<Boolean> associatedFinancing = new DropDownField<>("27associatedFinancing",
+        BooleanDropDownField associatedFinancing = new BooleanDropDownField("27associatedFinancing",
                 new RWComponentPropertyModel<Boolean>("associatedFinancing"), SB.boolProvider);
         associatedFinancing.getField().add(new MarkersField13UpdateBehavior());
         typeOfAidGroup.add(associatedFinancing);

@@ -22,6 +22,7 @@ import org.devgateway.eudevfin.financial.FileWrapper;
 import org.devgateway.eudevfin.metadata.common.domain.Category;
 import org.devgateway.eudevfin.metadata.common.util.CategoryConstants;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
+import org.devgateway.eudevfin.ui.common.components.BooleanDropDownField;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.components.MultiFileUploadField;
 import org.devgateway.eudevfin.ui.common.components.PermissionAwareContainer;
@@ -84,7 +85,7 @@ public class CustomBasicDataTab extends BasicDataTab {
     public class Extension1 extends Fragment {
         public Extension1(final String id, final String markupId, final MarkupContainer markupProvider) {
             super(id, markupId, markupProvider);
-            final DropDownField<Boolean> cpa = new DropDownField<>("7bCPA", new RWComponentPropertyModel<Boolean>("cpa"),
+            final BooleanDropDownField cpa = new BooleanDropDownField("7bCPA", new RWComponentPropertyModel<Boolean>("cpa"),
                     SB.boolProvider);
             this.add(cpa);
 
@@ -110,7 +111,7 @@ public class CustomBasicDataTab extends BasicDataTab {
             final PermissionAwareContainer pac = new PermissionAwareContainer("14coFinancing");
             this.add(pac);
 
-            final DropDownField<Boolean> projectCoFinanced = new DropDownField<Boolean>("14aProjectCoFinanced", new RWComponentPropertyModel<Boolean>("projectCoFinanced"),
+            final BooleanDropDownField projectCoFinanced = new BooleanDropDownField("14aProjectCoFinanced", new RWComponentPropertyModel<Boolean>("projectCoFinanced"),
                     SB.boolProvider) { 
     			@Override
     			protected void onUpdate(AjaxRequestTarget target) {

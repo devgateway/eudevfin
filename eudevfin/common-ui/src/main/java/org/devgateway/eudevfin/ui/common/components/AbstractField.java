@@ -39,10 +39,10 @@ public abstract class AbstractField<T, FIELD extends FormComponent<T>> extends P
     private final DetailedHelpControlGroup controlGroup;
     FIELD field;
     protected final MarkupContainer xPenderController;
-    protected Component readOnlyComponent;
+    protected Label readOnlyRendition;
 
     private final AttributeModifier span4AttrModifier = new AttributeAppender("class", Model.of("span4"), " ");
-
+    
     /**
      * @param id              wicket placeholder id
      * @param model           component's model
@@ -72,8 +72,9 @@ public abstract class AbstractField<T, FIELD extends FormComponent<T>> extends P
         xPenderController.add(appender);
         controlGroup.add(xPenderController);
         controlGroup.add(span4AttrModifier);   
-        readOnlyComponent=new Label("readOnlyComponent",model).setVisible(false);
-        controlGroup.add(readOnlyComponent);
+        readOnlyRendition=new Label("readOnlyRendition",model);
+        readOnlyRendition.setVisible(false);
+        controlGroup.add(readOnlyRendition);
         add(controlGroup);
 
     }
@@ -81,13 +82,11 @@ public abstract class AbstractField<T, FIELD extends FormComponent<T>> extends P
 	
     
     @Override
-    protected void onConfigure() {
-    	
+    protected void onConfigure() {    	
     	if(isFormInPreview()) {
-    		if(getDefaultModelObject()==null) setVisible(false);
-    		readOnlyComponent.setVisible(true);
-    		xPenderController.setVisible(false);
-    		
+    		//if(getDefaultModelObject()==null) setVisible(false);
+    		readOnlyRendition.setVisible(true);
+    		xPenderController.setVisible(false);    		
     	}
     	
     	
