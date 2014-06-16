@@ -49,7 +49,11 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
+import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
 @Controller
 public class ReportsController {
@@ -77,6 +81,47 @@ public class ReportsController {
 	@Autowired
 	ApplicationContext applicationContext;
 
+	/**
+	 * Set currency
+	 */
+	@PreAuthorize("hasRole('" + AuthConstants.Roles.ROLE_USER + "')")
+    @RequestMapping(value = "/currency", method = {
+    			RequestMethod.GET, RequestMethod.POST
+    		})
+    public ModelAndView setCurrency(HttpServletRequest request, HttpServletResponse response, ModelAndView modelAndView)  throws IOException {
+		String currency = request.getParameter(REPORT_CURRENCY);
+		RequestContextHolder.getRequestAttributes().setAttribute("CURRENCY",
+				currency, RequestAttributes.SCOPE_SESSION);
+		return null;
+	}
+	/**
+	 * get currency list
+	 */
+	@PreAuthorize("hasRole('" + AuthConstants.Roles.ROLE_USER + "')")
+    @RequestMapping(value = "/currencylist", method = {
+    			RequestMethod.GET, RequestMethod.POST
+    		})
+    public ModelAndView getCurrencyList(HttpServletRequest request, HttpServletResponse response, ModelAndView modelAndView)  throws IOException {
+		ModelAndView mav = new ModelAndView();
+		mav.setView(new MappingJackson2JsonView());
+		String[] currencyList = {"EUR", "USD", "LVL"};
+		mav.addObject("list", currencyList);
+		mav.addObject("selectedCurrency", getCurrencyParameter());
+		return mav;
+	}
+    private String getCurrencyParameter() {
+    	String currency;
+    	if(RequestContextHolder.getRequestAttributes() != null && RequestContextHolder.getRequestAttributes().getAttribute("CURRENCY", RequestAttributes.SCOPE_SESSION) != null && !"".equals((String)RequestContextHolder.getRequestAttributes().getAttribute("CURRENCY", RequestAttributes.SCOPE_SESSION)))
+    	{
+    		currency = (String)RequestContextHolder.getRequestAttributes().getAttribute("CURRENCY", RequestAttributes.SCOPE_SESSION);
+    	}
+    	else
+    	{
+    		currency = REPORT_DEFAULT_CURRENCY_CODE;
+    	}
+		System.out.println("Current Currency:" + currency);
+		return currency;
+	}
 	/**
 	 * Generate a report
 	 */

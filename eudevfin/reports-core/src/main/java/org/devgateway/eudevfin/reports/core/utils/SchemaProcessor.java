@@ -4,10 +4,13 @@ import mondrian.i18n.LocalizingDynamicSchemaProcessor;
 import mondrian.olap.MondrianProperties;
 import mondrian.olap.Util;
 import mondrian.olap.Util.PropertyList;
+
 import org.apache.log4j.Logger;
 import org.devgateway.eudevfin.auth.common.util.AuthUtils;
 import org.devgateway.eudevfin.financial.util.FinancialTransactionUtil;
 import org.joda.money.CurrencyUnit;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 
 import java.io.InputStream;
 import java.util.MissingResourceException;
@@ -75,10 +78,9 @@ public class SchemaProcessor extends LocalizingDynamicSchemaProcessor {
      * @throws Exception if an error occurs
      */
     public String filter(String schemaUrl, Util.PropertyList connectInfo, InputStream stream) throws Exception {
-
         String currency = connectInfo.get("CURRENCY");
         if (currency == null || currency.equals("")) {
-            currency = DEFAULT_CURRENCY;
+        	currency = getCurrencyParameter();
         }
 
         String countryCurrency = connectInfo.get("COUNTRY_CURRENCY");
@@ -117,7 +119,21 @@ public class SchemaProcessor extends LocalizingDynamicSchemaProcessor {
         return schema;
     }
 
-    private String doRegExReplacements (String schema) {
+    private String getCurrencyParameter() {
+    	String currency;
+    	if(RequestContextHolder.getRequestAttributes() != null && RequestContextHolder.getRequestAttributes().getAttribute("CURRENCY", RequestAttributes.SCOPE_SESSION) != null && !"".equals((String)RequestContextHolder.getRequestAttributes().getAttribute("CURRENCY", RequestAttributes.SCOPE_SESSION)))
+    	{
+    		currency = (String)RequestContextHolder.getRequestAttributes().getAttribute("CURRENCY", RequestAttributes.SCOPE_SESSION);
+    	}
+    	else
+    	{
+    		currency = DEFAULT_CURRENCY;
+    	}
+		System.out.println("Current Currency:" + currency);
+		return currency;
+	}
+
+	private String doRegExReplacements (String schema) {
         StringBuffer intlSchema = new StringBuffer();
         Matcher match = pattern.matcher(schema);
         String key;
