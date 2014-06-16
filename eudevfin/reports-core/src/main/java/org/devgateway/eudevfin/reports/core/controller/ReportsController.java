@@ -53,7 +53,6 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
-import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
 @Controller
 public class ReportsController {
@@ -104,11 +103,16 @@ public class ReportsController {
     public ModelAndView getCurrencyList(HttpServletRequest request, HttpServletResponse response, ModelAndView modelAndView)  throws IOException {
 		ModelAndView mav = new ModelAndView();
 		mav.setView(new MappingJackson2JsonView());
-		String[] currencyList = {"EUR", "USD", "LVL"};
+        CurrencyUnit currencyForCountryIso = FinancialTransactionUtil
+                .getCurrencyForCountryIso(AuthUtils
+                        .getIsoCountryForCurrentUser());
+        //Add EUR, USD and the country currency
+        String[] currencyList = {"EUR", "USD", currencyForCountryIso.getCode()};
 		mav.addObject("list", currencyList);
 		mav.addObject("selectedCurrency", getCurrencyParameter());
 		return mav;
 	}
+	
     private String getCurrencyParameter() {
     	String currency;
     	if(RequestContextHolder.getRequestAttributes() != null && RequestContextHolder.getRequestAttributes().getAttribute("CURRENCY", RequestAttributes.SCOPE_SESSION) != null && !"".equals((String)RequestContextHolder.getRequestAttributes().getAttribute("CURRENCY", RequestAttributes.SCOPE_SESSION)))
@@ -119,9 +123,9 @@ public class ReportsController {
     	{
     		currency = REPORT_DEFAULT_CURRENCY_CODE;
     	}
-		System.out.println("Current Currency:" + currency);
 		return currency;
 	}
+    
 	/**
 	 * Generate a report
 	 */

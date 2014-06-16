@@ -61,21 +61,16 @@ var Currency = Backbone.View.extend({
     },
     
     updateCurrency: function(key){
-    	var self = this;
-    	var altUrl = Settings.REST_URL + Saiku.session.username + "/discover/refresh?" + new Date().getTime();
-    	console.log(altUrl);
-    	if(key != ""){
-        	this.selectedCurrency = key;
-            $.ajax({
-          	  url: "/jasperreports/currency?reportCurrency=" + key
-          	}).done(function() {
-          		//self.workspace.refresh();
+    	if (window.confirm("This will create a new tab with the selected currency. Are you sure?")) { 
+        	var self = this;
+        	if(key != ""){
+            	this.selectedCurrency = key;
                 $.ajax({
-                	  url: altUrl
-                	}).done(function() {
-                		$(".currency_button").html(key);
-                });
-          	});
+              	  url: "/jasperreports/currency?reportCurrency=" + key
+              	}).done(function() {
+              		self.workspace.refresh();
+              	});
+        	}
     	}
     },
     
