@@ -103,6 +103,7 @@
         <script type="text/javascript" src="js/saiku/models/Session.js"></script>
         <script type="text/javascript" src="js/saiku/models/SessionWorkspace.js"></script>
         <script type="text/javascript" src="js/saiku/models/Member.js"></script>
+        
         <script type="text/javascript" src="js/saiku/Saiku.js"></script>
         <script type="text/javascript" src="js/saiku/adapters/SaikuServer.js"></script>
         <script type="text/javascript" src="js/saiku/routers/QueryRouter.js"></script>
@@ -116,7 +117,6 @@
         <script type="text/javascript" src="js/saiku/plugins/Statistics/plugin.js" defer></script>
         <script type="text/javascript" src="js/saiku/plugins/I18n/plugin.js" defer></script>
         <script type="text/javascript" src="js/saiku/plugins/BIServer/plugin.js" defer></script>
-        <script type="text/javascript" src="js/saiku/plugins/Buckets/plugin.js" defer></script>        
                     
             <script type="text/javascript" src="js/saiku/plugins/CCC_Chart/def.js"></script>
             <script type="text/javascript" src="js/saiku/plugins/CCC_Chart/protovis.js"></script>
@@ -133,6 +133,7 @@
             -->
             <script type="text/javascript" src="js/saiku/plugins/CCC_Chart/plugin.js"></script>
 			<script type="text/javascript" src="js/saiku/plugins/Currency/plugin.js" ></script>
+
         <script type="text/javascript" src="js/ace/ace.js" charset="utf-8"></script>
 
 
@@ -151,6 +152,11 @@
             </ul>
                 <h1 id='logo'><a href='http://www.analytical-labs.com/' title='Saiku - Next Generation Open Source Analytics' class='sprite'>Saiku</a></h1>
         </script>
+
+        <script type="text/x-jquery-tmpl" id="template-toolbar-eudevfin">
+                <h1><a href='/' title='EUDEVFIN' style="text-decoration:none;color:#777777;font-size:20px;padding-left:10px;">EU-DEVFIN</a></h1>
+        </script>
+
 
         <script type="text/x-jquery-tmpl" id="template-cubes">
             <select class="cubes">
@@ -323,21 +329,23 @@
             <li><a href="#swap_axis" 
                 class="i18n swap_axis button disabled_toolbar sprite" 
                 title="Swap axis"></a></li>
-            <li><a href="#show_mdx" 
+            <!-- 
+			<li style="display:none"><a href="#show_mdx" 
                 class="i18n mdx button disabled_toolbar sprite" 
                 title="Show MDX"></a></li>
-            <li><a href="#explain_query" 
+            <li style="display:none"><a href="#explain_query" 
                 class="i18n explain_query button disabled_toolbar sprite" 
                 title="Show Explain Plan"></a></li>
-            <li class="seperator"><a href="#query_scenario" 
+            <li style="display:none" class="seperator"><a href="#query_scenario" 
                 class="i18n table_mode query_scenario button disabled_toolbar sprite" 
                 title="Query Scenario"></a></li>
-            <li class="seperator"><a href="#drillthrough" 
+            <li style="display:none" class="seperator"><a href="#drillthrough" 
                 class="i18n table_mode drillthrough button disabled_toolbar sprite" 
                 title="Drill through on cell"></a></li>
-            <li><a href="#export_drillthrough" 
+            <li style="display:none"><a href="#export_drillthrough" 
                 class="i18n table_mode drillthrough_export button disabled_toolbar sprite" 
                 title="Export Drill-Through on cell to CSV"></a></li>
+			-->
             <li class="seperator"><a href="#export_xls" 
                 class="i18n export_xls button disabled_toolbar sprite" 
                 title="Export XLS"></a></li>
@@ -346,10 +354,12 @@
                 title="Export CSV"></a></li>
             <li><a href="#export_pdf" 
                 class="i18n export_pdf button disabled_toolbar sprite" 
-                title="EXPERIMENTAL: Export PDF"></a></li>
-            <li><a href="#switch_to_mdx" 
+                title="Export PDF"></a></li>
+            <!--
+			<li style="display:none"><a href="#switch_to_mdx" 
                 class="i18n switch_to_mdx button disabled_toolbar" 
                 title="Switch to MDX Mode"></a></li>
+			-->
         </ul>
 
         </script>

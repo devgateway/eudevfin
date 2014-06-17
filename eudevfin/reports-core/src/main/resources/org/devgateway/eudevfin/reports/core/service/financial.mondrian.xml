@@ -1,5 +1,5 @@
 <Schema name="EUDevfin">
-    <Dimension visible="true" highCardinality="false" name="Area" caption="%{areaDimension}">
+    <Dimension visible="false" highCardinality="false" name="Area" caption="%{areaDimension}">
         <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allMember}">
             <Table name="AREA" schema="APP">
             </Table>
@@ -64,7 +64,7 @@
 			  "ORGANIZATIONTRANSLATION"."PARENT_ID" = "ORGANIZATION"."ID"
 			]]></SQL>
             </View>
-            <Level name="code" visible="true" column="CODE" type="String" uniqueMembers="false" levelType="Regular" caption="%{extendingAgencyCode}">
+            <Level name="code" visible="false" column="CODE" type="String" uniqueMembers="false" levelType="Regular" caption="%{extendingAgencyCode}">
             </Level>
             <Level name="Acronym" visible="true" column="ACRONYM" type="String" uniqueMembers="false" levelType="Regular" caption="%{extendingAgencyAcronym}">
             </Level>
@@ -89,7 +89,7 @@
                 "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='CHANNEL_TAG')
             ]]></SQL>
             </View>
-            <Level name="Code" visible="true" column="CODE" uniqueMembers="false" caption="%{channelCode}">
+            <Level name="Code" visible="false" column="CODE" uniqueMembers="false" caption="%{channelCode}">
             </Level>
             <Level name="Name" visible="true" column="NAME" uniqueMembers="false" caption="%{channelName}">
             </Level>
@@ -112,7 +112,7 @@
                 "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='CHANNEL_TAG')
             ]]></SQL>
             </View>
-            <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
+            <Level name="Code" visible="false" column="CODE" uniqueMembers="false">
             </Level>
             <Level name="Name" visible="true" column="NAME" uniqueMembers="false">
             </Level>
@@ -135,7 +135,7 @@
                 "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='ALL_TYPE_OF_AID_TAG')
             ]]></SQL>
             </View>
-            <Level name="Code" visible="true" column="CODE" uniqueMembers="false" caption="%{typeOfAidCode}">
+            <Level name="Code" visible="false" column="CODE" uniqueMembers="false" caption="%{typeOfAidCode}">
             </Level>
             <Level name="Name" visible="true" column="NAME" uniqueMembers="false" caption="%{typeOfAidName}">
             </Level>
@@ -158,7 +158,7 @@
                 "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='TYPE_OF_FLOW_TAG')
             ]]></SQL>
             </View>
-            <Level name="Code" visible="true" column="CODE" uniqueMembers="false" caption="%{typeOfFlowCode}">
+            <Level name="Code" visible="false" column="CODE" uniqueMembers="false" caption="%{typeOfFlowCode}">
             </Level>
             <Level name="Name" visible="true" column="NAME" uniqueMembers="false" caption="%{typeOfFlowName}">
             </Level>
@@ -181,7 +181,7 @@
                 "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='ALL_TYPE_OF_FINANCE_TAG')
             ]]></SQL>
             </View>
-            <Level name="Code" visible="true" column="CODE" uniqueMembers="false" caption="%{typeOfFinanceCode}">
+            <Level name="Code" visible="false" column="CODE" uniqueMembers="false" caption="%{typeOfFinanceCode}">
             </Level>
             <Level name="Name" visible="true" column="NAME" uniqueMembers="false" caption="%{typeOfFinanceName}">
             </Level>
@@ -204,7 +204,7 @@
                 "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='TYPE_OF_FINANCE_TAG')
             ]]></SQL>
             </View>
-            <Level name="Code" visible="true" column="CODE" uniqueMembers="false" caption="%{typeOfFinanceCode}">
+            <Level name="Code" visible="false" column="CODE" uniqueMembers="false" caption="%{typeOfFinanceCode}">
             </Level>
             <Level name="Name" visible="true" column="NAME" uniqueMembers="false" caption="%{typeOfFinanceName}">
             </Level>
@@ -229,7 +229,7 @@
                         "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='ALL_SECTOR_TAG')
             ]]></SQL>
             </View>
-            <Level name="Code" visible="true" column="CODE" uniqueMembers="false" caption="%{sectorCode}">
+            <Level name="Code" visible="false" column="CODE" uniqueMembers="false" caption="%{sectorCode}">
             </Level>
             <Level name="Name" visible="true" column="NAME" uniqueMembers="false" caption="%{sectorName}">
             </Level>
@@ -284,7 +284,7 @@
                         "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='BI_MULTILATERAL_TAG')
             ]]></SQL>
             </View>
-            <Level name="Code" visible="true" column="CODE" uniqueMembers="false" caption="%{biMultilateralCode}">
+            <Level name="Code" visible="false" column="CODE" uniqueMembers="false" caption="%{biMultilateralCode}">
             </Level>
             <Level name="Name" visible="true" column="NAME" uniqueMembers="false" caption="%{biMultilateralName}">
             </Level>
@@ -315,7 +315,7 @@
             </Level>
         </Hierarchy>
     </Dimension>
-    <Cube name="Financial" visible="true" cache="false" enabled="true">
+    <Cube name="Financial" visible="true" cache="false" enabled="true" defaultMeasure="Extended Amount Currency NATLOECD">
         <View name="FINANCIALTRANSACTIONVIEW" alias="FINANCIALTRANSACTIONVIEW">
             <SQL dialect="generic"><![CDATA[
                 select cat.coefficient,
@@ -331,7 +331,7 @@
                 from FINANCIALTRANSACTION ft left join CATEGORY cat ON cat.id = ft.channel_id WHERE (ft.draft = false and ft.approved = true) OR draft IS NULL
             ]]></SQL>
         </View>
-        <DimensionUsage source="Area" name="Area" visible="true" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
+        <DimensionUsage source="Area" name="Area" visible="false" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
         <DimensionUsage source="Country" name="Country" visible="true" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
         <DimensionUsage source="IncomeGroup" name="IncomeGroup" visible="true" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
         <DimensionUsage source="Extending Agency" name="Extending Agency" visible="true" foreignKey="EXTENDINGAGENCY_ID" highCardinality="false"></DimensionUsage>
@@ -344,7 +344,7 @@
         <DimensionUsage source="Type of Finance Root" name="Type of Finance Root" visible="false" foreignKey="TYPEOFFINANCE_ID" highCardinality="false"></DimensionUsage>
         <DimensionUsage source="BiMultilateral" name="BiMultilateral" visible="true" foreignKey="BIMULTILATERAL_ID" highCardinality="false"></DimensionUsage>
         <DimensionUsage source="TxTitle" name="TxTitle" visible="true" foreignKey="ID" highCardinality="false"></DimensionUsage>
-        <Dimension name="BudgetCode">
+        <Dimension name="BudgetCode" visible="false">
             <Hierarchy hasAll="true" allMemberName="All BudgetCode">
                 <!-- No table element here. Fact table is assumed. -->
                 <Level name="BudgetCode" column="BUDGETCODE" type="String" uniqueMembers="false" levelType="Regular"></Level>
@@ -651,6 +651,76 @@
                     WHERE
                     (SOURCE = 'OECD' OR SOURCE='National') AND
                     BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        <Measure name="Budget/MTEF Disb Current Year" aggregator="sum" visible="true" caption="%{budgetMTEFDisbCurrentYear}">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (BUDGET_MTEF_DISB_AMOUNT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    (SOURCE = 'OECD' OR SOURCE='National') AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        <Measure name="Budget/MTEF Disb Year 1" aggregator="sum" visible="true" caption="%{budgetMTEFDisbYear1}">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (BUDGET_MTEF_DISB_P1_AMOUNT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    (SOURCE = 'OECD' OR SOURCE='National') AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_P1_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        <Measure name="Budget/MTEF Disb Year 2" aggregator="sum" visible="true" caption="%{budgetMTEFDisbYear2}">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (BUDGET_MTEF_DISB_P2_AMOUNT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    (SOURCE = 'OECD' OR SOURCE='National') AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_P2_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        <Measure name="Budget/MTEF Disb Year 3" aggregator="sum" visible="true" caption="%{budgetMTEFDisbYear3}">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (BUDGET_MTEF_DISB_P3_AMOUNT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    (SOURCE = 'OECD' OR SOURCE='National') AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_P3_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        <Measure name="Budget/MTEF Disb Year 4" aggregator="sum" visible="true" caption="%{budgetMTEFDisbYear4}">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (BUDGET_MTEF_DISB_P4_AMOUNT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    (SOURCE = 'OECD' OR SOURCE='National') AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_P4_CURR" AND
                     COUNTER_CURRENCY = '@@CURRENCY@@' AND
                     YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
                 </SQL>

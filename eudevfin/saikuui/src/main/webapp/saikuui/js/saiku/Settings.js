@@ -20,7 +20,7 @@
 
 var parser = document.createElement('a');
 parser.href = document.location;
-debugger;
+
 var Settings = {
 	    VERSION: "Saiku 2.5",
 	    BIPLUGIN: false,

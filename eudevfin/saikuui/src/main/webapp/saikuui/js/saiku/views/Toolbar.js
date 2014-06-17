@@ -29,7 +29,7 @@ var Toolbar = Backbone.View.extend({
     },
     
     template: function() {
-        return _.template( $("#template-toolbar").html() )(this);
+        return _.template( $("#template-toolbar-eudevfin").html() )(this);
     },
     
     initialize: function() {
