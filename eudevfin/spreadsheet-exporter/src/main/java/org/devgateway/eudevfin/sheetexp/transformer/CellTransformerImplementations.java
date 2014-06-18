@@ -152,6 +152,24 @@ public class CellTransformerImplementations {
 		}
 	}
 
+	public static class LEVEL_OF_CERTAINTY extends AbstractFssCellTransformer<String> {
+		public LEVEL_OF_CERTAINTY(final String headerName) {
+			super(headerName);
+		}
+
+		@Override
+		public MetadataCell<String> innerTransform(final FinancialTransaction tx) {
+			final CustomFinancialTransaction ctx = (CustomFinancialTransaction) tx;
+			String value = null;
+			if (ctx.getLevelOfCertainty() != null) {
+				value = ctx.getLevelOfCertainty().getCode();
+			}
+			final MetadataCell<String> cell = new MetadataCell<String>(value);
+			this.setDataTypeToString(cell);
+			return cell;
+		}
+	}
+	
 	public static class RECIPIENT_CODE extends AbstractFssCellTransformer<String> {
 		public RECIPIENT_CODE(final String headerName) {
 			super(headerName);
@@ -186,25 +204,9 @@ public class CellTransformerImplementations {
 		}
 	}
 
-	public static class REGION extends AbstractFssCellTransformer<String> {
-		public REGION(final String headerName) {
-			super(headerName);
-		}
 
-		@Override
-		public MetadataCell<String> innerTransform(final FinancialTransaction tx) {
-			String value = null;
-			if (tx.getRecipient() != null && tx.getRecipient().getGeographyCategory() != null ) {
-				value = tx.getRecipient().getGeographyCategory().getName();
-			}
-			final MetadataCell<String> cell = new MetadataCell<String>(value);
-			this.setDataTypeToString(cell);
-			return cell;
-		}
-	}
-
-	public static class PRIORITY_CODE extends AbstractFssCellTransformer<String> {
-		public PRIORITY_CODE(final String headerName) {
+	public static class PRIORITY_NAME extends AbstractFssCellTransformer<String> {
+		public PRIORITY_NAME(final String headerName) {
 			super(headerName);
 		}
 
@@ -263,11 +265,6 @@ public class CellTransformerImplementations {
 		}
 
 		@Override
-		public String getHeaderName() {
-			return "ChannelCode";
-		}
-
-		@Override
 		public MetadataCell<String> innerTransform(final FinancialTransaction tx) {
 			String value = null;
 			if (tx.getChannel() != null) {
@@ -284,10 +281,6 @@ public class CellTransformerImplementations {
 			super(headerName);
 		}
 
-		@Override
-		public String getHeaderName() {
-			return "Bi_multi";
-		}
 
 		@Override
 		public MetadataCell<String> innerTransform(final FinancialTransaction tx) {
@@ -810,11 +803,6 @@ public class CellTransformerImplementations {
 		}
 
 		@Override
-		public String getHeaderName() {
-			return "Interest2";
-		}
-
-		@Override
 		public MetadataCell<BigDecimal> innerTransform(final FinancialTransaction tx) {
 			final BigDecimal value = tx.getSecondInterestRate();
 			
@@ -1087,6 +1075,71 @@ public class CellTransformerImplementations {
 		@Override
 		protected BigMoney getMoney(final FinancialTransaction tx) {
 			return tx.getProjectAmountExpertExtended();
+		}
+	}
+	
+	public static class PLANNED_EXTENDED_CURR extends AbstractMoneyFssCellTransformer {
+
+		public PLANNED_EXTENDED_CURR(final ExchangeRateUtil exchangeRateUtil, final String headerName) {
+			super(exchangeRateUtil, headerName);
+		}
+
+		@Override
+		protected BigMoney getMoney(final FinancialTransaction tx) {
+			final CustomFinancialTransaction ctx	= (CustomFinancialTransaction)tx;
+			return ctx.getBudgetMTEFDisbursement();
+		}
+	}
+	
+	public static class PLANNED_EXTENDED_P1 extends AbstractMoneyFssCellTransformer {
+
+		public PLANNED_EXTENDED_P1(final ExchangeRateUtil exchangeRateUtil, final String headerName) {
+			super(exchangeRateUtil, headerName);
+		}
+
+		@Override
+		protected BigMoney getMoney(final FinancialTransaction tx) {
+			final CustomFinancialTransaction ctx	= (CustomFinancialTransaction)tx;
+			return ctx.getBudgetMTEFDisbursementP1();
+		}
+	}
+	
+	public static class PLANNED_EXTENDED_P2 extends AbstractMoneyFssCellTransformer {
+
+		public PLANNED_EXTENDED_P2(final ExchangeRateUtil exchangeRateUtil, final String headerName) {
+			super(exchangeRateUtil, headerName);
+		}
+
+		@Override
+		protected BigMoney getMoney(final FinancialTransaction tx) {
+			final CustomFinancialTransaction ctx	= (CustomFinancialTransaction)tx;
+			return ctx.getBudgetMTEFDisbursementP2();
+		}
+	}
+	
+	public static class PLANNED_EXTENDED_P3 extends AbstractMoneyFssCellTransformer {
+
+		public PLANNED_EXTENDED_P3(final ExchangeRateUtil exchangeRateUtil, final String headerName) {
+			super(exchangeRateUtil, headerName);
+		}
+
+		@Override
+		protected BigMoney getMoney(final FinancialTransaction tx) {
+			final CustomFinancialTransaction ctx	= (CustomFinancialTransaction)tx;
+			return ctx.getBudgetMTEFDisbursementP3();
+		}
+	}
+	
+	public static class PLANNED_EXTENDED_P4 extends AbstractMoneyFssCellTransformer {
+
+		public PLANNED_EXTENDED_P4(final ExchangeRateUtil exchangeRateUtil, final String headerName) {
+			super(exchangeRateUtil, headerName);
+		}
+
+		@Override
+		protected BigMoney getMoney(final FinancialTransaction tx) {
+			final CustomFinancialTransaction ctx	= (CustomFinancialTransaction)tx;
+			return ctx.getBudgetMTEFDisbursementP4();
 		}
 	}
 	
