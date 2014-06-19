@@ -14,6 +14,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.StringValue;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.reports.core.service.QueryService;
+import org.devgateway.eudevfin.reports.ui.components.BarChartNVD3;
 import org.devgateway.eudevfin.reports.ui.components.StackedBarChart;
 import org.devgateway.eudevfin.reports.ui.components.Table;
 import org.wicketstuff.annotation.mount.MountPath;
@@ -265,57 +266,89 @@ public class ReportsCountrySectorDashboards extends ReportsDashboards {
                 " - " + countryCurrency + " - full amount");
         add(title);
 
-        StackedBarChart stackedBarChart = new StackedBarChart(CdaService, "countryChart", "customDashboardsCountryChart") {
-            @Override
-            public List<List<Float>> getResultSeriesAsList () {
-                this.result = this.runQuery();
+        if (USE_NVD3) {
+            BarChartNVD3 barChartNVD3 = new BarChartNVD3(CdaService, "countryChart", "customDashboardsCountryChart");
 
-                return ReportsDashboardsUtils.processChartRows(this.runQuery(), getOptions());
+            // add MDX queries parameters
+            barChartNVD3.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
+            barChartNVD3.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
+            if (currencyParam != null) {
+                if (currencyParam.equals("true")) {
+                    barChartNVD3.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+                }
+            } else {
+                barChartNVD3.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
             }
-        };
 
-        // add MDX queries parameters
-        stackedBarChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
-        stackedBarChart.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
-        if (currencyParam != null) {
-            if (currencyParam.equals("true")) {
+            if (sectorParam != null) {
+                barChartNVD3.setParam("paramSECTOR", "[Name].[" + sectorParam + "]");
+            }
+            if (coFinancingParam != null && coFinancingParam.equals("true")) {
+                barChartNVD3.setParam("paramCOFINANCED", "[1]");
+            }
+            if (CPAOnlyParam != null && CPAOnlyParam.equals("true")) {
+                barChartNVD3.setParam("paramCPA", "[1]");
+            }
+            barChartNVD3.setParam("paramcountryChartRowSet", countryChartRowSet);
+
+            barChartNVD3.setNumberOfSeries(2);
+            barChartNVD3.setSeries1("Year " + (tableYear - 1));
+            barChartNVD3.setSeries2("Year " + (tableYear));
+
+            add(barChartNVD3);
+        } else {
+            StackedBarChart stackedBarChart = new StackedBarChart(CdaService, "countryChart", "customDashboardsCountryChart") {
+                @Override
+                public List<List<Float>> getResultSeriesAsList() {
+                    this.result = this.runQuery();
+
+                    return ReportsDashboardsUtils.processChartRows(this.runQuery(), getOptions());
+                }
+            };
+
+            // add MDX queries parameters
+            stackedBarChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
+            stackedBarChart.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
+            if (currencyParam != null) {
+                if (currencyParam.equals("true")) {
+                    stackedBarChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+                }
+            } else {
                 stackedBarChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
             }
-        } else {
-            stackedBarChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+
+            if (sectorParam != null) {
+                stackedBarChart.setParam("paramSECTOR", "[Name].[" + sectorParam + "]");
+            }
+            if (coFinancingParam != null && coFinancingParam.equals("true")) {
+                stackedBarChart.setParam("paramCOFINANCED", "[1]");
+            }
+            if (CPAOnlyParam != null && CPAOnlyParam.equals("true")) {
+                stackedBarChart.setParam("paramCPA", "[1]");
+            }
+            stackedBarChart.setParam("paramcountryChartRowSet", countryChartRowSet);
+
+            List<List<Float>> resultSeries = stackedBarChart.getResultSeriesAsList();
+            stackedBarChart.getOptions().setPlotOptions(new PlotOptionsChoice().
+                    setBar(new PlotOptions().
+                            setMinPointLength(5).
+                            setDataLabels(new DataLabels().
+                                    setEnabled(Boolean.TRUE))));
+            stackedBarChart.getOptions().setTooltip(new Tooltip().setValueSuffix(" millions").setPercentageDecimals(2));
+            // add 35px height for each row
+            int numberOfRows = Math.max(resultSeries.get(0).size(), resultSeries.get(1).size());
+            stackedBarChart.getOptions().getChartOptions().setHeight(300 + 35 * numberOfRows);
+
+            stackedBarChart.getOptions().addSeries(new SimpleSeries()
+                    .setName("Year " + (tableYear - 1))
+                    .setData(resultSeries.get(0).toArray(new Float[resultSeries.get(0).size()])));
+
+            stackedBarChart.getOptions().addSeries(new SimpleSeries()
+                    .setName("Year " + tableYear)
+                    .setData(resultSeries.get(1).toArray(new Float[resultSeries.get(1).size()])));
+
+            add(stackedBarChart.getChart());
         }
-
-        if (sectorParam != null) {
-            stackedBarChart.setParam("paramSECTOR", "[Name].[" + sectorParam + "]");
-        }
-        if(coFinancingParam != null && coFinancingParam.equals("true")) {
-            stackedBarChart.setParam("paramCOFINANCED", "[1]");
-        }
-        if(CPAOnlyParam != null && CPAOnlyParam.equals("true")) {
-            stackedBarChart.setParam("paramCPA", "[1]");
-        }
-        stackedBarChart.setParam("paramcountryChartRowSet", countryChartRowSet);
-
-        List<List<Float>> resultSeries = stackedBarChart.getResultSeriesAsList();
-        stackedBarChart.getOptions().setPlotOptions(new PlotOptionsChoice().
-                setBar(new PlotOptions().
-                        setMinPointLength(5).
-                        setDataLabels(new DataLabels().
-                                setEnabled(Boolean.TRUE))));
-        stackedBarChart.getOptions().setTooltip(new Tooltip().setValueSuffix(" millions").setPercentageDecimals(2));
-        // add 35px height for each row
-        int numberOfRows = Math.max(resultSeries.get(0).size(), resultSeries.get(1).size());
-        stackedBarChart.getOptions().getChartOptions().setHeight(300 + 35 * numberOfRows);
-
-        stackedBarChart.getOptions().addSeries(new SimpleSeries()
-                .setName("Year " + (tableYear - 1))
-                .setData(resultSeries.get(0).toArray(new Float[resultSeries.get(0).size()])));
-
-        stackedBarChart.getOptions().addSeries(new SimpleSeries()
-                .setName("Year " + tableYear)
-                .setData(resultSeries.get(1).toArray(new Float[resultSeries.get(1).size()])));
-
-        add(stackedBarChart.getChart());
     }
 
     private void addSectorTable () {
@@ -392,62 +425,101 @@ public class ReportsCountrySectorDashboards extends ReportsDashboards {
                 " - " + countryCurrency + " - full amount");
         add(title);
 
-        StackedBarChart stackedBarChart = new StackedBarChart(CdaService, "sectorChart", "customDashboardsSectorChart") {
-            @Override
-            public List<List<Float>> getResultSeriesAsList () {
-                return ReportsDashboardsUtils.processChartRows(this.runQuery(), getOptions());
-            }
-        };
+        if (USE_NVD3) {
+            BarChartNVD3 barChartNVD3 = new BarChartNVD3(CdaService, "sectorChart", "customDashboardsSectorChart");
 
-        // add MDX queries parameters
-        stackedBarChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
-        stackedBarChart.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
-        if (currencyParam != null) {
-            if (currencyParam.equals("true")) {
-                stackedBarChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
-            }
-        } else {
-            stackedBarChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
-        }
-        if (geographyParam != null && recipientParam != null) {
-            stackedBarChart.setParam("paramCOUNTRIES", "[" + geographyParam + "].[" + recipientParam + "]");
-        } else {
-            if (geographyParam != null) {
-                stackedBarChart.setParam("paramCOUNTRIES", "[" + geographyParam + "]");
+            // add MDX queries parameters
+            barChartNVD3.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
+            barChartNVD3.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
+            if (currencyParam != null) {
+                if (currencyParam.equals("true")) {
+                    barChartNVD3.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+                }
             } else {
-                if (recipientParam != null) {
-                    stackedBarChart.setParam("paramCOUNTRIES", "[Name].[" + recipientParam + "]");
+                barChartNVD3.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+            }
+            if (geographyParam != null && recipientParam != null) {
+                barChartNVD3.setParam("paramCOUNTRIES", "[" + geographyParam + "].[" + recipientParam + "]");
+            } else {
+                if (geographyParam != null) {
+                    barChartNVD3.setParam("paramCOUNTRIES", "[" + geographyParam + "]");
+                } else {
+                    if (recipientParam != null) {
+                        barChartNVD3.setParam("paramCOUNTRIES", "[Name].[" + recipientParam + "]");
+                    }
                 }
             }
+            if (coFinancingParam != null && coFinancingParam.equals("true")) {
+                barChartNVD3.setParam("paramCOFINANCED", "[1]");
+            }
+            if (CPAOnlyParam != null && CPAOnlyParam.equals("true")) {
+                barChartNVD3.setParam("paramCPA", "[1]");
+            }
+            barChartNVD3.setParam("paramsectorChartRowSet", sectorChartRowSet);
+
+            barChartNVD3.setNumberOfSeries(2);
+            barChartNVD3.setSeries1("Year " + (tableYear - 1));
+            barChartNVD3.setSeries2("Year " + (tableYear));
+
+            add(barChartNVD3);
+        } else {
+            StackedBarChart stackedBarChart = new StackedBarChart(CdaService, "sectorChart", "customDashboardsSectorChart") {
+                @Override
+                public List<List<Float>> getResultSeriesAsList() {
+                    return ReportsDashboardsUtils.processChartRows(this.runQuery(), getOptions());
+                }
+            };
+
+            // add MDX queries parameters
+            stackedBarChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
+            stackedBarChart.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
+            if (currencyParam != null) {
+                if (currencyParam.equals("true")) {
+                    stackedBarChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+                }
+            } else {
+                stackedBarChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+            }
+            if (geographyParam != null && recipientParam != null) {
+                stackedBarChart.setParam("paramCOUNTRIES", "[" + geographyParam + "].[" + recipientParam + "]");
+            } else {
+                if (geographyParam != null) {
+                    stackedBarChart.setParam("paramCOUNTRIES", "[" + geographyParam + "]");
+                } else {
+                    if (recipientParam != null) {
+                        stackedBarChart.setParam("paramCOUNTRIES", "[Name].[" + recipientParam + "]");
+                    }
+                }
+            }
+            if (coFinancingParam != null && coFinancingParam.equals("true")) {
+                stackedBarChart.setParam("paramCOFINANCED", "[1]");
+            }
+            if (CPAOnlyParam != null && CPAOnlyParam.equals("true")) {
+                stackedBarChart.setParam("paramCPA", "[1]");
+            }
+            stackedBarChart.setParam("paramsectorChartRowSet", sectorChartRowSet);
+
+            List<List<Float>> resultSeries = stackedBarChart.getResultSeriesAsList();
+
+            stackedBarChart.getOptions().setPlotOptions(new PlotOptionsChoice().
+                    setBar(new PlotOptions().
+                            setMinPointLength(5).
+                            setDataLabels(new DataLabels().
+                                    setEnabled(Boolean.TRUE))));
+            stackedBarChart.getOptions().setTooltip(new Tooltip().setValueSuffix(" millions").setPercentageDecimals(2));
+            // add 35px height for each row
+            int numberOfRows = Math.max(resultSeries.get(0).size(), resultSeries.get(1).size());
+            stackedBarChart.getOptions().getChartOptions().setHeight(300 + 35 * numberOfRows);
+
+            stackedBarChart.getOptions().addSeries(new SimpleSeries()
+                    .setName("Year " + (tableYear - 1))
+                    .setData(resultSeries.get(0).toArray(new Float[resultSeries.get(0).size()])));
+
+            stackedBarChart.getOptions().addSeries(new SimpleSeries()
+                    .setName("Year " + tableYear)
+                    .setData(resultSeries.get(1).toArray(new Float[resultSeries.get(1).size()])));
+
+            add(stackedBarChart.getChart());
         }
-        if(coFinancingParam != null && coFinancingParam.equals("true")) {
-            stackedBarChart.setParam("paramCOFINANCED", "[1]");
-        }
-        if(CPAOnlyParam != null && CPAOnlyParam.equals("true")) {
-            stackedBarChart.setParam("paramCPA", "[1]");
-        }
-        stackedBarChart.setParam("paramsectorChartRowSet", sectorChartRowSet);
-
-        List<List<Float>> resultSeries = stackedBarChart.getResultSeriesAsList();
-
-        stackedBarChart.getOptions().setPlotOptions(new PlotOptionsChoice().
-                setBar(new PlotOptions().
-                        setMinPointLength(5).
-                        setDataLabels(new DataLabels().
-                                setEnabled(Boolean.TRUE))));
-        stackedBarChart.getOptions().setTooltip(new Tooltip().setValueSuffix(" millions").setPercentageDecimals(2));
-        // add 35px height for each row
-        int numberOfRows = Math.max(resultSeries.get(0).size(), resultSeries.get(1).size());
-        stackedBarChart.getOptions().getChartOptions().setHeight(300 + 35 * numberOfRows);
-
-        stackedBarChart.getOptions().addSeries(new SimpleSeries()
-                .setName("Year " + (tableYear - 1))
-                .setData(resultSeries.get(0).toArray(new Float[resultSeries.get(0).size()])));
-
-        stackedBarChart.getOptions().addSeries(new SimpleSeries()
-                .setName("Year " + tableYear)
-                .setData(resultSeries.get(1).toArray(new Float[resultSeries.get(1).size()])));
-
-        add(stackedBarChart.getChart());
     }
 }

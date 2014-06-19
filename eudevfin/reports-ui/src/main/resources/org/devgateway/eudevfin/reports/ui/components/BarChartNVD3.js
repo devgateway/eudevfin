@@ -3,6 +3,8 @@ var myBarColors = ["#3D96AE", "#AA4643"];
 var displayBarChart = function (parametersJson) {
     'use strict';
 
+    checkBarResults(parametersJson.result, parametersJson.numberOfSeries);
+
     var numberOfRows = parametersJson.result.resultset.length;
     var height = 300 + numberOfRows * 35;
 
@@ -16,7 +18,7 @@ var displayBarChart = function (parametersJson) {
                 return data[1];
             })
             .height(height)             // set the height
-            .margin({left: 70})
+            .margin({left: 100})
             .showValues(true)           // Show bar value next to each bar.
             .tooltips(true)             // Show tooltips on hover.
             .showLegend(true)
@@ -49,7 +51,7 @@ var formatBarResultSet = function (result, numberOfSeries, Series1, Series2) {
     var i,
         data;
 
-    if(numberOfSeries == 1) {
+    if(numberOfSeries === 1) {
         data = [{
             "key": Series1,
             "color": "#3D96AE",
@@ -57,7 +59,7 @@ var formatBarResultSet = function (result, numberOfSeries, Series1, Series2) {
             }
         ];
     } else {
-        if(numberOfSeries == 2) {
+        if(numberOfSeries === 2) {
             data = [{
                 "key": Series1,
                 "color": "#3D96AE",
@@ -82,4 +84,35 @@ var formatBarResultSet = function (result, numberOfSeries, Series1, Series2) {
     }
 
     return data;
+}
+
+var checkBarResults = function (result, numberOfSeries) {
+    var i;
+
+    if(numberOfSeries === 1) {
+        for (i = 0; i < result.resultset.length; i++) {
+            if (result.metadata[1].colName.toLowerCase() === "FIRST YEAR".toLowerCase()) {
+                if (result.resultset[i].length > 1 && result.resultset[i][1] === null) {
+                    result.resultset[i][1] = 0;
+                }
+            }
+        }
+    } else {
+        if (numberOfSeries === 2) {
+            for (i = 0; i < result.resultset.length; i++) {
+                // check if we have data for both years
+                if (result.metadata[1].colName.toLowerCase() === "First Year".toLowerCase()) {
+                    if (result.resultset[i].length > 1 && result.resultset[i][1] === null) {
+                        result.resultset[i][1] = 0;
+                    }
+                    if (result.resultset[i].length > 2 && result.resultset[i][2] === null) {
+                        result.resultset[i][2] = 0;
+                    }
+                } else {
+                    // we don't have the first year data
+                    result.resultset[i].splice(0, 0, 0);
+                }
+            }
+        }
+    }
 }

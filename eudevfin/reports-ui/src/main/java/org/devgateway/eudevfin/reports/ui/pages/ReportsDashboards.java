@@ -26,8 +26,6 @@ public class ReportsDashboards extends HeaderFooter {
             response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "highcharts-fixes.js")));
         }
 
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "highcharts-fixes.js")));
-
         response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "Dashboards.utilities.js")));
 
         response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(CommonScriptsReference.class, "canvg-1.3/rgbcolor.js")));
