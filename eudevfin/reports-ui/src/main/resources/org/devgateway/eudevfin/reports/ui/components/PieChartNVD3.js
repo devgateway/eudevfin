@@ -24,7 +24,7 @@ var displayPieChart = function (parametersJson) {
             .color(d3.scale.myColors().range());
 
         d3.select("#" + parametersJson.id + " svg")
-            .datum(formatPieResultSet(parametersJson.result.resultset))
+            .datum(formatPieResultSet(parametersJson.result.resultset, parametersJson.useMillion))
             .transition().duration(500)
             .call(chart);
 
@@ -37,11 +37,15 @@ var displayPieChart = function (parametersJson) {
 /**
  * format the results for the nvd3 pie chart
  */
-var formatPieResultSet = function (result) {
+var formatPieResultSet = function (result, useMillion) {
     var i;
 
     for (i = 0; i < result.length; i++) {
-        result[i][1] = parseFloat(result[i][1], 10);
+        if (useMillion !== undefined && useMillion === true) {
+            result[i][1] = parseFloat(result[i][1], 10) / 1000000;
+        } else {
+            result[i][1] = parseFloat(result[i][1], 10);
+        }
     }
 
     return result;

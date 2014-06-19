@@ -39,6 +39,7 @@ public class PieChartNVD3 extends Panel implements IParametersProvider {
         add(pieChart);
 
         pieChartId = pieChart.getMarkupId();
+        parameters = new BaseParameters(pieChartId);
     }
 
     public void setParam (String key, String value) {
@@ -48,9 +49,17 @@ public class PieChartNVD3 extends Panel implements IParametersProvider {
     public BaseParameters parameters() {
         if (parameters == null) {
             parameters = new BaseParameters(pieChartId, runMdxQuery.runQuery());
+        } else {
+            if(parameters.getResult() == null) {
+                parameters.setResult(runMdxQuery.runQuery());
+            }
         }
 
         return parameters;
+    }
+
+    public void setUseMillion(Boolean useMillion) {
+        parameters.setUseMillion(useMillion);
     }
 
     @Override

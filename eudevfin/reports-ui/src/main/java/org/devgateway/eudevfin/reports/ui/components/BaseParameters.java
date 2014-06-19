@@ -18,15 +18,18 @@ public class BaseParameters implements Serializable {
     private int numberOfSeries;
     private String Series1;
     private String Series2;
+    private Boolean useMillion;
     private QueryResult result;
 
     public BaseParameters(String id) {
         this.id = id;
+        this.useMillion = false;
     }
 
     public BaseParameters(String id, QueryResult result) {
         this.id = id;
         this.result = result;
+        this.useMillion = false;
     }
 
     public String toJson() {
@@ -70,6 +73,14 @@ public class BaseParameters implements Serializable {
 
     public void setNumberOfSeries(int numberOfSeries) {
         this.numberOfSeries = numberOfSeries;
+    }
+
+    public Boolean getUseMillion() {
+        return useMillion;
+    }
+
+    public void setUseMillion(Boolean useMillion) {
+        this.useMillion = useMillion;
     }
 
     public QueryResult getResult() {

@@ -21,6 +21,7 @@ import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.devgateway.eudevfin.reports.core.domain.Metadatum;
 import org.devgateway.eudevfin.reports.core.service.QueryService;
 import org.devgateway.eudevfin.reports.ui.components.PieChart;
+import org.devgateway.eudevfin.reports.ui.components.PieChartNVD3;
 import org.devgateway.eudevfin.reports.ui.components.StackedBarChart;
 import org.devgateway.eudevfin.reports.ui.components.Table;
 import org.joda.money.CurrencyUnit;
@@ -365,61 +366,87 @@ public class ReportsPage extends ReportsDashboards {
         Label title = new Label("odaByIncomeGroupTitle", new StringResourceModel("ReportsPage.odaByIncomeGroupChart", this, null, null));
         add(title);
 
-        PieChart pieChart = new PieChart(CdaService, "odaByIncomeGroupChart", "odaByIncomeGroupChart") {
-            @Override
-            public List<Point> getResultSeries () {
-                this.result = this.runQuery();
-                List<Point> resultSeries = new ArrayList<>();
+        if (USE_NVD3) {
+            PieChartNVD3 pieChartNVD3 = new PieChartNVD3(CdaService, "odaByIncomeGroupChart", "odaByIncomeGroupChart");
 
-                for (List<String> item : result.getResultset()) {
-                    resultSeries.add(new Point(item.get(0), Float.parseFloat(item.get(1)) / ReportsPage.this.MILLION));
+            // add MDX queries parameters
+            pieChartNVD3.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
+            pieChartNVD3.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
+
+            pieChartNVD3.setUseMillion(true);
+
+            add(pieChartNVD3);
+        } else {
+            PieChart pieChart = new PieChart(CdaService, "odaByIncomeGroupChart", "odaByIncomeGroupChart") {
+                @Override
+                public List<Point> getResultSeries() {
+                    this.result = this.runQuery();
+                    List<Point> resultSeries = new ArrayList<>();
+
+                    for (List<String> item : result.getResultset()) {
+                        resultSeries.add(new Point(item.get(0), Float.parseFloat(item.get(1)) / ReportsPage.this.MILLION));
+                    }
+
+                    return resultSeries;
                 }
+            };
 
-                return resultSeries;
-            }
-        };
+            // add MDX queries parameters
+            pieChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
+            pieChart.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
 
-        pieChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
-        pieChart.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
-
-        Options options = pieChart.getOptions();
-        options.addSeries(new PointSeries()
-                .setType(SeriesType.PIE)
-                .setData(pieChart.getResultSeries()));
-        add(pieChart.getChart());
+            Options options = pieChart.getOptions();
+            options.addSeries(new PointSeries()
+                    .setType(SeriesType.PIE)
+                    .setData(pieChart.getResultSeries()));
+            add(pieChart.getChart());
+        }
     }
 
     private void addOdaByRegionChart () {
         Label title = new Label("odaByRegionTitle", new StringResourceModel("ReportsPage.odaByRegionChart", this, null, null));
         add(title);
 
-        PieChart pieChart = new PieChart(CdaService, "odaByRegionChart", "odaByRegionChart") {
-            @Override
-            public List<Point> getResultSeries () {
-                this.result = this.runQuery();
-                List<Point> resultSeries = new ArrayList<>();
+        if (USE_NVD3) {
+            PieChartNVD3 pieChartNVD3 = new PieChartNVD3(CdaService, "odaByRegionChart", "odaByRegionChart");
 
-                for (List<String> item : result.getResultset()) {
-                    resultSeries.add(new Point(item.get(0), Float.parseFloat(item.get(1)) / ReportsPage.this.MILLION));
+            // add MDX queries parameters
+            pieChartNVD3.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
+            pieChartNVD3.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
+
+            pieChartNVD3.setUseMillion(true);
+
+            add(pieChartNVD3);
+        } else {
+            PieChart pieChart = new PieChart(CdaService, "odaByRegionChart", "odaByRegionChart") {
+                @Override
+                public List<Point> getResultSeries() {
+                    this.result = this.runQuery();
+                    List<Point> resultSeries = new ArrayList<>();
+
+                    for (List<String> item : result.getResultset()) {
+                        resultSeries.add(new Point(item.get(0), Float.parseFloat(item.get(1)) / ReportsPage.this.MILLION));
+                    }
+
+                    return resultSeries;
                 }
+            };
 
-                return resultSeries;
+            // add MDX queries parameters
+            pieChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
+            pieChart.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
+
+            Options options = pieChart.getOptions();
+            // check if we have a result and make the chart slightly higher
+            if (pieChart.getResultSeries().size() != 0) {
+                options.getChartOptions().setHeight(350);
             }
-        };
-
-        pieChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
-        pieChart.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
-
-        Options options = pieChart.getOptions();
-        // check if we have a result and make the chart slightly higher
-        if (pieChart.getResultSeries().size() != 0) {
-            options.getChartOptions().setHeight(350);
+            // options.getPlotOptions().getPie().getDataLabels().setEnabled(Boolean.FALSE); display data labels for now
+            options.addSeries(new PointSeries()
+                    .setType(SeriesType.PIE)
+                    .setData(pieChart.getResultSeries()));
+            add(pieChart.getChart());
         }
-        // options.getPlotOptions().getPie().getDataLabels().setEnabled(Boolean.FALSE); display data labels for now
-        options.addSeries(new PointSeries()
-                .setType(SeriesType.PIE)
-                .setData(pieChart.getResultSeries()));
-        add(pieChart.getChart());
     }
 
     private void addOdaBySectorChart () {
