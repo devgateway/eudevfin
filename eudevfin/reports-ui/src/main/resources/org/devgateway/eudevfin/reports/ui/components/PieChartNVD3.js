@@ -20,13 +20,29 @@ var displayPieChart = function (parametersJson) {
             .showLegend(true)       // Display the legend
             .labelThreshold(.01)    // Configure the minimum slice size for labels to show up
             .labelType("percent")   // Configure what type of data to show in the label. Can be "key", "value" or "percent"
+            .tooltips(true)         // Show tooltips on hover.
             .color(d3.scale.myColors().range());
 
         d3.select("#" + parametersJson.id + " svg")
-            .datum(parametersJson.result.resultset)
+            .datum(formatPieResultSet(parametersJson.result.resultset))
             .transition().duration(500)
             .call(chart);
 
+        nv.utils.windowResize(chart.update);
+
         return chart;
     });
+}
+
+/**
+ * format the results for the nvd3 pie chart
+ */
+var formatPieResultSet = function (result) {
+    var i;
+
+    for (i = 0; i < result.length; i++) {
+        result[i][1] = parseFloat(result[i][1], 10);
+    }
+
+    return result;
 }

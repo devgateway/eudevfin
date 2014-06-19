@@ -12,6 +12,7 @@ import org.devgateway.eudevfin.ui.common.scripts.CommonScriptsReference;
  * @since 6/2/14
  */
 public class ReportsDashboards extends HeaderFooter {
+    protected static final Boolean USE_NVD3 = true;
 
     public ReportsDashboards () {
 
@@ -21,8 +22,13 @@ public class ReportsDashboards extends HeaderFooter {
     public void renderHead(IHeaderResponse response) {
         super.renderHead(response);
 
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "Dashboards.utilities.js")));
+        if (!USE_NVD3) {
+            response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "highcharts-fixes.js")));
+        }
+
         response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "highcharts-fixes.js")));
+
+        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "Dashboards.utilities.js")));
 
         response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(CommonScriptsReference.class, "canvg-1.3/rgbcolor.js")));
         response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(CommonScriptsReference.class, "canvg-1.3/StackBlur.js")));

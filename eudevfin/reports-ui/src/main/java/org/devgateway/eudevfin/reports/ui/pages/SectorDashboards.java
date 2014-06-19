@@ -21,7 +21,9 @@ import org.apache.wicket.util.string.StringValue;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
 import org.devgateway.eudevfin.reports.core.service.QueryService;
+import org.devgateway.eudevfin.reports.ui.components.BarChartNVD3;
 import org.devgateway.eudevfin.reports.ui.components.PieChart;
+import org.devgateway.eudevfin.reports.ui.components.PieChartNVD3;
 import org.devgateway.eudevfin.reports.ui.components.StackedBarChart;
 import org.devgateway.eudevfin.reports.ui.components.Table;
 import org.wicketstuff.annotation.mount.MountPath;
@@ -123,104 +125,141 @@ public class SectorDashboards extends ReportsDashboards {
         Label title = new Label("sectorPieChartTitle", "Net Disbursement by subsector - " + tableYear + " - " + countryCurrency + " - full amount");
         add(title);
 
-        PieChart pieChart = new PieChart(CdaService, "sectorPieChart", "sectorDashboardsPieChart") {
-            @Override
-            public List<Point> getResultSeries () {
-                this.result = this.runQuery();
-                List<Point> resultSeries = new ArrayList<>();
+        if (USE_NVD3) {
+            PieChartNVD3 pieChartNVD3 = new PieChartNVD3(CdaService, "sectorPieChart", "sectorDashboardsPieChart");
 
-                for (List<String> item : result.getResultset()) {
-                    resultSeries.add(new Point(item.get(0), Float.parseFloat(item.get(1))));
+            // add MDX queries parameters
+            pieChartNVD3.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
+            pieChartNVD3.setParam("paramMainSector", (sectorParam != null ? sectorParam : ""));
+            if (currencyParam != null) {
+                if (currencyParam.equals("true")) {
+                    pieChartNVD3.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
                 }
-
-                return resultSeries;
+            } else {
+                pieChartNVD3.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
             }
-        };
 
-        // add MDX queries parameters
-        pieChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
-        pieChart.setParam("paramMainSector", (sectorParam != null ? sectorParam : ""));
-        if (currencyParam != null) {
-            if (currencyParam.equals("true")) {
+            add(pieChartNVD3);
+        } else {
+            PieChart pieChart = new PieChart(CdaService, "sectorPieChart", "sectorDashboardsPieChart") {
+                @Override
+                public List<Point> getResultSeries() {
+                    this.result = this.runQuery();
+                    List<Point> resultSeries = new ArrayList<>();
+
+                    for (List<String> item : result.getResultset()) {
+                        resultSeries.add(new Point(item.get(0), Float.parseFloat(item.get(1))));
+                    }
+
+                    return resultSeries;
+                }
+            };
+
+            // add MDX queries parameters
+            pieChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
+            pieChart.setParam("paramMainSector", (sectorParam != null ? sectorParam : ""));
+            if (currencyParam != null) {
+                if (currencyParam.equals("true")) {
+                    pieChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+                }
+            } else {
                 pieChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
             }
-        } else {
-            pieChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
-        }
 
-        Options options = pieChart.getOptions();
-        // check if we have a result and make the chart slightly higher
-        if (pieChart.getResultSeries().size() != 0) {
-            options.getChartOptions().setHeight(350);
-        }
+            Options options = pieChart.getOptions();
+            // check if we have a result and make the chart slightly higher
+            if (pieChart.getResultSeries().size() != 0) {
+                options.getChartOptions().setHeight(350);
+            }
 
-        options.addSeries(new PointSeries()
-                .setType(SeriesType.PIE)
-                .setData(pieChart.getResultSeries()));
-        add(pieChart.getChart());
+            options.addSeries(new PointSeries()
+                    .setType(SeriesType.PIE)
+                    .setData(pieChart.getResultSeries()));
+            add(pieChart.getChart());
+        }
     }
 
     private void addBarChart() {
         Label title = new Label("sectorBarChartTitle", "Net Disbursement by Country - " + tableYear + " - " + countryCurrency + " - full amount");
         add(title);
 
-        StackedBarChart stackedBarChart = new StackedBarChart(CdaService, "sectorBarChart", "sectorDashboardsBarChart") {
-            @Override
-            public List<List<Float>> getResultSeriesAsList () {
-                this.result = this.runQuery();
+        if (USE_NVD3) {
+            BarChartNVD3 barChartNVD3 = new BarChartNVD3(CdaService, "sectorBarChart", "sectorDashboardsBarChart");
 
-                List<List<Float>> resultSeries = new ArrayList<>();
-                List<String> resultCategories = new ArrayList<>();
+            // add MDX queries parameters
+            barChartNVD3.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
+            barChartNVD3.setParam("paramMainSector", (sectorParam != null ? sectorParam : ""));
+            if (currencyParam != null) {
+                if (currencyParam.equals("true")) {
+                    barChartNVD3.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+                }
+            } else {
+                barChartNVD3.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+            }
 
-                List<Float> firstYearList = new ArrayList<>();
-                resultSeries.add(firstYearList);
+            barChartNVD3.setNumberOfSeries(1);
+            barChartNVD3.setSeries1("Year " + (tableYear));
 
-                for (List<String> item : result.getResultset()) {
-                    resultCategories.add(item.get(0));
+            add(barChartNVD3);
+        } else {
+            StackedBarChart stackedBarChart = new StackedBarChart(CdaService, "sectorBarChart", "sectorDashboardsBarChart") {
+                @Override
+                public List<List<Float>> getResultSeriesAsList() {
+                    this.result = this.runQuery();
 
-                    if (result.getMetadata().get(1).getColName().equals("FIRST YEAR")) {
-                        if (item.size() > 1 && item.get(1) != null) {
-                            resultSeries.get(0).add(Float.parseFloat(item.get(1)));
-                        } else {
-                            resultSeries.get(0).add((float) 0);
+                    List<List<Float>> resultSeries = new ArrayList<>();
+                    List<String> resultCategories = new ArrayList<>();
+
+                    List<Float> firstYearList = new ArrayList<>();
+                    resultSeries.add(firstYearList);
+
+                    for (List<String> item : result.getResultset()) {
+                        resultCategories.add(item.get(0));
+
+                        if (result.getMetadata().get(1).getColName().equals("FIRST YEAR")) {
+                            if (item.size() > 1 && item.get(1) != null) {
+                                resultSeries.get(0).add(Float.parseFloat(item.get(1)));
+                            } else {
+                                resultSeries.get(0).add((float) 0);
+                            }
                         }
                     }
+
+                    getOptions().getxAxis().get(0).setCategories(new ArrayList<>(resultCategories));
+
+                    return resultSeries;
                 }
+            };
 
-                getOptions().getxAxis().get(0).setCategories(new ArrayList<>(resultCategories));
-
-                return resultSeries;
-            }
-        };
-
-        // add MDX queries parameters
-        stackedBarChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
-        stackedBarChart.setParam("paramMainSector", (sectorParam != null ? sectorParam : ""));
-        if (currencyParam != null) {
-            if (currencyParam.equals("true")) {
+            // add MDX queries parameters
+            stackedBarChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
+            stackedBarChart.setParam("paramMainSector", (sectorParam != null ? sectorParam : ""));
+            if (currencyParam != null) {
+                if (currencyParam.equals("true")) {
+                    stackedBarChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+                }
+            } else {
                 stackedBarChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
             }
-        } else {
-            stackedBarChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+
+            List<List<Float>> resultSeries = stackedBarChart.getResultSeriesAsList();
+            stackedBarChart.getOptions().setPlotOptions(new PlotOptionsChoice().
+                    setBar(new PlotOptions().
+                            setMinPointLength(5).
+                            setDataLabels(new DataLabels().
+                                    setEnabled(Boolean.TRUE))));
+            stackedBarChart.getOptions().setTooltip(new Tooltip().setValueSuffix(" millions").setPercentageDecimals(2));
+            // add 35px height for each row
+            int numberOfRows = resultSeries.get(0).size();
+            stackedBarChart.getOptions().getChartOptions().setHeight(300 + 35 * numberOfRows);
+
+            stackedBarChart.getOptions().addSeries(new SimpleSeries()
+                    .setName("Year " + (tableYear))
+                    .setData(resultSeries.get(0).toArray(new Float[resultSeries.get(0).size()]))
+                    .setColor(new HexColor("#3D96AE").brighten(new Float(-0.1))));
+
+            add(stackedBarChart.getChart());
         }
-
-        List<List<Float>> resultSeries = stackedBarChart.getResultSeriesAsList();
-        stackedBarChart.getOptions().setPlotOptions(new PlotOptionsChoice().
-                setBar(new PlotOptions().
-                        setMinPointLength(5).
-                        setDataLabels(new DataLabels().
-                                setEnabled(Boolean.TRUE))));
-        stackedBarChart.getOptions().setTooltip(new Tooltip().setValueSuffix(" millions").setPercentageDecimals(2));
-        // add 35px height for each row
-        int numberOfRows = resultSeries.get(0).size();
-        stackedBarChart.getOptions().getChartOptions().setHeight(300 + 35 * numberOfRows);
-
-        stackedBarChart.getOptions().addSeries(new SimpleSeries()
-                .setName("Year " + (tableYear))
-                .setData(resultSeries.get(0).toArray(new Float[resultSeries.get(0).size()]))
-                .setColor(new HexColor("#3D96AE").brighten(new Float(-0.1))));
-
-        add(stackedBarChart.getChart());
     }
 
     protected void addTableList () {

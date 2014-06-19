@@ -21,14 +21,14 @@ var displayBarChart = function (parametersJson) {
             .tooltips(true)             // Show tooltips on hover.
             .showLegend(true)
             .transitionDuration(500)
-            .showControls(parametersJson.numberOfSeries == 1 ? false : true); // Allow user to switch between "Grouped" and "Stacked" mode.
+            .showControls(parametersJson.numberOfSeries === 1 ? false : true); // Allow user to switch between "Grouped" and "Stacked" mode.
 
         chart.yAxis
             .axisLabel('Amount')
             .tickFormat(d3.format(',.2f'));
 
         d3.select("#" + parametersJson.id + " svg")
-            .datum(formatResultSet(parametersJson.result.resultset, parametersJson.numberOfSeries,
+            .datum(formatBarResultSet(parametersJson.result.resultset, parametersJson.numberOfSeries,
                 parametersJson.Series1, parametersJson.Series2))
             .transition().duration(500)
             .call(chart);
@@ -45,7 +45,7 @@ var displayBarChart = function (parametersJson) {
 /**
  * format the results for the nvd3 bar chart
  */
-var formatResultSet = function (result, numberOfSeries, Series1, Series2) {
+var formatBarResultSet = function (result, numberOfSeries, Series1, Series2) {
     var i,
         data;
 
@@ -74,10 +74,10 @@ var formatResultSet = function (result, numberOfSeries, Series1, Series2) {
 
     for (i = 0; i < result.length; i++) {
         // add data for the first series
-        data[0].values.push([result[i][0], parseInt(result[i][1], 10)]);
+        data[0].values.push([result[i][0], parseFloat(result[i][1], 10)]);
 
         if(numberOfSeries == 2) {
-            data[1].values.push([result[i][0], parseInt(result[i][2], 10)]);
+            data[1].values.push([result[i][0], parseFloat(result[i][2], 10)]);
         }
     }
 
