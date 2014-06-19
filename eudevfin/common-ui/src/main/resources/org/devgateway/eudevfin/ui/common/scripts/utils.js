@@ -32,6 +32,10 @@ app.downloadPDF = function () {
 
         canvas = document.createElement('canvas');
         canvas.className = 'screenShotTempCanvas';
+
+        canvas.setAttribute('width', this.offsetWidth);
+        canvas.setAttribute('height', this.offsetHeight);
+
         // convert SVG into a XML string
         xml = (new XMLSerializer()).serializeToString(this);
 
