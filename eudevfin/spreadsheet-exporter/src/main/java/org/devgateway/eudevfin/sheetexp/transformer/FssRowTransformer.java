@@ -127,7 +127,7 @@ public class FssRowTransformer extends AbstractRowTransformer<EntityWrapperInter
 		
 		this.addCellTransformer( new CellTransformerImplementations.NOTES("Notes") );
 		
-//		this.addCellTransformer( new CellTransformerImplementations.RMNCH_CODE("RMNCH") );
+		this.addCellTransformer( new CellTransformerImplementations.RMNCH_CODE("RMNCH") );
 	}
 	
 	
