@@ -23,6 +23,7 @@ import org.devgateway.eudevfin.reports.core.service.QueryService;
 import org.devgateway.eudevfin.reports.ui.components.PieChart;
 import org.devgateway.eudevfin.reports.ui.components.PieChartNVD3;
 import org.devgateway.eudevfin.reports.ui.components.StackedBarChart;
+import org.devgateway.eudevfin.reports.ui.components.StackedBarChartNVD3;
 import org.devgateway.eudevfin.reports.ui.components.Table;
 import org.joda.money.CurrencyUnit;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -453,51 +454,61 @@ public class ReportsPage extends ReportsDashboards {
         Label title = new Label("odaBySectorTitle", new StringResourceModel("ReportsPage.odaBySectorChart", this, null, null));
         add(title);
 
-        StackedBarChart stackedBarChart = new StackedBarChart(CdaService, "odaBySectorChart", "odaBySectorChart") {
-            @Override
-            public Map<String, Float> getResultSeries () {
-                float odaBySectorTotal = 0;
+        if (USE_NVD3) {
+            StackedBarChartNVD3 stackedBarChartNVD3 = new StackedBarChartNVD3(CdaService, "odaBySectorChart", "odaBySectorChart");
 
-                this.result = this.runQuery();
-                // use LinkedHashMap so we can keep the insert order
-                Map<String, Float> resultSeries = new LinkedHashMap<>();
-                Set<String> resultCategories = new HashSet<>();
+            // add MDX queries parameters
+            stackedBarChartNVD3.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
+            stackedBarChartNVD3.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
 
-                for (int i = result.getResultset().size() - 1; i >= 0; i--) {
-                    List<String> item = result.getResultset().get(i);
+            add(stackedBarChartNVD3);
+        } else {
+            StackedBarChart stackedBarChart = new StackedBarChart(CdaService, "odaBySectorChart", "odaBySectorChart") {
+                @Override
+                public Map<String, Float> getResultSeries() {
+                    float odaBySectorTotal = 0;
 
-                    // keep unique values
-                    resultCategories.add(item.get(1));
+                    this.result = this.runQuery();
+                    // use LinkedHashMap so we can keep the insert order
+                    Map<String, Float> resultSeries = new LinkedHashMap<>();
+                    Set<String> resultCategories = new HashSet<>();
 
-                    resultSeries.put(item.get(0), Float.parseFloat(item.get(2)) / ReportsPage.this.MILLION);
+                    for (int i = result.getResultset().size() - 1; i >= 0; i--) {
+                        List<String> item = result.getResultset().get(i);
 
-                    odaBySectorTotal += (Float.parseFloat(item.get(2)) / ReportsPage.this.MILLION);
+                        // keep unique values
+                        resultCategories.add(item.get(1));
+
+                        resultSeries.put(item.get(0), Float.parseFloat(item.get(2)) / ReportsPage.this.MILLION);
+
+                        odaBySectorTotal += (Float.parseFloat(item.get(2)) / ReportsPage.this.MILLION);
+                    }
+
+                    odaBySectorTotal = ReportsDashboardsUtils.twoDecimalFormat(odaBySectorTotal);
+
+                    getOptions().getxAxis().get(0).setCategories(new ArrayList<>(resultCategories));
+                    getOptions().getyAxis().get(0).setMax(odaBySectorTotal)
+                            .setTickInterval(odaBySectorTotal / 10)
+                            .setLabels(new Labels()
+                                    .setFormatter(new DefaultFormatter().setFunction("return sprintf('%d', (this.value / " + odaBySectorTotal + ") * 100).replace(/,/g, \" \") + '%';")));
+
+                    return resultSeries;
                 }
+            };
 
-                odaBySectorTotal = ReportsDashboardsUtils.twoDecimalFormat(odaBySectorTotal);
+            stackedBarChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
+            stackedBarChart.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
 
-                getOptions().getxAxis().get(0).setCategories(new ArrayList<>(resultCategories));
-                getOptions().getyAxis().get(0).setMax(odaBySectorTotal)
-                        .setTickInterval(odaBySectorTotal / 10)
-                        .setLabels(new Labels()
-                                .setFormatter(new DefaultFormatter().setFunction("return sprintf('%d', (this.value / " + odaBySectorTotal + ") * 100).replace(/,/g, \" \") + '%';")));
+            // remove the y-axis label ('ODA')
+            stackedBarChart.getOptions().getxAxis().get(0).getLabels().setEnabled(Boolean.FALSE);
 
-                return resultSeries;
+            for (Map.Entry<String, Float> entry : stackedBarChart.getResultSeries().entrySet()) {
+                stackedBarChart.getOptions().addSeries(new SimpleSeries()
+                        .setName(entry.getKey())
+                        .setData(Arrays.asList(new Number[]{entry.getValue()})));
             }
-        };
 
-        stackedBarChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
-        stackedBarChart.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
-
-        // remove the y-axis label ('ODA')
-        stackedBarChart.getOptions().getxAxis().get(0).getLabels().setEnabled(Boolean.FALSE);
-
-        for (Map.Entry<String, Float> entry : stackedBarChart.getResultSeries().entrySet()) {
-            stackedBarChart.getOptions().addSeries(new SimpleSeries()
-                    .setName(entry.getKey())
-                    .setData(Arrays.asList(new Number[]{entry.getValue()})));
+            add(stackedBarChart.getChart());
         }
-
-        add(stackedBarChart.getChart());
     }
 }
