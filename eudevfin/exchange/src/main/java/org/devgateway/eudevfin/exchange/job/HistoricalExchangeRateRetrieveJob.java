@@ -59,7 +59,7 @@ public class HistoricalExchangeRateRetrieveJob implements
 
 		int totalFetched = 0;
 		for (LocalDateTime localDateTime : datesSet) {
-			//fetch the rates for new dates that don't have rates, from the internet			//
+			//fetch the rates for new dates that don't have rates, from the internet
 			totalFetched += exchangeRateService
 					.fetchRatesForDate(localDateTime);
 		}

@@ -19,5 +19,22 @@
     <entry key="desktop.lastTxByApproved">Approved</entry>
     <entry key="desktop.search.label">Search for transactions:</entry>
     <entry key="desktop.search.placeholder">Start typing</entry>
+    
+    <entry key="year.label">Year</entry>
+    <entry key="year.placeholder">Year</entry>
+    
+    <entry key="sector.label">Sector</entry>
+    <entry key="sector.placeholder">Sector</entry>
+    
+    <entry key="extendingAgency.label">Reporting Agency</entry>
+    <entry key="extendingAgency.placeholder">Reporting Agency</entry>
+    
+    <entry key="formType.label">Form Type</entry>
+    <entry key="formType.placeholder">Form Type</entry>
+    
+    <entry key="recipient.label">Recipient</entry>
+    <entry key="recipient.placeholder">Recipient</entry>
+    
+    
 	<entry key="page.title">List of Saved Transactions</entry>    
 </properties>

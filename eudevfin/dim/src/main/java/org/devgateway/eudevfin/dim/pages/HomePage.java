@@ -31,7 +31,9 @@ import org.devgateway.eudevfin.metadata.common.service.OrganizationService;
 import org.devgateway.eudevfin.ui.common.components.tabs.BootstrapJSTabbedPanel;
 import org.devgateway.eudevfin.ui.common.components.tabs.ITabWithKey;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.devgateway.eudevfin.ui.common.providers.AreaChoiceProvider;
+import org.devgateway.eudevfin.ui.common.providers.CategoryProviderFactory;
+import org.devgateway.eudevfin.ui.common.providers.OrganizationChoiceProvider;
 import org.wicketstuff.annotation.mount.MountPath;
 
 //import org.devgateway.eudevfin.financial.test.services.CategoryServiceTest;
@@ -65,6 +67,16 @@ public class HomePage extends HeaderFooter {
     
     @SpringBean
     protected CategoryService categoryService;
+    
+    @SpringBean
+	private CategoryProviderFactory categoryFactory;
+    
+    @SpringBean
+    private OrganizationChoiceProvider organizationProvider;
+    
+    @SpringBean
+    private AreaChoiceProvider areaProvider;
+    
 
     public HomePage() {
         super();
@@ -152,9 +164,9 @@ public class HomePage extends HeaderFooter {
     	
     	this.add(bc);
     	
-    	GeneralSearchListGenerator generalSearchListGenerator	= new GeneralSearchListGenerator(null, txService);
-    	this.add( new SearchBoxPanel("search-box-panel", 
-    			new TransactionTableListPanel<FinancialTransaction>("search-results-panel",generalSearchListGenerator ), 
-    			generalSearchListGenerator));
+    	GeneralSearchListGenerator generalSearchListGenerator	= new GeneralSearchListGenerator(txService);
+    	this.add(new SearchBoxPanel("search-box-panel", 
+    			new TransactionTableListPanel<FinancialTransaction>("search-results-panel",generalSearchListGenerator), 
+    			generalSearchListGenerator,categoryFactory,organizationProvider,areaProvider));
     }
 }

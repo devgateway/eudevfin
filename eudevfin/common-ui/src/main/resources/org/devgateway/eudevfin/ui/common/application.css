@@ -94,3 +94,7 @@ html, body {
 #printable-container {
     background-color: #ffffff;
 }
+
+.homepage-search-element {
+   display:inline-block;
+}
