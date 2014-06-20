@@ -507,7 +507,7 @@
                     FROM
                     HISTORICALEXCHANGERATE
                     WHERE
-                    SOURCE = 'INTERNET' AND
+                    SOURCE = 'Internet' AND
                     BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXTENDED_CURR" AND
                     "FINANCIALTRANSACTIONVIEW"."DRAFT" IS NOT NULL AND
                     COUNTER_CURRENCY = '@@CURRENCY@@' AND
@@ -541,7 +541,7 @@
                     FROM
                     HISTORICALEXCHANGERATE
                     WHERE
-                    SOURCE = 'INTERNET' AND
+                    SOURCE = 'Internet' AND
                     BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_RECEIVED_CURR" AND
                     COUNTER_CURRENCY = '@@CURRENCY@@' AND
                     YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
@@ -574,7 +574,7 @@
                     FROM
                     HISTORICALEXCHANGERATE
                     WHERE
-                    SOURCE = 'INTERNET' AND
+                    SOURCE = 'Internet' AND
                     BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" AND
                     COUNTER_CURRENCY = '@@CURRENCY@@' AND
                     YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
@@ -734,6 +734,20 @@
         </CalculatedMember>
         <CalculatedMember name="Net Amount Currency INTERNET" dimension="Measures" visible="false">
             <Formula>[Measures].[Extended Amount Currency INTERNET] - [Measures].[Received Amount Currency INTERNET]</Formula>
+        </CalculatedMember>
+
+        <!-- Use Internet currency when we don't have one -->
+        <CalculatedMember name="Extended Amount Currency NATLOECD or INTERNET" dimension="Measures">
+            <Formula>IIF([Measures].[Extended Amount Currency NATLOECD] > 0, [Measures].[Extended Amount Currency NATLOECD], [Measures].[Extended Amount Currency INTERNET])</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="Received Amount Currency NATLOECD or INTERNET" dimension="Measures">
+            <Formula>IIF([Measures].[Received Amount Currency NATLOECD] > 0, [Measures].[Extended Amount Currency NATLOECD], [Measures].[Received Amount Currency INTERNET])</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="Net Amount Currency NATLOECD or INTERNET" dimension="Measures">
+            <Formula>[Measures].[Extended Amount Currency NATLOECD or INTERNET] - [Measures].[Received Amount Currency NATLOECD or INTERNET]</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="Commitments Amount Currency NATLOECD or INTERNET" dimension="Measures">
+            <Formula>IIF([Measures].[Commitments Amount Currency NATLOECD] > 0, [Measures].[Commitments Amount Currency NATLOECD], [Measures].[Commitments Amount Currency INTERNET])</Formula>
         </CalculatedMember>
 
         <!--  Groups of Channels -->

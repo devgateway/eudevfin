@@ -28,12 +28,12 @@ public class ReportsConstants {
 
     public static final String ROOT_SECTOR = "Root Sector Category";
 
-    public static final String MDX_USD_CURRENCY = "Net Amount Currency NATLOECD";
+    public static final String MDX_USD_CURRENCY = "Net Amount Currency NATLOECD or INTERNET";
     public static final String MDX_NAT_CURRENCY = "Net Amount";
 
     public static final String MDX_NAT_EXTENDED_CURRENCY = "Extended Amount";
 
-    public static final String MDX_USD_COMMITMENT_CURRENCY = "Commitments Amount Currency NATLOECD";
+    public static final String MDX_USD_COMMITMENT_CURRENCY = "Commitments Amount Currency NATLOECD or INTERNET";
     public static final String MDX_NAT_COMMITMENT_CURRENCY = "Commitments Amount";
 
 
