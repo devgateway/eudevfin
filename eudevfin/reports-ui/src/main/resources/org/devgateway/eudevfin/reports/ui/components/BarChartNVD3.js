@@ -110,7 +110,7 @@ var checkBarResults = function (result, numberOfSeries) {
                     }
                 } else {
                     // we don't have the first year data
-                    result.resultset[i].splice(0, 0, 0);
+                    result.resultset[i].splice(1, 0, 0);
                 }
             }
         }
