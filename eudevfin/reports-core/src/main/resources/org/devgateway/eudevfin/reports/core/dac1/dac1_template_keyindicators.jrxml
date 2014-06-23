@@ -9,8 +9,8 @@
 	<parameter name="REPORTING_YEAR" class="java.lang.Number"/>
 	<queryString language="mdx">
 		<![CDATA[WITH
-MEMBER [Type of Finance].[Year TOF1] AS SUM([Reporting Year].[$P{REPORTING_YEAR}]*[Form Type].[#null]*[Type of Finance].[Code].[TYPE_OF_FINANCE##1])
-MEMBER [Type of Finance].[Year TOF4] AS SUM([Reporting Year].[$P{REPORTING_YEAR}]*[Form Type].[#null]*[Type of Finance].[Code].[TYPE_OF_FINANCE##4])
+MEMBER [Type of Finance].[Year TOF1] AS SUM([Reporting Year].[$P{REPORTING_YEAR}]*[Form Type].[Unspecified]*[Type of Finance].[Code].[TYPE_OF_FINANCE##1])
+MEMBER [Type of Finance].[Year TOF4] AS SUM([Reporting Year].[$P{REPORTING_YEAR}]*[Form Type].[Unspecified]*[Type of Finance].[Code].[TYPE_OF_FINANCE##4])
 MEMBER [Type of Finance].[Year ODA] AS SUM([Reporting Year].[$P{REPORTING_YEAR}]*{[Form Type].[bilateralOda.CRS], [Form Type].[multilateralOda.CRS]}*[Type of Finance].[Code].Members)
 MEMBER [Type of Finance].[Year ODA OOF] AS SUM([Reporting Year].[$P{REPORTING_YEAR}]*{[Form Type].[bilateralOda.CRS], [Form Type].[multilateralOda.CRS], [Form Type].[nonOda.nonExport], [Form Type].[nonOda.export], [Form Type].[nonOda.privateGrants], [Form Type].[nonOda.privateMarket], [Form Type].[nonOda.otherFlows]}*[Type of Finance].[Code].Members)
 SELECT

@@ -9,10 +9,10 @@
     <queryString language="mdx">
         <![CDATA[
 WITH
-MEMBER [Type of Finance].[First Year TOF1] AS SUM([Reporting Year].[$P{FIRST_YEAR}]*[Form Type].[#null]*[Type of Finance].[Code].[TYPE_OF_FINANCE##1])
-MEMBER [Type of Finance].[Second Year TOF1] AS SUM([Reporting Year].[$P{SECOND_YEAR}]*[Form Type].[#null]*[Type of Finance].[Code].[TYPE_OF_FINANCE##1])
-MEMBER [Type of Finance].[First Year TOF4] AS SUM([Reporting Year].[$P{FIRST_YEAR}]*[Form Type].[#null]*[Type of Finance].[Code].[TYPE_OF_FINANCE##4])
-MEMBER [Type of Finance].[Second Year TOF4] AS SUM([Reporting Year].[$P{SECOND_YEAR}]*[Form Type].[#null]*[Type of Finance].[Code].[TYPE_OF_FINANCE##4])
+MEMBER [Type of Finance].[First Year TOF1] AS SUM([Reporting Year].[$P{FIRST_YEAR}]*[Form Type].[Unspecified]*[Type of Finance].[Code].[TYPE_OF_FINANCE##1])
+MEMBER [Type of Finance].[Second Year TOF1] AS SUM([Reporting Year].[$P{SECOND_YEAR}]*[Form Type].[Unspecified]*[Type of Finance].[Code].[TYPE_OF_FINANCE##1])
+MEMBER [Type of Finance].[First Year TOF4] AS SUM([Reporting Year].[$P{FIRST_YEAR}]*[Form Type].[Unspecified]*[Type of Finance].[Code].[TYPE_OF_FINANCE##4])
+MEMBER [Type of Finance].[Second Year TOF4] AS SUM([Reporting Year].[$P{SECOND_YEAR}]*[Form Type].[Unspecified]*[Type of Finance].[Code].[TYPE_OF_FINANCE##4])
 MEMBER [Type of Finance].[First Year ODA GNI] AS SUM([Reporting Year].[$P{FIRST_YEAR}]*{[Form Type].[bilateralOda.advanceQuestionnaire], [Form Type].[multilateralOda.advanceQuestionnaire]}*[Type of Finance].[Code].Members)
 MEMBER [Type of Finance].[Second Year ODA GNI] AS SUM([Reporting Year].[$P{SECOND_YEAR}]*{[Form Type].[bilateralOda.advanceQuestionnaire], [Form Type].[multilateralOda.advanceQuestionnaire]}*[Type of Finance].[Code].Members)
 SELECT

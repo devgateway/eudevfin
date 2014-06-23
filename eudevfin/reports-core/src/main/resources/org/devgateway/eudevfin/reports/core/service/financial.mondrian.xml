@@ -8,7 +8,7 @@
         </Hierarchy>
     </Dimension>
     <Dimension visible="true" highCardinality="false" name="Country" caption="%{countryDimension}">
-        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All Countries" allMemberCaption="%{allMember}">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All Countries" allMemberCaption="%{allMember}" allLevelName="%{allCountry}">
             <View alias="CountryView">
                 <SQL dialect="generic"><![CDATA[
             select
@@ -32,7 +32,7 @@
         </Hierarchy>
     </Dimension>
     <Dimension visible="true" highCardinality="false" name="IncomeGroup" caption="%{incomeGroupDimension}">
-        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All IncomeGroups" allMemberCaption="%{allMember}">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All IncomeGroups" allMemberCaption="%{allMember}" allLevelName="%{allIncomeGroups}">
             <View alias="IncomeGroupView">
                 <SQL dialect="generic"><![CDATA[
             select
@@ -51,7 +51,7 @@
         </Hierarchy>
     </Dimension>
     <Dimension visible="true" highCardinality="false" name="Extending Agency" caption="%{extendingAgencyDimension}">
-        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allMember}" allMemberName="All Extending Agencies">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allMember}" allMemberName="All Extending Agencies" allLevelName="%{allExtendingAgencies}">
             <View alias="Extending AgencyView">
                 <SQL dialect="generic"><![CDATA[
             select
@@ -73,7 +73,7 @@
         </Hierarchy>
     </Dimension>
     <Dimension visible="true" highCardinality="false" name="Channel" caption="%{channelDimension}">
-        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allMember}" allMemberName="All Channels">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All Channels" allMemberCaption="%{allMember}" allLevelName="%{allChannels}">
             <View alias="ChannelView">
                 <SQL dialect="generic"><![CDATA[
             select
@@ -119,7 +119,7 @@
         </Hierarchy>
     </Dimension>
     <Dimension visible="true" highCardinality="false" name="Type of Aid" caption="%{typeOfAidDimension}">
-        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allMember}" allMemberName="All Types of Aid">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allMember}" allMemberName="All Types of Aid" allLevelName="%{allTypeOfAid}">
             <View alias="TypeOfAidView">
                 <SQL dialect="generic"><![CDATA[
             select
@@ -142,7 +142,7 @@
         </Hierarchy>
     </Dimension>
     <Dimension visible="true" highCardinality="false" name="Type of Flow" caption="%{typeOfFlowDimension}">
-        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allMember}" allMemberName="All Types of Flow">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allMember}" allMemberName="All Types of Flow" allLevelName="%{allTypeOfFlow}">
             <View alias="TypeOfFlowView">
                 <SQL dialect="generic"><![CDATA[
             select
@@ -165,7 +165,7 @@
         </Hierarchy>
     </Dimension>
     <Dimension visible="false" highCardinality="false" name="Type of Finance" caption="%{typeOfFinanceDimension}">
-        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allMember}" allMemberName="All Types of Finance">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allMember}" allMemberName="All Types of Finance" allLevelName="%{allTypeOfFinance}">
             <View alias="TypeOfFinanceView">
                 <SQL dialect="generic"><![CDATA[
             select
@@ -211,7 +211,7 @@
         </Hierarchy>
     </Dimension>
     <Dimension type="StandardDimension" visible="true" name="Sector" caption="%{sectorDimension}">
-        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allMember}" allMemberName="All Sectors">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allMember}" allMemberName="All Sectors" allLevelName="%{allSector}">
             <View alias="SectorView">
                 <SQL dialect="generic"><![CDATA[
                     select
@@ -266,7 +266,7 @@
         </Hierarchy>
     </Dimension>
     <Dimension visible="true" highCardinality="false" name="BiMultilateral" caption="%{biMultilateralDimension}">
-        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allMember}" allMemberName="All BiMultilaterals">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All BiMultilaterals" allMemberCaption="%{allMember}" allLevelName="%{allBiMultilaterals}">
             <View alias="BiMultilalteralView">
                 <SQL dialect="generic"><![CDATA[
                     select
@@ -291,7 +291,7 @@
         </Hierarchy>
     </Dimension>
     <Dimension visible="true" highCardinality="false" name="TxTitle" caption="%{txTitleDimension}">
-        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All TxTitles" allMemberCaption="%{allMember}">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All TxTitles" allMemberCaption="%{allMember}" allLevelName="%{allProjects}">
             <View alias="TxTitleView">
                 <SQL dialect="generic"><![CDATA[
 					select
@@ -351,7 +351,7 @@
             </Hierarchy>
         </Dimension>
         <Dimension name="Reporting Year" caption="%{reportingYearDimension}">
-            <Hierarchy hasAll="true" allMemberCaption="%{allMember}">
+            <Hierarchy hasAll="true" allMemberCaption="%{allMember}" allLevelName="%{allReportingYears}">
                 <Level name="Reporting Year" column="REPORTINGYEAR" uniqueMembers="true" caption="%{reportingYear}">
                     <KeyExpression>
                         <SQL dialect="generic">CAST(YEAR("REPORTINGYEAR") AS CHAR(4))</SQL>
@@ -360,7 +360,7 @@
             </Hierarchy>
         </Dimension>
         <Dimension name="Starting Year">
-            <Hierarchy hasAll="true" allMemberName="All StartingYears">
+            <Hierarchy hasAll="true" allMemberName="All StartingYears" allLevelName="%{allStartingYears}">
                 <Level name="Starting Year" column="STARTINGYEAR" uniqueMembers="true">
                     <KeyExpression>
                         <SQL dialect="generic">CAST(YEAR("EXPECTEDSTARTDATE") AS CHAR(4))</SQL>
@@ -369,7 +369,7 @@
             </Hierarchy>
         </Dimension>
         <Dimension name="Completion Year">
-            <Hierarchy hasAll="true" allMemberName="All CompletionYears">
+            <Hierarchy hasAll="true" allMemberName="All CompletionYears" allLevelName="%{allCompletionYears}">
                 <Level name="Completion Year" column="COMPLETITIONYEAR" uniqueMembers="true">
                     <KeyExpression>
                         <SQL dialect="generic">CAST(YEAR("EXPECTEDCOMPLETIONDATE") AS CHAR(4))</SQL>
@@ -378,13 +378,13 @@
             </Hierarchy>
         </Dimension>
         <Dimension name="Form Type" caption="%{formTypeDimension}">
-            <Hierarchy hasAll="true" allMemberCaption="%{allMember}">
+            <Hierarchy hasAll="true" allMemberCaption="%{allMember}" allLevelName="%{allFormType}">
                 <Level name="Form Type" column="FORMTYPE" uniqueMembers="true" caption="%{formTypeName}">
                 </Level>
             </Hierarchy>
         </Dimension>
         <Dimension name="Investment" caption="%{investmentDimension}">
-            <Hierarchy hasAll="true" allMemberCaption="%{allMember}">
+            <Hierarchy hasAll="true" allMemberCaption="%{allMember}" allLevelName="%{allInvestment}">
                 <Level name="Investment" column="INVESTMENT" uniqueMembers="false" type="String" caption="%{investmentName}">
                     <KeyExpression>
                         <SQL dialect="generic">(CASE WHEN INVESTMENT = TRUE THEN 'Yes' ELSE 'No' END)</SQL>
@@ -393,7 +393,7 @@
             </Hierarchy>
         </Dimension>
         <Dimension name="PBA" caption="%{PBADimension}">
-            <Hierarchy hasAll="true" allMemberCaption="%{allMember}">
+            <Hierarchy hasAll="true" allMemberCaption="%{allMember}" allLevelName="%{allPBA}">
                 <Level name="PBA" column="PROGRAMMEBASEDAPPROACH" uniqueMembers="false" type="String" caption="%{PBAName}">
                     <KeyExpression>
                         <SQL dialect="generic">(CASE WHEN PROGRAMMEBASEDAPPROACH = TRUE THEN 'Yes' ELSE 'No' END)</SQL>
@@ -402,7 +402,7 @@
             </Hierarchy>
         </Dimension>
         <Dimension name="FTC" caption="%{FTCDimension}">
-            <Hierarchy hasAll="true" allMemberCaption="%{allMember}">
+            <Hierarchy hasAll="true" allMemberCaption="%{allMember}" allLevelName="%{allFTC}">
                 <Level name="FTC" column="FREESTANDINGTECHNICALCOOPERATION" uniqueMembers="false" type="String" caption="%{FTCName}">
                     <KeyExpression>
                         <SQL dialect="generic">(CASE WHEN FREESTANDINGTECHNICALCOOPERATION = TRUE THEN 'Yes' ELSE 'No' END)</SQL>
@@ -411,7 +411,7 @@
             </Hierarchy>
         </Dimension>
         <Dimension name="CPA" caption="%{CPADimension}">
-            <Hierarchy hasAll="true" allMemberName="All CPA" allMemberCaption="%{allMember}">
+            <Hierarchy hasAll="true" allMemberName="All CPA" allMemberCaption="%{allMember}" allLevelName="%{allCPA}">
                 <!-- No table element here. Fact table is assumed. -->
                 <Level name="CPA" column="CPA" type="Numeric" uniqueMembers="false" levelType="Regular" caption="%{CPAName}">
                     <KeyExpression>
@@ -431,7 +431,7 @@
             </Hierarchy>
         </Dimension>
         <Dimension name="CoFinanced" caption="%{coFinancedDimension}">
-            <Hierarchy hasAll="true" allMemberName="All CoFinanced" allMemberCaption="%{allMember}">
+            <Hierarchy hasAll="true" allMemberName="All CoFinanced" allMemberCaption="%{allMember}" allLevelName="%{allCoFinanced}">
                 <!-- No table element here. Fact table is assumed. -->
                 <Level name="CoFinanced" column="projectCoFinanced" type="Numeric" uniqueMembers="false" levelType="Regular" caption="%{coFinancedName}">
                     <KeyExpression>

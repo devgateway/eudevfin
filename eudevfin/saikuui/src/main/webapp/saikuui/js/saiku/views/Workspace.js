@@ -561,6 +561,7 @@ var Workspace = Backbone.View.extend({
         $(this.el).find(".workspace_results_info").empty();
 
         if (args.data != null && args.data.error != null) {
+        	window.location = "../";
             return this.error(args);
         }        
         // Check to see if there is data
