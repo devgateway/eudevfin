@@ -450,7 +450,15 @@
                 </Level>
             </Hierarchy>
         </Dimension>
+
         <Measure name="Export Credit Amount" column="AMOUNTS_EXP_EXPORT_CREDIT_AMOUNT" aggregator="sum" visible="false" caption="Export Credit Amount"></Measure>
+        <Measure name="Current Extended Amount" column="AMOUNTS_EXTENDED_CURRENT_AMOUNT" aggregator="sum" visible="false" caption="Current Extended Amount"></Measure>
+        <Measure name="Year 1 Extended Amount" column="AMOUNTS_EXTENDED_YEAR1_AMOUNT" aggregator="sum" visible="false" caption="year1ExtendedAmount"></Measure>
+        <Measure name="Year 2 Extended Amount" column="AMOUNTS_EXTENDED_YEAR2_AMOUNT" aggregator="sum" visible="false" caption="Year 2 Extended Amount"></Measure>
+        <Measure name="Interest Arrears Amount" column="AMOUNTS_AREARS_INTEREST_AMOUNT" aggregator="sum" visible="false" caption="Interest Arrears Amount"></Measure>
+        <Measure name="Principal Arrears Amount" column="AMOUNTS_AREARS_PRIN_AMOUNT" aggregator="sum" visible="false" caption="Principal Arrears Amount"></Measure>
+        <Measure name="Principal Disbursed Amount" column="AMOUNTS_PRIN_DISB_AMOUNT" aggregator="sum" visible="false" caption="Principal Disbursed Amount"></Measure>
+        <Measure name="NumberOfTransactions" column="ID" datatype="Integer" aggregator="count" formatString="#,###" caption="%{numberOfTransactions}"/>
         <Measure name="Exchange Rate" aggregator="avg" visible="false" datatype="Integer" formatString="#,###.00" caption="Exchange Rate">
             <MeasureExpression>
                 <SQL dialect="generic">
@@ -474,7 +482,8 @@
                 </SQL>
             </MeasureExpression>
         </Measure>
-        <Measure name="Extended Amount" aggregator="sum" visible="false" caption="%{extendedAmount}">
+
+        <Measure name="Extended Amount" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
                     CASE WHEN DRAFT IS NOT NULL THEN
@@ -485,7 +494,7 @@
                 </SQL>
             </MeasureExpression>
         </Measure>
-        <Measure name="Extended Amount Currency NATLOECD" aggregator="sum" visible="true" caption="%{extendedAmountCurrencyNatlOecd}">
+        <Measure name="Extended Amount Currency NATLOECD" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
                     (AMOUNTS_EXTENDED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
@@ -515,12 +524,9 @@
                 </SQL>
             </MeasureExpression>
         </Measure>
-        <Measure name="Current Extended Amount" column="AMOUNTS_EXTENDED_CURRENT_AMOUNT" aggregator="sum" visible="false" caption="Current Extended Amount"></Measure>
-        <Measure name="Year 1 Extended Amount" column="AMOUNTS_EXTENDED_YEAR1_AMOUNT" aggregator="sum" visible="false" caption="year1ExtendedAmount"></Measure>
-        <Measure name="Year 2 Extended Amount" column="AMOUNTS_EXTENDED_YEAR2_AMOUNT" aggregator="sum" visible="false" caption="Year 2 Extended Amount"></Measure>
-        <Measure name="Partially Untied Amount" column="AMOUNTS_PARTIALLY_UNTIED_AMOUNT" aggregator="sum" visible="false" caption="Partially Untied Amount"></Measure>
-        <Measure name="Received Amount" column="AMOUNTS_RECEIVED_AMOUNT" aggregator="sum" visible="false" caption="%{receivedAmount}"></Measure>
-        <Measure name="Received Amount Currency NATLOECD" aggregator="sum" visible="true" caption="%{receivedAmountCurrencyNatlOecd}">
+
+        <Measure name="Received Amount" column="AMOUNTS_RECEIVED_AMOUNT" aggregator="sum" visible="false"></Measure>
+        <Measure name="Received Amount Currency NATLOECD" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
                     (AMOUNTS_RECEIVED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
@@ -548,12 +554,9 @@
                 </SQL>
             </MeasureExpression>
         </Measure>
-        <Measure name="Tied Amount" column="AMOUNTS_TIED_AMOUNT" aggregator="sum" visible="false" caption="Tied Amount"></Measure>
-        <Measure name="Untied Amount" column="AMOUNTS_UNTIED_AMOUNT" aggregator="sum" visible="false" caption="Untied Amount"></Measure>
-        <Measure name="Interest Arrears Amount" column="AMOUNTS_AREARS_INTEREST_AMOUNT" aggregator="sum" visible="false" caption="Interest Arrears Amount"></Measure>
-        <Measure name="Principal Arrears Amount" column="AMOUNTS_AREARS_PRIN_AMOUNT" aggregator="sum" visible="false" caption="Principal Arrears Amount"></Measure>
-        <Measure name="Commitments Amount" column="COMMITMENT_AMOUNT" aggregator="sum" visible="false" caption="%{commitmentsAmount}"></Measure>
-        <Measure name="Commitments Amount Currency NATLOECD" aggregator="sum" visible="true" caption="%{commitmentsAmountCurrencyNatlOecd}">
+
+        <Measure name="Commitments Amount" column="COMMITMENT_AMOUNT" aggregator="sum" visible="false"></Measure>
+        <Measure name="Commitments Amount Currency NATLOECD" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
                     (COMMITMENT_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
@@ -581,8 +584,9 @@
                 </SQL>
             </MeasureExpression>
         </Measure>
-        <Measure name="Interest Received Amount" column="AMOUNTS_INTEREST_RECEIVED_AMOUNT" aggregator="sum" visible="false" caption="%{interestReceivedAmount}"></Measure>
-        <Measure name="Interest Received Amount Currency NATLOECD" aggregator="sum" visible="true" caption="%{interestReceivedAmountCurrencyNatlOecd}">
+        
+        <Measure name="Interest Received Amount" column="AMOUNTS_INTEREST_RECEIVED_AMOUNT" aggregator="sum" visible="false"></Measure>
+        <Measure name="Interest Received Amount Currency NATLOECD" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
                     (AMOUNTS_INTEREST_RECEIVED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
@@ -596,9 +600,23 @@
                 </SQL>
             </MeasureExpression>
         </Measure>
-        <Measure name="Principal Disbursed Amount" column="AMOUNTS_PRIN_DISB_AMOUNT" aggregator="sum" visible="false" caption="Principal Disbursed Amount"></Measure>
-        <Measure name="Expert Commitments Amount" column="AMOUNTS_EXP_COMMIT_AMOUNT" aggregator="sum" visible="false" caption="%{expertCommitmentsAmount}"></Measure>
-        <Measure name="Expert Commitments Currency NATLOECD" aggregator="sum" visible="true" caption="%{expertCommitmentsAmountCurrencyNatlOecd}">
+        <Measure name="Interest Received Amount Currency INTERNET" aggregator="sum" visible="false">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (AMOUNTS_INTEREST_RECEIVED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    SOURCE = 'Internet' AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_INTEREST_RECEIVED_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        
+        <Measure name="Expert Commitments Amount" column="AMOUNTS_EXP_COMMIT_AMOUNT" aggregator="sum" visible="false"></Measure>
+        <Measure name="Expert Commitments Currency NATLOECD" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
                     (AMOUNTS_EXP_COMMIT_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
@@ -612,8 +630,23 @@
                 </SQL>
             </MeasureExpression>
         </Measure>
-        <Measure name="Expert Extended Amount" column="AMOUNTS_EXP_EXTENDED_AMOUNT" aggregator="sum" visible="false" caption="%{expertExtendedAmount}"></Measure>
-        <Measure name="Expert Extended Currency NATLOECD" aggregator="sum" visible="true" caption="%{expertExtendedAmountCurrencyNatlOecd}">
+        <Measure name="Expert Commitments Currency INTERNET" aggregator="sum" visible="false">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (AMOUNTS_EXP_COMMIT_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    SOURCE = 'Internet' AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXP_COMMIT_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+
+        <Measure name="Expert Extended Amount" column="AMOUNTS_EXP_EXTENDED_AMOUNT" aggregator="sum" visible="false"></Measure>
+        <Measure name="Expert Extended Currency NATLOECD" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
                     (AMOUNTS_EXP_EXTENDED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
@@ -627,7 +660,21 @@
                 </SQL>
             </MeasureExpression>
         </Measure>
-        <Measure name="NumberOfTransactions" column="ID" datatype="Integer" aggregator="count" formatString="#,###" caption="%{numberOfTransactions}"/>
+        <Measure name="Expert Extended Currency INTERNET" aggregator="sum" visible="false">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (AMOUNTS_EXP_EXTENDED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    SOURCE = 'Internet' AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXP_EXTENDED_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+
         <Measure name="Negative Commitments Amount NATLOECD" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
@@ -642,6 +689,7 @@
                 </SQL>
             </MeasureExpression>
         </Measure>
+        
         <Measure name="Negative Received Amount NATLOECD" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
@@ -656,7 +704,8 @@
                 </SQL>
             </MeasureExpression>
         </Measure>
-        <Measure name="Budget/MTEF Disb Current Year" aggregator="sum" visible="true" caption="%{budgetMTEFDisbCurrentYear}">
+        
+        <Measure name="Budget/MTEF Disb Current Year NATLOECD" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
                     (BUDGET_MTEF_DISB_AMOUNT * Cast((SELECT AVG(RATE)
@@ -670,7 +719,22 @@
                 </SQL>
             </MeasureExpression>
         </Measure>
-        <Measure name="Budget/MTEF Disb Year 1" aggregator="sum" visible="true" caption="%{budgetMTEFDisbYear1}">
+        <Measure name="Budget/MTEF Disb Current Year INTERNET" aggregator="sum" visible="false">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (BUDGET_MTEF_DISB_AMOUNT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    SOURCE = 'Internet' AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        
+        <Measure name="Budget/MTEF Disb Year 1 NATLOECD" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
                     (BUDGET_MTEF_DISB_P1_AMOUNT * Cast((SELECT AVG(RATE)
@@ -684,7 +748,22 @@
                 </SQL>
             </MeasureExpression>
         </Measure>
-        <Measure name="Budget/MTEF Disb Year 2" aggregator="sum" visible="true" caption="%{budgetMTEFDisbYear2}">
+        <Measure name="Budget/MTEF Disb Year 1 INTERNET" aggregator="sum" visible="false">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (BUDGET_MTEF_DISB_P1_AMOUNT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    SOURCE = 'Internet' AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_P1_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        
+        <Measure name="Budget/MTEF Disb Year 2 NATLOECD" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
                     (BUDGET_MTEF_DISB_P2_AMOUNT * Cast((SELECT AVG(RATE)
@@ -698,7 +777,22 @@
                 </SQL>
             </MeasureExpression>
         </Measure>
-        <Measure name="Budget/MTEF Disb Year 3" aggregator="sum" visible="true" caption="%{budgetMTEFDisbYear3}">
+        <Measure name="Budget/MTEF Disb Year 2 INTERNET" aggregator="sum" visible="false">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (BUDGET_MTEF_DISB_P2_AMOUNT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    SOURCE = 'Internet' AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_P2_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        
+        <Measure name="Budget/MTEF Disb Year 3 NATLOECD" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
                     (BUDGET_MTEF_DISB_P3_AMOUNT * Cast((SELECT AVG(RATE)
@@ -712,7 +806,22 @@
                 </SQL>
             </MeasureExpression>
         </Measure>
-        <Measure name="Budget/MTEF Disb Year 4" aggregator="sum" visible="true" caption="%{budgetMTEFDisbYear4}">
+        <Measure name="Budget/MTEF Disb Year 3 INTERNET" aggregator="sum" visible="false">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (BUDGET_MTEF_DISB_P3_AMOUNT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    SOURCE = 'Internet' AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_P3_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        
+        <Measure name="Budget/MTEF Disb Year 4 NATLOECD" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
                     (BUDGET_MTEF_DISB_P4_AMOUNT * Cast((SELECT AVG(RATE)
@@ -726,10 +835,115 @@
                 </SQL>
             </MeasureExpression>
         </Measure>
+        <Measure name="Budget/MTEF Disb Year 4 INTERNET" aggregator="sum" visible="false">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (BUDGET_MTEF_DISB_P4_AMOUNT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    SOURCE = 'Internet' AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_P4_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        
+        <Measure name="Tied Amount" column="AMOUNTS_TIED_AMOUNT" aggregator="sum" visible="false"></Measure>
+        <Measure name="Tied Amount NATLOECD" aggregator="sum" visible="false">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (AMOUNTS_TIED_AMOUNT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    (SOURCE = 'OECD' OR SOURCE='National') AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_TIED_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        <Measure name="Tied Amount INTERNET" aggregator="sum" visible="false">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (AMOUNTS_TIED_AMOUNT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    SOURCE = 'Internet' AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_TIED_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+
+        <Measure name="Untied Amount" column="AMOUNTS_UNTIED_AMOUNT" aggregator="sum" visible="false"></Measure>
+        <Measure name="Untied Amount NATLOECD" aggregator="sum" visible="false">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (AMOUNTS_UNTIED_AMOUNT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    (SOURCE = 'OECD' OR SOURCE='National') AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_UNTIED_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        <Measure name="Untied Amount INTERNET" aggregator="sum" visible="false">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (AMOUNTS_UNTIED_AMOUNT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    SOURCE = 'Internet' AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_UNTIED_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+
+        <Measure name="Partially Untied Amount" column="AMOUNTS_PARTIALLY_UNTIED_AMOUNT" aggregator="sum" visible="false"></Measure>
+        <Measure name="Partially Untied NATLOECD" aggregator="sum" visible="false">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (AMOUNTS_PARTIALLY_UNTIED_AMOUNT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    (SOURCE = 'OECD' OR SOURCE='National') AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_PARTIALLY_UNTIED_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        <Measure name="Partially Untied INTERNET" aggregator="sum" visible="false">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (AMOUNTS_PARTIALLY_UNTIED_AMOUNT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    SOURCE = 'Internet' AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_PARTIALLY_UNTIED_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+
         <CalculatedMember name="Net Amount" dimension="Measures" visible="false">
             <Formula>[Measures].[Extended Amount] - [Measures].[Received Amount]</Formula>
         </CalculatedMember>
-        <CalculatedMember name="Net Amount Currency NATLOECD" dimension="Measures" caption="%{netAmountCurrencyNatlOecd}">
+        <CalculatedMember name="Net Amount Currency NATLOECD" dimension="Measures" visible="false">
             <Formula>[Measures].[Extended Amount Currency NATLOECD] - [Measures].[Received Amount Currency NATLOECD]</Formula>
         </CalculatedMember>
         <CalculatedMember name="Net Amount Currency INTERNET" dimension="Measures" visible="false">
@@ -737,17 +951,50 @@
         </CalculatedMember>
 
         <!-- Use Internet currency when we don't have one -->
-        <CalculatedMember name="Extended Amount Currency NATLOECD or INTERNET" dimension="Measures">
+        <CalculatedMember name="Extended Amount Currency NATLOECD or INTERNET" dimension="Measures" caption="%{extendedAmount}">
             <Formula>IIF([Measures].[Extended Amount Currency NATLOECD] > 0, [Measures].[Extended Amount Currency NATLOECD], [Measures].[Extended Amount Currency INTERNET])</Formula>
         </CalculatedMember>
-        <CalculatedMember name="Received Amount Currency NATLOECD or INTERNET" dimension="Measures">
+        <CalculatedMember name="Received Amount Currency NATLOECD or INTERNET" dimension="Measures" caption="%{receivedAmount}">
             <Formula>IIF([Measures].[Received Amount Currency NATLOECD] > 0, [Measures].[Extended Amount Currency NATLOECD], [Measures].[Received Amount Currency INTERNET])</Formula>
         </CalculatedMember>
-        <CalculatedMember name="Net Amount Currency NATLOECD or INTERNET" dimension="Measures">
+        <CalculatedMember name="Net Amount Currency NATLOECD or INTERNET" dimension="Measures" caption="%{netAmount}">
             <Formula>[Measures].[Extended Amount Currency NATLOECD or INTERNET] - [Measures].[Received Amount Currency NATLOECD or INTERNET]</Formula>
         </CalculatedMember>
-        <CalculatedMember name="Commitments Amount Currency NATLOECD or INTERNET" dimension="Measures">
+        <CalculatedMember name="Commitments Amount Currency NATLOECD or INTERNET" dimension="Measures" caption="%{commitmentsAmount}">
             <Formula>IIF([Measures].[Commitments Amount Currency NATLOECD] > 0, [Measures].[Commitments Amount Currency NATLOECD], [Measures].[Commitments Amount Currency INTERNET])</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="Interest Received Amount Currency NATLOECD or INTERNET" dimension="Measures" caption="%{interestReceivedAmount}">
+            <Formula>IIF([Measures].[Interest Received Amount Currency NATLOECD] > 0, [Measures].[Interest Received Amount Currency NATLOECD], [Measures].[Interest Received Amount Currency INTERNET])</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="Expert Commitments Amount Currency NATLOECD or INTERNET" dimension="Measures" caption="%{expertCommitmentsAmount}">
+            <Formula>IIF([Measures].[Expert Commitments Currency NATLOECD] > 0, [Measures].[Expert Commitments Currency NATLOECD], [Measures].[Expert Commitments Currency INTERNET])</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="Expert Extended Amount Currency NATLOECD or INTERNET" dimension="Measures" caption="%{expertExtendedAmount}">
+            <Formula>IIF([Measures].[Expert Extended Currency NATLOECD] > 0, [Measures].[Expert Extended Currency NATLOECD], [Measures].[Expert Extended Currency INTERNET])</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="Budget/MTEF Disb Current Year NATLOECD or INTERNET" dimension="Measures" caption="%{budgetMTEFDisbCurrentYear}">
+            <Formula>IIF([Measures].[Budget/MTEF Disb Current Year NATLOECD] > 0, [Measures].[Budget/MTEF Disb Current Year NATLOECD], [Measures].[Budget/MTEF Disb Current Year INTERNET])</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="Budget/MTEF Disb Year 1 NATLOECD or INTERNET" dimension="Measures" caption="%{budgetMTEFDisbYear1}">
+            <Formula>IIF([Measures].[Budget/MTEF Disb Year 1 NATLOECD] > 0, [Measures].[Budget/MTEF Disb Year 1 NATLOECD], [Measures].[Budget/MTEF Disb Year 1 INTERNET])</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="Budget/MTEF Disb Year 2 NATLOECD or INTERNET" dimension="Measures" caption="%{budgetMTEFDisbYear2}">
+            <Formula>IIF([Measures].[Budget/MTEF Disb Year 2 NATLOECD] > 0, [Measures].[Budget/MTEF Disb Year 2 NATLOECD], [Measures].[Budget/MTEF Disb Year 2 INTERNET])</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="Budget/MTEF Disb Year 3 NATLOECD or INTERNET" dimension="Measures" caption="%{budgetMTEFDisbYear3}">
+            <Formula>IIF([Measures].[Budget/MTEF Disb Year 3 NATLOECD] > 0, [Measures].[Budget/MTEF Disb Year 3 NATLOECD], [Measures].[Budget/MTEF Disb Year 3 INTERNET])</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="Budget/MTEF Disb Year 4 NATLOECD or INTERNET" dimension="Measures" caption="%{budgetMTEFDisbYear4}">
+            <Formula>IIF([Measures].[Budget/MTEF Disb Year 4 NATLOECD] > 0, [Measures].[Budget/MTEF Disb Year 4 NATLOECD], [Measures].[Budget/MTEF Disb Year 4 INTERNET])</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="Tied Amount NATLOECD or INTERNET" dimension="Measures" caption="%{tiedAmount}">
+            <Formula>IIF([Measures].[Tied Amount NATLOECD] > 0, [Measures].[Tied Amount NATLOECD], [Measures].[Tied Amount INTERNET])</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="Untied Amount NATLOECD or INTERNET" dimension="Measures" caption="%{untiedAmount}">
+            <Formula>IIF([Measures].[Untied Amount NATLOECD] > 0, [Measures].[Untied Amount NATLOECD], [Measures].[Untied Amount INTERNET])</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="Partially Untied NATLOECD or INTERNET" dimension="Measures" caption="%{partiallyUntiedAmount}">
+            <Formula>IIF([Measures].[Partially Untied NATLOECD] > 0, [Measures].[Partially Untied NATLOECD], [Measures].[Partially Untied INTERNET])</Formula>
         </CalculatedMember>
 
         <!--  Groups of Channels -->

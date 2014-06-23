@@ -82,9 +82,12 @@ if (! Settings.BIPLUGIN) {
         Saiku.toolbar = new Toolbar();
         Saiku.session.bind("tab:add", function ()
         {
+        	debugger;
 			_.delay(function() {
-				$(".cubes").val("eudevfin/EUDevfin/EUDevfin/Financial");
-				$(".cubes").change();
+				if($(".cubes").val() != "eudevfin/EUDevfin/EUDevfin/Financial"){
+					$(".cubes").val("eudevfin/EUDevfin/EUDevfin/Financial");
+					$(".cubes").change();
+				}
 			}, 1000);
         });
     });
