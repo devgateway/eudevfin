@@ -36,7 +36,7 @@ public class GeneralSearchListGenerator implements ListGeneratorInterface<Financ
 	@Override
 	public PagingHelper<FinancialTransaction> getResultsList(int pageNumber,
 			int pageSize) {
-		if (searchBoxPanelForm!=null && searchBoxPanelForm.getSearchString()!= null && searchBoxPanelForm.getSearchString().length() > 1 )
+		if (searchBoxPanelForm!=null )
 			return PagingHelper.createPagingHelperFromPage(this.txService.findBySearchFormPageable(
 					searchBoxPanelForm.getYear(),
 					searchBoxPanelForm.getSector(),

@@ -30,8 +30,12 @@ public class YearToLocalDateTimeModel extends WrappingModel<Integer, LocalDateTi
         return (date == null ? null : date.getYear());
     }
 
-    @Override
-    public void setObject(Integer object) {
-        originalModel.setObject(new LocalDateTime(object, 1, 1, 0, 0)); //1st January 00:00 at the current year
-    }
+	@Override
+	public void setObject(Integer object) {
+		if (object == null)
+			originalModel.setObject(null);
+		else
+			originalModel.setObject(new LocalDateTime(object, 1, 1, 0, 0));
+		// 1st January 00:00 at the current year
+	}
 }
