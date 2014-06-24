@@ -19,7 +19,7 @@ import org.springframework.data.jpa.repository.Query;
  *
  */
 public interface CustomFinancialTransactionRepository extends
-		JpaRepository<CustomFinancialTransaction, Long> {
+		JpaRepository<CustomFinancialTransaction, Long>, CustomFinancialTransactionRepositoryCustom {
 	
 	Page<CustomFinancialTransaction> findByDraftAndApprovedFalse(Boolean draft, Pageable pageable );
 	

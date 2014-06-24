@@ -180,6 +180,7 @@
 	<int:channel id="findTransactionBySectorCodePageableChannel" />
 	<int:channel id="getFinancialTransactionHistoricalExchangeRatesChannel"/>
 	<int:channel id="findTransactionByGeneralSearchPageableChannel"/>
+	<int:channel id="findTransactionBySearchFormPageableChannel"/>	
 	<int:channel id="findTransactionByReportingYearAndTypeOfFlowNonFlow"/>
 	
 	

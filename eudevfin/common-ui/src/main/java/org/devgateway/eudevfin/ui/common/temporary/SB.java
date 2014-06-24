@@ -8,9 +8,8 @@
 
 package org.devgateway.eudevfin.ui.common.temporary;
 
-import com.vaynberg.wicket.select2.ChoiceProvider;
-import com.vaynberg.wicket.select2.Response;
-import com.vaynberg.wicket.select2.TextChoiceProvider;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.devgateway.eudevfin.metadata.common.domain.Area;
@@ -18,8 +17,9 @@ import org.devgateway.eudevfin.metadata.common.domain.Category;
 import org.devgateway.eudevfin.metadata.common.domain.RecipientCategory;
 import org.joda.money.CurrencyUnit;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import com.vaynberg.wicket.select2.ChoiceProvider;
+import com.vaynberg.wicket.select2.Response;
+import com.vaynberg.wicket.select2.TextChoiceProvider;
 
 /**
  * Temporary class to simulate binds with other modules
@@ -143,8 +143,7 @@ public class SB {
             return ret;
         }
     };
-
-
+   
     public static final String BILATERAL_ODA_ADVANCE_QUESTIONNAIRE = "bilateralOda.advanceQuestionnaire";
     public static final String BILATERAL_ODA_CRS = "bilateralOda.CRS";
     public static final String BILATERAL_ODA_FORWARD_SPENDING = "bilateralOda.forwardSpending";

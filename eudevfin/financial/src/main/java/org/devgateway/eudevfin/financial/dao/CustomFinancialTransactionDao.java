@@ -11,6 +11,10 @@ import org.devgateway.eudevfin.common.dao.AbstractDaoImpl;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
 import org.devgateway.eudevfin.financial.repository.CustomFinancialTransactionRepository;
 import org.devgateway.eudevfin.financial.service.CustomFinancialTransactionService;
+import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
+import org.devgateway.eudevfin.metadata.common.domain.Area;
+import org.devgateway.eudevfin.metadata.common.domain.Category;
+import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -32,8 +36,82 @@ public class CustomFinancialTransactionDao
 	
 	@Autowired
 	private CustomFinancialTransactionRepository repo;
+	
+	
 
+//	public static Specification<CustomFinancialTransaction> whereClauseDesktopSearch(final LocalDateTime year, final Category sector,
+//			final Area recipient, final String searchString, final String formType, final Organization extendingAgency) {
+//		    return new Specification<CustomFinancialTransaction>() {
+//		      public Predicate toPredicate(Root<CustomFinancialTransaction> root, CriteriaQuery<?> query,
+//		            CriteriaBuilder builder) {
+//
+//		    //	  @Query("select tx from FinancialTransaction tx join tx.translations trn where (lower(trn.description) like %:searchString% or lower(trn.shortDescription) like %:searchString%) or "
+//		    //				+ "(:year not null and tx.reportingYear=:year) or tx.sector=:sector or tx.recipient=:recipient or tx.formType=:formType or tx.extendingAgency=:extendingAgency")
+//
+//		    	  
+//		    	  Join<CustomFinancialTransaction,FinancialTransactionTranslation> join = root.join(CustomFinancialTransaction_.translations);
+//		
+//		    	  List<Predicate> criteria = new ArrayList<Predicate>();
+//
+//				if (searchString != null)
+//					criteria.add(builder.or(
+//							builder.like(join.<String> get("description"), "%" + searchString.toLowerCase() + "%"),
+//							builder.like(join.<String> get("shortDescription"), "%" + searchString.toLowerCase() + "%")));
+//	  
+//				if (year != null)
+//					criteria.add(builder.equal(root.get("reportingYear"), year));
+//
+//				if (sector != null)
+//					criteria.add(builder.equal(root.get("sector"), sector));
+//
+//				if (recipient != null)
+//					criteria.add(builder.equal(root.get("recipient"), recipient));
+//
+//				if (formType != null)
+//					criteria.add(builder.equal(root.get("formType"), formType));
+//
+//				if (extendingAgency != null)
+//					criteria.add(builder.equal(root.get("extendingAgency"), extendingAgency));
+//		   
+//		    	    if (criteria.size() == 0) {
+//		    	        throw new RuntimeException("no criteria");
+//		    	    } else if (criteria.size() == 1) {
+//		    	        return criteria.get(0);
+//		    	    } else {
+//		    	        return builder.and(criteria.toArray(new Predicate[0]));
+//		    	    }
+//		      
+//		      }
+//		    };
+//		  }
 
+	/**
+	 * @see FinancialTransactionService#findBySearchFormPageable(Integer, Category, Area, String, String, Organization, String, Pageable)
+	 * @param year
+	 * @param sector
+	 * @param recipient
+	 * @param searchString
+	 * @param formType
+	 * @param extendingAgency
+	 * @param locale
+	 * @param pageable
+	 * @return
+	 */
+	@ServiceActivator(inputChannel = "findTransactionBySearchFormPageableChannel")
+	public Page<CustomFinancialTransaction> findBySearchFormPageable(
+			@Header(value = "year", required = false) LocalDateTime year,
+			@Header(value = "sector", required = false) Category sector,
+			@Header(value = "recipient", required = false) Area recipient,
+			@Header(value = "searchString", required = false) String searchString,
+			@Header(value = "formType", required = false) String formType,
+			@Header(value = "extendingAgency", required = false) Organization extendingAgency,
+			@Header(value = "locale", required = false) String locale, Pageable pageable) {
+		return this.getRepo().performSearch(year, sector, recipient, searchString, formType, extendingAgency, pageable);
+	}
+	
+
+	
+	
 	/* (non-Javadoc)
 	 * @see org.devgateway.eudevfin.common.dao.AbstractDaoImpl#getRepo()
 	 */
