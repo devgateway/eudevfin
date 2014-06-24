@@ -16,11 +16,11 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
+import org.devgateway.eudevfin.auth.common.util.AuthUtils;
 import org.devgateway.eudevfin.dim.desktop.components.util.GeneralSearchListGenerator;
-import org.devgateway.eudevfin.dim.pages.HomePage;
 import org.devgateway.eudevfin.financial.service.CustomFinancialTransactionService;
 import org.devgateway.eudevfin.metadata.common.domain.Area;
 import org.devgateway.eudevfin.metadata.common.domain.Category;
@@ -62,6 +62,8 @@ public class SearchBoxPanel extends Panel {
 	
 	@SpringBean
 	private CustomFinancialTransactionService txService;
+	private boolean superUser;
+	private DropDownField<Organization> extendingAgency;
 	
 	
 	/**
@@ -90,7 +92,9 @@ public class SearchBoxPanel extends Panel {
 		this.resultsPanel.setVisible(false);
 		this.searchWrapperPanel.add(this.resultsPanel);
 		this.add(this.searchWrapperPanel);
-				
+
+	 	superUser=AuthUtils.currentUserHasRole(AuthConstants.Roles.ROLE_SUPERVISOR);
+	 	
 		final SearchBoxPanelForm boxPanelForm=new SearchBoxPanelForm();
 		CompoundPropertyModel<SearchBoxPanelForm> boxPanelFormModel=new CompoundPropertyModel<SearchBoxPanelForm>(boxPanelForm);
 		Form form = new Form("searchForm",boxPanelFormModel);
@@ -118,12 +122,14 @@ public class SearchBoxPanel extends Panel {
         searchInputField.hideLabel();
         searchInputField.removeSpanFromControlGroup();
 		form.add(searchInputField);		
-		
-        final DropDownField<Organization> extendingAgency = new DropDownField<>("extendingAgency",
+			 	
+        extendingAgency = new DropDownField<>("extendingAgency",
                 new RWComponentPropertyModel<Organization>("extendingAgency"), organizationProvider);
         //extendingAgency.setSize(InputBehavior.Size.Medium);
         extendingAgency.hideLabel();
         extendingAgency.removeSpanFromControlGroup();
+    	
+        
         form.add(extendingAgency);              
     	
         final DropDownField<String> formType = new DropDownField<>("formType",
@@ -167,7 +173,7 @@ public class SearchBoxPanel extends Panel {
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 					sectorPurposeCode.getField().setDefaultModelObject(null);
 					searchInputField.getField().setDefaultModelObject(null);
-					extendingAgency.getField().setDefaultModelObject(null);
+					extendingAgency.getField().setDefaultModelObject(superUser?null:AuthUtils.getOrganizationForCurrentUser());
 					year.getField().setDefaultModelObject(null);
 					formType.getField().setDefaultModelObject(null);
 					recipient.getField().setDefaultModelObject(null);
@@ -177,12 +183,23 @@ public class SearchBoxPanel extends Panel {
 		            target.add(extendingAgency.getField());
 		            target.add(formType.getField());
 		            target.add(recipient.getField());
+	            	SearchBoxPanel.this.resultsPanel.setVisible(false);
+	            	target.add(SearchBoxPanel.this.searchWrapperPanel);
 				}
 				
 			};		
 		form.add(resetButton);
         
 		this.add(form);
+	}
+	
+	@Override
+	protected void onConfigure() {
+		super.onConfigure();
+		if(!superUser) {
+    		extendingAgency.setEnabled(false);
+    		extendingAgency.getField().setDefaultModelObject(AuthUtils.getOrganizationForCurrentUser());
+    	}
 	}
 	
 }
