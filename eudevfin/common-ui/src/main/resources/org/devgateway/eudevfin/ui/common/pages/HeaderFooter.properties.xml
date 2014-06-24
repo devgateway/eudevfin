@@ -46,6 +46,19 @@
     <entry key="navbar.lang">Languages</entry>
     <entry key="navbar.lang.header">all available languages:</entry>
 
+ 	<entry key="bilateralOda.advanceQuestionnaire">AQ Bilateral ODA</entry>
+    <entry key="bilateralOda.CRS">CRS++ Bilateral ODA</entry>
+    <entry key="bilateralOda.forwardSpending">FSS Bilateral ODA</entry>
+    <entry key="multilateralOda.advanceQuestionnaire">AQ Multilateral ODA</entry>
+    <entry key="multilateralOda.CRS">CRS++ Multilateral ODA</entry>
+    <entry key="nonOda.nonExport">Non Export Non-ODA</entry>
+    <entry key="nonOda.export">Export Non-ODA</entry>
+    <entry key="nonOda.privateGrants">Private Grants Non-ODA</entry>
+	<entry key="nonOda.privateMarket">Private Market Non-ODA</entry>   
+	<entry key="nonOda.otherFlows">Other Flows Non-ODA</entry>   
+    <entry key="nonOda.export">Private Market Non-ODA</entry>
+    <entry key="nonOda.export">Export Credit Non-ODA</entry>
+    
     <entry key="navbar.newTransaction.bilateralOda">Bilateral ODA</entry>
     <entry key="navbar.newTransaction.bilateralOda.advanceQuestionnaire">Advance Questionnaire</entry>
     <entry key="navbar.newTransaction.bilateralOda.CRS">CRS++</entry>

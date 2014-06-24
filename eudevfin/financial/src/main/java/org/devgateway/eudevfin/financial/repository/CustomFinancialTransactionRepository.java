@@ -12,6 +12,7 @@ import org.joda.time.LocalDateTime;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 
 /**
@@ -19,7 +20,7 @@ import org.springframework.data.jpa.repository.Query;
  *
  */
 public interface CustomFinancialTransactionRepository extends
-		JpaRepository<CustomFinancialTransaction, Long> {
+		JpaRepository<CustomFinancialTransaction, Long>, JpaSpecificationExecutor<CustomFinancialTransaction> {
 	
 	Page<CustomFinancialTransaction> findByDraftAndApprovedFalse(Boolean draft, Pageable pageable );
 	

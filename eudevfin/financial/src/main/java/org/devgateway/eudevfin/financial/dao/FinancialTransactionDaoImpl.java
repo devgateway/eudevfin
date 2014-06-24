@@ -3,7 +3,15 @@
  */
 package org.devgateway.eudevfin.financial.dao;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.ParameterExpression;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import org.devgateway.eudevfin.common.dao.AbstractDaoImpl;
 import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
@@ -17,8 +25,8 @@ import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.integration.annotation.Header;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
@@ -81,32 +89,9 @@ public class FinancialTransactionDaoImpl extends AbstractDaoImpl<FinancialTransa
 		return  this.getRepo().findByTranslationsDescriptionContaining(searchString.toLowerCase(), pageable)  ;
 	}
 
+		
 	
-	/**
-	 * @see FinancialTransactionService#findBySearchFormPageable(Integer, Category, Area, String, String, Organization, String, Pageable)
-	 * @param year
-	 * @param sector
-	 * @param recipient
-	 * @param searchString
-	 * @param formType
-	 * @param extendingAgency
-	 * @param locale
-	 * @param pageable
-	 * @return
-	 */
-	@ServiceActivator(inputChannel = "findTransactionBySearchFormPageableChannel")
-	public Page<FinancialTransaction> findBySearchFormPageable(
-			@Header(value = "year", required = false) LocalDateTime year,
-			@Header(value = "sector", required = false) Category sector,
-			@Header(value = "recipient", required = false) Area recipient,
-			@Header(value = "searchString", required = false) String searchString,
-			@Header(value = "formType", required = false) String formType,			
-			@Header(value = "extendingAgency", required = false) Organization extendingAgency,
-		    @Header(value = "locale", required = false) String locale, 
-		    Pageable pageable) {
-		return this.getRepo().findBySearchFormPageable(year,sector,recipient,searchString,formType,extendingAgency,pageable);
-	}
-	
+
 	/**
 	 * @see FinancialTransactionService#findByReportingYearAndTypeOfFlowCode(LocalDateTime,String)
 	 * @param reportingYear

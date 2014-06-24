@@ -38,7 +38,7 @@ public class FormTypeProvider extends TextChoiceProvider<String> {
     }
 
     private String getTranslation(String key) {
-    	return new StringResourceModel("navbar.newTransaction."+key,  component, null).getObject();
+    	return new StringResourceModel(key,  component, null).getObject();
     
     }
     

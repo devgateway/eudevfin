@@ -25,7 +25,6 @@ import org.devgateway.eudevfin.dim.desktop.components.util.GeneralSearchListGene
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.service.CustomFinancialTransactionService;
-import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
 import org.devgateway.eudevfin.metadata.common.service.CategoryService;
 import org.devgateway.eudevfin.metadata.common.service.OrganizationService;
 import org.devgateway.eudevfin.ui.common.components.tabs.BootstrapJSTabbedPanel;
@@ -55,10 +54,7 @@ public class HomePage extends HeaderFooter {
     private static final String SECTOR_CODE_TRANSPORT = "210";
 
     protected ListView<FinancialTransaction> transactionListView = null;
-    
-    @SpringBean
-    protected FinancialTransactionService txService;
-    
+       
     @SpringBean
     protected CustomFinancialTransactionService customTxService;
 
@@ -164,7 +160,7 @@ public class HomePage extends HeaderFooter {
     	
     	this.add(bc);
     	
-    	GeneralSearchListGenerator generalSearchListGenerator	= new GeneralSearchListGenerator(txService);
+    	GeneralSearchListGenerator generalSearchListGenerator	= new GeneralSearchListGenerator(customTxService);
     	this.add(new SearchBoxPanel("search-box-panel", 
     			new TransactionTableListPanel<FinancialTransaction>("search-results-panel",generalSearchListGenerator), 
     			generalSearchListGenerator,categoryFactory,organizationProvider,areaProvider));
