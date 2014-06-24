@@ -17,8 +17,10 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.dim.desktop.components.util.GeneralSearchListGenerator;
+import org.devgateway.eudevfin.dim.pages.HomePage;
 import org.devgateway.eudevfin.financial.service.CustomFinancialTransactionService;
 import org.devgateway.eudevfin.metadata.common.domain.Area;
 import org.devgateway.eudevfin.metadata.common.domain.Category;
@@ -140,7 +142,7 @@ public class SearchBoxPanel extends Panel {
         form.add(recipient);
         
 		
-		BootstrapSubmitButton submitButton = new BootstrapSubmitButton("submit", Model.of("Submit")) {
+		BootstrapSubmitButton submitButton = new BootstrapSubmitButton("submit",new StringResourceModel("desktop.searchbutton", this,null)) {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 			// Access the updated model object:
@@ -160,7 +162,7 @@ public class SearchBoxPanel extends Panel {
 			};		
 		form.add(submitButton);
 		
-		BootstrapCancelButton resetButton = new BootstrapCancelButton("reset", Model.of("Reset")) {
+		BootstrapCancelButton resetButton = new BootstrapCancelButton("reset", new StringResourceModel("desktop.resetbutton", this,null)) {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 					sectorPurposeCode.getField().setDefaultModelObject(null);
