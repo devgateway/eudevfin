@@ -17,10 +17,10 @@
     <entry key="desktop.lastTxByDraft">Draft</entry>
     <entry key="desktop.lastTxByFinal">Final</entry>
     <entry key="desktop.lastTxByApproved">Approved</entry>
-    <entry key="desktop.search.label">Search for transactions</entry>
+    <entry key="desktop.search.label">Search transactions</entry>
     <entry key="desktop.search.placeholder">Start typing</entry>
     
-    <entry key="desktop.searchbutton">Search for transactions</entry>
+    <entry key="desktop.searchbutton">Search transactions</entry>
     <entry key="desktop.resetbutton">Reset</entry>
     
     <entry key="year.label">Year</entry>
