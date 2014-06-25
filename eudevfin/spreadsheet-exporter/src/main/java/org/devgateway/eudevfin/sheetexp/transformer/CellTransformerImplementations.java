@@ -454,6 +454,23 @@ public class CellTransformerImplementations {
 			return cell;
 		}
 	}
+	
+	public static class GEOGRAPHICAL_TARGET_AREA extends AbstractFssCellTransformer<String> {
+		public GEOGRAPHICAL_TARGET_AREA(final String headerName) {
+			super(headerName);
+		}
+
+		@Override
+		public MetadataCell<String> innerTransform(final FinancialTransaction tx) {
+			String value = null;
+			if (tx.getRecipient() != null) {
+				value = tx.getGeoTargetArea();
+			}
+			final MetadataCell<String> cell = new MetadataCell<String>(value);
+			this.setDataTypeToString(cell);
+			return cell;
+		}
+	}
 
 	public static class EXPECTED_START_DATE extends AbstractFssCellTransformer<LocalDateTime> {
 		public EXPECTED_START_DATE(final String headerName) {

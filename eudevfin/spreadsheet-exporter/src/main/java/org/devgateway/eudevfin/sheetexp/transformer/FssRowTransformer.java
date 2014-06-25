@@ -73,7 +73,7 @@ public class FssRowTransformer extends AbstractRowTransformer<EntityWrapperInter
 		//missing exclusion
 		this.addCellTransformer( new CellTransformerImplementations.PURPOSE_CODE("Sector / Purpose code") );
 //		this.addCellTransformer( new CellTransformerImplementations.MAIN_SECTOR("MainSector") );
-		this.addCellTransformer( new CellTransformerImplementations.GEOGRAPHY("Geographical target area") );
+		this.addCellTransformer( new CellTransformerImplementations.GEOGRAPHICAL_TARGET_AREA("Geographical target area") );
 		this.addCellTransformer( new CellTransformerImplementations.EXPECTED_START_DATE("Expected starting date ") );
 		this.addCellTransformer( new CellTransformerImplementations.COMPLETION_DATE("Expected completion date") );
 		

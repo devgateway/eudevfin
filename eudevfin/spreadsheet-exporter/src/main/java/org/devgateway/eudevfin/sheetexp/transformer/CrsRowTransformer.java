@@ -56,7 +56,7 @@ public class CrsRowTransformer extends AbstractRowTransformer<EntityWrapperInter
 		this.addCellTransformer( new CellTransformerImplementations.TYPE_OF_AID_CODE("Type of aid") );
 		this.addCellTransformer( new CellTransformerImplementations.SHORT_DESCRIPTION("Short description / Project title") );
 		this.addCellTransformer( new CellTransformerImplementations.PURPOSE_CODE("Sector / Purpose code") );
-		this.addCellTransformer( new CellTransformerImplementations.GEOGRAPHY("Geographical target area") );
+		this.addCellTransformer( new CellTransformerImplementations.GEOGRAPHICAL_TARGET_AREA("Geographical target area") );
 		this.addCellTransformer( new CellTransformerImplementations.EXPECTED_START_DATE("Expected starting date") );
 		this.addCellTransformer( new CellTransformerImplementations.COMPLETION_DATE("Expected completion date") );
 		this.addCellTransformer( new CellTransformerImplementations.LONG_DESCRIPTION("Description") );
