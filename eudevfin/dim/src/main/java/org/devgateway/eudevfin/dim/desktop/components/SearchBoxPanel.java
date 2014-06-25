@@ -50,7 +50,7 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
 public class SearchBoxPanel extends Panel {
 
 	private static final long serialVersionUID = 6025430438643716484L;
-	private TableListPanel resultsPanel;
+	private TableListPanel<?> resultsPanel;
 	private GeneralSearchListGenerator listGenerator;
 	private WebMarkupContainer searchWrapperPanel;
 		
@@ -73,7 +73,7 @@ public class SearchBoxPanel extends Panel {
 	 * @param areaProvider
 	 * @param organizationProvider 
 	 */
-	public SearchBoxPanel(String id, TableListPanel resultsPanel, GeneralSearchListGenerator generalSearchListGenerator,
+	public SearchBoxPanel(String id, TableListPanel<?> resultsPanel, GeneralSearchListGenerator generalSearchListGenerator,
 			CategoryProviderFactory categoryFactory, OrganizationChoiceProvider organizationProvider, AreaChoiceProvider areaProvider) {
         super(id);
         this.resultsPanel		= resultsPanel;
@@ -97,7 +97,7 @@ public class SearchBoxPanel extends Panel {
 	 	
 		final SearchBoxPanelForm boxPanelForm=new SearchBoxPanelForm();
 		CompoundPropertyModel<SearchBoxPanelForm> boxPanelFormModel=new CompoundPropertyModel<SearchBoxPanelForm>(boxPanelForm);
-		Form form = new Form("searchForm",boxPanelFormModel);
+		Form<?> form = new Form<>("searchForm",boxPanelFormModel);
 		form.setOutputMarkupId(false);
 		
 		  
@@ -149,6 +149,9 @@ public class SearchBoxPanel extends Panel {
         
 		
 		BootstrapSubmitButton submitButton = new BootstrapSubmitButton("submit",new StringResourceModel("desktop.searchbutton", this,null)) {
+
+			private static final long serialVersionUID = -1342816632002116152L;
+
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 			// Access the updated model object:
@@ -169,6 +172,9 @@ public class SearchBoxPanel extends Panel {
 		form.add(submitButton);
 		
 		BootstrapCancelButton resetButton = new BootstrapCancelButton("reset", new StringResourceModel("desktop.resetbutton", this,null)) {
+
+			private static final long serialVersionUID = -7554180087300408868L;
+
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 					sectorPurposeCode.getField().setDefaultModelObject(null);
