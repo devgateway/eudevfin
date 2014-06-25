@@ -365,8 +365,8 @@ public class CellTransformerImplementations {
 		}
 	}
 	
-	public static class NATURE_OF_SUBMISSION extends AbstractFssCellTransformer<String> {
-		public NATURE_OF_SUBMISSION(final String headerName) {
+	public static class NATURE_OF_SUBMISSION_CODE extends AbstractFssCellTransformer<String> {
+		public NATURE_OF_SUBMISSION_CODE(final String headerName) {
 			super(headerName);
 		}
 
@@ -375,7 +375,7 @@ public class CellTransformerImplementations {
 		public MetadataCell<String> innerTransform(final FinancialTransaction tx) {
 			String value = null;
 			if (tx.getNatureOfSubmission() != null) {
-				value = tx.getNatureOfSubmission().getName();
+				value = tx.getNatureOfSubmission().getDisplayableCode();
 			}
 			final MetadataCell<String> cell = new MetadataCell<String>(value);
 			this.setDataTypeToString(cell);
