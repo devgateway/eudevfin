@@ -249,7 +249,7 @@ public final class NavbarInitializer {
 		return logoutPageNavbarButton;
 	}
 
-	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT, order = 8)
+	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT, order = 8,disabled=true)
 	public static Component feedbackNavbarButton(final Page page) {
 		NavbarButton<LogoutPage> accountNavbarButton = new NavbarButton<LogoutPage>(FeedbackUrl.class,
 				new StringResourceModel("navbar.feedback", page, null, null)) {
