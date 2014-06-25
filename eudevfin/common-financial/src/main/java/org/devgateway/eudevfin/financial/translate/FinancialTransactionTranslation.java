@@ -10,6 +10,7 @@ import org.devgateway.eudevfin.common.dao.translation.AbstractTranslation;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Index;
 import org.hibernate.envers.Audited;
 
 /**
@@ -24,8 +25,10 @@ public class FinancialTransactionTranslation extends AbstractTranslation<Financi
 	private static final long serialVersionUID = -657182398545780927L;
 
 	@Column(length=20000)
+	@Index(name="FinancialTransactionTranslation_description_idx")
 	private String description;
-//	@Lob
+
+	@Index(name="FinancialTransactionTranslation_shortdescription_idx")
 	private String shortDescription;		
     
 	@Column(length=1024)
