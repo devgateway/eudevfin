@@ -133,6 +133,8 @@
             -->
             <script type="text/javascript" src="js/saiku/plugins/CCC_Chart/plugin.js"></script>
 			<script type="text/javascript" src="js/saiku/plugins/Currency/plugin.js" ></script>
+			<script type="text/javascript" src="js/saiku/plugins/FilterViewer/plugin.js" ></script>
+            <link type="text/css" href="js/saiku/plugins/FilterViewer/styles.css" rel="stylesheet"/>
 
         <script type="text/javascript" src="js/ace/ace.js" charset="utf-8"></script>
 
@@ -239,6 +241,7 @@
                     <span class="editor_info hide"></span>
                     
                 </div>
+                <div class="workspace_filter_info" style="padding-left:20px;"></div>
                 <div id="query_processing" class="query_processing" style="display:none;"><span class="processing_image">&nbsp;&nbsp;</span> <span class="i18n">Running query...</span>  [&nbsp;<a class="cancel i18n" href="#cancel">Cancel</a>&nbsp;]</div>
                 <div class="workspace_help" style="padding-left:20px;">*If there are no measures selected, the measure shown by default is "Extended"</div>
                 <div class="workspace_results_info" align="right" />
@@ -329,10 +332,10 @@
             <li><a href="#swap_axis" 
                 class="i18n swap_axis button disabled_toolbar sprite" 
                 title="Swap axis"></a></li>
-            <!-- 
-			<li style="display:none"><a href="#show_mdx" 
+			<li style="display:block"><a href="#show_mdx" 
                 class="i18n mdx button disabled_toolbar sprite" 
                 title="Show MDX"></a></li>
+            <!-- 
             <li style="display:none"><a href="#explain_query" 
                 class="i18n explain_query button disabled_toolbar sprite" 
                 title="Show Explain Plan"></a></li>
@@ -633,6 +636,5 @@
             </li>
         </ul>
         </script>
-        <script type="text/javascript" src="js/ga.js"></script>
     </body>
 </html>

@@ -123,7 +123,7 @@
                 <version>${jetty.version}</version>
                 <configuration>                 
                     <war>${basedir}/target/dim-${project.version}</war>
-                    <scanIntervalSeconds>1</scanIntervalSeconds>
+                    <scanIntervalSeconds>${scanInterval}</scanIntervalSeconds>
                     <waitForChild>false</waitForChild>
                     <webApp>
                         <contextPath>${contextPath}</contextPath>
