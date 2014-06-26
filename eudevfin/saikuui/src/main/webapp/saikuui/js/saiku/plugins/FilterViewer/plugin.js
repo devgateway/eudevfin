@@ -6,7 +6,8 @@ var FilterInfo = Backbone.View.extend({
         _.bindAll(this, "render", "update_filter_info", "process_data");
         this.workspace.bind('query:result', this.update_filter_info);
         $(this.workspace.el).find('.workspace_filter_info')
-            .prepend($(this.el).show());
+            .prepend($(this.el));
+        $(this.el.parentElement).hide();
     },
 
     render: function() {
@@ -18,26 +19,46 @@ var FilterInfo = Backbone.View.extend({
     },
     
     process_data: function(args) {
-    	var filterString = "";
     	var self = this;
-    	args.workspace.query.action.get("/mdx", { 
-            success: function(model, response) {
-                var mdx = response.mdx;
-                //Look for WHERE section, extract the string
-                var whereSection = mdx.split("WHERE")[1];
-                //Isolate where sections
-                var re = /\{[^\}]*\}/;
-                var result = re.exec(whereSection);
-                debugger;
-//                var whereSections = whereSection.split(",");
-//                _.each(whereSections, function(obj){
-//                	console.log(obj);
-//                });
+    	var selectedFilters = $(args.workspace.el).find(".fields_list[title='FILTER'] .level");
+    	var requests = [];
+    	var path = "/saiku/rest/saiku/admin/query/" + args.workspace.query.id;
 
-                $(self.el).text(response.mdx);
-                $(self.el).show();
-            }
-        });
+    	_.each(selectedFilters, function(filter) {
+    		var dimension = filter.href.split("/#")[1].split('/')[0];
+    		requests.push($.ajax(path + "/axis/FILTER/dimension/" + dimension));
+    	});
+    	if(requests.length == 0) {
+            $(self.el).html("");
+            $(self.el.parentElement).hide();
+    	}
+    	$.when.apply($, requests).done(function () {
+    		if(arguments.length > 0){
+        		var filterString = "<strong>Selected Filters: </strong><br/>";
+        	    $.each(arguments, function (i, data) {
+        	    	var datum = (data instanceof Array) ? data[0] : data;
+        	    	if(datum.caption){
+            	    	filterString += "Dimension: " + datum.caption + " - ";
+            	    	filterString += "Values: ";
+            	    	_.each(datum.selections, function(value, idx){
+            	    		filterString += value.caption;
+            	    		if(datum.selections.length-1 != idx)
+            	    			filterString += ", ";
+            	    	});
+            	    	filterString += "<br/>";
+        	    	}
+
+        	    });
+                $(self.el).html(filterString);
+                $(self.el.parentElement).show();
+    		}
+    		else
+			{
+                $(self.el).html("");
+                $(self.el.parentElement).hide();
+			}
+    	});    	
+    	
     }
 });
 
