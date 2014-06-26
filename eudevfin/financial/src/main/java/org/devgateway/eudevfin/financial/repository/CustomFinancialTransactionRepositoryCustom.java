@@ -21,4 +21,7 @@ public interface CustomFinancialTransactionRepositoryCustom  {
 
 	Page<CustomFinancialTransaction> performSearch(LocalDateTime year, Category sector, Area recipient,
 			String searchString, String formType, Organization extendingAgency, Pageable pageable);
+	
+	Page<CustomFinancialTransaction> performSearchByDonorIdCrsIdActive(String crsIdSearch, String donorIdSearch,
+			String locale, Pageable pageable);
 }

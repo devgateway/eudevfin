@@ -9,6 +9,7 @@ import java.util.List;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUserGroup;
 import org.devgateway.eudevfin.common.dao.AbstractDaoImpl;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
+import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.repository.CustomFinancialTransactionRepository;
 import org.devgateway.eudevfin.financial.service.CustomFinancialTransactionService;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
@@ -38,53 +39,6 @@ public class CustomFinancialTransactionDao
 	private CustomFinancialTransactionRepository repo;
 	
 	
-
-//	public static Specification<CustomFinancialTransaction> whereClauseDesktopSearch(final LocalDateTime year, final Category sector,
-//			final Area recipient, final String searchString, final String formType, final Organization extendingAgency) {
-//		    return new Specification<CustomFinancialTransaction>() {
-//		      public Predicate toPredicate(Root<CustomFinancialTransaction> root, CriteriaQuery<?> query,
-//		            CriteriaBuilder builder) {
-//
-//		    //	  @Query("select tx from FinancialTransaction tx join tx.translations trn where (lower(trn.description) like %:searchString% or lower(trn.shortDescription) like %:searchString%) or "
-//		    //				+ "(:year not null and tx.reportingYear=:year) or tx.sector=:sector or tx.recipient=:recipient or tx.formType=:formType or tx.extendingAgency=:extendingAgency")
-//
-//		    	  
-//		    	  Join<CustomFinancialTransaction,FinancialTransactionTranslation> join = root.join(CustomFinancialTransaction_.translations);
-//		
-//		    	  List<Predicate> criteria = new ArrayList<Predicate>();
-//
-//				if (searchString != null)
-//					criteria.add(builder.or(
-//							builder.like(join.<String> get("description"), "%" + searchString.toLowerCase() + "%"),
-//							builder.like(join.<String> get("shortDescription"), "%" + searchString.toLowerCase() + "%")));
-//	  
-//				if (year != null)
-//					criteria.add(builder.equal(root.get("reportingYear"), year));
-//
-//				if (sector != null)
-//					criteria.add(builder.equal(root.get("sector"), sector));
-//
-//				if (recipient != null)
-//					criteria.add(builder.equal(root.get("recipient"), recipient));
-//
-//				if (formType != null)
-//					criteria.add(builder.equal(root.get("formType"), formType));
-//
-//				if (extendingAgency != null)
-//					criteria.add(builder.equal(root.get("extendingAgency"), extendingAgency));
-//		   
-//		    	    if (criteria.size() == 0) {
-//		    	        throw new RuntimeException("no criteria");
-//		    	    } else if (criteria.size() == 1) {
-//		    	        return criteria.get(0);
-//		    	    } else {
-//		    	        return builder.and(criteria.toArray(new Predicate[0]));
-//		    	    }
-//		      
-//		      }
-//		    };
-//		  }
-
 	/**
 	 * @see FinancialTransactionService#findBySearchFormPageable(Integer, Category, Area, String, String, Organization, String, Pageable)
 	 * @param year
@@ -109,7 +63,22 @@ public class CustomFinancialTransactionDao
 		return this.getRepo().performSearch(year, sector, recipient, searchString, formType, extendingAgency, pageable);
 	}
 	
-
+/**
+ * @see CustomFinancialTransactionService#findByDonorIdCrsIdActive(String, String, String, Pageable)s
+ * @param crsIdSearch
+ * @param donorIdSearch
+ * @param locale
+ * @param pageable
+ * @return
+ */
+	@ServiceActivator(inputChannel = "findTransactionByDonorIdCrsIdActiveChannel")
+	public Page<CustomFinancialTransaction> findByDonorIdCrsIdActive(
+			@Header(value = "donorIdSearch", required = false) String donorIdSearch,
+			@Header(value = "crsIdSearch", required = false) String crsIdSearch,
+		    @Header(value = "locale", required = false) String locale, 
+		    Pageable pageable) {
+		return this.getRepo().performSearchByDonorIdCrsIdActive(donorIdSearch,crsIdSearch,locale,pageable);
+	}
 	
 	
 	/* (non-Javadoc)

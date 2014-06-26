@@ -93,6 +93,9 @@
 		<int:method name="findBySearchFormPageable" request-channel="getChannel">
 			<int:header name="requestName" value="findTransactionBySearchFormPageableChannel"/>
 		</int:method>		
+		<int:method name="findByDonorIdCrsIdActive" request-channel="getChannel">
+			<int:header name="requestName" value="findTransactionByDonorIdCrsIdActiveChannel"/>
+		</int:method>		
 	</int:gateway>
 		
 		

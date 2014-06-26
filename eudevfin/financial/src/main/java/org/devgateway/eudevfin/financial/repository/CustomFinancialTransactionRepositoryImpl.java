@@ -46,12 +46,10 @@ public class CustomFinancialTransactionRepositoryImpl implements CustomFinancial
 			q2.setParameter(name, value);
 	}
 	 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Page<CustomFinancialTransaction> performSearch(LocalDateTime year, Category sector,
 			Area recipient, String searchString, String formType, Organization extendingAgency, Pageable pageable) {
 		StringBuilder queryBuilder=new StringBuilder(" FROM CustomFinancialTransaction tx join tx.translations trn WHERE 1=1");
-		
 		
 		if(year!=null) queryBuilder.append(" AND tx.reportingYear=:year");
 		if(sector!=null) queryBuilder.append(" AND tx.sector=:sector");
@@ -65,8 +63,7 @@ public class CustomFinancialTransactionRepositoryImpl implements CustomFinancial
 		query.setFirstResult(pageable.getOffset());
 		
 		StringBuilder countBuilder=new StringBuilder("SELECT count(tx) ").append(queryBuilder);
-		Query countQuery = em.createQuery(countBuilder.toString());
-		
+		Query countQuery = em.createQuery(countBuilder.toString());		
 
 		if(year!=null) setQueriesParameter(query,countQuery,"year", year);
 		if(sector!=null) setQueriesParameter(query,countQuery,"sector", sector);
@@ -74,15 +71,40 @@ public class CustomFinancialTransactionRepositoryImpl implements CustomFinancial
 		if(searchString!=null) setQueriesParameter(query,countQuery,"searchString", "%"+searchString.toLowerCase()+"%");	
 		if(formType!=null) setQueriesParameter(query,countQuery,"formType", formType);
 		if(extendingAgency!=null) setQueriesParameter(query,countQuery,"extendingAgency", extendingAgency);
-
-		
 		
 		long maxResults = (Long) countQuery.getSingleResult();
 
-		
 		@SuppressWarnings("rawtypes")
 		List resultList = query.getResultList();
 		
+		@SuppressWarnings("unchecked")
+		PageImpl<CustomFinancialTransaction> result	= new PageImpl<CustomFinancialTransaction>(resultList,pageable, maxResults);
+		return result;
+	}
+
+	@Override
+	public Page<CustomFinancialTransaction> performSearchByDonorIdCrsIdActive(String donorIdSearch,String crsIdSearch, 
+			String locale, Pageable pageable) {
+		StringBuilder queryBuilder=new StringBuilder(" FROM CustomFinancialTransaction tx WHERE 1=1");
+			
+		if(crsIdSearch!=null) queryBuilder.append(" AND tx.crsIdentificationNumber like :crsIdSearch");
+		if(donorIdSearch!=null) queryBuilder.append(" AND tx.donorProjectNumber like :donorIdSearch");
+			
+		Query query = em.createQuery("SELECT tx "+queryBuilder.toString());
+		query.setMaxResults(pageable.getPageSize());
+		query.setFirstResult(pageable.getOffset());
+		
+		StringBuilder countBuilder=new StringBuilder("SELECT count(tx) ").append(queryBuilder);
+		Query countQuery = em.createQuery(countBuilder.toString());
+	
+		if(crsIdSearch!=null) setQueriesParameter(query,countQuery,"crsIdSearch", "%"+crsIdSearch+"%");	
+		if(donorIdSearch!=null) setQueriesParameter(query,countQuery,"donorIdSearch", "%"+donorIdSearch+"%");	
+		
+		long maxResults = (Long) countQuery.getSingleResult();
+		@SuppressWarnings("rawtypes")
+		List resultList = query.getResultList();
+		
+		@SuppressWarnings("unchecked")
 		PageImpl<CustomFinancialTransaction> result	= new PageImpl<CustomFinancialTransaction>(resultList,pageable, maxResults);
 		return result;
 	}
