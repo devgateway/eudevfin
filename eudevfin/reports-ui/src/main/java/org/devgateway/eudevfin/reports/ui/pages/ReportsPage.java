@@ -1,12 +1,5 @@
 package org.devgateway.eudevfin.reports.ui.pages;
 
-import com.googlecode.wickedcharts.highcharts.options.Labels;
-import com.googlecode.wickedcharts.highcharts.options.Options;
-import com.googlecode.wickedcharts.highcharts.options.SeriesType;
-import com.googlecode.wickedcharts.highcharts.options.functions.DefaultFormatter;
-import com.googlecode.wickedcharts.highcharts.options.series.Point;
-import com.googlecode.wickedcharts.highcharts.options.series.PointSeries;
-import com.googlecode.wickedcharts.highcharts.options.series.SimpleSeries;
 import org.apache.log4j.Logger;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
@@ -20,9 +13,7 @@ import org.devgateway.eudevfin.financial.util.FinancialTransactionUtil;
 import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.devgateway.eudevfin.reports.core.domain.Metadatum;
 import org.devgateway.eudevfin.reports.core.service.QueryService;
-import org.devgateway.eudevfin.reports.ui.components.PieChart;
 import org.devgateway.eudevfin.reports.ui.components.PieChartNVD3;
-import org.devgateway.eudevfin.reports.ui.components.StackedBarChart;
 import org.devgateway.eudevfin.reports.ui.components.StackedBarChartNVD3;
 import org.devgateway.eudevfin.reports.ui.components.Table;
 import org.joda.money.CurrencyUnit;
@@ -32,14 +23,9 @@ import org.wicketstuff.annotation.mount.MountPath;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * @author idobre
@@ -367,148 +353,42 @@ public class ReportsPage extends ReportsDashboards {
         Label title = new Label("odaByIncomeGroupTitle", new StringResourceModel("ReportsPage.odaByIncomeGroupChart", this, null, null));
         add(title);
 
-        if (USE_NVD3) {
-            PieChartNVD3 pieChartNVD3 = new PieChartNVD3(CdaService, "odaByIncomeGroupChart", "odaByIncomeGroupChart");
+        PieChartNVD3 pieChartNVD3 = new PieChartNVD3(CdaService, "odaByIncomeGroupChart", "odaByIncomeGroupChart");
 
-            // add MDX queries parameters
-            pieChartNVD3.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
-            pieChartNVD3.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
+        // add MDX queries parameters
+        pieChartNVD3.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
+        pieChartNVD3.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
 
-            pieChartNVD3.setUseMillion(true);
+        pieChartNVD3.setUseMillion(true);
 
-            add(pieChartNVD3);
-        } else {
-            PieChart pieChart = new PieChart(CdaService, "odaByIncomeGroupChart", "odaByIncomeGroupChart") {
-                @Override
-                public List<Point> getResultSeries() {
-                    this.result = this.runQuery();
-                    List<Point> resultSeries = new ArrayList<>();
-
-                    for (List<String> item : result.getResultset()) {
-                        resultSeries.add(new Point(item.get(0), Float.parseFloat(item.get(1)) / ReportsPage.this.MILLION));
-                    }
-
-                    return resultSeries;
-                }
-            };
-
-            // add MDX queries parameters
-            pieChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
-            pieChart.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
-
-            Options options = pieChart.getOptions();
-            options.addSeries(new PointSeries()
-                    .setType(SeriesType.PIE)
-                    .setData(pieChart.getResultSeries()));
-            add(pieChart.getChart());
-        }
+        add(pieChartNVD3);
     }
 
     private void addOdaByRegionChart () {
         Label title = new Label("odaByRegionTitle", new StringResourceModel("ReportsPage.odaByRegionChart", this, null, null));
         add(title);
 
-        if (USE_NVD3) {
-            PieChartNVD3 pieChartNVD3 = new PieChartNVD3(CdaService, "odaByRegionChart", "odaByRegionChart");
+        PieChartNVD3 pieChartNVD3 = new PieChartNVD3(CdaService, "odaByRegionChart", "odaByRegionChart");
 
-            // add MDX queries parameters
-            pieChartNVD3.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
-            pieChartNVD3.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
+        // add MDX queries parameters
+        pieChartNVD3.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
+        pieChartNVD3.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
 
-            pieChartNVD3.setUseMillion(true);
+        pieChartNVD3.setUseMillion(true);
 
-            add(pieChartNVD3);
-        } else {
-            PieChart pieChart = new PieChart(CdaService, "odaByRegionChart", "odaByRegionChart") {
-                @Override
-                public List<Point> getResultSeries() {
-                    this.result = this.runQuery();
-                    List<Point> resultSeries = new ArrayList<>();
-
-                    for (List<String> item : result.getResultset()) {
-                        resultSeries.add(new Point(item.get(0), Float.parseFloat(item.get(1)) / ReportsPage.this.MILLION));
-                    }
-
-                    return resultSeries;
-                }
-            };
-
-            // add MDX queries parameters
-            pieChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
-            pieChart.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
-
-            Options options = pieChart.getOptions();
-            // check if we have a result and make the chart slightly higher
-            if (pieChart.getResultSeries().size() != 0) {
-                options.getChartOptions().setHeight(350);
-            }
-            // options.getPlotOptions().getPie().getDataLabels().setEnabled(Boolean.FALSE); display data labels for now
-            options.addSeries(new PointSeries()
-                    .setType(SeriesType.PIE)
-                    .setData(pieChart.getResultSeries()));
-            add(pieChart.getChart());
-        }
+        add(pieChartNVD3);
     }
 
     private void addOdaBySectorChart () {
         Label title = new Label("odaBySectorTitle", new StringResourceModel("ReportsPage.odaBySectorChart", this, null, null));
         add(title);
 
-        if (USE_NVD3) {
-            StackedBarChartNVD3 stackedBarChartNVD3 = new StackedBarChartNVD3(CdaService, "odaBySectorChart", "odaBySectorChart");
+        StackedBarChartNVD3 stackedBarChartNVD3 = new StackedBarChartNVD3(CdaService, "odaBySectorChart", "odaBySectorChart");
 
-            // add MDX queries parameters
-            stackedBarChartNVD3.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
-            stackedBarChartNVD3.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
+        // add MDX queries parameters
+        stackedBarChartNVD3.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
+        stackedBarChartNVD3.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
 
-            add(stackedBarChartNVD3);
-        } else {
-            StackedBarChart stackedBarChart = new StackedBarChart(CdaService, "odaBySectorChart", "odaBySectorChart") {
-                @Override
-                public Map<String, Float> getResultSeries() {
-                    float odaBySectorTotal = 0;
-
-                    this.result = this.runQuery();
-                    // use LinkedHashMap so we can keep the insert order
-                    Map<String, Float> resultSeries = new LinkedHashMap<>();
-                    Set<String> resultCategories = new HashSet<>();
-
-                    for (int i = result.getResultset().size() - 1; i >= 0; i--) {
-                        List<String> item = result.getResultset().get(i);
-
-                        // keep unique values
-                        resultCategories.add(item.get(1));
-
-                        resultSeries.put(item.get(0), Float.parseFloat(item.get(2)) / ReportsPage.this.MILLION);
-
-                        odaBySectorTotal += (Float.parseFloat(item.get(2)) / ReportsPage.this.MILLION);
-                    }
-
-                    odaBySectorTotal = ReportsDashboardsUtils.twoDecimalFormat(odaBySectorTotal);
-
-                    getOptions().getxAxis().get(0).setCategories(new ArrayList<>(resultCategories));
-                    getOptions().getyAxis().get(0).setMax(odaBySectorTotal)
-                            .setTickInterval(odaBySectorTotal / 10)
-                            .setLabels(new Labels()
-                                    .setFormatter(new DefaultFormatter().setFunction("return sprintf('%d', (this.value / " + odaBySectorTotal + ") * 100).replace(/,/g, \" \") + '%';")));
-
-                    return resultSeries;
-                }
-            };
-
-            stackedBarChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
-            stackedBarChart.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
-
-            // remove the y-axis label ('ODA')
-            stackedBarChart.getOptions().getxAxis().get(0).getLabels().setEnabled(Boolean.FALSE);
-
-            for (Map.Entry<String, Float> entry : stackedBarChart.getResultSeries().entrySet()) {
-                stackedBarChart.getOptions().addSeries(new SimpleSeries()
-                        .setName(entry.getKey())
-                        .setData(Arrays.asList(new Number[]{entry.getValue()})));
-            }
-
-            add(stackedBarChart.getChart());
-        }
+        add(stackedBarChartNVD3);
     }
 }

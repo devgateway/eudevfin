@@ -1,9 +1,5 @@
 package org.devgateway.eudevfin.reports.ui.pages;
 
-import com.googlecode.wickedcharts.highcharts.options.Options;
-import com.googlecode.wickedcharts.highcharts.options.SeriesType;
-import com.googlecode.wickedcharts.highcharts.options.series.Point;
-import com.googlecode.wickedcharts.highcharts.options.series.PointSeries;
 import org.apache.log4j.Logger;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
@@ -15,14 +11,12 @@ import org.apache.wicket.util.string.StringValue;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
 import org.devgateway.eudevfin.reports.core.service.QueryService;
-import org.devgateway.eudevfin.reports.ui.components.PieChart;
 import org.devgateway.eudevfin.reports.ui.components.PieChartNVD3;
 import org.devgateway.eudevfin.reports.ui.components.Table;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 /**
  * @author idobre
@@ -117,58 +111,20 @@ public class CountryDashboards extends ReportsDashboards {
         Label title = new Label("countryChartTitle", "Net Disbursement by Sector - " + tableYear + " - " + countryCurrency + " - full amount");
         add(title);
 
-        if (USE_NVD3) {
-            PieChartNVD3 pieChartNVD3 = new PieChartNVD3(CdaService, "countryChart", "countryDashboardsChart");
+        PieChartNVD3 pieChartNVD3 = new PieChartNVD3(CdaService, "countryChart", "countryDashboardsChart");
 
-            // add MDX queries parameters
-            pieChartNVD3.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
-            pieChartNVD3.setParam("paramCountry", (recipientParam != null ? recipientParam : ""));
-            if (currencyParam != null) {
-                if (currencyParam.equals("true")) {
-                    pieChartNVD3.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
-                }
-            } else {
+        // add MDX queries parameters
+        pieChartNVD3.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
+        pieChartNVD3.setParam("paramCountry", (recipientParam != null ? recipientParam : ""));
+        if (currencyParam != null) {
+            if (currencyParam.equals("true")) {
                 pieChartNVD3.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
             }
-
-            add(pieChartNVD3);
         } else {
-            PieChart pieChart = new PieChart(CdaService, "countryChart", "countryDashboardsChart") {
-                @Override
-                public List<Point> getResultSeries() {
-                    this.result = this.runQuery();
-                    List<Point> resultSeries = new ArrayList<>();
-
-                    for (List<String> item : result.getResultset()) {
-                        resultSeries.add(new Point(item.get(0), Float.parseFloat(item.get(1))));
-                    }
-
-                    return resultSeries;
-                }
-            };
-
-            // add MDX queries parameters
-            pieChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
-            pieChart.setParam("paramCountry", (recipientParam != null ? recipientParam : ""));
-            if (currencyParam != null) {
-                if (currencyParam.equals("true")) {
-                    pieChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
-                }
-            } else {
-                pieChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
-            }
-
-            Options options = pieChart.getOptions();
-            // check if we have a result and make the chart slightly higher
-            if (pieChart.getResultSeries().size() != 0) {
-                options.getChartOptions().setHeight(350);
-            }
-
-            options.addSeries(new PointSeries()
-                    .setType(SeriesType.PIE)
-                    .setData(pieChart.getResultSeries()));
-            add(pieChart.getChart());
+            pieChartNVD3.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
         }
+
+        add(pieChartNVD3);
     }
 
     protected void addTableList () {

@@ -60,12 +60,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.googlecode.wicked-charts</groupId>
-            <artifactId>wicked-charts-wicket6</artifactId>
-            <version>1.5.0</version>
-        </dependency>
-
-        <dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
 			<version>3.9</version>
