@@ -1,11 +1,5 @@
 package org.devgateway.eudevfin.reports.ui.pages;
 
-import com.googlecode.wickedcharts.highcharts.options.DataLabels;
-import com.googlecode.wickedcharts.highcharts.options.PlotOptions;
-import com.googlecode.wickedcharts.highcharts.options.PlotOptionsChoice;
-import com.googlecode.wickedcharts.highcharts.options.Tooltip;
-import com.googlecode.wickedcharts.highcharts.options.color.HexColor;
-import com.googlecode.wickedcharts.highcharts.options.series.SimpleSeries;
 import org.apache.log4j.Logger;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
@@ -18,13 +12,11 @@ import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
 import org.devgateway.eudevfin.reports.core.service.QueryService;
 import org.devgateway.eudevfin.reports.ui.components.BarChartNVD3;
-import org.devgateway.eudevfin.reports.ui.components.StackedBarChart;
 import org.devgateway.eudevfin.reports.ui.components.Table;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 /**
  * @author idobre
@@ -118,82 +110,22 @@ public class ChannelDashboards extends ReportsDashboards {
         Label title = new Label("channelBarChartTitle", "Net Disbursement - " + tableYear + " - " + countryCurrency + " - full amount");
         add(title);
 
-        if (USE_NVD3) {
-            BarChartNVD3 barChartNVD3 = new BarChartNVD3(CdaService, "channelBarChart", "channelDashboardsBarChart");
+        BarChartNVD3 barChartNVD3 = new BarChartNVD3(CdaService, "channelBarChart", "channelDashboardsBarChart");
 
-            // add MDX queries parameters
-            barChartNVD3.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
-            barChartNVD3.setParam("paramChannel", (agencyParam != null ? agencyParam : ""));
-            if (currencyParam != null) {
-                if (currencyParam.equals("true")) {
-                    barChartNVD3.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
-                }
-            } else {
+        // add MDX queries parameters
+        barChartNVD3.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
+        barChartNVD3.setParam("paramChannel", (agencyParam != null ? agencyParam : ""));
+        if (currencyParam != null) {
+            if (currencyParam.equals("true")) {
                 barChartNVD3.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
             }
-
-            barChartNVD3.setNumberOfSeries(1);
-            barChartNVD3.setSeries1("Year " + (tableYear));
-
-            add(barChartNVD3);
         } else {
-            StackedBarChart stackedBarChart = new StackedBarChart(CdaService, "channelBarChart", "channelDashboardsBarChart") {
-                @Override
-                public List<List<Float>> getResultSeriesAsList() {
-                    this.result = this.runQuery();
-
-                    List<List<Float>> resultSeries = new ArrayList<>();
-                    List<String> resultCategories = new ArrayList<>();
-
-                    List<Float> firstYearList = new ArrayList<>();
-                    resultSeries.add(firstYearList);
-
-                    for (List<String> item : result.getResultset()) {
-                        resultCategories.add(item.get(0));
-
-                        if (result.getMetadata().get(1).getColName().equals("FIRST YEAR")) {
-                            if (item.size() > 1 && item.get(1) != null) {
-                                resultSeries.get(0).add(Float.parseFloat(item.get(1)));
-                            } else {
-                                resultSeries.get(0).add((float) 0);
-                            }
-                        }
-                    }
-
-                    getOptions().getxAxis().get(0).setCategories(new ArrayList<>(resultCategories));
-
-                    return resultSeries;
-                }
-            };
-
-            // add MDX queries parameters
-            stackedBarChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
-            stackedBarChart.setParam("paramChannel", (agencyParam != null ? agencyParam : ""));
-            if (currencyParam != null) {
-                if (currencyParam.equals("true")) {
-                    stackedBarChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
-                }
-            } else {
-                stackedBarChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
-            }
-
-            List<List<Float>> resultSeries = stackedBarChart.getResultSeriesAsList();
-            stackedBarChart.getOptions().setPlotOptions(new PlotOptionsChoice().
-                    setBar(new PlotOptions().
-                            setMinPointLength(5).
-                            setDataLabels(new DataLabels().
-                                    setEnabled(Boolean.TRUE))));
-            stackedBarChart.getOptions().setTooltip(new Tooltip().setValueSuffix(" millions").setPercentageDecimals(2));
-            // add 35px height for each row
-            int numberOfRows = resultSeries.get(0).size();
-            stackedBarChart.getOptions().getChartOptions().setHeight(300 + 35 * numberOfRows);
-
-            stackedBarChart.getOptions().addSeries(new SimpleSeries()
-                    .setName("Year " + (tableYear))
-                    .setData(resultSeries.get(0).toArray(new Float[resultSeries.get(0).size()]))
-                    .setColor(new HexColor("#3D96AE").brighten(new Float(-0.1))));
-
-            add(stackedBarChart.getChart());
+            barChartNVD3.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
         }
+
+        barChartNVD3.setNumberOfSeries(1);
+        barChartNVD3.setSeries1("Year " + (tableYear));
+
+        add(barChartNVD3);
     }
 }

@@ -1,10 +1,5 @@
 package org.devgateway.eudevfin.reports.ui.pages;
 
-import com.googlecode.wickedcharts.highcharts.options.DataLabels;
-import com.googlecode.wickedcharts.highcharts.options.PlotOptions;
-import com.googlecode.wickedcharts.highcharts.options.PlotOptionsChoice;
-import com.googlecode.wickedcharts.highcharts.options.Tooltip;
-import com.googlecode.wickedcharts.highcharts.options.series.SimpleSeries;
 import org.apache.log4j.Logger;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
@@ -15,13 +10,11 @@ import org.apache.wicket.util.string.StringValue;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.reports.core.service.QueryService;
 import org.devgateway.eudevfin.reports.ui.components.BarChartNVD3;
-import org.devgateway.eudevfin.reports.ui.components.StackedBarChart;
 import org.devgateway.eudevfin.reports.ui.components.Table;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 /**
  * @author idobre
@@ -189,86 +182,33 @@ public class ReportsCountryInstitutionDashboards extends ReportsDashboards {
                 " - " + countryCurrency + " - full amount");
         add(title);
 
-        if (USE_NVD3) {
-            BarChartNVD3 barChartNVD3 = new BarChartNVD3(CdaService, "institutionChart", "customDashboardsInstitutionChart");
+        BarChartNVD3 barChartNVD3 = new BarChartNVD3(CdaService, "institutionChart", "customDashboardsInstitutionChart");
 
-            // add MDX queries parameters
-            barChartNVD3.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
-            barChartNVD3.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
-            if (currencyParam != null) {
-                if (currencyParam.equals("true")) {
-                    barChartNVD3.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
-                }
+        // add MDX queries parameters
+        barChartNVD3.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
+        barChartNVD3.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
+        if (currencyParam != null) {
+            if (currencyParam.equals("true")) {
+                barChartNVD3.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
             }
-            if (geographyParam != null) {
-                barChartNVD3.setParam("paramCOUNTRIES", "[" + geographyParam + "]");
-            } else {
-                if (recipientParam != null) {
-                    barChartNVD3.setParam("paramCOUNTRIES", "[Name].[" + recipientParam + "]");
-                }
-            }
-            if (coFinancingParam != null && coFinancingParam.equals("true")) {
-                barChartNVD3.setParam("paramCOFINANCED", "[1]");
-            }
-
-            barChartNVD3.setParam("paraminstitutionChartRowSet", institutionChartRowSet);
-
-            barChartNVD3.setNumberOfSeries(2);
-            barChartNVD3.setSeries1("Year " + (tableYear - 1));
-            barChartNVD3.setSeries2("Year " + (tableYear));
-
-            add(barChartNVD3);
-        } else {
-            StackedBarChart stackedBarChart = new StackedBarChart(CdaService, "institutionChart", "customDashboardsInstitutionChart") {
-                @Override
-                public List<List<Float>> getResultSeriesAsList() {
-                    this.result = this.runQuery();
-
-                    return ReportsDashboardsUtils.processChartRows(this.runQuery(), getOptions());
-                }
-            };
-
-            // add MDX queries parameters
-            stackedBarChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
-            stackedBarChart.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
-            if (currencyParam != null) {
-                if (currencyParam.equals("true")) {
-                    stackedBarChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
-                }
-            }
-            if (geographyParam != null) {
-                stackedBarChart.setParam("paramCOUNTRIES", "[" + geographyParam + "]");
-            } else {
-                if (recipientParam != null) {
-                    stackedBarChart.setParam("paramCOUNTRIES", "[Name].[" + recipientParam + "]");
-                }
-            }
-            if (coFinancingParam != null && coFinancingParam.equals("true")) {
-                stackedBarChart.setParam("paramCOFINANCED", "[1]");
-            }
-
-            stackedBarChart.setParam("paraminstitutionChartRowSet", institutionChartRowSet);
-
-            List<List<Float>> resultSeries = stackedBarChart.getResultSeriesAsList();
-            stackedBarChart.getOptions().setPlotOptions(new PlotOptionsChoice().
-                    setBar(new PlotOptions().
-                            setMinPointLength(5).
-                            setDataLabels(new DataLabels().
-                                    setEnabled(Boolean.TRUE))));
-            stackedBarChart.getOptions().setTooltip(new Tooltip().setValueSuffix(" millions").setPercentageDecimals(2));
-            // add 50px height for each row
-            int numberOfRows = resultSeries.get(0).size();
-            stackedBarChart.getOptions().getChartOptions().setHeight(300 + 50 * numberOfRows);
-
-            stackedBarChart.getOptions().addSeries(new SimpleSeries()
-                    .setName("Year " + (tableYear - 1))
-                    .setData(resultSeries.get(0).toArray(new Float[resultSeries.get(0).size()])));
-
-            stackedBarChart.getOptions().addSeries(new SimpleSeries()
-                    .setName("Year " + tableYear)
-                    .setData(resultSeries.get(1).toArray(new Float[resultSeries.get(1).size()])));
-
-            add(stackedBarChart.getChart());
         }
+        if (geographyParam != null) {
+            barChartNVD3.setParam("paramCOUNTRIES", "[" + geographyParam + "]");
+        } else {
+            if (recipientParam != null) {
+                barChartNVD3.setParam("paramCOUNTRIES", "[Name].[" + recipientParam + "]");
+            }
+        }
+        if (coFinancingParam != null && coFinancingParam.equals("true")) {
+            barChartNVD3.setParam("paramCOFINANCED", "[1]");
+        }
+
+        barChartNVD3.setParam("paraminstitutionChartRowSet", institutionChartRowSet);
+
+        barChartNVD3.setNumberOfSeries(2);
+        barChartNVD3.setSeries1("Year " + (tableYear - 1));
+        barChartNVD3.setSeries2("Year " + (tableYear));
+
+        add(barChartNVD3);
     }
 }

@@ -1,9 +1,5 @@
 package org.devgateway.eudevfin.reports.ui.pages;
 
-import com.googlecode.wickedcharts.highcharts.options.Options;
-import com.googlecode.wickedcharts.highcharts.options.SeriesType;
-import com.googlecode.wickedcharts.highcharts.options.series.Point;
-import com.googlecode.wickedcharts.highcharts.options.series.PointSeries;
 import org.apache.log4j.Logger;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
@@ -16,7 +12,6 @@ import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.financial.dao.CategoryDaoImpl;
 import org.devgateway.eudevfin.metadata.common.domain.Category;
 import org.devgateway.eudevfin.reports.core.service.QueryService;
-import org.devgateway.eudevfin.reports.ui.components.PieChart;
 import org.devgateway.eudevfin.reports.ui.components.PieChartNVD3;
 import org.devgateway.eudevfin.reports.ui.components.Table;
 import org.wicketstuff.annotation.mount.MountPath;
@@ -257,131 +252,45 @@ public class ReportsInstitutionTypeOfAidDashboards extends ReportsDashboards {
         }
         add(title);
 
-        if (USE_NVD3) {
-            PieChartNVD3 pieChartNVD3 = new PieChartNVD3(CdaService, "typeOfAidChart", "customDashboardsTypeOfAidChart");
+        PieChartNVD3 pieChartNVD3 = new PieChartNVD3(CdaService, "typeOfAidChart", "customDashboardsTypeOfAidChart");
 
-            // add MDX queries parameters
-            pieChartNVD3.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
+        // add MDX queries parameters
+        pieChartNVD3.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
 
-            if (currencyParam != null) {
-                if (currencyParam.equals("true")) {
-                    pieChartNVD3.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
-                }
+        if (currencyParam != null) {
+            if (currencyParam.equals("true")) {
+                pieChartNVD3.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
             }
-            if (institutionParam != null) {
-                pieChartNVD3.setParam("paramextendingAgencies", "[Name].[" + institutionParam + "]");
-            }
-            if (typeOfFlowParam != null && typeOfFlowParam.equals(multilateralCategory.getName())) {
-                pieChartNVD3.setParam("paramtypeOfAidChartRowSet", typeOfAidChartRowSetMultilateral);
-                pieChartNVD3.setParam("parambilateral", "Multilateral");
-            } else {
-                pieChartNVD3.setParam("paramtypeOfAidChartRowSet", typeOfAidChartRowSetBilateral);
-                pieChartNVD3.setParam("parambilateral", "Bilateral");
-            }
-
-            add(pieChartNVD3);
-        } else {
-            PieChart pieChart = new PieChart(CdaService, "typeOfAidChart", "customDashboardsTypeOfAidChart") {
-                @Override
-                public List<Point> getResultSeries() {
-                    this.result = this.runQuery();
-                    List<Point> resultSeries = new ArrayList<>();
-
-                    for (List<String> item : result.getResultset()) {
-                        resultSeries.add(new Point(item.get(0), Float.parseFloat(item.get(1))));
-                    }
-
-                    return resultSeries;
-                }
-            };
-
-            // add MDX queries parameters
-            pieChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
-
-            if (currencyParam != null) {
-                if (currencyParam.equals("true")) {
-                    pieChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
-                }
-            }
-            if (institutionParam != null) {
-                pieChart.setParam("paramextendingAgencies", "[Name].[" + institutionParam + "]");
-            }
-            if (typeOfFlowParam != null && typeOfFlowParam.equals(multilateralCategory.getName())) {
-                pieChart.setParam("paramtypeOfAidChartRowSet", typeOfAidChartRowSetMultilateral);
-                pieChart.setParam("parambilateral", "Multilateral");
-            } else {
-                pieChart.setParam("paramtypeOfAidChartRowSet", typeOfAidChartRowSetBilateral);
-                pieChart.setParam("parambilateral", "Bilateral");
-            }
-
-            Options options = pieChart.getOptions();
-            // check if we have a result and make the chart slightly higher
-            if (pieChart.getResultSeries().size() != 0) {
-                if (humanitarianAidParam != null && humanitarianAidParam.equals("true")) {
-                    options.getChartOptions().setHeight(500);
-                } else {
-                    options.getChartOptions().setHeight(400);
-                }
-            }
-
-            options.addSeries(new PointSeries()
-                    .setType(SeriesType.PIE)
-                    .setData(pieChart.getResultSeries()));
-            add(pieChart.getChart());
         }
+        if (institutionParam != null) {
+            pieChartNVD3.setParam("paramextendingAgencies", "[Name].[" + institutionParam + "]");
+        }
+        if (typeOfFlowParam != null && typeOfFlowParam.equals(multilateralCategory.getName())) {
+            pieChartNVD3.setParam("paramtypeOfAidChartRowSet", typeOfAidChartRowSetMultilateral);
+            pieChartNVD3.setParam("parambilateral", "Multilateral");
+        } else {
+            pieChartNVD3.setParam("paramtypeOfAidChartRowSet", typeOfAidChartRowSetBilateral);
+            pieChartNVD3.setParam("parambilateral", "Bilateral");
+        }
+
+        add(pieChartNVD3);
     }
 
     protected void addTypeBiMultilateralChart () {
         Label title = new Label("biMultilateralTitle", new StringResourceModel("ReportsInstitutionTypeOfAidDashboards.biMultilateralChart", this, null, null));
         add(title);
 
-        if (USE_NVD3) {
-            PieChartNVD3 pieChartNVD3 = new PieChartNVD3(CdaService, "biMultilateralChart", "customDashboardsBiMultilateralChart");
+        PieChartNVD3 pieChartNVD3 = new PieChartNVD3(CdaService, "biMultilateralChart", "customDashboardsBiMultilateralChart");
 
-            // add MDX queries parameters
-            pieChartNVD3.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
+        // add MDX queries parameters
+        pieChartNVD3.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
 
-            if (currencyParam != null) {
-                if (currencyParam.equals("true")) {
-                    pieChartNVD3.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
-                }
+        if (currencyParam != null) {
+            if (currencyParam.equals("true")) {
+                pieChartNVD3.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
             }
-
-            add(pieChartNVD3);
-        } else {
-            PieChart pieChart = new PieChart(CdaService, "biMultilateralChart", "customDashboardsBiMultilateralChart") {
-                @Override
-                public List<Point> getResultSeries() {
-                    this.result = this.runQuery();
-                    List<Point> resultSeries = new ArrayList<>();
-
-                    for (List<String> item : result.getResultset()) {
-                        resultSeries.add(new Point(item.get(0), Float.parseFloat(item.get(1))));
-                    }
-
-                    return resultSeries;
-                }
-            };
-
-            // add MDX queries parameters
-            pieChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
-
-            if (currencyParam != null) {
-                if (currencyParam.equals("true")) {
-                    pieChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
-                }
-            }
-
-            Options options = pieChart.getOptions();
-            // check if we have a result and make the chart slightly higher
-            if (pieChart.getResultSeries().size() != 0) {
-                options.getChartOptions().setHeight(350);
-            }
-
-            options.addSeries(new PointSeries()
-                    .setType(SeriesType.PIE)
-                    .setData(pieChart.getResultSeries()));
-            add(pieChart.getChart());
         }
+
+        add(pieChartNVD3);
     }
 }

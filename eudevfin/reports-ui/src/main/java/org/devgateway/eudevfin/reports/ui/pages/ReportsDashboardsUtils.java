@@ -1,6 +1,5 @@
 package org.devgateway.eudevfin.reports.ui.pages;
 
-import com.googlecode.wickedcharts.highcharts.options.Options;
 import org.apache.log4j.Logger;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.html.basic.Label;
@@ -868,47 +867,6 @@ public class ReportsDashboardsUtils {
         };
 
         return tableRows;
-    }
-
-    /*
-     * since the custom reports charts are similar we use only one function to process the rows
-     */
-    // it's used by all dashboards that has pie/bar charts
-    public static List<List<Float>> processChartRows (QueryResult result, Options options) {
-        List<List<Float>> resultSeries = new ArrayList<>();
-        List<String> resultCategories = new ArrayList<>();
-
-        List<Float> firstYearList = new ArrayList<>();
-        resultSeries.add(firstYearList);
-        List<Float> secondYearList = new ArrayList<>();
-        resultSeries.add(secondYearList);
-
-        for (List<String> item : result.getResultset()) {
-            resultCategories.add(item.get(0));
-
-            // check if we have data for both years
-            if (result.getMetadata().get(1).getColName().equals("First Year")) {
-                if (item.size() > 1 && item.get(1) != null) {
-                    resultSeries.get(0).add(Float.parseFloat(item.get(1)));
-                } else {
-                    resultSeries.get(0).add((float) 0);
-                }
-
-                if (item.size() > 2 && item.get(2) != null) {
-                    resultSeries.get(1).add(Float.parseFloat(item.get(2)));
-                } else {
-                    resultSeries.get(1).add((float) 0);
-                }
-            } else {
-                // we don't have the first year data
-                resultSeries.get(0).add((float) 0);
-                resultSeries.get(1).add(Float.parseFloat(item.get(1)));
-            }
-        }
-
-        options.getxAxis().get(0).setCategories(new ArrayList<>(resultCategories));
-
-        return resultSeries;
     }
 
     // take more info from the database: sector, country, institution, channel

@@ -13,7 +13,7 @@ app.downloadPDF = function () {
     /*
     * find all svg elements in $container
     * $container is the jQuery object of the div that we need to convert to image/pdf.
-    * This div may contain highcharts along with other child divs, etc
+    * This div may contain highcharts/nvd3 along with other child divs, etc
     */
     var container = $('#printable-container');
 
