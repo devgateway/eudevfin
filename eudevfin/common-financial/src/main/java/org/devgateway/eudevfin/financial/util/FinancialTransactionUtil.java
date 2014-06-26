@@ -3,8 +3,10 @@ package org.devgateway.eudevfin.financial.util;
 import java.util.Locale;
 
 import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
+import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.service.CurrencyMetadataService;
+import org.devgateway.eudevfin.financial.translate.FinancialTransactionTranslation;
 import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.joda.money.CurrencyUnit;
 
@@ -40,6 +42,23 @@ public final class FinancialTransactionUtil {
 		else
 			return getDefaultCurrency(currencyMetadataService);
 	}
+	
+	/**
+	 * Prepares to clone a financial transaction
+	 * @param source the source entity
+	 * @return the same entity, detached (null ids)
+	 */
+	public static CustomFinancialTransaction prepareClonedTransaction(CustomFinancialTransaction source) {
+		source.setId(null);
+		source.setReportingYear(null);
+		source.setFormType(null);		
+		
+		for (FinancialTransactionTranslation financialTransactionTranslation : source.getTranslations().values()) 
+			financialTransactionTranslation.setId(null);
+		
+		return source;
+	}
+	
 
 	/**
 	 * Initialize a previously newly created transaction

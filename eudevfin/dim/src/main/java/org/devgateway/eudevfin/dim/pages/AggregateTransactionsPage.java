@@ -7,7 +7,7 @@ import org.apache.wicket.authroles.authorization.strategies.role.annotations.Aut
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.dim.desktop.components.GroupingBoxPanel;
-import org.devgateway.eudevfin.dim.desktop.components.TransactionTableListPanel;
+import org.devgateway.eudevfin.dim.desktop.components.GroupingTransactionTableListPanel;
 import org.devgateway.eudevfin.dim.desktop.components.util.GroupingSearchListGenerator;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.service.CustomFinancialTransactionService;
@@ -41,7 +41,7 @@ public class AggregateTransactionsPage extends HeaderFooter {
     
 	public AggregateTransactionsPage() {
 		GroupingSearchListGenerator generalSearchListGenerator = new GroupingSearchListGenerator(customTxService);
-		this.add(new GroupingBoxPanel("search-box-panel", new TransactionTableListPanel<FinancialTransaction>(
+		this.add(new GroupingBoxPanel("search-box-panel", new GroupingTransactionTableListPanel<FinancialTransaction>(
 				"search-results-panel", generalSearchListGenerator), generalSearchListGenerator, categoryFactory,
 				organizationProvider, areaProvider));
 	}
