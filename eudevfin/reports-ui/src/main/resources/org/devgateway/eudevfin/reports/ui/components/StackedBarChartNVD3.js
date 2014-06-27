@@ -21,7 +21,7 @@ var displayStackedBarChart = function (parametersJson) {
             .showLegend(true)
             .transitionDuration(500)
             .stacked(true)
-            .showControls(true)        // Allow user to switch between "Grouped" and "Stacked" mode.
+            .showControls(false);        // Allow user to switch between "Grouped" and "Stacked" mode.
 
         chart.yAxis
             .axisLabel('Amount')
