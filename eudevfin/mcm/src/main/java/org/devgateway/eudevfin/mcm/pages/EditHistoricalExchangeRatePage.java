@@ -11,12 +11,14 @@
 
 package org.devgateway.eudevfin.mcm.pages;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.Collection;
-
+import com.vaynberg.wicket.select2.ChoiceProvider;
+import com.vaynberg.wicket.select2.Response;
+import com.vaynberg.wicket.select2.TextChoiceProvider;
+import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
+import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.CompoundPropertyModel;
@@ -31,6 +33,7 @@ import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.BootstrapCancelButton;
 import org.devgateway.eudevfin.ui.common.components.BootstrapDeleteButton;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
+import org.devgateway.eudevfin.ui.common.components.CheckBoxField;
 import org.devgateway.eudevfin.ui.common.components.DateInputField;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.components.FinancialAmountTextInputField;
@@ -44,12 +47,9 @@ import org.joda.money.ExchangeRate;
 import org.joda.time.LocalDateTime;
 import org.wicketstuff.annotation.mount.MountPath;
 
-import com.vaynberg.wicket.select2.ChoiceProvider;
-import com.vaynberg.wicket.select2.Response;
-import com.vaynberg.wicket.select2.TextChoiceProvider;
-
-import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
-import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.Collection;
 
 /**
  * @author mihai
@@ -64,7 +64,7 @@ public class EditHistoricalExchangeRatePage extends HeaderFooter {
 
     @SpringBean
     MondrianCDACacheUtil mondrianCacheUtil;
-	
+
 	@SpringBean
 	private CurrencyUnitProviderFactory currencyUnitProviderFactory;
 
@@ -74,6 +74,8 @@ public class EditHistoricalExchangeRatePage extends HeaderFooter {
 	private static final Logger logger = Logger.getLogger(EditHistoricalExchangeRatePage.class);
 	public static final String PARAM_ID = "exchangeRateId";
 	final HistoricalExchangeRate historicalExchangeRate;
+
+    protected BigDecimal originalRate;
 
 	@SuppressWarnings("unchecked")
 	public EditHistoricalExchangeRatePage(final PageParameters parameters) {
@@ -86,7 +88,7 @@ public class EditHistoricalExchangeRatePage extends HeaderFooter {
 			rateId = parameters.get(PARAM_ID).toLong();
 			historicalExchangeRate = historicalExchangeRateService.findOne(rateId).getEntity();
 			ExchangeRate rate = historicalExchangeRate.getRate();
-			if(rate!=null) 
+			if(rate!=null)
 				historicalExchangeRate.setRate(ExchangeRate.of(rate.getBase(), rate.getCounter(), rate.getRate()));
 		} else {
 			historicalExchangeRate = new HistoricalExchangeRate().rate(ExchangeRate.of(CurrencyUnit.USD,
@@ -111,13 +113,13 @@ public class EditHistoricalExchangeRatePage extends HeaderFooter {
 		form.add(counterCurrency);
 
 		final FinancialAmountTextInputField rate = new FinancialAmountTextInputField("rate",
-				new RWComponentPropertyModel<BigDecimal>("rate.rate")).required();	
+				new RWComponentPropertyModel<BigDecimal>("rate.rate")).required();
 		form.add(rate);
 
 		DateInputField date = new DateInputField("date", new DateToLocalDateTimeModel(
 				new RWComponentPropertyModel<LocalDateTime>("date")));
-		
-		
+
+
 		date.required();
 		form.add(date);
 
@@ -148,6 +150,60 @@ public class EditHistoricalExchangeRatePage extends HeaderFooter {
 
 		source.required();
 		form.add(source);
+
+        final CheckBoxField isInverted = new CheckBoxField("isInverted", new RWComponentPropertyModel<Boolean>("isInverted"));
+        form.add(isInverted);
+
+        rate.getField().add(new AjaxFormComponentUpdatingBehavior("onchange") {
+            @Override
+            protected void onUpdate(AjaxRequestTarget target) {
+                originalRate = rate.getField().getModel().getObject();
+                historicalExchangeRate.setIsInverted(Boolean.FALSE);
+
+                target.add(isInverted);
+            }
+        });
+
+        // Needed for Ajax to update it
+        isInverted.setOutputMarkupId(true);
+        isInverted.setRenderBodyOnly(false);
+
+        isInverted.getField().add(new AjaxFormComponentUpdatingBehavior("onchange") {
+            @Override
+            protected void onUpdate(AjaxRequestTarget target) {
+                if (historicalExchangeRate.getRate().getBase().equals(historicalExchangeRate.getRate().getCounter())) {
+                    error(new NotificationMessage(new StringResourceModel("notification.equalcounterbase",
+                            EditHistoricalExchangeRatePage.this, null, null)));
+                    target.add(feedbackPanel);
+                    return;
+                }
+
+                Boolean isInvertedValue = isInverted.getField().getModel().getObject();
+                BigDecimal rateValue = rate.getField().getModel().getObject();
+
+                if (originalRate == null) {
+                    originalRate = rateValue;
+                }
+
+                BigDecimal invertedValue;
+                if (isInvertedValue == Boolean.TRUE) {
+                    invertedValue = new BigDecimal(1).divide(rateValue, 3, BigDecimal.ROUND_FLOOR);
+                } else {
+                    invertedValue = originalRate;
+                }
+
+                ExchangeRate newExchangeRate = ExchangeRate.of(baseCurrency.getField().getModel().getObject(),
+                        counterCurrency.getField().getModel().getObject(),
+                        invertedValue);
+                historicalExchangeRate.setRate(newExchangeRate);
+
+                target.add(rate);
+            }
+        });
+
+        // Needed for Ajax to update it
+        rate.setOutputMarkupId(true);
+        rate.setRenderBodyOnly(false);
 
 		form.add(new BootstrapSubmitButton("submit", new StringResourceModel("button.submit", this, null, null)) {
 
@@ -185,10 +241,7 @@ public class EditHistoricalExchangeRatePage extends HeaderFooter {
 			}
 
 		}.setDefaultFormProcessing(false));
- 
-		
 
-		
 		BootstrapDeleteButton deleteButton=new BootstrapDeleteButton("delete", new StringResourceModel("button.delete", this, null, null)) {
 			@Override
 			protected void onError(AjaxRequestTarget target, Form<?> form) {
@@ -204,11 +257,7 @@ public class EditHistoricalExchangeRatePage extends HeaderFooter {
 
 		};
 		form.add(deleteButton);
-	
-		
-		
-		
-		
+
 		add(form);
 
 		feedbackPanel = new NotificationPanel("feedback");
@@ -216,5 +265,4 @@ public class EditHistoricalExchangeRatePage extends HeaderFooter {
 		feedbackPanel.hideAfter(Duration.seconds(4));
 		add(feedbackPanel);
 	}
-
 }

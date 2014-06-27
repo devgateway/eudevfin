@@ -13,6 +13,7 @@
     <entry key="counterCurrency.label">Reporting Currency</entry>
 	<entry key="rate.label">Rate</entry>
 	<entry key="source.label">Source</entry>
+    <entry key="isInverted.label">is inverted?</entry>
 	<entry key="date.label">Date</entry>	
 	<entry key="notification.equalcounterbase">The Base and Counter currency cannot be the same!</entry>
 	<entry key="page.title">Edit Historical Exchange Rate</entry>
