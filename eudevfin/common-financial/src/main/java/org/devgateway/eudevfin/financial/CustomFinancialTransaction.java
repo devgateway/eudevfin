@@ -50,7 +50,7 @@ public class CustomFinancialTransaction extends FinancialTransaction {
     private String formType;
 	
 	@Index(name="customfinancialtransaction_draft_idx")
-    private Boolean draft = false;
+    private Boolean draft = true;
 
 	@Index(name="customfinancialtransaction_approved_idx")
     private Boolean approved = false;

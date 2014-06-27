@@ -59,6 +59,7 @@ import java.util.TreeSet;
 @SuppressWarnings("WicketForgeJavaIdInspection")
 public abstract class HeaderFooter<T> extends GenericWebPage<T> {
 
+	private static final long serialVersionUID = -5670950856779087691L;
 	@SpringBean(name = "commonProperties")
 	protected Properties commonProperties;
 	protected Label pageTitle;

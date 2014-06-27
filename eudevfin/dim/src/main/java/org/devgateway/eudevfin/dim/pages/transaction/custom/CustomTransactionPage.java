@@ -20,6 +20,7 @@ import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDa
 import org.apache.wicket.event.Broadcast;
 import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -29,6 +30,7 @@ import org.devgateway.eudevfin.auth.common.util.AuthUtils;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.TransactionPage;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
+import org.devgateway.eudevfin.financial.util.FinancialTransactionUtil;
 import org.devgateway.eudevfin.ui.common.Constants;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.CheckBoxField;
@@ -83,20 +85,20 @@ public class CustomTransactionPage extends TransactionPage {
 	@Override
 	public void initializeFinancialTransaction(FinancialTransaction transaction, PageParameters parameters) {
 		super.initializeFinancialTransaction(transaction, parameters);
+		CustomFinancialTransaction customFinancialTransaction = (CustomFinancialTransaction) transaction;
+		PersistedUser user=AuthUtils.getCurrentUser();			
+		customFinancialTransaction.setPersistedUserGroup(user.getGroup());
 		if (!parameters.get(Constants.PARAM_TRANSACTION_TYPE).isNull()) {
 			String transactionType = parameters.get(Constants.PARAM_TRANSACTION_TYPE).toString();
-			CustomFinancialTransaction customFinancialTransaction = (CustomFinancialTransaction) transaction;
 			customFinancialTransaction.setFormType(transactionType);
-			PersistedUser user=AuthUtils.getCurrentUser();			
-			customFinancialTransaction.setPersistedUserGroup(user.getGroup());
 		}
-		
 	}
 	
 	
     public CustomTransactionPage(PageParameters parameters) {
   		super(parameters);
 
+  		
   		
   		draft = new CheckBoxField("draft",
 				new RWComponentPropertyModel<Boolean>("draft")) {  	
@@ -147,10 +149,10 @@ public class CustomTransactionPage extends TransactionPage {
   		form.add(draft);
   		form.add(approved);
   	  
-  		
-		//always set this field to true when form is opened
-  		//draft.getField().getModel().setObject(true);
-  		
+		CustomFinancialTransaction financialTransaction = (CustomFinancialTransaction) form.getInnermostModel().getObject();
+		if(!parameters.get(PARAM_REUSE).isNull()) 
+				initializeFinancialTransaction(FinancialTransactionUtil.prepareClonedTransaction(financialTransaction),parameters);
+		
 		draft.removeSpanFromControlGroup();
 		approved.removeSpanFromControlGroup();	
   	}

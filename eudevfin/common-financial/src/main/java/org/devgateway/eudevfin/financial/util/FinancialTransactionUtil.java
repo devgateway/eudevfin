@@ -4,6 +4,7 @@ import java.util.Locale;
 
 import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
+import org.devgateway.eudevfin.financial.FileWrapper;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.service.CurrencyMetadataService;
 import org.devgateway.eudevfin.financial.translate.FinancialTransactionTranslation;
@@ -46,15 +47,21 @@ public final class FinancialTransactionUtil {
 	/**
 	 * Prepares to clone a financial transaction
 	 * @param source the source entity
-	 * @return the same entity, detached (null ids)
+	 * @return the same entity, detached (null IDs)
 	 */
 	public static CustomFinancialTransaction prepareClonedTransaction(CustomFinancialTransaction source) {
 		source.setId(null);
 		source.setReportingYear(null);
-		source.setFormType(null);		
+		source.setDraft(true);
+		source.setApproved(false);
 		
 		for (FinancialTransactionTranslation financialTransactionTranslation : source.getTranslations().values()) 
 			financialTransactionTranslation.setId(null);
+		
+		for (FileWrapper fileWrapper : source.getUploadDocumentation()) {
+			fileWrapper.setId(null);
+			if(fileWrapper.getContent()!=null) fileWrapper.getContent().setId(null);
+		}
 		
 		return source;
 	}

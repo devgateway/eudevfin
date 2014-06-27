@@ -5,6 +5,7 @@ package org.devgateway.eudevfin.dim.desktop.components;
 
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.devgateway.eudevfin.dim.pages.ReuseTransactionPage;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.TransactionPage;
 import org.devgateway.eudevfin.dim.pages.transaction.custom.CustomTransactionPage;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
@@ -40,7 +41,7 @@ public class GroupingTransactionTableListPanel<T extends FinancialTransaction> e
 				pageParameters.add(TransactionPage.PARAM_TRANSACTION_ID, tempTx.getId());
 				pageParameters.add(Constants.PARAM_TRANSACTION_TYPE,
 						((CustomFinancialTransaction) tempTx).getFormType());
-				setResponsePage(CustomTransactionPage.class, pageParameters);
+				setResponsePage(ReuseTransactionPage.class, pageParameters);
 			}
 		};
 	}
