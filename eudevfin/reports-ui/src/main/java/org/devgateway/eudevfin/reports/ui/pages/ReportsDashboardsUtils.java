@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * Utils functions for custom dashboards
@@ -904,6 +905,44 @@ public class ReportsDashboardsUtils {
 
             index++;
         }
+    }
+
+    /**
+     * Analyzes passed 'pattern', if there is a fragment like "{some-key}", searches in the 'parameters' map,
+     * gets its value and replaces this fragment by this value. If key was not found in the map, put the key name
+     */
+    public static String fillPattern (String pattern, Map parameters) {
+        if (pattern == null || parameters == null) {
+            return null;
+        }
+
+        StringBuffer sb = new StringBuffer(512);
+        StringBuffer paramBuffer = new StringBuffer(128);
+        StringBuffer targetBuffer = sb;
+
+        for (int i = 0; i < pattern.length(); i++) {
+            char c = pattern.charAt(i);
+            if (c == '{') {
+                targetBuffer = paramBuffer;
+            } else {
+                if (c == '}') {
+                    String paramName = paramBuffer.toString();
+                    targetBuffer = sb;
+                    paramBuffer = new StringBuffer();
+                    Object value = parameters.get(paramName);
+                    if (value == null) {
+                        value = "{" + paramName + "}";
+                        sb.append(value);
+                    } else {
+                        sb.append(value);
+                    }
+                } else {
+                    targetBuffer.append(c);
+                }
+            }
+        }
+
+        return sb.toString();
     }
 
     /*

@@ -18,7 +18,9 @@ import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author idobre
@@ -124,12 +126,21 @@ public class ReportsInstitutionTypeOfAidDashboards extends ReportsDashboards {
 
     private void addTypeOfAidTable () {
         Label title;
+
+        Map parameters = new HashMap();
+        parameters.put("0", (tableYear - 1));
+        parameters.put("1", tableYear);
+        parameters.put("currency", countryCurrency);
         if (typeOfFlowParam != null && typeOfFlowParam.equals(multilateralCategory.getName())) {
-            title = new Label("typeOfAidTableTitle", "Multilateral ODA by institution - Net Disbursements " + (tableYear - 1) + "-" + tableYear +
-                    " - " + countryCurrency + " - full amount");
+            String titleText = ReportsDashboardsUtils.fillPattern(
+                    new StringResourceModel("ReportsInstitutionTypeOfAidDashboards.titleMultilateral", this, null, null).getObject(), parameters);
+
+            title = new Label("typeOfAidTableTitle", titleText);
         } else {
-            title = new Label("typeOfAidTableTitle", "Bilateral ODA by institution - Net Disbursements " + (tableYear - 1) + "-" + tableYear +
-                    " - " + countryCurrency + " - full amount");
+            String titleText = ReportsDashboardsUtils.fillPattern(
+                    new StringResourceModel("ReportsInstitutionTypeOfAidDashboards.titleBilateral", this, null, null).getObject(), parameters);
+
+            title = new Label("typeOfAidTableTitle", titleText);
         }
         add(title);
 
@@ -243,12 +254,21 @@ public class ReportsInstitutionTypeOfAidDashboards extends ReportsDashboards {
 
     private void addTypeOfAidChart () {
         Label title;
+
+        Map parameters = new HashMap();
+        parameters.put("0", (tableYear - 1));
+        parameters.put("1", tableYear);
+        parameters.put("currency", countryCurrency);
         if (typeOfFlowParam != null && typeOfFlowParam.equals(multilateralCategory.getName())) {
-            title = new Label("typeOfAidChartTitle", "Multilateral ODA by institution - Net Disbursements " + (tableYear - 1) + "-" + tableYear +
-                    " - " + countryCurrency + " - full amount");
+            String titleText = ReportsDashboardsUtils.fillPattern(
+                    new StringResourceModel("ReportsInstitutionTypeOfAidDashboards.titleMultilateral", this, null, null).getObject(), parameters);
+
+            title = new Label("typeOfAidChartTitle", titleText);
         } else {
-            title = new Label("typeOfAidChartTitle", "Bilateral ODA by institution - Net Disbursements " + (tableYear - 1) + "-" + tableYear +
-                    " - " + countryCurrency + " - full amount");
+            String titleText = ReportsDashboardsUtils.fillPattern(
+                    new StringResourceModel("ReportsInstitutionTypeOfAidDashboards.titleBilateral", this, null, null).getObject(), parameters);
+
+            title = new Label("typeOfAidChartTitle", titleText);
         }
         add(title);
 

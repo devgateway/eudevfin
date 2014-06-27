@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.StringValue;
@@ -15,6 +16,8 @@ import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author idobre
@@ -132,8 +135,13 @@ public class ReportsCountryInstitutionDashboards extends ReportsDashboards {
     }
 
     private void addInstitutionTable () {
-        Label title = new Label("institutionTableTitle", "Net Disbursement by institution - " + (tableYear - 1) + "-" + tableYear +
-                " - " + countryCurrency + " - full amount");
+        Map parameters = new HashMap();
+        parameters.put("0", (tableYear - 1));
+        parameters.put("1", tableYear);
+        parameters.put("currency", countryCurrency);
+        String titleText = ReportsDashboardsUtils.fillPattern(
+                new StringResourceModel("ReportsCountryInstitutionDashboards.title", this, null, null).getObject(), parameters);
+        Label title = new Label("institutionTableTitle", titleText);
         add(title);
 
         Table table = new Table(CdaService, "institutionTable", "institutionTableRows", "customDashboardsInstitutionTable") {
@@ -178,8 +186,13 @@ public class ReportsCountryInstitutionDashboards extends ReportsDashboards {
     }
 
     private void addInstitutionChart () {
-        Label title = new Label("institutionChartTitle", "Net Disbursement by institution - " + (tableYear - 1) + "-" + tableYear +
-                " - " + countryCurrency + " - full amount");
+        Map parameters = new HashMap();
+        parameters.put("0", (tableYear - 1));
+        parameters.put("1", tableYear);
+        parameters.put("currency", countryCurrency);
+        String titleText = ReportsDashboardsUtils.fillPattern(
+                new StringResourceModel("ReportsCountryInstitutionDashboards.title", this, null, null).getObject(), parameters);
+        Label title = new Label("institutionChartTitle", titleText);
         add(title);
 
         BarChartNVD3 barChartNVD3 = new BarChartNVD3(CdaService, "institutionChart", "customDashboardsInstitutionChart");

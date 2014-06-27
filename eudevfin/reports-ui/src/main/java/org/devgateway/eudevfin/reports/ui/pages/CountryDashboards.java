@@ -17,6 +17,8 @@ import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author idobre
@@ -71,7 +73,12 @@ public class CountryDashboards extends ReportsDashboards {
     }
 
     protected void addTable () {
-        Label title = new Label("countryTableTitle", "Net Disbursement by Sector - " + tableYear + " - " + countryCurrency + " - full amount");
+        Map parameters = new HashMap();
+        parameters.put("year", tableYear);
+        parameters.put("currency", countryCurrency);
+        String titleText = ReportsDashboardsUtils.fillPattern(
+                new StringResourceModel("CountryDashboards.titleBySector", this, null, null).getObject(), parameters);
+        Label title = new Label("countryTableTitle", titleText);
         add(title);
 
         Table table = new Table(CdaService, "countryTable", "countryTableRows", "countryDashboardsTable") {
@@ -108,7 +115,12 @@ public class CountryDashboards extends ReportsDashboards {
     }
 
     protected void addChart () {
-        Label title = new Label("countryChartTitle", "Net Disbursement by Sector - " + tableYear + " - " + countryCurrency + " - full amount");
+        Map parameters = new HashMap();
+        parameters.put("year", tableYear);
+        parameters.put("currency", countryCurrency);
+        String titleText = ReportsDashboardsUtils.fillPattern(
+                new StringResourceModel("CountryDashboards.titleBySector", this, null, null).getObject(), parameters);
+        Label title = new Label("countryChartTitle", titleText);
         add(title);
 
         PieChartNVD3 pieChartNVD3 = new PieChartNVD3(CdaService, "countryChart", "countryDashboardsChart");
@@ -128,7 +140,12 @@ public class CountryDashboards extends ReportsDashboards {
     }
 
     protected void addTableList () {
-        Label title = new Label("countryTableListTitle", "Net Disbursement - " + tableYear + " - " + countryCurrency + " - full amount");
+        Map parameters = new HashMap();
+        parameters.put("year", tableYear);
+        parameters.put("currency", countryCurrency);
+        String titleText = ReportsDashboardsUtils.fillPattern(
+                new StringResourceModel("CountryDashboards.title", this, null, null).getObject(), parameters);
+        Label title = new Label("countryTableListTitle", titleText);
         add(title);
 
         Table table = new Table(CdaService, "countryTableList", "countryTableListRows", "countryDashboardsTableList") {

@@ -16,6 +16,8 @@ import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author idobre
@@ -88,8 +90,15 @@ public class ReportsImplementationStatusDashboards extends ReportsDashboards {
         } else {
             expenditure = new StringResourceModel("disbursement", this, null, null).getObject();
         }
-        Label title = new Label("implementationTableTitle", "Implementation Status - " + expenditure+ " - " +
-                (tableYear - 1) + "-" + tableYear + " - " + countryCurrency + " - full amount");
+
+        Map parameters = new HashMap();
+        parameters.put("expenditure", expenditure);
+        parameters.put("0", (tableYear - 1));
+        parameters.put("1", tableYear);
+        parameters.put("currency", countryCurrency);
+        String titleText = ReportsDashboardsUtils.fillPattern(
+                new StringResourceModel("ReportsImplementationStatusDashboards.title", this, null, null).getObject(), parameters);
+        Label title = new Label("implementationTableTitle", titleText);
         add(title);
 
         Table table = new Table(CdaService, "implementationTable", "implementationTableRows", "customDashboardsImplementationStatusTable") {
@@ -167,8 +176,15 @@ public class ReportsImplementationStatusDashboards extends ReportsDashboards {
         } else {
             expenditure = new StringResourceModel("disbursement", this, null, null).getObject();
         }
-        Label title = new Label("implementationChartTitle", "Implementation Status - " + expenditure+ " - " +
-                (tableYear - 1) + "-" + tableYear + " - " + countryCurrency + " - full amount");
+
+        Map parameters = new HashMap();
+        parameters.put("expenditure", expenditure);
+        parameters.put("0", (tableYear - 1));
+        parameters.put("1", tableYear);
+        parameters.put("currency", countryCurrency);
+        String titleText = ReportsDashboardsUtils.fillPattern(
+                new StringResourceModel("ReportsImplementationStatusDashboards.title", this, null, null).getObject(), parameters);
+        Label title = new Label("implementationChartTitle", titleText);
         add(title);
 
         BarChartNVD3 barChartNVD3 = new BarChartNVD3(CdaService, "implementationChart", "customDashboardsImplementationStatusChart");

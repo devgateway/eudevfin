@@ -18,6 +18,8 @@ import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author idobre
@@ -74,7 +76,13 @@ public class SectorDashboards extends ReportsDashboards {
     }
 
     protected void addTable () {
-        Label title = new Label("sectorTableTitle", "Net Disbursement by Country - " + tableYear + " - " + countryCurrency + " - full amount");
+        Map parameters = new HashMap();
+        parameters.put("year", tableYear);
+        parameters.put("currency", countryCurrency);
+        String titleText = ReportsDashboardsUtils.fillPattern(
+                new StringResourceModel("SectorDashboards.titleByCountry", this, null, null).getObject(), parameters);
+
+        Label title = new Label("sectorTableTitle", titleText);
         add(title);
 
         Table table = new Table(CdaService, "sectorTable", "sectorTableRows", "sectorDashboardsTable") {
@@ -109,7 +117,13 @@ public class SectorDashboards extends ReportsDashboards {
     }
 
     private void addPieChart() {
-        Label title = new Label("sectorPieChartTitle", "Net Disbursement by subsector - " + tableYear + " - " + countryCurrency + " - full amount");
+        Map parameters = new HashMap();
+        parameters.put("year", tableYear);
+        parameters.put("currency", countryCurrency);
+        String titleText = ReportsDashboardsUtils.fillPattern(
+                new StringResourceModel("SectorDashboards.titleBySector", this, null, null).getObject(), parameters);
+
+        Label title = new Label("sectorPieChartTitle", titleText);
         add(title);
 
         PieChartNVD3 pieChartNVD3 = new PieChartNVD3(CdaService, "sectorPieChart", "sectorDashboardsPieChart");
@@ -129,7 +143,13 @@ public class SectorDashboards extends ReportsDashboards {
     }
 
     private void addBarChart() {
-        Label title = new Label("sectorBarChartTitle", "Net Disbursement by Country - " + tableYear + " - " + countryCurrency + " - full amount");
+        Map parameters = new HashMap();
+        parameters.put("year", tableYear);
+        parameters.put("currency", countryCurrency);
+        String titleText = ReportsDashboardsUtils.fillPattern(
+                new StringResourceModel("SectorDashboards.titleByCountry", this, null, null).getObject(), parameters);
+
+        Label title = new Label("sectorBarChartTitle", titleText);
         add(title);
 
         BarChartNVD3 barChartNVD3 = new BarChartNVD3(CdaService, "sectorBarChart", "sectorDashboardsBarChart");
@@ -152,7 +172,13 @@ public class SectorDashboards extends ReportsDashboards {
     }
 
     protected void addTableList () {
-        Label title = new Label("sectorTableListTitle", "Net Disbursement - " + tableYear + " - " + countryCurrency + " - full amount");
+        Map parameters = new HashMap();
+        parameters.put("year", tableYear);
+        parameters.put("currency", countryCurrency);
+        String titleText = ReportsDashboardsUtils.fillPattern(
+                new StringResourceModel("SectorDashboards.title", this, null, null).getObject(), parameters);
+
+        Label title = new Label("sectorTableListTitle", titleText);
         add(title);
 
         Table table = new Table(CdaService, "sectorTableList", "sectorTableListRows", "sectorDashboardsTableList") {

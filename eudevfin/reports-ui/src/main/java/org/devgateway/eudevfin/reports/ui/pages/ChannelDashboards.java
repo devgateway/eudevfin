@@ -17,6 +17,8 @@ import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author idobre
@@ -70,7 +72,12 @@ public class ChannelDashboards extends ReportsDashboards {
     }
 
     protected void addTableList () {
-        Label title = new Label("channelTableListTitle", "Net Disbursement - " + tableYear + " - " + countryCurrency + " - full amount");
+        Map parameters = new HashMap();
+        parameters.put("year", tableYear);
+        parameters.put("currency", countryCurrency);
+        String titleText = ReportsDashboardsUtils.fillPattern(
+                new StringResourceModel("ChannelDashboards.title", this, null, null).getObject(), parameters);
+        Label title = new Label("channelTableListTitle", titleText);
         add(title);
 
         Table table = new Table(CdaService, "channelTableList", "channelTableListRows", "channelDashboardsTableList") {
@@ -107,7 +114,12 @@ public class ChannelDashboards extends ReportsDashboards {
     }
 
     private void addBarChart() {
-        Label title = new Label("channelBarChartTitle", "Net Disbursement - " + tableYear + " - " + countryCurrency + " - full amount");
+        Map parameters = new HashMap();
+        parameters.put("year", tableYear);
+        parameters.put("currency", countryCurrency);
+        String titleText = ReportsDashboardsUtils.fillPattern(
+                new StringResourceModel("ChannelDashboards.title", this, null, null).getObject(), parameters);
+        Label title = new Label("channelBarChartTitle", titleText);
         add(title);
 
         BarChartNVD3 barChartNVD3 = new BarChartNVD3(CdaService, "channelBarChart", "channelDashboardsBarChart");

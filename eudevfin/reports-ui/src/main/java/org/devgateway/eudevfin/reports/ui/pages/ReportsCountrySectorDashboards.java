@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.StringValue;
@@ -15,6 +16,8 @@ import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author idobre
@@ -190,8 +193,13 @@ public class ReportsCountrySectorDashboards extends ReportsDashboards {
     }
 
     private void addCountryTable () {
-        Label title = new Label("countryTableTitle", "Net Disbursement by country - " + (tableYear - 1) + "-" + tableYear +
-                " - " + countryCurrency + " - full amount");
+        Map parameters = new HashMap();
+        parameters.put("0", (tableYear - 1));
+        parameters.put("1", tableYear);
+        parameters.put("currency", countryCurrency);
+        String titleText = ReportsDashboardsUtils.fillPattern(
+                new StringResourceModel("ReportsCountrySectorDashboards.titleByCountry", this, null, null).getObject(), parameters);
+        Label title = new Label("countryTableTitle", titleText);
         add(title);
 
         Table table = new Table(CdaService, "countryTable", "countryTableRows", "customDashboardsCountryTable") {
@@ -255,8 +263,13 @@ public class ReportsCountrySectorDashboards extends ReportsDashboards {
     }
 
     private void addCountryChart () {
-        Label title = new Label("countryChartTitle", "Net Disbursement by country - " + (tableYear - 1) + "-" + tableYear +
-                " - " + countryCurrency + " - full amount");
+        Map parameters = new HashMap();
+        parameters.put("0", (tableYear - 1));
+        parameters.put("1", tableYear);
+        parameters.put("currency", countryCurrency);
+        String titleText = ReportsDashboardsUtils.fillPattern(
+                new StringResourceModel("ReportsCountrySectorDashboards.titleByCountry", this, null, null).getObject(), parameters);
+        Label title = new Label("countryChartTitle", titleText);
         add(title);
 
         BarChartNVD3 barChartNVD3 = new BarChartNVD3(CdaService, "countryChart", "customDashboardsCountryChart");
@@ -291,8 +304,13 @@ public class ReportsCountrySectorDashboards extends ReportsDashboards {
     }
 
     private void addSectorTable () {
-        Label title = new Label("sectorTableTitle", "Net Disbursement by sector - " + (tableYear - 1) + "-" + tableYear +
-                " - " + countryCurrency + " - full amount");
+        Map parameters = new HashMap();
+        parameters.put("0", (tableYear - 1));
+        parameters.put("1", tableYear);
+        parameters.put("currency", countryCurrency);
+        String titleText = ReportsDashboardsUtils.fillPattern(
+                new StringResourceModel("ReportsCountrySectorDashboards.titleBySector", this, null, null).getObject(), parameters);
+        Label title = new Label("sectorTableTitle", titleText);
         add(title);
 
         Table table = new Table(CdaService, "sectorTable", "sectorTableRows", "customDashboardsSectorTable") {
@@ -360,8 +378,13 @@ public class ReportsCountrySectorDashboards extends ReportsDashboards {
     }
 
     private void addSectorChart () {
-        Label title = new Label("sectorChartTitle", "Net Disbursement by sector - " + (tableYear - 1) + "-" + tableYear +
-                " - " + countryCurrency + " - full amount");
+        Map parameters = new HashMap();
+        parameters.put("0", (tableYear - 1));
+        parameters.put("1", tableYear);
+        parameters.put("currency", countryCurrency);
+        String titleText = ReportsDashboardsUtils.fillPattern(
+                new StringResourceModel("ReportsCountrySectorDashboards.titleBySector", this, null, null).getObject(), parameters);
+        Label title = new Label("sectorChartTitle", titleText);
         add(title);
 
         BarChartNVD3 barChartNVD3 = new BarChartNVD3(CdaService, "sectorChart", "customDashboardsSectorChart");

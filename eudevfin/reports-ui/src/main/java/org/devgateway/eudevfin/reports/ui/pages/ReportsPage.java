@@ -24,8 +24,10 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * @author idobre
@@ -72,7 +74,12 @@ public class ReportsPage extends ReportsDashboards {
         Label reportingCountry = new Label("reportingCountry", donorName);
         add(reportingCountry);
 
-        Label legend = new Label("legend", "Gross Bilateral ODA, " + (tableYear - 1) + "-" + tableYear + " average");
+        Map parameters = new HashMap();
+        parameters.put("0", (tableYear - 1));
+        parameters.put("1", tableYear);
+        String legendText = ReportsDashboardsUtils.fillPattern(
+                new StringResourceModel("ReportsPage.legend", this, null, null).getObject(), parameters);
+        Label legend = new Label("legend", legendText);
         add(legend);
     }
 

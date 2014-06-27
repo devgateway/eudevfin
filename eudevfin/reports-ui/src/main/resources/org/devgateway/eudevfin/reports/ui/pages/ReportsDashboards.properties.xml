@@ -44,6 +44,7 @@
 
     <entry key="page.title">Custom Reports</entry>
     <entry key="ReportsPage.page.title">ODA at a Glance</entry>
+    <entry key="ReportsPage.legend">Gross Bilateral ODA, {0}-{1} average, unless otherwise shown</entry>
 
     <entry key="ReportsPage.netODA">Net ODA</entry>
     <entry key="ReportsPage.topTenRecipients">Top Ten Recipients of Gross ODA (USD m)</entry>
@@ -53,8 +54,11 @@
     <entry key="ReportsPage.odaBySectorChart">By Sector</entry>
 
     <entry key="ReportsCountrySectorDashboards.page.title">Country &amp; Sector</entry>
+    <entry key="ReportsCountrySectorDashboards.titleByCountry">Net Disbursement by country - {0}-{1} - {currency} - full amount</entry>
+    <entry key="ReportsCountrySectorDashboards.titleBySector">Net Disbursement by sector - {0}-{1} - {currency} - full amount</entry>
 
     <entry key="ReportsCountryInstitutionDashboards.page.title">Country &amp; Institution</entry>
+    <entry key="ReportsCountryInstitutionDashboards.title">Net Disbursement by institution - {0}-{1} - {currency} - full amount</entry>
 
     <entry key="ReportsInstitutionTypeOfAidDashboards.page.title">Institution &amp; Type Of Aid</entry>
     <entry key="ReportsInstitutionTypeOfAidDashboards.nationalCurrency">National Currency</entry>
@@ -62,20 +66,36 @@
     <entry key="ReportsInstitutionTypeOfAidDashboards.typeOfAid">Type of Aid</entry>
     <entry key="ReportsInstitutionTypeOfAidDashboards.multilateralAgency">Multilateral Agency</entry>
     <entry key="ReportsInstitutionTypeOfAidDashboards.biMultilateralChart">Memorandum Item - Bi/Multilateral Chart (Total ODA)</entry>
+    <entry key="ReportsInstitutionTypeOfAidDashboards.titleMultilateral">Multilateral ODA by institution - Net Disbursements - {0}-{1} - {currency} - full amount</entry>
+    <entry key="ReportsInstitutionTypeOfAidDashboards.titleBilateral">Bilateral ODA by institution - Net Disbursements - {0}-{1} - {currency} - full amount</entry>
 
     <entry key="ReportsImplementationStatusDashboards.page.title">Implementation Status</entry>
+    <entry key="ReportsImplementationStatusDashboards.title">Implementation Status - {expenditure} - {0}-{1} - {currency} - full amount</entry>
     <entry key="commitment">Commitment</entry>
     <entry key="disbursement">Disbursement</entry>
 
     <entry key="page.subtitle">Custom Reports</entry>
 
     <entry key="CountryDashboards.page.title">Country</entry>
+    <entry key="CountryDashboards.titleBySector">Net Disbursement by Sector - {year} - {currency} - full amount</entry>
+    <entry key="CountryDashboards.title">Net Disbursement - {year} - {currency} - full amount</entry>
 
     <entry key="SectorDashboards.page.title">Sector</entry>
+    <entry key="SectorDashboards.title">Net Disbursement - {year} - {currency} - full amount</entry>
+    <entry key="SectorDashboards.titleByCountry">Net Disbursement by Country - {year} - {currency} - full amount</entry>
+    <entry key="SectorDashboards.titleBySector">Net Disbursement by subsector - {year} - {currency} - full amount</entry>
 
     <entry key="InstitutionDashboards.page.title">Institution</entry>
+    <entry key="InstitutionDashboards.titleByCountrySector">Net Disbursement by Country &amp; Sector - {year} - {currency} - full amount</entry>
+    <entry key="InstitutionDashboards.titleBySector">Net Disbursement by Sector - {year} - {currency} - full amount</entry>
+    <entry key="InstitutionDashboards.titleByCountry">Net Disbursement by Country - {year} - {currency} - full amount</entry>
+    <entry key="InstitutionDashboards.title">Net Disbursement including multilateral transactions - {year} - {currency} - full amount</entry>
 
     <entry key="TypeOfAidDashboards.page.title">Type of Aid</entry>
+    <entry key="TypeOfAidDashboards.title">Net Disbursement - {year} - {currency} - full amount</entry>
+    <entry key="TypeOfAidDashboards.titleBySector">Net Disbursement by Sector - {year} - {currency} - full amount</entry>
+    <entry key="TypeOfAidDashboards.titleByCountry">Net Disbursement by Country - {year} - {currency} - full amount</entry>
 
     <entry key="ChannelDashboards.page.title">Multilateral Agency</entry>
+    <entry key="ChannelDashboards.title">Net Disbursement - {year} - {currency} - full amount</entry>
 </properties>

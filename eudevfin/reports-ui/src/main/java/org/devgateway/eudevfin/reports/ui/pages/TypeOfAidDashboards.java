@@ -18,6 +18,8 @@ import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author idobre
@@ -72,7 +74,13 @@ public class TypeOfAidDashboards extends ReportsDashboards {
     }
 
     private void addPieChart() {
-        Label title = new Label("typeOfAidPieChartTitle", "Net Disbursement by Sector - " + tableYear + " - " + countryCurrency + " - full amount");
+        Map parameters = new HashMap();
+        parameters.put("year", tableYear);
+        parameters.put("currency", countryCurrency);
+        String titleText = ReportsDashboardsUtils.fillPattern(
+                new StringResourceModel("TypeOfAidDashboards.titleBySector", this, null, null).getObject(), parameters);
+
+        Label title = new Label("typeOfAidPieChartTitle", titleText);
         add(title);
 
         PieChartNVD3 pieChartNVD3 = new PieChartNVD3(CdaService, "typeOfAidPieChart", "typeOfAidDashboardsPieChart");
@@ -92,7 +100,13 @@ public class TypeOfAidDashboards extends ReportsDashboards {
     }
 
     private void addBarChart() {
-        Label title = new Label("typeOfAidBarChartTitle", "Net Disbursement by Country - " + tableYear + " - " + countryCurrency + " - full amount");
+        Map parameters = new HashMap();
+        parameters.put("year", tableYear);
+        parameters.put("currency", countryCurrency);
+        String titleText = ReportsDashboardsUtils.fillPattern(
+                new StringResourceModel("TypeOfAidDashboards.titleByCountry", this, null, null).getObject(), parameters);
+
+        Label title = new Label("typeOfAidBarChartTitle", titleText);
         add(title);
 
         BarChartNVD3 barChartNVD3 = new BarChartNVD3(CdaService, "typeOfAidBarChart", "typeOfAidDashboardsBarChart");
@@ -115,7 +129,13 @@ public class TypeOfAidDashboards extends ReportsDashboards {
     }
 
     protected void addTableList () {
-        Label title = new Label("typeOfAidTableListTitle", "Net Disbursement - " + tableYear + " - " + countryCurrency + " - full amount");
+        Map parameters = new HashMap();
+        parameters.put("year", tableYear);
+        parameters.put("currency", countryCurrency);
+        String titleText = ReportsDashboardsUtils.fillPattern(
+                new StringResourceModel("TypeOfAidDashboards.title", this, null, null).getObject(), parameters);
+
+        Label title = new Label("typeOfAidTableListTitle", titleText);
         add(title);
 
         Table table = new Table(CdaService, "typeOfAidTableList", "typeOfAidTableListRows", "typeOfAidDashboardsTableList") {
