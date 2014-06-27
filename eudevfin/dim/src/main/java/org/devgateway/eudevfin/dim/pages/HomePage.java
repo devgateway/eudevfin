@@ -35,25 +35,18 @@ import org.devgateway.eudevfin.ui.common.providers.CategoryProviderFactory;
 import org.devgateway.eudevfin.ui.common.providers.OrganizationChoiceProvider;
 import org.wicketstuff.annotation.mount.MountPath;
 
-//import org.devgateway.eudevfin.financial.test.services.CategoryServiceTest;
 
 @MountPath(value = "/home")
 @AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
 public class HomePage extends HeaderFooter {
 	
-//	private static final String DESKTOP_LAST_TX_BY_TRANSPORT = "desktop.lastTxByTransport";
-//
-//	private static final String DESKTOP_LAST_TX_BY_AGRICULTURE = "desktop.lastTxByAgriculture";
-	
+	private static final long serialVersionUID = -7339282093922672085L;
+
 	private static final String DESKTOP_LAST_TX_BY_DRAFT		= "desktop.lastTxByDraft";
 	private static final String DESKTOP_LAST_TX_BY_FINAL		= "desktop.lastTxByFinal";
 	private static final String DESKTOP_LAST_TX_BY_APPROVED		= "desktop.lastTxByApproved";
 
-    private static final String SECTOR_CODE_AGRIC = "130";
-
-    private static final String SECTOR_CODE_TRANSPORT = "210";
-
-    protected ListView<FinancialTransaction> transactionListView = null;
+	protected ListView<FinancialTransaction> transactionListView = null;
        
     @SpringBean
     protected CustomFinancialTransactionService customTxService;
@@ -75,87 +68,25 @@ public class HomePage extends HeaderFooter {
     
 
     public HomePage() {
-        super();
-           
-       // List<Organization> testList	= orgService.findByGeneralSearch("en","ministry");
-/*        
-		Organization o			= new Organization();
-        o.setName("WicketTest Org - default locale");
-        o.setLocale("ro");
-        o.setName("WicketTest Org - ro locale");
-		orgService.save(o);
-		
-		FinancialTransaction ft = new FinancialTransaction();
-		ft.setCommitments(BigMoney.parse("EUR 777"));
-		ft.setDescription("Wicket test descr - default locale");
-		ft.setLocale("ro");
-		ft.setDescription("Wicket test descr - ro locale");
-		
-		ft.setExtendingAgency(o);
-		txService.save(ft);
-	*/	
-//		Category sectorsRoot = new Category();
-//		sectorsRoot.setName("Sectors Root");
-//		sectorsRoot.setCode(CategoryServiceTest.SECTORS_ROOT_TEST );
-//		sectorsRoot.setTags(new HashSet<Category>());
-//		
-//		Category sector1	= new Category();
-//		sector1.setName("Sector 1");
-//		sector1.setCode("sector_1_test " + System.currentTimeMillis() );
-//		sector1.setParentCategory(sectorsRoot);
-//		sector1.setTags(new HashSet<Category>());
-//		
-//		Category sector2	= new Category();
-//		sector2.setName("Sector 2");
-//		sector2.setCode("sector_2_test" + System.currentTimeMillis() );
-//		sector2.setParentCategory(sectorsRoot);
-//		sector2.setTags(new HashSet<Category>());
-//		
-//		categoryService.save(sectorsRoot);
-//		
-//		categoryService.findByCode(CategoryServiceTest.SECTORS_ROOT_TEST, true);
-		
-//		List<FinancialTransaction> allTransactions = txService.findAll();
-//		this.transactionListView				= new ListView<FinancialTransaction>("transaction-list", allTransactions  ) {
-//
-//			@Override
-//			protected void populateItem(ListItem<FinancialTransaction> ftListItem) {
-//				// TODO Auto-generated method stub
-//				FinancialTransaction tempTx		= ftListItem.getModelObject();
-//				Label idLabel						= new Label("transaction-id", tempTx.getId() );
-//				ftListItem.add(idLabel);
-//				Label amountLabel						= new Label("transaction-value", tempTx.getCommitments().toString() );
-//				ftListItem.add(amountLabel);
-//				Label descriptionLabel						= new Label("transaction-description", tempTx.getDescription() );
-//				ftListItem.add(descriptionLabel);
-//				Label orgLabel						= new Label("organization-name", tempTx.getExtendingAgency().getName() );
-//				ftListItem.add(orgLabel);
-//				
-//			}
-//			
-//		};
-//		
-//		this.add(transactionListView);
-		
+        super();		
 		this.populateTopsPanel();
     }
 
     protected void populateTopsPanel() {
-    	
-    	//List<FinancialTransaction> transactions	= txService.findAll();
-    	
   
     	List<ITabWithKey> tabList = new ArrayList<>();
 
     	boolean superUser=AuthUtils.currentUserHasRole(AuthConstants.Roles.ROLE_SUPERVISOR);
     	PersistedUser currentUser = AuthUtils.getCurrentUser();
     	
-    	
-    	tabList.add( TransactionTableListPanel.<CustomFinancialTransaction>newTab( this,DESKTOP_LAST_TX_BY_DRAFT, new DraftListGenerator(true, currentUser.getGroup(), this.customTxService,superUser) ) );
-    	tabList.add( TransactionTableListPanel.<CustomFinancialTransaction>newTab( this,DESKTOP_LAST_TX_BY_FINAL, new DraftListGenerator(false, currentUser.getGroup(), this.customTxService,superUser) ) );
-    	tabList.add( TransactionTableListPanel.<CustomFinancialTransaction>newTab( this,DESKTOP_LAST_TX_BY_APPROVED, new ApprovedListGenerator(true, currentUser.getGroup(), this.customTxService,superUser) ) );
-    	
-    	BootstrapJSTabbedPanel<ITabWithKey> bc = new BootstrapJSTabbedPanel<>("tops-panel", tabList).
+		tabList.add(TransactionTableListPanel.<CustomFinancialTransaction> newTab(this, DESKTOP_LAST_TX_BY_DRAFT,
+				new DraftListGenerator(true, currentUser.getGroup(), this.customTxService, superUser)));
+		tabList.add(TransactionTableListPanel.<CustomFinancialTransaction> newTab(this, DESKTOP_LAST_TX_BY_FINAL,
+				new DraftListGenerator(false, currentUser.getGroup(), this.customTxService, superUser)));
+		tabList.add(TransactionTableListPanel.<CustomFinancialTransaction> newTab(this, DESKTOP_LAST_TX_BY_APPROVED,
+				new ApprovedListGenerator(true, currentUser.getGroup(), this.customTxService, superUser)));
+
+   	BootstrapJSTabbedPanel<ITabWithKey> bc = new BootstrapJSTabbedPanel<>("tops-panel", tabList).
                 positionTabs(BootstrapJSTabbedPanel.Orientation.RIGHT);
     	
     	this.add(bc);

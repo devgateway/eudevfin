@@ -24,6 +24,7 @@ import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.http.WebRequest;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
+import org.devgateway.eudevfin.dim.pages.AggregateTransactionsPage;
 import org.devgateway.eudevfin.dim.pages.HomePage;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.TransactionPage;
 import org.devgateway.eudevfin.dim.pages.transaction.custom.CustomTransactionPage;
@@ -80,6 +81,7 @@ public final class NavbarInitializer {
 				AuthConstants.Roles.ROLE_USER);
 		return homePageNavbarButton;
 	}
+	
 
 	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.LEFT, order = 2)
 	public static Component newTransactionNavbarButton(final Page page) {
@@ -149,6 +151,15 @@ public final class NavbarInitializer {
 				};
 				nonOda.setIconType(IconType.random);
 				list.add(nonOda);
+				
+				MenuBookmarkablePageLink<AggregateTransactionsPage> aggregateTransactions =
+						new MenuBookmarkablePageLink<AggregateTransactionsPage>(AggregateTransactionsPage.class, null,new StringResourceModel("navbar.aggregate", page, null));
+
+				MetaDataRoleAuthorizationStrategy.authorize(aggregateTransactions, Component.RENDER,
+						AuthConstants.Roles.ROLE_USER);
+				
+				
+				list.add(aggregateTransactions);
 
 				return list;
 			}

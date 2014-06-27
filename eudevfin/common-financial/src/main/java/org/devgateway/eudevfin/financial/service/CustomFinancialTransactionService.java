@@ -56,7 +56,6 @@ public interface CustomFinancialTransactionService extends BaseEntityService<Cus
     @Payload("new java.lang.String()")
     public List<String> findDistinctReportingGeopraphy();
 
-	
 	public Page<FinancialTransaction> findBySearchFormPageable(
 			@Header(value = "year", required = false) LocalDateTime year,
 			@Header(value = "sector", required = false) Category sector,
@@ -64,6 +63,12 @@ public interface CustomFinancialTransactionService extends BaseEntityService<Cus
 			@Header(value = "searchString", required = false) String searchString,
 			@Header(value = "formType", required = false) String formType,			
 			@Header(value = "extendingAgency", required = false) Organization extendingAgency,
+		    @Header(value = "locale", required = false) String locale, 
+		    Pageable pageable);
+
+	public Page<FinancialTransaction> findByDonorIdCrsIdActive(
+			@Header(value = "donorIdSearch", required = false) String donorIdSearch,
+			@Header(value = "crsIdSearch", required = false) String crsIdSearch,
 		    @Header(value = "locale", required = false) String locale, 
 		    Pageable pageable);
 }

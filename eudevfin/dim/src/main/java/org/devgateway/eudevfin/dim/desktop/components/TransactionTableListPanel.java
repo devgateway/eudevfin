@@ -69,6 +69,31 @@ public class TransactionTableListPanel<T extends FinancialTransaction> extends T
 		};
 	}
 	
+	protected Link getTransactionEditLink(final FinancialTransaction tempTx) {
+		return new Link("transaction-edit-link") {
+			private static final long serialVersionUID = 9084184844700618410L;
+
+			@Override
+			public void onClick() {
+				logger.info("Clicked edit on " + this.getModelObject());
+				PageParameters pageParameters = new PageParameters();
+				pageParameters.add(TransactionPage.PARAM_TRANSACTION_ID, tempTx.getId());
+
+				// maybe we need to subclass this page and create a custom table
+				// for custom transactions
+				// for the moment we play dumb and use instanceof
+
+				if (tempTx instanceof CustomFinancialTransaction) {
+					pageParameters.add(Constants.PARAM_TRANSACTION_TYPE,
+							((CustomFinancialTransaction) tempTx).getFormType());
+					setResponsePage(CustomTransactionPage.class, pageParameters);
+				} else {
+					setResponsePage(TransactionPage.class, pageParameters);
+				}
+			}
+		};
+	}
+	
 	@Override
 	protected void populateHeader() {
 		this.add( ComponentsUtil.generateLabel("txtable.tx.label", "transaction-name-label", this) );
@@ -112,27 +137,7 @@ public class TransactionTableListPanel<T extends FinancialTransaction> extends T
 				ftListItem.add(orgLabel);
 				
 				
-				Link editLink	= new Link("transaction-edit-link") {
-					private static final long serialVersionUID = 9084184844700618410L;
-
-					@Override
-					public void onClick() {
-						logger.info("Clicked edit on " + this.getModelObject());
-						PageParameters pageParameters = new PageParameters(); 						
-						pageParameters.add(TransactionPage.PARAM_TRANSACTION_ID, tempTx.getId());
-						
-						//maybe we need to subclass this page and create a custom table for custom transactions
-						//for the moment we play dumb and use instanceof
-						
-						if(tempTx instanceof CustomFinancialTransaction) {
-							pageParameters.add(Constants.PARAM_TRANSACTION_TYPE, ((CustomFinancialTransaction)tempTx).getFormType());
-							setResponsePage(CustomTransactionPage.class, pageParameters);
-						} else {
-							setResponsePage(TransactionPage.class, pageParameters);
-						}
-					}
-					
-				};
+				Link editLink = getTransactionEditLink(tempTx);
 				editLink.add( ComponentsUtil.generateLabel( "txtable.tx.edit-action", "transaction-edit-link-label", this) );
 				ftListItem.add(editLink);
 				

@@ -65,6 +65,7 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 	private static final Logger logger = Logger.getLogger(TransactionPage.class);
 
 	public static final String PARAM_TRANSACTION_ID = "transactionId";
+	public static final String PARAM_REUSE="reuse";
 
     public final String onUnloadScript;
 
