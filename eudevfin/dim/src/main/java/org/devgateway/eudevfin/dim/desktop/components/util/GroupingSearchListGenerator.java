@@ -37,7 +37,7 @@ public class GroupingSearchListGenerator implements ListGeneratorInterface<Finan
 	public PagingHelper<FinancialTransaction> getResultsList(int pageNumber, int pageSize) {
 		if (searchBoxPanelForm != null)
 			return PagingHelper.createPagingHelperFromPage(this.txService.findByDonorIdCrsIdActive(searchBoxPanelForm
-					.getDonorIdSearch(), searchBoxPanelForm.getCrsIdSearch(), null, new PageRequest(pageNumber - 1,
+					.getDonorIdSearch(), searchBoxPanelForm.getCrsIdSearch(),searchBoxPanelForm.getActive(), null, new PageRequest(pageNumber - 1,
 					pageSize)));
 		else
 			return null;

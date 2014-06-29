@@ -69,6 +69,7 @@ public interface CustomFinancialTransactionService extends BaseEntityService<Cus
 	public Page<FinancialTransaction> findByDonorIdCrsIdActive(
 			@Header(value = "donorIdSearch", required = false) String donorIdSearch,
 			@Header(value = "crsIdSearch", required = false) String crsIdSearch,
+		    @Header(value = "active", required = false) Boolean active, 
 		    @Header(value = "locale", required = false) String locale, 
 		    Pageable pageable);
 }

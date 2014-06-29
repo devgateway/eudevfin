@@ -7,10 +7,12 @@ public class GroupingBoxPanelForm implements Serializable {
 		private static final long serialVersionUID = -4207835378383930432L;
 		private String crsIdSearch;
 		private String donorIdSearch; 
+		private Boolean active;
 
 		public void reset() {
 			donorIdSearch=null;
 			crsIdSearch=null;
+			active=false;
 		}
 
 		/**
@@ -39,6 +41,20 @@ public class GroupingBoxPanelForm implements Serializable {
 		 */
 		public void setDonorIdSearch(String donorIdSearch) {
 			this.donorIdSearch = donorIdSearch;
+		}
+
+		/**
+		 * @return the active
+		 */
+		public Boolean getActive() {
+			return active;
+		}
+
+		/**
+		 * @param active the active to set
+		 */
+		public void setActive(Boolean active) {
+			this.active = active;
 		}
 			
 	

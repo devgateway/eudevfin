@@ -146,7 +146,7 @@ public abstract class AbstractField<T, FIELD extends FormComponent<T>> extends P
         return this;
     }
 
-    AbstractField<T,FIELD> hideLabel() {
+    public AbstractField<T,FIELD> hideLabel() {
         labelText.replaceModel(Model.of(""));
         return this;
     }

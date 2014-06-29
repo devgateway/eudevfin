@@ -25,6 +25,7 @@ import org.devgateway.eudevfin.financial.service.CustomFinancialTransactionServi
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.BootstrapCancelButton;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
+import org.devgateway.eudevfin.ui.common.components.CheckBoxField;
 import org.devgateway.eudevfin.ui.common.components.TableListPanel;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
 import org.devgateway.eudevfin.ui.common.forms.GroupingBoxPanelForm;
@@ -88,7 +89,7 @@ public class GroupingBoxPanel extends Panel {
 				"crsIdSearch"), "desktop.search.crsid");
         crsIdSearch.typeString();
         crsIdSearch.setSize(InputBehavior.Size.Medium);
-        crsIdSearch.hideLabel();
+        //crsIdSearch.hideLabel();
         crsIdSearch.removeSpanFromControlGroup();
 		form.add(crsIdSearch);		
 			 	
@@ -96,9 +97,14 @@ public class GroupingBoxPanel extends Panel {
 				"donorIdSearch"), "desktop.search.donorid");
         donorIdSearch.typeString();
         donorIdSearch.setSize(InputBehavior.Size.Medium);
-        donorIdSearch.hideLabel();
+        //donorIdSearch.hideLabel();
         donorIdSearch.removeSpanFromControlGroup();
 		form.add(donorIdSearch);
+		
+		final CheckBoxField active = new CheckBoxField("active", new RWComponentPropertyModel<Boolean>("active"),"desktop.search.active");
+		//checkBoxField.hideLabel();
+		active.removeSpanFromControlGroup();
+		form.add(active); 
 		
 		BootstrapSubmitButton submitButton = new BootstrapSubmitButton("submit",new StringResourceModel("desktop.searchbutton", this,null)) {
 
@@ -129,9 +135,11 @@ public class GroupingBoxPanel extends Panel {
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 					crsIdSearch.getField().setDefaultModelObject(null);
 					donorIdSearch.getField().setDefaultModelObject(null);			
+					active.getField().setDefaultModelObject(null);		
 		            target.add(crsIdSearch.getField());
 		            target.add(donorIdSearch.getField());
-	            	GroupingBoxPanel.this.resultsPanel.setVisible(false);
+		            target.add(active.getField());
+		            GroupingBoxPanel.this.resultsPanel.setVisible(false);
 	            	target.add(GroupingBoxPanel.this.searchWrapperPanel);
 				}
 				

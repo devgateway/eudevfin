@@ -64,7 +64,7 @@ public class CustomFinancialTransactionDao
 	}
 	
 /**
- * @see CustomFinancialTransactionService#findByDonorIdCrsIdActive(String, String, String, Pageable)s
+ * @see CustomFinancialTransactionService#findByDonorIdCrsIdActive(String, String, Boolean, String, Pageable)
  * @param crsIdSearch
  * @param donorIdSearch
  * @param locale
@@ -75,9 +75,10 @@ public class CustomFinancialTransactionDao
 	public Page<CustomFinancialTransaction> findByDonorIdCrsIdActive(
 			@Header(value = "donorIdSearch", required = false) String donorIdSearch,
 			@Header(value = "crsIdSearch", required = false) String crsIdSearch,
+			@Header(value = "active", required = false) Boolean active, 
 		    @Header(value = "locale", required = false) String locale, 
 		    Pageable pageable) {
-		return this.getRepo().performSearchByDonorIdCrsIdActive(donorIdSearch,crsIdSearch,locale,pageable);
+		return this.getRepo().performSearchByDonorIdCrsIdActive(donorIdSearch,crsIdSearch,active,locale,pageable);
 	}
 	
 	

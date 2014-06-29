@@ -83,13 +83,14 @@ public class CustomFinancialTransactionRepositoryImpl implements CustomFinancial
 	}
 
 	@Override
-	public Page<CustomFinancialTransaction> performSearchByDonorIdCrsIdActive(String donorIdSearch,String crsIdSearch, 
+	public Page<CustomFinancialTransaction> performSearchByDonorIdCrsIdActive(String donorIdSearch,String crsIdSearch, Boolean active,
 			String locale, Pageable pageable) {
 		StringBuilder queryBuilder=new StringBuilder(" FROM CustomFinancialTransaction tx WHERE 1=1");
 			
 		if(crsIdSearch!=null) queryBuilder.append(" AND tx.crsIdentificationNumber like :crsIdSearch");
 		if(donorIdSearch!=null) queryBuilder.append(" AND tx.donorProjectNumber like :donorIdSearch");
-			
+		if(active) queryBuilder.append(" AND tx.expectedCompletionDate > :systemDate");
+		
 		Query query = em.createQuery("SELECT tx "+queryBuilder.toString());
 		query.setMaxResults(pageable.getPageSize());
 		query.setFirstResult(pageable.getOffset());
@@ -99,6 +100,7 @@ public class CustomFinancialTransactionRepositoryImpl implements CustomFinancial
 	
 		if(crsIdSearch!=null) setQueriesParameter(query,countQuery,"crsIdSearch", "%"+crsIdSearch+"%");	
 		if(donorIdSearch!=null) setQueriesParameter(query,countQuery,"donorIdSearch", "%"+donorIdSearch+"%");	
+		if(active) setQueriesParameter(query,countQuery,"systemDate",  LocalDateTime.now());	
 		
 		long maxResults = (Long) countQuery.getSingleResult();
 		@SuppressWarnings("rawtypes")

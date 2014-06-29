@@ -18,6 +18,7 @@
     <entry key="desktop.search.crsid.placeholder">CRS ID</entry>
     <entry key="desktop.search.donorid.label">Donor ID</entry>
     <entry key="desktop.search.donorid.placeholder">Donor ID</entry>
+    <entry key="desktop.search.active.label">Active Transactions</entry>
 	<entry key="message">
 		Here you can aggregate existing transactions by project. In addition you can reuse data of a single transaction to create
 		a new transaction

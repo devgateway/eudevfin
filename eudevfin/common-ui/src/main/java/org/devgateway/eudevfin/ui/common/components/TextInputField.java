@@ -124,12 +124,6 @@ public class TextInputField<T> extends AbstractInputField<T,TextField<T>> {
     }
 
     @Override
-    public TextInputField<T> hideLabel() {
-        super.hideLabel();
-        return this;
-    }
-
-    @Override
     public TextInputField<T> setSize(InputBehavior.Size size) {
         super.setSize(size);
         return this;
