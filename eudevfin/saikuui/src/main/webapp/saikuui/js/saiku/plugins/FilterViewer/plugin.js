@@ -22,7 +22,7 @@ var FilterInfo = Backbone.View.extend({
     	var self = this;
     	var selectedFilters = $(args.workspace.el).find(".fields_list[title='FILTER'] .level");
     	var requests = [];
-    	var path = Settings.TOMCAT_WEBAPP + "/saiku/rest/saiku/admin/query/" + args.workspace.query.id;
+    	var path = Settings.TOMCAT_WEBAPP + "/rest/saiku/admin/query/" + args.workspace.query.id;
 
     	_.each(selectedFilters, function(filter) {
     		var dimension = filter.href.split("/#")[1].split('/')[0];
