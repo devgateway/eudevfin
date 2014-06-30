@@ -165,16 +165,21 @@ public class CustomFinancialTransaction extends FinancialTransaction {
     private CurrencyUnit otherCurrency;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private Set<FileWrapper> uploadDocumentation=new HashSet<>();
+    private Set<FileWrapper> uploadDocumentation;
 
 
     public Set<FileWrapper> getUploadDocumentation() {
         return this.uploadDocumentation;
     }
 
-    public void setUploadDocumentation(final Set<FileWrapper> uploadDocumentation) {
-        this.uploadDocumentation = uploadDocumentation;
-    }
+	public void setUploadDocumentation(final Set<FileWrapper> uploadDocumentation) {
+		if (this.uploadDocumentation == null)
+			this.uploadDocumentation = uploadDocumentation;
+		else {
+			this.uploadDocumentation.retainAll(uploadDocumentation);
+			if(uploadDocumentation!=null) this.uploadDocumentation.addAll(uploadDocumentation);
+		}
+	}
 
     public Boolean getDraft() {
         return this.draft;
