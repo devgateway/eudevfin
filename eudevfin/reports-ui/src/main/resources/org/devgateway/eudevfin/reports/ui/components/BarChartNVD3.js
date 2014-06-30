@@ -26,7 +26,7 @@ var displayBarChart = function (parametersJson) {
             .tooltips(true)             // Show tooltips on hover.
             .showLegend(true)
             .transitionDuration(500)
-            .showControls(parametersJson.numberOfSeries === 1 ? false : true); // Allow user to switch between "Grouped" and "Stacked" mode.
+            .showControls(false);       // Allow user to switch between "Grouped" and "Stacked" mode.
 
         chart.yAxis
             .axisLabel('Amount')
