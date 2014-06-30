@@ -162,7 +162,7 @@ public class CellTransformerImplementations {
 			final CustomFinancialTransaction ctx = (CustomFinancialTransaction) tx;
 			String value = null;
 			if (ctx.getLevelOfCertainty() != null) {
-				value = ctx.getLevelOfCertainty().getCode();
+				value = ctx.getLevelOfCertainty().getDisplayableCode();
 			}
 			final MetadataCell<String> cell = new MetadataCell<String>(value);
 			this.setDataTypeToString(cell);
