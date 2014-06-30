@@ -129,7 +129,7 @@ public class SchemaProcessor extends LocalizingDynamicSchemaProcessor {
     	{
     		currency = DEFAULT_CURRENCY;
     	}
-		System.out.println("Current Currency:" + currency);
+		//System.out.println("Current Currency:" + currency);
 		return currency;
 	}
 
