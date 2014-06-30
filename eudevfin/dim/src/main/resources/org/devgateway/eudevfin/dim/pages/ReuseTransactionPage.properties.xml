@@ -12,7 +12,9 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <entry key="submit">Reuse</entry>
-    <entry key="cancel">Cancel</entry>
-    <entry key="message">Choose a new Form Type</entry>
+	<entry key="submit">Reuse</entry>
+	<entry key="cancel">Cancel</entry>
+	<entry key="warning">WARNING: all the existing data from the original form will be migrated to the form which you select.
+		Please ensure that in the new form the data remain valid and that all relevant fields are filled in.</entry>
+	<entry key="message">Choose a new Form Type</entry>
 </properties>
