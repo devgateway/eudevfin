@@ -13,18 +13,29 @@ import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
+import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
+import org.devgateway.eudevfin.auth.common.service.PersistedUserService;
 import org.devgateway.eudevfin.ui.common.components.PasswordInputField;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
 import org.devgateway.eudevfin.ui.common.spring.SpringWicketWebSession;
 import org.wicketstuff.annotation.mount.MountPath;
 
+import java.util.List;
+
 @MountPath(value = "/login")
 public final class LoginPage extends HeaderFooter {
     private static final long serialVersionUID = 8126072556090927364L;
     private static final Logger logger = Logger.getLogger(LoginPage.class);
+
+    @SpringBean
+    PersistedUserService userService;
 
     public LoginPage(final PageParameters parameters) {
         add(new LoginForm("loginform"));
@@ -48,6 +59,20 @@ public final class LoginPage extends HeaderFooter {
             PasswordInputField password = new PasswordInputField("password", new PropertyModel<String>(this, "password"), "login.password");
             password.getField().setResetPassword(false);
             add(password);
+
+            // get the email addresses for all super users
+            List<PersistedUser> supervisorUsers = userService.findUsersWithPersistedAuthority(AuthConstants.Roles.ROLE_SUPERVISOR);
+            String mailTo = "";
+            for(int i = 0; i < supervisorUsers.size(); i++) {
+                if(supervisorUsers.get(i).getEmail() != null) {
+                    mailTo += supervisorUsers.get(i).getEmail() + ",";
+                }
+            }
+
+            ExternalLink forgotPasswordLink = new ExternalLink("forgotPasswordLink",
+                    "mailto:" + mailTo + "?subject=" + new StringResourceModel("login.forgotPassword.subject", LoginPage.this, null, null).getObject(),
+                    new StringResourceModel("login.forgotPassword", LoginPage.this, null, null).getObject());
+            add(forgotPasswordLink);
 
             IndicatingAjaxButton submit = new IndicatingAjaxButton("submit", Model.of("Submit")) {
                 @Override
