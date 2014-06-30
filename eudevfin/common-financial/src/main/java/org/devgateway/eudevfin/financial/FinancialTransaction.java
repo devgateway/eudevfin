@@ -75,6 +75,7 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
     private LocalDateTime expectedStartDate;
 
+    @Index(name="financialtransaction_expectedCompletionDate_idx")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
     private LocalDateTime expectedCompletionDate;
 
