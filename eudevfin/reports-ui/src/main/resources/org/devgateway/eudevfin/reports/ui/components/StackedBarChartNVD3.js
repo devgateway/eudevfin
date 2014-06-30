@@ -11,9 +11,9 @@ var displayStackedBarChart = function (parametersJson) {
             .y(function (data) {
                 return data[1];
             })
-            .tooltipContent(function(key, y, e, graph) {
+            .tooltipContent(function (key, x, y, e, graph) {
                 var formatValue = d3.format(',.2f');
-                return y + '<br/>' + '<h4>' + key + ': $ million ' + formatValue(graph.point[2]) + '</h4>';
+                return '<h3 class="smaller">' + x + ' - ' + key + '</h3>' + '<p>' + '$ million ' + formatValue(e.point[2]) + '</p>';
             })
             .showXAxis(false)
             .showValues(true)           // Show bar value next to each bar.

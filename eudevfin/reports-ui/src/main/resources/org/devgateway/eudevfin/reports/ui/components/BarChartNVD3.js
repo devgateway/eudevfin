@@ -17,6 +17,9 @@ var displayBarChart = function (parametersJson) {
             .y(function (data) {
                 return data[1];
             })
+            .tooltipContent(function (key, x, y, e, graph) {
+                return '<h3 class="smaller">' + key + ' - ' + x + '</h3>' + '<p>' +  y + '</p>';
+            })
             .height(height)             // set the height
             .margin({left: 100})
             .showValues(true)           // Show bar value next to each bar.

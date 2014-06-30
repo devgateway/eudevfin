@@ -16,6 +16,9 @@ var displayPieChart = function (parametersJson) {
             .y(function (data) {
                 return data[1];
             })
+            .tooltipContent(function (key, x, y, e, graph) {
+                return '<h3 class="smaller">' + key + '</h3>' + '<p>' +  x + '</p>'
+            })
             .showLabels(true)       // Display pie labels
             .showLegend(true)       // Display the legend
             .labelThreshold(.01)    // Configure the minimum slice size for labels to show up
