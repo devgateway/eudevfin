@@ -2,6 +2,7 @@ package org.devgateway.eudevfin.sheetexp.test;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.sheetexp.dto.EntityWrapperInterface;
 import org.devgateway.eudevfin.sheetexp.dto.HeaderEntityWrapper;
@@ -24,7 +25,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:META-INF/commonFinancialContext.xml","classpath:META-INF/spreadsheetExporterContext.xml",
-		"classpath:META-INF/commonContext.xml"})
+		"classpath:META-INF/commonContext.xml", "classpath:META-INF/commonExchangeContext.xml"})
 @Component 
 public class TransformationTest {
 	
@@ -34,8 +35,8 @@ public class TransformationTest {
 	@Test
 	public void testTransform() {
 		final List<FinancialTransaction> txList	= new ArrayList<FinancialTransaction>();
-		final FinancialTransaction tx1		= new FinancialTransaction();
-		final FinancialTransaction tx2		= new FinancialTransaction();
+		final FinancialTransaction tx1		= new CustomFinancialTransaction();
+		final FinancialTransaction tx2		= new CustomFinancialTransaction();
 		
 		txList.add(tx1);
 		txList.add(tx2);

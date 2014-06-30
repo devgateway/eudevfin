@@ -20,14 +20,18 @@ import org.devgateway.eudevfin.sheetexp.ui.model.Filter;
 import org.devgateway.eudevfin.ui.common.temporary.SB;
 import org.joda.time.LocalDateTime;
 
-public class TransformationStarter {
+public class TransformationStarter implements ITransformationStarter {
 	
 	private static Logger logger = Logger.getLogger(TransformationStarter.class);
 	
 	private List<EntityWrapperInterface<?>> finalList;
 	private Filter filter;
 
-	public TransformationStarter prepareTransformation(final Filter filter, final CustomFinancialTransactionService txService) {
+	/* (non-Javadoc)
+	 * @see org.devgateway.eudevfin.sheetexp.util.ITransformationStarter#prepareTransformation(org.devgateway.eudevfin.sheetexp.ui.model.Filter, org.devgateway.eudevfin.financial.service.CustomFinancialTransactionService)
+	 */
+	@Override
+	public ITransformationStarter prepareTransformation(final Filter filter, final CustomFinancialTransactionService txService) {
 		final LocalDateTime now = LocalDateTime.now();
 		final HeaderEntityWrapper<String> header = new HeaderEntityWrapper<String>(filter.getExportType(),
 				now, "en");
@@ -60,6 +64,10 @@ public class TransformationStarter {
 		return retCol;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.devgateway.eudevfin.sheetexp.util.ITransformationStarter#executeTransformation(javax.servlet.http.HttpServletResponse, org.devgateway.eudevfin.sheetexp.integration.api.SpreadsheetTransformerService)
+	 */
+	@Override
 	public void executeTransformation(final HttpServletResponse response, final SpreadsheetTransformerService transformerService) {
 		try {
 			final String filename	= this.filter.getExportType() + "-export.xls";

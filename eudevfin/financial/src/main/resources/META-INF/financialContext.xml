@@ -193,6 +193,7 @@
 	<int:channel id="findCustomTransactionByReportingYearAndDraftFalseChannel"/>
 	<int:channel id="findCustomTransactionByReportingYearAndDraftFalseAndFormTypeNotInChannel"/>
 	<int:channel id="findCustomTransactionByReportingYearAndApprovedTrueAndFormTypeInChannel"/>
+	<int:channel id="findCustomTransactionByApprovedTrueAndFormTypeInlOrderByCrsIdentificationNumberAscCreatedDateAscChannel"/>
 	
 	<int:channel id="findDistinctReportingYearsInTransactionChannel"/>
     <int:channel id="findDistinctStartingYearsInTransactionChannel"/>

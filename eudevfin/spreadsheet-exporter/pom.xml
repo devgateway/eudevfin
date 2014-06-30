@@ -32,6 +32,11 @@
             <artifactId>common-ui</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.4.7</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<resources>

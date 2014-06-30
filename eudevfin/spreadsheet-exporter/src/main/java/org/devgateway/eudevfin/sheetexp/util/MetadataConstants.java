@@ -34,4 +34,5 @@ public class MetadataConstants {
 	
 	public static final String FSS_REPORT_TYPE = "fss";
 	public static final String CRS_REPORT_TYPE = "crs";
+	public static final String IATI_REPORT_TYPE = "iati";
 }

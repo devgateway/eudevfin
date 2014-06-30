@@ -36,6 +36,9 @@ public interface CustomFinancialTransactionRepository extends
 	
 	List<CustomFinancialTransaction> findByReportingYearBetweenAndApprovedTrueAndFormTypeIn(LocalDateTime start,
 			LocalDateTime end, Collection<String> notFormType);
+	
+	List<CustomFinancialTransaction> findByApprovedTrueAndFormTypeInOrderByCrsIdentificationNumberAscCreatedDateAsc(
+			Collection<String> notFormType);
 
 	@Query ("select distinct year(ctx.reportingYear) from CustomFinancialTransaction ctx where " +
             "ctx.approved = true and ctx.reportingYear IS NOT NULL and ctx.draft = false ")

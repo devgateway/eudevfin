@@ -36,6 +36,7 @@
 	
 	<int:channel id="spreadsheetCreatorChannel"/>
 	
+	<int:channel id="iatiListExporterChannel"/>
 	
 
 	<int:transformer id="generalTransformer" ref="dummyTransformer" input-channel="spreadsheetItemExporterChannel"
@@ -52,6 +53,8 @@
 		<int:method name="createSpreadsheet" request-channel="spreadsheetListExporterChannel">
 		</int:method>
 		<int:method name="createSpreadsheetOnStream" request-channel="spreadsheetListExporterChannel">
+		</int:method>
+		<int:method name="createIatiXmlOnStream" request-channel="iatiListExporterChannel">
 		</int:method>
 	</int:gateway>
 	

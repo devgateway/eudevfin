@@ -14,5 +14,5 @@
     <entry key="year-filter.help">Year for which data is to be exported.</entry>
     <entry key="year-filter.help.detail"></entry>
     <entry key="crs.filter-form.submit">Export CRS sheet</entry>
-    <entry key="fss.filter-form.submit">Export FSS sheet</entry>
+    <entry key="iati.filter-form.submit">Export IATI XML</entry>
 </properties>
