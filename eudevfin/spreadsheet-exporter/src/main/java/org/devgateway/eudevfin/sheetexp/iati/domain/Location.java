@@ -12,6 +12,11 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 @XStreamAlias("location")
 public class Location {
 	private String name;
+	
+	public Location(final String name) {
+		super();
+		this.name = name;
+	}
 
 	public String getName() {
 		return this.name;

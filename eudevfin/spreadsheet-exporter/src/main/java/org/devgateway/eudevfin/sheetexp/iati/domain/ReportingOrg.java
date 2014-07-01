@@ -18,6 +18,15 @@ public class ReportingOrg {
 	@XStreamAsAttribute
 	private String ref;
 	private String value;
+	
+	public ReportingOrg(){}
+	
+	public ReportingOrg(final String type, final String ref, final String value) {
+		super();
+		this.type = type;
+		this.ref = ref;
+		this.value = value;
+	}
 	public String getType() {
 		return this.type;
 	}

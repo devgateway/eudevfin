@@ -46,7 +46,7 @@ public class IatiActivity {
 	private List<PolicyMarker> policyMarkers;
 	
 	@XStreamImplicit
-	private List<ActivityDate> actiityDates;
+	private List<ActivityDate> activityDates;
 	
 	@XStreamAlias("crs-add")
 	private CrsAdd crsAdd;
@@ -146,12 +146,12 @@ public class IatiActivity {
 		this.policyMarkers = policyMarkers;
 	}
 
-	public List<ActivityDate> getActiityDates() {
-		return this.actiityDates;
+	public List<ActivityDate> getActivityDates() {
+		return this.activityDates;
 	}
 
-	public void setActiityDates(final List<ActivityDate> actiityDates) {
-		this.actiityDates = actiityDates;
+	public void setActivityDates(final List<ActivityDate> activityDates) {
+		this.activityDates = activityDates;
 	}
 
 	public CrsAdd getCrsAdd() {
