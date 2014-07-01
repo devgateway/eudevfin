@@ -8,6 +8,10 @@
 
 package org.devgateway.eudevfin.sheetexp.ui;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.wicket.request.Response;
 import org.apache.wicket.request.resource.AbstractResource;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
@@ -18,10 +22,6 @@ import org.devgateway.eudevfin.sheetexp.integration.api.SpreadsheetTransformerSe
 import org.devgateway.eudevfin.sheetexp.util.EntityWrapperListHelper;
 import org.devgateway.eudevfin.sheetexp.util.MetadataConstants;
 import org.joda.time.LocalDateTime;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class SpreadsheetResource extends AbstractResource {
 
@@ -88,7 +88,7 @@ public class SpreadsheetResource extends AbstractResource {
                         .addToWrappedList(finalList);
 
                 SpreadsheetResource.this.transformerService.createSpreadsheetOnStream(finalList, finalList.size(),
-                        response.getOutputStream());
+                        response.getOutputStream(), "Sheet1");
 
             }
 

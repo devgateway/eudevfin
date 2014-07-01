@@ -13,7 +13,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxCheckBox;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
@@ -21,6 +20,7 @@ import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDa
 import org.apache.wicket.event.Broadcast;
 import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -30,11 +30,13 @@ import org.devgateway.eudevfin.auth.common.util.AuthUtils;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.TransactionPage;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
+import org.devgateway.eudevfin.financial.util.FinancialTransactionUtil;
 import org.devgateway.eudevfin.ui.common.Constants;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.CheckBoxField;
 import org.devgateway.eudevfin.ui.common.events.Field12ChangedEventPayload;
 import org.devgateway.eudevfin.ui.common.events.Field13ChangedEventPayload;
+import org.devgateway.eudevfin.ui.common.events.Field14aChangedEventPayload;
 import org.devgateway.eudevfin.ui.common.permissions.RoleActionMapping;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -83,20 +85,20 @@ public class CustomTransactionPage extends TransactionPage {
 	@Override
 	public void initializeFinancialTransaction(FinancialTransaction transaction, PageParameters parameters) {
 		super.initializeFinancialTransaction(transaction, parameters);
+		CustomFinancialTransaction customFinancialTransaction = (CustomFinancialTransaction) transaction;
+		PersistedUser user=AuthUtils.getCurrentUser();			
+		customFinancialTransaction.setPersistedUserGroup(user.getGroup());
 		if (!parameters.get(Constants.PARAM_TRANSACTION_TYPE).isNull()) {
 			String transactionType = parameters.get(Constants.PARAM_TRANSACTION_TYPE).toString();
-			CustomFinancialTransaction customFinancialTransaction = (CustomFinancialTransaction) transaction;
 			customFinancialTransaction.setFormType(transactionType);
-			PersistedUser user=AuthUtils.getCurrentUser();			
-			customFinancialTransaction.setPersistedUserGroup(user.getGroup());
 		}
-		
 	}
 	
 	
     public CustomTransactionPage(PageParameters parameters) {
   		super(parameters);
 
+  		
   		
   		draft = new CheckBoxField("draft",
 				new RWComponentPropertyModel<Boolean>("draft")) {  	
@@ -109,9 +111,12 @@ public class CustomTransactionPage extends TransactionPage {
   						info(new NotificationMessage(new StringResourceModel("notification.draftState", CustomTransactionPage.this, null, null)));
   						approved.getField().setModelObject(false);
   						target.add(approved.getField());
+  						submitButton.setDefaultFormProcessing(false); //unvalidated form save is allowed as draft
 					}
-  					else
+  					else {
   						info(new NotificationMessage(new StringResourceModel("notification.nonDraftState", CustomTransactionPage.this, null, null)));
+  						submitButton.setDefaultFormProcessing(true); //unvalidated form save is NOT allowed as non-draft
+  					}
 					target.add(feedbackPanel);
 				}
   			 };
@@ -144,10 +149,10 @@ public class CustomTransactionPage extends TransactionPage {
   		form.add(draft);
   		form.add(approved);
   	  
-  		
-		//always set this field to true when form is opened
-  		//draft.getField().getModel().setObject(true);
-  		
+		CustomFinancialTransaction financialTransaction = (CustomFinancialTransaction) form.getInnermostModel().getObject();
+		if(!parameters.get(PARAM_REUSE).isNull()) 
+				initializeFinancialTransaction(FinancialTransactionUtil.prepareClonedTransaction(financialTransaction),parameters);
+		
 		draft.removeSpanFromControlGroup();
 		approved.removeSpanFromControlGroup();	
   	}
@@ -175,9 +180,18 @@ public class CustomTransactionPage extends TransactionPage {
 			send(getPage(), Broadcast.DEPTH, new Field12ChangedEventPayload(null, transaction.getTypeOfFinance()
 					.getDisplayableCode()));
 
+		if (transaction.getProjectCoFinanced()!=null)
+			send(getPage(), Broadcast.DEPTH, new Field14aChangedEventPayload(null, (transaction.getProjectCoFinanced())));
+
+		
 		if (transaction.getTypeOfAid() != null)
 			send(getPage(), Broadcast.DEPTH, new Field13ChangedEventPayload(null, transaction.getTypeOfAid()
 					.getDisplayableCode()));
+
+		if (transaction.getDraft())
+			submitButton.setDefaultFormProcessing(false);
+		else
+			submitButton.setDefaultFormProcessing(true);
 	}
 
 }

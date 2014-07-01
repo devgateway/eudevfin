@@ -13,6 +13,8 @@ import org.springframework.integration.annotation.Header;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * 
  * @author mihai
@@ -21,7 +23,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Lazy(value=false)
 public class PersistedUserDaoImplEndpoint extends AbstractDaoImpl<PersistedUser, Long, PersistedUserRepository> {
-	 
+
 	@Autowired
 	private PersistedUserRepository repo;
 	
@@ -32,8 +34,15 @@ public class PersistedUserDaoImplEndpoint extends AbstractDaoImpl<PersistedUser,
 	public NullableWrapper<PersistedUser> findByUserName(String username) {
 		return newWrapper(repo.findByUsername(username));
 	}
-	
-	
+
+    /**
+     * @see PersistedUserService#findUsersWithPersistedAuthorities(persistedAuthority)
+     */
+    @ServiceActivator(inputChannel="findUsersWithPersistedAuthorityChannel")
+    public List<PersistedUser> findUsersWithPersistedAuthority(String persistedAuthority) {
+        return repo.findUsersWithPersistedAuthority(persistedAuthority);
+    }
+
 	/**
 	 * @see PersistedUserService#save(PersistedUser)
 	 */

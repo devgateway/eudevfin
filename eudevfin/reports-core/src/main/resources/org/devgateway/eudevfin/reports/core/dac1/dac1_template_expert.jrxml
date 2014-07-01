@@ -15,6 +15,7 @@
 	</background>
 	<detail>
 		<band height="24" splitType="Stretch">
+			<printWhenExpression><![CDATA[$V{REPORT_COUNT} == 1]]></printWhenExpression>
 			<staticText>
 				<reportElement key="r_1330" x="263" y="0" width="34" height="12" uuid="c06c79b4-ea48-4b25-b35a-79174e056301"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">

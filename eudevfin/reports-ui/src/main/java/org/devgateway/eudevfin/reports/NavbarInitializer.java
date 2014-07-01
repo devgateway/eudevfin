@@ -9,6 +9,7 @@ import de.agilecoders.wicket.extensions.markup.html.bootstrap.button.DropDownAut
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy;
+import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.link.AbstractLink;
 import org.apache.wicket.markup.html.pages.RedirectPage;
 import org.apache.wicket.model.StringResourceModel;
@@ -138,11 +139,18 @@ public final class NavbarInitializer {
                 };
                 customReports.setIconType(IconType.file);
                 list.add(customReports);
-
-				list.add((AbstractLink) new MenuBookmarkablePageLink<ReportsPage>(
+                @SuppressWarnings("serial")
+				MenuBookmarkablePageLink<ReportsPage> reportBuilderLink = new MenuBookmarkablePageLink<ReportsPage>(
 						SaikuRedirectPage.class, null, new StringResourceModel(
-								"navbar.reportsbuilder", this, null, null))
-						.setIconType(IconType.play).setEnabled(true));
+								"navbar.reportsbuilder", this, null, null)) {
+						            @Override 
+						            protected void onComponentTag(ComponentTag tag) { 
+						                super.onComponentTag(tag); 
+						                tag.put("target", "_blank"); 
+						            } 
+						        };
+			    reportBuilderLink.setIconType(IconType.play).setEnabled(true);
+			    list.add(reportBuilderLink);
 				
 /*				
 				list.add(new MenuBookmarkablePageLink<ReportsExport>(

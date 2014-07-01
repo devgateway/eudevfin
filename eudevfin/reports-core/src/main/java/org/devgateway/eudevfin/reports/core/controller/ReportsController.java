@@ -49,7 +49,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 @Controller
 public class ReportsController {
@@ -77,6 +80,52 @@ public class ReportsController {
 	@Autowired
 	ApplicationContext applicationContext;
 
+	/**
+	 * Set currency
+	 */
+	@PreAuthorize("hasRole('" + AuthConstants.Roles.ROLE_USER + "')")
+    @RequestMapping(value = "/currency", method = {
+    			RequestMethod.GET, RequestMethod.POST
+    		})
+    public ModelAndView setCurrency(HttpServletRequest request, HttpServletResponse response, ModelAndView modelAndView)  throws IOException {
+		String currency = request.getParameter(REPORT_CURRENCY);
+		RequestContextHolder.getRequestAttributes().setAttribute("CURRENCY",
+				currency, RequestAttributes.SCOPE_SESSION);
+		return null;
+	}
+	/**
+	 * get currency list
+	 */
+	@PreAuthorize("hasRole('" + AuthConstants.Roles.ROLE_USER + "')")
+    @RequestMapping(value = "/currencylist", method = {
+    			RequestMethod.GET, RequestMethod.POST
+    		})
+    public ModelAndView getCurrencyList(HttpServletRequest request, HttpServletResponse response, ModelAndView modelAndView)  throws IOException {
+		ModelAndView mav = new ModelAndView();
+		mav.setView(new MappingJackson2JsonView());
+        CurrencyUnit currencyForCountryIso = FinancialTransactionUtil
+                .getCurrencyForCountryIso(AuthUtils
+                        .getIsoCountryForCurrentUser());
+        //Add EUR, USD and the country currency
+        String[] currencyList = {"EUR", "USD", currencyForCountryIso.getCode()};
+		mav.addObject("list", currencyList);
+		mav.addObject("selectedCurrency", getCurrencyParameter());
+		return mav;
+	}
+	
+    private String getCurrencyParameter() {
+    	String currency;
+    	if(RequestContextHolder.getRequestAttributes() != null && RequestContextHolder.getRequestAttributes().getAttribute("CURRENCY", RequestAttributes.SCOPE_SESSION) != null && !"".equals((String)RequestContextHolder.getRequestAttributes().getAttribute("CURRENCY", RequestAttributes.SCOPE_SESSION)))
+    	{
+    		currency = (String)RequestContextHolder.getRequestAttributes().getAttribute("CURRENCY", RequestAttributes.SCOPE_SESSION);
+    	}
+    	else
+    	{
+    		currency = REPORT_DEFAULT_CURRENCY_CODE;
+    	}
+		return currency;
+	}
+    
 	/**
 	 * Generate a report
 	 */
@@ -278,7 +327,8 @@ public class ReportsController {
 			parameters.put(JRParameter.REPORT_LOCALE, locale);
 
 			// Assign Resource Bundle
-            ResourceBundle resourceBundle = java.util.ResourceBundle.getBundle("org/devgateway/eudevfin/reports/i18n", locale);
+            ResourceBundle resourceBundle = java.util.ResourceBundle.getBundle(
+            		"org/devgateway/eudevfin/reports/i18n", locale);
 			parameters.put(JRParameter.REPORT_RESOURCE_BUNDLE, resourceBundle);
 
 			// Assign Reporting Country
@@ -294,26 +344,40 @@ public class ReportsController {
 			
 			String serverInstance = donorName;
 			
-			String inputStreamArea = generateSubReportCached("DAC2aArea", "org/devgateway/eudevfin/reports/core/dac2a/dac2a_template_area", "[Area].Members", false, true, serverInstance);
-			String inputStreamChannel = generateSubReportCached("DAC2aChannel", "org/devgateway/eudevfin/reports/core/dac2a/dac2a_template_channel", "[Channel].Members", false, true, serverInstance);
+			String inputStreamArea = generateSubReportCached(
+					"DAC2aArea",
+					"org/devgateway/eudevfin/reports/core/dac2a/dac2a_template_area",
+					"[Area].[Code].Members", false, true, serverInstance);
+			String inputStreamChannel = generateSubReportCached(
+					"DAC2aChannel",
+					"org/devgateway/eudevfin/reports/core/dac2a/dac2a_template_channel",
+					"[Channel].[Code].Members", false, true, serverInstance);
 			parameters.put("AREA_SUBREPORT_PATH", inputStreamArea);
 			parameters.put("CHANNEL_SUBREPORT_PATH", inputStreamChannel);
 			long endTime = System.nanoTime();
-			logger.info("Time to retrieve reports:" + (endTime-startTime));
+			logger.info("Time to retrieve reports:" + (endTime - startTime));
 
 			// Generate and Assign Sub Reports
 			startTime = System.nanoTime();
 			//Process the main report with the subreports
 			ReportTemplate reportProcessor = new ReportTemplate();
-			InputStream inputStream = reportProcessor.processTemplate(ReportsController.class.getClassLoader().getResourceAsStream("org/devgateway/eudevfin/reports/core/dac2a/dac2a_template.jrxml"), "[BiMultilateral].[Code].Members", rowReportDao, true, "DAC2a");
+			InputStream inputStream = reportProcessor
+					.processTemplate(
+							ReportsController.class
+									.getClassLoader()
+									.getResourceAsStream(
+											"org/devgateway/eudevfin/reports/core/dac2a/dac2a_template.jrxml"),
+							"[BiMultilateral].[Code].Members", rowReportDao,
+							true, "DAC2a");
 			JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
 			JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
 			endTime = System.nanoTime();
-			logger.info("Time to compile reports:" + (endTime-startTime));
+			logger.info("Time to compile reports:" + (endTime - startTime));
 			startTime = System.nanoTime();
+			//JRDataSource dataSource = getDatasource();
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters);
 			endTime = System.nanoTime();
-			logger.info("Time to fill reports:" + (endTime-startTime));
+			logger.info("Time to fill reports:" + (endTime - startTime));
 
 			//Write it to the output
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -407,7 +471,7 @@ public class ReportsController {
 
 			parameters.put("INTEREST_SUBREPORT_PATH", inputStreamMemoInterest);
 			parameters.put("EXPERT_SUBREPORT_PATH", inputStreamMemoExpert);
-			
+			parameters.put("KEYINDICATORS_SUBREPORT_PATH", "org/devgateway/eudevfin/reports/core/dac1/dac1_template_keyindicators.jasper");
 			JasperDesign jasperDesign = JRXmlLoader.load(inputStreamProcessed);
 			JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
 
@@ -460,22 +524,25 @@ public class ReportsController {
 	}
 
 	/**
-	 * Generates a named Subreport passing it through the template processor to insert elements that make a report
+	 * Generates a named Subreport passing it through the template processor to insert elements that make a report.
 	 * 
-	 * @param reportName
-	 * @param path
-     * @param slicer
-     * @param regenerate
-     * @param serverInstance
-     * @returns path to the generated jrxml file to be passed on path to the subreport
+	 * @param reportName Name of the report for fetching the related rows
+	 * @param path Path to the subreport
+     * @param slicer Dimension by which the rows will be disaggregated
+     * @param regenerate Specify if it ignores existing versions and regenerates the jrxml file
+     * @param swapAxis Toggle rows/columns (for inverted reports)
+     * @param serverInstance Specific server to avoid naming problems
+     * @return path to the generated jrxml file to be passed on path to the subreport
 	 */
-	
-    private String generateSubReportCached(String reportName, String path, String slicer, Boolean regenerate, boolean swapAxis, String serverInstance) {
+	private String generateSubReportCached(final String reportName, final String path,
+			final String slicer, final Boolean regenerate, final boolean swapAxis,
+			final String serverInstance) {
     	//Check if the compiled report file already exists in temporary folder
     	String tmpDirPath = System.getProperty("java.io.tmpdir");
     	File f = new File(tmpDirPath + File.separator + reportName + "_" + serverInstance + "_processed.jasper");
-        if(f.exists() && !regenerate) {
-        	String cachedFilePath = tmpDirPath + File.separator + reportName + "_" + serverInstance + "_processed.jasper";
+        if (f.exists() && !regenerate) {
+        	String cachedFilePath = tmpDirPath
+        			+ File.separator + reportName + "_" + serverInstance + "_processed.jasper";
         	logger.info("The report " + reportName + " is being cached from " + cachedFilePath);
             return cachedFilePath;
         }
@@ -484,8 +551,10 @@ public class ReportsController {
         InputStream inputStream = ReportsController.class.getClassLoader().getResourceAsStream(path + ".jrxml");
 
         ReportTemplate reportProcessor = new ReportTemplate();
-        InputStream inputStreamProcessed = reportProcessor.processTemplate(inputStream, slicer, rowReportDao, swapAxis, reportName);
-        String newJrxmlFilename = tmpDirPath  + File.separator +  reportName + "_" + serverInstance + "_processed.jrxml";
+		InputStream inputStreamProcessed = reportProcessor.processTemplate(
+				inputStream, slicer, rowReportDao, swapAxis, reportName);
+		String newJrxmlFilename = tmpDirPath + File.separator + reportName
+				+ "_" + serverInstance + "_processed.jrxml";
         File processedFile = new File(newJrxmlFilename);
         logger.info("Creating file " + newJrxmlFilename);
         try {
@@ -507,7 +576,7 @@ public class ReportsController {
 
 	
 	/**
-	 * Writes the report to the output stream
+	 * Writes the report to the output stream.
 	 */
     private void writeReportToResponseStream(HttpServletResponse response, ByteArrayOutputStream baos) {
 		logger.debug("Writing report to the stream");

@@ -30,6 +30,7 @@ import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Columns;
+import org.hibernate.annotations.Index;
 import org.hibernate.annotations.Type;
 import org.hibernate.envers.Audited;
 import org.joda.money.BigMoney;
@@ -55,7 +56,9 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
     private BigDecimal secondInterestRate;
 
 
+	@Index(name="financialtransaction_donorProjectNumber_idx")
     private String donorProjectNumber;
+	@Index(name="financialtransaction_crsIdentificationNumber_idx")
     private String crsIdentificationNumber;
     private String geoTargetArea;
 
@@ -72,6 +75,7 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
     private LocalDateTime expectedStartDate;
 
+    @Index(name="financialtransaction_expectedCompletionDate_idx")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
     private LocalDateTime expectedCompletionDate;
 

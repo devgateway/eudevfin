@@ -1,21 +1,11 @@
 package org.devgateway.eudevfin.reports.ui.pages;
 
-import com.googlecode.wickedcharts.highcharts.options.Labels;
-import com.googlecode.wickedcharts.highcharts.options.Options;
-import com.googlecode.wickedcharts.highcharts.options.SeriesType;
-import com.googlecode.wickedcharts.highcharts.options.functions.DefaultFormatter;
-import com.googlecode.wickedcharts.highcharts.options.series.Point;
-import com.googlecode.wickedcharts.highcharts.options.series.PointSeries;
-import com.googlecode.wickedcharts.highcharts.options.series.SimpleSeries;
 import org.apache.log4j.Logger;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
-import org.apache.wicket.markup.head.IHeaderResponse;
-import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.StringResourceModel;
-import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.util.AuthUtils;
@@ -23,11 +13,9 @@ import org.devgateway.eudevfin.financial.util.FinancialTransactionUtil;
 import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.devgateway.eudevfin.reports.core.domain.Metadatum;
 import org.devgateway.eudevfin.reports.core.service.QueryService;
-import org.devgateway.eudevfin.reports.ui.components.PieChart;
-import org.devgateway.eudevfin.reports.ui.components.StackedBarChart;
+import org.devgateway.eudevfin.reports.ui.components.PieChartNVD3;
+import org.devgateway.eudevfin.reports.ui.components.StackedBarChartNVD3;
 import org.devgateway.eudevfin.reports.ui.components.Table;
-import org.devgateway.eudevfin.reports.ui.scripts.Dashboards;
-import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.joda.money.CurrencyUnit;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.wicketstuff.annotation.mount.MountPath;
@@ -35,14 +23,11 @@ import org.wicketstuff.annotation.mount.MountPath;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * @author idobre
@@ -51,7 +36,7 @@ import java.util.Set;
 
 @MountPath(value = "/reports")
 @AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
-public class ReportsPage extends HeaderFooter {
+public class ReportsPage extends ReportsDashboards {
     private static final Logger logger = Logger.getLogger(ReportsPage.class);
 
     private final int MILLION = 1000000;
@@ -88,6 +73,14 @@ public class ReportsPage extends HeaderFooter {
 
         Label reportingCountry = new Label("reportingCountry", donorName);
         add(reportingCountry);
+
+        Map parameters = new HashMap();
+        parameters.put("0", (tableYear - 1));
+        parameters.put("1", tableYear);
+        String legendText = ReportsDashboardsUtils.fillPattern(
+                new StringResourceModel("ReportsPage.legend", this, null, null).getObject(), parameters);
+        Label legend = new Label("legend", legendText);
+        add(legend);
     }
 
     private void getCurrency () {
@@ -101,7 +94,7 @@ public class ReportsPage extends HeaderFooter {
     }
 
     private void addNetODATable () {
-        Label title = new Label("netODADashboardTitle", new StringResourceModel("dashboards.netODA", this, null, null));
+        Label title = new Label("netODADashboardTitle", new StringResourceModel("ReportsPage.netODA", this, null, null));
         add(title);
 
         Table table = new Table(CdaService, "netODADashboard", "netODARows", "netODATable") {
@@ -195,11 +188,12 @@ public class ReportsPage extends HeaderFooter {
                             String item = resultSet.get(i).get(j);
 
                             if (item != null) {
-                                item = ReportsDashboardsUtils.AmountFormat(Float.parseFloat(resultSet.get(i).get(j)));
-
                                 // len - 2 row is the 'ODA/GNI' row and we need to add the percentages
                                 if (i == len - 2) {
+                                    item = ReportsDashboardsUtils.AmountFormatMorePrecision(Float.parseFloat(resultSet.get(i).get(j)));
                                     item += "%";
+                                } else {
+                                    item = ReportsDashboardsUtils.AmountFormat(Float.parseFloat(resultSet.get(i).get(j)));
                                 }
 
                                 // len - 1 row is the 'Bilateral share' row and we need to add the percentages
@@ -249,7 +243,7 @@ public class ReportsPage extends HeaderFooter {
     }
 
     private void addTopTenRecipientsTable () {
-        Label title = new Label("topTenRecipientsTitle", new StringResourceModel("dashboards.topTenRecipients", this, null, null));
+        Label title = new Label("topTenRecipientsTitle", new StringResourceModel("ReportsPage.topTenRecipients", this, null, null));
         add(title);
 
         Table table = new Table(CdaService, "topTenRecipients", "topTenRows", "topTenRecipients") {
@@ -297,14 +291,15 @@ public class ReportsPage extends HeaderFooter {
             }
         };
 
-        table.setParam("paramYEAR", Integer.toString(tableYear));
+        table.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
+        table.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
 
         add(table.getTable());
         table.addTableRows();
     }
 
     private void addTopTenMemoShareTAble () {
-        Label title = new Label("topTenMemoShareTitle", new StringResourceModel("dashboards.topTenMemoShare", this, null, null));
+        Label title = new Label("topTenMemoShareTitle", new StringResourceModel("ReportsPage.topTenMemoShare", this, null, null));
         add(title);
 
         Table table = new Table(CdaService, "topTenMemoShare", "topTenMemoRows", "topTenMemoShare") {
@@ -362,130 +357,45 @@ public class ReportsPage extends HeaderFooter {
     }
 
     private void addOdaByIncomeGroupChart () {
-        Label title = new Label("odaByIncomeGroupTitle", new StringResourceModel("dashboards.odaByIncomeGroupChart", this, null, null));
+        Label title = new Label("odaByIncomeGroupTitle", new StringResourceModel("ReportsPage.odaByIncomeGroupChart", this, null, null));
         add(title);
 
-        PieChart pieChart = new PieChart(CdaService, "odaByIncomeGroupChart", "odaByIncomeGroupChart") {
-            @Override
-            public List<Point> getResultSeries () {
-                this.result = this.runQuery();
-                List<Point> resultSeries = new ArrayList<>();
+        PieChartNVD3 pieChartNVD3 = new PieChartNVD3(CdaService, "odaByIncomeGroupChart", "odaByIncomeGroupChart");
 
-                for (List<String> item : result.getResultset()) {
-                    resultSeries.add(new Point(item.get(0), Float.parseFloat(item.get(1)) / ReportsPage.this.MILLION));
-                }
+        // add MDX queries parameters
+        pieChartNVD3.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
+        pieChartNVD3.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
 
-                return resultSeries;
-            }
-        };
+        pieChartNVD3.setUseMillion(true);
 
-        pieChart.setParam("paramYEAR", Integer.toString(tableYear));
-
-        Options options = pieChart.getOptions();
-        options.addSeries(new PointSeries()
-                .setType(SeriesType.PIE)
-                .setData(pieChart.getResultSeries()));
-        add(pieChart.getChart());
+        add(pieChartNVD3);
     }
 
     private void addOdaByRegionChart () {
-        Label title = new Label("odaByRegionTitle", new StringResourceModel("dashboards.odaByRegionChart", this, null, null));
+        Label title = new Label("odaByRegionTitle", new StringResourceModel("ReportsPage.odaByRegionChart", this, null, null));
         add(title);
 
-        PieChart pieChart = new PieChart(CdaService, "odaByRegionChart", "odaByRegionChart") {
-            @Override
-            public List<Point> getResultSeries () {
-                this.result = this.runQuery();
-                List<Point> resultSeries = new ArrayList<>();
+        PieChartNVD3 pieChartNVD3 = new PieChartNVD3(CdaService, "odaByRegionChart", "odaByRegionChart");
 
-                for (List<String> item : result.getResultset()) {
-                    resultSeries.add(new Point(item.get(0), Float.parseFloat(item.get(1)) / ReportsPage.this.MILLION));
-                }
+        // add MDX queries parameters
+        pieChartNVD3.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
+        pieChartNVD3.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
 
-                return resultSeries;
-            }
-        };
+        pieChartNVD3.setUseMillion(true);
 
-        pieChart.setParam("paramYEAR", Integer.toString(tableYear));
-
-        Options options = pieChart.getOptions();
-        // check if we have a result and make the chart slightly higher
-        if (pieChart.getResultSeries().size() != 0) {
-            options.getChartOptions().setHeight(350);
-        }
-        // options.getPlotOptions().getPie().getDataLabels().setEnabled(Boolean.FALSE); display data labels for now
-        options.addSeries(new PointSeries()
-                .setType(SeriesType.PIE)
-                .setData(pieChart.getResultSeries()));
-        add(pieChart.getChart());
+        add(pieChartNVD3);
     }
 
     private void addOdaBySectorChart () {
-        Label title = new Label("odaBySectorTitle", new StringResourceModel("dashboards.odaBySectorChart", this, null, null));
+        Label title = new Label("odaBySectorTitle", new StringResourceModel("ReportsPage.odaBySectorChart", this, null, null));
         add(title);
 
-        StackedBarChart stackedBarChart = new StackedBarChart(CdaService, "odaBySectorChart", "odaBySectorChart") {
-            @Override
-            public Map<String, Float> getResultSeries () {
-                float odaBySectorTotal = 0;
+        StackedBarChartNVD3 stackedBarChartNVD3 = new StackedBarChartNVD3(CdaService, "odaBySectorChart", "odaBySectorChart");
 
-                this.result = this.runQuery();
-                // use LinkedHashMap so we can keep the insert order
-                Map<String, Float> resultSeries = new LinkedHashMap<>();
-                Set<String> resultCategories = new HashSet<>();
+        // add MDX queries parameters
+        stackedBarChartNVD3.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
+        stackedBarChartNVD3.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
 
-                for (int i = result.getResultset().size() - 1; i >= 0; i--) {
-                    List<String> item = result.getResultset().get(i);
-
-                    // keep unique values
-                    resultCategories.add(item.get(1));
-
-                    resultSeries.put(item.get(0), Float.parseFloat(item.get(2)) / ReportsPage.this.MILLION);
-
-                    odaBySectorTotal += (Float.parseFloat(item.get(2)) / ReportsPage.this.MILLION);
-                }
-
-                odaBySectorTotal = ReportsDashboardsUtils.twoDecimalFormat(odaBySectorTotal);
-
-                getOptions().getxAxis().get(0).setCategories(new ArrayList<>(resultCategories));
-                getOptions().getyAxis().get(0).setMax(odaBySectorTotal)
-                        .setTickInterval(odaBySectorTotal / 10)
-                        .setLabels(new Labels()
-                                .setFormatter(new DefaultFormatter().setFunction("return sprintf('%d', (this.value / " + odaBySectorTotal + ") * 100).replace(/,/g, \" \") + '%';")));
-
-                return resultSeries;
-            }
-        };
-
-        stackedBarChart.setParam("paramYEAR", Integer.toString(tableYear));
-
-        // remove the y-axis label ('ODA')
-        stackedBarChart.getOptions().getxAxis().get(0).getLabels().setEnabled(Boolean.FALSE);
-
-        for (Map.Entry<String, Float> entry : stackedBarChart.getResultSeries().entrySet()) {
-            stackedBarChart.getOptions().addSeries(new SimpleSeries()
-                    .setName(entry.getKey())
-                    .setData(Arrays.asList(new Number[]{entry.getValue()})));
-        }
-
-        add(stackedBarChart.getChart());
-    }
-
-    @Override
-    public void renderHead(IHeaderResponse response) {
-        super.renderHead(response);
-
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "Dashboards.utilities.js")));
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "highcharts-no-data-to-display.js")));
-
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "canvg-1.3/rgbcolor.js")));
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "canvg-1.3/StackBlur.js")));
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "canvg-1.3/canvg.js")));
-
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "html2canvas.js")));
-
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "jspdf.min.js")));
-
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "reports.js")));
+        add(stackedBarChartNVD3);
     }
 }

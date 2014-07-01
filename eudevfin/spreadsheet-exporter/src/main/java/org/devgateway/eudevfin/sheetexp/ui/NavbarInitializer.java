@@ -36,7 +36,7 @@ public final class NavbarInitializer {
 				"navbar.spreadsheets.export", page, null, null)) {
 
 			@Override
-			public boolean isActive(Component item) {
+			public boolean isActive(final Component item) {
 				return false;
 			}
 
@@ -56,10 +56,10 @@ public final class NavbarInitializer {
 						ExportSpreadsheetsPage.class, paramsFSS, new StringResourceModel("navbar.reports.export.fss",
 								this, null, null)).setEnabled(true));
 
-				PageParameters paramsIATI = new PageParameters();
+				final PageParameters paramsIATI = new PageParameters();
 				paramsIATI.set("reportType", "iati");
 				list.add((AbstractLink) new MenuBookmarkablePageLink<ExportSpreadsheetsPage>(ExportSpreadsheetsPage.class, paramsIATI,
-						new StringResourceModel("navbar.reports.export.iati", this, null, null)).setEnabled(false));
+						new StringResourceModel("navbar.reports.export.iati", this, null, null)).setEnabled(true));
 
 				return list;
 			}

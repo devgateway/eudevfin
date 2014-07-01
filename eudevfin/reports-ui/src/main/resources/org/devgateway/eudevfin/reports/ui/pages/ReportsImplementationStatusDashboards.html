@@ -12,24 +12,64 @@
 </wicket:head>
 <body>
 <wicket:extend>
-    <div id="reports-page">
+    <div id="printable-container">
         <div class="container">
             <div class="row">
-                <div class="span12">
-                    <h2 wicket:id="title"/>
-                    <br/>
+                <br/>
+                <div class="span8 offset2">
+                    <div class="box">
+                        <div class="box-header">
+                            <h2>
+                                <div wicket:id="implementationTableTitle"/>
+                            </h2>
+                        </div>
+                        <table wicket:id="implementationTable">
+                            <thead>
+                            <tr>
+                                <th rowspan="2" class="ui-state-default">Transaction Title</th>
+                                <th colspan="2" class="ui-state-default" wicket:id="firstYear"></th>
+                                <th colspan="2" class="ui-state-default" wicket:id="secondYear"></th>
+                            </tr>
+                            <tr>
+                                <th wicket:id="currencyFirstYear">$</th>
+                                <th>%</th>
+                                <th wicket:id="currencySecondYear">$</th>
+                                <th>%</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr wicket:id="implementationTableRows">
+                                <td>
+                                    <a href="#" wicket:id="link">
+                                        <span wicket:id="linkName">Transaction title</span>
+                                    </a>
+                                    <span wicket:id="total">TOTAL</span>
+                                </td>
+                                <td wicket:id="col1" class="numeric">Currency</td>
+                                <td wicket:id="col2" class="numeric">%</td>
+                                <td wicket:id="col3" class="numeric">Currency</td>
+                                <td wicket:id="col4" class="numeric">%</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-
-                <div class="span6">
-
-                </div>
-
-                <div class="span6">
-
+            </div>
+            <div class="row">
+                <br/><br/>
+                <div class="span8 offset2">
+                    <div class="box">
+                        <div class="box-header">
+                            <h2>
+                                <div wicket:id="implementationChartTitle"/>
+                            </h2>
+                        </div>
+                        <div wicket:id="implementationChart"/>
+                    </div>
                 </div>
             </div> <!-- /row -->
         </div> <!-- /container -->
-    </div> <!-- /reports-page -->
+    </div> <!-- /printable-container -->
 
     <div class="container">
         <div class="row">

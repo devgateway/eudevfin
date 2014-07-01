@@ -7,6 +7,10 @@ import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.markup.head.CssHeaderItem;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.markup.head.filter.FilteredHeaderItem;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.FormComponent;
@@ -24,11 +28,12 @@ import org.devgateway.eudevfin.metadata.common.domain.Category;
 import org.devgateway.eudevfin.metadata.common.domain.ChannelCategory;
 import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.devgateway.eudevfin.metadata.common.util.CategoryConstants;
+import org.devgateway.eudevfin.ui.common.ApplicationJavaScript;
+import org.devgateway.eudevfin.ui.common.FixBootstrapStylesCssResourceReference;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.CheckBoxField;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.components.RadioChoiceField;
-import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.devgateway.eudevfin.ui.common.providers.CategoryProviderFactory;
 import org.devgateway.eudevfin.ui.common.providers.PredefinedStringProvider;
 import org.devgateway.eudevfin.ui.common.providers.UsedAreaChoiceProvider;
@@ -45,7 +50,7 @@ import java.util.List;
  */
 
 @AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
-public abstract class CustomReportsPage extends HeaderFooter {
+public abstract class CustomReportsPage extends ReportsDashboards {
     private static final Logger logger = Logger.getLogger(CustomReportsPage.class);
 
     @SpringBean
@@ -65,7 +70,7 @@ public abstract class CustomReportsPage extends HeaderFooter {
 
     protected final NotificationPanel feedbackPanel;
 
-    protected IFormValidator geographyValidator;
+    protected IFormValidator typeOfFlowValidator;
 
     protected final Form form;
 
@@ -138,6 +143,7 @@ public abstract class CustomReportsPage extends HeaderFooter {
         typeOfExpenditureOptions.add(new StringResourceModel("disbursement", this, null, null).getObject());
         typeOfExpenditure = new DropDownField<>("typeOfExpenditure", new RWComponentPropertyModel<String>("typeOfExpenditure"),
                 new PredefinedStringProvider(typeOfExpenditureOptions));
+        customReportsModel.setTypeOfExpenditure(new StringResourceModel("disbursement", this, null, null).getObject());
 
         year = new DropDownField<>("year", new RWComponentPropertyModel<Integer>("year"),
                 new YearProvider(txService.findDistinctReportingYears()));
@@ -149,14 +155,12 @@ public abstract class CustomReportsPage extends HeaderFooter {
                 new YearProvider(txService.findDistinctCompletitionYears()));
 
         List<String> valueOfActivityOptions = new ArrayList<>();
+        valueOfActivityOptions.add(new StringResourceModel("allAmount", this, null, null).getObject());
         valueOfActivityOptions.add(new StringResourceModel("lowerThanAmount", this, null, null).getObject());
         valueOfActivityOptions.add(new StringResourceModel("moreThanAmount", this, null, null).getObject());
         valueOfActivity = new DropDownField<>("valueOfActivity", new RWComponentPropertyModel<String>("valueOfActivity"),
                 new PredefinedStringProvider(valueOfActivityOptions));
-
-        // TODO fields
-        // humanitarian - which is a sector
-        // show related budget codes?
+        customReportsModel.setValueOfActivity(new StringResourceModel("allAmount", this, null, null).getObject());
 
         CoFinancingTransactionsOnly = new CheckBoxField("cofinancingtransactionsonly", new RWComponentPropertyModel<Boolean>("coFinancingTransactionsOnly"));
         CPAOnly = new CheckBoxField("cpaonly", new RWComponentPropertyModel<Boolean>("CPAOnly"));
@@ -173,13 +177,11 @@ public abstract class CustomReportsPage extends HeaderFooter {
         // select first National Currency
         customReportsModel.setPricesCurrency(new StringResourceModel("pricesNationalCurrency", this, null, null).getObject());
 
-        // add geography&recipient validator
-        // (ODAEU-238) a country could not be selected if I want to have only regional aggregates
-        geographyValidator = new IFormValidator() {
+        typeOfFlowValidator = new IFormValidator() {
             @Override
             public FormComponent<Category>[] getDependentFormComponents() {
                 List<FormComponent<Category>> list = new ArrayList<FormComponent<Category>>();
-                list.add(CustomReportsPage.this.geography.getField());
+                list.add(CustomReportsPage.this.typeOfFlowBiMulti.getField());
 
                 return list.toArray(new FormComponent[0]);
             }
@@ -187,14 +189,12 @@ public abstract class CustomReportsPage extends HeaderFooter {
             @Override
             public void validate(Form<?> form) {
                 FormComponent<Category>[] components = this.getDependentFormComponents();
-                Select2Choice<Category> geographyComp = (Select2Choice<Category>) components[0];
+                Select2Choice<Category> typeOfFlowComp = (Select2Choice<Category>) components[0];
 
-                Area recipient = ((CustomReportsModel) form.getInnermostModel().getObject()).getRecipient();
-
-                if (geographyComp.getModelObject() != null && recipient != null) {
+                if (typeOfFlowComp.getModelObject() == null) {
                     ValidationError error = new ValidationError();
-                    error.addKey("geography.error");
-                    geographyComp.error(error);
+                    error.addKey("typeOfFlowbiMulti.error");
+                    typeOfFlowComp.error(error);
                 }
             }
         };
@@ -266,7 +266,7 @@ public abstract class CustomReportsPage extends HeaderFooter {
         typeOfFlowBiMulti.setOutputMarkupId(true);
         typeOfFlowBiMulti.setRenderBodyOnly(false);
 
-        // form.add(geographyValidator);
+        form.add(typeOfFlowValidator);
         form.add(geography);
         form.add(recipient);
         form.add(nationalInstitution);
@@ -296,4 +296,11 @@ public abstract class CustomReportsPage extends HeaderFooter {
     }
 
     protected abstract void addSubmitButton ();
+
+    @Override
+    public void renderHead(IHeaderResponse response) {
+        response.render(CssHeaderItem.forReference(FixBootstrapStylesCssResourceReference.INSTANCE));
+        response.render(new FilteredHeaderItem(JavaScriptHeaderItem.forReference(ApplicationJavaScript.INSTANCE),
+                "footer-container"));
+    }
 }

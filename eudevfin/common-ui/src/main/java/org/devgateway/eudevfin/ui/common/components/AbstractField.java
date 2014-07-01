@@ -17,7 +17,6 @@ import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.FormComponent;
-import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
@@ -31,7 +30,7 @@ import org.devgateway.eudevfin.ui.common.permissions.PermissionAwareComponent;
  * @author aartimon@developmentgateway.org
  * @since 30 October 2013
  */
-public abstract class AbstractField<T, FIELD extends FormComponent<T>> extends Panel implements PermissionAwareComponent {
+public abstract class AbstractField<T, FIELD extends FormComponent<T>> extends PreviewableFormPanel implements PermissionAwareComponent {
     private static final long serialVersionUID = -5883044564199075156L;
     private ProxyModel<String> labelText;
 
@@ -40,9 +39,10 @@ public abstract class AbstractField<T, FIELD extends FormComponent<T>> extends P
     private final DetailedHelpControlGroup controlGroup;
     FIELD field;
     protected final MarkupContainer xPenderController;
+    protected Label readOnlyRendition;
 
     private final AttributeModifier span4AttrModifier = new AttributeAppender("class", Model.of("span4"), " ");
-
+    
     /**
      * @param id              wicket placeholder id
      * @param model           component's model
@@ -66,19 +66,30 @@ public abstract class AbstractField<T, FIELD extends FormComponent<T>> extends P
         //if the detailed help text is not found an empty String is going to be used
         StringResourceModel detailedHelpText = new StringResourceModel(messageKeyGroup + ".help.detail", this, null, "");
 
-
         controlGroup = new DetailedHelpControlGroup("control-group", labelText, helpText,detailedHelpText);
         controlGroup.setOutputMarkupId(true);
-        xPenderController.add(prepender);
+        xPenderController.add(prepender);              
         xPenderController.add(appender);
         controlGroup.add(xPenderController);
-        controlGroup.add(span4AttrModifier);
+        controlGroup.add(span4AttrModifier);   
+        readOnlyRendition=new Label("readOnlyRendition",model);
+        readOnlyRendition.setVisible(false);
+        controlGroup.add(readOnlyRendition);
         add(controlGroup);
 
     }
 
+	
+    
     @Override
-    protected void onConfigure() {
+    protected void onConfigure() {    	
+    	if(isFormInPreview()) {
+    		//if(getDefaultModelObject()==null) setVisible(false);
+    		readOnlyRendition.setVisible(true);
+    		xPenderController.setVisible(false);    		
+    	}
+    	
+    	
         if (prepender.isVisible())
             xPenderController.add(new AttributeAppender("class", Model.of("input-prepend"), " "));
 
@@ -135,7 +146,7 @@ public abstract class AbstractField<T, FIELD extends FormComponent<T>> extends P
         return this;
     }
 
-    AbstractField<T,FIELD> hideLabel() {
+    public AbstractField<T,FIELD> hideLabel() {
         labelText.replaceModel(Model.of(""));
         return this;
     }

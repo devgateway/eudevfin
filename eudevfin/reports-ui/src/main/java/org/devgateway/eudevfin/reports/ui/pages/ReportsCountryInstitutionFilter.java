@@ -2,7 +2,6 @@ package org.devgateway.eudevfin.reports.ui.pages;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
-import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -19,9 +18,6 @@ import org.wicketstuff.annotation.mount.MountPath;
 public class ReportsCountryInstitutionFilter extends CustomReportsPage {
 
     public ReportsCountryInstitutionFilter () {
-        Label title = new Label("title", new StringResourceModel("reportsCountryInstitution", this, null, null));
-        add(title);
-
         sector.setVisibilityAllowed(Boolean.FALSE);
         multilateralAgency.setVisibilityAllowed(Boolean.FALSE);
         typeOfFlowBiMulti.setVisibilityAllowed(Boolean.FALSE);

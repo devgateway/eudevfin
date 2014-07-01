@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+
+<wicket:head>
+    <title>Custom Dashboards - Country Dashboards</title>
+
+    <!-- load jquery UI css files -->
+    <link href="css/theme/cupertino/jquery-ui-1.8.custom.css" rel="stylesheet" type="text/css"/>
+
+    <!-- load general styles -->
+    <link href="css/style.css" rel="stylesheet" type="text/css"/>
+</wicket:head>
+<body>
+<wicket:extend>
+    <div id="printable-container">
+        <div class="container">
+            <div class="row">
+                <br/>
+                <div class="span7">
+                    <h3 wicket:id="country"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span6">
+                    <div class="box">
+                        <div class="box-header">
+                            <h2>
+                                <div wicket:id="countryTableTitle"/>
+                            </h2>
+                        </div>
+                        <table wicket:id="countryTable">
+                            <thead>
+                            <tr>
+                                <th class="ui-state-default">Main Sector</th>
+                                <th class="ui-state-default">Sector</th>
+                                <th class="ui-state-default" wicket:id="firstYear"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr wicket:id="countryTableRows">
+                                <td>
+                                    <a href="#" wicket:id="link">
+                                        <span wicket:id="linkName">Main Sector</span>
+                                    </a>
+                                </td>
+                                <td wicket:id="col1" class="string">Sector</td>
+                                <td wicket:id="col2" class="numeric">Currency</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="span6">
+                    <div class="box">
+                        <div class="box-header">
+                            <h2>
+                                <div wicket:id="countryChartTitle"/>
+                            </h2>
+                        </div>
+                        <div wicket:id="countryChart"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <br/>
+                <div class="span10 offset1">
+                    <div class="box">
+                        <div class="box-header">
+                            <h2>
+                                <div wicket:id="countryTableListTitle"/>
+                            </h2>
+                        </div>
+                        <table wicket:id="countryTableList">
+                            <thead>
+                            <tr>
+                                <th class="ui-state-default">Transaction title</th>
+                                <th class="ui-state-default">Total budget</th>
+                                <th class="ui-state-default" wicket:id="firstYear"></th>
+                                <th class="ui-state-default">Sector</th>
+                                <th class="ui-state-default">Institution</th>
+                                <th class="ui-state-default">Implementing Channel</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr wicket:id="countryTableListRows">
+                                <td>
+                                    <a href="#" wicket:id="link">
+                                        <span wicket:id="linkName">Transaction title</span>
+                                    </a>
+                                </td>
+                                <td wicket:id="col1" class="numeric">total budget</td>
+                                <td wicket:id="col2" class="numeric">disbursement</td>
+                                <td wicket:id="col3" class="string">sector</td>
+                                <td>
+                                    <a href="#" wicket:id="col4">
+                                        <span wicket:id="linkName">institution</span>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="#" wicket:id="col5">
+                                        <span wicket:id="linkName">institution</span>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div> <!-- /row -->
+        </div> <!-- /container -->
+    </div> <!-- /printable-container -->
+
+    <div class="container">
+        <div class="row">
+            <br/><br/>
+            <div class="span6 offset5">
+                <button id="print-page" class="btn btn-success" type="button">
+                    <i class="icon-print icon-white"></i> Print page
+                </button>
+                <button id="download-page" class="btn btn-success" type="button">
+                    <i class="icon-download icon-white"></i> Download page
+                </button>
+            </div>
+            <br/><br/><br/>
+        </div>
+    </div> <!-- /container -->
+</wicket:extend>
+</body>
+</html>

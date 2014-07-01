@@ -21,7 +21,7 @@ public interface OrganizationRepository extends
 	Page<Organization> findByTranslationLocaleAndTranslationNameContaining(String locale, String searchString,Pageable pageable);
 
 	@Query(" select distinct(trn.parent) from OrganizationTranslation trn "
-			+ "where lower(trn.name) like %?1% or lower(trn.donorName) like %?1%")
+			+ "where lower(trn.name) like %?1% or lower(trn.donorName) like %?1% or lower(trn.parent.acronym) like %?1%")
 	Page<Organization> findByTranslationNameContaining(String searchString,Pageable pageable);
 	
 	Organization findByCodeAndDonorCode(String code, String donorCode);

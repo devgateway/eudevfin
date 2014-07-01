@@ -180,6 +180,8 @@
 	<int:channel id="findTransactionBySectorCodePageableChannel" />
 	<int:channel id="getFinancialTransactionHistoricalExchangeRatesChannel"/>
 	<int:channel id="findTransactionByGeneralSearchPageableChannel"/>
+	<int:channel id="findTransactionBySearchFormPageableChannel"/>
+	<int:channel id="findTransactionByDonorIdCrsIdActiveChannel"/>
 	<int:channel id="findTransactionByReportingYearAndTypeOfFlowNonFlow"/>
 	
 	
@@ -191,6 +193,7 @@
 	<int:channel id="findCustomTransactionByReportingYearAndDraftFalseChannel"/>
 	<int:channel id="findCustomTransactionByReportingYearAndDraftFalseAndFormTypeNotInChannel"/>
 	<int:channel id="findCustomTransactionByReportingYearAndApprovedTrueAndFormTypeInChannel"/>
+	<int:channel id="findCustomTransactionByApprovedTrueAndFormTypeInlOrderByCrsIdentificationNumberAscCreatedDateAscChannel"/>
 	
 	<int:channel id="findDistinctReportingYearsInTransactionChannel"/>
     <int:channel id="findDistinctStartingYearsInTransactionChannel"/>
@@ -224,7 +227,7 @@
 
 	<int:channel id="findAllAsListChannelCategoryChannel"/>
 	<int:channel id="findChannelCategoryByCodeChannel"/>
-	<int:channel id="findChannelCategoryByGeneralSearchPageable"/>
+	<int:channel id="findChannelCategoryByGeneralSearchAndTagsCodePaginatedChannel"/>
 	<int:channel id="findOneChannelCategory"/>
 	
 	

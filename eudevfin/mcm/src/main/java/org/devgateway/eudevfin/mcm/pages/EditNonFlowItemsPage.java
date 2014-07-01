@@ -44,7 +44,7 @@ import org.devgateway.eudevfin.ui.common.components.BootstrapCancelButton;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
 import org.devgateway.eudevfin.ui.common.components.FinancialAmountTextInputField;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
-import org.devgateway.eudevfin.ui.common.components.util.MondrianCacheUtil;
+import org.devgateway.eudevfin.ui.common.components.util.MondrianCDACacheUtil;
 import org.devgateway.eudevfin.ui.common.models.BigMoneyModel;
 import org.devgateway.eudevfin.ui.common.models.YearToLocalDateTimeModel;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
@@ -75,7 +75,7 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 	private CurrencyMetadataService currencyMetadataService;
 
     @SpringBean
-    MondrianCacheUtil mondrianCacheUtil;
+    MondrianCDACacheUtil mondrianCacheUtil;
 
 	private static final Logger logger = Logger
 			.getLogger(EditNonFlowItemsPage.class);
@@ -84,9 +84,9 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 
 	private WebMarkupContainer gniContainer;
 
-	private WebMarkupContainer totalFlowsContainer;
+	//private WebMarkupContainer totalFlowsContainer;
 
-	private WebMarkupContainer odaOfGniContainer;
+	//private WebMarkupContainer odaOfGniContainer;
 
 	private TextInputField<Integer> reportingYearField;
 
@@ -167,16 +167,16 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 				"gniContainer", "gni", parameters,
 				CategoryConstants.TypeOfFinance.NonFlow.GNI, false).setEnabled(
 				false).setOutputMarkupId(true);
-		totalFlowsContainer = (WebMarkupContainer) initializeFakeFinancialContainer(
-				"totalFlowsContainer",
-				"totalFlows",
-				parameters,
-				CategoryConstants.TypeOfFinance.NonFlow.TOTAL_FLOWS_PERCENT_GNI,
-				true).setEnabled(false).setOutputMarkupId(true);
-		odaOfGniContainer = (WebMarkupContainer) initializeFakeFinancialContainer(
-				"odaOfGniContainer", "odaOfGni", parameters,
-				CategoryConstants.TypeOfFinance.NonFlow.ODA_PERCENT_GNI, true)
-				.setEnabled(false).setOutputMarkupId(true);
+//		totalFlowsContainer = (WebMarkupContainer) initializeFakeFinancialContainer(
+//				"totalFlowsContainer",
+//				"totalFlows",
+//				parameters,
+//				CategoryConstants.TypeOfFinance.NonFlow.TOTAL_FLOWS_PERCENT_GNI,
+//				true).setEnabled(false).setOutputMarkupId(true);
+//		odaOfGniContainer = (WebMarkupContainer) initializeFakeFinancialContainer(
+//				"odaOfGniContainer", "odaOfGni", parameters,
+//				CategoryConstants.TypeOfFinance.NonFlow.ODA_PERCENT_GNI, true)
+//				.setEnabled(false).setOutputMarkupId(true);
 
 		// initialize textinput for reportingYear
 
@@ -218,19 +218,19 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 						CategoryConstants.TypeOfFinance.NonFlow.GNI,
 						parameters, trnsByTypeOfFinance, reportingYear);
 				
-				refreshTransactionInContainer(
-						odaOfGniContainer,
-						CategoryConstants.TypeOfFinance.NonFlow.ODA_PERCENT_GNI,
-						parameters, trnsByTypeOfFinance, reportingYear);
-				refreshTransactionInContainer(
-						totalFlowsContainer,
-						CategoryConstants.TypeOfFinance.NonFlow.TOTAL_FLOWS_PERCENT_GNI,
-						parameters, trnsByTypeOfFinance, reportingYear);
+//				refreshTransactionInContainer(
+//						odaOfGniContainer,
+//						CategoryConstants.TypeOfFinance.NonFlow.ODA_PERCENT_GNI,
+//						parameters, trnsByTypeOfFinance, reportingYear);
+//				refreshTransactionInContainer(
+//						totalFlowsContainer,
+//						CategoryConstants.TypeOfFinance.NonFlow.TOTAL_FLOWS_PERCENT_GNI,
+//						parameters, trnsByTypeOfFinance, reportingYear);
 
 				target.add(populationContainer.setEnabled(true));
 				target.add(gniContainer.setEnabled(true));
-				target.add(totalFlowsContainer.setEnabled(true));
-				target.add(odaOfGniContainer.setEnabled(true));
+//				target.add(totalFlowsContainer.setEnabled(true));
+//				target.add(odaOfGniContainer.setEnabled(true));
 			}
 		};
 		reportingYearField.typeInteger().required().range(2000, 2099)
@@ -240,8 +240,8 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 
 		form.add(populationContainer);
 		form.add(gniContainer);
-		form.add(totalFlowsContainer);
-		form.add(odaOfGniContainer);
+//		form.add(totalFlowsContainer);
+//		form.add(odaOfGniContainer);
 
 		form.add(new BootstrapSubmitButton("submit", new StringResourceModel(
 				"button.submit", this, null, null)) {
@@ -256,8 +256,8 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				saveTransactionFromContainer(populationContainer);
 				saveTransactionFromContainer(gniContainer);
-				saveTransactionFromContainer(odaOfGniContainer);
-				saveTransactionFromContainer(totalFlowsContainer);
+//				saveTransactionFromContainer(odaOfGniContainer);
+//				saveTransactionFromContainer(totalFlowsContainer);
 				logger.info("Submitted ok!");
 				info(new NotificationMessage(new StringResourceModel(
 						"notification.saved", EditNonFlowItemsPage.this, null,
@@ -265,7 +265,7 @@ public class EditNonFlowItemsPage extends HeaderFooter {
 				target.add(feedbackPanel);
 
                 // clear the mondrian cache
-                mondrianCacheUtil.flushMondrianCache();
+                mondrianCacheUtil.flushMondrianCDACache();
 			}
 
 		});

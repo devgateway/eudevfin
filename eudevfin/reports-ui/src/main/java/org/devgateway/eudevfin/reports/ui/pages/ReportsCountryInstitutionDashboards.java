@@ -1,32 +1,23 @@
 package org.devgateway.eudevfin.reports.ui.pages;
 
-import com.googlecode.wickedcharts.highcharts.options.DataLabels;
-import com.googlecode.wickedcharts.highcharts.options.PlotOptions;
-import com.googlecode.wickedcharts.highcharts.options.PlotOptionsChoice;
-import com.googlecode.wickedcharts.highcharts.options.Tooltip;
-import com.googlecode.wickedcharts.highcharts.options.series.SimpleSeries;
 import org.apache.log4j.Logger;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
-import org.apache.wicket.markup.head.IHeaderResponse;
-import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.StringValue;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.reports.core.service.QueryService;
-import org.devgateway.eudevfin.reports.ui.components.StackedBarChart;
+import org.devgateway.eudevfin.reports.ui.components.BarChartNVD3;
 import org.devgateway.eudevfin.reports.ui.components.Table;
-import org.devgateway.eudevfin.reports.ui.scripts.Dashboards;
-import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author idobre
@@ -34,7 +25,7 @@ import java.util.List;
  */
 @MountPath(value = "/reportscountryinstitutiondashboards")
 @AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
-public class ReportsCountryInstitutionDashboards extends HeaderFooter {
+public class ReportsCountryInstitutionDashboards extends ReportsDashboards {
     private static final Logger logger = Logger.getLogger(ReportsCountryInstitutionDashboards.class);
 
     /*
@@ -139,16 +130,18 @@ public class ReportsCountryInstitutionDashboards extends HeaderFooter {
     }
 
     private void addComponents() {
-        Label title = new Label("title", new StringResourceModel("reportscountryinstitutiondashboards.title", this, null, null));
-        add(title);
-
         addInstitutionTable();
         addInstitutionChart();
     }
 
     private void addInstitutionTable () {
-        Label title = new Label("institutionTableTitle", "Net Disbursement by institution - " + (tableYear - 1) + "-" + tableYear +
-                " - " + countryCurrency + " - full amount");
+        Map parameters = new HashMap();
+        parameters.put("0", (tableYear - 1));
+        parameters.put("1", tableYear);
+        parameters.put("currency", countryCurrency);
+        String titleText = ReportsDashboardsUtils.fillPattern(
+                new StringResourceModel("ReportsCountryInstitutionDashboards.title", this, null, null).getObject(), parameters);
+        Label title = new Label("institutionTableTitle", titleText);
         add(title);
 
         Table table = new Table(CdaService, "institutionTable", "institutionTableRows", "customDashboardsInstitutionTable") {
@@ -159,7 +152,8 @@ public class ReportsCountryInstitutionDashboards extends HeaderFooter {
                 this.rows = new ArrayList<>();
                 this.result = this.runQuery();
 
-                return ReportsDashboardsUtils.processTableRowsWithTotal(this.rows, this.result, this.rowId, true);
+                return ReportsDashboardsUtils.processTableRowsWithTotal(this.rows, this.result, this.rowId, true,
+                        currencyParam, ReportsConstants.isCountry, true);
             }
         };
 
@@ -192,77 +186,42 @@ public class ReportsCountryInstitutionDashboards extends HeaderFooter {
     }
 
     private void addInstitutionChart () {
-        Label title = new Label("institutionChartTitle", "Net Disbursement by institution - " + (tableYear - 1) + "-" + tableYear +
-                " - " + countryCurrency + " - full amount");
+        Map parameters = new HashMap();
+        parameters.put("0", (tableYear - 1));
+        parameters.put("1", tableYear);
+        parameters.put("currency", countryCurrency);
+        String titleText = ReportsDashboardsUtils.fillPattern(
+                new StringResourceModel("ReportsCountryInstitutionDashboards.title", this, null, null).getObject(), parameters);
+        Label title = new Label("institutionChartTitle", titleText);
         add(title);
 
-        StackedBarChart stackedBarChart = new StackedBarChart(CdaService, "institutionChart", "customDashboardsInstitutionChart") {
-            @Override
-            public List<List<Float>> getResultSeriesAsList () {
-                this.result = this.runQuery();
-
-                return ReportsDashboardsUtils.processChartRows(this.runQuery(), getOptions());
-            }
-        };
+        BarChartNVD3 barChartNVD3 = new BarChartNVD3(CdaService, "institutionChart", "customDashboardsInstitutionChart");
 
         // add MDX queries parameters
-        stackedBarChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
-        stackedBarChart.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
+        barChartNVD3.setParam("paramFIRST_YEAR", Integer.toString(tableYear - 1));
+        barChartNVD3.setParam("paramSECOND_YEAR", Integer.toString(tableYear));
         if (currencyParam != null) {
             if (currencyParam.equals("true")) {
-                stackedBarChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+                barChartNVD3.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
             }
         }
         if (geographyParam != null) {
-            stackedBarChart.setParam("paramCOUNTRIES", "[" + geographyParam + "]");
+            barChartNVD3.setParam("paramCOUNTRIES", "[" + geographyParam + "]");
         } else {
             if (recipientParam != null) {
-                stackedBarChart.setParam("paramCOUNTRIES", "[Name].[" + recipientParam + "]");
+                barChartNVD3.setParam("paramCOUNTRIES", "[Name].[" + recipientParam + "]");
             }
         }
-        if(coFinancingParam != null && coFinancingParam.equals("true")) {
-            stackedBarChart.setParam("paramCOFINANCED", "[1]");
+        if (coFinancingParam != null && coFinancingParam.equals("true")) {
+            barChartNVD3.setParam("paramCOFINANCED", "[1]");
         }
 
-        stackedBarChart.setParam("paraminstitutionChartRowSet", institutionChartRowSet);
+        barChartNVD3.setParam("paraminstitutionChartRowSet", institutionChartRowSet);
 
-        List<List<Float>> resultSeries = stackedBarChart.getResultSeriesAsList();
-        stackedBarChart.getOptions().setPlotOptions(new PlotOptionsChoice().
-                setBar(new PlotOptions().
-                        setMinPointLength(5).
-                        setDataLabels(new DataLabels().
-                                setEnabled(Boolean.TRUE))));
-        stackedBarChart.getOptions().setTooltip(new Tooltip().setValueSuffix(" millions").setPercentageDecimals(2));
-        // add 50px height for each row
-        int numberOfRows = resultSeries.get(0).size();
-        stackedBarChart.getOptions().getChartOptions().setHeight(300 + 50 * numberOfRows);
+        barChartNVD3.setNumberOfSeries(2);
+        barChartNVD3.setSeries1("Year " + (tableYear - 1));
+        barChartNVD3.setSeries2("Year " + (tableYear));
 
-        stackedBarChart.getOptions().addSeries(new SimpleSeries()
-                .setName("Year " + (tableYear - 1))
-                .setData(resultSeries.get(0).toArray(new Float[resultSeries.get(0).size()])));
-
-        stackedBarChart.getOptions().addSeries(new SimpleSeries()
-                .setName("Year " + tableYear)
-                .setData(resultSeries.get(1).toArray(new Float[resultSeries.get(1).size()])));
-
-        add(stackedBarChart.getChart());
-    }
-
-    @Override
-    public void renderHead(IHeaderResponse response) {
-        super.renderHead(response);
-
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "Dashboards.utilities.js")));
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "highcharts-no-data-to-display.js")));
-
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "canvg-1.3/rgbcolor.js")));
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "canvg-1.3/StackBlur.js")));
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "canvg-1.3/canvg.js")));
-
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "html2canvas.js")));
-
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "jspdf.min.js")));
-
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "reports.js")));
+        add(barChartNVD3);
     }
 }

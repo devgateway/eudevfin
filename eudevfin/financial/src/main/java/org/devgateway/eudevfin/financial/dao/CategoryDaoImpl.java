@@ -81,7 +81,7 @@ public class CategoryDaoImpl extends AbstractDaoImpl<Category, Long, CategoryRep
 		final List<Category> categories	= this.findByCode(code);
 		for ( final Category category:categories ) {
 			if ( category.getClass().equals(clazz) ) {
-				this.initializeChildren(category);
+				initializeChildren(category);
 				return this.newWrapper(category);
 			}
 		}
@@ -116,7 +116,7 @@ public class CategoryDaoImpl extends AbstractDaoImpl<Category, Long, CategoryRep
 						searchString.toLowerCase(), tagsCode, page);
 		}
 
-		this.initializeChildrenIfNeeded(result, initializeChildren);
+		initializeChildrenIfNeeded(result, initializeChildren);
 
 		return result;
 
@@ -139,7 +139,7 @@ public class CategoryDaoImpl extends AbstractDaoImpl<Category, Long, CategoryRep
 						locale, searchString.toLowerCase(), tagsCode);
 		}
 
-		this.initializeChildrenIfNeeded(result, initializeChildren);
+		initializeChildrenIfNeeded(result, initializeChildren);
 
 		return result;
 	}
@@ -154,7 +154,7 @@ public class CategoryDaoImpl extends AbstractDaoImpl<Category, Long, CategoryRep
 		final Boolean initializeChildren			= true;
 		final NullableWrapper<Category> result	= super.findOne(id);
 		if ( initializeChildren && !result.isNull() ) {
-			this.initializeChildren(result.getEntity());
+			initializeChildren(result.getEntity());
 		}
 		return result;
 	}
@@ -182,7 +182,7 @@ public class CategoryDaoImpl extends AbstractDaoImpl<Category, Long, CategoryRep
             result = this.getRepo().findUsedGeographyByTranslationsNameIgnoreCase(locale, searchString.toLowerCase(), page);
         }
 
-        this.initializeChildrenIfNeeded(result, initializeChildren);
+        initializeChildrenIfNeeded(result, initializeChildren);
 
         return result;
     }
@@ -210,7 +210,7 @@ public class CategoryDaoImpl extends AbstractDaoImpl<Category, Long, CategoryRep
             result = this.getRepo().findUsedSectorByTranslationsNameIgnoreCase(locale, searchString.toLowerCase(), page);
         }
 
-        this.initializeChildrenIfNeeded(result, initializeChildren);
+        initializeChildrenIfNeeded(result, initializeChildren);
 
         return result;
     }
@@ -238,7 +238,7 @@ public class CategoryDaoImpl extends AbstractDaoImpl<Category, Long, CategoryRep
             result = this.getRepo().findUsedTypeOfAidByTranslationsNameIgnoreCase(locale, searchString.toLowerCase(), page);
         }
 
-        this.initializeChildrenIfNeeded(result, initializeChildren);
+        initializeChildrenIfNeeded(result, initializeChildren);
 
         return result;
     }
@@ -266,7 +266,7 @@ public class CategoryDaoImpl extends AbstractDaoImpl<Category, Long, CategoryRep
             result = this.getRepo().findUsedTypeOfFlowBiMultiByTranslationsNameIgnoreCase(locale, searchString.toLowerCase(), page);
         }
 
-        this.initializeChildrenIfNeeded(result, initializeChildren);
+        initializeChildrenIfNeeded(result, initializeChildren);
 
         return result;
     }
@@ -296,20 +296,20 @@ public class CategoryDaoImpl extends AbstractDaoImpl<Category, Long, CategoryRep
         return result;
     }
 
-    public void initializeChildrenIfNeeded(final Iterable<Category> categories, Boolean initializeChildren) {
+    public static void initializeChildrenIfNeeded(final Iterable<? extends Category> categories, Boolean initializeChildren) {
 		initializeChildren	= initializeChildren == null ? false : initializeChildren;
 		if ( initializeChildren && categories != null ) {
 			for (final Category category : categories) {
-				this.initializeChildren(category);
+				initializeChildren(category);
 			}
 		}
 	}
 	
-	public void initializeChildren(final Category category) {
+	public static void initializeChildren(final Category category) {
 		if ( category.getChildren() != null ) {
 			for (final Category childCateg : category.getChildren()) {
 				if (childCateg != null) {
-					this.initializeChildren(childCateg);
+					initializeChildren(childCateg);
 				}
 			}
 		}

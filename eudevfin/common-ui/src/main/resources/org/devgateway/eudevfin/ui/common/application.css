@@ -45,7 +45,7 @@ select, input[type="text"], input[type="password"], input[type="datetime"], inpu
 
 .transaction-title {
     font-weight: bold;
-    font-size: x-large;
+    font-size: xx-large;
 }
 
 .eubanner {
@@ -89,4 +89,12 @@ html, body {
     border-top: 1px solid #E5E5E5;
     padding: 5px 0;
     text-align: center;
+}
+
+#printable-container {
+    background-color: #ffffff;
+}
+
+.homepage-search-element {
+   display:inline-block;
 }

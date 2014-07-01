@@ -25,21 +25,14 @@ var LoginForm = Modal.extend({
         "<label for='password'>Password</label><br />" +
         "<input type='password' id='password' name='password' value='' />" +
         "</form>",
-        
-    buttons: [
-        { text: "Login", method: "login" }
-    ],
-    
+            
     events: {
-        'click a': 'call',
-        'keyup #login_form input': 'check'
     },
     
     initialize: function(args) {
-        _.extend(this, args);
-        _.bindAll(this, "adjust");
-        this.options.title = Settings.VERSION;
-        this.bind('open', this.adjust);
+    	//Redirect to regular login
+    	this.message = "";
+    	window.location = "../";
     },
     
     adjust: function() {

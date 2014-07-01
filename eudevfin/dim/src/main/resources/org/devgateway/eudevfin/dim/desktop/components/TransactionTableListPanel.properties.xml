@@ -19,6 +19,7 @@
     <entry key="txtable.tx.reporting-org-name">Reporting Organization</entry>
     <entry key="txtable.tx.actions">Actions</entry>
     <entry key="txtable.tx.edit-action">Edit</entry>
+    <entry key="txtable.tx.view-action">View</entry>
     
     <entry key="bilateralOda.advanceQuestionnaire">AQ Bilateral ODA</entry>
     <entry key="bilateralOda.CRS">CRS++ Bilateral ODA</entry>

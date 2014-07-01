@@ -20,6 +20,10 @@ public interface SpreadsheetTransformerService {
 			@Header(MessageHeaders.SEQUENCE_SIZE) Integer maxNum);
 
 	public Boolean createSpreadsheetOnStream(List<EntityWrapperInterface<?>> transactions,
-			@Header(MessageHeaders.SEQUENCE_SIZE) Integer maxNum, @Header("outputStream") OutputStream out);
+			@Header(MessageHeaders.SEQUENCE_SIZE) Integer maxNum, @Header("outputStream") OutputStream out,
+			@Header("exportName")final String exportName);
 
+	public Boolean createIatiXmlOnStream(List<EntityWrapperInterface<?>> transactions,
+			@Header("outputStream") OutputStream out,
+			@Header("exportName")final String exportName);
 }

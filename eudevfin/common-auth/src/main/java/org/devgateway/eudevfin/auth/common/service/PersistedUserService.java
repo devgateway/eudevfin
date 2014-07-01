@@ -4,6 +4,8 @@ import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.common.service.BaseEntityService;
 import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 
+import java.util.List;
+
 
 /**
  * 
@@ -14,5 +16,8 @@ public interface PersistedUserService  extends BaseEntityService<PersistedUser> 
 	
 	NullableWrapper<PersistedUser> save(PersistedUser u);
 	
-	NullableWrapper<PersistedUser> findByUsername(String username);		
+	NullableWrapper<PersistedUser> findByUsername(String username);
+
+    public List<PersistedUser> findUsersWithPersistedAuthority(String persistedAuthority);
+
 }

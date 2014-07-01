@@ -8,12 +8,15 @@
 
 package org.devgateway.eudevfin.ui.common.components;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxLink;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
+import org.joda.time.DateTime;
 
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.DateTextField;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.DateTextFieldConfig;
@@ -26,7 +29,7 @@ import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.DateTextField
  * @since 17 October 2013
  */
 public class DateInputField extends AbstractInputField<Date,TextField<Date>> {
-
+	
     public DateInputField(String id, IModel<Date> model) {
         super(id, model);
         
@@ -51,5 +54,16 @@ public class DateInputField extends AbstractInputField<Date,TextField<Date>> {
         		withFormat(getFormat()).autoClose(true).forceParse(false).showTodayButton(true).highlightToday(true);        
         DateTextField date = new DateTextField(id, model, config);
         return date;
+    }
+    
+    @Override
+    protected void onConfigure() {
+    	Object modelObject = getDefaultModelObject();
+		if(modelObject!=null) {
+				Date date=(Date) modelObject;
+				readOnlyRendition.setDefaultModel(new Model<String>(new SimpleDateFormat(getFormat()).format(date)));
+		}
+			
+		super.onConfigure();
     }
 }

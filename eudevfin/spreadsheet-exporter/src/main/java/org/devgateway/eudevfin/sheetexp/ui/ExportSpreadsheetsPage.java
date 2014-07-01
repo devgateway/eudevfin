@@ -11,10 +11,10 @@
  */
 package org.devgateway.eudevfin.sheetexp.ui;
 
-import com.vaynberg.wicket.select2.ChoiceProvider;
-import com.vaynberg.wicket.select2.Response;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapButton;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
+import java.util.Calendar;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.Logger;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.form.Button;
@@ -27,19 +27,19 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.financial.service.CustomFinancialTransactionService;
+import org.devgateway.eudevfin.sheetexp.iati.util.IatiTransformationStarter;
 import org.devgateway.eudevfin.sheetexp.integration.api.SpreadsheetTransformerService;
 import org.devgateway.eudevfin.sheetexp.ui.model.Filter;
+import org.devgateway.eudevfin.sheetexp.util.ITransformationStarter;
 import org.devgateway.eudevfin.sheetexp.util.MetadataConstants;
 import org.devgateway.eudevfin.sheetexp.util.TransformationStarter;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.devgateway.eudevfin.ui.common.providers.YearProvider;
-import org.json.JSONException;
-import org.json.JSONWriter;
 import org.wicketstuff.annotation.mount.MountPath;
 
-import javax.servlet.http.HttpServletResponse;
-import java.util.*;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapButton;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
 
 /**
  * @author Alex
@@ -92,13 +92,22 @@ public class ExportSpreadsheetsPage extends HeaderFooter {
                  * TODO: check {@link org.devgateway.eudevfin.ui.common.components.MultiFileUploadFormComponent}
                  */
 
-                new TransformationStarter().prepareTransformation(this.getModelObject(), ExportSpreadsheetsPage.this.txService)
+                this.getTransformationStarter().prepareTransformation(this.getModelObject(), ExportSpreadsheetsPage.this.txService)
                         .executeTransformation((HttpServletResponse) this.getResponse().getContainerResponse(),
 								ExportSpreadsheetsPage.this.transformerService);
 
                 RequestCycle.get().scheduleRequestHandlerAfterCurrent(null);
 
 			}
+			
+			private ITransformationStarter getTransformationStarter() {
+				if ( MetadataConstants.IATI_REPORT_TYPE.equals(this.getModelObject().getExportType()) )  {
+					return new IatiTransformationStarter();
+				} else {
+					return new TransformationStarter();
+				}
+			}
+			
 
 		};
 
@@ -116,6 +125,9 @@ public class ExportSpreadsheetsPage extends HeaderFooter {
 				formModel, "year"), new YearProvider(this.txService.findDistinctReportingYears()));
 		year.required();
 		year.removeSpanFromControlGroup();
+		if ( MetadataConstants.IATI_REPORT_TYPE.equals(formModel.getObject().getExportType()) ) {
+			year.setVisible(false);
+		}
 		return year;
 	}
 
@@ -123,7 +135,10 @@ public class ExportSpreadsheetsPage extends HeaderFooter {
 
 	private Button createButton(final String exportType) {
 		StringResourceModel stringResourceModel;
-		if ( MetadataConstants.CRS_REPORT_TYPE.equals(exportType) ) {
+		if ( MetadataConstants.IATI_REPORT_TYPE.equals(exportType) ) {
+			stringResourceModel	= new StringResourceModel("iati.filter-form.submit", this, null);
+		}
+		else if ( MetadataConstants.CRS_REPORT_TYPE.equals(exportType) ) {
 			stringResourceModel	= new StringResourceModel("crs.filter-form.submit", this, null);
 		}
 		else{
@@ -133,4 +148,5 @@ public class ExportSpreadsheetsPage extends HeaderFooter {
 		button.setLabel(Model.of(""));
 		return button;
 	}
+	
 }

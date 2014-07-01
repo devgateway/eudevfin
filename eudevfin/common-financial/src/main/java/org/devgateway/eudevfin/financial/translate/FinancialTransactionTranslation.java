@@ -10,6 +10,7 @@ import org.devgateway.eudevfin.common.dao.translation.AbstractTranslation;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Index;
 import org.hibernate.envers.Audited;
 
 /**
@@ -20,11 +21,24 @@ import org.hibernate.envers.Audited;
 @Audited
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class FinancialTransactionTranslation extends AbstractTranslation<FinancialTransaction> implements FinancialTransactionTrnInterface {
-	
+
+	private static final long serialVersionUID = -657182398545780927L;
+
 	@Column(length=20000)
+	@Index(name="FinancialTransactionTranslation_description_idx")
 	private String description;
-//	@Lob
-	private String shortDescription;
+
+	@Index(name="FinancialTransactionTranslation_shortdescription_idx")
+	private String shortDescription;		
+    
+	@Column(length=1024)
+    private String firstCoFinancingAgency;
+    
+	@Column(length=1024)
+    private String secondCoFinancingAgency;
+    
+	@Column(length=1024)
+    private String thirdCoFinancingAgency;
 	
 	/* (non-Javadoc)
 	 * @see org.devgateway.eudevfin.financial.translate.FinancialTransactionTrnInterface#getDescription()
@@ -50,6 +64,48 @@ public class FinancialTransactionTranslation extends AbstractTranslation<Financi
 	@Override
 	public void setShortDescription(String shortDescription) {
 		this.shortDescription = shortDescription;
+	}
+
+	/**
+	 * @return the firstCoFinancingAgency
+	 */
+	public String getFirstCoFinancingAgency() {
+		return firstCoFinancingAgency;
+	}
+
+	/**
+	 * @param firstCoFinancingAgency the firstCoFinancingAgency to set
+	 */
+	public void setFirstCoFinancingAgency(String firstCoFinancingAgency) {
+		this.firstCoFinancingAgency = firstCoFinancingAgency;
+	}
+
+	/**
+	 * @return the secondCoFinancingAgency
+	 */
+	public String getSecondCoFinancingAgency() {
+		return secondCoFinancingAgency;
+	}
+
+	/**
+	 * @param secondCoFinancingAgency the secondCoFinancingAgency to set
+	 */
+	public void setSecondCoFinancingAgency(String secondCoFinancingAgency) {
+		this.secondCoFinancingAgency = secondCoFinancingAgency;
+	}
+
+	/**
+	 * @return the thirdCoFinancingAgency
+	 */
+	public String getThirdCoFinancingAgency() {
+		return thirdCoFinancingAgency;
+	}
+
+	/**
+	 * @param thirdCoFinancingAgency the thirdCoFinancingAgency to set
+	 */
+	public void setThirdCoFinancingAgency(String thirdCoFinancingAgency) {
+		this.thirdCoFinancingAgency = thirdCoFinancingAgency;
 	}
 	
 	

@@ -9,6 +9,11 @@ import java.util.List;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUserGroup;
 import org.devgateway.eudevfin.common.service.BaseEntityService;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
+import org.devgateway.eudevfin.financial.FinancialTransaction;
+import org.devgateway.eudevfin.metadata.common.domain.Area;
+import org.devgateway.eudevfin.metadata.common.domain.Category;
+import org.devgateway.eudevfin.metadata.common.domain.Organization;
+import org.joda.time.LocalDateTime;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.integration.annotation.Header;
@@ -39,6 +44,8 @@ public interface CustomFinancialTransactionService extends BaseEntityService<Cus
 	public List<CustomFinancialTransaction> findByReportingYearAndApprovedTrueAndFormTypeIn(final Integer year,
 			@Header("notFormType") Collection<String> notFormType);
 	
+	public List<CustomFinancialTransaction> findByApprovedTrueAndFormTypeInOrderByCrsIdAscCreatedDateAsc(Collection<String> notFormType);
+	
 	@Payload("new java.util.Date()")
 	public List<Integer> findDistinctReportingYears();
 
@@ -50,4 +57,21 @@ public interface CustomFinancialTransactionService extends BaseEntityService<Cus
 
     @Payload("new java.lang.String()")
     public List<String> findDistinctReportingGeopraphy();
+
+	public Page<FinancialTransaction> findBySearchFormPageable(
+			@Header(value = "year", required = false) LocalDateTime year,
+			@Header(value = "sector", required = false) Category sector,
+			@Header(value = "recipient", required = false) Area recipient,
+			@Header(value = "searchString", required = false) String searchString,
+			@Header(value = "formType", required = false) String formType,			
+			@Header(value = "extendingAgency", required = false) Organization extendingAgency,
+		    @Header(value = "locale", required = false) String locale, 
+		    Pageable pageable);
+
+	public Page<FinancialTransaction> findByDonorIdCrsIdActive(
+			@Header(value = "donorIdSearch", required = false) String donorIdSearch,
+			@Header(value = "crsIdSearch", required = false) String crsIdSearch,
+		    @Header(value = "active", required = false) Boolean active, 
+		    @Header(value = "locale", required = false) String locale, 
+		    Pageable pageable);
 }

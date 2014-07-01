@@ -44,15 +44,13 @@ import org.devgateway.eudevfin.ui.common.Constants;
 import org.devgateway.eudevfin.ui.common.components.BootstrapCancelButton;
 import org.devgateway.eudevfin.ui.common.components.BootstrapDeleteButton;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
-import org.devgateway.eudevfin.ui.common.components.CheckBoxField;
 import org.devgateway.eudevfin.ui.common.components.tabs.BootstrapJSTabbedPanel;
 import org.devgateway.eudevfin.ui.common.components.tabs.DefaultTabWithKey;
 import org.devgateway.eudevfin.ui.common.components.tabs.ITabWithKey;
-import org.devgateway.eudevfin.ui.common.components.util.MondrianCacheUtil;
+import org.devgateway.eudevfin.ui.common.components.util.MondrianCDACacheUtil;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.devgateway.eudevfin.ui.common.permissions.PermissionAwarePage;
 import org.devgateway.eudevfin.ui.common.permissions.RoleActionMapping;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
@@ -67,6 +65,7 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 	private static final Logger logger = Logger.getLogger(TransactionPage.class);
 
 	public static final String PARAM_TRANSACTION_ID = "transactionId";
+	public static final String PARAM_REUSE="reuse";
 
     public final String onUnloadScript;
 
@@ -78,13 +77,15 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 	private CurrencyMetadataService currencyMetadaService;
 
     @SpringBean
-    MondrianCacheUtil mondrianCacheUtil;
+    MondrianCDACacheUtil mondrianCacheUtil;
 
 	private static final CRSTransactionPermissionProvider componentPermissions = new CRSTransactionPermissionProvider();
 
 	protected final NotificationPanel feedbackPanel;
 
 	protected Form form;
+	
+	protected TransactionPageSubmitButton submitButton;
 
 	public class TransactionPageSubmitButton extends BootstrapSubmitButton {
 		private static final long serialVersionUID = -8310280845870280505L;
@@ -107,7 +108,7 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 				target.add(feedbackPanel);
 
                 // clear the mondrian cache
-                mondrianCacheUtil.flushMondrianCache();
+                mondrianCacheUtil.flushMondrianCDACache();
 			} catch (Exception e) {
 				logger.error("Exception while trying to save:", e);
 				return;
@@ -168,7 +169,7 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 				info(new NotificationMessage(new StringResourceModel("notification.deleted", TransactionPage.this, null, null)));				
 				target.add(feedbackPanel);
                 // clear the mondrian cache
-                mondrianCacheUtil.flushMondrianCache();               
+                mondrianCacheUtil.flushMondrianCDACache();
 			} catch (Exception e) {
 				logger.error("Exception while trying to delete:", e);
 				return;
@@ -230,7 +231,7 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 				.positionTabs(BootstrapJSTabbedPanel.Orientation.RIGHT);
 		form.add(bc);
 
-        TransactionPageSubmitButton submitButton = new TransactionPageSubmitButton("submit", new StringResourceModel("button.submit", this, null, null)) {
+		submitButton = new TransactionPageSubmitButton("submit", new StringResourceModel("button.submit", this, null, null)) {
             private static final long serialVersionUID = -1909494416938537482L;
 
             @Override
@@ -283,7 +284,7 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 
 		feedbackPanel = new NotificationPanel("feedback");
 		feedbackPanel.setOutputMarkupId(true);
-		feedbackPanel.hideAfter(Duration.seconds(3));
+		feedbackPanel.hideAfter(Duration.seconds(5));
 		add(feedbackPanel);
 	}
 

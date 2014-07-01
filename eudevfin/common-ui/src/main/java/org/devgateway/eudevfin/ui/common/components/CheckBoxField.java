@@ -22,6 +22,10 @@ public class CheckBoxField extends AbstractInputField<Boolean,CheckBox> {
     public CheckBoxField(String id, IModel<Boolean> model) {
         super(id, model);
     }
+    
+    public CheckBoxField(String id, IModel<Boolean> model, String messageKeyGroup) {
+        super(id, model, messageKeyGroup);
+    }
 
     @Override
     protected CheckBox newField(String id, IModel<Boolean> model) {

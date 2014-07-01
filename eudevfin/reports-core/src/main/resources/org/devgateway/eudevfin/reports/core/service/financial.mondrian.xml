@@ -1,14 +1,14 @@
 <Schema name="EUDevfin">
-    <Dimension visible="true" highCardinality="false" name="Area">
-        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All Areas">
+    <Dimension visible="false" highCardinality="false" name="Area" caption="%{areaDimension}">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allMember}">
             <Table name="AREA" schema="APP">
             </Table>
-            <Level name="Code" visible="true" table="AREA" column="CODE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+            <Level name="Code" visible="true" table="AREA" column="CODE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="%{areaCode}">
             </Level>
         </Hierarchy>
     </Dimension>
-    <Dimension visible="true" highCardinality="false" name="Country">
-        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All Countries">
+    <Dimension visible="true" highCardinality="false" name="Country" caption="%{countryDimension}">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All Countries" allMemberCaption="%{allMember}" allLevelName="%{allCountry}">
             <View alias="CountryView">
                 <SQL dialect="generic"><![CDATA[
             select
@@ -25,14 +25,14 @@
               "AREA"."AREA_TYPE" = 'Country'
             ]]></SQL>
             </View>
-            <Level name="Geography" visible="true" column="GEOGRAPHY" uniqueMembers="false" levelType="Regular" type="String">
+            <Level name="Geography" visible="true" column="GEOGRAPHY" uniqueMembers="false" levelType="Regular" type="String" caption="%{geography}">
             </Level>
-            <Level name="Name" visible="true" column="NAME" uniqueMembers="false" levelType="Regular" type="String">
+            <Level name="Name" visible="true" column="NAME" uniqueMembers="false" levelType="Regular" type="String" caption="%{countryName}">
             </Level>
         </Hierarchy>
     </Dimension>
-    <Dimension visible="true" highCardinality="false" name="IncomeGroup">
-        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All IncomeGroups">
+    <Dimension visible="true" highCardinality="false" name="IncomeGroup" caption="%{incomeGroupDimension}">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All IncomeGroups" allMemberCaption="%{allMember}" allLevelName="%{allIncomeGroups}">
             <View alias="IncomeGroupView">
                 <SQL dialect="generic"><![CDATA[
             select
@@ -46,12 +46,12 @@
                 "AREA"."AREA_TYPE" = 'Country'
             ]]></SQL>
             </View>
-            <Level name="Name" visible="true" column="NAME" uniqueMembers="false" levelType="Regular" type="String">
+            <Level name="Name" visible="true" column="NAME" uniqueMembers="false" levelType="Regular" type="String" caption="%{incomeGroupName}">
             </Level>
         </Hierarchy>
     </Dimension>
-    <Dimension visible="true" highCardinality="false" name="Extending Agency">
-        <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Extending Agency" allMemberCaption="%{allExtendingAgencies}" allLevelName="%{allExtendingAgencies}" description="%{extendingAgencies}" allMemberName="All Extending Agencies">
+    <Dimension visible="true" highCardinality="false" name="Extending Agency" caption="%{extendingAgencyDimension}">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allMember}" allMemberName="All Extending Agencies" allLevelName="%{allExtendingAgencies}">
             <View alias="Extending AgencyView">
                 <SQL dialect="generic"><![CDATA[
             select
@@ -64,16 +64,16 @@
 			  "ORGANIZATIONTRANSLATION"."PARENT_ID" = "ORGANIZATION"."ID"
 			]]></SQL>
             </View>
-            <Level name="code" visible="true" column="CODE" type="String" uniqueMembers="false" levelType="Regular">
+            <Level name="code" visible="false" column="CODE" type="String" uniqueMembers="false" levelType="Regular" caption="%{extendingAgencyCode}">
             </Level>
-            <Level name="Acronym" visible="true" column="ACRONYM" type="String" uniqueMembers="false" levelType="Regular">
+            <Level name="Acronym" visible="true" column="ACRONYM" type="String" uniqueMembers="false" levelType="Regular" caption="%{extendingAgencyAcronym}">
             </Level>
-            <Level name="Name" visible="true" column="NAME" type="String" uniqueMembers="false" levelType="Regular">
+            <Level name="Name" visible="true" column="NAME" type="String" uniqueMembers="false" levelType="Regular" caption="%{extendingAgencyName}">
             </Level>
         </Hierarchy>
     </Dimension>
-    <Dimension visible="true" highCardinality="false" name="Channel">
-        <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Channel" allMemberName="All Channels">
+    <Dimension visible="true" highCardinality="false" name="Channel" caption="%{channelDimension}">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All Channels" allMemberCaption="%{allMember}" allLevelName="%{allChannels}">
             <View alias="ChannelView">
                 <SQL dialect="generic"><![CDATA[
             select
@@ -89,13 +89,13 @@
                 "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='CHANNEL_TAG')
             ]]></SQL>
             </View>
-            <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
+            <Level name="Code" visible="false" column="CODE" uniqueMembers="false" caption="%{channelCode}">
             </Level>
-            <Level name="Name" visible="true" column="NAME" uniqueMembers="false">
+            <Level name="Name" visible="true" column="NAME" uniqueMembers="false" caption="%{channelName}">
             </Level>
         </Hierarchy>
     </Dimension>
-    <Dimension visible="true" highCardinality="false" name="Channel Localized">
+    <Dimension visible="false" highCardinality="false" name="Channel Localized">
         <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Channel Localized" allMemberName="All Channels Localized">
             <View alias="ChannelLocalizedView">
                 <SQL dialect="generic"><![CDATA[
@@ -112,14 +112,14 @@
                 "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='CHANNEL_TAG')
             ]]></SQL>
             </View>
-            <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
+            <Level name="Code" visible="false" column="CODE" uniqueMembers="false">
             </Level>
             <Level name="Name" visible="true" column="NAME" uniqueMembers="false">
             </Level>
         </Hierarchy>
     </Dimension>
-    <Dimension visible="true" highCardinality="false" name="Type of Aid">
-        <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Type of Aid" allMemberCaption="%{allTypesOfAid}" allLevelName="%{allTypesOfAid}" description="%{typesOfAid}" allMemberName="All Types of Aid">
+    <Dimension visible="true" highCardinality="false" name="Type of Aid" caption="%{typeOfAidDimension}">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allMember}" allMemberName="All Types of Aid" allLevelName="%{allTypeOfAid}">
             <View alias="TypeOfAidView">
                 <SQL dialect="generic"><![CDATA[
             select
@@ -135,14 +135,14 @@
                 "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='ALL_TYPE_OF_AID_TAG')
             ]]></SQL>
             </View>
-            <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
+            <Level name="Code" visible="false" column="CODE" uniqueMembers="false" caption="%{typeOfAidCode}">
             </Level>
-            <Level name="Name" visible="true" column="NAME" uniqueMembers="false">
+            <Level name="Name" visible="true" column="NAME" uniqueMembers="false" caption="%{typeOfAidName}">
             </Level>
         </Hierarchy>
     </Dimension>
-    <Dimension visible="true" highCardinality="false" name="Type of Flow">
-        <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Type of Flow" allMemberCaption="%{allTypesOfFlow}" allLevelName="%{allTypesOfFlow}" description="%{typesOfFlow}" allMemberName="All Types of Flow">
+    <Dimension visible="true" highCardinality="false" name="Type of Flow" caption="%{typeOfFlowDimension}">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allMember}" allMemberName="All Types of Flow" allLevelName="%{allTypeOfFlow}">
             <View alias="TypeOfFlowView">
                 <SQL dialect="generic"><![CDATA[
             select
@@ -158,14 +158,14 @@
                 "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='TYPE_OF_FLOW_TAG')
             ]]></SQL>
             </View>
-            <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
+            <Level name="Code" visible="false" column="CODE" uniqueMembers="false" caption="%{typeOfFlowCode}">
             </Level>
-            <Level name="Name" visible="true" column="NAME" uniqueMembers="false">
+            <Level name="Name" visible="true" column="NAME" uniqueMembers="false" caption="%{typeOfFlowName}">
             </Level>
         </Hierarchy>
     </Dimension>
-    <Dimension visible="true" highCardinality="false" name="Type of Finance">
-        <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Type of Finance" allMemberCaption="%{allTypesOfFinance}" allLevelName="%{allTypesOfFinance}" description="%{typesOfFinance}" allMemberName="All Types of Finance">
+    <Dimension visible="false" highCardinality="false" name="Type of Finance" caption="%{typeOfFinanceDimension}">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allMember}" allMemberName="All Types of Finance" allLevelName="%{allTypeOfFinance}">
             <View alias="TypeOfFinanceView">
                 <SQL dialect="generic"><![CDATA[
             select
@@ -181,14 +181,14 @@
                 "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='ALL_TYPE_OF_FINANCE_TAG')
             ]]></SQL>
             </View>
-            <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
+            <Level name="Code" visible="false" column="CODE" uniqueMembers="false" caption="%{typeOfFinanceCode}">
             </Level>
-            <Level name="Name" visible="true" column="NAME" uniqueMembers="false">
+            <Level name="Name" visible="true" column="NAME" uniqueMembers="false" caption="%{typeOfFinanceName}">
             </Level>
         </Hierarchy>
     </Dimension>
-    <Dimension visible="true" highCardinality="false" name="Type of Finance Root">
-        <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="Type of Finance Root" allMemberName="All Types of Finance Root">
+    <Dimension visible="true" highCardinality="false" name="Type of Finance Root" caption="%{typeOfFinanceDimension}">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allMember}" allMemberName="All Types of Finance Root">
             <View alias="TypeOfFinanceRootView">
                 <SQL dialect="generic"><![CDATA[
             select
@@ -204,14 +204,14 @@
                 "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='TYPE_OF_FINANCE_TAG')
             ]]></SQL>
             </View>
-            <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
+            <Level name="Code" visible="false" column="CODE" uniqueMembers="false" caption="%{typeOfFinanceCode}">
             </Level>
-            <Level name="Name" visible="true" column="NAME" uniqueMembers="false">
+            <Level name="Name" visible="true" column="NAME" uniqueMembers="false" caption="%{typeOfFinanceName}">
             </Level>
         </Hierarchy>
     </Dimension>
-    <Dimension type="StandardDimension" visible="true" name="Sector">
-        <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="%{sectors}" allMemberCaption="%{allSectors}" allLevelName="%{allSectors}" description="%{sectors}" allMemberName="All Sectors">
+    <Dimension type="StandardDimension" visible="true" name="Sector" caption="%{sectorDimension}">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allMember}" allMemberName="All Sectors" allLevelName="%{allSector}">
             <View alias="SectorView">
                 <SQL dialect="generic"><![CDATA[
                     select
@@ -229,13 +229,13 @@
                         "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='ALL_SECTOR_TAG')
             ]]></SQL>
             </View>
-            <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
+            <Level name="Code" visible="false" column="CODE" uniqueMembers="false" caption="%{sectorCode}">
             </Level>
-            <Level name="Name" visible="true" column="NAME" uniqueMembers="false">
+            <Level name="Name" visible="true" column="NAME" uniqueMembers="false" caption="%{sectorName}">
             </Level>
         </Hierarchy>
     </Dimension>
-    <Dimension type="StandardDimension" visible="true" name="SectorHierarchy">
+    <Dimension type="StandardDimension" visible="false" name="SectorHierarchy">
         <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All Sectors">
             <View alias="SectorHierarchyView">
                 <SQL dialect="generic"><![CDATA[
@@ -265,8 +265,8 @@
             </Level>
         </Hierarchy>
     </Dimension>
-    <Dimension visible="true" highCardinality="false" name="BiMultilateral">
-        <Hierarchy visible="true" hasAll="true" primaryKey="ID" caption="BiMultilateral" allMemberCaption="%{allBiMultilateral}" allLevelName="%{allBiMultilateral}" description="%{biMultilateral}" allMemberName="All BiMultilaterals">
+    <Dimension visible="true" highCardinality="false" name="BiMultilateral" caption="%{biMultilateralDimension}">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All BiMultilaterals" allMemberCaption="%{allMember}" allLevelName="%{allBiMultilaterals}">
             <View alias="BiMultilalteralView">
                 <SQL dialect="generic"><![CDATA[
                     select
@@ -284,13 +284,38 @@
                         "CATEGORY_TAGS"."TAGS_ID" = (SELECT ID FROM  "APP"."CATEGORY" WHERE "CODE"='BI_MULTILATERAL_TAG')
             ]]></SQL>
             </View>
-            <Level name="Code" visible="true" column="CODE" uniqueMembers="false">
+            <Level name="Code" visible="false" column="CODE" uniqueMembers="false" caption="%{biMultilateralCode}">
             </Level>
-            <Level name="Name" visible="true" column="NAME" uniqueMembers="false">
+            <Level name="Name" visible="true" column="NAME" uniqueMembers="false" caption="%{biMultilateralName}">
             </Level>
         </Hierarchy>
     </Dimension>
-    <Cube name="Financial" visible="true" cache="false" enabled="true">
+    <Dimension visible="true" highCardinality="false" name="TxTitle" caption="%{txTitleDimension}">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All TxTitles" allMemberCaption="%{allMember}" allLevelName="%{allProjects}">
+            <View alias="TxTitleView">
+                <SQL dialect="generic"><![CDATA[
+					select
+					  "TX"."ID",
+					  CASE
+						WHEN "TXTRANSLATION"."SHORTDESCRIPTION" IS NOT NULL
+					  THEN
+						"TXTRANSLATION"."SHORTDESCRIPTION"
+					  ELSE
+						"TXTRANSLATION_EN"."SHORTDESCRIPTION" END AS TITLE
+					FROM
+					  "APP"."FINANCIALTRANSACTION" AS "TX"
+					LEFT JOIN "APP"."FINANCIALTRANSACTIONTRANSLATION" "TXTRANSLATION" ON "TXTRANSLATION"."LOCALE" ='@@LOCALE@@' AND "TXTRANSLATION"."PARENT_ID" = "TX"."ID"
+					LEFT JOIN "APP"."FINANCIALTRANSACTIONTRANSLATION" "TXTRANSLATION_EN" ON "TXTRANSLATION_EN"."LOCALE" ='en' AND "TXTRANSLATION_EN"."PARENT_ID" = "TX"."ID"
+					WHERE "TXTRANSLATION"."SHORTDESCRIPTION" IS NOT NULL OR "TXTRANSLATION_EN"."SHORTDESCRIPTION" IS NOT NULL
+			]]></SQL>
+            </View>
+            <Level name="ID" visible="true" column="ID" type="Numeric" uniqueMembers="true" caption="%{txTitleId}">
+            </Level>
+            <Level name="Title" visible="true" column="TITLE" type="String" uniqueMembers="true" caption="%{txTitleTitle}">
+            </Level>
+        </Hierarchy>
+    </Dimension>
+    <Cube name="Financial" visible="true" cache="false" enabled="true" defaultMeasure="Extended Amount Currency NATLOECD">
         <View name="FINANCIALTRANSACTIONVIEW" alias="FINANCIALTRANSACTIONVIEW">
             <SQL dialect="generic"><![CDATA[
                 select cat.coefficient,
@@ -302,71 +327,93 @@
 				CASE WHEN cat.coefficient IS NULL THEN AMOUNTS_EXP_COMMIT_AMOUNT ELSE (AMOUNTS_EXP_COMMIT_AMOUNT * cat.COEFFICIENT) / 100 END as AMOUNTS_EXP_COMMIT_AMOUNT_WITH_COEFFICIENT,
 				CASE WHEN cat.coefficient IS NULL THEN AMOUNTS_EXP_EXTENDED_AMOUNT ELSE (AMOUNTS_EXP_EXTENDED_AMOUNT * cat.COEFFICIENT) / 100 END as AMOUNTS_EXP_EXTENDED_AMOUNT_WITH_COEFFICIENT,
 				CASE WHEN cat.coefficient IS NULL THEN AMOUNTS_INTEREST_RECEIVED_AMOUNT ELSE (AMOUNTS_INTEREST_RECEIVED_AMOUNT * cat.COEFFICIENT) / 100 END as AMOUNTS_INTEREST_RECEIVED_AMOUNT_WITH_COEFFICIENT,
-				
                 ft.*
                 from FINANCIALTRANSACTION ft left join CATEGORY cat ON cat.id = ft.channel_id WHERE (ft.draft = false and ft.approved = true) OR draft IS NULL
             ]]></SQL>
         </View>
-        <DimensionUsage source="Area" name="Area" visible="true" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
+        <DimensionUsage source="Area" name="Area" visible="false" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
         <DimensionUsage source="Country" name="Country" visible="true" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
         <DimensionUsage source="IncomeGroup" name="IncomeGroup" visible="true" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
         <DimensionUsage source="Extending Agency" name="Extending Agency" visible="true" foreignKey="EXTENDINGAGENCY_ID" highCardinality="false"></DimensionUsage>
         <DimensionUsage source="Sector" name="Sector" visible="true" foreignKey="SECTOR_ID" highCardinality="false"></DimensionUsage>
-        <DimensionUsage source="SectorHierarchy" name="SectorHierarchy" visible="true" foreignKey="SECTOR_ID" highCardinality="false"></DimensionUsage>
+        <DimensionUsage source="SectorHierarchy" name="SectorHierarchy" visible="false" foreignKey="SECTOR_ID" highCardinality="false"></DimensionUsage>
         <DimensionUsage source="Channel" name="Channel" visible="true" foreignKey="CHANNEL_ID" highCardinality="false"></DimensionUsage>
         <DimensionUsage source="Type of Aid" name="Type of Aid" visible="true" foreignKey="TYPEOFAID_ID" highCardinality="false"></DimensionUsage>
         <DimensionUsage source="Type of Flow" name="Type of Flow" visible="true" foreignKey="TYPEOFFLOW_ID" highCardinality="false"></DimensionUsage>
         <DimensionUsage source="Type of Finance" name="Type of Finance" visible="true" foreignKey="TYPEOFFINANCE_ID" highCardinality="false"></DimensionUsage>
-        <DimensionUsage source="Type of Finance Root" name="Type of Finance Root" visible="true" foreignKey="TYPEOFFINANCE_ID" highCardinality="false"></DimensionUsage>
+        <DimensionUsage source="Type of Finance Root" name="Type of Finance Root" visible="false" foreignKey="TYPEOFFINANCE_ID" highCardinality="false"></DimensionUsage>
         <DimensionUsage source="BiMultilateral" name="BiMultilateral" visible="true" foreignKey="BIMULTILATERAL_ID" highCardinality="false"></DimensionUsage>
-        <Dimension name="Reporting Year">
-            <Hierarchy hasAll="true">
-                <Level name="Reporting Year" column="REPORTINGYEAR" uniqueMembers="true">
+        <DimensionUsage source="TxTitle" name="TxTitle" visible="true" foreignKey="ID" highCardinality="false"></DimensionUsage>
+        <Dimension name="BudgetCode" visible="false">
+            <Hierarchy hasAll="true" allMemberName="All BudgetCode">
+                <!-- No table element here. Fact table is assumed. -->
+                <Level name="BudgetCode" column="BUDGETCODE" type="String" uniqueMembers="false" levelType="Regular"></Level>
+            </Hierarchy>
+        </Dimension>
+        <Dimension name="Reporting Year" caption="%{reportingYearDimension}">
+            <Hierarchy hasAll="true" allMemberCaption="%{allMember}" allLevelName="%{allReportingYears}">
+                <Level name="Reporting Year" column="REPORTINGYEAR" uniqueMembers="true" caption="%{reportingYear}">
                     <KeyExpression>
                         <SQL dialect="generic">CAST(YEAR("REPORTINGYEAR") AS CHAR(4))</SQL>
                     </KeyExpression>
                 </Level>
             </Hierarchy>
         </Dimension>
-        <Dimension name="Form Type">
-            <Hierarchy hasAll="true">
-                <Level name="Form Type" column="FORMTYPE" uniqueMembers="true">
+        <Dimension name="Starting Year">
+            <Hierarchy hasAll="true" allMemberName="All StartingYears" allLevelName="%{allStartingYears}">
+                <Level name="Starting Year" column="STARTINGYEAR" uniqueMembers="true">
+                    <KeyExpression>
+                        <SQL dialect="generic">CAST(YEAR("EXPECTEDSTARTDATE") AS CHAR(4))</SQL>
+                    </KeyExpression>
                 </Level>
             </Hierarchy>
         </Dimension>
-        <Dimension name="Investment">
-            <Hierarchy hasAll="true">
-                <Level name="Investment" column="INVESTMENT" uniqueMembers="false" type="String">
+        <Dimension name="Completion Year">
+            <Hierarchy hasAll="true" allMemberName="All CompletionYears" allLevelName="%{allCompletionYears}">
+                <Level name="Completion Year" column="COMPLETITIONYEAR" uniqueMembers="true">
+                    <KeyExpression>
+                        <SQL dialect="generic">CAST(YEAR("EXPECTEDCOMPLETIONDATE") AS CHAR(4))</SQL>
+                    </KeyExpression>
+                </Level>
+            </Hierarchy>
+        </Dimension>
+        <Dimension name="Form Type" caption="%{formTypeDimension}">
+            <Hierarchy hasAll="true" allMemberCaption="%{allMember}" allLevelName="%{allFormType}">
+                <Level name="Form Type" column="FORMTYPE" uniqueMembers="true" caption="%{formTypeName}">
+                </Level>
+            </Hierarchy>
+        </Dimension>
+        <Dimension name="Investment" caption="%{investmentDimension}">
+            <Hierarchy hasAll="true" allMemberCaption="%{allMember}" allLevelName="%{allInvestment}">
+                <Level name="Investment" column="INVESTMENT" uniqueMembers="false" type="String" caption="%{investmentName}">
                     <KeyExpression>
                         <SQL dialect="generic">(CASE WHEN INVESTMENT = TRUE THEN 'Yes' ELSE 'No' END)</SQL>
                     </KeyExpression>
                 </Level>
             </Hierarchy>
         </Dimension>
-        <Dimension name="PBA">
-            <Hierarchy hasAll="true">
-                <Level name="PBA" column="PROGRAMMEBASEDAPPROACH" uniqueMembers="false" type="String">
+        <Dimension name="PBA" caption="%{PBADimension}">
+            <Hierarchy hasAll="true" allMemberCaption="%{allMember}" allLevelName="%{allPBA}">
+                <Level name="PBA" column="PROGRAMMEBASEDAPPROACH" uniqueMembers="false" type="String" caption="%{PBAName}">
                     <KeyExpression>
                         <SQL dialect="generic">(CASE WHEN PROGRAMMEBASEDAPPROACH = TRUE THEN 'Yes' ELSE 'No' END)</SQL>
                     </KeyExpression>
                 </Level>
             </Hierarchy>
         </Dimension>
-        <Dimension name="FTC">
-            <Hierarchy hasAll="true">
-                <Level name="FTC" column="FREESTANDINGTECHNICALCOOPERATION" uniqueMembers="false" type="String">
+        <Dimension name="FTC" caption="%{FTCDimension}">
+            <Hierarchy hasAll="true" allMemberCaption="%{allMember}" allLevelName="%{allFTC}">
+                <Level name="FTC" column="FREESTANDINGTECHNICALCOOPERATION" uniqueMembers="false" type="String" caption="%{FTCName}">
                     <KeyExpression>
                         <SQL dialect="generic">(CASE WHEN FREESTANDINGTECHNICALCOOPERATION = TRUE THEN 'Yes' ELSE 'No' END)</SQL>
                     </KeyExpression>
                 </Level>
             </Hierarchy>
         </Dimension>
-        
-        
-        <Dimension name="CPA">
-            <Hierarchy hasAll="true" allMemberName="All CPA">
+        <Dimension name="CPA" caption="%{CPADimension}">
+            <Hierarchy hasAll="true" allMemberName="All CPA" allMemberCaption="%{allMember}" allLevelName="%{allCPA}">
                 <!-- No table element here. Fact table is assumed. -->
-                <Level name="CPA" column="CPA" type="Numeric" uniqueMembers="false" levelType="Regular">
+                <Level name="CPA" column="CPA" type="Numeric" uniqueMembers="false" levelType="Regular" caption="%{CPAName}">
                     <KeyExpression>
                         <SQL dialect="generic">
                             CASE WHEN CPA IS NULL THEN
@@ -383,10 +430,10 @@
                 </Level>
             </Hierarchy>
         </Dimension>
-        <Dimension name="CoFinanced">
-            <Hierarchy hasAll="true" allMemberName="All CoFinanced">
+        <Dimension name="CoFinanced" caption="%{coFinancedDimension}">
+            <Hierarchy hasAll="true" allMemberName="All CoFinanced" allMemberCaption="%{allMember}" allLevelName="%{allCoFinanced}">
                 <!-- No table element here. Fact table is assumed. -->
-                <Level name="CoFinanced" column="projectCoFinanced" type="Numeric" uniqueMembers="false" levelType="Regular">
+                <Level name="CoFinanced" column="projectCoFinanced" type="Numeric" uniqueMembers="false" levelType="Regular" caption="%{coFinancedName}">
                     <KeyExpression>
                         <SQL dialect="generic">
                             CASE WHEN projectCoFinanced IS NULL THEN
@@ -403,8 +450,16 @@
                 </Level>
             </Hierarchy>
         </Dimension>
-        <Measure name="Export Credit Amount" column="AMOUNTS_EXP_EXPORT_CREDIT_AMOUNT" aggregator="sum" visible="true" caption="%{exportCreditAmount}"></Measure>
-        <Measure name="Exchange Rate" aggregator="avg" visible="true" datatype="Integer" formatString="#,###.00" caption="Exchange Rate">
+
+        <Measure name="Export Credit Amount" column="AMOUNTS_EXP_EXPORT_CREDIT_AMOUNT" aggregator="sum" visible="false" caption="Export Credit Amount"></Measure>
+        <Measure name="Current Extended Amount" column="AMOUNTS_EXTENDED_CURRENT_AMOUNT" aggregator="sum" visible="false" caption="Current Extended Amount"></Measure>
+        <Measure name="Year 1 Extended Amount" column="AMOUNTS_EXTENDED_YEAR1_AMOUNT" aggregator="sum" visible="false" caption="year1ExtendedAmount"></Measure>
+        <Measure name="Year 2 Extended Amount" column="AMOUNTS_EXTENDED_YEAR2_AMOUNT" aggregator="sum" visible="false" caption="Year 2 Extended Amount"></Measure>
+        <Measure name="Interest Arrears Amount" column="AMOUNTS_AREARS_INTEREST_AMOUNT" aggregator="sum" visible="false" caption="Interest Arrears Amount"></Measure>
+        <Measure name="Principal Arrears Amount" column="AMOUNTS_AREARS_PRIN_AMOUNT" aggregator="sum" visible="false" caption="Principal Arrears Amount"></Measure>
+        <Measure name="Principal Disbursed Amount" column="AMOUNTS_PRIN_DISB_AMOUNT" aggregator="sum" visible="false" caption="Principal Disbursed Amount"></Measure>
+        <Measure name="NumberOfTransactions" column="ID" datatype="Integer" aggregator="count" formatString="#,###" caption="%{numberOfTransactions}"/>
+        <Measure name="Exchange Rate" aggregator="avg" visible="false" datatype="Integer" formatString="#,###.00" caption="Exchange Rate">
             <MeasureExpression>
                 <SQL dialect="generic">
                     (1 / (SELECT AVG(RATE)
@@ -420,14 +475,15 @@
                 </SQL>
             </MeasureExpression>
         </Measure>
-        <Measure name="Extended Amount No Flow" aggregator="sum" visible="true">
+        <Measure name="Extended Amount No Flow" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
                     CASE WHEN DRAFT IS NULL THEN AMOUNTS_EXTENDED_AMOUNT ELSE NULL END
                 </SQL>
             </MeasureExpression>
         </Measure>
-        <Measure name="Extended Amount" aggregator="sum" visible="true" caption="%{extendedAmount}">
+
+        <Measure name="Extended Amount" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
                     CASE WHEN DRAFT IS NOT NULL THEN
@@ -438,7 +494,7 @@
                 </SQL>
             </MeasureExpression>
         </Measure>
-        <Measure name="Extended Amount Currency NATLOECD" aggregator="sum" visible="true">
+        <Measure name="Extended Amount Currency NATLOECD" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
                     (AMOUNTS_EXTENDED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
@@ -453,14 +509,14 @@
                 </SQL>
             </MeasureExpression>
         </Measure>
-        <Measure name="Extended Amount Currency INTERNET" aggregator="sum" visible="true">
+        <Measure name="Extended Amount Currency INTERNET" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
                     (AMOUNTS_EXTENDED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
                     FROM
                     HISTORICALEXCHANGERATE
                     WHERE
-                    SOURCE = 'INTERNET' AND
+                    SOURCE = 'Internet' AND
                     BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXTENDED_CURR" AND
                     "FINANCIALTRANSACTIONVIEW"."DRAFT" IS NOT NULL AND
                     COUNTER_CURRENCY = '@@CURRENCY@@' AND
@@ -468,12 +524,9 @@
                 </SQL>
             </MeasureExpression>
         </Measure>
-        <Measure name="Current Extended Amount" column="AMOUNTS_EXTENDED_CURRENT_AMOUNT" aggregator="sum" visible="true" caption="%{currentExtendedAmount}"></Measure>
-        <Measure name="Year 1 Extended Amount" column="AMOUNTS_EXTENDED_YEAR1_AMOUNT" aggregator="sum" visible="true" caption="%{year1ExtendedAmount}"></Measure>
-        <Measure name="Year 2 Extended Amount" column="AMOUNTS_EXTENDED_YEAR2_AMOUNT" aggregator="sum" visible="true" caption="%{year2ExtendedAmount}"></Measure>
-        <Measure name="Partially Untied Amount" column="AMOUNTS_PARTIALLY_UNTIED_AMOUNT" aggregator="sum" visible="true" caption="%{partiallyUntiedAmount}"></Measure>
-        <Measure name="Received Amount" column="AMOUNTS_RECEIVED_AMOUNT" aggregator="sum" visible="true" caption="%{receivedAmount}"></Measure>
-        <Measure name="Received Amount Currency NATLOECD" aggregator="sum" visible="true">
+
+        <Measure name="Received Amount" column="AMOUNTS_RECEIVED_AMOUNT" aggregator="sum" visible="false"></Measure>
+        <Measure name="Received Amount Currency NATLOECD" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
                     (AMOUNTS_RECEIVED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
@@ -487,26 +540,23 @@
                 </SQL>
             </MeasureExpression>
         </Measure>
-        <Measure name="Received Amount Currency INTERNET" aggregator="sum" visible="true">
+        <Measure name="Received Amount Currency INTERNET" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
                     (AMOUNTS_RECEIVED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
                     FROM
                     HISTORICALEXCHANGERATE
                     WHERE
-                    SOURCE = 'INTERNET' AND
+                    SOURCE = 'Internet' AND
                     BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_RECEIVED_CURR" AND
                     COUNTER_CURRENCY = '@@CURRENCY@@' AND
                     YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
                 </SQL>
             </MeasureExpression>
         </Measure>
-        <Measure name="Tied Amount" column="AMOUNTS_TIED_AMOUNT" aggregator="sum" visible="true" caption="%{tiedAmount}"></Measure>
-        <Measure name="Untied Amount" column="AMOUNTS_UNTIED_AMOUNT" aggregator="sum" visible="true" caption="%{untiedAmount}"></Measure>
-        <Measure name="Interest Arrears Amount" column="AMOUNTS_AREARS_INTEREST_AMOUNT" aggregator="sum" visible="true" caption="%{interestArrearsAmount}"></Measure>
-        <Measure name="Principal Arrears Amount" column="AMOUNTS_AREARS_PRIN_AMOUNT" aggregator="sum" visible="true" caption="%{principalArrearsAmount}"></Measure>
-        <Measure name="Commitments Amount" column="COMMITMENT_AMOUNT" aggregator="sum" visible="true" caption="%{commitmentsAmount}"></Measure>
-        <Measure name="Commitments Amount Currency NATLOECD" aggregator="sum" visible="true">
+
+        <Measure name="Commitments Amount" column="COMMITMENT_AMOUNT" aggregator="sum" visible="false"></Measure>
+        <Measure name="Commitments Amount Currency NATLOECD" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
                     (COMMITMENT_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
@@ -520,22 +570,23 @@
                 </SQL>
             </MeasureExpression>
         </Measure>
-        <Measure name="Commitments Amount Currency INTERNET" aggregator="sum" visible="true">
+        <Measure name="Commitments Amount Currency INTERNET" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
                     (COMMITMENT_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
                     FROM
                     HISTORICALEXCHANGERATE
                     WHERE
-                    SOURCE = 'INTERNET' AND
+                    SOURCE = 'Internet' AND
                     BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" AND
                     COUNTER_CURRENCY = '@@CURRENCY@@' AND
                     YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
                 </SQL>
             </MeasureExpression>
         </Measure>
-        <Measure name="Interest Received Amount" column="AMOUNTS_INTEREST_RECEIVED_AMOUNT" aggregator="sum" visible="true" caption="%{interestReceivedAmount}"></Measure>
-        <Measure name="Interest Received Amount Currency NATLOECD" aggregator="sum" visible="true">
+        
+        <Measure name="Interest Received Amount" column="AMOUNTS_INTEREST_RECEIVED_AMOUNT" aggregator="sum" visible="false"></Measure>
+        <Measure name="Interest Received Amount Currency NATLOECD" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
                     (AMOUNTS_INTEREST_RECEIVED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
@@ -549,9 +600,23 @@
                 </SQL>
             </MeasureExpression>
         </Measure>
-        <Measure name="Principal Disbursed Amount" column="AMOUNTS_PRIN_DISB_AMOUNT" aggregator="sum" visible="true" caption="%{principalDisbursedAmount}"></Measure>
-        <Measure name="Expert Commitments Amount" column="AMOUNTS_EXP_COMMIT_AMOUNT" aggregator="sum" visible="true" caption="%{expertCommitmentsAmount}"></Measure>
-        <Measure name="Expert Commitments Currency NATLOECD" aggregator="sum" visible="true">
+        <Measure name="Interest Received Amount Currency INTERNET" aggregator="sum" visible="false">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (AMOUNTS_INTEREST_RECEIVED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    SOURCE = 'Internet' AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_INTEREST_RECEIVED_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        
+        <Measure name="Expert Commitments Amount" column="AMOUNTS_EXP_COMMIT_AMOUNT" aggregator="sum" visible="false"></Measure>
+        <Measure name="Expert Commitments Currency NATLOECD" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
                     (AMOUNTS_EXP_COMMIT_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
@@ -565,8 +630,23 @@
                 </SQL>
             </MeasureExpression>
         </Measure>
-        <Measure name="Expert Extended Amount" column="AMOUNTS_EXP_EXTENDED_AMOUNT" aggregator="sum" visible="true" caption="%{expertExtendedAmount}"></Measure>
-        <Measure name="Expert Extended Currency NATLOECD" aggregator="sum" visible="true">
+        <Measure name="Expert Commitments Currency INTERNET" aggregator="sum" visible="false">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (AMOUNTS_EXP_COMMIT_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    SOURCE = 'Internet' AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXP_COMMIT_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+
+        <Measure name="Expert Extended Amount" column="AMOUNTS_EXP_EXTENDED_AMOUNT" aggregator="sum" visible="false"></Measure>
+        <Measure name="Expert Extended Currency NATLOECD" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
                     (AMOUNTS_EXP_EXTENDED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
@@ -580,8 +660,22 @@
                 </SQL>
             </MeasureExpression>
         </Measure>
-        <Measure name="NumberOfTransactions" column="ID" datatype="Integer" aggregator="count" formatString="#,###"/>
-        <Measure name="Negative Commitments Amount NATLOECD" aggregator="sum" visible="true">
+        <Measure name="Expert Extended Currency INTERNET" aggregator="sum" visible="false">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (AMOUNTS_EXP_EXTENDED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    SOURCE = 'Internet' AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXP_EXTENDED_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+
+        <Measure name="Negative Commitments Amount NATLOECD" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
                     (NEGATIVE_COMMITMENT_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
@@ -595,7 +689,8 @@
                 </SQL>
             </MeasureExpression>
         </Measure>
-        <Measure name="Negative Received Amount NATLOECD" aggregator="sum" visible="true">
+        
+        <Measure name="Negative Received Amount NATLOECD" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
                     (NEGATIVE_AMOUNTS_RECEIVED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
@@ -609,14 +704,297 @@
                 </SQL>
             </MeasureExpression>
         </Measure>
-        <CalculatedMember name="Net Amount" dimension="Measures">
+        
+        <Measure name="Budget/MTEF Disb Current Year NATLOECD" aggregator="sum" visible="false">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (BUDGET_MTEF_DISB_AMOUNT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    (SOURCE = 'OECD' OR SOURCE='National') AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        <Measure name="Budget/MTEF Disb Current Year INTERNET" aggregator="sum" visible="false">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (BUDGET_MTEF_DISB_AMOUNT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    SOURCE = 'Internet' AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        
+        <Measure name="Budget/MTEF Disb Year 1 NATLOECD" aggregator="sum" visible="false">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (BUDGET_MTEF_DISB_P1_AMOUNT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    (SOURCE = 'OECD' OR SOURCE='National') AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_P1_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        <Measure name="Budget/MTEF Disb Year 1 INTERNET" aggregator="sum" visible="false">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (BUDGET_MTEF_DISB_P1_AMOUNT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    SOURCE = 'Internet' AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_P1_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        
+        <Measure name="Budget/MTEF Disb Year 2 NATLOECD" aggregator="sum" visible="false">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (BUDGET_MTEF_DISB_P2_AMOUNT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    (SOURCE = 'OECD' OR SOURCE='National') AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_P2_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        <Measure name="Budget/MTEF Disb Year 2 INTERNET" aggregator="sum" visible="false">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (BUDGET_MTEF_DISB_P2_AMOUNT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    SOURCE = 'Internet' AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_P2_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        
+        <Measure name="Budget/MTEF Disb Year 3 NATLOECD" aggregator="sum" visible="false">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (BUDGET_MTEF_DISB_P3_AMOUNT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    (SOURCE = 'OECD' OR SOURCE='National') AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_P3_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        <Measure name="Budget/MTEF Disb Year 3 INTERNET" aggregator="sum" visible="false">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (BUDGET_MTEF_DISB_P3_AMOUNT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    SOURCE = 'Internet' AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_P3_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        
+        <Measure name="Budget/MTEF Disb Year 4 NATLOECD" aggregator="sum" visible="false">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (BUDGET_MTEF_DISB_P4_AMOUNT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    (SOURCE = 'OECD' OR SOURCE='National') AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_P4_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        <Measure name="Budget/MTEF Disb Year 4 INTERNET" aggregator="sum" visible="false">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (BUDGET_MTEF_DISB_P4_AMOUNT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    SOURCE = 'Internet' AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_P4_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        
+        <Measure name="Tied Amount" column="AMOUNTS_TIED_AMOUNT" aggregator="sum" visible="false"></Measure>
+        <Measure name="Tied Amount NATLOECD" aggregator="sum" visible="false">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (AMOUNTS_TIED_AMOUNT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    (SOURCE = 'OECD' OR SOURCE='National') AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_TIED_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        <Measure name="Tied Amount INTERNET" aggregator="sum" visible="false">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (AMOUNTS_TIED_AMOUNT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    SOURCE = 'Internet' AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_TIED_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+
+        <Measure name="Untied Amount" column="AMOUNTS_UNTIED_AMOUNT" aggregator="sum" visible="false"></Measure>
+        <Measure name="Untied Amount NATLOECD" aggregator="sum" visible="false">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (AMOUNTS_UNTIED_AMOUNT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    (SOURCE = 'OECD' OR SOURCE='National') AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_UNTIED_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        <Measure name="Untied Amount INTERNET" aggregator="sum" visible="false">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (AMOUNTS_UNTIED_AMOUNT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    SOURCE = 'Internet' AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_UNTIED_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+
+        <Measure name="Partially Untied Amount" column="AMOUNTS_PARTIALLY_UNTIED_AMOUNT" aggregator="sum" visible="false"></Measure>
+        <Measure name="Partially Untied NATLOECD" aggregator="sum" visible="false">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (AMOUNTS_PARTIALLY_UNTIED_AMOUNT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    (SOURCE = 'OECD' OR SOURCE='National') AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_PARTIALLY_UNTIED_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+        <Measure name="Partially Untied INTERNET" aggregator="sum" visible="false">
+            <MeasureExpression>
+                <SQL dialect="generic">
+                    (AMOUNTS_PARTIALLY_UNTIED_AMOUNT * Cast((SELECT AVG(RATE)
+                    FROM
+                    HISTORICALEXCHANGERATE
+                    WHERE
+                    SOURCE = 'Internet' AND
+                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_PARTIALLY_UNTIED_CURR" AND
+                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                </SQL>
+            </MeasureExpression>
+        </Measure>
+
+        <CalculatedMember name="Net Amount" dimension="Measures" visible="false">
             <Formula>[Measures].[Extended Amount] - [Measures].[Received Amount]</Formula>
         </CalculatedMember>
-        <CalculatedMember name="Net Amount Currency NATLOECD" dimension="Measures">
+        <CalculatedMember name="Net Amount Currency NATLOECD" dimension="Measures" visible="false">
             <Formula>[Measures].[Extended Amount Currency NATLOECD] - [Measures].[Received Amount Currency NATLOECD]</Formula>
         </CalculatedMember>
-        <CalculatedMember name="Net Amount Currency INTERNET" dimension="Measures">
+        <CalculatedMember name="Net Amount Currency INTERNET" dimension="Measures" visible="false">
             <Formula>[Measures].[Extended Amount Currency INTERNET] - [Measures].[Received Amount Currency INTERNET]</Formula>
+        </CalculatedMember>
+
+        <!-- Use Internet currency when we don't have one -->
+        <CalculatedMember name="Extended Amount Currency NATLOECD or INTERNET" dimension="Measures" caption="%{extendedAmount}">
+            <Formula>IIF([Measures].[Extended Amount Currency NATLOECD] > 0, [Measures].[Extended Amount Currency NATLOECD], [Measures].[Extended Amount Currency INTERNET])</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="Received Amount Currency NATLOECD or INTERNET" dimension="Measures" caption="%{receivedAmount}">
+            <Formula>IIF([Measures].[Received Amount Currency NATLOECD] > 0, [Measures].[Extended Amount Currency NATLOECD], [Measures].[Received Amount Currency INTERNET])</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="Net Amount Currency NATLOECD or INTERNET" dimension="Measures" caption="%{netAmount}">
+            <Formula>[Measures].[Extended Amount Currency NATLOECD or INTERNET] - [Measures].[Received Amount Currency NATLOECD or INTERNET]</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="Commitments Amount Currency NATLOECD or INTERNET" dimension="Measures" caption="%{commitmentsAmount}">
+            <Formula>IIF([Measures].[Commitments Amount Currency NATLOECD] > 0, [Measures].[Commitments Amount Currency NATLOECD], [Measures].[Commitments Amount Currency INTERNET])</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="Interest Received Amount Currency NATLOECD or INTERNET" dimension="Measures" caption="%{interestReceivedAmount}">
+            <Formula>IIF([Measures].[Interest Received Amount Currency NATLOECD] > 0, [Measures].[Interest Received Amount Currency NATLOECD], [Measures].[Interest Received Amount Currency INTERNET])</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="Expert Commitments Amount Currency NATLOECD or INTERNET" dimension="Measures" caption="%{expertCommitmentsAmount}">
+            <Formula>IIF([Measures].[Expert Commitments Currency NATLOECD] > 0, [Measures].[Expert Commitments Currency NATLOECD], [Measures].[Expert Commitments Currency INTERNET])</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="Expert Extended Amount Currency NATLOECD or INTERNET" dimension="Measures" caption="%{expertExtendedAmount}">
+            <Formula>IIF([Measures].[Expert Extended Currency NATLOECD] > 0, [Measures].[Expert Extended Currency NATLOECD], [Measures].[Expert Extended Currency INTERNET])</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="Budget/MTEF Disb Current Year NATLOECD or INTERNET" dimension="Measures" caption="%{budgetMTEFDisbCurrentYear}">
+            <Formula>IIF([Measures].[Budget/MTEF Disb Current Year NATLOECD] > 0, [Measures].[Budget/MTEF Disb Current Year NATLOECD], [Measures].[Budget/MTEF Disb Current Year INTERNET])</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="Budget/MTEF Disb Year 1 NATLOECD or INTERNET" dimension="Measures" caption="%{budgetMTEFDisbYear1}">
+            <Formula>IIF([Measures].[Budget/MTEF Disb Year 1 NATLOECD] > 0, [Measures].[Budget/MTEF Disb Year 1 NATLOECD], [Measures].[Budget/MTEF Disb Year 1 INTERNET])</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="Budget/MTEF Disb Year 2 NATLOECD or INTERNET" dimension="Measures" caption="%{budgetMTEFDisbYear2}">
+            <Formula>IIF([Measures].[Budget/MTEF Disb Year 2 NATLOECD] > 0, [Measures].[Budget/MTEF Disb Year 2 NATLOECD], [Measures].[Budget/MTEF Disb Year 2 INTERNET])</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="Budget/MTEF Disb Year 3 NATLOECD or INTERNET" dimension="Measures" caption="%{budgetMTEFDisbYear3}">
+            <Formula>IIF([Measures].[Budget/MTEF Disb Year 3 NATLOECD] > 0, [Measures].[Budget/MTEF Disb Year 3 NATLOECD], [Measures].[Budget/MTEF Disb Year 3 INTERNET])</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="Budget/MTEF Disb Year 4 NATLOECD or INTERNET" dimension="Measures" caption="%{budgetMTEFDisbYear4}">
+            <Formula>IIF([Measures].[Budget/MTEF Disb Year 4 NATLOECD] > 0, [Measures].[Budget/MTEF Disb Year 4 NATLOECD], [Measures].[Budget/MTEF Disb Year 4 INTERNET])</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="Tied Amount NATLOECD or INTERNET" dimension="Measures" caption="%{tiedAmount}">
+            <Formula>IIF([Measures].[Tied Amount NATLOECD] > 0, [Measures].[Tied Amount NATLOECD], [Measures].[Tied Amount INTERNET])</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="Untied Amount NATLOECD or INTERNET" dimension="Measures" caption="%{untiedAmount}">
+            <Formula>IIF([Measures].[Untied Amount NATLOECD] > 0, [Measures].[Untied Amount NATLOECD], [Measures].[Untied Amount INTERNET])</Formula>
+        </CalculatedMember>
+        <CalculatedMember name="Partially Untied NATLOECD or INTERNET" dimension="Measures" caption="%{partiallyUntiedAmount}">
+            <Formula>IIF([Measures].[Partially Untied NATLOECD] > 0, [Measures].[Partially Untied NATLOECD], [Measures].[Partially Untied INTERNET])</Formula>
         </CalculatedMember>
 
         <!--  Groups of Channels -->

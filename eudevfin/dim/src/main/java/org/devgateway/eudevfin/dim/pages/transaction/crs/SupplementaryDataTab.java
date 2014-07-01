@@ -8,7 +8,6 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
-import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.IValidatable;
@@ -16,7 +15,13 @@ import org.apache.wicket.validation.ValidationError;
 import org.devgateway.eudevfin.metadata.common.domain.Category;
 import org.devgateway.eudevfin.metadata.common.util.CategoryConstants;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
-import org.devgateway.eudevfin.ui.common.components.*;
+import org.devgateway.eudevfin.ui.common.components.BooleanDropDownField;
+import org.devgateway.eudevfin.ui.common.components.DateInputField;
+import org.devgateway.eudevfin.ui.common.components.DropDownField;
+import org.devgateway.eudevfin.ui.common.components.PreviewableFormPanel;
+import org.devgateway.eudevfin.ui.common.components.TextAreaInputField;
+import org.devgateway.eudevfin.ui.common.components.TextInputField;
+import org.devgateway.eudevfin.ui.common.components.VisibilityAwareContainer;
 import org.devgateway.eudevfin.ui.common.events.MarkersField13UpdateBehavior;
 import org.devgateway.eudevfin.ui.common.models.DateToLocalDateTimeModel;
 import org.devgateway.eudevfin.ui.common.permissions.PermissionAwareComponent;
@@ -29,7 +34,7 @@ import org.joda.time.LocalDateTime;
  * @author aartimon@developmentgateway.org
  * @since 01 November 2013
  */
-public class SupplementaryDataTab extends Panel implements PermissionAwareComponent {
+public class SupplementaryDataTab extends PreviewableFormPanel implements PermissionAwareComponent {
 
     private static final long serialVersionUID = 7166734776330580011L;
     public static final String KEY = "tabs.supplementary";
@@ -117,23 +122,23 @@ public class SupplementaryDataTab extends Panel implements PermissionAwareCompon
         tradeDevelopment.getField().add(new MarkersField13UpdateBehavior());
         policyObjectivesGroup.add(tradeDevelopment);
 
-        DropDownField<Boolean> freestandingTechnicalCooperation = new DropDownField<>("24freestandingTechnicalCooperation",
+        BooleanDropDownField freestandingTechnicalCooperation = new BooleanDropDownField("24freestandingTechnicalCooperation",
                 new RWComponentPropertyModel<Boolean>("freestandingTechnicalCooperation"), SB.boolProvider);
         freestandingTechnicalCooperation.getField().add(new MarkersField13UpdateBehavior());
         typeOfAidGroup.add(freestandingTechnicalCooperation);
 
-        DropDownField<Boolean> programmeBasedApproach = new DropDownField<>("25programmeBasedApproach",
+        BooleanDropDownField programmeBasedApproach = new BooleanDropDownField("25programmeBasedApproach",
                 new RWComponentPropertyModel<Boolean>("programmeBasedApproach"), SB.boolProvider);
         programmeBasedApproach.getField().add(new MarkersField13UpdateBehavior());
         typeOfAidGroup.add(programmeBasedApproach);
 
-        DropDownField<Boolean> investmentProject = new DropDownField<>("26investmentProject",
+        BooleanDropDownField investmentProject = new BooleanDropDownField("26investmentProject",
                 new RWComponentPropertyModel<Boolean>("investment"), SB.boolProvider);
         investmentProject.getField().add(new MarkersField13UpdateBehavior());
         typeOfAidGroup.add(investmentProject);
 
 
-        DropDownField<Boolean> associatedFinancing = new DropDownField<>("27associatedFinancing",
+        BooleanDropDownField associatedFinancing = new BooleanDropDownField("27associatedFinancing",
                 new RWComponentPropertyModel<Boolean>("associatedFinancing"), SB.boolProvider);
         associatedFinancing.getField().add(new MarkersField13UpdateBehavior());
         typeOfAidGroup.add(associatedFinancing);

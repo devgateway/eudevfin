@@ -1,33 +1,26 @@
 package org.devgateway.eudevfin.reports.ui.pages;
 
-import com.googlecode.wickedcharts.highcharts.options.Options;
-import com.googlecode.wickedcharts.highcharts.options.SeriesType;
-import com.googlecode.wickedcharts.highcharts.options.series.Point;
-import com.googlecode.wickedcharts.highcharts.options.series.PointSeries;
 import org.apache.log4j.Logger;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
-import org.apache.wicket.markup.head.IHeaderResponse;
-import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.StringValue;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.financial.dao.CategoryDaoImpl;
 import org.devgateway.eudevfin.metadata.common.domain.Category;
 import org.devgateway.eudevfin.reports.core.service.QueryService;
-import org.devgateway.eudevfin.reports.ui.components.PieChart;
+import org.devgateway.eudevfin.reports.ui.components.PieChartNVD3;
 import org.devgateway.eudevfin.reports.ui.components.Table;
-import org.devgateway.eudevfin.reports.ui.scripts.Dashboards;
-import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author idobre
@@ -35,7 +28,7 @@ import java.util.List;
  */
 @MountPath(value = "/reportsinstitutiontypeofaiddashboards")
 @AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
-public class ReportsInstitutionTypeOfAidDashboards extends HeaderFooter {
+public class ReportsInstitutionTypeOfAidDashboards extends ReportsDashboards {
     private static final Logger logger = Logger.getLogger(ReportsInstitutionTypeOfAidDashboards.class);
 
     /*
@@ -125,9 +118,6 @@ public class ReportsInstitutionTypeOfAidDashboards extends HeaderFooter {
     }
 
     private void addComponents() {
-        Label title = new Label("title", new StringResourceModel("reportsinstitutiontypeofaiddashboards.title", this, null, null));
-        add(title);
-
         addTypeOfAidTable();
         addTypeOfAidHumanitarianAidTable();
         addTypeOfAidChart();
@@ -136,12 +126,21 @@ public class ReportsInstitutionTypeOfAidDashboards extends HeaderFooter {
 
     private void addTypeOfAidTable () {
         Label title;
+
+        Map parameters = new HashMap();
+        parameters.put("0", (tableYear - 1));
+        parameters.put("1", tableYear);
+        parameters.put("currency", countryCurrency);
         if (typeOfFlowParam != null && typeOfFlowParam.equals(multilateralCategory.getName())) {
-            title = new Label("typeOfAidTableTitle", "Multilateral ODA by institution - Net Disbursements " + (tableYear - 1) + "-" + tableYear +
-                    " - " + countryCurrency + " - full amount");
+            String titleText = ReportsDashboardsUtils.fillPattern(
+                    new StringResourceModel("ReportsInstitutionTypeOfAidDashboards.titleMultilateral", this, null, null).getObject(), parameters);
+
+            title = new Label("typeOfAidTableTitle", titleText);
         } else {
-            title = new Label("typeOfAidTableTitle", "Bilateral ODA by institution - Net Disbursements " + (tableYear - 1) + "-" + tableYear +
-                    " - " + countryCurrency + " - full amount");
+            String titleText = ReportsDashboardsUtils.fillPattern(
+                    new StringResourceModel("ReportsInstitutionTypeOfAidDashboards.titleBilateral", this, null, null).getObject(), parameters);
+
+            title = new Label("typeOfAidTableTitle", titleText);
         }
         add(title);
 
@@ -153,7 +152,13 @@ public class ReportsInstitutionTypeOfAidDashboards extends HeaderFooter {
                 this.rows = new ArrayList<>();
                 this.result = this.runQuery();
 
-                return ReportsDashboardsUtils.processTableRowsWithTotal(this.rows, this.result, this.rowId, true);
+                if (typeOfFlowParam != null && typeOfFlowParam.equals(multilateralCategory.getName())) {
+                    return ReportsDashboardsUtils.processTableRowsWithTotal(this.rows, this.result, this.rowId, true,
+                            currencyParam, ReportsConstants.isChannel, true);
+                } else {
+                    return ReportsDashboardsUtils.processTableRowsWithTotal(this.rows, this.result, this.rowId, true,
+                            currencyParam, ReportsConstants.isTypeOfAid, true);
+                }
             }
         };
 
@@ -170,10 +175,10 @@ public class ReportsInstitutionTypeOfAidDashboards extends HeaderFooter {
         if (typeOfFlowParam != null && typeOfFlowParam.equals(multilateralCategory.getName())) {
             table.setParam("paramtypeOfAidTableRowSet", typeOfAidTableRowSetMultilateral);
             table.setParam("parambilateral", "Multilateral");
-            headerTitle = new Label("typeOfFlow", new StringResourceModel("reportsinstitutiontypeofaiddashboards.multilateralAgency", this, null, null));
+            headerTitle = new Label("typeOfFlow", new StringResourceModel("ReportsInstitutionTypeOfAidDashboards.multilateralAgency", this, null, null));
         } else {
             table.setParam("paramtypeOfAidTableRowSet", typeOfAidTableRowSetBilateral);
-            headerTitle = new Label("typeOfFlow", new StringResourceModel("reportsinstitutiontypeofaiddashboards.typeOfAid", this, null, null));
+            headerTitle = new Label("typeOfFlow", new StringResourceModel("ReportsInstitutionTypeOfAidDashboards.typeOfAid", this, null, null));
             table.setParam("parambilateral", "Bilateral");
         }
         table.getTable().add(headerTitle);
@@ -193,7 +198,7 @@ public class ReportsInstitutionTypeOfAidDashboards extends HeaderFooter {
     }
 
     private void addTypeOfAidHumanitarianAidTable () {
-        Label title = new Label("typeOfAidHumanitarianAidTableTitle", new StringResourceModel("reportsinstitutiontypeofaiddashboards.humanitarianAidTableTitle", this, null, null));
+        Label title = new Label("typeOfAidHumanitarianAidTableTitle", new StringResourceModel("ReportsInstitutionTypeOfAidDashboards.humanitarianAidTableTitle", this, null, null));
         add(title);
 
         Table table = new Table(CdaService, "typeOfAidHumanitarianAidTable", "typeOfAidHumanitarianAidTableRows", "customDashboardsTypeOfAidHumanitarianAidTable") {
@@ -214,7 +219,8 @@ public class ReportsInstitutionTypeOfAidDashboards extends HeaderFooter {
                     result.getMetadata().add(1, null);
                 }
 
-                return ReportsDashboardsUtils.processTableRowsWithTotal(this.rows, this.result, this.rowId, false);
+                return ReportsDashboardsUtils.processTableRowsWithTotal(this.rows, this.result, this.rowId, false,
+                        currencyParam, ReportsConstants.isTypeOfAid, false);
             }
         };
 
@@ -248,116 +254,63 @@ public class ReportsInstitutionTypeOfAidDashboards extends HeaderFooter {
 
     private void addTypeOfAidChart () {
         Label title;
+
+        Map parameters = new HashMap();
+        parameters.put("0", (tableYear - 1));
+        parameters.put("1", tableYear);
+        parameters.put("currency", countryCurrency);
         if (typeOfFlowParam != null && typeOfFlowParam.equals(multilateralCategory.getName())) {
-            title = new Label("typeOfAidChartTitle", "Multilateral ODA by institution - Net Disbursements " + (tableYear - 1) + "-" + tableYear +
-                    " - " + countryCurrency + " - full amount");
+            String titleText = ReportsDashboardsUtils.fillPattern(
+                    new StringResourceModel("ReportsInstitutionTypeOfAidDashboards.titleMultilateral", this, null, null).getObject(), parameters);
+
+            title = new Label("typeOfAidChartTitle", titleText);
         } else {
-            title = new Label("typeOfAidChartTitle", "Bilateral ODA by institution - Net Disbursements " + (tableYear - 1) + "-" + tableYear +
-                    " - " + countryCurrency + " - full amount");
+            String titleText = ReportsDashboardsUtils.fillPattern(
+                    new StringResourceModel("ReportsInstitutionTypeOfAidDashboards.titleBilateral", this, null, null).getObject(), parameters);
+
+            title = new Label("typeOfAidChartTitle", titleText);
         }
         add(title);
 
-        PieChart pieChart = new PieChart(CdaService, "typeOfAidChart", "customDashboardsTypeOfAidChart") {
-            @Override
-            public List<Point> getResultSeries () {
-                this.result = this.runQuery();
-                List<Point> resultSeries = new ArrayList<>();
+        PieChartNVD3 pieChartNVD3 = new PieChartNVD3(CdaService, "typeOfAidChart", "customDashboardsTypeOfAidChart");
 
-                for (List<String> item : result.getResultset()) {
-                    resultSeries.add(new Point(item.get(0), Float.parseFloat(item.get(1))));
-                }
-
-                return resultSeries;
-            }
-        };
-
-        pieChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
+        // add MDX queries parameters
+        pieChartNVD3.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
 
         if (currencyParam != null) {
             if (currencyParam.equals("true")) {
-                pieChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+                pieChartNVD3.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
             }
         }
         if (institutionParam != null) {
-            pieChart.setParam("paramextendingAgencies", "[Name].[" + institutionParam + "]");
+            pieChartNVD3.setParam("paramextendingAgencies", "[Name].[" + institutionParam + "]");
         }
         if (typeOfFlowParam != null && typeOfFlowParam.equals(multilateralCategory.getName())) {
-            pieChart.setParam("paramtypeOfAidChartRowSet", typeOfAidChartRowSetMultilateral);
-            pieChart.setParam("parambilateral", "Multilateral");
+            pieChartNVD3.setParam("paramtypeOfAidChartRowSet", typeOfAidChartRowSetMultilateral);
+            pieChartNVD3.setParam("parambilateral", "Multilateral");
         } else {
-            pieChart.setParam("paramtypeOfAidChartRowSet", typeOfAidChartRowSetBilateral);
-            pieChart.setParam("parambilateral", "Bilateral");
+            pieChartNVD3.setParam("paramtypeOfAidChartRowSet", typeOfAidChartRowSetBilateral);
+            pieChartNVD3.setParam("parambilateral", "Bilateral");
         }
 
-        Options options = pieChart.getOptions();
-        // check if we have a result and make the chart slightly higher
-        if (pieChart.getResultSeries().size() != 0) {
-            if (humanitarianAidParam != null && humanitarianAidParam.equals("true")) {
-                options.getChartOptions().setHeight(500);
-            } else {
-                options.getChartOptions().setHeight(400);
-            }
-        }
-
-        options.addSeries(new PointSeries()
-                .setType(SeriesType.PIE)
-                .setData(pieChart.getResultSeries()));
-        add(pieChart.getChart());
+        add(pieChartNVD3);
     }
 
     protected void addTypeBiMultilateralChart () {
-        Label title = new Label("biMultilateralTitle", new StringResourceModel("reportsinstitutiontypeofaiddashboards.biMultilateralChart", this, null, null));
+        Label title = new Label("biMultilateralTitle", new StringResourceModel("ReportsInstitutionTypeOfAidDashboards.biMultilateralChart", this, null, null));
         add(title);
 
-        PieChart pieChart = new PieChart(CdaService, "biMultilateralChart", "customDashboardsBiMultilateralChart") {
-            @Override
-            public List<Point> getResultSeries () {
-                this.result = this.runQuery();
-                List<Point> resultSeries = new ArrayList<>();
+        PieChartNVD3 pieChartNVD3 = new PieChartNVD3(CdaService, "biMultilateralChart", "customDashboardsBiMultilateralChart");
 
-                for (List<String> item : result.getResultset()) {
-                    resultSeries.add(new Point(item.get(0), Float.parseFloat(item.get(1))));
-                }
-
-                return resultSeries;
-            }
-        };
-
-        pieChart.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
+        // add MDX queries parameters
+        pieChartNVD3.setParam("paramFIRST_YEAR", Integer.toString(tableYear));
 
         if (currencyParam != null) {
             if (currencyParam.equals("true")) {
-                pieChart.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
+                pieChartNVD3.setParam("paramcurrency", ReportsConstants.MDX_NAT_CURRENCY);
             }
         }
 
-        Options options = pieChart.getOptions();
-        // check if we have a result and make the chart slightly higher
-        if (pieChart.getResultSeries().size() != 0) {
-            options.getChartOptions().setHeight(350);
-        }
-
-        options.addSeries(new PointSeries()
-                .setType(SeriesType.PIE)
-                .setData(pieChart.getResultSeries()));
-        add(pieChart.getChart());
-    }
-
-    @Override
-    public void renderHead(IHeaderResponse response) {
-        super.renderHead(response);
-
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "Dashboards.utilities.js")));
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "highcharts-no-data-to-display.js")));
-
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "canvg-1.3/rgbcolor.js")));
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "canvg-1.3/StackBlur.js")));
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "canvg-1.3/canvg.js")));
-
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "html2canvas.js")));
-
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "jspdf.min.js")));
-
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(Dashboards.class, "reports.js")));
+        add(pieChartNVD3);
     }
 }

@@ -78,6 +78,9 @@
 		<int:method name="findByReportingYearAndApprovedTrueAndFormTypeIn" request-channel="getChannel">
 			<int:header name="requestName" value="findCustomTransactionByReportingYearAndApprovedTrueAndFormTypeInChannel"/>
 		</int:method>
+		<int:method name="findByApprovedTrueAndFormTypeInOrderByCrsIdAscCreatedDateAsc" request-channel="getChannel">
+			<int:header name="requestName" value="findCustomTransactionByApprovedTrueAndFormTypeInlOrderByCrsIdentificationNumberAscCreatedDateAscChannel"/>
+		</int:method>
 		<int:method name="findDistinctReportingYears" request-channel="getChannel">
 			<int:header name="requestName" value="findDistinctReportingYearsInTransactionChannel"/>
 		</int:method>
@@ -90,6 +93,12 @@
         <int:method name="findDistinctReportingGeopraphy" request-channel="getChannel">
             <int:header name="requestName" value="findDistinctReportingGeopraphyInTransactionChannel"/>
         </int:method>
+		<int:method name="findBySearchFormPageable" request-channel="getChannel">
+			<int:header name="requestName" value="findTransactionBySearchFormPageableChannel"/>
+		</int:method>		
+		<int:method name="findByDonorIdCrsIdActive" request-channel="getChannel">
+			<int:header name="requestName" value="findTransactionByDonorIdCrsIdActiveChannel"/>
+		</int:method>		
 	</int:gateway>
 		
 		

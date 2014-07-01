@@ -12,17 +12,11 @@
 </wicket:head>
 <body>
     <wicket:extend>
-        <div id="reports-page">
+        <div id="printable-container">
             <div class="container">
-                <div class="row">
-                    <div class="span12">
-                        <h2 wicket:id="title"/>
-                        <br/>
-                    </div>
-                </div>
-
                 <!-- country dashboard -->
                 <div class="row">
+                    <br/>
                     <div class="span6">
                         <div class="box">
                             <div class="box-header">
@@ -48,7 +42,12 @@
                                 <tbody>
                                     <tr wicket:id="countryTableRows">
                                         <td wicket:id="col0" class="string">Region</td>
-                                        <td wicket:id="col1" class="string">Country</td>
+                                        <td>
+                                            <a href="#" wicket:id="link">
+                                                <span wicket:id="linkName">Country</span>
+                                            </a>
+                                            <span wicket:id="total">TOTAL</span>
+                                        </td>
                                         <td wicket:id="col2" class="numeric">Currency</td>
                                         <td wicket:id="col3" class="numeric">%</td>
                                         <td wicket:id="col4" class="numeric">Currency</td>
@@ -97,7 +96,11 @@
                                 </thead>
                                 <tbody>
                                 <tr wicket:id="sectorTableRows">
-                                    <td wicket:id="col0" class="string">Main Sector</td>
+                                    <td>
+                                        <a href="#" wicket:id="link">
+                                            <span wicket:id="linkName">Main Sector</span>
+                                        </a>
+                                    </td>
                                     <td wicket:id="col1" class="string">Sector</td>
                                     <td wicket:id="col2" class="numeric">Currency</td>
                                     <td wicket:id="col3" class="numeric">%</td>
@@ -120,7 +123,7 @@
                     </div>
                 </div> <!-- /row -->
             </div> <!-- /container -->
-        </div> <!-- /reports-page -->
+        </div> <!-- /printable-container -->
 
         <div class="container">
             <div class="row">

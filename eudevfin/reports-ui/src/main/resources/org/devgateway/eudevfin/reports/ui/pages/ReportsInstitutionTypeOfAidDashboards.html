@@ -12,14 +12,10 @@
 </wicket:head>
 <body>
 <wicket:extend>
-    <div id="reports-page">
+    <div id="printable-container">
         <div class="container">
             <div class="row">
-                <div class="span12">
-                    <h2 wicket:id="title"/>
-                    <br/>
-                </div>
-
+                <br/>
                 <div class="span6">
                     <div class="box">
                         <div class="box-header">
@@ -42,8 +38,17 @@
                             </thead>
                             <tbody>
                             <tr wicket:id="typeOfAidTableRows">
-                                <td wicket:id="col0" class="string">Institution</td>
-                                <td wicket:id="col1" class="string">Type of Aid</td>
+                                <td>
+                                    <a href="#" wicket:id="link">
+                                        <span wicket:id="linkName">Institution</span>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="#" wicket:id="link2">
+                                        <span wicket:id="linkName">Type of Aid</span>
+                                    </a>
+                                    <span wicket:id="total">TOTAL</span>
+                                </td>
                                 <td wicket:id="col2" class="numeric">$</td>
                                 <td wicket:id="col3" class="numeric">$</td>
                             </tr>
@@ -71,7 +76,11 @@
                             </thead>
                             <tbody>
                             <tr wicket:id="typeOfAidHumanitarianAidTableRows">
-                                <td wicket:id="col0" class="string">Institution</td>
+                                <td>
+                                    <a href="#" wicket:id="link">
+                                        <span wicket:id="linkName">Institution</span>
+                                    </a>
+                                </td>
                                 <td wicket:id="col1" class="string"></td>
                                 <td wicket:id="col2" class="numeric">$</td>
                                 <td wicket:id="col3" class="numeric">$</td>
@@ -80,7 +89,7 @@
                         </table>
                     </div>
                 </div>
-                <br/><br/>
+
                 <div class="span6">
                     <div class="box">
                         <div class="box-header">
@@ -91,7 +100,8 @@
                         <div wicket:id="typeOfAidChart"/>
                     </div>
                 </div>
-
+            </div>
+            <div class="row">
                 <div class="span6 offset3">
                     <div class="box">
                         <div class="box-header">
@@ -104,7 +114,7 @@
                 </div>
             </div> <!-- /row -->
         </div> <!-- /container -->
-    </div> <!-- /reports-page -->
+    </div> <!-- /printable-container -->
 
     <div class="container">
         <div class="row">

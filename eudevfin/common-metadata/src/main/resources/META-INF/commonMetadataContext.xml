@@ -101,8 +101,8 @@
 		<int:method name="findByCode" request-channel="getChannel">
 			<int:header name="requestName" value="findChannelCategoryByCodeChannel"/>
 		</int:method>
-		<int:method name="findByGeneralSearchPageable" request-channel="getChannel">
-			<int:header name="requestName" value="findChannelCategoryByGeneralSearchPageable"/>
+		<int:method name="findByGeneralSearchAndTagsCodePaginated" request-channel="getChannel">
+			<int:header name="requestName" value="findChannelCategoryByGeneralSearchAndTagsCodePaginatedChannel"/>
 		</int:method>
 		<int:method name="findOne" request-channel="getChannel">
 			<int:header name="requestName" value="findOneChannelCategory"/>

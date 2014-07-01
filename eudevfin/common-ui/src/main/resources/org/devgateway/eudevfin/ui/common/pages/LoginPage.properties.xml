@@ -20,6 +20,7 @@
     <entry key="login.user.placeholder">Type your username...</entry>
     <entry key="login.password.label">Password</entry>
     <entry key="login.password.placeholder">Type your password...</entry>
-    <entry key="login.password.help">Keep your password secret!</entry>
+    <entry key="login.forgotPassword">Lost your password?</entry>
+    <entry key="login.forgotPassword.subject">Lost password</entry>
     <entry key="login.submit">Submit</entry>
 </properties>

@@ -11,17 +11,14 @@ package org.devgateway.eudevfin.dim.pages.transaction.crs;
 import java.math.BigDecimal;
 
 import org.apache.log4j.Logger;
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.event.Broadcast;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.ComponentPropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
+import org.devgateway.eudevfin.ui.common.components.PreviewableFormPanel;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
-import org.devgateway.eudevfin.ui.common.events.CurrencyChangedEventPayload;
 import org.devgateway.eudevfin.ui.common.events.CurrencyUpdateBehavior;
 import org.devgateway.eudevfin.ui.common.models.BigMoneyModel;
 import org.devgateway.eudevfin.ui.common.permissions.PermissionAwareComponent;
@@ -35,7 +32,7 @@ import com.vaynberg.wicket.select2.ChoiceProvider;
  * @author aartimon@developmentgateway.org
  * @since 01 November 2013
  */
-public class VolumeDataTab extends Panel implements PermissionAwareComponent {
+public class VolumeDataTab extends PreviewableFormPanel implements PermissionAwareComponent {
     private static final Logger logger = Logger.getLogger(VolumeDataTab.class);
     public static final String KEY = "tabs.volume";
 	private PageParameters parameters;
@@ -85,7 +82,7 @@ public class VolumeDataTab extends Panel implements PermissionAwareComponent {
         add(commitments);
 
         TextInputField<BigDecimal> amountsExtended = new TextInputField<>("34amountsExtended", new BigMoneyModel(new RWComponentPropertyModel<BigMoney>("amountsExtended"), readOnlyCurrencyModel));
-        amountsExtended.typeBigDecimal().required().add(new CurrencyUpdateBehavior());
+        amountsExtended.typeBigDecimal().add(new CurrencyUpdateBehavior());
         add(amountsExtended);
 
         TextInputField<BigDecimal> amountsReceived = new TextInputField<>("35amountsReceived", new BigMoneyModel(new RWComponentPropertyModel<BigMoney>("amountsReceived"), readOnlyCurrencyModel));

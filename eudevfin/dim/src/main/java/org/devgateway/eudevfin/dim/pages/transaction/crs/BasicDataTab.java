@@ -11,7 +11,6 @@ package org.devgateway.eudevfin.dim.pages.transaction.crs;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.event.Broadcast;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.IValidatable;
@@ -24,6 +23,7 @@ import org.devgateway.eudevfin.metadata.common.util.CategoryConstants;
 import org.devgateway.eudevfin.ui.common.Constants;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
+import org.devgateway.eudevfin.ui.common.components.PreviewableFormPanel;
 import org.devgateway.eudevfin.ui.common.components.TextAreaInputField;
 import org.devgateway.eudevfin.ui.common.events.Field12ChangedEventPayload;
 import org.devgateway.eudevfin.ui.common.events.Field13ChangedEventPayload;
@@ -47,7 +47,7 @@ import com.vaynberg.wicket.select2.ChoiceProvider;
  * @author aartimon@developmentgateway.org
  * @since 01 November 2013
  */
-public class BasicDataTab extends Panel implements PermissionAwareComponent {
+public class BasicDataTab extends PreviewableFormPanel implements PermissionAwareComponent {
 	private static final long serialVersionUID = 8923172292469016906L;
 	public static final String KEY = "tabs.basic";
 	public static final String VALIDATIONKEY_MULTILATERAL_CHANNEL_CODE = "validation.multilateralChannelCode";

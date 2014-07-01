@@ -561,6 +561,8 @@ var Workspace = Backbone.View.extend({
         $(this.el).find(".workspace_results_info").empty();
 
         if (args.data != null && args.data.error != null) {
+            if(args.data.error.indexOf("SaikuServiceException") > -1)
+                window.location = "../";
             return this.error(args);
         }        
         // Check to see if there is data

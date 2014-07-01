@@ -8,8 +8,8 @@ img {
 	padding-left: 0px;
 }
 
-#reports-page {
-    background-color: #ffffff;
+.oda-legend {
+    float: right;
 }
 
 /************************* Tables *************************/
@@ -162,7 +162,7 @@ div.box {
 	background-color: #fff;
 	border:0px;
 	height: auto;
-	overflow: hidden;
+	/*overflow: hidden;*/
 }
 
 .box {
@@ -249,4 +249,9 @@ div.box {
 
 .no-data {
 	display: none;
+}
+
+h3.smaller {
+    font-size: 1.2em;
+    font-weight: bold;
 }

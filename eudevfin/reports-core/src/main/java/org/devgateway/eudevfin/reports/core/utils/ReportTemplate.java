@@ -516,11 +516,11 @@ public class ReportTemplate {
 				str.append(",");
 		}
 		str.append("}  ON ROWS, \n");
-		str.append(" {");
+		str.append(" NON EMPTY {");
 		str.append(StringUtils.join(measures.toArray(), ","));
 		str.append("}*" + slicer + " ON COLUMNS \n");
 		str.append("FROM [Financial] \n");
-		str.append("WHERE {[Reporting Year].[$P{REPORTING_YEAR}]} * {[Form Type].[bilateralOda.CRS], [Form Type].[multilateralOda.CRS], [Form Type].[nonOda.nonExport], [Form Type].[nonOda.export], [Form Type].[nonOda.privateGrants], [Form Type].[nonOda.privateMarket], [Form Type].[nonOda.otherFlows], [Form Type].[#null]}\n");
+		str.append("WHERE {[Reporting Year].[$P{REPORTING_YEAR}]} * {[Form Type].[bilateralOda.CRS], [Form Type].[multilateralOda.CRS], [Form Type].[nonOda.nonExport], [Form Type].[nonOda.export], [Form Type].[nonOda.privateGrants], [Form Type].[nonOda.privateMarket], [Form Type].[nonOda.otherFlows], [Form Type].[Unspecified]}\n");
 		Node queryString = doc.getElementsByTagName("queryString").item(0);
 		CDATASection cdata = doc.createCDATASection(str.toString());
 		queryString.appendChild(cdata);

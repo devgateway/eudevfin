@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Index;
 import org.hibernate.envers.Audited;
 
 /**
@@ -18,7 +19,8 @@ import org.hibernate.envers.Audited;
 @DiscriminatorValue("ChannelCategoryTrn")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class ChannelCategoryTranslation extends CategoryTranslation implements ChannelCategoryTrnInterface {
-
+	
+	@Index(name="channel_category_acronym_idx")
 	private String acronym;
 	@Override
 	public String getAcronym() {

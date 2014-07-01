@@ -61,7 +61,7 @@ public abstract class AbstractTranslateable<T extends AbstractTranslation<? exte
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval=true)
     @MapKey(name = "locale")
-	protected Map<String, T> translations=new HashMap<>();
+	protected Map<String, T> translations;
 
 
     protected void set(final String property, final Object value) {
@@ -174,7 +174,12 @@ public abstract class AbstractTranslateable<T extends AbstractTranslation<? exte
     }
 
     public void setTranslations(final Map<String, T> translations) {
-        this.translations = translations;
+		if (this.translations == null)
+			this.translations = translations;
+		else {
+			this.translations.clear();
+			if(translations!=null) this.translations.putAll(translations);
+		}
     }
 
     public String getModifiedBy() {

@@ -81,6 +81,8 @@ public class HistoricalExchangeRate implements Serializable {
     private String modifiedBy;
     @LastModifiedDate
     private Date modfiedDate;
+
+    private Boolean isInverted;
     
 
 	/**
@@ -209,6 +211,12 @@ public class HistoricalExchangeRate implements Serializable {
 	public void setModfiedDate(Date modfiedDate) {
 		this.modfiedDate = modfiedDate;
 	}
-	
 
+    public Boolean getIsInverted() {
+        return isInverted;
+    }
+
+    public void setIsInverted(Boolean isInverted) {
+        this.isInverted = isInverted;
+    }
 }

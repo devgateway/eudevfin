@@ -34,7 +34,7 @@ public class TestGetAllCurrencies {
 	@Test
 	public void testGetAllCurrencies() {	
 		LinkedHashMap<String,String> json = exchangeQueryService.getCurrenciesAndNames();
-		System.out.println(json);
+		//System.out.println(json);
 	}
 	
 	

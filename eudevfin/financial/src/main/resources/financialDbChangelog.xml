@@ -94,6 +94,32 @@
 		<sql dbms="derby">ALTER TABLE FINANCIALTRANSACTIONTRANSLATION ALTER DESCRIPTION SET DATA TYPE VARCHAR(20000);</sql>
 		<sql dbms="derby">ALTER TABLE FINANCIALTRANSACTIONTRANSLATION_AUD ALTER DESCRIPTION SET DATA TYPE VARCHAR(20000);</sql>
 	</changeSet>
+
+	
+	<changeSet id="8" author="mihai" failOnError="true" runAlways="false" runInTransaction="true">
+    	<preConditions onFail="MARK_RAN">
+            <columnExists tableName="FINANCIALTRANSACTION" columnName="FIRSTCOFINANCINGAGENCY_ID"/>
+        </preConditions>
+		<comment>Change cofinancing agencies to free text</comment>
+		<sql>
+			ALTER TABLE FINANCIALTRANSACTION DROP COLUMN FIRSTCOFINANCINGAGENCY_ID;
+			ALTER TABLE FINANCIALTRANSACTION DROP COLUMN SECONDCOFINANCINGAGENCY_ID;
+			ALTER TABLE FINANCIALTRANSACTION DROP COLUMN THIRDCOFINANCINGAGENCY_ID;
+			ALTER TABLE FINANCIALTRANSACTION_AUD DROP COLUMN FIRSTCOFINANCINGAGENCY_ID;
+			ALTER TABLE FINANCIALTRANSACTION_AUD DROP COLUMN SECONDCOFINANCINGAGENCY_ID;
+			ALTER TABLE FINANCIALTRANSACTION_AUD DROP COLUMN THIRDCOFINANCINGAGENCY_ID;
+		</sql>
+		
+	</changeSet>
+
+
+	<changeSet id="9" author="mihai" failOnError="true" runAlways="false" runInTransaction="true">
+		<comment>make sure draft and aproved flags are set</comment>
+		<sql>update financialtransaction set draft=false where draft is null;</sql>
+		<sql>update financialtransaction_aud set draft=false where draft is null;</sql>
+		<sql>update financialtransaction set approved=false where approved is null;</sql>
+		<sql>update financialtransaction_aud set approved=false where approved is null;</sql>
+	</changeSet>
 	    
 
 </databaseChangeLog>

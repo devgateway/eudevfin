@@ -41,6 +41,10 @@
 			<int:header name="requestName" value="findByUsernameUserChannel" />
 		</int:method>
 
+        <int:method name="findUsersWithPersistedAuthority" request-channel="userChannel">
+            <int:header name="requestName" value="findUsersWithPersistedAuthorityChannel" />
+        </int:method>
+
 		<int:method name="findOne" request-channel="userChannel">
 			<int:header name="requestName" value="findOneUserChannel" />
 		</int:method>

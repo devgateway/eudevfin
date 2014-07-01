@@ -9,8 +9,13 @@ import java.util.List;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUserGroup;
 import org.devgateway.eudevfin.common.dao.AbstractDaoImpl;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
+import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.repository.CustomFinancialTransactionRepository;
 import org.devgateway.eudevfin.financial.service.CustomFinancialTransactionService;
+import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
+import org.devgateway.eudevfin.metadata.common.domain.Area;
+import org.devgateway.eudevfin.metadata.common.domain.Category;
+import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -32,8 +37,51 @@ public class CustomFinancialTransactionDao
 	
 	@Autowired
 	private CustomFinancialTransactionRepository repo;
-
-
+	
+	
+	/**
+	 * @see FinancialTransactionService#findBySearchFormPageable(Integer, Category, Area, String, String, Organization, String, Pageable)
+	 * @param year
+	 * @param sector
+	 * @param recipient
+	 * @param searchString
+	 * @param formType
+	 * @param extendingAgency
+	 * @param locale
+	 * @param pageable
+	 * @return
+	 */
+	@ServiceActivator(inputChannel = "findTransactionBySearchFormPageableChannel")
+	public Page<CustomFinancialTransaction> findBySearchFormPageable(
+			@Header(value = "year", required = false) final LocalDateTime year,
+			@Header(value = "sector", required = false) final Category sector,
+			@Header(value = "recipient", required = false) final Area recipient,
+			@Header(value = "searchString", required = false) final String searchString,
+			@Header(value = "formType", required = false) final String formType,
+			@Header(value = "extendingAgency", required = false) final Organization extendingAgency,
+			@Header(value = "locale", required = false) final String locale, final Pageable pageable) {
+		return this.getRepo().performSearch(year, sector, recipient, searchString, formType, extendingAgency, pageable);
+	}
+	
+/**
+ * @see CustomFinancialTransactionService#findByDonorIdCrsIdActive(String, String, Boolean, String, Pageable)
+ * @param crsIdSearch
+ * @param donorIdSearch
+ * @param locale
+ * @param pageable
+ * @return
+ */
+	@ServiceActivator(inputChannel = "findTransactionByDonorIdCrsIdActiveChannel")
+	public Page<CustomFinancialTransaction> findByDonorIdCrsIdActive(
+			@Header(value = "donorIdSearch", required = false) String donorIdSearch,
+			@Header(value = "crsIdSearch", required = false) String crsIdSearch,
+			@Header(value = "active", required = false) Boolean active, 
+		    @Header(value = "locale", required = false) String locale, 
+		    Pageable pageable) {
+		return this.getRepo().performSearchByDonorIdCrsIdActive(donorIdSearch,crsIdSearch,active,locale,pageable);
+	}
+	
+	
 	/* (non-Javadoc)
 	 * @see org.devgateway.eudevfin.common.dao.AbstractDaoImpl#getRepo()
 	 */
@@ -127,12 +175,22 @@ public class CustomFinancialTransactionDao
 	 * @return
 	 */
 	@ServiceActivator(inputChannel = "findCustomTransactionByReportingYearAndApprovedTrueAndFormTypeInChannel")
-	public List<CustomFinancialTransaction> findByReportingYearAndDraftFalseAndFormTypeIn(final Integer year,
+	public List<CustomFinancialTransaction> findByReportingYearAndApprovedTrueAndFormTypeIn(final Integer year,
 			@Header("notFormType") final Collection<String> notFormType) {
 		final LocalDateTime start = new LocalDateTime(year, 1, 1, 0, 0);
 		final LocalDateTime end = new LocalDateTime(year + 1, 1, 1, 0, 0);
 
 		return this.getRepo().findByReportingYearBetweenAndApprovedTrueAndFormTypeIn(start, end, notFormType);
+	}
+	
+	/**
+	 * @see CustomFinancialTransactionService#findByReportingYearAndDraftFalseAndFormTypeIn(Integer)
+	 * @param year
+	 * @return
+	 */
+	@ServiceActivator(inputChannel = "findCustomTransactionByApprovedTrueAndFormTypeInlOrderByCrsIdentificationNumberAscCreatedDateAscChannel")
+	public List<CustomFinancialTransaction> findByApprovedTrueAndFormTypeIn(final Collection<String> notFormType) {
+		return this.getRepo().findByApprovedTrueAndFormTypeInOrderByCrsIdentificationNumberAscCreatedDateAsc(notFormType);
 	}
 	
 	@ServiceActivator(inputChannel="findDistinctReportingYearsInTransactionChannel")

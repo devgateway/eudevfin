@@ -90,7 +90,13 @@ public class CategoryConstants {
 			public static final String POPULATION = "TYPE_OF_FINANCE##4";
 		}
 	}	
-			
-			
+	
+	public static final class NatureOfSubmission {
+		public static final String NEW_ACTIVITY_REPORTED = "NATURE_OF_SUBMISSION##1";
+		public static final String REVISION = "NATURE_OF_SUBMISSION##2";
+		public static final String PREVIOUSLY_REPORTED_ACTIVITY = "NATURE_OF_SUBMISSION##3";
+		public static final String PROVISIONAL_DATA = "NATURE_OF_SUBMISSION##5";
+		public static final String COMMITMENT_EQ_DISBURSEMENT = "NATURE_OF_SUBMISSION##8";
+	}
 
 }

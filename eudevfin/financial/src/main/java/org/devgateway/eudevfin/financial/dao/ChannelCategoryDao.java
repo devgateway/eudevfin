@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.integration.annotation.Header;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Alex
@@ -40,25 +41,49 @@ public class ChannelCategoryDao extends AbstractDaoImpl<ChannelCategory, Long, C
 	}
 	
 	@ServiceActivator(inputChannel="findChannelCategoryByCodeChannel")
-	public NullableWrapper<ChannelCategory> findByCode(String code) {
-		return newWrapper(this.getRepo().findByCode(code));
+	public NullableWrapper<ChannelCategory> findByCode(final String code) {
+		return this.newWrapper(this.getRepo().findByCode(code));
 	}
 	
 	
-	@ServiceActivator(inputChannel="findChannelCategoryByGeneralSearchPageable")
-	@Override
-	public Page<ChannelCategory> findByGeneralSearch(String searchString,
-			@Header(value="locale",required=false) String locale, @Header("pageable") Pageable pageable) { 
-		if(searchString.isEmpty()) return this.getRepo().findByParentCategoryNotNull(pageable);
-		return repo.findByTranslationNameContaining(searchString, pageable);
-	}
+//	@ServiceActivator(inputChannel="findChannelCategoryByGeneralSearchPageable")
+//	@Override
+//	public Page<ChannelCategory> findByGeneralSearch(final String searchString,
+//			@Header(value="locale",required=false) final String locale, @Header("pageable") final Pageable pageable) { 
+//		if(searchString.isEmpty()) {
+//			return this.getRepo().findByParentCategoryNotNull(pageable);
+//		}
+//		return this.repo.findByTranslationNameContaining(searchString, pageable);
+//	}
 	
 	
 	
 	@ServiceActivator(inputChannel="findOneChannelCategory")
 	@Override
-	public NullableWrapper<ChannelCategory> findOne(Long id) {
+	public NullableWrapper<ChannelCategory> findOne(final Long id) {
 		return super.findOne(id);
+	}
+	
+	@ServiceActivator(inputChannel = "findChannelCategoryByGeneralSearchAndTagsCodePaginatedChannel")
+	@Transactional
+	public Page<ChannelCategory> findByGeneralSearchAndTagsCodePaginated(
+			@Header("locale") final String locale, final String searchString,
+			@Header("tagsCode") final String tagsCode,
+			@Header("pageable") final Pageable page,
+			@Header("initializeChildren") final Boolean initializeChildren) {
+
+		Page<ChannelCategory> result	= null;
+		if (searchString.isEmpty()) {
+			result 	= this.getRepo().findByTagsCode(tagsCode, page);
+		} else {
+			result	= this.getRepo().findByTranslationsNameIgnoreCaseContainsAndTagsCode(
+						searchString.toLowerCase(), tagsCode, page);
+		}
+
+		CategoryDaoImpl.initializeChildrenIfNeeded(result, initializeChildren);
+
+		return result;
+
 	}
 
 }

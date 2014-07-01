@@ -20,10 +20,16 @@ public interface ChannelCategoryRepository extends
 	
 	List<ChannelCategory> findByTagsCode(String code);
 	
+	Page<ChannelCategory> findByTagsCode(String code,Pageable page);
+	
 	ChannelCategory findByCode(String code);
 	
-	@Query(" select distinct trn.parent from ChannelCategoryTranslation trn where lower(trn.name) like %?1% ")
+	@Query(" select distinct trn.parent from ChannelCategoryTranslation trn where lower(trn.name) like %?1% or lower(trn.acronym) like %?1% ")
 	Page<ChannelCategory> findByTranslationNameContaining(String searchString,Pageable pageable);
+	
+	@Query("select distinct categ from CategoryTranslation trn join trn.parent categ join categ.tags tag "
+			+ "where (lower(categ.code) like %?1% or lower(trn.name) like %?1% or lower(trn.acronym) like %?1% ) and tag.code=?2")
+	Page<ChannelCategory> findByTranslationsNameIgnoreCaseContainsAndTagsCode(String term, String tagsCode,Pageable page);		
 	
 	Page<ChannelCategory> findByParentCategoryNotNull(Pageable pageable);
 }

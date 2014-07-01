@@ -19,7 +19,7 @@ import org.springframework.data.jpa.repository.Query;
  *
  */
 public interface CustomFinancialTransactionRepository extends
-		JpaRepository<CustomFinancialTransaction, Long> {
+		JpaRepository<CustomFinancialTransaction, Long>, CustomFinancialTransactionRepositoryCustom {
 	
 	Page<CustomFinancialTransaction> findByDraftAndApprovedFalse(Boolean draft, Pageable pageable );
 	
@@ -36,6 +36,9 @@ public interface CustomFinancialTransactionRepository extends
 	
 	List<CustomFinancialTransaction> findByReportingYearBetweenAndApprovedTrueAndFormTypeIn(LocalDateTime start,
 			LocalDateTime end, Collection<String> notFormType);
+	
+	List<CustomFinancialTransaction> findByApprovedTrueAndFormTypeInOrderByCrsIdentificationNumberAscCreatedDateAsc(
+			Collection<String> notFormType);
 
 	@Query ("select distinct year(ctx.reportingYear) from CustomFinancialTransaction ctx where " +
             "ctx.approved = true and ctx.reportingYear IS NOT NULL and ctx.draft = false ")
@@ -51,4 +54,5 @@ public interface CustomFinancialTransactionRepository extends
 
     @Query ("select distinct ct.name from Category c, CategoryTranslation ct where c.code like 'GEOGRAPHY##%' and ct.parent  = c.id ")
     List<String> findDistinctReportingGeopraphy();
+
 }
