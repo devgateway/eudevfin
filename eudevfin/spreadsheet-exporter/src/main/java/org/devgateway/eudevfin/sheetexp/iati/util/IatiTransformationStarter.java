@@ -49,7 +49,7 @@ public class IatiTransformationStarter implements ITransformationStarter {
 	}
 
 	private Collection<String> getAllowedFormTypes() {
-		return Arrays.asList(new String[] { SB.BILATERAL_ODA_CRS, SB.BILATERAL_ODA_FORWARD_SPENDING });
+		return Arrays.asList(new String[] { SB.BILATERAL_ODA_CRS, SB.BILATERAL_ODA_FORWARD_SPENDING, SB.MULTILATERAL_ODA_CRS});
 	}
 	
 	/* (non-Javadoc)
@@ -58,9 +58,9 @@ public class IatiTransformationStarter implements ITransformationStarter {
 	@Override
 	public void executeTransformation(final HttpServletResponse response, final SpreadsheetTransformerService transformerService) {
 		try {
-			final String filename	= "iati-export.xls";
+			final String filename	= "iati-export.xml";
 			response.setContentType("application/xml");
-			response.setHeader("Content-Disposition", "inline; filename=" + filename);
+			response.setHeader("Content-Disposition", "attachment; filename=" + filename);
 			final OutputStream out				= response.getOutputStream();
 			transformerService.createIatiXmlOnStream(this.finalList,
 					new BufferedOutputStream(out), "IATI" );
