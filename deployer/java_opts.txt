@@ -1,0 +1,1 @@
+JAVA_OPTIONS="-XX:+UseParallelGC -server -XX:+DisableExplicitGC -Xmx4096M -XX:MaxPermSize=512M -Dderby.system.home=/opt/derby/$INSTANCE -Deudevfin.derby.mode=network -Dwicket.configuration=deployment -Deudevfin.backup.home=/opt/backup/$INSTANCE -Dderby.optimizer.optimizeJoinOrder=false"
