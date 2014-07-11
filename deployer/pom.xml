@@ -22,7 +22,7 @@
 				<executions>
 					<execution>
 						<id>unpack war and configuration</id>
-						<phase>prepare-package</phase>
+						<phase>install</phase>
 						<goals>
 							<goal>unpack</goal>
 						</goals>
@@ -44,31 +44,12 @@
 									<overWrite>true</overWrite>
 									<outputDirectory>/var/lib/tomcat7/webapps/ROOT/</outputDirectory>
 								</artifactItem>
-								
+
 							</artifactItems>
 							<includes>**/*</includes>
 						</configuration>
 					</execution>
 
-
-					<execution>
-						<id>copy-installed</id>
-						<phase>install</phase>
-						<goals>
-							<goal>copy</goal>
-						</goals>
-						<configuration>
-							<artifactItems>
-								<artifactItem>
-									<groupId>org.devgateway.eudevfin</groupId>
-									<artifactId>dim</artifactId>
-									<version>${eudevfin.version}</version>
-									<type>war</type>
-								</artifactItem>
-							</artifactItems>
-							<outputDirectory>some-other-place</outputDirectory>
-						</configuration>
-					</execution>
 				</executions>
 			</plugin>
 
