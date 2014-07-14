@@ -22,4 +22,29 @@ public class ActivityDate {
 	private String type;
 	
 	private Date value;
+	
+	public ActivityDate(final String type, final Date value) {
+		super();
+		this.type = type;
+		this.value = value;
+	}
+
+	public String getType() {
+		return this.type;
+	}
+
+	public void setType(final String type) {
+		this.type = type;
+	}
+
+	public Date getValue() {
+		return this.value;
+	}
+
+	public void setValue(final Date value) {
+		this.value = value;
+	}
+	
+	
+	
 }

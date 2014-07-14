@@ -70,7 +70,15 @@ public class IatiActivityEngine {
 				new BasicElementTransformers.FreestandingTechnicalCoop(ctx, iatiActivity, params),
 				new BasicElementTransformers.ProgramBasedApproach(ctx, iatiActivity, params),
 				new BasicElementTransformers.InvestmentProject(ctx, iatiActivity, params),
-				new BasicElementTransformers.AssociatedFinancing(ctx, iatiActivity, params)
+				new BasicElementTransformers.AssociatedFinancing(ctx, iatiActivity, params),
+				new BasicElementTransformers.ReportingOrganization(ctx, iatiActivity, params),
+				new BasicElementTransformers.ExtendingOrganization(ctx, iatiActivity, params),
+				new BasicElementTransformers.ImplementingOrganization(ctx, iatiActivity, params),
+				new BasicElementTransformers.Sectors(ctx, iatiActivity, params),
+				new BasicElementTransformers.Collaboration(ctx, iatiActivity, params),
+				new BasicElementTransformers.Locations(ctx, iatiActivity, params),
+				new BasicElementTransformers.ActivityPlannedStartDate(ctx, iatiActivity, params),
+				new BasicElementTransformers.ActivityPlannedEndDate(ctx, iatiActivity, params)
 		};
 		this.elementTransformers = Arrays.asList(elementTransformers);
 	}

@@ -3,12 +3,23 @@
  */
 package org.devgateway.eudevfin.sheetexp.iati.transformer;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
 import org.devgateway.eudevfin.metadata.common.domain.Category;
+import org.devgateway.eudevfin.metadata.common.domain.ChannelCategory;
+import org.devgateway.eudevfin.metadata.common.domain.Organization;
+import org.devgateway.eudevfin.sheetexp.iati.domain.ActivityDate;
+import org.devgateway.eudevfin.sheetexp.iati.domain.CodeEntity;
 import org.devgateway.eudevfin.sheetexp.iati.domain.IatiActivity;
+import org.devgateway.eudevfin.sheetexp.iati.domain.Location;
+import org.devgateway.eudevfin.sheetexp.iati.domain.ParticipatingOrg;
+import org.devgateway.eudevfin.sheetexp.iati.domain.ReportingOrg;
+import org.devgateway.eudevfin.sheetexp.iati.domain.Sector;
 import org.devgateway.eudevfin.sheetexp.iati.transformer.util.Conditions;
+import org.joda.time.LocalDateTime;
 
 /**
  * @author alexandru-m-g
@@ -302,6 +313,256 @@ public class BasicElementTransformers {
 		
 	}
 	
+	public static class ReportingOrganization extends AbstractElementTransformer {
+
+		public ReportingOrganization(final CustomFinancialTransaction ctx,
+				final IatiActivity iatiActivity, final Map<String, Object> paramsMap) {
+			super(ctx, iatiActivity, paramsMap);
+		}
+
+		@Override
+		public void process() {
+			final Organization org = this.getCtx().getExtendingAgency();
+			if (org != null) {
+				final String ref = org.getDonorCode() + "-" + org.getAcronym();
+				final ReportingOrg existingOrg = this.getIatiActivity().getReportingOrg();
+				if ( existingOrg == null || Conditions.SHOULD_OVERWRITE_TRANSACTION(this.getCtx()) ) {
+					final ReportingOrg newOrg = new ReportingOrg("10", 
+							ref, org.getName());
+					this.getIatiActivity().setReportingOrg(newOrg);
+				}
+			}
+			
+		}
+		
+	}
 	
+	public static class ExtendingOrganization extends AbstractElementTransformer {
+
+		public ExtendingOrganization(final CustomFinancialTransaction ctx,
+				final IatiActivity iatiActivity, final Map<String, Object> paramsMap) {
+			super(ctx, iatiActivity, paramsMap);
+		}
+		
+		@Override
+		public void process() {
+			final ParticipatingOrg newParticipatingOrg = this.getParticipatingOrg();
+			if (newParticipatingOrg != null) {
+				
+				List<ParticipatingOrg> participatingOrgs = this.getIatiActivity().getParticipatingOrgs();
+				if ( participatingOrgs == null ) {
+					participatingOrgs = new ArrayList<>();
+					this.getIatiActivity().setParticipatingOrgs(participatingOrgs);
+				}
+				boolean found = false;
+				for (final ParticipatingOrg currentOrg: participatingOrgs) {
+					if( this.getRole().equals(currentOrg.getRole()) ) {
+						if ( newParticipatingOrg.getRef().equals(currentOrg.getRef()) ) {
+							found = true;
+						}
+						else if (Conditions.IS_REVISION(this.getCtx())) {
+							currentOrg.setRef(newParticipatingOrg.getRef());
+							currentOrg.setValue(newParticipatingOrg.getValue());
+						}
+					} 
+				}
+				if ( !found ) {
+					participatingOrgs.add(newParticipatingOrg);
+				}
+				
+			}
+			
+		}
+		
+		public String getRole(){
+			return "Extending";
+		}
+		
+		public ParticipatingOrg getParticipatingOrg() {
+			final Organization org = this.getCtx().getExtendingAgency();
+			if ( org != null) {
+				final String ref = org.getDonorCode() + "-" + org.getAcronym();
+				return new ParticipatingOrg(this.getRole(),ref, org.getName() );
+			}
+			return null;
+		}
+		
+	}
 	
+	public static class ImplementingOrganization extends ExtendingOrganization {
+
+		public ImplementingOrganization(final CustomFinancialTransaction ctx,
+				final IatiActivity iatiActivity, final Map<String, Object> paramsMap) {
+			super(ctx, iatiActivity, paramsMap);
+		}
+
+		@Override
+		public String getRole() {
+			return "Implementing";
+		}
+
+		@Override
+		public ParticipatingOrg getParticipatingOrg() {
+			final ChannelCategory implementingOrg = this.getCtx().getChannel();
+			if (implementingOrg != null) {
+				return new ParticipatingOrg(this.getRole(), 
+						implementingOrg.getDisplayableCode(), implementingOrg.getName() );
+			}
+			return null;
+			
+		}
+		
+		
+	}
+
+	public static class Sectors extends AbstractElementTransformer {
+
+		public Sectors(final CustomFinancialTransaction ctx,
+				final IatiActivity iatiActivity, final Map<String, Object> paramsMap) {
+			super(ctx, iatiActivity, paramsMap);
+		}
+
+		@Override
+		public void process() {
+			final Category sectorCateg = this.getCtx().getSector();
+			if ( sectorCateg != null ) {
+				List<Sector> sectors = this.getIatiActivity().getSectors();
+				if (sectors == null) {
+					sectors = new ArrayList<>();
+					this.getIatiActivity().setSectors(sectors);
+				}
+				if ( Conditions.IS_REVISION(this.getCtx()) ) {
+					sectors.clear();
+				}
+				boolean found = false;
+				for (final Sector tempSector: sectors) {
+					if ( "DAC".equals(tempSector.getVocabulary()) 
+							&& sectorCateg.getCode().equals(tempSector.getCode()) ) {
+						found = true;
+					}
+				}
+				if (!found) {
+					sectors.add(new Sector("DAC", sectorCateg.getCode(), sectorCateg.getName()));
+				}
+			}
+			
+		}
+		
+	}
+	
+	public static class Collaboration extends AbstractElementTransformer {
+
+		public Collaboration(final CustomFinancialTransaction ctx,
+				final IatiActivity iatiActivity, final Map<String, Object> paramsMap) {
+			super(ctx, iatiActivity, paramsMap);
+		}
+
+		@Override
+		public void process() {
+			final Category biMultiCateg = this.getCtx().getBiMultilateral();
+			if (biMultiCateg != null) {
+				final CodeEntity collabType = this.getIatiActivity().getCollaborationType();
+				if ( collabType == null || Conditions.IS_REVISION(this.getCtx()) ) {
+					this.getIatiActivity().setCollaborationType(
+							new CodeEntity(biMultiCateg.getDisplayableCode(), biMultiCateg.getName()) );
+				}
+			}
+			
+		}
+	}
+	
+	public static class Locations extends AbstractElementTransformer {
+
+		public Locations(final CustomFinancialTransaction ctx,
+				final IatiActivity iatiActivity, final Map<String, Object> paramsMap) {
+			super(ctx, iatiActivity, paramsMap);
+		}
+
+		@Override
+		public void process() {
+			String locationName = this.getCtx().getGeoTargetArea();
+			if ( locationName != null && locationName.trim().length() > 0 ) {
+				locationName = locationName.trim();
+				List<Location> locations = this.getIatiActivity().getLocations();
+				if (locations == null) {
+					locations = new ArrayList<>();
+					this.getIatiActivity().setLocations(locations);
+				}
+				if ( Conditions.IS_REVISION(this.getCtx()) ) {
+					locations.clear();
+				}
+				boolean found = false;
+				for (final Location tempLocation: locations) {
+					if ( locationName.equals(tempLocation.getName()) ) {
+						found = true;
+					}
+				}
+				if (!found) {
+					locations.add(new Location(locationName));
+				}
+			}
+			
+		}
+		
+	}
+	
+	public static class ActivityPlannedStartDate extends AbstractElementTransformer {
+
+		public ActivityPlannedStartDate(final CustomFinancialTransaction ctx,
+				final IatiActivity iatiActivity, final Map<String, Object> paramsMap) {
+			super(ctx, iatiActivity, paramsMap);
+		}
+
+		@Override
+		public void process() {
+			final LocalDateTime startTime = this.getTime();
+			if (startTime!= null) {
+				List<ActivityDate> dates = this.getIatiActivity().getActivityDates();
+				if (dates == null) {
+					dates = new ArrayList<>();
+					this.getIatiActivity().setActivityDates(dates);
+				}
+				boolean found = false;
+				for(final ActivityDate tempDate: dates) {
+					if ( this.getDateType().equals(tempDate.getType()) ) {
+						found = true;
+						if (Conditions.IS_REVISION(this.getCtx()) ) {
+							tempDate.setValue(startTime.toDate());
+						}
+					}
+				}
+				if ( !found ) {
+					dates.add(new ActivityDate(this.getDateType(), startTime.toDate()) );
+				}
+			}
+		}
+		
+		public LocalDateTime getTime() {
+			return this.getCtx().getExpectedStartDate();
+		}
+		
+		public String getDateType() {
+			return "start-planned";
+		}
+	}
+	public static class ActivityPlannedEndDate extends ActivityPlannedStartDate {
+
+		public ActivityPlannedEndDate(final CustomFinancialTransaction ctx,
+				final IatiActivity iatiActivity, final Map<String, Object> paramsMap) {
+			super(ctx, iatiActivity, paramsMap);
+		}
+
+		@Override
+		public LocalDateTime getTime() {
+			return this.getCtx().getExpectedCompletionDate();
+		}
+
+
+
+		@Override
+		public String getDateType() {
+			return "end-planned";
+		}
+		
+	}
 }

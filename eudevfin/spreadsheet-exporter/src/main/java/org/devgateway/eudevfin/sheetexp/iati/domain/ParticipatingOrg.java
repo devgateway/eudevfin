@@ -12,6 +12,13 @@ public class ParticipatingOrg {
 	private String role;
 	
 	private String ref;
+	
+	public ParticipatingOrg(final String role, final String ref, final String value) {
+		super();
+		this.value = value;
+		this.role = role;
+		this.ref = ref;
+	}
 
 	public String getValue() {
 		return this.value;
