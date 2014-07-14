@@ -1,0 +1,35 @@
+#!/bin/sh
+
+UPLOADS_DIR="/home/eudevfin/uploads"
+
+help() {
+    echo "Updates the EU-DEVFIN application to the specified version number. Can install specific artifacts (translation, extras)"
+    echo "Usage $0 [install|install-translation|install-metadata] [version_number]"
+    echo "Example: $0 1.1.0"
+}
+
+
+if [ -n "$1" -a -n "$2" ]; then
+    case "$1" in
+    install)
+	mvn clean install -Deudevfin.version=$2 -P install-version
+    ;;
+    install-translation)
+	mvn install:install-file -DgroupId=org.devgateway.eudevfin -DartifactId=translation -Dversion=$2 -Dpackaging=jar -Dfile=$UPLOADS_DIR/translation-$2.jar
+	mvn install -Deudevfin.translation.version=$2 -P install-translation
+    ;;
+    install-metadata)
+	mvn install:install-file -DgroupId=org.devgateway.eudevfin -DartifactId=metadata -Dversion=$2 -Dpackaging=jar -Dfile=$UPLOADS_DIR/metadata-$2.jar
+	mvn install -Deudevfin.metadata.version=$2 -P install-metadata
+    ;;
+    *)
+	help
+    ;;
+    esac
+else
+    help
+fi
+
+
+
+
