@@ -97,6 +97,9 @@ public final class NavbarInitializer {
 			@SuppressWarnings("Convert2Diamond")
 			protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
 				List<AbstractLink> list = new ArrayList<>();
+				list.add(new MenuHeader(new StringResourceModel("navbar.newTransaction.header", this, null, null)));
+				list.add(new MenuDivider());
+
 				DropDownSubMenu bilateralOda = new DropDownSubMenu(new StringResourceModel(
 						"navbar.newTransaction.bilateralOda", this, null, null)) {
 					@Override
@@ -223,8 +226,17 @@ public final class NavbarInitializer {
 				// TODO: get available languages
 				final List<Locale> langs = new ArrayList<>();
 				langs.add(new Locale("en"));
+				langs.add(new Locale("hr"));
+				langs.add(new Locale("cs"));
+				langs.add(new Locale("et"));
+				langs.add(new Locale("hu"));
+				langs.add(new Locale("lv"));
+				langs.add(new Locale("lt"));
+				langs.add(new Locale("mt"));
+				langs.add(new Locale("pl"));
 				langs.add(new Locale("ro"));
-
+				langs.add(new Locale("sl"));
+				
 				for (Locale l : langs) {
 					PageParameters params = new PageParameters(page.getPageParameters());
 					params.set(Constants.LANGUAGE_PAGE_PARAM, l.getLanguage());

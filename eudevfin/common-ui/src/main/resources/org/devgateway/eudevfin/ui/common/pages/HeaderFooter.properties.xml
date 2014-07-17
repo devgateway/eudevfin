@@ -47,6 +47,13 @@
     
     <entry key="navbar.lang">Languages</entry>
     <entry key="navbar.lang.header">all available languages:</entry>
+    
+	<entry key="navbar.admin.header">administration tools:</entry>
+	<entry key="navbar.reports.header">reporting tools:</entry>
+    
+    <entry key="navbar.newTransaction.header">add new transactions:</entry>
+    <entry key="navbar.export.header">data export tools:</entry>
+
 
  	<entry key="bilateralOda.advanceQuestionnaire">AQ Bilateral ODA</entry>
     <entry key="bilateralOda.CRS">CRS++ Bilateral ODA</entry>

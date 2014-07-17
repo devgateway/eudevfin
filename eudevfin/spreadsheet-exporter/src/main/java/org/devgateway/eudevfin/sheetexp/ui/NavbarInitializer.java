@@ -18,6 +18,8 @@ import org.devgateway.eudevfin.ui.common.WicketNavbarComponentInitializer;
 import org.devgateway.eudevfin.ui.common.components.RepairedNavbarDropDownButton;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuBookmarkablePageLink;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuDivider;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuHeader;
 import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconType;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarDropDownButton;
@@ -43,6 +45,9 @@ public final class NavbarInitializer {
 			@Override
 			protected List<AbstractLink> newSubMenuButtons(final String buttonMarkupId) {
 				final List<AbstractLink> list = new ArrayList<>();
+				
+				list.add(new MenuHeader(new StringResourceModel("navbar.export.header", this, null, null)));
+				list.add(new MenuDivider());
 
 				final PageParameters paramsCRS = new PageParameters();
 				paramsCRS.set(MetadataConstants.REPORT_TYPE_PARAM, MetadataConstants.CRS_REPORT_TYPE);
