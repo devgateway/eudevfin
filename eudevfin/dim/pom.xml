@@ -75,6 +75,14 @@
         
         <dependency>
             <groupId>org.devgateway.eudevfin</groupId>
+            <artifactId>import-metadata</artifactId>
+            <version>${project.version}</version>
+            <classifier>excel</classifier>
+        </dependency>
+      
+        
+        <dependency>
+            <groupId>org.devgateway.eudevfin</groupId>
             <artifactId>spreadsheet-exporter</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -109,13 +117,26 @@
     </dependencies>
 
     <build>
-        <resources>
-            <resource>
-                <filtering>false</filtering>
-                <directory>src/main/resources</directory>
-            </resource>
-        </resources>
+      
         <plugins>
+
+            <plugin>
+		<artifactId>maven-assembly-plugin</artifactId>
+		<version>2.4</version>
+		<configuration>
+			<descriptor>assembly-translation.xml</descriptor>
+		</configuration>
+		<executions>
+			<execution>
+				<id>create-translations</id>
+				<phase>package</phase>
+				<goals>
+					<goal>single</goal>
+				</goals>
+			</execution>
+		</executions>
+	</plugin>
+
 
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
@@ -131,6 +152,13 @@
                 </configuration>
             </plugin>
         </plugins>
+        
+          <resources>
+            <resource>
+    			<filtering>false</filtering>
+				<directory>src/main/resources</directory>
+            </resource>
+        </resources>
     </build>
     
 

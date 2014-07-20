@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2013 Development Gateway.
+  ~ All rights reserved. This program and the accompanying materials
+  ~ are made available under the terms of the GNU Public License v3.0
+  ~ which accompanies this distribution, and is available at
+  ~ http://www.gnu.org/licenses/gpl.html
+  -->
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="54futureDebtPrincipal.label">Future debt service: 1st year, principal</entry>
+    <entry key="54futureDebtPrincipal.placeholder"></entry>
+    <entry key="54futureDebtPrincipal.help">TODO: edit help text</entry>
+    <entry key="54futureDebtPrincipal.help.detail">TODO: edit full glossary text</entry>
+
+    <entry key="54futureDebtInterest.label">Future debt service: 1st year, interest</entry>
+    <entry key="54futureDebtInterest.placeholder"></entry>
+    <entry key="54futureDebtInterest.help">TODO: edit help text</entry>
+    <entry key="54futureDebtInterest.help.detail">TODO: edit full glossary text</entry>
+
+</properties>

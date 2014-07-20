@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2013 Development Gateway.
+  ~ All rights reserved. This program and the accompanying materials
+  ~ are made available under the terms of the GNU Public License v3.0
+  ~ which accompanies this distribution, and is available at
+  ~ http://www.gnu.org/licenses/gpl.html
+  -->
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="otherMarkers.label">Other Markers</entry>
+
+    <entry key="96rmnch.label">96. RMNCH</entry>
+    <entry key="96rmnch.placeholder"></entry>
+    <entry key="96rmnch.help">Funding interpretation of RMNCH marker scores. Expand to view full definition.</entry>
+	<entry key="96rmnch.help.detail">The RMNCH marker is designed to facilitate "approximate" estimation of quantitative
+amounts based on the funding interpretation shares shown in the table below where the marker
+scores of "4", "3", "2", "1" and "0" correspond to 100%, 75%, 50%, 25% and 0% respectively of a
+project’s funding targeted to RMNCH activities. Care should be taken not to interpret or present
+these resulting data as precise and comprehensive amounts of RMNCH-related contributions. 
+	</entry>
+    
+
+</properties>
