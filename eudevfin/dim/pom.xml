@@ -73,6 +73,22 @@
             <version>${project.version}</version>
         </dependency>
         
+		<dependency>
+            <groupId>org.devgateway.eudevfin</groupId>
+            <artifactId>import-metadata</artifactId>
+            <version>${project.version}</version>
+            <classifier>excel</classifier>
+        </dependency>
+        
+                
+		<dependency>
+            <groupId>org.devgateway.eudevfin</groupId>
+            <artifactId>dim</artifactId>
+            <version>${project.version}</version>
+            <classifier>translation</classifier>
+        </dependency>
+        
+        
         <dependency>
             <groupId>org.devgateway.eudevfin</groupId>
             <artifactId>spreadsheet-exporter</artifactId>
@@ -111,11 +127,33 @@
     <build>
         <resources>
             <resource>
-                <filtering>false</filtering>
-                <directory>src/main/resources</directory>
+    			<filtering>true</filtering>
+				<directory>src/main/resources</directory>
+				<excludes>
+				<exclude>**/*.properties.xml</exclude>
+				</excludes>
             </resource>
         </resources>
         <plugins>
+
+	<plugin>
+		<artifactId>maven-assembly-plugin</artifactId>
+		<version>2.4</version>
+		<configuration>
+			<descriptor>assembly-translation.xml</descriptor>
+			<finalName>dim-${project.version}</finalName>
+		</configuration>
+		<executions>
+			<execution>
+				<id>create-translations</id>
+				<phase>package</phase>
+				<goals>
+					<goal>single</goal>
+				</goals>
+			</execution>
+		</executions>
+	</plugin>
+
 
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
