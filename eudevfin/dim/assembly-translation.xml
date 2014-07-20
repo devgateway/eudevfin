@@ -9,7 +9,7 @@
 	<includeBaseDirectory>false</includeBaseDirectory>
 	<fileSets>
 		<fileSet>
-			<directory>${basedir}/src/main/resources</directory>
+			<directory>${basedir}/target/dim-${project.version}</directory>
 			<outputDirectory>/</outputDirectory>
 			<includes>
 			<include>**/*.properties.xml</include></includes>

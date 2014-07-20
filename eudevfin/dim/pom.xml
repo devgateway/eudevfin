@@ -79,15 +79,7 @@
             <version>${project.version}</version>
             <classifier>excel</classifier>
         </dependency>
-        
-                
-		<dependency>
-            <groupId>org.devgateway.eudevfin</groupId>
-            <artifactId>dim</artifactId>
-            <version>${project.version}</version>
-            <classifier>translation</classifier>
-        </dependency>
-        
+      
         
         <dependency>
             <groupId>org.devgateway.eudevfin</groupId>
@@ -128,12 +120,11 @@
       
         <plugins>
 
-	<plugin>
+<plugin>
 		<artifactId>maven-assembly-plugin</artifactId>
 		<version>2.4</version>
 		<configuration>
 			<descriptor>assembly-translation.xml</descriptor>
-			<finalName>dim-${project.version}</finalName>
 		</configuration>
 		<executions>
 			<execution>
@@ -164,11 +155,8 @@
         
           <resources>
             <resource>
-    			<filtering>true</filtering>
+    			<filtering>false</filtering>
 				<directory>src/main/resources</directory>
-				<excludes>
-				<exclude>**/*.properties.xml</exclude>
-				</excludes>
             </resource>
         </resources>
     </build>
