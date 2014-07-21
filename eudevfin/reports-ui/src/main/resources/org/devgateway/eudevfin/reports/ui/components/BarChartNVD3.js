@@ -28,7 +28,7 @@ var displayBarChart = function (parametersJson) {
                 return '<h3 class="smaller">' + key + ' - ' + x + '</h3>' + '<p>' +  y + '</p>';
             })
             .height(height)             // set the height
-            .margin({left: 100})
+            .margin({left: 120})
             .showValues(true)           // Show bar value next to each bar.
             .tooltips(true)             // Show tooltips on hover.
             .showLegend(true)
@@ -38,6 +38,10 @@ var displayBarChart = function (parametersJson) {
         chart.yAxis
             .axisLabel('Amount')
             .tickFormat(d3.format(',.2f'));
+
+        //chart.xAxis.tickFormat(function(d) {
+        //    //return "new string";
+        //});
 
         d3.select("#" + parametersJson.id + " svg")
             .datum(formatBarResultSet(parametersJson.result.resultset, parametersJson.numberOfSeries,
@@ -50,8 +54,80 @@ var displayBarChart = function (parametersJson) {
 
         nv.utils.windowResize(chart.update);
 
+        // used this in order to include newlines in labels in NVD3 charts
+        d3.select("#" + parametersJson.id + " svg").
+            selectAll('g.nv-x.nv-axis g text').each(insertLinebreaks);
+
         return chart;
     });
+}
+
+/**
+ * function that splits a text in rows of max length and with word preservation
+ */
+var explode = function (text, max) {
+    var max = max || 50;
+
+    // clean the text
+    // text = text.replace(/  +/g, " ").replace(/^ /, "").replace(/ $/, "");
+
+    if (text === undefined) {
+        return "";
+    }
+
+    if (text.length <= max) {
+        return text;
+    }
+
+    // get the first part of the text
+    var exploded = text.substring(0, max);
+
+    // get the next part of the text
+    text = text.substring(max);
+
+    // if next part doesn't start with a space
+    if (text.charAt(0) !== ' ') {
+        // while the first part doesn't end with a space && the first part still has at least one char
+        while (exploded.charAt(exploded.length - 1) !== " " && exploded.length > 0) {
+            text = exploded.charAt(exploded.length - 1) + text;
+            exploded = exploded.substring(0, exploded.length - 1);
+        }
+        // if the first part has been emptied (case of a text bigger than max without any space)
+        if (exploded.length == 0) {
+            // re-explode the text without caring about spaces
+            exploded = text.substring(0, max);
+            text = text.substring(max);
+            // if the first part isn't empty
+        } else {
+            // remove the last char of the first part, because it's a space
+            exploded = exploded.substring(0, exploded.length - 1);
+        }
+        // if the next part starts with a space
+    } else {
+        // remove the first char of the next part
+        text = text.substring(1);
+    }
+
+    // return the first part and the exploded next part, concatenated by \n
+    return exploded + "\n" + explode(text, max);
+}
+
+/**
+ * function that insert line breaks in NVD3 label chartss
+ */
+var insertLinebreaks = function (d) {
+    if (d !== null && d !== undefined) {
+        var el = d3.select(this);
+        var lines = explode(d, 20).split('\n');
+        el.text('');
+
+        for (var i = 0; i < lines.length; i++) {
+            var tspan = el.append('tspan').text(lines[i]);
+            if (i > 0) {
+                tspan.attr('x', -5).attr('dy', '15');
+            }
+        }
+    }
 }
 
 /**
