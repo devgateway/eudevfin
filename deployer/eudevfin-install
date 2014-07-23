@@ -5,7 +5,7 @@ EXTRAS_DIR="/home/eudevfin/extras"
 help() {
     echo "Updates the EU-DEVFIN application to the specified version number. Can install specific artifacts (translation, extras)"
     echo "Usage $0 [install|copy-translation|copy-metadata|install-translation|install-metadata] [version_number]"
-    echo "Example: $0 1.1.0"
+    echo "Example: $0 install 1.1.0"
 }
 
 
