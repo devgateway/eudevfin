@@ -9,12 +9,11 @@
 /**
  *
  */
-package org.devgateway.eudevfin.mcm.providers;
+package org.devgateway.eudevfin.ui.common.providers;
 
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.auth.common.service.PersistedUserService;
 import org.devgateway.eudevfin.common.service.BaseEntityService;
-import org.devgateway.eudevfin.ui.common.providers.AbstractTextChoiceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
