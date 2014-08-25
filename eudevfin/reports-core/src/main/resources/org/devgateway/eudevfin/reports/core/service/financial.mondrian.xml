@@ -72,6 +72,28 @@
             </Level>
         </Hierarchy>
     </Dimension>
+    <Dimension visible="true" highCardinality="false" name="Extending Agency by Country" caption="%{extendingAgencyDimension} by Country">
+        <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberCaption="%{allMember} by Country" allMemberName="All Extending Agencies by Country" allLevelName="%{allExtendingAgencies} by Country">
+            <View alias="Extending AgencyView by Country">
+                <SQL dialect="generic"><![CDATA[
+            select
+			  "ORGANIZATION"."ID",  "ORGANIZATIONTRANSLATION"."NAME", "ORGANIZATION"."ACRONYM"
+			from
+			  "APP"."ORGANIZATION" as "ORGANIZATION",
+			  "APP"."ORGANIZATIONTRANSLATION" as "ORGANIZATIONTRANSLATION"
+			WHERE
+			  "ORGANIZATIONTRANSLATION"."LOCALE" ='@@LOCALE@@' AND
+			  "ORGANIZATIONTRANSLATION"."PARENT_ID" = "ORGANIZATION"."ID" AND
+			  "ORGANIZATIONTRANSLATION"."DONORNAME" = '@@COUNTRY_NAME@@'
+			ORDER BY "ORGANIZATIONTRANSLATION"."NAME"
+				]]></SQL>
+            </View>
+            <Level name="Name" visible="true" column="NAME" type="String" uniqueMembers="false" levelType="Regular" caption="%{extendingAgencyName}">
+            </Level>
+            <Level name="Acronym" visible="true" column="ACRONYM" type="String" uniqueMembers="false" levelType="Regular" caption="%{extendingAgencyAcronym}">
+            </Level>
+        </Hierarchy>
+    </Dimension>
     <Dimension visible="true" highCardinality="false" name="Channel" caption="%{channelDimension}">
         <Hierarchy visible="true" hasAll="true" primaryKey="ID" allMemberName="All Channels" allMemberCaption="%{allMember}" allLevelName="%{allChannels}">
             <View alias="ChannelView">
@@ -335,6 +357,7 @@
         <DimensionUsage source="Country" name="Country" visible="true" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
         <DimensionUsage source="IncomeGroup" name="IncomeGroup" visible="true" foreignKey="RECIPIENT_ID" highCardinality="false"></DimensionUsage>
         <DimensionUsage source="Extending Agency" name="Extending Agency" visible="true" foreignKey="EXTENDINGAGENCY_ID" highCardinality="false"></DimensionUsage>
+        <DimensionUsage source="Extending Agency by Country" name="Extending Agency by Country" visible="true" foreignKey="EXTENDINGAGENCY_ID" highCardinality="false"></DimensionUsage>
         <DimensionUsage source="Sector" name="Sector" visible="true" foreignKey="SECTOR_ID" highCardinality="false"></DimensionUsage>
         <DimensionUsage source="SectorHierarchy" name="SectorHierarchy" visible="false" foreignKey="SECTOR_ID" highCardinality="false"></DimensionUsage>
         <DimensionUsage source="Channel" name="Channel" visible="true" foreignKey="CHANNEL_ID" highCardinality="false"></DimensionUsage>
