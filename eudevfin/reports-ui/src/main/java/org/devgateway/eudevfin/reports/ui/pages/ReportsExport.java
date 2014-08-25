@@ -7,23 +7,33 @@
  *******************************************************************************/
 package org.devgateway.eudevfin.reports.ui.pages;
 
+import java.util.List;
+
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.HiddenField;
+import org.apache.wicket.markup.html.form.IChoiceRenderer;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
+import org.devgateway.eudevfin.financial.service.CustomFinancialTransactionService;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.wicketstuff.annotation.mount.MountPath;
 
 @MountPath(value = "/exportreports")
 @AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
-public class ReportsExport extends HeaderFooter {
+public class ReportsExport extends HeaderFooter<Object> {
 	/**
 	 * serialVersionUID
 	 */
 	private static final long serialVersionUID = -1829518959766029286L;
+
+	@SpringBean
+    private CustomFinancialTransactionService txService;
+
 	
 	public ReportsExport () {
         
@@ -34,8 +44,28 @@ public class ReportsExport extends HeaderFooter {
 		
 		pageTitle.setDefaultModel(new StringResourceModel("navbar.reports.export." + reportType, this, null, null));
 		
-		HiddenField<String> field = new HiddenField<String>("reportType", Model.of(""));
-		field.setModelValue(new String[]{reportType});
+        final List<Integer> years = this.txService.findDistinctReportingYears();
+        DropDownChoice<Integer> year = new DropDownChoice<Integer>("reportYear", this.txService.findDistinctReportingYears(), new IChoiceRenderer<Integer>()
+                {
+                    /**
+					 * 
+					 */
+					private static final long serialVersionUID = 8801460052416367398L;
+
+					public Object getDisplayValue(Integer value)
+                    {
+                        return value;
+                    }
+
+                    public String getIdValue(Integer object, int index)
+                    {
+                        return String.valueOf(years.get(index));
+                    }
+                });
+        add(year);
+
+        HiddenField<String> field = new HiddenField<String>("reportType", Model.of(""));
+        field.setModelValue(new String[]{reportType});
 		add(field);
     }
 	
