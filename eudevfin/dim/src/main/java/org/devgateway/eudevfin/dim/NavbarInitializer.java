@@ -32,14 +32,21 @@ import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.http.WebRequest;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
+import org.devgateway.eudevfin.dim.desktop.components.MessageNavbarButton;
+import org.devgateway.eudevfin.dim.pages.AggregateTransactionsPage;
 import org.devgateway.eudevfin.dim.pages.HomePage;
+import org.devgateway.eudevfin.dim.pages.Messages;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.TransactionPage;
 import org.devgateway.eudevfin.dim.pages.transaction.custom.CustomTransactionPage;
+import org.devgateway.eudevfin.financial.service.MessageService;
 import org.devgateway.eudevfin.ui.common.Constants;
 import org.devgateway.eudevfin.ui.common.WicketNavbarComponentInitializer;
 import org.devgateway.eudevfin.ui.common.components.RepairedNavbarDropDownButton;
+import org.devgateway.eudevfin.ui.common.pages.HelpPage;
 import org.devgateway.eudevfin.ui.common.pages.LogoutPage;
 import org.devgateway.eudevfin.ui.common.temporary.SB;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -166,6 +173,14 @@ public final class NavbarInitializer {
                 nonOda.setIconType(IconType.random);
                 list.add(nonOda);
 
+                MenuBookmarkablePageLink<AggregateTransactionsPage> aggregateTransactions =
+                        new MenuBookmarkablePageLink<AggregateTransactionsPage>(AggregateTransactionsPage.class, null, new StringResourceModel("navbar.aggregate", page, null));
+                aggregateTransactions.setIconType(IconType.resizesmall);
+                MetaDataRoleAuthorizationStrategy.authorize(aggregateTransactions, Component.RENDER,
+                        AuthConstants.Roles.ROLE_USER);
+
+                list.add(aggregateTransactions);
+
                 return list;
             }
         };
@@ -284,7 +299,7 @@ public final class NavbarInitializer {
     }
 
 
-    @WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT, order = 8, disabled = true)
+    @WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT, order = 98, disabled = true)
     public static Component feedbackNavbarButton(final Page page) {
         NavbarButton<LogoutPage> accountNavbarButton = new NavbarButton<LogoutPage>(FeedbackUrl.class,
                 new StringResourceModel("navbar.feedback", page, null, null)) {
