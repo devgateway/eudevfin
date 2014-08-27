@@ -1,11 +1,11 @@
 #!/bin/sh
 
-UPLOADS_DIR="/home/eudevfin/uploads"
+EXTRAS_DIR="/home/eudevfin/extras"
 
 help() {
     echo "Updates the EU-DEVFIN application to the specified version number. Can install specific artifacts (translation, extras)"
-    echo "Usage $0 [install|install-translation|install-metadata] [version_number]"
-    echo "Example: $0 1.1.0"
+    echo "Usage $0 [install|copy-translation|copy-metadata|install-translation|install-metadata] [version_number]"
+    echo "Example: $0 install 1.1.0"
 }
 
 
@@ -15,11 +15,17 @@ if [ -n "$1" -a -n "$2" ]; then
 	mvn clean install -Deudevfin.version=$2 -P install-version
     ;;
     install-translation)
-	mvn install:install-file -DgroupId=org.devgateway.eudevfin -DartifactId=translation -Dversion=$2 -Dpackaging=jar -Dfile=$UPLOADS_DIR/translation-$2.jar
+	mvn install:install-file -DgroupId=org.devgateway.eudevfin -DartifactId=dim -Dversion=$2 -Dclassifier=translation -Dpackaging=jar -Dfile=$EXTRAS_DIR/dim-$2-translation.jar
 	mvn install -Deudevfin.translation.version=$2 -P install-translation
     ;;
+    copy-translation)
+	mvn install -Deudevfin.translation.version=$2 -P copy-translation
+    ;;
+    copy-metadata)
+	mvn install -Deudevfin.metadata.version=$2 -P copy-metadata
+    ;;
     install-metadata)
-	mvn install:install-file -DgroupId=org.devgateway.eudevfin -DartifactId=metadata -Dversion=$2 -Dpackaging=jar -Dfile=$UPLOADS_DIR/metadata-$2.jar
+	mvn install:install-file -DgroupId=org.devgateway.eudevfin -DartifactId=import-metadata -Dversion=$2 -Dclassifier=excel -Dpackaging=jar -Dfile=$EXTRAS_DIR/import-metadata-$2-excel.jar
 	mvn install -Deudevfin.metadata.version=$2 -P install-metadata
     ;;
     *)
