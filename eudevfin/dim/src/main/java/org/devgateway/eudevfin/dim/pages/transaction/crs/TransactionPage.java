@@ -105,7 +105,9 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
             if (!tlEditing) {
                 //we will send message to the team leader
                 Message msg = newSystemMessage(AuthUtils.currentUsersTeamLead(), financialTransaction);
-                msg.setSubject("New Transaction:" + financialTransaction.getShortDescription());
+                final String description = financialTransaction.getShortDescription();
+                msg.setSubject("New Transaction" +
+                        (description != null && !description.trim().equals("") ? ": " + description : ""));
                 return msg;
             }
         } else {
@@ -179,6 +181,14 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 
         return ret;
     }
+
+    private Message checkNewId(Message message, FinancialTransaction transaction) {
+        if (message == null)
+            return null;
+        message.setMessage(buildTransactionLinkMsg(transaction));
+        return message;
+    }
+
 
     private String buildTransactionLinkMsg(FinancialTransaction transaction) {
         if (transaction.getId() == null)
@@ -357,6 +367,7 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
                 FinancialTransaction transaction = (FinancialTransaction) form.getInnermostModel().getObject();
                 Message message = prepareMessage(transaction);
                 super.onSubmit(target, form);
+                message = checkNewId(message, transaction);
 
                 if (!form.hasError()) {
                     //send the message if any
