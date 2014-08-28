@@ -286,6 +286,8 @@ public final class NavbarInitializer {
                 new StringResourceModel("navbar.logout", page, null, null)).setIconType(IconType.off);
         MetaDataRoleAuthorizationStrategy.authorize(logoutPageNavbarButton, Component.RENDER,
                 AuthConstants.Roles.ROLE_USER);
+        MetaDataRoleAuthorizationStrategy.authorize(logoutPageNavbarButton, Component.RENDER,
+                AuthConstants.Roles.ROLE_VIEWER);
         return logoutPageNavbarButton;
     }
 

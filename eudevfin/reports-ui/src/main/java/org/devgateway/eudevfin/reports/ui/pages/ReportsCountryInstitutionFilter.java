@@ -20,7 +20,7 @@ import org.wicketstuff.annotation.mount.MountPath;
  * @author idobre
  * @since 4/16/14
  */
-@AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
+@AuthorizeInstantiation({AuthConstants.Roles.ROLE_USER,AuthConstants.Roles.ROLE_VIEWER})
 @MountPath(value = "/reportscountryinstitutionfilter")
 public class ReportsCountryInstitutionFilter extends CustomReportsPage {
 

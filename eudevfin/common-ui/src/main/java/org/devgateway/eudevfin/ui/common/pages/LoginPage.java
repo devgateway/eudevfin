@@ -9,8 +9,10 @@ package org.devgateway.eudevfin.ui.common.pages;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.BootstrapForm;
+
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
 import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.link.ExternalLink;
@@ -38,7 +40,9 @@ public final class LoginPage extends HeaderFooter {
     PersistedUserService userService;
 
     public LoginPage(final PageParameters parameters) {
-        add(new LoginForm("loginform"));
+    	LoginForm loginForm = new LoginForm("loginform");
+    	loginForm.setVisible(!AbstractAuthenticatedWebSession.get().isSignedIn());
+        add(loginForm);
     }
 
     class LoginForm extends BootstrapForm {
