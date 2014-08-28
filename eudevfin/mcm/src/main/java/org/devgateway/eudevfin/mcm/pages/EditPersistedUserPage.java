@@ -192,7 +192,9 @@ public class EditPersistedUserPage extends HeaderFooter {
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
 				if (persistedUser.getPersistedAuthorities() != null
-						&& persistedUser.getPersistedAuthorities().size() > 0)
+						&& persistedUser.getPersistedAuthorities().size() > 0 
+						&& !persistedUser.getPersistedAuthorities().contains(persistedAuthorityService.findOne(AuthConstants.Roles.ROLE_VIEWER).getEntity())
+						)
 					persistedUser.getPersistedAuthorities().add(
 							persistedAuthorityService.findOne(AuthConstants.Roles.ROLE_USER).getEntity());
 
