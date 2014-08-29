@@ -11,7 +11,7 @@
 <properties>
     <entry key="navbar.home">Home</entry>
     <entry key="navbar.messages">Messages</entry>
-    <entry key="navbar.newTransaction">New Transaction</entry>
+<entry key="navbar.newTransaction">Transactions</entry>
     <entry key="navbar.aggregate">Aggregate Transactions</entry>
 
     <entry key="navbar.reports">Reports</entry>
