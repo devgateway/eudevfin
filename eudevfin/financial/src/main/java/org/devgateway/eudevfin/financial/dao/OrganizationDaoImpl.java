@@ -46,6 +46,12 @@ public class OrganizationDaoImpl extends AbstractDaoImpl<Organization, Long, Org
 	}
 
 	@Override
+	@ServiceActivator(inputChannel="deleteOrganizationChannel")
+	public void delete(Organization e) {
+		super.delete(e);
+	}
+	
+	@Override
 	@ServiceActivator(inputChannel="saveOrganizationChannel")
 	public NullableWrapper<Organization> save(Organization o) {
 		return super.save(o);

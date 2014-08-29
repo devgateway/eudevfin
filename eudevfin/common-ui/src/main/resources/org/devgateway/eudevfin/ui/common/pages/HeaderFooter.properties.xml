@@ -90,7 +90,8 @@
     <entry key="button.delete">Delete</entry>
     <entry key="notification.saved">Form Saved!</entry>
     <entry key="notification.error">Error while trying to save transaction, if this persists please report!</entry>
-    <entry key="notification.deleted">Form Deleted!</entry>
+    <entry key="notification.deleted">Item Deleted!</entry>
+    <entry key="notification.cannotdelete">Cannot delete this item because it is currently used. Please change all the entries referencing this item and try again.</entry>
     <entry key="notification.validationerrors">The form has validation errors (highlighted in red). Fix them and try
         saving again!
     </entry>
