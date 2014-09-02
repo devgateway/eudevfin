@@ -8,18 +8,10 @@
 
 package org.devgateway.eudevfin.dim;
 
-import de.agilecoders.wicket.core.Bootstrap;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.DropDownSubMenu;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuBookmarkablePageLink;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuDivider;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuHeader;
-import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconType;
-import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
-import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarButton;
-import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarDropDownButton;
-import de.agilecoders.wicket.core.settings.IBootstrapSettings;
-import de.agilecoders.wicket.core.settings.ITheme;
-import de.agilecoders.wicket.extensions.markup.html.bootstrap.button.DropDownAutoOpen;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy;
@@ -28,6 +20,7 @@ import org.apache.wicket.markup.html.link.AbstractLink;
 import org.apache.wicket.markup.html.pages.RedirectPage;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
+import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.http.WebRequest;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -42,15 +35,23 @@ import org.devgateway.eudevfin.financial.service.MessageService;
 import org.devgateway.eudevfin.ui.common.Constants;
 import org.devgateway.eudevfin.ui.common.WicketNavbarComponentInitializer;
 import org.devgateway.eudevfin.ui.common.components.RepairedNavbarDropDownButton;
-import org.devgateway.eudevfin.ui.common.pages.HelpPage;
 import org.devgateway.eudevfin.ui.common.pages.LogoutPage;
 import org.devgateway.eudevfin.ui.common.temporary.SB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import de.agilecoders.wicket.core.Bootstrap;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.DropDownSubMenu;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuBookmarkablePageLink;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuDivider;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuHeader;
+import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconType;
+import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
+import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarButton;
+import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarDropDownButton;
+import de.agilecoders.wicket.core.settings.IBootstrapSettings;
+import de.agilecoders.wicket.core.settings.ITheme;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.button.DropDownAutoOpen;
 
 /**
  * Class holding static methods that initialize the wicket {@link Navbar}
@@ -62,6 +63,53 @@ import java.util.Locale;
  */
 @Service
 public final class NavbarInitializer {
+	
+	public static class RecipientCountriesPdf extends RedirectPage {
+		
+		private static final long serialVersionUID = 8040944162385060540L;
+
+		public RecipientCountriesPdf() {
+			super(WebApplication.get().getServletContext().getContextPath()+"/files/RecipientCountries.pdf");
+		}
+
+	}
+	
+	
+	public static class LitOfInternationalOrgs extends RedirectPage {
+
+		private static final long serialVersionUID = -5373256603362316650L;
+
+		public LitOfInternationalOrgs() {
+			super(WebApplication.get().getServletContext().getContextPath()+"/files/2014-07-07-List-of-International-Organisations.xls");
+		}
+
+	}
+	
+	public static class DacCrsListCodes extends RedirectPage {
+		private static final long serialVersionUID = 199848134105091614L;
+
+		public DacCrsListCodes() {
+			super(WebApplication.get().getServletContext().getContextPath()+"/files/2014-07-10-List-of-DAC-and-CRS-codes.xls");
+		}
+
+	}
+	
+	public static class OecdDacDirectives extends RedirectPage {
+		private static final long serialVersionUID = -5930422636240394851L;
+		public OecdDacDirectives() {
+			super("http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-FINAL-ENG.pdf ");
+		}
+
+	}
+	
+	public static class DacGlossary extends RedirectPage {
+		private static final long serialVersionUID = -5548303652694029119L;
+		public DacGlossary() {
+			super("http://www.oecd.org/dac/dac-glossary.htm");
+		}
+
+	}
+	
 
     @Autowired(required = true)
     public static MessageService mxService;
@@ -292,12 +340,96 @@ public final class NavbarInitializer {
     }
 
     @WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT, order = 9)
-    public static Component helpPageNavbarButton(final Page page) {
-        NavbarButton<LogoutPage> helpPageNavbarButton = new NavbarButton<LogoutPage>(HelpPage.class,
-                new StringResourceModel("navbar.help", page, null, null)).setIconType(IconType.book);
-        MetaDataRoleAuthorizationStrategy.authorize(helpPageNavbarButton, Component.RENDER,
+    public static Component newHelpMenu(Page page) {
+        NavbarDropDownButton navbarDropDownButton = new NavbarDropDownButton(new StringResourceModel("navbar.help",
+                page, null, null)) {
+            @Override
+            public boolean isActive(Component item) {
+                return false;
+            }
+
+            @Override
+            protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
+                List<AbstractLink> list = new ArrayList<>();
+                list.add(new MenuHeader(new StringResourceModel("navbar.help.header", this, null)));
+                list.add(new MenuDivider());
+
+				MenuBookmarkablePageLink<RecipientCountriesPdf> recipientCountriesLink = new MenuBookmarkablePageLink<RecipientCountriesPdf>(
+						RecipientCountriesPdf.class, null, new StringResourceModel("navbar.recipientcountries", this,
+								null)) {
+					private static final long serialVersionUID = 1L;
+					@Override
+					protected void onComponentTag(ComponentTag tag) {
+						super.onComponentTag(tag);
+						tag.put("target", "_blank");
+					}
+				};
+				recipientCountriesLink.setIconType(IconType.download);
+				list.add(recipientCountriesLink);
+				
+				MenuBookmarkablePageLink<LitOfInternationalOrgs> listOfInternationalOrgs = new MenuBookmarkablePageLink<LitOfInternationalOrgs>(
+						LitOfInternationalOrgs.class, null, new StringResourceModel("navbar.listofinternationalorgs", this,
+								null)) {
+					private static final long serialVersionUID = 1L;
+					@Override
+					protected void onComponentTag(ComponentTag tag) {
+						super.onComponentTag(tag);
+						tag.put("target", "_blank");
+					}
+				};
+				listOfInternationalOrgs.setIconType(IconType.download);
+				list.add(listOfInternationalOrgs);
+				
+				
+				MenuBookmarkablePageLink<DacCrsListCodes> dacCrslistCodes = new MenuBookmarkablePageLink<DacCrsListCodes>(
+						DacCrsListCodes.class, null, new StringResourceModel("navbar.daccrslistcodes", this,
+								null)) {
+					private static final long serialVersionUID = 1L;
+					@Override
+					protected void onComponentTag(ComponentTag tag) {
+						super.onComponentTag(tag);
+						tag.put("target", "_blank");
+					}
+				};
+				dacCrslistCodes.setIconType(IconType.download);
+				list.add(dacCrslistCodes);		
+				
+				MenuBookmarkablePageLink<OecdDacDirectives> oecdDacDirectives = new MenuBookmarkablePageLink<OecdDacDirectives>(
+						OecdDacDirectives.class, null, new StringResourceModel("navbar.oecdacdirectives", this,
+								null)) {
+					private static final long serialVersionUID = 1L;
+					@Override
+					protected void onComponentTag(ComponentTag tag) {
+						super.onComponentTag(tag);
+						tag.put("target", "_blank");
+					}
+				};
+				oecdDacDirectives.setIconType(IconType.download);
+				list.add(oecdDacDirectives); 	
+				
+				MenuBookmarkablePageLink<DacGlossary> dacGlossary = new MenuBookmarkablePageLink<DacGlossary>(
+						DacGlossary.class, null, new StringResourceModel("navbar.dacglossary", this,
+								null)) {
+					private static final long serialVersionUID = 1L;
+					@Override
+					protected void onComponentTag(ComponentTag tag) {
+						super.onComponentTag(tag);
+						tag.put("target", "_blank");
+					}
+				};
+				dacGlossary.setIconType(IconType.download);
+				list.add(dacGlossary); 	
+				
+                return list;
+            }
+
+        };
+        navbarDropDownButton.setIconType(IconType.book);
+        navbarDropDownButton.add(new DropDownAutoOpen());
+        MetaDataRoleAuthorizationStrategy.authorize(navbarDropDownButton, Component.RENDER,
                 AuthConstants.Roles.ROLE_USER);
-        return helpPageNavbarButton;
+
+        return navbarDropDownButton;
     }
 
 

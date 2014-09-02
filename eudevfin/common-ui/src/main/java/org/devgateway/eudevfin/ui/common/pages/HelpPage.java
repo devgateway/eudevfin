@@ -12,6 +12,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.wicketstuff.annotation.mount.MountPath;
 
 @MountPath(value = "/help")
+@Deprecated
 public final class HelpPage extends HeaderFooter {
 
 	private static final long serialVersionUID = -6587747585656447082L;
