@@ -31,6 +31,9 @@ import org.devgateway.eudevfin.financial.Message;
 import org.devgateway.eudevfin.financial.service.MessageService;
 import org.devgateway.eudevfin.ui.common.components.TableListPanel;
 import org.devgateway.eudevfin.ui.common.components.util.ListGeneratorInterface;
+import org.devgateway.eudevfin.ui.common.providers.PersistedUserChoiceProvider;
+
+import java.util.Iterator;
 
 /**
  * @author Alexandru Artimon
@@ -51,6 +54,7 @@ public class MessagesListTable extends TableListPanel<Message> {
         target.add(itemsListView.getParent());
     }
 
+
     @Override
     protected void populateTable() {
         this.itemsListView = new ListView<Message>("messagesList", items) {
@@ -58,18 +62,21 @@ public class MessagesListTable extends TableListPanel<Message> {
             protected void populateItem(final ListItem<Message> item) {
                 final Message msg = item.getModelObject();
                 String from = "";
-                if (msg.getFrom() != null) {
-                    PersistedUser frm = msg.getFrom();
-                    if (frm.getFirstName() != null || frm.getLastName() != null || frm.getEmail() != null) {
-                        from += (frm.getFirstName() != null ? frm.getFirstName() + " " : "");
-                        from += (frm.getLastName() != null ? frm.getLastName() + " " : "");
-                        from += (frm.getEmail() != null ? "<" + frm.getEmail() + "> " : "");
-                    } else if (frm.getUsername() != null)
-                        from = frm.getUsername();
-                } else
+                if (msg.getFrom() != null)
+                    from = PersistedUserChoiceProvider.userToString(msg.getFrom());
+                else
                     from = "[SYSTEM]";
 
+                String to = "";
+                Iterator<PersistedUser> it = msg.getTo().iterator();
+                while (it.hasNext()) {
+                    PersistedUser u = it.next();
+                    to += PersistedUserChoiceProvider.userToString(u) + (it.hasNext() ? ", " : "");
+                }
+
                 item.add(new Label("from", Model.of(from)));
+                item.add(new Label("to", Model.of(to)));
+
                 final Label messageLabel = new Label("message", new PropertyModel(item.getModel(), "message"));
                 messageLabel.setRenderBodyOnly(true);
                 messageLabel.setEscapeModelStrings(false);
@@ -105,7 +112,7 @@ public class MessagesListTable extends TableListPanel<Message> {
                     @Override
                     public void onClick(AjaxRequestTarget target) {
                         Messages messages = this.findParent(Messages.class);
-                        messages.reply(msg.getFrom(), msg.getSubject(), target);
+                        messages.reply(msg.getFrom(), msg.getTo(), msg.getSubject(), target);
                     }
                 };
                 reply.add(new TooltipBehavior(new StringResourceModel("reply.tooltip", this, null, null), tooltipConfig));

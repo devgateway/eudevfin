@@ -23,7 +23,7 @@ import org.devgateway.eudevfin.common.service.PagingHelper;
 import org.devgateway.eudevfin.financial.Message;
 import org.devgateway.eudevfin.financial.service.MessageService;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
-import org.devgateway.eudevfin.ui.common.components.DropDownField;
+import org.devgateway.eudevfin.ui.common.components.MultiSelectField;
 import org.devgateway.eudevfin.ui.common.components.TextAreaInputField;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
 import org.devgateway.eudevfin.ui.common.components.util.ListGeneratorInterface;
@@ -32,6 +32,10 @@ import org.devgateway.eudevfin.ui.common.providers.PersistedUserChoiceProvider;
 import org.joda.time.LocalDateTime;
 import org.springframework.data.domain.PageRequest;
 import org.wicketstuff.annotation.mount.MountPath;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
 /**
  * @author Alexandru Artimon
@@ -47,9 +51,23 @@ public class Messages extends HeaderFooter {
     private final Form<Message> form;
     private final TextAreaInputField messageInputField;
 
-    public void reply(PersistedUser user, String subject, AjaxRequestTarget target) {
+    public void reply(PersistedUser from, Collection<PersistedUser> toList, String subject, AjaxRequestTarget target) {
         Message msg = form.getModel().getObject();
-        msg.setTo(user);
+        ArrayList<PersistedUser> to = new ArrayList<PersistedUser>();
+        to.add(from);
+        if (toList.size() > 1) { //we have a message that has been sent to other users than current user
+            to.addAll(toList);
+
+            //eliminate current user from list
+            Iterator<PersistedUser> it = to.iterator();
+            while (it.hasNext()) {
+                PersistedUser u = it.next();
+                if (u.getId().equals(AuthUtils.getCurrentUser().getId()))
+                    it.remove();
+            }
+        }
+
+        msg.setTo(to);
         msg.setSubject(subject);
 
         target.add(form);
@@ -75,12 +93,15 @@ public class Messages extends HeaderFooter {
         form.setOutputMarkupId(true);
         add(form);
 
-        DropDownField<PersistedUser> to = new DropDownField<>("to", new PropertyModel<PersistedUser>(messageModel, "to"), userChoiceProvider);
+        //DropDownField<PersistedUser> to = new DropDownField<>("to", new PropertyModel<PersistedUser>(messageModel, "to"), userChoiceProvider);
+        MultiSelectField<PersistedUser> to = new MultiSelectField<>("to", new PropertyModel<Collection<PersistedUser>>(messageModel, "to"), userChoiceProvider);
         to.required();
+        to.setSize(InputBehavior.Size.XXLarge);
         form.add(to);
 
         TextInputField<String> subject = new TextInputField<>("subject", new PropertyModel<String>(messageModel, "subject"));
         subject.typeString();
+        subject.setSize(InputBehavior.Size.XXLarge);
         form.add(subject);
 
         messageInputField = new TextAreaInputField("message", new PropertyModel<String>(messageModel, "message"));

@@ -17,6 +17,7 @@ import org.joda.time.LocalDateTime;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author Alexandru Artimon
@@ -33,8 +34,9 @@ public class Message implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(optional = false)
-    private PersistedUser to;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "MESSAGE_TO")
+    private List<PersistedUser> to;
 
     @ManyToOne
     private PersistedUser from;
@@ -60,11 +62,11 @@ public class Message implements Serializable {
         this.id = id;
     }
 
-    public PersistedUser getTo() {
+    public List<PersistedUser> getTo() {
         return to;
     }
 
-    public void setTo(PersistedUser to) {
+    public void setTo(List<PersistedUser> to) {
         this.to = to;
     }
 

@@ -175,7 +175,9 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
         Message ret = new Message();
         ret.setSendDate(LocalDateTime.now());
         ret.setFrom(AuthUtils.getCurrentUser());
-        ret.setTo(user);
+        ArrayList<PersistedUser> to = new ArrayList<>();
+        to.add(user);
+        ret.setTo(to);
 
         ret.setMessage(buildTransactionLinkMsg(transaction));
 
