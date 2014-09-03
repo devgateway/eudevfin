@@ -184,6 +184,7 @@
 	<entry key="validation.multilateralField10Code">The selected code is invalid! Only the code 2 (Multilateral) is allowed here when filling in the multilateral form!</entry>	
 	<entry key="validation.field11Code">The selected code is invalid! Only the code 10 (ODA) is allowed here when filling in ODA forms!</entry>	
 	<entry key="validation.field12Code">The selected code is invalid! Only the following codes and their subcodes are allowed: 100, 300, 400, 500, 600</entry>	
+	<entry key="validation.parentCode">You are not allowed to select parent codes here!</entry>	
 	
 	<entry key="validation.decorateB01For1xxxx">The selected code is invalid! B01 is NOT allowed if 1xxxx channel codes are selected.</entry>
 	<entry key="validation.decorateB01For2xxxx">The selected code is invalid! B01 is tied only to 2xxxx channel codes</entry>
