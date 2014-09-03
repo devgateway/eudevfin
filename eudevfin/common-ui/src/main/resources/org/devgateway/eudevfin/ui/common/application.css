@@ -37,6 +37,11 @@ select, input[type="text"], input[type="password"], input[type="datetime"], inpu
     font-size: xx-large;
 }
 
+.note {
+	width:500px;
+	margin:0 auto;
+}
+
 .eubanner {
     background-position: 0 0;
     background-color: #003399;

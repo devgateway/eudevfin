@@ -8,6 +8,7 @@
     <parameter name="FIRST_YEAR" class="java.lang.Number"/>
     <parameter name="SECOND_YEAR" class="java.lang.Number"/>
     <parameter name="EDITION_YEAR" class="java.lang.Number"/>
+    <parameter name="FORM_DATASOURCE" class="java.lang.String"/>
     <parameter name="SUBDIR_PATH" class="java.lang.String"/>
     <queryString language="mdx">
         <![CDATA[
@@ -18,7 +19,7 @@ SELECT
 {[Reporting Year].[First Year], [Reporting Year].[Second Year]} ON ROWS,
 {[Measures].[Net Amount Currency NATLOECD], [Measures].[Exchange Rate]} ON COLUMNS
 FROM [Financial]
-WHERE {[Form Type].[bilateralOda.advanceQuestionnaire], [Form Type].[multilateralOda.advanceQuestionnaire]}
+WHERE $P{FORM_DATASOURCE}
 
 ]]>
     </queryString>
@@ -238,6 +239,9 @@ WHERE {[Form Type].[bilateralOda.advanceQuestionnaire], [Form Type].[multilatera
                 <subreportParameter name="SECOND_YEAR">
                     <subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
                 </subreportParameter>
+                <subreportParameter name="FORM_DATASOURCE">
+                    <subreportParameterExpression><![CDATA[$P{FORM_DATASOURCE}]]></subreportParameterExpression>
+                </subreportParameter>
                 <subreportParameter name="SUBDIR_PATH">
                     <subreportParameterExpression><![CDATA[$P{SUBDIR_PATH}]]></subreportParameterExpression>
                 </subreportParameter>
@@ -257,6 +261,9 @@ WHERE {[Form Type].[bilateralOda.advanceQuestionnaire], [Form Type].[multilatera
                 <subreportParameter name="SECOND_YEAR">
                     <subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
                 </subreportParameter>
+                <subreportParameter name="FORM_DATASOURCE">
+                    <subreportParameterExpression><![CDATA[$P{FORM_DATASOURCE}]]></subreportParameterExpression>
+                </subreportParameter>
                 <subreportParameter name="SUBDIR_PATH">
                     <subreportParameterExpression><![CDATA[$P{SUBDIR_PATH}]]></subreportParameterExpression>
                 </subreportParameter>
@@ -275,6 +282,9 @@ WHERE {[Form Type].[bilateralOda.advanceQuestionnaire], [Form Type].[multilatera
                 </subreportParameter>
                 <subreportParameter name="SECOND_YEAR">
                     <subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="FORM_DATASOURCE">
+                    <subreportParameterExpression><![CDATA[$P{FORM_DATASOURCE}]]></subreportParameterExpression>
                 </subreportParameter>
                 <subreportParameter name="SUBDIR_PATH">
                     <subreportParameterExpression><![CDATA[$P{SUBDIR_PATH}]]></subreportParameterExpression>
@@ -302,6 +312,9 @@ WHERE {[Form Type].[bilateralOda.advanceQuestionnaire], [Form Type].[multilatera
                 <subreportParameter name="SECOND_YEAR">
                     <subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
                 </subreportParameter>
+                <subreportParameter name="FORM_DATASOURCE">
+                    <subreportParameterExpression><![CDATA[$P{FORM_DATASOURCE}]]></subreportParameterExpression>
+                </subreportParameter>
                 <subreportParameter name="SUBDIR_PATH">
                     <subreportParameterExpression><![CDATA[$P{SUBDIR_PATH}]]></subreportParameterExpression>
                 </subreportParameter>
@@ -320,6 +333,9 @@ WHERE {[Form Type].[bilateralOda.advanceQuestionnaire], [Form Type].[multilatera
                 </subreportParameter>
                 <subreportParameter name="SECOND_YEAR">
                     <subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="FORM_DATASOURCE">
+                    <subreportParameterExpression><![CDATA[$P{FORM_DATASOURCE}]]></subreportParameterExpression>
                 </subreportParameter>
                 <subreportParameter name="SUBDIR_PATH">
                     <subreportParameterExpression><![CDATA[$P{SUBDIR_PATH}]]></subreportParameterExpression>
@@ -340,6 +356,9 @@ WHERE {[Form Type].[bilateralOda.advanceQuestionnaire], [Form Type].[multilatera
                 <subreportParameter name="SECOND_YEAR">
                     <subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
                 </subreportParameter>
+                <subreportParameter name="FORM_DATASOURCE">
+                    <subreportParameterExpression><![CDATA[$P{FORM_DATASOURCE}]]></subreportParameterExpression>
+                </subreportParameter>
                 <subreportParameter name="SUBDIR_PATH">
                     <subreportParameterExpression><![CDATA[$P{SUBDIR_PATH}]]></subreportParameterExpression>
                 </subreportParameter>
@@ -358,6 +377,9 @@ WHERE {[Form Type].[bilateralOda.advanceQuestionnaire], [Form Type].[multilatera
                 </subreportParameter>
                 <subreportParameter name="SECOND_YEAR">
                     <subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="FORM_DATASOURCE">
+                    <subreportParameterExpression><![CDATA[$P{FORM_DATASOURCE}]]></subreportParameterExpression>
                 </subreportParameter>
                 <subreportParameter name="SUBDIR_PATH">
                     <subreportParameterExpression><![CDATA[$P{SUBDIR_PATH}]]></subreportParameterExpression>
@@ -384,6 +406,9 @@ WHERE {[Form Type].[bilateralOda.advanceQuestionnaire], [Form Type].[multilatera
                 </subreportParameter>
                 <subreportParameter name="SECOND_YEAR">
                     <subreportParameterExpression><![CDATA[$P{SECOND_YEAR}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="FORM_DATASOURCE">
+                    <subreportParameterExpression><![CDATA[$P{FORM_DATASOURCE}]]></subreportParameterExpression>
                 </subreportParameter>
                 <subreportParameter name="SUBDIR_PATH">
                     <subreportParameterExpression><![CDATA[$P{SUBDIR_PATH}]]></subreportParameterExpression>

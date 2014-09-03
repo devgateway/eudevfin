@@ -6,6 +6,7 @@
 	<property name="ireport.y" value="0"/>
 	<parameter name="FIRST_YEAR" class="java.lang.Number"/>
 	<parameter name="SECOND_YEAR" class="java.lang.Number"/>
+    <parameter name="FORM_DATASOURCE" class="java.lang.String"/>
     <queryString language="mdx">
         <![CDATA[
 WITH
@@ -13,8 +14,8 @@ MEMBER [Type of Finance].[First Year TOF1] AS SUM([Reporting Year].[$P{FIRST_YEA
 MEMBER [Type of Finance].[Second Year TOF1] AS SUM([Reporting Year].[$P{SECOND_YEAR}]*[Form Type].[Unspecified]*[Type of Finance].[Code].[TYPE_OF_FINANCE##1])
 MEMBER [Type of Finance].[First Year TOF4] AS SUM([Reporting Year].[$P{FIRST_YEAR}]*[Form Type].[Unspecified]*[Type of Finance].[Code].[TYPE_OF_FINANCE##4])
 MEMBER [Type of Finance].[Second Year TOF4] AS SUM([Reporting Year].[$P{SECOND_YEAR}]*[Form Type].[Unspecified]*[Type of Finance].[Code].[TYPE_OF_FINANCE##4])
-MEMBER [Type of Finance].[First Year ODA GNI] AS SUM([Reporting Year].[$P{FIRST_YEAR}]*{[Form Type].[bilateralOda.advanceQuestionnaire], [Form Type].[multilateralOda.advanceQuestionnaire]}*[Type of Finance].[Code].Members)
-MEMBER [Type of Finance].[Second Year ODA GNI] AS SUM([Reporting Year].[$P{SECOND_YEAR}]*{[Form Type].[bilateralOda.advanceQuestionnaire], [Form Type].[multilateralOda.advanceQuestionnaire]}*[Type of Finance].[Code].Members)
+MEMBER [Type of Finance].[First Year ODA GNI] AS SUM([Reporting Year].[$P{FIRST_YEAR}]*$P{FORM_DATASOURCE}*[Type of Finance].[Code].Members)
+MEMBER [Type of Finance].[Second Year ODA GNI] AS SUM([Reporting Year].[$P{SECOND_YEAR}]*$P{FORM_DATASOURCE}*[Type of Finance].[Code].Members)
 SELECT
 {[Measures].[Extended Amount No Flow], [Measures].[Net Amount Currency NATLOECD]} ON COLUMNS,
 {

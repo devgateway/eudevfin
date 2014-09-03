@@ -10,13 +10,16 @@ package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
 import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
+
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy;
+import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -59,6 +62,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.MissingResourceException;
 
 @MountPath(value = "/transaction")
 @AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
@@ -94,6 +98,7 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
     protected final NotificationPanel feedbackPanel;
 
     protected Form form;
+    protected Label note;
 
     protected TransactionPageSubmitButton submitButton;
 
@@ -324,6 +329,17 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 
         //override the title
         pageTitle.setDefaultModel(new StringResourceModel(parameters.get(Constants.PARAM_TRANSACTION_TYPE).toString(""), this, null, null));
+
+
+        try {
+            // check if the key is missing in the resource file
+            getString(parameters.get(Constants.PARAM_TRANSACTION_TYPE).toString("") + ".note");
+            note = new Label("note", new StringResourceModel(parameters.get(Constants.PARAM_TRANSACTION_TYPE).toString("") + ".note", this, null, null));
+        } catch (MissingResourceException mre) {
+        	note = new Label("note", new Model<String>(" "));
+        	note.add(new AttributeAppender("class", new Model<String>("hide"), " "));
+        }
+        add(note);
 
         onUnloadScript = "window.onbeforeunload = function(e) {\n" +
                 "   var message = '" + new StringResourceModel("leaveMessage", this, null, null).getObject() + "';\n" +
