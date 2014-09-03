@@ -126,9 +126,9 @@
         <sql>update financialtransaction_aud set approved=false where approved is null;</sql>
     </changeSet>
 
-    <changeSet id="10" author="arti" failOnError="false" runAlways="false" runInTransaction="true">
+    <changeSet id="ODAEU-305" author="mihai" failOnError="false" runAlways="false" runInTransaction="true">
         <preConditions onFail="MARK_RAN">
-            <columnExists tableName="FINANCIALTRANSACTION" columnName="RMNCH"/>
+            <columnExists tableName="MESSAGE" columnName="TO_ID"/>
         </preConditions>
         <sql>
             ALTER TABLE MESSAGE DROP COLUMN TO_ID;
