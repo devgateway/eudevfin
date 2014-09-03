@@ -33,6 +33,17 @@ public class PersistedUserChoiceProvider extends
 
     }
 
+    public static String userToString(PersistedUser user) {
+        String ret = "";
+        if (user.getFirstName() != null || user.getLastName() != null || user.getEmail() != null) {
+            ret += (user.getFirstName() != null ? user.getFirstName() + " " : "");
+            ret += (user.getLastName() != null ? user.getLastName() + " " : "");
+            ret += (user.getEmail() != null ? "<" + user.getEmail() + "> " : "");
+        } else if (user.getUsername() != null)
+            ret = user.getUsername();
+        return ret;
+    }
+
     /*
      * (non-Javadoc)
      *
@@ -42,7 +53,7 @@ public class PersistedUserChoiceProvider extends
      */
     @Override
     public String getDisplayText(PersistedUser choice) {
-        return choice.getUsername();
+        return userToString(choice); //choice.getUsername();
     }
 
     /*

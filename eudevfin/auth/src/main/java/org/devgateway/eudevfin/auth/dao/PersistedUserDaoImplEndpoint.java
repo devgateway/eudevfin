@@ -86,8 +86,7 @@ public class PersistedUserDaoImplEndpoint extends AbstractDaoImpl<PersistedUser,
 	@ServiceActivator(inputChannel = "findByGeneralSearchPageableUserChannel")
 	public Page<PersistedUser> findByGeneralSearch(String searchString,
 			@Header(value="locale",required=false) String locale, @Header("pageable") Pageable pageable) {
-		// TODO Auto-generated method stub
-		return super.findByGeneralSearch(searchString, locale, pageable);
-	}
+        return repo.findByGeneralSearch(searchString, pageable);
+    }
 	
  }
