@@ -6,7 +6,7 @@
  * http://www.gnu.org/licenses/gpl.html
  *******************************************************************************/
 /**
- * 
+ *
  */
 package org.devgateway.eudevfin.importing.metadata.streamprocessors;
 
@@ -28,28 +28,28 @@ import org.devgateway.eudevfin.importing.metadata.mapping.MapperInterface;
  * @author Alex
  *
  */
-public class ExcelStreamProcessor implements StreamProcessorInterface {
+public class ExcelStreamProcessor implements IMetadataStreamProcessor {
 
 	private static final int METADATA_INFO_ROW_NUM = 1;
 
 	private static final int MAPPER_CLASS_COL_NUM = 1;
 
 	private static final int MAPPER_CLASS_ROW_NUM = 0;
-	
-	private static final int ACTUAL_ATA_START_ROW_NUM = 3;
 
-	public final static Integer OFFSET 	= 1; 
-	
+	private static final int ACTUAL_DATA_START_ROW_NUM = 3;
+
+	public final static Integer OFFSET 	= 1;
+
 	private HSSFWorkbook workbook;
 	private HSSFSheet sheet;
-	
+
 	private List<String> metadataInfoList;
 	private String mapperClassName;
-	
-	private int currentRowNum = ACTUAL_ATA_START_ROW_NUM;
+
+	private int currentRowNum = ACTUAL_DATA_START_ROW_NUM;
 
 	private int endRowNum;
-	
+
 	private final InputStream inputStream;
 
 	public ExcelStreamProcessor(final InputStream is) {
@@ -58,13 +58,13 @@ public class ExcelStreamProcessor implements StreamProcessorInterface {
 			this.workbook 	= new HSSFWorkbook(is);
 			this.sheet		= this.workbook.getSheetAt(0);
 			this.endRowNum	= this.sheet.getLastRowNum();
-			
+
 			this.generateMetadataInfoList();
 			this.findMapperClassName();
 		} catch (final IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
@@ -77,9 +77,9 @@ public class ExcelStreamProcessor implements StreamProcessorInterface {
 				return entity;
 			} catch (ClassNotFoundException | InstantiationException
 					| IllegalAccessException e) {
-				
+
 				e.printStackTrace();
-				
+
 				throw new EntityMapperGenerationException("Problems generating object",e);
 			}
 			finally{
@@ -87,24 +87,24 @@ public class ExcelStreamProcessor implements StreamProcessorInterface {
 			}
 		}
 		return null;
-		
+
 	}
-	
+
 	@Override
 	public boolean hasNextObject() {
 		if ( this.currentRowNum <= this.endRowNum ) {
 			return true;
 		}
 		return false;
-		
+
 	}
-	
-	
+
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private Object generateObject(final MapperInterface<?> mapper, final HSSFRow row) 
+	private Object generateObject(final MapperInterface<?> mapper, final HSSFRow row)
 			throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-		
-		boolean allCellsAreNull	= true; 
+
+		boolean allCellsAreNull	= true;
 		final List<String> values	= new ArrayList<String>();
 		for ( int j=OFFSET; j<this.metadataInfoList.size()+OFFSET; j++) {
 			final HSSFCell cell	= row.getCell(j);
@@ -124,11 +124,11 @@ public class ExcelStreamProcessor implements StreamProcessorInterface {
 				} else {
 					values.add(null);
 				}
-				
+
 			} else {
 				values.add( null );
 			}
-			
+
 		}
 		if ( allCellsAreNull ) {
 			return null;
@@ -136,9 +136,9 @@ public class ExcelStreamProcessor implements StreamProcessorInterface {
 		final Object result	=  mapper.createEntity(values);
 		return result;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param mapperClassName the name of the mapper class that needs to be instantiated
 	 * @param metadataInfoList the metainformation needed for each field of the mapping
 	 * @throws ClassNotFoundException
@@ -149,7 +149,7 @@ public class ExcelStreamProcessor implements StreamProcessorInterface {
 	private MapperInterface<?> instantiateMapper() {
 		try {
 			final Class clazz = Class.forName(this.mapperClassName);
-			final MapperInterface<?> mapper = 
+			final MapperInterface<?> mapper =
 					(MapperInterface<?>) clazz.newInstance();
 			mapper.setMetainfos(this.metadataInfoList);
 
@@ -171,7 +171,7 @@ public class ExcelStreamProcessor implements StreamProcessorInterface {
 			throw new InvalidDataException("Expecting mapper name in cell B1");
 		}
 	}
-	
+
 	private void generateMetadataInfoList () {
 		this.metadataInfoList	= new ArrayList<String>();
 		final HSSFRow row 			= this.sheet.getRow(METADATA_INFO_ROW_NUM);
@@ -189,9 +189,9 @@ public class ExcelStreamProcessor implements StreamProcessorInterface {
 				break;
 			}
 		}
-		
+
 	}
-	
+
 	@Override
 	public void close() {
 		try {
@@ -199,7 +199,7 @@ public class ExcelStreamProcessor implements StreamProcessorInterface {
 		} catch (final IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
@@ -221,7 +221,7 @@ public class ExcelStreamProcessor implements StreamProcessorInterface {
 	}
 
 
-	
-	
+
+
 
 }

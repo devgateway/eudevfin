@@ -63,9 +63,9 @@ import de.agilecoders.wicket.extensions.markup.html.bootstrap.button.DropDownAut
  */
 @Service
 public final class NavbarInitializer {
-	
+
 	public static class RecipientCountriesPdf extends RedirectPage {
-		
+
 		private static final long serialVersionUID = 8040944162385060540L;
 
 		public RecipientCountriesPdf() {
@@ -73,8 +73,8 @@ public final class NavbarInitializer {
 		}
 
 	}
-	
-	
+
+
 	public static class LitOfInternationalOrgs extends RedirectPage {
 
 		private static final long serialVersionUID = -5373256603362316650L;
@@ -84,7 +84,7 @@ public final class NavbarInitializer {
 		}
 
 	}
-	
+
 	public static class DacCrsListCodes extends RedirectPage {
 		private static final long serialVersionUID = 199848134105091614L;
 
@@ -93,7 +93,7 @@ public final class NavbarInitializer {
 		}
 
 	}
-	
+
 	public static class OecdDacDirectives extends RedirectPage {
 		private static final long serialVersionUID = -5930422636240394851L;
 		public OecdDacDirectives() {
@@ -101,7 +101,7 @@ public final class NavbarInitializer {
 		}
 
 	}
-	
+
 	public static class DacGlossary extends RedirectPage {
 		private static final long serialVersionUID = -5548303652694029119L;
 		public DacGlossary() {
@@ -109,342 +109,332 @@ public final class NavbarInitializer {
 		}
 
 	}
-	
-
-    @Autowired(required = true)
-    public static MessageService mxService;
-
-    public static class FeedbackUrl extends RedirectPage {
-        private static final long serialVersionUID = -750983217518258464L;
-
-        public FeedbackUrl() {
-            super(
-                    "mailto:support-eudevfin@developmentgateway.org?subject=EU-DEVFIN%20Support%20Request&body="
-                            + "Please write your feedback here and then press SEND. You may also change the email subject. The email will be automatically registered as a support ticket and our team will get back to you."
-                            + "%0D%0AThanks"
-                            + "%0D%0ADG Support%0D%0A"
-                            + RequestCycle.get().getUrlRenderer()
-                            .renderFullUrl(((WebRequest) RequestCycle.get().getRequest()).getUrl()));
-        }
-
-    }
-
-    @WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.LEFT, order = 0)
-    public static Component newHomePageNavbarButton(Page page) {
-        NavbarButton<HomePage> homePageNavbarButton = new NavbarButton<HomePage>(page.getApplication().getHomePage(),
-                new StringResourceModel("navbar.home", page, null, null)).setIconType(IconType.home);
-        MetaDataRoleAuthorizationStrategy.authorize(homePageNavbarButton, Component.RENDER,
-                AuthConstants.Roles.ROLE_USER);
-        return homePageNavbarButton;
-    }
-
-    @WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT, order = 5)
-    public static Component newMessagesNavbarButton(Page page) {
-        NavbarButton<Messages> homePageNavbarButton = new MessageNavbarButton(Messages.class,
-                Model.of(""));
-        homePageNavbarButton.setIconType(IconType.comment);
-        MetaDataRoleAuthorizationStrategy.authorize(homePageNavbarButton, Component.RENDER,
-                AuthConstants.Roles.ROLE_USER);
-        return homePageNavbarButton;
-    }
 
 
-    @WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.LEFT, order = 2)
-    public static Component newTransactionNavbarButton(final Page page) {
-        NavbarDropDownButton navbarDropDownButton = new RepairedNavbarDropDownButton(new StringResourceModel(
-                "navbar.newTransaction", page, null, null)) {
-            @Override
-            public boolean isActive(Component item) {
-                return false;
-            }
+	@Autowired(required = true)
+	public static MessageService mxService;
 
-            @Override
-            @SuppressWarnings("Convert2Diamond")
-            protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
-                List<AbstractLink> list = new ArrayList<>();
-                list.add(new MenuHeader(new StringResourceModel("navbar.newTransaction.header", this, null, null)));
-                list.add(new MenuDivider());
+	public static class FeedbackUrl extends RedirectPage {
+		private static final long serialVersionUID = -750983217518258464L;
 
-                DropDownSubMenu bilateralOda = new DropDownSubMenu(new StringResourceModel(
-                        "navbar.newTransaction.bilateralOda", this, null, null)) {
-                    @Override
-                    public boolean isActive(Component item) {
-                        return false;
-                    }
+		public FeedbackUrl() {
+			super(
+					"mailto:support-eudevfin@developmentgateway.org?subject=EU-DEVFIN%20Support%20Request&body="
+							+ "Please write your feedback here and then press SEND. You may also change the email subject. The email will be automatically registered as a support ticket and our team will get back to you."
+							+ "%0D%0AThanks"
+							+ "%0D%0ADG Support%0D%0A"
+							+ RequestCycle.get().getUrlRenderer()
+							.renderFullUrl(((WebRequest) RequestCycle.get().getRequest()).getUrl()));
+		}
 
-                    @Override
-                    protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
-                        List<String> values = new ArrayList<>();
-                        values.add(SB.BILATERAL_ODA_ADVANCE_QUESTIONNAIRE);
-                        values.add(SB.BILATERAL_ODA_CRS);
-                        values.add(SB.BILATERAL_ODA_FORWARD_SPENDING);
+	}
 
-                        return getTransactionLinks(values, page);
-                    }
+	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.LEFT, order = 0)
+	public static Component newHomePageNavbarButton(final Page page) {
+		final NavbarButton<HomePage> homePageNavbarButton = new NavbarButton<HomePage>(page.getApplication().getHomePage(),
+				new StringResourceModel("navbar.home", page, null, null)).setIconType(IconType.home);
+		MetaDataRoleAuthorizationStrategy.authorize(homePageNavbarButton, Component.RENDER,
+				AuthConstants.Roles.ROLE_USER);
+		return homePageNavbarButton;
+	}
 
-                };
-                bilateralOda.setIconType(IconType.resizehorizontal);
-                list.add(bilateralOda);
+	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT, order = 6)
+	public static Component newMessagesNavbarButton(final Page page) {
+		final NavbarButton<Messages> homePageNavbarButton = new MessageNavbarButton(Messages.class,
+				Model.of(""));
+		homePageNavbarButton.setIconType(IconType.comment);
+		MetaDataRoleAuthorizationStrategy.authorize(homePageNavbarButton, Component.RENDER,
+				AuthConstants.Roles.ROLE_USER);
+		return homePageNavbarButton;
+	}
 
-                DropDownSubMenu multilateralOda = new DropDownSubMenu(Model.of("Multilateral ODA")) {
-                    @Override
-                    public boolean isActive(Component item) {
-                        return false;
-                    }
+	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.LEFT, order = 2)
+	public static Component newTransactionNavbarButton(final Page page) {
+		final NavbarDropDownButton navbarDropDownButton = new RepairedNavbarDropDownButton(new StringResourceModel(
+				"navbar.newTransaction", page, null, null)) {
+			@Override
+			public boolean isActive(final Component item) {
+				return false;
+			}
 
-                    @Override
-                    protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
-                        List<String> values = new ArrayList<>();
-                        values.add(SB.MULTILATERAL_ODA_ADVANCE_QUESTIONNAIRE);
-                        values.add(SB.MULTILATERAL_ODA_CRS);
+			@Override
+			@SuppressWarnings("Convert2Diamond")
+			protected List<AbstractLink> newSubMenuButtons(final String buttonMarkupId) {
+				final List<AbstractLink> list = new ArrayList<>();
+				list.add(new MenuHeader(new StringResourceModel("navbar.newTransaction.header", this, null, null)));
+				list.add(new MenuDivider());
 
-                        return getTransactionLinks(values, page);
-                    }
-                };
-                multilateralOda.setIconType(IconType.fullscreen);
-                list.add(multilateralOda);
+				final DropDownSubMenu bilateralOda = new DropDownSubMenu(new StringResourceModel(
+						"navbar.newTransaction.bilateralOda", this, null, null)) {
+					@Override
+					public boolean isActive(final Component item) {
+						return false;
+					}
 
-                DropDownSubMenu nonOda = new DropDownSubMenu(new StringResourceModel("navbar.newTransaction.nonOda",
-                        this, null, null)) {
-                    @Override
-                    protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
-                        List<String> values = new ArrayList<>();
-                        values.add(SB.NON_ODA_OOF_NON_EXPORT);
-                        values.add(SB.NON_ODA_OOF_EXPORT);
-                        values.add(SB.NON_ODA_PRIVATE_GRANTS);
-                        values.add(SB.NON_ODA_PRIVATE_MARKET);
-                        values.add(SB.NON_ODA_OTHER_FLOWS);
+					@Override
+					protected List<AbstractLink> newSubMenuButtons(final String buttonMarkupId) {
+						final List<String> values = new ArrayList<>();
+						values.add(SB.BILATERAL_ODA_ADVANCE_QUESTIONNAIRE);
+						values.add(SB.BILATERAL_ODA_CRS);
+						values.add(SB.BILATERAL_ODA_FORWARD_SPENDING);
 
-                        return getTransactionLinks(values, page);
-                    }
-                };
-                nonOda.setIconType(IconType.random);
-                list.add(nonOda);
+						return getTransactionLinks(values, page);
+					}
 
-                MenuBookmarkablePageLink<AggregateTransactionsPage> aggregateTransactions =
-                        new MenuBookmarkablePageLink<AggregateTransactionsPage>(AggregateTransactionsPage.class, null, new StringResourceModel("navbar.aggregate", page, null));
-                aggregateTransactions.setIconType(IconType.resizesmall);
-                MetaDataRoleAuthorizationStrategy.authorize(aggregateTransactions, Component.RENDER,
-                        AuthConstants.Roles.ROLE_USER);
+				};
+				bilateralOda.setIconType(IconType.resizehorizontal);
+				list.add(bilateralOda);
 
-                list.add(aggregateTransactions);
+				final DropDownSubMenu multilateralOda = new DropDownSubMenu(Model.of("Multilateral ODA")) {
+					@Override
+					public boolean isActive(final Component item) {
+						return false;
+					}
 
-                return list;
-            }
-        };
-        navbarDropDownButton.setIconType(IconType.plus);
-        navbarDropDownButton.add(new DropDownAutoOpen());
-        MetaDataRoleAuthorizationStrategy.authorize(navbarDropDownButton, Component.RENDER,
-                AuthConstants.Roles.ROLE_USER);
-        return navbarDropDownButton;
-    }
+					@Override
+					protected List<AbstractLink> newSubMenuButtons(final String buttonMarkupId) {
+						final List<String> values = new ArrayList<>();
+						values.add(SB.MULTILATERAL_ODA_ADVANCE_QUESTIONNAIRE);
+						values.add(SB.MULTILATERAL_ODA_CRS);
 
-    @WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT, disabled = true, order = 97)
-    public static Component newThemesNavbarButton(final Page page) {
-        return new NavbarDropDownButton(Model.of("Themes")) {
-            @Override
-            public boolean isActive(Component item) {
-                return false;
-            }
+						return getTransactionLinks(values, page);
+					}
+				};
+				multilateralOda.setIconType(IconType.fullscreen);
+				list.add(multilateralOda);
 
-            @SuppressWarnings("Convert2Diamond")
-            @Override
-            protected List<AbstractLink> newSubMenuButtons(final String buttonMarkupId) {
-                final List<AbstractLink> subMenu = new ArrayList<AbstractLink>();
-                subMenu.add(new MenuHeader(Model.of("all available themes:")));
-                subMenu.add(new MenuDivider());
+				final DropDownSubMenu nonOda = new DropDownSubMenu(new StringResourceModel("navbar.newTransaction.nonOda",
+						this, null, null)) {
+					@Override
+					protected List<AbstractLink> newSubMenuButtons(final String buttonMarkupId) {
+						final List<String> values = new ArrayList<>();
+						values.add(SB.NON_ODA_OOF_NON_EXPORT);
+						values.add(SB.NON_ODA_OOF_EXPORT);
+						values.add(SB.NON_ODA_PRIVATE_GRANTS);
+						values.add(SB.NON_ODA_PRIVATE_MARKET);
+						values.add(SB.NON_ODA_OTHER_FLOWS);
 
-                final IBootstrapSettings settings = Bootstrap.getSettings(getApplication());
-                final List<ITheme> themes = settings.getThemeProvider().available();
+						return getTransactionLinks(values, page);
+					}
+				};
+				nonOda.setIconType(IconType.random);
+				list.add(nonOda);
 
-                for (final ITheme theme : themes) {
-                    PageParameters params = new PageParameters();
-                    params.set("theme", theme.name());
+				final MenuBookmarkablePageLink<AggregateTransactionsPage> aggregateTransactions =
+						new MenuBookmarkablePageLink<AggregateTransactionsPage>(AggregateTransactionsPage.class, null,new StringResourceModel("navbar.aggregate", page, null));
+				aggregateTransactions.setIconType(IconType.resizesmall);
+				MetaDataRoleAuthorizationStrategy.authorize(aggregateTransactions, Component.RENDER,
+						AuthConstants.Roles.ROLE_USER);
 
-                    subMenu.add(new MenuBookmarkablePageLink<Page>(page.getPageClass(), params, Model.of(theme.name())));
-                }
 
-                return subMenu;
-            }
-        }.setIconType(IconType.book);
-    }
+				list.add(aggregateTransactions);
 
-    @WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT, order = 8)
-    public static Component newLanguageNavbarButton(final Page page) {
-        NavbarDropDownButton languageDropDown = new NavbarDropDownButton(new StringResourceModel("navbar.lang", page,
-                null, null)) {
-            private static final long serialVersionUID = 2866997914075956070L;
+				return list;
+			}
+		};
+		navbarDropDownButton.setIconType(IconType.plus);
+		navbarDropDownButton.add(new DropDownAutoOpen());
+		MetaDataRoleAuthorizationStrategy.authorize(navbarDropDownButton, Component.RENDER,
+				AuthConstants.Roles.ROLE_USER);
+		return navbarDropDownButton;
+	}
 
-            @Override
-            public boolean isActive(Component item) {
-                return false;
-            }
+	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT, disabled = true, order = 97)
+	public static Component newThemesNavbarButton(final Page page) {
+		return new NavbarDropDownButton(Model.of("Themes")) {
+			@Override
+			public boolean isActive(final Component item) {
+				return false;
+			}
 
-            @SuppressWarnings("Convert2Diamond")
-            @Override
-            protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
-                List<AbstractLink> list = new ArrayList<>();
-                list.add(new MenuHeader(new StringResourceModel("navbar.lang.header", this, null, null)));
-                list.add(new MenuDivider());
+			@SuppressWarnings("Convert2Diamond")
+			@Override
+			protected List<AbstractLink> newSubMenuButtons(final String buttonMarkupId) {
+				final List<AbstractLink> subMenu = new ArrayList<AbstractLink>();
+				subMenu.add(new MenuHeader(Model.of("all available themes:")));
+				subMenu.add(new MenuDivider());
 
-                // TODO: get available languages
-                final List<Locale> langs = new ArrayList<>();
-                langs.add(new Locale("en"));
-                langs.add(new Locale("hr"));
-                langs.add(new Locale("cs"));
-                langs.add(new Locale("et"));
-                langs.add(new Locale("hu"));
-                langs.add(new Locale("lv"));
-                langs.add(new Locale("lt"));
-                langs.add(new Locale("mt"));
-                langs.add(new Locale("pl"));
-                langs.add(new Locale("ro"));
-                langs.add(new Locale("sl"));
+				final IBootstrapSettings settings = Bootstrap.getSettings(this.getApplication());
+				final List<ITheme> themes = settings.getThemeProvider().available();
 
-                for (Locale l : langs) {
-                    PageParameters params = new PageParameters(page.getPageParameters());
-                    params.set(Constants.LANGUAGE_PAGE_PARAM, l.getLanguage());
-                    list.add(new MenuBookmarkablePageLink<Page>(page.getPageClass(), params, Model.of(l
-                            .getDisplayName())));
-                }
+				for (final ITheme theme : themes) {
+					final PageParameters params = new PageParameters();
+					params.set("theme", theme.name());
 
-                return list;
-            }
-        };
-        languageDropDown.setIconType(IconType.flag);
-        languageDropDown.add(new DropDownAutoOpen());
-        return languageDropDown;
-    }
+					subMenu.add(new MenuBookmarkablePageLink<Page>(page.getPageClass(), params, Model.of(theme.name())));
+				}
 
-    @SuppressWarnings("Convert2Diamond")
-    public static List<AbstractLink> getTransactionLinks(List<String> values, Page page) {
-        List<AbstractLink> list = new ArrayList<>();
-        for (String item : values) {
-            PageParameters params = new PageParameters();
-            params.set(Constants.PARAM_TRANSACTION_TYPE, item);
-            list.add(new MenuBookmarkablePageLink<TransactionPage>(CustomTransactionPage.class, params,
-                    new StringResourceModel("navbar.newTransaction." + item, page, null, null)));
-        }
-        return list;
-    }
+				return subMenu;
+			}
+		}.setIconType(IconType.book);
+	}
 
-    @WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT, order = 10)
-    public static Component logoutPageNavbarButton(final Page page) {
-        NavbarButton<LogoutPage> logoutPageNavbarButton = new NavbarButton<LogoutPage>(LogoutPage.class,
-                new StringResourceModel("navbar.logout", page, null, null)).setIconType(IconType.off);
-        MetaDataRoleAuthorizationStrategy.authorize(logoutPageNavbarButton, Component.RENDER,
-                AuthConstants.Roles.ROLE_USER);
-        MetaDataRoleAuthorizationStrategy.authorize(logoutPageNavbarButton, Component.RENDER,
-                AuthConstants.Roles.ROLE_VIEWER);
-        return logoutPageNavbarButton;
-    }
+	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT, order = 10)
+	public static Component newLanguageNavbarButton(final Page page) {
+		final NavbarDropDownButton languageDropDown = new NavbarDropDownButton(new StringResourceModel("navbar.lang", page,
+				null, null)) {
+			private static final long serialVersionUID = 2866997914075956070L;
 
-    @WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT, order = 9)
-    public static Component newHelpMenu(Page page) {
-        NavbarDropDownButton navbarDropDownButton = new NavbarDropDownButton(new StringResourceModel("navbar.help",
-                page, null, null)) {
-            @Override
-            public boolean isActive(Component item) {
-                return false;
-            }
+			@Override
+			public boolean isActive(final Component item) {
+				return false;
+			}
 
-            @Override
-            protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
-                List<AbstractLink> list = new ArrayList<>();
-                list.add(new MenuHeader(new StringResourceModel("navbar.help.header", this, null)));
-                list.add(new MenuDivider());
+			@SuppressWarnings("Convert2Diamond")
+			@Override
+			protected List<AbstractLink> newSubMenuButtons(final String buttonMarkupId) {
+				final List<AbstractLink> list = new ArrayList<>();
+				list.add(new MenuHeader(new StringResourceModel("navbar.lang.header", this, null, null)));
+				list.add(new MenuDivider());
 
-				MenuBookmarkablePageLink<RecipientCountriesPdf> recipientCountriesLink = new MenuBookmarkablePageLink<RecipientCountriesPdf>(
+				// TODO: get available languages
+				final List<Locale> langs = new ArrayList<>();
+				langs.add(new Locale("en"));
+				langs.add(new Locale("hr"));
+				langs.add(new Locale("cs"));
+				langs.add(new Locale("et"));
+				langs.add(new Locale("hu"));
+				langs.add(new Locale("lv"));
+				langs.add(new Locale("lt"));
+				langs.add(new Locale("mt"));
+				langs.add(new Locale("pl"));
+				langs.add(new Locale("ro"));
+				langs.add(new Locale("sl"));
+
+				for (final Locale l : langs) {
+					final PageParameters params = new PageParameters(page.getPageParameters());
+					params.set(Constants.LANGUAGE_PAGE_PARAM, l.getLanguage());
+					list.add(new MenuBookmarkablePageLink<Page>(page.getPageClass(), params, Model.of(l
+							.getDisplayName())));
+				}
+
+				return list;
+			}
+		};
+		languageDropDown.setIconType(IconType.flag);
+		languageDropDown.add(new DropDownAutoOpen());
+		return languageDropDown;
+	}
+
+	@SuppressWarnings("Convert2Diamond")
+	public static List<AbstractLink> getTransactionLinks(final List<String> values, final Page page) {
+		final List<AbstractLink> list = new ArrayList<>();
+		for (final String item : values) {
+			final PageParameters params = new PageParameters();
+			params.set(Constants.PARAM_TRANSACTION_TYPE, item);
+			list.add(new MenuBookmarkablePageLink<TransactionPage>(CustomTransactionPage.class, params,
+					new StringResourceModel("navbar.newTransaction." + item, page, null, null)));
+		}
+		return list;
+	}
+
+
+	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT, order = 20)
+	public static Component newHelpMenu(final Page page) {
+		final NavbarDropDownButton navbarDropDownButton = new NavbarDropDownButton(new StringResourceModel("navbar.help",
+				page, null, null)) {
+			@Override
+			public boolean isActive(final Component item) {
+				return false;
+			}
+
+			@Override
+			protected List<AbstractLink> newSubMenuButtons(final String buttonMarkupId) {
+				final List<AbstractLink> list = new ArrayList<>();
+				list.add(new MenuHeader(new StringResourceModel("navbar.help.header", this, null)));
+				list.add(new MenuDivider());
+
+				final MenuBookmarkablePageLink<RecipientCountriesPdf> recipientCountriesLink = new MenuBookmarkablePageLink<RecipientCountriesPdf>(
 						RecipientCountriesPdf.class, null, new StringResourceModel("navbar.recipientcountries", this,
 								null)) {
 					private static final long serialVersionUID = 1L;
 					@Override
-					protected void onComponentTag(ComponentTag tag) {
+					protected void onComponentTag(final ComponentTag tag) {
 						super.onComponentTag(tag);
 						tag.put("target", "_blank");
 					}
 				};
 				recipientCountriesLink.setIconType(IconType.download);
 				list.add(recipientCountriesLink);
-				
-				MenuBookmarkablePageLink<LitOfInternationalOrgs> listOfInternationalOrgs = new MenuBookmarkablePageLink<LitOfInternationalOrgs>(
+
+				final MenuBookmarkablePageLink<LitOfInternationalOrgs> listOfInternationalOrgs = new MenuBookmarkablePageLink<LitOfInternationalOrgs>(
 						LitOfInternationalOrgs.class, null, new StringResourceModel("navbar.listofinternationalorgs", this,
 								null)) {
 					private static final long serialVersionUID = 1L;
 					@Override
-					protected void onComponentTag(ComponentTag tag) {
+					protected void onComponentTag(final ComponentTag tag) {
 						super.onComponentTag(tag);
 						tag.put("target", "_blank");
 					}
 				};
 				listOfInternationalOrgs.setIconType(IconType.download);
 				list.add(listOfInternationalOrgs);
-				
-				
-				MenuBookmarkablePageLink<DacCrsListCodes> dacCrslistCodes = new MenuBookmarkablePageLink<DacCrsListCodes>(
+
+
+				final MenuBookmarkablePageLink<DacCrsListCodes> dacCrslistCodes = new MenuBookmarkablePageLink<DacCrsListCodes>(
 						DacCrsListCodes.class, null, new StringResourceModel("navbar.daccrslistcodes", this,
 								null)) {
 					private static final long serialVersionUID = 1L;
 					@Override
-					protected void onComponentTag(ComponentTag tag) {
+					protected void onComponentTag(final ComponentTag tag) {
 						super.onComponentTag(tag);
 						tag.put("target", "_blank");
 					}
 				};
 				dacCrslistCodes.setIconType(IconType.download);
-				list.add(dacCrslistCodes);		
-				
-				MenuBookmarkablePageLink<OecdDacDirectives> oecdDacDirectives = new MenuBookmarkablePageLink<OecdDacDirectives>(
+				list.add(dacCrslistCodes);
+
+				final MenuBookmarkablePageLink<OecdDacDirectives> oecdDacDirectives = new MenuBookmarkablePageLink<OecdDacDirectives>(
 						OecdDacDirectives.class, null, new StringResourceModel("navbar.oecdacdirectives", this,
 								null)) {
 					private static final long serialVersionUID = 1L;
 					@Override
-					protected void onComponentTag(ComponentTag tag) {
+					protected void onComponentTag(final ComponentTag tag) {
 						super.onComponentTag(tag);
 						tag.put("target", "_blank");
 					}
 				};
 				oecdDacDirectives.setIconType(IconType.download);
-				list.add(oecdDacDirectives); 	
-				
-				MenuBookmarkablePageLink<DacGlossary> dacGlossary = new MenuBookmarkablePageLink<DacGlossary>(
+				list.add(oecdDacDirectives);
+
+				final MenuBookmarkablePageLink<DacGlossary> dacGlossary = new MenuBookmarkablePageLink<DacGlossary>(
 						DacGlossary.class, null, new StringResourceModel("navbar.dacglossary", this,
 								null)) {
 					private static final long serialVersionUID = 1L;
 					@Override
-					protected void onComponentTag(ComponentTag tag) {
+					protected void onComponentTag(final ComponentTag tag) {
 						super.onComponentTag(tag);
 						tag.put("target", "_blank");
 					}
 				};
 				dacGlossary.setIconType(IconType.download);
-				list.add(dacGlossary); 	
-				
-                return list;
-            }
+				list.add(dacGlossary);
 
-        };
-        navbarDropDownButton.setIconType(IconType.book);
-        navbarDropDownButton.add(new DropDownAutoOpen());
-        MetaDataRoleAuthorizationStrategy.authorize(navbarDropDownButton, Component.RENDER,
-                AuthConstants.Roles.ROLE_USER);
+				return list;
+			}
 
-        return navbarDropDownButton;
-    }
+		};
+		navbarDropDownButton.setIconType(IconType.book);
+		navbarDropDownButton.add(new DropDownAutoOpen());
+		MetaDataRoleAuthorizationStrategy.authorize(navbarDropDownButton, Component.RENDER,
+				AuthConstants.Roles.ROLE_USER);
+
+		return navbarDropDownButton;
+	}
 
 
-    @WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT, order = 98, disabled = true)
-    public static Component feedbackNavbarButton(final Page page) {
-        NavbarButton<LogoutPage> accountNavbarButton = new NavbarButton<LogoutPage>(FeedbackUrl.class,
-                new StringResourceModel("navbar.feedback", page, null, null)) {
-            @Override
-            protected void onComponentTag(ComponentTag tag) {
-                super.onComponentTag(tag);
-                tag.put("target", "_blank");
-            }
+	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT, order = 98, disabled = true)
+	public static Component feedbackNavbarButton(final Page page) {
+		final NavbarButton<LogoutPage> accountNavbarButton = new NavbarButton<LogoutPage>(FeedbackUrl.class,
+				new StringResourceModel("navbar.feedback", page, null, null)) {
+			@Override
+			protected void onComponentTag(final ComponentTag tag) {
+				super.onComponentTag(tag);
+				tag.put("target", "_blank");
+			}
 
-        }.setIconType(IconType.share);
-        return accountNavbarButton;
-    }
+		}.setIconType(IconType.share);
+		return accountNavbarButton;
+	}
 
 }

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2013 Development Gateway.
+  ~ All rights reserved. This program and the accompanying materials
+  ~ are made available under the terms of the GNU Public License v3.0
+  ~ which accompanies this distribution, and is available at
+  ~ http://www.gnu.org/licenses/gpl.html
+  ~
+  ~ Contributors:
+  ~    aartimon
+  -->
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+<head>
+
+</head>
+<body>
+<wicket:extend>
+
+	<div class="container">
+		<div class="row">
+			<div class="span4 offset4 well">
+				<form wicket:id="import-transactions-form">
+					<div class="">
+						<div wicket:id="import-file-upload" />
+					</div>
+					<div class="">
+						<input wicket:id="import-transactions-form-submit" type="submit"></input>
+					</div>
+				</form>
+				<div class="">
+					<span wicket:id="feedback">feedback</span>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span4 offset4 well">
+				<span wicket:id="template-message">The import file format should be based on the following template:</span>
+				<a wicket:id="template-link"><span wicket:id="template-link-name" /> </a>
+			</div>
+		</div>
+	</div>
+</wicket:extend>
+</body>
+</html>

@@ -6,7 +6,7 @@
  * http://www.gnu.org/licenses/gpl.html
  *******************************************************************************/
 /**
- * 
+ *
  */
 package org.devgateway.eudevfin.importing.metadata.storing;
 
@@ -23,25 +23,25 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class AreaStoringEngine extends AbstractStoringEngine<Area> {
-	
+
 	@Autowired
 	AreaDaoImpl areaDaoImpl;
 
 	@Override
 	public Area findEquivalentEntity(final Area entityFromFile) {
-		return this.areaDaoImpl.findByCode(entityFromFile.getCode());
+		return this.areaDaoImpl.findByCode(entityFromFile.getCode()).getEntity();
 	}
 
 	@Override
 	public void save(final Area entityFromFile) {
 		this.areaDaoImpl.save(entityFromFile);
-		
+
 	}
-	
+
 	@Override
 	public int importHashcode(final Area area) {
 		int result = 1;
-		
+
 		area.setLocale("en");
 		result = HASH_PRIME * result + this.hashcodeFromObject(area.getCode());
 		if (area.getIncomeGroup() != null) {
@@ -54,7 +54,7 @@ public class AreaStoringEngine extends AbstractStoringEngine<Area> {
 		result = HASH_PRIME * result + this.hashcodeFromObject(area.getClass().getName());
 		area.setLocale("fr");
 		result = HASH_PRIME * result + this.hashcodeFromObject(area.getName());
-		
+
 		return result;
 	}
 

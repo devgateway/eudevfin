@@ -24,6 +24,7 @@ import org.apache.wicket.model.StringResourceModel;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.mcm.pages.*;
 import org.devgateway.eudevfin.ui.common.WicketNavbarComponentInitializer;
+import org.devgateway.eudevfin.ui.common.components.RepairedNavbarDropDownButton;
 import org.devgateway.eudevfin.ui.common.pages.LogoutPage;
 
 import java.util.ArrayList;
@@ -39,58 +40,96 @@ import java.util.List;
  */
 public final class NavbarInitializer {
 
-    @WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT, order = 7)
-    public static Component newAdminNavbarButton(Page page) {
-        NavbarDropDownButton navbarDropDownButton = new NavbarDropDownButton(new StringResourceModel("navbar.admin",
-                page, null, null)) {
-            @Override
-            public boolean isActive(Component item) {
-                return false;
-            }
+	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT,order=7)
+	public static Component newAdminNavbarButton(final Page page) {
+		final NavbarDropDownButton navbarDropDownButton = new NavbarDropDownButton(new StringResourceModel("navbar.admin",
+				page, null, null)) {
+			@Override
+			public boolean isActive(final Component item) {
+				return false;
+			}
 
-            @Override
-            protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
-                List<AbstractLink> list = new ArrayList<>();
-                list.add(new MenuHeader(new StringResourceModel("navbar.admin.header", this, null, null)));
-                list.add(new MenuDivider());
+			@Override
+			protected List<AbstractLink> newSubMenuButtons(final String buttonMarkupId) {
+				final List<AbstractLink> list = new ArrayList<>();
+				list.add(new MenuHeader(new StringResourceModel("navbar.admin.header", this, null, null)));
+				list.add(new MenuDivider());
 
-                list.add(new MenuBookmarkablePageLink<ListPersistedUsersPage>(ListPersistedUsersPage.class, null,
-                        new StringResourceModel("navbar.admin.users", this, null, null)).setIconType(IconType.thlist));
+				list.add(new MenuBookmarkablePageLink<ListPersistedUsersPage>(ListPersistedUsersPage.class, null,
+						new StringResourceModel("navbar.admin.users", this, null, null)).setIconType(IconType.thlist));
 
-                list.add(new MenuBookmarkablePageLink<ListPersistedUserGroupsPage>(ListPersistedUserGroupsPage.class,
-                        null, new StringResourceModel("navbar.admin.groups", this, null, null)).setIconType(IconType.list));
+				list.add(new MenuBookmarkablePageLink<ListPersistedUserGroupsPage>(ListPersistedUserGroupsPage.class,
+						null, new StringResourceModel("navbar.admin.groups", this, null, null)).setIconType(IconType.list));
 
-                list.add(new MenuBookmarkablePageLink<ListOrganizationsPage>(ListOrganizationsPage.class, null,
-                        new StringResourceModel("navbar.admin.orgs", this, null, null)).setIconType(IconType.leaf));
+				list.add(new MenuBookmarkablePageLink<ListOrganizationsPage>(ListOrganizationsPage.class, null,
+						new StringResourceModel("navbar.admin.orgs", this, null, null)).setIconType(IconType.leaf));
 
-                list.add(new MenuBookmarkablePageLink<ListPersistedUserGroupsPage>(EditNonFlowItemsPage.class, null,
-                        new StringResourceModel("navbar.admin.nonflow", this, null, null)).setIconType(IconType.globe));
+				list.add(new MenuBookmarkablePageLink<ListPersistedUserGroupsPage>(EditNonFlowItemsPage.class, null,
+						new StringResourceModel("navbar.admin.nonflow", this, null, null)).setIconType(IconType.globe));
 
-                list.add(new MenuBookmarkablePageLink<ListPersistedUserGroupsPage>(ListHistoricalExchangeRatePage.class, null,
-                        new StringResourceModel("navbar.admin.rates", this, null, null)).setIconType(IconType.retweet));
+				list.add(new MenuBookmarkablePageLink<ListPersistedUserGroupsPage>(ListHistoricalExchangeRatePage.class, null,
+						new StringResourceModel("navbar.admin.rates", this, null, null)).setIconType(IconType.retweet));
 
-                list.add((AbstractLink) new MenuBookmarkablePageLink<ListPersistedUserGroupsPage>(
-                        SystemMaintenance.class, null, new StringResourceModel("navbar.admin.maintenance", this, null,
-                        null)).setIconType(IconType.wrench).setEnabled(false));
-                return list;
-            }
+				list.add((AbstractLink) new MenuBookmarkablePageLink<ListPersistedUserGroupsPage>(
+						SystemMaintenance.class, null, new StringResourceModel("navbar.admin.maintenance", this, null,
+								null)).setIconType(IconType.wrench).setEnabled(false));
+				return list;
+			}
 
-        };
-        navbarDropDownButton.setIconType(IconType.eyeopen);
-        navbarDropDownButton.add(new DropDownAutoOpen());
-        MetaDataRoleAuthorizationStrategy.authorize(navbarDropDownButton, Component.RENDER,
-                AuthConstants.Roles.ROLE_SUPERVISOR);
+		};
+		navbarDropDownButton.setIconType(IconType.eyeopen);
+		navbarDropDownButton.add(new DropDownAutoOpen());
+		MetaDataRoleAuthorizationStrategy.authorize(navbarDropDownButton, Component.RENDER,
+				AuthConstants.Roles.ROLE_SUPERVISOR);
 
-        return navbarDropDownButton;
-    }
+		return navbarDropDownButton;
+	}
 
+	//
+	//	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT, order = 30)
+	//	public static Component accountNavbarButton(final Page page) {
+	//		final NavbarButton<LogoutPage> accountNavbarButton = new NavbarButton<LogoutPage>(EditPersistedUserPage.class,
+	//				new StringResourceModel("navbar.account", page, null, null)).setIconType(IconType.user);
+	//		MetaDataRoleAuthorizationStrategy.authorize(accountNavbarButton, Component.RENDER,
+	//				AuthConstants.Roles.ROLE_USER);
+	//		return accountNavbarButton;
+	//	}
 
-    @WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT, order = 6)
-    public static Component accountNavbarButton(final Page page) {
-        NavbarButton<LogoutPage> accountNavbarButton = new NavbarButton<LogoutPage>(EditPersistedUserPage.class,
-                Model.of("")/*new StringResourceModel("navbar.account", page, null, null)*/).setIconType(IconType.user);
-        MetaDataRoleAuthorizationStrategy.authorize(accountNavbarButton, Component.RENDER,
-                AuthConstants.Roles.ROLE_USER);
-        return accountNavbarButton;
-    }
+	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT,order=30)
+	public static Component accountButton(final Page page) {
+
+		final NavbarDropDownButton accountMenu = new RepairedNavbarDropDownButton(new StringResourceModel(
+				"navbar.account.user", page, null, null)) {
+
+			@Override
+			public boolean isActive(final Component item) {
+				return false;
+			}
+
+			@Override
+			protected List<AbstractLink> newSubMenuButtons(final String buttonMarkupId) {
+				final List<AbstractLink> list = new ArrayList<>();
+				final MenuBookmarkablePageLink<EditPersistedUserPage> accountNavbarButton = new MenuBookmarkablePageLink<EditPersistedUserPage>(EditPersistedUserPage.class,
+						new StringResourceModel("navbar.account", page, null, null));
+				accountNavbarButton.setIconType(IconType.edit);
+				MetaDataRoleAuthorizationStrategy.authorize(accountNavbarButton, Component.RENDER,
+						AuthConstants.Roles.ROLE_USER);
+				list.add(accountNavbarButton);
+
+				final MenuBookmarkablePageLink<LogoutPage> logoutPageNavbarButton = new MenuBookmarkablePageLink<LogoutPage>(LogoutPage.class,
+						new StringResourceModel("navbar.logout", page, null, null));
+				logoutPageNavbarButton.setIconType(IconType.off);
+				MetaDataRoleAuthorizationStrategy.authorize(logoutPageNavbarButton, Component.RENDER,
+						AuthConstants.Roles.ROLE_USER);
+				list.add(logoutPageNavbarButton);
+
+				return list;
+			}
+		};
+		accountMenu.setIconType(IconType.user);
+		MetaDataRoleAuthorizationStrategy.authorize(accountMenu, Component.RENDER,
+				AuthConstants.Roles.ROLE_USER);
+		return accountMenu;
+	}
+
 }
