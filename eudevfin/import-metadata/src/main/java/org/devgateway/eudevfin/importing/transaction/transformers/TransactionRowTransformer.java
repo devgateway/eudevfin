@@ -76,6 +76,45 @@ public class TransactionRowTransformer implements IRowTransformer {
 		this.cellTransformers.add(new CellTransformers.TypeOfFinance());
 		this.cellTransformers.add(new CellTransformers.TypeOfAid());
 		this.cellTransformers.add(new CellTransformers.ShortDescription());
+		this.cellTransformers.add(new CellTransformers.Sectors());
+		this.cellTransformers.add(new CellTransformers.GeographicalTargetArea());
+		this.cellTransformers.add(new CellTransformers.ExpectedStartDate());
+		this.cellTransformers.add(new CellTransformers.ExpectedCommpletionDate());
+		this.cellTransformers.add(new CellTransformers.Description());
+		this.cellTransformers.add(new CellTransformers.GenderEquality());
+		this.cellTransformers.add(new CellTransformers.AidToEnvironment());
+		this.cellTransformers.add(new CellTransformers.Pdgg());
+		this.cellTransformers.add(new CellTransformers.TradeDevelopment());
+		this.cellTransformers.add(new CellTransformers.FreestandingTechnicalCooperation());
+		this.cellTransformers.add(new CellTransformers.ProgrammeBasedApproach());
+		this.cellTransformers.add(new CellTransformers.InvestmentProject());
+		this.cellTransformers.add(new CellTransformers.AssociatedFinancing());
+		this.cellTransformers.add(new CellTransformers.Biodiversity());
+		this.cellTransformers.add(new CellTransformers.ClimateChangeMitigation());
+		this.cellTransformers.add(new CellTransformers.ClimateChangeAdaptation());
+		this.cellTransformers.add(new CellTransformers.Desertification());
+		this.cellTransformers.add(new CellTransformers.CurrencyCode());
+		this.cellTransformers.add(new CellTransformers.Commitments());
+		this.cellTransformers.add(new CellTransformers.AmountsExtended());
+		this.cellTransformers.add(new CellTransformers.AmountsReceived());
+		this.cellTransformers.add(new CellTransformers.AmountsUntied());
+		this.cellTransformers.add(new CellTransformers.AmountsPartiallyUntied());
+		this.cellTransformers.add(new CellTransformers.AmountsTied());
+		this.cellTransformers.add(new CellTransformers.AmountOfIrtc());
+		this.cellTransformers.add(new CellTransformers.AmountsOfExpertCommitment());
+		this.cellTransformers.add(new CellTransformers.AmountsOfExpertExtended());
+		this.cellTransformers.add(new CellTransformers.AmountsOfExportCredit());
+		this.cellTransformers.add(new CellTransformers.TypeOfRepayment());
+		this.cellTransformers.add(new CellTransformers.NumberOfRepayments());
+		this.cellTransformers.add(new CellTransformers.InterestRate());
+		this.cellTransformers.add(new CellTransformers.SecondInterestRate());
+		this.cellTransformers.add(new CellTransformers.FirstRepaymentDate());
+		this.cellTransformers.add(new CellTransformers.FinalRepaymentDate());
+		this.cellTransformers.add(new CellTransformers.InterestReceived());
+		this.cellTransformers.add(new CellTransformers.PrincipalDisbursdeOutstanding());
+		this.cellTransformers.add(new CellTransformers.ArrearsOfPrincipal());
+		this.cellTransformers.add(new CellTransformers.ArrearsOfInterest());
+		this.cellTransformers.add(new CellTransformers.Rmnch());
 
 	}
 

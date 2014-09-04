@@ -24,7 +24,7 @@ import org.joda.time.LocalDateTime;
 public class ExcelTxStreamProcessor implements IStreamProcessor {
 
 	private static final int ACTUAL_DATA_START_ROW_NUM = 1;
-	private static final int NUM_OF_COLUMNS = 14;
+	private static final int NUM_OF_COLUMNS = 53;
 
 	private final InputStream inputStream;
 	private HSSFWorkbook workbook;
