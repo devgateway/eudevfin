@@ -6,6 +6,7 @@
 	<property name="ireport.y" value="0"/>
 	<parameter name="FIRST_YEAR" class="java.lang.Number"/>
 	<parameter name="SECOND_YEAR" class="java.lang.Number"/>
+    <parameter name="FORM_DATASOURCE" class="java.lang.String"/>
 	<queryString language="mdx">
 		<![CDATA[WITH
 MEMBER [Reporting Year].[First Year] AS [Reporting Year].[$P{FIRST_YEAR}]
@@ -14,7 +15,7 @@ SELECT
 {[Reporting Year].[First Year], [Reporting Year].[Second Year]} ON ROWS,
 {[Measures].[Extended Amount Currency NATLOECD]} ON COLUMNS
 FROM [Financial]
-WHERE {[Form Type].[bilateralOda.advanceQuestionnaire], [Form Type].[multilateralOda.advanceQuestionnaire]}
+WHERE $P{FORM_DATASOURCE}
 
 ]]>
 	</queryString>

@@ -28,8 +28,8 @@
 	<!-- auditing -->
     <jpa:auditing auditor-aware-ref="simpleAuditorAwareImpl" />
 	
-	<util:properties id="currencyProperties" location="classpath:/org/devgateway/eudevfin/financial/currencies-metadata.properties"/>
-	
+    <util:properties id="currencyProperties"
+                     location="classpath:/org/devgateway/eudevfin/financial/currencies-metadata.properties"/>
 
 
 
@@ -47,7 +47,8 @@
 	<bean id="derbyServer" class="org.apache.derby.drda.NetworkServerControl"
 		destroy-method="shutdown" lazy-init="true">
 		<constructor-arg ref="derbyServerIP" />
-		<constructor-arg value="#{systemProperties['eudevfin.derby.port']!=null?systemProperties['eudevfin.derby.port']:'1527'}" />
+        <constructor-arg
+                value="#{systemProperties['eudevfin.derby.port']!=null?systemProperties['eudevfin.derby.port']:'1527'}"/>
 	</bean>
 
 	<!-- Create Printwriter object to use as log output reader for derby network 
@@ -63,7 +64,8 @@
 
 	<!--  https://jira.springsource.org/browse/SPR-11196 MethodInvokingBean this was added for us :). -->	
 	<bean id="startDerby" 
-		class="org.springframework.beans.factory.config.MethodInvokingBean" lazy-init="true" autowire-candidate="false">
+          class="org.springframework.beans.factory.config.MethodInvokingBean" lazy-init="true"
+          autowire-candidate="false">
 		<property name="targetObject" ref="derbyServer" />
 		<property name="targetMethod" value="start" />
 		<property name="arguments" ref="pw" />
@@ -76,14 +78,17 @@
 	depends-on="startDerby" lazy-init="true" p:driverClassName="org.apache.derby.jdbc.ClientDriver"
 	p:url="jdbc:derby://localhost:#{systemProperties['eudevfin.derby.port']!=null?systemProperties['eudevfin.derby.port']:'1527'}/#{commonProperties['eudevfin.database.name']};create=true"
 	p:username="app" p:password="app" p:testWhileIdle="true" p:testOnBorrow="true" p:testOnReturn="false"
-	p:validationQuery="SELECT 1" p:validationInterval="30000" p:timeBetweenEvictionRunsMillis="5000" p:maxActive="100"
-	p:minIdle="10" p:maxIdle="20" p:maxWait="10000" p:initialSize="10" p:removeAbandonedTimeout="60" p:removeAbandoned="true"
+    p:validationQuery="SELECT 1" p:validationInterval="30000" p:timeBetweenEvictionRunsMillis="5000"
+    p:maxActive="100"
+    p:minIdle="10" p:maxIdle="20" p:maxWait="10000" p:initialSize="10" p:removeAbandonedTimeout="60"
+    p:removeAbandoned="true"
 	p:logAbandoned="true" p:minEvictableIdleTimeMillis="30000" p:jmxEnabled="true"
 	p:jdbcInterceptors="ConnectionState;StatementFinalizer;SlowQueryReportJmx(threshold=10000)"
 	p:abandonWhenPercentageFull="75" />
 
 	<!-- Datasource for embedded mode, this will be instantiated only if embedded mode derby will be used -->
-	<bean class="org.apache.tomcat.jdbc.pool.DataSource" id="euDevFinDataSourceEmbedded" lazy-init="true" autowire-candidate="false">
+    <bean class="org.apache.tomcat.jdbc.pool.DataSource" id="euDevFinDataSourceEmbedded" lazy-init="true"
+          autowire-candidate="false">
 		<property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver" />
 		<property name="url" value="jdbc:derby:memory:#{commonProperties['eudevfin.database.name']};create=true" />
 		<property name="username" value="app" />
@@ -141,7 +146,8 @@
 
 
     <!-- Hibernate / JPA related beans -->
-    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" depends-on="ehcache">
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+          depends-on="ehcache">
 		<property name="dataSource" ref="euDevFinDataSource" />
 		<property name="packagesToScan" value="org.devgateway.eudevfin" />
 		<property name="mappingResources" value="META-INF/orm.xml"/>
@@ -152,7 +158,9 @@
 				<prop key="org.hibernate.envers.track_entities_changed_in_revision">true</prop>
 				<prop key="hibernate.cache.use_second_level_cache">true</prop>
 				<prop key="hibernate.cache.use_query_cache">true</prop>
-				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory</prop>
+                <prop key="hibernate.cache.region.factory_class">
+                    org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
+                </prop>
 				<prop key="hibernate.generate_statistics">false</prop>
                 <prop key="hibernate.show_sql">false</prop>
             </props>
@@ -193,7 +201,8 @@
 	<int:channel id="findCustomTransactionByReportingYearAndDraftFalseChannel"/>
 	<int:channel id="findCustomTransactionByReportingYearAndDraftFalseAndFormTypeNotInChannel"/>
 	<int:channel id="findCustomTransactionByReportingYearAndApprovedTrueAndFormTypeInChannel"/>
-	<int:channel id="findCustomTransactionByApprovedTrueAndFormTypeInlOrderByCrsIdentificationNumberAscCreatedDateAscChannel"/>
+    <int:channel
+            id="findCustomTransactionByApprovedTrueAndFormTypeInlOrderByCrsIdentificationNumberAscCreatedDateAscChannel"/>
 	
 	<int:channel id="findDistinctReportingYearsInTransactionChannel"/>
     <int:channel id="findDistinctStartingYearsInTransactionChannel"/>
@@ -202,15 +211,23 @@
 	
 	<int:channel id="findOrganizationByIdChannel" />
 	<int:channel id="saveOrganizationChannel" />
+    <int:channel id="deleteOrganizationChannel"/>
 	<int:channel id="findOrganizationByDacFalse"/>
     <int:channel id="findAllAsListOrganizationChannel"/>
-    <int:channel id="findOrganizationByIdChannel"/>
     <int:channel id="findOrganizationByGeneralSearchPageableChannel"/>
     <int:channel id="findUsedOrganizationPaginatedOrganizationChannel"/>
 
     <int:channel id="findOrganizationByCodeChannel"/>
     <int:channel id="findOrganizationByCodeAndDonorCodeChannel"/>
     
+    <int:channel id="findAllAsListMessageChannel"/>
+    <int:channel id="saveMessageChannel"/>
+    <int:channel id="deleteMessageChannel"/>
+    <int:channel id="findMessageByIdChannel"/>
+    <int:channel id="findMessageByToPageableChannel"/>
+    <int:channel id="findMessageByToAndReadStatusFalsePageableChannel"/>
+    <int:channel id="findMessageByGeneralSearchPageableChannel"/>
+
 	<int:channel id="saveCategoryChannel" />
 	<int:channel id="findAllAsListCategoryChannel" />
 	<int:channel id="findCategoryByIdChannel" />

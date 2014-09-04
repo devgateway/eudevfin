@@ -8,6 +8,8 @@
 
 package org.devgateway.eudevfin.dim.pages.transaction.crs;
 
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.event.Broadcast;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.metadata.common.domain.Category;
@@ -17,8 +19,8 @@ import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.DateInputField;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.components.PreviewableFormPanel;
-import org.devgateway.eudevfin.ui.common.components.PreviewableFormPanelAware;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
+import org.devgateway.eudevfin.ui.common.events.ReportingYearChangedEventPayload;
 import org.devgateway.eudevfin.ui.common.models.DateToLocalDateTimeModel;
 import org.devgateway.eudevfin.ui.common.models.YearToLocalDateTimeModel;
 import org.devgateway.eudevfin.ui.common.permissions.PermissionAwareComponent;
@@ -51,8 +53,19 @@ public class IdentificationDataTab extends PreviewableFormPanel implements Permi
         addComponents();
     }
 
-    private void addComponents() {
-        TextInputField<Integer> reportingYear = new TextInputField<>("1reportingYear", new YearToLocalDateTimeModel(new RWComponentPropertyModel<LocalDateTime>("reportingYear")));
+	private void addComponents() {
+		TextInputField<Integer> reportingYear = new TextInputField<Integer>("1reportingYear",
+				new YearToLocalDateTimeModel(new RWComponentPropertyModel<LocalDateTime>("reportingYear"))) {
+			private static final long serialVersionUID = 1390304553363728058L;
+
+			@Override
+			protected void onUpdate(AjaxRequestTarget target) {
+				Integer modelObject = this.getField().getModelObject();
+				if (modelObject != null)
+					send(getPage(), Broadcast.DEPTH, new ReportingYearChangedEventPayload(target, modelObject));
+			}
+		};
+
         reportingYear.typeInteger().required().range(1900, 2099).decorateMask("9999");
         add(reportingYear);
 

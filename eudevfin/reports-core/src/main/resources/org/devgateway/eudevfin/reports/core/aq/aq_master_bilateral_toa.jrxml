@@ -6,6 +6,7 @@
 	<property name="ireport.y" value="0"/>
 	<parameter name="FIRST_YEAR" class="java.lang.Number"/>
 	<parameter name="SECOND_YEAR" class="java.lang.Number"/>
+    <parameter name="FORM_DATASOURCE" class="java.lang.String"/>
 	<queryString language="mdx">
 		<![CDATA[WITH
 MEMBER [Type of Aid].[Budget Support] AS SUM({[Type of Aid].[A],[Type of Aid].[A01],[Type of Aid].[A02]})
@@ -23,7 +24,7 @@ SELECT
 {[Type of Aid].[Budget Support], [Type of Aid].[Core contributions and pooled programmes and funds], [Type of Aid].[Project-type interventions], [Type of Aid].[Experts and other technical assistance], [Type of Aid].[Scholarships and student costs in donor countries], [Type of Aid].[Debt Relief], [Type of Aid].[Administrative costs not included elsewhere], [Type of Aid].[Other in-donor expenditures], [Type of Aid].[AllTypes] } ON ROWS,
 {[Measures].[First Year], [Measures].[Second Year]} ON COLUMNS
 FROM [Financial]
-WHERE {[BiMultilateral].[BI_MULTILATERAL##1], [BiMultilateral].[BI_MULTILATERAL##3], [BiMultilateral].[BI_MULTILATERAL##7]}*{[Form Type].[bilateralOda.advanceQuestionnaire], [Form Type].[multilateralOda.advanceQuestionnaire] }
+WHERE {[BiMultilateral].[BI_MULTILATERAL##1], [BiMultilateral].[BI_MULTILATERAL##3], [BiMultilateral].[BI_MULTILATERAL##7]}*$P{FORM_DATASOURCE}
 ]]>
 	</queryString>
 	<field name="Budget Support Y1" class="java.lang.Number">

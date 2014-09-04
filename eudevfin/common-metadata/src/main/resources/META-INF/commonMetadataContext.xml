@@ -24,6 +24,9 @@
 		<int:method name="save" request-channel="getChannel">
 			<int:header name="requestName" value="saveOrganizationChannel"/>
 		</int:method>
+		<int:method name="delete" request-channel="getChannel">
+			<int:header name="requestName" value="deleteOrganizationChannel"/>
+		</int:method>
         <int:method name="findAll" request-channel="getChannel">
             <int:header name="requestName" value="findAllAsListOrganizationChannel"/>
         </int:method>

@@ -10,80 +10,106 @@
      mpostelnicu
 -->
 <beans default-lazy-init="true"
-	xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:int="http://www.springframework.org/schema/integration"
-	xmlns:util="http://www.springframework.org/schema/util"
-	xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-3.0.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 
 
-    <bean class="org.devgateway.eudevfin.common.locale.LocaleHelper" id="localeHelperRequest" scope="request" />
-	<bean class="org.devgateway.eudevfin.common.locale.LocaleHelper" id="localeHelperSession" scope="session" />
-	
-	<int:channel id="getChannel"/>
+    <bean class="org.devgateway.eudevfin.common.locale.LocaleHelper" id="localeHelperRequest" scope="request"/>
+    <bean class="org.devgateway.eudevfin.common.locale.LocaleHelper" id="localeHelperSession" scope="session"/>
 
-	
-	
-	<!-- This section contains the definition of the services that are made available to the other modules -->
-	<int:gateway id="financialTransactionService"
-		default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}" 
-		service-interface="org.devgateway.eudevfin.financial.service.FinancialTransactionService" >
-		<int:method name="findAll" request-channel="getChannel">
-			<int:header name="requestName" value="findAllAsListTransactionChannel"/>
-		</int:method>
-		<int:method name="save" request-channel="getChannel">
-			<int:header name="requestName" value="saveTransactionChannel"/>
-		</int:method>
-		<int:method name="delete" request-channel="getChannel">
-			<int:header name="requestName" value="deleteTransactionChannel"/>
-		</int:method>
-		<int:method name="findOne" request-channel="getChannel">
-			<int:header name="requestName" value="findTransactionByIdChannel"/>
-		</int:method>
-		<int:method name="findBySectorCode" request-channel="getChannel">
-			<int:header name="requestName" value="findTransactionBySectorCodePageableChannel"/>
-		</int:method>
-		<int:method name="findByGeneralSearchPageable" request-channel="getChannel">
-			<int:header name="requestName" value="findTransactionByGeneralSearchPageableChannel"/>
-		</int:method>
-		<int:method name="findByReportingYearAndTypeOfFlowCode" request-channel="getChannel">
-			<int:header name="requestName" value="findTransactionByReportingYearAndTypeOfFlowNonFlow"/>
-		</int:method>
-		
-	</int:gateway>
-	
-	<int:gateway id="customFinancialTransactionService"
-		default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}" 
-		service-interface="org.devgateway.eudevfin.financial.service.CustomFinancialTransactionService">
-		<int:method name="findByDraftAndPersistedUserGroupPageable" request-channel="getChannel">
-			<int:header name="requestName" value="findCustomTransactionByDraftAndPersistedUserGroupPageableChannel"/>
-		</int:method>
-			<int:method name="findByApprovedAndPersistedUserGroupPageable" request-channel="getChannel">
-			<int:header name="requestName" value="findCustomTransactionByApprovedAndPersistedUserGroupPageableChannel"/>
-		</int:method>
-		<int:method name="findByDraftPageable" request-channel="getChannel">
-			<int:header name="requestName" value="findCustomTransactionByDraftPageableChannel"/>
-		</int:method>
-		<int:method name="findByApprovedPageable" request-channel="getChannel">
-			<int:header name="requestName" value="findCustomTransactionByApprovedPageableChannel"/>
-		</int:method>	
-		<int:method name="findByReportingYearAndDraftFalse" request-channel="getChannel">
-			<int:header name="requestName" value="findCustomTransactionByReportingYearAndDraftFalseChannel"/>
-		</int:method>
-		<int:method name="findByReportingYearAndDraftFalseAndFormTypeNotIn" request-channel="getChannel">
-			<int:header name="requestName" value="findCustomTransactionByReportingYearAndDraftFalseAndFormTypeNotInChannel"/>
-		</int:method>
-		<int:method name="findByReportingYearAndApprovedTrueAndFormTypeIn" request-channel="getChannel">
-			<int:header name="requestName" value="findCustomTransactionByReportingYearAndApprovedTrueAndFormTypeInChannel"/>
-		</int:method>
-		<int:method name="findByApprovedTrueAndFormTypeInOrderByCrsIdAscCreatedDateAsc" request-channel="getChannel">
-			<int:header name="requestName" value="findCustomTransactionByApprovedTrueAndFormTypeInlOrderByCrsIdentificationNumberAscCreatedDateAscChannel"/>
-		</int:method>
-		<int:method name="findDistinctReportingYears" request-channel="getChannel">
-			<int:header name="requestName" value="findDistinctReportingYearsInTransactionChannel"/>
-		</int:method>
+    <int:channel id="getChannel"/>
+
+
+    <!-- This section contains the definition of the services that are made available to the other modules -->
+    <int:gateway id="financialTransactionService"
+                 default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}"
+                 service-interface="org.devgateway.eudevfin.financial.service.FinancialTransactionService">
+        <int:method name="findAll" request-channel="getChannel">
+            <int:header name="requestName" value="findAllAsListTransactionChannel"/>
+        </int:method>
+        <int:method name="save" request-channel="getChannel">
+            <int:header name="requestName" value="saveTransactionChannel"/>
+        </int:method>
+        <int:method name="delete" request-channel="getChannel">
+            <int:header name="requestName" value="deleteTransactionChannel"/>
+        </int:method>
+        <int:method name="findOne" request-channel="getChannel">
+            <int:header name="requestName" value="findTransactionByIdChannel"/>
+        </int:method>
+        <int:method name="findBySectorCode" request-channel="getChannel">
+            <int:header name="requestName" value="findTransactionBySectorCodePageableChannel"/>
+        </int:method>
+        <int:method name="findByGeneralSearchPageable" request-channel="getChannel">
+            <int:header name="requestName" value="findTransactionByGeneralSearchPageableChannel"/>
+        </int:method>
+        <int:method name="findByReportingYearAndTypeOfFlowCode" request-channel="getChannel">
+            <int:header name="requestName" value="findTransactionByReportingYearAndTypeOfFlowNonFlow"/>
+        </int:method>
+
+    </int:gateway>
+
+    <int:gateway id="messageService"
+                 default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}"
+                 service-interface="org.devgateway.eudevfin.financial.service.MessageService">
+        <int:method name="findAll" request-channel="getChannel">
+            <int:header name="requestName" value="findAllAsListMessageChannel"/>
+        </int:method>
+        <int:method name="save" request-channel="getChannel">
+            <int:header name="requestName" value="saveMessageChannel"/>
+        </int:method>
+        <int:method name="delete" request-channel="getChannel">
+            <int:header name="requestName" value="deleteMessageChannel"/>
+        </int:method>
+        <int:method name="findOne" request-channel="getChannel">
+            <int:header name="requestName" value="findMessageByIdChannel"/>
+        </int:method>
+        <int:method name="findByTo" request-channel="getChannel">
+            <int:header name="requestName" value="findMessageByToPageableChannel"/>
+        </int:method>
+        <int:method name="findByToAndReadStatusFalse" request-channel="getChannel">
+            <int:header name="requestName" value="findMessageByToAndReadStatusFalsePageableChannel"/>
+        </int:method>
+        <int:method name="findByGeneralSearchPageable" request-channel="getChannel">
+            <int:header name="requestName" value="findMessageByGeneralSearchPageableChannel"/>
+        </int:method>
+    </int:gateway>
+
+    <int:gateway id="customFinancialTransactionService"
+                 default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}"
+                 service-interface="org.devgateway.eudevfin.financial.service.CustomFinancialTransactionService">
+        <int:method name="findByDraftAndPersistedUserGroupPageable" request-channel="getChannel">
+            <int:header name="requestName" value="findCustomTransactionByDraftAndPersistedUserGroupPageableChannel"/>
+        </int:method>
+        <int:method name="findByApprovedAndPersistedUserGroupPageable" request-channel="getChannel">
+            <int:header name="requestName" value="findCustomTransactionByApprovedAndPersistedUserGroupPageableChannel"/>
+        </int:method>
+        <int:method name="findByDraftPageable" request-channel="getChannel">
+            <int:header name="requestName" value="findCustomTransactionByDraftPageableChannel"/>
+        </int:method>
+        <int:method name="findByApprovedPageable" request-channel="getChannel">
+            <int:header name="requestName" value="findCustomTransactionByApprovedPageableChannel"/>
+        </int:method>
+        <int:method name="findByReportingYearAndDraftFalse" request-channel="getChannel">
+            <int:header name="requestName" value="findCustomTransactionByReportingYearAndDraftFalseChannel"/>
+        </int:method>
+        <int:method name="findByReportingYearAndDraftFalseAndFormTypeNotIn" request-channel="getChannel">
+            <int:header name="requestName"
+                        value="findCustomTransactionByReportingYearAndDraftFalseAndFormTypeNotInChannel"/>
+        </int:method>
+        <int:method name="findByReportingYearAndApprovedTrueAndFormTypeIn" request-channel="getChannel">
+            <int:header name="requestName"
+                        value="findCustomTransactionByReportingYearAndApprovedTrueAndFormTypeInChannel"/>
+        </int:method>
+        <int:method name="findByApprovedTrueAndFormTypeInOrderByCrsIdAscCreatedDateAsc" request-channel="getChannel">
+            <int:header name="requestName"
+                        value="findCustomTransactionByApprovedTrueAndFormTypeInlOrderByCrsIdentificationNumberAscCreatedDateAscChannel"/>
+        </int:method>
+        <int:method name="findDistinctReportingYears" request-channel="getChannel">
+            <int:header name="requestName" value="findDistinctReportingYearsInTransactionChannel"/>
+        </int:method>
         <int:method name="findDistinctStartingYears" request-channel="getChannel">
             <int:header name="requestName" value="findDistinctStartingYearsInTransactionChannel"/>
         </int:method>
@@ -93,31 +119,31 @@
         <int:method name="findDistinctReportingGeopraphy" request-channel="getChannel">
             <int:header name="requestName" value="findDistinctReportingGeopraphyInTransactionChannel"/>
         </int:method>
-		<int:method name="findBySearchFormPageable" request-channel="getChannel">
-			<int:header name="requestName" value="findTransactionBySearchFormPageableChannel"/>
-		</int:method>		
-		<int:method name="findByDonorIdCrsIdActive" request-channel="getChannel">
-			<int:header name="requestName" value="findTransactionByDonorIdCrsIdActiveChannel"/>
-		</int:method>		
-	</int:gateway>
-		
-		
-	<int:gateway id="financialTransactionHistExchRateService"
-		default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}" 
-		service-interface="org.devgateway.eudevfin.financial.service.FinancialTransactionHistExchRateService">
-		<int:method name="getHistoricalExchangeRates" request-channel="getChannel">
-			<int:header name="requestName" value="getFinancialTransactionHistoricalExchangeRatesChannel"/>
-		</int:method>
-	</int:gateway>		
-		
-	<int:gateway id="currencyMetadataService"
-		default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}" 
-		service-interface="org.devgateway.eudevfin.financial.service.CurrencyMetadataService">
-		<int:method name="findBySearch" request-channel="getChannel">
-			<int:header name="requestName" value="findBySearchPageableCurrencyChannel"/>
-		</int:method>
-		<int:method name="findByCode" request-channel="getChannel">
-			<int:header name="requestName" value="findByCodeCurrencyChannel" />
-		</int:method>
-	</int:gateway>
+        <int:method name="findBySearchFormPageable" request-channel="getChannel">
+            <int:header name="requestName" value="findTransactionBySearchFormPageableChannel"/>
+        </int:method>
+        <int:method name="findByDonorIdCrsIdActive" request-channel="getChannel">
+            <int:header name="requestName" value="findTransactionByDonorIdCrsIdActiveChannel"/>
+        </int:method>
+    </int:gateway>
+
+
+    <int:gateway id="financialTransactionHistExchRateService"
+                 default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}"
+                 service-interface="org.devgateway.eudevfin.financial.service.FinancialTransactionHistExchRateService">
+        <int:method name="getHistoricalExchangeRates" request-channel="getChannel">
+            <int:header name="requestName" value="getFinancialTransactionHistoricalExchangeRatesChannel"/>
+        </int:method>
+    </int:gateway>
+
+    <int:gateway id="currencyMetadataService"
+                 default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}"
+                 service-interface="org.devgateway.eudevfin.financial.service.CurrencyMetadataService">
+        <int:method name="findBySearch" request-channel="getChannel">
+            <int:header name="requestName" value="findBySearchPageableCurrencyChannel"/>
+        </int:method>
+        <int:method name="findByCode" request-channel="getChannel">
+            <int:header name="requestName" value="findByCodeCurrencyChannel"/>
+        </int:method>
+    </int:gateway>
 </beans>

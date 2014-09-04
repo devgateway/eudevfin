@@ -7,6 +7,7 @@
  *******************************************************************************/
 package org.devgateway.eudevfin.reports;
 
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapBookmarkablePageLink;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.DropDownSubMenu;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuBookmarkablePageLink;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuDivider;
@@ -75,12 +76,13 @@ public final class NavbarInitializer {
 				list.add(new MenuDivider());
 				
 				
-				list.add(new MenuBookmarkablePageLink<ReportsPage>(
+				BootstrapBookmarkablePageLink<ReportsPage> odaAtGlance = new MenuBookmarkablePageLink<ReportsPage>(
 						ReportsPage.class, null, new StringResourceModel(
 								"navbar.dashboard", this, null, null))
-						.setIconType(IconType.picture));
-
-				
+						.setIconType(IconType.picture);
+				MetaDataRoleAuthorizationStrategy.authorize(odaAtGlance,
+						Component.RENDER, AuthConstants.Roles.ROLE_USER);
+				list.add(odaAtGlance);
 				
 
 				DropDownSubMenu exportReports = new DropDownSubMenu(new StringResourceModel("navbar.reports.export", this, null, null)) {
@@ -120,6 +122,8 @@ public final class NavbarInitializer {
 
 				};
 				exportReports.setIconType(IconType.resizehorizontal);
+				MetaDataRoleAuthorizationStrategy.authorize(exportReports,
+				Component.RENDER, AuthConstants.Roles.ROLE_USER);
 				list.add(exportReports);
 
                 DropDownSubMenu customReports = new DropDownSubMenu(new StringResourceModel("navbar.customreports", this, null, null)) {
@@ -156,6 +160,10 @@ public final class NavbarInitializer {
 
                 };
                 customReports.setIconType(IconType.file);
+                MetaDataRoleAuthorizationStrategy.authorize(customReports,
+        				Component.RENDER, AuthConstants.Roles.ROLE_USER);
+                MetaDataRoleAuthorizationStrategy.authorize(customReports,
+        				Component.RENDER, AuthConstants.Roles.ROLE_VIEWER);
                 list.add(customReports);
                 @SuppressWarnings("serial")
 				MenuBookmarkablePageLink<ReportsPage> reportBuilderLink = new MenuBookmarkablePageLink<ReportsPage>(
@@ -168,7 +176,11 @@ public final class NavbarInitializer {
 						            } 
 						        };
 			    reportBuilderLink.setIconType(IconType.play).setEnabled(true);
+				MetaDataRoleAuthorizationStrategy.authorize(reportBuilderLink,
+				Component.RENDER, AuthConstants.Roles.ROLE_USER);
 			    list.add(reportBuilderLink);
+
+
 				
 /*				
 				list.add(new MenuBookmarkablePageLink<ReportsExport>(
@@ -183,6 +195,8 @@ public final class NavbarInitializer {
 		navbarDropDownButton.add(new DropDownAutoOpen());
 		MetaDataRoleAuthorizationStrategy.authorize(navbarDropDownButton,
 				Component.RENDER, AuthConstants.Roles.ROLE_USER);
+		MetaDataRoleAuthorizationStrategy.authorize(navbarDropDownButton,
+				Component.RENDER, AuthConstants.Roles.ROLE_VIEWER);
 
 		return navbarDropDownButton;
 	}

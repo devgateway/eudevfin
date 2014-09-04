@@ -12,5 +12,6 @@ public final class AuthConstants {
 		public static final String ROLE_USER="ROLE_USER";
 		public static final String ROLE_SUPERVISOR="ROLE_SUPERVISOR";
 		public static final String ROLE_TEAMLEAD="ROLE_TEAMLEAD";
+		public static final String ROLE_VIEWER="ROLE_VIEWER";
 	}
 }

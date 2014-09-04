@@ -23,7 +23,7 @@ import org.wicketstuff.annotation.mount.MountPath;
  * @since 4/3/14
  */
 
-@AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
+@AuthorizeInstantiation({AuthConstants.Roles.ROLE_USER,AuthConstants.Roles.ROLE_VIEWER})
 @MountPath(value = "/reportscountrysectorfilter")
 public class ReportsCountrySectorFilter extends CustomReportsPage {
     private static final Logger logger = Logger.getLogger(ReportsCountrySectorFilter.class);

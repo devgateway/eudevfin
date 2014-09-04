@@ -6,6 +6,7 @@
 	<property name="ireport.y" value="0"/>
 	<parameter name="FIRST_YEAR" class="java.lang.Number"/>
 	<parameter name="SECOND_YEAR" class="java.lang.Number"/>
+    <parameter name="FORM_DATASOURCE" class="java.lang.String"/>
 	<queryString language="mdx">
 		<![CDATA[WITH
 MEMBER [Sector].[Humanitarian Aid] AS SUM({[Sector].[700],[Sector].[720],[Sector].[72010],[Sector].[72040],[Sector].[72050],[Sector].[730],[Sector].[73010],[Sector].[740],[Sector].[74010]})
@@ -21,7 +22,7 @@ SELECT
 } ON ROWS,
 {[Measures].[First Year], [Measures].[Second Year]} ON COLUMNS
 FROM [Financial]
-WHERE {[BiMultilateral].[BI_MULTILATERAL##1], [BiMultilateral].[BI_MULTILATERAL##3], [BiMultilateral].[BI_MULTILATERAL##7]}*{[Form Type].[bilateralOda.advanceQuestionnaire], [Form Type].[multilateralOda.advanceQuestionnaire] }
+WHERE {[BiMultilateral].[BI_MULTILATERAL##1], [BiMultilateral].[BI_MULTILATERAL##3], [BiMultilateral].[BI_MULTILATERAL##7]}*$P{FORM_DATASOURCE}
 ]]>
 	</queryString>
 	<field name="Humanitarian Aid Y1" class="java.lang.Number">

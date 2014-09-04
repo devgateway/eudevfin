@@ -45,7 +45,7 @@ public class CustomTransactionPermissionProvider extends CRSTransactionPermissio
          */
 
         permissions.put("7bCPA", new RoleActionMapping().required(SB.BILATERAL_ODA_CRS));
-        permissions.put("7cPriorityStatus", new RoleActionMapping().required(SB.BILATERAL_ODA_FORWARD_SPENDING));
+        permissions.put("7cPriorityStatus", new RoleActionMapping().render(SB.BILATERAL_ODA_FORWARD_SPENDING));
         permissions.put("7dPhasingOutYear", new RoleActionMapping().render(SB.BILATERAL_ODA_FORWARD_SPENDING));
 
         //override permissions for

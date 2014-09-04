@@ -1,10 +1,10 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2014 Development Gateway.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v3.0
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/gpl.html
- *******************************************************************************/
+ */
 
 package org.devgateway.eudevfin.dim;
 
@@ -20,20 +20,25 @@ import org.apache.wicket.markup.html.link.AbstractLink;
 import org.apache.wicket.markup.html.pages.RedirectPage;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
+import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.http.WebRequest;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
+import org.devgateway.eudevfin.dim.desktop.components.MessageNavbarButton;
 import org.devgateway.eudevfin.dim.pages.AggregateTransactionsPage;
 import org.devgateway.eudevfin.dim.pages.HomePage;
+import org.devgateway.eudevfin.dim.pages.Messages;
 import org.devgateway.eudevfin.dim.pages.transaction.crs.TransactionPage;
 import org.devgateway.eudevfin.dim.pages.transaction.custom.CustomTransactionPage;
+import org.devgateway.eudevfin.financial.service.MessageService;
 import org.devgateway.eudevfin.ui.common.Constants;
 import org.devgateway.eudevfin.ui.common.WicketNavbarComponentInitializer;
 import org.devgateway.eudevfin.ui.common.components.RepairedNavbarDropDownButton;
-import org.devgateway.eudevfin.ui.common.pages.HelpPage;
 import org.devgateway.eudevfin.ui.common.pages.LogoutPage;
 import org.devgateway.eudevfin.ui.common.temporary.SB;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import de.agilecoders.wicket.core.Bootstrap;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.DropDownSubMenu;
@@ -52,11 +57,11 @@ import de.agilecoders.wicket.extensions.markup.html.bootstrap.button.DropDownAut
  * Class holding static methods that initialize the wicket {@link Navbar}
  * components.
  * 
+ * @author mihai
  * @see WicketNavbarComponentInitializer
  * @see org.devgateway.eudevfin.ui.common.pages.HeaderFooter
- * @author mihai
- * 
  */
+@Service
 public final class NavbarInitializer {
 
 	public static class FeedbackUrl extends RedirectPage {
@@ -266,16 +271,100 @@ public final class NavbarInitializer {
 
 	
 	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT, order = 20)
-	public static Component helpPageNavbarButton(final Page page) {
-		NavbarButton<LogoutPage> helpPageNavbarButton = new NavbarButton<LogoutPage>(HelpPage.class,
-				new StringResourceModel("navbar.help", page, null, null)).setIconType(IconType.book);
-		MetaDataRoleAuthorizationStrategy.authorize(helpPageNavbarButton, Component.RENDER,
+    public static Component newHelpMenu(Page page) {
+        NavbarDropDownButton navbarDropDownButton = new NavbarDropDownButton(new StringResourceModel("navbar.help",
+                page, null, null)) {
+            @Override
+            public boolean isActive(Component item) {
+                return false;
+            }
+
+            @Override
+            protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
+                List<AbstractLink> list = new ArrayList<>();
+                list.add(new MenuHeader(new StringResourceModel("navbar.help.header", this, null)));
+                list.add(new MenuDivider());
+
+				MenuBookmarkablePageLink<RecipientCountriesPdf> recipientCountriesLink = new MenuBookmarkablePageLink<RecipientCountriesPdf>(
+						RecipientCountriesPdf.class, null, new StringResourceModel("navbar.recipientcountries", this,
+								null)) {
+					private static final long serialVersionUID = 1L;
+					@Override
+					protected void onComponentTag(ComponentTag tag) {
+						super.onComponentTag(tag);
+						tag.put("target", "_blank");
+					}
+				};
+				recipientCountriesLink.setIconType(IconType.download);
+				list.add(recipientCountriesLink);
+				
+				MenuBookmarkablePageLink<LitOfInternationalOrgs> listOfInternationalOrgs = new MenuBookmarkablePageLink<LitOfInternationalOrgs>(
+						LitOfInternationalOrgs.class, null, new StringResourceModel("navbar.listofinternationalorgs", this,
+								null)) {
+					private static final long serialVersionUID = 1L;
+					@Override
+					protected void onComponentTag(ComponentTag tag) {
+						super.onComponentTag(tag);
+						tag.put("target", "_blank");
+					}
+				};
+				listOfInternationalOrgs.setIconType(IconType.download);
+				list.add(listOfInternationalOrgs);
+				
+				
+				MenuBookmarkablePageLink<DacCrsListCodes> dacCrslistCodes = new MenuBookmarkablePageLink<DacCrsListCodes>(
+						DacCrsListCodes.class, null, new StringResourceModel("navbar.daccrslistcodes", this,
+								null)) {
+					private static final long serialVersionUID = 1L;
+					@Override
+					protected void onComponentTag(ComponentTag tag) {
+						super.onComponentTag(tag);
+						tag.put("target", "_blank");
+					}
+				};
+				dacCrslistCodes.setIconType(IconType.download);
+				list.add(dacCrslistCodes);		
+				
+				MenuBookmarkablePageLink<OecdDacDirectives> oecdDacDirectives = new MenuBookmarkablePageLink<OecdDacDirectives>(
+						OecdDacDirectives.class, null, new StringResourceModel("navbar.oecdacdirectives", this,
+								null)) {
+					private static final long serialVersionUID = 1L;
+					@Override
+					protected void onComponentTag(ComponentTag tag) {
+						super.onComponentTag(tag);
+						tag.put("target", "_blank");
+					}
+				};
+				oecdDacDirectives.setIconType(IconType.download);
+				list.add(oecdDacDirectives); 	
+				
+				MenuBookmarkablePageLink<DacGlossary> dacGlossary = new MenuBookmarkablePageLink<DacGlossary>(
+						DacGlossary.class, null, new StringResourceModel("navbar.dacglossary", this,
+								null)) {
+					private static final long serialVersionUID = 1L;
+					@Override
+					protected void onComponentTag(ComponentTag tag) {
+						super.onComponentTag(tag);
+						tag.put("target", "_blank");
+					}
+				};
+				dacGlossary.setIconType(IconType.download);
+				list.add(dacGlossary); 	
+				
+                return list;
+            }
+
+        };
+        navbarDropDownButton.setIconType(IconType.book);
+        navbarDropDownButton.add(new DropDownAutoOpen());
+        MetaDataRoleAuthorizationStrategy.authorize(navbarDropDownButton, Component.RENDER,
 				AuthConstants.Roles.ROLE_USER);
-		return helpPageNavbarButton;
+
+        return navbarDropDownButton;
 	}
 	
 
-	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT, order = 8,disabled=true)
+    @WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT, order = 98, disabled = true)
 	public static Component feedbackNavbarButton(final Page page) {
 		NavbarButton<LogoutPage> accountNavbarButton = new NavbarButton<LogoutPage>(FeedbackUrl.class,
 				new StringResourceModel("navbar.feedback", page, null, null)) {

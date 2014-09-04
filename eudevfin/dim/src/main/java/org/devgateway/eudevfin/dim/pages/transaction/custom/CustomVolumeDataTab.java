@@ -29,6 +29,7 @@ import org.devgateway.eudevfin.ui.common.components.PermissionAwareContainer;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
 import org.devgateway.eudevfin.ui.common.components.VisibilityAwareContainer;
 import org.devgateway.eudevfin.ui.common.events.CurrencyUpdateBehavior;
+import org.devgateway.eudevfin.ui.common.events.DisbursementCurrentYearUpdateBehavior;
 import org.devgateway.eudevfin.ui.common.models.BigMoneyModel;
 import org.devgateway.eudevfin.ui.common.providers.CurrencyUnitProviderFactory;
 import org.devgateway.eudevfin.ui.common.validators.DuplicateCurrencyValidator;
@@ -106,6 +107,7 @@ public class CustomVolumeDataTab extends VolumeDataTab {
             TextInputField<BigDecimal> disbursement = new TextInputField<>("disbursement",
                     new BigMoneyModel(new RWComponentPropertyModel<BigMoney>("budgetMTEFDisbursement"), readOnlyCurrencyModel));
             disbursement.typeBigDecimal().add(new CurrencyUpdateBehavior());
+            disbursement.add(new DisbursementCurrentYearUpdateBehavior());
             disbursementGroup.add(disbursement);
 
             TextInputField<BigDecimal> disbursementP1 = new TextInputField<>("disbursementP1",
