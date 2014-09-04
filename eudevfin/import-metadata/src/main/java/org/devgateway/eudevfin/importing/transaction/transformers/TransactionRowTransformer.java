@@ -70,6 +70,11 @@ public class TransactionRowTransformer implements IRowTransformer {
 		this.cellTransformers.add(new CellTransformers.DonorProjectNumber());
 		this.cellTransformers.add(new CellTransformers.NatureOfSubmission());
 		this.cellTransformers.add(new CellTransformers.RecipientCountry());
+		this.cellTransformers.add(new CellTransformers.Channel());
+		this.cellTransformers.add(new CellTransformers.BiMultilateral());
+		this.cellTransformers.add(new CellTransformers.TypeOfFlow());
+		this.cellTransformers.add(new CellTransformers.TypeOfFinance());
+		this.cellTransformers.add(new CellTransformers.TypeOfAid());
 		this.cellTransformers.add(new CellTransformers.ShortDescription());
 
 	}

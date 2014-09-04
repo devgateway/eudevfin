@@ -19,17 +19,19 @@
 
 	<div class="container">
 		<div class="row">
-			<form wicket:id="import-transactions-form">
-				<div class="span4 offset4 well">
+			<div class="span4 offset4 well">
+				<form wicket:id="import-transactions-form">
 					<div class="">
 						<div wicket:id="import-file-upload" />
 					</div>
 					<div class="">
 						<input wicket:id="import-transactions-form-submit" type="submit"></input>
 					</div>
-
+				</form>
+				<div class="">
+					<span wicket:id="feedback">feedback</span>
 				</div>
-			</form>
+			</div>
 		</div>
 		<div class="row">
 			<div class="span4 offset4 well">

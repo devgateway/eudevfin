@@ -49,6 +49,9 @@ public class CategoryConstants {
 	 */
 
 	public static final String NATURE_OF_SUBMISSION_PREFIX 		= "NATURE_OF_SUBMISSION##";
+	public static final String BI_MULTILATERAL_PREFIX			= "BI_MULTILATERAL##";
+	public static final String TYPE_OF_FLOW_PREFIX				= "TYPE_OF_FLOW##";
+	public static final String TYPE_OF_FINANCE_PREFIX			= "TYPE_OF_FINANCE##";
 
 
 	/**
@@ -90,6 +93,7 @@ public class CategoryConstants {
 		public static final String BI_MULTILATERAL_1="BI_MULTILATERAL##1";
 		public static final String BI_MULTILATERAL_2="BI_MULTILATERAL##2";
 		public static final String BI_MULTILATERAL_3="BI_MULTILATERAL##3";
+		public static final String BI_MULTILATERAL_4="BI_MULTILATERAL##3";
 		public static final String BI_MULTILATERAL_7="BI_MULTILATERAL##7";
 	}
 

@@ -18,5 +18,9 @@
     
     <entry key="import-transactions.template.message">The import file format should be based on the following template:</entry>
     <entry key="import-transactions.template.link.name">download</entry>
+    <entry key="import-transactions.message.saved">Import finished successfully</entry>
+    <entry key="import-transactions.message.nofiles">Please select a file and click on the upload button</entry>
+    <entry key="import-transactions.message.problem">An unexpected problem appeared. Please try again later or contact the system administrator</entry>
+    <entry key="import-transactions.message.error">There was an error on line {0}. Technical info: {1}</entry>
     
 </properties>
