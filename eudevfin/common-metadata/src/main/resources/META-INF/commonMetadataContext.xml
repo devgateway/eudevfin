@@ -130,6 +130,9 @@
         <int:method name="findUsedAreaPaginated" request-channel="getChannel">
             <int:header name="requestName" value="findUsedAreaPaginatedAreaChannel" />
         </int:method>
+        <int:method name="findAreaByCode" request-channel="getChannel">
+            <int:header name="requestName" value="findAreaByCodeChannel" />
+        </int:method>
 	</int:gateway>
 	
 </beans>

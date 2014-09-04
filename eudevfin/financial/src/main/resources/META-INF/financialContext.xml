@@ -238,6 +238,7 @@
 	<int:channel id="findAreaByGeneralSearchChannel"/>
 	<int:channel id="findByGeneralSearchPageableAreaChannel"/>
     <int:channel id="findUsedAreaPaginatedAreaChannel"/>
+    <int:channel id="findAreaByCodeChannel"/>
 	
 	<int:channel id="findBySearchPageableCurrencyChannel"/>
 	<int:channel id="findByCodeCurrencyChannel"/>

@@ -24,7 +24,7 @@ import org.devgateway.eudevfin.importing.metadata.hash.FileHashHelperImpl;
 import org.devgateway.eudevfin.importing.metadata.hash.IFileHashHelper;
 import org.devgateway.eudevfin.importing.metadata.storing.IStoringEngine;
 import org.devgateway.eudevfin.importing.metadata.streamprocessors.ExcelStreamProcessor;
-import org.devgateway.eudevfin.importing.metadata.streamprocessors.StreamProcessorInterface;
+import org.devgateway.eudevfin.importing.metadata.streamprocessors.IMetadataStreamProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
@@ -32,38 +32,38 @@ import org.springframework.stereotype.Component;
 @Component
 public class MetadataImporterEngine {
 	private static Logger logger	= Logger.getLogger(MetadataImporterEngine.class);
-	
+
 	@Autowired
 	private IImportedFileDAO importedFileDao;
 
-	
+
 	@SuppressWarnings("rawtypes")
 	Map<String, AbstractDaoImpl> servicesMap;
-	
+
 	@Resource(name="metadataSourceList")
 	List<String> metadataSourceList;
-	
+
 	@SuppressWarnings("rawtypes")
 	@Resource
 	List<IStoringEngine> storingEngineList;
-	
 
-	
+
+
 	@SuppressWarnings({ "rawtypes" })
 	public void process () {
 //		this.populateServicesMap();
 		final Map<String, IStoringEngine<AbstractTranslateable>> storingEngineMap	= this.populateStoringEnginesMap();
-		
-		final List<StreamProcessorInterface> streamProcessors 		= this.populateStreamProcessors();
+
+		final List<IMetadataStreamProcessor> streamProcessors 		= this.populateStreamProcessors();
 		final List<IFileHashHelper> fileHashHelpers		= this.populateStoringEngines();
-		
+
 		for (int i=0; i<streamProcessors.size(); i++) {
-			final StreamProcessorInterface streamProcessorInterface = streamProcessors.get(i);
+			final IMetadataStreamProcessor streamProcessorInterface = streamProcessors.get(i);
 			final IFileHashHelper fileHashHelper	= fileHashHelpers.get(i);
 			logger.info( String.format("%d) Starting import...",i+1) );
 
 			if ( !fileHashHelper.checkAlreadyLoaded() ) {
-				final IStoringEngine<AbstractTranslateable> storingEngine	= 
+				final IStoringEngine<AbstractTranslateable> storingEngine	=
 						storingEngineMap.get(streamProcessorInterface.getMapperClassName());
 				int numOfSavedEntities	= 0;
 				while ( streamProcessorInterface.hasNextObject() ) {
@@ -83,19 +83,19 @@ public class MetadataImporterEngine {
 				streamProcessorInterface.close();
 				fileHashHelper.markAsLoaded();
 			}
-			
+
 		}
 	}
 
 
-	private List<StreamProcessorInterface> populateStreamProcessors() {
+	private List<IMetadataStreamProcessor> populateStreamProcessors() {
 		logger.info("Will check import for the following files:");
-		
-		final ArrayList<StreamProcessorInterface> processors = new ArrayList<>();
+
+		final ArrayList<IMetadataStreamProcessor> processors = new ArrayList<>();
 		for (int i = 0; i < this.metadataSourceList.size(); i++) {
 			final String filename		= this.metadataSourceList.get(i);
 			logger.info( String.format("%d) %s", i+1, filename) );
-			
+
 			final InputStream is = this.getClass()
 					.getResourceAsStream(filename);
 			if (filename.endsWith("xls") || filename.endsWith("xlsx")) {
@@ -106,7 +106,7 @@ public class MetadataImporterEngine {
 		}
 		return processors;
 	}
-	
+
 	private List<IFileHashHelper> populateStoringEngines() {
 		final ArrayList<IFileHashHelper> list = new ArrayList<>();
 		for (int i = 0; i < this.metadataSourceList.size(); i++) {
@@ -122,31 +122,31 @@ public class MetadataImporterEngine {
 		final InputStream isForHash		= this.getClass().getResourceAsStream(filename);
 		final IFileHashHelper hashHelper	= new FileHashHelperImpl();
 		hashHelper.setup(filename, isForHash, this.importedFileDao);
-		
+
 		return hashHelper;
-	}  
-	
+	}
+
 //	private boolean checkFileAlreadyImported(IFileHashHelper) {
 //		boolean result	= true;
 //		final InputStream isForHash		= this.getClass().getResourceAsStream(filename);
-//		
+//
 //		final IFileHashHelper hashHelper	= new FileHashHelperImpl();
 //		hashHelper.setup(filename, isForHash, this.importedFileDao);
-//		
+//
 //		if ( !hashHelper.checkAlreadyLoaded() ) {
 //			hashHelper.markAsLoaded();
 //			result	= false;
 //		}
 //
 //		return result;
-//		
+//
 //	}
 
-	
+
 	@SuppressWarnings("rawtypes")
 	private Map<String, IStoringEngine<AbstractTranslateable>> populateStoringEnginesMap() {
 		if ( this.storingEngineList != null ) {
-			final Map<String, IStoringEngine<AbstractTranslateable>> storingEngineMap	= 
+			final Map<String, IStoringEngine<AbstractTranslateable>> storingEngineMap	=
 					new HashMap<String, IStoringEngine<AbstractTranslateable>>();
 			for (final IStoringEngine<AbstractTranslateable> storingEngine : this.storingEngineList) {
 				storingEngineMap.put(storingEngine.getRelatedMapper().getName(), storingEngine);

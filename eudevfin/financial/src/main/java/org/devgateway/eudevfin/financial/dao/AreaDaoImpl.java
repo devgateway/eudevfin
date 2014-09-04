@@ -6,7 +6,7 @@
  * http://www.gnu.org/licenses/gpl.html
  *******************************************************************************/
 /**
- * 
+ *
  */
 package org.devgateway.eudevfin.financial.dao;
 
@@ -36,7 +36,7 @@ public class AreaDaoImpl extends AbstractDaoImpl<Area,Long, AreaRepository> {
 
 	@Autowired
 	private AreaRepository areaRepository;
-	
+
 	@Override
 	protected AreaRepository getRepo() {
 		return this.areaRepository;
@@ -50,56 +50,60 @@ public class AreaDaoImpl extends AbstractDaoImpl<Area,Long, AreaRepository> {
 
 	@Override
 	@ServiceActivator(inputChannel="findAreaByIdChannel")
-	public NullableWrapper<Area> findOne(Long id) {
+	public NullableWrapper<Area> findOne(final Long id) {
 		return super.findOne(id);
 	}
 
 	@Override
 	@ServiceActivator(inputChannel="saveAreaChannel")
-	public NullableWrapper<Area> save(Area e) {
+	public NullableWrapper<Area> save(final Area e) {
 		return super.save(e);
 	}
-	
+
 	@ServiceActivator(inputChannel="findAreaByGeneralSearchChannel")
-	public List<Area> findByGeneralSearch(@Header("locale")String locale, String searchString) {
+	public List<Area> findByGeneralSearch(@Header("locale") final String locale, final String searchString) {
 		return this.getRepo().findByTranslationLocaleAndTranslationNameContaining(locale, searchString);
 	}
 
 	@Override
 	@ServiceActivator(inputChannel = "findByGeneralSearchPageableAreaChannel")
-	public Page<Area> findByGeneralSearch(String searchString,
-			@Header(value="locale",required=false) String locale, @Header("pageable") Pageable pageable) {
-		if(searchString.isEmpty()) return getRepo().findAll(pageable);
-		return getRepo().findByTranslationNameContaining(searchString.toLowerCase(), pageable);
+	public Page<Area> findByGeneralSearch(final String searchString,
+			@Header(value="locale",required=false) final String locale, @Header("pageable") final Pageable pageable) {
+		if(searchString.isEmpty()) {
+			return this.getRepo().findAll(pageable);
+		}
+		return this.getRepo().findByTranslationNameContaining(searchString.toLowerCase(), pageable);
 	}
 
-    /**
-     * @see org.devgateway.eudevfin.metadata.common.service.AreaService#findUsedAreaPaginated(String, String, Pageable)
-     *
-     * @param locale
-     * @param searchString
-     * @param page
-     *
-     * @return Page<Area>
-     */
-    @ServiceActivator(inputChannel = "findUsedAreaPaginatedAreaChannel")
-    @Transactional
-    public Page<Area> findUsedAreaPaginated(
-            @Header("locale") String locale, String searchString,
-            @Header("pageable") Pageable page) {
-        Page<Area> result = null;
+	/**
+	 * @see org.devgateway.eudevfin.metadata.common.service.AreaService#findUsedAreaPaginated(String, String, Pageable)
+	 *
+	 * @param locale
+	 * @param searchString
+	 * @param page
+	 *
+	 * @return Page<Area>
+	 */
+	@ServiceActivator(inputChannel = "findUsedAreaPaginatedAreaChannel")
+	@Transactional
+	public Page<Area> findUsedAreaPaginated(
+			@Header("locale") final String locale, final String searchString,
+			@Header("pageable") final Pageable page) {
+		Page<Area> result = null;
 
-        if (searchString.isEmpty()) {
-            result = this.getRepo().findUsedArea(page);
-        }
-        else {
-            result = this.getRepo().findUsedAreaByTranslationsNameIgnoreCase(locale, searchString.toLowerCase(), page);
-        }
+		if (searchString.isEmpty()) {
+			result = this.getRepo().findUsedArea(page);
+		}
+		else {
+			result = this.getRepo().findUsedAreaByTranslationsNameIgnoreCase(locale, searchString.toLowerCase(), page);
+		}
 
-        return result;
-    }
-	
-	public Area findByCode(String code) {
-		return this.getRepo().findByCode(code);
+		return result;
+	}
+
+	@ServiceActivator(inputChannel="findAreaByCodeChannel")
+	public NullableWrapper<Area> findByCode(final String code) {
+		final Area a = this.getRepo().findByCode(code);
+		return new NullableWrapper<Area>(a);
 	}
 }

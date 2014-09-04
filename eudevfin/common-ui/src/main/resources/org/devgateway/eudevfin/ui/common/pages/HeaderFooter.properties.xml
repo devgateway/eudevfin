@@ -29,7 +29,8 @@
     <entry key="navbar.help">Help</entry>
 	<entry key="navbar.feedback">Feedback</entry>    
     <entry key="navbar.dashboard">ODA at a Glance</entry>
-    <entry key="navbar.account">Account</entry>    
+    <entry key="navbar.account">Account</entry>
+    <entry key="navbar.account.user">User</entry>    
     <entry key="navbar.customreports">Custom Reports</entry>
     <entry key="navbar.customreports.countrysector">Country &amp; Sector</entry>
     <entry key="navbar.customreports.countryinstitution">Country &amp; Institution</entry>
@@ -84,6 +85,10 @@
     
     <entry key="navbar.spreadsheets.export">Export</entry>
     <entry key="navbar.spreadsheets.fss">Forward Spending Survey</entry>
+    
+    <entry key="navbar.import.header">data import tools:</entry>
+    <entry key="navbar.transactions.import">Import</entry>
+    <entry key="navbar.transactions.import-transactions">Transactions</entry>
     
 	<entry key="modal.delete">Proceed with delete?</entry>
     

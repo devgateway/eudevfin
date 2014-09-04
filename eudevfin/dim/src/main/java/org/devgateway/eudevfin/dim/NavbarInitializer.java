@@ -205,7 +205,7 @@ public final class NavbarInitializer {
 		}.setIconType(IconType.book);
 	}
 
-	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT, order = 7)
+	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT, order = 10)
 	public static Component newLanguageNavbarButton(final Page page) {
 		NavbarDropDownButton languageDropDown = new NavbarDropDownButton(new StringResourceModel("navbar.lang", page,
 				null, null)) {
@@ -264,16 +264,8 @@ public final class NavbarInitializer {
 		return list;
 	}
 
-	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT, order = 10)
-	public static Component logoutPageNavbarButton(final Page page) {
-		NavbarButton<LogoutPage> logoutPageNavbarButton = new NavbarButton<LogoutPage>(LogoutPage.class,
-				new StringResourceModel("navbar.logout", page, null, null)).setIconType(IconType.off);
-		MetaDataRoleAuthorizationStrategy.authorize(logoutPageNavbarButton, Component.RENDER,
-				AuthConstants.Roles.ROLE_USER);
-		return logoutPageNavbarButton;
-	}
 	
-	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT, order = 9)
+	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT, order = 20)
 	public static Component helpPageNavbarButton(final Page page) {
 		NavbarButton<LogoutPage> helpPageNavbarButton = new NavbarButton<LogoutPage>(HelpPage.class,
 				new StringResourceModel("navbar.help", page, null, null)).setIconType(IconType.book);

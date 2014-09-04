@@ -8,11 +8,11 @@
 package org.devgateway.eudevfin.metadata.common.util;
 
 public class CategoryConstants {
-	
+
 	/**
 	 * codes for categories that are used as tags
 	 */
-	
+
 	public static final String TAG_OF_TAG					= "TAG_OF_TAG";
 	public static final String ROOT_TAG						= "ROOT_TAG";
 	public static final String ALL_SECTOR_TAG				= "ALL_SECTOR_TAG";
@@ -30,7 +30,7 @@ public class CategoryConstants {
 	public static final String BI_MULTILATERAL_TAG			= "BI_MULTILATERAL_TAG";
 	public static final String CHANNEL_TAG					= "CHANNEL_TAG";
 	public static final String RECIPIENT_TAG				= "RECIPIENT_TAG";
-    public static final String GEOGRAPHY_TAG				= "GEOGRAPHY_TAG";
+	public static final String GEOGRAPHY_TAG				= "GEOGRAPHY_TAG";
 	public static final String NATURE_OF_SUBMISSION_TAG		= "NATURE_OF_SUBMISSION_TAG";
 	public static final String LEVEL_OF_CERTAINTY_TAG		= "LEVEL_OF_CERTAINTY_TAG";
 	public static final String INCOME_GROUP_TAG				= "INCOME_GROUP_TAG";
@@ -42,9 +42,15 @@ public class CategoryConstants {
 	public static final String OTHER_CURRENCY_TAG					= "OTHER_CURRENCY_TAG";
 	public static final String MAIN_CURRENCY_TAG					= "MAIN_CURRENCY_TAG";
 	public static final String PRIORITY_STATUS_TAG					= "PRIORITY_STATUS_TAG";
-	public static final String RMNCH_TAG							= "RMNCH_TAG";	
-	
-	
+	public static final String RMNCH_TAG							= "RMNCH_TAG";
+
+	/**
+	 * category prefixes
+	 */
+
+	public static final String NATURE_OF_SUBMISSION_PREFIX 		= "NATURE_OF_SUBMISSION##";
+
+
 	/**
 	 * codes for ROOT categories
 	 */
@@ -61,43 +67,43 @@ public class CategoryConstants {
 	public static final String ROOT_SIGNIFICANCE_CATEGORY							= "ROOT_SIGNIFICANCE_CATEGORY";
 	public static final String ROOT_SIGNIFICANCE_FOR_PROGRAMME_CATEGORY				= "ROOT_SIGNIFICANCE_FOR_PROGRAMME_CATEGORY";
 	public static final String ROOT_CURRENCY_CATEGORY								= "ROOT_CURRENCY_CATEGORY";
-	
-			
-			
+
+
+
 	public static final class TypeOfFlow {
 		public static final String NON_FLOW="TYPE_OF_FLOW##40";
 		public static final String ODA="TYPE_OF_FLOW##10";
 	}
-	
+
 	public static final class TypeOfAid {
 		public static final String B01="B01";
 		public static final String B02="B02";
 		public static final String F01="F01";
 	}
-	
+
 	public static final class Markers {
 		public static final String MARKER_3="MARKER##3";
 	}
-			
-	
+
+
 	public static final class BiMultilateral {
 		public static final String BI_MULTILATERAL_1="BI_MULTILATERAL##1";
 		public static final String BI_MULTILATERAL_2="BI_MULTILATERAL##2";
 		public static final String BI_MULTILATERAL_3="BI_MULTILATERAL##3";
 		public static final String BI_MULTILATERAL_7="BI_MULTILATERAL##7";
 	}
-			
-	
-	public static final class TypeOfFinance {		
+
+
+	public static final class TypeOfFinance {
 		public static final String ROOT_NON_FLOW="TYPE_OF_FINANCE##0";
-		public static final class NonFlow {			
+		public static final class NonFlow {
 			public static final String GNI = "TYPE_OF_FINANCE##1";
 			public static final String ODA_PERCENT_GNI = "TYPE_OF_FINANCE##2";
 			public static final String TOTAL_FLOWS_PERCENT_GNI = "TYPE_OF_FINANCE##3";
 			public static final String POPULATION = "TYPE_OF_FINANCE##4";
 		}
-	}	
-	
+	}
+
 	public static final class NatureOfSubmission {
 		public static final String NEW_ACTIVITY_REPORTED = "NATURE_OF_SUBMISSION##1";
 		public static final String REVISION = "NATURE_OF_SUBMISSION##2";

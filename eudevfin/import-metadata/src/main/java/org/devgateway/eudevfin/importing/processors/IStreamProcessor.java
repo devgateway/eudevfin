@@ -5,15 +5,10 @@
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/gpl.html
  *******************************************************************************/
-package org.devgateway.eudevfin.importing.metadata.streamprocessors;
+package org.devgateway.eudevfin.importing.processors;
 
-import java.util.List;
 
-public interface StreamProcessorInterface {
-
-	List<String> getMetadataInfoList();
-
-	String getMapperClassName();
+public interface IStreamProcessor {
 
 	Object generateNextObject();
 

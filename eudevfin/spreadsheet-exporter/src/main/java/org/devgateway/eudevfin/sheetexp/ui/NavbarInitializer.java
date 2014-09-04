@@ -77,7 +77,7 @@ public final class NavbarInitializer {
 			}
 
 		};
-		exportMenu.setIconType(IconType.hdd);
+		exportMenu.setIconType(IconType.arrowdown);
 		exportMenu.add(new DropDownAutoOpen());
 		MetaDataRoleAuthorizationStrategy.authorize(exportMenu, Component.RENDER, AuthConstants.Roles.ROLE_USER);
 		return exportMenu;
