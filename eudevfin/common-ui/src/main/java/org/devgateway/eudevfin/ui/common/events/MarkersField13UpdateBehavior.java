@@ -24,7 +24,7 @@ import org.apache.wicket.event.IEvent;
 public class MarkersField13UpdateBehavior extends UpdateEventBehavior<Field13ChangedEventPayload> {
 
 	private static final long serialVersionUID = 8972493821857942252L;
-	private Pattern pattern = Pattern.compile("(E|G|H)([0-9]{2})*");
+	private Pattern pattern = Pattern.compile("(A01|E02|F01|G01)");
 
 	public MarkersField13UpdateBehavior() {
 		super(Field13ChangedEventPayload.class);
