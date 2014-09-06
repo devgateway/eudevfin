@@ -17,4 +17,7 @@ public interface FinancialTransactionTrnInterface {
 
 	public void setShortDescription(String shortDescription);
 
+	public void setChannelInstitutionName(String channelInstitutionName);
+
+	public String getChannelInstitutionName();
 }

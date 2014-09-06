@@ -35,6 +35,11 @@ public class FinancialTransactionTranslation extends AbstractTranslation<Financi
 	@Index(name="FinancialTransactionTranslation_description_idx")
 	private String description;
 
+
+	@Column(length=150)
+	@Index(name="FinancialTransactionTranslation_channelInstitutionName_idx")
+	private String channelInstitutionName;
+
 	@Index(name="FinancialTransactionTranslation_shortdescription_idx")
 	private String shortDescription;		
     
@@ -115,6 +120,13 @@ public class FinancialTransactionTranslation extends AbstractTranslation<Financi
 		this.thirdCoFinancingAgency = thirdCoFinancingAgency;
 	}
 	
-	
+
+	public String getChannelInstitutionName() {
+		return channelInstitutionName;
+	}
+
+	public void setChannelInstitutionName(String channelInstitutionName) {
+		this.channelInstitutionName = channelInstitutionName;
+	}	
 	
 }

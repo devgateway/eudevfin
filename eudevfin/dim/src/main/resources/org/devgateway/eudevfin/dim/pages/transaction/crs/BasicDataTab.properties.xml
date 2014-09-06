@@ -49,11 +49,11 @@
 		agency). For more info go to
 		http://www.oecd.org/development/effectiveness/countryprogrammableaidcpafrequentlyaskedquestions.htm</entry>
 
-	<entry key="8channelDelivery.label">8/9. Channel and Code of Delivery Name</entry>
-	<entry key="8channelDelivery.placeholder">Name and code of implementing agency</entry>
-	<entry key="8channelDelivery.help">Enter the name of the bilateral or multilateral implementing agency (e.g. UN agency, NGO) from the ODA
+	<entry key="8channelInstitutionName.label">8. Channel Institution Name</entry><entry key="8channelInstitutionName.help">Enter the name of the implementing agency</entry> <entry key="9channelOfDelivery.label">9. Channel of Delivery</entry>
+	<entry key="9channelOfDelivery.placeholder">Channel of delivery</entry>
+	<entry key="9channelOfDelivery.help">Enter the name of the bilateral or multilateral implementing agency (e.g. UN agency, NGO) from the ODA
 		list</entry>
-	<entry key="8channelDelivery.help.detail">Field no. 8/9 - Channel and code of delivery name: Enter the name of the bilateral or multilateral implementing
+	<entry key="9channelOfDelivery.help.detail">Field no. 9 - Channel of delivery: Enter the name of the bilateral or multilateral implementing
 		agency from the ODA list available at http://www.oecd.org/dac/stats/Codelist09082013.xls . No multilateral
 		contributions should be recorded unless the recipient agency is included in the list. However, multilateral
 		organisations not listed can still serve as channels of delivery for bilateral ODA-eligible contributions. The channel

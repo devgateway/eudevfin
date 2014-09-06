@@ -110,8 +110,15 @@ public class BasicDataTab extends PreviewableFormPanel implements PermissionAwar
 		DropDownField<Area> recipient = new DropDownField<>("7recipient", new RWComponentPropertyModel<Area>(
 				"recipient"), areaProvider);
 		add(recipient);
+		
+		
+		TextAreaInputField channelInstitutionName = new TextAreaInputField("8channelInstitutionName",
+				new RWComponentPropertyModel<String>("channelInstitutionName"));
+		channelInstitutionName.maxContentLength(150);
+		
+		add(channelInstitutionName);
 
-		DropDownField<ChannelCategory> channelOfDelivery = new DropDownField<ChannelCategory>("8channelDelivery",
+		DropDownField<ChannelCategory> channelOfDelivery = new DropDownField<ChannelCategory>("9channelOfDelivery",
 				new RWComponentPropertyModel<ChannelCategory>("channel"),
 				(ChoiceProvider) categoryFactory.get(CategoryConstants.CHANNEL_TAG)) {
 			@Override
