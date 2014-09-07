@@ -18,10 +18,14 @@ import java.util.LinkedHashMap;
 import org.apache.log4j.Logger;
 import org.devgateway.eudevfin.common.dao.AbstractDaoImpl;
 import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
+import org.devgateway.eudevfin.exchange.common.domain.ExchangeRateConfiguration;
+import org.devgateway.eudevfin.exchange.common.domain.ExchangeRateConfigurationConstants;
 import org.devgateway.eudevfin.exchange.common.domain.HistoricalExchangeRate;
+import org.devgateway.eudevfin.exchange.common.service.ExchangeRateConfigurationService;
 import org.devgateway.eudevfin.exchange.common.service.HistoricalExchangeRateService;
 import org.devgateway.eudevfin.exchange.repository.HistoricalExchangeRateRepository;
 import org.devgateway.eudevfin.exchange.service.ExternalExchangeQueryService;
+import org.jadira.usertype.exchangerate.ExchangeRateConstants;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.ExchangeRate;
 import org.joda.money.IllegalCurrencyException;
@@ -52,6 +56,9 @@ public class HistoricalExchangeRateDaoImplEndpoint extends AbstractDaoImpl<Histo
 
 	@Autowired
 	HistoricalExchangeRateService service;
+
+    @Autowired
+    private ExchangeRateConfigurationService exchangeRateConfigurationService;
 
 	protected static Logger logger = Logger
 			.getLogger(HistoricalExchangeRateDaoImplEndpoint.class);
@@ -95,18 +102,30 @@ public class HistoricalExchangeRateDaoImplEndpoint extends AbstractDaoImpl<Histo
 	 */
 	@ServiceActivator(inputChannel = "fetchRatesForDateChannel")
 	public int fetchRatesForDate(LocalDateTime date) {
-
 		int savedRates = 0;
 
 		// rates exist already for the given date, currently we skip any more
 		// rates fetching.
 		// we can parameterize this l8r
-		if (service.findRatesForDate(date).iterator().hasNext())
-			return savedRates;
+		if (service.findRatesForDate(date).iterator().hasNext()) {
+            return savedRates;
+        }
 
-		
+        // fetch the open exchange properties
+        ExchangeRateConfiguration exchangeRateBaseURL = exchangeRateConfigurationService.
+                findByEntityKey(ExchangeRateConfigurationConstants.OPEN_EXCHANGE_BASE_URL).getEntity();
+        ExchangeRateConfiguration exchangeRateKey = exchangeRateConfigurationService.
+                findByEntityKey(ExchangeRateConfigurationConstants.OPEN_EXCHANGE_KEY).getEntity();
+
+        if (exchangeRateBaseURL == null || exchangeRateKey == null) {
+            logger.warn("baseURL or key is not defined for openexchange API.");
+
+            return savedRates;
+        }
+
 		LinkedHashMap<String, Object> mapFromJson = exchangeQueryService
-				.getExchangeRatesForDate(date);
+				.getExchangeRatesForDate(date, exchangeRateBaseURL.getEntitValue(),
+                        exchangeRateKey.getEntitValue());
 
 		CurrencyUnit baseUnit = CurrencyUnit.of((String) mapFromJson.get("base"));
 		@SuppressWarnings("unchecked")
@@ -124,14 +143,19 @@ public class HistoricalExchangeRateDaoImplEndpoint extends AbstractDaoImpl<Histo
 						+ ". Will not import the exchange rate!");
 				continue;
 			}
-			HistoricalExchangeRate her = new HistoricalExchangeRate();
-			her.setDate(date);
 
+			HistoricalExchangeRate her = new HistoricalExchangeRate();
+
+			her.setDate(date);
 			her.setRate(ExchangeRate.of(baseUnit, counterUnit, new BigDecimal(
 					rates.get(currency).toString())));
-			service.save(her);
+            her.setSource(ExchangeRateConstants.SOURCE_INTERNET);
+
+            service.save(her);
+
 			savedRates++;
 		}
+
 		return savedRates;
 	}
 

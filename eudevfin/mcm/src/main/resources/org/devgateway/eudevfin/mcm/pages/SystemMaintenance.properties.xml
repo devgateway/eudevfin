@@ -12,8 +12,9 @@
 	<entry key="systemmaintenance.title">Maintenance of the system</entry>
     <entry key="systemmaintenance.baseurl.label">Base URL</entry>
     <entry key="systemmaintenance.baseurl.placeholder">http://openexchangerates.org/api</entry>
+    <entry key="systemmaintenance.baseurl.help">The URL should be http://openexchangerates.org/api</entry>
     <entry key="systemmaintenance.key.label">Open Exchange Rates key</entry>
-    <entry key="systemmaintenance.key.placeholder">a171719001074f82860ed78b2ba69027</entry>
+    <entry key="systemmaintenance.key.help">You should get the API key from https://openexchangerates.org/account site</entry>
     <entry key="systemmaintenance.jobActive.label">Is the Exchange Rate Job active?</entry>
     <entry key="systemmaintenance.submit">Submit</entry>
 </properties>

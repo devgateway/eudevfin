@@ -6,27 +6,25 @@
 	~ mpostelnicu -->
 
 <beans default-lazy-init="true" xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:security="http://www.springframework.org/schema/security"
-	xmlns:int="http://www.springframework.org/schema/integration"
-	xmlns:int-http="http://www.springframework.org/schema/integration/http"
-	xmlns:util="http://www.springframework.org/schema/util" xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
-	xsi:schemaLocation="http://www.springframework.org/schema/integration/http http://www.springframework.org/schema/integration/http/spring-integration-http-2.2.xsd
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xmlns:int-http="http://www.springframework.org/schema/integration/http"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xsi:schemaLocation="http://www.springframework.org/schema/integration/http http://www.springframework.org/schema/integration/http/spring-integration-http-2.2.xsd
 		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-3.0.xsd
-		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+
 		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd"
+       xmlns:task="http://www.springframework.org/schema/task">
+
+    <bean id="schedulingHistoricalExchange" class="org.devgateway.eudevfin.exchange.job.HistoricalExchangeRateRetrieveJob" />
+
+    <task:scheduled-tasks>
+        <task:scheduled ref="schedulingHistoricalExchange" method="jobRetrieveHistoricalExchangeRates" cron="0 0 0 * * MON-FRI"/>
+    </task:scheduled-tasks>
 
 	<jpa:repositories base-package="org.devgateway.eudevfin.exchange" />
-
-	<!-- load properties regarding the openexchangerates service, url, params, 
-		etc... -->
-	<util:properties id="openExchangeProps"
-		location="classpath:/openexchange.properties"></util:properties>
 
 	<!-- channel where the request for the currencies is being made -->
 	<int:channel id="currenciesJsonExchange" />
@@ -47,22 +45,25 @@
 
 	<!-- complete list of supported currencies for the exchange service -->
 	<int-http:outbound-gateway
-		url="#{openExchangeProps[baseurl]}/#{openExchangeProps[currencies]}"
+		url="{baseURL}/currencies.json"
 		http-method="GET" request-factory="exchangeRequestFactory"
 		reply-channel="currenciesJsonExchange" request-channel="getCurrenciesJson"
 		expected-response-type="java.lang.String" charset="UTF-8">
+        <int-http:uri-variable name="baseURL" expression="headers[baseURL]" />
 	</int-http:outbound-gateway>
 
 
 	<!-- Gateway to get historical exchange rates for a given LocalDateTime 
 		as payload -->
 	<int-http:outbound-gateway
-		url="#{openExchangeProps[baseurl]}/historical/{currencyDate}.json?app_id=#{openExchangeProps[key]}"
+		url="{baseURL}/historical/{currencyDate}.json?app_id={key}"
 		http-method="GET" reply-channel="currenciesJsonExchange"
 		request-factory="exchangeRequestFactory" request-channel="getExchangeRateChannel"
 		expected-response-type="java.lang.String" charset="UTF-8">
 		<int-http:uri-variable name="currencyDate"
-			expression="payload.toString(T(org.joda.time.format.ISODateTimeFormat).date())" />
+            expression="payload.toString(T(org.joda.time.format.ISODateTimeFormat).date())" />
+        <int-http:uri-variable name="baseURL" expression="headers[baseURL]" />
+        <int-http:uri-variable name="key" expression="headers[key]" />
 	</int-http:outbound-gateway>
 
 
