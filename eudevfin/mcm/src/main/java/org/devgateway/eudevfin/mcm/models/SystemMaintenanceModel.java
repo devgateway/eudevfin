@@ -9,6 +9,7 @@ import java.io.Serializable;
 public class SystemMaintenanceModel implements Serializable {
     private String baseurl;
     private String key;
+    private Boolean jobActive;
 
     public String getBaseurl() {
         return baseurl;
@@ -24,5 +25,13 @@ public class SystemMaintenanceModel implements Serializable {
 
     public void setKey(String key) {
         this.key = key;
+    }
+
+    public Boolean getJobActive() {
+        return jobActive;
+    }
+
+    public void setJobActive(Boolean jobActive) {
+        this.jobActive = jobActive;
     }
 }

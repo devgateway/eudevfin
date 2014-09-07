@@ -18,13 +18,13 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
-import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 import org.devgateway.eudevfin.exchange.common.domain.ExchangeRateConfiguration;
 import org.devgateway.eudevfin.exchange.common.domain.ExchangeRateConfigurationConstants;
 import org.devgateway.eudevfin.exchange.common.service.ExchangeRateConfigurationService;
 import org.devgateway.eudevfin.mcm.models.SystemMaintenanceModel;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
+import org.devgateway.eudevfin.ui.common.components.CheckBoxField;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.wicketstuff.annotation.mount.MountPath;
@@ -40,8 +40,11 @@ public class SystemMaintenance extends HeaderFooter {
 
     private TextInputField<String> baseurl;
     private TextInputField<String> key;
+    private CheckBoxField jobActive;
+
     private ExchangeRateConfiguration exchangeRateBaseURL;
     private ExchangeRateConfiguration exchangeRateKey;
+    private ExchangeRateConfiguration exchangeJobActivey;
 
     protected final NotificationPanel feedbackPanel;
 
@@ -64,6 +67,8 @@ public class SystemMaintenance extends HeaderFooter {
                 findByEntityKey(ExchangeRateConfigurationConstants.OPEN_EXCHANGE_BASE_URL).getEntity();
         exchangeRateKey = exchangeRateConfigurationService.
                 findByEntityKey(ExchangeRateConfigurationConstants.OPEN_EXCHANGE_KEY).getEntity();
+        exchangeJobActivey = exchangeRateConfigurationService.
+                findByEntityKey(ExchangeRateConfigurationConstants.EXCHANGE_JOB_ACTIVE).getEntity();
 
         baseurl = new TextInputField<>("baseurl", new RWComponentPropertyModel<String>("baseurl"), "systemmaintenance.baseurl");
         baseurl.typeString();
@@ -77,6 +82,17 @@ public class SystemMaintenance extends HeaderFooter {
         form.add(key);
         if (exchangeRateKey != null) {
             systemMaintenanceModel.setKey(exchangeRateKey.getEntitValue());
+        }
+
+        jobActive = new CheckBoxField("jobActive", new RWComponentPropertyModel<Boolean>("jobActive"), "systemmaintenance.jobActive");
+        form.add(jobActive);
+        if (exchangeJobActivey != null) {
+            if (exchangeJobActivey.getEntitValue().
+                    equals(ExchangeRateConfigurationConstants.EXCHANGE_JOB_ACTIVE_TRUE)) {
+                systemMaintenanceModel.setJobActive(Boolean.TRUE);
+            } else {
+                systemMaintenanceModel.setJobActive(Boolean.FALSE);
+            }
         }
 
         form.add(new BootstrapSubmitButton("submit", new StringResourceModel("systemmaintenance.submit", this, null, null)) {
@@ -106,13 +122,25 @@ public class SystemMaintenance extends HeaderFooter {
                             ExchangeRateConfigurationConstants.OPEN_EXCHANGE_KEY,
                             systemMaintenanceModel.getKey());
                 }
-
-                logger.error(exchangeRateBaseURL);
-                logger.error(exchangeRateKey);
+                if (exchangeJobActivey != null) {
+                    if (systemMaintenanceModel.getJobActive()) {
+                        exchangeJobActivey.setEntitValue(ExchangeRateConfigurationConstants.EXCHANGE_JOB_ACTIVE_TRUE);
+                    } else {
+                        exchangeJobActivey.setEntitValue(ExchangeRateConfigurationConstants.EXCHANGE_JOB_ACTIVE_FALSE);
+                    }
+                } else {
+                    // this is the first time when we save the open exchange configurations
+                    exchangeJobActivey = new ExchangeRateConfiguration(
+                            ExchangeRateConfigurationConstants.EXCHANGE_JOB_ACTIVE,
+                            systemMaintenanceModel.getJobActive() == true ?
+                                    ExchangeRateConfigurationConstants.EXCHANGE_JOB_ACTIVE_TRUE :
+                                    ExchangeRateConfigurationConstants.EXCHANGE_JOB_ACTIVE_FALSE);
+                }
 
                 // save the new configurations
                 exchangeRateConfigurationService.save(exchangeRateBaseURL);
                 exchangeRateConfigurationService.save(exchangeRateKey);
+                exchangeRateConfigurationService.save(exchangeJobActivey);
             }
         });
 
