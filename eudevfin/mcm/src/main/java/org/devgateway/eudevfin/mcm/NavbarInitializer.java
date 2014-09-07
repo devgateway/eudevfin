@@ -72,7 +72,7 @@ public final class NavbarInitializer {
 
 				list.add((AbstractLink) new MenuBookmarkablePageLink<ListPersistedUserGroupsPage>(
 						SystemMaintenance.class, null, new StringResourceModel("navbar.admin.maintenance", this, null,
-								null)).setIconType(IconType.wrench).setEnabled(false));
+								null)).setIconType(IconType.wrench));
 				return list;
 			}
 

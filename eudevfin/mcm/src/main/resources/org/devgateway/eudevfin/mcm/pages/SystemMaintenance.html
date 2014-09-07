@@ -8,22 +8,39 @@
   -->
 
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+<head>
+
+</head>
 <body>
 <wicket:extend>
-	<div class="container">
-		<div class="row">
-			<div class="span12">
-				&nbsp;
-			</div>
-		</div>
-	</div>
-	<div class="container">
-		<div class="row" align="center">
-			<h2>
-				<wicket:message key="systemmaintenance.title"/>
-			</h2>
-		</div>
-	</div>
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row" align="center">
+            <h2>
+                <wicket:message key="systemmaintenance.title"/>
+            </h2>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="span6 offset3 well">
+                <form wicket:id="systemform">
+                    <div wicket:id="feedback" />
+                    <div wicket:id="baseurl"/>
+                    <div wicket:id="key"/>
+                    <div class="span4">
+                        <input wicket:id="submit" type="submit" class="btn btn-primary"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </wicket:extend>
 </body>
-</html>                                                   
+</html>

@@ -38,9 +38,17 @@
 		<int:method name="delete" request-channel="exchangeChannel">
 			<int:header name="requestName" value="deleteHistoricalExchangeRate" />
 		</int:method>
-
-		
-		
 	</int:gateway>
 
+    <int:gateway id="exchangeRateConfigurationService"
+                 service-interface="org.devgateway.eudevfin.exchange.common.service.ExchangeRateConfigurationService">
+        <int:method name="findByEntityKey" request-channel="exchangeChannel">
+            <int:header name="requestName" value="findRateConfigurationByEntityKeyChannel" />
+        </int:method>
+
+        <int:method name="save" request-channel="exchangeChannel">
+            <int:header name="requestName" value="saveRateConfigurationChannel" />
+        </int:method>
+
+    </int:gateway>
 </beans>

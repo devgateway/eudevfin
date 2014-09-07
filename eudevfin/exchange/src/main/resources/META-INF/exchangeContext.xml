@@ -40,6 +40,8 @@
 	<int:channel id="findRatesForDateChannel"/>
 	<int:channel id="findHistoricalExchangeRateByInvertedSourceChannel"/>
 	<int:channel id="deleteHistoricalExchangeRate"/>
+    <int:channel id="findRateConfigurationByEntityKeyChannel"/>
+    <int:channel id="saveRateConfigurationChannel"/>
 
 
 
