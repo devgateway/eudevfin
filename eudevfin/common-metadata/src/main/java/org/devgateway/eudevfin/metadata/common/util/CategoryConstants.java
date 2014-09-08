@@ -81,6 +81,7 @@ public class CategoryConstants {
 		public static final String NON_FLOW="TYPE_OF_FLOW##40";
 		public static final String ODA="TYPE_OF_FLOW##10";
 	}
+	
 
 	public static final class TypeOfAid {
 		public static final String B01="B01";

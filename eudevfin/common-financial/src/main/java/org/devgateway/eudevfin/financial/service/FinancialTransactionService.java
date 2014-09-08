@@ -29,5 +29,6 @@ public interface FinancialTransactionService extends BaseEntityService<Financial
 	
 	public List<FinancialTransaction> findByReportingYearAndTypeOfFlowCode(LocalDateTime reportingYear, @Header("typeOfFlowCode")  String typeOfFlowCode);	
 	
-
+	public List<FinancialTransaction> findByCrsIdentificationNumber(String crsIdentificationNumber);	
+	
 }

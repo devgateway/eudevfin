@@ -227,6 +227,7 @@
     <int:channel id="findMessageByToPageableChannel"/>
     <int:channel id="findMessageByToAndReadStatusFalsePageableChannel"/>
     <int:channel id="findMessageByGeneralSearchPageableChannel"/>
+	<int:channel id="findByCrsIdentificationNumberChannel"/>
 
 	<int:channel id="saveCategoryChannel" />
 	<int:channel id="findAllAsListCategoryChannel" />

@@ -49,6 +49,10 @@
             <int:header name="requestName" value="findTransactionByReportingYearAndTypeOfFlowNonFlow"/>
         </int:method>
 
+        <int:method name="findByCrsIdentificationNumber" request-channel="getChannel">
+            <int:header name="requestName" value="findByCrsIdentificationNumberChannel"/>
+        </int:method>
+
     </int:gateway>
 
     <int:gateway id="messageService"

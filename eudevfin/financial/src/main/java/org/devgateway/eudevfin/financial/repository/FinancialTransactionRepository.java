@@ -40,6 +40,8 @@ public interface FinancialTransactionRepository extends
 	//@Query ("select tx from FinancialTransaction tx where tx.reportingYear=?1 and tx.typeOfFlow.code='TYPE_OF_FLOW##40'"+CategoryConstants.TypeOfFlow.NON_FLOW)
 	List<FinancialTransaction> findByReportingYearAndTypeOfFlowCode(LocalDateTime reportingYear,String typeOfFlowCode);
 
+	List<FinancialTransaction> findByCrsIdentificationNumber(String crsIdentificationNumber);
+
 //	@Query("select tx from FinancialTransaction tx join tx.translations trn where (lower(trn.description) like %:searchString% or lower(trn.shortDescription) like %:searchString%) or "
 //			+ "(:year not null and tx.reportingYear=:year) or tx.sector=:sector or tx.recipient=:recipient or tx.formType=:formType or tx.extendingAgency=:extendingAgency")
 //	Page<FinancialTransaction> findBySearchFormPageable(@Param("year") LocalDateTime year,
@@ -47,5 +49,6 @@ public interface FinancialTransactionRepository extends
 //			@Param("searchString") String searchString, @Param("formType") String formType,
 //			@Param("extendingAgency") Organization extendingAgency, Pageable pageable);
 //	
+
 	
 }
