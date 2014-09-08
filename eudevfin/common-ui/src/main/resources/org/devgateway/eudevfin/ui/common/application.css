@@ -41,6 +41,11 @@ select, input[type="text"], input[type="password"], input[type="datetime"], inpu
 	width:500px;
 	margin:0 auto;
 }
+.subnote {
+	width:500px;
+	margin:0 auto;
+	font-size:11px;
+}
 
 .eubanner {
     background-position: 0 0;

@@ -99,7 +99,7 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 
     protected Form form;
     protected Label note;
-
+    protected Label subnote;
     protected TransactionPageSubmitButton submitButton;
 
     private Message prepareMessage(FinancialTransaction financialTransaction) {
@@ -339,7 +339,16 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
         	note = new Label("note", new Model<String>(" "));
         	note.add(new AttributeAppender("class", new Model<String>("hide"), " "));
         }
-        add(note);
+        add(note.setEscapeModelStrings(false));
+        try {
+            // check if the key is missing in the resource file
+            getString(parameters.get(Constants.PARAM_TRANSACTION_TYPE).toString("") + ".subnote");
+            subnote = new Label("subnote", new StringResourceModel(parameters.get(Constants.PARAM_TRANSACTION_TYPE).toString("") + ".subnote", this, null, null));
+        } catch (MissingResourceException mre) {
+        	subnote = new Label("subnote", new Model<String>(" "));
+        	subnote.add(new AttributeAppender("class", new Model<String>("hide"), " "));
+        }
+        add(subnote.setEscapeModelStrings(false));
 
         onUnloadScript = "window.onbeforeunload = function(e) {\n" +
                 "   var message = '" + new StringResourceModel("leaveMessage", this, null, null).getObject() + "';\n" +

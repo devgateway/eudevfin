@@ -18,15 +18,19 @@
     <entry key="tabs.available">Available Components</entry>
 
     <entry key="bilateralOda.advanceQuestionnaire">Advance Questionnaire Form for Bilateral ODA</entry>
-    <entry key="bilateralOda.advanceQuestionnaire.note">Use this data input form for the Advance Questionnaire, if at the beginning of the year the information about all(*) transactions are limited.</entry>
+    <entry key="bilateralOda.advanceQuestionnaire.note"> <![CDATA[ Use this data input form for the Advance Questionnaire, if at the beginning of the year the information about all(*) transactions are limited. If not, please <a href='/custom?transactionType=bilateralOda.CRS'>click here</a> to use the CRS++ form.]]></entry>
+    <entry key="bilateralOda.advanceQuestionnaire.subnote">(*) When it is the time to prepare the Advance Questionnaire , the Administrator in the Ministry of Foreign Affairs has to instruct all the users  whether to use the Advance Questionnaire input form or the CRS++ input forms  for ALL transactions.</entry>
     <entry key="bilateralOda.CRS">CRS++ Form for Bilateral ODA</entry>
-    <entry key="bilateralOda.CRS.note"> Use this data input form for the CRS++ and the DAC Tables. You can also use this form for the Advance Questionnaire if you have full information about all(*) transactions at the beginning of the year.</entry>
+    <entry key="bilateralOda.CRS.note"> <![CDATA[ Use this data input form for the CRS++ and the DAC Tables. You can also use this form for the Advance Questionnaire if you have full information about all(*) transactions at the beginning of the year. If not, please <a href='/custom?transactionType=bilateralOda.advanceQuestionnaire'>click here</a> to use the CRS++ form.]]></entry>
+    <entry key="bilateralOda.CRS.subnote">(*) When it is the time to prepare the Advance Questionnaire , the Administrator in the Ministry of Foreign Affairs has to instruct all the users  whether to use the Advance Questionnaire input form or the CRS++ input forms  for ALL transactions.</entry>
     <entry key="bilateralOda.forwardSpending">Forward Spending Form for Bilateral ODA</entry>
     <entry key="bilateralOda.forwardSpending.note">Use this form to complete the Forward Spending Review</entry>
     <entry key="multilateralOda.advanceQuestionnaire">Advance Questionnaire Form for Multilateral ODA</entry>
-    <entry key="multilateralOda.advanceQuestionnaire.note">Use this data input form for the Advance Questionnaire, if at the beginning of the year the information about all(*) transactions  are limited.</entry>
+    <entry key="multilateralOda.advanceQuestionnaire.note"> <![CDATA[ Use this data input form for the Advance Questionnaire, if at the beginning of the year the information about all(*) transactions  are limited. If not, please <a href='/custom?transactionType=multilateralOda.CRS'>click here</a> to use the CRS++ form.]]></entry>
+    <entry key="multilateralOda.advanceQuestionnaire.subnote">(*) When it is the time to prepare the Advance Questionnaire , the Administrator in the Ministry of Foreign Affairs has to instruct all the users  whether to use the Advance Questionnaire input form or the CRS++ input forms  for ALL transactions.</entry>
     <entry key="multilateralOda.CRS">CRS++ Form for Multilateral ODA</entry>
-    <entry key="multilateralOda.CRS.note">Use this data input form for the CRS++ and the DAC Tables. you can also use this form for the Advance Questionnaire if you have full information about all(*) transactions at the beginning of the year.</entry>
+    <entry key="multilateralOda.CRS.note"> <![CDATA[ Use this data input form for the CRS++ and the DAC Tables. you can also use this form for the Advance Questionnaire if you have full information about all(*) transactions at the beginning of the year. If not, please <a href='/custom?transactionType=multilateralOda.advanceQuestionnaire'>click here</a> to use the CRS++ form.]]></entry>
+    <entry key="multilateralOda.CRS.subnote">(*) When it is the time to prepare the Advance Questionnaire , the Administrator in the Ministry of Foreign Affairs has to instruct all the users  whether to use the Advance Questionnaire input form or the CRS++ input forms  for ALL transactions.</entry>
     <entry key="nonOda.nonExport">Non Export Credit Form for Non-ODA</entry>
     <entry key="nonOda.export">Export Form for Non-ODA</entry>
     <entry key="nonOda.privateGrants">Private Grants Form for Non-ODA</entry>
