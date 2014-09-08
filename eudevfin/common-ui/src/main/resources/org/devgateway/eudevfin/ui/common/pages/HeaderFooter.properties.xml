@@ -26,6 +26,7 @@
     <entry key="navbar.admin">Admin</entry>
     <entry key="navbar.help">Help</entry>
 	<entry key="navbar.help.header">EU-DEVFIN Documentation</entry>
+	<entry key="navbar.help.videotut">Video Tutorials</entry>
 	<entry key="navbar.recipientcountries">Recipient Countries</entry>
 	<entry key="navbar.listofinternationalorgs">List of International Organizations</entry>	
 	<entry key="navbar.daccrslistcodes">DAC and CRS list of codes</entry>

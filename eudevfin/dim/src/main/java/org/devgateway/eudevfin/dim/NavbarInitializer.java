@@ -35,6 +35,7 @@ import org.devgateway.eudevfin.financial.service.MessageService;
 import org.devgateway.eudevfin.ui.common.Constants;
 import org.devgateway.eudevfin.ui.common.WicketNavbarComponentInitializer;
 import org.devgateway.eudevfin.ui.common.components.RepairedNavbarDropDownButton;
+import org.devgateway.eudevfin.ui.common.pages.HelpPage;
 import org.devgateway.eudevfin.ui.common.pages.LogoutPage;
 import org.devgateway.eudevfin.ui.common.temporary.SB;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -370,6 +371,7 @@ public final class NavbarInitializer {
 				listOfInternationalOrgs.setIconType(IconType.download);
 				list.add(listOfInternationalOrgs);
 
+				
 
 				final MenuBookmarkablePageLink<DacCrsListCodes> dacCrslistCodes = new MenuBookmarkablePageLink<DacCrsListCodes>(
 						DacCrsListCodes.class, null, new StringResourceModel("navbar.daccrslistcodes", this,
@@ -409,6 +411,13 @@ public final class NavbarInitializer {
 				};
 				dacGlossary.setIconType(IconType.download);
 				list.add(dacGlossary);
+				
+				final MenuBookmarkablePageLink<HelpPage> helpTutorialsPage =
+						new MenuBookmarkablePageLink<HelpPage>(HelpPage.class, null,new StringResourceModel("navbar.help.videotut", page, null));
+				helpTutorialsPage.setIconType(IconType.download);
+
+				list.add(helpTutorialsPage);
+
 
 				return list;
 			}
