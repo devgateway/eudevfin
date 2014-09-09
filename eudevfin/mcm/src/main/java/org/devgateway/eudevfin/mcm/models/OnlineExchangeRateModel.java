@@ -6,7 +6,7 @@ import java.io.Serializable;
  * @author idobre
  * @since 9/5/14
  */
-public class SystemMaintenanceModel implements Serializable {
+public class OnlineExchangeRateModel implements Serializable {
     private String baseurl;
     private String key;
     private Boolean jobActive;

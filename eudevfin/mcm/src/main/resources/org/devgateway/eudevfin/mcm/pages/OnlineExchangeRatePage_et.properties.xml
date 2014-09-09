@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2013 Development Gateway.
+  ~ All rights reserved. This program and the accompanying materials
+  ~ are made available under the terms of the GNU Public License v3.0
+  ~ which accompanies this distribution, and is available at
+  ~ http://www.gnu.org/licenses/gpl.html
+  -->
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="onlineexchangerate.title">Online Exchange Rate</entry>
+    <entry key="onlineexchangerate.ratenote">This configuration has to be done only once.&lt;br/&gt; In order to get an open exchange API you need to register for a free account here: &lt;a href="https://openexchangerates.org/signup/free" target="_blank"&gt;https://openexchangerates.org/signup/free&lt;/a&gt;</entry>
+    <entry key="onlineexchangerate.baseurl.label">Base URL</entry>
+    <entry key="onlineexchangerate.baseurl.placeholder">http://openexchangerates.org/api</entry>
+    <entry key="onlineexchangerate.baseurl.help">The URL should be http://openexchangerates.org/api</entry>
+    <entry key="onlineexchangerate.key.label">Open Exchange Rates key</entry>
+    <entry key="onlineexchangerate.key.help">You should get the API key from https://openexchangerates.org/account</entry>
+    <entry key="onlineexchangerate.jobActive.label">Is the Exchange Rate Job active?</entry>
+    <entry key="onlineexchangerate.jobActive.help">Indicates if the job runs automatically each day</entry>
+    <entry key="onlineexchangerate.submit">Submit</entry>
+</properties>
+

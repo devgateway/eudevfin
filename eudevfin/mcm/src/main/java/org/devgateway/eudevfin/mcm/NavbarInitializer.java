@@ -7,22 +7,28 @@
  *******************************************************************************/
 package org.devgateway.eudevfin.mcm;
 
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.DropDownSubMenu;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuBookmarkablePageLink;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuDivider;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuHeader;
 import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconType;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
-import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarButton;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarDropDownButton;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.button.DropDownAutoOpen;
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy;
 import org.apache.wicket.markup.html.link.AbstractLink;
-import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
-import org.devgateway.eudevfin.mcm.pages.*;
+import org.devgateway.eudevfin.mcm.pages.EditNonFlowItemsPage;
+import org.devgateway.eudevfin.mcm.pages.EditPersistedUserPage;
+import org.devgateway.eudevfin.mcm.pages.ListHistoricalExchangeRatePage;
+import org.devgateway.eudevfin.mcm.pages.ListOrganizationsPage;
+import org.devgateway.eudevfin.mcm.pages.ListPersistedUserGroupsPage;
+import org.devgateway.eudevfin.mcm.pages.ListPersistedUsersPage;
+import org.devgateway.eudevfin.mcm.pages.OnlineExchangeRatePage;
+import org.devgateway.eudevfin.mcm.pages.SystemMaintenance;
 import org.devgateway.eudevfin.ui.common.WicketNavbarComponentInitializer;
 import org.devgateway.eudevfin.ui.common.components.RepairedNavbarDropDownButton;
 import org.devgateway.eudevfin.ui.common.pages.LogoutPage;
@@ -64,15 +70,38 @@ public final class NavbarInitializer {
 				list.add(new MenuBookmarkablePageLink<ListOrganizationsPage>(ListOrganizationsPage.class, null,
 						new StringResourceModel("navbar.admin.orgs", this, null, null)).setIconType(IconType.leaf));
 
-				list.add(new MenuBookmarkablePageLink<ListPersistedUserGroupsPage>(EditNonFlowItemsPage.class, null,
+				list.add(new MenuBookmarkablePageLink<EditNonFlowItemsPage>(EditNonFlowItemsPage.class, null,
 						new StringResourceModel("navbar.admin.nonflow", this, null, null)).setIconType(IconType.globe));
 
-				list.add(new MenuBookmarkablePageLink<ListPersistedUserGroupsPage>(ListHistoricalExchangeRatePage.class, null,
-						new StringResourceModel("navbar.admin.rates", this, null, null)).setIconType(IconType.retweet));
+                DropDownSubMenu adminRates = new DropDownSubMenu(new StringResourceModel("navbar.admin.rates", this, null, null)) {
+                    @Override
+                    public boolean isActive(Component item) {
+                        return false;
+                    }
 
-				list.add((AbstractLink) new MenuBookmarkablePageLink<ListPersistedUserGroupsPage>(
+                    @Override
+                    protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
+                        List<AbstractLink> list = new ArrayList<>();
+
+                        list.add(new MenuBookmarkablePageLink<ListHistoricalExchangeRatePage>(
+                                ListHistoricalExchangeRatePage.class, null, new StringResourceModel(
+                                "navbar.admin.rates.historical", this, null, null)).
+                                setIconType(IconType.folderclose));
+
+                        list.add(new MenuBookmarkablePageLink<OnlineExchangeRatePage>(
+                                OnlineExchangeRatePage.class, null, new StringResourceModel(
+                                "navbar.admin.rates.online", this, null, null)).
+                                setIconType(IconType.random));
+
+                        return list;
+                    }
+                };
+                adminRates.setIconType(IconType.retweet);
+                list.add(adminRates);
+
+				list.add((AbstractLink) new MenuBookmarkablePageLink<SystemMaintenance>(
 						SystemMaintenance.class, null, new StringResourceModel("navbar.admin.maintenance", this, null,
-								null)).setIconType(IconType.wrench));
+								null)).setIconType(IconType.wrench).setEnabled(false));
 				return list;
 			}
 
