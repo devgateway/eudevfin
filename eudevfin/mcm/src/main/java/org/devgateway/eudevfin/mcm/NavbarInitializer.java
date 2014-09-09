@@ -99,9 +99,12 @@ public final class NavbarInitializer {
                 adminRates.setIconType(IconType.retweet);
                 list.add(adminRates);
 
+                /* hide the system menu for the moment
 				list.add((AbstractLink) new MenuBookmarkablePageLink<SystemMaintenance>(
 						SystemMaintenance.class, null, new StringResourceModel("navbar.admin.maintenance", this, null,
 								null)).setIconType(IconType.wrench).setEnabled(false));
+                */
+
 				return list;
 			}
 
