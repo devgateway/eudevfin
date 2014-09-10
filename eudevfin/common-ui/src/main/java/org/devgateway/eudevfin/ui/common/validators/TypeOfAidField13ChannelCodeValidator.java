@@ -58,10 +58,23 @@ public class TypeOfAidField13ChannelCodeValidator extends Behavior implements IV
 				&& (Strings.isEqual(transactionType, SB.BILATERAL_ODA_CRS)
 						|| Strings.isEqual(transactionType, SB.MULTILATERAL_ODA_CRS) || Strings.isEqual(
 						transactionType, SB.BILATERAL_ODA_FORWARD_SPENDING))) {
-			validateB01For2xxxx(validatable);
-			validateB01For1xxxx(validatable);
+		//DISABLED upon request
+		//	validateB01For2xxxx(validatable);
+		//	validateB01For1xxxx(validatable);
+		}
+		
+		if (!Strings.isEmpty(transactionType)) {
+			if (validatable.getValue() != null && validatable.getValue().isLastAncestor()) {
+				ValidationError error = new ValidationError(this);
+				validatable.error(decorateParentError(error, validatable));
+			}
 		}
 
+
+	}
+
+	protected IValidationError decorateParentError(ValidationError error, IValidatable<Category> validatable) {
+		return error;
 	}
 
 	/**

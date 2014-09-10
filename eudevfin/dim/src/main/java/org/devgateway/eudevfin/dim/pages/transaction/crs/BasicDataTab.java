@@ -38,6 +38,7 @@ import org.devgateway.eudevfin.ui.common.validators.Field12CodeValidator;
 import org.devgateway.eudevfin.ui.common.validators.Field8CodeValidator;
 import org.devgateway.eudevfin.ui.common.validators.MultilateralField10CodeValidator;
 import org.devgateway.eudevfin.ui.common.validators.MultilateralField10TypeOfAidCodeValidator;
+import org.devgateway.eudevfin.ui.common.validators.PurposeField15CodeValidator;
 import org.devgateway.eudevfin.ui.common.validators.TypeOfAidField13ChannelCodeValidator;
 import org.devgateway.eudevfin.ui.common.validators.TypeOfFinanceField12TypeOfAidCodeValidator;
 
@@ -60,6 +61,8 @@ public class BasicDataTab extends PreviewableFormPanel implements PermissionAwar
 	public static final String VALIDATIONKEY_B01_2XXXX_CODE = "validation.decorateB01For2xxxx";
 	public static final String VALIDATIONKEY_B01_BIMULTI3_CODE = "validation.decorateB01ForBiMulti3";
 	public static final String VALIDATIONKEY_B02_BIMULTI2_CODE = "validation.decorateB02ForBiMulti2";
+	public static final String VALIDATIONKEY_PARENT_CODE = "validation.parentCode";
+
 
 	protected PageParameters parameters;
 
@@ -107,8 +110,15 @@ public class BasicDataTab extends PreviewableFormPanel implements PermissionAwar
 		DropDownField<Area> recipient = new DropDownField<>("7recipient", new RWComponentPropertyModel<Area>(
 				"recipient"), areaProvider);
 		add(recipient);
+		
+		
+		TextAreaInputField channelInstitutionName = new TextAreaInputField("8channelInstitutionName",
+				new RWComponentPropertyModel<String>("channelInstitutionName"));
+		channelInstitutionName.maxContentLength(150);
+		
+		add(channelInstitutionName);
 
-		DropDownField<ChannelCategory> channelOfDelivery = new DropDownField<ChannelCategory>("8channelDelivery",
+		DropDownField<ChannelCategory> channelOfDelivery = new DropDownField<ChannelCategory>("9channelOfDelivery",
 				new RWComponentPropertyModel<ChannelCategory>("channel"),
 				(ChoiceProvider) categoryFactory.get(CategoryConstants.CHANNEL_TAG)) {
 			@Override
@@ -161,6 +171,13 @@ public class BasicDataTab extends PreviewableFormPanel implements PermissionAwar
 				error.addKey(VALIDATIONKEY_B01_2XXXX_CODE);
 				return super.decorateB01For2xxxx(error, validatable);
 			}
+			
+			@Override
+			protected IValidationError decorateParentError(ValidationError error, IValidatable<Category> validatable) {
+				error.addKey(VALIDATIONKEY_PARENT_CODE);
+				return error;
+			}
+			
 
 		});
 
@@ -257,6 +274,12 @@ public class BasicDataTab extends PreviewableFormPanel implements PermissionAwar
 				error.addKey(VALIDATIONKEY_FIELD_12_CODE);
 				return super.decorate(error, validatable);
 			}
+			
+			@Override
+			protected IValidationError decorateParentError(ValidationError error, IValidatable<Category> validatable) {
+				error.addKey(VALIDATIONKEY_PARENT_CODE);
+				return error;
+			}
 		});
 
 		typeOfFinance.getField().add(new TypeOfFinanceField12TypeOfAidCodeValidator(typeOfAid) {
@@ -276,6 +299,13 @@ public class BasicDataTab extends PreviewableFormPanel implements PermissionAwar
 
 		DropDownField<Category> sectorPurposeCode = new DropDownField<>("15sectorPurposeCode",
 				new RWComponentPropertyModel<Category>("sector"), categoryFactory.get(CategoryConstants.ALL_SECTOR_TAG));
+		sectorPurposeCode.getField().add(new PurposeField15CodeValidator(transactionType) {
+			@Override
+			protected IValidationError decorateParentError(ValidationError error, IValidatable<Category> validatable) {
+				error.addKey(VALIDATIONKEY_PARENT_CODE);
+				return error;
+			}
+		});
 		add(sectorPurposeCode);
 	}
 

@@ -31,7 +31,7 @@ import java.util.Map;
  * @since 3/27/14
  */
 @MountPath(value = "/reportscountrysectordashboards")
-@AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
+@AuthorizeInstantiation({AuthConstants.Roles.ROLE_USER,AuthConstants.Roles.ROLE_VIEWER})
 public class ReportsCountrySectorDashboards extends ReportsDashboards {
     private static final Logger logger = Logger.getLogger(ReportsCountrySectorDashboards.class);
 

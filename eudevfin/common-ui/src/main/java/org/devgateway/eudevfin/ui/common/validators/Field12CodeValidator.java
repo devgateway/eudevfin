@@ -16,6 +16,7 @@ import java.util.regex.Pattern;
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.util.string.Strings;
 import org.apache.wicket.validation.IValidatable;
+import org.apache.wicket.validation.IValidationError;
 import org.apache.wicket.validation.IValidator;
 import org.apache.wicket.validation.ValidationError;
 import org.devgateway.eudevfin.metadata.common.domain.Category;
@@ -47,16 +48,29 @@ public class Field12CodeValidator extends Behavior implements IValidator<Categor
 
 	@Override
 	public void validate(IValidatable<Category> validatable) {
-		if (!Strings.isEmpty(transactionType)
-                && (Strings.isEqual(transactionType, SB.BILATERAL_ODA_ADVANCE_QUESTIONNAIRE) ||
-                Strings.isEqual(transactionType, SB.MULTILATERAL_ODA_ADVANCE_QUESTIONNAIRE))) {			
-				// Check value against pattern
-			if (validatable.getValue()!=null && pattern.matcher(validatable.getValue().getDisplayableCode()).matches() == reverse) {
+
+
+		if (!Strings.isEmpty(transactionType)) {
+			if (validatable.getValue() != null && validatable.getValue().isLastAncestor()) {
 				ValidationError error = new ValidationError(this);
-				error.setVariable("pattern", pattern.pattern());
-				validatable.error(decorate(error, validatable));
+				validatable.error(decorateParentError(error, validatable));
 			}
 		}
+
+			if ((Strings.isEqual(transactionType, SB.BILATERAL_ODA_ADVANCE_QUESTIONNAIRE) || Strings.isEqual(
+					transactionType, SB.MULTILATERAL_ODA_ADVANCE_QUESTIONNAIRE))) {
+				// Check value against pattern
+				if (validatable.getValue() != null
+						&& pattern.matcher(validatable.getValue().getDisplayableCode()).matches() == reverse) {
+					ValidationError error = new ValidationError(this);
+					error.setVariable("pattern", pattern.pattern());
+					validatable.error(decorate(error, validatable));
+				}
+			}
+		}
+	protected IValidationError decorateParentError(ValidationError error, IValidatable<Category> validatable) {
+		// TODO Auto-generated method stub
+		return error;
 	}
 
 	public Field12CodeValidator reverse() {

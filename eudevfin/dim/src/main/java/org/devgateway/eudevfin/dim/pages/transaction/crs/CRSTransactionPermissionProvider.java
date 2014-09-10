@@ -38,8 +38,8 @@ public class CRSTransactionPermissionProvider extends PermissionProvider {
          * Basic Data
          */
         permissions.put("7recipient", new RoleActionMapping().required(SB.biODA()).required(SB.allOOF()).required(SB.allPriv()));
-        permissions.put("8channelDelivery", new RoleActionMapping().required(SB.allODA()).required(SB.NON_ODA_OOF_NON_EXPORT).render(SB.NON_ODA_OOF_EXPORT));
-        permissions.put("9channelCode", new RoleActionMapping().required(SB.allODA()).required(SB.NON_ODA_OOF_NON_EXPORT).render(SB.NON_ODA_OOF_EXPORT));
+        permissions.put("8channelInstitutionName", new RoleActionMapping().render(SB.allODA()).render(SB.NON_ODA_OOF_NON_EXPORT).render(SB.NON_ODA_OOF_EXPORT)); 
+        permissions.put("9channelOfDelivery", new RoleActionMapping().required(SB.allODA()).required(SB.NON_ODA_OOF_NON_EXPORT).render(SB.NON_ODA_OOF_EXPORT));
         permissions.put("10bilateralMultilateral", new RoleActionMapping().required(SB.allODA()).required(SB.allOOF()).required(SB.allPriv()));
         permissions.put("13typeOfAid", new RoleActionMapping().required(SB.allODA()));
         permissions.put("14activityProjectTitle", new RoleActionMapping().required(SB.allODA()).required(SB.NON_ODA_OOF_NON_EXPORT).required(SB.NON_ODA_PRIVATE_GRANTS).required(SB.NON_ODA_OTHER_FLOWS));

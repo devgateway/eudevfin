@@ -11,6 +11,7 @@ import java.util.LinkedHashMap;
 
 import org.joda.time.LocalDateTime;
 import org.springframework.integration.annotation.Gateway;
+import org.springframework.integration.annotation.Header;
 import org.springframework.integration.annotation.Payload;
 
 /**
@@ -30,7 +31,7 @@ public interface ExternalExchangeQueryService {
 	 */
 	@Gateway(requestChannel = "getCurrenciesJson")
 	@Payload("new java.util.Date()")
-	LinkedHashMap<String, String> getCurrenciesAndNames();
+	LinkedHashMap<String, String> getCurrenciesAndNames(@Header(value="baseURL") String baseURL);
 
 	/**
 	 * Retrieves all exchange rates for the given date
@@ -40,6 +41,8 @@ public interface ExternalExchangeQueryService {
 	 * @return a full hashmap with all currencies and rates, with USD as base
 	 */
 	@Gateway(requestChannel = "getExchangeRateChannel")
-	LinkedHashMap<String, Object> getExchangeRatesForDate(LocalDateTime date);
+	LinkedHashMap<String, Object> getExchangeRatesForDate(LocalDateTime date,
+        @Header(value="baseURL") String baseURL,
+        @Header(value="key") String key);
 
 }

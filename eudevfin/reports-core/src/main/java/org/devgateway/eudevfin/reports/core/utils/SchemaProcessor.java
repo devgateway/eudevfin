@@ -101,6 +101,14 @@ public class SchemaProcessor extends LocalizingDynamicSchemaProcessor {
                 countryCurrency = DEFAULT_COUNTRY_CURRENCY;
             }
         }
+        
+        String countryName = connectInfo.get("COUNTRY_NAME");
+        if((countryName == null || countryName.equals("")) && org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication() != null){
+            	countryName = AuthUtils.getOrganizationForCurrentUser().getDonorName();
+        }
+        else {
+        	countryName = "";
+        }
 
 //		String locale = connectInfo.get("LOCALE");
 //		if(locale == null || locale.equals("")){
@@ -122,6 +130,7 @@ public class SchemaProcessor extends LocalizingDynamicSchemaProcessor {
         schema = schema.replaceAll("@@LOCALE@@", locale);
         schema = schema.replaceAll("@@CURRENCY@@", currency);
         schema = schema.replaceAll("@@COUNTRY_CURRENCY@@", countryCurrency);
+        schema = schema.replaceAll("@@COUNTRY_NAME@@", countryName);
 
         return schema;
     }

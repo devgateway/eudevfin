@@ -115,4 +115,16 @@ public class FinancialTransactionDaoImpl extends AbstractDaoImpl<FinancialTransa
 	FinancialTransactionRepository getRepo() {
 		return this.repo;
 	}
+
+
+/**
+ * see {@link FinancialTransactionService}{@link #findByCrsIdentificationNumber(String)}
+ * @param crsIdentificationNumber
+ * @return
+ */
+	@ServiceActivator(inputChannel="findByCrsIdentificationNumberChannel")
+	public List<FinancialTransaction> findByCrsIdentificationNumber(String crsIdentificationNumber) {
+		return this.getRepo().findByCrsIdentificationNumber(crsIdentificationNumber);
+	}
+	
 }

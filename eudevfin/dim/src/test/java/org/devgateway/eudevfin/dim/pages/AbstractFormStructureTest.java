@@ -89,7 +89,7 @@ public abstract class AbstractFormStructureTest extends BaseDimTest {
 
     private void testBasicDataTab() {
         this.components.put("7recipient", new DimComponentInfo(BasicDataTab.KEY, BASIC_DATA_TAB_PATH + "7recipient", DropDownField.class));
-        this.components.put("8channelDelivery", new DimComponentInfo(BasicDataTab.KEY, BASIC_DATA_TAB_PATH + "8channelDelivery", DropDownField.class));
+        this.components.put("9channelOfDelivery", new DimComponentInfo(BasicDataTab.KEY, BASIC_DATA_TAB_PATH + "9channelOfDelivery", DropDownField.class));
         this.components.put("10bilateralMultilateral", new DimComponentInfo(BasicDataTab.KEY, BASIC_DATA_TAB_PATH + "10bilateralMultilateral", DropDownField.class));
         this.components.put("11typeOfFlow", new DimComponentInfo(BasicDataTab.KEY, BASIC_DATA_TAB_PATH + "11typeOfFlow", DropDownField.class));
         this.components.put("12typeOfFinance", new DimComponentInfo(BasicDataTab.KEY, BASIC_DATA_TAB_PATH + "12typeOfFinance", DropDownField.class));

@@ -36,6 +36,9 @@ public class UpdateAutoincrementProcedure {
 			final ResultSet rs1	= ps1.executeQuery();
 			if ( rs1.next() ) {
 				updateValue	= rs1.getInt(1);
+				if ( updateValue == 0){ 
+					updateValue =1;
+				}
 			}
 			rs1.close();
 			

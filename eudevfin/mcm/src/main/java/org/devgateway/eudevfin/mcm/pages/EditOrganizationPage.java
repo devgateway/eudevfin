@@ -27,11 +27,14 @@ import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.devgateway.eudevfin.metadata.common.service.OrganizationService;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.BootstrapCancelButton;
+import org.devgateway.eudevfin.ui.common.components.BootstrapDeleteButton;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
+import org.devgateway.eudevfin.ui.common.components.util.MondrianCDACacheUtil;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.wicketstuff.annotation.mount.MountPath;
 
+import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
 import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
 
 /**
@@ -43,6 +46,9 @@ public class EditOrganizationPage extends HeaderFooter<Organization> {
 
 	@SpringBean
 	private OrganizationService organizationService;
+	
+    @SpringBean
+    MondrianCDACacheUtil mondrianCacheUtil;
 
 	protected final NotificationPanel feedbackPanel;
 
@@ -143,9 +149,33 @@ public class EditOrganizationPage extends HeaderFooter<Organization> {
 				logger.info("Object:" + getModel().getObject());
 
 				organizationService.save(org);
+                mondrianCacheUtil.flushMondrianCDACache();
 				setResponsePage(ListOrganizationsPage.class);
 			}
 
+		});
+		
+		form.add(new BootstrapDeleteButton("delete", new StringResourceModel("button.delete", this, null)) {
+			private static final long serialVersionUID = 6700688063444818086L;
+
+			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+				 Organization org = (Organization) form.getInnermostModel().getObject();
+		            logger.debug("Object:" + org);
+		            logger.info("Deleting!");
+		            target.add(feedbackPanel);
+		            try {
+		                if (org.getId() == null) return;
+		                organizationService.delete(org);
+		                info(new NotificationMessage(new StringResourceModel("notification.deleted", EditOrganizationPage.this, null)));
+		                mondrianCacheUtil.flushMondrianCDACache();
+		            } catch (Exception e) {
+		                logger.error("Exception while trying to delete:", e);
+		                error(new NotificationMessage(new StringResourceModel("notification.cannotdelete", EditOrganizationPage.this, null)));
+		                return;
+		            }
+		            setResponsePage(ListOrganizationsPage.class);
+		            logger.info("Deleted ok!");
+			};
 		});
 
 		form.add(new BootstrapCancelButton("cancel",

@@ -20,13 +20,18 @@ public interface OrganizationService extends BaseEntityService<Organization> {
     public Page<Organization> findUsedOrganizationPaginated(
             @Header("locale") String locale, String searchString,
             @Header("pageable") Pageable page);
-    
+
 	public Page<Organization> findByDacFalse(Pageable pageable);
-	
+
+	/**
+	 * @deprecated this doesn't always return a unique result. Use findByCodeAndDonorCode instead
+	 *
+	 */
+	@Deprecated
 	public NullableWrapper<Organization> findByCode(String code);
-	
+
 	public NullableWrapper<Organization> findByCodeAndDonorCode(String code,  @Header("donorCode") String donorCode);
-	
+
 	public NullableWrapper<Organization> findByName(String name);
-	
+
 }

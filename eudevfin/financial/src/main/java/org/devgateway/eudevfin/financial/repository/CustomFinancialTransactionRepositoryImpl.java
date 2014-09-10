@@ -105,8 +105,8 @@ public class CustomFinancialTransactionRepositoryImpl implements CustomFinancial
 		StringBuilder countBuilder=new StringBuilder("SELECT count(tx) ").append(queryBuilder);
 		Query countQuery = em.createQuery(countBuilder.toString());
 	
-		if(crsIdSearch!=null) setQueriesParameter(query,countQuery,"crsIdSearch", "%"+crsIdSearch+"%");	
-		if(donorIdSearch!=null) setQueriesParameter(query,countQuery,"donorIdSearch", "%"+donorIdSearch+"%");	
+		if(crsIdSearch!=null) setQueriesParameter(query,countQuery,"crsIdSearch", crsIdSearch);	
+		if(donorIdSearch!=null) setQueriesParameter(query,countQuery,"donorIdSearch", donorIdSearch);	
 		if(active) setQueriesParameter(query,countQuery,"systemDate",  LocalDateTime.now());	
 		
 		long maxResults = (Long) countQuery.getSingleResult();

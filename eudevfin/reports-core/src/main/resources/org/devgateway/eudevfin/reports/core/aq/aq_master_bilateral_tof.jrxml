@@ -6,6 +6,7 @@
 	<property name="ireport.y" value="0"/>
 	<parameter name="FIRST_YEAR" class="java.lang.Number"/>
 	<parameter name="SECOND_YEAR" class="java.lang.Number"/>
+    <parameter name="FORM_DATASOURCE" class="java.lang.String"/>
 	<queryString language="mdx">
 		<![CDATA[
 WITH MEMBER [Type of Finance].[Grants] as SUM({[Type of Finance].[TYPE_OF_FINANCE##100],[Type of Finance].[TYPE_OF_FINANCE##110],[Type of Finance].[TYPE_OF_FINANCE##111]})
@@ -19,7 +20,7 @@ SELECT
 {[Type of Finance].[Grants], [Type of Finance].[Non Grants], [Type of Finance].[Non Grants Debt Forgiveness]} ON ROWS,
 {[Measures].[First Year Gross], [Measures].[Second Year Gross],[Measures].[First Year Net], [Measures].[Second Year Net]} ON COLUMNS
 FROM [Financial]
-WHERE {[BiMultilateral].[BI_MULTILATERAL##1], [BiMultilateral].[BI_MULTILATERAL##3], [BiMultilateral].[BI_MULTILATERAL##7]}*{[Form Type].[bilateralOda.advanceQuestionnaire], [Form Type].[multilateralOda.advanceQuestionnaire] }
+WHERE {[BiMultilateral].[BI_MULTILATERAL##1], [BiMultilateral].[BI_MULTILATERAL##3], [BiMultilateral].[BI_MULTILATERAL##7]}*$P{FORM_DATASOURCE}
 ]]>
 	</queryString>
 	<field name="Grant Y1" class="java.lang.Number">

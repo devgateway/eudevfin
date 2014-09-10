@@ -76,6 +76,7 @@ public class ReportsController {
 	private static final String REPORT_TYPE_DAC1 = "dac1";
 	private static final String REPORT_TYPE_DAC2A = "dac2a";
 	private static final String OUTPUT_TYPE = "outputType";
+	private static final String DATASOURCE = "dataSource";
 	private static final String OUTPUT_TYPE_PDF = "pdf";
 	private static final String OUTPUT_TYPE_EXCEL = "excel";
 	private static final String OUTPUT_TYPE_HTML = "html";
@@ -143,6 +144,7 @@ public class ReportsController {
     public ModelAndView generateReport(HttpServletRequest request, HttpServletResponse response, ModelAndView modelAndView)  throws IOException {
 		String reportType = request.getParameter(REPORT_TYPE);
 		String outputType = request.getParameter(OUTPUT_TYPE);
+		String dataSource = request.getParameter(DATASOURCE);
 
 		// create the Mondrian connection
 		PropertyList propertyList = new PropertyList();
@@ -187,7 +189,7 @@ public class ReportsController {
 
 		switch (reportType) {
 		case REPORT_TYPE_AQ:
-            generateAdvanceQuestionnaire(request, response, connection, outputType, currency);
+            generateAdvanceQuestionnaire(request, response, connection, outputType, currency, dataSource);
 			break;
 		case REPORT_TYPE_DAC1:
 			generateDAC1(request, response, connection, outputType);
@@ -209,9 +211,10 @@ public class ReportsController {
 	 * @param response
      * @param connection the Mondrian connection
      * @param outputType the output for the report: HTML, Excel, PDF, CSV
+	 * @param dataSource 
 	 */
     private void generateAdvanceQuestionnaire (HttpServletRequest request, HttpServletResponse response,
-            Connection connection, String outputType, String currency) {
+            Connection connection, String outputType, String currency, String dataSource) {
 		String yearParam = request.getParameter(REPORT_YEAR);
 		if (yearParam == null || yearParam.equals("")) {
             yearParam = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
@@ -237,6 +240,7 @@ public class ReportsController {
 			parameters.put("FIRST_YEAR", reportYear - 1);
 			parameters.put("SECOND_YEAR", reportYear);
 			parameters.put("EDITION_YEAR", reportYear + 1);
+			parameters.put("FORM_DATASOURCE", getDataSourceString(dataSource));
 
 			parameters.put("CURRENCY", currency);
 			// add the path to sub-reports
@@ -304,6 +308,14 @@ public class ReportsController {
 		}
 	}
 
+	private String getDataSourceString(String dataSource) {
+		if("CRS".equals(dataSource)) {
+			return "{[Form Type].[bilateralOda.CRS], [Form Type].[multilateralOda.CRS]}";
+		}
+		else {
+			return "{[Form Type].[bilateralOda.advanceQuestionnaire], [Form Type].[multilateralOda.advanceQuestionnaire]}";
+		}
+	}
 	/**
 	 * Create the DAC2a report
 	 * 

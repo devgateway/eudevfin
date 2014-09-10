@@ -156,9 +156,13 @@ svg {
   height:100%;
 }
 
+svg:not(:root) {
+    overflow: hidden;
+}
 
 svg text {
   font: normal 12px Arial;
+  /*white-space: pre-line;*/
 }
 
 svg .title {

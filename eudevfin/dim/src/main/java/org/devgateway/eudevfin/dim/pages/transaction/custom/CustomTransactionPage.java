@@ -20,7 +20,6 @@ import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDa
 import org.apache.wicket.event.Broadcast;
 import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -37,6 +36,7 @@ import org.devgateway.eudevfin.ui.common.components.CheckBoxField;
 import org.devgateway.eudevfin.ui.common.events.Field12ChangedEventPayload;
 import org.devgateway.eudevfin.ui.common.events.Field13ChangedEventPayload;
 import org.devgateway.eudevfin.ui.common.events.Field14aChangedEventPayload;
+import org.devgateway.eudevfin.ui.common.events.ReportingYearChangedEventPayload;
 import org.devgateway.eudevfin.ui.common.permissions.RoleActionMapping;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -187,6 +187,9 @@ public class CustomTransactionPage extends TransactionPage {
 		if (transaction.getTypeOfAid() != null)
 			send(getPage(), Broadcast.DEPTH, new Field13ChangedEventPayload(null, transaction.getTypeOfAid()
 					.getDisplayableCode()));
+		
+		if (transaction.getReportingYear() != null)
+			send(getPage(), Broadcast.DEPTH, new ReportingYearChangedEventPayload(null, transaction.getReportingYear().getYear()));
 
 		if (transaction.getDraft())
 			submitButton.setDefaultFormProcessing(false);

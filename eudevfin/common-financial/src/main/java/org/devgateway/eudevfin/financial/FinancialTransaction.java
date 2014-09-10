@@ -347,6 +347,19 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
     public void setDescription(String description) {
         this.set("description", description);
     }
+
+    @Override
+    public String getChannelInstitutionName() {
+        return (String) this.get("channelInstitutionName");
+
+    }
+
+    @Override
+    public void setChannelInstitutionName(String channelInstitutionName) {
+        this.set("channelInstitutionName", channelInstitutionName);
+    }
+
+    
     
     @Override
     public String getShortDescription() {

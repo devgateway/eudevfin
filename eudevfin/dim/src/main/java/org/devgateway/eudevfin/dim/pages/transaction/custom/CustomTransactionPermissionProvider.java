@@ -45,12 +45,12 @@ public class CustomTransactionPermissionProvider extends CRSTransactionPermissio
          */
 
         permissions.put("7bCPA", new RoleActionMapping().required(SB.BILATERAL_ODA_CRS));
-        permissions.put("7cPriorityStatus", new RoleActionMapping().required(SB.BILATERAL_ODA_FORWARD_SPENDING));
+        permissions.put("7cPriorityStatus", new RoleActionMapping().render(SB.BILATERAL_ODA_FORWARD_SPENDING));
         permissions.put("7dPhasingOutYear", new RoleActionMapping().render(SB.BILATERAL_ODA_FORWARD_SPENDING));
 
         //override permissions for
-        permissions.get("8channelDelivery").notCollected(SB.BILATERAL_ODA_ADVANCE_QUESTIONNAIRE).notCollected(SB.NON_ODA_OOF_EXPORT);
-        permissions.get("9channelCode").notCollected(SB.BILATERAL_ODA_ADVANCE_QUESTIONNAIRE).notCollected(SB.NON_ODA_OOF_EXPORT);
+        permissions.get("9channelOfDelivery").notCollected(SB.BILATERAL_ODA_ADVANCE_QUESTIONNAIRE).notCollected(SB.NON_ODA_OOF_EXPORT);
+        permissions.get("8channelInstitutionName").notCollected(SB.BILATERAL_ODA_ADVANCE_QUESTIONNAIRE).notCollected(SB.NON_ODA_OOF_EXPORT);
         permissions.put("10bilateralMultilateral",new RoleActionMapping().required(SB.all()));
         permissions.put("11typeOfFlow", new RoleActionMapping().required(SB.all()));
         permissions.get("14activityProjectTitle").notCollected(SB.NON_ODA_PRIVATE_GRANTS).render(SB.BILATERAL_ODA_ADVANCE_QUESTIONNAIRE, true)
