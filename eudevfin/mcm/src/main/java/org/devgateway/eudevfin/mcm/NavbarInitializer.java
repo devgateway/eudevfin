@@ -7,14 +7,9 @@
  *******************************************************************************/
 package org.devgateway.eudevfin.mcm;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.DropDownSubMenu;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuBookmarkablePageLink;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuDivider;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuHeader;
-import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconType;
-import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
-import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarDropDownButton;
-import de.agilecoders.wicket.extensions.markup.html.bootstrap.button.DropDownAutoOpen;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy;
@@ -28,13 +23,18 @@ import org.devgateway.eudevfin.mcm.pages.ListOrganizationsPage;
 import org.devgateway.eudevfin.mcm.pages.ListPersistedUserGroupsPage;
 import org.devgateway.eudevfin.mcm.pages.ListPersistedUsersPage;
 import org.devgateway.eudevfin.mcm.pages.OnlineExchangeRatePage;
-import org.devgateway.eudevfin.mcm.pages.SystemMaintenance;
 import org.devgateway.eudevfin.ui.common.WicketNavbarComponentInitializer;
 import org.devgateway.eudevfin.ui.common.components.RepairedNavbarDropDownButton;
 import org.devgateway.eudevfin.ui.common.pages.LogoutPage;
 
-import java.util.ArrayList;
-import java.util.List;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.DropDownSubMenu;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuBookmarkablePageLink;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuDivider;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuHeader;
+import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconType;
+import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
+import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarDropDownButton;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.button.DropDownAutoOpen;
 
 /**
  * Class holding static methods that initialize the wicket {@link Navbar}
@@ -48,7 +48,7 @@ public final class NavbarInitializer {
 
 	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.RIGHT,order=7)
 	public static Component newAdminNavbarButton(final Page page) {
-		final NavbarDropDownButton navbarDropDownButton = new NavbarDropDownButton(new StringResourceModel("navbar.admin",
+		final NavbarDropDownButton navbarDropDownButton = new RepairedNavbarDropDownButton(new StringResourceModel("navbar.admin",
 				page, null, null)) {
 			@Override
 			public boolean isActive(final Component item) {
@@ -100,9 +100,9 @@ public final class NavbarInitializer {
                 list.add(adminRates);
 
                 /* hide the system menu for the moment
-				list.add((AbstractLink) new MenuBookmarkablePageLink<SystemMaintenance>(
-						SystemMaintenance.class, null, new StringResourceModel("navbar.admin.maintenance", this, null,
-								null)).setIconType(IconType.wrench).setEnabled(false));
+//				list.add((AbstractLink) new MenuBookmarkablePageLink<SystemMaintenance>(
+//						SystemMaintenance.class, null, new StringResourceModel("navbar.admin.maintenance", this, null,
+//								null)).setIconType(IconType.wrench).setEnabled(false));
                 */
 
 				return list;
