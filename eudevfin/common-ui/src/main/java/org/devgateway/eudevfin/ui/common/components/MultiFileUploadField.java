@@ -35,4 +35,13 @@ public class MultiFileUploadField extends AbstractInputField<Collection<FileWrap
     protected MultiFileUploadFormComponent newField(String id, IModel<Collection<FileWrapper>> model) {
         return new MultiFileUploadFormComponent(id, model);
     }
+    
+    @Override
+    protected void onConfigure() {    	
+    	super.onConfigure();
+    	if(isFormInPreview()) {
+    		readOnlyRendition.setVisible(false);
+    		xPenderController.setVisible(true);    		
+    	}
+    }
 }

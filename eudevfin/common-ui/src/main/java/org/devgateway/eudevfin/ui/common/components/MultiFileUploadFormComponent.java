@@ -13,6 +13,8 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.components.TooltipConfig
 import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconBehavior;
 import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconType;
 import de.agilecoders.wicket.extensions.javascript.jasny.FileUploadField;
+
+import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
 import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxLink;
@@ -56,7 +58,7 @@ import java.util.List;
  * @see de.agilecoders.wicket.extensions.javascript.jasny.FileUploadField
  * @since 25/02/14
  */
-public class MultiFileUploadFormComponent extends FormComponentPanel<Collection<FileWrapper>> {
+public class MultiFileUploadFormComponent extends FormComponentPanel<Collection<FileWrapper>> implements PreviewableFormPanelAware {
     private int maxFiles = 0;
     private static final TooltipConfig tooltipConfig = new TooltipConfig().withPlacement(TooltipConfig.Placement.bottom);
 
@@ -65,6 +67,19 @@ public class MultiFileUploadFormComponent extends FormComponentPanel<Collection<
         setOutputMarkupId(true);
     }
 
+    
+    @Override
+    public boolean isFormInPreview() {
+    	MarkupContainer parent = this.getParent();
+    	
+    	while (parent != null && !(parent instanceof PreviewableFormPanelAware))
+			parent = parent.getParent();
+    	
+    	if (parent instanceof PreviewableFormPanelAware)
+			return ((PreviewableFormPanelAware) parent).isFormInPreview();
+    	return false;
+    }
+    
     @Override
     protected void onInitialize() {
         super.onInitialize();
@@ -109,6 +124,7 @@ public class MultiFileUploadFormComponent extends FormComponentPanel<Collection<
                 };
                 delete.add(new IconBehavior(IconType.remove));
                 delete.add(new TooltipBehavior(new StringResourceModel("removeUploadedFileTooltip", MultiFileUploadFormComponent.this, null), tooltipConfig));
+                delete.setVisible(!isFormInPreview());
                 item.add(delete);
             }
 
@@ -117,11 +133,13 @@ public class MultiFileUploadFormComponent extends FormComponentPanel<Collection<
 
 
         Form form = new Form("form");
+        form.setVisible(!isFormInPreview());
         add(form);
 
         WebMarkupContainer selectFile = new WebMarkupContainer("selectFile");
         selectFile.add(new TooltipBehavior(new StringResourceModel("selectFileTooltip", MultiFileUploadFormComponent.this, null), tooltipConfig));
         form.add(selectFile);
+
 
         @SuppressWarnings("unchecked") final IModel<List<FileUpload>> internalUploadModel = new Model();
         FileUploadField upload = new FileUploadField("file", internalUploadModel);
