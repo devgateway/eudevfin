@@ -93,9 +93,9 @@
     <entry key="navbar.spreadsheets.export">Export</entry>
     <entry key="navbar.spreadsheets.fss">Forward Spending Survey</entry>
     
-    <entry key="navbar.import.header">data import tools:</entry>
+    <entry key="navbar.import.header"> import tools:</entry>
     <entry key="navbar.transactions.import">Import</entry>
-    <entry key="navbar.transactions.import-transactions">Transactions</entry>
+    <entry key="navbar.transactions.import-transactions">Historical Upload / Data Import Tool</entry>
     
 	<entry key="modal.delete">Proceed with delete?</entry>
     
