@@ -62,4 +62,9 @@ public interface CustomFinancialTransactionRepository extends
     @Query ("select distinct ct.name from Category c, CategoryTranslation ct where c.code like 'GEOGRAPHY##%' and ct.parent  = c.id ")
     List<String> findDistinctReportingGeopraphy();
 
+    @Query ("select distinct donorProjectNumber from CustomFinancialTransaction ctx where donorProjectNumber is not null")
+    List<String> findDistinctDonorProjectNumber();
+
+    @Query ("select distinct crsIdentificationNumber from CustomFinancialTransaction ctx where crsIdentificationNumber is not null")
+    List<String> findDistinctCRSId();
 }
