@@ -224,4 +224,15 @@ public class CustomFinancialTransactionDao
         return ret;
     }
 
+    @ServiceActivator(inputChannel="findDistinctDonorProjectNumberChannel")
+    public List<String> findDistinctDonorProjectNumber(){
+        final List<String> ret	= this.getRepo().findDistinctDonorProjectNumber();
+        return ret;
+    }
+
+    @ServiceActivator(inputChannel="findDistinctCRSIdChannel")
+    public List<String> findDistinctCRSId(){
+        final List<String> ret	= this.getRepo().findDistinctCRSId();
+        return ret;
+    }
 }

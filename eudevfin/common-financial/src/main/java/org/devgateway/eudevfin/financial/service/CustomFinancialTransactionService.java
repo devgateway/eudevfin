@@ -65,6 +65,12 @@ public interface CustomFinancialTransactionService extends BaseEntityService<Cus
     @Payload("new java.lang.String()")
     public List<String> findDistinctReportingGeopraphy();
 
+    @Payload("new java.lang.String()")
+    public List<String> findDistinctDonorProjectNumber();
+
+    @Payload("new java.lang.String()")
+    public List<String> findDistinctCRSId();
+
 	public Page<FinancialTransaction> findBySearchFormPageable(
 			@Header(value = "year", required = false) LocalDateTime year,
 			@Header(value = "sector", required = false) Category sector,

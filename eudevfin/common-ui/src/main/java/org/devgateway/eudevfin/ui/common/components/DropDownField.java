@@ -32,6 +32,14 @@ public class DropDownField<T> extends AbstractInputField<T,Select2Choice<T>> {
         getField().getSettings().setPlaceholder("");        
     }
 
+    public DropDownField(String id, IModel<T> model, ChoiceProvider<T> choiceProvider, String messageKeyGroup) {
+        super(id, model, messageKeyGroup);
+        //the field will already be populated by the AbstractInputField constructor
+        getField().setProvider(choiceProvider);
+        getField().getSettings().setAllowClear(true);
+        getField().getSettings().setPlaceholder("");
+    }
+
     @Override
     protected Select2Choice<T> newField(String id, IModel<T> model) {
         return new Select2Choice<T>(id, model);

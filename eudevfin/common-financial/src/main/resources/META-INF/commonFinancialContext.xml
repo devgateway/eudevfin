@@ -123,6 +123,12 @@
         <int:method name="findDistinctReportingGeopraphy" request-channel="getChannel">
             <int:header name="requestName" value="findDistinctReportingGeopraphyInTransactionChannel"/>
         </int:method>
+        <int:method name="findDistinctDonorProjectNumber" request-channel="getChannel">
+            <int:header name="requestName" value="findDistinctDonorProjectNumberChannel"/>
+        </int:method>
+        <int:method name="findDistinctCRSId" request-channel="getChannel">
+            <int:header name="requestName" value="findDistinctCRSIdChannel"/>
+        </int:method>
         <int:method name="findBySearchFormPageable" request-channel="getChannel">
             <int:header name="requestName" value="findTransactionBySearchFormPageableChannel"/>
         </int:method>

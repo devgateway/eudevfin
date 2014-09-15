@@ -11,6 +11,7 @@
  */
 package org.devgateway.eudevfin.dim.desktop.components;
 
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Form;
@@ -26,14 +27,13 @@ import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.BootstrapCancelButton;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
 import org.devgateway.eudevfin.ui.common.components.CheckBoxField;
+import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.components.TableListPanel;
-import org.devgateway.eudevfin.ui.common.components.TextInputField;
 import org.devgateway.eudevfin.ui.common.forms.GroupingBoxPanelForm;
 import org.devgateway.eudevfin.ui.common.providers.AreaChoiceProvider;
 import org.devgateway.eudevfin.ui.common.providers.CategoryProviderFactory;
 import org.devgateway.eudevfin.ui.common.providers.OrganizationChoiceProvider;
-
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
+import org.devgateway.eudevfin.ui.common.providers.PredefinedStringProvider;
 
 /**
  * @author mihai
@@ -45,12 +45,13 @@ public class GroupingBoxPanel extends Panel {
 	private TableListPanel<?> resultsPanel;
 	private GroupingSearchListGenerator listGenerator;
 	private WebMarkupContainer searchWrapperPanel;
-		
+
 	@SpringBean
 	private CustomFinancialTransactionService txService;
 	private boolean superUser;
 
-	
+    @SpringBean
+    private CategoryProviderFactory categoryFactory;
 	
 	/**
 	 * @param id
@@ -77,32 +78,27 @@ public class GroupingBoxPanel extends Panel {
 		this.searchWrapperPanel.add(this.resultsPanel);
 		this.add(this.searchWrapperPanel);
 
-	 	superUser=AuthUtils.currentUserHasRole(AuthConstants.Roles.ROLE_SUPERVISOR);
+	 	superUser = AuthUtils.currentUserHasRole(AuthConstants.Roles.ROLE_SUPERVISOR);
 	 	
 		final GroupingBoxPanelForm boxPanelForm=new GroupingBoxPanelForm();
 		CompoundPropertyModel<GroupingBoxPanelForm> boxPanelFormModel=new CompoundPropertyModel<GroupingBoxPanelForm>(boxPanelForm);
 		Form<?> form = new Form<>("searchForm",boxPanelFormModel);
 		form.setOutputMarkupId(false);
-		 
-		
-		final TextInputField<String> crsIdSearch	= new TextInputField<String>("crsIdSearch", new RWComponentPropertyModel<String>(
-				"crsIdSearch"), "desktop.search.crsid");
-        crsIdSearch.typeString();
+
+		final DropDownField<String> crsIdSearch = new DropDownField<>("crsIdSearch", new RWComponentPropertyModel<String>("crsIdSearch"),
+                new PredefinedStringProvider(txService.findDistinctCRSId()), "desktop.search.crsid");
+
         crsIdSearch.setSize(InputBehavior.Size.Medium);
-        //crsIdSearch.hideLabel();
         crsIdSearch.removeSpanFromControlGroup();
 		form.add(crsIdSearch);		
 			 	
-		final TextInputField<String> donorIdSearch	= new TextInputField<String>("donorIdSearch", new RWComponentPropertyModel<String>(
-				"donorIdSearch"), "desktop.search.donorid");
-        donorIdSearch.typeString();
+		final DropDownField<String> donorIdSearch	= new DropDownField<>("donorIdSearch", new RWComponentPropertyModel<String>("donorIdSearch"),
+                new PredefinedStringProvider(txService.findDistinctDonorProjectNumber()), "desktop.search.donorid");
         donorIdSearch.setSize(InputBehavior.Size.Medium);
-        //donorIdSearch.hideLabel();
         donorIdSearch.removeSpanFromControlGroup();
 		form.add(donorIdSearch);
 		
 		final CheckBoxField active = new CheckBoxField("active", new RWComponentPropertyModel<Boolean>("active"),"desktop.search.active");
-		//checkBoxField.hideLabel();
 		active.removeSpanFromControlGroup();
 		form.add(active); 
 		
@@ -148,7 +144,5 @@ public class GroupingBoxPanel extends Panel {
         
 		this.add(form);
 	}
-	
-	
-	
+
 }
