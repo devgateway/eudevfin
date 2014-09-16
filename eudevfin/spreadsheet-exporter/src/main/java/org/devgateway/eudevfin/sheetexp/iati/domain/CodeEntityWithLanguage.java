@@ -1,10 +1,6 @@
-/*******************************************************************************
- * Copyright (c) 2014 Development Gateway.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the GNU Public License v3.0
- * which accompanies this distribution, and is available at
- * http://www.gnu.org/licenses/gpl.html
- *******************************************************************************/
+/**
+ *
+ */
 package org.devgateway.eudevfin.sheetexp.iati.domain;
 
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
@@ -16,15 +12,15 @@ import com.thoughtworks.xstream.converters.extended.ToAttributedValueConverter;
  *
  */
 @XStreamConverter(value=ToAttributedValueConverter.class, strings={"value"})
-public class CodeEntity {
+public class CodeEntityWithLanguage extends AbstractWithLanguage {
 	private String value;
 
 	@XStreamAsAttribute
 	private String code;
 
-	public CodeEntity(){}
+	public CodeEntityWithLanguage() {}
 
-	public CodeEntity(final String code, final String value) {
+	public CodeEntityWithLanguage(final String code, final String value) {
 		super();
 		this.value = value;
 		this.code = code;
@@ -45,7 +41,5 @@ public class CodeEntity {
 	public void setCode(final String code) {
 		this.code = code;
 	}
-
-
 
 }

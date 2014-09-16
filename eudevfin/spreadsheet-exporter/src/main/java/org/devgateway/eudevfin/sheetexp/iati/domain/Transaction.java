@@ -6,11 +6,12 @@
  * http://www.gnu.org/licenses/gpl.html
  *******************************************************************************/
 /**
- * 
+ *
  */
 package org.devgateway.eudevfin.sheetexp.iati.domain;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 /**
  * @author alexandru-m-g
@@ -18,27 +19,28 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
  */
 @XStreamAlias("transaction")
 public class Transaction {
-	
+
 	@XStreamAlias("transaction-type")
 	private CodeEntity transactionType;
-	
+
+	@XStreamOmitField
 	private String description;
-	
+
 	@XStreamAlias("transaction-date")
 	private TransactionDate transactionDate;
-	
+
 	@XStreamAlias("flow-type")
-	private CodeEntity flowType;
-	
+	private CodeEntityWithLanguage flowType;
+
 	@XStreamAlias("finance-type")
-	private CodeEntity financeType;
-	
+	private CodeEntityWithLanguage financeType;
+
 	@XStreamAlias("aid-type")
-	private CodeEntity aidType;
-	
+	private CodeEntityWithLanguage aidType;
+
 	@XStreamAlias("tied-status")
 	private CodeEntity tiedStatus;
-	
+
 	@XStreamAlias("value")
 	private AmountValue amountValue;
 
@@ -66,27 +68,27 @@ public class Transaction {
 		this.transactionDate = transactionDate;
 	}
 
-	public CodeEntity getFlowType() {
+	public CodeEntityWithLanguage getFlowType() {
 		return this.flowType;
 	}
 
-	public void setFlowType(final CodeEntity flowType) {
+	public void setFlowType(final CodeEntityWithLanguage flowType) {
 		this.flowType = flowType;
 	}
 
-	public CodeEntity getFinanceType() {
+	public CodeEntityWithLanguage getFinanceType() {
 		return this.financeType;
 	}
 
-	public void setFinanceType(final CodeEntity financeType) {
+	public void setFinanceType(final CodeEntityWithLanguage financeType) {
 		this.financeType = financeType;
 	}
 
-	public CodeEntity getAidType() {
+	public CodeEntityWithLanguage getAidType() {
 		return this.aidType;
 	}
 
-	public void setAidType(final CodeEntity aidType) {
+	public void setAidType(final CodeEntityWithLanguage aidType) {
 		this.aidType = aidType;
 	}
 
@@ -105,8 +107,8 @@ public class Transaction {
 	public void setAmountValue(final AmountValue amountValue) {
 		this.amountValue = amountValue;
 	}
-	
-	
-	
-	
+
+
+
+
 }

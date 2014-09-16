@@ -6,7 +6,7 @@
  * http://www.gnu.org/licenses/gpl.html
  *******************************************************************************/
 /**
- * 
+ *
  */
 package org.devgateway.eudevfin.sheetexp.iati.domain;
 
@@ -20,8 +20,8 @@ import com.thoughtworks.xstream.converters.extended.ToAttributedValueConverter;
  */
 @XStreamAlias("sector")
 @XStreamConverter(value=ToAttributedValueConverter.class, strings={"value"})
-public class Sector extends CodeVocabSignEntity {
-	
+public class Sector extends CodeVocabSignEntityWithLanguage {
+
 	public Sector(){}
 	public Sector(final String vocab, final String code, final String value) {
 		super();
@@ -39,5 +39,5 @@ public class Sector extends CodeVocabSignEntity {
 	public void setValue(final String value) {
 		this.value = value;
 	}
-	
+
 }
