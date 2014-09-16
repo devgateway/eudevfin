@@ -6,7 +6,7 @@
  * http://www.gnu.org/licenses/gpl.html
  *******************************************************************************/
 /**
- * 
+ *
  */
 package org.devgateway.eudevfin.sheetexp.iati.domain;
 
@@ -21,62 +21,63 @@ import com.thoughtworks.xstream.annotations.XStreamImplicit;
  */
 @XStreamAlias("iati-activity")
 public class IatiActivity {
-	
-	private String title;
-	
-	private String description;
-	
+
+	private StringWithLanguage title;
+
+	private StringWithLanguage description;
+
 	@XStreamAlias("iati-identifier")
 	private String iatiIdentifier;
-	
+
 	@XStreamAlias("other-identifier")
 	private OtherIdentifier otherIdentifier;
-	
+
 	@XStreamAlias("reporting-org")
 	private ReportingOrg reportingOrg;
-	
+
 	@XStreamAlias("recipient-country")
 	private CodeEntity recipientCountry;
-	
-	private List<ParticipatingOrg> participatingOrgs; 
-	
+
+	@XStreamImplicit
+	private List<ParticipatingOrg> participatingOrgs;
+
 	@XStreamImplicit
 	private List<Sector> sectors;
-	
+
 	@XStreamAlias("collaboration-type")
-	private CodeEntity collaborationType;
-	
+	private CodeEntityWithLanguage collaborationType;
+
 	@XStreamImplicit
 	private List<Location> locations;
-	
+
 	@XStreamImplicit
 	private List<PolicyMarker> policyMarkers;
-	
+
 	@XStreamImplicit
 	private List<ActivityDate> activityDates;
-	
+
 	@XStreamAlias("crs-add")
 	private CrsAdd crsAdd;
-	
+
 	@XStreamImplicit
 	private List<Transaction> transactions;
-	
+
 	@XStreamImplicit
 	private List<PlannedDisbursement> plannedDisbursements;
 
-	public String getDescription() {
+	public StringWithLanguage getDescription() {
 		return this.description;
 	}
 
-	public void setDescription(final String description) {
+	public void setDescription(final StringWithLanguage description) {
 		this.description = description;
 	}
 
-	public String getTitle() {
+	public StringWithLanguage getTitle() {
 		return this.title;
 	}
 
-	public void setTitle(final String title) {
+	public void setTitle(final StringWithLanguage title) {
 		this.title = title;
 	}
 
@@ -129,11 +130,11 @@ public class IatiActivity {
 		this.participatingOrgs = participatingOrgs;
 	}
 
-	public CodeEntity getCollaborationType() {
+	public CodeEntityWithLanguage getCollaborationType() {
 		return this.collaborationType;
 	}
 
-	public void setCollaborationType(final CodeEntity collaborationType) {
+	public void setCollaborationType(final CodeEntityWithLanguage collaborationType) {
 		this.collaborationType = collaborationType;
 	}
 

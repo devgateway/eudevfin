@@ -6,7 +6,7 @@
  * http://www.gnu.org/licenses/gpl.html
  *******************************************************************************/
 /**
- * 
+ *
  */
 package org.devgateway.eudevfin.sheetexp.iati.domain;
 
@@ -18,20 +18,22 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
  */
 @XStreamAlias("location")
 public class Location {
-	private String name;
-	
-	public Location(final String name) {
+	private StringWithLanguage name;
+
+	public Location(final StringWithLanguage name) {
 		super();
 		this.name = name;
 	}
 
-	public String getName() {
+	public StringWithLanguage getName() {
 		return this.name;
 	}
 
-	public void setName(final String name) {
+	public void setName(final StringWithLanguage name) {
 		this.name = name;
 	}
-	
-	
+
+
+
+
 }

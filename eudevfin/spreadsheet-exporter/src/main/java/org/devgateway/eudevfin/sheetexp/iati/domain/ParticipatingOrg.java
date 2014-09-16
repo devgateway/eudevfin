@@ -13,13 +13,13 @@ import com.thoughtworks.xstream.converters.extended.ToAttributedValueConverter;
 
 @XStreamAlias("participating-org")
 @XStreamConverter(value=ToAttributedValueConverter.class, strings={"value"})
-public class ParticipatingOrg {
+public class ParticipatingOrg extends AbstractWithLanguage {
 	private String value;
-	
+
 	private String role;
-	
+
 	private String ref;
-	
+
 	public ParticipatingOrg(final String role, final String ref, final String value) {
 		super();
 		this.value = value;
@@ -50,5 +50,5 @@ public class ParticipatingOrg {
 	public void setRef(final String ref) {
 		this.ref = ref;
 	}
-	
+
 }

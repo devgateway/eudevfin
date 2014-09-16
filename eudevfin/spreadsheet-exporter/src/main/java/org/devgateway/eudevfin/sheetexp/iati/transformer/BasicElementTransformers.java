@@ -6,7 +6,7 @@
  * http://www.gnu.org/licenses/gpl.html
  *******************************************************************************/
 /**
- * 
+ *
  */
 package org.devgateway.eudevfin.sheetexp.iati.transformer;
 
@@ -19,12 +19,13 @@ import org.devgateway.eudevfin.metadata.common.domain.Category;
 import org.devgateway.eudevfin.metadata.common.domain.ChannelCategory;
 import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.devgateway.eudevfin.sheetexp.iati.domain.ActivityDate;
-import org.devgateway.eudevfin.sheetexp.iati.domain.CodeEntity;
+import org.devgateway.eudevfin.sheetexp.iati.domain.CodeEntityWithLanguage;
 import org.devgateway.eudevfin.sheetexp.iati.domain.IatiActivity;
 import org.devgateway.eudevfin.sheetexp.iati.domain.Location;
 import org.devgateway.eudevfin.sheetexp.iati.domain.ParticipatingOrg;
 import org.devgateway.eudevfin.sheetexp.iati.domain.ReportingOrg;
 import org.devgateway.eudevfin.sheetexp.iati.domain.Sector;
+import org.devgateway.eudevfin.sheetexp.iati.domain.StringWithLanguage;
 import org.devgateway.eudevfin.sheetexp.iati.transformer.util.Conditions;
 import org.joda.time.LocalDateTime;
 
@@ -42,17 +43,17 @@ public class BasicElementTransformers {
 
 		@Override
 		public void process() {
-			if ( this.getIatiActivity().getTitle() == null || 
+			if ( this.getIatiActivity().getTitle() == null ||
 					( Conditions.SHOULD_OVERWRITE_TRANSACTION(this.getCtx()) &&
-					  Conditions.IS_NEWER_OR_SAME_REP_YEAR(this.getCtx(), this.getLatestYear())) ){
-				
+							Conditions.IS_NEWER_OR_SAME_REP_YEAR(this.getCtx(), this.getLatestYear())) ){
+
 				final String title	= this.getCtx().getShortDescription();
 				if ( title != null && !"".equals(title.trim()) ) {
-					this.getIatiActivity().setTitle(title);
+					this.getIatiActivity().setTitle(new StringWithLanguage(title));
 				}
 			}
 		}
-		
+
 	}
 	public static class IatiIdentifier extends AbstractElementTransformer {
 
@@ -63,21 +64,23 @@ public class BasicElementTransformers {
 
 		@Override
 		public void process() {
-			
-			if ( this.getIatiActivity().getIatiIdentifier() == null || 
+
+			if ( this.getIatiActivity().getIatiIdentifier() == null ||
 					( Conditions.SHOULD_OVERWRITE_TRANSACTION(this.getCtx()) &&
-					  Conditions.IS_NEWER_OR_SAME_REP_YEAR(this.getCtx(), this.getLatestYear())) ){
-			
+							Conditions.IS_NEWER_OR_SAME_REP_YEAR(this.getCtx(), this.getLatestYear())) ){
+
 				final String value	= this.getCtx().getCrsIdentificationNumber();
+				final Organization org = this.getCtx().getExtendingAgency();
+				final String orgRef = org.getDonorCode() + "-" + org.getAcronym();
 				if ( value != null && !"".equals(value.trim()) ) {
-					this.getIatiActivity().setIatiIdentifier(value);
+					this.getIatiActivity().setIatiIdentifier(orgRef + "-" + value);
 				}
 			}
-			
+
 		}
-		
+
 	}
-	
+
 	public static class Description extends AbstractElementTransformer {
 
 		public Description(final CustomFinancialTransaction ctx, final IatiActivity iatiActivity,
@@ -87,24 +90,24 @@ public class BasicElementTransformers {
 
 		@Override
 		public void process() {
-			
+
 			String description = this.getCtx().getDescription();
-			
+
 			if ( description != null && description.trim().length() > 0 ) {
 				description = description.trim();
-				final String originalDescr = this.getIatiActivity().getDescription();
-				if (originalDescr == null) {
-					this.getIatiActivity().setDescription(description);
+				final StringWithLanguage originalDescr = this.getIatiActivity().getDescription();
+				if (originalDescr == null || originalDescr.getValue() == null) {
+					this.getIatiActivity().setDescription(new StringWithLanguage(description));
 				}
-				else if ( !originalDescr.contains(description) ) {
-					this.getIatiActivity().setDescription(originalDescr + " - " + description );
+				else if ( !originalDescr.getValue().contains(description) ) {
+					this.getIatiActivity().setDescription(new StringWithLanguage(originalDescr.getValue() + " - " + description) );
 				}
 			}
-			
+
 		}
-		
+
 	}
-	
+
 	public static class GenderEqualityMarker extends AbstractMarkerTransformer {
 		public GenderEqualityMarker(final CustomFinancialTransaction ctx,
 				final IatiActivity iatiActivity, final Map<String, Object> paramsMap) {
@@ -120,9 +123,9 @@ public class BasicElementTransformers {
 		protected Category findMarkerCategory() {
 			return this.getCtx().getGenderEquality();
 		}
-		
+
 	}
-	
+
 	public static class AidToEnvironmentMarker extends AbstractMarkerTransformer {
 		public AidToEnvironmentMarker(final CustomFinancialTransaction ctx,
 				final IatiActivity iatiActivity, final Map<String, Object> paramsMap) {
@@ -138,9 +141,9 @@ public class BasicElementTransformers {
 		protected Category findMarkerCategory() {
 			return this.getCtx().getAidToEnvironment();
 		}
-		
+
 	}
-	
+
 	public static class PDGGMarker extends AbstractMarkerTransformer {
 		public PDGGMarker(final CustomFinancialTransaction ctx,
 				final IatiActivity iatiActivity, final Map<String, Object> paramsMap) {
@@ -156,7 +159,7 @@ public class BasicElementTransformers {
 		protected Category findMarkerCategory() {
 			return this.getCtx().getPdgg();
 		}
-		
+
 	}
 	public static class TradeDevelopmentMarker extends AbstractMarkerTransformer {
 		public TradeDevelopmentMarker(final CustomFinancialTransaction ctx,
@@ -173,7 +176,7 @@ public class BasicElementTransformers {
 		protected Category findMarkerCategory() {
 			return this.getCtx().getTradeDevelopment();
 		}
-		
+
 	}
 	public static class BiodiversityMarker extends AbstractMarkerTransformer {
 		public BiodiversityMarker(final CustomFinancialTransaction ctx,
@@ -190,9 +193,9 @@ public class BasicElementTransformers {
 		protected Category findMarkerCategory() {
 			return this.getCtx().getBiodiversity();
 		}
-		
+
 	}
-	
+
 	public static class ClimateMitigationMarker extends AbstractMarkerTransformer {
 		public ClimateMitigationMarker(final CustomFinancialTransaction ctx,
 				final IatiActivity iatiActivity, final Map<String, Object> paramsMap) {
@@ -224,7 +227,7 @@ public class BasicElementTransformers {
 		protected Category findMarkerCategory() {
 			return this.getCtx().getClimateChangeAdaptation();
 		}
-		
+
 	}
 	public static class DesertificationMarker extends AbstractMarkerTransformer {
 		public DesertificationMarker(final CustomFinancialTransaction ctx,
@@ -241,9 +244,9 @@ public class BasicElementTransformers {
 		protected Category findMarkerCategory() {
 			return this.getCtx().getDesertification();
 		}
-		
+
 	}
-	
+
 	public static class FreestandingTechnicalCoop extends AbstractAidTypeFlagTransformer {
 
 		public FreestandingTechnicalCoop(final CustomFinancialTransaction ctx,
@@ -260,9 +263,9 @@ public class BasicElementTransformers {
 		protected String getFlagCode() {
 			return "1";
 		}
-		
+
 	}
-	
+
 	public static class ProgramBasedApproach extends AbstractAidTypeFlagTransformer {
 
 		public ProgramBasedApproach(final CustomFinancialTransaction ctx,
@@ -279,9 +282,9 @@ public class BasicElementTransformers {
 		protected String getFlagCode() {
 			return "2";
 		}
-		
+
 	}
-	
+
 	public static class InvestmentProject extends AbstractAidTypeFlagTransformer {
 
 		public InvestmentProject(final CustomFinancialTransaction ctx,
@@ -298,9 +301,9 @@ public class BasicElementTransformers {
 		protected String getFlagCode() {
 			return "3";
 		}
-		
+
 	}
-	
+
 	public static class AssociatedFinancing extends AbstractAidTypeFlagTransformer {
 
 		public AssociatedFinancing(final CustomFinancialTransaction ctx,
@@ -317,9 +320,9 @@ public class BasicElementTransformers {
 		protected String getFlagCode() {
 			return "4";
 		}
-		
+
 	}
-	
+
 	public static class ReportingOrganization extends AbstractElementTransformer {
 
 		public ReportingOrganization(final CustomFinancialTransaction ctx,
@@ -334,28 +337,28 @@ public class BasicElementTransformers {
 				final String ref = org.getDonorCode() + "-" + org.getAcronym();
 				final ReportingOrg existingOrg = this.getIatiActivity().getReportingOrg();
 				if ( existingOrg == null || Conditions.SHOULD_OVERWRITE_TRANSACTION(this.getCtx()) ) {
-					final ReportingOrg newOrg = new ReportingOrg("10", 
+					final ReportingOrg newOrg = new ReportingOrg("10",
 							ref, org.getName());
 					this.getIatiActivity().setReportingOrg(newOrg);
 				}
 			}
-			
+
 		}
-		
+
 	}
-	
+
 	public static class ExtendingOrganization extends AbstractElementTransformer {
 
 		public ExtendingOrganization(final CustomFinancialTransaction ctx,
 				final IatiActivity iatiActivity, final Map<String, Object> paramsMap) {
 			super(ctx, iatiActivity, paramsMap);
 		}
-		
+
 		@Override
 		public void process() {
 			final ParticipatingOrg newParticipatingOrg = this.getParticipatingOrg();
 			if (newParticipatingOrg != null) {
-				
+
 				List<ParticipatingOrg> participatingOrgs = this.getIatiActivity().getParticipatingOrgs();
 				if ( participatingOrgs == null ) {
 					participatingOrgs = new ArrayList<>();
@@ -371,20 +374,20 @@ public class BasicElementTransformers {
 							currentOrg.setRef(newParticipatingOrg.getRef());
 							currentOrg.setValue(newParticipatingOrg.getValue());
 						}
-					} 
+					}
 				}
 				if ( !found ) {
 					participatingOrgs.add(newParticipatingOrg);
 				}
-				
+
 			}
-			
+
 		}
-		
+
 		public String getRole(){
 			return "Extending";
 		}
-		
+
 		public ParticipatingOrg getParticipatingOrg() {
 			final Organization org = this.getCtx().getExtendingAgency();
 			if ( org != null) {
@@ -393,9 +396,9 @@ public class BasicElementTransformers {
 			}
 			return null;
 		}
-		
+
 	}
-	
+
 	public static class ImplementingOrganization extends ExtendingOrganization {
 
 		public ImplementingOrganization(final CustomFinancialTransaction ctx,
@@ -412,14 +415,14 @@ public class BasicElementTransformers {
 		public ParticipatingOrg getParticipatingOrg() {
 			final ChannelCategory implementingOrg = this.getCtx().getChannel();
 			if (implementingOrg != null) {
-				return new ParticipatingOrg(this.getRole(), 
+				return new ParticipatingOrg(this.getRole(),
 						implementingOrg.getDisplayableCode(), implementingOrg.getName() );
 			}
 			return null;
-			
+
 		}
-		
-		
+
+
 	}
 
 	public static class Sectors extends AbstractElementTransformer {
@@ -443,7 +446,7 @@ public class BasicElementTransformers {
 				}
 				boolean found = false;
 				for (final Sector tempSector: sectors) {
-					if ( "DAC".equals(tempSector.getVocabulary()) 
+					if ( "DAC".equals(tempSector.getVocabulary())
 							&& sectorCateg.getCode().equals(tempSector.getCode()) ) {
 						found = true;
 					}
@@ -452,11 +455,11 @@ public class BasicElementTransformers {
 					sectors.add(new Sector("DAC", sectorCateg.getCode(), sectorCateg.getName()));
 				}
 			}
-			
+
 		}
-		
+
 	}
-	
+
 	public static class Collaboration extends AbstractElementTransformer {
 
 		public Collaboration(final CustomFinancialTransaction ctx,
@@ -468,16 +471,16 @@ public class BasicElementTransformers {
 		public void process() {
 			final Category biMultiCateg = this.getCtx().getBiMultilateral();
 			if (biMultiCateg != null) {
-				final CodeEntity collabType = this.getIatiActivity().getCollaborationType();
+				final CodeEntityWithLanguage collabType = this.getIatiActivity().getCollaborationType();
 				if ( collabType == null || Conditions.IS_REVISION(this.getCtx()) ) {
 					this.getIatiActivity().setCollaborationType(
-							new CodeEntity(biMultiCateg.getDisplayableCode(), biMultiCateg.getName()) );
+							new CodeEntityWithLanguage(biMultiCateg.getDisplayableCode(), biMultiCateg.getName()) );
 				}
 			}
-			
+
 		}
 	}
-	
+
 	public static class Locations extends AbstractElementTransformer {
 
 		public Locations(final CustomFinancialTransaction ctx,
@@ -500,19 +503,19 @@ public class BasicElementTransformers {
 				}
 				boolean found = false;
 				for (final Location tempLocation: locations) {
-					if ( locationName.equals(tempLocation.getName()) ) {
+					if ( tempLocation != null && locationName.equals(tempLocation.getName().getValue()) ) {
 						found = true;
 					}
 				}
 				if (!found) {
-					locations.add(new Location(locationName));
+					locations.add( new Location(new StringWithLanguage(locationName)) );
 				}
 			}
-			
+
 		}
-		
+
 	}
-	
+
 	public static class ActivityPlannedStartDate extends AbstractElementTransformer {
 
 		public ActivityPlannedStartDate(final CustomFinancialTransaction ctx,
@@ -543,11 +546,11 @@ public class BasicElementTransformers {
 				}
 			}
 		}
-		
+
 		public LocalDateTime getTime() {
 			return this.getCtx().getExpectedStartDate();
 		}
-		
+
 		public String getDateType() {
 			return "start-planned";
 		}
@@ -570,6 +573,6 @@ public class BasicElementTransformers {
 		public String getDateType() {
 			return "end-planned";
 		}
-		
+
 	}
 }
