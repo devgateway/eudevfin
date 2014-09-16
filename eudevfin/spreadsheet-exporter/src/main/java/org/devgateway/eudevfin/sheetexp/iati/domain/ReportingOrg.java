@@ -6,7 +6,7 @@
  * http://www.gnu.org/licenses/gpl.html
  *******************************************************************************/
 /**
- * 
+ *
  */
 package org.devgateway.eudevfin.sheetexp.iati.domain;
 
@@ -19,15 +19,15 @@ import com.thoughtworks.xstream.converters.extended.ToAttributedValueConverter;
  *
  */
 @XStreamConverter(value=ToAttributedValueConverter.class, strings={"value"})
-public class ReportingOrg {
+public class ReportingOrg extends AbstractWithLanguage {
 	@XStreamAsAttribute
 	private String type;
 	@XStreamAsAttribute
 	private String ref;
 	private String value;
-	
+
 	public ReportingOrg(){}
-	
+
 	public ReportingOrg(final String type, final String ref, final String value) {
 		super();
 		this.type = type;
@@ -56,8 +56,8 @@ public class ReportingOrg {
 	public String toString() {
 		return this.getValue();
 	}
-	
-	
-	
-	
+
+
+
+
 }
