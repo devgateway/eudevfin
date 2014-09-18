@@ -60,7 +60,7 @@
 
     <entry key="14aProjectCoFinanced.label">14.a Is this project co-financed?</entry>
     <entry key="14aProjectCoFinanced.placeholder"></entry>
-    <entry key="14aProjectCoFinanced.help">Yes or NO</entry>
+    <entry key="14aProjectCoFinanced.help">Yes or No</entry>
     <entry key="14aProjectCoFinanced.help.detail">Fields no. 14a - Is this project co-financed? : There may be two types
         of co-financing: i) cofinaning between your agency and other international donor(s) (e.g. tri-partate projects);
         ii) cofinaning between your agency and other national agency(ies). In both cases input only the amount related
