@@ -20,12 +20,10 @@ import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.auth.common.util.AuthUtils;
 import org.devgateway.eudevfin.common.service.PagingHelper;
+import org.devgateway.eudevfin.financial.FileWrapper;
 import org.devgateway.eudevfin.financial.Message;
 import org.devgateway.eudevfin.financial.service.MessageService;
-import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
-import org.devgateway.eudevfin.ui.common.components.MultiSelectField;
-import org.devgateway.eudevfin.ui.common.components.TextAreaInputField;
-import org.devgateway.eudevfin.ui.common.components.TextInputField;
+import org.devgateway.eudevfin.ui.common.components.*;
 import org.devgateway.eudevfin.ui.common.components.util.ListGeneratorInterface;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.devgateway.eudevfin.ui.common.providers.PersistedUserChoiceProvider;
@@ -109,6 +107,9 @@ public class Messages extends HeaderFooter {
         messageInputField.setSize(InputBehavior.Size.XXLarge);
         messageInputField.maxContentLength(Message.MAX_BODY_SIZE);
         form.add(messageInputField);
+
+        MultiFileUploadField attachments = new MultiFileUploadField("attachments", new PropertyModel<Collection<FileWrapper>>(messageModel, "attachments"));
+        form.add(attachments);
 
         BootstrapSubmitButton send = new BootstrapSubmitButton("send", new StringResourceModel("send.label", this, null, null)) {
             @Override

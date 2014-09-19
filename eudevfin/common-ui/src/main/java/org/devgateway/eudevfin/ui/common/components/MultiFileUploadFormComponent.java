@@ -13,7 +13,6 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.components.TooltipConfig
 import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconBehavior;
 import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconType;
 import de.agilecoders.wicket.extensions.javascript.jasny.FileUploadField;
-
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
@@ -30,14 +29,10 @@ import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
-import org.apache.wicket.request.handler.resource.ResourceStreamRequestHandler;
-import org.apache.wicket.request.resource.ContentDisposition;
-import org.apache.wicket.util.resource.AbstractResourceStreamWriter;
 import org.devgateway.eudevfin.financial.FileWrapper;
 import org.devgateway.eudevfin.financial.FileWrapperContent;
+import org.devgateway.eudevfin.ui.common.components.util.DownloadLink;
 
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -93,7 +88,7 @@ public class MultiFileUploadFormComponent extends FormComponentPanel<Collection<
         WebMarkupContainer table = new WebMarkupContainer("table") {
             @Override
             protected void onConfigure() {
-                setVisibilityAllowed(getModel().getObject().size() > 0);
+                setVisibilityAllowed(getModel().getObject() != null && getModel().getObject().size() > 0);
             }
         };
         add(table);
@@ -169,34 +164,6 @@ public class MultiFileUploadFormComponent extends FormComponentPanel<Collection<
             setConvertedInput(modelObject);
     }
 
-
-    private class DownloadLink extends Link<FileWrapper> {
-
-        public DownloadLink(String id, IModel<FileWrapper> model) {
-            super(id, model);
-            add(new IconBehavior(IconType.download));
-            add(new TooltipBehavior(new StringResourceModel("downloadUploadedFileTooltip", MultiFileUploadFormComponent.this, null), tooltipConfig));
-        }
-
-        @Override
-        public void onClick() {
-            AbstractResourceStreamWriter rstream = new AbstractResourceStreamWriter() {
-                @Override
-                public void write(OutputStream output) throws IOException {
-                    output.write(getModelObject().getContent().getBytes());
-                }
-
-                @Override
-                public String getContentType() {
-                    return getModelObject().getContentType();
-                }
-            };
-
-            ResourceStreamRequestHandler handler = new ResourceStreamRequestHandler(rstream, getModelObject().getName());
-            handler.setContentDisposition(ContentDisposition.ATTACHMENT);
-            getRequestCycle().scheduleRequestHandlerAfterCurrent(handler);
-        }
-    }
 
     private class UploadButton extends IndicatingAjaxButton {
 

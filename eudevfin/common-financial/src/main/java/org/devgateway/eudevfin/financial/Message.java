@@ -18,6 +18,7 @@ import org.joda.time.LocalDateTime;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Alexandru Artimon
@@ -53,6 +54,10 @@ public class Message implements Serializable {
     @Column
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
     private LocalDateTime sendDate;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private Set<FileWrapper> attachments;
+
 
     public Long getId() {
         return id;
@@ -108,5 +113,13 @@ public class Message implements Serializable {
 
     public void setSubject(String subject) {
         this.subject = subject;
+    }
+
+    public Set<FileWrapper> getAttachments() {
+        return attachments;
+    }
+
+    public void setAttachments(Set<FileWrapper> attachments) {
+        this.attachments = attachments;
     }
 }

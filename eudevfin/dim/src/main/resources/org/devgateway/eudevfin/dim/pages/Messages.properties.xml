@@ -17,6 +17,7 @@
     <entry key="to.label">To</entry>
     <entry key="message.label">Message</entry>
     <entry key="subject.label">Subject</entry>
+    <entry key="attachments.label">Attachments</entry>
     <entry key="message">Message</entry>
     <entry key="actions">Actions</entry>
     <entry key="send.label">Send</entry>
@@ -24,5 +25,5 @@
     <entry key="reply.tooltip">Reply to current message</entry>
     <entry key="markRead.tooltip">Mark as read</entry>
     <entry key="markUnread.tooltip">Mark as unread</entry>
-
+    <entry key="downloadUploadedFileTooltip">Download this file</entry>
 </properties>
