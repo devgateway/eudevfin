@@ -19,21 +19,28 @@ import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.auth.common.domain.PersistedUser;
 import org.devgateway.eudevfin.dim.desktop.components.MessageNavbarButton;
+import org.devgateway.eudevfin.financial.FileWrapper;
 import org.devgateway.eudevfin.financial.Message;
 import org.devgateway.eudevfin.financial.service.MessageService;
 import org.devgateway.eudevfin.ui.common.components.TableListPanel;
+import org.devgateway.eudevfin.ui.common.components.util.DownloadLink;
 import org.devgateway.eudevfin.ui.common.components.util.ListGeneratorInterface;
 import org.devgateway.eudevfin.ui.common.providers.PersistedUserChoiceProvider;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author Alexandru Artimon
@@ -81,6 +88,38 @@ public class MessagesListTable extends TableListPanel<Message> {
                 messageLabel.setRenderBodyOnly(true);
                 messageLabel.setEscapeModelStrings(false);
                 item.add(messageLabel);
+
+                AbstractReadOnlyModel<List<FileWrapper>> roList = new AbstractReadOnlyModel<List<FileWrapper>>() {
+                    @Override
+                    public List<FileWrapper> getObject() {
+                        final PropertyModel<Set<FileWrapper>> attachments = new PropertyModel<>(item.getModel(), "attachments");
+                        ArrayList<FileWrapper> ret = new ArrayList<FileWrapper>();
+                        if (attachments.getObject() != null)
+                            for (FileWrapper fw : attachments.getObject())
+                                ret.add(fw);
+                        return ret;
+                    }
+                };
+
+                WebMarkupContainer attachments = new WebMarkupContainer("attachments");
+                item.add(attachments);
+
+                attachments.setVisibilityAllowed(false);
+                if (roList.getObject() != null && roList.getObject().size() > 0)
+                    attachments.setVisibilityAllowed(true);
+
+                ListView<FileWrapper> list = new ListView<FileWrapper>("list", roList) {
+                    @Override
+                    protected void populateItem(final ListItem<FileWrapper> item) {
+                        Label label = new Label("label", item.getModelObject().getName());
+                        item.add(label);
+
+                        Link<FileWrapper> download = new DownloadLink("download", item.getModel());
+                        item.add(download);
+                    }
+                };
+                attachments.add(list);
+
                 final Label subjectModel = new Label("subject", new PropertyModel(item.getModel(), "subject"));
                 subjectModel.setRenderBodyOnly(true);
                 subjectModel.setEscapeModelStrings(false);
