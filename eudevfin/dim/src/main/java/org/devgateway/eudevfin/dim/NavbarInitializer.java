@@ -290,17 +290,16 @@ public final class NavbarInitializer {
 
 				// TODO: get available languages
 				final List<Locale> langs = new ArrayList<>();
-				langs.add(new Locale("en"));
-				langs.add(new Locale("hr"));
-				langs.add(new Locale("cs"));
-				langs.add(new Locale("et"));
-				langs.add(new Locale("hu"));
-				langs.add(new Locale("lv"));
-				langs.add(new Locale("lt"));
-				langs.add(new Locale("mt"));
-				langs.add(new Locale("pl"));
-				langs.add(new Locale("ro"));
-				langs.add(new Locale("sl"));
+                langs.add(new Locale("en"));
+                langs.add(new Locale("hr"));
+                langs.add(new Locale("cs"));
+                langs.add(new Locale("bg"));
+                langs.add(new Locale("hu"));
+                langs.add(new Locale("lv"));
+                langs.add(new Locale("lt"));
+                langs.add(new Locale("pl"));
+                langs.add(new Locale("ro"));
+                langs.add(new Locale("sl"));
 
 				for (final Locale l : langs) {
 					final PageParameters params = new PageParameters(page.getPageParameters());
