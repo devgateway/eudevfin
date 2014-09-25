@@ -60,7 +60,7 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel
  * @author mihai
  * @since 17.12.2013
  */
-@AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
+@AuthorizeInstantiation({AuthConstants.Roles.ROLE_USER, AuthConstants.Roles.ROLE_VIEWER})
 @MountPath(value = "/account")
 public class EditPersistedUserPage extends HeaderFooter {
 

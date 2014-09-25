@@ -146,6 +146,8 @@ public final class NavbarInitializer {
 				accountNavbarButton.setIconType(IconType.edit);
 				MetaDataRoleAuthorizationStrategy.authorize(accountNavbarButton, Component.RENDER,
 						AuthConstants.Roles.ROLE_USER);
+                MetaDataRoleAuthorizationStrategy.authorize(accountNavbarButton, Component.RENDER,
+                        AuthConstants.Roles.ROLE_VIEWER);
 				list.add(accountNavbarButton);
 
 				final MenuBookmarkablePageLink<LogoutPage> logoutPageNavbarButton = new MenuBookmarkablePageLink<LogoutPage>(LogoutPage.class,
@@ -153,6 +155,8 @@ public final class NavbarInitializer {
 				logoutPageNavbarButton.setIconType(IconType.off);
 				MetaDataRoleAuthorizationStrategy.authorize(logoutPageNavbarButton, Component.RENDER,
 						AuthConstants.Roles.ROLE_USER);
+                MetaDataRoleAuthorizationStrategy.authorize(logoutPageNavbarButton, Component.RENDER,
+                        AuthConstants.Roles.ROLE_VIEWER);
 				list.add(logoutPageNavbarButton);
 
 				return list;
@@ -161,6 +165,8 @@ public final class NavbarInitializer {
 		accountMenu.setIconType(IconType.user);
 		MetaDataRoleAuthorizationStrategy.authorize(accountMenu, Component.RENDER,
 				AuthConstants.Roles.ROLE_USER);
+        MetaDataRoleAuthorizationStrategy.authorize(accountMenu, Component.RENDER,
+                AuthConstants.Roles.ROLE_VIEWER);
 		return accountMenu;
 	}
 
