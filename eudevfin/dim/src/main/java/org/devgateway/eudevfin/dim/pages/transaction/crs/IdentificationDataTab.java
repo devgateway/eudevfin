@@ -12,6 +12,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.event.Broadcast;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.util.string.StringValue;
 import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.ValidationError;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
@@ -29,7 +30,6 @@ import org.devgateway.eudevfin.ui.common.models.YearToLocalDateTimeModel;
 import org.devgateway.eudevfin.ui.common.permissions.PermissionAwareComponent;
 import org.devgateway.eudevfin.ui.common.providers.CategoryProviderFactory;
 import org.devgateway.eudevfin.ui.common.providers.OrganizationChoiceProvider;
-import org.devgateway.eudevfin.ui.common.validators.Field12CodeValidator;
 import org.devgateway.eudevfin.ui.common.validators.Field4CrsIdCodeValidator;
 import org.joda.time.LocalDateTime;
 
@@ -44,7 +44,8 @@ public class IdentificationDataTab extends PreviewableFormPanel implements Permi
 	private static final long serialVersionUID = -368263194801751715L;
 	protected PageParameters parameters;
     public static final String KEY = "tabs.identification";
-    
+
+    private Long transactionId;
 
     @SpringBean
     private OrganizationChoiceProvider organizationProvider;
@@ -62,6 +63,15 @@ public class IdentificationDataTab extends PreviewableFormPanel implements Permi
     public IdentificationDataTab(String id,PageParameters parameters) {
         super(id);
         this.parameters=parameters;
+
+        // get the transactionId parameter - we will use it in crsID validation
+        if (parameters.get(TransactionPage.PARAM_TRANSACTION_ID) != null &&
+                !parameters.get(TransactionPage.PARAM_TRANSACTION_ID).equals(StringValue.valueOf((String) null))) {
+            transactionId = parameters.get(TransactionPage.PARAM_TRANSACTION_ID).toLong();
+        } else {
+            transactionId = null;
+        }
+
         addComponents();
     }
 
@@ -111,7 +121,7 @@ public class IdentificationDataTab extends PreviewableFormPanel implements Permi
         add(natureOfSubmission);
     
         crsId = new TextInputField<Integer>("4crsId", new RWComponentPropertyModel<Integer>("crsIdentificationNumber"));
-        crsId.getField().add(new Field4CrsIdCodeValidator(financialTransactionService,natureOfSubmission) {
+        crsId.getField().add(new Field4CrsIdCodeValidator(financialTransactionService, transactionId, natureOfSubmission) {
         	@Override
         	protected ValidationError decorate(ValidationError error, IValidatable<Integer> validatable) {
 				error.addKey(VALIDATIONKEY_CRS_DUPLICATE);
