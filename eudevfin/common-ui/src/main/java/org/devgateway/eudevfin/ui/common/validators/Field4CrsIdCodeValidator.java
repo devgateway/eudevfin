@@ -15,10 +15,13 @@ import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.IValidator;
 import org.apache.wicket.validation.ValidationError;
+import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
 import org.devgateway.eudevfin.metadata.common.domain.Category;
 import org.devgateway.eudevfin.metadata.common.util.CategoryConstants;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
+
+import java.util.List;
 
 /**
  * @author mihai
@@ -33,23 +36,39 @@ public class Field4CrsIdCodeValidator extends Behavior implements IValidator<Int
 	private static final long serialVersionUID = 7283770086223927921L;
 	private transient FinancialTransactionService financialTransactionService;
 	private DropDownField<Category> natureOfSubmission;
+    private Long transactionId;
 
 	public Field4CrsIdCodeValidator(FinancialTransactionService financialTransactionService,
+            Long transactionId,
 			DropDownField<Category> natureOfSubmission) {
 		this.financialTransactionService = financialTransactionService;
+        this.transactionId = transactionId;
 		this.natureOfSubmission = natureOfSubmission;
 	}
 
 	@Override
 	public void validate(IValidatable<Integer> validatable) {
+        // if we already have a crsID in the database but that one corresponds to this transaction (transactionId)
+        // then we can validate the field as having an unique crsId
+        Boolean uniqueCrsID = false;
+        List<FinancialTransaction> transactionsByCrsId = financialTransactionService.findByCrsIdentificationNumber(validatable.getValue().toString());
+        if (transactionsByCrsId.isEmpty()) {
+            uniqueCrsID = true;
+        } else {
+            if(transactionsByCrsId.size() == 1
+                    && transactionsByCrsId.get(0) != null
+                    && transactionsByCrsId.get(0).getId() == transactionId) {
+                uniqueCrsID = true;
+            }
+        }
+
 		if (natureOfSubmission.getField().getModelObject() != null
 				&& validatable != null
 				&& validatable.getValue() != null
 				&& (CategoryConstants.NatureOfSubmission.NEW_ACTIVITY_REPORTED.equals(natureOfSubmission.getField()
 						.getModelObject().getCode()) || CategoryConstants.NatureOfSubmission.COMMITMENT_EQ_DISBURSEMENT
 						.equals(natureOfSubmission.getField().getModelObject().getCode()))
-				&& !financialTransactionService.findByCrsIdentificationNumber(validatable.getValue().toString())
-						.isEmpty()) {
+				&& !uniqueCrsID) {
 			ValidationError error = new ValidationError(this);
 			validatable.error(decorate(error, validatable));
 		}
