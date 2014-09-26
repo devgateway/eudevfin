@@ -76,7 +76,7 @@ public class ReportsController {
 	private static final String REPORT_TYPE_DAC1 = "dac1";
 	private static final String REPORT_TYPE_DAC2A = "dac2a";
 	private static final String OUTPUT_TYPE = "outputType";
-	private static final String DATASOURCE = "dataSource";
+	private static final String DATASOURCE = "dataSourceGroup:dataSource";
 	private static final String OUTPUT_TYPE_PDF = "pdf";
 	private static final String OUTPUT_TYPE_EXCEL = "excel";
 	private static final String OUTPUT_TYPE_HTML = "html";
