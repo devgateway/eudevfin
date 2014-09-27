@@ -13,8 +13,8 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
     <entry key="navbar.home">Strona główna</entry>
-    <entry key="navbar.newTransaction">Nowa transakcja</entry>
-    <entry key="navbar.reports">Sprawozdania</entry>
+    <entry key="navbar.newTransaction">Transakcja</entry>
+    <entry key="navbar.reports">Raport</entry>
     <entry key="navbar.reports.export">Standardowe sprawozdania</entry>
     <entry key="navbar.reports.export.aq">Wstępny kwestionariusz</entry>
     <entry key="navbar.reports.export.dac1">DAC 1</entry>
