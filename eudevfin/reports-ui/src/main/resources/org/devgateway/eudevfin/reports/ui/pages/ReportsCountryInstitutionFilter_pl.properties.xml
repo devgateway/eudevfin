@@ -9,5 +9,5 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <entry key="geography.help">If you want to display data for the entire region, leave the ODA recipient country and Institution fields blank</entry>
+    <entry key="geography.help">Jeżeli chcesz wyświetlić dane dla cełego regionu, pola kraj-odbiorca ODA i instytucja pozostaw puste</entry>
 </properties>

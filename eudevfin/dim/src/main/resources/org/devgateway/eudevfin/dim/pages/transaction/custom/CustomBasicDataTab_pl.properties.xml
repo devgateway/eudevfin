@@ -9,120 +9,77 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <entry key="7bCPA.label">7.b Is this Country Programmable Aid (CPA)</entry>
+    <entry key="7bCPA.label">7.b Czy kwalifikuje się jako Pomoc Podlegająca Programowaniu (CPA)?</entry>
     <entry key="7bCPA.placeholder"></entry>
-    <entry key="7bCPA.help">See definition of CPA in the Glossary</entry>
-    <entry key="7bCPA.help.detail">Field no. 7 bis - Is this Country Programmable Aid (CPA)?: Country Programmable Aid
-        (CPA)
-        reflects the amount of aid that can be programmed by the donor at partner country level. CPA is aid which is NOT
-        included in
-        the following categories: (i) aid that is unpredictable by nature (humanitarian aid and debt forgiveness and
-        reorganisation),
-        entails no cross-border flows (development research in donor country, promotion of development awareness,
-        imputed student costs,
-        refugees in donor country and administrative costs), does not form part of co-operation agreements between
-        governments
-        (food aid and aid extended by local governments in donor countries), is not country programmable by the donor
-        (core funding to national NGOs and International NGOs), or is not susceptible for programming at country level
-        (e.g. contributions to Public Private Partnerships, for some donors aid extended by other agencies than the main
-        aid agency).
-        For more info go to
-        http://www.oecd.org/development/effectiveness/countryprogrammableaidcpafrequentlyaskedquestions.htm
-    </entry>
-
-    <entry key="7cPriorityStatus.label">7.c Priority status of the Recipient</entry>
+    <entry key="7bCPA.help">Sprawdź definicję CPA w glosariuszu</entry>
+    <entry key="7bCPA.help.detail">Pole nr 7 bis - czy kwalifikuje się jako Pomoc Podlegająca Programowaniu (CPA)?: Pomoc Podlegająca Programowaniu (CPA) odzwierciedla wielkość pomocy, jaką donator może zaprogramować na poziomie kraju partnera.
+        CPA to pomoc, która NIE jest ujęta w następujących kategoriach: (i) pomoc, która jest nieprzewidywalna ze swej natury (pomoc humanitarna i umorzenie długów oraz reorganizacja),
+        nie powoduje przepływów transgranicznych (badania rozwojowe w kraju-donatorze, propagowanie wiedzy rozwojowej, kalkulacyjne koszty studenckie, uchodźcy w kraju-donatorze i koszty administracyjne), nie stanowi części międzyrządowych umów o współpracy (pomoc żywnościowa i pomoc udzielana przez władze lokalne w krajach-donatorach), nie podlega programowaniu przez donatora (finansowanie podstawowe na rzecz krajowych i międzynarodowych NGOs) lub nie nadaje się do programowania na poziomie krajowym
+        (np. wkłady na rzecz Partnerstw Publiczno-Prywatnych, w przypadku niektórych donatorów pomoc udzielona przez agencje inne niż główna agencja pomocowa). Więcej informacji na stronie:        http://www.oecd.org/development/effectiveness/countryprogrammableaidcpafrequentlyaskedquestions.htm</entry>
+    <entry key="7aRecipientCode.label">7.a Kod odbiorcy</entry>
+    <entry key="7aRecipientCode.placeholder"></entry>
+    <entry key="7aRecipientCode.help">Z rozwijanego menu wybierz kod odpowiadający danemu krajowi w oparciu o listę ODA prowadzoną przez DAC (patrz glosariusz)</entry>
+    <entry key="7aRecipientCode.help.detail">Pole nr 7a - kod odbiorcy: termin "odbiorca" i przyporządkowany mu kod jest ograniczony do krajów i regionów ujętych na liście  ODA prowadzonej przez DAC i dostępnej na stronie http://www.oecd.org/dac/stats/Codelist09082013.xls .
+        Sprawozdania na temat projektów i programów regionalnych są objęte najbardziej szczegółową ze wszystkich dostępnych kategorii, tj. "regionalne/obejmujące wiele krajów" (np. w przypadku projektu regionalnego w Afryce Zachodniej należy użyć "Na południe od Sahary").
+        Kategoria "bilateralne, nieprzypisane" jest stosowana w przypadku działań na rzecz kilku regionów.
+        Jest ona również wykorzystywana dla szeregu działań podejmowanych w krajach-donatorach, takich jak koszty administracyjne nieuwzględnione gdzie indziej.
+        Badania, studia lub seminaria dotyczące rozwoju organizowane w kraju-donatorze lecz związane z określonym państwem/regionem-odbiorcą pomocy należy kodować pod kategorią kraj/region-odbiorca pomocy.
+        Szkolenia w kraju-donatorze dla uczestników z krajów rozwijających się należy kodować zgodnie z krajem/krajami pochodzenia uczestników.</entry>
+    <entry key="7cPriorityStatus.label">7.c Priorytetowy status odbiorcy</entry>
     <entry key="7cPriorityStatus.placeholder"></entry>
-    <entry key="7cPriorityStatus.help">Type 'Priority' if the partner country is a priority partner country. If not,
-        please leave blank.
-    </entry>
-    <entry key="7cPriorityStatus.help.detail">Field no. 7c - Priority status of the recipient: type 'Priority' if the
-        partner country is a priority partner country. If not, please leave blank.
-    </entry>
-
-
-    <entry key="7dPhasingOutYear.label">7.d If phasing out, by which year?</entry>
+    <entry key="7cPriorityStatus.help">Wpisz "priorytet", jeżeli kraj partnerski ma status priorytetowy. Jeśli nie, zostaw puste miejsce.</entry>
+    <entry key="7cPriorityStatus.help.detail">Pole nr 7c - priorytetowy status odbiorcy: wpisz "priorytet", jeżeli kraj partnerski ma status priorytetowy. Jeśli nie, zostaw puste miejsce.</entry>
+    <entry key="7dPhasingOutYear.label">7.d W przypadku planowanego zakończenia - w którym roku?</entry>
     <entry key="7dPhasingOutYear.placeholder"></entry>
-    <entry key="7dPhasingOutYear.help">YYYY (If there are plans to phase out operations from the partner country, please
-        indicate the projected year of last disbursement)
-    </entry>
-    <entry key="7dPhasingOutYear.help.detail">Field no. 7d - If phasing out, by which year?: If there are plans to phase
-        out operations from the partner country, please indicate the projected year of last disbursement
-    </entry>
-
-    <entry key="14bisUploadDocumentation.label">14.bis Upload Available Documentation</entry>
+    <entry key="7dPhasingOutYear.help">RRRR (W przypadku planowanego zakończenia działań w kraju partnerskim podaj przewidywany rok ostatniej wypłaty)</entry>
+    <entry key="7dPhasingOutYear.help.detail">Pole nr 7d - w przypadku planowanego zakończenia - w którym roku?: W przypadku planowanego zakończenia działań w kraju partnerskim podaj przewidywany rok ostatniej wypłaty</entry>
+    <entry key="14bisUploadDocumentation.label">14.bis Prześlij dostępną dokumentację</entry>
     <entry key="14bisUploadDocumentation.placeholder"></entry>
-    <entry key="14bisUploadDocumentation.help">Project Terms of Reference and latest project report</entry>
-    <entry key="14bisUploadDocumentation.help.detail">Field no. 14 bis - Upload available documentation: If terms of
-        reference is not available, the call of proposal or parts of the contract agreement could be uploaded. The
-        latest porject report could be the Inception report, the proegress report or the final report. An evaluation
-        report after the conclusion of the project would also be fine.
-    </entry>
-
-    <entry key="14aProjectCoFinanced.label">14.a Is this project co-financed?</entry>
+    <entry key="14bisUploadDocumentation.help">Specyfikacja projektu i najnowsze sprawozdanie z projektu</entry>
+    <entry key="14bisUploadDocumentation.help.detail">Pole nr 14 bis - Prześlij dostępną dokumentację: jeżeli specyfikacja jest niedostępna, można wezwanie do składania ofert lub fragmenty umowy w sprawie udzielenia zamówienia. Najnowsze sprawozdanie z projektu może być sprawozdaniem z rozpoczęcia, sprawozdaniem z postępów w realizacji lub sprawozdaniem końcowym. Można także przesłać sprawozdanie z oceny po zakończeniu projektu.</entry>
+    <entry key="14aProjectCoFinanced.label">14.a Czy projekt podlega współfinansowaniu?</entry>
     <entry key="14aProjectCoFinanced.placeholder"></entry>
-    <entry key="14aProjectCoFinanced.help">Yes or NO</entry>
-    <entry key="14aProjectCoFinanced.help.detail">Fields no. 14a - Is this project co-financed? : There may be two types
-        of co-financing: i) cofinaning between your agency and other international donor(s) (e.g. tri-partate projects);
-        ii) cofinaning between your agency and other national agency(ies). In both cases input only the amount related
-        to your financing in the fields no. 33 and below. The fields no. 14b to 14l will be used to provide information
-        about the financial contributions by the other co-financiers, for simple reference.
-    </entry>
-
-    <entry key="14b1stAgency.label">Name of 1st co-financing agency</entry>
+    <entry key="14aProjectCoFinanced.help">Tak lub NIE</entry>
+    <entry key="14aProjectCoFinanced.help.detail">Pole nr 14a - Czy projekt podlega współfinansowaniu? : Możliwe są dwa rodzaje współfinansowania: i) współfinansowanie realizowane przez Twoją instytucję i innego międzynarodowego donatora/innych donatorów międzynarodowych (np. projekty trójstronne);
+        ii) współfinansowanie realizowane przez Twoją instytucję i inny podmiot krajowy/inne podmioty krajowe. W obu przypadkach podaj tylko kwotę związaną z Twoim finansowaniem w polu 33 i poniżej. Dla przejrzystości informacje o wkładach finansowych innych podmiotów umieszcza się w polach 14b do 14l.</entry>
+    <entry key="14b1stAgency.label">Nazwa pierwszej instytucji współfinansującej</entry>
     <entry key="14b1stAgency.placeholder"></entry>
     <entry key="14b1stAgency.help"></entry>
     <entry key="14b1stAgency.help.detail"></entry>
-
-    <entry key="14c1stAgencyAmount.label">Amount co-financed</entry>
+    <entry key="14c1stAgencyAmount.label">Kwota współfinansowania</entry>
     <entry key="14c1stAgencyAmount.placeholder"></entry>
     <entry key="14c1stAgencyAmount.help"></entry>
     <entry key="14c1stAgencyAmount.help.detail"></entry>
-
-    <entry key="14d1stAgencyCurrency.label">Currency</entry>
+    <entry key="14d1stAgencyCurrency.label">Waluta</entry>
     <entry key="14d1stAgencyCurrency.placeholder"></entry>
-    <entry key="14d1stAgencyCurrency.help">Currency used by the co-fiancing agency</entry>
-    <entry key="14d1stAgencyCurrency.help.detail">Currency used by the co-financing agency if different from the
-        currency used by your agency
-    </entry>
-
-
-    <entry key="14e2ndAgency.label">Name of 2nd co-financing agency</entry>
+    <entry key="14d1stAgencyCurrency.help">Waluta wykorzystywana przez instytucję współfinansującą</entry>
+    <entry key="14d1stAgencyCurrency.help.detail">Waluta wykorzystywana przez instytucję współfinansującą - jeżeli inna niż waluta wykorzystywana przez Twoją instytucję</entry>
+    <entry key="14e2ndAgency.label">Nazwa drugiej instytucji współfinansującej</entry>
     <entry key="14e2ndAgency.placeholder"></entry>
     <entry key="14e2ndAgency.help"></entry>
     <entry key="14e2ndAgency.help.detail"></entry>
-
-    <entry key="14f2ndAgencyAmount.label">Amount co-financed</entry>
+    <entry key="14f2ndAgencyAmount.label">Kwota współfinansowania</entry>
     <entry key="14f2ndAgencyAmount.placeholder"></entry>
     <entry key="14f2ndAgencyAmount.help"></entry>
     <entry key="14f2ndAgencyAmount.help.detail"></entry>
-
-    <entry key="14g2ndAgencyCurrency.label">Currency</entry>
+    <entry key="14g2ndAgencyCurrency.label">Waluta</entry>
     <entry key="14g2ndAgencyCurrency.placeholder"></entry>
-    <entry key="14g2ndAgencyCurrency.help">Currency used by the co-fiancing agency</entry>
-    <entry key="14g2ndAgencyCurrency.help.detail">Currency used by the co-financing agency if different from the
-        currency used by your agencyt
-    </entry>
-
-    <entry key="14h3rdAgency.label">Name of 3rd co-financing agency</entry>
+    <entry key="14g2ndAgencyCurrency.help">Waluta wykorzystywana przez instytucję współfinansującą</entry>
+    <entry key="14g2ndAgencyCurrency.help.detail">Waluta wykorzystywana przez instytucję współfinansującą - jeżeli inna niż waluta wykorzystywana przez Twoją instytucję</entry>
+    <entry key="14h3rdAgency.label">Nazwa trzeciej instytucji współfinansującej</entry>
     <entry key="14h3rdAgency.placeholder"></entry>
     <entry key="14h3rdAgency.help"></entry>
     <entry key="14h3rdAgency.help.detail"></entry>
-
-    <entry key="14i3rdAgencyAmount.label">Amount co-financed</entry>
+    <entry key="14i3rdAgencyAmount.label">Kwota współfinansowania</entry>
     <entry key="14i3rdAgencyAmount.placeholder"></entry>
     <entry key="14i3rdAgencyAmount.help"></entry>
     <entry key="14i3rdAgencyAmount.help.detail"></entry>
-
-    <entry key="14j3rdAgencyCurrency.label">Currency</entry>
+    <entry key="14j3rdAgencyCurrency.label">Waluta</entry>
     <entry key="14j3rdAgencyCurrency.placeholder"></entry>
-    <entry key="14j3rdAgencyCurrency.help">Currency used by the co-fiancing agency</entry>
-    <entry key="14j3rdAgencyCurrency.help.detail">Currency used by the co-financing agency if different from the
-        currency used by your agency
-    </entry>
-
-    <entry key="14table.cofinancingAgency">Co-financing</entry>
-    <entry key="14table.1stAgency">1st Agency</entry>
-    <entry key="14table.2ndAgency">2nd Agency</entry>
-    <entry key="14table.3rdAgency">3rd Agency</entry>
-
+    <entry key="14j3rdAgencyCurrency.help">Waluta wykorzystywana przez instytucję współfinansującą</entry>
+    <entry key="14j3rdAgencyCurrency.help.detail">Waluta wykorzystywana przez instytucję współfinansującą - jeżeli inna niż waluta wykorzystywana przez Twoją instytucję</entry>
+    <entry key="14table.cofinancingAgency">Współfinansowanie</entry>
+    <entry key="14table.1stAgency">1 instytucja</entry>
+    <entry key="14table.2ndAgency">2 instytucja</entry>
+    <entry key="14table.3rdAgency">3 instytucja</entry>
 </properties>

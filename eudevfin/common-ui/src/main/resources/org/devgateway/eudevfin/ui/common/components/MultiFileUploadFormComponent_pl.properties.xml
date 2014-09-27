@@ -9,11 +9,11 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <entry key="chooseFile">Please choose a file to upload!</entry>
-    <entry key="tooManyFiles">You've uploaded too many files, the limit is {0} files, please remove accordingly</entry>
-    <entry key="selectFileTooltip">Select file to upload</entry>
-    <entry key="cancelSelectionTooltip">Cancel current selection</entry>
-    <entry key="uploadFileTooltip">Upload file to the form</entry>
-    <entry key="removeUploadedFileTooltip">Remove this file</entry>
-    <entry key="downloadUploadedFileTooltip">Download this file</entry>
+    <entry key="chooseFile">Wybierz plik, który chcesz przesłać!</entry>
+    <entry key="tooManyFiles">Przesłałeś zbyt wiele plików, limit wynosi {0}, usuń nadliczbowe pliki</entry>
+    <entry key="selectFileTooltip">Wybierz plik do przesłania</entry>
+    <entry key="cancelSelectionTooltip">Anuluj wybór</entry>
+    <entry key="uploadFileTooltip">Prześlij plik do formularza</entry>
+    <entry key="removeUploadedFileTooltip">Usuń ten plik</entry>
+    <entry key="downloadUploadedFileTooltip">Pobierz ten plik</entry>
 </properties>

@@ -12,25 +12,23 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <entry key="txtable.tx.label">Name</entry>
-    <entry key="txtable.tx.reporting-year">Reporting Year</entry>
-    <entry key="txtable.tx.sector-name">Sector Name</entry>
-    <entry key="txtable.tx.form-type">Form Type</entry>
-    <entry key="txtable.tx.reporting-org-name">Reporting Organization</entry>
-    <entry key="txtable.tx.actions">Actions</entry>
-    <entry key="txtable.tx.edit-action">Edit</entry>
-    <entry key="txtable.tx.view-action">View</entry>
-    
-    <entry key="bilateralOda.advanceQuestionnaire">AQ Bilateral ODA</entry>
-    <entry key="bilateralOda.CRS">CRS++ Bilateral ODA</entry>
-    <entry key="bilateralOda.forwardSpending">FSS Bilateral ODA</entry>
-    <entry key="multilateralOda.advanceQuestionnaire">AQ Multilateral ODA</entry>
-    <entry key="multilateralOda.CRS">CRS++ Multilateral ODA</entry>
-    <entry key="nonOda.nonExport">Non Export Non-ODA</entry>
-    <entry key="nonOda.export">Export Non-ODA</entry>
-    <entry key="nonOda.privateGrants">Private Grants Non-ODA</entry>
-	<entry key="nonOda.privateMarket">Private Market Non-ODA</entry>   
-	<entry key="nonOda.otherFlows">Other Flows Non-ODA</entry>   
-    <entry key="nonOda.export">Private Market Non-ODA</entry>
-    <entry key="nonOda.export">Export Credit Non-ODA</entry>
+    <entry key="txtable.tx.label">Nazwa</entry>
+    <entry key="txtable.tx.reporting-year">Rok sprawozdawczy</entry>
+    <entry key="txtable.tx.sector-name">Nazwa sektora</entry>
+    <entry key="txtable.tx.form-type">Rodzaj formularza</entry>
+    <entry key="txtable.tx.reporting-org-name">Organizacja składająca sprawozdanie</entry>
+    <entry key="txtable.tx.actions">Działania</entry>
+    <entry key="txtable.tx.edit-action">Edytuj</entry>
+    <entry key="bilateralOda.advanceQuestionnaire">Kwest. wst. ODA bilateralna</entry>
+    <entry key="bilateralOda.CRS">CRS++ ODA bilateralna</entry>
+    <entry key="bilateralOda.forwardSpending">Planowane wydatki ODA bilateralna</entry>
+    <entry key="multilateralOda.advanceQuestionnaire">Kwest. wst. ODA wielostr.</entry>
+    <entry key="multilateralOda.CRS">CRS++ ODA wielostr.</entry>
+    <entry key="nonOda.nonExport">Nieeksportowy inna niż ODA</entry>
+    <entry key="nonOda.export">Eksportowy inna niż ODA</entry>
+    <entry key="nonOda.privateGrants">Prywatne dotacje inna niż ODA</entry>
+    <entry key="nonOda.privateMarket">Rynek inna niż ODA</entry>
+    <entry key="nonOda.otherFlows">Pozostałe przepływy inna niż ODA</entry>
+    <entry key="nonOda.export">Rynek inna niż ODA</entry>
+    <entry key="nonOda.export">Kredyt eksportowy inna niż ODA</entry>
 </properties>

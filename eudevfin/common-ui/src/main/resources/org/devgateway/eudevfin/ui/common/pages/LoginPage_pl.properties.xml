@@ -13,14 +13,13 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
     <entry key="login.title">EU-DEVFIN - Login</entry>
-    <entry key="login.banner">Enhancing the ODA reporting capacities and systems of EU Member States</entry>
+    <entry key="login.banner">Poprawa zdolności i systemów sprawozdawczych ODA w państwach członkowskich UE</entry>
     <entry key="login.login">Login</entry>
-    <entry key="login.welcome">Welcome to EU-DEVFIN</entry>
-    <entry key="login.user.label">User</entry>
-    <entry key="login.user.placeholder">Type your username...</entry>
-    <entry key="login.password.label">Password</entry>
-    <entry key="login.password.placeholder">Type your password...</entry>
-    <entry key="login.forgotPassword">Lost your password?</entry>
-    <entry key="login.forgotPassword.subject">Lost password</entry>
-    <entry key="login.submit">Submit</entry>
+    <entry key="login.welcome">Witaj w EU-DEVFIN</entry>
+    <entry key="login.user.label">Użytkownik</entry>
+    <entry key="login.user.placeholder">Wpisz nazwę użytkownika…</entry>
+    <entry key="login.password.label">Hasło</entry>
+    <entry key="login.password.placeholder">Wpisz hasło...</entry>
+    <entry key="login.password.help">Hasło należy zachować w tajemnicy!</entry>
+    <entry key="login.submit">Wyślij</entry>
 </properties>

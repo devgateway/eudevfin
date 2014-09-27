@@ -8,13 +8,12 @@
   -->
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
-<properties>    
-    <entry key="baseCurrency.label">National Currency</entry>
-    <entry key="counterCurrency.label">Reporting Currency</entry>
-	<entry key="rate.label">Rate</entry>
-	<entry key="source.label">Source</entry>
-    <entry key="isInverted.label">is inverted?</entry>
-	<entry key="date.label">Date</entry>	
-	<entry key="notification.equalcounterbase">The Base and Counter currency cannot be the same!</entry>
-	<entry key="page.title">Edit Historical Exchange Rate</entry>
+<properties>
+    <entry key="baseCurrency.label">Waluta krajowa</entry>
+    <entry key="counterCurrency.label">Waluta sprawozdawcza</entry>
+    <entry key="rate.label">Kurs</entry>
+    <entry key="source.label">Źródło</entry>
+    <entry key="date.label">Data</entry>
+    <entry key="notification.equalcounterbase">Waluta bazowa i kwotowana nie mogą być takie same!</entry>
+    <entry key="page.title">Edytuj historyczny kurs wymiany</entry>
 </properties>

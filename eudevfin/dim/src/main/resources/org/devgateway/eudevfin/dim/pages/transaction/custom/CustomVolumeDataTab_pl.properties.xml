@@ -4,117 +4,71 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-	<entry key="otherMarkers.label">Other Markers</entry>
-
-	<entry key="32bOtherCurrency.label">32.b Other currency than national</entry>
-	<entry key="32bOtherCurrency.placeholder"></entry>
-	<entry key="32bOtherCurrency.help">Enter other currency than your national currency, if necessary</entry>
-	<entry key="32bOtherCurrency.help.detail">Field no. 32b - Other currency than national: enter other currency than national in case the
-		transaction is denominated in foreign currency (as per financial agreement or financial report)</entry>
-
-	<entry key="32cExchangeRate.label">32.c Exchange rate indicated in financial documents</entry>
-	<entry key="32cExchangeRate.placeholder"></entry>
-	<entry key="32cExchangeRate.help">Enter exchange rates officially used in the transaction, if indicated in the financial agreement or
-		report</entry>
-	<entry key="32cExchangeRate.help.detail">Field no. 32c. Exchange rate indicated in financial documents (if any): it may be possible that the
-		exchange rate for the transaction is indicated in the financial agreement or financial report attached to it. In this
-		case indicate the applied exchange rate. If there is no specific exchange rate applied, leave this field blank
-	</entry>
-
-	<entry key="34bBudgetCode.label">34.b Budget Code</entry>
-	<entry key="34bBudgetCode.placeholder"></entry>
-	<entry key="34bBudgetCode.help">Insert the budget code under which resources were made available for this transaction.</entry>
-	<entry key="34bBudgetCode.help.detail">Field no. 34.b - Budget code: refer to the budget appropriations and/or the monthly/quarterly cash
-		plans for your agency and identify the budget code (or sub-code) under which resource were made available for this
-		transaction. If there is no unique code for this transaction, include the one-higher budget code (or sib-code) which
-		includes the transaction, among other initiatives
-	</entry>
-
-	<entry key="34cBudgetLine.label">34.c Budget Line</entry>
-	<entry key="34cBudgetLine.placeholder"></entry>
-	<entry key="34cBudgetLine.help">Insert the budget title under which resources were made available for this transaction.</entry>
-	<entry key="34cBudgetLine.help.detail">Field no. 34.c - Budget title: refer to the budget appropriations and/or the monthly/quarterly cash
-		plans for your agency and identify the budget title (or sub-title) under which resource were made available for this
-		transaction. If there is no unique title for this transaction, include the one-higher budget title (or sub-title)
-		which includes the transaction, among other initiatives. Most of the time the title is going to be an economic item,
-		e.g. other recurrent expenditures titles or investment expenditures titles.
-	</entry>
-
-	<entry key="34dBudgetActivity.label">34.d Budget Activity</entry>
-	<entry key="34dBudgetActivity.placeholder"></entry>
-	<entry key="34dBudgetActivity.help">Insert the budget activity under which resources were made available for this transaction.
-	</entry>
-	<entry key="34dBudgetActivity.help.detail">Field no. 34.d - Budget code: refer to the budget appropriations and/or the monthly/quarterly cash
-		plans for your agency and identify the budget activity under which resource were made available for this transaction.
-		If there is no unique activity for this transaction, include the one-higher budget activity which includes the
-		transaction, among other initiatives. In case your budget does not contain activity items, leave this filed blank.
-		Activity items are to be found under budget programs when the budget is presented as a Program-Based Budget (PBB).
-	</entry>
-
-	<entry key="table.budgetMtef">Budget/MTEF</entry>
-	<entry key="table.disbursement">Disbursement</entry>
-	<entry key="table.code">Code</entry>
-	<entry key="table.line">Line</entry>
-	<entry key="table.activity">Activity</entry>
-
-    <entry key="disbursement.label">Disbursement Current Year</entry>
+    <entry key="otherMarkers.label">Inne markery</entry>
+    <entry key="32bOtherCurrency.label">32.b Waluta inna niż krajowa</entry>
+    <entry key="32bOtherCurrency.placeholder"></entry>
+    <entry key="32bOtherCurrency.help">W razie potrzeby wprowadź walutę inną niż Twoja waluta krajowa</entry>
+    <entry key="32bOtherCurrency.help.detail">Pole nr 32b - waluta inna niż krajowa: wprowadź walutę inną niż krajowa, jeżeli transakcja jest denominowana w walucie obcej (zgodnie z porozumieniem lub sprawozdaniem finansowym)</entry>
+    <entry key="32cExchangeRate.label">32.c Kurs wymiany wskazany w dokumentach finansowych</entry>
+    <entry key="32cExchangeRate.placeholder"></entry>
+    <entry key="32cExchangeRate.help">Wprowadź kursy wymiany oficjalnie wykorzystywane w transakcji, jeżeli wskazano w porozumieniu lub sprawozdaniu finansowym</entry>
+    <entry key="32cExchangeRate.help.detail">Pole nr 32c. Kurs wymiany wskazany w dokumentach finansowych (jeżeli dotyczy): kurs wymiany na potrzeby transakcji może być wskazany w porozumieniu finansowym lub załączonym do niego sprawozdaniu finansowym. W takim wypadku podaj zastosowany kurs wymiany. Jeżeli nie ma określonego kursu wymiany, pozostaw to pole puste.</entry>
+    <entry key="34bBudgetCode.label">34.b Kod budżetowy</entry>
+    <entry key="34bBudgetCode.placeholder"></entry>
+    <entry key="34bBudgetCode.help">Wprowadź kod budżetowy, pod którym środki zostały udostępnione dla tej transakcji.</entry>
+    <entry key="34bBudgetCode.help.detail">Pole nr 34.b - kod budżetowy: w planie rozdysponowania środków budżetowych i/lub miesięcznym/kwartalnym planie gotówkowym Twojej instytucji odszukaj kod (lub subkod) budżetowy, pod którym środki zostały udostępnione dla tej transakcji. W przypadku braku unikalnego kodu dla tej transakcji, podaj kod wyższego rzędu (lub subkod), który wśród innych projektów obejmuje także przedmiotową transakcję</entry>
+    <entry key="34cBudgetLine.label">34.c Linia budżetowa</entry>
+    <entry key="34cBudgetLine.placeholder"></entry>
+    <entry key="34cBudgetLine.help">Wprowadź tytuł budżetu, pod którym środki zostały udostępnione dla tej transakcji.</entry>
+    <entry key="34cBudgetLine.help.detail">Pole nr 34.c - tytuł budżetu: w planie rozdysponowania środków budżetowych i/lub miesięcznym/kwartalnym planie gotówkowym Twojej instytucji odszukaj tytuł (lub subtytuł) budżetu, pod którym środki zostały udostępnione dla tej transakcji. W przypadku braku unikalnego tytułu dla tej transakcji, podaj tytuł wyższego rzędu (lub subtytuł), który wśród innych projektów obejmuje także przedmiotową transakcję. W większości przypadków tytuł będzie miał charakter gospodarczy, np. inne powtarzające się wydatki lub wydatki inwestycyjne.</entry>
+    <entry key="34dBudgetActivity.label">34.d Aktywność budżetowa</entry>
+    <entry key="34dBudgetActivity.placeholder"></entry>
+    <entry key="34dBudgetActivity.help">Wprowadź aktywność budżetową, pod którą środki zostały udostępnione dla tej transakcji.</entry>
+    <entry key="34dBudgetActivity.help.detail">Pole nr 34.d - aktywność budżetowa: w planie rozdysponowania środków budżetowych i/lub miesięcznym/kwartalnym planie gotówkowym Twojej instytucji odszukaj aktywność budżetową, pod którą środki zostały udostępnione dla tej transakcji. W przypadku braku unikalnej aktywności dla tej transakcji, podaj aktywność budżetową wyższego rzędu, która wśród innych projektów obejmuje także przedmiotową transakcję. Jeżeli Twój budżet nie zawiera aktywności, pozostaw to pole puste.
+        Aktywności należy szukać pod programami budżetowymi, jeżeli budżet jest ułożony w oparciu o programy.</entry>
+    <entry key="table.budgetMtef">Budżet/średniookresowe ramy wydatków</entry>
+    <entry key="table.disbursement">Wypłata</entry>
+    <entry key="table.code">Kod</entry>
+    <entry key="table.line">Linia</entry>
+    <entry key="table.activity">Aktywność</entry>
+    <entry key="disbursement.label">Wypłata rok bieżący</entry>
     <entry key="disbursement.placeholder"></entry>
-
-    <entry key="disbursementP1.label">Disbursement Current Year + 1</entry>
+    <entry key="disbursementP1.label">Wypłata rok bieżący + 1</entry>
     <entry key="disbursementP1.placeholder"></entry>
-
-    <entry key="disbursementP2.label">Disbursement Current Year + 2</entry>
+    <entry key="disbursementP2.label">Wypłata rok bieżący + 2</entry>
     <entry key="disbursementP2.placeholder"></entry>
-
-    <entry key="disbursementP3.label">Disbursement Current Year + 3</entry>
+    <entry key="disbursementP3.label">Wypłata rok bieżący + 3</entry>
     <entry key="disbursementP3.placeholder"></entry>
-
-    <entry key="disbursementP4.label">Disbursement Current Year + 4</entry>
+    <entry key="disbursementP4.label">Wypłata rok bieżący + 4</entry>
     <entry key="disbursementP4.placeholder"></entry>
-
-    <entry key="code.label">Code Current Year</entry>
+    <entry key="code.label">Kod rok bieżący</entry>
     <entry key="code.placeholder"></entry>
-
-    <entry key="codeP1.label">Code Current Year + 1</entry>
+    <entry key="codeP1.label">Kod rok bieżący + 1</entry>
     <entry key="codeP1.placeholder"></entry>
-
-    <entry key="codeP2.label">Code Current Year + 2</entry>
+    <entry key="codeP2.label">Kod rok bieżący + 2</entry>
     <entry key="codeP2.placeholder"></entry>
-
-    <entry key="codeP3.label">Code Current Year + 3</entry>
+    <entry key="codeP3.label">Kod rok bieżący + 3</entry>
     <entry key="codeP3.placeholder"></entry>
-
-    <entry key="codeP4.label">Code Current Year + 4</entry>
+    <entry key="codeP4.label">Kod rok bieżący + 4</entry>
     <entry key="codeP4.placeholder"></entry>
-
-    <entry key="line.label">Line Current Year</entry>
+    <entry key="line.label">Linia rok bieżący</entry>
     <entry key="line.placeholder"></entry>
-
-    <entry key="lineP1.label">Line Current Year + 1</entry>
+    <entry key="lineP1.label">Linia rok bieżący + 1</entry>
     <entry key="lineP1.placeholder"></entry>
-
-    <entry key="lineP2.label">Line Current Year + 2</entry>
+    <entry key="lineP2.label">Linia rok bieżący + 2</entry>
     <entry key="lineP2.placeholder"></entry>
-
-    <entry key="lineP3.label">Line Current Year + 3</entry>
+    <entry key="lineP3.label">Linia rok bieżący + 3</entry>
     <entry key="lineP3.placeholder"></entry>
-
-    <entry key="lineP4.label">Line Current Year + 4</entry>
+    <entry key="lineP4.label">Linia rok bieżący + 4</entry>
     <entry key="lineP4.placeholder"></entry>
-
-    <entry key="activity.label">Activity Current Year</entry>
+    <entry key="activity.label">Aktywność rok bieżący</entry>
     <entry key="activity.placeholder"></entry>
-
-    <entry key="activityP1.label">Activity Current Year + 1</entry>
+    <entry key="activityP1.label">Aktywność rok bieżący + 1</entry>
     <entry key="activityP1.placeholder"></entry>
-
-    <entry key="activityP2.label">Activity Current Year + 2</entry>
+    <entry key="activityP2.label">Aktywność rok bieżący + 2</entry>
     <entry key="activityP2.placeholder"></entry>
-
-    <entry key="activityP3.label">Activity Current Year + 3</entry>
+    <entry key="activityP3.label">Aktywność rok bieżący + 3</entry>
     <entry key="activityP3.placeholder"></entry>
-
-    <entry key="activityP4.label">Activity Current Year + 4</entry>
+    <entry key="activityP4.label">Aktywność rok bieżący + 4</entry>
     <entry key="activityP4.placeholder"></entry>
-
 </properties>

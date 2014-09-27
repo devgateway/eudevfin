@@ -12,32 +12,12 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <entry key="desktop.lastTxByAgriculture">Last transactions - Agriculture</entry>
-    <entry key="desktop.lastTxByTransport">Last transactions - Transport</entry>
-    <entry key="desktop.lastTxByDraft">Draft</entry>
-    <entry key="desktop.lastTxByFinal">Final</entry>
-    <entry key="desktop.lastTxByApproved">Approved</entry>
-    <entry key="desktop.search.label">Search transactions</entry>
-    <entry key="desktop.search.placeholder">Start typing</entry>
-    
-    <entry key="desktop.searchbutton">Search transactions</entry>
-    <entry key="desktop.resetbutton">Reset</entry>
-    
-    <entry key="year.label">Year</entry>
-    <entry key="year.placeholder">Year</entry>
-    
-    <entry key="sector.label">Sector</entry>
-    <entry key="sector.placeholder">Sector</entry>
-    
-    <entry key="extendingAgency.label">Reporting Agency</entry>
-    <entry key="extendingAgency.placeholder">Reporting Agency</entry>
-    
-    <entry key="formType.label">Form Type</entry>
-    <entry key="formType.placeholder">Form Type</entry>
-    
-    <entry key="recipient.label">Recipient</entry>
-    <entry key="recipient.placeholder">Recipient</entry>
-    
-    
-	<entry key="page.title">List of Saved Transactions</entry>    
+    <entry key="desktop.lastTxByAgriculture">Ostatnie transakcje - rolnictwo</entry>
+    <entry key="desktop.lastTxByTransport">Ostatnie transakcje - transport</entry>
+    <entry key="desktop.lastTxByDraft">Projekt</entry>
+    <entry key="desktop.lastTxByFinal">Wersja ostateczna</entry>
+    <entry key="desktop.lastTxByApproved">Zaakceptowano</entry>
+    <entry key="desktop.search.label">Szukaj transakcji:</entry>
+    <entry key="desktop.search.placeholder">Rozpocznij wpisywanie</entry>
+    <entry key="page.title">Lista zapisanych transakcji</entry>
 </properties>

@@ -4,12 +4,12 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-	<entry key="draft.label">Draft Form</entry>
-	<entry key="draft.help">Uncheck this when the form data becomes final</entry>
-	<entry key="approved.label">Approved</entry>
-	<entry key="approved.help">Check this to approve and publish this form in the reports</entry>	
-	<entry key="notification.draftState">The form will be placed in draft mode, work in progress. You may save it (with no validation checks) and continue the work later.</entry>
-	<entry key="notification.nonDraftState">The form will be placed in non-draft mode, pending approval. Form validation will be performed on save.</entry>
-	<entry key="notification.approvedState">The form will be placed in approved mode, its data will show up in reports.</entry>
-	<entry key="notification.unapprovedState">The form will be placed in non-approved mode, its data will have to be reviewed.</entry>
+    <entry key="draft.label">Projekt formularza</entry>
+    <entry key="draft.help">Odznacz, gdy dane w formularzu będą ostateczne</entry>
+    <entry key="approved.label">Zaakceptowano</entry>
+    <entry key="approved.help">Zaznacz, aby zaakceptować i opublikować ten formularz w sprawozdaniach</entry>
+    <entry key="notification.draftState">Formularz znajdzie się w trybie projektu, prace w toku.</entry>
+    <entry key="notification.nonDraftState">Formularz przestanie być w trybie projektu, oczekiwanie na akceptację.</entry>
+    <entry key="notification.approvedState">Formularz znajdzie się w trybie zaakceptowano, a dane w nim zawarte pojawią się w sprawozdaniach.</entry>
+    <entry key="notification.unapprovedState">Formularz znajdzie się w trybie nie zaakceptowano, a dane w nim zawarte będą podlegały sprawdzeniu.</entry>
 </properties>

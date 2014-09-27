@@ -4,9 +4,9 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-	<entry key="name.label">Name</entry>
-	<entry key="acronym.label">Acronym</entry>
-	<entry key="code.label">Code</entry>
-	<entry key="donorName.label">Donor Name</entry>
-	<entry key="uniqueOrgCodeError">The database holds another organization with the same code. Please choose a different code!</entry>
+    <entry key="name.label">Nazwa</entry>
+    <entry key="acronym.label">Skrót</entry>
+    <entry key="code.label">Kod</entry>
+    <entry key="donorName.label">Nazwa donatora</entry>
+    <entry key="uniqueOrgCodeError">W bazie danych jest już organizacja z tym kodem. Wybierz inny kod!</entry>
 </properties>

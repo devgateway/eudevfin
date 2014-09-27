@@ -8,9 +8,9 @@
   -->
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
-<properties>    
-    <entry key="name.label">Group Name</entry>
-    <entry key="organization.label">Organization</entry>
-    <entry key="users.label">Users</entry>
-    <entry key="page.title">Edit Group Details</entry>
+<properties>
+    <entry key="name.label">Nazwa grupy</entry>
+    <entry key="organization.label">Organizacja</entry>
+    <entry key="users.label">Użytkownicy</entry>
+    <entry key="page.title">Edytuj dane grupy</entry>
 </properties>
