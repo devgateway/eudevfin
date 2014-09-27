@@ -32,7 +32,7 @@ import java.util.List;
  * @see https://jira.dgfoundation.org/browse/ODAEU-180
  */
 public class Field4CrsIdCodeValidator extends Behavior implements IValidator<Integer> {
-
+    
 	private static final long serialVersionUID = 7283770086223927921L;
 	private transient FinancialTransactionService financialTransactionService;
 	private DropDownField<Category> natureOfSubmission;
@@ -57,7 +57,7 @@ public class Field4CrsIdCodeValidator extends Behavior implements IValidator<Int
         } else {
             if(transactionsByCrsId.size() == 1
                     && transactionsByCrsId.get(0) != null
-                    && transactionsByCrsId.get(0).getId() == transactionId) {
+                    && transactionsByCrsId.get(0).getId().equals(transactionId)) {
                 uniqueCrsID = true;
             }
         }
