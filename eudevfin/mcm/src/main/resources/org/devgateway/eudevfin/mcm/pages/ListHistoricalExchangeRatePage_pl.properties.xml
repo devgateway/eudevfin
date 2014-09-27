@@ -8,7 +8,7 @@
   -->
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
-<properties>    
-    <entry key="button.addNewRate">Add New Rate</entry>
-    <entry key="page.title">Available Historical Exchange Rates</entry>
+<properties>
+    <entry key="button.addNewRate">Dodaj nowy kurs</entry>
+    <entry key="page.title">Dostępne historyczne kursy wymiany</entry>
 </properties>

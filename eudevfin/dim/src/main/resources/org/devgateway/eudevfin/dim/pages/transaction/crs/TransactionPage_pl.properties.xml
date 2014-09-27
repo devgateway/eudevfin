@@ -8,48 +8,28 @@
   -->
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
-<properties>
-    <entry key="tabs.identification">Identification Data</entry>
-    <entry key="tabs.basic">Basic Data</entry>
-    <entry key="tabs.supplementary">Supplementary Data</entry>
-    <entry key="tabs.volume">Volume Data</entry>
-    <entry key="tabs.loans">For Loans Only</entry>
-    <entry key="tabs.additional">Additional Info</entry>
-    <entry key="tabs.available">Available Components</entry>
-
-    <entry key="bilateralOda.advanceQuestionnaire">Advance Questionnaire Form for Bilateral ODA</entry>
-    <entry key="bilateralOda.advanceQuestionnaire.note"> <![CDATA[ Use this data input form for the Advance Questionnaire, if at the beginning of the year the information about all(*) transactions are limited. If you have full information, please <a href='custom?transactionType=bilateralOda.CRS'>click here</a> to use the CRS++ form.]]></entry>
-    <entry key="bilateralOda.advanceQuestionnaire.subnote">(*) When it is the time to prepare the Advance Questionnaire , the Administrator in the Ministry of Foreign Affairs has to instruct all the users  whether to use the Advance Questionnaire input form or the CRS++ input forms  for ALL transactions.</entry>
-    <entry key="bilateralOda.CRS">CRS++ Form for Bilateral ODA</entry>
-    <entry key="bilateralOda.CRS.note"> <![CDATA[ Use this data input form for the CRS++ and the DAC Tables. You can also use this form for the Advance Questionnaire if you have full information about all(*) transactions at the beginning of the year.]]></entry>
-    <entry key="bilateralOda.CRS.subnote">(*) When it is the time to prepare the Advance Questionnaire , the Administrator in the Ministry of Foreign Affairs has to instruct all the users  whether to use the Advance Questionnaire input form or the CRS++ input forms  for ALL transactions.</entry>
-    <entry key="bilateralOda.forwardSpending">Forward Spending Form for Bilateral ODA</entry>
-    <entry key="bilateralOda.forwardSpending.note">Use this form to complete the Forward Spending Review</entry>
-    <entry key="multilateralOda.advanceQuestionnaire">Advance Questionnaire Form for Multilateral ODA</entry>
-    <entry key="multilateralOda.advanceQuestionnaire.note"> <![CDATA[Use this data input form for the Advance Questionnaire, if at the beginning of the year the information about all(*) transactions are limited. If you have full information, please <a href='custom?transactionType=multilateralOda.CRS'>click here</a> to use the CRS++ form.]]></entry>
-    <entry key="multilateralOda.advanceQuestionnaire.subnote">(*) When it is the time to prepare the Advance Questionnaire , the Administrator in the Ministry of Foreign Affairs has to instruct all the users  whether to use the Advance Questionnaire input form or the CRS++ input forms  for ALL transactions.</entry>
-    <entry key="multilateralOda.CRS">CRS++ Form for Multilateral ODA</entry>
-    <entry key="multilateralOda.CRS.note"> <![CDATA[ Use this data input form for the CRS++ and the DAC Tables. You can also use this form for the Advance Questionnaire if you have full information about all(*) transactions at the beginning of the year.]]></entry>
-    <entry key="multilateralOda.CRS.subnote">(*) When it is the time to prepare the Advance Questionnaire , the Administrator in the Ministry of Foreign Affairs has to instruct all the users  whether to use the Advance Questionnaire input form or the CRS++ input forms  for ALL transactions.</entry>
-    <entry key="nonOda.nonExport">Non Export Credit Form for Non-ODA</entry>
-    <entry key="nonOda.export">Export Form for Non-ODA</entry>
-    <entry key="nonOda.privateGrants">Private Grants Form for Non-ODA</entry>
-	<entry key="nonOda.privateMarket">Private Market Form for Non-ODA</entry>   
-	<entry key="nonOda.otherFlows">Other Flows Form for Non-ODA</entry>   
-    <entry key="nonOda.export">Private Market Form for Non-ODA</entry>
-    <entry key="nonOda.export">Export Credit Form for Non-ODA</entry>
-
-    <entry key="button.submit">Save and exit the form</entry>
-    <entry key="button.save">Save and stay on the page</entry>
-    <entry key="currencies.duplicate">This currency should not be the same as the default currency</entry>
-    <entry key="leaveMessage">Remember to save or cancel the data you have inputted by using the blue buttons</entry>
-    
-    <entry key="draft.label">Draft Form</entry>
-	<entry key="draft.help">Uncheck this when the form data becomes final</entry>
-	<entry key="approved.label">Approved</entry>
-	<entry key="approved.help">Check this to approve and publish this form in the reports</entry>	
-	<entry key="notification.draftState">The form will be placed in draft mode, work in progress.</entry>
-	<entry key="notification.nonDraftState">The form will be placed in non-draft mode, pending approval.</entry>
-	<entry key="notification.approvedState">The form will be placed in approved mode, its data will show up in reports.</entry>
-	<entry key="notification.unapprovedState">The form will be placed in non-approved mode, its data will have to be reviewed.</entry>
+<properties xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <entry key="tabs.identification">Dane identyfikacyjne</entry>
+    <entry key="tabs.basic">Dane podstawowe</entry>
+    <entry key="tabs.supplementary">Dane uzupełniające</entry>
+    <entry key="tabs.volume">Dane woluminu</entry>
+    <entry key="tabs.loans">Tylko dla pożyczek</entry>
+    <entry key="tabs.additional">Dodatkowe informacje</entry>
+    <entry key="tabs.available">Dostępne komponenty</entry>
+    <entry key="bilateralOda.advanceQuestionnaire">Kwestionariusz wstępny dla bilateralnej ODA</entry>
+    <entry key="bilateralOda.CRS">Formularz CRS++ dla bilateralnej ODA</entry>
+    <entry key="bilateralOda.forwardSpending">Formularz planowanych wydatków dla bilateralnej ODA</entry>
+    <entry key="multilateralOda.advanceQuestionnaire">Kwestionariusz wstępny dla wielostronnej ODA</entry>
+    <entry key="multilateralOda.CRS">Formularz CRS++ dla wielostronnej ODA</entry>
+    <entry key="nonOda.nonExport">Formularz kredytu nieeksportowego dla pomocy innej niż ODA</entry>
+    <entry key="nonOda.export">Formularz eksportowy dla pomocy innej niż ODA</entry>
+    <entry key="nonOda.privateGrants">Formularz dotacji prywatnych dla pomocy innej niż ODA</entry>
+    <entry key="nonOda.privateMarket">Formularz rynkowy dla pomocy innej niż ODA</entry>
+    <entry key="nonOda.otherFlows">Formularz pozostałych przepływów dla pomocy innej niż ODA</entry>
+    <entry key="nonOda.export">Formularz rynkowy dla pomocy innej niż ODA</entry>
+    <entry key="nonOda.export">Formularz kredytu eksportowego dla pomocy innej niż ODA</entry>
+    <entry key="button.submit">Zapisz i wyjdź z formularza</entry>
+    <entry key="button.save">Zapisz i zostań na tej stronie</entry>
+    <entry key="currencies.duplicate">Ta waluta nie może się pokrywać z walutą domyślną</entry>
+    <entry key="leaveMessage">Pamiętaj, aby za pomocą niebieskich przycisków zapisać lub skasować wprowadzone dane</entry>
 </properties>

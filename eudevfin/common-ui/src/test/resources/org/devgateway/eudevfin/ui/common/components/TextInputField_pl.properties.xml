@@ -9,8 +9,8 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <entry key="text.label">Label</entry>
-    <entry key="text.placeholder">Placeholder</entry>
-    <entry key="text.help">Help Text</entry>
-    <entry key="text.help.detail">Help Detail</entry>
+    <entry key="text.label">Etykieta</entry>
+    <entry key="text.placeholder">Symbol zastępczy</entry>
+    <entry key="text.help">Tekst pomocniczy</entry>
+    <entry key="text.help.detail">Szczegół pomocniczy</entry>
 </properties>

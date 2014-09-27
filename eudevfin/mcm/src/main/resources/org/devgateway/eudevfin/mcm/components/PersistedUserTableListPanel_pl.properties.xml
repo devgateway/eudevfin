@@ -12,7 +12,7 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <entry key="user.name">User Name</entry>
-    <entry key="group">Group</entry>
-	<entry key="authorities">Authorities</entry>        
+    <entry key="user.name">Nazwa użytkownika</entry>
+    <entry key="group">Grupa</entry>
+    <entry key="authorities">Władze</entry>
 </properties>

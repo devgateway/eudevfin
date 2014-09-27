@@ -9,14 +9,12 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <entry key="54futureDebtPrincipal.label">Future debt service: 1st year, principal</entry>
+    <entry key="54futureDebtPrincipal.label">Obsługa długu w przyszłości: rok 1, kwota zadłużenia</entry>
     <entry key="54futureDebtPrincipal.placeholder"></entry>
-    <entry key="54futureDebtPrincipal.help">TODO: edit help text</entry>
-    <entry key="54futureDebtPrincipal.help.detail">TODO: edit full glossary text</entry>
-
-    <entry key="54futureDebtInterest.label">Future debt service: 1st year, interest</entry>
+    <entry key="54futureDebtPrincipal.help">TODO: edytuj tekst pomocniczy</entry>
+    <entry key="54futureDebtPrincipal.help.detail">TODO: edytuj cały glosariusz</entry>
+    <entry key="54futureDebtInterest.label">Obsługa długu w przyszłości: rok 1, odsetki</entry>
     <entry key="54futureDebtInterest.placeholder"></entry>
-    <entry key="54futureDebtInterest.help">TODO: edit help text</entry>
-    <entry key="54futureDebtInterest.help.detail">TODO: edit full glossary text</entry>
-
+    <entry key="54futureDebtInterest.help">TODO: edytuj tekst pomocniczy</entry>
+    <entry key="54futureDebtInterest.help.detail">TODO: edytuj cały glosariusz</entry>
 </properties>

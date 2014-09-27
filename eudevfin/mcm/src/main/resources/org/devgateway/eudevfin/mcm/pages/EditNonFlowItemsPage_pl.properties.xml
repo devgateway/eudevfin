@@ -8,41 +8,32 @@
   -->
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
-<properties>    
-
-	<entry key="nonflow.title">CRS++ Non-Flow Data</entry>
-
-    <entry key="reportingYear.label">Reporting Year</entry>
-    <entry key="reportingYear.placeholder">YYYY</entry>
-    <entry key="reportingYear.help">Enter the reporting year for which you want to edit non flow information</entry>
-    <entry key="reportingYear.help.detail">additional glossary will be added here</entry>
-   
-    <entry key="reportingCountry.label">Reporting Country</entry>
-    <entry key="reportingCountry.help">The reporting country</entry>
-   
-    <entry key="reportingCurrency.label">Reporting Currency</entry>
-    <entry key="reportingCurrency.help">The reporting currency</entry>
-
-  
-        
-    <entry key="population.label">Population</entry>
-    <entry key="population.placeholder">in millions</entry>
-    <entry key="population.help">Enter the population of the country above for the selected reporting year (full figure)</entry>
-
-    <entry key="gni.label">GNI</entry>
-    <entry key="gni.placeholder">(full amount in national currency)</entry>
-    <entry key="gni.help">Enter the GNI of the country above for the selected reporting year (full amount, no digit separators)</entry>
-       
-    <entry key="totalFlows.label">Total Flows</entry>
-    <entry key="totalFlows.placeholder">percentage</entry>
-    <entry key="totalFlows.help">Enter the Total Flows of the country above for the selected reporting year</entry>
-    <entry key="totalFlows.help.detail">additional glossary will be added here</entry>
-   
-    <entry key="odaOfGni.label">ODA of GNI</entry>
-    <entry key="odaOfGni.placeholder">percentage</entry>
-    <entry key="odaOfGni.help">Enter the percentage of GNI which is ODA of the country above for the selected reporting year</entry>
-    <entry key="odaOfGni.help.detail">additional glossary will be added here</entry>
-    <entry key="page.title">Edit CRS++ Non-Flow Data</entry>
-   
+<properties>
+    <entry key="nonflow.title">CRS++ dane o braku przepływu</entry>
+    <entry key="reportingYear.label">Rok sprawozdawczy</entry>
+    <entry key="reportingYear.placeholder">RRRR</entry>
+    <entry key="reportingYear.help">Wprowadź rok sprawozdawczy, dla którego chcesz edytować informacje o braku przepływu</entry>
+    <entry key="reportingYear.help.detail">miejsce na dodatkowy glosariusz</entry>
+    <entry key="reportingCountry.label">Kraj składający sprawozdanie</entry>
+    <entry key="reportingCountry.help">Kraj składający sprawozdanie</entry>
+    <entry key="reportingCurrency.label">Waluta sprawozdawcza</entry>
+    <entry key="reportingCurrency.help">Waluta sprawozdawcza</entry>
+    <entry key="population.label">Mieszkańcy</entry>
+    <entry key="population.placeholder">w mln</entry>
+    <entry key="population.help">Wprowadź liczbę mieszkańców powyższego kraju w wybranym roku sprawozdawczym</entry>
+    <entry key="population.help.detail">miejsce na dodatkowy glosariusz</entry>
+    <entry key="gni.label">Dochód narodowy brutto</entry>
+    <entry key="gni.placeholder">mln USD</entry>
+    <entry key="gni.help">Wprowadź dochód narodowy brutto powyższego kraju w wybranym roku sprawozdawczym</entry>
+    <entry key="gni.help.detail">miejsce na dodatkowy glosariusz</entry>
+    <entry key="totalFlows.label">Łączne przepływy</entry>
+    <entry key="totalFlows.placeholder">procent</entry>
+    <entry key="totalFlows.help">Wprowadź łączne przepływy powyższego kraju w wybranym roku sprawozdawczym</entry>
+    <entry key="totalFlows.help.detail">miejsce na dodatkowy glosariusz</entry>
+    <entry key="odaOfGni.label">Udział ODA w dochodzie narodowym brutto</entry>
+    <entry key="odaOfGni.placeholder">procent</entry>
+    <entry key="odaOfGni.help">Wprowadź procent dochodu narodowego brutto, jaki stanowi ODA powyższego kraju w wybranym roku sprawozdawczym</entry>
+    <entry key="odaOfGni.help.detail">miejsce na dodatkowy glosariusz</entry>
+    <entry key="page.title">Edytuj CRS++ Dane o braku przepływu</entry>
 </properties>
 

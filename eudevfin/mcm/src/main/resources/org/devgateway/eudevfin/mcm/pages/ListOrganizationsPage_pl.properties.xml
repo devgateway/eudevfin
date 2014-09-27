@@ -8,7 +8,7 @@
   -->
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
-<properties>    
-    <entry key="button.addNewOrg">Add New Organization</entry>
-    <entry key="page.title">Orgs List</entry>
+<properties>
+    <entry key="button.addNewOrg">Dodaj nową organizację</entry>
+    <entry key="page.title">Lista organizacji</entry>
 </properties>

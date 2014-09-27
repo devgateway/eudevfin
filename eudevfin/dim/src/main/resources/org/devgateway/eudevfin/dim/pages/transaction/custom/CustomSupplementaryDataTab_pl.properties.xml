@@ -9,17 +9,9 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <entry key="otherMarkers.label">Other Markers</entry>
-
+    <entry key="otherMarkers.label">Inne znaczniki</entry>
     <entry key="96rmnch.label">96. RMNCH</entry>
     <entry key="96rmnch.placeholder"></entry>
-    <entry key="96rmnch.help">Funding interpretation of RMNCH marker scores. Expand to view full definition.</entry>
-	<entry key="96rmnch.help.detail">The RMNCH marker is designed to facilitate "approximate" estimation of quantitative
-amounts based on the funding interpretation shares shown in the table below where the marker
-scores of "4", "3", "2", "1" and "0" correspond to 100%, 75%, 50%, 25% and 0% respectively of a
-project’s funding targeted to RMNCH activities. Care should be taken not to interpret or present
-these resulting data as precise and comprehensive amounts of RMNCH-related contributions. 
-	</entry>
-    
-
+    <entry key="96rmnch.help">Interpretacja finansowa wyników markera RMNCH. Powiększ, aby zobaczyć pełną definicję.</entry>
+    <entry key="96rmnch.help.detail">Marker RMNCH ma na celu oszacowanie kwot w oparciu o składniki interpretacji finansowej zamieszczone w tabeli poniżej, gdzie wyniki markera "4", "3", "2", "1" i  "0" odpowiadają, odpowiednio, 100%, 75%, 50%, 25% i 0% finansowania projektu przeznaczonego na działania RMNCH. Należy zwrócić uwagę, aby nie interpretować ani nie przedstawiać danych uzyskanch w ten sposób jako dokładnych i pełnych kwot wkładu na rzecz RMNCH.</entry>
 </properties>
