@@ -71,6 +71,8 @@ public class ReportsController {
 
     private static Logger logger = Logger.getLogger(ReportsController.class);
 
+    private final String REPORT_DATASOURCE_CRS = "CRS++ input form";
+
 	private static final String REPORT_TYPE = "reportType";
 	private static final String REPORT_TYPE_AQ = "aq";
 	private static final String REPORT_TYPE_DAC1 = "dac1";
@@ -309,7 +311,7 @@ public class ReportsController {
 	}
 
 	private String getDataSourceString(String dataSource) {
-		if("CRS".equals(dataSource)) {
+		if(REPORT_DATASOURCE_CRS.equals(dataSource)) {
 			return "{[Form Type].[bilateralOda.CRS], [Form Type].[multilateralOda.CRS]}";
 		}
 		else {
@@ -393,7 +395,6 @@ public class ReportsController {
 			endTime = System.nanoTime();
 			logger.info("Time to compile reports:" + (endTime - startTime));
 			startTime = System.nanoTime();
-			//JRDataSource dataSource = getDatasource();
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters);
 			endTime = System.nanoTime();
 			logger.info("Time to fill reports:" + (endTime - startTime));

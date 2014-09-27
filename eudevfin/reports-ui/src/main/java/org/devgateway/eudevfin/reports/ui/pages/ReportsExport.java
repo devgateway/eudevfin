@@ -30,7 +30,8 @@ import org.wicketstuff.annotation.mount.MountPath;
 public class ReportsExport extends HeaderFooter<Object> {
 	
 	private final String REPORT_AQ = "AQ";
-	private final String REPORT_CRS = "CRS";
+    private final String REPORT_DATASOURCE_AQ = "Advance Questionnaire";
+	private final String REPORT_DATASOURCE_CRS = "CRS++ input form";
 	/**
 	 * serialVersionUID
 	 */
@@ -70,8 +71,8 @@ public class ReportsExport extends HeaderFooter<Object> {
         add(year);
 
         List<String> dataSources = new ArrayList<String>();
-        dataSources.add(REPORT_AQ);
-        dataSources.add(REPORT_CRS);
+        dataSources.add(REPORT_DATASOURCE_AQ);
+        dataSources.add(REPORT_DATASOURCE_CRS);
         
         DropDownChoice<String> dataSource = new DropDownChoice<String>("dataSource", dataSources, new IChoiceRenderer<String>()
                 {
