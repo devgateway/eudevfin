@@ -31,7 +31,7 @@ import java.util.List;
 public class ReportsExport extends HeaderFooter<Object> {
 	
 	private final String REPORT_AQ = "AQ";
-    private final String REPORT_DATASOURCE_AQ = "Advance Questionnaire";
+    private final String REPORT_DATASOURCE_AQ = "Advance Questionnaire input form";
 	private final String REPORT_DATASOURCE_CRS = "CRS++ input form";
 	/**
 	 * serialVersionUID
