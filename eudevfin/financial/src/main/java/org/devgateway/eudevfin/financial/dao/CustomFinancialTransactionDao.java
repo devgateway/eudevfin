@@ -10,13 +10,9 @@
  */
 package org.devgateway.eudevfin.financial.dao;
 
-import java.util.Collection;
-import java.util.List;
-
 import org.devgateway.eudevfin.auth.common.domain.PersistedUserGroup;
 import org.devgateway.eudevfin.common.dao.AbstractDaoImpl;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
-import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.repository.CustomFinancialTransactionRepository;
 import org.devgateway.eudevfin.financial.service.CustomFinancialTransactionService;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
@@ -32,6 +28,9 @@ import org.springframework.integration.annotation.Header;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
+import java.util.List;
+
 /**
  * @author Alex,mihai
  *
@@ -44,8 +43,8 @@ public class CustomFinancialTransactionDao
 	
 	@Autowired
 	private CustomFinancialTransactionRepository repo;
-	
-	
+
+
 	/**
 	 * @see FinancialTransactionService#findBySearchFormPageable(Integer, Category, Area, String, String, Organization, String, Pageable)
 	 * @param year
@@ -157,7 +156,7 @@ public class CustomFinancialTransactionDao
 	@ServiceActivator(inputChannel="findCustomTransactionByReportingYearAndDraftFalseChannel")
 	public List<CustomFinancialTransaction> findByReportingYearAndDraftFalse(final Integer year) {
 		final LocalDateTime start	= new LocalDateTime(year, 1, 1, 0, 0);
-		final LocalDateTime end		= new LocalDateTime(year+1, 1, 1, 0, 0);
+        final LocalDateTime end = new LocalDateTime(year, 12, 31, 23, 59);
 		
 		return this.getRepo().findByReportingYearBetweenAndDraftFalse(start, end);
 	}
@@ -171,7 +170,7 @@ public class CustomFinancialTransactionDao
 	public List<CustomFinancialTransaction> findByReportingYearAndDraftFalseAndFormTypeNotIn(final Integer year,
 			@Header("notFormType") final Collection<String> notFormType) {
 		final LocalDateTime start = new LocalDateTime(year, 1, 1, 0, 0);
-		final LocalDateTime end = new LocalDateTime(year + 1, 1, 1, 0, 0);
+        final LocalDateTime end = new LocalDateTime(year, 12, 31, 23, 59);
 
 		return this.getRepo().findByReportingYearBetweenAndDraftFalseAndFormTypeNotIn(start, end, notFormType);
 	}
@@ -185,7 +184,7 @@ public class CustomFinancialTransactionDao
 	public List<CustomFinancialTransaction> findByReportingYearAndApprovedTrueAndFormTypeIn(final Integer year,
 			@Header("notFormType") final Collection<String> notFormType) {
 		final LocalDateTime start = new LocalDateTime(year, 1, 1, 0, 0);
-		final LocalDateTime end = new LocalDateTime(year + 1, 1, 1, 0, 0);
+		final LocalDateTime end = new LocalDateTime(year, 12, 31, 23, 59);
 
 		return this.getRepo().findByReportingYearBetweenAndApprovedTrueAndFormTypeIn(start, end, notFormType);
 	}
