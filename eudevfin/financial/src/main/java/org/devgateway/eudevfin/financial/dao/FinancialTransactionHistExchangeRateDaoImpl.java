@@ -34,14 +34,21 @@ public class FinancialTransactionHistExchangeRateDaoImpl {
 	public Collection<LocalDateTime> getHistoricalExchangeRates() {
 		
 		EntityManager em = entityManagerFactory.createEntityManager();
-		
+
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<LocalDateTime> cq = cb.createQuery(LocalDateTime.class);
 		Root<FinancialTransaction> e = cq.from(FinancialTransaction.class);
 		cq.select(e.<LocalDateTime>get("commitmentDate")).distinct(true);
 		cq.where(e.<LocalDateTime>get("commitmentDate").isNotNull());
 		List<LocalDateTime> list = em.createQuery(cq).getResultList();
-	
+
+        // AQ don't have commitment date so we take the reporting year date
+        cq.select(e.<LocalDateTime>get("reportingYear")).distinct(true);
+        cq.where(e.<LocalDateTime>get("reportingYear").isNotNull());
+        List<LocalDateTime> listReportingYear = em.createQuery(cq).getResultList();
+
+        list.addAll(listReportingYear);
+
 		return list;
 	}
 }

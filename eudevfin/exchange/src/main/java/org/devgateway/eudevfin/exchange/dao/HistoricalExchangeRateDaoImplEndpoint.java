@@ -11,10 +11,6 @@
  */
 package org.devgateway.eudevfin.exchange.dao;
 
-import java.math.BigDecimal;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-
 import org.apache.log4j.Logger;
 import org.devgateway.eudevfin.common.dao.AbstractDaoImpl;
 import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
@@ -37,6 +33,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.integration.annotation.Header;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 
 /**
  * @author mihai 
@@ -123,17 +123,30 @@ public class HistoricalExchangeRateDaoImplEndpoint extends AbstractDaoImpl<Histo
             return savedRates;
         }
 
-		LinkedHashMap<String, Object> mapFromJson = exchangeQueryService
-				.getExchangeRatesForDate(date, exchangeRateBaseURL.getEntitValue(),
+        LinkedHashMap<String, Object> mapFromJson = null;
+        try {
+            LocalDateTime todayDate = new LocalDateTime();
+            if (todayDate.isAfter(date)) {
+                mapFromJson = exchangeQueryService.getExchangeRatesForDate(date, exchangeRateBaseURL.getEntitValue(),
                         exchangeRateKey.getEntitValue());
+            } else {
+                // if the transaction date is in future then we need to fetch today's rates
+                mapFromJson = exchangeQueryService.getExchangeRatesForDate(todayDate, exchangeRateBaseURL.getEntitValue(),
+                        exchangeRateKey.getEntitValue());
+            }
+        } catch (Exception e) {
+            logger.error("Error while fetching the rates", e);
 
-		CurrencyUnit baseUnit = CurrencyUnit.of((String) mapFromJson.get("base"));
-		@SuppressWarnings("unchecked")
-		LinkedHashMap<String, Number> rates = (LinkedHashMap<String, Number>) mapFromJson
+            return savedRates;
+        }
+
+        CurrencyUnit baseUnit = CurrencyUnit.of((String) mapFromJson.get("base"));
+        @SuppressWarnings("unchecked")
+        LinkedHashMap<String, Number> rates = (LinkedHashMap<String, Number>) mapFromJson
 				.get("rates");
 
-		Iterator<String> iterator = rates.keySet().iterator();
-		while (iterator.hasNext()) {
+        Iterator<String> iterator = rates.keySet().iterator();
+        while (iterator.hasNext()) {
 			String currency = (String) iterator.next();
 			CurrencyUnit counterUnit = null;
 			try {
@@ -154,7 +167,7 @@ public class HistoricalExchangeRateDaoImplEndpoint extends AbstractDaoImpl<Histo
             service.save(her);
 
 			savedRates++;
-		}
+        }
 
 		return savedRates;
 	}
