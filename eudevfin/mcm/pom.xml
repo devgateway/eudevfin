@@ -28,7 +28,11 @@
             <artifactId>common-auth</artifactId>
             <version>${project.version}</version>
         </dependency>
-        
-        
+
+      <dependency>
+          <groupId>org.devgateway.eudevfin</groupId>
+          <artifactId>exchange</artifactId>
+          <version>${project.version}</version>
+      </dependency>
   </dependencies>
 </project>
