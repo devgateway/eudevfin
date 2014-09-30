@@ -9,5 +9,5 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-	<entry key="notEmptyCollectionValidator">List cannot be empty!</entry>
+    <entry key="notEmptyCollectionValidator">Lista nu poate fi goală</entry>
 </properties>

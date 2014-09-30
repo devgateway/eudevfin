@@ -12,25 +12,23 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <entry key="txtable.tx.label">Name</entry>
-    <entry key="txtable.tx.reporting-year">Reporting Year</entry>
-    <entry key="txtable.tx.sector-name">Sector Name</entry>
-    <entry key="txtable.tx.form-type">Form Type</entry>
-    <entry key="txtable.tx.reporting-org-name">Reporting Organization</entry>
-    <entry key="txtable.tx.actions">Actions</entry>
-    <entry key="txtable.tx.edit-action">Edit</entry>
-    <entry key="txtable.tx.view-action">View</entry>
-    
-    <entry key="bilateralOda.advanceQuestionnaire">AQ Bilateral ODA</entry>
-    <entry key="bilateralOda.CRS">CRS++ Bilateral ODA</entry>
-    <entry key="bilateralOda.forwardSpending">FSS Bilateral ODA</entry>
-    <entry key="multilateralOda.advanceQuestionnaire">AQ Multilateral ODA</entry>
-    <entry key="multilateralOda.CRS">CRS++ Multilateral ODA</entry>
-    <entry key="nonOda.nonExport">Non Export Non-ODA</entry>
-    <entry key="nonOda.export">Export Non-ODA</entry>
-    <entry key="nonOda.privateGrants">Private Grants Non-ODA</entry>
-	<entry key="nonOda.privateMarket">Private Market Non-ODA</entry>   
-	<entry key="nonOda.otherFlows">Other Flows Non-ODA</entry>   
-    <entry key="nonOda.export">Private Market Non-ODA</entry>
-    <entry key="nonOda.export">Export Credit Non-ODA</entry>
+    <entry key="txtable.tx.label">Nume</entry>
+    <entry key="txtable.tx.reporting-year">Anul raportării</entry>
+    <entry key="txtable.tx.sector-name">Numele sectorului</entry>
+    <entry key="txtable.tx.form-type">Tipul de formular</entry>
+    <entry key="txtable.tx.reporting-org-name">Organizaţia care raportează</entry>
+    <entry key="txtable.tx.actions">Acţiuni</entry>
+    <entry key="txtable.tx.edit-action">Editaţi</entry>
+    <entry key="bilateralOda.advanceQuestionnaire">AQ AOD Bilateral</entry>
+    <entry key="bilateralOda.CRS">CRS++  AOD Bilateral</entry>
+    <entry key="bilateralOda.forwardSpending">FSS ODA Bilateral</entry>
+    <entry key="multilateralOda.advanceQuestionnaire">AQ ODA Multilateral</entry>
+    <entry key="multilateralOda.CRS">CRS++ AOD Multilateral</entry>
+    <entry key="nonOda.nonExport">Non Export Non-AOD</entry>
+    <entry key="nonOda.export">Export Non-AOD</entry>
+    <entry key="nonOda.privateGrants">Granturi private Non-AOD</entry>
+    <entry key="nonOda.privateMarket">Piaţă privată Non-AOD</entry>
+    <entry key="nonOda.otherFlows">Alte fluxuri financiare Non-AOD</entry>
+    <entry key="nonOda.export">Piaţă privată Non-AOD</entry>
+    <entry key="nonOda.export">Credit la export Non-AOD</entry>
 </properties>

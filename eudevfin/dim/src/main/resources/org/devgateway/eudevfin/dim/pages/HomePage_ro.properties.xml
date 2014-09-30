@@ -12,32 +12,12 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <entry key="desktop.lastTxByAgriculture">Last transactions - Agriculture</entry>
-    <entry key="desktop.lastTxByTransport">Last transactions - Transport</entry>
+    <entry key="desktop.lastTxByAgriculture">Ultimele tranzacţii - Agricultură</entry>
+    <entry key="desktop.lastTxByTransport">Ultimele tranzacţii- Transport</entry>
     <entry key="desktop.lastTxByDraft">Draft</entry>
     <entry key="desktop.lastTxByFinal">Final</entry>
-    <entry key="desktop.lastTxByApproved">Approved</entry>
-    <entry key="desktop.search.label">Search transactions</entry>
-    <entry key="desktop.search.placeholder">Start typing</entry>
-    
-    <entry key="desktop.searchbutton">Search transactions</entry>
-    <entry key="desktop.resetbutton">Reset</entry>
-    
-    <entry key="year.label">Year</entry>
-    <entry key="year.placeholder">Year</entry>
-    
-    <entry key="sector.label">Sector</entry>
-    <entry key="sector.placeholder">Sector</entry>
-    
-    <entry key="extendingAgency.label">Reporting Agency</entry>
-    <entry key="extendingAgency.placeholder">Reporting Agency</entry>
-    
-    <entry key="formType.label">Form Type</entry>
-    <entry key="formType.placeholder">Form Type</entry>
-    
-    <entry key="recipient.label">Recipient</entry>
-    <entry key="recipient.placeholder">Recipient</entry>
-    
-    
-	<entry key="page.title">List of Saved Transactions</entry>    
+    <entry key="desktop.lastTxByApproved">Aprobat</entry>
+    <entry key="desktop.search.label">Căutaţi tranzacţii:</entry>
+    <entry key="desktop.search.placeholder">Începeţi să tastaţi</entry>
+    <entry key="page.title">Lista tranzacţiilor salvate</entry>
 </properties>

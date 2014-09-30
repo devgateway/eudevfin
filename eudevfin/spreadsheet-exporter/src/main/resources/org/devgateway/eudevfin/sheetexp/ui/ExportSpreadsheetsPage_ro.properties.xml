@@ -9,10 +9,10 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-	<entry key="year-filter.label">Export year</entry>
-	<entry key="year-filter.placeholder">YYYY</entry>
-    <entry key="year-filter.help">Year for which data is to be exported.</entry>
+    <entry key="year-filter.label">An export</entry>
+    <entry key="year-filter.placeholder">AAAA</entry>
+    <entry key="year-filter.help">Anul la care datele vor fi exportate</entry>
     <entry key="year-filter.help.detail"></entry>
-    <entry key="crs.filter-form.submit">Export CRS sheet</entry>
-    <entry key="iati.filter-form.submit">Export IATI XML</entry>
+    <entry key="crs.filter-form.submit">Exportaţi fişierul CRS</entry>
+    <entry key="fss.filter-form.submit">Exportaţi fişierul FSS</entry>
 </properties>

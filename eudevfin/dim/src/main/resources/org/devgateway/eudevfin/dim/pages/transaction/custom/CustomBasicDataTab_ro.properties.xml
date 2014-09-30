@@ -9,120 +9,68 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <entry key="7bCPA.label">7.b Is this Country Programmable Aid (CPA)</entry>
+    <entry key="7bCPA.label">7.b Este aceasta Asistenţă Programabilă de Ţară (APT)?</entry>
     <entry key="7bCPA.placeholder"></entry>
-    <entry key="7bCPA.help">See definition of CPA in the Glossary</entry>
-    <entry key="7bCPA.help.detail">Field no. 7 bis - Is this Country Programmable Aid (CPA)?: Country Programmable Aid
-        (CPA)
-        reflects the amount of aid that can be programmed by the donor at partner country level. CPA is aid which is NOT
-        included in
-        the following categories: (i) aid that is unpredictable by nature (humanitarian aid and debt forgiveness and
-        reorganisation),
-        entails no cross-border flows (development research in donor country, promotion of development awareness,
-        imputed student costs,
-        refugees in donor country and administrative costs), does not form part of co-operation agreements between
-        governments
-        (food aid and aid extended by local governments in donor countries), is not country programmable by the donor
-        (core funding to national NGOs and International NGOs), or is not susceptible for programming at country level
-        (e.g. contributions to Public Private Partnerships, for some donors aid extended by other agencies than the main
-        aid agency).
-        For more info go to
-        http://www.oecd.org/development/effectiveness/countryprogrammableaidcpafrequentlyaskedquestions.htm
-    </entry>
-
-    <entry key="7cPriorityStatus.label">7.c Priority status of the Recipient</entry>
+    <entry key="7bCPA.help">Vezi definiţia APT în glosar</entry>
+    <entry key="7bCPA.help.detail">Câmpul nr. 7bis- Este aceasta Asistenţă Programabilă de Ţară (APT)? Asistenţa Programabilă de Ţară reflectă cantitatea de asistenţă ce poate fi programată de donator la nivel de ţară parteneră. APT este asistenţă ce NU este inclusă în următoarele categorii: (i) asistenţă ce este imprevizibilă prin natura sa (asistenţă umanitară şi eliminarea datoriilor şi reorganizare); (ii) nu presupune deplasări transfrontaliere (cercetări în domeniul dezvoltării în ţara donatoare, creşterea conştientizării publice despre dezvoltare, imputarea costurilor studenţilor, refugiaţi în ţări donatoare, cheltuieli administrative); (iii) nu face parte din acordurile de cooperare dintre guverne (asistenţă alimentară şi asistenţă acordată de către guvernele locale în ţările donatoare); (iv) nu este programabilă de către donator (contribuţii neafectate către organizaţii non-guvernamentale naţionale şi internaţionale) sau nu este predispusă pentru programare la nivel de ţară (de exemplu: contribuţii către parteneriate public private, pentru anumiţi donatori, asistenţă acordată de alte agenţii decât principal agenţie de asistenţă). Pentru mai multe informaţii, vizitaţi: http://www.oecd.org/development/effectiveness/countryprogrammableaidcpafrequentlyaskedquestions.htm</entry>
+    <entry key="7aRecipientCode.label">7.a Codul beneficiarului</entry>
+    <entry key="7aRecipientCode.placeholder"></entry>
+    <entry key="7aRecipientCode.help">Alegeţi un cod asociat ţării respective din lista verticală bazată pe lista AOD a DAC  (vezi glosar)</entry>
+    <entry key="7aRecipientCode.help.detail">Câmpul nr.7a-Codul beneficiarului: Termenul beneficiar şi codul aferent se referă la ţările şi regiunile din lista AOD a DAC disponibilă la: http://www.oecd.org/dac/stats/Codelist09082013.xls. Proiectele şi programele regionale sunt raportabile în cadrul celei mai specifice categorii "regionale/multi ţară" disponibile (de exemplu, sudul Saharei pentru un proiect regionale în vestul Africii). Categoria "bilateral, nealocat" este folosit în cazul în care o activitate serveşte mai multor regiuni. De asemenea folosit pentru o serie de activităţi implementate în ţări donatoare precum: costuri administative ce nu sunt include în altă parte. Cercetări în domeniul dezvoltării, studii sau seminarii desfăşurate în ţări donatoare dar privind  o anumită ţară/regiune beneficiară trebuie să fie codate la ţara/regiunea beneficiară. Cursurile de training în ţările donatoare pentru participanţi provenind din ţări în curs de dezvoltare trebuie să fie codate sub categoria ţării/regiunii de origine a participanţilor.</entry>
+    <entry key="7cPriorityStatus.label">7.c Statutul prioritar al beneficiarului</entry>
     <entry key="7cPriorityStatus.placeholder"></entry>
-    <entry key="7cPriorityStatus.help">Type 'Priority' if the partner country is a priority partner country. If not,
-        please leave blank.
-    </entry>
-    <entry key="7cPriorityStatus.help.detail">Field no. 7c - Priority status of the recipient: type 'Priority' if the
-        partner country is a priority partner country. If not, please leave blank.
-    </entry>
-
-
-    <entry key="7dPhasingOutYear.label">7.d If phasing out, by which year?</entry>
+    <entry key="7cPriorityStatus.help">Redactaţi "Prioritate" dacă ţara parteneră este o ţară parteneră prioritară. Dacă nu, lasaţi spaţiul gol.</entry>
+    <entry key="7cPriorityStatus.help.detail">Câmpul nr. 7c - Statutul prioritar al benefeciarului: redactaţi "prioritate" dacă ţara parteneră este o ţară parteneră prioritară. Dacă nu, lasaţi spaţiul gol.</entry>
+    <entry key="7dPhasingOutYear.label">7.d. În cazul în care programul se retrage treptat, indicaţi  în ce an se va face acest lucru?</entry>
     <entry key="7dPhasingOutYear.placeholder"></entry>
-    <entry key="7dPhasingOutYear.help">YYYY (If there are plans to phase out operations from the partner country, please
-        indicate the projected year of last disbursement)
-    </entry>
-    <entry key="7dPhasingOutYear.help.detail">Field no. 7d - If phasing out, by which year?: If there are plans to phase
-        out operations from the partner country, please indicate the projected year of last disbursement
-    </entry>
-
-    <entry key="14bisUploadDocumentation.label">14.bis Upload Available Documentation</entry>
+    <entry key="7dPhasingOutYear.help">AAAA (Dacă există planuri de retragere treptată  a operaţiunilor dintr-o ţară parteneră, indicaţi anul estimat al ultimei plăţi)</entry>
+    <entry key="7dPhasingOutYear.help.detail">Câmpul nr. 7d - În cazul în care programul se retrage treptat, indicaţi  în ce an se va face acest lucru?: Dacă există planuri de retragere treptată  a operaţiunilor dintr-o ţară parteneră, indicaţi anul estimat ultimei plăţi.</entry>
+    <entry key="14bisUploadDocumentation.label">14.bis Încărcaţi documentele disponibile</entry>
     <entry key="14bisUploadDocumentation.placeholder"></entry>
-    <entry key="14bisUploadDocumentation.help">Project Terms of Reference and latest project report</entry>
-    <entry key="14bisUploadDocumentation.help.detail">Field no. 14 bis - Upload available documentation: If terms of
-        reference is not available, the call of proposal or parts of the contract agreement could be uploaded. The
-        latest porject report could be the Inception report, the proegress report or the final report. An evaluation
-        report after the conclusion of the project would also be fine.
-    </entry>
-
-    <entry key="14aProjectCoFinanced.label">14.a Is this project co-financed?</entry>
+    <entry key="14bisUploadDocumentation.help">Termeni de referinţă ai proiectului şi ultimul raport de proiect</entry>
+    <entry key="14bisUploadDocumentation.help.detail">Câmpul nr.14 bis- Încărcaţi documentele disponibile: Dacă termenii de referinţă nu sunt disponibili, poti fi încărcate apelul de propuneri sau părţi ale contractului. Cel mai recent raport la proiectului poate să fie Raportul de început, raportul de progres sau raportul final. De asemenea, poate fi încărcată şi o evaluare după concluziile proiectului.</entry>
+    <entry key="14aProjectCoFinanced.label">14.a  Este proiectul co-finanţat?</entry>
     <entry key="14aProjectCoFinanced.placeholder"></entry>
-    <entry key="14aProjectCoFinanced.help">Yes or NO</entry>
-    <entry key="14aProjectCoFinanced.help.detail">Fields no. 14a - Is this project co-financed? : There may be two types
-        of co-financing: i) cofinaning between your agency and other international donor(s) (e.g. tri-partate projects);
-        ii) cofinaning between your agency and other national agency(ies). In both cases input only the amount related
-        to your financing in the fields no. 33 and below. The fields no. 14b to 14l will be used to provide information
-        about the financial contributions by the other co-financiers, for simple reference.
-    </entry>
-
-    <entry key="14b1stAgency.label">Name of 1st co-financing agency</entry>
+    <entry key="14aProjectCoFinanced.help">DA sau NU</entry>
+    <entry key="14aProjectCoFinanced.help.detail">Câmpul nr.14 a- Este proiectul co-finanţat? Pot exista două posibilităţi de co-finanţare: i) co-finanţare între agenţia dvs şi alţi donatori internaţionali (de exemplu, proiecte tripartite); ii) co-finanţare între agenţia dvs şi alte agenţii naţionale. În aceste cazuri, se va introduce numai suma aferentă finanţării dvs în câmpurile nr.33 şi cele de mai jos. Câmpurile  14b - 14l voi fi folosite pentru a introduce informaţii despre contribuţiile financiare ale altor co-finanţatori, doar pentru referinţă.</entry>
+    <entry key="14b1stAgency.label">Numele primei agenţii co-finanţatoare</entry>
     <entry key="14b1stAgency.placeholder"></entry>
     <entry key="14b1stAgency.help"></entry>
     <entry key="14b1stAgency.help.detail"></entry>
-
-    <entry key="14c1stAgencyAmount.label">Amount co-financed</entry>
+    <entry key="14c1stAgencyAmount.label">Suma co-finanţată</entry>
     <entry key="14c1stAgencyAmount.placeholder"></entry>
     <entry key="14c1stAgencyAmount.help"></entry>
     <entry key="14c1stAgencyAmount.help.detail"></entry>
-
-    <entry key="14d1stAgencyCurrency.label">Currency</entry>
+    <entry key="14d1stAgencyCurrency.label">Moneda</entry>
     <entry key="14d1stAgencyCurrency.placeholder"></entry>
-    <entry key="14d1stAgencyCurrency.help">Currency used by the co-fiancing agency</entry>
-    <entry key="14d1stAgencyCurrency.help.detail">Currency used by the co-financing agency if different from the
-        currency used by your agency
-    </entry>
-
-
-    <entry key="14e2ndAgency.label">Name of 2nd co-financing agency</entry>
+    <entry key="14d1stAgencyCurrency.help">Moneda folosită de agenţia co-finanţatoare</entry>
+    <entry key="14d1stAgencyCurrency.help.detail">Moneda folosită de agenţia co-finanţatoare în cazul în care moneda diferă de cea folosită de agenţia dvs</entry>
+    <entry key="14e2ndAgency.label">Numele celei de-a doua agenţii co-finanţatoare</entry>
     <entry key="14e2ndAgency.placeholder"></entry>
     <entry key="14e2ndAgency.help"></entry>
     <entry key="14e2ndAgency.help.detail"></entry>
-
-    <entry key="14f2ndAgencyAmount.label">Amount co-financed</entry>
+    <entry key="14f2ndAgencyAmount.label">Suma co-finanţată</entry>
     <entry key="14f2ndAgencyAmount.placeholder"></entry>
     <entry key="14f2ndAgencyAmount.help"></entry>
     <entry key="14f2ndAgencyAmount.help.detail"></entry>
-
-    <entry key="14g2ndAgencyCurrency.label">Currency</entry>
+    <entry key="14g2ndAgencyCurrency.label">Moneda</entry>
     <entry key="14g2ndAgencyCurrency.placeholder"></entry>
-    <entry key="14g2ndAgencyCurrency.help">Currency used by the co-fiancing agency</entry>
-    <entry key="14g2ndAgencyCurrency.help.detail">Currency used by the co-financing agency if different from the
-        currency used by your agencyt
-    </entry>
-
-    <entry key="14h3rdAgency.label">Name of 3rd co-financing agency</entry>
+    <entry key="14g2ndAgencyCurrency.help">Moneda folosită de agenţia co-finanţatoare</entry>
+    <entry key="14g2ndAgencyCurrency.help.detail">Moneda folosită de agenţia co-finanţatoare în cazul în care moneda diferă de cea folosită de agenţia dvs</entry>
+    <entry key="14h3rdAgency.label">Numele celei de-a treia agenţii co-finanţatoare</entry>
     <entry key="14h3rdAgency.placeholder"></entry>
     <entry key="14h3rdAgency.help"></entry>
     <entry key="14h3rdAgency.help.detail"></entry>
-
-    <entry key="14i3rdAgencyAmount.label">Amount co-financed</entry>
+    <entry key="14i3rdAgencyAmount.label">Suma co-finanţată</entry>
     <entry key="14i3rdAgencyAmount.placeholder"></entry>
     <entry key="14i3rdAgencyAmount.help"></entry>
     <entry key="14i3rdAgencyAmount.help.detail"></entry>
-
-    <entry key="14j3rdAgencyCurrency.label">Currency</entry>
+    <entry key="14j3rdAgencyCurrency.label">Moneda</entry>
     <entry key="14j3rdAgencyCurrency.placeholder"></entry>
-    <entry key="14j3rdAgencyCurrency.help">Currency used by the co-fiancing agency</entry>
-    <entry key="14j3rdAgencyCurrency.help.detail">Currency used by the co-financing agency if different from the
-        currency used by your agency
-    </entry>
-
-    <entry key="14table.cofinancingAgency">Co-financing</entry>
-    <entry key="14table.1stAgency">1st Agency</entry>
-    <entry key="14table.2ndAgency">2nd Agency</entry>
-    <entry key="14table.3rdAgency">3rd Agency</entry>
-
+    <entry key="14j3rdAgencyCurrency.help">Moneda folosită de agenţia co-finanţatoare</entry>
+    <entry key="14j3rdAgencyCurrency.help.detail">Moneda folosită de agenţia co-finanţatoare în cazul în care moneda diferă de cea folosită de agenţia dvs</entry>
+    <entry key="14table.cofinancingAgency">Co-finanţare</entry>
+    <entry key="14table.1stAgency">I Agenţie</entry>
+    <entry key="14table.2ndAgency">II Agenţie</entry>
+    <entry key="14table.3rdAgency">III Agenţie</entry>
 </properties>

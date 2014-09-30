@@ -9,6 +9,6 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-	<entry key="systemmaintenance.title">Maintenance of the system</entry>
+    <entry key="systemmaintenance.title">Mentenanţa sistemului</entry>
 </properties>
 

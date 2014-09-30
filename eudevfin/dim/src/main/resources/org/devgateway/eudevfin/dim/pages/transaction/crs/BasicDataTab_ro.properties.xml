@@ -4,190 +4,50 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-	<entry key="7recipient.label">7.Recipient</entry>
-	<entry key="7recipient.placeholder"></entry>
-	<entry key="7recipient.help">The term 'recipient country' is limited to the countries and regions in the DAC List of ODA (see
-		glossary)</entry>
-	<entry key="7recipient.help.detail">Field no. 7 - Recipient (country): The term 'recipient country' is limited to the countries and
-		regions in the DAC List of ODA available at http://www.oecd.org/dac/stats/Codelist09082013.xls .
-		Regional projects and
-		programmes are reportable under the most specific available 'regional/multi-country' category (e.g. use
-		South of Sahara
-		for a regional project in West Africa).
-		The category “bilateral, unallocated” is used if an activity benefits several
-		regions.
-		It is also used for a number of activities undertaken in donor countries such as administrative costs not
-		included
-		elsewhere.
-		Development-related research, studies or seminars undertaken in the donor country but relating to a
-		particular recipient country/region
-		should be coded under the recipient country/region.
-		Training courses in the donor
-		country for developing country participants should be coded under the country/countries of
-		origin of the participants.</entry>
-
-	<entry key="7bCPA.label">7.bis Is this Country Programmable Aid (CPA)?</entry>
-	<entry key="7bCPA.placeholder"></entry>
-	<entry key="7bCPA.help">See definition of CPA in the Glossary</entry>
-	<entry key="7bCPA.help.detail">Field no. 7 bis - Is this Country Programmable Aid (CPA)?: Country Programmable Aid (CPA) reflects the
-		amount of aid that can be programmed by the donor at partner country level.
-		CPA is aid which is NOT included in the
-		following categories: (i) aid that is unpredictable by nature (humanitarian aid
-		and debt forgiveness and
-		reorganisation);
-		(ii) entails no cross-border flows (development research in donor country, promotion of development
-		awareness, imputed student
-		costs, refugees in donor country and administrative costs);
-                (iii) does not form part of
-		co-operation agreements between
-		governments (food aid and aid extended by local governments in donor countries); (iv) is not
-		country programmable by the
-		donor (core funding to national NGOs and International NGOs), or is not susceptible for
-		programming at country level
-		(e.g. contributions to Public Private Partnerships, for some donors aid extended by other
-		agencies than the main aid
-		agency). For more info go to
-		http://www.oecd.org/development/effectiveness/countryprogrammableaidcpafrequentlyaskedquestions.htm</entry>
-
-	<entry key="8channelInstitutionName.label">8. Channel Institution Name</entry><entry key="8channelInstitutionName.help">Enter the name of the implementing agency</entry> <entry key="9channelOfDelivery.label">9. Channel of Delivery</entry>
-	<entry key="9channelOfDelivery.placeholder">Channel of delivery</entry>
-	<entry key="9channelOfDelivery.help">Enter the name of the bilateral or multilateral implementing agency (e.g. UN agency, NGO) from the ODA
-		list</entry>
-	<entry key="9channelOfDelivery.help.detail">Field no. 9 - Channel of delivery: Enter the name of the bilateral or multilateral implementing
-		agency from the ODA list available at http://www.oecd.org/dac/stats/Codelist09082013.xls . No multilateral
-		contributions should be recorded unless the recipient agency is included in the list. However, multilateral
-		organisations not listed can still serve as channels of delivery for bilateral ODA-eligible contributions. The channel
-		of delivery is the first implementing partner. It is the entity that has implementing responsibility over the funds
-		and is normally linked to the extending agency (the agency you work for) by a contract or other binding agreement, and
-		is directly accountable to it. In the case of use by the central aid authorities of other public sector agencies in
-		the donor country for implementation of specific activities, report “donor government” as the channel of delivery. For
-		a detailed classification of the channel of delivery main categories see paragraph 119 on page 29 of the CRS Reporitng
-		Directives available at http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-FINAL-ENG.pdf
-	</entry>
-
-	<entry key="10bilateralMultilateral.label">10. Bilateral/Multilateral</entry>
-	<entry key="10bilateralMultilateral.placeholder"></entry>
-	<entry key="10bilateralMultilateral.help">Expand to view full definition</entry>
-	<entry key="10bilateralMultilateral.help.detail">Field no. 10 -  1=bilateral ; 2=multilateral ; 3=bilateral core contributions to NGOs and civil society,
-		PPPs and research institutes; 7=bilateral, ex-post reporting on NGOs’ activities funded through core contributions;
-                Bilateral/Multilateral: Bilateral transactions are those undertaken by a donor country
-		directly with a developing country. They also encompass transactions with non-governmental organisations active in
-		development and other,internal development-related transactions such as interest subsidies, spending on promotion of
-		development awareness, debt reorganisation and administrative costs. The definition of a multilateral contribution is
-		based on two criteria: (i) the multilateral character of the recipient institution and (i) the multilateral character
-		of the contribution (e.g. funds are pooled so that they lose their identity and become an integral part of the
-		recipient institution’s financial assets). Donors’ contributions that satisfy both criteria should be recorded under
-		the heading "multilateral": Your public agency is requested to use Bi/Multi values 1-3 (or 7), while private sector
-		agencies should use value 6.
-	</entry>
-
-
-	<entry key="11typeOfFlow.label">11. Type of Flow</entry>
-	<entry key="11typeOfFlow.placeholder"></entry>
-	<entry key="11typeOfFlow.help">Expand to view full definition</entry>
-	<entry key="11typeOfFlow.help.detail">Field no. 11 - Type of flow:  10=ODA; 20=OOF; 30=Private NGO and other
-		private sources; 35=Private market; 40=Non flow (e.g. GNI);
-		50=Other flows (e.g. non-ODA component of peacebuilding operations)
-                Official Development Assistance (ODA) is defined as those flows to
-		countries and regions on the DAC List of ODA Recipients and to multilateral development institutions which are: i)
-		provided by official national agencies like yours and ii) each transaction of which: a) is administered with the
-		promotion of the economic development and welfare of developing countries as its main objective; and b) is
-		concessional in character and conveys a grant element of at least 25 per cent (calculated at a rate of discount of 10
-		per cent). For more detailed definition of ODA and all the other types of flow please refere to paragraphs 15-to-19 on
-		pages 7-8 of the CRS Reporitng Directives available at
-		http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-FINAL-ENG.pdf.
-	</entry>
-
-
-	<entry key="12typeOfFinance.label">12. Type of Finance</entry>
-	<entry key="12typeOfFinance.placeholder"></entry>
-	<entry key="12typeOfFinance.help">Expand to view full definition</entry>
-	<entry key="12typeOfFinance.help.detail">Field no. 12 - Type of finance: Grants are transfers in cash or in kind for which no legal debt is
-		incurred by the recipient. For ODA reporting purposes, they also include forgiveness of non-military debt; support to
-		non-governmental organisations; certain interest subsidies and certain costs incurred in the implementation of aid.
-		Grants to multilateral agencies intended to soften the terms of the latter’s lending are a direct resource outflow and
-		should also be recorded as ODA grants. For OOF reporting purposes, grants for commercial purposes such as subsidies to
-		national private investors, and grants to forgive military debt, are also included. Two other types of finance are
-		assimilated to grants in DAC statistics: i) Capital subscriptions are payments to multilateral agencies in the form of
-		notes and similar instruments, unconditionally encashable at sight by the recipient institutions; ii) Grant-like flows
-		comprise a) loans for which the service payments are to be made into an account in the borrowing country and used in
-		the borrowing country for its own benefit, and b) provision of commodities for sale in the recipient’s currency the
-		proceeds of which are used in the recipient country for its own benefit. For a complete list of sub-types and
-		associated codes please refer to paragraphs 22-to-33 on pages 9-11 of the CRS Reporitng Directives available at
-		http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-FINAL-ENG.pdf.
-	</entry>	
-	
-	<entry key="13typeOfAid.label">13. Type of Aid</entry>
-	<entry key="13typeOfAid.placeholder"></entry>
-	<entry key="13typeOfAid.help">Expand to view full definition</entry>
-	<entry key="13typeOfAid.help.detail">Field no. 13 - Type of aid: 
-                A02=Sector budget support
-		B01=Core support to NGOs and civil society, PPPs and
-		research institutes
-		B02=Core contributions
-		to multilateral institutions
-		B03=Contributions to specific-purpose programmes and
-		funds managed by international
-		organisations
-		(multilateral, INGO)
-		B04=Basket funds/pooled funding
-		C01= Project-type interventions
-		D01=Donor country
-		personnel
-		D02=Other technical assistance
-		E01=Scholarships/training in donor country
-		E02=Imputed student costs
-		F01=Debt
-		relief
-		G01=Administrative costs not included elsewhere
-		H01=Development awareness
-		H02=Refugees in donor countries
-                The type of aid classification distinguishes between the following aid
-		modalities: • A. budget support (for contributions under this category, the donor relinquishes the exclusive control of its funds by sharing the responsibility with the recipient); • B.
-		core contributions and pooled programs and funds (for contributions under this category, the donor relinquishes the
-		exclusive control of its funds by sharing the responsibility with other stakeholders - other donors, NGOs,
-		multilateral institutions, Public-private partnerships); • C. project-type interventions; • D. experts and other
-		technical assistance (this category covers the provision, outside projects, of know-how in the form of personnel,
-		training and research); • E. scholarships and student costs in donor countries; • F. debt relief (groups all actions
-		relating to debt – forgiveness, conversions, swaps, buy-backs, rescheduling, refinancing); • G. administrative costs
-		not included elsewhere; and • H. other in-donor expenditures (groups a number of contributions that do not give rise
-		to a cross- border flow). For a complete list of sub-types and associated codes please refer to Annex 11 on pages
-		63-68 of the CRS Reporitng Directives available at
-		http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-ADD1-FINAL-ENG.pdf . A01=General budget support
-         </entry>
-
-	<entry key="14activityProjectTitle.label">14. Activity/Project Title - Short Description</entry>
-	<entry key="14activityProjectTitle.placeholder">(max 150 characters)</entry>
-	<entry key="14activityProjectTitle.help">Insert here official project title ONLY</entry>
-	<entry key="14activityProjectTitle.help.detail">Field no. 14 - Short description/project title: Suggestion - insert here official project title ONLY,
-		to be used for all transactions related to this project. A full description of the project can be instered in field 19
-		of the CRS++ below.
-	</entry>
-
-	<entry key="15sectorPurposeCode.label">15. Sector/Purpose Code</entry>
-	<entry key="15sectorPurposeCode.placeholder"></entry>
-	<entry key="15sectorPurposeCode.help">The purpose/sector of destination of a bilateral contribution</entry>
-	<entry key="15sectorPurposeCode.help.detail">Field no. 15 - Sector / Purpose code: The purpose/sector of destination of a bilateral contribution
-		should be selected by answering the question “which specific area of the recipient’s economic or social structure is
-		the transfer intended to foster?”. The sector classification does not refer to the type of goods or services provided
-		by the donor.
-		Sector specific education or research activities (e.g. agricultural education) or construction of infrastructure (e.g.
-		agricultural storage) should be reported under the sector to which they are directed, not under education,
-		construction, etc. Only one sector (CRS purpose code) can be assigned to each contribution. When the contribution
-		benefits several sectors, the sector that receives the largest proportion of the contribution should be reported. For
-		a complete list of sectors and code please refer to paragraphs 128-to-131 on pages 32-33 of the CRS Reporting
-		Directives available at http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-FINAL-ENG.pdf
-	</entry>
-	
-	<entry key="validation.multilateralChannelCode">The selected code is invalid! Select only 4xxxx format codes when in multilateral forms!</entry>
-	<entry key="validation.bilateralField10Code">The selected code is invalid! Only the codes 1,3 and 7 are allowed here when filling the bilateral form!</entry>
-	<entry key="validation.multilateralField10Code">The selected code is invalid! Only the code 2 (Multilateral) is allowed here when filling in the multilateral form!</entry>	
-	<entry key="validation.field11Code">The selected code is invalid! Only the code 10 (ODA) is allowed here when filling in ODA forms!</entry>	
-	<entry key="validation.field12Code">The selected code is invalid! Only the following codes and their subcodes are allowed: 100, 300, 400, 500, 600</entry>	
-	
-	<entry key="validation.decorateB01For1xxxx">The selected code is invalid! B01 is NOT allowed if 1xxxx channel codes are selected.</entry>
-	<entry key="validation.decorateB01For2xxxx">The selected code is invalid! B01 is tied only to 2xxxx channel codes</entry>
-	<entry key="validation.decorateB01ForBiMulti3">The selected code is invalid! Bilateral forms with Type of Aid B01 are tied to Bilateral/Multilateral=3.</entry>
-	<entry key="validation.decorateB02ForBiMulti2">The selected code is invalid! Multilateral forms with Type of Aid B02 are tied to Bilateral/Multilateral=2.</entry>
-	<entry key="validation.field12TypeOfAidCode">The selected code is invalid! Type of Finance 600 must be associated with type of aid F01 (Debt relief)</entry>
+    <entry key="7recipient.label">7. Beneficiar</entry>
+    <entry key="7recipient.placeholder"></entry>
+    <entry key="7recipient.help">Termenul "țară beneficiară" se referă la țări şi regiuni din lista AOD a DAC (vezi glosar)</entry>
+    <entry key="7recipient.help.detail">Câmpul nr. 7  Ţară beneficiară: Termenul "ţară beneficiară" se referă la ţări şi regiuni din lista AOD a DAC (vezi glosar). Proiectele şi programele regionale sunt raportabile în cadrul celei mai specifice categorii "regionale/multi ţară" disponibile (de exemplu, sudul Saharei pentru un proiect regionale în vestul Africii). Categoria "bilateral, nealocat" este folosită în cazul în care o activitate serveşte mai multor regiuni. De asemenea, este folosit pentru o serie de activităţi implementate în ţări donatoare precum: costuri administrative ce nu sunt incluse în altă parte. Cercetări în domeniul dezvoltării, studii sau seminarii desfăşurate în ţări donatoare dar privind  o anumită ţară/regiune beneficiară trebuie să fie codate la ţara/regiunea beneficiară. Cursurile de training în ţările donatoare pentru participanţi provenind din ţări în curs de dezvoltare trebuie să fie codate sub categoria ţării/regiunii de origine a participanţilor.</entry>
+    <entry key="7bCPA.label">7.bis Este aceasta Asistenţă Programabilă de Ţară?</entry>
+    <entry key="7bCPA.placeholder"></entry>
+    <entry key="7bCPA.help">Vezi definiţia APT în glosar</entry>
+    <entry key="7bCPA.help.detail">Câmpul nr. 7bis- Este aceasta Asistenţă Programabilă de Ţară (APT)? Asistenţa Programabilă de Ţară reflectă volumul de asistenţă ce poate fi programată de donator la nivel de ţară parteneră. APT este asistenţă ce NU este inclusă în următoarele categorii: (i) asistenţă ce este imprevizibilă prin natura sa (asistenţă umanitară şi eliminarea datoriilor şi reorganizare); (ii) nu presupune deplasări transfrontaliere (cercetări în domeniul dezvoltării în ţara donatoare, creşterea conştientizării publice despre domeniul dezvoltării, imputarea costurilor studenţilor, refugiaţi în ţări donatoare, cheltuieli administrative); (iii) nu face parte din acordurile de cooperare dintre guverne (asistenţă alimentară şi asistenţă acordată de către guvernele locale în ţările donatoare); (iv) nu este programabilă de către donator (contribuţii neafectate către organizaţii non-guvernamentale naţionale şi internaţionale) sau nu este predispusă pentru programare la nivel de ţară (de exemplu: contribuţii către parteneriate public private, pentru anumiţi donatori, asistenţă acordată de alte agenţii decât principala agenţie de asistenţă). Pentru mai multe informaţii, vizitaţi: http://www.oecd.org/development/effectiveness/countryprogrammableaidcpafrequentlyaskedquestions.htm</entry>
+    <entry key="8channelDelivery.label">8/9. Canal şi cod de livrare al numelui</entry>
+    <entry key="8channelDelivery.placeholder">Nume şi cod al agenţiei  implementatoare</entry>
+    <entry key="8channelDelivery.help">Introduceţi numele agenţiei implementoare bilaterale sau multilaterale  (de exemplu, agenţii ONU, organizaţii non-guvernamentale) din lista  AOD</entry>
+    <entry key="8channelDelivery.help.detail">Camp nr. 8/9 Canalul şi codul de livrare al numelui: introduceţi numele agenţiei implementatoare bilaterale sau multilaterale din lista AOD disponibilă la: http://www.oecd.org/dac/stats/Codelist09082013.xls. Nicio contribuţie multilaterală nu trebuie înregistrată decât dacă agenţia beneficiară este inclusă în listă. Însă, organizaţiile multilaterale care nu sunt incluse in listă pot fi canale de livrare a contribuţiilor AOD bilaterale eligibile. Canalul de livrare este primul partener de implementare. Este entitatea responsabilă de fonduri şi este în mod normal conectată cu agenţia extinsă (agenţia pentru care lucraţi) printr-un contract sau o altă formă legală de acord şi căreia îi este direct răspunzătoare. În cazul folosirii de către autorităţile centrale de asistenţă ale altor agenţii din sectorul public din ţara donatoare pentru implementarea unor activităţi specifice, se va raporta „guvern donator” la canal de livrare. Pentru o clasificare detaliată a principalelor categorii ale canalelor de livrare vezi paragraful 119, pagina 29 a Directivelor de Raportare CRS ce se găsesc la: http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-FINAL-ENG.pdf </entry>
+    <entry key="10bilateralMultilateral.label">10. Bilateral/Multilateral</entry>
+    <entry key="10bilateralMultilateral.placeholder"></entry>
+    <entry key="10bilateralMultilateral.help">Extindeţi pentru a vedea definiţia completă</entry>
+    <entry key="10bilateralMultilateral.help.detail">Câmpul nr.10-  1=bilateral; 2= multilateral; 3= contribuţii bilateral neafectate către organizaţii non-guvernamentale şi societatea civilă, PPPs şi institute de cercetare; 7= bilateral,  raportare finală a activităţilor ong-urilor finanţate prin contribuţii neafectate; Bilateral/ Multilateral: tranzacţiile bilaterale sunt coordonate de către donator direct cu ţara în curs de dezvoltare.  De asemenea, includ trazacţii cu organizaţii non-guvernamentale ce activează în domeniul dezvoltării şi alte tranzacţii interne legate de domeniul dezvoltării precum: subvenţii pentru dobândă, cheltuieli privind creşterea conştientizării publice despre domeniul dezvoltării, reorganizarea datoriilor şi costuri administrative. Definiţia unei contribuţii multilaterale este bazată pe două criterii: (i) caracterul multilateral al ţării beneficiare şi (ii) caracterul multilateral al contribuţiei (de exemplu: fondurile sunt cumulate astfel încât devin parte integrată ale activelor instituţiei  beneficiare).  Contribuţiile donatorilor care îndeplinesc ambele criterii trebuie înregistrate la rubrica „multilateral”: agenţia dvs publică trebuie să folosească valori Bi/Multi 1-3 (sau 7), în timp ce agenţiile din sectorul privat trebuie să folosească valoarea nr. 6</entry>
+    <entry key="11typeOfFlow.label">11. Tipul de flux financiar</entry>
+    <entry key="11typeOfFlow.placeholder"></entry>
+    <entry key="11typeOfFlow.help">Extindeţi pentru a vedea definiţia completă</entry>
+    <entry key="11typeOfFlow.help.detail">Câmpul nr. 11- Tipul de câmp financiar, 10=AOD, 20=OOF, 30= ONG-uri private şi alte surse private, 35=Piaţa privată, 40=non fluxuri, (de ex, VNB), 50= alte fluxuri (de exemplu, componenta non-AOD a operaţiunilor de construirea păcii), Asistenţă Oficială de Dezvoltare (AOD) este definită ca acele tip de fluxuri către ţări şi regiuni din lista DAC a ţărilor beneficiare AOD şi către instituţii de dezvoltare multilaterală: i) agenţii naţionale oficiale ca a dvs, ii) fiecare tranzacţie care: a) este cu scopul de a promova  dezvoltarea economică şi a bunăstării ţărilor în curs de dezvoltare, b) care au un caracter concesional şi un element de grant de cel puţin 25 calculat la o rată a dobânzii de 10 la sută). Pentru o definiţie dealiată a ADO şi a tuturor celorlalte tipuri de flux financiar, consultaţi paragrafele 15 la 19 la paginile 7-8 ale Directivelor de Raportare CRS disponibile la: http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-FINAL-ENG.pdf</entry>
+    <entry key="12typeOfFinance.label">12. Tipul de Finanţe</entry>
+    <entry key="12typeOfFinance.placeholder"></entry>
+    <entry key="12typeOfFinance.help">Extindeţi pentru a vedea definiţia completă</entry>
+    <entry key="12typeOfFinance.help.detail">Câmpul nr.12- Tipul de flux financiar: Granturile sunt transferuri în numerar sau sub forma aportului în natură pentru care beneficiarului nu îi e percepută nicio datorie legală. În scopul raportării AOD ele includ, ştergerea datoriilor ne-militare, sprijin către ong-uri; anumite subvenţii de dobândă şi costuri de implementare a asistenţei. Granturi către agenţiile multilaterale menite să reducă termenii de împrumut sunt ieşiri directe de resurse şi trebuie de asemenea să fie înregistrate ca granturi AOD. Pentru raportarea altor fluxuri oficiale (OOF) sunt de asemenea incluse granturile cu scop comercial precum suvenţiile către investitori naţionali privaţi şi granturi pentru ştergerea datoriilor militare. Alte două tipuri de fluxuri financiare sunt asimilate granturilor în statistica DAC: i) subscripţii de capital sunt plăţi către agenţii multilaterali sub forma notelor financiare sau a altor instrumente similare, care pot fi încasate necondiţionat pe loc de către instituţiile beneficiare; ii) fluxurile de tip grant curprind: a) împrumutul pentru plăţile serviciilor sunt făcute într-un cont din ţara care împrumută şi folosite în ţara care împrumută pentru beneficiul propriu, şi b) provizioane ale mărfurilor de vânzare în moneda naţională a ţării beneficiare şi al cărui câştig  este folosit de ţara beneficiară în beneficiul propriu. Pentru o listă completă a sub-tipulor şi codurilor asociate, va rugăm consultaţi paragraf 22-33 de la pag. 9-11 din directivele de raportare CRS disponibile: http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-FINAL-ENG.pdf.</entry>
+    <entry key="13typeOfAid.label">13. Tipul de asistenţă</entry>
+    <entry key="13typeOfAid.placeholder"></entry>
+    <entry key="13typeOfAid.help">Extindeţi pentru a vedea definiţia completă</entry>
+    <entry key="13typeOfAid.help.detail">Câmpul nr. 13- Tipul de asistenţă, A02=Sprijin bugetar sectorial, B02 sprijin neafectat către ong, şi societate civilă, PPP-uri şi institute de cercetare, B02, contribuţii neafectate către instituţii multilaterale, B03= contribuţii către programe cu scop specific şi fonduri administrate de către organizaţii internaţionale (multilaterale, organizaţii internaţionale neguvernamentale), B04= fonduri cumulate, C01= intervenţii de tip proiect, D01= personal al ţării donatoare, D02= alt tip de asistenţă tehnică, E01= burse sau training în ţara donatoare, E02= costuri imputate pentru studenţi, F01= ştergerea datoriilor, G01= costuri administrative neincluse în altă parte, H01= conştientizare publică despre domeniul dezvoltării, H02=  refugiaţi în ţări donatoare. Clasificarea tipului de asistenţă distinge următoarele modalităţi: -A. sprijin bugetar (pentru contribuţiile din această categorie, donatorul renunţă la drepturi, -B. contribuţii neafectate şi programe şi fonduri cumulate (pentru contribuţii din această categorie donatorul renunţă la controlul exclusiv al fondurilor împărţindu-şi responsabilitatea cu alţi actori implicaţi: alţi donatori, ONG-uri, instituţii multilaterale, parteneriate public-private, -C intervenţii de tip proiect; -D. experţi şi asistenţă tehnică (această categorie implică furnizarea de know-how sub formă de personal, training şi cercetare); -E. burse şi costuri pentru studenţi în ţătile donatoare; -F. ştergerea datoriei (grupează toate acţiunile legate de datorii- ştergere, conversii, swap-uri, răscumpărări, refinanţări, reeşalonări); G. costuri administrative care nu sunt incluse în altă parte, şi -H. alte cheltuieli în ţara donatoare (grupează un număr de contribuţii care nu dau naştere unei creşteri de flux financiar  transfrontalier). Pentru o listă completă, sub-tipuri şi coduri asociate, vă rugăm să consultaţi Anexa 11, paginile 63-68 a Directivelor de Raportare CRS disponibile la: http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-ADD1-FINAL-ENG.pdf</entry>
+    <entry key="14activityProjectTitle.label">14. Titlul proiectului/ activităţii- Scurtă descriere</entry>
+    <entry key="14activityProjectTitle.placeholder">(max 150 caractere)</entry>
+    <entry key="14activityProjectTitle.help">Introduceţi aici DOAR titlul oficial al proiectului</entry>
+    <entry key="14activityProjectTitle.help.detail">Câmpul nr.14- scurtă descriere/ titul proiectului: Sugestie: introduceţi aici DOAR titlul oficial al proiectului, a se folosi numai pentru tranzacţii legate de acest proiect. O descriere completă a proiectului va fi introdusă în câmpul 19. al CRS++ de mai jos</entry>
+    <entry key="15sectorPurposeCode.label">15. Scopul sectorului/codului</entry>
+    <entry key="15sectorPurposeCode.placeholder"></entry>
+    <entry key="15sectorPurposeCode.help">Scopul/sectorul destinaţiei contribuţiei bilaterale</entry>
+    <entry key="15sectorPurposeCode.help.detail">Câmpul nr. 15 Codul sectorului/ scopului:  Scopul/sectorul destinaţiei contribuţiei bilaterale trebuie să raspundă întrebării: "ce arie specifică a economiei sau structurii sociale a beneficiarului este menit să susţină transferul?`. Clasificare sectorului nu se referă la tipul de bunuri sau servicii oferite de donator. Activităţi educaţionale sau de cercetare specifice sectorului (de exemplu, educaţie în domeniul agricol. Fiecărei contribuţii în sector poate fi atribuit doar un sector (codul scopului CRS). Când contribuţia serveşte mai multor sectoare,  va fi raportat sectorul care primeşte cea mai mare proporţie a contribuţiei. Pentru o listă completă a sectoarelor şi codurilor, vă rugăm consultaţi  paragrafele: 128-131 paginile 32-33 ale Directivelor de Raportare CRS disponibile la: http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-FINAL-ENG.pdf</entry>
+    <entry key="validation.multilateralChannelCode">Codul selectat este invalid! Selectaţi doar format 4xxxx pentru formele multilaterale!</entry>
+    <entry key="validation.bilateralField10Code">Codul selectat este invalid! Doar codurile 1,3 şi 7 pot fi folosite aici pentru completarea formelor bilaterale</entry>
+    <entry key="validation.multilateralField10Code">Codul selectat este invalid! Este permis doar codul 2 (multilateral) pentru completarea formelor multilaterale</entry>
+    <entry key="validation.field11Code">Codul selectat este invalid! Doar codul 10 (AOD) este permis pentru completarea formatelor AOD!</entry>
+    <entry key="validation.field12Code">Codul selectat este invalid! Doar următoarele coduri şi subordonatele lor sunt permise: 100, 300, 400, 500, 600.</entry>
+    <entry key="validation.decorateB01For1xxxx">Codul selectat este invalid! B01 nu este permis atunci când codurile 1xxxx de canal sunt selectate</entry>
+    <entry key="validation.decorateB01For2xxxx">Codul selectat este invalid! B01 este legat doar de codurile de canal 2xxxx</entry>
+    <entry key="validation.decorateB01ForBiMulti3">Codul selectat este invalid! Formele bilaterale cu tipul de asistenţă B01 sunt legate de Bilateral/Multilateral=3</entry>
+    <entry key="validation.decorateB02ForBiMulti2">Codul selectat este invalid! Formele multilaterale cu tip de asistenţă B02 sunt legate de Bilateral/Multilateral=2.</entry>
+    <entry key="validation.field12TypeOfAidCode">Codul selectat este invalid! Tipul de Finanţe 600 trebuie să fie asociat cu tipul de asistenţă F01 (Reducerea datoriilor)</entry>
 </properties>
