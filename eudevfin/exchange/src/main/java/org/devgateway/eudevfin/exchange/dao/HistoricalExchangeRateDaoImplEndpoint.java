@@ -91,8 +91,13 @@ public class HistoricalExchangeRateDaoImplEndpoint extends AbstractDaoImpl<Histo
 	 */
 	@ServiceActivator(inputChannel = "findRatesForDateChannel")
 	public Iterable<HistoricalExchangeRate> findRatesForDate(LocalDateTime date) {
-		Iterable<HistoricalExchangeRate> findByDate = repo.findByDate(date);
-		return findByDate;
+        try {
+            Iterable<HistoricalExchangeRate> findByDate = repo.findByDate(date);
+            return findByDate;
+        } catch (IllegalCurrencyException e) {
+            logger.warn("Unkown currency. Will not import the exchange rate!", e);
+            return null;
+        }
 	}
 
 	/**
