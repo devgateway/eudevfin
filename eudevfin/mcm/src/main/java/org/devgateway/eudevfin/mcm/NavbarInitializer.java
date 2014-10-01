@@ -7,9 +7,14 @@
  *******************************************************************************/
 package org.devgateway.eudevfin.mcm;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.DropDownSubMenu;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuBookmarkablePageLink;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuDivider;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuHeader;
+import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconType;
+import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
+import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarDropDownButton;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.button.DropDownAutoOpen;
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy;
@@ -27,14 +32,8 @@ import org.devgateway.eudevfin.ui.common.WicketNavbarComponentInitializer;
 import org.devgateway.eudevfin.ui.common.components.RepairedNavbarDropDownButton;
 import org.devgateway.eudevfin.ui.common.pages.LogoutPage;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.DropDownSubMenu;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuBookmarkablePageLink;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuDivider;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.dropdown.MenuHeader;
-import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconType;
-import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
-import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarDropDownButton;
-import de.agilecoders.wicket.extensions.markup.html.bootstrap.button.DropDownAutoOpen;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class holding static methods that initialize the wicket {@link Navbar}

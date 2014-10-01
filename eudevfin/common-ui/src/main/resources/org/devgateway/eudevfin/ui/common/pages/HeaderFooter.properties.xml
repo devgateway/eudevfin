@@ -22,6 +22,7 @@
 	<entry key="navbar.reports.export.crs">CRS++</entry>
 	<entry key="navbar.reports.export.fss">FSS</entry>
 	<entry key="navbar.reports.export.iati">IATI</entry>
+    <entry key="navbar.reports.publish">Publish Reports</entry>
     <entry key="navbar.logout">Log Out</entry>
     <entry key="navbar.admin">Admin</entry>
     <entry key="navbar.help">Help</entry>

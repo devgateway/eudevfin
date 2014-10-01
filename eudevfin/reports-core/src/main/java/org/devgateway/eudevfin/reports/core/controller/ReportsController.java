@@ -7,38 +7,10 @@
  *******************************************************************************/
 package org.devgateway.eudevfin.reports.core.controller;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.ResourceBundle;
-
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
-
 import mondrian.olap.Connection;
 import mondrian.olap.DriverManager;
 import mondrian.olap.Util.PropertyList;
 import mondrian.rolap.RolapConnectionProperties;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRParameter;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.util.JRLoader;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
-import net.sf.jasperreports.olap.JRMondrianQueryExecuterFactory;
-
-import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.auth.common.util.AuthUtils;
@@ -46,12 +18,9 @@ import org.devgateway.eudevfin.common.locale.LocaleHelper;
 import org.devgateway.eudevfin.financial.util.FinancialTransactionUtil;
 import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.devgateway.eudevfin.reports.core.dao.RowReportDao;
-import org.devgateway.eudevfin.reports.core.utils.ReportExporter;
-import org.devgateway.eudevfin.reports.core.utils.ReportTemplate;
 import org.joda.money.CurrencyUnit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,6 +29,16 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Calendar;
 
 @Controller
 public class ReportsController {
@@ -71,21 +50,22 @@ public class ReportsController {
 
     private static Logger logger = Logger.getLogger(ReportsController.class);
 
-    private final String REPORT_DATASOURCE_CRS = "CRS++ input form";
+    public static final String REPORT_DATASOURCE_AQ = "Advance Questionnaire input form";
+    public static final String REPORT_DATASOURCE_CRS = "CRS++ input form";
 
-	private static final String REPORT_TYPE = "reportType";
-	private static final String REPORT_TYPE_AQ = "aq";
-	private static final String REPORT_TYPE_DAC1 = "dac1";
-	private static final String REPORT_TYPE_DAC2A = "dac2a";
-	private static final String OUTPUT_TYPE = "outputType";
-	private static final String DATASOURCE = "dataSourceGroup:dataSource";
-	private static final String OUTPUT_TYPE_PDF = "pdf";
-	private static final String OUTPUT_TYPE_EXCEL = "excel";
-	private static final String OUTPUT_TYPE_HTML = "html";
-	private static final String OUTPUT_TYPE_CSV = "csv";
-	private static final String REPORT_YEAR = "reportYear";
-	private static final String REPORT_CURRENCY = "reportCurrency";
-	private static final String REPORT_DEFAULT_CURRENCY_CODE = "USD";
+	public static final String REPORT_TYPE = "reportType";
+	public static final String REPORT_TYPE_AQ = "aq";
+	public static final String REPORT_TYPE_DAC1 = "dac1";
+	public static final String REPORT_TYPE_DAC2A = "dac2a";
+	public static final String OUTPUT_TYPE = "outputType";
+	public static final String DATASOURCE = "dataSourceGroup:dataSource";
+	public static final String OUTPUT_TYPE_PDF = "pdf";
+	public static final String OUTPUT_TYPE_EXCEL = "excel";
+	public static final String OUTPUT_TYPE_HTML = "html";
+	public static final String OUTPUT_TYPE_CSV = "csv";
+	public static final String REPORT_YEAR = "reportYear";
+	public static final String REPORT_CURRENCY = "reportCurrency";
+	public static final String REPORT_DEFAULT_CURRENCY_CODE = "USD";
 
 	@Autowired
 	ApplicationContext applicationContext;
@@ -122,7 +102,7 @@ public class ReportsController {
 		mav.addObject("selectedCurrency", getCurrencyParameter());
 		return mav;
 	}
-	
+
     private String getCurrencyParameter() {
     	String currency;
     	if(RequestContextHolder.getRequestAttributes() != null && RequestContextHolder.getRequestAttributes().getAttribute("CURRENCY", RequestAttributes.SCOPE_SESSION) != null && !"".equals((String)RequestContextHolder.getRequestAttributes().getAttribute("CURRENCY", RequestAttributes.SCOPE_SESSION)))
@@ -135,7 +115,7 @@ public class ReportsController {
     	}
 		return currency;
 	}
-    
+
 	/**
 	 * Generate a report
 	 */
@@ -206,14 +186,132 @@ public class ReportsController {
 		return null;
 	}
 
+    /**
+     * Publish a report
+     */
+    @PreAuthorize("hasRole('" + AuthConstants.Roles.ROLE_SUPERVISOR + "')")
+    @RequestMapping(value = "/publish", method = {
+            RequestMethod.GET, RequestMethod.POST
+    })
+    public ModelAndView publishReport(HttpServletRequest request,
+                                      HttpServletResponse response,
+                                      ModelAndView modelAndView)  throws IOException {
+        String reportType = request.getParameter(REPORT_TYPE);
+        String yearParam = request.getParameter(REPORT_YEAR);
+        String dataSource = request.getParameter(DATASOURCE);
+
+        // add default values
+        if (reportType == null || reportType.equals("")) {
+            reportType = REPORT_TYPE_AQ;
+        }
+        if (yearParam == null || yearParam.equals("")) {
+            yearParam = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
+        }
+        String currency = request.getParameter(REPORT_CURRENCY);
+        if (currency == null || currency.equals("")) {
+            currency = REPORT_DEFAULT_CURRENCY_CODE;
+        }
+
+        if (REPORT_TYPE_AQ.equals(reportType)) {
+            if (!REPORT_DATASOURCE_CRS.equals(dataSource)) {
+                dataSource = REPORT_DATASOURCE_AQ;
+            }
+        }
+
+        String serverInstance = "";
+        Organization organizationForCurrentUser = AuthUtils.getOrganizationForCurrentUser();
+        if (organizationForCurrentUser != null) {
+            serverInstance = organizationForCurrentUser.getDonorName();
+        }
+
+        Connection connection = ReportsControllerUtils.createMondrianConnection(applicationContext, cdaDataSource, request);
+
+        String tmpDirPath = System.getProperty("java.io.tmpdir");
+        String dirPath = tmpDirPath + File.separator + serverInstance +  "Repository" +
+                File.separator + reportType;
+        String filePathPDF = dirPath + File.separator + reportType.toUpperCase() + "_"  +
+                yearParam + (dataSource == null ? "" : "_" + dataSource) + ".pdf";
+        String filePathXLS = dirPath + File.separator + reportType.toUpperCase() + "_"  +
+                yearParam + (dataSource == null ? "" : "_" + dataSource) + ".xls";
+
+        File dir = new File(dirPath);
+        File filePDF = new File(filePathPDF);
+        File fileXLS = new File(filePathXLS);
+        FileOutputStream fosPDF = null;
+        FileOutputStream fosXLS = null;
+        ByteArrayOutputStream baosPDF;
+        ByteArrayOutputStream baosXLS;
+
+        try {
+            // create the directory structure
+            dir.mkdirs();
+
+            // delete the files if it already exist
+            if (filePDF.exists()) {
+                filePDF.delete();
+            }
+            if (fileXLS.exists()) {
+                fileXLS.delete();
+            }
+
+            filePDF.createNewFile();
+            fileXLS.createNewFile();
+            fosPDF = new FileOutputStream (filePDF);
+            fosXLS = new FileOutputStream (fileXLS);
+
+            switch (reportType) {
+                case REPORT_TYPE_AQ:
+                    baosPDF = ReportsControllerUtils.generateAdvanceQuestionnaire(connection, yearParam,
+                            OUTPUT_TYPE_PDF, currency, dataSource);
+                    baosPDF.writeTo(fosPDF);
+
+                    baosXLS = ReportsControllerUtils.generateAdvanceQuestionnaire(connection, yearParam,
+                            OUTPUT_TYPE_EXCEL, currency, dataSource);
+                    baosXLS.writeTo(fosXLS);
+
+                    break;
+                case REPORT_TYPE_DAC1:
+                    baosPDF = ReportsControllerUtils.generateDAC1(connection, rowReportDao, yearParam, OUTPUT_TYPE_PDF);
+                    baosPDF.writeTo(fosPDF);
+
+                    baosXLS = ReportsControllerUtils.generateDAC1(connection, rowReportDao, yearParam, OUTPUT_TYPE_EXCEL);
+                    baosXLS.writeTo(fosXLS);
+
+                    break;
+                case REPORT_TYPE_DAC2A:
+                    baosPDF = ReportsControllerUtils.generateDAC2a(connection, rowReportDao, yearParam, OUTPUT_TYPE_PDF);
+                    baosPDF.writeTo(fosPDF);
+
+                    baosXLS = ReportsControllerUtils.generateDAC2a(connection, rowReportDao, yearParam, OUTPUT_TYPE_EXCEL);
+                    baosXLS.writeTo(fosXLS);
+
+                    break;
+                default:
+                    break;
+            }
+        } catch (IOException e) {
+            logger.error("Publishing reports failed!", e);
+            response.getWriter().println("Published successfully!");
+
+            return null;
+        }  finally {
+            fosPDF.close();
+            fosXLS.close();
+        }
+
+        response.getWriter().println("Published successfully!");
+
+        return null;
+    }
+
 	/**
 	 * Create the Advance Questionnaire report
-	 * 
+	 *
 	 * @param request
 	 * @param response
      * @param connection the Mondrian connection
      * @param outputType the output for the report: HTML, Excel, PDF, CSV
-	 * @param dataSource 
+	 * @param dataSource
 	 */
     private void generateAdvanceQuestionnaire (HttpServletRequest request, HttpServletResponse response,
             Connection connection, String outputType, String currency, String dataSource) {
@@ -221,72 +319,31 @@ public class ReportsController {
 		if (yearParam == null || yearParam.equals("")) {
             yearParam = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
 		}
-		int reportYear = Integer.parseInt(yearParam);
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		ByteArrayOutputStream baos = ReportsControllerUtils.generateAdvanceQuestionnaire(connection, yearParam,
+                outputType, currency, dataSource);
 
 		try {
-            InputStream inputStream = ReportsController.class.getClassLoader().
-                    getResourceAsStream("org/devgateway/eudevfin/reports/core/aq/aq_master.jasper");
-			Map<String, Object> parameters = new HashMap<String, Object>();
-			Locale locale = connection.getLocale();
-			parameters.put(JRParameter.REPORT_LOCALE, locale);
-
-			// set resource bundle
-            ResourceBundle resourceBundle = java.util.ResourceBundle.getBundle("org/devgateway/eudevfin/reports/i18n", locale);
-			parameters.put(JRParameter.REPORT_RESOURCE_BUNDLE, resourceBundle);
-
-			// set connection
-			parameters.put(JRMondrianQueryExecuterFactory.PARAMETER_MONDRIAN_CONNECTION, connection);
-
-			// set yearly parameters
-			parameters.put("FIRST_YEAR", reportYear - 1);
-			parameters.put("SECOND_YEAR", reportYear);
-			parameters.put("EDITION_YEAR", reportYear + 1);
-			parameters.put("FORM_DATASOURCE", getDataSourceString(dataSource));
-
-			parameters.put("CURRENCY", currency);
-			// add the path to sub-reports
-			String subdirPath = "org/devgateway/eudevfin/reports/core/aq";
-			parameters.put("SUBDIR_PATH", subdirPath);
-
-			// put Reporting Country parameter
-			String donorName = "";
-            Organization organizationForCurrentUser = AuthUtils.getOrganizationForCurrentUser();
-
-			if (organizationForCurrentUser != null) {
-				donorName = organizationForCurrentUser.getDonorName();
-			}
-			parameters.put("REPORTING_COUNTRY", donorName);
-
-            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(inputStream);
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters);
-
-			ReportExporter reportExporter = new ReportExporter();
-			String fileName = "";
+			String fileName;
 
 			switch (outputType) {
 			case OUTPUT_TYPE_PDF:
-				reportExporter.exportPDF(jasperPrint, baos);
 				fileName = "Advance Questionnaire.pdf";
-                    response.setHeader("Content-Disposition", "inline; filename=" + fileName);
+                response.setHeader("Content-Disposition", "inline; filename=" + fileName);
 				response.setContentType("application/pdf");
 				break;
 			case OUTPUT_TYPE_EXCEL:
-				reportExporter.exportXLS(jasperPrint, baos);
 				fileName = "Advance Questionnaire.xls";
-                    response.setHeader("Content-Disposition", "inline; filename=" + fileName);
+                response.setHeader("Content-Disposition", "inline; filename=" + fileName);
 				response.setContentType("application/vnd.ms-excel");
 				break;
 			case OUTPUT_TYPE_HTML:
-				reportExporter.exportHTML(jasperPrint, baos);
 				fileName = "Advance Questionnaire.html";
-                    response.setHeader("Content-Disposition", "inline; filename=" + fileName);
+                response.setHeader("Content-Disposition", "inline; filename=" + fileName);
 				response.setContentType("text/html");
 				break;
 			case OUTPUT_TYPE_CSV:
-				reportExporter.exportCSV(jasperPrint, baos);
 				fileName = "Advance Questionnaire.csv";
-                    response.setHeader("Content-Disposition", "inline; filename=" + fileName);
+                response.setHeader("Content-Disposition", "inline; filename=" + fileName);
 				response.setContentType("text/csv");
 				break;
 			default:
@@ -310,123 +367,45 @@ public class ReportsController {
 		}
 	}
 
-	private String getDataSourceString(String dataSource) {
-		if(REPORT_DATASOURCE_CRS.equals(dataSource)) {
-			return "{[Form Type].[bilateralOda.CRS], [Form Type].[multilateralOda.CRS]}";
-		}
-		else {
-			return "{[Form Type].[bilateralOda.advanceQuestionnaire], [Form Type].[multilateralOda.advanceQuestionnaire]}";
-		}
-	}
 	/**
 	 * Create the DAC2a report
-	 * 
+	 *
 	 * @param request
 	 * @param response
      * @param connection the Mondrian connection
      * @param outputType the output for the report: HTML, Excel, PDF, CSV
 	 */
     private void generateDAC2a (HttpServletRequest request, HttpServletResponse response, Connection connection, String outputType) {
+        // Assign Reporting Year
+        String yearParam = request.getParameter(REPORT_YEAR);
+        if (yearParam == null || yearParam.equals("")) {
+            yearParam = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
+        }
+
+        ByteArrayOutputStream baos = ReportsControllerUtils.generateDAC2a(connection, rowReportDao, yearParam, outputType);
+
 		try {
-			
-			Map<String, Object> parameters = new HashMap<String, Object>();
-
-			// Assign Connection
-			parameters.put(JRMondrianQueryExecuterFactory.PARAMETER_MONDRIAN_CONNECTION, connection);
-
-			// Assign Reporting Year
-			String yearParam = request.getParameter(REPORT_YEAR);
-			if (yearParam == null || yearParam.equals("")) {
-	            yearParam = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
-			}
-			int reportYear = Integer.parseInt(yearParam);
-			parameters.put("REPORTING_YEAR", reportYear);
-			parameters.put("EDITION_YEAR", Calendar.getInstance().get(Calendar.YEAR));
-
-			// Assign Locale
-			Locale locale = LocaleContextHolder.getLocale();
-			parameters.put(JRParameter.REPORT_LOCALE, locale);
-
-			// Assign Resource Bundle
-            ResourceBundle resourceBundle = java.util.ResourceBundle.getBundle(
-            		"org/devgateway/eudevfin/reports/i18n", locale);
-			parameters.put(JRParameter.REPORT_RESOURCE_BUNDLE, resourceBundle);
-
-			// Assign Reporting Country
-			String donorName = "";
-            Organization organizationForCurrentUser = AuthUtils.getOrganizationForCurrentUser();
-			if (organizationForCurrentUser != null) {
-				donorName = organizationForCurrentUser.getDonorName();
-			}
-			parameters.put("REPORTING_COUNTRY", donorName);
-
-			// Generate and Assign Sub Reports
-			long startTime = System.nanoTime();
-			
-			String serverInstance = donorName;
-			
-			String inputStreamArea = generateSubReportCached(
-					"DAC2aArea",
-					"org/devgateway/eudevfin/reports/core/dac2a/dac2a_template_area",
-					"[Area].[Code].Members", false, true, serverInstance);
-			String inputStreamChannel = generateSubReportCached(
-					"DAC2aChannel",
-					"org/devgateway/eudevfin/reports/core/dac2a/dac2a_template_channel",
-					"[Channel].[Code].Members", false, true, serverInstance);
-			parameters.put("AREA_SUBREPORT_PATH", inputStreamArea);
-			parameters.put("CHANNEL_SUBREPORT_PATH", inputStreamChannel);
-			long endTime = System.nanoTime();
-			logger.info("Time to retrieve reports:" + (endTime - startTime));
-
-			// Generate and Assign Sub Reports
-			startTime = System.nanoTime();
-			//Process the main report with the subreports
-			ReportTemplate reportProcessor = new ReportTemplate();
-			InputStream inputStream = reportProcessor
-					.processTemplate(
-							ReportsController.class
-									.getClassLoader()
-									.getResourceAsStream(
-											"org/devgateway/eudevfin/reports/core/dac2a/dac2a_template.jrxml"),
-							"[BiMultilateral].[Code].Members", rowReportDao,
-							true, "DAC2a");
-			JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
-			JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-			endTime = System.nanoTime();
-			logger.info("Time to compile reports:" + (endTime - startTime));
-			startTime = System.nanoTime();
-			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters);
-			endTime = System.nanoTime();
-			logger.info("Time to fill reports:" + (endTime - startTime));
-
-			//Write it to the output
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			ReportExporter reportExporter = new ReportExporter();
-			String fileName = "";
+			String fileName;
 
 			switch (outputType) {
 				case OUTPUT_TYPE_PDF:
-					reportExporter.exportPDF(jasperPrint, baos);
 					fileName = "DAC 2a.pdf";
-	                    response.setHeader("Content-Disposition", "inline; filename=" + fileName);
+	                response.setHeader("Content-Disposition", "inline; filename=" + fileName);
 					response.setContentType("application/pdf");
 					break;
 				case OUTPUT_TYPE_EXCEL:
-					reportExporter.exportXLS(jasperPrint, baos);
 					fileName = "DAC 2a.xls";
-	                    response.setHeader("Content-Disposition", "inline; filename=" + fileName);
+                    response.setHeader("Content-Disposition", "inline; filename=" + fileName);
 					response.setContentType("application/vnd.ms-excel");
 					break;
 				case OUTPUT_TYPE_HTML:
-					reportExporter.exportHTML(jasperPrint, baos);
 					fileName = "DAC 2a.html";
-	                    response.setHeader("Content-Disposition", "inline; filename=" + fileName);
+                    response.setHeader("Content-Disposition", "inline; filename=" + fileName);
 					response.setContentType("text/html");
 					break;
 				case OUTPUT_TYPE_CSV:
-					reportExporter.exportCSV(jasperPrint, baos);
 					fileName = "DAC 2a.csv";
-	                    response.setHeader("Content-Disposition", "inline; filename=" + fileName);
+                    response.setHeader("Content-Disposition", "inline; filename=" + fileName);
 					response.setContentType("text/csv");
 					break;
 				default:
@@ -437,94 +416,60 @@ public class ReportsController {
 
 			// write to response stream
 			this.writeReportToResponseStream(response, baos);
-		} catch (JRException e) {
-			e.printStackTrace();
-		}
+        } catch (Exception e) {
+            response.setContentType("text/html");
+
+            try {
+                baos.write("No data/Data Invalid".getBytes());
+                logger.error("Error creating the DAC2a report", e);
+            } catch (IOException ioEx) {
+                ioEx.printStackTrace();
+            }
+            this.writeReportToResponseStream(response, baos);
+        }
 	}
 
+    /**
+     * Create the DAC1 report
+     *
+     * @param request
+     * @param response
+     * @param connection
+     * @param outputType
+     */
 	private void generateDAC1(HttpServletRequest request,
 			HttpServletResponse response, Connection connection,
 			String outputType) {
+        String yearParam = request.getParameter(REPORT_YEAR);
+        if (yearParam == null || yearParam.equals("")) {
+            yearParam = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
+        }
+
+        ByteArrayOutputStream baos = ReportsControllerUtils.generateDAC1(connection, rowReportDao, yearParam, outputType);
+
 		try {
-			InputStream inputStream = ReportsController.class
-					.getClassLoader()
-					.getResourceAsStream(
-							"org/devgateway/eudevfin/reports/core/dac1/dac1_template.jrxml");
-			
-			String yearParam = request.getParameter(REPORT_YEAR);
-			if (yearParam == null || yearParam.equals("")) {
-	            yearParam = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
-			}
-			int reportYear = Integer.parseInt(yearParam);
-			
-			//Process template (injecting MDX; fields and text elements
-			ReportTemplate reportProcessor = new ReportTemplate();
-			InputStream inputStreamProcessed = reportProcessor.processTemplate(inputStream,	"[Type of Finance].[Code].Members", rowReportDao, false, "DAC1");
-
-			Map<String, Object> parameters = new HashMap<String, Object>();
-			parameters
-					.put(JRMondrianQueryExecuterFactory.PARAMETER_MONDRIAN_CONNECTION,
-							connection);
-			// set locale
-			Locale locale = LocaleContextHolder.getLocale();
-			parameters.put(JRParameter.REPORT_LOCALE, locale);
-
-			// set resource bundle
-            ResourceBundle resourceBundle = java.util.ResourceBundle.getBundle("org/devgateway/eudevfin/reports/i18n", locale);
-			parameters.put(JRParameter.REPORT_RESOURCE_BUNDLE, resourceBundle);
-
-			parameters.put("REPORTING_YEAR", reportYear);
-			parameters.put("EDITION_YEAR", Calendar.getInstance().get(Calendar.YEAR));
-
-			// put Reporting Country parameter
-			String donorName = "";
-            Organization organizationForCurrentUser = AuthUtils.getOrganizationForCurrentUser();
-
-			if (organizationForCurrentUser != null) {
-				donorName = organizationForCurrentUser.getDonorName();
-			}
-			parameters.put("REPORTING_COUNTRY", donorName);
-
-			String serverInstance = donorName;
-			String inputStreamMemoInterest = generateSubReportCached("DAC1MemoInterest", "org/devgateway/eudevfin/reports/core/dac1/dac1_template_interest", "[Type of Finance].[Code].Members", false, false, serverInstance);
-			String inputStreamMemoExpert = generateSubReportCached("DAC1MemoExpert", "org/devgateway/eudevfin/reports/core/dac1/dac1_template_expert", "[Type of Finance].[Code].Members", false, false, serverInstance);
-
-			parameters.put("INTEREST_SUBREPORT_PATH", inputStreamMemoInterest);
-			parameters.put("EXPERT_SUBREPORT_PATH", inputStreamMemoExpert);
-			parameters.put("KEYINDICATORS_SUBREPORT_PATH", "org/devgateway/eudevfin/reports/core/dac1/dac1_template_keyindicators.jasper");
-			JasperDesign jasperDesign = JRXmlLoader.load(inputStreamProcessed);
-			JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-
-			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters);
-
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			ReportExporter reportExporter = new ReportExporter();
-			String fileName = "";
+			String fileName;
 
 			switch (outputType) {
 			case OUTPUT_TYPE_PDF:
-				reportExporter.exportPDF(jasperPrint, baos);
 				fileName = "DAC 1.pdf";
 				response.setHeader("Content-Disposition", "inline; filename="
 						+ fileName);
 				response.setContentType("application/pdf");
 				break;
 			case OUTPUT_TYPE_EXCEL:
-				reportExporter.exportXLS(jasperPrint, baos);
 				fileName = "DAC 1.xls";
 				response.setHeader("Content-Disposition", "inline; filename="
 						+ fileName);
 				response.setContentType("application/vnd.ms-excel");
 				break;
 			case OUTPUT_TYPE_HTML:
-				reportExporter.exportHTML(jasperPrint, baos);
 				fileName = "DAC 1.html";
 				response.setHeader("Content-Disposition", "inline; filename="
 						+ fileName);
 				response.setContentType("text/html");
 				break;
 			case OUTPUT_TYPE_CSV:
-				reportExporter.exportCSV(jasperPrint, baos);
 				fileName = "DAC 1.csv";
 				response.setHeader("Content-Disposition", "inline; filename="
 						+ fileName);
@@ -538,63 +483,19 @@ public class ReportsController {
 
 			// write to response stream
 			this.writeReportToResponseStream(response, baos);
-		} catch (JRException e) {
-			e.printStackTrace();
-		}
-	}
+		} catch (Exception e) {
+            response.setContentType("text/html");
 
-	/**
-	 * Generates a named Subreport passing it through the template processor to insert elements that make a report.
-	 * 
-	 * @param reportName Name of the report for fetching the related rows
-	 * @param path Path to the subreport
-     * @param slicer Dimension by which the rows will be disaggregated
-     * @param regenerate Specify if it ignores existing versions and regenerates the jrxml file
-     * @param swapAxis Toggle rows/columns (for inverted reports)
-     * @param serverInstance Specific server to avoid naming problems
-     * @return path to the generated jrxml file to be passed on path to the subreport
-	 */
-	private String generateSubReportCached(final String reportName, final String path,
-			final String slicer, final Boolean regenerate, final boolean swapAxis,
-			final String serverInstance) {
-    	//Check if the compiled report file already exists in temporary folder
-    	String tmpDirPath = System.getProperty("java.io.tmpdir");
-    	File f = new File(tmpDirPath + File.separator + reportName + "_" + serverInstance + "_processed.jasper");
-        if (f.exists() && !regenerate) {
-        	String cachedFilePath = tmpDirPath
-        			+ File.separator + reportName + "_" + serverInstance + "_processed.jasper";
-        	logger.info("The report " + reportName + " is being cached from " + cachedFilePath);
-            return cachedFilePath;
-        }
-        
-    	logger.info("The report " + reportName + " hasn't been parsed and cached");
-        InputStream inputStream = ReportsController.class.getClassLoader().getResourceAsStream(path + ".jrxml");
-
-        ReportTemplate reportProcessor = new ReportTemplate();
-		InputStream inputStreamProcessed = reportProcessor.processTemplate(
-				inputStream, slicer, rowReportDao, swapAxis, reportName);
-		String newJrxmlFilename = tmpDirPath + File.separator + reportName
-				+ "_" + serverInstance + "_processed.jrxml";
-        File processedFile = new File(newJrxmlFilename);
-        logger.info("Creating file " + newJrxmlFilename);
-        try {
-            processedFile.createNewFile();
-            processedFile.deleteOnExit();
-            try (FileOutputStream out = new FileOutputStream(processedFile)) {
-                IOUtils.copy(inputStreamProcessed, out);
+            try {
+                baos.write("No data/Data Invalid".getBytes());
+                logger.error("Error creating the DAC1 report", e);
+            } catch (IOException ioEx) {
+                ioEx.printStackTrace();
             }
-            String jrxmlFileName = processedFile.getAbsolutePath();
-            String jasperFileName = processedFile.getAbsolutePath().replace(".jrxml", ".jasper");
-            JasperCompileManager.compileReportToFile(jrxmlFileName, jasperFileName);
-            logger.info("Compiling " + jrxmlFileName + " into " + jasperFileName);
-            return jasperFileName;
-        } catch (IOException | JRException e) {
-        	logger.error("Subreport Generation Failed:" + e.getMessage());
-		}
-		return null;
+            this.writeReportToResponseStream(response, baos);
+        }
 	}
 
-	
 	/**
 	 * Writes the report to the output stream.
 	 */

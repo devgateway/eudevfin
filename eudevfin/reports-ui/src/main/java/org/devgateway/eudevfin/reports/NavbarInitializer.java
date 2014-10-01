@@ -27,6 +27,7 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
+import org.devgateway.eudevfin.reports.ui.pages.PublishReports;
 import org.devgateway.eudevfin.reports.ui.pages.ReportsCountryInstitutionFilter;
 import org.devgateway.eudevfin.reports.ui.pages.ReportsCountrySectorFilter;
 import org.devgateway.eudevfin.reports.ui.pages.ReportsExport;
@@ -108,15 +109,6 @@ public final class NavbarInitializer {
 						paramsDAC2a.set("reportType", "dac2a");
 						list.add((AbstractLink) new MenuBookmarkablePageLink<ReportsExport>(ReportsExport.class, paramsDAC2a, new StringResourceModel("navbar.reports.export.dac2a", this, null, null)));
 
-//						PageParameters paramsCRS = new PageParameters();
-//						paramsCRS.set("reportType", "CRS");
-//						list.add((AbstractLink) new MenuBookmarkablePageLink<ReportsExport>(ReportsExport.class, paramsCRS, new StringResourceModel("navbar.reports.export.crs", this, null, null)).setEnabled(false));
-//
-//						PageParameters paramsFSS = new PageParameters();
-//						paramsFSS.set("reportType", "fss");
-//						list.add((AbstractLink) new MenuBookmarkablePageLink<ReportsExport>(ExportS.class, paramsFSS, new StringResourceModel("navbar.reports.export.fss", this, null, null)).setEnabled(true));
-
-			
 						return list;
 					}
 
@@ -125,6 +117,37 @@ public final class NavbarInitializer {
 				MetaDataRoleAuthorizationStrategy.authorize(exportReports,
 				Component.RENDER, AuthConstants.Roles.ROLE_USER);
 				list.add(exportReports);
+
+                DropDownSubMenu publishReports = new DropDownSubMenu(new StringResourceModel("navbar.reports.publish", this, null, null)) {
+                    @Override
+                    public boolean isActive(Component item) {
+                        return false;
+                    }
+
+                    @Override
+                    protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
+                        List<AbstractLink> list = new ArrayList<>();
+
+                        PageParameters paramsAQ = new PageParameters();
+                        paramsAQ.set("reportType", "aq");
+                        list.add(new MenuBookmarkablePageLink<PublishReports>(PublishReports.class, paramsAQ, new StringResourceModel("navbar.reports.export.aq", this, null, null)));
+
+                        PageParameters paramsDAC1 = new PageParameters();
+                        paramsDAC1.set("reportType", "dac1");
+                        list.add((AbstractLink) new MenuBookmarkablePageLink<PublishReports>(PublishReports.class, paramsDAC1, new StringResourceModel("navbar.reports.export.dac1", this, null, null)));
+
+                        PageParameters paramsDAC2a = new PageParameters();
+                        paramsDAC2a.set("reportType", "dac2a");
+                        list.add((AbstractLink) new MenuBookmarkablePageLink<PublishReports>(PublishReports.class, paramsDAC2a, new StringResourceModel("navbar.reports.export.dac2a", this, null, null)));
+
+                        return list;
+                    }
+
+                };
+                publishReports.setIconType(IconType.inbox);
+                MetaDataRoleAuthorizationStrategy.authorize(publishReports,
+                        Component.RENDER, AuthConstants.Roles.ROLE_SUPERVISOR);
+                list.add(publishReports);
 
                 DropDownSubMenu customReports = new DropDownSubMenu(new StringResourceModel("navbar.customreports", this, null, null)) {
                     @Override
@@ -165,6 +188,7 @@ public final class NavbarInitializer {
                 MetaDataRoleAuthorizationStrategy.authorize(customReports,
         				Component.RENDER, AuthConstants.Roles.ROLE_VIEWER);
                 list.add(customReports);
+
                 @SuppressWarnings("serial")
 				MenuBookmarkablePageLink<ReportsPage> reportBuilderLink = new MenuBookmarkablePageLink<ReportsPage>(
 						SaikuRedirectPage.class, null, new StringResourceModel(
