@@ -347,9 +347,9 @@ public class BasicElementTransformers {
 
 	}
 
-	public static class ExtendingOrganization extends AbstractElementTransformer {
+	public static class FundingOrganization extends AbstractElementTransformer {
 
-		public ExtendingOrganization(final CustomFinancialTransaction ctx,
+		public FundingOrganization(final CustomFinancialTransaction ctx,
 				final IatiActivity iatiActivity, final Map<String, Object> paramsMap) {
 			super(ctx, iatiActivity, paramsMap);
 		}
@@ -385,7 +385,7 @@ public class BasicElementTransformers {
 		}
 
 		public String getRole(){
-			return "Extending";
+			return "Funding";
 		}
 
 		public ParticipatingOrg getParticipatingOrg() {
@@ -399,7 +399,7 @@ public class BasicElementTransformers {
 
 	}
 
-	public static class ImplementingOrganization extends ExtendingOrganization {
+	public static class ImplementingOrganization extends FundingOrganization {
 
 		public ImplementingOrganization(final CustomFinancialTransaction ctx,
 				final IatiActivity iatiActivity, final Map<String, Object> paramsMap) {
