@@ -520,30 +520,39 @@
         <Measure name="Extended Amount Currency NATLOECD" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    (AMOUNTS_EXTENDED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
-                    FROM
-                    HISTORICALEXCHANGERATE
-                    WHERE
-                    (SOURCE = 'OECD' OR SOURCE='National') AND
-                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXTENDED_CURR" AND
-                    "FINANCIALTRANSACTIONVIEW"."DRAFT" IS NOT NULL AND
-                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+
+                    CASE WHEN "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" = '@@CURRENCY@@' THEN
+	                	(AMOUNTS_EXTENDED_AMOUNT_WITH_COEFFICIENT)
+		            ELSE
+	                    (AMOUNTS_EXTENDED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+	                    FROM
+	                    HISTORICALEXCHANGERATE
+	                    WHERE
+	                    (SOURCE = 'OECD' OR SOURCE='National') AND
+	                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXTENDED_CURR" AND
+	                    "FINANCIALTRANSACTIONVIEW"."DRAFT" IS NOT NULL AND
+	                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+	                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+	                END
                 </SQL>
             </MeasureExpression>
         </Measure>
         <Measure name="Extended Amount Currency INTERNET" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    (AMOUNTS_EXTENDED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
-                    FROM
-                    HISTORICALEXCHANGERATE
-                    WHERE
-                    SOURCE = 'Internet' AND
-                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXTENDED_CURR" AND
-                    "FINANCIALTRANSACTIONVIEW"."DRAFT" IS NOT NULL AND
-                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                    CASE WHEN "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" = '@@CURRENCY@@' THEN
+	                	(AMOUNTS_EXTENDED_AMOUNT_WITH_COEFFICIENT)
+		            ELSE
+	                    (AMOUNTS_EXTENDED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+	                    FROM
+	                    HISTORICALEXCHANGERATE
+	                    WHERE
+	                    SOURCE = 'Internet' AND
+	                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXTENDED_CURR" AND
+	                    "FINANCIALTRANSACTIONVIEW"."DRAFT" IS NOT NULL AND
+	                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+	                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+	                END
                 </SQL>
             </MeasureExpression>
         </Measure>
@@ -552,28 +561,36 @@
         <Measure name="Received Amount Currency NATLOECD" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    (AMOUNTS_RECEIVED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
-                    FROM
-                    HISTORICALEXCHANGERATE
-                    WHERE
-                    (SOURCE = 'OECD' OR SOURCE='National') AND
-                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_RECEIVED_CURR" AND
-                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                    CASE WHEN "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" = '@@CURRENCY@@' THEN
+	                	(AMOUNTS_RECEIVED_AMOUNT_WITH_COEFFICIENT)
+		            ELSE
+	                    (AMOUNTS_RECEIVED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+	                    FROM
+	                    HISTORICALEXCHANGERATE
+	                    WHERE
+	                    (SOURCE = 'OECD' OR SOURCE='National') AND
+	                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_RECEIVED_CURR" AND
+	                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+	                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+	                END
                 </SQL>
             </MeasureExpression>
         </Measure>
         <Measure name="Received Amount Currency INTERNET" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    (AMOUNTS_RECEIVED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
-                    FROM
-                    HISTORICALEXCHANGERATE
-                    WHERE
-                    SOURCE = 'Internet' AND
-                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_RECEIVED_CURR" AND
-                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                    CASE WHEN "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" = '@@CURRENCY@@' THEN
+	                	(AMOUNTS_RECEIVED_AMOUNT_WITH_COEFFICIENT)
+		            ELSE
+	                    (AMOUNTS_RECEIVED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+	                    FROM
+	                    HISTORICALEXCHANGERATE
+	                    WHERE
+	                    SOURCE = 'Internet' AND
+	                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_RECEIVED_CURR" AND
+	                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+	                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+	                END
                 </SQL>
             </MeasureExpression>
         </Measure>
@@ -582,28 +599,36 @@
         <Measure name="Commitments Amount Currency NATLOECD" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    (COMMITMENT_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
-                    FROM
-                    HISTORICALEXCHANGERATE
-                    WHERE
-                    (SOURCE = 'OECD' OR SOURCE='National') AND
-                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" AND
-                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                    CASE WHEN "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" = '@@CURRENCY@@' THEN
+	                	(COMMITMENT_AMOUNT_WITH_COEFFICIENT)
+	                ELSE
+	                    (COMMITMENT_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+	                    FROM
+	                    HISTORICALEXCHANGERATE
+	                    WHERE
+	                    (SOURCE = 'OECD' OR SOURCE='National') AND
+	                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" AND
+	                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+	                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+	                END
                 </SQL>
             </MeasureExpression>
         </Measure>
         <Measure name="Commitments Amount Currency INTERNET" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    (COMMITMENT_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
-                    FROM
-                    HISTORICALEXCHANGERATE
-                    WHERE
-                    SOURCE = 'Internet' AND
-                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" AND
-                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                    CASE WHEN "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" = '@@CURRENCY@@' THEN
+	                	(COMMITMENT_AMOUNT_WITH_COEFFICIENT)
+	                ELSE
+	                    (COMMITMENT_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+	                    FROM
+	                    HISTORICALEXCHANGERATE
+	                    WHERE
+	                    SOURCE = 'Internet' AND
+	                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" AND
+	                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+	                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+	                END
                 </SQL>
             </MeasureExpression>
         </Measure>
@@ -612,28 +637,36 @@
         <Measure name="Interest Received Amount Currency NATLOECD" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    (AMOUNTS_INTEREST_RECEIVED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
-                    FROM
-                    HISTORICALEXCHANGERATE
-                    WHERE
-                    (SOURCE = 'OECD' OR SOURCE='National') AND
-                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_INTEREST_RECEIVED_CURR" AND
-                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                    CASE WHEN "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" = '@@CURRENCY@@' THEN
+	                	(AMOUNTS_INTEREST_RECEIVED_AMOUNT_WITH_COEFFICIENT)
+		            ELSE
+	                    (AMOUNTS_INTEREST_RECEIVED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+	                    FROM
+	                    HISTORICALEXCHANGERATE
+	                    WHERE
+	                    (SOURCE = 'OECD' OR SOURCE='National') AND
+	                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_INTEREST_RECEIVED_CURR" AND
+	                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+	                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+	                END
                 </SQL>
             </MeasureExpression>
         </Measure>
         <Measure name="Interest Received Amount Currency INTERNET" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    (AMOUNTS_INTEREST_RECEIVED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
-                    FROM
-                    HISTORICALEXCHANGERATE
-                    WHERE
-                    SOURCE = 'Internet' AND
-                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_INTEREST_RECEIVED_CURR" AND
-                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                    CASE WHEN "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" = '@@CURRENCY@@' THEN
+	                	(AMOUNTS_INTEREST_RECEIVED_AMOUNT_WITH_COEFFICIENT)
+		            ELSE
+	                    (AMOUNTS_INTEREST_RECEIVED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+	                    FROM
+	                    HISTORICALEXCHANGERATE
+	                    WHERE
+	                    SOURCE = 'Internet' AND
+	                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_INTEREST_RECEIVED_CURR" AND
+	                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+	                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+	                END
                 </SQL>
             </MeasureExpression>
         </Measure>
@@ -642,28 +675,36 @@
         <Measure name="Expert Commitments Currency NATLOECD" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    (AMOUNTS_EXP_COMMIT_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
-                    FROM
-                    HISTORICALEXCHANGERATE
-                    WHERE
-                    (SOURCE = 'OECD' OR SOURCE='National') AND
-                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXP_COMMIT_CURR" AND
-                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                    CASE WHEN "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" = '@@CURRENCY@@' THEN
+	                	(AMOUNTS_EXP_COMMIT_AMOUNT_WITH_COEFFICIENT)
+		            ELSE
+	                    (AMOUNTS_EXP_COMMIT_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+	                    FROM
+	                    HISTORICALEXCHANGERATE
+	                    WHERE
+	                    (SOURCE = 'OECD' OR SOURCE='National') AND
+	                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXP_COMMIT_CURR" AND
+	                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+	                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+	                END
                 </SQL>
             </MeasureExpression>
         </Measure>
         <Measure name="Expert Commitments Currency INTERNET" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    (AMOUNTS_EXP_COMMIT_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
-                    FROM
-                    HISTORICALEXCHANGERATE
-                    WHERE
-                    SOURCE = 'Internet' AND
-                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXP_COMMIT_CURR" AND
-                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                    CASE WHEN "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" = '@@CURRENCY@@' THEN
+	                	(AMOUNTS_EXP_COMMIT_AMOUNT_WITH_COEFFICIENT)
+		            ELSE
+	                    (AMOUNTS_EXP_COMMIT_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+	                    FROM
+	                    HISTORICALEXCHANGERATE
+	                    WHERE
+	                    SOURCE = 'Internet' AND
+	                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXP_COMMIT_CURR" AND
+	                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+	                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+	                END
                 </SQL>
             </MeasureExpression>
         </Measure>
@@ -672,28 +713,36 @@
         <Measure name="Expert Extended Currency NATLOECD" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    (AMOUNTS_EXP_EXTENDED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
-                    FROM
-                    HISTORICALEXCHANGERATE
-                    WHERE
-                    (SOURCE = 'OECD' OR SOURCE='National') AND
-                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXP_EXTENDED_CURR" AND
-                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                    CASE WHEN "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" = '@@CURRENCY@@' THEN
+	                	(AMOUNTS_EXP_EXTENDED_AMOUNT_WITH_COEFFICIENT)
+		            ELSE
+	                    (AMOUNTS_EXP_EXTENDED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+	                    FROM
+	                    HISTORICALEXCHANGERATE
+	                    WHERE
+	                    (SOURCE = 'OECD' OR SOURCE='National') AND
+	                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXP_EXTENDED_CURR" AND
+	                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+	                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+	                END
                 </SQL>
             </MeasureExpression>
         </Measure>
         <Measure name="Expert Extended Currency INTERNET" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    (AMOUNTS_EXP_EXTENDED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
-                    FROM
-                    HISTORICALEXCHANGERATE
-                    WHERE
-                    SOURCE = 'Internet' AND
-                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXP_EXTENDED_CURR" AND
-                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                    CASE WHEN "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" = '@@CURRENCY@@' THEN
+	                	(AMOUNTS_EXP_EXTENDED_AMOUNT_WITH_COEFFICIENT)
+		            ELSE
+	                    (AMOUNTS_EXP_EXTENDED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+	                    FROM
+	                    HISTORICALEXCHANGERATE
+	                    WHERE
+	                    SOURCE = 'Internet' AND
+	                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_EXP_EXTENDED_CURR" AND
+	                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+	                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+	                END
                 </SQL>
             </MeasureExpression>
         </Measure>
@@ -701,14 +750,18 @@
         <Measure name="Negative Commitments Amount NATLOECD" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    (NEGATIVE_COMMITMENT_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
-                    FROM
-                    HISTORICALEXCHANGERATE
-                    WHERE
-                    (SOURCE = 'OECD' OR SOURCE='National') AND
-                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" AND
-                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                    CASE WHEN "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" = '@@CURRENCY@@' THEN
+	                	(NEGATIVE_COMMITMENT_AMOUNT_WITH_COEFFICIENT)
+		            ELSE
+	                    (NEGATIVE_COMMITMENT_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+	                    FROM
+	                    HISTORICALEXCHANGERATE
+	                    WHERE
+	                    (SOURCE = 'OECD' OR SOURCE='National') AND
+	                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" AND
+	                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+	                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+	                END
                 </SQL>
             </MeasureExpression>
         </Measure>
@@ -716,14 +769,18 @@
         <Measure name="Negative Received Amount NATLOECD" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    (NEGATIVE_AMOUNTS_RECEIVED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
-                    FROM
-                    HISTORICALEXCHANGERATE
-                    WHERE
-                    (SOURCE = 'OECD' OR SOURCE='National') AND
-                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" AND
-                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                    CASE WHEN "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" = '@@CURRENCY@@' THEN
+	                	(NEGATIVE_AMOUNTS_RECEIVED_AMOUNT_WITH_COEFFICIENT)
+		            ELSE
+	                    (NEGATIVE_AMOUNTS_RECEIVED_AMOUNT_WITH_COEFFICIENT * Cast((SELECT AVG(RATE)
+	                    FROM
+	                    HISTORICALEXCHANGERATE
+	                    WHERE
+	                    (SOURCE = 'OECD' OR SOURCE='National') AND
+	                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" AND
+	                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+	                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+	                END
                 </SQL>
             </MeasureExpression>
         </Measure>
@@ -731,28 +788,36 @@
         <Measure name="Budget/MTEF Disb Current Year NATLOECD" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    (BUDGET_MTEF_DISB_AMOUNT * Cast((SELECT AVG(RATE)
-                    FROM
-                    HISTORICALEXCHANGERATE
-                    WHERE
-                    (SOURCE = 'OECD' OR SOURCE='National') AND
-                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_CURR" AND
-                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                    CASE WHEN "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" = '@@CURRENCY@@' THEN
+	                	(BUDGET_MTEF_DISB_AMOUNT)
+		            ELSE
+	                    (BUDGET_MTEF_DISB_AMOUNT * Cast((SELECT AVG(RATE)
+	                    FROM
+	                    HISTORICALEXCHANGERATE
+	                    WHERE
+	                    (SOURCE = 'OECD' OR SOURCE='National') AND
+	                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_CURR" AND
+	                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+	                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+	                END
                 </SQL>
             </MeasureExpression>
         </Measure>
         <Measure name="Budget/MTEF Disb Current Year INTERNET" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    (BUDGET_MTEF_DISB_AMOUNT * Cast((SELECT AVG(RATE)
-                    FROM
-                    HISTORICALEXCHANGERATE
-                    WHERE
-                    SOURCE = 'Internet' AND
-                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_CURR" AND
-                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                    CASE WHEN "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" = '@@CURRENCY@@' THEN
+	                	(BUDGET_MTEF_DISB_AMOUNT)
+		            ELSE
+	                    (BUDGET_MTEF_DISB_AMOUNT * Cast((SELECT AVG(RATE)
+	                    FROM
+	                    HISTORICALEXCHANGERATE
+	                    WHERE
+	                    SOURCE = 'Internet' AND
+	                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_CURR" AND
+	                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+	                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+	                END
                 </SQL>
             </MeasureExpression>
         </Measure>
@@ -760,28 +825,36 @@
         <Measure name="Budget/MTEF Disb Year 1 NATLOECD" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    (BUDGET_MTEF_DISB_P1_AMOUNT * Cast((SELECT AVG(RATE)
-                    FROM
-                    HISTORICALEXCHANGERATE
-                    WHERE
-                    (SOURCE = 'OECD' OR SOURCE='National') AND
-                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_P1_CURR" AND
-                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                    CASE WHEN "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" = '@@CURRENCY@@' THEN
+	                	(BUDGET_MTEF_DISB_P1_AMOUNT)
+		            ELSE
+	                    (BUDGET_MTEF_DISB_P1_AMOUNT * Cast((SELECT AVG(RATE)
+	                    FROM
+	                    HISTORICALEXCHANGERATE
+	                    WHERE
+	                    (SOURCE = 'OECD' OR SOURCE='National') AND
+	                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_P1_CURR" AND
+	                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+	                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+	                END
                 </SQL>
             </MeasureExpression>
         </Measure>
         <Measure name="Budget/MTEF Disb Year 1 INTERNET" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    (BUDGET_MTEF_DISB_P1_AMOUNT * Cast((SELECT AVG(RATE)
-                    FROM
-                    HISTORICALEXCHANGERATE
-                    WHERE
-                    SOURCE = 'Internet' AND
-                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_P1_CURR" AND
-                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                    CASE WHEN "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" = '@@CURRENCY@@' THEN
+	                	(BUDGET_MTEF_DISB_P1_AMOUNT)
+		            ELSE
+	                    (BUDGET_MTEF_DISB_P1_AMOUNT * Cast((SELECT AVG(RATE)
+	                    FROM
+	                    HISTORICALEXCHANGERATE
+	                    WHERE
+	                    SOURCE = 'Internet' AND
+	                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_P1_CURR" AND
+	                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+	                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+	                END
                 </SQL>
             </MeasureExpression>
         </Measure>
@@ -789,28 +862,36 @@
         <Measure name="Budget/MTEF Disb Year 2 NATLOECD" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    (BUDGET_MTEF_DISB_P2_AMOUNT * Cast((SELECT AVG(RATE)
-                    FROM
-                    HISTORICALEXCHANGERATE
-                    WHERE
-                    (SOURCE = 'OECD' OR SOURCE='National') AND
-                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_P2_CURR" AND
-                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                    CASE WHEN "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" = '@@CURRENCY@@' THEN
+	                	(BUDGET_MTEF_DISB_P2_AMOUNT)
+		            ELSE
+	                    (BUDGET_MTEF_DISB_P2_AMOUNT * Cast((SELECT AVG(RATE)
+	                    FROM
+	                    HISTORICALEXCHANGERATE
+	                    WHERE
+	                    (SOURCE = 'OECD' OR SOURCE='National') AND
+	                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_P2_CURR" AND
+	                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+	                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+	                END
                 </SQL>
             </MeasureExpression>
         </Measure>
         <Measure name="Budget/MTEF Disb Year 2 INTERNET" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    (BUDGET_MTEF_DISB_P2_AMOUNT * Cast((SELECT AVG(RATE)
-                    FROM
-                    HISTORICALEXCHANGERATE
-                    WHERE
-                    SOURCE = 'Internet' AND
-                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_P2_CURR" AND
-                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                    CASE WHEN "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" = '@@CURRENCY@@' THEN
+	                	(BUDGET_MTEF_DISB_P2_AMOUNT)
+		            ELSE
+	                    (BUDGET_MTEF_DISB_P2_AMOUNT * Cast((SELECT AVG(RATE)
+	                    FROM
+	                    HISTORICALEXCHANGERATE
+	                    WHERE
+	                    SOURCE = 'Internet' AND
+	                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_P2_CURR" AND
+	                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+	                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+	                END
                 </SQL>
             </MeasureExpression>
         </Measure>
@@ -818,28 +899,36 @@
         <Measure name="Budget/MTEF Disb Year 3 NATLOECD" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    (BUDGET_MTEF_DISB_P3_AMOUNT * Cast((SELECT AVG(RATE)
-                    FROM
-                    HISTORICALEXCHANGERATE
-                    WHERE
-                    (SOURCE = 'OECD' OR SOURCE='National') AND
-                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_P3_CURR" AND
-                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                    CASE WHEN "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" = '@@CURRENCY@@' THEN
+	                	(BUDGET_MTEF_DISB_P3_AMOUNT)
+		            ELSE
+	                    (BUDGET_MTEF_DISB_P3_AMOUNT * Cast((SELECT AVG(RATE)
+	                    FROM
+	                    HISTORICALEXCHANGERATE
+	                    WHERE
+	                    (SOURCE = 'OECD' OR SOURCE='National') AND
+	                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_P3_CURR" AND
+	                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+	                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+	                END
                 </SQL>
             </MeasureExpression>
         </Measure>
         <Measure name="Budget/MTEF Disb Year 3 INTERNET" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    (BUDGET_MTEF_DISB_P3_AMOUNT * Cast((SELECT AVG(RATE)
-                    FROM
-                    HISTORICALEXCHANGERATE
-                    WHERE
-                    SOURCE = 'Internet' AND
-                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_P3_CURR" AND
-                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                    CASE WHEN "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" = '@@CURRENCY@@' THEN
+	                	(BUDGET_MTEF_DISB_P3_AMOUNT)
+		            ELSE
+	                    (BUDGET_MTEF_DISB_P3_AMOUNT * Cast((SELECT AVG(RATE)
+	                    FROM
+	                    HISTORICALEXCHANGERATE
+	                    WHERE
+	                    SOURCE = 'Internet' AND
+	                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_P3_CURR" AND
+	                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+	                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+	                END
                 </SQL>
             </MeasureExpression>
         </Measure>
@@ -847,28 +936,36 @@
         <Measure name="Budget/MTEF Disb Year 4 NATLOECD" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    (BUDGET_MTEF_DISB_P4_AMOUNT * Cast((SELECT AVG(RATE)
-                    FROM
-                    HISTORICALEXCHANGERATE
-                    WHERE
-                    (SOURCE = 'OECD' OR SOURCE='National') AND
-                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_P4_CURR" AND
-                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                    CASE WHEN "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" = '@@CURRENCY@@' THEN
+	                	(BUDGET_MTEF_DISB_P4_AMOUNT)
+		            ELSE
+	                    (BUDGET_MTEF_DISB_P4_AMOUNT * Cast((SELECT AVG(RATE)
+	                    FROM
+	                    HISTORICALEXCHANGERATE
+	                    WHERE
+	                    (SOURCE = 'OECD' OR SOURCE='National') AND
+	                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_P4_CURR" AND
+	                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+	                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+	                END
                 </SQL>
             </MeasureExpression>
         </Measure>
         <Measure name="Budget/MTEF Disb Year 4 INTERNET" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    (BUDGET_MTEF_DISB_P4_AMOUNT * Cast((SELECT AVG(RATE)
-                    FROM
-                    HISTORICALEXCHANGERATE
-                    WHERE
-                    SOURCE = 'Internet' AND
-                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_P4_CURR" AND
-                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                    CASE WHEN "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" = '@@CURRENCY@@' THEN
+	                	(BUDGET_MTEF_DISB_P4_AMOUNT)
+		            ELSE
+	                    (BUDGET_MTEF_DISB_P4_AMOUNT * Cast((SELECT AVG(RATE)
+	                    FROM
+	                    HISTORICALEXCHANGERATE
+	                    WHERE
+	                    SOURCE = 'Internet' AND
+	                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."BUDGET_MTEF_DISB_P4_CURR" AND
+	                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+	                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+	                END
                 </SQL>
             </MeasureExpression>
         </Measure>
@@ -877,28 +974,36 @@
         <Measure name="Tied Amount NATLOECD" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    (AMOUNTS_TIED_AMOUNT * Cast((SELECT AVG(RATE)
-                    FROM
-                    HISTORICALEXCHANGERATE
-                    WHERE
-                    (SOURCE = 'OECD' OR SOURCE='National') AND
-                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_TIED_CURR" AND
-                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                    CASE WHEN "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" = '@@CURRENCY@@' THEN
+	                	(AMOUNTS_TIED_AMOUNT)
+		            ELSE
+	                    (AMOUNTS_TIED_AMOUNT * Cast((SELECT AVG(RATE)
+	                    FROM
+	                    HISTORICALEXCHANGERATE
+	                    WHERE
+	                    (SOURCE = 'OECD' OR SOURCE='National') AND
+	                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_TIED_CURR" AND
+	                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+	                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+	                END
                 </SQL>
             </MeasureExpression>
         </Measure>
         <Measure name="Tied Amount INTERNET" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    (AMOUNTS_TIED_AMOUNT * Cast((SELECT AVG(RATE)
-                    FROM
-                    HISTORICALEXCHANGERATE
-                    WHERE
-                    SOURCE = 'Internet' AND
-                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_TIED_CURR" AND
-                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                    CASE WHEN "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" = '@@CURRENCY@@' THEN
+	                	(AMOUNTS_TIED_AMOUNT)
+		            ELSE
+	                    (AMOUNTS_TIED_AMOUNT * Cast((SELECT AVG(RATE)
+	                    FROM
+	                    HISTORICALEXCHANGERATE
+	                    WHERE
+	                    SOURCE = 'Internet' AND
+	                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_TIED_CURR" AND
+	                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+	                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+	                END
                 </SQL>
             </MeasureExpression>
         </Measure>
@@ -907,28 +1012,36 @@
         <Measure name="Untied Amount NATLOECD" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    (AMOUNTS_UNTIED_AMOUNT * Cast((SELECT AVG(RATE)
-                    FROM
-                    HISTORICALEXCHANGERATE
-                    WHERE
-                    (SOURCE = 'OECD' OR SOURCE='National') AND
-                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_UNTIED_CURR" AND
-                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                    CASE WHEN "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" = '@@CURRENCY@@' THEN
+	                	(AMOUNTS_UNTIED_AMOUNT)
+		            ELSE
+	                    (AMOUNTS_UNTIED_AMOUNT * Cast((SELECT AVG(RATE)
+	                    FROM
+	                    HISTORICALEXCHANGERATE
+	                    WHERE
+	                    (SOURCE = 'OECD' OR SOURCE='National') AND
+	                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_UNTIED_CURR" AND
+	                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+	                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+	                END
                 </SQL>
             </MeasureExpression>
         </Measure>
         <Measure name="Untied Amount INTERNET" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    (AMOUNTS_UNTIED_AMOUNT * Cast((SELECT AVG(RATE)
-                    FROM
-                    HISTORICALEXCHANGERATE
-                    WHERE
-                    SOURCE = 'Internet' AND
-                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_UNTIED_CURR" AND
-                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                    CASE WHEN "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" = '@@CURRENCY@@' THEN
+	                	(AMOUNTS_UNTIED_AMOUNT)
+		            ELSE
+	                    (AMOUNTS_UNTIED_AMOUNT * Cast((SELECT AVG(RATE)
+	                    FROM
+	                    HISTORICALEXCHANGERATE
+	                    WHERE
+	                    SOURCE = 'Internet' AND
+	                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_UNTIED_CURR" AND
+	                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+	                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+	                END
                 </SQL>
             </MeasureExpression>
         </Measure>
@@ -937,28 +1050,36 @@
         <Measure name="Partially Untied NATLOECD" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    (AMOUNTS_PARTIALLY_UNTIED_AMOUNT * Cast((SELECT AVG(RATE)
-                    FROM
-                    HISTORICALEXCHANGERATE
-                    WHERE
-                    (SOURCE = 'OECD' OR SOURCE='National') AND
-                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_PARTIALLY_UNTIED_CURR" AND
-                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                    CASE WHEN "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" = '@@CURRENCY@@' THEN
+	                	(AMOUNTS_PARTIALLY_UNTIED_AMOUNT)
+		            ELSE
+	                    (AMOUNTS_PARTIALLY_UNTIED_AMOUNT * Cast((SELECT AVG(RATE)
+	                    FROM
+	                    HISTORICALEXCHANGERATE
+	                    WHERE
+	                    (SOURCE = 'OECD' OR SOURCE='National') AND
+	                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_PARTIALLY_UNTIED_CURR" AND
+	                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+	                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+	                END
                 </SQL>
             </MeasureExpression>
         </Measure>
         <Measure name="Partially Untied INTERNET" aggregator="sum" visible="false">
             <MeasureExpression>
                 <SQL dialect="generic">
-                    (AMOUNTS_PARTIALLY_UNTIED_AMOUNT * Cast((SELECT AVG(RATE)
-                    FROM
-                    HISTORICALEXCHANGERATE
-                    WHERE
-                    SOURCE = 'Internet' AND
-                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_PARTIALLY_UNTIED_CURR" AND
-                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
-                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+                    CASE WHEN "FINANCIALTRANSACTIONVIEW"."COMMITMENT_CURR" = '@@CURRENCY@@' THEN
+	                	(AMOUNTS_PARTIALLY_UNTIED_AMOUNT)
+		            ELSE
+	                    (AMOUNTS_PARTIALLY_UNTIED_AMOUNT * Cast((SELECT AVG(RATE)
+	                    FROM
+	                    HISTORICALEXCHANGERATE
+	                    WHERE
+	                    SOURCE = 'Internet' AND
+	                    BASE_CURRENCY = "FINANCIALTRANSACTIONVIEW"."AMOUNTS_PARTIALLY_UNTIED_CURR" AND
+	                    COUNTER_CURRENCY = '@@CURRENCY@@' AND
+	                    YEAR(DATE) = YEAR("FINANCIALTRANSACTIONVIEW"."REPORTINGYEAR")) as decimal(16, 8)))
+	                END
                 </SQL>
             </MeasureExpression>
         </Measure>
