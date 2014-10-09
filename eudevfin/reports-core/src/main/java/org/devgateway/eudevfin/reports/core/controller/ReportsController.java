@@ -218,14 +218,18 @@ public class ReportsController {
             }
         }
 
+
+        // get the name of the Country
         String serverInstance = "";
         Organization organizationForCurrentUser = AuthUtils.getOrganizationForCurrentUser();
         if (organizationForCurrentUser != null) {
             serverInstance = organizationForCurrentUser.getDonorName();
         }
 
+        // get the Mondrian connection
         Connection connection = ReportsControllerUtils.createMondrianConnection(applicationContext, cdaDataSource, request);
 
+        // set the files path and names
         String tmpDirPath = System.getProperty("java.io.tmpdir");
         String dirPath = tmpDirPath + File.separator + serverInstance +  "Repository" +
                 File.separator + reportType;
@@ -259,6 +263,7 @@ public class ReportsController {
             fosPDF = new FileOutputStream (filePDF);
             fosXLS = new FileOutputStream (fileXLS);
 
+            // generate the files (both PDF and Excel)
             switch (reportType) {
                 case REPORT_TYPE_AQ:
                     baosPDF = ReportsControllerUtils.generateAdvanceQuestionnaire(connection, yearParam,

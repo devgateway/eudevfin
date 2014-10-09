@@ -1,4 +1,4 @@
-package org.devgateway.eudevfin.reports.ui.pages;
+package org.devgateway.eudevfin.mcm.pages;
 
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.WebMarkupContainer;

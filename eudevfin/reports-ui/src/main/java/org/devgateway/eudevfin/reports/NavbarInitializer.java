@@ -16,7 +16,6 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconType;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarDropDownButton;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.button.DropDownAutoOpen;
-
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy;
@@ -27,7 +26,6 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
-import org.devgateway.eudevfin.reports.ui.pages.PublishReports;
 import org.devgateway.eudevfin.reports.ui.pages.ReportsCountryInstitutionFilter;
 import org.devgateway.eudevfin.reports.ui.pages.ReportsCountrySectorFilter;
 import org.devgateway.eudevfin.reports.ui.pages.ReportsExport;
@@ -117,37 +115,6 @@ public final class NavbarInitializer {
 				MetaDataRoleAuthorizationStrategy.authorize(exportReports,
 				Component.RENDER, AuthConstants.Roles.ROLE_USER);
 				list.add(exportReports);
-
-                DropDownSubMenu publishReports = new DropDownSubMenu(new StringResourceModel("navbar.reports.publish", this, null, null)) {
-                    @Override
-                    public boolean isActive(Component item) {
-                        return false;
-                    }
-
-                    @Override
-                    protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
-                        List<AbstractLink> list = new ArrayList<>();
-
-                        PageParameters paramsAQ = new PageParameters();
-                        paramsAQ.set("reportType", "aq");
-                        list.add(new MenuBookmarkablePageLink<PublishReports>(PublishReports.class, paramsAQ, new StringResourceModel("navbar.reports.export.aq", this, null, null)));
-
-                        PageParameters paramsDAC1 = new PageParameters();
-                        paramsDAC1.set("reportType", "dac1");
-                        list.add((AbstractLink) new MenuBookmarkablePageLink<PublishReports>(PublishReports.class, paramsDAC1, new StringResourceModel("navbar.reports.export.dac1", this, null, null)));
-
-                        PageParameters paramsDAC2a = new PageParameters();
-                        paramsDAC2a.set("reportType", "dac2a");
-                        list.add((AbstractLink) new MenuBookmarkablePageLink<PublishReports>(PublishReports.class, paramsDAC2a, new StringResourceModel("navbar.reports.export.dac2a", this, null, null)));
-
-                        return list;
-                    }
-
-                };
-                publishReports.setIconType(IconType.inbox);
-                MetaDataRoleAuthorizationStrategy.authorize(publishReports,
-                        Component.RENDER, AuthConstants.Roles.ROLE_SUPERVISOR);
-                list.add(publishReports);
 
                 DropDownSubMenu customReports = new DropDownSubMenu(new StringResourceModel("navbar.customreports", this, null, null)) {
                     @Override

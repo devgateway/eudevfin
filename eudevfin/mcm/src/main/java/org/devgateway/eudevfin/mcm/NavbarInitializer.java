@@ -20,6 +20,7 @@ import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy;
 import org.apache.wicket.markup.html.link.AbstractLink;
 import org.apache.wicket.model.StringResourceModel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.mcm.pages.EditNonFlowItemsPage;
 import org.devgateway.eudevfin.mcm.pages.EditPersistedUserPage;
@@ -28,6 +29,7 @@ import org.devgateway.eudevfin.mcm.pages.ListOrganizationsPage;
 import org.devgateway.eudevfin.mcm.pages.ListPersistedUserGroupsPage;
 import org.devgateway.eudevfin.mcm.pages.ListPersistedUsersPage;
 import org.devgateway.eudevfin.mcm.pages.OnlineExchangeRatePage;
+import org.devgateway.eudevfin.mcm.pages.PublishReports;
 import org.devgateway.eudevfin.ui.common.WicketNavbarComponentInitializer;
 import org.devgateway.eudevfin.ui.common.components.RepairedNavbarDropDownButton;
 import org.devgateway.eudevfin.ui.common.pages.LogoutPage;
@@ -71,6 +73,37 @@ public final class NavbarInitializer {
 
 				list.add(new MenuBookmarkablePageLink<EditNonFlowItemsPage>(EditNonFlowItemsPage.class, null,
 						new StringResourceModel("navbar.admin.nonflow", this, null, null)).setIconType(IconType.globe));
+
+                DropDownSubMenu publishReports = new DropDownSubMenu(new StringResourceModel("navbar.reports.publish", this, null, null)) {
+                    @Override
+                    public boolean isActive(Component item) {
+                        return false;
+                    }
+
+                    @Override
+                    protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
+                        List<AbstractLink> list = new ArrayList<>();
+
+                        PageParameters paramsAQ = new PageParameters();
+                        paramsAQ.set("reportType", "aq");
+                        list.add(new MenuBookmarkablePageLink<PublishReports>(PublishReports.class, paramsAQ, new StringResourceModel("navbar.reports.export.aq", this, null, null)));
+
+                        PageParameters paramsDAC1 = new PageParameters();
+                        paramsDAC1.set("reportType", "dac1");
+                        list.add((AbstractLink) new MenuBookmarkablePageLink<PublishReports>(PublishReports.class, paramsDAC1, new StringResourceModel("navbar.reports.export.dac1", this, null, null)));
+
+                        PageParameters paramsDAC2a = new PageParameters();
+                        paramsDAC2a.set("reportType", "dac2a");
+                        list.add((AbstractLink) new MenuBookmarkablePageLink<PublishReports>(PublishReports.class, paramsDAC2a, new StringResourceModel("navbar.reports.export.dac2a", this, null, null)));
+
+                        return list;
+                    }
+
+                };
+                publishReports.setIconType(IconType.inbox);
+                MetaDataRoleAuthorizationStrategy.authorize(publishReports,
+                        Component.RENDER, AuthConstants.Roles.ROLE_SUPERVISOR);
+                list.add(publishReports);
 
                 DropDownSubMenu adminRates = new DropDownSubMenu(new StringResourceModel("navbar.admin.rates", this, null, null)) {
                     @Override
