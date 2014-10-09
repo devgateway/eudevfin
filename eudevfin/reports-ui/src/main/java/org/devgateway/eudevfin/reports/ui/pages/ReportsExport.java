@@ -7,21 +7,30 @@
  *******************************************************************************/
 package org.devgateway.eudevfin.reports.ui.pages;
 
+import org.apache.log4j.Logger;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.HiddenField;
 import org.apache.wicket.markup.html.form.IChoiceRenderer;
+import org.apache.wicket.markup.html.link.DownloadLink;
+import org.apache.wicket.markup.html.list.ListItem;
+import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
+import org.devgateway.eudevfin.auth.common.util.AuthUtils;
 import org.devgateway.eudevfin.financial.service.CustomFinancialTransactionService;
+import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.wicketstuff.annotation.mount.MountPath;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -29,7 +38,8 @@ import java.util.List;
 @MountPath(value = "/exportreports")
 @AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
 public class ReportsExport extends HeaderFooter<Object> {
-	
+    private static Logger logger = Logger.getLogger(ReportsExport.class);
+
 	private final String REPORT_AQ = "AQ";
     private final String REPORT_DATASOURCE_AQ = "Advance Questionnaire input form";
 	private final String REPORT_DATASOURCE_CRS = "CRS++ input form";
@@ -99,6 +109,48 @@ public class ReportsExport extends HeaderFooter<Object> {
         HiddenField<String> field = new HiddenField<String>("reportType", Model.of(""));
         field.setModelValue(new String[]{reportType});
 		add(field);
+
+        // get the 'Approved Reports' files
+        // get the name of the Country
+        String serverInstance = "";
+        Organization organizationForCurrentUser = AuthUtils.getOrganizationForCurrentUser();
+        if (organizationForCurrentUser != null) {
+            serverInstance = organizationForCurrentUser.getDonorName();
+        }
+
+        // set the files path and names
+        String tmpDirPath = System.getProperty("java.io.tmpdir");
+        String dirPath = tmpDirPath + File.separator + serverInstance +  "Repository" +
+                File.separator + reportType;
+
+        File dir = new File(dirPath);
+
+        List<File> listFiles = new ArrayList();
+        if (dir.exists()) {
+            for (final File reportFile : dir.listFiles()) {
+                // check if there are files and that the name begins with the report type, for example 'DAC1_2013.pdf'
+                if (reportFile.isFile() && reportFile.getName().startsWith(reportType.toUpperCase())) {
+                    listFiles.add(reportFile);
+                }
+            }
+        }
+
+        Label downloadApprovedReports = new Label("downloadApprovedReports", new StringResourceModel("navbar.reports.downloadApprovedReports", this, null, null));
+        add(downloadApprovedReports);
+
+        add(new ListView<File>("listFiles", listFiles){
+            public void populateItem(final ListItem<File> item) {
+                final File downloadFile = item.getModelObject();
+                IModel<File> fileModel = new Model(downloadFile);
+                DownloadLink downloadLink = new DownloadLink("downloadLink", fileModel, downloadFile.getName());
+                downloadLink.add(new Label("downloadText", downloadFile.getName()));
+                item.add(downloadLink);
+            }
+        });
+
+        if(listFiles == null || listFiles.size() == 0) {
+            downloadApprovedReports.setVisibilityAllowed(false);
+        }
     }
 	
 	@Override
