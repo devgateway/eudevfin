@@ -59,6 +59,9 @@ public class ReportsExport extends HeaderFooter<Object> {
 		String reportType = parameters.get("reportType").toString("");
 		
 		pageTitle.setDefaultModel(new StringResourceModel("navbar.reports.export." + reportType, this, null, null));
+
+        Label subtitleReportsExport = new Label("subtitleReportsExport", new StringResourceModel("navbar.reports.subtitleReportsExport", this, null, null));
+        add(subtitleReportsExport);
 		
         final List<Integer> years = this.txService.findDistinctReportingYears();
         // if the list of years is empty add the current year (ODAEU-322)
