@@ -33,6 +33,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 @MountPath(value = "/exportreports")
@@ -137,6 +138,8 @@ public class ReportsExport extends HeaderFooter<Object> {
                 }
             }
         }
+        // sort the files name
+        Collections.sort(listFiles);
 
         Label downloadApprovedReports = new Label("downloadApprovedReports", new StringResourceModel("navbar.reports.downloadApprovedReports", this, null, null));
         add(downloadApprovedReports);
