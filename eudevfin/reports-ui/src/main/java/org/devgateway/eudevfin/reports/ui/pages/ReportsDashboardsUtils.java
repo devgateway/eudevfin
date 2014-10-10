@@ -880,6 +880,16 @@ public class ReportsDashboardsUtils {
     // take more info from the database: sector, country, institution, channel
     private static void getMoreInfo(List<List<String>> resultSet, FinancialTransactionService financialTransactionService) {
         int index = 0;
+
+        // there are cases when transaction titles are the same and we don't have the transaction ID
+        if (resultSet.size() % 2 == 1) {
+            for(int i = 0; i < resultSet.size() - 1; i+=2) {
+                if(!resultSet.get(i).get(0).matches("\\d*")) {
+                    resultSet.remove(i);
+                }
+            }
+        }
+
         for (List<String> item : resultSet) {
             if (index % 2 != 0) {
                 index++;
