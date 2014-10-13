@@ -65,6 +65,27 @@ import de.agilecoders.wicket.extensions.markup.html.bootstrap.button.DropDownAut
 @Service
 public final class NavbarInitializer {
 
+	
+	public static class EmanualPdf extends RedirectPage {
+		private static final long serialVersionUID = 7262366366792788806L;
+
+		public EmanualPdf() {
+			super(WebApplication.get().getServletContext().getContextPath()+"/files/EU-DEVFIN-e-manual.pdf");
+		}
+
+	}
+
+	
+	public static class FAQPdf extends RedirectPage {
+
+		private static final long serialVersionUID = -6417911125387719092L;
+
+		public FAQPdf() {
+			super(WebApplication.get().getServletContext().getContextPath()+"/files/EU-DEVFIN-FAQs.pdf");
+		}
+
+	}
+	
 	public static class RecipientCountriesPdf extends RedirectPage {
 
 		private static final long serialVersionUID = 8040944162385060540L;
@@ -343,6 +364,35 @@ public final class NavbarInitializer {
 				final List<AbstractLink> list = new ArrayList<>();
 				list.add(new MenuHeader(new StringResourceModel("navbar.help.header", this, null)));
 				list.add(new MenuDivider());
+				
+				
+				final MenuBookmarkablePageLink<EmanualPdf> eManualLink = new MenuBookmarkablePageLink<EmanualPdf>(
+						EmanualPdf.class, null, new StringResourceModel("navbar.emanual", this,
+								null)) {
+					private static final long serialVersionUID = 1L;
+					@Override
+					protected void onComponentTag(final ComponentTag tag) {
+						super.onComponentTag(tag);
+						tag.put("target", "_blank");
+					}
+				};
+				eManualLink.setIconType(IconType.download);
+				list.add(eManualLink);
+				
+				final MenuBookmarkablePageLink<FAQPdf> faqLink = new MenuBookmarkablePageLink<FAQPdf>(
+						FAQPdf.class, null, new StringResourceModel("navbar.faq", this,
+								null)) {
+					private static final long serialVersionUID = 1L;
+					@Override
+					protected void onComponentTag(final ComponentTag tag) {
+						super.onComponentTag(tag);
+						tag.put("target", "_blank");
+					}
+				};
+				faqLink.setIconType(IconType.download);
+				list.add(faqLink);
+
+				
 
 				final MenuBookmarkablePageLink<RecipientCountriesPdf> recipientCountriesLink = new MenuBookmarkablePageLink<RecipientCountriesPdf>(
 						RecipientCountriesPdf.class, null, new StringResourceModel("navbar.recipientcountries", this,
@@ -356,6 +406,8 @@ public final class NavbarInitializer {
 				};
 				recipientCountriesLink.setIconType(IconType.download);
 				list.add(recipientCountriesLink);
+				
+			
 
 				final MenuBookmarkablePageLink<LitOfInternationalOrgs> listOfInternationalOrgs = new MenuBookmarkablePageLink<LitOfInternationalOrgs>(
 						LitOfInternationalOrgs.class, null, new StringResourceModel("navbar.listofinternationalorgs", this,
