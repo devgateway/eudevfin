@@ -23,6 +23,7 @@ public class CurrencyUnitProviderFactory {
 
     public final static String NATIONAL_UNSORTED_CURRENCIES_PROVIDER = "national_unsorted_currencies_provider";
     public final static String ALL_SORTED_CURRENCIES_PROVIDER = "all_sorted_currencies_provider";
+    public final static String USD_EUR_PROVIDER = "usd_eur_provider";
 
     @Autowired
     private CurrencyMetadataService service;
@@ -32,6 +33,8 @@ public class CurrencyUnitProviderFactory {
 
     private SpringCategoryProviderProxy<CurrencyUnit> nationalUnsorted;
     private SpringCategoryProviderProxy<CurrencyUnit> allSorted;
+    private SpringCategoryProviderProxy<CurrencyUnit> usdEur;
+    
 
     @PostConstruct
     private void init() {
@@ -39,6 +42,8 @@ public class CurrencyUnitProviderFactory {
                 CurrencyConstants.NATIONAL_CURRENCIES_LIST));
         this.allSorted = new SpringCategoryProviderProxy<>(new CurrencyUnitProvider(service, pageSize, true,
                 CurrencyConstants.ALL_CURRENCIES_LIST));
+        this.usdEur = new SpringCategoryProviderProxy<>(new CurrencyUnitProvider(service, pageSize, true,
+                CurrencyConstants.USD_EUR_LIST));
     }
 
     public SpringCategoryProviderProxy<CurrencyUnit> getCurrencyUnitProviderInstance(String providerType) {
@@ -46,6 +51,8 @@ public class CurrencyUnitProviderFactory {
             return this.nationalUnsorted;
         else if (ALL_SORTED_CURRENCIES_PROVIDER.equals(providerType))
             return this.allSorted;
+        else if (USD_EUR_PROVIDER.equals(providerType))
+            return this.usdEur;
         throw new CurrencyProviderExceptiom("No such currency unit provider: " + providerType);
     }
 }

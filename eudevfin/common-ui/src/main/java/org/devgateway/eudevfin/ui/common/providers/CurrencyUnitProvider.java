@@ -11,20 +11,24 @@
  */
 package org.devgateway.eudevfin.ui.common.providers;
 
-import com.vaynberg.wicket.select2.Response;
-import com.vaynberg.wicket.select2.TextChoiceProvider;
-import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
-import org.devgateway.eudevfin.financial.service.CurrencyMetadataService;
-import org.joda.money.CurrencyUnit;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+
+import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
+import org.devgateway.eudevfin.financial.service.CurrencyMetadataService;
+import org.devgateway.eudevfin.financial.util.CurrencyConstants;
+import org.joda.money.CurrencyUnit;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+
+import com.vaynberg.wicket.select2.Response;
+import com.vaynberg.wicket.select2.TextChoiceProvider;
 
 /**
  * @author Alex
@@ -41,6 +45,8 @@ public class CurrencyUnitProvider extends TextChoiceProvider<CurrencyUnit> {
     private boolean alphaSort;
 
     private String type;
+    
+    private CurrencyUnit usdEur[] = {CurrencyUnit.EUR,CurrencyUnit.USD};
 
 
     public CurrencyUnitProvider(CurrencyMetadataService service,
@@ -65,7 +71,10 @@ public class CurrencyUnitProvider extends TextChoiceProvider<CurrencyUnit> {
     @Override
     public void query(String term, int page, Response<CurrencyUnit> response) {
         Pageable pageable = new PageRequest(page, pageSize);
-        Page<CurrencyUnit> results = this.service.findBySearch(term, pageable, this.type);
+        Page<CurrencyUnit> results = null;
+       if(type.equals(CurrencyConstants.USD_EUR_LIST))
+        	results= new PageImpl<CurrencyUnit>(Arrays.asList(usdEur),null,2);
+        	else results=this.service.findBySearch(term, pageable, this.type);
         List<CurrencyUnit> resultsList = results.getContent();
         if (this.alphaSort) {
             resultsList = new ArrayList<CurrencyUnit>(results.getContent());
