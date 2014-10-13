@@ -379,6 +379,12 @@ public final class NavbarInitializer {
 				eManualLink.setIconType(IconType.download);
 				list.add(eManualLink);
 				
+				final MenuBookmarkablePageLink<HelpPage> helpTutorialsPage =
+						new MenuBookmarkablePageLink<HelpPage>(HelpPage.class, null,new StringResourceModel("navbar.help.videotut", page, null));
+				helpTutorialsPage.setIconType(IconType.download);
+
+				list.add(helpTutorialsPage);
+				
 				final MenuBookmarkablePageLink<FAQPdf> faqLink = new MenuBookmarkablePageLink<FAQPdf>(
 						FAQPdf.class, null, new StringResourceModel("navbar.faq", this,
 								null)) {
@@ -463,11 +469,7 @@ public final class NavbarInitializer {
 				dacGlossary.setIconType(IconType.download);
 				list.add(dacGlossary);
 				
-				final MenuBookmarkablePageLink<HelpPage> helpTutorialsPage =
-						new MenuBookmarkablePageLink<HelpPage>(HelpPage.class, null,new StringResourceModel("navbar.help.videotut", page, null));
-				helpTutorialsPage.setIconType(IconType.download);
 
-				list.add(helpTutorialsPage);
 
 
 				return list;
