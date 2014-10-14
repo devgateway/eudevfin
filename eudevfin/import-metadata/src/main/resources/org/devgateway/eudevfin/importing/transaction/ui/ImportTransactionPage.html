@@ -35,8 +35,14 @@
 		</div>
 		<div class="row">
 			<div class="span4 offset4 well">
-				<span wicket:id="template-message">The import file format should be based on the following template:</span>
-				<a wicket:id="template-link"><span wicket:id="template-link-name" /> </a>
+				<p>
+					<span wicket:id="template-message">The import file format should be based on the following template:</span>
+					<a wicket:id="template-link"><span wicket:id="template-link-name" /> </a>
+				</p>
+				<span wicket:id="template-warnings-title">Please take a look at the notes below:</span>
+				<ul wicket:id="warning-list">
+					<li><span wicket:id="warning-list-item">Warning message</span> <a wicket:id="warning-list-item-link"></a> </li>
+				</ul>
 			</div>
 		</div>
 	</div>

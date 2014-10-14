@@ -22,5 +22,11 @@
     <entry key="import-transactions.message.nofiles">Please select a file and click on the upload button</entry>
     <entry key="import-transactions.message.problem">An unexpected problem appeared. Please try again later or contact the system administrator</entry>
     <entry key="import-transactions.message.error">There was an error on line {0}. Technical info: {1}</entry>
+    <entry key="import-transactions.message.error-with-col-num">There was an error on line {0} column {1}. Technical info: {2}</entry>
+    
+    <entry key="import-transactions.message.warning.title">Please take a look at the notes below:</entry>
+    <entry key="import-transactions.message.warning.dates">Make sure that the cells containing dates are actually date cells and not just numbers or text</entry>
+    <entry key="import-transactions.message.warning.currency">For the currency code please use the ISO 4217 active codes available at</entry>
+    <entry key="import-transactions.message.warning.financial">The financial information (commitment, amounts extended, etc.) must be inputed in full amounts</entry>
     
 </properties>
