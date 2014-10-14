@@ -89,8 +89,12 @@ public class ExcelTxStreamProcessor implements IStreamProcessor {
 					//					if (bdValue != null) {
 					//						values.add(bdValue);
 					//					}
-					final Double d = cell.getNumericCellValue();
-					values.add( d.toString() );
+					final double d = cell.getNumericCellValue();
+					if ( d == (long)d ) {
+						values.add( String.format("%d",(long)d) );
+					} else {
+						values.add( String.format("%f",d) );
+					}
 				}
 				else{
 					values.add("");
