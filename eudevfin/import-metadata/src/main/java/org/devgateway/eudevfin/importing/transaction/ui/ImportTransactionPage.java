@@ -17,6 +17,9 @@ import org.apache.wicket.authroles.authorization.strategies.role.annotations.Aut
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.link.DownloadLink;
+import org.apache.wicket.markup.html.link.ExternalLink;
+import org.apache.wicket.markup.html.list.ListItem;
+import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
@@ -81,7 +84,12 @@ public class ImportTransactionPage extends HeaderFooter {
 						this.info(new NotificationMessage(new StringResourceModel("import-transactions.message.saved", ImportTransactionPage.this, null, null)));
 					}
 					else {
-						this.error(new NotificationMessage(new StringResourceModel("import-transactions.message.error", ImportTransactionPage.this, null, result.getRowNum(), result.getMessage())));
+						if ( result.getColNum() != null && result.getColNum() >= 0) {
+							this.error(new NotificationMessage(new StringResourceModel("import-transactions.message.error-with-col-num",
+									ImportTransactionPage.this, null, result.getRowNum(), result.getColNum(), result.getMessage())));
+						} else {
+							this.error(new NotificationMessage(new StringResourceModel("import-transactions.message.error", ImportTransactionPage.this, null, result.getRowNum(), result.getMessage())));
+						}
 					}
 				}
 				else {
@@ -136,6 +144,57 @@ public class ImportTransactionPage extends HeaderFooter {
 		final DownloadLink templateLink = new DownloadLink("template-link", fileModel);
 		templateLink.add(new Label("template-link-name", new StringResourceModel("import-transactions.template.link.name", this, null)) );
 		this.add(templateLink);
+
+		this.populateWarningMessages();
+
+	}
+
+	private void populateWarningMessages() {
+		final Label templateMessage = new Label("template-warnings-title", new StringResourceModel("import-transactions.message.warning.title", this, null));
+		this.add(templateMessage);
+
+		final List<WarningMessage> items = new ArrayList<WarningMessage>();
+		items.add(new WarningMessage(new StringResourceModel("import-transactions.message.warning.dates", this, null), null));
+		items.add(new WarningMessage(new StringResourceModel("import-transactions.message.warning.currency", this, null), "http://en.wikipedia.org/wiki/ISO_4217"));
+		items.add(new WarningMessage(new StringResourceModel("import-transactions.message.warning.financial", this, null), null));
+
+		final ListView<WarningMessage> warnings = new ListView<WarningMessage>("warning-list", items  ) {
+
+			@Override
+			protected void populateItem(final ListItem<WarningMessage> item) {
+				final WarningMessage wm = item.getModelObject();
+				item.add(new Label("warning-list-item", wm.getMessage()));
+
+				final ExternalLink link = new ExternalLink("warning-list-item-link", wm.getUrl(), wm.getUrl() );
+				if ( wm.getUrl() == null ) {
+					link.setVisible(false);
+				}
+				item.add(link);
+
+			}
+
+		};
+
+		this.add(warnings);
+	}
+
+	public class WarningMessage implements Serializable {
+		private static final long serialVersionUID = 2294112728584396314L;
+		private final StringResourceModel message;
+		private final String url;
+
+		public WarningMessage(final StringResourceModel message, final String url) {
+			super();
+			this.message = message;
+			this.url = url;
+		}
+		public StringResourceModel getMessage() {
+			return this.message;
+		}
+		public String getUrl() {
+			return this.url;
+		}
+
 
 	}
 
