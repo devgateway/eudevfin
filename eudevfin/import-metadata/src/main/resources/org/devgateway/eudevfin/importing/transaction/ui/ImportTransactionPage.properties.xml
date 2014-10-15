@@ -27,6 +27,6 @@
     <entry key="import-transactions.message.warning.title">Please take a look at the notes below:</entry>
     <entry key="import-transactions.message.warning.dates">Make sure that the cells containing dates are actually date cells and not just numbers or text</entry>
     <entry key="import-transactions.message.warning.currency">For the currency code please use the ISO 4217 active codes available at</entry>
-    <entry key="import-transactions.message.warning.financial">The financial information (commitment, amounts extended, etc.) must be inputed in full amounts</entry>
+    <entry key="import-transactions.message.warning.financial">The financial information (commitment, amounts extended, etc.) must be inputed in full amounts and with no thousand separators</entry>
     
 </properties>
