@@ -14,7 +14,7 @@
 	<entry key="import-file-upload.placeholder">Filename</entry>
     <entry key="import-file-upload.help">Select the file that needs to be uploaded either for historical or current data</entry>
     <entry key="import-file-upload.help.detail"></entry>
-    <entry key="import-transactions-form.submit">Upload transaction file</entry>
+    <entry key="import-transactions-form.submit">Start import</entry>
     <entry key="page.title">Historical Upload and Data Import Tool</entry>
     <entry key="import-transactions.template.message">The import file format should be based on the following template:</entry>
     <entry key="import-transactions.template.link.name">download</entry>
