@@ -49,6 +49,7 @@ public class TransactionRowTransformer implements IRowTransformer {
 		final Map<String, Object> context = new HashMap<String, Object>();
 
 		final CustomFinancialTransaction ctx = new CustomFinancialTransaction();
+
 		for (int i=0; i<srcList.size(); i++) {
 			try {
 				final Object srcValue = srcList.get(i);
@@ -60,6 +61,10 @@ public class TransactionRowTransformer implements IRowTransformer {
 				throw ex;
 			}
 		}
+		/* Mark the transaction as approved */
+		ctx.setDraft(false);
+		ctx.setApproved(true);
+
 		return ctx;
 	}
 

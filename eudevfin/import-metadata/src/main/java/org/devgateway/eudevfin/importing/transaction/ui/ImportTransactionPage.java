@@ -33,6 +33,7 @@ import org.devgateway.eudevfin.importing.transaction.TransactionImporterEngine;
 import org.devgateway.eudevfin.importing.transaction.TransactionImporterEngine.TransformationResult;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
 import org.devgateway.eudevfin.ui.common.components.MultiFileUploadField;
+import org.devgateway.eudevfin.ui.common.components.util.MondrianCDACacheUtil;
 import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.springframework.util.CollectionUtils;
 import org.wicketstuff.annotation.mount.MountPath;
@@ -45,13 +46,16 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel
  *
  */
 @MountPath(value = "/import-transactions")
-@AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
+@AuthorizeInstantiation(AuthConstants.Roles.ROLE_SUPERVISOR)
 public class ImportTransactionPage extends HeaderFooter {
 
 	public static final String TEMPLATE_PATH = "/templates/transaction-import-template.xls";
 
 	@SpringBean
 	TransactionImporterEngine importerEngine;
+
+	@SpringBean
+	MondrianCDACacheUtil mondrianCDACacheUtil;
 
 	private NotificationPanel feedbackPanel;
 
@@ -81,6 +85,7 @@ public class ImportTransactionPage extends HeaderFooter {
 					final TransformationResult result = ImportTransactionPage.this.importerEngine.process(iStream);
 
 					if ( result.isSuccess() ) {
+						ImportTransactionPage.this.mondrianCDACacheUtil.flushMondrianCDACache();
 						this.info(new NotificationMessage(new StringResourceModel("import-transactions.message.saved", ImportTransactionPage.this, null, null)));
 					}
 					else {
@@ -154,6 +159,9 @@ public class ImportTransactionPage extends HeaderFooter {
 		this.add(templateMessage);
 
 		final List<WarningMessage> items = new ArrayList<WarningMessage>();
+		items.add(new WarningMessage(new StringResourceModel("import-transactions.message.warning.filesize", this, null), null));
+		items.add(new WarningMessage(new StringResourceModel("import-transactions.message.warning.not-twice", this, null), null));
+		items.add(new WarningMessage(new StringResourceModel("import-transactions.message.warning.approved", this, null), null));
 		items.add(new WarningMessage(new StringResourceModel("import-transactions.message.warning.dates", this, null), null));
 		items.add(new WarningMessage(new StringResourceModel("import-transactions.message.warning.currency", this, null), "http://en.wikipedia.org/wiki/ISO_4217"));
 		items.add(new WarningMessage(new StringResourceModel("import-transactions.message.warning.financial", this, null), null));
