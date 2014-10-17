@@ -13,7 +13,7 @@ var displayBarChart = function (parametersJson) {
     checkBarResults(parametersJson.result, parametersJson.numberOfSeries);
 
     var numberOfRows = parametersJson.result.resultset.length;
-    var height = 300 + numberOfRows * 35;
+    var height = 300 + numberOfRows * 40;
 
     // display the bar chart
     nv.addGraph(function () {
