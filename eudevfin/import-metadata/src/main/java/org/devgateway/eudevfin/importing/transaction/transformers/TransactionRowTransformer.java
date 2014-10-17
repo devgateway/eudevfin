@@ -10,6 +10,7 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
+import org.devgateway.eudevfin.auth.common.util.AuthUtils;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
 import org.devgateway.eudevfin.importing.transaction.exceptions.TransactionTransformerException;
 import org.devgateway.eudevfin.metadata.common.service.AreaService;
@@ -64,6 +65,9 @@ public class TransactionRowTransformer implements IRowTransformer {
 		/* Mark the transaction as approved */
 		ctx.setDraft(false);
 		ctx.setApproved(true);
+
+		/* Add the org of the current user as extending agency */
+		ctx.setExtendingAgency(AuthUtils.getOrganizationForCurrentUser());
 
 		return ctx;
 	}
