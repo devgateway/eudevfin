@@ -224,7 +224,7 @@
             MEMBER [Measures].[Average] AS (([Measures].[First Year] + [Measures].[Second Year]) / 2)
             SELECT
             NON EMPTY {[Measures].[Average]} ON COLUMNS,
-            NON EMPTY Order(CrossJoin([SectorHierarchy].[ParentName].Members, {[Type of Flow].[Name].[ODA (Official Development Assistance)]}), [Measures].[Average], BDESC) ON ROWS
+            NON EMPTY SUBSET(Order(CrossJoin([SectorHierarchy].[ParentName].Members, {[Type of Flow].[Name].[ODA (Official Development Assistance)]}), [Measures].[Average], BDESC), 0, 15) ON ROWS
             FROM [Financial]
             WHERE (Union(CrossJoin({[BiMultilateral].[Name].[Bilateral]}, {[Form Type].[bilateralOda.CRS]}), CrossJoin({[BiMultilateral].[Name].[Bilateral]}, {[Form Type].[multilateralOda.CRS]})))
             ]]>
