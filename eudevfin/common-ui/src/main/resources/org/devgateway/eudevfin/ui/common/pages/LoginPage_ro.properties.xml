@@ -12,15 +12,14 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <entry key="login.title">EU-DEVFIN - Login</entry>
-    <entry key="login.banner">Enhancing the ODA reporting capacities and systems of EU Member States</entry>
-    <entry key="login.login">Login</entry>
-    <entry key="login.welcome">Welcome to EU-DEVFIN</entry>
-    <entry key="login.user.label">User</entry>
-    <entry key="login.user.placeholder">Type your username...</entry>
-    <entry key="login.password.label">Password</entry>
-    <entry key="login.password.placeholder">Type your password...</entry>
-    <entry key="login.forgotPassword">Lost your password?</entry>
-    <entry key="login.forgotPassword.subject">Lost password</entry>
-    <entry key="login.submit">Submit</entry>
+    <entry key="login.title">Logare EU-DEVFIN</entry>
+    <entry key="login.banner">Îmbunătăţirea capacităţii raportării AOD şi a sistemelor ţărilor membre UE</entry>
+    <entry key="login.login">Logare</entry>
+    <entry key="login.welcome">Bun-venit la EU-DEVFIN</entry>
+    <entry key="login.user.label">Utilizator</entry>
+    <entry key="login.user.placeholder">Introduceţi numele de utilizator</entry>
+    <entry key="login.password.label">Parola</entry>
+    <entry key="login.password.placeholder">Introduceţi parola</entry>
+    <entry key="login.password.help">Păstraţi parola secretă!</entry>
+    <entry key="login.submit">Trimiteţi</entry>
 </properties>

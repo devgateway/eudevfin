@@ -9,17 +9,9 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <entry key="otherMarkers.label">Other Markers</entry>
-
+    <entry key="otherMarkers.label">Alţi indicatori</entry>
     <entry key="96rmnch.label">96. RMNCH</entry>
     <entry key="96rmnch.placeholder"></entry>
-    <entry key="96rmnch.help">Funding interpretation of RMNCH marker scores. Expand to view full definition.</entry>
-	<entry key="96rmnch.help.detail">The RMNCH marker is designed to facilitate "approximate" estimation of quantitative
-amounts based on the funding interpretation shares shown in the table below where the marker
-scores of "4", "3", "2", "1" and "0" correspond to 100%, 75%, 50%, 25% and 0% respectively of a
-project’s funding targeted to RMNCH activities. Care should be taken not to interpret or present
-these resulting data as precise and comprehensive amounts of RMNCH-related contributions. 
-	</entry>
-    
-
+    <entry key="96rmnch.help">Interpretarea finanţării cu indicatori RMNCH. Extindeţi pentru a vedea definiţia completă</entry>
+    <entry key="96rmnch.help.detail">Indicatorul RMNCH (Sănătatea reproductivă, maternă, a fătului şi a copilul) este creat să faciliteze estimarea "aproximativă" a sumei cantitative bazată pe procentele interpretării finanţării prezentate  în tabelul de mai jos unde indicatorii de "4", "3", "2", "1" şi "0" corespund la 100%, 75%, 50%, 25% şi 0% pentru o finanţare a unui proiect ce vizează activităţi RMNCH. Atenţie a nu se interpreta sau prezenta aceste date rezultate ca fiind sume precise şi cuprinzătoare a contribuţiilor legate de RMNCH.</entry>
 </properties>

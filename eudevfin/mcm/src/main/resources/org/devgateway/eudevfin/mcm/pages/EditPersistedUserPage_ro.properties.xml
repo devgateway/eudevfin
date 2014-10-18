@@ -4,20 +4,19 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-	<entry key="username.label">User Name</entry>
-	<entry key="password.label">Password</entry>
-	<entry key="passwordCheck.label">Re-type Password</entry>
-	<entry key="enabled.label">Enabled</entry>
-	<entry key="persistedAuthorities.label">Authorities</entry>
-	<entry key="group.label">Group</entry>
-	<entry key="passwordChange.label">Change Password</entry>
-	<entry key="uniqueUsernameError">Another user with the same user name exists!</entry>
-	<entry key="notification.passwordsDoNotMatchError">Passwords do not match!</entry>
-	<entry key="firstName.label">First Name</entry>
-	<entry key="lastName.label">Last Name</entry>
-	<entry key="email.label">Email Address</entry>
-	<entry key="phone.label">Phone Number</entry>
-	<entry key="page.title">Edit User Details</entry>
-	<entry key="PasswordPatternValidator">Password must contain 1 digit, 1 lower caps letter, 1 upper caps letter, 1 symbol
-		"@#$%" and must be from 6 to 20 characters long</entry>
+    <entry key="username.label">Utilizator</entry>
+    <entry key="password.label">Parola</entry>
+    <entry key="passwordCheck.label">reintroduceţi parola</entry>
+    <entry key="enabled.label">Autentificat</entry>
+    <entry key="persistedAuthorities.label">Autorităţi</entry>
+    <entry key="group.label">Grup</entry>
+    <entry key="passwordChange.label">Schimbă parola</entry>
+    <entry key="uniqueUsernameError">Există un alt utilizator cu acelaşi nume!</entry>
+    <entry key="notification.passwordsDoNotMatchError">Parolele nu coincid</entry>
+    <entry key="firstName.label">Prenume</entry>
+    <entry key="lastName.label">Nume</entry>
+    <entry key="email.label">Adresa de e-mail</entry>
+    <entry key="phone.label">Număr de Telefon</entry>
+    <entry key="page.title">Editaţi detaliile de utilizator</entry>
+    <entry key="PasswordPatternValidator">Parola trebuie să conţină 1 cifră, 1 literă mică, 1 literă mare, 1 simbol "@#$%" şi trebuie să conţină între 6 şi 20 de caractere</entry>
 </properties>

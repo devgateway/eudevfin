@@ -4,12 +4,12 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-	<entry key="draft.label">Draft Form</entry>
-	<entry key="draft.help">Uncheck this when the form data becomes final</entry>
-	<entry key="approved.label">Approved</entry>
-	<entry key="approved.help">Check this to approve and publish this form in the reports</entry>	
-	<entry key="notification.draftState">The form will be placed in draft mode, work in progress. You may save it (with no validation checks) and continue the work later.</entry>
-	<entry key="notification.nonDraftState">The form will be placed in non-draft mode, pending approval. Form validation will be performed on save.</entry>
-	<entry key="notification.approvedState">The form will be placed in approved mode, its data will show up in reports.</entry>
-	<entry key="notification.unapprovedState">The form will be placed in non-approved mode, its data will have to be reviewed.</entry>
+    <entry key="draft.label">Forma draftului</entry>
+    <entry key="draft.help">Debifaţi aici când datele formularului devin finale</entry>
+    <entry key="approved.label">Aprobat</entry>
+    <entry key="approved.help">Bifaţi aici pentru a aproba şi publica aceast formular în raport</entry>
+    <entry key="notification.draftState">Formularul va avea statut de draft, în curs de execuţie.</entry>
+    <entry key="notification.nonDraftState">Formularul va avea statut de draft,  în aşteptarea aprobării.</entry>
+    <entry key="notification.approvedState">Formularul va avea statut de aprobat, datele din raport vor apărea în rapoarte .</entry>
+    <entry key="notification.unapprovedState">Formaularul va avea statut de ne-aprobat, datele vor fi revizuite.</entry>
 </properties>

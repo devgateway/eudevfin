@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  ~ Copyright (c) 2013 Development Gateway.
-  ~ All rights reserved. This program and the accompanying materials
-  ~ are made available under the terms of the GNU Public License v3.0
-  ~ which accompanies this distribution, and is available at
-  ~ http://www.gnu.org/licenses/gpl.html
-  ~
-  ~ Contributors:
-  ~    aartimon
-  -->
+<!-- ~ Copyright (c) 2013 Development Gateway. ~ All rights reserved. This program and the accompanying materials ~ are made 
+	available under the terms of the GNU Public License v3.0 ~ which accompanies this distribution, and is available at ~ http://www.gnu.org/licenses/gpl.html 
+	~ ~ Contributors: ~ aartimon -->
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 	<entry key="message">
-		In this page the user will find short video tutorials which will guide her/him through the specific sections and
+		In this page the user will find short video tutorials which will guide her/him through the specific
+		sections and
 		functions of the EU DEVFIN software. The max length of each video will be 8 minutes.&lt;p/&gt;
-		The videos will be available end of September 2014, when the final version of the EU-DEVFIN software is released.
+		The videos
+		will be available end of September 2014, when the final version of the EU-DEVFIN software is released.
 	</entry>
+
+	<entry key="tutorial1">EU DEVFIN How to Guide 1 browse thru the main menu</entry>
+	<entry key="tutorial2">EU DEVFIN How to Guide 2 Input a new ODA transaction</entry>
+	<entry key="tutorial3">EU DEVFIN How to Guide 3 aggregate transactions and other input features</entry>
+	<entry key="tutorial4">EU DEVFIN How to Guide 4 Generate DAC official reports</entry>
+	<entry key="tutorial5">EU DEVFIN How to Guide 5 Generate analytical reports</entry>
+	<entry key="tutorial6">EU DEVFIN How to Guide 6 Generate exports</entry>
+	<entry key="tutorial7">EU DEVFIN How to Guide 7 Use the Admin menu</entry>
+	<entry key="tutorial8">EU DEVFIN How to Guide 8 Be an effective Administrator</entry>
+	<entry key="tutorial9">EU DEVFIN How to Guide 9 Promote transparency</entry>
+
 </properties>

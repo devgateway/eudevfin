@@ -98,6 +98,9 @@ public class EditHistoricalExchangeRatePage extends HeaderFooter {
 
 		ChoiceProvider<CurrencyUnit> currencyUnitProvider = this.currencyUnitProviderFactory
 				.getCurrencyUnitProviderInstance(CurrencyUnitProviderFactory.ALL_SORTED_CURRENCIES_PROVIDER);
+		
+		ChoiceProvider<CurrencyUnit> usdEurProvider = this.currencyUnitProviderFactory
+				.getCurrencyUnitProviderInstance(CurrencyUnitProviderFactory.USD_EUR_PROVIDER);
 
 		final DropDownField<CurrencyUnit> baseCurrency = new DropDownField<CurrencyUnit>("baseCurrency",
 				new RWComponentPropertyModel<CurrencyUnit>("rate.base"), currencyUnitProvider);
@@ -105,7 +108,7 @@ public class EditHistoricalExchangeRatePage extends HeaderFooter {
 		form.add(baseCurrency);
 
 		final DropDownField<CurrencyUnit> counterCurrency = new DropDownField<CurrencyUnit>("counterCurrency",
-				new RWComponentPropertyModel<CurrencyUnit>("rate.counter"), currencyUnitProvider);
+				new RWComponentPropertyModel<CurrencyUnit>("rate.counter"), usdEurProvider);
 		counterCurrency.required();
 		form.add(counterCurrency);
 

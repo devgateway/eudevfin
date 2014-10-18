@@ -12,6 +12,6 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <entry key="group.name">Group Name</entry>
-    <entry key="org.name">Organization Name</entry>
+    <entry key="group.name">Numele grupului</entry>
+    <entry key="org.name">Numele organizaţiei</entry>
 </properties>

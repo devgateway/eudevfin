@@ -25,30 +25,32 @@
     <div class="container">
         <div wicket:id="navbar"/>
     </div>	
+
+    <div id="content" class="container">
    
-       
-    <div id="content">
-   
-    <p/>
-    <div align="center">
-   	    <h2 class="transaction-title" wicket:id="pageTitle"/>
-   	</div>
-   	<p/>
-       <wicket:child/>
+        <p/>
+        <div class="row">
+            <div align="center">
+                <h2 class="transaction-title" wicket:id="pageTitle"/>
+            </div>
+        </div>
+        <p/>
+
+        <wicket:child/>
        
 	    <wicket:container wicket:id="footer-container"/>       
     </div>      
     <footer id="footer">
-        <div>              
-            <img style="width: 80px; height: auto;" wicket:id="eclogo" />	
-	<p>	
-    Capacity-Building in the area of Development Cooperation Policy (Capacity Building Scheme VII 2013-2014)<br/>
-    Enhancing the ODA reporting capacities and systems of EU Member States<br/>
-    Version <span wicket:id="eudevfin-version"/><br/>
-    <div wicket:id="dev"/>
-</p>
-</div>
-</footer>
+        <div>
+            <img style="width: 80px; height: auto;" wicket:id="eclogo" />
+            <p>
+                Capacity-Building in the area of Development Cooperation Policy (Capacity Building Scheme VII 2013-2014)<br/>
+                Enhancing the ODA reporting capacities and systems of EU Member States<br/>
+                Version <span wicket:id="eudevfin-version"/><br/>
+                <div wicket:id="dev"/>
+            </p>
+        </div>
+    </footer>
 </div>     
 </body>
 </html>

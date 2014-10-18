@@ -4,267 +4,73 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-	<entry key="16geographicalTargetArea.label">16. Geographical Target Area</entry>
-	<entry key="16geographicalTargetArea.placeholder">Maximum 100 characters</entry>
-	<entry key="16geographicalTargetArea.help">Specify the area(s), eg. town, region, in the recipient country(s). Maximum 100 characters.</entry>
-	<entry key="16geographicalTargetArea.help.detail"> Field no. 16 - Geographical target area: Specify the area (town, region) in the recipient country
-		that is intended to benefit from the activity. Specify the recipient countries if the activity benefits several
-		recipients. Maximum 100 characters.
-	</entry>
-
-	<entry key="17startingDate.label">17. Starting Date</entry>
-	<entry key="17startingDate.placeholder"></entry>
-	<entry key="17startingDate.help">Starting date (actual/expected)</entry>
-	<entry key="17startingDate.help.detail"> Field no. 17 - Starting date (actual/expected): The expected starting and completion dates allow
-		identification of activities being implemented at any point of time.
-	</entry>
-
-	<entry key="18completionDate.label">18. Completion Date</entry>
-	<entry key="18completionDate.placeholder"></entry>
-	<entry key="18completionDate.help">Completion date (actual/expected)</entry>
-	<entry key="18completionDate.help.detail">Field no. 18 - Completion date (actual/expected): The expected starting and completion dates allow
-		identification of activities being implemented at any point of time.
-	</entry>
-
-	<entry key="19description.label">19. Description</entry>
-	<entry key="19description.placeholder">(max 20000 characters)</entry>
-	<entry key="19description.help">Enter project summary. 20000 characters max.</entry>
-	<entry key="19description.help.detail">Field no. 19 - Project description.Many agencies' databases contain project summaries or descriptions
-		of the main objectives of the
-		activity. These can be included in the CRS++ database in a text field of unrestricted
-		length. The information permits
-		the Secretariat to check the accuracy and consistency of purpose coding. In addition,
-		descriptive information is
-		valuable in detailed sectoral studies, and allows users to make research on topics (sectors
-		or themes) not separately
-		identified in existing classifications (e.g. disability), using keyword searches.
-	</entry>
-
-	<entry key="policyObjectives.label">Policy Objectives</entry>
-
-	<entry key="20genderEquality.label">20. Gender Equality</entry>
-	<entry key="20genderEquality.placeholder"></entry>
-	<entry key="20genderEquality.help">2=principal objective
-		1=significant objective;
-		0=not targeted;
-		Blank=not screened;
-	</entry>
-	<entry key="20genderEquality.help.detail">Field no. 20 - Gender equality: Principal policy objectives are those which can be identified as being
-		fundamental in the design and impact of the activity and which are an explicit objective of the activity. They may be
-		selected by answering the question "would the activity have been undertaken without this objective?". Significant
-		policy objectives are those which, although important, were not the prime motivation for undertaking the activity. The
-		score "not targeted" means that the activity was found not to target the policy objective. Leave the field blank if
-		the activity has not been screened against the objective. More information on this policy marker is available in Annex
-		17 of the CRS++ Gudielines available at
-		http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-ADD2-FINAL-ENG.pdf (page 34)
-	</entry>
-
-	<entry key="21aidToEnvironment.label">21. Aid to Environment</entry>
-	<entry key="21aidToEnvironment.placeholder"></entry>
-	<entry key="21aidToEnvironment.help">2=principal objective; 1=significant objective; 0=not targeted; Blank=not screened</entry>
-	<entry key="21aidToEnvironment.help.detail">Field no. 21 - Aid to environment: 2=principal
-		objective;1=significant objective;;0=not targeted;Blank=not screened
-                Principal  policy objectives are those which can be identified as being fundamental in the design and impact of the activity and which are an explicit objective
-                of the activity. They may be selected by answering the question “would the activity have been undertaken without this
-                objective?”. Significant policy objectives are those which, although important, were not the prime motivation for
-                undertaking the activity. The score “not targeted” means that the activity was found not to target the policy objective.
-                Leave the field blank if the activity has not been screened against the objective.
-                More information on this policy marker is available in Annex 17 of the CRS++ Guidelines available at
-                http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-ADD2-FINAL-ENG.pdf (page 34);
-	</entry>
-
-	<entry key="22pdGg.label">22. PD/GG</entry>
-	<entry key="22pdGg.placeholder"></entry>
-	<entry key="22pdGg.help">2=principal objective;
-		1=significant objective;
-		0=not targeted;
-		Blank=not screened
-	</entry>
-	<entry key="22pdGg.help.detail">Field no. 22 - PD/GG (participatory development/good governance): Principal policy objectives are
-		those which can be identified as being fundamental in the design and impact of the activity and which are an explicit
-		objective of the activity. They may be selected by answering the question "would the activity have been undertaken
-		without this objective?". Significant policy objectives are those which, although important, were not the prime
-		motivation for undertaking the activity. The score "not targeted" means that the activity was found not to target the
-		policy objective. Leave the field blank if the activity has not been screened against the objective. More information
-		on this policy marker is available in Annex 17 of the CRS++ Gudielines available at
-		http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-ADD2-FINAL-ENG.pdf (page 34)
-	</entry>
-
-	<entry key="23tradeDevelopment.label">23. Trade Development</entry>
-	<entry key="23tradeDevelopment.placeholder"></entry>
-	<entry key="23tradeDevelopment.help">2=principal objective
-		1=significant objective;
-		0=not targeted;
-		Blank=not screened
-	</entry>
-	<entry key="23tradeDevelopment.help.detail">Field no. 23 - Trade development: Principal policy objectives are those which can be identified as
-		being fundamental in the design and impact of the activity and which are an explicit objective of the activity. They
-		may be selected by answering the question "would the activity have been undertaken without this objective?".
-		Significant policy objectives are those which, although important, were not the prime motivation for undertaking the
-		activity. The score "not targeted" means that the activity was found not to target the policy objective. Leave the
-		field blank if the activity has not been screened against the objective. More information on this policy marker is
-		available in Annex 17 of the CRS++ Gudielines available at
-		http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-ADD2-FINAL-ENG.pdf (page 34)
-	</entry>
-
-	<entry key="typeOfAid.label">Type of Aid</entry>
-
-	<entry key="24freestandingTechnicalCooperation.label">24. Free-standing Technical Cooperation</entry>
-	<entry key="24freestandingTechnicalCooperation.placeholder"></entry>
-	<entry key="24freestandingTechnicalCooperation.help">1=Yes or Blank ; The FTC flag applies to type of aid which you
-		selected as C01 "Project-type interventions" and, by default, as D01-D02 and E01-E02. FTC comprises activities whose
-		primary purpose is to augment the level of knowledge, skills, technical know-how
-	</entry>
-	<entry key="24freestandingTechnicalCooperation.help.detail">Field no. 24 - Free-standing Technical Assistance (FTC): The FTC flag applies to type of aid C01
-		"Project-type interventions" and, by default, to categories D01-D02 and E01-E02. FTC comprises activities whose
-		primary purpose is to augment the level of knowledge, skills, technical know-how or productive aptitudes of the
-		population of developing countries, i.e. increasing their stock of human intellectual capital, or their capacity for
-		more effective use of their existing factor endowment. This relates essentially to activities that either enhance or
-		supply human resources. It includes financing of students and trainees who are nationals of developing countries;
-		experts, teachers, and volunteers; equipment and materials for training; research; development-oriented social and
-		cultural programmes, etc. Associated supplies are also classified as
-		technical co-operation.
-	</entry>
-
-	<entry key="25programmeBasedApproach.label">25. Program-based Approach</entry>
-	<entry key="25programmeBasedApproach.placeholder"></entry>
-	<entry key="25programmeBasedApproach.help">1=Yes or Blank; PBA's are a way of engaging in development co-operation
-		based on the principles of co-ordinated support for a locally-owned programme of development, such as a national
-		development strategy, a sector programme, a thematic programme or a programme of a specific organisation.
-	</entry>
-	<entry key="25programmeBasedApproach.help.detail">
-		Field no. 25 - Program-Based Approach (PBA): They are a way of engaging in development co-operation
-		based on the principles
-		of co-ordinated support for a locally-owned programme of development, such as a national
-		development strategy, a
-		sector programme, a thematic programme or a programme of a specific organisation. Donors can
-		support and implement
-		programme-based approaches in different ways and across a range of aid modalities including
-		budget support, sector
-		budget support, project support, pooled arrangements and trust funds. For an activity to qualify
-		as PBA, all four of
-		the following tests must be met: A) The host country or organisation is exercising leadership over
-		the programme
-		supported by donors; B) A single comprehensive programme and budget framework is used; C) There is a
-		formal process
-		for donor co-ordination and harmonisation of donor procedures for at least two of the following systems:
-		(i)
-		reporting, (ii) budgeting, (iii) financial management and (iv) procurement; D) Support to the programme uses at
-		least
-		two of the following local systems: (i) programme design, (ii) programme implementation, (iii) financial
-		management
-		and (iv) monitoring and evaluation.
-	</entry>
-
-	<entry key="26investmentProject.label">26. Investment Project</entry>
-	<entry key="26investmentProject.placeholder"></entry>
-	<entry key="26investmentProject.help">1=Yes or Blank ; Activities flagged as investment comprise a) schemes to increase and/or improve the
-		recipient's stock of physical capital and b) financing the supply of goods and services in support of such schemes
-	</entry>
-	<entry key="26investmentProject.help.detail">Field no. 26 - Investment: Activities flagged as investment comprise a) schemes to increase and/or
-		improve the recipient's stock of physical capital and b) financing the supply of goods and services in support of such
-		schemes. Most activities assigned the "investment" flag are classified as type of aid C01 "Project-type
-		interventions".
-	</entry>
-
-	<entry key="27associatedFinancing.label">27. Associated Financing</entry>
-	<entry key="27associatedFinancing.placeholder"></entry>
-	<entry key="27associatedFinancing.help">1=Yes or Blank; The combination of ODA, whether grants or loans, with any other funding to form
-		finance
-		packages.
-	</entry>
-	<entry key="27associatedFinancing.help.detail">
-		Field no. 27 - Associated Financing (AF): The combination of ODA, whether grants or loans, with any
-		other funding to form
-		finance packages. AF associates two or more of the following, at least one of which is in effect
-		tied or partially
-		untied: i) official development assistance; ii) other official flows with a grant element of at least
-		25 per cent;
-		iii) officially supported export credits, other official flows or other funds with a grant element of less
-		than 25 per
-		cent. In an associated financing package, the availability of concessional funds is conditional upon
-		acceptance of the
-		linked non-concessional component.
-	</entry>
-
-	<entry key="rioMarkers.label">Rio Markers</entry>
-
-	<entry key="28biodiversity.label">28. Biodiversity</entry>
-	<entry key="28biodiversity.placeholder"></entry>
-	<entry key="28biodiversity.help">2=principal objective;
-		1=significant objective;
-		0=not targeted;
-		Blank=not screened
-	</entry>
-	<entry key="28biodiversity.help.detail">Field no. 28 - Biodiversity: The marker allows for the identification of activities that target the
-		objectives of the Rio United Nations Convention on Biological Diversity (UNCBD). Principal policy objectives are those
-		which can be identified as being fundamental in the design and impact of the activity and which are an explicit
-		objective of the activity. They may be selected by answering the question "would the activity have been undertaken
-		without this objective?". Significant policy objectives are those which, although important, were not the prime
-		motivation for undertaking the activity. The score "not targeted" means that the activity was found not to target the
-		policy objective. Leave the field blank if the activity has not been screened against the objective. The definition of
-		this Rio marker, its background , some examples and FAQs are given in Annex 18 of the CRS++ Gudieliens available at
-		http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-ADD2-FINAL-ENG.pdf (page 43).
-	</entry>
-
-	<entry key="29ccMitigation.label">29. Climate Change - Mitigation</entry>
-	<entry key="29ccMitigation.placeholder"></entry>
-	<entry key="29ccMitigation.help">2=principal objective;
-		1=significant objective;
-		0=not targeted;
-		Blank=not screened
-	</entry>
-	<entry key="29ccMitigation.help.detail">Field no. 29 - Climate Change - Mitigation: The marker allows for the identification of activities
-		that target the objectives of the Rio United Nations Framework Convention on Climate Change (UNFCCC) with distinct
-		markers for adaptation and mitigation. Principal policy objectives are those which can be identified as being
-		fundamental in the design and impact of the activity and which are an explicit objective of the activity. They may be
-		selected by answering the question "would the activity have been undertaken without this objective?". Significant
-		policy objectives are those which, although important, were not the prime motivation for undertaking the activity. The
-		score "not targeted" means that the activity was found not to target the policy objective. Leave the field blank if
-		the activity has not been screened against the objective. The definition of this Rio marker, its background , some
-		examples and FAQs are given in Annex 18 of the CRS++ Gudieliens available at
-		http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-ADD2-FINAL-ENG.pdf (page 43).
-	</entry>
-
-	<entry key="30ccAdaptation.label">30. Climate Change - Adaptation</entry>
-	<entry key="30ccAdaptation.placeholder"></entry>
-	<entry key="30ccAdaptation.help">2=principal objective;
-		1=significant objective;
-		0=not targeted;
-		Blank=not screened
-	</entry>
-	<entry key="30ccAdaptation.help.detail">Field no. 30 - Climate Change - Adaptation: The marker allows for the identification of activities
-		that target the objectives of the Rio United Nations Framework Convention on Climate Change (UNFCCC) with distinct
-		markers for adaptation and mitigation. Principal policy objectives are those which can be identified as being
-		fundamental in the design and impact of the activity and which are an explicit objective of the activity. They may be
-		selected by answering the question "would the activity have been undertaken without this objective?". Significant
-		policy objectives are those which, although important, were not the prime motivation for undertaking the activity. The
-		score "not targeted" means that the activity was found not to target the policy objective. Leave the field blank if
-		the activity has not been screened against the objective. The definition of this Rio marker, its background , some
-		examples and FAQs are given in Annex 18 of the CRS++ Gudieliens available at
-		http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-ADD2-FINAL-ENG.pdf (page 43).
-	</entry>
-
-	<entry key="31desertification.label">31. Desertification</entry>
-	<entry key="31desertification.placeholder"></entry>
-	<entry key="31desertification.help">3=principal objective and in support of an action programme (for desertification-related aid only);
-		2=principal objective;
-		1=significant objective;
-		0=not targeted;
-		Blank=not screened
-	</entry>
-	<entry key="31desertification.help.detail">
-		Field no. 31 - Desertification: The marker allows for the identification of activities that target the objectives of the
-		Rio United Nations Convention to Combat Desertification (UNCCD). Principal policy objectives are those which can be
-		identified as being fundamental in the design and impact of the activity and which are an explicit objective of the
-		activity (a score "3" instead of "2" is used to separately identify activities in support of national, sub-regional or
-		regional action programmes). They may be selected by answering the question "would the activity have been undertaken
-		without this objective?". Significant policy objectives are those which, although important, were not the prime
-		motivation for undertaking the activity. The score "not targeted" means that the activity was found not to target the
-		policy objective. Leave the field blank if the activity has not been screened against the objective. The definition of
-		this Rio marker, its background , some examples and FAQs are given in Annex 18 of the CRS++ Gudieliens available at
-		http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-ADD2-FINAL-ENG.pdf (page 43).
-	</entry>
-	
-	<entry key="validation.markerDesertification">Code 3 is valid only for the Desertification marker!</entry>
+    <entry key="16geographicalTargetArea.label">16. Zona geografică vizată</entry>
+    <entry key="16geographicalTargetArea.placeholder">Maxim 100 de caractere</entry>
+    <entry key="16geographicalTargetArea.help">Precizaţi zona (zonele), de exemplu, oraş, regiune, în ţara (ţările) beneficiară (beneficiare). Maxim 100 de caractere</entry>
+    <entry key="16geographicalTargetArea.help.detail">Câmpul nr. 16- Zona geografică vizată: Precizaţi zona (oraş, regiune) în ţara beneficiară care va beneficia de pe urma activităţii. Precizaţi ţările beneficiare dacă activitatea foloseşte mai multor beneficiari. Maxim 100 de caractere</entry>
+    <entry key="17startingDate.label">17. Data începerii</entry>
+    <entry key="17startingDate.placeholder"></entry>
+    <entry key="17startingDate.help">Data începerii (data reală/ cea preconizată)</entry>
+    <entry key="17startingDate.help.detail">Câmpul nr. 17- Data începerii (data reală/ cea preconizată): Data începerii preconizată şi data finalizării permit identificare activităţilor implementate oricând.</entry>
+    <entry key="18completionDate.label">18. Data finalizării</entry>
+    <entry key="18completionDate.placeholder"></entry>
+    <entry key="18completionDate.help">Data finalizării (reală /preconizată)</entry>
+    <entry key="18completionDate.help.detail">Câmpul nr. 18- Data finalizării (reală preconizată): Datele preconizate de începere şi  finalizare permit identificare activităţilor implementate oricând.</entry>
+    <entry key="19description.label">19. Descriere</entry>
+    <entry key="19description.placeholder">(max 20000 caractere)</entry>
+    <entry key="19description.help">Introduceţi rezumatul proiectului. 2000 de caractere maxim</entry>
+    <entry key="19description.help.detail">Câmpul nr. 19- Descrierea proiectului. Bazele de date ale mai multor agenţii conţin rezumate de proiecte sau descrierii ale obiectivele principale ale activităţii. Acestea pot fi introduse în baza de date CRS++ într-un câmp text de dimeniune nerestricţionată. Informaţia permite Secretariatului să verifice acurateţea şi consecvenţa codificării. În plus, informaţia descriptivă este valorificată în studii de sector detaliate şi permite utilizatorilor să realizeze cercetări pe domenii (sectoare sau teme) şi nu separate în categorii existente (de exemplu, disabilităţi) folosind cuvinte cheie de căutare.</entry>
+    <entry key="policyObjectives.label">Obiectivele politicii</entry>
+    <entry key="20genderEquality.label">20. Egalitate de gen</entry>
+    <entry key="20genderEquality.placeholder"></entry>
+    <entry key="20genderEquality.help">2= obiectiv principal, 1= obiectiv semnificativ; 0= nevizat ; Blank= neanalizat preliminar</entry>
+    <entry key="20genderEquality.help.detail">Câmpul nr. 20- Egalitate de gen: Obiectivele principale ale politicii sunt cele ce pot fi identificate ca fiind fundamentale în design-ul şi impactul activităţii şi care sunt un obiectiv explicit al activităţii. Poate fi selectat răspunzând întrebării: "ar fi fost activitatea realizată dacă nu ar fi existat acest obiectiv?" Obiectivele semnificative ale politicii sunt cele care, deşi importante, nu sunt principalele motive pentru realizarea activităţii. "Nevizat" înseamnă că activitatea nu atinge obiectivele politicii. Lăsaţi acest câmp liber dacă activitatea nu a fost analizată ţinând cont de obiectiv. Mai multe informaţii despre aceast indicator de politică găsiţi în Anexa 17 a Manualului de orientare CRS++ disponibil la: http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-ADD2-FINAL-ENG.pdf (pagina 34)</entry>
+    <entry key="21aidToEnvironment.label">21. Asistenţă de mediu</entry>
+    <entry key="21aidToEnvironment.placeholder"></entry>
+    <entry key="21aidToEnvironment.help">2= obiectiv principal, 1= obiectiv semnificativ; 0= nevizat ; Blank= neanalizat preliminar</entry>
+    <entry key="21aidToEnvironment.help.detail">Câmpul nr. 21 - Asistenţă de mediu: 2= objectiv principal; 1= obiectiv semnificativ; 0= nevizat Blank= nescanat; Obiectivele principale ale politcii sunt cele ce pot fi identificate ca fiind fundamentale în design-ul şi impactul activităţii şi care sunt un obiectiv explicit al activităţii. Poate fi selectat răspunzând întrebării: "ar fi fost activitatea realizată dacă nu ar fi existat acest obiectiv?" Obiectivele semnificative ale politicii sunt cele care, deşi importante, nu sunt principalele motive pentru realizarea activităţii. "Nevizat" înseamnă că activitatea nu atinge obiectivele politicii. Lăsaţi acest câmp liber dacă activitatea nu a fost analizată în funcţie de obiectiv. Mai multe informaţii despre aceast indicator de politică găsiţi în Anexa 17 a Manualului de orientare CRS++ disponibil la: http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-ADD2-FINAL-ENG.pdf (pagina 34)</entry>
+    <entry key="22pdGg.label">22. PD/GG</entry>
+    <entry key="22pdGg.placeholder"></entry>
+    <entry key="22pdGg.help">2= obiectiv principal, 1= obiectiv semnificativ; 0= nevizat ; Blank= neanalizat preliminar</entry>
+    <entry key="22pdGg.help.detail">Câmpul nr.  22 - PD/GG (dezvoltare participativă/bună guvernare): Obiectivele principale ale politcii sunt cele ce pot fi identificate ca fiind fundamentale în design-ul şi impactul activităţii şi care sunt un obiectiv explicit al activităţii. Poate fi selectat răspunzând întrebării: "ar fi fost activitatea realizată dacă nu ar fi existat acest obiectiv?" Obiectivele semnificative ale politicii sunt cele care, deşi importante, nu sunt principalele motive pentru realizarea activităţii. "Nevizat" înseamnă că activitatea nu atinge obiectivele politicii. Lăsaţi acest câmp liber dacă activitatea nu a fost analizată în funcţie de obiectiv. Mai multe informaţii despre aceast indicator de poltică găsiţi în Anexa 17 a Manualului de orientare CRS++ disponibil la: http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-ADD2-FINAL-ENG.pdf (pagina 34)</entry>
+    <entry key="23tradeDevelopment.label">23. Dezvoltarea comerţului</entry>
+    <entry key="23tradeDevelopment.placeholder"></entry>
+    <entry key="23tradeDevelopment.help">2= obiectiv principal, 1= obiectiv semnificativ; 0= nevizat ; Blank= neanalizat preliminar</entry>
+    <entry key="23tradeDevelopment.help.detail">Câmpul nr. 23- Dezvoltarea comerţului: Obiectivele principale ale politcii sunt cele ce pot fi identificate ca fiind fundamentale în design-ul şi impactul activităţii şi care sunt un obiectiv explicit al activităţii. Poate fi selectat răspunzând întrebării: "ar fi fost activitatea realizată dacă nu ar fi existat acest obiectiv?" Obiectivele semnificative ale politicii sunt cele care, deşi importante, nu sunt principalele motive pentru realizarea activităţii. "Nevizat" înseamnă că activitatea nu atinge obiectivele politicii. Lăsaţi acest câmp liber dacă activitatea nu a fost analizată în funcţie de obiectiv. Mai multe informaţii despre aceast indicator de poltică găsiţi în Anexa 17 a Manualului de orientare CRS++ disponibil la: http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-ADD2-FINAL-ENG.pdf (pagina 34)</entry>
+    <entry key="typeOfAid.label">Tipul de asistenţă</entry>
+    <entry key="24freestandingTechnicalCooperation.label">24.  Cooperare tehnică</entry>
+    <entry key="24freestandingTechnicalCooperation.placeholder"></entry>
+    <entry key="24freestandingTechnicalCooperation.help">1=Da sau Blanc; CTS (cooperare tehnică de sine stătătoare) se aplică în funcţie de tipul de asistenţă selectat ca C01 "Intervenţii de tip proiect" şi, automat, ca D01-D02 şi E01-E02. CTS cuprinde activităţi ale căror prim scop este la nivel de cunoştinţe, abilităţi, know-how tehnic.</entry>
+    <entry key="24freestandingTechnicalCooperation.help.detail">Câmpul nr. 24:  Asistenţă Tehnică de sine stătătoare (ATS): Categoria ATS se aplică  tipului de asistenţă C01 "Intervenţii de tip proiect" şi, automat categoriilor D01-D02 şi E01-02. ATS cuprinde activităţi al căror scop principal este creşterea nivelului de cunoştinţe, abilităţi, know-how tehnic, aptitudini productive ale populaţiei din ţările în curs de dezvoltare, adică sporirea cantităţii de capital uman intelectual, sau a capacităţii pentru o utilizare mai eficientă a dotărilor existente. Acest lucru se leagă de activităţi care fie îmbunătăţesc, fie suplinesc resursele umane. Sunt incluse finanţările studenţilor sau stagiarilor care provin din ţări în curs de dezvoltare; experţi, profesori şi voluntari; echipament şi materiale pentru cursuri, cercetare, programe culturare despre dezvoltare socială şi culturală, etc. Dotările aferente sunt de asemenea clasificate ca şi co-operare tehnică.</entry>
+    <entry key="25programmeBasedApproach.label">25. Abordare bazată pe programe</entry>
+    <entry key="25programmeBasedApproach.placeholder"></entry>
+    <entry key="25programmeBasedApproach.help">1= Da sau Blanc; ABP-urile sunt un mod de implicare în cooperarea pentru dezvoltare bazat pe principiile de  coordonare a sprijinului acordat programelor de dezvoltare deţinute  local precum strategiile de dezvoltare naţională, programe sectoriale,  programe tematice sau  programe specifice al unei organizaţii.</entry>
+    <entry key="25programmeBasedApproach.help.detail">Câmpul nr. 25- Abordare bazată pe programe (ABP): este o modalitate de implicare în cooperare pentru dezvoltare bazată pe principiile de cooperare de susţinere pentru un program de dezvoltare de responsabilitate locală precum o strategie de dezvoltare naţională, un program de sector, un program tematic sau un program specific al unei organizaţii.  Donatorii pot susţine sau implementa abordări bazate pe programe  în moduri diferite dintr-o gamă variată de modalităţi de asistenţă, incluzând sprijin  bugetar direct, sprijin bugetar sectorial, finanţare a  proiectelor, fonduri cumulate, trust funds . Pentru ca o activitate să poată fie eligibilă ca PBA, trebuie să treacă toate cele 4 teste: A) Ţara gazdă sau organizaţia este liderul programului susţinut de donatori; B) Sunt folosite un singur program cuprinzător şi un singur cadru bugetar ; C) Există un proces formal pentru cooperare între donatori şi armonizare a procedurilor donatorilor pentru cel puţin două dintre sistemele următoare: i) raportare, ii) bugetare, iii) management financiar şi iv) achiziţii, D) Susţinerea programului foloseşte cel puţin două dintre următoarele sisteme locale: i) design de program, ii) implementare de program, iii) management financiar şi iv) monitorizare şi evaluare.</entry>
+    <entry key="26investmentProject.label">26. Proiect de investiţie</entry>
+    <entry key="26investmentProject.placeholder"></entry>
+    <entry key="26investmentProject.help">1=Da sau Blanc; Activităţi semnalizate ca investiţii cuprind: a) scheme de sporire şi sau îmbunătăţire a capitalului fizic al beneficiarului şi b)finanţarea bunurilor şi serviciilor de susţinere a acestor scheme.</entry>
+    <entry key="26investmentProject.help.detail">Câmpul nr. 26- Investiţie: activitate semnalizată ca investiţie cuprinde: a) scheme pentru a spori sau îmbunătăţi capitalul fizic al beneficiarului şi b) finanţarea necesarului de bunuri şi servicii pentru susţinerea acestor activităţi. Cele mai multe activităţi care fac parte din categoria "investiţie" sunt clasificate ca tip C01 de asistenţă "Intervenţii de tip proiect"</entry>
+    <entry key="27associatedFinancing.label">27. Finanţare asociată</entry>
+    <entry key="27associatedFinancing.placeholder"></entry>
+    <entry key="27associatedFinancing.help">1= Da sau Blanc; Combinaţia de AOD, fie împrumuturi sau granturi, cu orice alt fel de tip de finanţare</entry>
+    <entry key="27associatedFinancing.help.detail">Câmpul nr. 27- Finanţare asociată (FA): Combinaţia de AOD, sub forma de granturi sau împrumuturi, cu orice alt tip de finanţare pentru a forma pachete de finanţare. FA  însumează două sau mai multe din următoarele, cel puţin una dintre ele fiind asistenţă condiţionată sau necondiţionată: i) asistenţă oficială pentru dezvoltare, ii) alte tipuri de flux financiar cu element de subvenţie sau cel puţin 25 la sută;  iii) credite de export susținute oficial, sau alte tipuri de flux financiar oficial sau alte fonduri cu un element de grant sau mai puţin de 25 la sută.  Într-un pachet de finanţare asociată, disponibilitatea fondurilor concesionale este condiţionată de acceptarea componentei neconcesionale asociate.</entry>
+    <entry key="rioMarkers.label">Indicatori Rio</entry>
+    <entry key="28biodiversity.label">28. Biodiversitate</entry>
+    <entry key="28biodiversity.placeholder"></entry>
+    <entry key="28biodiversity.help">2= obiectiv principal, 1= obiectiv semnificativ; 0= nevizat ; Blank= neanalizat preliminar</entry>
+    <entry key="28biodiversity.help.detail">Câmpul nr.28- Biodiversitate: Acest indicator permite identificarea activităţilor care vizează obiectivele Convenţiei de la Rio a Naţiunilor Unite despre diversitatea biologică.  Obiectivele principale ale politcii sunt cele ce pot fi identificate ca fiind fundamentale în design-ul şi impactul activităţii şi care sunt un obiectiv explicit al activităţii. Poate fi selectat răspunzând întrebării: "ar fi fost activitatea realizată dacă nu ar fi existat acest obiectiv?" Obiectivele semnificative ale politicii sunt cele care, deşi importante, nu sunt principalele motive pentru realizarea activităţii. "Nevizat" înseamnă că activitatea nu atinge obiectivele politicii. Lăsaţi acest câmp liber dacă activitatea nu a analizată în funcţie de  obiectiv. Mai multe informaţii despre aceast indicator găsiţi în Anexa 18 a Manualului de orientare CRS++ disponibil la: http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-ADD2-FINAL-ENG.pdf (pagina 43)</entry>
+    <entry key="29ccMitigation.label">29. Combaterea schimbărilor climatice</entry>
+    <entry key="29ccMitigation.placeholder"></entry>
+    <entry key="29ccMitigation.help">2= obiectiv principal, 1= obiectiv semnificativ; 0= nevizat ; Blank= neanalizat preliminar</entry>
+    <entry key="29ccMitigation.help.detail">Câmpul nr. 29- Combaterea schimbărilor climatice: Acest indicator permite identificarea activităţilor care vizează  Convenţiei cadru de la Rio a Naţiunilor Unite despre schimbările climatice cu indiciatori specifici pentru adaptare şi mitigare. Obiectivele principale ale politcii sunt cele ce pot fi identificate ca fiind fundamentale în design-ul şi impactul activităţii şi care sunt un obiectiv explicit al activităţii. Poate fi selectat răspunzând întrebării: "ar fi fost activitatea realizată dacă nu ar fi existat acest obiectiv?" Obiectivele semnificative ale politicii sunt cele care, deşi importante, nu sunt principalele motive pentru realizarea activităţii. "Ne vizat" înseamnă că activitatea nu atinge obiectivele politicii. Lăsaţi acest câmp liber dacă activitatea nu a fost comparată cu obiectivul. Mai multe informaţii despre aceast indicator de poltică găsiţi în Anexa 18 a Manualului de orientare CRS++ disponibil la: http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-ADD2-FINAL-ENG.pdf (pagina 43)</entry>
+    <entry key="30ccAdaptation.label">30. Adaptarea la schimbările climatice</entry>
+    <entry key="30ccAdaptation.placeholder"></entry>
+    <entry key="30ccAdaptation.help">2= obiectiv principal, 1= obiectiv semnificativ; 0= nevizat ; Blank= neanalizat preliminar</entry>
+    <entry key="30ccAdaptation.help.detail">Câmpul nr. 30 -Adaptarea la  schimbări climatice - Adaptare: Acest indicator permite identificarea activităţilor care vizează  Convenţiei cadru de la Rio a Naţiunilor Unite despre schimbările climatice cu indiciatori specifici pentru adaptare şi mitigare. Obiectivele principale ale politcii sunt cele ce pot fi identificate ca fiind fundamentale în design-ul şi impactul activităţii şi care sunt un obiectiv explicit al activităţii. Poate fi selectat răspunzând întrebării: "ar fi fost activitatea realizată dacă nu ar fi existat acest obiectiv?" Obiectivele semnificative ale politicii sunt cele care, deşi importante, nu sunt principalele motive pentru realizarea activităţii. "Nevizat" înseamnă că activitatea nu atinge obiectivele politicii. Lăsaţi acest câmp liber dacă activitatea nu a fost analizată în funcţie de obiectiv. Mai multe informaţii despre aceast indicator de poltică găsiţi în Anexa 18 a Manualului de orientare CRS++ disponibil la: http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-ADD2-FINAL-ENG.pdf (pagina 43)</entry>
+    <entry key="31desertification.label">31. Deşertificarea</entry>
+    <entry key="31desertification.placeholder"></entry>
+    <entry key="31desertification.help">3=obiectiv principal şi de susţinere al unui program de acţiune (numai pentru acţiuni legate de deşertificare);
+        2= obiectiv principal, 1= obiectiv semnificativ; 0= nevizat ; Blank= neanalizat preliminar</entry>
+    <entry key="31desertification.help.detail">Câmpul nr. 31 - Deşertificarea:  Acest indicator permite identificarea activităţilor care vizează obiectivele Convenţiei de la Rio a Naţiunilor Unite pentru combaterea Deşertificării.  Obiectivele principale ale politicii sunt cele ce pot fi identificate ca fiind fundamentale în design-ul şi impactul activităţii şi care sunt un obiectiv explicit al activităţii (un scor "3" în loc de "2" este folosit pentru a identifica separat acitvităţile de susţinere a programelor acţiune naţionale, sub-regionale şi regionale). Poate fi selectat răspunzând întrebării: "ar fi fost activitatea realizată dacă nu ar fi existat acest obiectiv?" Obiectivele semnificative ale politicii sunt cele care, deşi importante, nu sunt principalele motive pentru realizarea activităţii. "Nevizat" înseamnă că activitatea nu atinge obiectivele politicii. Lăsaţi acest câmp liber dacă activitatea nu a fost analizată în funcţie de obiectiv. Mai multe informaţii despre aceast indicator de poltică găsiţi în Anexa 18 a Manualului de orientare CRS++ disponibil la: http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-ADD2-FINAL-ENG.pdf (pagina 43)</entry>
+    <entry key="validation.markerDesertification">Codul 3 este valid doar pentru indicatorul Deşertificare</entry>
 </properties>

@@ -4,137 +4,51 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-	<entry key="44typeOfRepayment.label">44. Type of repayment</entry>
-	<entry key="44typeOfRepayment.placeholder"></entry>
-	<entry key="44typeOfRepayment.help">1=equal principal payments (see glossary for explaination)
-		2=annuity;
-		3=lump sum;
-		5=other;
-	</entry>
-	<entry key="44typeOfRepayment.help.detail">Field no. 44 - Type of repayment: The terms of repayment may be the following: 1= Equal principal
-		payments (EPP) denotes a fixed schedule of equal instalments of principal
-		adding up to the face value of the loan.
-		Interest is charged on outstanding principal and the amount of individual service
-		payments decreases with each payment
-		of principal.
-		2= In the annuity method, each service payment is established as an equal amount, within which the
-		interest component
-		declines with time while the principal component increases. 3= Lump sum means the loan is repaid in
-		a single amount
-		(principal and interest) at maturity. If interest is paid at various earlier dates, then the repayment
-		schedule is a
-		particular case of equal principal payments and should be reported under that category. 5= If the type of
-		repayment
-		does not correspond to any of the three above, use the code "other"
-	</entry>
-
-	<entry key="45numberOfRepayments.label">45. Number of Repayments per annum</entry>
-	<entry key="45numberOfRepayments.placeholder"></entry>
-	<entry key="45numberOfRepayments.help">1=annual
-		2=semi-annual;
-		4=quarterly;
-		12=monthly
-	</entry>
-	<entry key="45numberOfRepayments.help.detail">Field no. 45 - Number of repayments per annum: 1=annual; 2=semi-annual; 4=quarterly; 12=monthly</entry>
-
-	<entry key="46interestRate.label">46. Interest Rate</entry>
-	<entry key="46interestRate.placeholder"></entry>
-	<entry key="46interestRate.help">Enter: in 5 digits, e.g. "05200" for 5.2 % ; or
-		"0" if interest free. If ODA loan with variable
-		interest rate, report the variable rate in field 46 (e.g. LIBOR6M-1.5%)
-		and the reference
-		fixed rate in field 47.
-	</entry>
-	<entry key="46interestRate.help.detail">Field no. 46 - Interest rate: Enter in 5 digits, e.g. "05200" for 5.2 % ; or "0" if interest free.
-		Most loans have a single interest rate which applies throughout the life of the loan. Enter this rate, including in it
-		any charges in addition to the interest that are payable on the disbursed balance over the life of the loan. If ODA
-		loan with variable interest rate, report the variable rate in field 46 (e.g. LIBOR6M-1.5%) and the reference fixed
-		rate in field 47. Where interest is waived during the grace period (i.e. the interval between the commitment date and
-		the first repayment date), report the loan as having two interest rates with zero interest being charged for the grace
-		period. Loans with variable interest rates may only be classified as ODA if concessionality is guaranteed by a
-		specific mechanism. The mechanism needs to ensure that the variable rate is concessional and that it will be capped so
-		that the grant element over the life of the loan is at least 25%. To understand how the mechanism works read
-		paragraphs 52 to 56 of the CRS++ guidliens available at
-		http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-FINAL-ENG.pdf
-	</entry>
-
-	<entry key="47secondInterestRate.label">47. 2nd Interest Rate</entry>
-	<entry key="47secondInterestRate.placeholder"></entry>
-	<entry key="47secondInterestRate.help">"Enter
-		in 5 digits, e.g. "05200" for 5.2 % ; or
-		"0" if interest free.
-		If ODA loan with variable interest
-		rate, report the variable rate in field 46 (e.g. LIBOR6M-1.5%) and the reference
-		fixed rate in field 47. "
-	</entry>
-	<entry key="47secondInterestRate.help.detail">Field no. 47 - Second interest rate: Enter in 5 digits, e.g. "05200" for 5.2 % ; or "0" if interest
-		free. Most loans have a single interest rate which applies throughout the life of the loan. Enter this rate, including
-		in it any charges in addition to the interest that are payable on the disbursed balance over the life of the loan. If
-		ODA loan with variable interest rate, report the variable rate in field 46 (e.g. LIBOR6M-1.5%) and the reference fixed
-		rate in field 47. Where interest is waived during the grace period (i.e. the interval between the commitment date and
-		the first repayment date), report the loan as having two interest rates with zero interest being charged for the grace
-		period. Loans with variable interest rates may only be classified as ODA if concessionality is guaranteed by a
-		specific mechanism. The mechanism needs to ensure that the variable rate is concessional and that it will be capped so
-		that the grant element over the life of the loan is at least 25%. To understand how the mechanism works read
-		paragraphs 52 to 56 of the CRS++ guidliens available at
-		http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-FINAL-ENG.pdf
-	</entry>
-
-	<entry key="48firstRepaymentDate.label">48. 1st RepaymentDate</entry>
-	<entry key="48firstRepaymentDate.placeholder"></entry>
-	<entry key="48firstRepaymentDate.help">First repayment rate</entry>
-	<entry key="48firstRepaymentDate.help.detail">Field no. 48 - First repayment rate: State the dates at which the first and the final repayments of
-		principal are due. Where the repayment schedule depends on the date(s) at which disbursements are made, please provide
-		approximate repayment dates. Estimation might be based on the standard terms of repayment applied to a given recipient
-		country or country group.
-	</entry>
-
-	<entry key="49finalRepaymentDate.label">49. Final repayment date</entry>
-	<entry key="49finalRepaymentDate.placeholder"></entry>
-	<entry key="49finalRepaymentDate.help">Final repayment date</entry>
-	<entry key="49finalRepaymentDate.help.detail">Field no. 49 - Final repayment date: State the dates at which the first and the final repayments of
-		principal are due. Where the repayment schedule depends on the date(s) at which disbursements are made, please provide
-		approximate repayment dates. Estimation might be based on the standard terms of repayment applied to a given recipient
-		country or country group.
-	</entry>
-
-	<entry key="50interestReceived.label">50. Interest Received</entry>
-	<entry key="50interestReceived.placeholder"></entry>
-	<entry key="50interestReceived.help">During the reporting year (full amount, no digit separators). DO NOT enter a negative amount.</entry>
-	<entry key="50interestReceived.help.detail">Field no. 50 - Interest received: Interest received corresponds to the amount of interest and/or other
-		charges received from the borrowing country, including payments to expunge or reduce interest due or in arrears.</entry>
-
-	<entry key="51principalDisbursed.label">51. Principal Disbursed and still outstanding</entry>
-	<entry key="51principalDisbursed.placeholder"></entry>
-	<entry key="51principalDisbursed.help">The amount of principal owed on the loan at the end of the reporting year (full amounts)</entry>
-	<entry key="51principalDisbursed.help.detail">Field no. 51 - Principal disbursed and still outstanding: Loans should be reported on the CRS++ until
-		no outstanding principal or interest remains, regardless of whether the agency continues to extend new loans. Report
-		under field 51. Principal disbursed and still outstanding the amount of principal owed on the loan at the end of the
-		reporting year.
-	</entry>
-
-	<entry key="52arrearsOfPrincipals.label">52. Arrears of Principals (included in field 51)</entry>
-	<entry key="52arrearsOfPrincipals.placeholder"></entry>
-	<entry key="52arrearsOfPrincipals.help">At the end of the year (in full amount)</entry>
-	<entry key="52arrearsOfPrincipals.help.detail">Field no. 52 - Arrears of principal (included in field 51): Report separately any arrears of
-		principal and interest at the end of the reporting year, taking into account debt
-		service payments received during the year (amortisation under field 35 and interest received under field 50), and including
-		arrears that have arisen during the reporting year. Arrears of principal are part of the principal owed on the loan
-		and should be included in the amount reported under field 51 (i.e. field 52 is an "of which" field of 51). Arrears of
-		interest, by contrast, are not part of this amount. Any past due or overdue late interest (interest which accrues on
-		arrears) should be treated as arrears of interest. Total debt outstanding at the end of the year is defined as the sum
-		of principal disbursed and still outstanding and arrears of interest.
-	</entry>
-
-	<entry key="53arrearsOfInterest.label">53. Arrears of Interest</entry>
-	<entry key="53arrearsOfInterest.placeholder"></entry>
-	<entry key="53arrearsOfInterest.help">At the end of the year (in full amount)</entry>
-	<entry key="53arrearsOfInterest.help.detail">Field no. 53 - Arrears of interest: Report separately any arrears of principal and interest at the end
-		of the reporting year, taking into account debt service payments received during the year (amortisation under field 35
-		and interest received under field 50), and including arrears that have arisen during the reporting year. Arrears of
-		principal are part of the principal owed on the loan and should be included in the amount reported under field 51
-		(i.e. field 52 is an "of which" field of 51). Arrears of interest, by contrast, are not part of this amount. Any past
-		due or overdue late interest (interest which accrues on arrears) should be treated as arrears of interest. Total debt
-		outstanding at the end of the year is defined as the sum of principal disbursed and still outstanding and arrears of
-		interest.</entry>
+    <entry key="44typeOfRepayment.label">44. Tip de rambursare</entry>
+    <entry key="44typeOfRepayment.placeholder"></entry>
+    <entry key="44typeOfRepayment.help">1=plăţi egale de principal (vezi glosar pentru explicaţie), 2=anuitate, 3=suma totală; 5= altele</entry>
+    <entry key="44typeOfRepayment.help.detail">Câmpul nr. 44- Tip de rambursare. Tipul de rambursare poate fi următorul: 1= plăţi egale de principal (PEP) se referă la un program fix de plăţi egale de principal ce se vor adăuga până când vor atinge valoarea împrumutului. Dobânda este încasată ca soldul creditului şi suma serviciilor de plată descreşte cu fiecare plată de principal.  În metoda anuităţii  fiecare plată este stabilită ca o sumă egală, la care componenta de dobândă se diminuează cu timpul în timp ce componenta de principal creşte. 3= suma totală înseamnă că împrumutul este plătit într-o singură sumă (principal şi dobânda) la maturitate. Dacă dobânda este plătită mai devreme, atunci graficul de rambursare este un caz particular a plăţilor egale de  principal  şi ar trebui raportat sub acea categorie. 5= Dacă tipul rambursării nu corespunde niciuneia dintre categoriile de mai sus, folosiţi  codul "altele".</entry>
+    <entry key="45numberOfRepayments.label">45. Numărul de rambursări pe an</entry>
+    <entry key="45numberOfRepayments.placeholder"></entry>
+    <entry key="45numberOfRepayments.help">1=anual
+        2=bianual;
+        4=trimestrial;
+        12=lunar</entry>
+    <entry key="45numberOfRepayments.help.detail">Câmpul nr.45- Numărul de rambursări pe an: 1=anual
+        2=bianual;
+        4=trimestrial;
+        12=lunar</entry>
+    <entry key="46interestRate.label">46. Rata dobânzii</entry>
+    <entry key="46interestRate.placeholder"></entry>
+    <entry key="46interestRate.help">Introduceţi: în 5 cifre, de exemplu "05200" pentru 5.2 %; sau "0" dacă nu există dobândă. Dacă împrumutul AOD are rata dobânzii variabilă, raportaţi variabilele dobânzii în câmpul 46 (de exemplu: LIBOR6M-1.5%) şi referinţa rată fixă în câmpul 47.</entry>
+    <entry key="46interestRate.help.detail">Câmpul nr.46- Rata dobânzii: Introduceţi în 5 cifre, de exemplu "05200" pentru 5.2 %; sau "0" dacă nu există dobândă. Majoritatea împrumuturilor au o singură rată a dobânzii care se menţine pe durata împrumutului. Introduceţi această rată a dobânzii, inclusiv cheltuieli suplimentare la dobândă care se plătesc pe durata împrumutului. Dacă împrumutul AOD are rata dobânzii variabilă, raportaţi rata de variabil în câmpul 46 (de exemplu LIBOR6M-1.5%) şi rata de referinţa fixă în câmpul 47.  În cazul în care se renunţă la dobândă în perioada de graţie (intervalul dintre data angajamentului şi data primei plăţi), raportaţi împrumutul ca având două rate ale dobânzii, cu dobândă 0 pentru perioada de graţie. Împrumuturi cu rată a dobânzii variabilă pot fi clasificate ca AOD  când concesionalitatea este garantată de un mecanism specific. Mecanismul trebuie să asigure ca ratele variabile sunt concesionale şi că voi fi plafonate în aşa fel încât elementul de subvenţie pe perioada împrumutului este de cel puţin 25%. Pentru a înţelege cum funcţionează acest mecanism, citiţi paragrafele 52 la 55 ale CRS++ disponibile la: http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-FINAL-ENG.pdf</entry>
+    <entry key="47secondInterestRate.label">47. A doua rată a dobânzii</entry>
+    <entry key="47secondInterestRate.placeholder"></entry>
+    <entry key="47secondInterestRate.help">" Introduceţi în 5 cifre, de exemplu "05200" pentru 5.2 % ; sau
+        "0" dacă nu există dobândă. Dacă împrumutul AOD are rata dobânzii variabilă, raportaţi rata variabilă disponibilă la câmpul 46 (de exemplu LIBOR6M-1.5%) şi referinţa ratei fixe în câmpul 47.</entry>
+    <entry key="47secondInterestRate.help.detail">Câmpul nr.47- Rată a dobânzii: Introduceţi în 5 cifre, de exemplu "05200" pentru 5.2 %; sau "0" dacă nu există dobândă. Majoritatea împrumuturilor au o singură rată o dobânzii care se menţine pe durata împrumutului. Introduceţi această rată, inclusiv schimbările în plus faţă de dobândă care se plătesc din soldul plătit pe durata împrumutului. Dacă împrumutul AOD are dobândă variabilă, raportaţi variabilele în câmpul 46 (de exemplu LIBOR6M-1.5%) şi referinţa fixă în câmpul 47.  În cazul în care se renunţă la dobândă în perioada de graţie (intervalul dintre data angajamentului şi data primei plăţi), raportaţi împrumutul ca având două rate de dobândă, fără ca dobânda să fie încasată pentru perioada de graţie. Împrumuturi cu rată de dobândă variabilă pot fi clasificate ca AOD când concesionalitatea este garantată de un mecanism specific. Mecanismul trebuie să asigure ca ratele variabile sunt concesionale şi că voi fi plafonate în aşa fel încât elementul de subvenţie pe perioada împrumutului este cel puţin 25%. Pentru a înţelege cum funcţionează acest mecanism, citiţi paragrafele 52 la 55 ale CRS++ disponibile la: http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-FINAL-ENG.pdf</entry>
+    <entry key="48firstRepaymentDate.label">48. Prima dată de rambursare</entry>
+    <entry key="48firstRepaymentDate.placeholder"></entry>
+    <entry key="48firstRepaymentDate.help">Prima rată de rambursare</entry>
+    <entry key="48firstRepaymentDate.help.detail">Câmpul nr. 48- Prima rată de rambursare: Indicaţi datele la care trebuie plătite prima şi ultima rambursare de principal. În cazul în care programul de rambursare depinde de data (datele) la care rambursarea este făcută, vă rugăm să introduceţi datele de rambursare aproximative. Estimarea poate să fie făcută pe baza cerinţelor standard de rambursare ce se aplică unei regiuni sau ţări beneficiare.</entry>
+    <entry key="49finalRepaymentDate.label">49. Ultima dată de rambursare</entry>
+    <entry key="49finalRepaymentDate.placeholder"></entry>
+    <entry key="49finalRepaymentDate.help">Ultima dată de rambursare</entry>
+    <entry key="49finalRepaymentDate.help.detail">Câmpul nr. 49- Data finală a rambursării: Indicaţi termenul limită pentru prima şi ultima rambursare de principal. În cazul în care programul de rambursare depinde de data (datele) la care rambursarea este făcută, vă rugăm să introduceţi datele de rambursare aproximate. Estimarea poate să fie făcută pe baza cerinţelor standard de rambursare ce se aplică unei regiuni sau ţări beneficiare.</entry>
+    <entry key="50interestReceived.label">50. Dobânda Primită</entry>
+    <entry key="50interestReceived.placeholder"></entry>
+    <entry key="50interestReceived.help">În timpul anului de raportare (suma întreagă). NU introduceţi o valoare negativă.</entry>
+    <entry key="50interestReceived.help.detail">Câmpul nr. 50- Dobânda primită: Dobânda primită corespunde sumei de dobândă şi sau alte încasări primite de la ţara care acordă împrumutul, inclusiv plăţi pentru a elimina sau reduce dobânda scadentă sau în arierate.</entry>
+    <entry key="51principalDisbursed.label">51. Principal plătit dar încă scadent</entry>
+    <entry key="51principalDisbursed.placeholder"></entry>
+    <entry key="51principalDisbursed.help">Valoarea principalului din împrumut care mai trebuie plătit până la sfârșitul anului de raportare (sume complete)</entry>
+    <entry key="51principalDisbursed.help.detail">Câmpul nr. 51- Principalul plătit dar încă scadent: Împrumuturile trebuie raportare la CRS++ până când nu mai există principal scadent sau dobândă, indiferent dacă agenţia continuă să acorde noi împrumuturi. Raportaţi la câmpul 51. Valoarea principalului din împrumut care mai trebuie plătit până la sfârșitul anului de raportare (sume complete).</entry>
+    <entry key="52arrearsOfPrincipals.label">52. Restanţa la Principal (inclusă în câmpul 51)</entry>
+    <entry key="52arrearsOfPrincipals.placeholder"></entry>
+    <entry key="52arrearsOfPrincipals.help">La sfârşitul anului (suma întreagă)</entry>
+    <entry key="52arrearsOfPrincipals.help.detail">Câmpul nr. 52:  Restanţa principalului (inclusă în câmpul 51): Raportaţi separat fiecare restanţă la principal şi dobânda la sfârşitul anului în care se raportează, luând în calcul datoriile de plăţi pentru servicii din timpul anului  (lichidarea de la câmpul 35 şi dobânda introdusă la câmpul 50), şi incluzând restanţe care s-au acumulat pe parcusul anului de raportare. Restanţele de principl fac parte din principalul datorat din împumut şi trebuie inclus în suma raportată la câmpul 51 (câmpul 52 este un "din care" câmp la 51).  Restanţele din dobândă, pe de altă parte, nu fac parte din această sumă. Orice restanţă din dobândă sau dobândă întârziată (dobândă acumulată la restanţă) trebuie clasificate ca restanţă la dobândă. Datoria scadentă totală de la sfârşitul anului este suma principalului plătit dar încă scadent şi restanţă de dobândă.</entry>
+    <entry key="53arrearsOfInterest.label">53. Restanţă la dobândă</entry>
+    <entry key="53arrearsOfInterest.placeholder"></entry>
+    <entry key="53arrearsOfInterest.help">La sfârşitul anulului (în total)</entry>
+    <entry key="53arrearsOfInterest.help.detail">Câmpul nr. 53: Restanţă la dobândă (inclusă în câmpul 51): Raportaţi separat fiecare restanţă la principal sau la dobândă la sfârşitul anului în care se raportează, luând în calcul  plăţile la împrumut primite în timpul anului  (amortizarea de la câmpul 35 şi dobânda introdusă la câmpul 50), şi incluzând restanţe care s-au acumulat pe parcusul anului de raportare. Restanţe la principal fac parte din participalul datorat din împumut şi trebuie incluse în suma raportată la câmpul 51 (câmpul 52 este un "din care" câmp la 51).  Restanţele la dobândă, pe de altă parte, nu fac parte din această sumă. Orice restanţă la dobândă sau dobândă întârziată (dobândă acumulată la restanţă) trebuie clasificate ca restanţă la dobândă. Datoria scadentă totală de la sfârşitul anului este suma principalului plătit dar încă scadent şi restanţă la dobândă.</entry>
 </properties>

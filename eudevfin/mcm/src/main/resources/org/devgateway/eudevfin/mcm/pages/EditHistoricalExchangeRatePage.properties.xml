@@ -14,6 +14,9 @@
 	<entry key="rate.label">Rate</entry>
 	<entry key="source.label">Source</entry>
     <entry key="isInverted.label">is inverted?</entry>
+    <entry key="isInverted.help">Expand to view help</entry>        
+    <entry key="isInverted.help.detail">Check the yes box if your exchange rate is the rate of national currency per one USD. 
+    Leave the yes box unchecked if your exchange rate is the rate of USD per one unit of your national currency.</entry>    
 	<entry key="date.label">Date</entry>	
 	<entry key="notification.equalcounterbase">The Base and Counter currency cannot be the same!</entry>
 	<entry key="page.title">Edit Historical Exchange Rate</entry>

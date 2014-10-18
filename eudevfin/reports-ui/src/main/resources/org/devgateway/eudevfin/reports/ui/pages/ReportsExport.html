@@ -24,8 +24,11 @@
 <wicket:extend>
 	<div class="container">
 		<div class="row">
+            <div align="center">
+                <h4 wicket:id="subtitleReportsExport"/>
+            </div>
 			<br/><br/>
-			<div class="span6 offset2">
+			<div class="span6 offset3">
 				<form class="form-horizontal" action="jasperreports/generate" method="post" onsubmit="target_popup(this)">
 	                <input wicket:id="reportType" type="hidden"/>
 					<div class="control-group">
@@ -52,9 +55,16 @@
 						</div>
 					</div>
 				    <div class="form-actions">
-						<button type="submit" class="btn btn-large btn-primary">Export</button>
+                        <button type="submit" class="btn btn-large btn-primary">Export</button>
 					</div>
 				</form>
+
+                <h4 wicket:id="downloadApprovedReports"/>
+                <ul wicket:id="listFiles">
+                    <li>
+                        <a wicket:id="downloadLink"><span wicket:id="downloadText"/></a>
+                    </li>
+                </ul>
 			</div>
 		</div>
 	</div>

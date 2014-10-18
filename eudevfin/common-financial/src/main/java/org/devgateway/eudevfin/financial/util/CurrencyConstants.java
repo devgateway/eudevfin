@@ -20,6 +20,7 @@ public class CurrencyConstants {
 	
 	
 	public final static String NATIONAL_CURRENCIES_LIST = "national_currencies_list";
+	public final static String USD_EUR_LIST = "usd_eur_list";
 	public final static String OTHER_CURRENCIES_LIST = "other_currencies_list";
 	public static final String ALL_CURRENCIES_LIST = "all_currencies_list";
 	

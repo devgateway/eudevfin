@@ -14,7 +14,7 @@
 	<entry key="import-file-upload.placeholder">Filename</entry>
     <entry key="import-file-upload.help">Select the file that needs to be uploaded either for historical or current data</entry>
     <entry key="import-file-upload.help.detail"></entry>
-    <entry key="import-transactions-form.submit">Upload transaction file</entry>
+    <entry key="import-transactions-form.submit">Start import</entry>
     <entry key="page.title">Historical Upload and Data Import Tool</entry>
     <entry key="import-transactions.template.message">The import file format should be based on the following template:</entry>
     <entry key="import-transactions.template.link.name">download</entry>
@@ -22,5 +22,14 @@
     <entry key="import-transactions.message.nofiles">Please select a file and click on the upload button</entry>
     <entry key="import-transactions.message.problem">An unexpected problem appeared. Please try again later or contact the system administrator</entry>
     <entry key="import-transactions.message.error">There was an error on line {0}. Technical info: {1}</entry>
+    <entry key="import-transactions.message.error-with-col-num">There was an error on line {0} column {1}. Technical info: {2}</entry>
+    
+    <entry key="import-transactions.message.warning.title">Please take a look at the notes below:</entry>
+    <entry key="import-transactions.message.warning.dates">Make sure that the cells containing dates are actually date cells and not just numbers or text</entry>
+    <entry key="import-transactions.message.warning.currency">For the currency code please use the ISO 4217 active codes available at</entry>
+    <entry key="import-transactions.message.warning.financial">The financial information (commitment, amounts extended, etc.) must be inputed in full amounts and with no thousand separators</entry>
+    <entry key="import-transactions.message.warning.not-twice">Please make sure you don't import the same data twice otherwise the information will be duplicated in the system</entry>
+    <entry key="import-transactions.message.warning.approved">Please note that all the transactions imported will be saved as 'approved'. This means it will affect all reports and exports</entry>
+    <entry key="import-transactions.message.warning.filesize">The file size should not be higher than 15 Megabytes. If it is, please split it into several files</entry>
     
 </properties>

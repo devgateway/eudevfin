@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
+import org.devgateway.eudevfin.importing.transaction.exceptions.TransactionTransformerException;
 import org.devgateway.eudevfin.metadata.common.service.AreaService;
 import org.devgateway.eudevfin.metadata.common.service.CategoryService;
 import org.devgateway.eudevfin.metadata.common.service.OrganizationService;
@@ -48,11 +49,22 @@ public class TransactionRowTransformer implements IRowTransformer {
 		final Map<String, Object> context = new HashMap<String, Object>();
 
 		final CustomFinancialTransaction ctx = new CustomFinancialTransaction();
+
 		for (int i=0; i<srcList.size(); i++) {
-			final Object srcValue = srcList.get(i);
-			final ICellTransformer<?> cellTransformer = this.cellTransformers.get(i);
-			cellTransformer.populateField(srcValue, ctx, context, this.servicesWrapper);
+			try {
+				final Object srcValue = srcList.get(i);
+				final ICellTransformer<?> cellTransformer = this.cellTransformers.get(i);
+				cellTransformer.populateField(srcValue, ctx, context, this.servicesWrapper);
+			}
+			catch (final Exception e) {
+				final TransactionTransformerException ex = new TransactionTransformerException(e, i);
+				throw ex;
+			}
 		}
+		/* Mark the transaction as approved */
+		ctx.setDraft(false);
+		ctx.setApproved(true);
+
 		return ctx;
 	}
 

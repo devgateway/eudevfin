@@ -12,6 +12,6 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <entry key="name">Name</entry>
-    <entry key="code">Code</entry>
+    <entry key="name">Nume</entry>
+    <entry key="code">Cod</entry>
 </properties>

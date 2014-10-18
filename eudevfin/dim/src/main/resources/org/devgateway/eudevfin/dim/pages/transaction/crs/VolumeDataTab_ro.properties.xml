@@ -4,137 +4,49 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-	<entry key="32currency.label">32. National Currency</entry>
-	<entry key="32currency.placeholder"></entry>
-	<entry key="32currency.help">Enter your national currency</entry>
-	<entry key="32currency.help.detail">Field no. 32 - National Currency: Enter your national currency</entry>
-
-	<entry key="33commitments.label">33. Commitments</entry>
-	<entry key="33commitments.placeholder"></entry>
-	<entry key="33commitments.help">New amounts committed during the reporting year (full amount, no digit separators)</entry>
-	<entry key="33commitments.help.detail">Field no. 33 - Commitments: New amounts committed during the reporting year. The amount for the
-		initial commitment taking account of any revisions of the commitment that occurred
-		during the year. After the original
-		commitment year, report only the annual increases (net amounts added to earlier
-		years commitments) or decreases (net
-		reductions in earlier year's commitments). The recording of cancellations on
-		earlier years commitments is allowed, but
-		only in the form of an aggregate ("bilateral, unspecified/sector,
-		unspecified"). For multilateral contributions,
-		commitments show the total amounts of multi-year agreements with
-		multilateral institutions. For capital subscriptions
-		in the form of notes encashable at sight, enter the total
-		expected amount of deposits of such notes as the amount
-		committed. Report only one (positive or negative) amount for
-		each activity. Commitments are considered to be made at
-		the date a loan or grant agreement is signed or the obligation
-		is otherwise made known to the recipient (e.g. in the
-		case of budgetary allocations, the final vote of the budget
-		should be taken as the date of commitment). For certain
-		special expenditures, e.g. humanitarian aid, the date of
-		disbursement may be taken as the date of commitment. A
-		commitment is a firm written obligation by a government or
-		official agency, backed by the appropriation or availability
-		of the necessary funds, to provide resources of a
-		specified amount under specified financial terms and conditions and
-		for specified purposes for the benefit of a
-		recipient country or a multilateral agency.</entry>
-
-	<entry key="34amountsExtended.label">34 Amounts Extended</entry>
-	<entry key="34amountsExtended.placeholder">(full amount, no digit separators)</entry>
-	<entry key="34amountsExtended.help">Amount disbursed during the reporting year (full amount, no digit separators)</entry>
-	<entry key="34amountsExtended.help.detail">Field no. 34 Amounts extended: Report the amount disbursed during the year. When reporting a
-		disbursement on a former commitment, all CRS++ fields (except fields 36-40 and 42-49)
-		should be completed, with field
-		34. 'Amounts extended' indicating the amount disbursed, and field '33. Commitments
-		being equal to 0'.</entry>
-
-
-	<entry key="35amountsReceived.label">35. Amounts Received</entry>
-	<entry key="35amountsReceived.placeholder">(full amount, no digit separators)</entry>
-	<entry key="35amountsReceived.help">Field no. 35 - Amounts received: Payments received from the aid recipient during the reporting year (for loans, only principal
-		payments, including any payments of arrears of principal). NB: DO NOT enter a negative amount except for capital
-		losses.
-	</entry>
-	<entry key="35amountsReceived.help.detail">Field no. 35 - Amounts received: Amounts received consist in recoveries on bilateral grants,
-		amortisation of loans and recoveries on multilateral ODA grants and capital subscriptions. Amortisation relates to
-		principal payments received from the borrowing country during the reporting year, including any payments of arrears of
-		principal. For repayments on loans that have been rescheduled in previous years, report the types of aid, purpose
-		codes and types of finance of the original loans. In case these cannot be identified, the field 13. Type of aid should
-		be left empty, the field 12.Type of finance set to 410 and the field 15. Purpose code set to 99810. Do not use type of
-		aid F01-Debt relief as this would distort statistics on net debt relief.
-	</entry>
-
-
-	<entry key="36amountUntied.label">36. Amount Untied</entry>
-	<entry key="36amountUntied.placeholder">(full amount, no digit separators)</entry>
-	<entry key="36amountUntied.help">On a commitment basis, for new commitments only (full amount, no digit separators). Procurement authorised in all OECD
-		countries and substantially all developing countries.</entry>
-	<entry key="36amountUntied.help.detail">"Field no. 36 - Amount untied: On a commitment basis, for new commitments only (full amount, no digit separators).
-		Procurement authorized in all OECD countries and substantially all
-		developing countries. Detailed guidance on tying
-		status reporting is given by type of aid in Annex 11 of the CRS++ Gudilines
-		available at
-		http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-ADD1-FINAL-ENG.pdf (pages 63 to 68). Consult
-		also Annex
-		16. Tied aid disciplines and untying recommendation at
-		http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-ADD2-FINAL-ENG.pdf (page 14)."</entry>
-
-	<entry key="37amountPartiallyUntied.label">37. Amount Partially Untied</entry>
-	<entry key="37amountPartiallyUntied.placeholder">(full amount, no digit separators)</entry>
-	<entry key="37amountPartiallyUntied.help">On a commitment basis, for new commitments only (full amount, no digit separators). Procurement limited to donor and
-		substantially all developing countries.</entry>
-	<entry key="37amountPartiallyUntied.help.detail">Field no. 37 - Amount partially untied: Partially untied aid is defined as loans and grants which are
-		tied, contractually or in effect, to procurement of goods and services from a restricted number of countries which
-		must include substantially all developing countries and can include the donor country. Consult also Annex 16. Tied aid
-		disciplines and untying recommendation at
-		http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-ADD2-FINAL-ENG.pdf (page 14).</entry>
-
-	<entry key="38amountTied.label">38. Amount Tied</entry>
-	<entry key="38amountTied.placeholder">(full amount, no digit separators)</entry>
-	<entry key="38amountTied.help">On a commitment basis, for new commitments only (full amount, no digit separators). Procurement that does not fall under
-		the definitions of untied or partially untied aid.
-	</entry>
-	<entry key="38amountTied.help.detail">Field no. 38 - Amount tied: Transactions are considered tied unless the donor has, at the time of the
-		aid offer, clearly specified a range of countries eligible for procurement which meets the tests for "untied" or
-		"partially untied" aid. Consult also Annex 16. Tied aid disciplines and untying recommendation at
-		http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-ADD2-FINAL-ENG.pdf (page 14). For activities for which
-		the tying status is reported, the sum of the amounts reported as untied, partially untied and tied should equal the
-		total amount of these activities.
-	</entry>
-
-	<entry key="39amountOfIRTC.label">39. Amount of IRTC</entry>
-	<entry key="39amountOfIRTC.placeholder">(full amount, no digit separators)</entry>
-	<entry key="39amountOfIRTC.help">For new commitments only, if investment (field 26)=1. Report in full amount</entry>
-	<entry key="39amountOfIRTC.help.detail">Field no. 39 - Investment-Related Technical Assistance (IRTC): For new commitments only, if investment
-		(field 26)=1. Report in full amount. Investment-related technical co-operation is defined as the financing of services
-		by a donor country with the primary purpose of contributing to the design and/or implementation of a project or
-		programme aiming to increase the physical capital stock of the recipient country. These services include consulting
-		services, technical support, the provision of know-how linked to the execution of an investment project, and the
-		contribution of the donors own personnel to the actual implementation of the project (managers, technicians, skilled
-		labour etc.).</entry>
-
-	<entry key="40amountOfExpertsCommitments.label">40. If project-type, amount of experts commitments</entry>
-	<entry key="40amountOfExpertsCommitments.placeholder">(full amount, no digit separators)</entry>
-	<entry key="40amountOfExpertsCommitments.help">Optional reporting, if project-type (field 13 =C01)</entry>
-	<entry key="40amountOfExpertsCommitments.help.detail">Field no. 40 - If project-type, amount of experts commitments: Optional reporting (full amount, no digit separators), if
-		project-type (field 13 =C01). If you are able to do so, report the amount committed for financing donor
-		experts/consultants.</entry>
-
-	<entry key="41amountOfExpertsExtended.label">41. If project-type, amount of experts extended</entry>
-	<entry key="41amountOfExpertsExtended.placeholder">(full amount, no digit separators)</entry>
-	<entry key="41amountOfExpertsExtended.help">Optional reporting, if project-type (field 13=C01).</entry>
-	<entry key="41amountOfExpertsExtended.help.detail">Field no. 41 - If project-type, amount of experts extended: Optional reporting (full amount, no digit separators), if
-		project-type (field 13 =C01). If you are able to do so, report the amount disbursed for financing donor
-		experts/consultants.
-	</entry>
-
-	<entry key="42amountOfExportCredit.label">42. Amount of export credit in AF package</entry>
-	<entry key="42amountOfExportCredit.placeholder">(full amount, no digit separators)</entry>
-	<entry key="42amountOfExportCredit.help">For commitments only (full amount, no digit separators), if AF (field 27=1). Use your national currency. </entry>
-	<entry key="42amountOfExportCredit.help.detail">Field no. 42 - Amount of export credit in AF package: For commitments only (full amount, no digit separators), if AF (field 27=1). Use your national currency. 
-        The sum of the amount committed (field 33) and the amount of export credit (field 42) equals the actual financial flow to the 
-        recipient country i.e. the amount of the associated financing package. Use the description field (field 19) to give information 
-        on any other funds injected in the package (e.g. private bank loans, contributions from private investors) and explain how the 
-        components of the package are articulated.</entry>
+    <entry key="32currency.label">32. Moneda Naţională</entry>
+    <entry key="32currency.placeholder"></entry>
+    <entry key="32currency.help">Introduceţi moneda naţională</entry>
+    <entry key="32currency.help.detail">Câmpul nr.32- Moneda Naţională: Introduceţi moneda dvs naţională</entry>
+    <entry key="33commitments.label">33. Angajamente</entry>
+    <entry key="33commitments.placeholder"></entry>
+    <entry key="33commitments.help">Noi sume angajate pe timpul anului de raportare</entry>
+    <entry key="33commitments.help.detail">Câmpul nr. 33- Angajamente- noi sume angajate pe timpul anului de raportare. Suma stabilită pentru angajamentul iniţial ţinând cont de orice revizuiri ale angajamentelor care s-au întâmplat pe parcursul anului. După anul oficial al angajamentului, raportaţi numai creşterile anuale (sumele nete adăugate la angajamentele din anii anteriori) sau descreşteri (sumele nete reduse din anii anteriori). Înregistrarea anulării angajamentelor din anii anteriori este permisă, dar numai sub forma unui agregat (“bilateral, nespecificat /sector, nespecificat). Pentru contribuţii multilaterale, angajamentele arată sumele totale ale acordourilor multiplie cu instituţiile multilaterale. Pentru subscripţiile  de capital care pot fi încasate necondiţionat pe loc introduceți valoarea totală estimată a depozitelor de astfel de note ca suma angajată. Raportaţi doar o sumă (negativă sau pozitivă) pentru fiecare activitate. Angajamentele sunt considerate a fi făcute la data la care contractul de împrumut sau grantul este semnat sau altă obligaţie sub altă formă adusă la cunoştinţa beneficarului (de exemplu în cazul unor alocări bugetare, votul final al bugetului trebuie să fie data angajamentului). Pentru anumite cheltuieli speciale, de exemplu asistenţă umanitară, data plăţii poate fi considerată data angajamentului. Angajamentul este o obligaţie scrisă de un guvern sau o agenţie oficială, susţinută de fondurile disponibile pentru a furniza resursele unei sume specificate sub termenii şi condiţiile financiare specificate şi pentru scopurile specificate pentru folosul unei ţări beneficiare sau a unei agenţii multilaterale.</entry>
+    <entry key="34amountsExtended.label">34. Sume înaintate</entry>
+    <entry key="34amountsExtended.placeholder"></entry>
+    <entry key="34amountsExtended.help">Sume plătite pe parcursul anului de raportare (suma totală)</entry>
+    <entry key="34amountsExtended.help.detail">Câmpul nr. 34- Sume înaintate: raportaţi suma plătită pe perioada întregului an. Când raportaţi o plată a unui angajament anterior, toate câmpurile CRS++ (cu excepţia câmpurilor 36-40 şi 42-49) trebuie să fie completate cu câmpul 34. "Sume înaintate" indică suma plătită, şi câmpul 33. Angajamentele fiind egale cu '0'</entry>
+    <entry key="35amountsReceived.label">35. Sume primite</entry>
+    <entry key="35amountsReceived.placeholder"></entry>
+    <entry key="35amountsReceived.help">Câmpul nr.35- Sume primite: Plăţi primite de la beneficiarul de asistenţă în timpul anului de raportare (pentru împrumuturi, numai plăţi de principal, inclusiv plăţi ale arieratelor de principal). NB: NU introduceţi sume negative cu excepţia pierderilor de capital.</entry>
+    <entry key="35amountsReceived.help.detail">Câmpul nr. 35- Sume primite: Sumele primite constau în recuperări din granturi bilaterale, amortizare de împrumuturi şi recuperări din granturile  AOD multilaterale subscripţiile de capital. Amortizarea se referă la plăţile de principal obţinute de la ţara ce acordă împrumutul pe perioada anului de raportare , inclusiv plăţi restanţe la principal. Pentru rambursări de împrumuturi ce au fost replanificate în anii anteriori, raportaţi tipul de asistenţă, coduri de scop şi tipuri de finanţe din împrumutul original. În cazul în care acestea nu pot fi identificate, câmpul 13. "tipul de asistenţă" trebuie să fie lăsat liber, câmpul 12. Tipul de finanţe stabilit la 410 şi câmpul 15. "Codul scopului"  stabilit la 99810. Nu folosiţi "tipul de asistenţă" F01- Achitarea datoriilor deoarece aceasta ar distorsiona statisticile legate de" reducerea datoriilor" nete.</entry>
+    <entry key="36amountUntied.label">36. Asistenţă necondiţionată</entry>
+    <entry key="36amountUntied.placeholder"></entry>
+    <entry key="36amountUntied.help">Pe baza unui angajament, doar pentru noi angajamente (suma totală). Achiziţie autorizată în toate ţările OECD şi în mod substanţial în toate ţările în curs de dezvoltare.</entry>
+    <entry key="36amountUntied.help.detail">"Câmpul nr. 36- Sume de asistenţă necondiţionată: Pe baza unui angajament, doar pentru noi angajamente (suma totală). Achiziţie autorizată în toate ţările OECD şi în mod substanţial în toate ţările în curs de dezvoltare. Detalii ajutătoare referitoare la tipul de asistenţă ne(condiţionată) găsiţi la Anexa 11 a Ghidului CRS++ disponibil la:
+        http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-ADD1-FINAL-ENG.pdf (pages 63 to 68). Consultaţi de asemenea, Anexa 16: Reguli privind asistenţa condiţinată şi recomandări pentru deblocarea asistenţei la: http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-ADD2-FINAL-ENG.pdf (pagina 14)</entry>
+    <entry key="37amountPartiallyUntied.label">37. Asistenţă parţial necondiţionată</entry>
+    <entry key="37amountPartiallyUntied.placeholder"></entry>
+    <entry key="37amountPartiallyUntied.help">Pe baza unui angajament, numai pentru noi angajamente (suma totală). Achiziţie destinată numai donatorului şi în mod sustanţial tuturor ţărilor în curs de dezvoltare.</entry>
+    <entry key="37amountPartiallyUntied.help.detail">Câmpul nr. 37- Asistenţă parţial necondiţionată: Asistenţă parţial necondiţionată este definită ca împrumuturi şi granturi condiţionate contractual sau aflate în vigoare, de achiziţii de bunuri sau servicii dintr-un număr limitat de ţări care trebuie să includă în mod subtanţial toate ţările în curs de dezvoltare şi pot include ţara donatoare. Consultaţi  Aneza  16  "Reguli privind asistenţa condiţinată şi recomandări pentru deblocarea asistenţei "http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-ADD2-FINAL-ENG.pdf (pagina 14).</entry>
+    <entry key="38amountTied.label">38. Asistenţă condiţionată</entry>
+    <entry key="38amountTied.placeholder"></entry>
+    <entry key="38amountTied.help">Pe baza unui angajament, numai pentru noi angajamente (suma totală). Achiziţiile care nu sunt incluse în definiţia de asistenţă condiţionată sau necondiţionată</entry>
+    <entry key="38amountTied.help.detail">Câmpul nr. 38-  Tranzacţiile sunt considerate ca fiind condiţionate cu excepţia situaţiei în care donatorul are, la momentul oferirii de asistenţă, specificat în mod clar anumite ţări eligibile pentru achiziţii care pot fi incluse ca asistenţă "necondiţionată" sau "necondiţionată parţial".  De asemenea, consultaţi Anexa 16. Reguli privind asistenţa condiţinată şi recomandări pentru deblocarea asistenţei  http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-ADD2-FINAL-ENG.pdf (pagina 14). Pentru activităţi pentru care statutul condiţionării asistenţei este raportat, totalul sumei raportate ca fiind condiţionată, necondiţioantă sau necondiţionată parţial, trebuie să fie egală cu suma totală a acestor activităţi.</entry>
+    <entry key="39amountOfIRTC.label">39. Sume IRTC</entry>
+    <entry key="39amountOfIRTC.placeholder"></entry>
+    <entry key="39amountOfIRTC.help">Pentru noi angajamente, dacă reprezintă investiţii (câmpul 26)=1. Raportaţi suma totală</entry>
+    <entry key="39amountOfIRTC.help.detail">Câmpul nr.39- Asistenţă Tehnică legată de Investiţii (IRTC): Pentru noi angajamente, dacă reprezintă o investiţie (câmpul 26)=1. Raportaţi suma totală. Cooperarea tehnică legată de investiţii este definită ca finanţarea serviciilor de către o ţară donatoare cu scopul principal de a contribui la design-ul şi sau implementarea unui proiect sau a unui program ce urmăreşte sporirea stocului de capital fizic în ţara beneficiară. Aceste servicii includ servicii de consultanţă, suport tehnic, furnizarea de "know-how" legată de execuţia unui proiect de investiţii, şi contribuţia personalului donatorilor la implementarea proiectului (manageri, tehnicieni, muncitori calificaţi).</entry>
+    <entry key="40amountOfExpertsCommitments.label">40.  În cazul unui angajament de tip proiect, raportaţi angajamentele experiţilor</entry>
+    <entry key="40amountOfExpertsCommitments.placeholder"></entry>
+    <entry key="40amountOfExpertsCommitments.help">Raport opţional, în cazul angajamentului de tip proiect (câmpul 13 =C01)</entry>
+    <entry key="40amountOfExpertsCommitments.help.detail">Câmpul nr. 40: În cazul unui angajament de tip proiect, raportaţi angajamentele experţilor: Raportare opţională (suma totală), în cazul unui angajament de tip proiect (câmpul 13= C01). Dacă este posibil, raportaţi suma cheltuită pentru plata experiţilor/consultanţilor donatorului. </entry>
+    <entry key="41amountOfExpertsExtended.label">41. Dacă angajament de tip proiect, raportaţi sumele înaintate pentru experţi</entry>
+    <entry key="41amountOfExpertsExtended.placeholder"></entry>
+    <entry key="41amountOfExpertsExtended.help">Raportare opţională, în cazul angajament de tip proiect  (câmpul 13=C01).</entry>
+    <entry key="41amountOfExpertsExtended.help.detail">Câmpul nr. 41- În cazul unui angajament de tip proiect, sumele platite pentru expertiţi, consultanţi din ţara donatoare:</entry>
+    <entry key="42amountOfExportCredit.label">42. Volumul  de credit la export din pachetul de finanţare asociată (FA)</entry>
+    <entry key="42amountOfExportCredit.placeholder"></entry>
+    <entry key="42amountOfExportCredit.help">Doar pentru angajamente (suma totală), dacă FA  (câmpul 27=1). Fosiţi moneda dvs naţională</entry>
+    <entry key="42amountOfExportCredit.help.detail">Câmpul nr. 42. Volumul  de credit la export din pachetul de finanţare asociată (FA): Numai pentru angajamente (suma totală), dacă reprezintă FA (câmpul 27=1). Fosiţi moneda dvs naţională.  Volumul angajamentului  (câmpul 33) şi volumul de credit la export (câmpul 42) sunt egale cu fluxul financiar efectuat către ţara beneficiară, adică volumul pachetului finanţării asociate. Folosiţi câmpul descriere (câmpul 19) pentru a oferi informaţii despre alte fonduri incluse în pachet (de exemplu,  împrumuturi bancare private, contribuţii din parte investitorilor privaţi) şi explicaţi cum componentele pachetului sunt formulate.</entry>
 </properties>

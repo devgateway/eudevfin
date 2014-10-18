@@ -16,7 +16,6 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconType;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarDropDownButton;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.button.DropDownAutoOpen;
-
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy;
@@ -108,15 +107,6 @@ public final class NavbarInitializer {
 						paramsDAC2a.set("reportType", "dac2a");
 						list.add((AbstractLink) new MenuBookmarkablePageLink<ReportsExport>(ReportsExport.class, paramsDAC2a, new StringResourceModel("navbar.reports.export.dac2a", this, null, null)));
 
-//						PageParameters paramsCRS = new PageParameters();
-//						paramsCRS.set("reportType", "CRS");
-//						list.add((AbstractLink) new MenuBookmarkablePageLink<ReportsExport>(ReportsExport.class, paramsCRS, new StringResourceModel("navbar.reports.export.crs", this, null, null)).setEnabled(false));
-//
-//						PageParameters paramsFSS = new PageParameters();
-//						paramsFSS.set("reportType", "fss");
-//						list.add((AbstractLink) new MenuBookmarkablePageLink<ReportsExport>(ExportS.class, paramsFSS, new StringResourceModel("navbar.reports.export.fss", this, null, null)).setEnabled(true));
-
-			
 						return list;
 					}
 
@@ -165,6 +155,7 @@ public final class NavbarInitializer {
                 MetaDataRoleAuthorizationStrategy.authorize(customReports,
         				Component.RENDER, AuthConstants.Roles.ROLE_VIEWER);
                 list.add(customReports);
+
                 @SuppressWarnings("serial")
 				MenuBookmarkablePageLink<ReportsPage> reportBuilderLink = new MenuBookmarkablePageLink<ReportsPage>(
 						SaikuRedirectPage.class, null, new StringResourceModel(

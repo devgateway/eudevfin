@@ -8,13 +8,12 @@
   -->
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
-<properties>    
-    <entry key="baseCurrency.label">National Currency</entry>
-    <entry key="counterCurrency.label">Reporting Currency</entry>
-	<entry key="rate.label">Rate</entry>
-	<entry key="source.label">Source</entry>
-    <entry key="isInverted.label">is inverted?</entry>
-	<entry key="date.label">Date</entry>	
-	<entry key="notification.equalcounterbase">The Base and Counter currency cannot be the same!</entry>
-	<entry key="page.title">Edit Historical Exchange Rate</entry>
+<properties>
+    <entry key="baseCurrency.label">Monedă naţională</entry>
+    <entry key="counterCurrency.label">Monedă de raportare</entry>
+    <entry key="rate.label">Rata de schimb valutar</entry>
+    <entry key="source.label">Sursa</entry>
+    <entry key="date.label">Data</entry>
+    <entry key="notification.equalcounterbase">Baza şi moneda cotantă nu pot fi aceleaşi!</entry>
+    <entry key="page.title">Editaţi istoricul ratei de schimb valutar</entry>
 </properties>

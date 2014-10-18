@@ -9,55 +9,28 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <entry key="1reportingYear.label">1. Reporting Year</entry>
-   <entry key="1reportingYear.placeholder">YYYY</entry>
-    <entry key="1reportingYear.help">Enter the year for which data are reported</entry>
-    <entry key="1reportingYear.help.detail">Field no. 1 - Reporting Year: Enter the year for which data are reported (e.g. if we are in year 2013, you enter 2012 because you report data for 2012)</entry>
-
-    <entry key="1bCommitmentDate.label">1.b Commitment Date</entry>
+    <entry key="1reportingYear.label">1. Anul raportării</entry>
+    <entry key="1reportingYear.placeholder">AAAA</entry>
+    <entry key="1reportingYear.help">Introduceţi anul la care se raportează</entry>
+    <entry key="1reportingYear.help.detail">Câmpul nr.1: Anul raportării: Introduceţi anul la care se raportează datele (de exemplu, dacă suntem în anul 2013, introduceţi anul 2012 deoarece raportaţi pentru 2012)</entry>
+    <entry key="1bCommitmentDate.label">1.b Data angajamentului</entry>
     <entry key="1bCommitmentDate.placeholder"></entry>
-    <entry key="1bCommitmentDate.help">Commitment date</entry>
-    <entry key="1bCommitmentDate.help.detail">Field no. 1b - Commitment date: Enter in text format DD-MM-YYYY. A commitment is a firm 
-    written obligation by a government or official agency, backed by the appropriation or availability of the necessary funds,
-    to provide resources of a specified amount under specified financial terms and conditions and for specified purposes for the 
-    benefit of a recipient country or a multilateral agency. For more info go to para 90 of the DAC GUdielines available at 
-    http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-FINAL-ENG.pdf</entry>
-
-    <entry key="3extendingAgency.label">3. Extending Agency</entry>
-    <entry key="3extendingAgency.placeholder">(from first page)</entry>
-    <entry key="3extendingAgency.help">Enter the full/official name name of your institution</entry>
- 	<entry key="3extendingAgency.help.detail">Field no. 3 - Extending agency:
- 	The extending agency is the government entity (central, state or local government agency or department) financing the activity from its own budget. 
- 	It is the budget holder, controlling the activity on its own account. The extending agency is the government entity 
-         (central, state or local government agency or department) financing the activity from its own budget. It is the budget 
-         holder, controlling the activity on its own account. Agencies administering activities on behalf of other government 
-         entities should not be reported as extending agencies but as channels of delivery (See fields 8 and 9 below).	
-         Agencies administering activities on behalf of other government entities should not be reported as extending agencies but 
-         as channels of delivery (See fields 8 and 9 below).
- 	</entry>
-
-    <entry key="4crsId.label">4. CRS ID Number</entry>
-    <entry key="4crsId.placeholder">YYYYxxxxxx</entry>
-    <entry key="4crsId.help">Enter the number in 10 digits</entry>
-    <entry key="4crsId.help.detail">Field no. 4 - CRS Identification number:
-    The CRS Id number ensures the unicity of each transaction in the database, and possibly the link between original commitments and subsequent disbursements over several years.
-    It is a sequential number starting with the four digits of the original commitment year of the activity and is unique throughout the activity life (original commitment, subsequent increases and disbursements).
-    </entry>
-
-    <entry key="5donorProjectNumber.label">5. Donor Project Number</entry>
-    <entry key="5donorProjectNumber.placeholder">Number used by the agency</entry>
-    <entry key="5donorProjectNumber.help">Enter the number, or combination of letters and numbers, used by your agency to identify the activity</entry>
-    <entry key="5donorProjectNumber.help.detail">Field no. 5 - Donor project number: enter the number, or combination of letters and numbers, used by your agency to identify the activity.</entry>
-
-    <entry key="6natureSubmission.label">6. Nature of Submission</entry>
+    <entry key="1bCommitmentDate.help">Data angajamentului</entry>
+    <entry key="1bCommitmentDate.help.detail">Data angajamentului: Introduceţi în format text ZZ-LL-AAAA. Un angajament este o obligaţie fermă scrisă de guvern sau o agenţie oficială, susţinută de însuşirea sau disponibilitatea fondurilor necesare, pentru a furniza resursele pentru o sumă specificată în termenii şi condiţiile financiare şi pentru scopurile specificate în beneficiul ţării beneficiare sau a agenţiei multilaterale. Pentru mai multe informaţii, consultaţi paragraf 90 de la Manualul de orientare DAC disponibil la: http://www.oecd.org/dac/stats/documentupload/DCD-DAC(2013)15-FINAL-ENG.pdf</entry>
+    <entry key="3extendingAgency.label">3. Agenţia finanţatoare</entry>
+    <entry key="3extendingAgency.placeholder">(de la prima pagină)</entry>
+    <entry key="3extendingAgency.help">Introduceţi numele întreg/oficial al instituţiei</entry>
+    <entry key="3extendingAgency.help.detail">Câmpul nr.3 Agenţia finanţatoare . Agenţia care acordă asistenţă este o entitate guvernamentală (la nivel central, agenţie sau departament de stat sau local) ce finanţează activitatea din bugetul propriu. Este agenţia care deţine bugetul, controlând activitatea pe cont propriu. Agenţia finanţatoare este o entitate guvernamentală (centrală, agenţie sau departament de stat sau local) ce finanţează activitatea din bugetul propriul. Este deţinătorul bugetului, controlând activitatea pe cont propriu.  Agenţiile ce administrează activităţile în numele unor alte entităţi guvernamentale nu ar trebui raportate ca agenţii finaţatoare  ci ca şi canale de livrare. (Vezi câmpurile 8 şi 9 de mai jos). Agenţiile ce administrează activităţile în locul unor alte entităţi guvernamentale nu trebuie să raporteze ca agenţii finanţatoare  ci ca şi canale de livrare. (Vezi cămpurile 8 şi 9 de mai jos).</entry>
+    <entry key="4crsId.label">4. Număr de identificare CRS</entry>
+    <entry key="4crsId.placeholder">AAAAxxxxxx</entry>
+    <entry key="4crsId.help">Introduceţi numărul în 10 cifre</entry>
+    <entry key="4crsId.help.detail">Câmpul nr.4- Număr de identificare CRS: Numărul de identificare CRS asigură singularitatea fiecărei tranzacţii din baza de date şi posibil legătura dintre angajementele originale şi plăţile aferente de-a lungul anilor. Este un număr secvenţial cu primele patru cifre ale angajamentului original al activităţii şi este unic de-a lungul întregii activităţi (angajament original, creşteri secvenţiale şi plăţi).</entry>
+    <entry key="5donorProjectNumber.label">5. Numărul de proiect al donatorului</entry>
+    <entry key="5donorProjectNumber.placeholder">Numărul folosit de agenţie</entry>
+    <entry key="5donorProjectNumber.help">Introduceţi numărul sau combinaţia de numere şi litere folosit de agenţia dvs pentru a identifica activitatea</entry>
+    <entry key="5donorProjectNumber.help.detail">Câmpul nr. 5- Numele de proiect al donatorului: introduceţi numărul sau combinaţia de numere şi litere folosită de agenţia dvs pentru a identifica activitatea</entry>
+    <entry key="6natureSubmission.label">6.Tipul trimiterii</entry>
     <entry key="6natureSubmission.placeholder"></entry>
-    <entry key="6natureSubmission.help">1: new activity reported; 2: revision; 3: previously reported activity (increase/decrease of earlier commitment, disbursement on earlier commitment); 5: provisional data;
-    8: commitment = disbursement</entry>
-    <entry key="6natureSubmission.help.detail">Field no. 6 - Nature of submission: 1: new activity reported; 2: revision; 
-    3: previously reported activity (increase/decrease of earlier commitment, disbursement on earlier commitment); 
-    5: provisional data; 8: commitment = disbursement.                                                                                                                                                                                                       
-    When an activity is reported for the first time, it should be marked as a new activity reported (code 1). If changes need to be made to transactions reported in previous years to correct past errors (either in the amount or the qualitative information), report a revision (code 2). Fill out all data fields including the ones that have not been revised. For increases or disbursements on commitments reported in previous years (code 3), the identification number of the original commitment should preferably be used. 
-    If, for example, a disbursement in 2011 is reported on a transaction initially committed in 2010 with the CRS Id “2010100001”, the disbursement will carry the CRS Id “2010100001” with a nature of submission equal to 3. In case a donor is not able to trace the original commitment, the disbursement would need to be reported with a new CRS Id and a nature of submission equal to 3 (In such a case, the link to the original transaction is lost and monitoring project implementation is not possible). 
-    A number of donors cannot report grant aid commitments report on a disbursement basis only. Also, the commitment concept is difficult to apply to certain categories of aid (e.g. aid to refugees in donor countries), for which only disbursement data are available. For such activities, all fields in CRS++ should be completed, and the fields related to commitments should be set equal to the disbursement figure (in which case, the nature of submission should be equal to 8 “commitment=disbursement”).</entry>
-    
+    <entry key="6natureSubmission.help">1= activitate nouă raportată; 2: revizuire; 3: activitatea raportată anterior (creştere/descreştere a angajamentului anterior, plata unui angajament anterior); date provizorii; 8: angajament= plată</entry>
+    <entry key="6natureSubmission.help.detail">Câmpul nr.6- Tipul trimiterii: 1= activitate nouă raportată; 2: revizuire; 3: activitatea raportată anterior (creştere/descreştere a angajamentului anterior, plata unui angajament anterior); date provizorii; 8: angajament= plată. Când o activitate este raportată pentru prima dată, trebuie să fie introdusă ca o nouă activitate raportată (cod 1). Dacă e necesar sa faceţi schimbări la tranzacţii raportate anterior pentru a corecta greşeli făcute (fie referitoare la sumă, fie la calitatea informaţiei), raportaţi ca revizuire (cod 2). Introduceţi toate datele inclusiv pe cele care nu au fost revizuite. Pentru creşteri sau plăţi ale angajamentelor raportate în anii anteriori (cod 3), numărul de identificare al angajamentului anterior este preferabil să fie folosit. Dacă  de exemplu, o plată in 2011 este raportată la o tranzacţie iniţial realizată in 2010 cu număr de CRS “2010100001”, plata se va face folosind numărul CRS de identificare “2010100001” cu tip de trimitere egal cu 3 (în cazul în care donatorul nu poate găsi angajamentul original plata trebuie raportată cu nu nou număr CRS şi un tip de trimitere egal cu 3 (în acest caz, legătura cu tranzacţia originală este pierdută şi nu este posibilă monitorizarea implementării proiectului). Un număr de donatori nu poate raporta  angajamentele de subvenţii de asistenţă numai de baza datelor de plăţi disponibile. De asemenea, conceptul de angajament este dificil de aplicat pentru anuminte de categorii de asistenţă (de exemplu, asistenţă pentru refugiaţi în ţări donatoare), pentru care  sunt disponibile doar datele de plată. Pentru astfel de activităţi, toate câmpurile CRS++ trebuie completate, şi câmpurile referitoare la angajamente trebuie  să fie egale cu cifra aferentă plăţii (caz în care, tipul trimiterii trebuie să fie egal cu 8 "angajament=plată").</entry>
 </properties>
