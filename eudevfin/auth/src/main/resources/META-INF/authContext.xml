@@ -67,6 +67,12 @@
 
 	<int:header-value-router input-channel="userChannel"
 		header-name="requestName" />
+		
+		
+<!-- BEGIN SAML 2.0 CONFIGURATION -->
+
+<import resource=""/>				
 				
 
+<!--  END SAML 2.0 CONFIGURATION -->
 </beans>
