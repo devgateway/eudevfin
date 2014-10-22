@@ -18,12 +18,47 @@
 
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
+
 	<security:http create-session="never" auto-config="true">
 		<security:remember-me />
 		<security:intercept-url pattern="/**" />
+		
+		<!-- SAML 2.0 
+		<security:custom-filter before="FIRST" ref="metadataGeneratorFilter"/>
+        <security:custom-filter after="BASIC_AUTH_FILTER" ref="samlFilter"/>		
+     	-->
+         
         <security:form-login login-page="/login" default-target-url="/" />
         <security:access-denied-handler error-page="/login" />
 		<security:logout logout-url="/logout"/>
 		<security:intercept-url pattern="/jmx/**" access="ROLE_USER"/>
 	</security:http>
+	
+	
+	<!-- The following is an authenticationManager bean that has access to a 
+		real userDetailsService. It receives requests from remote authentication 
+		managers. See org.devgateway.eudevfin.auth.security.AuthenticationComponent -->
+	<security:authentication-manager id="localAuthenticationManager">
+		<security:authentication-provider
+			user-service-ref="userDetailsService">
+			<security:password-encoder hash="sha-256" />
+		</security:authentication-provider>		
+	</security:authentication-manager>
+	
+
+	<!--  SAML 2.0 
+	
+	    <bean id="samlAuthenticationProvider" class="org.springframework.security.saml.SAMLAuthenticationProvider">
+	    </bean>
+		
+	
+		<security:authentication-manager id="localAuthenticationManager">
+		   <security:authentication-provider ref="samlAuthenticationProvider"/>
+		</security:authentication-manager>
+		
+	
+		<import resource="classpath:META-INF/samlSecurity.xml"/>
+		
+	-->
+	
 </beans>

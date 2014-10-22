@@ -55,24 +55,7 @@
 	</bean>
 
 
-	<!-- The following is an authenticationManager bean that has access to a 
-		real userDetailsService. It receives requests from remote authentication 
-		managers. See org.devgateway.eudevfin.auth.security.AuthenticationComponent -->
-	<security:authentication-manager id="localAuthenticationManager">
-		<security:authentication-provider
-			user-service-ref="userDetailsService">
-			<security:password-encoder hash="sha-256" />
-		</security:authentication-provider>		
-	</security:authentication-manager>
-
-	<int:header-value-router input-channel="userChannel"
+		<int:header-value-router input-channel="userChannel"
 		header-name="requestName" />
 		
-		
-<!-- BEGIN SAML 2.0 CONFIGURATION -->
-
-<import resource=""/>				
-				
-
-<!--  END SAML 2.0 CONFIGURATION -->
 </beans>

@@ -20,17 +20,6 @@
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
-	 <servlet>
-        <servlet-name>saml</servlet-name>
-        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>saml</servlet-name>
-        <url-pattern>/saml/web/*</url-pattern>
-    </servlet-mapping>
-    
 	<servlet>
 		<servlet-name>restservices</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
