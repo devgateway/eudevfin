@@ -131,6 +131,7 @@ public class TransactionRowTransformer implements IRowTransformer {
 		this.cellTransformers.add(new CellTransformers.ArrearsOfPrincipal());
 		this.cellTransformers.add(new CellTransformers.ArrearsOfInterest());
 		this.cellTransformers.add(new CellTransformers.Rmnch());
+		this.cellTransformers.add(new CellTransformers.ChannelInstituteName());
 
 	}
 
