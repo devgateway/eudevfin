@@ -568,6 +568,22 @@ public class CellTransformers {
 
 	}
 
+	public static class ChannelInstituteName implements ICellTransformer<String> {
+
+		@Override
+		public String populateField(final Object src, final CustomFinancialTransaction ctx,
+				final Map<String, Object> context, final ServicesWrapper servicesWrapper) {
+
+			if ( !StringUtils.isEmpty(src)) {
+				final String name = (String) src;
+				ctx.setChannelInstitutionName(name);
+				return name;
+			}
+			return null;
+		}
+
+	}
+
 	public static class RecipientCountry implements ICellTransformer<Area> {
 
 		@Override
