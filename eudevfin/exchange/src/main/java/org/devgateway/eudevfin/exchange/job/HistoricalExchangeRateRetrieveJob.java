@@ -7,6 +7,10 @@
  *******************************************************************************/
 package org.devgateway.eudevfin.exchange.job;
 
+import java.util.Collection;
+import java.util.Set;
+import java.util.TreeSet;
+
 import org.apache.log4j.Logger;
 import org.devgateway.eudevfin.exchange.common.domain.ExchangeRateConfiguration;
 import org.devgateway.eudevfin.exchange.common.domain.ExchangeRateConfigurationConstants;
@@ -22,10 +26,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
-
-import java.util.Collection;
-import java.util.Set;
-import java.util.TreeSet;
 
 @Service
 public class HistoricalExchangeRateRetrieveJob implements ApplicationContextAware {

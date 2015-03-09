@@ -51,18 +51,23 @@ public class IatiTransformerEngine {
 			logger.debug( String.format("Processing transaction with id %s and title %s", ctx.getId(), ctx.getShortDescription()) ); 
 			
 			if ( !Conditions.SHOULD_SKIP(ctx)) {
-				IatiActivityEngine activityEngine;
-				if ( this.isNewActivity(ctx) ) {
-					activityEngine  = new IatiActivityEngine(ctx); 
-					currentActivity = activityEngine.process().getIatiActivity();
-					this.iatiActivities.getActivities().add(currentActivity);
+				if ( ctx.getCrsIdentificationNumber() != null ) {
+					IatiActivityEngine activityEngine;
+					if ( this.isNewActivity(ctx) ) {
+						activityEngine  = new IatiActivityEngine(ctx); 
+						currentActivity = activityEngine.process().getIatiActivity();
+						this.iatiActivities.getActivities().add(currentActivity);
+					}
+					else {
+						activityEngine  = new IatiActivityEngine(ctx, currentActivity, latestReportingYear);
+						currentActivity = activityEngine.process().getIatiActivity();
+					}
+					if (ctx.getReportingYear() != null) {
+						latestReportingYear = ctx.getReportingYear().getYear();
+					}
 				}
 				else {
-					activityEngine  = new IatiActivityEngine(ctx, currentActivity, latestReportingYear);
-					currentActivity = activityEngine.process().getIatiActivity();
-				}
-				if (ctx.getReportingYear() != null) {
-					latestReportingYear = ctx.getReportingYear().getYear();
+					logger.error(String.format("Transaction with id %s and title %s has no CRS id.", ctx.getId(), ctx.getShortDescription()));
 				}
 			}
 		}
