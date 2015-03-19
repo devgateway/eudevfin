@@ -9,6 +9,9 @@
     <parameter name="FORM_DATASOURCE" class="java.lang.String"/>
 	<queryString language="mdx">
 		<![CDATA[WITH MEMBER [Area].[Afghanistan] as SUM({[Area].[625]})
+  MEMBER [Area].[LDC] as SUM([Area_LDC])
+  MEMBER [Area].[Africa] as SUM([Area_Africa])
+  MEMBER [Area].[SouthOfSahara] as SUM([Area_SouthOfSahara])
   MEMBER [Area].[Iraq] as SUM({[Area].[543]})
   MEMBER [Area].[SouthOfSaharaDebtRelief] as ([Area].[SouthOfSahara], [Type of Finance].[TYPE_OF_FINANCE##610])
   MEMBER [Area].[AfghanistanReconstruction] as SUM({[Sector].[730],[Sector].[73010]},[Area].[625])
