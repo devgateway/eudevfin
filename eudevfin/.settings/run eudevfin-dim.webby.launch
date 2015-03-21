@@ -11,7 +11,7 @@
 <booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_START_ON_FIRST_THREAD" value="true"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="eudevfin-dim"/>
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.sonatype.m2e.webby.sourcepathProvider"/>
-<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xms256m -Xmx512m -XX:MaxPermSize=256m -Dderby.system.home=c:\work\derby -Deudevfin.derby.mode=network -XX:+UseParallelGC -XX:+DisableExplicitGC -Dderby.optimizer.optimizeJoinOrder=false"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xms256m -Xmx512m -XX:MaxPermSize=256m -Dderby.system.home=c:\derby -Deudevfin.derby.mode=network -XX:+UseParallelGC -XX:+DisableExplicitGC -Dderby.optimizer.optimizeJoinOrder=false"/>
 <stringAttribute key="org.sonatype.m2e.webby.containerHome" value="C:\work\jetty-distribution-9.0.6.v20130930"/>
 <stringAttribute key="org.sonatype.m2e.webby.containerId" value="jetty8x"/>
 <intAttribute key="org.sonatype.m2e.webby.containerPort" value="8081"/>
