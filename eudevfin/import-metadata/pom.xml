@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.devgateway.eudevfin</groupId>
 		<artifactId>eudevfin</artifactId>
-		<version>1.3.3-SNAPSHOT</version>
+		<version>1.3.4-SNAPSHOT</version>
 	</parent>
 	<artifactId>import-metadata</artifactId>
 	<name>EU-DEVFIN Importing Of Metadata</name>
