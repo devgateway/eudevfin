@@ -205,6 +205,13 @@ public class CustomFinancialTransactionDao
 		return ret;
 	}
 
+	@ServiceActivator(inputChannel="findAllDistinctReportingYearsInTransactionChannel")
+	public List<Integer> findAllDistinctReportingYears(){
+		final List<Integer> ret	= this.getRepo().findAllDistinctReportingYears();
+		return ret;
+	}
+
+	
     @ServiceActivator(inputChannel="findDistinctStartingYearsInTransactionChannel")
     public List<Integer> findDistinctStartingYears(){
         final List<Integer> ret	= this.getRepo().findDistinctStartingYears();
