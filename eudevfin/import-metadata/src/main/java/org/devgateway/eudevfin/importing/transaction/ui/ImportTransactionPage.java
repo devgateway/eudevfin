@@ -46,7 +46,7 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel
  *
  */
 @MountPath(value = "/import-transactions")
-@AuthorizeInstantiation(AuthConstants.Roles.ROLE_SUPERVISOR)
+@AuthorizeInstantiation(AuthConstants.Roles.ROLE_TEAMLEAD)
 public class ImportTransactionPage extends HeaderFooter {
 
 	public static final String TEMPLATE_PATH = "/templates/transaction-import-template.xls";
