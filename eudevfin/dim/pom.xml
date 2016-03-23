@@ -43,6 +43,12 @@
             <version>${project.version}</version>
         </dependency>
         
+         <dependency>
+            <groupId>org.devgateway.eudevfin</groupId>
+            <artifactId>common-metadata</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
         <dependency>
             <groupId>org.devgateway.eudevfin</groupId>
             <artifactId>financial</artifactId>
@@ -75,6 +81,12 @@
         
         <dependency>
             <groupId>org.devgateway.eudevfin</groupId>
+            <artifactId>reports-core</artifactId>
+            <version>${project.version}</version>            
+        </dependency>
+        
+        <dependency>
+            <groupId>org.devgateway.eudevfin</groupId>
             <artifactId>import-metadata</artifactId>
             <version>${project.version}</version>
             <classifier>excel</classifier>
@@ -101,13 +113,6 @@
             <type>war</type>
         </dependency>
     
-        <dependency>
-            <groupId>org.devgateway.eudevfin</groupId>
-            <artifactId>reports-core</artifactId>
-            <version>${project.version}</version>
-            <type>jar</type>
-        </dependency>
-        
 		<dependency>
 			<groupId>org.saiku</groupId>
 			<artifactId>saiku-webapp</artifactId>
@@ -159,6 +164,38 @@
 				<directory>src/main/resources</directory>
             </resource>
         </resources>
+        
+        <pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.m2e</groupId>
+				<artifactId>lifecycle-mapping</artifactId>
+				<version>1.0.0</version>
+				<configuration>
+					<lifecycleMappingMetadata>
+						<pluginExecutions>
+							<pluginExecution>
+								<pluginExecutionFilter>
+									<groupId>org.apache.maven.plugins</groupId> 
+									<artifactId>maven-assembly-plugin</artifactId>
+									<versionRange>[2.6,)</versionRange>
+									<goals>
+										<goal>single</goal>
+									</goals>
+								</pluginExecutionFilter>
+								<action>
+									<execute>
+										<runOnIncremental>true</runOnIncremental>
+									</execute>
+								</action>
+							</pluginExecution>
+						</pluginExecutions>
+					</lifecycleMappingMetadata>
+				</configuration>
+			</plugin>
+		</plugins>
+	</pluginManagement>
+	
     </build>
     
 
