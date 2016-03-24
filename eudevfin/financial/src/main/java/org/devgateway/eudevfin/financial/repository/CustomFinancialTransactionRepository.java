@@ -51,6 +51,10 @@ public interface CustomFinancialTransactionRepository extends
             "ctx.approved = true and ctx.reportingYear IS NOT NULL and ctx.draft = false ")
 	List<Integer> findDistinctReportingYears();
 
+	@Query ("select distinct year(ctx.reportingYear) from CustomFinancialTransaction ctx where " +
+            "ctx.reportingYear IS NOT NULL")
+	List<Integer> findAllDistinctReportingYears();
+	
     @Query ("select distinct year(ctx.expectedStartDate) from CustomFinancialTransaction ctx where " +
             "ctx.approved = true and ctx.expectedStartDate IS NOT NULL and ctx.draft = false ")
     List<Integer> findDistinctStartingYears();

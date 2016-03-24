@@ -205,6 +205,7 @@
             id="findCustomTransactionByApprovedTrueAndFormTypeInlOrderByCrsIdentificationNumberAscCreatedDateAscChannel"/>
 	
 	<int:channel id="findDistinctReportingYearsInTransactionChannel"/>
+	<int:channel id="findAllDistinctReportingYearsInTransactionChannel"/>	
     <int:channel id="findDistinctStartingYearsInTransactionChannel"/>
     <int:channel id="findDistinctCompletitionYearsInTransactionChannel"/>
     <int:channel id="findDistinctReportingGeopraphyInTransactionChannel"/>

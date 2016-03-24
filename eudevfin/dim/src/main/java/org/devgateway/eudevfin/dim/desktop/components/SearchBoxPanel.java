@@ -102,7 +102,7 @@ public class SearchBoxPanel extends Panel {
 		
 		  
 		final DropDownField<Integer> year = new DropDownField<Integer>("year", new YearToLocalDateTimeModel(new RWComponentPropertyModel<LocalDateTime>(
-				"year")), new YearProvider(this.txService.findDistinctReportingYears()));
+				"year")), new YearProvider(this.txService.findAllDistinctReportingYears()));
 		year.setSize(InputBehavior.Size.Medium);
    		year.removeSpanFromControlGroup();
    		year.hideLabel();
