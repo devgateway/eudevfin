@@ -4,6 +4,8 @@
 package org.devgateway.eudevfin.importing.transaction.transformers;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -32,6 +34,16 @@ public class CellTransformers {
 
 
 	public static Logger logger = Logger.getLogger(CellTransformers.class);
+	
+	private static NumberFormat numberFormat=NumberFormat.getInstance();
+	
+	public synchronized static double parseDouble(String numberString)  {
+		try {
+			return numberFormat.parse(numberString).doubleValue();
+		} catch (ParseException e) {
+			throw new RuntimeException(e);
+		}
+	}
 
 	public static class CommitmentDate implements ICellTransformer<LocalDateTime> {
 
@@ -445,7 +457,7 @@ public class CellTransformers {
 		public BigDecimal populateField(final Object src, final CustomFinancialTransaction ctx,
 				final Map<String, Object> context, final ServicesWrapper servicesWrapper) {
 			if ( !StringUtils.isEmpty(src)) {
-				final BigDecimal rate = new BigDecimal(Double.parseDouble((String)src));
+				final BigDecimal rate = new BigDecimal(parseDouble((String)src));
 				ctx.setInterestRate(rate);
 				return rate;
 			}
@@ -460,7 +472,7 @@ public class CellTransformers {
 		public BigDecimal populateField(final Object src, final CustomFinancialTransaction ctx,
 				final Map<String, Object> context, final ServicesWrapper servicesWrapper) {
 			if ( !StringUtils.isEmpty(src)) {
-				final BigDecimal rate = new BigDecimal(Double.parseDouble((String)src));
+				final BigDecimal rate = new BigDecimal(parseDouble((String)src));
 				ctx.setSecondInterestRate(rate);
 				return rate;
 			}
@@ -690,7 +702,7 @@ public class CellTransformers {
 			final String amount = (String) src;
 			if ( !StringUtils.isEmpty(amount) ){
 				final CurrencyUnit currencyUnit = (CurrencyUnit) context.get(CURRENCY_UNIT);
-				final BigMoney money = BigMoney.of(currencyUnit, Double.parseDouble(amount));
+				final BigMoney money = BigMoney.of(currencyUnit, parseDouble(amount));
 				ctx.setCommitments(money);
 				return money;
 			}
@@ -708,7 +720,7 @@ public class CellTransformers {
 			final String amount = (String) src;
 			if ( !StringUtils.isEmpty(amount) ){
 				final CurrencyUnit currencyUnit = (CurrencyUnit) context.get(CURRENCY_UNIT);
-				final BigMoney money = BigMoney.of(currencyUnit, Double.parseDouble(amount));
+				final BigMoney money = BigMoney.of(currencyUnit, parseDouble(amount));
 				ctx.setAmountsExtended(money);
 				return money;
 			}
@@ -726,7 +738,7 @@ public class CellTransformers {
 			final String amount = (String) src;
 			if ( !StringUtils.isEmpty(amount) ){
 				final CurrencyUnit currencyUnit = (CurrencyUnit) context.get(CURRENCY_UNIT);
-				final BigMoney money = BigMoney.of(currencyUnit, Double.parseDouble(amount));
+				final BigMoney money = BigMoney.of(currencyUnit, parseDouble(amount));
 				ctx.setAmountsReceived(money);
 				return money;
 			}
@@ -744,7 +756,7 @@ public class CellTransformers {
 			final String amount = (String) src;
 			if ( !StringUtils.isEmpty(amount) ){
 				final CurrencyUnit currencyUnit = (CurrencyUnit) context.get(CURRENCY_UNIT);
-				final BigMoney money = BigMoney.of(currencyUnit, Double.parseDouble(amount));
+				final BigMoney money = BigMoney.of(currencyUnit, parseDouble(amount));
 				ctx.setAmountsUntied(money);
 				return money;
 			}
@@ -762,7 +774,7 @@ public class CellTransformers {
 			final String amount = (String) src;
 			if ( !StringUtils.isEmpty(amount) ){
 				final CurrencyUnit currencyUnit = (CurrencyUnit) context.get(CURRENCY_UNIT);
-				final BigMoney money = BigMoney.of(currencyUnit, Double.parseDouble(amount));
+				final BigMoney money = BigMoney.of(currencyUnit, parseDouble(amount));
 				ctx.setAmountsPartiallyUntied(money);
 				return money;
 			}
@@ -780,7 +792,7 @@ public class CellTransformers {
 			final String amount = (String) src;
 			if ( !StringUtils.isEmpty(amount) ){
 				final CurrencyUnit currencyUnit = (CurrencyUnit) context.get(CURRENCY_UNIT);
-				final BigMoney money = BigMoney.of(currencyUnit, Double.parseDouble(amount));
+				final BigMoney money = BigMoney.of(currencyUnit, parseDouble(amount));
 				ctx.setAmountsTied(money);
 				return money;
 			}
@@ -798,7 +810,7 @@ public class CellTransformers {
 			final String amount = (String) src;
 			if ( !StringUtils.isEmpty(amount) ){
 				final CurrencyUnit currencyUnit = (CurrencyUnit) context.get(CURRENCY_UNIT);
-				final BigMoney money = BigMoney.of(currencyUnit, Double.parseDouble(amount));
+				final BigMoney money = BigMoney.of(currencyUnit, parseDouble(amount));
 				ctx.setAmountOfIRTC(money);
 				return money;
 			}
@@ -816,7 +828,7 @@ public class CellTransformers {
 			final String amount = (String) src;
 			if ( !StringUtils.isEmpty(amount) ){
 				final CurrencyUnit currencyUnit = (CurrencyUnit) context.get(CURRENCY_UNIT);
-				final BigMoney money = BigMoney.of(currencyUnit, Double.parseDouble(amount));
+				final BigMoney money = BigMoney.of(currencyUnit, parseDouble(amount));
 				ctx.setProjectAmountExpertCommitments(money);
 				return money;
 			}
@@ -834,7 +846,7 @@ public class CellTransformers {
 			final String amount = (String) src;
 			if ( !StringUtils.isEmpty(amount) ){
 				final CurrencyUnit currencyUnit = (CurrencyUnit) context.get(CURRENCY_UNIT);
-				final BigMoney money = BigMoney.of(currencyUnit, Double.parseDouble(amount));
+				final BigMoney money = BigMoney.of(currencyUnit, parseDouble(amount));
 				ctx.setProjectAmountExpertExtended(money);
 				return money;
 			}
@@ -852,7 +864,7 @@ public class CellTransformers {
 			final String amount = (String) src;
 			if ( !StringUtils.isEmpty(amount) ){
 				final CurrencyUnit currencyUnit = (CurrencyUnit) context.get(CURRENCY_UNIT);
-				final BigMoney money = BigMoney.of(currencyUnit, Double.parseDouble(amount));
+				final BigMoney money = BigMoney.of(currencyUnit, parseDouble(amount));
 				ctx.setAmountOfExportCreditInAFPackage(money);
 				return money;
 			}
@@ -870,7 +882,7 @@ public class CellTransformers {
 			final String amount = (String) src;
 			if ( !StringUtils.isEmpty(amount) ){
 				final CurrencyUnit currencyUnit = (CurrencyUnit) context.get(CURRENCY_UNIT);
-				final BigMoney money = BigMoney.of(currencyUnit, Double.parseDouble(amount));
+				final BigMoney money = BigMoney.of(currencyUnit, parseDouble(amount));
 				ctx.setInterestReceived(money);
 				return money;
 			}
@@ -888,7 +900,7 @@ public class CellTransformers {
 			final String amount = (String) src;
 			if ( !StringUtils.isEmpty(amount) ){
 				final CurrencyUnit currencyUnit = (CurrencyUnit) context.get(CURRENCY_UNIT);
-				final BigMoney money = BigMoney.of(currencyUnit, Double.parseDouble(amount));
+				final BigMoney money = BigMoney.of(currencyUnit, parseDouble(amount));
 				ctx.setPrincipalDisbursedOutstanding(money);;
 				return money;
 			}
@@ -906,7 +918,7 @@ public class CellTransformers {
 			final String amount = (String) src;
 			if ( !StringUtils.isEmpty(amount) ){
 				final CurrencyUnit currencyUnit = (CurrencyUnit) context.get(CURRENCY_UNIT);
-				final BigMoney money = BigMoney.of(currencyUnit, Double.parseDouble(amount));
+				final BigMoney money = BigMoney.of(currencyUnit, parseDouble(amount));
 				ctx.setArrearsOfPrincipal(money);
 				return money;
 			}
@@ -924,7 +936,7 @@ public class CellTransformers {
 			final String amount = (String) src;
 			if ( !StringUtils.isEmpty(amount) ){
 				final CurrencyUnit currencyUnit = (CurrencyUnit) context.get(CURRENCY_UNIT);
-				final BigMoney money = BigMoney.of(currencyUnit, Double.parseDouble(amount));
+				final BigMoney money = BigMoney.of(currencyUnit, parseDouble(amount));
 				ctx.setArrearsOfInterest(money);
 				return money;
 			}
