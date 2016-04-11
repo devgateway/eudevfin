@@ -9,7 +9,9 @@ import java.text.ParseException;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
+import org.devgateway.eudevfin.financial.util.FinancialTransactionUtil;
 import org.devgateway.eudevfin.importing.transaction.transformers.TransactionRowTransformer.ServicesWrapper;
 import org.devgateway.eudevfin.metadata.common.domain.Area;
 import org.devgateway.eudevfin.metadata.common.domain.Category;
@@ -681,7 +683,17 @@ public class CellTransformers {
 				final Map<String, Object> context, final ServicesWrapper servicesWrapper) {
 			final String currencyCode = (String) src;
 			if ( !StringUtils.isEmpty(currencyCode) ){
-				final CurrencyUnit currencyUnit = CurrencyUnit.ofNumericCode(Integer.parseInt(currencyCode));
+				//final CurrencyUnit currencyUnit = CurrencyUnit.ofNumericCode(Integer.parseInt(currencyCode));
+				NullableWrapper<Organization> orgWrapper = servicesWrapper.orgService
+						.findFirstByDonorCode(currencyCode);
+				if (orgWrapper.isNull())
+					throw new IllegalArgumentException("Code " + src + " is not mapped to a donor name.");
+
+				final CurrencyUnit currencyUnit = FinancialTransactionUtil
+						.getCurrencyForCountryName(orgWrapper.getEntity().getDonorName());
+				if (currencyUnit == null)
+					throw new IllegalArgumentException("Code " + src + " is mapped to donor "
+							+ orgWrapper.getEntity().getDonorName() + " but it has no currency code attached.");
 
 				context.put(CURRENCY_UNIT, currencyUnit);
 				ctx.setCurrency(currencyUnit);
