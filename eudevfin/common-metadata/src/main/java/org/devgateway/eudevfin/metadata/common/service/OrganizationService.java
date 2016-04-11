@@ -34,4 +34,6 @@ public interface OrganizationService extends BaseEntityService<Organization> {
 
 	public NullableWrapper<Organization> findByName(String name);
 
+	
+    public NullableWrapper<Organization> findFirstByDonorCode(String donorCode);
 }

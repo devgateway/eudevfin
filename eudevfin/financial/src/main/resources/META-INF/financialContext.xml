@@ -213,7 +213,8 @@
     <int:channel id="findDistinctCRSIdChannel"/>
 	<int:channel id="findOrganizationByIdChannel" />
 	<int:channel id="saveOrganizationChannel" />
-    <int:channel id="deleteOrganizationChannel"/>
+    <int:channel id="deleteOrganizationChannel"/>  
+    <int:channel id="findFirstOrganizationByDonorCodeChannel"/>
 	<int:channel id="findOrganizationByDacFalse"/>
     <int:channel id="findAllAsListOrganizationChannel"/>
     <int:channel id="findOrganizationByGeneralSearchPageableChannel"/>
