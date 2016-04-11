@@ -163,7 +163,7 @@ public class ImportTransactionPage extends HeaderFooter {
 		items.add(new WarningMessage(new StringResourceModel("import-transactions.message.warning.not-twice", this, null), null));
 		items.add(new WarningMessage(new StringResourceModel("import-transactions.message.warning.approved", this, null), null));
 		items.add(new WarningMessage(new StringResourceModel("import-transactions.message.warning.dates", this, null), null));
-		items.add(new WarningMessage(new StringResourceModel("import-transactions.message.warning.currency", this, null), "http://en.wikipedia.org/wiki/ISO_4217"));
+		items.add(new WarningMessage(new StringResourceModel("import-transactions.message.warning.currency", this, null), null));
 		items.add(new WarningMessage(new StringResourceModel("import-transactions.message.warning.financial", this, null), null));
 
 		final ListView<WarningMessage> warnings = new ListView<WarningMessage>("warning-list", items  ) {
