@@ -2,7 +2,7 @@
 	<parent>
 		<groupId>org.devgateway.eudevfin</groupId>
 		<artifactId>eudevfin</artifactId>
-       <version>1.4.3-SNAPSHOT</version>
+       <version>1.4.3</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.saiku</groupId>
