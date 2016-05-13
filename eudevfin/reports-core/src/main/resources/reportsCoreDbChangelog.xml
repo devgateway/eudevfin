@@ -17,6 +17,29 @@
 			class="org.devgateway.eudevfin.reports.core.liquibase.PopulateDAC2aRows">
 		</customChange>
 	</changeSet>
+	<changeSet id="10" author="fferreyra" failOnError="false"
+		runAlways="true" runInTransaction="false">
+		<sql>
+DELETE FROM ROWREPORT_CATEGORIES;
+DELETE FROM ROWREPORT_COLUMNREPORT;
+DELETE FROM ROWREPORT_ROWCODES;
+DELETE FROM ROWREPORT;
+DELETE FROM COLUMNREPORT_COLUMNCODES;
+DELETE FROM COLUMNREPORT;
+		</sql>
+	</changeSet>
+	<changeSet id="11" author="fferreyra" failOnError="false"
+		runAlways="true" runInTransaction="false">
+		<customChange
+			class="org.devgateway.eudevfin.reports.core.liquibase.PopulateDAC1Rows">
+		</customChange>
+	</changeSet>
+	<changeSet id="12" author="fferreyra" failOnError="false"
+		runAlways="true" runInTransaction="false">
+		<customChange
+			class="org.devgateway.eudevfin.reports.core.liquibase.PopulateDAC2aRows">
+		</customChange>
+	</changeSet>
 
 
 </databaseChangeLog>
