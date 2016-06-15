@@ -14,6 +14,12 @@
 <properties>
     <entry key="navbar.home">Acasă</entry>
     <entry key="navbar.newTransaction">Tranzacţie nouă</entry>
+    
+    <entry key="navbar.projects">Proiecte</entry>
+    <entry key="navbar.projects.header">Proiecte:</entry>
+    <entry key="navbar.projects.newproject">Adaugă proiect nou</entry>
+    <entry key="navbar.projects.allprojects">Listă proiecte</entry>
+    
     <entry key="navbar.reports">Repoarte</entry>
     <entry key="navbar.reports.export">Rapoarte standard</entry>
     <entry key="navbar.reports.export.aq">Chestionar avansat</entry>
@@ -59,8 +65,8 @@
     <entry key="navbar.spreadsheets.fss">Chestionar cheltuieli înaintate</entry>
     <entry key="modal.delete">Continuaţi cu ştergerea?</entry>
     <entry key="button.submit">Trimiteţi</entry>
-    <entry key="button.cancel">Anulaţi</entry>
-    <entry key="button.delete">Ştergeţi</entry>
+    <entry key="button.cancel">Anulează</entry>
+    <entry key="button.delete">Şterge</entry>
     <entry key="notification.saved">Formular salvat!</entry>
     <entry key="notification.deleted">Formular şters!</entry>
     <entry key="notification.validationerrors">Acest formular are erori de validare (subliniate cu roşu). Corectaţi şi salvaţi din nou!</entry>

@@ -1,12 +1,13 @@
-/*******************************************************************************
- * Copyright (c) 2014 Development Gateway.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the GNU Public License v3.0
- * which accompanies this distribution, and is available at
- * http://www.gnu.org/licenses/gpl.html
- *******************************************************************************/
 /**
- * 
+ * *****************************************************************************
+ * Copyright (c) 2014 Development Gateway. All rights reserved. This program and
+ * the accompanying materials are made available under the terms of the GNU
+ * Public License v3.0 which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/gpl.html
+ ******************************************************************************
+ */
+/**
+ *
  */
 package org.devgateway.eudevfin.dim.pages;
 
@@ -32,25 +33,25 @@ import org.wicketstuff.annotation.mount.MountPath;
 @AuthorizeInstantiation(AuthConstants.Roles.ROLE_USER)
 public class AggregateTransactionsPage extends HeaderFooter {
 
-	private static final long serialVersionUID = 817361503195961105L;
+    private static final long serialVersionUID = 817361503195961105L;
 
     @SpringBean
     protected CustomFinancialTransactionService customTxService;
-    
+
     @SpringBean
-	private CategoryProviderFactory categoryFactory;
-    
+    private CategoryProviderFactory categoryFactory;
+
     @SpringBean
     private OrganizationChoiceProvider organizationProvider;
-    
+
     @SpringBean
     private AreaChoiceProvider areaProvider;
-    
-	public AggregateTransactionsPage() {
-		GroupingSearchListGenerator generalSearchListGenerator = new GroupingSearchListGenerator(customTxService);
-		this.add(new GroupingBoxPanel("search-box-panel", new GroupingTransactionTableListPanel<FinancialTransaction>(
-				"search-results-panel", generalSearchListGenerator), generalSearchListGenerator, categoryFactory,
-				organizationProvider, areaProvider));
-	}
+
+    public AggregateTransactionsPage() {
+        GroupingSearchListGenerator generalSearchListGenerator = new GroupingSearchListGenerator(customTxService);
+        this.add(new GroupingBoxPanel("search-box-panel", new GroupingTransactionTableListPanel<FinancialTransaction>(
+                "search-results-panel", generalSearchListGenerator), generalSearchListGenerator, categoryFactory,
+                organizationProvider, areaProvider));
+    }
 
 }

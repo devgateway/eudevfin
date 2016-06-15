@@ -22,35 +22,32 @@ import org.devgateway.eudevfin.ui.common.validators.FinancialAmountBigDecimalVal
  *
  */
 public class FinancialAmountTextInputField extends NumberTextInputField<BigDecimal> {
+    /**
+     * @param id
+     * @param model
+     * @param messageKeyGroup
+     */
+    public FinancialAmountTextInputField(String id, IModel<BigDecimal> model, String messageKeyGroup) {
+            super(id, model, messageKeyGroup);
+            initialize();
+    }
 
-	/**
-	 * @param id
-	 * @param model
-	 * @param messageKeyGroup
-	 */
-	public FinancialAmountTextInputField(String id, IModel<BigDecimal> model, String messageKeyGroup) {
-		super(id, model, messageKeyGroup);
-		initialize();
-	}
+    /**
+     * @param id
+     * @param model
+     */
+    public FinancialAmountTextInputField(String id, IModel<BigDecimal> model) {
+            super(id, model);
+            initialize();
+    }
 
-	/**
-	 * @param id
-	 * @param model
-	 */
-	public FinancialAmountTextInputField(String id, IModel<BigDecimal> model) {
-		super(id, model);
-		initialize();
-	}
-	
-	protected void initialize() {
-		this.typeBigDecimal();
-		this.getField().add(new FinancialAmountBigDecimalValidator());
-	}
-	
-	@Override
-	public FinancialAmountTextInputField required() {
-		return (FinancialAmountTextInputField) super.required();
-	}
-	
+    protected void initialize() {
+            this.typeBigDecimal();
+            this.getField().add(new FinancialAmountBigDecimalValidator());
+    }
 
+    @Override
+    public FinancialAmountTextInputField required() {
+            return (FinancialAmountTextInputField) super.required();
+    }
 }

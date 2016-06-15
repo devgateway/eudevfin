@@ -49,7 +49,7 @@ public class NavbarInitializer {
 		};
 		exportMenu.setIconType(IconType.arrowup);
 		exportMenu.add(new DropDownAutoOpen());
-		MetaDataRoleAuthorizationStrategy.authorize(exportMenu, Component.RENDER, AuthConstants.Roles.ROLE_TEAMLEAD);
+		MetaDataRoleAuthorizationStrategy.authorize(exportMenu, Component.RENDER, AuthConstants.Roles.ROLE_SUPERVISOR);
 		return exportMenu;
 	}
 }

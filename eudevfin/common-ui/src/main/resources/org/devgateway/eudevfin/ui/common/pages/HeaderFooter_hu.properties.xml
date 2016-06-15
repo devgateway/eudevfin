@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright (c) 2013 Development Gateway.
-  ~ All rights reserved. This program and the accompanying materials
-  ~ are made available under the terms of the GNU Public License v3.0
-  ~ which accompanies this distribution, and is available at
-  ~ http://www.gnu.org/licenses/gpl.html
-  ~
-  ~ Contributors:
-  ~    aartimon
-  -->
+~ Copyright (c) 2013 Development Gateway.
+~ All rights reserved. This program and the accompanying materials
+~ are made available under the terms of the GNU Public License v3.0
+~ which accompanies this distribution, and is available at
+~ http://www.gnu.org/licenses/gpl.html
+~
+~ Contributors:
+~    aartimon
+-->
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
     <entry key="navbar.home">Home</entry>
-<entry key="navbar.newTransaction">Transactions</entry>
+    <entry key="navbar.newTransaction">Transactions</entry>
     <entry key="navbar.aggregate">Aggregate Transactions</entry>
 
     <entry key="navbar.reports">Reports</entry>
@@ -21,13 +21,13 @@
     <entry key="navbar.reports.export.aq">Advance Questionnaire</entry>
     <entry key="navbar.reports.export.dac1">DAC 1</entry>
     <entry key="navbar.reports.export.dac2a">DAC 2a</entry>
-	<entry key="navbar.reports.export.crs">CRS++</entry>
-	<entry key="navbar.reports.export.fss">FSS</entry>
-	<entry key="navbar.reports.export.iati">IATI</entry>
+    <entry key="navbar.reports.export.crs">CRS++</entry>
+    <entry key="navbar.reports.export.fss">FSS</entry>
+    <entry key="navbar.reports.export.iati">IATI</entry>
     <entry key="navbar.logout">Log Out</entry>
     <entry key="navbar.admin">Admin</entry>
     <entry key="navbar.help">Help</entry>
-	<entry key="navbar.feedback">Feedback</entry>    
+    <entry key="navbar.feedback">Feedback</entry>    
     <entry key="navbar.dashboard">ODA at a Glance</entry>
     <entry key="navbar.account">Account</entry>    
     <entry key="navbar.customreports">Custom Reports</entry>
@@ -43,24 +43,23 @@
     
     <entry key="navbar.admin.users">Users</entry>
     <entry key="navbar.admin.groups">Groups</entry>
-   	<entry key="navbar.admin.orgs">Organizations</entry> 
+    <entry key="navbar.admin.orgs">Organizations</entry> 
     <entry key="navbar.admin.nonflow">CRS++ Non-Flow Data</entry>
-	<entry key="navbar.admin.maintenance">Maintenance of the system</entry>
-	<entry key="navbar.admin.rates">Exchange Rates</entry>
+    <entry key="navbar.admin.maintenance">Maintenance of the system</entry>
+    <entry key="navbar.admin.rates">Exchange Rates</entry>
     <entry key="navbar.admin.rates.historical">Historical Rates</entry>
     <entry key="navbar.admin.rates.online">Online Rates</entry>
     
     <entry key="navbar.lang">Languages</entry>
     <entry key="navbar.lang.header">all available languages:</entry>
     
-	<entry key="navbar.admin.header">administration tools:</entry>
-	<entry key="navbar.reports.header">reporting tools:</entry>
+    <entry key="navbar.admin.header">administration tools:</entry>
+    <entry key="navbar.reports.header">reporting tools:</entry>
     
     <entry key="navbar.newTransaction.header">add new transactions:</entry>
     <entry key="navbar.export.header">data export tools:</entry>
 
-
- 	<entry key="bilateralOda.advanceQuestionnaire">AQ Bilateral ODA</entry>
+    <entry key="bilateralOda.advanceQuestionnaire">AQ Bilateral ODA</entry>
     <entry key="bilateralOda.CRS">CRS++ Bilateral ODA</entry>
     <entry key="bilateralOda.forwardSpending">FSS Bilateral ODA</entry>
     <entry key="multilateralOda.advanceQuestionnaire">AQ Multilateral ODA</entry>
@@ -68,8 +67,8 @@
     <entry key="nonOda.nonExport">Non Export Non-ODA</entry>
     <entry key="nonOda.export">Export Non-ODA</entry>
     <entry key="nonOda.privateGrants">Private Grants Non-ODA</entry>
-	<entry key="nonOda.privateMarket">Private Market Non-ODA</entry>   
-	<entry key="nonOda.otherFlows">Other Flows Non-ODA</entry>   
+    <entry key="nonOda.privateMarket">Private Market Non-ODA</entry>   
+    <entry key="nonOda.otherFlows">Other Flows Non-ODA</entry>   
     <entry key="nonOda.export">Private Market Non-ODA</entry>
     <entry key="nonOda.export">Export Credit Non-ODA</entry>
     
@@ -90,7 +89,7 @@
     <entry key="navbar.spreadsheets.export">Export</entry>
     <entry key="navbar.spreadsheets.fss">Forward Spending Survey</entry>
     
-	<entry key="modal.delete">Proceed with delete?</entry>
+    <entry key="modal.delete">Proceed with delete?</entry>
     
     <entry key="button.submit">Submit</entry>    
     <entry key="button.cancel">Cancel</entry>
@@ -98,8 +97,8 @@
     <entry key="notification.saved">Form Saved!</entry>
     <entry key="notification.deleted">Form Deleted!</entry>
     <entry key="notification.validationerrors">The form has validation errors (highlighted in red). Fix them and try saving again!</entry>    	
-	<entry key="page.title"> </entry>
-	<entry key="link.edit">Edit</entry>
+    <entry key="page.title"> </entry>
+    <entry key="link.edit">Edit</entry>
 	
-	<entry key="validation.positiveAmount">The amount needs to be a positive number!</entry>
+    <entry key="validation.positiveAmount">The amount needs to be a positive number!</entry>
 </properties>

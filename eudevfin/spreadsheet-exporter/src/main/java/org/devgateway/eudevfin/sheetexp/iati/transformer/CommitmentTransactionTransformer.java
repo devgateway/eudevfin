@@ -45,7 +45,10 @@ public class CommitmentTransactionTransformer extends
 	 */
 	@Override
 	protected Date findTxDate() {
-		return this.getCtx().getCommitmentDate().toDate();
+            if (this.getCtx().getCommitmentDate() != null) 
+                return this.getCtx().getCommitmentDate().toDate();
+            else
+                return new Date();
 	}
 
 	/* (non-Javadoc)

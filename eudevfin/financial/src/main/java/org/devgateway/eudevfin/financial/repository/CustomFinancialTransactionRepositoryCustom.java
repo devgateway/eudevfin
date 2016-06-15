@@ -11,6 +11,7 @@
 package org.devgateway.eudevfin.financial.repository;
 
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
+import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.metadata.common.domain.Area;
 import org.devgateway.eudevfin.metadata.common.domain.Category;
 import org.devgateway.eudevfin.metadata.common.domain.Organization;
@@ -31,4 +32,6 @@ public interface CustomFinancialTransactionRepositoryCustom  {
 	
 	Page<CustomFinancialTransaction> performSearchByDonorIdCrsIdActive(String crsIdSearch, String donorIdSearch,
 			Boolean active, String locale, Pageable pageable);
+        
+        Page<FinancialTransaction> findTransactionsByProjectID(Long id, Pageable pageable);
 }

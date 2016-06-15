@@ -11,7 +11,6 @@
 package org.devgateway.eudevfin.financial.repository;
 
 import java.util.List;
-
 import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -38,8 +37,6 @@ public interface OrganizationRepository extends
 	Page<Organization> findByDacFalse(Pageable pageable);
 	
 	Organization findByCode(String code);
-		
-	List<Organization> findByDonorCode(String donorCode);
 	
     @Query(" select distinct org from CustomFinancialTransaction ctx join ctx.extendingAgency org " +
             "where ctx.approved = true")
@@ -48,4 +45,8 @@ public interface OrganizationRepository extends
     @Query(" select distinct org from OrganizationTranslation trn, CustomFinancialTransaction ctx join ctx.extendingAgency org " +
             "where ctx.approved = true and trn.parent = org.id AND trn.locale=?1 AND lower(trn.name) like %?2% ")
     Page<Organization> findUsedOrganizationByTranslationsNameIgnoreCase(String locale, String term, Pageable page);
+    
+    @Query(" select distinct org from CustomFinancialTransaction ctx join ctx.extendingAgency org join ctx.recipient rec " +
+            "where ctx.approved = true and rec.code=?1")  
+    List<Organization> findUsedOrgByGeographicFocus(String geographicFocus);
 }

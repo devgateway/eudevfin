@@ -1,10 +1,11 @@
-/*******************************************************************************
- * Copyright (c) 2014 Development Gateway.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the GNU Public License v3.0
- * which accompanies this distribution, and is available at
+/**
+ * *****************************************************************************
+ * Copyright (c) 2014 Development Gateway. All rights reserved. This program and
+ * the accompanying materials are made available under the terms of the GNU
+ * Public License v3.0 which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/gpl.html
- *******************************************************************************/
+ ******************************************************************************
+ */
 package org.devgateway.eudevfin.metadata.common.domain;
 
 import java.io.Serializable;
@@ -39,142 +40,125 @@ import org.hibernate.envers.Audited;
 
 @Entity
 @Audited
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(
-    name="category_type",
-    discriminatorType= DiscriminatorType.STRING)
+        name = "category_type",
+        discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("Category")
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"category_type", "code"}))
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Category extends AbstractTranslateable<CategoryTranslation>
-					implements CategoryTrnInterface, Serializable{
+        implements CategoryTrnInterface, Serializable {
 
-	private static final long serialVersionUID 	= -6173469233250737236L;
-	
-	public static String PREFIX_SEPARATOR		= "##"; 
+    private static final long serialVersionUID = -6173469233250737236L;
 
-	/**
-	 * The code should be unique within a certain type of category
-	 */
-	@Index(name="Category_code_idx")
-	private String code;
-	
-	@ManyToOne
-	private Category parentCategory;
-	
-	@OneToMany(mappedBy="parentCategory", cascade=CascadeType.ALL)
-	private Set<Category> children;
-	
-	@ManyToMany
-	@JoinTable(name="CATEGORY_TAGS")
-	private Set<Category> tags;
-	
+    public static String PREFIX_SEPARATOR = "##";
 
-	@Override
-	protected CategoryTranslation newTranslationInstance() {
-		return new CategoryTranslation();
-	}
+    /**
+     * The code should be unique within a certain type of category
+     */
+    @Index(name = "Category_code_idx")
+    private String code;
 
-	@Transient
-	private List<Category> filteredChildren;
+    @ManyToOne
+    private Category parentCategory;
 
+    @OneToMany(mappedBy = "parentCategory", cascade = CascadeType.ALL)
+    private Set<Category> children;
 
-	public String getDisplayableCode() {
-		String code		= this.getCode();
-		if ( code != null && code.contains(PREFIX_SEPARATOR) ) {
-			int index	= code.indexOf(PREFIX_SEPARATOR);
-			return code.substring(index + PREFIX_SEPARATOR.length() );
-		}
-		else
-			return code;
-	}
-	
-	/**
-	 * 
-	 * @return true if this category is on the first level
-	 * @throws CategoryOperationException if this is called on a ROOT category which should only be used for grouping
-	 * other categories. This could point to a data problem.
-	 */
-	public boolean isLastAncestor() throws CategoryOperationException {
-		if ( this.getParentCategory() == null )
-			throw new CategoryOperationException("This function should not be called on root categories. "
-					+ "Root categories are just for grouping, they shouldn't hold valuable info.");
-		return this.getParentCategory().getParentCategory() == null;
-	}
+    @ManyToMany
+    @JoinTable(name = "CATEGORY_TAGS")
+    private Set<Category> tags;
 
-	@Override
-	public String getName() {
-		return (String)get("name");
-	}
+    @Override
+    protected CategoryTranslation newTranslationInstance() {
+        return new CategoryTranslation();
+    }
 
+    @Transient
+    private List<Category> filteredChildren;
 
+    public String getDisplayableCode() {
+        String code = this.getCode();
+        if (code != null && code.contains(PREFIX_SEPARATOR)) {
+            int index = code.indexOf(PREFIX_SEPARATOR);
+            return code.substring(index + PREFIX_SEPARATOR.length());
+        } else {
+            return code;
+        }
+    }
 
-	@Override
-	public void setName(String name) {
-		set("name", name);
-	}
+    /**
+     *
+     * @return true if this category is on the first level
+     * @throws CategoryOperationException if this is called on a ROOT category
+     * which should only be used for grouping other categories. This could point
+     * to a data problem.
+     */
+    public boolean isLastAncestor() throws CategoryOperationException {
+        if (this.getParentCategory() == null) {
+            throw new CategoryOperationException("This function should not be called on root categories. "
+                    + "Root categories are just for grouping, they shouldn't hold valuable info.");
+        }
+        return this.getParentCategory().getParentCategory() == null;
+    }
 
-	@Override
-	public String toString() {
-		return getDisplayableCode()+" - "+getName();
-	}
+    @Override
+    public String getName() {
+        return (String) get("name");
+    }
 
-	
-	public List<Category> getFilteredChildren() {
-		if ( filteredChildren == null )
-			filteredChildren	= new ArrayList<Category>();
-		return filteredChildren;
-	}
+    @Override
+    public void setName(String name) {
+        set("name", name);
+    }
 
+    @Override
+    public String toString() {
+        return getDisplayableCode() + " - " + getName();
+    }
 
-	public String getCode() {
-		return code;
-	}
+    public List<Category> getFilteredChildren() {
+        if (filteredChildren == null) {
+            filteredChildren = new ArrayList<Category>();
+        }
+        return filteredChildren;
+    }
 
+    public String getCode() {
+        return code;
+    }
 
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+    public Set<Category> getChildren() {
+        return children;
+    }
 
+    public void setChildren(Set<Category> children) {
+        this.children = children;
+    }
 
+    public Set<Category> getTags() {
+        return tags;
+    }
 
-	public Set<Category> getChildren() {
-		return children;
-	}
+    public void setTags(Set<Category> tags) {
+        this.tags = tags;
+    }
 
+    public Category getParentCategory() {
+        return parentCategory;
+    }
 
-
-	public void setChildren(Set<Category> children) {
-		this.children = children;
-	}
-
-
-
-	public Set<Category> getTags() {
-		return tags;
-	}
-
-	
-
-	public void setTags(Set<Category> tags) {
-		this.tags = tags;
-	}
-
-	public Category getParentCategory() {
-		return parentCategory;
-	}
-
-
-
-	public void setParentCategory(Category parentCategory) {
-		this.parentCategory = parentCategory;
-		if ( this.parentCategory.children == null ) {
-			this.parentCategory.children = new HashSet<Category>();
-		}
-		this.parentCategory.children.add(this);
-	}
-	
-	
+    public void setParentCategory(Category parentCategory) {
+        this.parentCategory = parentCategory;
+        if (this.parentCategory.children == null) {
+            this.parentCategory.children = new HashSet<Category>();
+        }
+        this.parentCategory.children.add(this);
+    }
 
 }
