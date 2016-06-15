@@ -10,73 +10,73 @@
      mpostelnicu
 -->
 <beans default-lazy-init="true"
-	xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:int="http://www.springframework.org/schema/integration"
-	xmlns:util="http://www.springframework.org/schema/util"
-	xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-3.0.xsd
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-3.0.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
 
-	<int:gateway id="organizationService"
-		default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}" 
-		service-interface="org.devgateway.eudevfin.metadata.common.service.OrganizationService">
-		<int:method name="save" request-channel="getChannel">
-			<int:header name="requestName" value="saveOrganizationChannel"/>
-		</int:method>
-		<int:method name="delete" request-channel="getChannel">
-			<int:header name="requestName" value="deleteOrganizationChannel"/>
-		</int:method>
+    <int:gateway id="organizationService"
+                     default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}" 
+                     service-interface="org.devgateway.eudevfin.metadata.common.service.OrganizationService">
+        <int:method name="save" request-channel="getChannel">
+            <int:header name="requestName" value="saveOrganizationChannel"/>
+        </int:method>
+        <int:method name="delete" request-channel="getChannel">
+            <int:header name="requestName" value="deleteOrganizationChannel"/>
+        </int:method>
         <int:method name="findAll" request-channel="getChannel">
             <int:header name="requestName" value="findAllAsListOrganizationChannel"/>
         </int:method>
         <int:method name="findOne" request-channel="getChannel">
             <int:header name="requestName" value="findOrganizationByIdChannel"/>
         </int:method>
-          <int:method name="findByCode" request-channel="getChannel">
+        <int:method name="findByCode" request-channel="getChannel">
             <int:header name="requestName" value="findOrganizationByCodeChannel"/>
         </int:method>
-		<int:method name="findByCodeAndDonorCode" request-channel="getChannel">
+        <int:method name="findByCodeAndDonorCode" request-channel="getChannel">
             <int:header name="requestName" value="findOrganizationByCodeAndDonorCodeChannel"/>
         </int:method>
-        <int:method name="findFirstByDonorCode" request-channel="getChannel">
-            <int:header name="requestName" value="findFirstOrganizationByDonorCodeChannel"/>
-        </int:method>
-		<int:method name="findByDacFalse" request-channel="getChannel">
+        <int:method name="findByDacFalse" request-channel="getChannel">
             <int:header name="requestName" value="findOrganizationByDacFalse"/>
         </int:method>
         <int:method name="findByGeneralSearchPageable" request-channel="getChannel">
-			<int:header name="requestName" value="findOrganizationByGeneralSearchPageableChannel"/>
-		</int:method>
+            <int:header name="requestName" value="findOrganizationByGeneralSearchPageableChannel"/>
+        </int:method>
         <int:method name="findUsedOrganizationPaginated" request-channel="getChannel">
             <int:header name="requestName" value="findUsedOrganizationPaginatedOrganizationChannel"/>
+        </int:method>
+        <int:method name="findUsedOrgByGeographicFocus" request-channel="getChannel">
+            <int:header name="requestName" value="findUsedOrgByGeographicFocusChannel"/>
         </int:method>
     </int:gateway>
 
     <int:gateway id="categoryService"
-		default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}" 
-		service-interface="org.devgateway.eudevfin.metadata.common.service.CategoryService">
-		<int:method name="save" request-channel="getChannel">
-			<int:header name="requestName" value="saveCategoryChannel"/>
-		</int:method>
-		<int:method name="findAll" request-channel="getChannel">
-			<int:header name="requestName" value="findAllAsListCategoryChannel"/>
-		</int:method>
-		<int:method name="findOne" request-channel="getChannel">
-			<int:header name="requestName" value="findCategoryByIdChannel"/>
-		</int:method>
-		<int:method name="findByTagsCode" request-channel="getChannel">
-			<int:header name="requestName" value="findCategoryByTagCodeChannel"/>
-		</int:method>
-		<int:method name="findByCodeAndClass" request-channel="getChannel">
-			<int:header name="requestName" value="findCategoryByCodeAndClassChannel"/>
-		</int:method>		
-		<int:method name="findByGeneralSearchAndTagsCode" request-channel="getChannel">
-			<int:header name="requestName" value="findCategoryByGeneralSearchAndTagsCodeChannel"/>		
-		</int:method>
-		<int:method name="findByGeneralSearchAndTagsCodePaginated" request-channel="getChannel">
-			<int:header name="requestName" value="findCategoryByGeneralSearchAndTagsCodePaginatedChannel"/>
-		</int:method>
+                 default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}" 
+                 service-interface="org.devgateway.eudevfin.metadata.common.service.CategoryService">
+        <int:method name="save" request-channel="getChannel">
+            <int:header name="requestName" value="saveCategoryChannel"/>
+        </int:method>
+        <int:method name="findAll" request-channel="getChannel">
+            <int:header name="requestName" value="findAllAsListCategoryChannel"/>
+        </int:method>
+        <int:method name="findOne" request-channel="getChannel">
+            <int:header name="requestName" value="findCategoryByIdChannel"/>
+        </int:method>
+        <int:method name="findByTagsCode" request-channel="getChannel">
+            <int:header name="requestName" value="findCategoryByTagCodeChannel"/>
+        </int:method>
+        <int:method name="findByCodeAndClass" request-channel="getChannel">
+            <int:header name="requestName" value="findCategoryByCodeAndClassChannel"/>
+        </int:method>		
+        <int:method name="findByGeneralSearchAndTagsCode" request-channel="getChannel">
+            <int:header name="requestName" value="findCategoryByGeneralSearchAndTagsCodeChannel"/>		
+        </int:method>
+        <int:method name="findByGeneralSearchAndTagsCodePaginated" request-channel="getChannel">
+            <int:header name="requestName" value="findCategoryByGeneralSearchAndTagsCodePaginatedChannel"/>
+        </int:method>
         <int:method name="findUsedGeographyPaginated" request-channel="getChannel">
             <int:header name="requestName" value="findUsedGeographyPaginatedChannel"/>
         </int:method>
@@ -93,52 +93,55 @@
         <int:method name="findUsedChannelPaginated" request-channel="getChannel">
             <int:header name="requestName" value="findUsedChannelPaginatedChannel"/>
         </int:method>
-	</int:gateway>
+    </int:gateway>
 	
-	<int:gateway id="channelCategoryService"
-		default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}" 
-		service-interface="org.devgateway.eudevfin.metadata.common.service.ChannelCategoryService">
-		<int:method name="save" request-channel="getChannel">
-			<int:header name="requestName" value="saveCategoryChannel"/>
-		</int:method>
-		<int:method name="findAll" request-channel="getChannel">
-			<int:header name="requestName" value="findAllAsListChannelCategoryChannel"/>
-		</int:method>
-		<int:method name="findByCode" request-channel="getChannel">
-			<int:header name="requestName" value="findChannelCategoryByCodeChannel"/>
-		</int:method>
-		<int:method name="findByGeneralSearchAndTagsCodePaginated" request-channel="getChannel">
-			<int:header name="requestName" value="findChannelCategoryByGeneralSearchAndTagsCodePaginatedChannel"/>
-		</int:method>
-		<int:method name="findOne" request-channel="getChannel">
-			<int:header name="requestName" value="findOneChannelCategory"/>
-		</int:method>
+    <int:gateway id="channelCategoryService"
+                     default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}" 
+                     service-interface="org.devgateway.eudevfin.metadata.common.service.ChannelCategoryService">
+        <int:method name="save" request-channel="getChannel">
+            <int:header name="requestName" value="saveCategoryChannel"/>
+        </int:method>
+        <int:method name="findAll" request-channel="getChannel">
+            <int:header name="requestName" value="findAllAsListChannelCategoryChannel"/>
+        </int:method>
+        <int:method name="findByCode" request-channel="getChannel">
+            <int:header name="requestName" value="findChannelCategoryByCodeChannel"/>
+        </int:method>
+        <int:method name="findByGeneralSearchAndTagsCodePaginated" request-channel="getChannel">
+            <int:header name="requestName" value="findChannelCategoryByGeneralSearchAndTagsCodePaginatedChannel"/>
+        </int:method>
+        <int:method name="findOne" request-channel="getChannel">
+            <int:header name="requestName" value="findOneChannelCategory"/>
+        </int:method>
 		
 		
-	</int:gateway>
-	<int:gateway id="areaService"
-		default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}" 
-		service-interface="org.devgateway.eudevfin.metadata.common.service.AreaService">
-		<int:method name="save" request-channel="getChannel">
-			<int:header name="requestName" value="saveAreaChannel"/>
-		</int:method>
-		<int:method name="findAll" request-channel="getChannel">
-			<int:header name="requestName" value="findAllAsListAreaChannel"/>
-		</int:method>
-		<int:method name="findOne" request-channel="getChannel">
-			<int:header name="requestName" value="findAreaByIdChannel"/>
-		</int:method>
-		<int:method name="findByGeneralSearch" request-channel="getChannel">
-		</int:method>
-		<int:method name="findByGeneralSearchPageable" request-channel="getChannel">
-			<int:header name="requestName" value="findByGeneralSearchPageableAreaChannel" />
-		</int:method>
+    </int:gateway>
+    <int:gateway id="areaService"
+                     default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}" 
+                     service-interface="org.devgateway.eudevfin.metadata.common.service.AreaService">
+        <int:method name="save" request-channel="getChannel">
+            <int:header name="requestName" value="saveAreaChannel"/>
+        </int:method>
+        <int:method name="findAll" request-channel="getChannel">
+            <int:header name="requestName" value="findAllAsListAreaChannel"/>
+        </int:method>
+        <int:method name="findOne" request-channel="getChannel">
+            <int:header name="requestName" value="findAreaByIdChannel"/>
+        </int:method>
+        <int:method name="findByGeneralSearch" request-channel="getChannel">
+        </int:method>
+        <int:method name="findByGeneralSearchPageable" request-channel="getChannel">
+            <int:header name="requestName" value="findByGeneralSearchPageableAreaChannel" />
+        </int:method>
         <int:method name="findUsedAreaPaginated" request-channel="getChannel">
             <int:header name="requestName" value="findUsedAreaPaginatedAreaChannel" />
         </int:method>
         <int:method name="findAreaByCode" request-channel="getChannel">
             <int:header name="requestName" value="findAreaByCodeChannel" />
         </int:method>
-	</int:gateway>
+        <int:method name="findUsedAreaAsList" request-channel="getChannel">
+            <int:header name="requestName" value="findUsedAreaAsListChannel" />
+        </int:method>
+    </int:gateway>
 	
 </beans>

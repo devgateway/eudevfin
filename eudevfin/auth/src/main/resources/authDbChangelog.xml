@@ -1,28 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
-	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
 
-	<include file="classpath:importMetadataDbChangeLog.xml" />
+    <include file="classpath:importMetadataDbChangeLog.xml" />
 
-	<changeSet id="2" author="mpostelnicu">
-	
-		<customChange
-			class="org.devgateway.eudevfin.auth.liquibase.PopulateAuthDbChange">
-		</customChange>
-
-	</changeSet>
+    <changeSet id="2" author="mpostelnicu">
+        <customChange
+            class="org.devgateway.eudevfin.auth.liquibase.PopulateAuthDbChange">
+        </customChange>
+    </changeSet>
 	
         
-	<changeSet id="ODAEU-311" author="mihai" failOnError="true" runAlways="false" runInTransaction="true">
+    <changeSet id="ODAEU-311" author="mihai" failOnError="true" runAlways="false" runInTransaction="true">
         <preConditions onFail="MARK_RAN" onError="CONTINUE">
             <sqlCheck expectedResult="0">SELECT count(*) FROM PERSISTEDAUTHORITY WHERE AUTHORITY='ROLE_VIEWER'</sqlCheck>
         </preConditions>
         <sql>INSERT INTO PERSISTEDAUTHORITY VALUES('ROLE_VIEWER')</sql>
     </changeSet>
 	
+    <changeSet id="4" author="stcu" failOnError="true" runAlways="false" runInTransaction="true">
+        <preConditions onFail="MARK_RAN" onError="CONTINUE">
+            <sqlCheck expectedResult="0">SELECT count(*) FROM PERSISTEDAUTHORITY WHERE AUTHORITY='ROLE_PROJECTS_MFA'</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT count(*) FROM PERSISTEDAUTHORITY WHERE AUTHORITY='ROLE_PROJECTS_NGO'</sqlCheck>
+        </preConditions>
+        <sql>INSERT INTO PERSISTEDAUTHORITY VALUES('ROLE_PROJECTS_MFA')</sql>
+        <sql>INSERT INTO PERSISTEDAUTHORITY VALUES('ROLE_PROJECTS_NGO')</sql>
+    </changeSet>
 
 </databaseChangeLog>

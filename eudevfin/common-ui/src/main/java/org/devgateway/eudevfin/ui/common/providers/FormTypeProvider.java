@@ -1,12 +1,13 @@
-/*******************************************************************************
- * Copyright (c) 2014 Development Gateway.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the GNU Public License v3.0
- * which accompanies this distribution, and is available at
- * http://www.gnu.org/licenses/gpl.html
- *******************************************************************************/
 /**
- * 
+ * *****************************************************************************
+ * Copyright (c) 2014 Development Gateway. All rights reserved. This program and
+ * the accompanying materials are made available under the terms of the GNU
+ * Public License v3.0 which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/gpl.html
+ ******************************************************************************
+ */
+/**
+ *
  */
 package org.devgateway.eudevfin.ui.common.providers;
 
@@ -19,36 +20,29 @@ import org.devgateway.eudevfin.ui.common.temporary.SB;
 import com.vaynberg.wicket.select2.Response;
 import com.vaynberg.wicket.select2.TextChoiceProvider;
 
-/**
- * @author mihai
- *
- */
 public class FormTypeProvider extends TextChoiceProvider<String> {
 
+    private static final long serialVersionUID = 4554272931187087047L;
+    private Component component;
 
-	private static final long serialVersionUID = 4554272931187087047L;
-	private Component component;
-	
-	public FormTypeProvider(Component component) {
-		this.component=component;
-	}
-	
+    public FormTypeProvider(Component component) {
+        this.component = component;
+    }
 
-	@Override
+    @Override
     protected String getDisplayText(String choice) {
-    	return getTranslation(choice);
+        return getTranslation(choice);
     }
 
     @Override
     protected Object getId(String choice) {
-    	return choice;
+        return choice;
     }
 
     private String getTranslation(String key) {
-    	return new StringResourceModel(key,  component, null).getObject();
-    
+        return new StringResourceModel(key, component, null).getObject();
     }
-    
+
     @Override
     public void query(String term, int page, Response<String> response) {
         response.add(SB.BILATERAL_ODA_ADVANCE_QUESTIONNAIRE);
@@ -60,12 +54,12 @@ public class FormTypeProvider extends TextChoiceProvider<String> {
         response.add(SB.NON_ODA_OOF_EXPORT);
         response.add(SB.NON_ODA_PRIVATE_GRANTS);
         response.add(SB.NON_ODA_PRIVATE_MARKET);
-        response.add(SB.NON_ODA_OTHER_FLOWS);            
+        response.add(SB.NON_ODA_OTHER_FLOWS);
     }
 
     @Override
     public Collection<String> toChoices(Collection<String> ids) {
-    	return ids;
+        return ids;
     }
 
 }

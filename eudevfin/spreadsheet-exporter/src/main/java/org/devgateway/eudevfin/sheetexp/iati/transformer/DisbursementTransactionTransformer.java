@@ -52,7 +52,7 @@ public class DisbursementTransactionTransformer extends
 			final int year =  this.getCtx().getReportingYear().getYear();
 			return this.findLastDayOfYear(year);
 		}
-		logger.error(String.format("Reporting year is null for transaction '%d'", this.getCtx().getId()) );
+		logger.error(String.format("Reporting year is null for transaction '%'", this.getCtx().getShortDescription()) );
 		return null;
 	}
 

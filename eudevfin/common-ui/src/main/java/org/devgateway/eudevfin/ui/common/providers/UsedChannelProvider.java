@@ -9,7 +9,6 @@ package org.devgateway.eudevfin.ui.common.providers;
 
 import org.apache.wicket.Session;
 import org.devgateway.eudevfin.metadata.common.domain.Category;
-import org.devgateway.eudevfin.metadata.common.domain.ChannelCategory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 

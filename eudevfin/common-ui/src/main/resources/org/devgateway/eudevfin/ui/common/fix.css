@@ -612,6 +612,11 @@ h2 + .row {
     height: 90px;
     overflow: hidden; /* cut the drop shadows off */
 }
+
+.navbar-inner .container {
+	width: 1300px !important;
+}
+
 .bs-navbar-top-example .navbar-fixed-top,
 .bs-navbar-bottom-example .navbar-fixed-bottom {
     margin-left: 0;

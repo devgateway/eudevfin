@@ -10,11 +10,14 @@
  */
 package org.devgateway.eudevfin.sheetexp.iati.transformer;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.Map;
 
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
 import org.devgateway.eudevfin.metadata.common.domain.Category;
+import org.devgateway.eudevfin.metadata.common.domain.ChannelCategory;
 import org.devgateway.eudevfin.sheetexp.iati.domain.AmountValue;
 import org.devgateway.eudevfin.sheetexp.iati.domain.CodeEntityWithLanguage;
 import org.devgateway.eudevfin.sheetexp.iati.domain.IatiActivity;
@@ -47,14 +50,21 @@ public abstract class AbstractTransactionTransformer extends AbstractElementTran
 
 	}
 
-	protected Transaction createTransaction(final BigMoney money) {
-		final Transaction tx = new Transaction();
+	   protected Transaction createTransaction(final BigMoney money) {
+                final Transaction tx = new Transaction();  
 
-		tx.setDescription(this.getCtx().getDescription());
-		tx.setTransactionDate( new TransactionDate(this.findTxDate()) );
+                tx.setDescription(this.getCtx().getDescription());
+                tx.setTransactionDate(new TransactionDate(this.findTxDate()));
 
-		tx.setAmountValue(new AmountValue(this.findTxDate(),
-				money.getCurrencyUnit().getCurrencyCode(), money.getAmount()));
+                ChannelCategory channel = this.getCtx().getChannel();
+                BigDecimal amount = money.getAmount();
+                if (amount != null && amount != new BigDecimal(0)) {
+                    amount = amount.multiply(channel.getCoefficient());
+                    amount = amount.divide(new BigDecimal(100));
+                }
+
+                tx.setAmountValue(new AmountValue(this.findTxDate(),
+                        money.getCurrencyUnit().getCurrencyCode(), amount));
 
 		final Category typeOfAid = this.getCtx().getTypeOfAid();
 		if (typeOfAid != null) {
