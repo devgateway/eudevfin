@@ -164,6 +164,8 @@ public class CustomFinancialTransaction extends FinancialTransaction {
 //    @Columns(columns={@Column(name="fixed_rate_base_currency"),@Column(name="fixed_rate_counter_currency"),@Column(name="fixed_rate")})
 //	  @Type(type="org.jadira.usertype.exchangerate.joda.PersistentExchangeRate")
 //    private ExchangeRate fixedExchangeRate;
+
+
     private BigDecimal fixedRate;
 
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentCurrencyUnit")

@@ -663,6 +663,7 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
 //    public void setRecipient(RecipientCategory recipient) {
 //        this.recipient = recipient;
 //    }
+
     public Area getRecipient() {
         return recipient;
     }

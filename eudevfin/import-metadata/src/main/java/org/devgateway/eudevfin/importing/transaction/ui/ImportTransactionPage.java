@@ -46,7 +46,7 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel
  *
  */
 @MountPath(value = "/import-transactions")
-@AuthorizeInstantiation(AuthConstants.Roles.ROLE_SUPERVISOR)
+@AuthorizeInstantiation(AuthConstants.Roles.ROLE_TEAMLEAD)
 public class ImportTransactionPage extends HeaderFooter {
 
 	public static final String TEMPLATE_PATH = "/templates/transaction-import-template.xls";
@@ -163,7 +163,7 @@ public class ImportTransactionPage extends HeaderFooter {
 		items.add(new WarningMessage(new StringResourceModel("import-transactions.message.warning.not-twice", this, null), null));
 		items.add(new WarningMessage(new StringResourceModel("import-transactions.message.warning.approved", this, null), null));
 		items.add(new WarningMessage(new StringResourceModel("import-transactions.message.warning.dates", this, null), null));
-		items.add(new WarningMessage(new StringResourceModel("import-transactions.message.warning.currency", this, null), "http://en.wikipedia.org/wiki/ISO_4217"));
+		items.add(new WarningMessage(new StringResourceModel("import-transactions.message.warning.currency", this, null), null));
 		items.add(new WarningMessage(new StringResourceModel("import-transactions.message.warning.financial", this, null), null));
 
 		final ListView<WarningMessage> warnings = new ListView<WarningMessage>("warning-list", items  ) {

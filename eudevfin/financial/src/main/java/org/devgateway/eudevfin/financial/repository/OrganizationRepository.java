@@ -37,7 +37,9 @@ public interface OrganizationRepository extends
 	Page<Organization> findByDacFalse(Pageable pageable);
 	
 	Organization findByCode(String code);
-	
+
+	List<Organization> findByDonorCode(String donorCode);
+
     @Query(" select distinct org from CustomFinancialTransaction ctx join ctx.extendingAgency org " +
             "where ctx.approved = true")
     Page<Organization> findUsedOrganization(Pageable page);

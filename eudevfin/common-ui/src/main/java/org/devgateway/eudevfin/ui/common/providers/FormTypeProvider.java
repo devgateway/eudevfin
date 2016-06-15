@@ -20,6 +20,10 @@ import org.devgateway.eudevfin.ui.common.temporary.SB;
 import com.vaynberg.wicket.select2.Response;
 import com.vaynberg.wicket.select2.TextChoiceProvider;
 
+/**
+ * @author mihai
+ *
+ */
 public class FormTypeProvider extends TextChoiceProvider<String> {
 
     private static final long serialVersionUID = 4554272931187087047L;
