@@ -7,6 +7,7 @@
  *******************************************************************************/
 package org.devgateway.eudevfin.metadata.common.service;
 
+import java.util.List;
 import org.devgateway.eudevfin.common.service.BaseEntityService;
 import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 import org.devgateway.eudevfin.metadata.common.domain.Organization;
@@ -34,4 +35,7 @@ public interface OrganizationService extends BaseEntityService<Organization> {
 
 	public NullableWrapper<Organization> findByName(String name);
 
+    public NullableWrapper<Organization> findFirstByDonorCode(String donorCode);
+
+    public List<Organization> findUsedOrgByGeographicFocus(String geographicFocus);
 }

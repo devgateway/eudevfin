@@ -170,7 +170,7 @@ public final class NavbarInitializer {
 		return homePageNavbarButton;
 	}
 
-	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.LEFT, order = 2)
+	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.LEFT, order = 1)
 	public static Component newTransactionNavbarButton(final Page page) {
 		final NavbarDropDownButton navbarDropDownButton = new RepairedNavbarDropDownButton(new StringResourceModel(
 				"navbar.newTransaction", page, null, null)) {

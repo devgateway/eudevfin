@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 import org.devgateway.eudevfin.exchange.common.service.ExchangeRateUtil;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
+import org.devgateway.eudevfin.metadata.common.domain.ChannelCategory;
 import org.devgateway.eudevfin.metadata.common.domain.SectorCategory;
 import org.devgateway.eudevfin.sheetexp.dto.EntityWrapperInterface;
 import org.devgateway.eudevfin.sheetexp.dto.MetadataCell;
@@ -934,7 +935,24 @@ public class CellTransformerImplementations {
 
 		@Override
 		protected BigMoney getMoney(final FinancialTransaction tx) {
-			return tx.getAmountsExtended();
+                    BigMoney amounts_with_coefficient_bm = tx.getAmountsExtended();
+                    if (amounts_with_coefficient_bm != null) {
+                        BigDecimal amountsDecimal = amounts_with_coefficient_bm.getAmount();
+                        if (amountsDecimal != null && amountsDecimal != new BigDecimal(0)) {
+
+                            ChannelCategory channel = tx.getChannel();
+                            if (channel != null) {
+                                BigDecimal coefficient = channel.getCoefficient();
+                                if (coefficient != null) {
+                                    BigDecimal amounts_with_coefficient = amountsDecimal.multiply(coefficient);
+                                    amounts_with_coefficient = amounts_with_coefficient.divide(new BigDecimal(100));
+                                    amounts_with_coefficient_bm = BigMoney.of(tx.getAmountsExtended().getCurrencyUnit(), amounts_with_coefficient);
+
+                                }
+                            }
+                        }
+                    }
+                    return amounts_with_coefficient_bm;         
 		}
 	}
 

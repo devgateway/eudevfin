@@ -1,11 +1,11 @@
-/*******************************************************************************
- * Copyright (c) 2014 Development Gateway.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the GNU Public License v3.0
- * which accompanies this distribution, and is available at
+/**
+ * *****************************************************************************
+ * Copyright (c) 2014 Development Gateway. All rights reserved. This program and
+ * the accompanying materials are made available under the terms of the GNU
+ * Public License v3.0 which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/gpl.html
- *******************************************************************************/
-
+ ******************************************************************************
+ */
 package org.devgateway.eudevfin.financial;
 
 import java.io.Serializable;
@@ -39,10 +39,10 @@ import org.joda.time.LocalDateTime;
 
 @Entity
 @Audited
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(
-    name="financial_tx_class_type",
-    discriminatorType= DiscriminatorType.STRING)
+        name = "financial_tx_class_type",
+        discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("Standard")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 //@Table(name="FINANCIAL_TRANSACTION")
@@ -50,18 +50,16 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
         implements FinancialTransactionTrnInterface, Serializable {
 
     private static final long serialVersionUID = 2191303184851850777L;
-    
+
     private BigDecimal amount;
     private BigDecimal interestRate;
     private BigDecimal secondInterestRate;
 
-
-	@Index(name="financialtransaction_donorProjectNumber_idx")
+    @Index(name = "financialtransaction_donorProjectNumber_idx")
     private String donorProjectNumber;
-	@Index(name="financialtransaction_crsIdentificationNumber_idx")
+    @Index(name = "financialtransaction_crsIdentificationNumber_idx")
     private String crsIdentificationNumber;
     private String geoTargetArea;
-
 
     private Boolean cpa;
     private Boolean programmeBasedApproach;
@@ -75,7 +73,7 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
     private LocalDateTime expectedStartDate;
 
-    @Index(name="financialtransaction_expectedCompletionDate_idx")
+    @Index(name = "financialtransaction_expectedCompletionDate_idx")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
     private LocalDateTime expectedCompletionDate;
 
@@ -88,81 +86,113 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
     private LocalDateTime reportingYear;
 
-
-    @Columns(columns = {@Column(name = "commitment_curr"), @Column(name = "commitment_amount")})
+    @Columns(columns = {
+        @Column(name = "commitment_curr"),
+        @Column(name = "commitment_amount")})
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney commitments;
 
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentCurrencyUnit")
     private CurrencyUnit currency;
 
-    @Columns(columns = {@Column(name = "amounts_extended_curr"), @Column(name = "amounts_extended_amount")})
+    @Columns(columns = {
+        @Column(name = "amounts_extended_curr"),
+        @Column(name = "amounts_extended_amount")})
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney amountsExtended;
 
-    @Columns(columns = {@Column(name = "amounts_extended_current_curr"), @Column(name = "amounts_extended_current_amount")})
+    @Columns(columns = {
+        @Column(name = "amounts_extended_current_curr"),
+        @Column(name = "amounts_extended_current_amount")})
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney amountsExtendedCurrent;
 
-    @Columns(columns = {@Column(name = "amounts_extended_year1_curr"), @Column(name = "amounts_extended_year1_amount")})
+    @Columns(columns = {
+        @Column(name = "amounts_extended_year1_curr"),
+        @Column(name = "amounts_extended_year1_amount")})
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney amountsExtendedYear1;
 
-    @Columns(columns = {@Column(name = "amounts_extended_year2_curr"), @Column(name = "amounts_extended_year2_amount")})
+    @Columns(columns = {
+        @Column(name = "amounts_extended_year2_curr"),
+        @Column(name = "amounts_extended_year2_amount")})
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney amountsExtendedYear2;
 
-    @Columns(columns = {@Column(name = "amounts_received_curr"), @Column(name = "amounts_received_amount")})
+    @Columns(columns = {
+        @Column(name = "amounts_received_curr"),
+        @Column(name = "amounts_received_amount")})
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney amountsReceived;
 
-    @Columns(columns = {@Column(name = "amounts_untied_curr"), @Column(name = "amounts_untied_amount")})
+    @Columns(columns = {
+        @Column(name = "amounts_untied_curr"),
+        @Column(name = "amounts_untied_amount")})
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney amountsUntied;
 
-    @Columns(columns = {@Column(name = "amounts_partially_untied_curr"), @Column(name = "amounts_partially_untied_amount")})
+    @Columns(columns = {
+        @Column(name = "amounts_partially_untied_curr"),
+        @Column(name = "amounts_partially_untied_amount")})
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney amountsPartiallyUntied;
 
-    @Columns(columns = {@Column(name = "amounts_tied_curr"), @Column(name = "amounts_tied_amount")})
+    @Columns(columns = {
+        @Column(name = "amounts_tied_curr"),
+        @Column(name = "amounts_tied_amount")})
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney amountsTied;
 
-    @Columns(columns = {@Column(name = "amounts_irtc_curr"), @Column(name = "amounts_irtc_amount")})
+    @Columns(columns = {
+        @Column(name = "amounts_irtc_curr"),
+        @Column(name = "amounts_irtc_amount")})
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney amountOfIRTC;
 
-    @Columns(columns = {@Column(name = "amounts_exp_commit_curr"), @Column(name = "amounts_exp_commit_amount")})
+    @Columns(columns = {
+        @Column(name = "amounts_exp_commit_curr"),
+        @Column(name = "amounts_exp_commit_amount")})
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney projectAmountExpertCommitments;
 
-    @Columns(columns = {@Column(name = "amounts_exp_extended_curr"), @Column(name = "amounts_exp_extended_amount")})
+    @Columns(columns = {
+        @Column(name = "amounts_exp_extended_curr"),
+        @Column(name = "amounts_exp_extended_amount")})
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney projectAmountExpertExtended;
 
-    @Columns(columns = {@Column(name = "amounts_export_credit_curr"), @Column(name = "amounts_exp_export_credit_amount")})
+    @Columns(columns = {
+        @Column(name = "amounts_export_credit_curr"),
+        @Column(name = "amounts_exp_export_credit_amount")})
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney amountOfExportCreditInAFPackage;
 
-    @Columns(columns = {@Column(name = "amounts_interest_received_curr"), @Column(name = "amounts_interest_received_amount")})
+    @Columns(columns = {
+        @Column(name = "amounts_interest_received_curr"),
+        @Column(name = "amounts_interest_received_amount")})
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney interestReceived;
 
-    @Columns(columns = {@Column(name = "amounts_prin_disb_curr"), @Column(name = "amounts_prin_disb_amount")})
+    @Columns(columns = {
+        @Column(name = "amounts_prin_disb_curr"),
+        @Column(name = "amounts_prin_disb_amount")})
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney principalDisbursedOutstanding;
 
-    @Columns(columns = {@Column(name = "amounts_arears_prin_curr"), @Column(name = "amounts_arears_prin_amount")})
+    @Columns(columns = {
+        @Column(name = "amounts_arears_prin_curr"),
+        @Column(name = "amounts_arears_prin_amount")})
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney arrearsOfPrincipal;
 
-    @Columns(columns = {@Column(name = "amounts_arears_interest_curr"), @Column(name = "amounts_arears_interest_amount")})
+    @Columns(columns = {
+        @Column(name = "amounts_arears_interest_curr"),
+        @Column(name = "amounts_arears_interest_amount")})
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney arrearsOfInterest;
 
 //    @ManyToOne
 //    private RecipientCategory recipient;
-
     @ManyToOne
     private Area recipient;
 
@@ -193,7 +223,6 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
     @ManyToOne
     private Category numberOfRepaymentsAnnum;
 
-
     @ManyToOne
     private Category biodiversity;
 
@@ -221,20 +250,17 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
     @ManyToOne
     private Category biMultilateral;
 
-
 //	@Version	
 //	public Long version = null;
 //	
 //	@ManyToOne(  optional= false )
 //	@JoinColumn(name="organization_id")
 //	private Organization sourceOrganization;
-
     @ManyToOne
     private Organization extendingAgency;
 
     @ManyToOne
     private ChannelCategory channel;
-
 
 //	public Long getVersion() {
 //		return version;
@@ -242,17 +268,14 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
 //	public void setVersion(Long version) {
 //		this.version = version;
 //	}
-
-
     @Override
     protected FinancialTransactionTranslation newTranslationInstance() {
         return new FinancialTransactionTranslation();
     }
 
-	
-	/* (non-Javadoc)
+    /* (non-Javadoc)
      * @see java.lang.Object#toString()
-	 */
+     */
 //	@Override
 //	public String toString() {
 //		return "FinancialTransaction ["
@@ -264,70 +287,67 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
 //				+ (description != null ? "description=" + description : "")
 //				+ "]";
 //	}
-
     //TODO: remove and uncomment the original toString()
     //
     @Override
     public String toString() {
-        return "\nFinancialTransaction{" +
-                "\n   amount=" + amount +
-                "\n   interestRate=" + interestRate +
-                "\n   secondInterestRate=" + secondInterestRate +
-                "\n   donorProjectNumber='" + donorProjectNumber + '\'' +
-                "\n   crsIdentificationNumber='" + crsIdentificationNumber + '\'' +
-                "\n   geoTargetArea='" + geoTargetArea + '\'' +
-                "\n   cpa=" + cpa +
-                "\n   programmeBasedApproach=" + programmeBasedApproach +
-                "\n   investment=" + investment +
-                "\n   associatedFinancing=" + associatedFinancing +
-                "\n   commitmentDate=" + commitmentDate +
-                "\n   expectedStartDate=" + expectedStartDate +
-                "\n   expectedCompletionDate=" + expectedCompletionDate +
-                "\n   firstRepaymentDate=" + firstRepaymentDate +
-                "\n   finalRepaymentDate=" + finalRepaymentDate +
-                "\n   reportingYear=" + reportingYear +
-                "\n   commitments=" + commitments +
-                "\n   currency=" + currency +
-                "\n   amountsExtended=" + amountsExtended +
-                "\n   amountsExtendedCurrent=" + amountsExtendedCurrent +
-                "\n   amountsExtendedYear1=" + amountsExtendedYear1 +
-                "\n   amountsExtendedYear2=" + amountsExtendedYear2 +
-                "\n   amountsReceived=" + amountsReceived +
-                "\n   amountsUntied=" + amountsUntied +
-                "\n   amountsPartiallyUntied=" + amountsPartiallyUntied +
-                "\n   amountsTied=" + amountsTied +
-                "\n   amountOfIRTC=" + amountOfIRTC +
-                "\n   projectAmountExpertCommitments=" + projectAmountExpertCommitments +
-                "\n   projectAmountExpertExtended=" + projectAmountExpertExtended +
-                "\n   amountOfExportCreditInAFPackage=" + amountOfExportCreditInAFPackage +
-                "\n   interestReceived=" + interestReceived +
-                "\n   principalDisbursedOutstanding=" + principalDisbursedOutstanding +
-                "\n   arrearsOfPrincipal=" + arrearsOfPrincipal +
-                "\n   arrearsOfInterest=" + arrearsOfInterest +
-                "\n   recipient=" + recipient +
-                "\n   sector=" + sector +
-                "\n   natureOfSubmission=" + natureOfSubmission +
-                "\n   odaType=" + odaType +
-                "\n   typeOfFlow=" + typeOfFlow +
-                "\n   typeOfFinance=" + typeOfFinance +
-                "\n   administrativeType=" + administrativeType +
-                "\n   typeOfAid=" + typeOfAid +
-                "\n   typeOfRepayment=" + typeOfRepayment +
-                "\n   numberOfRepaymentsAnnum=" + numberOfRepaymentsAnnum +
-                "\n   biodiversity=" + biodiversity +
-                "\n   climateChangeMitigation=" + climateChangeMitigation +
-                "\n   climateChangeAdaptation=" + climateChangeAdaptation +
-                "\n   desertification=" + desertification +
-                "\n   genderEquality=" + genderEquality +
-                "\n   aidToEnvironment=" + aidToEnvironment +
-                "\n   pdgg=" + pdgg +
-                "\n   tradeDevelopment=" + tradeDevelopment +              
-                "\n   extendingAgency=" + extendingAgency +
-                "\n   channel=" + channel +
-                '}';
+        return "\nFinancialTransaction{"
+                + "\n   amount=" + amount
+                + "\n   interestRate=" + interestRate
+                + "\n   secondInterestRate=" + secondInterestRate
+                + "\n   donorProjectNumber='" + donorProjectNumber + '\''
+                + "\n   crsIdentificationNumber='" + crsIdentificationNumber + '\''
+                + "\n   geoTargetArea='" + geoTargetArea + '\''
+                + "\n   cpa=" + cpa
+                + "\n   programmeBasedApproach=" + programmeBasedApproach
+                + "\n   investment=" + investment
+                + "\n   associatedFinancing=" + associatedFinancing
+                + "\n   commitmentDate=" + commitmentDate
+                + "\n   expectedStartDate=" + expectedStartDate
+                + "\n   expectedCompletionDate=" + expectedCompletionDate
+                + "\n   firstRepaymentDate=" + firstRepaymentDate
+                + "\n   finalRepaymentDate=" + finalRepaymentDate
+                + "\n   reportingYear=" + reportingYear
+                + "\n   commitments=" + commitments
+                + "\n   currency=" + currency
+                + "\n   amountsExtended=" + amountsExtended
+                + "\n   amountsExtendedCurrent=" + amountsExtendedCurrent
+                + "\n   amountsExtendedYear1=" + amountsExtendedYear1
+                + "\n   amountsExtendedYear2=" + amountsExtendedYear2
+                + "\n   amountsReceived=" + amountsReceived
+                + "\n   amountsUntied=" + amountsUntied
+                + "\n   amountsPartiallyUntied=" + amountsPartiallyUntied
+                + "\n   amountsTied=" + amountsTied
+                + "\n   amountOfIRTC=" + amountOfIRTC
+                + "\n   projectAmountExpertCommitments=" + projectAmountExpertCommitments
+                + "\n   projectAmountExpertExtended=" + projectAmountExpertExtended
+                + "\n   amountOfExportCreditInAFPackage=" + amountOfExportCreditInAFPackage
+                + "\n   interestReceived=" + interestReceived
+                + "\n   principalDisbursedOutstanding=" + principalDisbursedOutstanding
+                + "\n   arrearsOfPrincipal=" + arrearsOfPrincipal
+                + "\n   arrearsOfInterest=" + arrearsOfInterest
+                + "\n   recipient=" + recipient
+                + "\n   sector=" + sector
+                + "\n   natureOfSubmission=" + natureOfSubmission
+                + "\n   odaType=" + odaType
+                + "\n   typeOfFlow=" + typeOfFlow
+                + "\n   typeOfFinance=" + typeOfFinance
+                + "\n   administrativeType=" + administrativeType
+                + "\n   typeOfAid=" + typeOfAid
+                + "\n   typeOfRepayment=" + typeOfRepayment
+                + "\n   numberOfRepaymentsAnnum=" + numberOfRepaymentsAnnum
+                + "\n   biodiversity=" + biodiversity
+                + "\n   climateChangeMitigation=" + climateChangeMitigation
+                + "\n   climateChangeAdaptation=" + climateChangeAdaptation
+                + "\n   desertification=" + desertification
+                + "\n   genderEquality=" + genderEquality
+                + "\n   aidToEnvironment=" + aidToEnvironment
+                + "\n   pdgg=" + pdgg
+                + "\n   tradeDevelopment=" + tradeDevelopment
+                + "\n   extendingAgency=" + extendingAgency
+                + "\n   channel=" + channel
+                + '}';
     }
-    
-    
 
     public BigDecimal getAmount() {
         return amount;
@@ -359,8 +379,6 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
         this.set("channelInstitutionName", channelInstitutionName);
     }
 
-    
-    
     @Override
     public String getShortDescription() {
         return (String) this.get("shortDescription");
@@ -645,20 +663,16 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
 //    public void setRecipient(RecipientCategory recipient) {
 //        this.recipient = recipient;
 //    }
-    
-    
 
     public Area getRecipient() {
-		return recipient;
-	}
+        return recipient;
+    }
 
+    public void setRecipient(Area recipient) {
+        this.recipient = recipient;
+    }
 
-	public void setRecipient(Area recipient) {
-		this.recipient = recipient;
-	}
-
-
-	public Category getSector() {
+    public Category getSector() {
         return sector;
     }
 
@@ -801,7 +815,7 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
     public void setExtendingAgency(Organization extendingAgency) {
         this.extendingAgency = extendingAgency;
     }
-    
+
     public ChannelCategory getChannel() {
         return channel;
     }

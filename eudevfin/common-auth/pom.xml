@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.devgateway.eudevfin</groupId>
     <artifactId>eudevfin</artifactId>
-    <version>1.3.2-SNAPSHOT</version>
+   <version>1.4.6-SNAPSHOT</version>
   </parent>
   <artifactId>common-auth</artifactId>
   <name>EU-DEVFIN Common Authentication</name>

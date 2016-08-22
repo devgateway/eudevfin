@@ -49,7 +49,9 @@
 		agency). For more info go to
 		http://www.oecd.org/development/effectiveness/countryprogrammableaidcpafrequentlyaskedquestions.htm</entry>
 
-	<entry key="8channelInstitutionName.label">8. Channel Institution Name</entry><entry key="8channelInstitutionName.help">Enter the name of the implementing agency</entry> <entry key="9channelOfDelivery.label">9. Channel of Delivery</entry>
+	<entry key="8channelInstitutionName.label">8. Channel Institution Name</entry>
+	<entry key="8channelInstitutionName.help">Enter the name of the implementing agency</entry>
+    <entry key="9channelOfDelivery.label">9. Channel of Delivery</entry>
 	<entry key="9channelOfDelivery.placeholder">Channel of delivery</entry>
 	<entry key="9channelOfDelivery.help">Enter the name of the bilateral or multilateral implementing agency (e.g. UN agency, NGO) from the ODA
 		list</entry>

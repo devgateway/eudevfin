@@ -116,3 +116,51 @@ html, body {
 .iconLink {
     cursor: pointer;
 }
+
+.remove-left-margin > [class*="span"]  {
+    margin-left: 0px !important;
+}
+
+.add-left-margin > [class*="span"] {
+    padding-left: 30px !important;
+    width: 340px !important;
+}
+
+.budget-table th {
+    font-size: 12px;
+}
+
+.budget-table td {
+    font-size: 11px;
+}
+
+.round_delete {
+    font-size: 12px;
+    font-weight: 900;
+    border-radius: 20px !important;
+    padding: 5px 8px;
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
+    background-color: #da4f49;
+    background-image: -moz-linear-gradient(top,#ee5f5b,#bd362f);
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#ee5f5b),to(#bd362f));
+    background-image: -webkit-linear-gradient(top,#ee5f5b,#bd362f);
+    background-image: -o-linear-gradient(top,#ee5f5b,#bd362f);
+    background-repeat: repeat-x;
+    border-color: #bd362f #bd362f #802420;
+    border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffee5f5b',endColorstr='#ffbd362f',GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+
+.round_delete:focus, .round_delete:hover {
+    color: #fff;
+    background-color: #bd362f;
+    text-decoration: none;
+    background-position: 0 -15px;
+}
+
+.round_delete:focus {
+    outline-offset: -2px;
+    outline: thin dotted #333;
+}

@@ -23,12 +23,12 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public interface FinancialTransactionService extends BaseEntityService<FinancialTransaction> {
-	
-	public Page<FinancialTransaction> findBySectorCode(String sectorCode, 
+
+	public Page<FinancialTransaction> findBySectorCode(String sectorCode,
 			@Header("pageable") Pageable pageable);
-	
-	public List<FinancialTransaction> findByReportingYearAndTypeOfFlowCode(LocalDateTime reportingYear, @Header("typeOfFlowCode")  String typeOfFlowCode);	
-	
-	public List<FinancialTransaction> findByCrsIdentificationNumber(String crsIdentificationNumber);	
-	
+
+	public List<FinancialTransaction> findByReportingYearAndTypeOfFlowCode(LocalDateTime reportingYear, @Header("typeOfFlowCode")  String typeOfFlowCode);
+
+	public List<FinancialTransaction> findByCrsIdentificationNumber(String crsIdentificationNumber);
+
 }

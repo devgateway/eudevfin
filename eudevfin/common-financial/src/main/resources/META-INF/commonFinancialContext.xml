@@ -51,7 +51,7 @@
 
         <int:method name="findByCrsIdentificationNumber" request-channel="getChannel">
             <int:header name="requestName" value="findByCrsIdentificationNumberChannel"/>
-        </int:method>
+        </int:method>  
 
     </int:gateway>
 
@@ -137,6 +137,15 @@
         </int:method>
         <int:method name="findByDonorIdCrsIdActive" request-channel="getChannel">
             <int:header name="requestName" value="findTransactionByDonorIdCrsIdActiveChannel"/>
+        </int:method>        
+        <int:method name="findUsedOrgByGeographicFocusAndFinancingInstitution" request-channel="getChannel">
+            <int:header name="requestName" value="findUsedOrgByGeographicFocusAndFinancingInstitutionChannel"/>
+        </int:method>
+        <int:method name="findOne" request-channel="getChannel">
+            <int:header name="requestName" value="findOneCustomFinancialTransactionChannel"/>
+        </int:method>
+        <int:method name="findTransactionsByProjectIDPageable" request-channel="getChannel">
+            <int:header name="requestName" value="findTransactionsByProjectIDPageableChannel"/>
         </int:method>
     </int:gateway>
 

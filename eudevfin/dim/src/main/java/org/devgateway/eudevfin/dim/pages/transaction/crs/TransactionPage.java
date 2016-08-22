@@ -166,7 +166,7 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
 
                 //we must check if the transaction is of type CustomFinancialTransaction
                 //else we can't get the approved/final states
-                if (customFT && transactionApproved) {
+                if (msg!=null && customFT && transactionApproved) {
                     //Generate Approved Message
                     msg.setSubject("<span style=\"color: green;\">Transaction Approved</span>: " + financialTransaction.getShortDescription());
                     return msg;
@@ -212,7 +212,8 @@ public class TransactionPage extends HeaderFooter<FinancialTransaction> implemen
     private Message newSystemMessage(String username, FinancialTransaction transaction) {
         PersistedUser user = userService.findByUsername(username).getEntity();
         if (user == null) {
-            throw new AssertionError("User not found in the database!");
+            //throw new AssertionError("User not found in the database!");
+        	return null; // we do nothing if the user is not found/deleted.
         }
         return newSystemMessage(user, transaction);
     }

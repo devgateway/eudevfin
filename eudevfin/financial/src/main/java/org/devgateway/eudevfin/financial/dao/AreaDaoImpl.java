@@ -106,4 +106,9 @@ public class AreaDaoImpl extends AbstractDaoImpl<Area,Long, AreaRepository> {
 		final Area a = this.getRepo().findByCode(code);
 		return new NullableWrapper<Area>(a);
 	}
+        
+        @ServiceActivator(inputChannel="findUsedAreaAsListChannel")
+	public List<Area> findUsedAreaAsList(final String locale) {
+		return this.getRepo().findUsedAreaAsList(locale);
+	}
 }
