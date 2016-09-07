@@ -160,7 +160,7 @@ public class ReportsPage extends ReportsDashboards {
                         if (resultSet.get(i).get(NUMBER_OF_YEARS - 1) == null) {
                             resultSet.get(i).add(null);
                         } else {
-                            if (resultSet.get(i).size()<=NUMBER_OF_YEARS || resultSet.get(i).get(NUMBER_OF_YEARS) == null) {
+                            if (resultSet.get(i).get(NUMBER_OF_YEARS) == null) {
                                 resultSet.get(i).add(null);
                             } else {
                                 Double result = Double.parseDouble(resultSet.get(i).get(NUMBER_OF_YEARS - 1)) /

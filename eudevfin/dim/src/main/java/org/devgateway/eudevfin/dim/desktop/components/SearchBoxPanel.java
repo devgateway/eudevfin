@@ -42,6 +42,7 @@ import org.devgateway.eudevfin.ui.common.providers.YearProvider;
 import org.joda.time.LocalDateTime;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
+import java.util.List;
 
 /**
  * @author Alex,mihai
@@ -98,8 +99,11 @@ public class SearchBoxPanel extends Panel {
         Form<?> form = new Form<>("searchForm", boxPanelFormModel);
         form.setOutputMarkupId(false);
 
+        
+        List<Integer> repYears = this.txService.findDistinctReportingYears();
+        
         final DropDownField<Integer> year = new DropDownField<Integer>("year", new YearToLocalDateTimeModel(new RWComponentPropertyModel<LocalDateTime>(
-                "year")), new YearProvider(this.txService.findDistinctReportingYears()));
+                "year")), new YearProvider(repYears));
         year.setSize(InputBehavior.Size.Medium);
         year.removeSpanFromControlGroup();
         year.hideLabel();

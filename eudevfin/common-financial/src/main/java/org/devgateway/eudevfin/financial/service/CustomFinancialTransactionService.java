@@ -57,7 +57,7 @@ public interface CustomFinancialTransactionService extends BaseEntityService<Cus
     public List<CustomFinancialTransaction> findByApprovedTrueAndFormTypeInOrderByCrsIdAscCreatedDateAsc(Collection<String> notFormType);
 
     @Payload("new java.util.Date()")
-    public List<Integer> findAllDistinctReportingYears();
+    public List<Integer> findDistinctReportingYears();
 
     @Payload("new java.util.Date()")
     public List<Integer> findDistinctStartingYears();

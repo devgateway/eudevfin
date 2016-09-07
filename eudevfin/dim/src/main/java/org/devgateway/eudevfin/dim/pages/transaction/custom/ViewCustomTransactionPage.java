@@ -15,7 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
-import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
@@ -32,11 +31,9 @@ import org.devgateway.eudevfin.ui.common.Constants;
 import org.devgateway.eudevfin.ui.common.components.tabs.DefaultTabWithKey;
 import org.devgateway.eudevfin.ui.common.components.tabs.ITabWithKey;
 import org.devgateway.eudevfin.ui.common.components.tabs.PreviewTabbedPannel;
-import org.devgateway.eudevfin.ui.common.pages.HeaderFooter;
 import org.devgateway.eudevfin.ui.common.pages.PrintableHeaderFooter;
 import org.devgateway.eudevfin.ui.common.permissions.PermissionAwarePage;
 import org.devgateway.eudevfin.ui.common.permissions.RoleActionMapping;
-import org.devgateway.eudevfin.ui.common.scripts.CommonScriptsReference;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**

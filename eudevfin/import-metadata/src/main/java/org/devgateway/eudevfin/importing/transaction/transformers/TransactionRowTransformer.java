@@ -67,8 +67,7 @@ public class TransactionRowTransformer implements IRowTransformer {
 		ctx.setApproved(true);
 
 		/* Add the org of the current user as extending agency */
-		if (ctx.getExtendingAgency()==null)
-			ctx.setExtendingAgency(AuthUtils.getOrganizationForCurrentUser());
+		ctx.setExtendingAgency(AuthUtils.getOrganizationForCurrentUser());
 
 		return ctx;
 	}

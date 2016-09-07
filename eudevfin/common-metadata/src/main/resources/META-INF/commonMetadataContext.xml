@@ -39,9 +39,6 @@
         <int:method name="findByCodeAndDonorCode" request-channel="getChannel">
             <int:header name="requestName" value="findOrganizationByCodeAndDonorCodeChannel"/>
         </int:method>
-        <int:method name="findFirstByDonorCode" request-channel="getChannel">
-            <int:header name="requestName" value="findFirstOrganizationByDonorCodeChannel"/>
-        </int:method>
         <int:method name="findByDacFalse" request-channel="getChannel">
             <int:header name="requestName" value="findOrganizationByDacFalse"/>
         </int:method>

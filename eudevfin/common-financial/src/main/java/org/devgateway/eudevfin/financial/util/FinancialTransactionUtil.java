@@ -9,7 +9,6 @@ package org.devgateway.eudevfin.financial.util;
 
 import java.util.Locale;
 
-import org.devgateway.eudevfin.auth.common.util.AuthUtils;
 import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
 import org.devgateway.eudevfin.financial.FileWrapper;
@@ -33,12 +32,6 @@ public final class FinancialTransactionUtil {
 		if (countryIso != null)
 			currencyUnit = CurrencyUnit.ofCountry(countryIso);
 		return currencyUnit;
-	}
-
-	public static CurrencyUnit getCurrencyForCountryName(String countryName) {
-		String iso2 = AuthUtils.countryNameIso2Map.get(countryName);
-		if(iso2==null) return null;
-		return getCurrencyForCountryIso(iso2);
 	}
 
 	/**
