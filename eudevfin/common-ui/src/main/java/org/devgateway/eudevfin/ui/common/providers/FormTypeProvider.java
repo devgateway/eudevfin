@@ -1,11 +1,10 @@
-/**
- * *****************************************************************************
- * Copyright (c) 2014 Development Gateway. All rights reserved. This program and
- * the accompanying materials are made available under the terms of the GNU
- * Public License v3.0 which accompanies this distribution, and is available at
+/*******************************************************************************
+ * Copyright (c) 2014 Development Gateway.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v3.0
+ * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/gpl.html
- ******************************************************************************
- */
+ *******************************************************************************/
 /**
  *
  */
@@ -26,25 +25,28 @@ import com.vaynberg.wicket.select2.TextChoiceProvider;
  */
 public class FormTypeProvider extends TextChoiceProvider<String> {
 
-    private static final long serialVersionUID = 4554272931187087047L;
-    private Component component;
 
-    public FormTypeProvider(Component component) {
-        this.component = component;
-    }
+	private static final long serialVersionUID = 4554272931187087047L;
+	private Component component;
 
-    @Override
+	public FormTypeProvider(Component component) {
+		this.component=component;
+	}
+
+
+	@Override
     protected String getDisplayText(String choice) {
-        return getTranslation(choice);
+    	return getTranslation(choice);
     }
 
     @Override
     protected Object getId(String choice) {
-        return choice;
+    	return choice;
     }
 
     private String getTranslation(String key) {
-        return new StringResourceModel(key, component, null).getObject();
+    	return new StringResourceModel(key,  component, null).getObject();
+
     }
 
     @Override
@@ -63,7 +65,7 @@ public class FormTypeProvider extends TextChoiceProvider<String> {
 
     @Override
     public Collection<String> toChoices(Collection<String> ids) {
-        return ids;
+    	return ids;
     }
 
 }

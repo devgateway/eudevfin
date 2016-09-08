@@ -50,11 +50,11 @@ public abstract class AbstractTransactionTransformer extends AbstractElementTran
 
 	}
 
-	   protected Transaction createTransaction(final BigMoney money) {
-                final Transaction tx = new Transaction();  
+	protected Transaction createTransaction(final BigMoney money) {
+		final Transaction tx = new Transaction();
 
-                tx.setDescription(this.getCtx().getDescription());
-                tx.setTransactionDate(new TransactionDate(this.findTxDate()));
+		tx.setDescription(this.getCtx().getDescription());
+		tx.setTransactionDate( new TransactionDate(this.findTxDate()) );
 
                 ChannelCategory channel = this.getCtx().getChannel();
                 BigDecimal amount = money.getAmount();

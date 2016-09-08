@@ -20,6 +20,7 @@ import org.springframework.data.domain.Page;
  *
  */
 public class PagingHelper<T> {
+
 	private int currentPageNo;
 	private int totalNumberOfPages;
 	private int totalNumOfEntities;
