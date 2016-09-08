@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2015 ENEA SERVICES ROMANIA.
+  ~ All rights reserved. This program and the accompanying materials
+  ~ are made available under the terms of the GNU Public License v3.0
+  ~ which accompanies this distribution, and is available at
+  ~ http://www.gnu.org/licenses/gpl.html
+  ~
+  ~ Contributors:
+  ~    Alexandra
+  -->
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="22currentDate.label">22. Data curentă de finalizare</entry>
+<entry key="22currentDate.placeholder"></entry>
+<entry key="22currentDate.help">Selectați data curentă de finalizare a proiectului.</entry>
+<entry key="22currentDate.help.detail"></entry>
+
+<entry key="23extendDate.label">23. Data de finalizare după prelungire</entry>
+<entry key="23extendDate.placeholder"></entry>
+<entry key="23extendDate.help">Selectați noua dată de finalizare a proiectului, după prelungirea acestuia.</entry>
+<entry key="23extendDate.help.detail"></entry>
+
+<entry key="24reason.label">24. Motivul prelungirii</entry>
+<entry key="24reason.placeholder"></entry>
+<entry key="24reason.help">
+    Menționați aici motivele pentru care a fost prelungit proiectul. 
+</entry>
+<entry key="24reason.help.detail"></entry>
+
+<entry key="25upload.label">25. Încărcați documente</entry>
+<entry key="25upload.placeholder"></entry>
+<entry key="25upload.help">
+    Încărcați scrisoarea de prelungire a proiectului și alte documente relevante.
+</entry> 
+</properties>

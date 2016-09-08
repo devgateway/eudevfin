@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.devgateway.eudevfin</groupId>
+        <artifactId>eudevfin</artifactId>
+        <version>1.4.6-SNAPSHOT</version>
+    </parent>
+    <artifactId>projects-module</artifactId>
+    <packaging>war</packaging>
+    <name>EU-DEVFIN Projects Module</name>
+    <dependencies>
+        <dependency>
+            <groupId>org.devgateway.eudevfin</groupId>
+            <artifactId>common-ui</artifactId>
+            <version>${project.version}</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.devgateway.eudevfin</groupId>
+            <artifactId>common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.devgateway.eudevfin</groupId>
+            <artifactId>projects</artifactId>
+            <version>${project.version}</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.wicketstuff</groupId>
+            <artifactId>inmethod-grid-parent</artifactId>
+            <version>7.0.0</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>org.wicketstuff</groupId>
+            <artifactId>wicketstuff-editable-grid</artifactId>
+            <version>6.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.wicketstuff</groupId>
+            <artifactId>inmethod-grid</artifactId>
+            <version>1.5-RC5.1</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.devgateway.eudevfin</groupId>
+            <artifactId>common-projects</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>financial</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>common-financial</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+</project>

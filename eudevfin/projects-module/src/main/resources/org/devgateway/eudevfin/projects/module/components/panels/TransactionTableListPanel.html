@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2015 ENEA SERVICES ROMANIA.
+  ~ All rights reserved. This program and the accompanying materials
+  ~ are made available under the terms of the GNU Public License v3.0
+  ~ which accompanies this distribution, and is available at
+  ~ http://www.gnu.org/licenses/gpl.html
+  ~
+  ~ Contributors:
+  ~    Alexandra
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+    <body>
+        <wicket:extend>
+            <div wicket:id="modal"></div>
+            <thead>
+                <tr>	            
+                    <th><wicket:message key="projectTitleLabel"/></th>
+                    <th><wicket:message key="CRSIdLabel"/></th>
+                    <th><wicket:message key="geographicFocusLabel"/></th>	
+                    <th><wicket:message key="financingInstitutionLabel"/></th>	                           
+                    <th><wicket:message key="reportingYearLabel"/></th>
+                    <th><wicket:message key="amountUSDLabel"/></th>	 
+                    <th><wicket:message key="amountRONLabel"/></th>	 
+                    <th><wicket:message key="amountEURLabel"/></th>	
+                    <th><wicket:message key="delete"/></th>	 
+                </tr>
+
+            </thead>
+            <tr wicket:id="projectTransactionsList">
+                <td>
+                    <a wicket:id="linkToEditTransaction"/>
+                </td>
+                <td>
+                    <span wicket:id="CRSId">-1</span>
+                </td>
+                <td>
+                    <span wicket:id="geographicFocus">-1</span>
+                </td>
+                <td>
+                    <span wicket:id="financingInstitution">-1</span>
+                </td>
+                <td>
+                    <span wicket:id="reportingYear">-1</span>
+                </td>
+                <td>
+                    <span wicket:id="amountUSD">-1</span>
+                </td>
+                <td>
+                    <span wicket:id="amountRON">-1</span>
+                </td>
+                <td>
+                    <span wicket:id="amountEUR">-1</span>
+                </td>
+                <td>
+                    <span wicket:id="delete">x</span>
+                </td>
+            </tr>
+        </wicket:extend>
+    </body>
+</html>

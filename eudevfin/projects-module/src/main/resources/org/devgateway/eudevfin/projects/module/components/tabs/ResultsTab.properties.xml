@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+~ Copyright (c) 2015 ENEA SERVICES ROMANIA.
+~ All rights reserved. This program and the accompanying materials
+~ are made available under the terms of the GNU Public License v3.0
+~ which accompanies this distribution, and is available at
+~ http://www.gnu.org/licenses/gpl.html
+~
+~ Contributors:
+~    Alexandra
+-->
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>    
+    <entry key="button.addResult">Add Result</entry>   
+    <entry key="resultsDescription">This section shows the project planned results and progress
+        made towards the acheivement of these results. Please add all the  planned results, 
+        using the "Add result" button, at the beginning of the project and then periodically 
+        update their status.
+    </entry>
+</properties>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2015 ENEA SERVICES ROMANIA.
+  ~ All rights reserved. This program and the accompanying materials
+  ~ are made available under the terms of the GNU Public License v3.0
+  ~ which accompanies this distribution, and is available at
+  ~ http://www.gnu.org/licenses/gpl.html
+  ~
+  ~ Contributors:
+  ~    Alexandra
+  -->
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>   
+     <entry key="budgetDescription">This section contains the transactions that have been 
+         made for the project implementation. Please serach through the transactions and 
+         link the ones that concern this project, unsing the "Add transaction" button.
+    </entry> 
+    <entry key="button.addTransaction">Add transaction</entry> 
+    
+    <entry key="transactionDocumentation.label">Upload documents</entry>
+    <entry key="transactionDocumentation.placeholder"></entry>
+    <entry key="transactionDocumentation.help">Add any relevant documents related to the project funding ( e.g. grant agreement, letter of agreement).</entry> 
+</properties>

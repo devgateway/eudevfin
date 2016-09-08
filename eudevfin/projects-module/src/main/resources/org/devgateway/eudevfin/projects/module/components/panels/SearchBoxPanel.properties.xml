@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+~ Copyright (c) 2013 Development Gateway.
+~ All rights reserved. This program and the accompanying materials
+~ are made available under the terms of the GNU Public License v3.0
+~ which accompanies this distribution, and is available at
+~ http://www.gnu.org/licenses/gpl.html
+~
+~ Contributors:
+~    Alex
+-->
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="project.type.bilateral">Bilateral</entry>
+    <entry key="project.type.regional">Regional</entry>
+    <entry key="project.type.thematic">Thematic</entry>
+    
+    <entry key="projectType.label">Project type</entry>
+    <entry key="projectType.placeholder">Project Type</entry>
+    
+    <entry key="projectName.label">Project title</entry>
+    <entry key="projectName.placeholder">Project title</entry>
+    
+    <entry key="startDate.label">Start year</entry>
+    <entry key="startDate.placeholder">Project start year</entry>
+ 
+    <entry key="stopDate.label">Stop year</entry>
+    <entry key="stopDate.placeholder">Project stop year</entry>
+    
+    <entry key="financingInstitution.label">Financing institution</entry>
+    <entry key="financingInstitution.placeholder">Financing institution</entry>
+    
+    <entry key="implementingOrganization.label">Implementing organization</entry>
+    <entry key="implementingOrganization.placeholder">Implementing organization</entry>
+    
+    <entry key="geographicFocus.label">Geographic focus</entry>
+    <entry key="geographicFocus.placeholder">Geographic focus</entry>
+</properties>

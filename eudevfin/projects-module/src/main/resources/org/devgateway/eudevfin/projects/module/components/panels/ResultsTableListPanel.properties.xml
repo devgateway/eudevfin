@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2015 ENEA SERVICES ROMANIA.
+  ~ All rights reserved. This program and the accompanying materials
+  ~ are made available under the terms of the GNU Public License v3.0
+  ~ which accompanies this distribution, and is available at
+  ~ http://www.gnu.org/licenses/gpl.html
+  ~
+  ~ Contributors:
+  ~    Alexandra
+  -->
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="plannedResult">Planned result</entry>
+    <entry key="status">Status</entry>
+    <entry key="description">Description</entry>    
+    
+    <entry key="status.achieved">Achieved</entry>
+    <entry key="status.progress">In Progress</entry>
+    <entry key="status.not.started">Not Started</entry>
+    <entry key="status.not.achieved">Not Achieved</entry>
+          
+</properties>

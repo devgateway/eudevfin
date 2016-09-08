@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2015 ENEA SERVICES ROMANIA.
+  ~ All rights reserved. This program and the accompanying materials
+  ~ are made available under the terms of the GNU Public License v3.0
+  ~ which accompanies this distribution, and is available at
+  ~ http://www.gnu.org/licenses/gpl.html
+  ~
+  ~ Contributors:
+  ~    Alexandra
+  -->
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="reportType">Tipul raportului</entry>
+    <entry key="reportTitle">Titlul raportului</entry>
+    <entry key="reportDate">Data raportării</entry>
+    <entry key="reportingPeriodStart">Inceperea perioadei de raportare</entry>
+    <entry key="reportingPeriodEnd">Sfârșitul perioadei de raportare</entry>
+    <entry key="fileProvided">Documente primite</entry>  
+    <entry key="reportFile">Documente încărcate</entry>  
+    
+    <entry key="report.type.annual">Raport anual</entry>
+    <entry key="report.type.biAnnual">Raport semestrial</entry>
+    <entry key="report.type.quarterly">Raport trimestrial</entry>    
+    <entry key="report.type.preTranche">Raport înainte de livrarea unei tranșe noi</entry>  
+    <entry key="report.type.finalReport">Raport final</entry>
+    <entry key="report.type.auditReport">Raport de audit</entry>
+    <entry key="report.type.evaluationReport">Raport de evaluare</entry>     
+    <entry key="report.type.other">Altul</entry>     
+</properties>

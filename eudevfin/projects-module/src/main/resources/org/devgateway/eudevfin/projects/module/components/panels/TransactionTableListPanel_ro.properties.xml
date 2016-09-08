@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2015 ENEA SERVICES ROMANIA.
+  ~ All rights reserved. This program and the accompanying materials
+  ~ are made available under the terms of the GNU Public License v3.0
+  ~ which accompanies this distribution, and is available at
+  ~ http://www.gnu.org/licenses/gpl.html
+  ~
+  ~ Contributors:
+  ~    Alexandra
+  -->
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="projectTitleLabel">Titlul proiectului</entry>
+    <entry key="CRSIdLabel">Id CRS</entry>
+    <entry key="geographicFocusLabel">Focus geografic</entry>
+    <entry key="financingInstitutionLabel">Instituția finanțatoare</entry>  
+    <entry key="reportingYearLabel">Anul raportării</entry> 
+    <entry key="amountUSDLabel">Sumă USD</entry> 
+    <entry key="amountRONLabel">Sumă RON</entry> 
+    <entry key="amountEURLabel">Sumă EUR</entry>  
+    <entry key="amountEURLabel">Stergere</entry>  
+</properties>
+ 
