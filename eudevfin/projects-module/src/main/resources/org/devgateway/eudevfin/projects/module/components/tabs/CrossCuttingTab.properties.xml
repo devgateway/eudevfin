@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+~ Copyright (c) 2015 ENEA SERVICES ROMANIA.
+~ All rights reserved. This program and the accompanying materials
+~ are made available under the terms of the GNU Public License v3.0
+~ which accompanies this distribution, and is available at
+~ http://www.gnu.org/licenses/gpl.html
+~
+~ Contributors:
+~    Alexandra
+-->
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="crossCuttingDescription">Please choose the cross-cutting issues that are 
+        relevant for the project and describe the project approach to each of them. 
+        If a cross-cutting issue is not relevant, then please enter N/A. 
+    </entry>
+    
+    <entry key="17genderEquality.label">17. Gender equality</entry>
+    <entry key="17genderEquality.placeholder">(max 150 words)</entry>
+
+    <entry key="18humanRights.label">18. Human rights and good governance</entry>
+    <entry key="18humanRights.placeholder">(max 150 words)</entry>
+
+    <entry key="19sustainableEnvironment.label">19. Sustainable environment</entry>
+    <entry key="19sustainableEnvironment.placeholder">(max 150 words)</entry>
+
+    <entry key="20HIVOrAids.label">20. HIV/AIDS</entry>
+    <entry key="20HIVOrAids.placeholder">(max 150 words)</entry>
+
+    <entry key="21Other.label">21. Other</entry>
+    <entry key="21Other.placeholder">(max 150 words)</entry>
+    <entry key="21Other.help">Please enter here any other relevant cross-cutting issues.</entry>
+</properties>

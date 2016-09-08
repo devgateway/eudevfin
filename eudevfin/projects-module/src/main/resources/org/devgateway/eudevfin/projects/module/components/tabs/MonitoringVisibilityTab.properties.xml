@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2015 ENEA SERVICES ROMANIA.
+  ~ All rights reserved. This program and the accompanying materials
+  ~ are made available under the terms of the GNU Public License v3.0
+  ~ which accompanies this distribution, and is available at
+  ~ http://www.gnu.org/licenses/gpl.html
+  ~
+  ~ Contributors:
+  ~    Alexandra
+  -->
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+<entry key="22monitoring.label">26. Monitoring means</entry>
+<entry key="22monitoring.placeholder">(max 150 words)</entry>
+<entry key="22monitoring.help">Please mention the means you are using to monitor the project (e.g. weekly e-mail updates)</entry>
+
+<entry key="23visibility.label">27. Visibility</entry>
+<entry key="23visibility.placeholder">(max 500 words)</entry>
+<entry key="23visibility.help">Please enter here any links to press releases, websites,
+    news articles, reports and other publications that contain relevant information 
+    about the project.
+</entry>
+
+<entry key="24visibilityDocumentation.label">28. Upload visibility documentation</entry>
+<entry key="24visibilityDocumentation.placeholder"></entry>
+<entry key="24visibilityDocumentation.help">These can be publications, reports, leaflets, etc.</entry>
+</properties>

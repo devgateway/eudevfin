@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2015 ENEA SERVICES ROMANIA.
+  ~ All rights reserved. This program and the accompanying materials
+  ~ are made available under the terms of the GNU Public License v3.0
+  ~ which accompanies this distribution, and is available at
+  ~ http://www.gnu.org/licenses/gpl.html
+  ~
+  ~ Contributors:
+  ~    Alexandra
+  -->
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="project.type.bilateral">Bilateral</entry>
+<entry key="project.type.regional">Regional</entry>
+<entry key="project.type.thematic">Tematic</entry>
+          
+<entry key="1extendingAgency.label">1. Instituția finanțatoare</entry>
+<entry key="1extendingAgency.placeholder">(from first page)</entry>
+<entry key="1extendingAgency.help">Selectați instituția publică din România care finanțează proiectul 
+    (de exemplu, Ministerul Afacerilor Externe al României)
+</entry>
+
+<entry key="2projectName.label">2. Titlul proiectului</entry>
+<entry key="2projectName.placeholder">(max 500 caractere)</entry>
+<entry key="2projectName.help">Introduceți titlul complet al proiectului.</entry>
+<entry key="2projectName.help.detail">Titlul proiectului trebuie să fie același cu titlul
+    menționat în termenii de referință și/sau în documentul de proiect. 
+</entry>
+
+<entry key="3implementingOrganization.label">3. Organizația implementatoare</entry>
+<entry key="3implementingOrganization.placeholder">(max 200 caractere)</entry>
+<entry key="3implementingOrganization.help">Introduceți numele organizației care implementează proiectul.</entry>
+<entry key="3implementingOrganization.help.detail">În cazul proiectelor implementate de mai multe 
+    organizații, introduceți numele organizației (ONG, instituție academică, asociație media) 
+    care a primit grantul de finanțare și care raportează către instituția finanțatoare. 
+    În cazul proiectelor implementate de instituții publice sau ministere de linie 
+    care nu primesc granturi, introduceți numele principalei instituții responsabile 
+    cu implementarea proiectului.
+</entry>
+
+<entry key="4startDate.label">4. Data de începere a proiectului</entry>
+<entry key="4startDate.placeholder"></entry>
+<entry key="4startDate.help">Selectați data de începere a proiectului.</entry>
+<entry key="4startDate.help.detail">Data trebuie să fie în concordanță cu data de 
+    începere a proiectului menționată în termenii de referință și/sau în documentul 
+    de proiect.
+</entry>
+
+<entry key="5stopDate.label">5. Data de finalizare a proiectului</entry>
+<entry key="5stopDate.placeholder"></entry>
+<entry key="5stopDate.help">Selectați data de finalizare a proiectului.</entry>
+<entry key="5stopDate.help.detail">
+    Această dată va fi actualizată automat după fiecare prelungire a proiectului.
+</entry>
+
+<entry key="6projectType.label">6. Tipul proiectului</entry>
+<entry key="6projectType.placeholder"></entry>
+<entry key="6projectType.help">
+    Selectați una din cele trei opțiuni din listă. 
+</entry>
+
+<entry key="7implementingPartners.label">7. Parteneri</entry>
+<entry key="7implementingPartners.placeholder">(max 1000 caractere)</entry>
+<entry key="7implementingPartners.help">
+    Introduceți numele organizațiilor partenere în proiect.
+</entry>
+
+<entry key="8geographicPriorities.label">8. Priorități geografice</entry>
+<entry key="8geographicPriorities.placeholder"></entry>
+<entry key="8geographicPriorities.help">
+    Selectați țările sau regiunile pe care le vizează proiectul.
+</entry>
+
+<entry key="9thematicAreas.label">9. Arii tematice</entry>
+<entry key="9thematicAreas.placeholder"></entry>
+<entry key="9thematicAreas.help">
+    Selectați sectorul tematic adresat de proiect.
+</entry>
+
+<entry key="10contactReportingDetails.label">10. Detalii de contact raportare</entry>
+<entry key="10contactReportingDetails.placeholder">(max 300 caractere)</entry>
+<entry key="10contactReportingDetails.help">Introduceți numele, funcția și numerele 
+    de telefon ale persoanei/persoanelor de contact din organizația implementatoare.
+</entry>
+<entry key="10contactReportingDetails.help.detail">Introduceți cel puțin datele de contact 
+    ale managerului de proiect. Puteți, de asemenea, adăuga datele de contact 
+    directorului executiv al organizației sau ale oricăror persoane relevante.
+</entry>
+
+<entry key="11contactMonitoringDetails.label">11. Detalii de contact monitorizare</entry>
+<entry key="11contactMonitoringDetails.placeholder">(max 300 caractere)</entry>
+<entry key="11contactMonitoringDetails.help">Introduceți detaliile de contact ale 
+    persoanei/persoanelor din instituția finanțatoare (de exemplu, MAE) responsabilă/e
+    cu monitorizarea proiectului. 
+</entry>
+
+<entry key="12contactReportingEmail.label">12. Adrese e-mail raportare</entry>
+<entry key="12contactReportingEmail.placeholder">(max 128 caractere)</entry>
+<entry key="12contactReportingEmail.help">Introduceți adresele de e-mail ale persoanelor 
+    din organizația implementatoare menționate la punctul 10 care sunt responsabile 
+    cu implementarea și raportarea activităților din proiect.
+</entry>
+<entry key="12contactReportingEmail.help.detail">Pe aceste adrese de e-mail vor fi 
+    trimise automat e-mailuri de notificare a datei următoarei raportări. E-mail-urile
+    sunt trimise cu 10 zile înainte de data raportării. Vă rugăm să folosiți virgule 
+    între adresele de e-mail.
+</entry>
+
+<entry key="13contactMonitoringEmail.label">13. Adrese e-mail monitorizare</entry>
+<entry key="13contactMonitoringEmail.placeholder">(max 128 caractere)</entry>
+<entry key="13contactMonitoringEmail.help">Introduceți adresele de e-mail ale 
+    persoanelor din instituția finanțatoare menționate la punctul 12 responsabile
+    cu monitorizarea proiectului. 
+</entry>
+<entry key="13contactMonitoringEmail.help.detail">Pe aceste adrese de e-mail vor 
+    fi trimise automat e-mailuri de notificare a datei următoarei raportări. 
+    E-mail-urile sunt trimise cu 10 zile înainte de data raportării. 
+    Vă rugăm să folosiți virgule între adresele de e-mail.
+</entry>
+
+
+<entry key="notification.invalid.email">Adresa de e-mail nu este valida.</entry>
+
+</properties>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+~ Copyright (c) 2013 Development Gateway.
+~ All rights reserved. This program and the accompanying materials
+~ are made available under the terms of the GNU Public License v3.0
+~ which accompanies this distribution, and is available at
+~ http://www.gnu.org/licenses/gpl.html
+~
+~ Contributors:
+~    Alex
+-->
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="project.type.bilateral">Bilateral</entry>
+    <entry key="project.type.regional">Regional</entry>
+    <entry key="project.type.thematic">Tematic</entry>
+    
+    <entry key="projectType.label">Tip proiect</entry>
+    <entry key="projectType.placeholder">Tip proiect</entry>
+    
+    <entry key="projectName.label">Titlu proiect</entry>
+    <entry key="projectName.placeholder">Titlu proiect</entry>
+    
+    <entry key="startDate.label">An începere proiect</entry>
+    <entry key="startDate.placeholder">An începere proiect</entry>
+ 
+    <entry key="stopDate.label">An finalizare proiect</entry>
+    <entry key="stopDate.placeholder">An finalizare proiect</entry>
+    
+    <entry key="financingInstitution.label">Instituție finanțatoare</entry>
+    <entry key="financingInstitution.placeholder">Instituție finanțatoare</entry>
+    
+    <entry key="implementingOrganization.label">Organizație implementatoare</entry>
+    <entry key="implementingOrganization.placeholder">Organizație implementatoare</entry>
+    
+    <entry key="geographicFocus.label">Focus geografic</entry>
+    <entry key="geographicFocus.placeholder">Focus geografic</entry>
+</properties>

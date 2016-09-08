@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans default-lazy-init="true"
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc" 
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xsi:schemaLocation="http://www.springframework.org/schema/jdbc 
+            http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+            http://www.springframework.org/schema/integration 
+            http://www.springframework.org/schema/integration/spring-integration-3.0.xsd
+            http://www.springframework.org/schema/security 
+            http://www.springframework.org/schema/security/spring-security-3.2.xsd
+            http://www.springframework.org/schema/beans 
+            http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+            http://www.springframework.org/schema/data/jpa 
+            http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd
+            http://www.springframework.org/schema/tx 
+            http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+            http://www.springframework.org/schema/context 
+            http://www.springframework.org/schema/context/spring-context-4.0.xsd
+            http://www.springframework.org/schema/task 
+            http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+    <context:component-scan base-package="org.devgateway.eudevfin.financial.repository"/>
+    <context:component-scan base-package="org.devgateway.eudevfin.financial.dao"/>
+    <context:component-scan base-package="org.devgateway.eudevfin.financial.service"/>
+    <context:component-scan base-package="org.devgateway.eudevfin.financial"/>
+
+    <context:component-scan base-package="org.devgateway.eudevfin.projects.repository"/>
+    <context:component-scan base-package="org.devgateway.eudevfin.projects.repository.interfaces"/>
+    <context:component-scan base-package="org.devgateway.eudevfin.projects.service"/>
+    <context:component-scan base-package="org.devgateway.eudevfin.projects."/>
+    <context:component-scan base-package="org.devgateway.eudevfin.projects.dao"/>
+    
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.roaid.com" />
+        <property name="port" value="25" />
+        <property name="username" value="eudevfin@roaid.ro" />
+        <property name="password" value="teo#123" />
+		
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.auth">false</prop>
+                <prop key="mail.smtp.starttls.enable">false</prop>
+            </props>
+        </property>
+		
+    </bean>
+	
+    <bean id="emailSenderCronService" class="org.devgateway.eudevfin.projects.cronjobs.EmailSenderCronService">
+        <property name="mailSender" ref="mailSender" />
+        <property name="simpleMailMessage" ref="customeMailMessage" />
+    </bean>
+	
+    <bean id="customeMailMessage"
+          class="org.springframework.mail.SimpleMailMessage">
+
+        <property name="from" value="eudevfin@roaid.ro" />
+        <property name="to" value="dj.charon@yahoo.com" />
+        <property name="subject" value="UNDP Report Notification." />
+        <property name="text">
+            <value>
+                    <![CDATA[
+                            The report %s will expire next week
+                            on %s.
+                    ]]>
+            </value>
+        </property>
+    </bean>
+    
+    <task:scheduled-tasks>
+        <!--<task:scheduled ref="emailSenderCronService" method="sendEmails" cron="0 */1 * * * *"/>-->
+        <task:scheduled ref="emailSenderCronService" method="sendEmails" cron="0/15 * * * * *"/>
+    </task:scheduled-tasks>
+</beans>

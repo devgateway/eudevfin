@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2015 ENEA SERVICES ROMANIA.
+  ~ All rights reserved. This program and the accompanying materials
+  ~ are made available under the terms of the GNU Public License v3.0
+  ~ which accompanies this distribution, and is available at
+  ~ http://www.gnu.org/licenses/gpl.html
+  ~
+  ~ Contributors:
+  ~    Alexandra
+  -->
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="project.type.bilateral">Bilateral</entry>
+<entry key="project.type.regional">Regional</entry>
+<entry key="project.type.thematic">Thematic</entry>
+          
+<entry key="1extendingAgency.label">1. Financing institution</entry>
+<entry key="1extendingAgency.placeholder">(from first page)</entry>
+<entry key="1extendingAgency.help">Please select the Romanian public institution 
+        that is financing the project (e.g. Ministry of Foreign Affairs of Romania)
+</entry>
+
+<entry key="2projectName.label">2. Project title</entry>
+<entry key="2projectName.placeholder">(max 500 characters)</entry>
+<entry key="2projectName.help">Please enter the complete title of the project.</entry>
+<entry key="2projectName.help.detail">The project title should be consistent with the project 
+    term of reference and/or project document.
+</entry>
+
+<entry key="3implementingOrganization.label">3. Implementing organization</entry>
+<entry key="3implementingOrganization.placeholder">(max 200 characters)</entry>
+<entry key="3implementingOrganization.help">Please enter the name of the main organization
+    that is implementing the project.
+</entry>
+<entry key="3implementingOrganization.help.detail">In case of projects implemented 
+    by multiple organizations, please mention the organization (NGO, academic 
+    institution, media outlet) that received the grant  and that reports to the 
+    financing institution. In case of projects implemented by public institutions
+    or line ministries that do not receive grants, enter the public institution 
+    that is primarily responsible with the project implementation.
+</entry>
+
+<entry key="4startDate.label">4. Project start date</entry>
+<entry key="4startDate.placeholder"></entry>
+<entry key="4startDate.help">Please select the start date of the project.</entry>
+<entry key="4startDate.help.detail">The date should be consistent with the project
+    terms of reference and/or the project document.
+</entry>
+
+<entry key="5stopDate.label">5. Project end date</entry>
+<entry key="5stopDate.placeholder"></entry>
+<entry key="5stopDate.help">Please select the end date of the project.</entry>
+<entry key="5stopDate.help.detail">
+    The end date will be automatically updated after each extension of the project
+    with the extended project end date.
+</entry>
+
+<entry key="6projectType.label">6. Project type</entry>
+<entry key="6projectType.placeholder"></entry>
+<entry key="6projectType.help">
+    Please select one of the three options. 
+</entry>
+
+<entry key="7implementingPartners.label">7. Implementing partners</entry>
+<entry key="7implementingPartners.placeholder">(max 1000 characters)</entry>
+<entry key="7implementingPartners.help">
+    Please enter the names of all the partners in the project.
+</entry>
+
+<entry key="8geographicPriorities.label">8. Geographic priorities</entry>
+<entry key="8geographicPriorities.placeholder"></entry>
+<entry key="8geographicPriorities.help">
+    Please choose the countries or regions that are targeted by the project.
+</entry>
+
+<entry key="9thematicAreas.label">9. Thematic areas</entry>
+<entry key="9thematicAreas.placeholder"></entry>
+<entry key="9thematicAreas.help">Please choose the purpose/sector that the project addresses.</entry>
+
+<entry key="10contactReportingDetails.label">10. Reporting contact details</entry>
+<entry key="10contactReportingDetails.placeholder">(max 300 characters)</entry>
+<entry key="10contactReportingDetails.help">Please enter the names, titles and phone 
+    numbers of the implementing organization contact person(s).
+</entry>
+<entry key="10contactReportingDetails.help.detail">This field should contain at least 
+    the contact details of the project manager. It can also contain the contact details
+    of the executive director or president of the organization, of other prject staff 
+    or of any other relevant persons.
+</entry>
+
+<entry key="11contactMonitoringDetails.label">11. Monitoring contact details</entry>
+<entry key="11contactMonitoringDetails.placeholder">(max 128 characters)</entry>
+<entry key="11contactMonitoringDetails.help">Please enter the contact details of the person(s) 
+    in the financing institutions (e.g. MFA) in charge with monitoring the project.
+</entry>
+
+
+<entry key="12contactReportingEmail.label">12. Reporting contact e-mails</entry>
+<entry key="12contactReportingEmail.placeholder">(max 255 characters)</entry>
+<entry key="12contactReportingEmail.help">Please enter the e-mail addresses of the 
+    people in the implementing organization mentioned at point 10 that are responsible
+    with implementation and reporting.
+</entry>
+<entry key="12contactReportingEmail.help.detail">E-mails will be automatically sent 
+    to these e-mail addresses to notify the project implementors about the upcoming
+    reporting date. E-mail are sent 10 days prior to the reporting date. Please 
+    use commas between e-mail addresses.
+</entry>
+
+<entry key="13contactMonitoringEmail.label">13. Monitoring contact e-mails</entry>
+<entry key="13contactMonitoringEmail.placeholder">(max 128 characters)</entry>
+<entry key="13contactMonitoringEmail.help">Please enter the e-mail addresses of the 
+    people in the financing institution (e.g. MFA) responsible with the project 
+    monitoring.
+</entry>
+<entry key="13contactMonitoringEmail.help.detail">E-mails will be automatically 
+    sent to these e-mail addresses to notify them about the upcoming reporting 
+    date. E-mails are send 10 days prior to the reporting date. Please use commas 
+    between e-mail addresses.
+</entry>
+
+
+<entry key="notification.invalid.email">The email is not valid.</entry>
+</properties>
