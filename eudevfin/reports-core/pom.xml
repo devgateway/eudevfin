@@ -13,7 +13,7 @@
     <parent>
         <groupId>org.devgateway.eudevfin</groupId>
         <artifactId>eudevfin</artifactId>
-       <version>1.3.3</version>
+       <version>1.4.5-SNAPSHOT</version>
     </parent>
     <artifactId>reports-core</artifactId>
     <packaging>jar</packaging>

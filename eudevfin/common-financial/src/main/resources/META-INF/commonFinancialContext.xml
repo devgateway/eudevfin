@@ -51,7 +51,7 @@
 
         <int:method name="findByCrsIdentificationNumber" request-channel="getChannel">
             <int:header name="requestName" value="findByCrsIdentificationNumberChannel"/>
-        </int:method>  
+        </int:method>
 
     </int:gateway>
 
@@ -113,6 +113,9 @@
         </int:method>
         <int:method name="findDistinctReportingYears" request-channel="getChannel">
             <int:header name="requestName" value="findDistinctReportingYearsInTransactionChannel"/>
+        </int:method>
+        <int:method name="findAllDistinctReportingYears" request-channel="getChannel">
+            <int:header name="requestName" value="findAllDistinctReportingYearsInTransactionChannel"/>
         </int:method>
         <int:method name="findDistinctStartingYears" request-channel="getChannel">
             <int:header name="requestName" value="findDistinctStartingYearsInTransactionChannel"/>

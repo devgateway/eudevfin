@@ -11,6 +11,7 @@
 package org.devgateway.eudevfin.financial.repository;
 
 import java.util.List;
+
 import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -37,7 +38,9 @@ public interface OrganizationRepository extends
 	Page<Organization> findByDacFalse(Pageable pageable);
 	
 	Organization findByCode(String code);
-	
+
+	List<Organization> findByDonorCode(String donorCode);
+
     @Query(" select distinct org from CustomFinancialTransaction ctx join ctx.extendingAgency org " +
             "where ctx.approved = true")
     Page<Organization> findUsedOrganization(Pageable page);

@@ -22,6 +22,7 @@ import org.apache.wicket.model.Model;
  * @author mihai
  */
 public abstract class BootstrapCancelButton extends IndicatingAjaxButton {
+
 	private static final long serialVersionUID = 2364680773757310635L;
 
 	/**

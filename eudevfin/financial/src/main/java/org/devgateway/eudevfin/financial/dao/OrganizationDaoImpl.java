@@ -143,9 +143,21 @@ public class OrganizationDaoImpl extends AbstractDaoImpl<Organization, Long, Org
     public NullableWrapper<Organization> findByCodeAndDonorCode(String code, @Header("donorCode") String donorCode) {
         return new NullableWrapper<Organization>(this.repo.findByCodeAndDonorCode(code, donorCode));
     }
-    
-    @ServiceActivator(inputChannel="findUsedOrgByGeographicFocusChannel")
-    public List<Organization> findUsedOrgByGeographicFocus(String geographicFocus) {
-        return this.repo.findUsedOrgByGeographicFocus(geographicFocus);
+
+    /**
+     * @see OrganizationService#findByCodeAndDonorCode(String, String)
+     */
+	@ServiceActivator(inputChannel="findFirstOrganizationByDonorCodeChannel")
+    public NullableWrapper<Organization> findFirstByDonorCode(String donorCode) {
+		List<Organization> list = this.repo.findByDonorCode(donorCode);
+		Organization ret=null;
+		if(list!=null && !list.isEmpty())
+			ret=list.get(0);
+        return new NullableWrapper<Organization>(ret);
     }
+
+    @ServiceActivator(inputChannel="findUsedOrgByGeographicFocusChannel")
+        public List<Organization> findUsedOrgByGeographicFocus(String geographicFocus) {
+            return this.repo.findUsedOrgByGeographicFocus(geographicFocus);
+        }
 }

@@ -1,11 +1,11 @@
-/**
- * *****************************************************************************
- * Copyright (c) 2014 Development Gateway. All rights reserved. This program and
- * the accompanying materials are made available under the terms of the GNU
- * Public License v3.0 which accompanies this distribution, and is available at
+/*******************************************************************************
+ * Copyright (c) 2014 Development Gateway.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v3.0
+ * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/gpl.html
- ******************************************************************************
- */
+ *******************************************************************************/
+
 package org.devgateway.eudevfin.financial;
 
 import java.math.BigDecimal;
@@ -46,76 +46,68 @@ public class CustomFinancialTransaction extends FinancialTransaction {
     /**
      * @see SB##BILATERAL_ODA_ADVANCE_QUESTIONNAIRE
      */
-    @Index(name = "customfinancialtransaction_formtype_idx")
+	@Index(name="customfinancialtransaction_formtype_idx")
     private String formType;
 
-    @Index(name = "customfinancialtransaction_draft_idx")
+	@Index(name="customfinancialtransaction_draft_idx")
     private Boolean draft = true;
 
-    @Index(name = "customfinancialtransaction_approved_idx")
+	@Index(name="customfinancialtransaction_approved_idx")
     private Boolean approved = false;
 
     private Boolean projectCoFinanced;
 
-    @Columns(columns = {
-        @Column(name = "future_debt_principal_curr"),
-        @Column(name = "future_debt_principal_amount")})
+    @Columns(columns = {@Column(name = "future_debt_principal_curr"),
+            @Column(name = "future_debt_principal_amount")})
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney futureDebtPrincipal;
 
-    @Columns(columns = {
-        @Column(name = "future_debt_interest_curr"),
-        @Column(name = "future_debt_interest_amount")})
+    @Columns(columns = {@Column(name = "future_debt_interest_curr"),
+            @Column(name = "future_debt_interest_amount")})
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney futureDebtInterest;
 
-    @Columns(columns = {
-        @Column(name = "budget_mtef_disb_curr"),
-        @Column(name = "budget_mtef_disb_amount")})
+    @Columns(columns = {@Column(name = "budget_mtef_disb_curr"),
+            @Column(name = "budget_mtef_disb_amount")})
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney budgetMTEFDisbursement;
 
-    @Columns(columns = {
-        @Column(name = "budget_mtef_disb_p1_curr"),
-        @Column(name = "budget_mtef_disb_p1_amount")})
+    @Columns(columns = {@Column(name = "budget_mtef_disb_p1_curr"),
+            @Column(name = "budget_mtef_disb_p1_amount")})
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney budgetMTEFDisbursementP1;
 
-    @Columns(columns = {
-        @Column(name = "budget_mtef_disb_p2_curr"),
-        @Column(name = "budget_mtef_disb_p2_amount")})
+    @Columns(columns = {@Column(name = "budget_mtef_disb_p2_curr"),
+            @Column(name = "budget_mtef_disb_p2_amount")})
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney budgetMTEFDisbursementP2;
 
-    @Columns(columns = {
-        @Column(name = "budget_mtef_disb_p3_curr"),
-        @Column(name = "budget_mtef_disb_p3_amount")})
+    @Columns(columns = {@Column(name = "budget_mtef_disb_p3_curr"),
+            @Column(name = "budget_mtef_disb_p3_amount")})
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney budgetMTEFDisbursementP3;
 
-    @Columns(columns = {
-        @Column(name = "budget_mtef_disb_p4_curr"),
-        @Column(name = "budget_mtef_disb_p4_amount")})
+    @Columns(columns = {@Column(name = "budget_mtef_disb_p4_curr"),
+            @Column(name = "budget_mtef_disb_p4_amount")})
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney budgetMTEFDisbursementP4;
 
-    @Columns(columns = {
-        @Column(name = "first_agency_curr"),
-        @Column(name = "first_agency_amount")})
+
+    @Columns(columns = {@Column(name = "first_agency_curr"),
+            @Column(name = "first_agency_amount")})
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney firstAgencyAmount;
 
-    @Columns(columns = {
-        @Column(name = "second_agency_curr"),
-        @Column(name = "second_agency_amount")})
+    @Columns(columns = {@Column(name = "second_agency_curr"),
+            @Column(name = "second_agency_amount")})
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney secondAgencyAmount;
 
-    @Columns(columns = {
-        @Column(name = "third_agency_curr"),
-        @Column(name = "third_agency_amount")})
+    @Columns(columns = {@Column(name = "third_agency_curr"),
+            @Column(name = "third_agency_amount")})
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurrency")
     private BigMoney thirdAgencyAmount;
+
 
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
     private LocalDateTime dataAsPerDate;
@@ -139,6 +131,7 @@ public class CustomFinancialTransaction extends FinancialTransaction {
 
     @ManyToOne
     private Category LevelOfCertainty;
+
 
     private String budgetCode;
     private String budgetLine;
@@ -164,6 +157,8 @@ public class CustomFinancialTransaction extends FinancialTransaction {
 //    @Columns(columns={@Column(name="fixed_rate_base_currency"),@Column(name="fixed_rate_counter_currency"),@Column(name="fixed_rate")})
 //	  @Type(type="org.jadira.usertype.exchangerate.joda.PersistentExchangeRate")
 //    private ExchangeRate fixedExchangeRate;
+
+
     private BigDecimal fixedRate;
 
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentCurrencyUnit")
@@ -172,20 +167,19 @@ public class CustomFinancialTransaction extends FinancialTransaction {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<FileWrapper> uploadDocumentation;
 
+
     public Set<FileWrapper> getUploadDocumentation() {
         return this.uploadDocumentation;
     }
 
-    public void setUploadDocumentation(final Set<FileWrapper> uploadDocumentation) {
-        if (this.uploadDocumentation == null) {
-            this.uploadDocumentation = uploadDocumentation;
-        } else {
-            this.uploadDocumentation.retainAll(uploadDocumentation);
-            if (uploadDocumentation != null) {
-                this.uploadDocumentation.addAll(uploadDocumentation);
-            }
-        }
-    }
+	public void setUploadDocumentation(final Set<FileWrapper> uploadDocumentation) {
+		if (this.uploadDocumentation == null)
+			this.uploadDocumentation = uploadDocumentation;
+		else {
+			this.uploadDocumentation.retainAll(uploadDocumentation);
+			if(uploadDocumentation!=null) this.uploadDocumentation.addAll(uploadDocumentation);
+		}
+	}
 
     public Boolean getDraft() {
         return this.draft;
@@ -256,7 +250,7 @@ public class CustomFinancialTransaction extends FinancialTransaction {
     }
 
     public void setFirstCoFinancingAgency(final String firstCoFinancingAgency) {
-        this.set("firstCoFinancingAgency", firstCoFinancingAgency);
+    	   this.set("firstCoFinancingAgency", firstCoFinancingAgency);
     }
 
     public String getSecondCoFinancingAgency() {
@@ -264,15 +258,15 @@ public class CustomFinancialTransaction extends FinancialTransaction {
     }
 
     public void setSecondCoFinancingAgency(final String secondCoFinancingAgency) {
-        this.set("secondCoFinancingAgency", secondCoFinancingAgency);
+    	 this.set("secondCoFinancingAgency", secondCoFinancingAgency);
     }
 
     public String getThirdCoFinancingAgency() {
-        return (String) this.get("thirdCoFinancingAgency");
+    	return (String) this.get("thirdCoFinancingAgency");
     }
 
     public void setThirdCoFinancingAgency(final String thirdCoFinancingAgency) {
-        this.set("thirdCoFinancingAgency", thirdCoFinancingAgency);
+    	 this.set("thirdCoFinancingAgency", thirdCoFinancingAgency);
     }
 
     public CurrencyUnit getFirstAgencyCurrency() {
@@ -539,45 +533,45 @@ public class CustomFinancialTransaction extends FinancialTransaction {
         this.otherComments = otherComments;
     }
 
-    /**
-     * @return the persistedUserGroup
-     */
-    public PersistedUserGroup getPersistedUserGroup() {
-        return this.persistedUserGroup;
-    }
+	/**
+	 * @return the persistedUserGroup
+	 */
+	public PersistedUserGroup getPersistedUserGroup() {
+		return this.persistedUserGroup;
+	}
 
-    /**
-     * @param persistedUserGroup the persistedUserGroup to set
-     */
-    public void setPersistedUserGroup(final PersistedUserGroup persistedUserGroup) {
-        this.persistedUserGroup = persistedUserGroup;
-    }
+	/**
+	 * @param persistedUserGroup the persistedUserGroup to set
+	 */
+	public void setPersistedUserGroup(final PersistedUserGroup persistedUserGroup) {
+		this.persistedUserGroup = persistedUserGroup;
+	}
 
-    /**
-     * @return the LevelOfCertainty
-     */
-    public Category getLevelOfCertainty() {
-        return this.LevelOfCertainty;
-    }
+	/**
+	 * @return the LevelOfCertainty
+	 */
+	public Category getLevelOfCertainty() {
+		return this.LevelOfCertainty;
+	}
 
-    /**
-     * @param LevelOfCertainty the LevelOfCertainty to set
-     */
-    public void setLevelOfCertainty(final Category LevelOfCertainty) {
-        this.LevelOfCertainty = LevelOfCertainty;
-    }
+	/**
+	 * @param LevelOfCertainty the LevelOfCertainty to set
+	 */
+	public void setLevelOfCertainty(final Category LevelOfCertainty) {
+		this.LevelOfCertainty = LevelOfCertainty;
+	}
 
-    /**
-     * @return the approved
-     */
-    public Boolean getApproved() {
-        return this.approved;
-    }
+	/**
+	 * @return the approved
+	 */
+	public Boolean getApproved() {
+		return this.approved;
+	}
 
-    /**
-     * @param approved the approved to set
-     */
-    public void setApproved(final Boolean approved) {
-        this.approved = approved;
-    }
+	/**
+	 * @param approved the approved to set
+	 */
+	public void setApproved(final Boolean approved) {
+		this.approved = approved;
+	}
 }
