@@ -6,17 +6,19 @@
  * http://www.gnu.org/licenses/gpl.html
  *******************************************************************************/
 /**
- * 
+ *
  */
 package org.devgateway.eudevfin.ui.common.components;
 
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
+import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
+import org.devgateway.eudevfin.auth.common.util.AuthUtils;
 
 /**
  * @author mihai
- * 
+ *
  */
 public abstract class PreviewableFormPanel extends Panel implements PreviewableFormPanelAware {
 

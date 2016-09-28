@@ -20,29 +20,29 @@ import org.hibernate.envers.Audited;
 
 @Entity @Audited
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Organization extends AbstractTranslateable<OrganizationTranslation> 
+public class Organization extends AbstractTranslateable<OrganizationTranslation>
 							implements OrganizationTrnInterface {
 
 	private static final long serialVersionUID = -7886444652559589256L;
 
 	private String code;
-	
+
 	@Index(name="organization_acronym_idx")
 	private String acronym;
-	
+
 	private Boolean dac;
-	
+
 	@ManyToOne
 	private Area area;
-	
+
 	@ManyToOne
-	private Category organizationType; 
-	
+	private Category organizationType;
+
 	/**
 	 * This is the code of the parent Donor (group/country)
 	 */
 	private String donorCode;
-	
+
 	@Override
 	public String getName() {
 		return (String) this.get("name");
@@ -52,7 +52,7 @@ public class Organization extends AbstractTranslateable<OrganizationTranslation>
 	public void setName(String name) {
 		this.set("name", name);
 	}
-	
+
 	@Override
 	public String getDonorName() {
 		return (String) get("donorName");
@@ -61,9 +61,9 @@ public class Organization extends AbstractTranslateable<OrganizationTranslation>
 	@Override
 	public void setDonorName(String donorName) {
 		this.set("donorName", donorName);
-		
+
 	}
-	
+
 
 	@Override
 	public String toString() {
@@ -74,7 +74,7 @@ public class Organization extends AbstractTranslateable<OrganizationTranslation>
 	protected OrganizationTranslation newTranslationInstance() {
 		return new OrganizationTranslation();
 	}
-	
+
 	public String getCode() {
 		return code;
 	}

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ~ Copyright (c) 2015 ENEA SERVICES ROMANIA. 
+~ All rights reserved. This program and the accompanying materials 
+~ are made available under the terms of the GNU Public License v3.0 ~ which accompanies this distribution, and is available at 
+~ http://www.gnu.org/licenses/gpl.html -->
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="page.title">Editează rezultat</entry>  
+     
+    <entry key="1plannedResult.label">Rezultate planificate</entry>  
+    <entry key="1plannedResult.placeholder">(max 100 cuvinte)</entry>
+    
+    <entry key="status.label">Status</entry>
+    <entry key="status.placeholder">Status</entry>
+    <entry key="status.help">
+        Alegeți una din următoarele opțiuni. 
+    </entry>
+    <entry key="status.help.detail">
+        Obținut = rezultatul a fost obținut; În curs de obținere = au fost realizate
+        progrese pentru atingerea rezultatului, urmând ca acest să fie obținut până 
+        la finalul proiectului; neînceput = nu au fost începute activități pentru 
+        obținerea rezultatului; neobținut = rezultatul nu a fost obținut până la 
+        finalul proiectului.
+    </entry>
+    
+    <entry key="3description.label">Descrierea rezultatelor</entry>
+    <entry key="3description.placeholder">(max 400 cuvinte)</entry>
+    <entry key="3description.help">
+        Descrierea activităților care au condus la obținerea rezultatelor/ descrierea rezultatelor.
+    </entry>
+    
+    <entry key="status.achieved">Obtinut</entry>
+    <entry key="status.progress">În curs de obținere</entry>
+    <entry key="status.not.started">Neînceput</entry>
+    <entry key="status.not.achieved">Neobținut</entry>
+       
+    <entry key="button.submit">Salvează</entry>    
+    <entry key="button.cancel">Renunță</entry> 
+</properties>

@@ -78,16 +78,19 @@ public class CategoryConstants {
 
 
 	public static final class TypeOfFlow {
-		public static final String NON_FLOW="TYPE_OF_FLOW##40";
-		public static final String ODA="TYPE_OF_FLOW##10";
+	public static final String TYPE_OF_PROJECT_PREFIX="TYPE_OF_PROJECT##";
+	public static final String NON_FLOW="TYPE_OF_FLOW##40";
+	public static final String ODA="TYPE_OF_FLOW##10";
 	}
-	
 
-	public static final class TypeOfAid {
-		public static final String B01="B01";
-		public static final String B02="B02";
-		public static final String F01="F01";
-	}
+
+    public static final class TypeOfAid {
+        public static final String ROOT_TYPE_OF_PROJECT_CATEGORY						= "ROOT_TYPE_OF_PROJECT_CATEGORY";
+
+        public static final String B01 = "B01";
+        public static final String B02 = "B02";
+        public static final String F01 = "F01";
+    }
 
 	public static final class Markers {
 		public static final String MARKER_3="MARKER##3";

@@ -7,6 +7,7 @@
  *******************************************************************************/
 package org.devgateway.eudevfin.metadata.common.service;
 
+import java.util.List;
 import org.devgateway.eudevfin.common.service.BaseEntityService;
 import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
 import org.devgateway.eudevfin.metadata.common.domain.Area;
@@ -21,5 +22,7 @@ public interface AreaService extends BaseEntityService<Area>  {
             @Header("pageable") Pageable page);
 
     public NullableWrapper<Area> findAreaByCode(String code);
+    
+    public List<Area> findUsedAreaAsList(String locale);
 
 }

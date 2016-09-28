@@ -6,7 +6,7 @@
  * http://www.gnu.org/licenses/gpl.html
  *******************************************************************************/
 /**
- * 
+ *
  */
 package org.devgateway.eudevfin.financial.repository;
 
@@ -23,13 +23,13 @@ import org.springframework.data.jpa.repository.Query;
  *
  */
 public interface AreaRepository extends JpaRepository<Area, Long> {
-	
+
 	@Query(" select trn.parent from AreaTranslation trn where trn.locale=?1 AND lower(trn.name) like %?2% ")
 	List<Area> findByTranslationLocaleAndTranslationNameContaining(String locale, String searchString);
 
 	@Query(" select distinct trn.parent from AreaTranslation trn where lower(trn.name) like %?1% ")
 	Page<Area> findByTranslationNameContaining(String searchString,Pageable pageable);
-	
+
 	Area findByCode(String code);
 
     @Query(" select distinct rep from CustomFinancialTransaction ctx join ctx.recipient rep " +
@@ -39,4 +39,8 @@ public interface AreaRepository extends JpaRepository<Area, Long> {
     @Query(" select distinct rep from AreaTranslation trn, CustomFinancialTransaction ctx join ctx.recipient rep " +
             "where ctx.approved = true and trn.parent = rep.id AND trn.locale=?1 AND lower(trn.name) like %?2% ")
     Page<Area> findUsedAreaByTranslationsNameIgnoreCase(String locale, String term, Pageable page);
+
+    @Query(" select distinct rep from AreaTranslation trn, CustomFinancialTransaction ctx join ctx.recipient rep "
+            + "where ctx.approved = true and trn.parent = rep.id AND trn.locale=?1 ")
+    List<Area> findUsedAreaAsList(String locale);
 }

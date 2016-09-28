@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html wicket:id="html" xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+    <head>
+        <meta charset="utf-8"/>
+        <meta wicket:id="viewport"/>
+        <meta wicket:id="chrome-frame"/>
+
+        <title>
+            <!--<wicket:message key="page.title"/>-->
+        </title>
+    </head>
+    <body>
+        <div id="wrapper">
+            <div class="container">
+            </div>
+            <div id="content" class="container">
+                <p/>
+                <div class="row">
+                    <div align="center">
+                        <h2 class="transaction-title" wicket:id="pageTitle"/>
+                    </div>
+                </div>
+                <p/>
+                <wicket:child/>
+                <wicket:container wicket:id="footer-container"/>       
+            </div> 
+        </div>      
+    </body>
+</html>

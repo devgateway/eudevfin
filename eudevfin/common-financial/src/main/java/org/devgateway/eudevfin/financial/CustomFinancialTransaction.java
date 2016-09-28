@@ -48,13 +48,13 @@ public class CustomFinancialTransaction extends FinancialTransaction {
      */
 	@Index(name="customfinancialtransaction_formtype_idx")
     private String formType;
-	
+
 	@Index(name="customfinancialtransaction_draft_idx")
     private Boolean draft = true;
 
 	@Index(name="customfinancialtransaction_approved_idx")
     private Boolean approved = false;
-	
+
     private Boolean projectCoFinanced;
 
     @Columns(columns = {@Column(name = "future_debt_principal_curr"),
@@ -125,10 +125,10 @@ public class CustomFinancialTransaction extends FinancialTransaction {
     private Category rmnch;
     @ManyToOne
     private Category recipientPriority;
-    
+
     @ManyToOne
     private PersistedUserGroup persistedUserGroup;
-    
+
     @ManyToOne
     private Category LevelOfCertainty;
 

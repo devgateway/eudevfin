@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
+                            http://www.liquibase.org/xml/ns/dbchangelog-ext 
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="2" author="stcu" failOnError="true" runAlways="false">
+        <update catalogName="app"
+                schemaName="public"
+                tableName="organization">
+            <column name="donorcode" value='77' type="varchar(255)"/>
+            <where>donorcode = '72'</where>
+        </update>
+    </changeSet>
+    <changeSet id="3" author="alcr" failOnError="true" runAlways="false">
+        <update catalogName="app"
+                schemaName="public"
+                tableName="category">
+            <column name="coefficient" valueNumeric="100" type="numeric"/>
+            <where>category_type = 'Channel' and coefficient is null and parentcategory_id is not null</where>
+        </update>
+    </changeSet>
+</databaseChangeLog>

@@ -9,7 +9,7 @@
 	<include file="classpath:importMetadataDbChangeLog.xml" />
 
 	<changeSet id="2" author="mpostelnicu">
-	
+
 		<customChange
 			class="org.devgateway.eudevfin.auth.liquibase.PopulateAuthDbChange">
 		</customChange>
@@ -24,5 +24,13 @@
         <sql>INSERT INTO PERSISTEDAUTHORITY VALUES('ROLE_VIEWER')</sql>
     </changeSet>
 	
+    <changeSet id="4" author="stcu" failOnError="true" runAlways="false" runInTransaction="true">
+        <preConditions onFail="MARK_RAN" onError="CONTINUE">
+            <sqlCheck expectedResult="0">SELECT count(*) FROM PERSISTEDAUTHORITY WHERE AUTHORITY='ROLE_PROJECTS_MFA'</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT count(*) FROM PERSISTEDAUTHORITY WHERE AUTHORITY='ROLE_PROJECTS_NGO'</sqlCheck>
+        </preConditions>
+        <sql>INSERT INTO PERSISTEDAUTHORITY VALUES('ROLE_PROJECTS_MFA')</sql>
+        <sql>INSERT INTO PERSISTEDAUTHORITY VALUES('ROLE_PROJECTS_NGO')</sql>
+    </changeSet>
 
 </databaseChangeLog>

@@ -70,8 +70,14 @@ public class BasicElementTransformers {
 							Conditions.IS_NEWER_OR_SAME_REP_YEAR(this.getCtx(), this.getLatestYear())) ){
 
 				final String value	= this.getCtx().getCrsIdentificationNumber();
-				final Organization org = this.getCtx().getExtendingAgency();
-				final String orgRef = org.getDonorCode() + "-" + org.getAcronym();
+				final Organization org  = this.getCtx().getExtendingAgency();
+                                final String acronym    = org.getAcronym();
+                                String orgRef;
+                                if ("MAE".equals(acronym)) {
+                                    orgRef = "XM-DAC-" + org.getDonorCode();
+                                } else { 
+                                    orgRef = org.getDonorCode() + "-" + acronym;
+                                }
 				if ( value != null && !"".equals(value.trim()) ) {
 					this.getIatiActivity().setIatiIdentifier(orgRef + "-" + value);
 				}
@@ -334,11 +340,17 @@ public class BasicElementTransformers {
 		public void process() {
 			final Organization org = this.getCtx().getExtendingAgency();
 			if (org != null) {
-				final String ref = org.getDonorCode() + "-" + org.getAcronym();
+                            String acronym = org.getAcronym();
+                            String orgRef;
+                                if ("MAE".equals(acronym)) {
+                                    orgRef = "XM-DAC-" + org.getDonorCode();
+                                } else { 
+                                    orgRef = org.getDonorCode() + "-" + acronym;
+                                }
 				final ReportingOrg existingOrg = this.getIatiActivity().getReportingOrg();
 				if ( existingOrg == null || Conditions.SHOULD_OVERWRITE_TRANSACTION(this.getCtx()) ) {
 					final ReportingOrg newOrg = new ReportingOrg("10",
-							ref, org.getName());
+							orgRef, org.getName());
 					this.getIatiActivity().setReportingOrg(newOrg);
 				}
 			}
@@ -391,8 +403,14 @@ public class BasicElementTransformers {
 		public ParticipatingOrg getParticipatingOrg() {
 			final Organization org = this.getCtx().getExtendingAgency();
 			if ( org != null) {
-				final String ref = org.getDonorCode() + "-" + org.getAcronym();
-				return new ParticipatingOrg(this.getRole(),ref, org.getName() );
+                            String acronym = org.getAcronym();
+                            String orgRef;
+                            if ("MAE".equals(acronym)) {
+                                orgRef = "XM-DAC-" + org.getDonorCode();
+                            } else {
+                                orgRef = org.getDonorCode() + "-" + acronym;
+                            }
+                            return new ParticipatingOrg(this.getRole(), orgRef, org.getName() );
 			}
 			return null;
 		}

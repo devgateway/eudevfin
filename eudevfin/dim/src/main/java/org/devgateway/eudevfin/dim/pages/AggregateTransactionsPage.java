@@ -6,7 +6,7 @@
  * http://www.gnu.org/licenses/gpl.html
  *******************************************************************************/
 /**
- * 
+ *
  */
 package org.devgateway.eudevfin.dim.pages;
 
@@ -36,16 +36,16 @@ public class AggregateTransactionsPage extends HeaderFooter {
 
     @SpringBean
     protected CustomFinancialTransactionService customTxService;
-    
+
     @SpringBean
 	private CategoryProviderFactory categoryFactory;
-    
+
     @SpringBean
     private OrganizationChoiceProvider organizationProvider;
-    
+
     @SpringBean
     private AreaChoiceProvider areaProvider;
-    
+
 	public AggregateTransactionsPage() {
 		GroupingSearchListGenerator generalSearchListGenerator = new GroupingSearchListGenerator(customTxService);
 		this.add(new GroupingBoxPanel("search-box-panel", new GroupingTransactionTableListPanel<FinancialTransaction>(

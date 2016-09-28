@@ -50,7 +50,7 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
         implements FinancialTransactionTrnInterface, Serializable {
 
     private static final long serialVersionUID = 2191303184851850777L;
-    
+
     private BigDecimal amount;
     private BigDecimal interestRate;
     private BigDecimal secondInterestRate;
@@ -222,7 +222,7 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
     private Category biMultilateral;
 
 
-//	@Version	
+//	@Version
 //	public Long version = null;
 //	
 //	@ManyToOne(  optional= false )
@@ -249,7 +249,7 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
         return new FinancialTransactionTranslation();
     }
 
-	
+
 	/* (non-Javadoc)
      * @see java.lang.Object#toString()
 	 */
@@ -321,13 +321,13 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
                 "\n   genderEquality=" + genderEquality +
                 "\n   aidToEnvironment=" + aidToEnvironment +
                 "\n   pdgg=" + pdgg +
-                "\n   tradeDevelopment=" + tradeDevelopment +              
+                "\n   tradeDevelopment=" + tradeDevelopment +
                 "\n   extendingAgency=" + extendingAgency +
                 "\n   channel=" + channel +
                 '}';
     }
-    
-    
+
+
 
     public BigDecimal getAmount() {
         return amount;
@@ -359,8 +359,8 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
         this.set("channelInstitutionName", channelInstitutionName);
     }
 
-    
-    
+
+
     @Override
     public String getShortDescription() {
         return (String) this.get("shortDescription");
@@ -645,8 +645,8 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
 //    public void setRecipient(RecipientCategory recipient) {
 //        this.recipient = recipient;
 //    }
-    
-    
+
+
 
     public Area getRecipient() {
 		return recipient;
@@ -801,7 +801,7 @@ public class FinancialTransaction extends AbstractTranslateable<FinancialTransac
     public void setExtendingAgency(Organization extendingAgency) {
         this.extendingAgency = extendingAgency;
     }
-    
+
     public ChannelCategory getChannel() {
         return channel;
     }

@@ -6,7 +6,7 @@
  * http://www.gnu.org/licenses/gpl.html
  *******************************************************************************/
 /**
- * 
+ *
  */
 package org.devgateway.eudevfin.common.dao;
 
@@ -26,29 +26,29 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  */
 public abstract class AbstractDaoImpl<Entity,IDType extends Serializable,Repo extends JpaRepository<Entity,IDType>> {
-	
-	protected abstract Repo getRepo(); 
-	
+
+	protected abstract Repo getRepo();
+
 	public List<Entity> findAllAsList() {
-		ArrayList<Entity> ret	= new ArrayList<>(); 
+		ArrayList<Entity> ret	= new ArrayList<>();
 		Iterable<Entity> result	= getRepo().findAll();
 		for (Entity entity : result) {
 			ret.add(entity);
-			
+
 		}
 		return ret;
 	}
-	
+
 	/**
 	 * return a new {@link NullableWrapper} wrapping the <Entity>. Use this for
 	 * possible null replies.
-	 * 
+	 *
 	 * @param entity
 	 *            the <Entity> that has to be wrapped
 	 * @return the {@link NullableWrapper} wrapping the <Entity>
 	 */
 	protected NullableWrapper<Entity> newWrapper(Entity entity) {
-		return new NullableWrapper<Entity>(entity);		
+		return new NullableWrapper<Entity>(entity);
 	}
 
 
@@ -59,7 +59,7 @@ public abstract class AbstractDaoImpl<Entity,IDType extends Serializable,Repo ex
 //		return pagingHelper; 
 //		
 //	}
-	
+
 	/**
 	 * @see BaseEntityService#save(Object)
 	 * @param e
@@ -69,7 +69,7 @@ public abstract class AbstractDaoImpl<Entity,IDType extends Serializable,Repo ex
 		Entity r = getRepo().save(e);
 		return newWrapper(r);
 	}
-	
+
 	/**
 	 * @see BaseEntityService#findAll()
 	 * @return
@@ -77,15 +77,15 @@ public abstract class AbstractDaoImpl<Entity,IDType extends Serializable,Repo ex
 	public Iterable<Entity> findAll() {
 		return getRepo().findAll();
 	}
-	
+
 	public void delete(Entity e) {
 		getRepo().delete(e);
 	}
-	
+
 	public void delete(Iterable<Entity> iterable) {
 		getRepo().delete(iterable);
 	}
-	
+
 	/**
 	 * @see BaseEntityService#findOne(Long)
 	 * @param id
@@ -94,7 +94,7 @@ public abstract class AbstractDaoImpl<Entity,IDType extends Serializable,Repo ex
 	public  NullableWrapper<Entity> findOne(IDType id) {
 		return newWrapper(getRepo().findOne(id));
 	}
-	
+
 	/**
 	 * {@link Override} this to make smarter searches, this is just a dumb CrudRepository#findAll
 	 * @see BaseEntityService#findByGeneralSearchPageable(String, String, int, int, Sort)

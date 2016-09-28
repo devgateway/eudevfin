@@ -6,7 +6,7 @@
  * http://www.gnu.org/licenses/gpl.html
  *******************************************************************************/
 /**
- * 
+ *
  */
 package org.devgateway.eudevfin.financial.dao;
 
@@ -22,6 +22,7 @@ import javax.persistence.criteria.Root;
 
 import org.devgateway.eudevfin.common.dao.AbstractDaoImpl;
 import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
+import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.repository.FinancialTransactionRepository;
 import org.devgateway.eudevfin.financial.service.FinancialTransactionService;
@@ -48,27 +49,27 @@ public class FinancialTransactionDaoImpl extends AbstractDaoImpl<FinancialTransa
 
 	@Autowired
 	private FinancialTransactionRepository repo;
-	
+
 	@Override
 	@ServiceActivator(inputChannel="findAllAsListTransactionChannel")
 	public List<FinancialTransaction> findAllAsList() {
 		return super.findAllAsList();
 	}
-	
+
 	@Override
 	@ServiceActivator(inputChannel="saveTransactionChannel")
 	public NullableWrapper<FinancialTransaction> save(final FinancialTransaction tx) {
 		return super.save(tx);
-		
+
 	}
-	
+
 	@Override
 	@ServiceActivator(inputChannel="deleteTransactionChannel")
 	public void delete(FinancialTransaction e) {
 		// TODO Auto-generated method stub
 		super.delete(e);
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see org.devgateway.eudevfin.financial.dao.AbstractDaoImpl#findOne(java.lang.Long)
 	 */
@@ -81,14 +82,14 @@ public class FinancialTransactionDaoImpl extends AbstractDaoImpl<FinancialTransa
 	public List<FinancialTransaction> findBySourceOrganizationId(final Long orgId) {
 		return this.getRepo().findByExtendingAgencyId(orgId);
 	}
-	
+
 	@ServiceActivator(inputChannel="findTransactionBySectorCodePageableChannel")
-	public Page<FinancialTransaction> findBySectorCode(final String sectorCode, 
-			@Header("pageable") final Pageable pageable) {	
+	public Page<FinancialTransaction> findBySectorCode(final String sectorCode,
+			@Header("pageable") final Pageable pageable) {
 		return  this.getRepo().findBySectorCode(sectorCode, pageable);
-		
+
 	}
-	
+
 	@ServiceActivator(inputChannel="findTransactionByGeneralSearchPageableChannel")
 	public Page<FinancialTransaction> findByGeneralSearchPageable(final String searchString,
 			@Header("pageable") final Pageable pageable) {
@@ -96,8 +97,8 @@ public class FinancialTransactionDaoImpl extends AbstractDaoImpl<FinancialTransa
 		return  this.getRepo().findByTranslationsDescriptionContaining(searchString.toLowerCase(), pageable)  ;
 	}
 
-		
-	
+
+
 
 	/**
 	 * @see FinancialTransactionService#findByReportingYearAndTypeOfFlowCode(LocalDateTime,String)
@@ -108,8 +109,8 @@ public class FinancialTransactionDaoImpl extends AbstractDaoImpl<FinancialTransa
 	public List<FinancialTransaction> findByReportingYearAndTypeOfFlowCode(final LocalDateTime reportingYear, @Header("typeOfFlowCode") final String typeOfFlowCode) {
 		return this.getRepo().findByReportingYearAndTypeOfFlowCode(reportingYear,typeOfFlowCode);
 	}
-	
-	
+
+
 	@Override
 	protected
 	FinancialTransactionRepository getRepo() {
@@ -126,5 +127,5 @@ public class FinancialTransactionDaoImpl extends AbstractDaoImpl<FinancialTransa
 	public List<FinancialTransaction> findByCrsIdentificationNumber(String crsIdentificationNumber) {
 		return this.getRepo().findByCrsIdentificationNumber(crsIdentificationNumber);
 	}
-	
+
 }

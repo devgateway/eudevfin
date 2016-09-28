@@ -12,7 +12,7 @@ import java.io.Serializable;
 import org.devgateway.eudevfin.common.service.PagingHelper;
 
 public interface ListGeneratorInterface<T> extends Serializable {
-	
-	public PagingHelper<T> getResultsList(int pageNumber, int pageSize); 
+
+	public PagingHelper<T> getResultsList(int pageNumber, int pageSize);
 
 }

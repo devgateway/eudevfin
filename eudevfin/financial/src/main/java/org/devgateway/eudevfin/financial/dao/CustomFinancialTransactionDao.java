@@ -6,7 +6,7 @@
  * http://www.gnu.org/licenses/gpl.html
  *******************************************************************************/
 /**
- * 
+ *
  */
 package org.devgateway.eudevfin.financial.dao;
 
@@ -30,6 +30,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.List;
+import org.devgateway.eudevfin.common.spring.integration.NullableWrapper;
+import org.devgateway.eudevfin.financial.FinancialTransaction;
+import org.springframework.integration.annotation.Payload;
 
 /**
  * @author Alex,mihai
@@ -40,7 +43,7 @@ import java.util.List;
 public class CustomFinancialTransactionDao
 		extends
 		AbstractDaoImpl<CustomFinancialTransaction, Long, CustomFinancialTransactionRepository> {
-	
+
 	@Autowired
 	private CustomFinancialTransactionRepository repo;
 
@@ -68,7 +71,13 @@ public class CustomFinancialTransactionDao
 			@Header(value = "locale", required = false) final String locale, final Pageable pageable) {
 		return this.getRepo().performSearch(year, sector, recipient, searchString, formType, extendingAgency, pageable);
 	}
-	
+
+	@Override
+        @ServiceActivator(inputChannel = "findOneCustomFinancialTransactionChannel")
+        public NullableWrapper<CustomFinancialTransaction> findOne(final Long id) {
+            return super.findOne(id);
+        }
+
 /**
  * @see CustomFinancialTransactionService#findByDonorIdCrsIdActive(String, String, Boolean, String, Pageable)
  * @param crsIdSearch
@@ -81,13 +90,13 @@ public class CustomFinancialTransactionDao
 	public Page<CustomFinancialTransaction> findByDonorIdCrsIdActive(
 			@Header(value = "donorIdSearch", required = false) String donorIdSearch,
 			@Header(value = "crsIdSearch", required = false) String crsIdSearch,
-			@Header(value = "active", required = false) Boolean active, 
-		    @Header(value = "locale", required = false) String locale, 
+			@Header(value = "active", required = false) Boolean active,
+		    @Header(value = "locale", required = false) String locale,
 		    Pageable pageable) {
 		return this.getRepo().performSearchByDonorIdCrsIdActive(donorIdSearch,crsIdSearch,active,locale,pageable);
 	}
-	
-	
+
+
 	/* (non-Javadoc)
 	 * @see org.devgateway.eudevfin.common.dao.AbstractDaoImpl#getRepo()
 	 */
@@ -95,7 +104,7 @@ public class CustomFinancialTransactionDao
 	protected CustomFinancialTransactionRepository getRepo() {
 		return this.repo;
 	}
-	
+
 	/**
 	 * @see CustomFinancialTransactionService#findByDraftAndPersistedUserGroupPageable(Boolean, PersistedUserGroup, Pageable)
 	 * @param draft
@@ -109,7 +118,7 @@ public class CustomFinancialTransactionDao
 			@Header("pageable") final Pageable pageable) {
 		return this.getRepo().findByDraftAndPersistedUserGroupAndApprovedFalse(draft, persistedUserGroup, pageable);
 	}
-	
+
 	/**
 	 * @see CustomFinancialTransactionService#findByDraftPageable(Boolean, Pageable)
 	 * @param draft
@@ -121,7 +130,7 @@ public class CustomFinancialTransactionDao
 			@Header("pageable") final Pageable pageable) {
 		return this.getRepo().findByDraftAndApprovedFalse(draft, pageable);
 	}
-	
+
 	/**
 	 * @see CustomFinancialTransactionService#findByApprovedPageable(Boolean, Pageable)
 	 * @param draft
@@ -133,7 +142,7 @@ public class CustomFinancialTransactionDao
 			@Header("pageable") final Pageable pageable) {
 		return this.getRepo().findByApproved(draft, pageable);
 	}
-	
+
 	/**
 	 * @see CustomFinancialTransactionService#findByApprovedAndPersistedUserGroupPageable(Boolean, PersistedUserGroup, Pageable)
 	 * @param approved
@@ -147,7 +156,7 @@ public class CustomFinancialTransactionDao
 			@Header("pageable") final Pageable pageable) {
 		return this.getRepo().findByApprovedAndPersistedUserGroup(approved, persistedUserGroup, pageable);
 	}
-	
+
 	/**
 	 * @see CustomFinancialTransactionService#findByReportingYearAndDraftFalse(Integer)
 	 * @param year
@@ -157,10 +166,10 @@ public class CustomFinancialTransactionDao
 	public List<CustomFinancialTransaction> findByReportingYearAndDraftFalse(final Integer year) {
 		final LocalDateTime start	= new LocalDateTime(year, 1, 1, 0, 0);
         final LocalDateTime end = new LocalDateTime(year, 12, 31, 23, 59);
-		
+
 		return this.getRepo().findByReportingYearBetweenAndDraftFalse(start, end);
 	}
-	
+
 	/**
 	 * @see CustomFinancialTransactionService#findByReportingYearAndDraftFalseAndFormTypeNotIn(Integer)
 	 * @param year
@@ -174,7 +183,7 @@ public class CustomFinancialTransactionDao
 
 		return this.getRepo().findByReportingYearBetweenAndDraftFalseAndFormTypeNotIn(start, end, notFormType);
 	}
-	
+
 	/**
 	 * @see CustomFinancialTransactionService#findByReportingYearAndDraftFalseAndFormTypeIn(Integer)
 	 * @param year
@@ -188,7 +197,7 @@ public class CustomFinancialTransactionDao
 
 		return this.getRepo().findByReportingYearBetweenAndApprovedTrueAndFormTypeIn(start, end, notFormType);
 	}
-	
+
 	/**
 	 * @see CustomFinancialTransactionService#findByReportingYearAndDraftFalseAndFormTypeIn(Integer)
 	 * @param year
@@ -198,7 +207,7 @@ public class CustomFinancialTransactionDao
 	public List<CustomFinancialTransaction> findByApprovedTrueAndFormTypeIn(final Collection<String> notFormType) {
 		return this.getRepo().findByApprovedTrueAndFormTypeInOrderByCrsIdentificationNumberAscCreatedDateAsc(notFormType);
 	}
-	
+
 	@ServiceActivator(inputChannel="findDistinctReportingYearsInTransactionChannel")
 	public List<Integer> findDistinctReportingYears(){
 		final List<Integer> ret	= this.getRepo().findDistinctReportingYears();
@@ -211,7 +220,7 @@ public class CustomFinancialTransactionDao
 		return ret;
 	}
 
-	
+
     @ServiceActivator(inputChannel="findDistinctStartingYearsInTransactionChannel")
     public List<Integer> findDistinctStartingYears(){
         final List<Integer> ret	= this.getRepo().findDistinctStartingYears();
@@ -241,4 +250,18 @@ public class CustomFinancialTransactionDao
         final List<String> ret	= this.getRepo().findDistinctCRSId();
         return ret;
     }
+
+    @ServiceActivator(inputChannel = "findUsedOrgByGeographicFocusAndFinancingInstitutionChannel")
+    public List<Integer> findUsedOrgByGeographicFocusAndFinancingInstitution() {
+        return this.repo.findUsedOrgByGeographicFocusAndFinancingInstitution();
+    }
+
+    @ServiceActivator(inputChannel = "findTransactionsByProjectIDPageableChannel")
+    public Page<FinancialTransaction> findTransactionsByProjectIDPageable(
+            @Header(value = "pid", required = false) Long pid, 
+            Pageable pageable) {
+        return this.repo.findTransactionsByProjectID(pid, pageable);
+    }
+    
+    
 }

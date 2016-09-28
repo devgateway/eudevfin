@@ -34,7 +34,7 @@ public final class FinancialTransactionUtil {
 			currencyUnit = CurrencyUnit.ofCountry(countryIso);
 		return currencyUnit;
 	}
-	
+
 	public static CurrencyUnit getCurrencyForCountryName(String countryName) {
 		String iso2 = AuthUtils.countryNameIso2Map.get(countryName);
 		if(iso2==null) return null;

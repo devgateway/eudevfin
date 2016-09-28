@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2015 ENEA SERVICES ROMANIA.
+  ~ All rights reserved. This program and the accompanying materials
+  ~ are made available under the terms of the GNU Public License v3.0
+  ~ which accompanies this distribution, and is available at
+  ~ http://www.gnu.org/licenses/gpl.html
+  ~
+  ~ Contributors:
+  ~    Alexandra
+  -->
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="22currentDate.label">22. Current end date</entry>
+<entry key="22currentDate.placeholder"></entry>
+<entry key="22currentDate.help">Please select the current end date of the project.</entry>
+<entry key="22currentDate.help.detail">The date should be consistent with the project
+    terms of reference and/or the project document.
+</entry>
+
+<entry key="23extendDate.label">23. Extended end date</entry>
+<entry key="23extendDate.placeholder"></entry>
+<entry key="23extendDate.help">Please select the new planned end date, after project extention.</entry>
+<entry key="23extendDate.help.detail">
+    The end date will be automatically updated after each extension of the project
+    with the extended project end date.
+</entry>
+
+<entry key="24reason.label">24. Reason for extension</entry>
+<entry key="24reason.placeholder"></entry>
+<entry key="24reason.help">
+    Please mention here the reasons for which the project has been extended.
+</entry>
+<entry key="24reason.help.detail"></entry>
+
+<entry key="25upload.label">25. Upload documents</entry>
+<entry key="25upload.placeholder"></entry>
+<entry key="25upload.help">
+    Add any relevant documents related to the project funding ( e.g. grant agreement, letter of agreement).
+</entry> 
+</properties>

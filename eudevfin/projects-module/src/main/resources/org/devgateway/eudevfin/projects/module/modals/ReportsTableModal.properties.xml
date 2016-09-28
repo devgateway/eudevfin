@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ~ Copyright (c) 2015 ENEA SERVICES ROMANIA. 
+~ All rights reserved. This program and the accompanying materials 
+~ are made available under the terms of the GNU Public License v3.0 ~ which accompanies this distribution, and is available at 
+~ http://www.gnu.org/licenses/gpl.html -->
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="page.title">Edit report</entry>  
+     
+    <entry key="1reportType.label">Report type</entry>  
+    <entry key="1reportType.placeholder">Report type</entry>  
+    <entry key="1reportType.help">Please choose one of the following standard types
+        of reports. Please select "other" for non-standard reports (e.g. activity report).
+    </entry>
+    
+    <entry key="2reportTitle.label">Report title</entry>  
+    <entry key="2reportTitle.placeholder">Report title</entry>  
+    <entry key="2reportTitle.help">This field is optional. In case you have selected the option “other report” above, you can mention 
+        here what document you refer to.  </entry>
+    
+    <entry key="3reportingPeriodStart.label">Beginning of reporting period</entry> 
+     <entry key="3reportingPeriodStart.help">The beginning and end of reporting period show the period of time covered by the report. </entry>
+    <entry key="3reportingPeriodStart.help.detail">E.g., a quarterly report covers a three-month period which can be from 1 June 2016 to 30 September 2016.</entry>
+    <entry key="3reportingPeriodEnd.label">End of reporting period</entry> 
+    
+    <entry key="4reportDate.label">Reporting date</entry>
+    <entry key="4reportDate.help">Reporting date represents the date at which the 
+        reporting should be done. It is the date at which the financing institution 
+        should receive the report from the implementing organization. In case of 
+        reports that do not have a specific due date, please leave the tab blank.
+    </entry> 
+    
+    <entry key="5fileProvided.label">Document provided</entry>
+    <entry key="5fileProvided.help">Have the reports been received and uploaded.</entry>
+    
+    <entry key="6reportFiles.label">Upload file</entry>    
+    <entry key="6reportFiles.help">Please upload the report decuments and annexes.</entry>
+      
+    <entry key="report.type.annual">Annual report</entry>
+    <entry key="report.type.biAnnual">Bi-annual report</entry>
+    <entry key="report.type.quarterly">Quarterly report</entry>    
+    <entry key="report.type.preTranche">Pre-tranche report</entry>  
+    <entry key="report.type.finalReport">Final report</entry>
+    <entry key="report.type.auditReport">Audit report</entry>
+    <entry key="report.type.evaluationReport">Evaluation report</entry>     
+    <entry key="report.type.other">Other report</entry>     
+       
+    <entry key="button.submit">Add</entry>    
+    <entry key="button.cancel">Cancel</entry> 
+</properties>

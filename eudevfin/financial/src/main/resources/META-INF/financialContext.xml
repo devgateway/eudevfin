@@ -51,7 +51,7 @@
                 value="#{systemProperties['eudevfin.derby.port']!=null?systemProperties['eudevfin.derby.port']:'1527'}"/>
 	</bean>
 
-	<!-- Create Printwriter object to use as log output reader for derby network 
+	<!-- Create Printwriter object to use as log output reader for derby network
 		server -->
 	<bean id="pw" class="java.io.PrintWriter" lazy-init="true">
 		<constructor-arg>
@@ -59,11 +59,11 @@
 		</constructor-arg>
 		<constructor-arg value="true" />
 	</bean>
-	
 
 
-	<!--  https://jira.springsource.org/browse/SPR-11196 MethodInvokingBean this was added for us :). -->	
-	<bean id="startDerby" 
+
+	<!--  https://jira.springsource.org/browse/SPR-11196 MethodInvokingBean this was added for us :). -->
+	<bean id="startDerby"
           class="org.springframework.beans.factory.config.MethodInvokingBean" lazy-init="true"
           autowire-candidate="false">
 		<property name="targetObject" ref="derbyServer" />
@@ -92,26 +92,26 @@
 		<property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver" />
 		<property name="url" value="jdbc:derby:memory:#{commonProperties['eudevfin.database.name']};create=true" />
 		<property name="username" value="app" />
-		<property name="password" value="app" />	
+		<property name="password" value="app" />
 	</bean>
 
-	<!-- this the real datasource, a proxy, it is the only one that can get autowired 
+	<!-- this the real datasource, a proxy, it is the only one that can get autowired
 		and it behaves like its target(s) which are never autowired candidates -->
 	<bean id="euDevFinDataSource" class="org.springframework.aop.framework.ProxyFactoryBean">
 		<property name="target"
 			ref="#{'network'.equals(systemProperties['eudevfin.derby.mode'])?'euDevFinDataSourceNetwork':'euDevFinDataSourceEmbedded'}" />
 	</bean>
 	  
-	<!-- initialize a mock jndi builder we use internally to access this datasource 
+	<!-- initialize a mock jndi builder we use internally to access this datasource
 		from third parties, like CDA -->
 	<bean id="simpleJndiBuilder"
 		class="org.springframework.mock.jndi.SimpleNamingContextBuilder"
 		factory-method="emptyActivatedContextBuilder" destroy-method="deactivate" />
 
-	<!-- invoke a void return factory method of the binder with the parameters 
-		jndi url plus the existing datasource reference. This will bind the datasource 
-		to the JNDI tree for later lookups This is used to lookup the datasource 
-		through JNDI by the CDA module. Alternatively and probably much slower, we 
+	<!-- invoke a void return factory method of the binder with the parameters
+		jndi url plus the existing datasource reference. This will bind the datasource
+		to the JNDI tree for later lookups This is used to lookup the datasource
+		through JNDI by the CDA module. Alternatively and probably much slower, we
 		could use an XMLA (uses SOAP) channel through spring integration -->
 	<bean
 		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
@@ -164,8 +164,8 @@
 				<prop key="hibernate.generate_statistics">false</prop>
                 <prop key="hibernate.show_sql">false</prop>
             </props>
-		</property>		
-	</bean> 
+		</property>
+	</bean>
 	
 	<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" id="jpaVendorAdapter">
 		<property name="showSql" value="false" />
@@ -179,7 +179,7 @@
 	</bean>
 	
 
-	
+
 	<!-- The list of channels that are used throughout the financial module -->
 	<int:channel id="findAllAsListTransactionChannel"/>
 	<int:channel id="saveTransactionChannel" />
@@ -191,10 +191,10 @@
 	<int:channel id="findTransactionBySearchFormPageableChannel"/>
 	<int:channel id="findTransactionByDonorIdCrsIdActiveChannel"/>
 	<int:channel id="findTransactionByReportingYearAndTypeOfFlowNonFlow"/>
-	
+
 	
 	<int:channel id="findCustomTransactionByDraftAndPersistedUserGroupPageableChannel"/>
-	<int:channel id="findCustomTransactionByApprovedAndPersistedUserGroupPageableChannel"/>	
+	<int:channel id="findCustomTransactionByApprovedAndPersistedUserGroupPageableChannel"/>
 	<int:channel id="findCustomTransactionByDraftPageableChannel"/>
 	<int:channel id="findCustomTransactionByApprovedPageableChannel"/>
 	
@@ -205,7 +205,7 @@
             id="findCustomTransactionByApprovedTrueAndFormTypeInlOrderByCrsIdentificationNumberAscCreatedDateAscChannel"/>
 	
 	<int:channel id="findDistinctReportingYearsInTransactionChannel"/>
-	<int:channel id="findAllDistinctReportingYearsInTransactionChannel"/>	
+	<int:channel id="findAllDistinctReportingYearsInTransactionChannel"/>
     <int:channel id="findDistinctStartingYearsInTransactionChannel"/>
     <int:channel id="findDistinctCompletitionYearsInTransactionChannel"/>
     <int:channel id="findDistinctReportingGeopraphyInTransactionChannel"/>
@@ -213,12 +213,15 @@
     <int:channel id="findDistinctCRSIdChannel"/>
 	<int:channel id="findOrganizationByIdChannel" />
 	<int:channel id="saveOrganizationChannel" />
-    <int:channel id="deleteOrganizationChannel"/>  
+    <int:channel id="deleteOrganizationChannel"/>
     <int:channel id="findFirstOrganizationByDonorCodeChannel"/>
 	<int:channel id="findOrganizationByDacFalse"/>
     <int:channel id="findAllAsListOrganizationChannel"/>
     <int:channel id="findOrganizationByGeneralSearchPageableChannel"/>
     <int:channel id="findUsedOrganizationPaginatedOrganizationChannel"/>
+    <int:channel id="findUsedOrgByGeographicFocusChannel"/>
+    <int:channel id="findUsedOrgByGeographicFocusAndFinancingInstitutionChannel"/>
+    <int:channel id="findOneCustomFinancialTransactionChannel"/>
 
     <int:channel id="findOrganizationByCodeChannel"/>
     <int:channel id="findOrganizationByCodeAndDonorCodeChannel"/>
@@ -251,8 +254,8 @@
 	<int:channel id="findChannelCategoryByGeneralSearchAndTagsCodePaginatedChannel"/>
 	<int:channel id="findOneChannelCategory"/>
 	
-	
-	
+
+
 	<int:channel id="saveAreaChannel"/>
 	<int:channel id="findAllAsListAreaChannel"/>
 	<int:channel id="findAreaByIdChannel"/>
@@ -260,13 +263,15 @@
 	<int:channel id="findByGeneralSearchPageableAreaChannel"/>
     <int:channel id="findUsedAreaPaginatedAreaChannel"/>
     <int:channel id="findAreaByCodeChannel"/>
+    <int:channel id="findUsedAreaAsListChannel"/>
+    <int:channel id="findTransactionsByProjectIDPageableChannel"/>
 	
 	<int:channel id="findBySearchPageableCurrencyChannel"/>
 	<int:channel id="findByCodeCurrencyChannel"/>
-	
-	
-	
-	
+
+
+
+
 
     <!-- 	Router that sends the requests to the appropriate channels where they will usually be handled by ServiceActivators.
             The name of the request channels is taken from the 'requestName' header parameter

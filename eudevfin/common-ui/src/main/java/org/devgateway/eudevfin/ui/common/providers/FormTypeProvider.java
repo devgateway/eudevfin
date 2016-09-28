@@ -6,7 +6,7 @@
  * http://www.gnu.org/licenses/gpl.html
  *******************************************************************************/
 /**
- * 
+ *
  */
 package org.devgateway.eudevfin.ui.common.providers;
 
@@ -28,11 +28,11 @@ public class FormTypeProvider extends TextChoiceProvider<String> {
 
 	private static final long serialVersionUID = 4554272931187087047L;
 	private Component component;
-	
+
 	public FormTypeProvider(Component component) {
 		this.component=component;
 	}
-	
+
 
 	@Override
     protected String getDisplayText(String choice) {
@@ -46,9 +46,9 @@ public class FormTypeProvider extends TextChoiceProvider<String> {
 
     private String getTranslation(String key) {
     	return new StringResourceModel(key,  component, null).getObject();
-    
+
     }
-    
+
     @Override
     public void query(String term, int page, Response<String> response) {
         response.add(SB.BILATERAL_ODA_ADVANCE_QUESTIONNAIRE);
@@ -60,7 +60,7 @@ public class FormTypeProvider extends TextChoiceProvider<String> {
         response.add(SB.NON_ODA_OOF_EXPORT);
         response.add(SB.NON_ODA_PRIVATE_GRANTS);
         response.add(SB.NON_ODA_PRIVATE_MARKET);
-        response.add(SB.NON_ODA_OTHER_FLOWS);            
+        response.add(SB.NON_ODA_OTHER_FLOWS);
     }
 
     @Override

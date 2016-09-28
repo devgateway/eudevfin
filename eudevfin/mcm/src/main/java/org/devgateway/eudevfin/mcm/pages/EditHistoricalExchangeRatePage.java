@@ -98,7 +98,7 @@ public class EditHistoricalExchangeRatePage extends HeaderFooter {
 
 		ChoiceProvider<CurrencyUnit> currencyUnitProvider = this.currencyUnitProviderFactory
 				.getCurrencyUnitProviderInstance(CurrencyUnitProviderFactory.ALL_SORTED_CURRENCIES_PROVIDER);
-		
+
 		ChoiceProvider<CurrencyUnit> usdEurProvider = this.currencyUnitProviderFactory
 				.getCurrencyUnitProviderInstance(CurrencyUnitProviderFactory.USD_EUR_PROVIDER);
 

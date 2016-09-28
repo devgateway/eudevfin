@@ -19,7 +19,7 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
 
 	<int:gateway id="organizationService"
-		default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}" 
+		default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}"
 		service-interface="org.devgateway.eudevfin.metadata.common.service.OrganizationService">
 		<int:method name="save" request-channel="getChannel">
 			<int:header name="requestName" value="saveOrganizationChannel"/>
@@ -51,10 +51,13 @@
         <int:method name="findUsedOrganizationPaginated" request-channel="getChannel">
             <int:header name="requestName" value="findUsedOrganizationPaginatedOrganizationChannel"/>
         </int:method>
+        <int:method name="findUsedOrgByGeographicFocus" request-channel="getChannel">
+            <int:header name="requestName" value="findUsedOrgByGeographicFocusChannel"/>
+        </int:method>
     </int:gateway>
 
     <int:gateway id="categoryService"
-		default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}" 
+		default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}"
 		service-interface="org.devgateway.eudevfin.metadata.common.service.CategoryService">
 		<int:method name="save" request-channel="getChannel">
 			<int:header name="requestName" value="saveCategoryChannel"/>
@@ -70,9 +73,9 @@
 		</int:method>
 		<int:method name="findByCodeAndClass" request-channel="getChannel">
 			<int:header name="requestName" value="findCategoryByCodeAndClassChannel"/>
-		</int:method>		
+		</int:method>
 		<int:method name="findByGeneralSearchAndTagsCode" request-channel="getChannel">
-			<int:header name="requestName" value="findCategoryByGeneralSearchAndTagsCodeChannel"/>		
+			<int:header name="requestName" value="findCategoryByGeneralSearchAndTagsCodeChannel"/>
 		</int:method>
 		<int:method name="findByGeneralSearchAndTagsCodePaginated" request-channel="getChannel">
 			<int:header name="requestName" value="findCategoryByGeneralSearchAndTagsCodePaginatedChannel"/>
@@ -96,7 +99,7 @@
 	</int:gateway>
 	
 	<int:gateway id="channelCategoryService"
-		default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}" 
+		default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}"
 		service-interface="org.devgateway.eudevfin.metadata.common.service.ChannelCategoryService">
 		<int:method name="save" request-channel="getChannel">
 			<int:header name="requestName" value="saveCategoryChannel"/>
@@ -117,7 +120,7 @@
 		
 	</int:gateway>
 	<int:gateway id="areaService"
-		default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}" 
+		default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}"
 		service-interface="org.devgateway.eudevfin.metadata.common.service.AreaService">
 		<int:method name="save" request-channel="getChannel">
 			<int:header name="requestName" value="saveAreaChannel"/>
@@ -138,6 +141,9 @@
         </int:method>
         <int:method name="findAreaByCode" request-channel="getChannel">
             <int:header name="requestName" value="findAreaByCodeChannel" />
+        </int:method>
+        <int:method name="findUsedAreaAsList" request-channel="getChannel">
+            <int:header name="requestName" value="findUsedAreaAsListChannel" />
         </int:method>
 	</int:gateway>
 	

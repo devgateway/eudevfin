@@ -27,7 +27,7 @@
     <entry key="navbar.logout">Log Out</entry>
     <entry key="navbar.admin">Admin</entry>
     <entry key="navbar.help">Help</entry>
-	<entry key="navbar.feedback">Feedback</entry>    
+	<entry key="navbar.feedback">Feedback</entry>
     <entry key="navbar.dashboard">ODA at a Glance</entry>
     <entry key="navbar.account">Account</entry>    
     <entry key="navbar.customreports">Custom Reports</entry>
@@ -43,7 +43,7 @@
     
     <entry key="navbar.admin.users">Users</entry>
     <entry key="navbar.admin.groups">Groups</entry>
-   	<entry key="navbar.admin.orgs">Organizations</entry> 
+   	<entry key="navbar.admin.orgs">Organizations</entry>
     <entry key="navbar.admin.nonflow">CRS++ Non-Flow Data</entry>
 	<entry key="navbar.admin.maintenance">Maintenance of the system</entry>
 	<entry key="navbar.admin.rates">Exchange Rates</entry>
@@ -68,8 +68,8 @@
     <entry key="nonOda.nonExport">Non Export Non-ODA</entry>
     <entry key="nonOda.export">Export Non-ODA</entry>
     <entry key="nonOda.privateGrants">Private Grants Non-ODA</entry>
-	<entry key="nonOda.privateMarket">Private Market Non-ODA</entry>   
-	<entry key="nonOda.otherFlows">Other Flows Non-ODA</entry>   
+	<entry key="nonOda.privateMarket">Private Market Non-ODA</entry>
+	<entry key="nonOda.otherFlows">Other Flows Non-ODA</entry>
     <entry key="nonOda.export">Private Market Non-ODA</entry>
     <entry key="nonOda.export">Export Credit Non-ODA</entry>
     

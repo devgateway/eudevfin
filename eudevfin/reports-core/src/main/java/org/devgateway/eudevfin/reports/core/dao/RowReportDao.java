@@ -32,5 +32,5 @@ public class RowReportDao
 	public List<RowReport> findByReportName(String reportName) {
 		return repo.findByReportName(reportName);
 	}
-		
+
 }

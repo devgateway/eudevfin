@@ -31,29 +31,29 @@ import org.hibernate.envers.Audited;
     discriminatorType= DiscriminatorType.STRING)
 @DiscriminatorValue("Area")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Area extends AbstractTranslateable<AreaTranslation> 
+public class Area extends AbstractTranslateable<AreaTranslation>
 					implements AreaTrnInterface {
-	
+
 	private static final long serialVersionUID = 4477382814048134799L;
 
 	private String code;
-	
+
 	private String iso;
-	
+
 	@ManyToOne
 	private Category geographyCategory;
-	
+
 	/**
 	 * This is a category since it needs both a code and a translateable description of it
 	 */
 	@ManyToOne
 	private Category incomeGroup;
-	
+
 	@Override
 	protected AreaTranslation newTranslationInstance() {
 		return new AreaTranslation();
 	}
-	
+
 	@Override
 	public String getName() {
 		return (String) this.get("name");
@@ -63,7 +63,7 @@ public class Area extends AbstractTranslateable<AreaTranslation>
 	public void setName(final String name) {
 		this.set("name",name);
 	}
-	
+
 
 	public String getCode() {
 		return this.code;
@@ -94,7 +94,7 @@ public class Area extends AbstractTranslateable<AreaTranslation>
 		this.geographyCategory = geographyCategory;
 	}
 
-	
+
 
 	@Override
 	public String toString() {

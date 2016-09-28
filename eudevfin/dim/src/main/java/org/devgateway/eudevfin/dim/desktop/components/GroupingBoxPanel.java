@@ -7,7 +7,7 @@
  *******************************************************************************/
 
 /**
- * 
+ *
  */
 package org.devgateway.eudevfin.dim.desktop.components;
 
@@ -52,13 +52,13 @@ public class GroupingBoxPanel extends Panel {
 
     @SpringBean
     private CategoryProviderFactory categoryFactory;
-	
+
 	/**
 	 * @param id
-	 * @param generalSearchListGenerator 
-	 * @param categoryFactory 
+	 * @param generalSearchListGenerator
+	 * @param categoryFactory
 	 * @param areaProvider
-	 * @param organizationProvider 
+	 * @param organizationProvider
 	 */
 	public GroupingBoxPanel(String id, TableListPanel<?> resultsPanel, GroupingSearchListGenerator generalSearchListGenerator,
 			CategoryProviderFactory categoryFactory, OrganizationChoiceProvider organizationProvider, AreaChoiceProvider areaProvider) {
@@ -71,15 +71,15 @@ public class GroupingBoxPanel extends Panel {
 		this.populate(null);
 		this.setOutputMarkupId(true);
 	}
-	
-	
+
+
 	protected void populate(String searchString) {
 		this.resultsPanel.setVisible(false);
 		this.searchWrapperPanel.add(this.resultsPanel);
 		this.add(this.searchWrapperPanel);
 
 	 	superUser = AuthUtils.currentUserHasRole(AuthConstants.Roles.ROLE_SUPERVISOR);
-	 	
+
 		final GroupingBoxPanelForm boxPanelForm=new GroupingBoxPanelForm();
 		CompoundPropertyModel<GroupingBoxPanelForm> boxPanelFormModel=new CompoundPropertyModel<GroupingBoxPanelForm>(boxPanelForm);
 		Form<?> form = new Form<>("searchForm",boxPanelFormModel);
@@ -90,18 +90,18 @@ public class GroupingBoxPanel extends Panel {
 
         crsIdSearch.setSize(InputBehavior.Size.Medium);
         crsIdSearch.removeSpanFromControlGroup();
-		form.add(crsIdSearch);		
-			 	
+		form.add(crsIdSearch);
+
 		final DropDownField<String> donorIdSearch	= new DropDownField<>("donorIdSearch", new RWComponentPropertyModel<String>("donorIdSearch"),
                 new PredefinedStringProvider(txService.findDistinctDonorProjectNumber()), "desktop.search.donorid");
         donorIdSearch.setSize(InputBehavior.Size.Medium);
         donorIdSearch.removeSpanFromControlGroup();
 		form.add(donorIdSearch);
-		
+
 		final CheckBoxField active = new CheckBoxField("active", new RWComponentPropertyModel<Boolean>("active"),"desktop.search.active");
 		active.removeSpanFromControlGroup();
-		form.add(active); 
-		
+		form.add(active);
+
 		BootstrapSubmitButton submitButton = new BootstrapSubmitButton("submit",new StringResourceModel("desktop.searchbutton", this,null)) {
 
 			private static final long serialVersionUID = -1342816632002116152L;
@@ -119,10 +119,10 @@ public class GroupingBoxPanel extends Panel {
 		            	GroupingBoxPanel.this.resultsPanel.setVisible(false);
 		            target.add(GroupingBoxPanel.this.searchWrapperPanel);
 				}
-				
-			};		
+
+			};
 		form.add(submitButton);
-		
+
 		BootstrapCancelButton resetButton = new BootstrapCancelButton("reset", new StringResourceModel("desktop.resetbutton", this,null)) {
 
 			private static final long serialVersionUID = -7554180087300408868L;
@@ -130,18 +130,18 @@ public class GroupingBoxPanel extends Panel {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 					crsIdSearch.getField().setDefaultModelObject(null);
-					donorIdSearch.getField().setDefaultModelObject(null);			
-					active.getField().setDefaultModelObject(null);		
+					donorIdSearch.getField().setDefaultModelObject(null);
+					active.getField().setDefaultModelObject(null);
 		            target.add(crsIdSearch.getField());
 		            target.add(donorIdSearch.getField());
 		            target.add(active.getField());
 		            GroupingBoxPanel.this.resultsPanel.setVisible(false);
 	            	target.add(GroupingBoxPanel.this.searchWrapperPanel);
 				}
-				
-			};		
+
+			};
 		form.add(resetButton);
-        
+
 		this.add(form);
 	}
 

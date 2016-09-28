@@ -41,16 +41,16 @@ public class FinancialAmountTextInputField extends NumberTextInputField<BigDecim
 		super(id, model);
 		initialize();
 	}
-	
+
 	protected void initialize() {
 		this.typeBigDecimal();
 		this.getField().add(new FinancialAmountBigDecimalValidator());
 	}
-	
+
 	@Override
 	public FinancialAmountTextInputField required() {
 		return (FinancialAmountTextInputField) super.required();
 	}
-	
+
 
 }

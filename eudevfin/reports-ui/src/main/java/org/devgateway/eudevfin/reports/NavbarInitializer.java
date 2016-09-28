@@ -47,17 +47,17 @@ public final class NavbarInitializer {
 //        return reportsPageNavbarButton;
 //	}
 //	
-	
+
 	public static class SaikuRedirectPage extends RedirectPage {
 		private static final long serialVersionUID = -750983217518258464L;
-		
+
 		public SaikuRedirectPage() {
 			super(WebApplication.get().getServletContext().getContextPath()+"/saikuui");
 		}
 
 	}
 
-	
+
 	@WicketNavbarComponentInitializer(position = Navbar.ComponentPosition.LEFT,order=3)
 	public static Component newReportsNavbarMenu(Page page) {
 		NavbarDropDownButton navbarDropDownButton = new RepairedNavbarDropDownButton(
@@ -70,11 +70,11 @@ public final class NavbarInitializer {
 			@Override
 			protected List<AbstractLink> newSubMenuButtons(String buttonMarkupId) {
 				List<AbstractLink> list = new ArrayList<>();
-				
+
 				list.add(new MenuHeader(new StringResourceModel("navbar.reports.header", this, null, null)));
 				list.add(new MenuDivider());
-				
-				
+
+
 				BootstrapBookmarkablePageLink<ReportsPage> odaAtGlance = new MenuBookmarkablePageLink<ReportsPage>(
 						ReportsPage.class, null, new StringResourceModel(
 								"navbar.dashboard", this, null, null))
@@ -82,7 +82,7 @@ public final class NavbarInitializer {
 				MetaDataRoleAuthorizationStrategy.authorize(odaAtGlance,
 						Component.RENDER, AuthConstants.Roles.ROLE_USER);
 				list.add(odaAtGlance);
-				
+
 
 				DropDownSubMenu exportReports = new DropDownSubMenu(new StringResourceModel("navbar.reports.export", this, null, null)) {
 					@Override
@@ -160,11 +160,11 @@ public final class NavbarInitializer {
 				MenuBookmarkablePageLink<ReportsPage> reportBuilderLink = new MenuBookmarkablePageLink<ReportsPage>(
 						SaikuRedirectPage.class, null, new StringResourceModel(
 								"navbar.reportsbuilder", this, null, null)) {
-						            @Override 
-						            protected void onComponentTag(ComponentTag tag) { 
-						                super.onComponentTag(tag); 
-						                tag.put("target", "_blank"); 
-						            } 
+						            @Override
+						            protected void onComponentTag(ComponentTag tag) {
+						                super.onComponentTag(tag);
+						                tag.put("target", "_blank");
+						            }
 						        };
 			    reportBuilderLink.setIconType(IconType.play).setEnabled(true);
 				MetaDataRoleAuthorizationStrategy.authorize(reportBuilderLink,
@@ -172,12 +172,12 @@ public final class NavbarInitializer {
 			    list.add(reportBuilderLink);
 
 
-				
-/*				
+
+/*
 				list.add(new MenuBookmarkablePageLink<ReportsExport>(
 						ReportsExport.class, null, new StringResourceModel(
 								"navbar.reports.export", this, null, null))
-						.setIconType(IconType.thlist));			*/	
+						.setIconType(IconType.thlist));			*/
 				return list;
 			}
 

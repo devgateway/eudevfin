@@ -50,25 +50,25 @@ public class Category extends AbstractTranslateable<CategoryTranslation>
 					implements CategoryTrnInterface, Serializable{
 
 	private static final long serialVersionUID 	= -6173469233250737236L;
-	
-	public static String PREFIX_SEPARATOR		= "##"; 
+
+	public static String PREFIX_SEPARATOR		= "##";
 
 	/**
 	 * The code should be unique within a certain type of category
 	 */
 	@Index(name="Category_code_idx")
 	private String code;
-	
+
 	@ManyToOne
 	private Category parentCategory;
-	
+
 	@OneToMany(mappedBy="parentCategory", cascade=CascadeType.ALL)
 	private Set<Category> children;
-	
+
 	@ManyToMany
 	@JoinTable(name="CATEGORY_TAGS")
 	private Set<Category> tags;
-	
+
 
 	@Override
 	protected CategoryTranslation newTranslationInstance() {
@@ -88,9 +88,9 @@ public class Category extends AbstractTranslateable<CategoryTranslation>
 		else
 			return code;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @return true if this category is on the first level
 	 * @throws CategoryOperationException if this is called on a ROOT category which should only be used for grouping
 	 * other categories. This could point to a data problem.
@@ -119,7 +119,7 @@ public class Category extends AbstractTranslateable<CategoryTranslation>
 		return getDisplayableCode()+" - "+getName();
 	}
 
-	
+
 	public List<Category> getFilteredChildren() {
 		if ( filteredChildren == null )
 			filteredChildren	= new ArrayList<Category>();
@@ -155,7 +155,7 @@ public class Category extends AbstractTranslateable<CategoryTranslation>
 		return tags;
 	}
 
-	
+
 
 	public void setTags(Set<Category> tags) {
 		this.tags = tags;
@@ -174,7 +174,7 @@ public class Category extends AbstractTranslateable<CategoryTranslation>
 		}
 		this.parentCategory.children.add(this);
 	}
-	
-	
+
+
 
 }

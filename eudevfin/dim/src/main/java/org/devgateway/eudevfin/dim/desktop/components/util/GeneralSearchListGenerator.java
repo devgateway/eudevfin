@@ -6,7 +6,7 @@
  * http://www.gnu.org/licenses/gpl.html
  *******************************************************************************/
 /**
- * 
+ *
  */
 package org.devgateway.eudevfin.dim.desktop.components.util;
 
@@ -26,11 +26,11 @@ public class GeneralSearchListGenerator implements ListGeneratorInterface<Financ
 	private static final long serialVersionUID = 2851842899904434912L;
 	private SearchBoxPanelForm searchBoxPanelForm;
 	private CustomFinancialTransactionService txService;
-	
-	
+
+
 	public GeneralSearchListGenerator(
 			CustomFinancialTransactionService txService) {
-		super();		
+		super();
 		this.txService = txService;
 	}
 
@@ -47,16 +47,16 @@ public class GeneralSearchListGenerator implements ListGeneratorInterface<Financ
 			return PagingHelper.createPagingHelperFromPage(this.txService.findBySearchFormPageable(
 					searchBoxPanelForm.getYear(),
 					searchBoxPanelForm.getSector(),
-					searchBoxPanelForm.getRecipient(),					
-					searchBoxPanelForm.getSearchString(),					
+					searchBoxPanelForm.getRecipient(),
+					searchBoxPanelForm.getSearchString(),
 					searchBoxPanelForm.getFormType(),
 					searchBoxPanelForm.getExtendingAgency(),
 					null, new PageRequest(pageNumber-1, pageSize)));
 		else
 			return null;
 	}
-	
-	
+
+
 
 
 	/**
@@ -77,6 +77,6 @@ public class GeneralSearchListGenerator implements ListGeneratorInterface<Financ
 	}
 
 
-	
+
 
 }

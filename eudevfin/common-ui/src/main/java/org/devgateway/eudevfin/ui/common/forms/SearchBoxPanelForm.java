@@ -14,8 +14,8 @@ import org.devgateway.eudevfin.metadata.common.domain.Category;
 import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.joda.time.LocalDateTime;
 
-public class SearchBoxPanelForm implements Serializable { 
-		
+public class SearchBoxPanelForm implements Serializable {
+
 		private static final long serialVersionUID = 7823208228069387955L;
 		private LocalDateTime year;
 		private String searchString;
@@ -23,8 +23,8 @@ public class SearchBoxPanelForm implements Serializable {
 	    private Organization extendingAgency;
 	    private Area recipient;
 	    private String formType;
-		
-		
+
+
 		public void reset() {
 			year=null;
 			searchString=null;
@@ -33,7 +33,7 @@ public class SearchBoxPanelForm implements Serializable {
 			formType=null;
 			recipient=null;
 		}
-			
+
 		/**
 		 * @return the searchString
 		 */

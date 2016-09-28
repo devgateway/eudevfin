@@ -7,7 +7,7 @@
  *******************************************************************************/
 
 /**
- * 
+ *
  */
 package org.devgateway.eudevfin.dim.desktop.components;
 
@@ -42,6 +42,7 @@ import org.devgateway.eudevfin.ui.common.providers.YearProvider;
 import org.joda.time.LocalDateTime;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
+import java.util.List;
 
 /**
  * @author Alex,mihai
@@ -53,25 +54,25 @@ public class SearchBoxPanel extends Panel {
 	private TableListPanel<?> resultsPanel;
 	private GeneralSearchListGenerator listGenerator;
 	private WebMarkupContainer searchWrapperPanel;
-		
+
 	private CategoryProviderFactory categoryFactory;
-	
+
     private OrganizationChoiceProvider organizationProvider;
-    
+
 	private AreaChoiceProvider areaProvider;
-	
+
 	@SpringBean
 	private CustomFinancialTransactionService txService;
 	private boolean superUser;
 	private DropDownField<Organization> extendingAgency;
-	
-	
+
+
 	/**
 	 * @param id
-	 * @param generalSearchListGenerator 
-	 * @param categoryFactory 
+	 * @param generalSearchListGenerator
+	 * @param categoryFactory
 	 * @param areaProvider
-	 * @param organizationProvider 
+	 * @param organizationProvider
 	 */
 	public SearchBoxPanel(String id, TableListPanel<?> resultsPanel, GeneralSearchListGenerator generalSearchListGenerator,
 			CategoryProviderFactory categoryFactory, OrganizationChoiceProvider organizationProvider, AreaChoiceProvider areaProvider) {
@@ -86,68 +87,68 @@ public class SearchBoxPanel extends Panel {
 		this.populate(null);
 		this.setOutputMarkupId(true);
 	}
-	
-	
+
+
 	protected void populate(String searchString) {
 		this.resultsPanel.setVisible(false);
 		this.searchWrapperPanel.add(this.resultsPanel);
 		this.add(this.searchWrapperPanel);
 
 	 	superUser=AuthUtils.currentUserHasRole(AuthConstants.Roles.ROLE_SUPERVISOR);
-	 	
+
 		final SearchBoxPanelForm boxPanelForm=new SearchBoxPanelForm();
 		CompoundPropertyModel<SearchBoxPanelForm> boxPanelFormModel=new CompoundPropertyModel<SearchBoxPanelForm>(boxPanelForm);
 		Form<?> form = new Form<>("searchForm",boxPanelFormModel);
 		form.setOutputMarkupId(false);
-		
-		  
+
+
 		final DropDownField<Integer> year = new DropDownField<Integer>("year", new YearToLocalDateTimeModel(new RWComponentPropertyModel<LocalDateTime>(
 				"year")), new YearProvider(this.txService.findAllDistinctReportingYears()));
 		year.setSize(InputBehavior.Size.Medium);
    		year.removeSpanFromControlGroup();
    		year.hideLabel();
 		form.add(year);
-		
+
 		final DropDownField<Category> sectorPurposeCode = new DropDownField<>("sector",
 				new RWComponentPropertyModel<Category>("sector"), categoryFactory.get(CategoryConstants.ALL_SECTOR_TAG));
 		//sectorPurposeCode.setSize(InputBehavior.Size.Medium);
 		sectorPurposeCode.hideLabel();
 		sectorPurposeCode.removeSpanFromControlGroup();
 		form.add(sectorPurposeCode);
-		
+
 		final TextInputField<String> searchInputField	= new TextInputField<String>("searchString", new RWComponentPropertyModel<String>(
 				"searchString"), "desktop.search");
         searchInputField.typeString();
         searchInputField.setSize(InputBehavior.Size.Medium);
         searchInputField.hideLabel();
         searchInputField.removeSpanFromControlGroup();
-		form.add(searchInputField);		
-			 	
+		form.add(searchInputField);
+
         extendingAgency = new DropDownField<>("extendingAgency",
                 new RWComponentPropertyModel<Organization>("extendingAgency"), organizationProvider);
         //extendingAgency.setSize(InputBehavior.Size.Medium);
         extendingAgency.hideLabel();
         extendingAgency.removeSpanFromControlGroup();
-    	
-        
-        form.add(extendingAgency);              
-    	
+
+
+        form.add(extendingAgency);
+
         final DropDownField<String> formType = new DropDownField<>("formType",
                 new RWComponentPropertyModel<String>("formType"), new FormTypeProvider(this));
         formType.setSize(InputBehavior.Size.Medium);
         formType.hideLabel();
         formType.removeSpanFromControlGroup();
         form.add(formType);
-        
-        
+
+
 		final DropDownField<Area> recipient = new DropDownField<>("recipient", new RWComponentPropertyModel<Area>(
 				"recipient"), areaProvider);
 		recipient.setSize(InputBehavior.Size.Medium);
 		recipient.hideLabel();
 		recipient.removeSpanFromControlGroup();
         form.add(recipient);
-        
-		
+
+
 		BootstrapSubmitButton submitButton = new BootstrapSubmitButton("submit",new StringResourceModel("desktop.searchbutton", this,null)) {
 
 			private static final long serialVersionUID = -1342816632002116152L;
@@ -167,10 +168,10 @@ public class SearchBoxPanel extends Panel {
 		            	SearchBoxPanel.this.resultsPanel.setVisible(false);
 		            target.add(SearchBoxPanel.this.searchWrapperPanel);
 				}
-				
-			};		
+
+			};
 		form.add(submitButton);
-		
+
 		BootstrapCancelButton resetButton = new BootstrapCancelButton("reset", new StringResourceModel("desktop.resetbutton", this,null)) {
 
 			private static final long serialVersionUID = -7554180087300408868L;
@@ -192,13 +193,13 @@ public class SearchBoxPanel extends Panel {
 	            	SearchBoxPanel.this.resultsPanel.setVisible(false);
 	            	target.add(SearchBoxPanel.this.searchWrapperPanel);
 				}
-				
-			};		
+
+			};
 		form.add(resetButton);
-        
+
 		this.add(form);
 	}
-	
+
 	@Override
 	protected void onConfigure() {
 		super.onConfigure();
@@ -207,5 +208,5 @@ public class SearchBoxPanel extends Panel {
     		extendingAgency.getField().setDefaultModelObject(AuthUtils.getOrganizationForCurrentUser());
     	}
 	}
-	
+
 }

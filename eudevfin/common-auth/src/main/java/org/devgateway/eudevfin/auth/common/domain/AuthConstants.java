@@ -8,10 +8,12 @@
 package org.devgateway.eudevfin.auth.common.domain;
 
 public final class AuthConstants {
-	public final class Roles { 
+	public final class Roles {
 		public static final String ROLE_USER="ROLE_USER";
 		public static final String ROLE_SUPERVISOR="ROLE_SUPERVISOR";
 		public static final String ROLE_TEAMLEAD="ROLE_TEAMLEAD";
 		public static final String ROLE_VIEWER="ROLE_VIEWER";
+		public static final String ROLE_PROJECTS_MFA = "ROLE_PROJECTS_MFA";
+        public static final String ROLE_PROJECTS_NGO = "ROLE_PROJECTS_NGO";
 	}
 }
