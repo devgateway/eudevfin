@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-~ Copyright (c) 2014 Development Gateway.
-~ All rights reserved. This program and the accompanying materials
-~ are made available under the terms of the GNU Public License v3.0
-~ which accompanies this distribution, and is available at
-~ http://www.gnu.org/licenses/gpl.html
--->
+  ~ Copyright (c) 2014 Development Gateway.
+  ~ All rights reserved. This program and the accompanying materials
+  ~ are made available under the terms of the GNU Public License v3.0
+  ~ which accompanies this distribution, and is available at
+  ~ http://www.gnu.org/licenses/gpl.html
+  -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.devgateway.eudevfin</groupId>
     <artifactId>eudevfin</artifactId>
-   <version>1.4.6-SNAPSHOT</version>
+   <version>1.5.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>EU-DEVFIN Parent Package</name>
     <url>http://www.springframework.org</url>
@@ -238,6 +238,7 @@
             <artifactId>spring-integration-jmx</artifactId>
             <version>${spring.integration.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aspects</artifactId>
@@ -269,6 +270,7 @@
             <artifactId>usertype.core</artifactId>
             <version>3.0.0.GA</version>
         </dependency>
+
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjtools</artifactId>
@@ -353,12 +355,12 @@
             <version>4.0</version>
         </dependency>
         <!--
-               <dependency>
-                   <groupId>org.jboss.resteasy</groupId>
-                   <artifactId>jaxrs-api</artifactId>
-                   <version>3.0.5.Final</version>
-               </dependency>
-        -->
+                <dependency>
+                    <groupId>org.jboss.resteasy</groupId>
+                    <artifactId>jaxrs-api</artifactId>
+                    <version>3.0.5.Final</version>
+                </dependency>
+         -->
         <dependency>
             <groupId>xerces</groupId>
             <artifactId>xercesImpl</artifactId>

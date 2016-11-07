@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (c) 2013 Development Gateway.
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the GNU Public License v3.0
+  which accompanies this distribution, and is available at
+  http://www.gnu.org/licenses/gpl.html
+  
+Contributors:
+mpostelnicu-->
+     
+<beans default-lazy-init="true"
+       xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-3.0.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+    
+    <int:channel id="getChannel" />
+     
+    <int:gateway id="projectService"
+                 default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}"
+                 service-interface="org.devgateway.eudevfin.projects.service.ProjectService">
+        <int:method name="findByName" request-channel="getChannel">
+            <int:header name="requestName" value="findByNameChannel"/>
+        </int:method>
+        <int:method name="findByType" request-channel="getChannel">
+            <int:header name="requestName" value="findByTypeChannel"/>
+        </int:method>
+        <int:method name="findByOrganization" request-channel="getChannel">
+            <int:header name="requestName" value="findByOrganizationChannel"/>
+        </int:method>
+        <int:method name="findByArea" request-channel="getChannel">
+            <int:header name="requestName" value="findByAreaChannel"/>
+        </int:method>  
+        <int:method name="findOne" request-channel="getChannel">
+            <int:header name="requestName" value="findOneProjectChannel" />
+        </int:method>
+        <int:method name="save" request-channel="getChannel">
+            <int:header name="requestName" value="saveProjectChannel" />
+        </int:method> 
+        <int:method name="delete" request-channel="getChannel">
+            <int:header name="requestName" value="deleteProjectChannel"/>
+        </int:method>
+    </int:gateway>
+    
+    <int:gateway id="projectResultService"
+                 default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}"
+                 service-interface="org.devgateway.eudevfin.projects.service.ProjectResultService">
+        <int:method name="save" request-channel="getChannel">
+            <int:header name="requestName" value="saveProjectResultChannel" />
+        </int:method> 
+        <int:method name="findOne" request-channel="getChannel">
+            <int:header name="requestName" value="findOneProjectResultChannel" />
+        </int:method>
+        <int:method name="delete" request-channel="getChannel">
+            <int:header name="requestName" value="deleteProjectResultChannel" />
+        </int:method>
+        <int:method name="findAllByProjectIDPageable" request-channel="getChannel">
+            <int:header name="requestName" value="findAllByProjectIDPageableChannel" />            
+        </int:method>
+    </int:gateway>
+    
+    <int:gateway id="projectReportService"
+                 default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}"
+                 service-interface="org.devgateway.eudevfin.projects.service.ProjectReportService">
+        <int:method name="save" request-channel="getChannel">
+            <int:header name="requestName" value="saveProjectReportChannel" />
+        </int:method> 
+        <int:method name="findOne" request-channel="getChannel">
+            <int:header name="requestName" value="deleteProjectReportChannel" />
+        </int:method>
+        <int:method name="delete" request-channel="getChannel">
+            <int:header name="requestName" value="deleteProjectReportChannel" />
+        </int:method> 
+        <int:method name="findReportsByProjectIDPageable" request-channel="getChannel">
+            <int:header name="requestName" value="findReportsByProjectIDPageableChannel" />            
+        </int:method>
+    </int:gateway>
+    
+    <int:gateway id="customProjectService"
+                 default-reply-timeout="#{commonProperties['si.defaultReplyTimeout']}"
+                 service-interface="org.devgateway.eudevfin.projects.service.CustomProjectService">
+        <int:method name="findBySearchFormPageable" request-channel="getChannel">
+            <int:header name="requestName" value="findProjectBySearchFormPageableChannel"/>
+        </int:method>
+        <int:method name="findAllProjectsPageable" request-channel="getChannel">
+            <int:header name="requestName" value="findAllProjectsPageableChannel"/>
+        </int:method>
+        <int:method name="findAllByReportDate" request-channel="getChannel">
+            <int:header name="requestName" value="findAllByReportDateChannel"/>
+        </int:method>
+    </int:gateway>
+
+</beans>

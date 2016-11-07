@@ -25,7 +25,7 @@ import org.apache.wicket.model.IModel;
 public class CurrencyUpdateBehavior extends UpdateEventBehavior<CurrencyChangedEventPayload> {
     private static Logger logger = Logger.getLogger(CurrencyUpdateBehavior.class);
 
-     public CurrencyUpdateBehavior() {
+    public CurrencyUpdateBehavior() {
         super(CurrencyChangedEventPayload.class);
     }
 
@@ -41,4 +41,6 @@ public class CurrencyUpdateBehavior extends UpdateEventBehavior<CurrencyChangedE
         IModel<Object> model = (IModel<Object>) component.getDefaultModel();
         model.setObject(model.getObject());
     }
+
+
 }

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2015 ENEA SERVICES ROMANIA.
+  ~ All rights reserved. This program and the accompanying materials
+  ~ are made available under the terms of the GNU Public License v3.0
+  ~ which accompanies this distribution, and is available at
+  ~ http://www.gnu.org/licenses/gpl.html
+  ~
+  ~ Contributors:
+  ~    Alexandra
+  -->
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+<entry key="22monitoring.label">26. Mijloace de monitorizare</entry>
+<entry key="22monitoring.placeholder">(max 150 cuvinte)</entry>
+<entry key="22monitoring.help">Menționați ce mijloace folosiți pentru monitorizarea proiectului 
+    (de exemplu, comunicare regulată cu organizația implementatoare prin e-mail-uri săptămânale)
+</entry>
+
+<entry key="23visibility.label">27. Vizibilitate</entry>
+<entry key="23visibility.placeholder">(max 500 cuvinte)</entry>
+<entry key="23visibility.help">Adăugați link-uri către comunicate de presă, website-uri,
+    știri și alte articole și publicații care conțin informații relevante despre proiect. 
+</entry>
+
+<entry key="24visibilityDocumentation.label">28. Încărcați documente de vizibilitate</entry>
+<entry key="24visibilityDocumentation.placeholder"></entry>
+<entry key="24visibilityDocumentation.help">Acestea pot fi publicații, rapoarte, broșuri, etc.</entry>
+</properties>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ~ Copyright (c) 2015 ENEA SERVICES ROMANIA. 
+~ All rights reserved. This program and the accompanying materials 
+~ are made available under the terms of the GNU Public License v3.0 ~ which accompanies this distribution, and is available at 
+~ http://www.gnu.org/licenses/gpl.html -->
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="page.title">Edit result</entry>  
+     
+    <entry key="1plannedResult.label">Planned result</entry>  
+    <entry key="1plannedResult.placeholder">(max 100 words)</entry>
+    
+    <entry key="status.label">Status</entry>
+    <entry key="status.placeholder">Status</entry>
+    <entry key="status.help">
+        Please choose one of the following options.
+    </entry>
+    <entry key="status.help.detail">
+        Achieved = the result has been fully achieved; in progress = progress has 
+        been made towards the achievement of the result, but the result has not 
+        been achieved yet; not started = no activity has been yet started for the
+        achievement of the result; not achieved = the result has not been achieved 
+        by the end of the project.
+    </entry>
+    
+    <entry key="3description.label">Description of results</entry>
+    <entry key="3description.placeholder">(max 400 words)</entry>
+    <entry key="3description.help">
+        Description of activities that led to the achievement of the planned results.
+    </entry>
+    
+    <entry key="status.achieved">Achieved</entry>
+    <entry key="status.progress">In Progress</entry>
+    <entry key="status.not.started">Not Started</entry>
+    <entry key="status.not.achieved">Not Achieved</entry>
+       
+    <entry key="button.submit">Submit</entry>    
+    <entry key="button.cancel">Cancel</entry> 
+</properties>

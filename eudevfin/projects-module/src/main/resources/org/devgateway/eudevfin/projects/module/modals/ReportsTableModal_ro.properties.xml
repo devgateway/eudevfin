@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ~ Copyright (c) 2015 ENEA SERVICES ROMANIA. 
+~ All rights reserved. This program and the accompanying materials 
+~ are made available under the terms of the GNU Public License v3.0 ~ which accompanies this distribution, and is available at 
+~ http://www.gnu.org/licenses/gpl.html -->
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="page.title">Editează raport</entry>  
+     
+    <entry key="1reportType.label">Tipul raportului</entry>  
+    <entry key="1reportType.placeholder">Tipul raportului</entry>  
+    <entry key="1reportType.help">Alegeți unul din următoarele tipuri standard de raport.
+        Selectați ”altul” pentru rapoarte nestandard (de exemplu, raport de activitate). 
+    </entry>
+    
+    <entry key="2reportTitle.label">Titlul raportului</entry>  
+    <entry key="2reportTitle.placeholder">Titlul raportului</entry>  
+    <entry key="2reportTitle.help">Acest câmp este opțional. În cazul în care ați selectat mai sus alt tip de raport, puteți să 
+        menționați aici despre ce document este vorba.</entry>
+    
+    <entry key="3reportingPeriodStart.label">Începerea perioadei de raportare</entry> 
+    <entry key="3reportingPeriodStart.help">Începerea și sfârșitul perioadei de raportare arată perioada de timp pe care se face raportarea.</entry>
+    <entry key="3reportingPeriodStart.help.detail">De exemplu, raportul trimestrial acoperă o perioadă de trei luni care poate fi 1 iunie 2016 - 30 septembrie 2016.</entry>
+    <entry key="3reportingPeriodEnd.label">Sfârșitul perioadei de raportare</entry> 
+    
+    <entry key="4reportDate.label">Data raportării</entry>
+    <entry key="4reportDate.help">Data raportării reprezintă data la care 
+        trebuie să se facă raportarea. Este data la care instituția finanțatoare 
+        trebuie să primească raportul de la organizația implementatoare. În cazul 
+        în care rapoartele nu au o dată specifică de finalizare, nu completați acest câmp. 
+    </entry> 
+    
+    <entry key="5fileProvided.label">Documente primite și încărcate</entry>
+    <entry key="5fileProvided.help">Ați primit și încărcat rapoartele pe platformă?</entry>
+    
+    <entry key="6reportFiles.label">Încarcă fișier</entry>    
+    <entry key="6reportFiles.help">Încărcați documentele raportării și anexele.</entry>
+      
+    <entry key="report.type.annual">Raport anual</entry>
+    <entry key="report.type.biAnnual">Raport semestrial</entry>
+    <entry key="report.type.quarterly">Raport trimestrial</entry>    
+    <entry key="report.type.preTranche">Raport înainte de livrarea unei tranșe noi</entry>  
+    <entry key="report.type.finalReport">Raport final</entry>
+    <entry key="report.type.auditReport">Raport de audit</entry>
+    <entry key="report.type.evaluationReport">Raport de evaluare</entry>     
+    <entry key="report.type.other">Altul</entry>     
+       
+    <entry key="button.submit">Salvează</entry>    
+    <entry key="button.cancel">Renunță</entry> 
+</properties>

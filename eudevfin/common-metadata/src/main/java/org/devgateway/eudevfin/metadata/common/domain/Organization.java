@@ -1,11 +1,10 @@
-/**
- * *****************************************************************************
- * Copyright (c) 2014 Development Gateway. All rights reserved. This program and
- * the accompanying materials are made available under the terms of the GNU
- * Public License v3.0 which accompanies this distribution, and is available at
+/*******************************************************************************
+ * Copyright (c) 2014 Development Gateway.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v3.0
+ * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/gpl.html
- ******************************************************************************
- */
+ *******************************************************************************/
 package org.devgateway.eudevfin.metadata.common.domain;
 
 import javax.persistence.Entity;
@@ -19,114 +18,117 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Index;
 import org.hibernate.envers.Audited;
 
-@Entity
-@Audited
+@Entity @Audited
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Organization extends AbstractTranslateable<OrganizationTranslation>
-        implements OrganizationTrnInterface {
+							implements OrganizationTrnInterface {
 
-    private static final long serialVersionUID = -7886444652559589256L;
+	private static final long serialVersionUID = -7886444652559589256L;
 
-    private String code;
+	private String code;
 
-    @Index(name = "organization_acronym_idx")
-    private String acronym;
+	@Index(name="organization_acronym_idx")
+	private String acronym;
 
-    private Boolean dac;
+	private Boolean dac;
 
-    @ManyToOne
-    private Area area;
+	@ManyToOne
+	private Area area;
 
-    @ManyToOne
-    private Category organizationType;
+	@ManyToOne
+	private Category organizationType;
 
-    /**
-     * This is the code of the parent Donor (group/country)
-     */
-    private String donorCode;
+	/**
+	 * This is the code of the parent Donor (group/country)
+	 */
+	private String donorCode;
 
-    @Override
-    public String getName() {
-        return (String) this.get("name");
-    }
+	@Override
+	public String getName() {
+		return (String) this.get("name");
+	}
 
-    @Override
-    public void setName(String name) {
-        this.set("name", name);
-    }
+	@Override
+	public void setName(String name) {
+		this.set("name", name);
+	}
 
-    @Override
-    public String getDonorName() {
-        return (String) get("donorName");
-    }
+	@Override
+	public String getDonorName() {
+		return (String) get("donorName");
+	}
 
-    @Override
-    public void setDonorName(String donorName) {
-        this.set("donorName", donorName);
+	@Override
+	public void setDonorName(String donorName) {
+		this.set("donorName", donorName);
 
-    }
+	}
 
-    @Override
-    public String toString() {
-        return String.format("%d - %s", this.id, this.getName());
-    }
 
-    @Override
-    protected OrganizationTranslation newTranslationInstance() {
-        return new OrganizationTranslation();
-    }
+	@Override
+	public String toString() {
+		return String.format("%d - %s",  this.id, this.getName());
+	}
 
-    public String getCode() {
-        return code;
-    }
+	@Override
+	protected OrganizationTranslation newTranslationInstance() {
+		return new OrganizationTranslation();
+	}
 
-    public void setCode(String code) {
-        this.code = code;
-    }
+	public String getCode() {
+		return code;
+	}
 
-    public Category getOrganizationType() {
-        return organizationType;
-    }
+	public void setCode(String code) {
+		this.code = code;
+	}
 
-    public void setOrganizationType(Category organizationType) {
-        this.organizationType = organizationType;
-    }
 
-    public Area getArea() {
-        return area;
-    }
+	public Category getOrganizationType() {
+		return organizationType;
+	}
 
-    public void setArea(Area area) {
-        this.area = area;
-    }
+	public void setOrganizationType(Category organizationType) {
+		this.organizationType = organizationType;
+	}
 
-    public String getDonorCode() {
-        return donorCode;
-    }
+	public Area getArea() {
+		return area;
+	}
 
-    public void setDonorCode(String donorCode) {
-        this.donorCode = donorCode;
-    }
+	public void setArea(Area area) {
+		this.area = area;
+	}
 
-    public String getAcronym() {
-        return acronym;
-    }
+	public String getDonorCode() {
+		return donorCode;
+	}
 
-    public void setAcronym(String acronym) {
-        this.acronym = acronym;
-    }
+	public void setDonorCode(String donorCode) {
+		this.donorCode = donorCode;
+	}
 
-    /**
-     * @return the dac
-     */
-    public Boolean getDac() {
-        return dac;
-    }
+	public String getAcronym() {
+		return acronym;
+	}
 
-    /**
-     * @param dac the dac to set
-     */
-    public void setDac(Boolean dac) {
-        this.dac = dac;
-    }
+	public void setAcronym(String acronym) {
+		this.acronym = acronym;
+	}
+
+	/**
+	 * @return the dac
+	 */
+	public Boolean getDac() {
+		return dac;
+	}
+
+	/**
+	 * @param dac the dac to set
+	 */
+	public void setDac(Boolean dac) {
+		this.dac = dac;
+	}
+
+
 }

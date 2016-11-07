@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2015 ENEA SERVICES ROMANIA.
+  ~ All rights reserved. This program and the accompanying materials
+  ~ are made available under the terms of the GNU Public License v3.0
+  ~ which accompanies this distribution, and is available at
+  ~ http://www.gnu.org/licenses/gpl.html
+  ~
+  ~ Contributors:
+  ~    Alexandra
+  -->
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>    
+    <entry key="button.addReport">Add Report</entry>   
+    <entry key="reportsDescription">This section should contain all the project reports, 
+        including evaluation and audint reports. Please enter all the expected reports at 
+        the beginning of the project, together with the date at which you should receive 
+        the report. E-mails will be automatically sent to the implementing organization 
+        and the financing institution contact persons to notify them about the upcoming 
+        reporting date. The e-mails will be sent 10 days prior to the date mentioned here.
+    </entry>
+</properties>

@@ -1,11 +1,11 @@
-/**
- * *****************************************************************************
- * Copyright (c) 2014 Development Gateway. All rights reserved. This program and
- * the accompanying materials are made available under the terms of the GNU
- * Public License v3.0 which accompanies this distribution, and is available at
+/*******************************************************************************
+ * Copyright (c) 2014 Development Gateway.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v3.0
+ * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/gpl.html
- ******************************************************************************
- */
+ *******************************************************************************/
+
 /**
  *
  */
@@ -41,107 +41,108 @@ import org.devgateway.eudevfin.ui.common.providers.PredefinedStringProvider;
  */
 public class GroupingBoxPanel extends Panel {
 
-    private static final long serialVersionUID = 6025430438643716484L;
-    private TableListPanel<?> resultsPanel;
-    private GroupingSearchListGenerator listGenerator;
-    private WebMarkupContainer searchWrapperPanel;
+	private static final long serialVersionUID = 6025430438643716484L;
+	private TableListPanel<?> resultsPanel;
+	private GroupingSearchListGenerator listGenerator;
+	private WebMarkupContainer searchWrapperPanel;
 
-    @SpringBean
-    private CustomFinancialTransactionService txService;
-    private boolean superUser;
+	@SpringBean
+	private CustomFinancialTransactionService txService;
+	private boolean superUser;
 
     @SpringBean
     private CategoryProviderFactory categoryFactory;
 
-    /**
-     * @param id
-     * @param generalSearchListGenerator
-     * @param categoryFactory
-     * @param areaProvider
-     * @param organizationProvider
-     */
-    public GroupingBoxPanel(String id, TableListPanel<?> resultsPanel, GroupingSearchListGenerator generalSearchListGenerator,
-            CategoryProviderFactory categoryFactory, OrganizationChoiceProvider organizationProvider, AreaChoiceProvider areaProvider) {
+	/**
+	 * @param id
+	 * @param generalSearchListGenerator
+	 * @param categoryFactory
+	 * @param areaProvider
+	 * @param organizationProvider
+	 */
+	public GroupingBoxPanel(String id, TableListPanel<?> resultsPanel, GroupingSearchListGenerator generalSearchListGenerator,
+			CategoryProviderFactory categoryFactory, OrganizationChoiceProvider organizationProvider, AreaChoiceProvider areaProvider) {
         super(id);
-        this.resultsPanel = resultsPanel;
-        this.listGenerator = generalSearchListGenerator;
-        this.searchWrapperPanel = new WebMarkupContainer("search-results-panel-wrapper");
-        this.searchWrapperPanel.setOutputMarkupId(true);
+        this.resultsPanel		= resultsPanel;
+		this.listGenerator		= generalSearchListGenerator;
+		this.searchWrapperPanel	= new WebMarkupContainer("search-results-panel-wrapper") ;
+		this.searchWrapperPanel.setOutputMarkupId(true);
 
-        this.populate(null);
-        this.setOutputMarkupId(true);
-    }
+		this.populate(null);
+		this.setOutputMarkupId(true);
+	}
 
-    protected void populate(String searchString) {
-        this.resultsPanel.setVisible(false);
-        this.searchWrapperPanel.add(this.resultsPanel);
-        this.add(this.searchWrapperPanel);
 
-        superUser = AuthUtils.currentUserHasRole(AuthConstants.Roles.ROLE_SUPERVISOR);
+	protected void populate(String searchString) {
+		this.resultsPanel.setVisible(false);
+		this.searchWrapperPanel.add(this.resultsPanel);
+		this.add(this.searchWrapperPanel);
 
-        final GroupingBoxPanelForm boxPanelForm = new GroupingBoxPanelForm();
-        CompoundPropertyModel<GroupingBoxPanelForm> boxPanelFormModel = new CompoundPropertyModel<GroupingBoxPanelForm>(boxPanelForm);
-        Form<?> form = new Form<>("searchForm", boxPanelFormModel);
-        form.setOutputMarkupId(false);
+	 	superUser = AuthUtils.currentUserHasRole(AuthConstants.Roles.ROLE_SUPERVISOR);
 
-        final DropDownField<String> crsIdSearch = new DropDownField<>("crsIdSearch", new RWComponentPropertyModel<String>("crsIdSearch"),
+		final GroupingBoxPanelForm boxPanelForm=new GroupingBoxPanelForm();
+		CompoundPropertyModel<GroupingBoxPanelForm> boxPanelFormModel=new CompoundPropertyModel<GroupingBoxPanelForm>(boxPanelForm);
+		Form<?> form = new Form<>("searchForm",boxPanelFormModel);
+		form.setOutputMarkupId(false);
+
+		final DropDownField<String> crsIdSearch = new DropDownField<>("crsIdSearch", new RWComponentPropertyModel<String>("crsIdSearch"),
                 new PredefinedStringProvider(txService.findDistinctCRSId()), "desktop.search.crsid");
 
         crsIdSearch.setSize(InputBehavior.Size.Medium);
         crsIdSearch.removeSpanFromControlGroup();
-        form.add(crsIdSearch);
+		form.add(crsIdSearch);
 
-        final DropDownField<String> donorIdSearch = new DropDownField<>("donorIdSearch", new RWComponentPropertyModel<String>("donorIdSearch"),
+		final DropDownField<String> donorIdSearch	= new DropDownField<>("donorIdSearch", new RWComponentPropertyModel<String>("donorIdSearch"),
                 new PredefinedStringProvider(txService.findDistinctDonorProjectNumber()), "desktop.search.donorid");
         donorIdSearch.setSize(InputBehavior.Size.Medium);
         donorIdSearch.removeSpanFromControlGroup();
-        form.add(donorIdSearch);
+		form.add(donorIdSearch);
 
-        final CheckBoxField active = new CheckBoxField("active", new RWComponentPropertyModel<Boolean>("active"), "desktop.search.active");
-        active.removeSpanFromControlGroup();
-        form.add(active);
+		final CheckBoxField active = new CheckBoxField("active", new RWComponentPropertyModel<Boolean>("active"),"desktop.search.active");
+		active.removeSpanFromControlGroup();
+		form.add(active);
 
-        BootstrapSubmitButton submitButton = new BootstrapSubmitButton("submit", new StringResourceModel("desktop.searchbutton", this, null)) {
+		BootstrapSubmitButton submitButton = new BootstrapSubmitButton("submit",new StringResourceModel("desktop.searchbutton", this,null)) {
 
-            private static final long serialVersionUID = -1342816632002116152L;
+			private static final long serialVersionUID = -1342816632002116152L;
 
-            @Override
-            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                // Access the updated model object:
-                if ((boxPanelForm.getCrsIdSearch() != null && boxPanelForm.getCrsIdSearch().length() > 1)
-                        || (boxPanelForm.getDonorIdSearch() != null && boxPanelForm.getDonorIdSearch().length() > 1)) {
-                    GroupingBoxPanel.this.listGenerator.setSearchBoxPanelForm(boxPanelForm);
-                    GroupingBoxPanel.this.resultsPanel.generateListOfItems(1);
-                    GroupingBoxPanel.this.resultsPanel.setVisible(true);
-                } else {
-                    GroupingBoxPanel.this.resultsPanel.setVisible(false);
-                }
-                target.add(GroupingBoxPanel.this.searchWrapperPanel);
-            }
+			@Override
+			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+			// Access the updated model object:
+				if ((boxPanelForm.getCrsIdSearch()!= null && boxPanelForm.getCrsIdSearch().length() > 1) ||
+						(boxPanelForm.getDonorIdSearch()!= null && boxPanelForm.getDonorIdSearch().length() > 1)) {
+		            	GroupingBoxPanel.this.listGenerator.setSearchBoxPanelForm(boxPanelForm);
+		            	GroupingBoxPanel.this.resultsPanel.generateListOfItems(1);
+		            	GroupingBoxPanel.this.resultsPanel.setVisible(true);
+		            }
+		            else
+		            	GroupingBoxPanel.this.resultsPanel.setVisible(false);
+		            target.add(GroupingBoxPanel.this.searchWrapperPanel);
+				}
 
-        };
-        form.add(submitButton);
+			};
+		form.add(submitButton);
 
-        BootstrapCancelButton resetButton = new BootstrapCancelButton("reset", new StringResourceModel("desktop.resetbutton", this, null)) {
+		BootstrapCancelButton resetButton = new BootstrapCancelButton("reset", new StringResourceModel("desktop.resetbutton", this,null)) {
 
-            private static final long serialVersionUID = -7554180087300408868L;
+			private static final long serialVersionUID = -7554180087300408868L;
 
-            @Override
-            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                crsIdSearch.getField().setDefaultModelObject(null);
-                donorIdSearch.getField().setDefaultModelObject(null);
-                active.getField().setDefaultModelObject(null);
-                target.add(crsIdSearch.getField());
-                target.add(donorIdSearch.getField());
-                target.add(active.getField());
-                GroupingBoxPanel.this.resultsPanel.setVisible(false);
-                target.add(GroupingBoxPanel.this.searchWrapperPanel);
-            }
+			@Override
+			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+					crsIdSearch.getField().setDefaultModelObject(null);
+					donorIdSearch.getField().setDefaultModelObject(null);
+					active.getField().setDefaultModelObject(null);
+		            target.add(crsIdSearch.getField());
+		            target.add(donorIdSearch.getField());
+		            target.add(active.getField());
+		            GroupingBoxPanel.this.resultsPanel.setVisible(false);
+	            	target.add(GroupingBoxPanel.this.searchWrapperPanel);
+				}
 
-        };
-        form.add(resetButton);
+			};
+		form.add(resetButton);
 
-        this.add(form);
-    }
+		this.add(form);
+	}
 
 }
