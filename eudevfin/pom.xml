@@ -11,7 +11,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.devgateway.eudevfin</groupId>
     <artifactId>eudevfin</artifactId>
-   <version>1.5.1-SNAPSHOT</version>
+   <version>1.5.1</version>
     <packaging>pom</packaging>
     <name>EU-DEVFIN Parent Package</name>
     <url>http://www.springframework.org</url>
@@ -537,7 +537,7 @@
         <module>common-auth</module>
         <module>reports-core</module>
         <module>reports-ui</module>
-        <module>exchange</module>
+        <module>exchange</module> 
         <module>common-exchange</module>
         <module>common</module>
         <module>saiku-webapp</module>
@@ -550,7 +550,7 @@
         <module>projects-module</module>
         <module>common-projects</module>
         <module>projects</module>
-    </modules>
+    </modules> 
     <inceptionYear>2013</inceptionYear>
     <organization>
         <name>Development Gateway</name>
