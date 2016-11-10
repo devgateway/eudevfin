@@ -97,9 +97,10 @@
     </bean>
     
     <task:scheduled-tasks>
-        <!--<task:scheduled ref="emailSenderCronService" method="sendEmails" cron="0 */1 * * * *"/>-->
-        <!-- At every 15 seconds -->
-        <task:scheduled ref="emailSenderCronService" method="sendEmails" cron="0/15 * * * * *"/>
+        <!-- At every 2 hours -->
+        <task:scheduled ref="emailSenderCronService" method="sendEmails" cron="1 1 */2 * * *"/>
+        <!-- At every 15 seconds 
+        <task:scheduled ref="emailSenderCronService" method="sendEmails" cron="0/15 * * * * *"/>-->
         <!-- At every one second -->
         <!--<task:scheduled ref="emailSenderCronService" method="sendEmails" cron="* * * * * ?"/>-->
     </task:scheduled-tasks>
