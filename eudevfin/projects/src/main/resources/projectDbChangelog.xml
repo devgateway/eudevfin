@@ -24,4 +24,13 @@
             <where>category_type = 'Channel' and coefficient is null and parentcategory_id is not null</where>
         </update>
     </changeSet>
+     <changeSet id="7" author="alcr" failOnError="true" runAlways="false" runInTransaction="true">
+        <comment>Make the objectives field larger, 3000 characters</comment>
+        <sql dbms="derby">ALTER TABLE PROJECT ALTER OBJECTIVES SET DATA TYPE VARCHAR(3000);
+        </sql>
+        <comment>Make the project result description field larger, 8000 characters</comment>
+        <sql dbms="derby">ALTER TABLE PROJECTRESULT ALTER DESCRIPTION SET DATA TYPE VARCHAR(8000);
+        </sql>
+       
+    </changeSet>
 </databaseChangeLog>

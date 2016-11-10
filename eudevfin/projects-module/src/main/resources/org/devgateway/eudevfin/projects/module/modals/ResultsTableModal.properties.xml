@@ -25,7 +25,7 @@
     </entry>
     
     <entry key="3description.label">Description of results</entry>
-    <entry key="3description.placeholder">(max 400 words)</entry>
+    <entry key="3description.placeholder">(max 1000 words)</entry>
     <entry key="3description.help">
         Description of activities that led to the achievement of the planned results.
     </entry>

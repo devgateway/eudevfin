@@ -25,12 +25,12 @@
     </entry>
     
     <entry key="3description.label">Descrierea rezultatelor</entry>
-    <entry key="3description.placeholder">(max 400 cuvinte)</entry>
+    <entry key="3description.placeholder">(max 1000 cuvinte)</entry>
     <entry key="3description.help">
         Descrierea activităților care au condus la obținerea rezultatelor/ descrierea rezultatelor.
     </entry>
     
-    <entry key="status.achieved">Obtinut</entry>
+    <entry key="status.achieved">Obținut</entry>
     <entry key="status.progress">În curs de obținere</entry>
     <entry key="status.not.started">Neînceput</entry>
     <entry key="status.not.achieved">Neobținut</entry>
