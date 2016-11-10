@@ -39,15 +39,16 @@
     <context:component-scan base-package="org.devgateway.eudevfin.projects.dao"/>
     
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-        <property name="host" value="smtp.roaid.com" />
-        <property name="port" value="25" />
+        <property name="host" value="mail.roaid.ro" />
+        <property name="port" value="26" />
         <property name="username" value="eudevfin@roaid.ro" />
         <property name="password" value="teo#123" />
 		
         <property name="javaMailProperties">
             <props>
-                <prop key="mail.smtp.auth">false</prop>
+                <prop key="mail.smtp.auth">true</prop>
                 <prop key="mail.smtp.starttls.enable">false</prop>
+                <prop key="mail.smtp.ssl.enable">false</prop>
             </props>
         </property>
 		
@@ -66,16 +67,41 @@
         <property name="subject" value="UNDP Report Notification." />
         <property name="text">
             <value>
-                    <![CDATA[
-                            The report %s will expire next week
-                            on %s.
-                    ]]>
+            <!--
+                0. [REPORT_DATE]
+                1. [REPORT TYPE]
+                2. [PROJECT TITLE]
+                3. [BEGINNING OF THE REPORTING PERIOD]
+                4. [END OF REPORTING PERIOD]
+                5. [DATE]
+                6. [MONITORING CONTACT DETAILS]
+                7. [MONITORING CONTACT E-MAILS]
+                8. [MONITORING CONTACT DETAILS]
+            -->
+
+                <![CDATA[
+                Hello,                                                              Report Date: %s
+
+                This is automatic e-mail to remind you that the next %s for the project “%s”, 
+                covering the period %s – %s, is due in 10 days. Please prepare and send the report 
+                by %s%s, at %s. Should you have any questions, do not hesitate 
+                to contact us at the e-mail addresses provided above.
+                Please do not reply to this e-mail.
+
+                Thank you!
+                %s
+                ]]>
+
             </value>
         </property>
     </bean>
     
     <task:scheduled-tasks>
-        <!--<task:scheduled ref="emailSenderCronService" method="sendEmails" cron="0 */1 * * * *"/>-->
-        <task:scheduled ref="emailSenderCronService" method="sendEmails" cron="0/15 * * * * *"/>
+        <!-- At every 2 hours -->
+        <task:scheduled ref="emailSenderCronService" method="sendEmails" cron="1 1 */2 * * *"/>
+        <!-- At every 15 seconds 
+        <task:scheduled ref="emailSenderCronService" method="sendEmails" cron="0/15 * * * * *"/>-->
+        <!-- At every one second -->
+        <!--<task:scheduled ref="emailSenderCronService" method="sendEmails" cron="* * * * * ?"/>-->
     </task:scheduled-tasks>
 </beans>
