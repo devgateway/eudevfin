@@ -5,12 +5,15 @@
  */
 package org.devgateway.eudevfin.projects.cronjobs;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
 import java.util.logging.Level;
@@ -25,6 +28,7 @@ import org.devgateway.eudevfin.projects.service.CustomProjectService;
 import org.devgateway.eudevfin.projects.service.ProjectReportService;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.mail.MailException;
 import org.springframework.mail.MailParseException;
 import org.springframework.mail.SimpleMailMessage;
@@ -32,9 +36,11 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
 public class EmailSenderCronService {
-
     private JavaMailSender mailSender;
     private SimpleMailMessage simpleMailMessage;
+    private PropertyPlaceholderConfigurer reportsProperties;
+    
+    private Map<String, String> values = new HashMap<String, String>();
 
     @Autowired
     private CustomProjectService projectService;
@@ -44,9 +50,10 @@ public class EmailSenderCronService {
 
     private boolean isEmailSent = true;
 
-    private final int DAYS_IN_ADVANCE = 7;
+    private final int DAYS_IN_ADVANCE = 10;
 
     public EmailSenderCronService() {
+        populateKeys();
     }
 
     /**
@@ -54,7 +61,6 @@ public class EmailSenderCronService {
      * jobs.
      */
     public void sendEmails() {
-        Logger.getLogger("LOG").log(Level.INFO, "{0} sendEmails", getCurrentime());
         List<Project> projects = projectService.findAllByReportDate(getDateAdvanced());
 
         if (projects != null && projects.size() > 0) {
@@ -62,23 +68,41 @@ public class EmailSenderCronService {
                 Set<ProjectReport> reports = project.getProjectReports();
 
                 for (ProjectReport report : reports) {
+                    Logger.getLogger("LOG").log(Level.INFO, "{0} getReportDate", report.getReportDate().toString());
                     if (report.getReportDate().equals(getDateAdvanced()) && !report.isEmailSent()) {
+                        MimeMessage message = mailSender.createMimeMessage();
 
-                        if (project.getMonitoringEmail() != null) {
-                            Logger.getLogger("LOG").log(Level.INFO, "project.getMonitoringEmail() {0}", project.getMonitoringEmail());
-                            sendMail(project.getMonitoringEmail(), report.getType(), report.getFormattedReportDate().toString());
-                        }
+                        try {
+                            MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-                        if (project.getReportingEmail() != null) {
-                            Logger.getLogger("LOG").log(Level.INFO, "project.getReportingEmail() {0}", project.getReportingEmail());
-                            sendMail(project.getReportingEmail(), report.getType(), report.getFormattedReportDate().toString());
-                        }
+                            helper.setFrom(simpleMailMessage.getFrom());
+                            helper.setSubject(simpleMailMessage.getSubject());
 
-                        if (isEmailSent) {
-                            Logger.getLogger("LOG").log(Level.INFO, "isEmailSent {0}", isEmailSent);
-                            report.setEmailSent(isEmailSent);
-                            reportService.save(report);
-                        }
+                            if (project.getMonitoringEmail() != null) {
+                                helper.setTo(project.getMonitoringEmail());
+                                setMonitoringMessage(helper, project, report);
+                                mailSender.send(message);
+                                isEmailSent &= true;
+                            }
+
+                            if (project.getReportingEmail() != null) {
+                                helper.setTo(project.getReportingEmail());
+                                setReportingMessage(helper, project, report);
+                                mailSender.send(message);
+                                isEmailSent &= true;
+                            }
+
+                            if (isEmailSent) {
+                                Logger.getLogger("LOG").log(Level.INFO, "isEmailSent {0}", isEmailSent);
+                                report.setEmailSent(isEmailSent);
+                                reportService.save(report);
+                            }
+                            
+                        } catch (MessagingException | MailException | IOException e) {
+                            isEmailSent &= false;
+                            Logger.getLogger("LOG").log(Level.INFO, "error {0}", e.toString());
+                            throw new MailParseException(e);
+                        } 
                     }
                 }
             }
@@ -136,27 +160,40 @@ public class EmailSenderCronService {
     public void setMailSender(JavaMailSender mailSender) {
         this.mailSender = mailSender;
     }
-
-    public void sendMail(String to, String dear, String content) {
-        MimeMessage message = mailSender.createMimeMessage();
-
-        try {
-            MimeMessageHelper helper = new MimeMessageHelper(message, true);
-
-            helper.setFrom(simpleMailMessage.getFrom());
-            helper.setTo(to);
-            helper.setSubject(simpleMailMessage.getSubject());
-            helper.setText(String.format(
-                    simpleMailMessage.getText(), dear, content));
-            mailSender.send(message);
-            isEmailSent &= true;
-        } catch (MessagingException | MailException e) {
-            isEmailSent &= false;
-            Logger.getLogger("LOG").log(Level.INFO, "error {0}", isEmailSent);
-            throw new MailParseException(e);
-        }
+    
+    private void setMonitoringMessage(MimeMessageHelper helper, Project project, ProjectReport report) throws MessagingException, IOException {
+        String monDetails = project.getMonitoringDetails()==null ? "" : "to, " + project.getMonitoringDetails();
+        helper.setText(String.format(
+                    simpleMailMessage.getText(), report.getFormattedReportDate().toString(),
+                    values.get((String)report.getType()), project.getName(), 
+                    report.getFormattedReportingPeriodStart().toString(), 
+                    report.getFormattedReportingPeriodEnd().toString(),
+                    project.getStartDate().toLocalDate().toString(), monDetails,
+                    project.getMonitoringEmail(), monDetails));
+    }
+    
+    private void setReportingMessage(MimeMessageHelper helper, Project project, ProjectReport report) throws MessagingException, IOException {
+        String repDetails = project.getReportingDetails()==null ? "" : "to, " + project.getReportingDetails();
+        helper.setText(String.format(
+                    simpleMailMessage.getText(), report.getFormattedReportDate().toString(),
+                    values.get((String)report.getType()), project.getName(), 
+                    report.getFormattedReportingPeriodStart().toString(), 
+                    report.getFormattedReportingPeriodEnd().toString(),
+                    project.getStartDate().toLocalDate().toString(), repDetails,
+                    project.getReportingEmail(), repDetails));
     }
 
+    private void populateKeys() {
+        values.put("report.type.annual", "Annual report");
+        values.put("report.type.biAnnual", "Bi-annual report");
+        values.put("report.type.quarterly", "Quarterly report");
+        values.put("report.type.preTranche", "Pre-tranche report");
+        values.put("report.type.finalReport", "Final report");
+        values.put("report.type.auditReport", "Audit report");
+        values.put("report.type.evaluationReport", "Evaluation report");
+        values.put("report.type.other", "Other report");
+    }
+    
     private String getCurrentime() {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
