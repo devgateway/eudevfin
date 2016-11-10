@@ -537,7 +537,7 @@
         <module>common-auth</module>
         <module>reports-core</module>
         <module>reports-ui</module>
-        <module>exchange</module>
+        <module>exchange</module> 
         <module>common-exchange</module>
         <module>common</module>
         <module>saiku-webapp</module>
@@ -550,7 +550,7 @@
         <module>projects-module</module>
         <module>common-projects</module>
         <module>projects</module>
-    </modules>
+    </modules> 
     <inceptionYear>2013</inceptionYear>
     <organization>
         <name>Development Gateway</name>
