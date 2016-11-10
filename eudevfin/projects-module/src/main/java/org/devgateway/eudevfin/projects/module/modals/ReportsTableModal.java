@@ -76,7 +76,7 @@ public class ReportsTableModal extends ModalHeaderFooter {
         reportType.setVisible(true);
         
         TextInputField<String> reportTitle = new TextInputField<>("2reportTitle", new RWComponentPropertyModel<String>(
-                "reportTitle")).required().typeString();       
+                "reportTitle")).typeString();       
         reportTitle.getField().add(new WordsValidator(30));
         
         DateInputField reportingPeriodStart = new DateInputField("3reportingPeriodStart", new DateToLocalDateTimeModel(new RWComponentPropertyModel<LocalDateTime>("reportingPeriodStart")));

@@ -53,6 +53,7 @@ public class Project implements Serializable {
     @Column(name = "implementing_partner")
     protected String implementingPartner;
 
+    @Column(length = 3000)
     protected String objectives;
     
     @Column(length = 2048)

@@ -19,7 +19,6 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.devgateway.eudevfin.auth.common.domain.AuthConstants;
 import org.devgateway.eudevfin.projects.common.entities.ProjectResult;
-import static org.devgateway.eudevfin.projects.module.components.tabs.CrossCuttingTab.MAX_WORDS;
 import org.devgateway.eudevfin.projects.module.validator.WordsValidator;
 import org.devgateway.eudevfin.projects.module.components.util.ProjectUtil;
 import org.devgateway.eudevfin.projects.module.pages.ModalHeaderFooter;
@@ -43,8 +42,8 @@ public class ResultsTableModal extends ModalHeaderFooter {
     public static final String PARAM_RESULT_ID = "resultId";
     public static final String PARAM_NEW_VALUE = "new";
     public static final String PARAM_PROJECT_ID = "projectId";
-    public static int MAX_STRING_LENGTH = 4000;
-    public static int MAX_WORDS = 400;
+    public static int MAX_STRING_LENGTH = 8000;
+    public static int MAX_WORDS = 1000;
 
     @SpringBean
     private ProjectResultService projectResultService;
