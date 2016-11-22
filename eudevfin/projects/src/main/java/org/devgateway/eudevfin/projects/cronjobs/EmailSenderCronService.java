@@ -37,7 +37,8 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 
 public class EmailSenderCronService {
     private JavaMailSender mailSender;
-    private SimpleMailMessage simpleMailMessage;
+    private SimpleMailMessage reportingMailMessage;
+    private SimpleMailMessage monitoringMailMessage;
     private PropertyPlaceholderConfigurer reportsProperties;
     
     private Map<String, String> values = new HashMap<String, String>();
@@ -68,28 +69,30 @@ public class EmailSenderCronService {
                 Set<ProjectReport> reports = project.getProjectReports();
 
                 for (ProjectReport report : reports) {
-                    Logger.getLogger("LOG").log(Level.INFO, "{0} getReportDate", report.getReportDate().toString());
                     if (report.getReportDate().equals(getDateAdvanced()) && !report.isEmailSent()) {
                         MimeMessage message = mailSender.createMimeMessage();
 
                         try {
                             MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-                            helper.setFrom(simpleMailMessage.getFrom());
-                            helper.setSubject(simpleMailMessage.getSubject());
-
                             if (project.getMonitoringEmail() != null) {
+                                helper.setFrom(monitoringMailMessage.getFrom());
+                                helper.setSubject(monitoringMailMessage.getSubject());
                                 helper.setTo(project.getMonitoringEmail());
                                 setMonitoringMessage(helper, project, report);
                                 mailSender.send(message);
                                 isEmailSent &= true;
+                                Logger.getLogger("LOG").log(Level.INFO, "{0} ReportMail", project.getMonitoringEmail());
                             }
 
                             if (project.getReportingEmail() != null) {
+                                helper.setFrom(reportingMailMessage.getFrom());
+                                helper.setSubject(reportingMailMessage.getSubject());
                                 helper.setTo(project.getReportingEmail());
                                 setReportingMessage(helper, project, report);
                                 mailSender.send(message);
                                 isEmailSent &= true;
+                                Logger.getLogger("LOG").log(Level.INFO, "{0} ReportMail", project.getReportingEmail());
                             }
 
                             if (isEmailSent) {
@@ -153,34 +156,52 @@ public class EmailSenderCronService {
         return gregCal.getActualMaximum(Calendar.DAY_OF_MONTH);
     }
 
-    public void setSimpleMailMessage(SimpleMailMessage simpleMailMessage) {
-        this.simpleMailMessage = simpleMailMessage;
+    public void setReportingMailMessage(SimpleMailMessage reportingMailMessage) {
+        this.reportingMailMessage = reportingMailMessage;
     }
+    
+    public void setMonitoringMailMessage(SimpleMailMessage monitoringMailMessage) {
+        this.monitoringMailMessage = monitoringMailMessage;
+    }
+
 
     public void setMailSender(JavaMailSender mailSender) {
         this.mailSender = mailSender;
     }
     
     private void setMonitoringMessage(MimeMessageHelper helper, Project project, ProjectReport report) throws MessagingException, IOException {
-        String monDetails = project.getMonitoringDetails()==null ? "" : "to, " + project.getMonitoringDetails();
+        String monDetailsEn = project.getMonitoringDetails()==null ? "" : " to " + project.getMonitoringDetails();
+        String monDetailsRo = project.getMonitoringDetails()==null ? "" : " catre " + project.getMonitoringDetails();
         helper.setText(String.format(
-                    simpleMailMessage.getText(), report.getFormattedReportDate().toString(),
+                    monitoringMailMessage.getText(),
                     values.get((String)report.getType()), project.getName(), 
                     report.getFormattedReportingPeriodStart().toString(), 
                     report.getFormattedReportingPeriodEnd().toString(),
-                    project.getStartDate().toLocalDate().toString(), monDetails,
-                    project.getMonitoringEmail(), monDetails));
+                    report.getFormattedReportDate().toString(), monDetailsEn,
+                    project.getReportingEmail(), 
+                    values.get((String)report.getType()), project.getName(), 
+                    report.getFormattedReportingPeriodStart().toString(), 
+                    report.getFormattedReportingPeriodEnd().toString(),
+                    report.getFormattedReportDate().toString(), monDetailsRo,
+                    project.getReportingEmail()));
     }
     
     private void setReportingMessage(MimeMessageHelper helper, Project project, ProjectReport report) throws MessagingException, IOException {
-        String repDetails = project.getReportingDetails()==null ? "" : "to, " + project.getReportingDetails();
+        String repDetailsEn = project.getReportingDetails()==null ? "" : " to " + project.getReportingDetails();
+        String repDetailsRo = project.getReportingDetails()==null ? "" : " catre " + project.getReportingDetails();
         helper.setText(String.format(
-                    simpleMailMessage.getText(), report.getFormattedReportDate().toString(),
+                    reportingMailMessage.getText(),
                     values.get((String)report.getType()), project.getName(), 
                     report.getFormattedReportingPeriodStart().toString(), 
                     report.getFormattedReportingPeriodEnd().toString(),
-                    project.getStartDate().toLocalDate().toString(), repDetails,
-                    project.getReportingEmail(), repDetails));
+                    report.getFormattedReportDate().toString(), repDetailsEn,
+                    project.getMonitoringEmail(),
+                    values.get((String)report.getType()), project.getName(), 
+                    report.getFormattedReportingPeriodStart().toString(), 
+                    report.getFormattedReportingPeriodEnd().toString(),
+                    report.getFormattedReportDate().toString(), repDetailsRo,
+                    project.getMonitoringEmail()));
+        helper.setCc(project.getMonitoringEmail());
     }
 
     private void populateKeys() {
