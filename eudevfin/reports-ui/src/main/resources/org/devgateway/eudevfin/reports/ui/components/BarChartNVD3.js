@@ -36,12 +36,21 @@ var displayBarChart = function (parametersJson) {
             .showControls(false);       // Allow user to switch between "Grouped" and "Stacked" mode.
     
         chart.yAxis
-            .axisLabel('Amount')
-            .tickFormat(d3.format(',.0f'));
+            .axisLabel('Amount');
+//            .tickFormat(d3.format(',.2f'));
 
-        //chart.xAxis.tickFormat(function(d) {
-        //    //return "new string";
-        //});
+        chart.yAxis.tickFormat(function(d) {
+//            var minMaxValues = d3.select("#" + parametersJson.id + " svg").
+//                selectAll('g.nv-y.nv-axis g.nvd3.nv-wrap.nv-axis g.nv-axisMaxMin text');
+//            var size = minMaxValues.size();
+//            
+//            if (size > 1) {
+//                var value = minMaxValues[1];
+//                return value;
+//            }
+            
+            return d;
+        });
         
         d3.select("#" + parametersJson.id + " svg")
             .datum(formatBarResultSet(parametersJson.result.resultset, parametersJson.numberOfSeries,
@@ -57,10 +66,6 @@ var displayBarChart = function (parametersJson) {
         // used this in order to include newlines in labels in NVD3 charts
         d3.select("#" + parametersJson.id + " svg").
             selectAll('g.nv-x.nv-axis g text').each(insertLinebreaks);
-    
-        // used to correct the values
-        d3.select("#" + parametersJson.id + " svg").
-            selectAll('g.nv-y.nv-axis g.nvd3.nv-wrap.nv-axis g g.tick').each(moveToRight);
 
         return chart;
     });
@@ -131,26 +136,6 @@ var insertLinebreaks = function (d) {
                 tspan.attr('x', -5).attr('dy', '15');
             }
         }
-    }
-}
-
-/**
- * function that insert line breaks in NVD3 label chartss
- */
-var moveToRight = function (d) {
-    if (d !== null && d !== undefined) {
-        var el = d3.select(this);
-        // get x position
-        var currentx = d3.transform(el.attr("transform")).translate[0];
-        var currenty = d3.transform(el.attr("transform")).translate[1];
-        // set x position
-        el.attr("transform", "translate(" + (currentx + 100) + "," + currenty + ")");
-        
-        currentx = d3.transform(el.attr("transform")).translate[0];
-        currenty = d3.transform(el.attr("transform")).translate[1];
-        console.log(el.toString());
-        console.log('Current x ' + currentx);
-        console.log('Current y ' + currenty);
     }
 }
 
