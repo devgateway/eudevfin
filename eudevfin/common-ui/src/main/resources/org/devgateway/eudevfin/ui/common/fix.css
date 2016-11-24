@@ -1035,4 +1035,7 @@ form.bs-docs-example {
 
 }
 
-
+.wicket-modal {
+    position: fixed !important;
+    top: 140px !important;
+}
