@@ -17,6 +17,7 @@
     <entry key="txtable.tx.sector-name">Numele sectorului</entry>
     <entry key="txtable.tx.form-type">Tipul de formular</entry>
     <entry key="txtable.tx.reporting-org-name">Organizaţia care raportează</entry>
+    <entry key="txtable.tx.extended-amount">Sume înaintate</entry>
     <entry key="txtable.tx.actions">Acţiuni</entry>
     <entry key="txtable.tx.edit-action">Editaţi</entry>
     <entry key="bilateralOda.advanceQuestionnaire">AQ AOD Bilateral</entry>
