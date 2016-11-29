@@ -49,10 +49,15 @@ app.downloadPDF = function () {
         $(this).hide();
     });
     
-    app.exportTwo();   
+    app.exportNormal();  
 }
-
-app.exportTwo = function () {
+/**
+ * On complicated charts, using this method takes a lot of memory from the browser, 
+ * especially on chrome. Therefore this method needs to be refactored in order to 
+ * prevent memory leaks.
+ * @returns {undefined}
+ */
+app.exportManual = function () {
     var container = $('#printable-container');
     var width = container.width();
     var height = container.height();
@@ -114,6 +119,26 @@ app.exportTwo = function () {
             container.find('svg').show();
         }
     });
+}
+
+app.exportNormal = function(){
+    var container = $('#printable-container');
+    
+    var pdf = new jsPDF('l','px'),
+        source = container;
+    
+    pdf.addHTML(
+        source, 0, 0, {
+            pagesplit: true
+        },
+        function(dispose){
+            pdf.save('Download.pdf');
+        }
+    );
+      
+//    canvasToImageSuccess(canvas);
+    container.find('.screenShotTempCanvas').remove();
+    container.find('svg').show();
 }
 
 $(document).ready(function () {
