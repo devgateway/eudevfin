@@ -17,6 +17,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.projects.common.entities.ProjectFileWrapper;
 import org.devgateway.eudevfin.projects.module.components.fields.MultiProjectFileUploadField;
 import org.devgateway.eudevfin.projects.module.components.panels.TransactionTableListPanel;
+import org.devgateway.eudevfin.projects.module.components.util.ProjectFileType;
 import org.devgateway.eudevfin.projects.module.components.util.ProjectTransactionsListGenerator;
 import org.devgateway.eudevfin.projects.module.modals.TransactionsTableModal;
 import org.devgateway.eudevfin.projects.module.pages.NewProjectPage;
@@ -64,7 +65,9 @@ public class TransactionsTab extends PreviewableFormPanel implements PermissionA
         add(submitButton);  
         
         //todo: cast to transaction file wrapper
-        MultiProjectFileUploadField transactionDocumentation = new MultiProjectFileUploadField("transactionDocumentation", new RWComponentPropertyModel<Collection<ProjectFileWrapper>>("transactionDocumentation"));
+        MultiProjectFileUploadField transactionDocumentation = new MultiProjectFileUploadField("transactionDocumentation", 
+                new RWComponentPropertyModel<Collection<ProjectFileWrapper>>("projectFiles"));
+        transactionDocumentation.setProjectFileType(ProjectFileType.TRANSACTION);
         transactionDocumentation.maxFiles(10);
         transactionDocumentation.add(new AttributeAppender("class", "remove-left-margin"));
         add(transactionDocumentation);

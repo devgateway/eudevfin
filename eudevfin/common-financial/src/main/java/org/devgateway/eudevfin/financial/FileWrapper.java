@@ -19,8 +19,6 @@ import java.io.Serializable;
 /**
  * Entity used to store the contents of uploaded files
  */
-
-
 @Entity
 @Audited
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
