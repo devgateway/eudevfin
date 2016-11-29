@@ -83,9 +83,8 @@
             MEMBER Measures.[Bilateral share] AS (SUM(CrossJoin({[BiMultilateral].[Name].[Bilateral]}, {[Measures].[Curent (USD m)]})) * 100) / SUM(CrossJoin({[BiMultilateral].[Name].Members}, {[Measures].[Curent (USD m)]})), FORMAT_STRING='0.00'
             SELECT
             {{[Reporting Year].[${YEAR1}], [Reporting Year].[${YEAR}]}} ON COLUMNS,
-            {[Measures].[Curent (USD m)], [Measures].[${REPORT_CURRENCY_CODE}], Measures.[ODA/GNI], Measures.[Bilateral share]} ON ROWS
-            FROM [Financial]
-            WHERE Hierarchize(Union(CrossJoin({[Type of Flow].[Name].[Non flow (e.g. GNI)]}, {[Form Type].[bilateralOda.CRS]}), Union(CrossJoin({[Type of Flow].[Name].[Non flow (e.g. GNI)]}, {[Form Type].[multilateralOda.CRS]}), Union(CrossJoin({[Type of Flow].[Name].[Non flow (e.g. GNI)]}, {[Form Type].[#null]}), Union(CrossJoin({[Type of Flow].[Name].[ODA (Official Development Assistance)]}, {[Form Type].[bilateralOda.CRS]}), Union(CrossJoin({[Type of Flow].[Name].[ODA (Official Development Assistance)]}, {[Form Type].[multilateralOda.CRS]}), CrossJoin({[Type of Flow].[Name].[ODA (Official Development Assistance)]}, {[Form Type].[#null]})))))))
+            {[Measures].[Curent (USD m)], [Measures].[${REPORT_CURRENCY_CODE}], [Measures].[ODA/GNI], [Measures].[Bilateral share]} ON ROWS
+            FROM [Financial]            
             ]]>
         </Query>
     </DataAccess>
