@@ -5,7 +5,6 @@
  */
 package org.devgateway.eudevfin.projects.module.components.panels;
 
-import java.math.RoundingMode;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -30,9 +29,7 @@ import org.devgateway.eudevfin.projects.module.pages.NewProjectPage;
 import org.devgateway.eudevfin.ui.common.components.BootstrapDeleteButton;
 import org.devgateway.eudevfin.ui.common.components.TableListPanel;
 import org.devgateway.eudevfin.ui.common.components.util.ListGeneratorInterface;
-import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
-import org.joda.time.LocalDateTime;
 
 /**
  *
