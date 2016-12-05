@@ -49,7 +49,7 @@ app.downloadPDF = function () {
         $(this).hide();
     });
     
-    app.exportNormal();  
+    app.exportManual();  
 }
 /**
  * On complicated charts, using this method takes a lot of memory from the browser, 
@@ -64,10 +64,11 @@ app.exportManual = function () {
     
     var canvasToImage = function(canvas){
         var img = new Image();
-        var dataURL = canvas.toDataURL('image/png');
+        var dataURL = canvas.toDataURL('image/jpeg');
         img.src = dataURL;
         return img;
     };
+    
     var canvasShiftImage = function(oldCanvas,shiftAmt){
         shiftAmt = parseInt(shiftAmt) || 0;
         if(!shiftAmt){ return oldCanvas; }
@@ -76,9 +77,13 @@ app.exportManual = function () {
         newCanvas.height = oldCanvas.height - shiftAmt;
         newCanvas.width = oldCanvas.width;
         var ctx = newCanvas.getContext('2d');
+        ctx.clearRect(0, 0, newCanvas.width, newCanvas.height );
+        ctx.fillStyle="#FFFFFF";
+        ctx.fillRect(0, 0, newCanvas.width, newCanvas.height);
         
-        var img = canvasToImage(oldCanvas);
-        ctx.drawImage(img,0, shiftAmt, img.width, img.height, 0, 0, img.width, img.height);
+        Pixastic.process(oldCanvas, "crop", {rect: {left: 0, top: shiftAmt, width: oldCanvas.width, height: (oldCanvas.height - shiftAmt)}}, function (newCanvas) {
+            ctx.drawImage(newCanvas, 0, 0, newCanvas.width, newCanvas.height, 0, 0, newCanvas.width, newCanvas.height);
+        });
         
         return newCanvas;
     };
@@ -88,16 +93,17 @@ app.exportManual = function () {
             pdfInternals = pdf.internal,
             pdfPageSize = pdfInternals.pageSize,
             pdfScaleFactor = pdfInternals.scaleFactor,
-            pdfPageWidth = pdfPageSize.width,
+            pdfPageWidth = pdfPageSize.width - 200,
             pdfPageHeight = pdfPageSize.height,
             totalPdfHeight = 0,
             htmlPageHeight = canvas.height,
             htmlScaleFactor = canvas.width / (pdfPageWidth * pdfScaleFactor),
             safetyNet = 0;
         
-        while(totalPdfHeight < htmlPageHeight && safetyNet < 15){
+        while (totalPdfHeight < htmlPageHeight && safetyNet < 15) {
+
             var newCanvas = canvasShiftImage(canvas, totalPdfHeight);
-            pdf.addImage(newCanvas, 'png', 0, 0, pdfPageWidth, 0, null, 'NONE');
+            pdf.addImage(newCanvas, 'JPEG', 100, 0, pdfPageWidth, 0, null, 'NONE');
             
             totalPdfHeight += (pdfPageHeight * pdfScaleFactor * htmlScaleFactor);
             
@@ -107,7 +113,7 @@ app.exportManual = function () {
             safetyNet++;
         }
         
-        pdf.save('Download.pdf');
+        pdf.save('Download file.pdf');
     };
 
     html2canvas(container, {
@@ -132,11 +138,10 @@ app.exportNormal = function(){
             pagesplit: true
         },
         function(dispose){
-            pdf.save('Download.pdf');
+            pdf.save('Download file.pdf');
         }
     );
       
-//    canvasToImageSuccess(canvas);
     container.find('.screenShotTempCanvas').remove();
     container.find('svg').show();
 }

@@ -37,7 +37,8 @@ public class ReportsDashboards extends HeaderFooter {
         response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(CommonScriptsReference.class, "html2canvas.js")));
 //        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(CommonScriptsReference.class, "jspdf.debug.js")));
 //        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(CommonScriptsReference.class, "jspdf.min.js")));
-        response.render(JavaScriptHeaderItem.forUrl("https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.debug.js"));
+        response.render(JavaScriptHeaderItem.forUrl("http://cdn.jsdelivr.net/pixastic/0.1.3/pixastic.all.js"));
+        response.render(JavaScriptHeaderItem.forUrl("https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"));
         response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(CommonScriptsReference.class, "utils.js")));
     }
 }
