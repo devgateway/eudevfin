@@ -93,7 +93,7 @@ app.exportManual = function () {
             pdfInternals = pdf.internal,
             pdfPageSize = pdfInternals.pageSize,
             pdfScaleFactor = pdfInternals.scaleFactor,
-            pdfPageWidth = pdfPageSize.width - 200,
+            pdfPageWidth = pdfPageSize.width - 160,
             pdfPageHeight = pdfPageSize.height,
             totalPdfHeight = 0,
             htmlPageHeight = canvas.height,
@@ -103,7 +103,7 @@ app.exportManual = function () {
         while (totalPdfHeight < htmlPageHeight && safetyNet < 15) {
 
             var newCanvas = canvasShiftImage(canvas, totalPdfHeight);
-            pdf.addImage(newCanvas, 'JPEG', 100, 0, pdfPageWidth, 0, null, 'NONE');
+            pdf.addImage(newCanvas, 'JPEG', 80, 0, pdfPageWidth, 0, null, 'NONE');
             
             totalPdfHeight += (pdfPageHeight * pdfScaleFactor * htmlScaleFactor);
             
