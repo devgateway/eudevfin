@@ -79,7 +79,7 @@
             WITH
             MEMBER Measures.[Curent (USD m)] AS IIF([Measures].[Net Amount Currency NATLOECD] > 0, [Measures].[Net Amount Currency NATLOECD], Null)
             MEMBER Measures.[${REPORT_CURRENCY_CODE}] AS IIF([Measures].[Net Amount] > 0, [Measures].[Net Amount], Null)
-            MEMBER Measures.[ODA/GNI] AS Measures.[${REPORT_CURRENCY_CODE}] / SUM(CrossJoin({[Type of Finance].[Name].[GNI: Gross National Income]}, {[Measures].[Extended Amount No Flow]})) * 100, FORMAT_STRING='0.0000'
+            MEMBER Measures.[ODA/GNI] AS Measures.[Curent (USD m)] / SUM(CrossJoin({[Type of Finance].[Name].[GNI: Gross National Income]}, {[Measures].[Extended Amount No Flow]})) * 100, FORMAT_STRING='0.00'
             MEMBER Measures.[Bilateral share] AS (SUM(CrossJoin({[BiMultilateral].[Name].[Bilateral]}, {[Measures].[Curent (USD m)]})) * 100) / SUM(CrossJoin({[BiMultilateral].[Name].Members}, {[Measures].[Curent (USD m)]})), FORMAT_STRING='0.00'
             SELECT
             {{[Reporting Year].[${YEAR1}], [Reporting Year].[${YEAR}]}} ON COLUMNS,
