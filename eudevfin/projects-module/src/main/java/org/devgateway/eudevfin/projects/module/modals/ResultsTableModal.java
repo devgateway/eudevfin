@@ -153,7 +153,7 @@ public class ResultsTableModal extends ModalHeaderFooter {
             while (iterator.hasNext()) {
                 ProjectResult temp = (ProjectResult) iterator.next();
 
-                if (temp.getId() == result.getId()) {
+                if (temp.getId().equals(result.getId())) {
                     iterator.remove();
                 }
             }
@@ -167,7 +167,7 @@ public class ResultsTableModal extends ModalHeaderFooter {
     private ProjectResult findOne(Long resultId) {
         Set<ProjectResult> results = NewProjectPage.project.getProjectResults();
         for (ProjectResult temp : results) {
-            if (resultId == temp.getId()) {
+            if (resultId.equals(temp.getId())) {
                 return temp;
             }
         }

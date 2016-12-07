@@ -168,7 +168,7 @@ public class ReportsTableModal extends ModalHeaderFooter {
             Iterator iterator = reports.iterator();
             while (iterator.hasNext()) {
                 ProjectReport temp = (ProjectReport) iterator.next();
-                if (temp.getId() == report.getId()) {
+                if (temp.getId().equals(report.getId())) {
                     iterator.remove();
                 }
             }
@@ -182,7 +182,7 @@ public class ReportsTableModal extends ModalHeaderFooter {
     private ProjectReport findOne(Long resultId) {
         Set<ProjectReport> results = NewProjectPage.project.getProjectReports();
         for (ProjectReport temp : results) {
-            if (resultId == temp.getId()) {
+            if (resultId.equals(temp.getId())) {
                 return temp;
             }
         }
