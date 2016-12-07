@@ -170,8 +170,8 @@ public class EmailSenderCronService {
     }
     
     private void setMonitoringMessage(MimeMessageHelper helper, Project project, ProjectReport report) throws MessagingException, IOException {
-        String monDetailsEn = project.getMonitoringDetails()==null ? "" : " " + project.getMonitoringDetails();
-        String monDetailsRo = project.getMonitoringDetails()==null ? "" : " " + project.getMonitoringDetails();
+        String monDetailsEn = project.getMonitoringDetails()==null ? "" : " to " + project.getMonitoringDetails();
+        String monDetailsRo = project.getMonitoringDetails()==null ? "" : " catre " + project.getMonitoringDetails();
         helper.setText(String.format(
                     monitoringMailMessage.getText(),
                     values.get((String)report.getType()), project.getName(), 
