@@ -82,10 +82,9 @@
                 <![CDATA[
                 Hello,                                                              
 
-                This is an automatic e-mail to remind you that the next %s for the project “%s”, 
-                covering the period %s – %s, is due in 10 days. Please prepare and send the report 
-                by %s%s, at %s. Should you have any questions, do not hesitate 
-                to contact us at the e-mail addresses provided above.
+                This is an automatic e-mail to remind you that the next %s for the project “%s”, covering the
+                period %s – %s, is due in 10 days. Please prepare and send the report by %s%s, at %s. Should
+                you have any questions, do not hesitate to contact us at the e-mail addresses provided above.
                 Please do not reply to this e-mail.
 
                 Thank you!
@@ -93,10 +92,10 @@
                 
                 Bună ziua,                                                              
 
-                Acesta este un e-mail automat pentru vă aminti că următorul raport, de tipul %s aferent proiectului “%s”, 
-                pentru perioada %s – %s, trebuie trimis în 10 zile. Vă rugăm pregătiți și trimiteți raportul până la data de 
-                %s%s, la %s. În cazul în care aveți întrebări, nu ezitați să ne contactați la adresele de e-mail menționate
-                mai sus.
+                Acesta este un e-mail automat pentru vă aminti că următorul raport, de tipul %s aferent 
+                proiectului “%s”, pentru perioada %s – %s, trebuie trimis în 10 zile. Vă rugăm pregătiți
+                și trimiteți raportul până la data de %s%s, la %s. În cazul în care aveți întrebări, nu 
+                ezitați să ne contactați la adresele de e-mail menționate mai sus.
                 Vă rugăm nu răspundeți la acest e-mail.
                 
                 Vă mulțumim!
@@ -138,9 +137,9 @@
                 
                 Bună ziua,                                                              
 
-                Acesta este un e-mail automat pentu a vă reaminti că trebuie să primiți raportul de tipul %s aferent proiectului “%s”, 
-                pentru perioada %s – %s, în următoarele 10 zile. În cazul în care nu primiți raportul până la data de %s, 
-                vă rugăm contactați responsabilii de proiect%s, la adresele %s.
+                Acesta este un e-mail automat pentu a vă reaminti că trebuie să primiți raportul de tipul %s aferent 
+                proiectului “%s”, pentru perioada %s – %s, în următoarele 10 zile. În cazul în care nu primiți raportul
+                până la data de %s, vă rugăm contactați responsabilii de proiect%s, la adresele %s.
                 
                 Vă mulțumim!
                 EU DEVFIN Romania
