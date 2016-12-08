@@ -82,7 +82,7 @@ public class EmailSenderCronService {
                                 setMonitoringMessage(helper, project, report);
                                 mailSender.send(message);
                                 isEmailSent &= true;
-                                Logger.getLogger("LOG").log(Level.INFO, "{0} ReportMail", project.getMonitoringEmail());
+                                Logger.getLogger("LOG").log(Level.INFO, "{0} MonitorMail", project.getMonitoringEmail());
                             }
 
                             if (project.getReportingEmail() != null) {
@@ -170,8 +170,8 @@ public class EmailSenderCronService {
     }
     
     private void setMonitoringMessage(MimeMessageHelper helper, Project project, ProjectReport report) throws MessagingException, IOException {
-        String monDetailsEn = project.getMonitoringDetails()==null ? "" : " to " + project.getMonitoringDetails();
-        String monDetailsRo = project.getMonitoringDetails()==null ? "" : " catre " + project.getMonitoringDetails();
+        String monDetailsEn = project.getMonitoringDetails()==null ? "" : " " + project.getMonitoringDetails();
+        String monDetailsRo = project.getMonitoringDetails()==null ? "" : " " + project.getMonitoringDetails();
         helper.setText(String.format(
                     monitoringMailMessage.getText(),
                     values.get((String)report.getType()), project.getName(), 
@@ -187,8 +187,8 @@ public class EmailSenderCronService {
     }
     
     private void setReportingMessage(MimeMessageHelper helper, Project project, ProjectReport report) throws MessagingException, IOException {
-        String repDetailsEn = project.getReportingDetails()==null ? "" : " " + project.getReportingDetails();
-        String repDetailsRo = project.getReportingDetails()==null ? "" : " " + project.getReportingDetails();
+        String repDetailsEn = project.getReportingDetails()==null ? "" : " to " + project.getReportingDetails();
+        String repDetailsRo = project.getReportingDetails()==null ? "" : " catre " + project.getReportingDetails();
         helper.setText(String.format(
                     reportingMailMessage.getText(),
                     values.get((String)report.getType()), project.getName(), 
