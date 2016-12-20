@@ -145,7 +145,9 @@ var insertLinebreaks = function (d) {
         
         var t = d3.transform(parent.attr("transform"));
         
-        parent.attr("transform", "translate(0, " + (t.translate[1] + offset) + ")"); 
+        var x = t.translate[0] < 0 ? 0 : t.translate[0];
+        
+        parent.attr("transform", "translate(" + x + ", " + (t.translate[1] + offset) + ")"); 
         
         var newOffset = (lines.length-1) * 18;
         
