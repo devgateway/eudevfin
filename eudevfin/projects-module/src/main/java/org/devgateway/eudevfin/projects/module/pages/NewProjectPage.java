@@ -204,7 +204,7 @@ public class NewProjectPage extends HeaderFooter<Project> {
     }
 
     private void AddSaveButton() {
-        ProjectPageSubmitButton saveButton = new ProjectPageSubmitButton("save", new StringResourceModel("button.save", this, null));
+        ProjectPageSaveButton saveButton = new ProjectPageSaveButton("save", new StringResourceModel("button.save", this, null));
         saveButton.setDefaultFormProcessing(false);
         form.add(saveButton);
     }

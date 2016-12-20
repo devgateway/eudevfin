@@ -14,7 +14,7 @@
 <properties>
 
 <entry key="14projectObjectives.label">14. Project objectives</entry>
-<entry key="14projectObjectives.placeholder">(max 150 words)</entry>
+<entry key="14projectObjectives.placeholder">(max 500 words)</entry>
 <entry key="14projectObjectives.help">Please enter the general and specific objectives 
         of the project, as per the terms or reference or project document.
 </entry>

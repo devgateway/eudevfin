@@ -13,7 +13,7 @@ var displayBarChart = function (parametersJson) {
     checkBarResults(parametersJson.result, parametersJson.numberOfSeries);
 
     var numberOfRows = parametersJson.result.resultset.length;
-    var height = 300 + numberOfRows * 40;
+    var height = 300 + numberOfRows * 80;
 
     // display the bar chart
     nv.addGraph(function () {
@@ -34,15 +34,24 @@ var displayBarChart = function (parametersJson) {
             .showLegend(true)
             .transitionDuration(500)
             .showControls(false);       // Allow user to switch between "Grouped" and "Stacked" mode.
-
+    
         chart.yAxis
-            .axisLabel('Amount')
-            .tickFormat(d3.format(',.2f'));
+            .axisLabel('Amount');
+//            .tickFormat(d3.format(',.2f'));
 
-        //chart.xAxis.tickFormat(function(d) {
-        //    //return "new string";
-        //});
-
+        chart.yAxis.tickFormat(function(d) {
+//            var minMaxValues = d3.select("#" + parametersJson.id + " svg").
+//                selectAll('g.nv-y.nv-axis g.nvd3.nv-wrap.nv-axis g.nv-axisMaxMin text');
+//            var size = minMaxValues.size();
+//            
+//            if (size > 1) {
+//                var value = minMaxValues[1];
+//                return value;
+//            }
+            
+            return d;
+        });
+        
         d3.select("#" + parametersJson.id + " svg")
             .datum(formatBarResultSet(parametersJson.result.resultset, parametersJson.numberOfSeries,
                 parametersJson.Series1, parametersJson.Series2))

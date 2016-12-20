@@ -5,8 +5,6 @@
  */
 package org.devgateway.eudevfin.projects.module.components.panels;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -20,20 +18,18 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.devgateway.eudevfin.exchange.common.domain.HistoricalExchangeRate;
-import org.devgateway.eudevfin.exchange.common.service.HistoricalExchangeRateService;
+import org.devgateway.eudevfin.exchange.common.service.ExchangeRateUtil;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import static org.devgateway.eudevfin.projects.module.components.tabs.ResultsTab.WICKETID_LIST_PANEL;
 import org.devgateway.eudevfin.projects.module.components.util.ProjectTransactionsListGenerator;
+import org.devgateway.eudevfin.projects.module.components.util.RateUtil;
 import org.devgateway.eudevfin.projects.module.modals.TransactionsTableModal;
 import org.devgateway.eudevfin.projects.module.pages.NewProjectPage;
 import org.devgateway.eudevfin.ui.common.components.BootstrapDeleteButton;
 import org.devgateway.eudevfin.ui.common.components.TableListPanel;
 import org.devgateway.eudevfin.ui.common.components.util.ListGeneratorInterface;
-import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
-import org.joda.time.LocalDateTime;
 
 /**
  *
@@ -44,8 +40,8 @@ public class TransactionTableListPanel extends TableListPanel<FinancialTransacti
     private ListGeneratorInterface<FinancialTransaction> listGenerator;
     
     @SpringBean
-    private HistoricalExchangeRateService historicalExchangeRateService;
-    
+    private ExchangeRateUtil rateUtil;
+
     public TransactionTableListPanel(String id, ListGeneratorInterface<FinancialTransaction> listGen) {
         super(id, listGen);
         listGenerator = listGen;
@@ -72,7 +68,6 @@ public class TransactionTableListPanel extends TableListPanel<FinancialTransacti
                         modal.show(target);
                     }
                 };
-
                 linkToEdit.setBody(Model.of(transaction.getShortDescription()));
                 String CRSId = transaction.getCrsIdentificationNumber() == null ? "" : transaction.getCrsIdentificationNumber();
                 Label CRSIdLabel = new Label("CRSId", CRSId);
@@ -82,9 +77,12 @@ public class TransactionTableListPanel extends TableListPanel<FinancialTransacti
                 Label financingInstitutionLabel = new Label("financingInstitution", agencyName);
                 Label reportingYearLabel = new Label("reportingYear", transaction.getReportingYear().getYear());
 
-                Label amountUSD = new Label("amountUSD", toUSD(transaction));
+                final CustomFinancialTransaction ctx = (CustomFinancialTransaction) transaction;
+                Label amountUSD = new Label("amountUSD", RateUtil.moneyToString(rateUtil.exchange(transaction.getAmountsExtended(), CurrencyUnit.USD, 
+                            ctx.getFixedRate(), RateUtil.getStartOfMonth(ctx.getCommitmentDate()))));
                 Label amountRON = new Label("amountRON", transaction.getAmountsExtended().getAmount().toString());
-                Label amountEUR = new Label("amountEUR", toEURO(transaction));
+                Label amountEUR = new Label("amountEUR", RateUtil.moneyToString(rateUtil.exchange(transaction.getAmountsExtended(), CurrencyUnit.EUR, 
+                            ctx.getFixedRate(), RateUtil.getStartOfMonth(ctx.getCommitmentDate()))));
                 
                 BootstrapDeleteButton delete = new BootstrapDeleteButton("delete", new StringResourceModel("delete", this, null)) {
                     @Override
@@ -138,7 +136,7 @@ public class TransactionTableListPanel extends TableListPanel<FinancialTransacti
                 TransactionTableListPanel newComp = new TransactionTableListPanel(WICKETID_LIST_PANEL, 
                         new ProjectTransactionsListGenerator(NewProjectPage.project.getProjectTransactions()));
                 newComp.add(new AttributeAppender("class", "budget-table"));
-                replace(newComp);
+                getParent().replace(newComp);
                 target.add(newComp);
             }
         });
@@ -157,43 +155,5 @@ public class TransactionTableListPanel extends TableListPanel<FinancialTransacti
 
     public void setParameters(PageParameters params) {
         this.pageParameters = params;
-    }
-    
-    public String toUSD(FinancialTransaction tx) {
-       final CustomFinancialTransaction ctx = (CustomFinancialTransaction) tx;
-       return exchange(tx.getAmountsExtended(), CurrencyUnit.USD, ctx.getFixedRate(), ctx.getCommitmentDate());
-    }
-    
-    
-     public String toEURO(FinancialTransaction tx) {
-       final CustomFinancialTransaction ctx = (CustomFinancialTransaction) tx;
-       return exchange(tx.getAmountsExtended(), CurrencyUnit.EUR, ctx.getFixedRate(), ctx.getCommitmentDate());
-    }
-    
-    public String exchange(final BigMoney srcMoney, final CurrencyUnit toCU, final BigDecimal fixedRate,
-			final LocalDateTime date) {
-        BigMoney finalMoney = srcMoney;
-
-        if (toCU != null && !srcMoney.getCurrencyUnit().equals(toCU)) {
-            if (fixedRate != null) {
-                finalMoney = srcMoney.convertedTo(toCU, fixedRate);
-            } else {
-                if (date != null) {
-                    final Iterable<HistoricalExchangeRate> iterRates = historicalExchangeRateService.findRatesForDate(date);
-                    if (iterRates != null) {
-                        for (final HistoricalExchangeRate historicalExchangeRate : iterRates) {
-                            final CurrencyUnit baseCU = historicalExchangeRate.getRate().getBase();
-                            final CurrencyUnit counterCU = historicalExchangeRate.getRate().getCounter();
-                            if (baseCU.equals(srcMoney.getCurrencyUnit()) && counterCU.equals(toCU)) {
-                                finalMoney = historicalExchangeRate.getRate().operations().exchange(srcMoney);
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        
-        return finalMoney.getAmount().setScale(2, RoundingMode.HALF_EVEN).toString();
     }
 }

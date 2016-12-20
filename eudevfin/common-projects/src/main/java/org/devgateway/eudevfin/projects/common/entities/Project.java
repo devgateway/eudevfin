@@ -22,7 +22,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
-import org.devgateway.eudevfin.financial.FileWrapper;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.metadata.common.domain.Area;
 import org.devgateway.eudevfin.metadata.common.domain.Category;
@@ -53,6 +52,7 @@ public class Project implements Serializable {
     @Column(name = "implementing_partner")
     protected String implementingPartner;
 
+    @Column(length = 3000)
     protected String objectives;
     
     @Column(length = 2048)
@@ -114,13 +114,7 @@ public class Project implements Serializable {
     protected String extendedReason;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private Set<ProjectFileWrapper> transactionDocumentation;
-    
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private Set<ProjectFileWrapper> extendedDocumentation;
-    
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private Set<FileWrapper> visibilityDocumentation;
+    private Set<ProjectFileWrapper> projectFiles;
 
     @ManyToOne
     private Organization extendingAgency;
@@ -312,48 +306,18 @@ public class Project implements Serializable {
     public void setVisibility(String visibility) {
         this.visibility = visibility;
     }
-
-    public Set<FileWrapper> getVisibilityDocumentation() {
-        return this.visibilityDocumentation;
-    }
-
-    public void setVisibilityDocumentation(final Set<FileWrapper> visibilityDocumentation) {
-        if (this.visibilityDocumentation == null) {
-            this.visibilityDocumentation = visibilityDocumentation;
-        } else {
-            this.visibilityDocumentation.retainAll(visibilityDocumentation);
-            if (visibilityDocumentation != null) {
-                this.visibilityDocumentation.addAll(visibilityDocumentation);
-            }
-        }
-    }
     
-    public Set<ProjectFileWrapper> getTransactionDocumentation() {
-        return this.transactionDocumentation;
+    public Set<ProjectFileWrapper> getProjectFiles() {
+        return this.projectFiles;
     }
 
-    public void setTransactionDocumentation(final Set<ProjectFileWrapper> transactionDocumentation) {
-        if (this.transactionDocumentation == null) {
-            this.transactionDocumentation = transactionDocumentation;
+    public void setProjectFiles(final Set<ProjectFileWrapper> projectFiles) {
+        if (this.projectFiles == null) {
+            this.projectFiles = projectFiles;
         } else {
-            this.transactionDocumentation.retainAll(transactionDocumentation);
-            if (transactionDocumentation != null) {
-                this.transactionDocumentation.addAll(transactionDocumentation);
-            }
-        }
-    }
-    
-    public Set<ProjectFileWrapper> getExtendedDocumentation() {
-        return this.extendedDocumentation;
-    }
-
-    public void setExtendedDocumentation(final Set<ProjectFileWrapper> extendedDocumentation) {
-        if (this.extendedDocumentation == null) {
-            this.extendedDocumentation = extendedDocumentation;
-        } else {
-            this.extendedDocumentation.retainAll(extendedDocumentation);
-            if (extendedDocumentation != null) {
-                this.extendedDocumentation.addAll(extendedDocumentation);
+            this.projectFiles.retainAll(projectFiles);
+            if (projectFiles != null) {
+                this.projectFiles.addAll(projectFiles);
             }
         }
     }

@@ -111,7 +111,7 @@ public class ProjectReport implements Serializable {
         return reportDate;
     }
 
-    public LocalDate getFormattedReportDate() {
+    public LocalDate getFormattedReportDate() {      
         return reportDate.toLocalDate();
     }
 

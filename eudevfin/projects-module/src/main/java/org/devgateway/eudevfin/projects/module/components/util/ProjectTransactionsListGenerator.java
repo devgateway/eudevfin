@@ -6,6 +6,8 @@
 package org.devgateway.eudevfin.projects.module.components.util;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import org.devgateway.eudevfin.common.service.PagingHelper;
@@ -27,6 +29,13 @@ public class ProjectTransactionsListGenerator implements ListGeneratorInterface<
 
     public ProjectTransactionsListGenerator(Set<FinancialTransaction> list) {
         this.list.addAll(list);
+        
+        Collections.sort(this.list, new Comparator<FinancialTransaction>() {
+            @Override
+            public int compare(FinancialTransaction o1, FinancialTransaction o2) {
+                return o2.getId().compareTo(o1.getId());
+            }
+        });
     }
 
     /* (non-Javadoc)

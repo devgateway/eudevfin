@@ -7,11 +7,11 @@ package org.devgateway.eudevfin.projects.module.components.tabs;
 
 import java.util.Collection;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.devgateway.eudevfin.financial.FileWrapper;
-import org.devgateway.eudevfin.projects.module.components.util.ProjectUtil;
+import org.devgateway.eudevfin.projects.common.entities.ProjectFileWrapper;
+import org.devgateway.eudevfin.projects.module.components.fields.MultiProjectFileUploadField;
+import org.devgateway.eudevfin.projects.module.components.util.ProjectFileType;
 import org.devgateway.eudevfin.projects.module.validator.WordsValidator;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
-import org.devgateway.eudevfin.ui.common.components.MultiFileUploadField;
 import org.devgateway.eudevfin.ui.common.components.PreviewableFormPanel;
 import org.devgateway.eudevfin.ui.common.components.TextAreaInputField;
 import org.devgateway.eudevfin.ui.common.permissions.PermissionAwareComponent;
@@ -49,7 +49,9 @@ public class MonitoringVisibilityTab extends PreviewableFormPanel implements Per
         add(visibility);
 
         // 20. Visibility upload
-        MultiFileUploadField visibilityDocumentation = new MultiFileUploadField("24visibilityDocumentation", new RWComponentPropertyModel<Collection<FileWrapper>>("visibilityDocumentation"));
+        MultiProjectFileUploadField visibilityDocumentation = new MultiProjectFileUploadField("24visibilityDocumentation", 
+                new RWComponentPropertyModel<Collection<ProjectFileWrapper>>("projectFiles"));
+        visibilityDocumentation.setProjectFileType(ProjectFileType.VISIBILITY);
         visibilityDocumentation.maxFiles(10);
         add(visibilityDocumentation);
     }
