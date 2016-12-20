@@ -161,7 +161,15 @@ var onLegendClick = function(parametersJson, height) {
                 .selectAll('g.nv-legendWrap g.nvd3.nv-legend g text').size();
         
     if (legendSize > 4) {
-        d3.select("#" + parametersJson.id + " svg").style("height", height);
+        
+        // Firefox 1.0+
+        var isFirefox = typeof InstallTrigger !== 'undefined';
+        
+        if (isFirefox) {
+            d3.select("#" + parametersJson.id + " svg").style("height", height + "px");
+        } else {
+            d3.select("#" + parametersJson.id + " svg").style("height", height);
+        }
 
         // split the 
         d3.select("#" + parametersJson.id + " svg")
