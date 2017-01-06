@@ -4,20 +4,20 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <entry key="username.label">Nazwa użytkownika</entry>
-    <entry key="password.label">Hasło</entry>
-    <entry key="passwordCheck.label">Wpisz ponownie hasło</entry>
-    <entry key="enabled.label">Włączono</entry>
-    <entry key="persistedAuthorities.label">Władze</entry>
-    <entry key="group.label">Grupa</entry>
-    <entry key="passwordChange.label">Zmień hasło</entry>
-    <entry key="uniqueUsernameError">Użytkownik o tej nazwie użytkownika już istnieje!</entry>
-    <entry key="notification.passwordsDoNotMatchError">Hasła nie pasują!</entry>
-    <entry key="firstName.label">Imię</entry>
-    <entry key="lastName.label">Nazwisko</entry>
-    <entry key="email.label">Adres poczty elektronicznej</entry>
-    <entry key="phone.label">Numer telefonu</entry>
-    <entry key="page.title">Edytuj dane użytkownika</entry>
-    <entry key="PasswordPatternValidator">Hasło musi zawierać 1 cyfrę, 1 literę małą, 1 
-        literę dużą, 1 symbol "@#$%" oraz posiadać długość od 6 do 20 znaków</entry>
+	<entry key="username.label">User Name</entry>
+	<entry key="password.label">Password</entry>
+	<entry key="passwordCheck.label">Re-type Password</entry>
+	<entry key="enabled.label">Enabled</entry>
+	<entry key="persistedAuthorities.label">Authorities</entry>
+	<entry key="group.label">Group</entry>
+	<entry key="passwordChange.label">Change Password</entry>
+	<entry key="uniqueUsernameError">Another user with the same user name exists!</entry>
+	<entry key="notification.passwordsDoNotMatchError">Passwords do not match!</entry>
+	<entry key="firstName.label">First Name</entry>
+	<entry key="lastName.label">Last Name</entry>
+	<entry key="email.label">Email Address</entry>
+	<entry key="phone.label">Phone Number</entry>
+	<entry key="page.title">Edit User Details</entry>
+	<entry key="PasswordPatternValidator">Password must contain 1 digit, 1 lower caps letter, 1 upper caps letter, 1 symbol
+		"@#$%" and must be from 6 to 20 characters long</entry>
 </properties>

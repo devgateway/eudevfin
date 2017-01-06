@@ -197,7 +197,7 @@ public class ReportsPage extends ReportsDashboards {
                             if (item != null) {
                                 // len - 2 row is the 'ODA/GNI' row and we need to add the percentages
                                 if (i == len - 2) {
-                                    item = ReportsDashboardsUtils.AmountFormat(Float.parseFloat(resultSet.get(i).get(j)));
+                                    item = ReportsDashboardsUtils.AmountFormatMorePrecision(Float.parseFloat(resultSet.get(i).get(j)));
                                     item += "%";
                                 } else {
                                     item = ReportsDashboardsUtils.AmountFormat(Float.parseFloat(resultSet.get(i).get(j)));

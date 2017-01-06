@@ -68,14 +68,6 @@ public class ProjectFileWrapper implements Serializable {
         this.content = content;
     }
     
-    public String getTags() {
-        return tags;
-    }
-
-    public void setTags(String tags) {
-        this.tags = tags;
-    }
-    
     @Override
     public String toString() {
     	return name;

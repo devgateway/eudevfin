@@ -33,8 +33,8 @@ app.downloadPDF = function () {
         canvas = document.createElement('canvas');
         canvas.className = 'screenShotTempCanvas';
 
-        canvas.setAttribute('width', this.getBoundingClientRect().width);
-        canvas.setAttribute('height', this.getBoundingClientRect().height);
+        canvas.setAttribute('width', this.offsetWidth);
+        canvas.setAttribute('height', this.offsetHeight);
 
         // convert SVG into a XML string
         xml = (new XMLSerializer()).serializeToString(this);
@@ -45,106 +45,31 @@ app.downloadPDF = function () {
         // draw the SVG onto a canvas
         canvg(canvas, xml);
         $(canvas).insertAfter(this);
+
         // hide the SVG element
         $(this).hide();
     });
-    
-    app.exportManual();  
-}
-/**
- * On complicated charts, using this method takes a lot of memory from the browser, 
- * especially on chrome. Therefore this method needs to be refactored in order to 
- * prevent memory leaks.
- * @returns {undefined}
- */
-app.exportManual = function () {
-    var container = $('#printable-container');
-    var width = container.width();
-    var height = container.height();
-    
-    var canvasToImage = function(canvas){
-        var img = new Image();
-        var dataURL = canvas.toDataURL('image/jpeg');
-        img.src = dataURL;
-        return img;
-    };
-    
-    var canvasShiftImage = function(oldCanvas,shiftAmt){
-        shiftAmt = parseInt(shiftAmt) || 0;
-        if(!shiftAmt){ return oldCanvas; }
-        
-        var newCanvas = document.createElement('canvas');
-        newCanvas.height = oldCanvas.height - shiftAmt;
-        newCanvas.width = oldCanvas.width;
-        var ctx = newCanvas.getContext('2d');
-        ctx.clearRect(0, 0, newCanvas.width, newCanvas.height );
-        ctx.fillStyle="#FFFFFF";
-        ctx.fillRect(0, 0, newCanvas.width, newCanvas.height);
-        
-        Pixastic.process(oldCanvas, "crop", {rect: {left: 0, top: shiftAmt, width: oldCanvas.width, height: (oldCanvas.height - shiftAmt)}}, function (newCanvas) {
-            ctx.drawImage(newCanvas, 0, 0, newCanvas.width, newCanvas.height, 0, 0, newCanvas.width, newCanvas.height);
-        });
-        
-        return newCanvas;
-    };
-    
-    var canvasToImageSuccess = function(canvas){
-        var pdf = new jsPDF('l','px'),
-            pdfInternals = pdf.internal,
-            pdfPageSize = pdfInternals.pageSize,
-            pdfScaleFactor = pdfInternals.scaleFactor,
-            pdfPageWidth = pdfPageSize.width - 160,
-            pdfPageHeight = pdfPageSize.height,
-            totalPdfHeight = 0,
-            htmlPageHeight = canvas.height,
-            htmlScaleFactor = canvas.width / (pdfPageWidth * pdfScaleFactor),
-            safetyNet = 0;
-        
-        while (totalPdfHeight < htmlPageHeight && safetyNet < 15) {
-
-            var newCanvas = canvasShiftImage(canvas, totalPdfHeight);
-            pdf.addImage(newCanvas, 'JPEG', 80, 0, pdfPageWidth, 0, null, 'NONE');
-            
-            totalPdfHeight += (pdfPageHeight * pdfScaleFactor * htmlScaleFactor);
-            
-            if(totalPdfHeight < htmlPageHeight){
-                pdf.addPage();
-            }
-            safetyNet++;
-        }
-        
-        pdf.save('Download file.pdf');
-    };
 
     html2canvas(container, {
-        width: width,
-        height: height,
-        onrendered: function(canvas){
-            canvasToImageSuccess(canvas);
+        onrendered: function(canvas) {
+            // document.body.appendChild(canvas);
+            var doc = new jsPDF();
+
+            var pdfWidth = 220;
+            var pdfHeight = pdfWidth * (container.height() / container.width());
+            doc.addImage(canvas.toDataURL('image/jpeg'), 'JPEG', 0, 20, pdfWidth, pdfHeight);
+            doc.save('Download file.pdf');
+
+            // After your image is generated revert the temporary changes
             container.find('.screenShotTempCanvas').remove();
             container.find('svg').show();
-        }
+        },
+        allowTaint: true,
+        useCORS: true
     });
 }
 
-app.exportNormal = function(){
-    var container = $('#printable-container');
-    
-    var pdf = new jsPDF('l','px'),
-        source = container;
-    
-    pdf.addHTML(
-        source, 0, 0, {
-            pagesplit: true
-        },
-        function(dispose){
-            pdf.save('Download file.pdf');
-        }
-    );
-      
-    container.find('.screenShotTempCanvas').remove();
-    container.find('svg').show();
-}
+
 
 $(document).ready(function () {
     $('#print-page').click(function() {
@@ -152,7 +77,6 @@ $(document).ready(function () {
     });
 
     $('#download-page').click(function() {
-        $('html, body').scrollTop(0);
         app.downloadPDF();
     });
 });

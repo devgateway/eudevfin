@@ -3,6 +3,3 @@ derby.log
 /**/*.iml
 /**/rebel.xml
 /**/*SNAPSHOT.info
-/eudevfin/projects-module/target/
-/eudevfin/projects/target/
-/eudevfin/common-projects/target/

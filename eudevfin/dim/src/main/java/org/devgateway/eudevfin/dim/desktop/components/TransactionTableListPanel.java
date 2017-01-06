@@ -101,7 +101,6 @@ public class TransactionTableListPanel<T extends FinancialTransaction> extends T
 		this.add( ComponentsUtil.generateLabel("txtable.tx.reporting-year", "transaction-reporting-year-label", this) );
 		this.add( ComponentsUtil.generateLabel("txtable.tx.sector-name", "transaction-sector-name-label", this) );
 		this.add( ComponentsUtil.generateLabel("txtable.tx.reporting-org-name", "transaction-organization-name-label", this) );
-                this.add( ComponentsUtil.generateLabel("txtable.tx.extended-amount", "transaction-extended-amount-label", this) );
 		this.add( ComponentsUtil.generateLabel("txtable.tx.actions", "transaction-actions-label", this) );
 
 	}
@@ -138,10 +137,6 @@ public class TransactionTableListPanel<T extends FinancialTransaction> extends T
 				final String extAgencyName 			= tempTx.getExtendingAgency() != null ? tempTx.getExtendingAgency().getName() : " - ";
 				final Label orgLabel				= new Label("transaction-organization-name", extAgencyName );
 				ftListItem.add(orgLabel);
-                                
-                                final String extendedAmount 			= tempTx.getAmountsExtended().getAmount().toString();
-				final Label extendedAmountLabel			= new Label("transaction-extended-amount", extendedAmount );
-				ftListItem.add(extendedAmountLabel);
 
 
 				final Link editLink = TransactionTableListPanel.this.getTransactionEditLink(tempTx);

@@ -18,8 +18,6 @@ import org.devgateway.eudevfin.ui.common.components.TextAreaInputField;
 public class ObjectivesTab extends CommonProjectTab {
     
     public static final String KEY = "tabs.objectives";
-    public static int MAX_WORDS = 500;
-    public static int MAX_STRING_LENGTH = 3000;
     
     public ObjectivesTab(String id,PageParameters parameters) {
         super(id);
@@ -31,7 +29,6 @@ public class ObjectivesTab extends CommonProjectTab {
        // 10. Project objectives
        TextAreaInputField projectObjectives = new TextAreaInputField("14projectObjectives",
                                new RWComponentPropertyModel<String>("objectives"));
-       projectObjectives.maxContentLength(MAX_STRING_LENGTH);
        projectObjectives.getField().add(new WordsValidator(MAX_WORDS));
        add(projectObjectives);
     }     

@@ -6,8 +6,6 @@
 package org.devgateway.eudevfin.projects.module.components.util;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import org.devgateway.eudevfin.common.service.PagingHelper;
@@ -29,13 +27,6 @@ public class ProjectReportsListGenerator implements ListGeneratorInterface<Proje
 
     public ProjectReportsListGenerator(Set<ProjectReport> list) {
         this.list.addAll(list);
-        
-        Collections.sort(this.list, new Comparator<ProjectReport>() {
-            @Override
-            public int compare(ProjectReport o1, ProjectReport o2) {
-                return o2.getId().compareTo(o1.getId());
-            }
-        });
     }
 
     /* (non-Javadoc)

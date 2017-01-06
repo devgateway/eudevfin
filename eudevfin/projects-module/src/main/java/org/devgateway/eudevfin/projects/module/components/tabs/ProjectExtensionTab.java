@@ -6,10 +6,11 @@
 package org.devgateway.eudevfin.projects.module.components.tabs;
 
 import java.util.Collection;
+import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.projects.common.entities.ProjectFileWrapper;
 import org.devgateway.eudevfin.projects.module.components.fields.MultiProjectFileUploadField;
-import org.devgateway.eudevfin.projects.module.components.util.ProjectFileType;
+import static org.devgateway.eudevfin.projects.module.components.tabs.ConstraintsTab.KEY;
 import org.devgateway.eudevfin.projects.module.components.util.ProjectUtil;
 import org.devgateway.eudevfin.ui.common.RWComponentPropertyModel;
 import org.devgateway.eudevfin.ui.common.components.DateInputField;
@@ -46,11 +47,9 @@ public class ProjectExtensionTab extends CommonProjectTab {
         add(contactMonitoringEmail);
         
         // 25. Upload
-        MultiProjectFileUploadField extendedDocumentation = new MultiProjectFileUploadField("25upload", 
-                new RWComponentPropertyModel<Collection<ProjectFileWrapper>>("projectFiles"));
-        extendedDocumentation.setProjectFileType(ProjectFileType.EXTENDED);
-        extendedDocumentation.maxFiles(10);
-        add(extendedDocumentation);
+        MultiProjectFileUploadField transactionDocumentation = new MultiProjectFileUploadField("25upload", new RWComponentPropertyModel<Collection<ProjectFileWrapper>>("extendedDocumentation"));
+        transactionDocumentation.maxFiles(10);
+        add(transactionDocumentation);
     }
     
     @Override

@@ -36,7 +36,6 @@ import java.util.HashSet;
 import java.util.List;
 import org.devgateway.eudevfin.projects.common.entities.ProjectFileContent;
 import org.devgateway.eudevfin.projects.common.entities.ProjectFileWrapper;
-import org.devgateway.eudevfin.projects.module.components.util.ProjectFileType;
 import org.devgateway.eudevfin.ui.common.components.DetailedHelpControlGroup;
 import org.devgateway.eudevfin.ui.common.components.PreviewableFormPanelAware;
 
@@ -58,7 +57,6 @@ import org.devgateway.eudevfin.ui.common.components.PreviewableFormPanelAware;
 public class MultiProjectFileUploadComponent extends FormComponentPanel<Collection<ProjectFileWrapper>> implements PreviewableFormPanelAware {
     private int maxFiles = 0;
     private static final TooltipConfig tooltipConfig = new TooltipConfig().withPlacement(TooltipConfig.Placement.bottom);
-    protected ProjectFileType fileType = ProjectFileType.EXTENDED;
 
     public MultiProjectFileUploadComponent(String id, final IModel<Collection<ProjectFileWrapper>> model) {
         super(id, model);
@@ -98,17 +96,10 @@ public class MultiProjectFileUploadComponent extends FormComponentPanel<Collecti
         AbstractReadOnlyModel<List<ProjectFileWrapper>> roModel = new AbstractReadOnlyModel<List<ProjectFileWrapper>>() {
             @Override
             public List<ProjectFileWrapper> getObject() {
-                List<ProjectFileWrapper> fileList = new ArrayList<>();
-                
-                for(ProjectFileWrapper file : getModel().getObject()) {
-                    if (ProjectFileType.fromString(file.getTags()) == fileType) 
-                        fileList.add(file);
-                }
-                
-                return fileList;
+                return new ArrayList<>(getModel().getObject());
             }
         };
-        
+
         ListView<ProjectFileWrapper> list = new ListView<ProjectFileWrapper>("list", roModel) {
             @Override
             protected void populateItem(final ListItem<ProjectFileWrapper> item) {
@@ -131,6 +122,7 @@ public class MultiProjectFileUploadComponent extends FormComponentPanel<Collecti
                 delete.setVisible(!isFormInPreview());
                 item.add(delete);
             }
+
         };
         table.add(list);
 
@@ -172,10 +164,6 @@ public class MultiProjectFileUploadComponent extends FormComponentPanel<Collecti
             setConvertedInput(modelObject);
     }
 
-    public void setProjectFileType(ProjectFileType projectFileType) {
-        fileType = projectFileType;
-    }
-
 
     private class UploadButton extends IndicatingAjaxButton {
 
@@ -205,7 +193,6 @@ public class MultiProjectFileUploadComponent extends FormComponentPanel<Collecti
                 }
                 for (FileUpload file : files) {
                     ProjectFileWrapper fw = new ProjectFileWrapper();
-                    fw.setTags(fileType.toString());
                     fw.setName(file.getClientFileName());
                     fw.setContentType(file.getContentType());
                     ProjectFileContent wrapperContent = new ProjectFileContent();

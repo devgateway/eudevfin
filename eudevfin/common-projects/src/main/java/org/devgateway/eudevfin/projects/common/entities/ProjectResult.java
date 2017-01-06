@@ -37,7 +37,7 @@ public class ProjectResult implements Serializable {
     protected String result;
     protected String status;
     
-    @Column(length = 8000)
+    @Column(length = 4096)
     protected String description;
 
     public Long getId() {

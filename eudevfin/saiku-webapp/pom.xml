@@ -2,7 +2,7 @@
 	<parent>
 		<groupId>org.devgateway.eudevfin</groupId>
 		<artifactId>eudevfin</artifactId>
-       <version>1.5.1</version>
+       <version>1.5.1-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.saiku</groupId>
@@ -14,7 +14,7 @@
 	<properties>
 		<spring.version>4.0.2.RELEASE</spring.version>
 		<spring.security.version>3.2.2.RELEASE</spring.security.version>
-		<enunciate.version>1.31</enunciate.version>
+		<enunciate.version>1.28</enunciate.version>
 		<jersey.version>1.18</jersey.version>
 		<saiku.version>2.6-SNAPSHOT</saiku.version>
 	</properties>

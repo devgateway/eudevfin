@@ -16,8 +16,7 @@
     <entry key="txtable.tx.reporting-year">Reporting Year</entry>
     <entry key="txtable.tx.sector-name">Sector Name</entry>
     <entry key="txtable.tx.form-type">Form Type</entry>
-    <entry key="txtable.tx.reporting-org-name">Reporting Organization</entry>    
-    <entry key="txtable.tx.extended-amount">Amounts extended</entry>
+    <entry key="txtable.tx.reporting-org-name">Reporting Organization</entry>
     <entry key="txtable.tx.actions">Actions</entry>
     <entry key="txtable.tx.edit-action">Edit</entry>
     <entry key="txtable.tx.view-action">View</entry>

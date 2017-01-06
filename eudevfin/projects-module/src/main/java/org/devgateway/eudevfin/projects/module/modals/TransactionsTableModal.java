@@ -6,8 +6,11 @@
 package org.devgateway.eudevfin.projects.module.modals;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.InputBehavior;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import net.sf.cglib.core.CollectionUtils;
+import net.sf.cglib.core.Predicate;
 import org.apache.wicket.PageReference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
@@ -17,7 +20,6 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.devgateway.eudevfin.exchange.common.service.ExchangeRateUtil;
 import org.devgateway.eudevfin.financial.CustomFinancialTransaction;
 import org.devgateway.eudevfin.financial.FinancialTransaction;
 import org.devgateway.eudevfin.financial.service.CustomFinancialTransactionService;
@@ -25,7 +27,6 @@ import org.devgateway.eudevfin.metadata.common.domain.Area;
 import org.devgateway.eudevfin.metadata.common.domain.Organization;
 import org.devgateway.eudevfin.metadata.common.service.AreaService;
 import org.devgateway.eudevfin.metadata.common.service.OrganizationService;
-import org.devgateway.eudevfin.projects.module.components.util.RateUtil;
 import org.devgateway.eudevfin.projects.module.components.util.TransactionSearchModel;
 import org.devgateway.eudevfin.projects.module.pages.ModalHeaderFooter;
 import org.devgateway.eudevfin.projects.module.pages.NewProjectPage;
@@ -37,8 +38,11 @@ import org.devgateway.eudevfin.ui.common.components.BootstrapCancelButton;
 import org.devgateway.eudevfin.ui.common.components.BootstrapSubmitButton;
 import org.devgateway.eudevfin.ui.common.components.DropDownField;
 import org.devgateway.eudevfin.ui.common.components.TextInputField;
+import org.devgateway.eudevfin.ui.common.events.CurrencyUpdateBehavior;
+import org.devgateway.eudevfin.ui.common.models.BigMoneyModel;
 import org.devgateway.eudevfin.ui.common.models.YearToLocalDateTimeModel;
 import org.devgateway.eudevfin.ui.common.providers.YearProvider;
+import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 import org.joda.time.LocalDateTime;
 
@@ -64,9 +68,6 @@ public class TransactionsTableModal extends ModalHeaderFooter {
 
     @SpringBean
     private AreaService areaService;
-        
-    @SpringBean
-    private ExchangeRateUtil rateUtil;
 
     public TransactionsTableModal(final PageParameters parameters) {
         if (parameters == null) {
@@ -138,20 +139,18 @@ public class TransactionsTableModal extends ModalHeaderFooter {
                                             protected void onUpdate(AjaxRequestTarget target) {
                                                 super.onUpdate(target);
 
-                                                CustomFinancialTransaction ctx = transactionSearch.getTransaction();
+                                                CustomFinancialTransaction transaction = transactionSearch.getTransaction();
 
-                                                if (ctx != null) {
-                                                    CurrencyUnit currency = ctx.getCurrency();
+                                                if (transaction != null) {
+                                                    CurrencyUnit currency = transaction.getCurrency();
                                                     String amount = transactionSearch.getTransaction().getAmountsExtended().getAmount().toString();
 
                                                     if (null != currency.toString()) {
                                                         switch (currency.toString()) {
                                                             case "RON":
-                                                                amountUSD.getField().getModel().setObject(RateUtil.moneyToString(rateUtil.exchange(ctx.getAmountsExtended(), CurrencyUnit.USD, 
-                                                                                ctx.getFixedRate(), RateUtil.getStartOfMonth(ctx.getCommitmentDate()))));
+                                                                amountUSD.getField().getModel().setObject(amount);
                                                                 amountRON.getField().getModel().setObject(amount);
-                                                                amountEUR.getField().getModel().setObject(RateUtil.moneyToString(rateUtil.exchange(ctx.getAmountsExtended(), CurrencyUnit.EUR, 
-                                                                                ctx.getFixedRate(), RateUtil.getStartOfMonth(ctx.getCommitmentDate()))));
+                                                                amountEUR.getField().getModel().setObject(amount);
                                                                 break;
                                                             case "EUR":
                                                                 // ToDo Refactor When We figure it out the exchange rate
