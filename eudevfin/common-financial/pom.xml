@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>org.devgateway.eudevfin</groupId>
 		<artifactId>eudevfin</artifactId>
-		<version>1.5.1-SNAPSHOT</version>
+		<version>1.6.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>common-financial</artifactId>
 	<name>EU-DEVFIN Common Financial</name>
