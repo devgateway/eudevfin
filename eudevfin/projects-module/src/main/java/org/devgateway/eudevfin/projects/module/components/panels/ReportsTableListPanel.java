@@ -5,9 +5,6 @@
  */
 package org.devgateway.eudevfin.projects.module.components.panels;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.format.FormatStyle;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
@@ -18,13 +15,17 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.devgateway.eudevfin.projects.common.entities.ProjectReport;
-import static org.devgateway.eudevfin.projects.module.components.tabs.ReportingTab.WICKETID_LIST_PANEL;
 import org.devgateway.eudevfin.projects.module.components.util.ProjectReportsListGenerator;
 import org.devgateway.eudevfin.projects.module.modals.ReportsTableModal;
 import org.devgateway.eudevfin.projects.module.pages.NewProjectPage;
 import org.devgateway.eudevfin.ui.common.components.TableListPanel;
 import org.devgateway.eudevfin.ui.common.components.util.ListGeneratorInterface;
 import org.joda.time.LocalDate;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+import static org.devgateway.eudevfin.projects.module.components.tabs.ReportingTab.WICKETID_LIST_PANEL;
 
 /**
  *
