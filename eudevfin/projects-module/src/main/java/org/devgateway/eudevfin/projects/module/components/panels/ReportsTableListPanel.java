@@ -5,6 +5,9 @@
  */
 package org.devgateway.eudevfin.projects.module.components.panels;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.format.FormatStyle;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
@@ -63,14 +66,15 @@ public class ReportsTableListPanel extends TableListPanel<ProjectReport> {
 
                 String reportTypeName = new StringResourceModel(report.getType(), ReportsTableListPanel.this, null).getString();
                 linkToEdit.setBody(Model.of(reportTypeName));
+                DateFormat dateFormat = new SimpleDateFormat( "dd/MM/yyyy");       
                 LocalDate date = report.getFormattedReportDate() == null ? new LocalDate() : report.getFormattedReportDate();
-                Label reportDateLabel = new Label("reportDate", date);
-                
+                Label reportDateLabel = new Label("reportDate", dateFormat.format(date.toDate()));
+                                
                 LocalDate reportingPeriodStart = report.getFormattedReportingPeriodStart()== null ? new LocalDate() : report.getFormattedReportingPeriodStart();
-                Label reportingPeriodStartLabel = new Label("reportingPeriodStart", reportingPeriodStart);
+                Label reportingPeriodStartLabel = new Label("reportingPeriodStart", dateFormat.format(reportingPeriodStart.toDate()));
                 
                 LocalDate reportingPeriodEnd = report.getFormattedReportingPeriodEnd() == null ? new LocalDate() : report.getFormattedReportingPeriodEnd();
-                Label reportingPeriodEndLabel = new Label("reportingPeriodEnd", reportingPeriodEnd);
+                Label reportingPeriodEndLabel = new Label("reportingPeriodEnd", dateFormat.format(reportingPeriodEnd.toDate()));
                 
                 Label fileProvidedLabel = new Label("fileProvided", report.getFileProvided());
                 Label fileNameLabel = new Label("reportFile", report.getReportFiles().toString());

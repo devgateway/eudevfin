@@ -12,6 +12,8 @@
 package org.devgateway.eudevfin.projects.module.components.util;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import org.devgateway.eudevfin.common.service.PagingHelper;
@@ -25,10 +27,17 @@ import org.springframework.data.domain.Pageable;
 public class ProjectResultsListGenerator implements ListGeneratorInterface<ProjectResult> {
 
     private static final long serialVersionUID = 1L;
-    private List<ProjectResult> list = new ArrayList<ProjectResult>();
+    private List<ProjectResult> list = new ArrayList<>();
 
     public ProjectResultsListGenerator(Set<ProjectResult> list) {
         this.list.addAll(list);
+        
+        Collections.sort(this.list, new Comparator<ProjectResult>() {
+            @Override
+            public int compare(ProjectResult o1, ProjectResult o2) {
+                return o2.getId().compareTo(o1.getId());
+            }
+        });
     }
 
     /* (non-Javadoc)

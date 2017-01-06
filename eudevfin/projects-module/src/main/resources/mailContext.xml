@@ -39,15 +39,16 @@
     <context:component-scan base-package="org.devgateway.eudevfin.projects.dao"/>
     
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-        <property name="host" value="smtp.roaid.com" />
-        <property name="port" value="25" />
+        <property name="host" value="mail.roaid.ro" />
+        <property name="port" value="26" />
         <property name="username" value="eudevfin@roaid.ro" />
         <property name="password" value="teo#123" />
 		
         <property name="javaMailProperties">
             <props>
-                <prop key="mail.smtp.auth">false</prop>
+                <prop key="mail.smtp.auth">true</prop>
                 <prop key="mail.smtp.starttls.enable">false</prop>
+                <prop key="mail.smtp.ssl.enable">false</prop>
             </props>
         </property>
 		
@@ -55,27 +56,105 @@
 	
     <bean id="emailSenderCronService" class="org.devgateway.eudevfin.projects.cronjobs.EmailSenderCronService">
         <property name="mailSender" ref="mailSender" />
-        <property name="simpleMailMessage" ref="customeMailMessage" />
+        <property name="reportingMailMessage" ref="reportingMessage" />
+        <property name="monitoringMailMessage" ref="monitoringMessage" />
+    </bean>
+    
+    <bean id="reportingMessage"
+          class="org.springframework.mail.SimpleMailMessage">
+        
+        <property name="from" value="eudevfin@roaid.ro" />
+        <property name="subject" value="RoAid Report notification" />
+        <property name="text">
+            <value>
+            <!--
+                0. [REPORT_DATE]
+                1. [REPORT TYPE]
+                2. [PROJECT TITLE]
+                3. [BEGINNING OF THE REPORTING PERIOD]
+                4. [END OF REPORTING PERIOD]
+                5. [DATE]
+                6. [MONITORING CONTACT DETAILS]
+                7. [MONITORING CONTACT E-MAILS]
+                8. [MONITORING CONTACT DETAILS]
+            -->
+
+                <![CDATA[
+                Hello,                                                              
+
+                This is an automatic e-mail to remind you that the next %s for the project “%s”, covering the
+                period %s – %s, is due in 10 days. Please prepare and send the report by %s%s, at %s. Should
+                you have any questions, do not hesitate to contact us at the e-mail addresses provided above.
+                Please do not reply to this e-mail.
+
+                Thank you!
+                RoAid team
+                
+                Bună ziua,                                                              
+
+                Acesta este un e-mail automat pentru vă aminti că următorul raport, de tipul %s aferent 
+                proiectului “%s”, pentru perioada %s – %s, trebuie trimis în 10 zile. Vă rugăm pregătiți
+                și trimiteți raportul până la data de %s%s, la %s. În cazul în care aveți întrebări, nu 
+                ezitați să ne contactați la adresele de e-mail menționate mai sus.
+                Vă rugăm nu răspundeți la acest e-mail.
+                
+                Vă mulțumim!
+                Echipa RoAid
+                ]]>
+
+            </value>
+        </property>
     </bean>
 	
-    <bean id="customeMailMessage"
+    <bean id="monitoringMessage"
           class="org.springframework.mail.SimpleMailMessage">
 
         <property name="from" value="eudevfin@roaid.ro" />
-        <property name="to" value="dj.charon@yahoo.com" />
-        <property name="subject" value="UNDP Report Notification." />
+        <property name="subject" value="RoAid Report notification" />
         <property name="text">
             <value>
-                    <![CDATA[
-                            The report %s will expire next week
-                            on %s.
-                    ]]>
+            <!--
+                0. [REPORT_DATE]
+                1. [REPORT TYPE]
+                2. [PROJECT TITLE]
+                3. [BEGINNING OF THE REPORTING PERIOD]
+                4. [END OF REPORTING PERIOD]
+                5. [DATE]
+                6. [MONITORING CONTACT DETAILS]
+                7. [MONITORING CONTACT E-MAILS]
+                8. [MONITORING CONTACT DETAILS]
+            -->
+
+                <![CDATA[
+                Hello,                                                              
+
+                This is an automatic e-mail to remind you that you should receive the next %s for the project “%s”, 
+                covering the period %s – %s, in the following 10 days. If you do not receive the report by %s
+                please contact the implementing organization contact persons%s, at %s. 
+
+                Thank you!
+                EU DEVFIN Romania
+                
+                Bună ziua,                                                              
+
+                Acesta este un e-mail automat pentu a vă reaminti că trebuie să primiți raportul de tipul %s aferent 
+                proiectului “%s”, pentru perioada %s – %s, în următoarele 10 zile. În cazul în care nu primiți raportul
+                până la data de %s, vă rugăm contactați responsabilii de proiect%s, la adresele %s.
+                
+                Vă mulțumim!
+                EU DEVFIN Romania
+                ]]>
+
             </value>
         </property>
     </bean>
     
     <task:scheduled-tasks>
-        <!--<task:scheduled ref="emailSenderCronService" method="sendEmails" cron="0 */1 * * * *"/>-->
-        <task:scheduled ref="emailSenderCronService" method="sendEmails" cron="0/15 * * * * *"/>
+        <!-- At every 2 hours -->
+        <task:scheduled ref="emailSenderCronService" method="sendEmails" cron="0 0 */2 * * *"/>
+        <!-- At every 15 seconds 
+        <task:scheduled ref="emailSenderCronService" method="sendEmails" cron="0/15 * * * * *"/>-->
+        <!-- At every one second -->
+        <!--<task:scheduled ref="emailSenderCronService" method="sendEmails" cron="* * * * * ?"/>-->
     </task:scheduled-tasks>
 </beans>

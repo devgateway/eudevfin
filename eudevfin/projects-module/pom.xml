@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.devgateway.eudevfin</groupId>
         <artifactId>eudevfin</artifactId>
-        <version>1.5.1-SNAPSHOT</version>
+        <version>1.5.1</version>
     </parent>
     <artifactId>projects-module</artifactId>
     <packaging>war</packaging>
@@ -43,7 +43,11 @@
             <artifactId>inmethod-grid</artifactId>
             <version>1.5-RC5.1</version>
         </dependency>
-        
+        <dependency>
+            <groupId>org.devgateway.eudevfin</groupId>
+            <artifactId>common-exchange</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.devgateway.eudevfin</groupId>
             <artifactId>common-projects</artifactId>
@@ -52,11 +56,6 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>financial</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>common-financial</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
