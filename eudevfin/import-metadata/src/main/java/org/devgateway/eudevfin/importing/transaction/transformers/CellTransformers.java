@@ -682,10 +682,12 @@ public class CellTransformers {
 		public CurrencyUnit populateField(final Object src, final CustomFinancialTransaction ctx,
 				final Map<String, Object> context, final ServicesWrapper servicesWrapper) {
 			final String currencyCode = (String) src;
-			if ( !StringUtils.isEmpty(currencyCode) ){
+                        final String donorCode = (String) context.get(DONOR_CODE);
+			if ( !StringUtils.isEmpty(currencyCode) && !StringUtils.isEmpty(donorCode) ){
 				//final CurrencyUnit currencyUnit = CurrencyUnit.ofNumericCode(Integer.parseInt(currencyCode));
-				NullableWrapper<Organization> orgWrapper = servicesWrapper.orgService
-						.findFirstByDonorCode(currencyCode);
+				
+                                NullableWrapper<Organization> orgWrapper = servicesWrapper.orgService
+						.findFirstByDonorCode(donorCode);
 				if (orgWrapper.isNull())
 					throw new IllegalArgumentException("Code " + src + " is not mapped to a donor name.");
 
@@ -694,7 +696,7 @@ public class CellTransformers {
 				if (currencyUnit == null)
 					throw new IllegalArgumentException("Code " + src + " is mapped to donor "
 							+ orgWrapper.getEntity().getDonorName() + " but it has no currency code attached.");
-
+                               
 				context.put(CURRENCY_UNIT, currencyUnit);
 				ctx.setCurrency(currencyUnit);
 				return currencyUnit;
