@@ -38,9 +38,11 @@ public class TransactionImporterEngine {
 			final List<FinancialTransaction> transactions = new ArrayList<FinancialTransaction>();
 			while ( processor.hasNextObject() ) {
 				final List<Object> transactionParams = (List<Object>) processor.generateNextObject();
-				final CustomFinancialTransaction ctx = this.rowTransformer.transform(transactionParams);
-				transactions.add(ctx);
-				i++;
+				if (transactionParams!= null ) { 
+                                    final CustomFinancialTransaction ctx = this.rowTransformer.transform(transactionParams);
+                                    transactions.add(ctx);				
+                                }
+                                i++;
 			}
 			this.txStorage.storeTransactionList(transactions);
 		}
