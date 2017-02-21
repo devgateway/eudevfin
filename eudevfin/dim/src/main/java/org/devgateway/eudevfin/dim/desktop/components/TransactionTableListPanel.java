@@ -139,7 +139,7 @@ public class TransactionTableListPanel<T extends FinancialTransaction> extends T
 				final Label orgLabel				= new Label("transaction-organization-name", extAgencyName );
 				ftListItem.add(orgLabel);
                                 
-                                final String extendedAmount 			= tempTx.getAmountsExtended().getAmount().toString();
+                                final String extendedAmount 			= tempTx.getAmountsExtended() != null ?  tempTx.getAmountsExtended().getAmount().toString(): " - ";
 				final Label extendedAmountLabel			= new Label("transaction-extended-amount", extendedAmount );
 				ftListItem.add(extendedAmountLabel);
 
