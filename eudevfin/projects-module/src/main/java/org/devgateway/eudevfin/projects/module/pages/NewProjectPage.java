@@ -309,6 +309,7 @@ public class NewProjectPage extends HeaderFooter<Project> {
                 formProject.setProjectReports(project.getProjectReports());
                 formProject.setProjectResults(project.getProjectResults());
                 formProject.setProjectTransactions(project.getProjectTransactions());
+                formProject.setAreas(project.getAreas());
                 Project saved = projectService.save(formProject).getEntity();
                 saveMinorEntities(saved);
                 NewProjectPage.this.getModel().setObject(saved);
