@@ -38,4 +38,10 @@
         <sql dbms="derby">DROP TABLE PROJECT_PROJECTFILEWRAPPER;
         </sql>
     </changeSet>
+    
+     <changeSet id="9" author="alcr" failOnError="true" runAlways="false" runInTransaction="true">
+        <comment>Remove the PROJECT_AREA</comment>
+        <sql dbms="derby">DROP TABLE PROJECT_AREA;
+        </sql>
+    </changeSet>
 </databaseChangeLog>

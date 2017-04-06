@@ -123,9 +123,14 @@ public class Project implements Serializable {
     private Category sector;
     
     protected String status = "draft";
-
-    @OneToMany(fetch = FetchType.EAGER) //,mappedBy="group")	
-    private Set<Area> areas = new HashSet<>();
+    
+    @ManyToMany(fetch = FetchType.EAGER) //,mappedBy="group")	
+    @JoinTable(name = "PROJECT_AREA",
+    joinColumns = {
+        @JoinColumn(name = "project_id")},
+    inverseJoinColumns = {
+        @JoinColumn(name = "areas_id")})
+    private Set<Area> areas = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "project", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ProjectResult> projectResults = new LinkedHashSet<>();
