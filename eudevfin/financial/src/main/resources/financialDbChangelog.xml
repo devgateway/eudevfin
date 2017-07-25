@@ -137,5 +137,14 @@
 
     </changeSet>
 
+    <changeSet id="ODAEU-354" author="mihai" failOnError="false" runAlways="false" runInTransaction="true">
+        <preConditions onFail="MARK_RAN" onError="CONTINUE">
+            <sqlCheck expectedResult="true">select count(*)>0 from FINANCIALTRANSACTION WHERE DRAFT=false AND approved=true
+                AND REPORTINGYEAR IS NULL;
+            </sqlCheck>
+        </preConditions>
+        <sql>UPDATE FINANCIALTRANSACTION SET DRAFT=true, approved=false WHERE REPORTINGYEAR IS NULL;</sql>
+    </changeSet>
+
 
 </databaseChangeLog>

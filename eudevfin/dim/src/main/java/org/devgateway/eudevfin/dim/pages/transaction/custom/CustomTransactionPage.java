@@ -135,10 +135,12 @@ public class CustomTransactionPage extends TransactionPage {
   						info(new NotificationMessage(new StringResourceModel("notification.approvedState", CustomTransactionPage.this, null, null)));
   						draft.getField().setModelObject(false);
   						target.add(draft.getField());
+						submitButton.setDefaultFormProcessing(true);
 					}
   					else
   						info(new NotificationMessage(new StringResourceModel("notification.unapprovedState", CustomTransactionPage.this, null, null)));
-					target.add(feedbackPanel);
+						target.add(feedbackPanel);
+						submitButton.setDefaultFormProcessing(true);
 				}
   			 };
   		}	
